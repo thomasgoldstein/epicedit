@@ -19,9 +19,6 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom
 {
-	/// <summary>
-	/// Description of RomTest.
-	/// </summary>
 	[TestFixture]
 	public class GameTest
 	{
