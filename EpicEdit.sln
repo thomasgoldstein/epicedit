@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 3.2.0.5777
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEdit", "EpicEdit\EpicEdit.csproj", "{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEditTests", "EpicEditTests\EpicEditTests.csproj", "{5C404E58-B6EA-466A-B1D5-D689F97CEC50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C404E58-B6EA-466A-B1D5-D689F97CEC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C404E58-B6EA-466A-B1D5-D689F97CEC50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C404E58-B6EA-466A-B1D5-D689F97CEC50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C404E58-B6EA-466A-B1D5-D689F97CEC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		version = 0.1
+		StartupItem = EpicEdit\EpicEdit.csproj
+	EndGlobalSection
+EndGlobal

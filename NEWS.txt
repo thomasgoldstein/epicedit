@@ -1,0 +1,99 @@
+﻿---------------------------------------------------------------------------
+Epic Edit, Super Mario Kart track editor by Stifu and Midwife
+---------------------------------------------------------------------------
+
+
+vx.x (???)
+
+- Added support for item probability edition (by teknix1)
+- Smarter behavior when changing the index of an AI element.
+  Rather than swapping the current index with the new index,
+  it now shifts the index of all AI elements in between.
+- Various other fixes and optimizations
+
+
+v1.6 (June 4th 2010)
+
+- Added support for lap line edition
+- Added support for driver starting position edition (partly by teknix1)
+- Disabled object zones editing for Koopa Beach 1
+  (cannot be edited, used to lead to data corruption)
+- Fixed track compression for Japanese and European ROMs
+- Fixed track name issues in Time Trial, after having reordered tracks
+- Fixed overlay tile data corruption when modifying a track
+- Fixed possible object visibility issues with tracks with crossed paths
+  (as in Mario Circuit 2)
+- Fixed track display when zoom is below 100% on OSes other than Windows
+- Improved AI rendering performances
+- Various other fixes
+
+
+v1.5 (January 5th 2010)
+
+- Added support for track objects edition (partial)
+  Implemented: moving objects and modifying object zones
+  Missing: changing object types and moving Ghost Valley pillars
+- Added support for track AI edition
+- Added the ability to reorder tracks by dragging them in the track list
+- Data is saved in a more aggressive way: the editor assumes everything
+  between 512 KiB and 1024 KiB is reserved for it,
+  and will wipe out anything else that might be in that range
+- Added x0.5 and x0.75 zoom levels (and Ctrl+0 to switch back to zoom x1)
+- Added the ability to scroll through the map by holding the middle click
+- Fixed track map import bug (regression from 1.0)
+- On track export, remove invalid characters from the proposed file name
+- Added zipped ROM support (by teknix1)
+- Added ROM checksum recalculation,
+  so resaved ROMs have a correct checksum (by teknix1)
+- Various other fixes and optimizations
+
+
+v1.0 (August 3rd 2009)
+
+- Added the ability to resave ROMs
+- Fixed a memory leak on consecutive ROM loadings
+- Added the ability to pass a ROM file path through argument,
+  which makes it possible to start the editor and load a ROM
+  through the "Open with" command on the ROM file
+- Removed the (annoying) confirmation dialogs on track imports / exports
+- Various other fixes and optimizations
+
+
+v1.0 Preview 3 (May 13th 2009)
+
+- Much improved track display performances thanks to various optimizations
+- Fixed memory leaks
+- Fixed regression about tracks not updating directly after an import
+- Fixed crash when decompressing corrupt tracks
+- Append a star to the name of tracks with unsaved changes
+- Fixed bug related to multiple tile copy being aborted unexpectedly
+- Selection rectangle isn't displayed out of the track bounds anymore
+- Unit tests are now in their own project,
+  and so are no longer included in the exe (d'oh), which reduces its size
+- Various other changes
+
+
+v1.0 Preview 2 (January 3rd 2009)
+
+- Track graphics cache system, improves performances significantly
+- Double buffered track and tileset panels, removes flickering
+- Disabled bilinear filtering on zoomed graphics
+- Ability to select multiple tiles (hold right click over the track)
+- When using the mouse wheel, tile selection now remains visible
+  and X,Y coordinates update in the tool strip
+- Can't type in the theme drop-down list anymore
+- Various minor changes
+
+
+
+v1.0 Preview 1 (December 20th 2008)
+
+Initial release.
+Features:
+- Loading of tracks, graphics and colors from the ROM
+- Support for all ROM regions (Jap, US, Eur)
+- Support for headered and unheadered ROMs
+- Ability to modify, import and export tracks
+- Zoom feature
+- Cross platform, works on Windows and Linux (thanks to Mono),
+  but doesn't work on Mac OS yet due to a Mono bug
