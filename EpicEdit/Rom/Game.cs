@@ -324,7 +324,6 @@ namespace EpicEdit.Rom
 
 		#region Load data
 
-
 		/// <summary>
 		/// Retrieves all the needed data from the game, such as tracks and themes.
 		/// </summary>
