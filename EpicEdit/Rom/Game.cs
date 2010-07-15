@@ -573,9 +573,7 @@ namespace EpicEdit.Rom
 
 		private int GetOverlayTileDataOffset(int trackIndex)
 		{
-			int[] reorder = { 2, 5, 6, 8, 11, 4, 19, 16, 17, 7, 9, 13, 12, 0, 14, 10, 1, 3, 15, 18, 20, 21, 22, 23 };
-			//TODO: Retrieve order dynamically from the ROM
-			return this.offsets[Address.TrackOverlayItems] + reorder[trackIndex] * 128;
+			return this.offsets[Address.TrackOverlayItems] + trackIndex * 128;
 		}
 
 		#endregion Track Overlay Tiles
