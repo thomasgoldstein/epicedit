@@ -23,6 +23,7 @@ using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
+using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.TrackEdition;
 
 namespace EpicEdit.UI.Gfx
@@ -262,7 +263,11 @@ namespace EpicEdit.UI.Gfx
 					this.SetPaintRegions(trackGfxBackBuffer, clipRectangle);
 				}
 
-				if (editionMode == EditionMode.Start)
+				if (editionMode == EditionMode.Overlay)
+				{
+					this.DrawOverlay(trackGfxBackBuffer, scrollPosition);
+				}
+				else if (editionMode == EditionMode.Start)
 				{
 					this.DrawStartData(trackGfxBackBuffer, scrollPosition);
 				}
@@ -465,6 +470,19 @@ namespace EpicEdit.UI.Gfx
 			paintRegion.Union(currentArea);
 
 			graphics.Clip = paintRegion;
+		}
+
+		private void DrawOverlay(Graphics graphics, Point scrollPosition)
+		{
+			// TODO: Finish implementing.
+			foreach (OverlayTile tile in this.track.OverlayTiles)
+			{
+				graphics.DrawRectangle(Pens.Red,
+									   (tile.X - scrollPosition.X) * 8,
+									   (tile.Y - scrollPosition.Y) * 8,
+									   tile.Size.Width * 8,
+									   tile.Size.Height * 8);
+			}
 		}
 
 		private void DrawStartData(Graphics graphics, Point scrollPosition)
