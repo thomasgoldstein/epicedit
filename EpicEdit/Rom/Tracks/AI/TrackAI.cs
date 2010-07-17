@@ -81,6 +81,14 @@ namespace EpicEdit.Rom.Tracks.AI
 			this.aiElements.Remove(aiElement);
 		}
 
+		/// <summary>
+		/// Removes all the AI elements from the collection.
+		/// </summary>
+		public void Clear()
+		{
+			this.aiElements.Clear();
+		}
+
 		public int GetElementIndex(TrackAIElement aiElement)
 		{
 			return this.aiElements.IndexOf(aiElement);

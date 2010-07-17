@@ -50,6 +50,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.shapeComboBox = new System.Windows.Forms.ComboBox();
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.deleteAllButton = new System.Windows.Forms.Button();
 			aiIndexLabel = new System.Windows.Forms.Label();
 			shapeLabel = new System.Windows.Forms.Label();
 			speedLabel = new System.Windows.Forms.Label();
@@ -161,16 +162,28 @@ namespace EpicEdit.UI.TrackEdition
 									0});
 			this.speedNumericUpDown.ValueChanged += new System.EventHandler(this.SpeedNumericUpDownValueChanged);
 			// 
+			// deleteAllButton
+			// 
+			this.deleteAllButton.Location = new System.Drawing.Point(27, 239);
+			this.deleteAllButton.Name = "deleteAllButton";
+			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
+			this.deleteAllButton.TabIndex = 2;
+			this.deleteAllButton.Text = "Delete all";
+			this.deleteAllButton.UseVisualStyleBackColor = true;
+			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
+			// 
 			// AIControl
 			// 
+			this.Controls.Add(this.deleteAllButton);
 			this.Controls.Add(this.selectedAIElementGroupBox);
 			this.Name = "AIControl";
-			this.Size = new System.Drawing.Size(130, 230);
+			this.Size = new System.Drawing.Size(130, 276);
 			this.selectedAIElementGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button deleteAllButton;
 		private System.Windows.Forms.NumericUpDown indexNumericUpDown;
 		private System.Windows.Forms.ComboBox shapeComboBox;
 		private System.Windows.Forms.Button deleteButton;

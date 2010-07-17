@@ -154,5 +154,20 @@ namespace EpicEdit.UI.TrackEdition
 			this.indexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
 			this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
 		}
+		
+		private void DeleteAllButtonClick(object sender, EventArgs e)
+		{
+			DialogResult result = MessageBox.Show("Do you really want to delete all AI elements?",
+			                                      Application.ProductName,
+			                                      MessageBoxButtons.YesNo,
+			                                      MessageBoxIcon.Warning);
+
+			if (result == DialogResult.Yes)
+			{
+				this.SetSelectedAIElement(null);
+				this.trackAI.Clear();
+				this.DataChanged(this, EventArgs.Empty);
+			}
+		}
 	}
 }
