@@ -69,7 +69,7 @@ namespace EpicEdit.UI
 			this.tabControl.Name = "tabControl";
 			this.tabControl.Padding = new System.Drawing.Point(48, 3);
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(854, 656);
+			this.tabControl.Size = new System.Drawing.Size(854, 686);
 			this.tabControl.TabIndex = 0;
 			// 
 			// trackTabPage
@@ -77,7 +77,7 @@ namespace EpicEdit.UI
 			this.trackTabPage.Controls.Add(this.trackEditor);
 			this.trackTabPage.Location = new System.Drawing.Point(4, 22);
 			this.trackTabPage.Name = "trackTabPage";
-			this.trackTabPage.Size = new System.Drawing.Size(846, 630);
+			this.trackTabPage.Size = new System.Drawing.Size(846, 660);
 			this.trackTabPage.TabIndex = 0;
 			this.trackTabPage.Text = "Track editor";
 			this.trackTabPage.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@ namespace EpicEdit.UI
 			this.trackEditor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.trackEditor.Location = new System.Drawing.Point(0, 0);
 			this.trackEditor.Name = "trackEditor";
-			this.trackEditor.Size = new System.Drawing.Size(846, 630);
+			this.trackEditor.Size = new System.Drawing.Size(846, 660);
 			this.trackEditor.TabIndex = 0;
 			this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
 			this.trackEditor.RomDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorRomDragged);
@@ -100,7 +100,7 @@ namespace EpicEdit.UI
 			this.themeTabPage.Location = new System.Drawing.Point(4, 22);
 			this.themeTabPage.Name = "themeTabPage";
 			this.themeTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.themeTabPage.Size = new System.Drawing.Size(846, 630);
+			this.themeTabPage.Size = new System.Drawing.Size(846, 670);
 			this.themeTabPage.TabIndex = 1;
 			this.themeTabPage.Text = "Theme editor";
 			this.themeTabPage.UseVisualStyleBackColor = true;
@@ -112,12 +112,12 @@ namespace EpicEdit.UI
 			this.themeEditor.Enabled = false;
 			this.themeEditor.Location = new System.Drawing.Point(3, 3);
 			this.themeEditor.Name = "themeEditor";
-			this.themeEditor.Size = new System.Drawing.Size(840, 624);
+			this.themeEditor.Size = new System.Drawing.Size(840, 664);
 			this.themeEditor.TabIndex = 2;
 			// 
 			// MainForm
 			// 
-			this.ClientSize = new System.Drawing.Size(854, 656);
+			this.ClientSize = new System.Drawing.Size(854, 686);
 			this.Controls.Add(this.tabControl);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
