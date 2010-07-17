@@ -6,6 +6,8 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 vx.x (???)
 
 - Added support for item probability edition (by teknix1)
+- Added ability to reset the track map
+- Added ability to delete all AI elements
 - Smarter behavior when changing the index of an AI element.
   Rather than swapping the current index with the new index,
   it now shifts the index of all AI elements in between.
