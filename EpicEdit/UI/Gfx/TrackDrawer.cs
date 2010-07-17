@@ -474,14 +474,29 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawOverlay(Graphics graphics, Point scrollPosition)
 		{
-			// TODO: Finish implementing.
-			foreach (OverlayTile tile in this.track.OverlayTiles)
+			Tile[] tiles = this.track.GetRoadTileset();
+			OverlayTilePatterns overlayTilePatterns = MainForm.SmkGame.GetOverlayTilePatterns();
+
+			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 			{
-				graphics.DrawRectangle(Pens.Red,
-									   (tile.X - scrollPosition.X) * 8,
-									   (tile.Y - scrollPosition.Y) * 8,
-									   tile.Size.Width * 8,
-									   tile.Size.Height * 8);
+				OverlayTilePattern pattern = overlayTilePatterns[overlayTile.Index];
+				for (int x = 0; x < overlayTile.Size.Width; x++)
+				{
+					for (int y = 0; y < overlayTile.Size.Height; y++)
+					{
+						byte tileId = pattern.Tiles[y][x];
+						if (tileId == 0xFF)
+						{
+							continue;
+						}
+
+						Tile tile = tiles[tileId];
+						
+						graphics.DrawImage(tile.Bitmap,
+										   (overlayTile.X + x - scrollPosition.X) * 8,
+										   (overlayTile.Y + y - scrollPosition.Y) * 8);
+					}
+				}
 			}
 		}
 
