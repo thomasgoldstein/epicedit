@@ -46,6 +46,12 @@ namespace EpicEdit.UI.TrackEdition
 		public event EventHandler<EventArgs> SelectedTileChanged;
 
 		/// <summary>
+		/// Raised when the track map has been changed.
+		/// </summary>
+		[Browsable(true)]
+		public event EventHandler<EventArgs> TrackMapChanged;
+
+		/// <summary>
 		/// Used to display the tileset.
 		/// </summary>
 		private TilesetDrawer tilesetDrawer;
@@ -156,6 +162,20 @@ namespace EpicEdit.UI.TrackEdition
 				this.selectedTile = newSelectedTile;
 				this.tilesetDrawer.DrawTileset(this.selectedTile);
 				this.SelectedTileChanged(this, EventArgs.Empty);
+			}
+		}
+		
+		private void ResetMapButtonClick(object sender, EventArgs e)
+		{
+			DialogResult result = MessageBox.Show("Do you really want to reset the map?",
+			                                      Application.ProductName,
+			                                      MessageBoxButtons.YesNo,
+			                                      MessageBoxIcon.Warning);
+
+			if (result == DialogResult.Yes)
+			{
+				this.track.Map.Clear(this.selectedTile);
+				this.TrackMapChanged(this, EventArgs.Empty);
 			}
 		}
 	}

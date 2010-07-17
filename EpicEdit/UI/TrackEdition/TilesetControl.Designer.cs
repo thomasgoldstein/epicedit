@@ -51,6 +51,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.themeComboBox = new System.Windows.Forms.ComboBox();
 			this.tilesetPanel = new EpicEdit.UI.Tools.EpicPanel();
+			this.resetMapButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// themeComboBox
@@ -71,14 +72,26 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetPanel.TabIndex = 5;
 			this.tilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseDown);
 			// 
+			// resetMapButton
+			// 
+			this.resetMapButton.Location = new System.Drawing.Point(27, 548);
+			this.resetMapButton.Name = "resetMapButton";
+			this.resetMapButton.Size = new System.Drawing.Size(74, 23);
+			this.resetMapButton.TabIndex = 7;
+			this.resetMapButton.Text = "Reset map";
+			this.resetMapButton.UseVisualStyleBackColor = true;
+			this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
+			// 
 			// TilesetControl
 			// 
+			this.Controls.Add(this.resetMapButton);
 			this.Controls.Add(this.themeComboBox);
 			this.Controls.Add(this.tilesetPanel);
 			this.Name = "TilesetControl";
-			this.Size = new System.Drawing.Size(130, 545);
+			this.Size = new System.Drawing.Size(130, 580);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button resetMapButton;
 		private EpicEdit.UI.Tools.EpicPanel tilesetPanel;
 		private System.Windows.Forms.ComboBox themeComboBox;
 	}

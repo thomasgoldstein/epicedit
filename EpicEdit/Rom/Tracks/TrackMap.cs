@@ -134,5 +134,16 @@ namespace EpicEdit.Rom.Tracks
 
 			return buffer;
 		}
+
+		public void Clear(byte tile)
+		{
+			for (int y = 0; y < this.Height; y++)
+			{
+				for (int x = 0; x < this.Width; x++)
+				{
+					this.SetTile(x, y, tile);
+				}
+			}
+		}
 	}
 }

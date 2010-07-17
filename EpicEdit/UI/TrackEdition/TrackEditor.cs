@@ -1678,6 +1678,13 @@ namespace EpicEdit.UI.TrackEdition
 			this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 			this.trackDrawer.UpdateTileClipboard(this.track.GetRoadTile(selectedTile));
 		}
+
+		private void TilesetControlTrackMapChanged(object sender, EventArgs e)
+		{
+			this.trackDrawer.LoadTrack(this.track);
+			this.trackTreeView.MarkTrackAsChanged();
+			this.RepaintTrackDisplay();
+		}
 		#endregion Tileset Control
 
 		#region EditionMode Tabs
