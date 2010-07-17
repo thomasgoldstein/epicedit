@@ -77,11 +77,11 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.InitializeComponent();
 
-			this.aiShapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
-			this.aiShapeComboBox.SelectedIndexChanged += new EventHandler(this.AIShapeComboBoxSelectedIndexChanged);
+			this.shapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
+			this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
 		}
 
-		private void AIShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
+		private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
 		{
 			UITools.SetValueFromEnumDescription(e);
 		}
@@ -98,61 +98,61 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.selectedAIElementGroupBox.Enabled = true;
 
-				this.aiIndexNumericUpDown.ValueChanged -= new EventHandler(this.AIIndexNumericUpDownValueChanged);
-				this.aiIndexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedAIElem);
-				this.aiIndexNumericUpDown.ValueChanged += new EventHandler(this.AIIndexNumericUpDownValueChanged);
+				this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
+				this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedAIElem);
+				this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
 
-				this.aiSpeedNumericUpDown.ValueChanged -= new EventHandler(this.AISpeedNumericUpDownValueChanged);
-				this.aiSpeedNumericUpDown.Value = this.selectedAIElem.Speed + 1;
-				this.aiSpeedNumericUpDown.ValueChanged += new EventHandler(this.AISpeedNumericUpDownValueChanged);
+				this.speedNumericUpDown.ValueChanged -= new EventHandler(this.SpeedNumericUpDownValueChanged);
+				this.speedNumericUpDown.Value = this.selectedAIElem.Speed + 1;
+				this.speedNumericUpDown.ValueChanged += new EventHandler(this.SpeedNumericUpDownValueChanged);
 
-				this.aiShapeComboBox.SelectedIndexChanged -= new EventHandler(this.AIShapeComboBoxSelectedIndexChanged);
-				this.aiShapeComboBox.SelectedItem = this.selectedAIElem.ZoneShape;
-				this.aiShapeComboBox.SelectedIndexChanged += new EventHandler(this.AIShapeComboBoxSelectedIndexChanged);
+				this.shapeComboBox.SelectedIndexChanged -= new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+				this.shapeComboBox.SelectedItem = this.selectedAIElem.ZoneShape;
+				this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
 			}
 
 			// Force controls to refresh so that the new data shows up instantly
 			// NOTE: we could do this.selectedAIElementGroupBox.Refresh(); instead
 			// but that would cause some minor flickering
-			this.aiIndexNumericUpDown.Refresh();
-			this.aiSpeedNumericUpDown.Refresh();
-			this.aiShapeComboBox.Refresh();
+			this.indexNumericUpDown.Refresh();
+			this.speedNumericUpDown.Refresh();
+			this.shapeComboBox.Refresh();
 		}
 
-		private void AIIndexNumericUpDownValueChanged(object sender, EventArgs e)
+		private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
 		{
 			int oldIndex = this.trackAI.GetElementIndex(this.selectedAIElem);
-			int newIndex = (int)this.aiIndexNumericUpDown.Value;
+			int newIndex = (int)this.indexNumericUpDown.Value;
 			this.trackAI.ChangeElementIndex(oldIndex, newIndex);
 			
 			this.DataChanged(this, EventArgs.Empty);
 		}
 
-		private void AISpeedNumericUpDownValueChanged(object sender, EventArgs e)
+		private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
 		{
-			this.selectedAIElem.Speed = (byte)(this.aiSpeedNumericUpDown.Value - 1);
+			this.selectedAIElem.Speed = (byte)(this.speedNumericUpDown.Value - 1);
 
 			this.DataChanged(this, EventArgs.Empty);
 		}
 
-		private void AIShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
+		private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Shape newShape = (Shape)this.aiShapeComboBox.SelectedValue;
+			Shape newShape = (Shape)this.shapeComboBox.SelectedValue;
 			this.selectedAIElem.ChangeShape(newShape);
 
 			this.DataChanged(this, EventArgs.Empty);
 		}
 
-		private void AIDeleteButtonClick(object sender, EventArgs e)
+		private void DeleteButtonClick(object sender, EventArgs e)
 		{
 			this.DeleteRequested(this, EventArgs.Empty);
 		}
 
 		public void SetMaximumAIElementIndex()
 		{
-			this.aiIndexNumericUpDown.ValueChanged -= new EventHandler(this.AIIndexNumericUpDownValueChanged);
-			this.aiIndexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
-			this.aiIndexNumericUpDown.ValueChanged += new EventHandler(this.AIIndexNumericUpDownValueChanged);
+			this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
+			this.indexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
+			this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
 		}
 	}
 }

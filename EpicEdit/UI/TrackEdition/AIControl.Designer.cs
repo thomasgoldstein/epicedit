@@ -43,19 +43,19 @@ namespace EpicEdit.UI.TrackEdition
 		private void InitializeComponent()
 		{
 			System.Windows.Forms.Label aiIndexLabel;
-			System.Windows.Forms.Label aiShapeLabel;
-			System.Windows.Forms.Label aiSpeedLabel;
+			System.Windows.Forms.Label shapeLabel;
+			System.Windows.Forms.Label speedLabel;
 			this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
-			this.aiIndexNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.aiShapeComboBox = new System.Windows.Forms.ComboBox();
-			this.aiDeleteButton = new System.Windows.Forms.Button();
-			this.aiSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.indexNumericUpDown = new System.Windows.Forms.NumericUpDown();
+			this.shapeComboBox = new System.Windows.Forms.ComboBox();
+			this.deleteButton = new System.Windows.Forms.Button();
+			this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			aiIndexLabel = new System.Windows.Forms.Label();
-			aiShapeLabel = new System.Windows.Forms.Label();
-			aiSpeedLabel = new System.Windows.Forms.Label();
+			shapeLabel = new System.Windows.Forms.Label();
+			speedLabel = new System.Windows.Forms.Label();
 			this.selectedAIElementGroupBox.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.aiIndexNumericUpDown)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.aiSpeedNumericUpDown)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// aiIndexLabel
@@ -66,31 +66,31 @@ namespace EpicEdit.UI.TrackEdition
 			aiIndexLabel.TabIndex = 0;
 			aiIndexLabel.Text = "Index";
 			// 
-			// aiShapeLabel
+			// shapeLabel
 			// 
-			aiShapeLabel.Location = new System.Drawing.Point(6, 101);
-			aiShapeLabel.Name = "aiShapeLabel";
-			aiShapeLabel.Size = new System.Drawing.Size(45, 23);
-			aiShapeLabel.TabIndex = 4;
-			aiShapeLabel.Text = "Shape";
+			shapeLabel.Location = new System.Drawing.Point(6, 101);
+			shapeLabel.Name = "shapeLabel";
+			shapeLabel.Size = new System.Drawing.Size(45, 23);
+			shapeLabel.TabIndex = 4;
+			shapeLabel.Text = "Shape";
 			// 
-			// aiSpeedLabel
+			// speedLabel
 			// 
-			aiSpeedLabel.Location = new System.Drawing.Point(6, 65);
-			aiSpeedLabel.Name = "aiSpeedLabel";
-			aiSpeedLabel.Size = new System.Drawing.Size(45, 23);
-			aiSpeedLabel.TabIndex = 2;
-			aiSpeedLabel.Text = "Speed";
+			speedLabel.Location = new System.Drawing.Point(6, 65);
+			speedLabel.Name = "speedLabel";
+			speedLabel.Size = new System.Drawing.Size(45, 23);
+			speedLabel.TabIndex = 2;
+			speedLabel.Text = "Speed";
 			// 
 			// selectedAIElementGroupBox
 			// 
-			this.selectedAIElementGroupBox.Controls.Add(this.aiIndexNumericUpDown);
+			this.selectedAIElementGroupBox.Controls.Add(this.indexNumericUpDown);
 			this.selectedAIElementGroupBox.Controls.Add(aiIndexLabel);
-			this.selectedAIElementGroupBox.Controls.Add(this.aiShapeComboBox);
-			this.selectedAIElementGroupBox.Controls.Add(this.aiDeleteButton);
-			this.selectedAIElementGroupBox.Controls.Add(aiShapeLabel);
-			this.selectedAIElementGroupBox.Controls.Add(aiSpeedLabel);
-			this.selectedAIElementGroupBox.Controls.Add(this.aiSpeedNumericUpDown);
+			this.selectedAIElementGroupBox.Controls.Add(this.shapeComboBox);
+			this.selectedAIElementGroupBox.Controls.Add(this.deleteButton);
+			this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
+			this.selectedAIElementGroupBox.Controls.Add(speedLabel);
+			this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
 			this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 5);
 			this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
 			this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 219);
@@ -98,68 +98,68 @@ namespace EpicEdit.UI.TrackEdition
 			this.selectedAIElementGroupBox.TabStop = false;
 			this.selectedAIElementGroupBox.Text = "Selected Element";
 			// 
-			// aiIndexNumericUpDown
+			// indexNumericUpDown
 			// 
-			this.aiIndexNumericUpDown.Location = new System.Drawing.Point(69, 30);
-			this.aiIndexNumericUpDown.Maximum = new decimal(new int[] {
+			this.indexNumericUpDown.Location = new System.Drawing.Point(69, 30);
+			this.indexNumericUpDown.Maximum = new decimal(new int[] {
 									127,
 									0,
 									0,
 									0});
-			this.aiIndexNumericUpDown.Name = "aiIndexNumericUpDown";
-			this.aiIndexNumericUpDown.Size = new System.Drawing.Size(45, 20);
-			this.aiIndexNumericUpDown.TabIndex = 1;
-			this.aiIndexNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.aiIndexNumericUpDown.Value = new decimal(new int[] {
+			this.indexNumericUpDown.Name = "indexNumericUpDown";
+			this.indexNumericUpDown.Size = new System.Drawing.Size(45, 20);
+			this.indexNumericUpDown.TabIndex = 1;
+			this.indexNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.indexNumericUpDown.Value = new decimal(new int[] {
 									1,
 									0,
 									0,
 									0});
-			this.aiIndexNumericUpDown.ValueChanged += new System.EventHandler(this.AIIndexNumericUpDownValueChanged);
+			this.indexNumericUpDown.ValueChanged += new System.EventHandler(this.IndexNumericUpDownValueChanged);
 			// 
-			// aiShapeComboBox
+			// shapeComboBox
 			// 
-			this.aiShapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.aiShapeComboBox.FormattingEnabled = true;
-			this.aiShapeComboBox.Location = new System.Drawing.Point(10, 127);
-			this.aiShapeComboBox.Name = "aiShapeComboBox";
-			this.aiShapeComboBox.Size = new System.Drawing.Size(104, 21);
-			this.aiShapeComboBox.TabIndex = 5;
-			this.aiShapeComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.AIShapeComboBoxFormat);
+			this.shapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.shapeComboBox.FormattingEnabled = true;
+			this.shapeComboBox.Location = new System.Drawing.Point(10, 127);
+			this.shapeComboBox.Name = "shapeComboBox";
+			this.shapeComboBox.Size = new System.Drawing.Size(104, 21);
+			this.shapeComboBox.TabIndex = 5;
+			this.shapeComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ShapeComboBoxFormat);
 			// 
-			// aiDeleteButton
+			// deleteButton
 			// 
-			this.aiDeleteButton.Location = new System.Drawing.Point(25, 176);
-			this.aiDeleteButton.Name = "aiDeleteButton";
-			this.aiDeleteButton.Size = new System.Drawing.Size(74, 23);
-			this.aiDeleteButton.TabIndex = 6;
-			this.aiDeleteButton.Text = "Delete";
-			this.aiDeleteButton.UseVisualStyleBackColor = true;
-			this.aiDeleteButton.Click += new System.EventHandler(this.AIDeleteButtonClick);
+			this.deleteButton.Location = new System.Drawing.Point(25, 176);
+			this.deleteButton.Name = "deleteButton";
+			this.deleteButton.Size = new System.Drawing.Size(74, 23);
+			this.deleteButton.TabIndex = 6;
+			this.deleteButton.Text = "Delete";
+			this.deleteButton.UseVisualStyleBackColor = true;
+			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
 			// 
-			// aiSpeedNumericUpDown
+			// speedNumericUpDown
 			// 
-			this.aiSpeedNumericUpDown.Location = new System.Drawing.Point(69, 63);
-			this.aiSpeedNumericUpDown.Maximum = new decimal(new int[] {
+			this.speedNumericUpDown.Location = new System.Drawing.Point(69, 63);
+			this.speedNumericUpDown.Maximum = new decimal(new int[] {
 									4,
 									0,
 									0,
 									0});
-			this.aiSpeedNumericUpDown.Minimum = new decimal(new int[] {
+			this.speedNumericUpDown.Minimum = new decimal(new int[] {
 									1,
 									0,
 									0,
 									0});
-			this.aiSpeedNumericUpDown.Name = "aiSpeedNumericUpDown";
-			this.aiSpeedNumericUpDown.Size = new System.Drawing.Size(45, 20);
-			this.aiSpeedNumericUpDown.TabIndex = 3;
-			this.aiSpeedNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.aiSpeedNumericUpDown.Value = new decimal(new int[] {
+			this.speedNumericUpDown.Name = "speedNumericUpDown";
+			this.speedNumericUpDown.Size = new System.Drawing.Size(45, 20);
+			this.speedNumericUpDown.TabIndex = 3;
+			this.speedNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.speedNumericUpDown.Value = new decimal(new int[] {
 									1,
 									0,
 									0,
 									0});
-			this.aiSpeedNumericUpDown.ValueChanged += new System.EventHandler(this.AISpeedNumericUpDownValueChanged);
+			this.speedNumericUpDown.ValueChanged += new System.EventHandler(this.SpeedNumericUpDownValueChanged);
 			// 
 			// AIControl
 			// 
@@ -167,14 +167,14 @@ namespace EpicEdit.UI.TrackEdition
 			this.Name = "AIControl";
 			this.Size = new System.Drawing.Size(130, 230);
 			this.selectedAIElementGroupBox.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.aiIndexNumericUpDown)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.aiSpeedNumericUpDown)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
 		}
-		private System.Windows.Forms.NumericUpDown aiSpeedNumericUpDown;
-		private System.Windows.Forms.Button aiDeleteButton;
-		private System.Windows.Forms.ComboBox aiShapeComboBox;
-		private System.Windows.Forms.NumericUpDown aiIndexNumericUpDown;
+		private System.Windows.Forms.NumericUpDown indexNumericUpDown;
+		private System.Windows.Forms.ComboBox shapeComboBox;
+		private System.Windows.Forms.Button deleteButton;
+		private System.Windows.Forms.NumericUpDown speedNumericUpDown;
 		private System.Windows.Forms.GroupBox selectedAIElementGroupBox;
 	}
 }
