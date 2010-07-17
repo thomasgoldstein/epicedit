@@ -22,6 +22,7 @@ namespace EpicEditTests
 	{
 		public byte[] RomBuffer { get; private set; }
 		public Offsets Offsets { get; private set; }
+		public OverlayTilePatterns OverlayTilePatterns { get; private set; }
 		public OverlayTileSizes OverlayTileSizes { get; private set; }
 
 		public Smk()
@@ -30,6 +31,7 @@ namespace EpicEditTests
 			this.RomBuffer = File.ReadBlock(headeredRomBuffer, 512, headeredRomBuffer.Length - 512);
 			this.Offsets = new Offsets(this.RomBuffer, Regions.US);
 			this.OverlayTileSizes = new OverlayTileSizes(this.RomBuffer, this.Offsets);
+			this.OverlayTilePatterns = new OverlayTilePatterns(this.RomBuffer, this.Offsets, this.OverlayTileSizes);
 		}
 	}
 }

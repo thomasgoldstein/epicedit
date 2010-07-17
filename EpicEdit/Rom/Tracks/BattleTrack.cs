@@ -30,8 +30,9 @@ namespace EpicEdit.Rom.Tracks
 						   byte[] map, byte[] overlayTileData,
 						   byte[] aiZoneData, byte[] aiTargetData,
 						   byte[] startPositionData,
-						   OverlayTileSizes overlayTileSizes) :
-			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes)
+						   OverlayTileSizes overlayTileSizes,
+						   OverlayTilePatterns overlayTilePatterns) :
+			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
 		{
 
 		}

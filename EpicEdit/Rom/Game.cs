@@ -444,7 +444,9 @@ namespace EpicEdit.Rom
 												trackMap, overlayTileData,
 												aiZoneData, aiTargetData,
 												startPositionData, lapLineData,
-												objectData, objectZoneData, this.overlayTileSizes);
+												objectData, objectZoneData,
+												this.overlayTileSizes,
+												this.overlayTilePatterns);
 					}
 					else
 					{
@@ -454,7 +456,9 @@ namespace EpicEdit.Rom
 						tracks[j] = new BattleTrack(trackName, trackTheme,
 													trackMap, overlayTileData,
 													aiZoneData, aiTargetData,
-													startPositionData, this.overlayTileSizes);
+													startPositionData,
+													this.overlayTileSizes,
+													this.overlayTilePatterns);
 					}
 				}
 
@@ -990,7 +994,7 @@ namespace EpicEdit.Rom
 					int trackIndex = trackOrder[i * 5 + j];
 					if (tracks[j].Modified)
 					{
-						this.SaveOverlayTileData(trackIndex, tracks[j].OverlayTiles.GetBytes());
+						this.SaveOverlayTileData(trackIndex, tracks[j].OverlayTiles.GetBytes(this.overlayTilePatterns));
 					}
 				}
 			}

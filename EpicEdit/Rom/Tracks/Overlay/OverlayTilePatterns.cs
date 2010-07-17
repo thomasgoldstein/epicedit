@@ -131,6 +131,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			return sizeArray;
 		}
 
+		public int IndexOf(OverlayTilePattern pattern)
+		{
+			return Array.IndexOf(this.patterns, pattern);
+		}
+
 		#region ICollection
 
 		public IEnumerator<OverlayTilePattern> GetEnumerator()

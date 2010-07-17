@@ -66,42 +66,24 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		}
 
 		public OverlayTileSize Size { get; set; }
-
-		private int index;
-		public int Index
-		{
-			get { return index; }
-			set
-			{
-				if (value > 49)
-				{
-					this.index = 49;
-				}
-				else if (value < 0)
-				{
-					this.index = 0;
-				}
-				else
-				{
-					this.index = value;
-				}
-			}
-		}
+		public OverlayTilePattern Pattern { get; set; }
 
 		/// <summary>
 		/// Initializes an OverlayTile.
 		/// </summary>
 		/// <param name="data">The byte array to get the data from.</param>
 		/// <param name="index">The index to use in the byte array.</param>
-		public OverlayTile(byte[] data, int index, OverlayTileSizes sizes)
+		/// <param name="patterns">The collection of overlay tile patterns.</param>
+		/// <param name="sizes">The collection of overlay tile sizes.</param>
+		public OverlayTile(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
 		{
-			this.SetBytes(data, index, sizes);
+			this.SetBytes(data, index, patterns, sizes);
 		}
 
-		private void SetBytes(byte[] data, int index, OverlayTileSizes sizes)
+		private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
 		{
 			this.Size = sizes[(data[index] & 0xC0) >> 6];
-			this.index = data[index] & 0x3F;
+			this.Pattern = patterns[data[index] & 0x3F];
 
 			this.x = (data[index + 1] & 0x7F);
 			this.y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
@@ -112,9 +94,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// </summary>
 		/// <param name="data">The byte array to fill.</param>
 		/// <param name="index">The array position where the data will be copied.</param>
-		public void GetBytes(byte[] data, int index)
+		public void GetBytes(byte[] data, int index, OverlayTilePatterns patterns)
 		{
-			data[index] = (byte)((byte)(this.Size.Index << 6) | this.index);
+			int sizeIndex = this.Size.Index;
+			int patternIndex = patterns.IndexOf(this.Pattern);
+			data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
 			data[index + 1] = (byte)(this.x + ((this.y << 7) & 0x80));
 			data[index + 2] = (byte)(this.y >> 1);

@@ -33,8 +33,9 @@ namespace EpicEdit.Rom.Tracks
 					   byte[] aiZoneData, byte[] aiTargetData,
 					   byte[] startPositionData, byte[] lapLineData,
 					   byte[] objectData, byte[] objectZoneData,
-					   OverlayTileSizes overlayTileSizes) :
-			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes)
+					   OverlayTileSizes overlayTileSizes,
+					   OverlayTilePatterns overlayTilePatterns) :
+			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
 		{
 			this.StartPosition = new StartPosition(startPositionData);
 			this.LapLine = new LapLine(lapLineData);

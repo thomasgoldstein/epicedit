@@ -47,13 +47,14 @@ namespace EpicEdit.Rom.Tracks
 		protected Track(string name, Theme theme,
 						byte[] map, byte[] overlayTilesData,
 						byte[] aiZoneData, byte[] aiTargetData,
-						OverlayTileSizes sizes)
+						OverlayTileSizes overlayTileSizes,
+						OverlayTilePatterns overlayTilePatterns)
 		{
 			this.Name = name;
 			this.Map = new TrackMap(map);
 			this.Theme = theme;
 			this.AI = new TrackAI(aiZoneData, aiTargetData, this);
-			this.OverlayTiles = new OverlayTiles(overlayTilesData, sizes);
+			this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
 		}
 
 		public Tile[] GetRoadTileset()

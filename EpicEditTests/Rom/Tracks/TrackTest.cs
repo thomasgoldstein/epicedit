@@ -56,7 +56,8 @@ namespace EpicEditTests.Rom.Tracks
 									 new byte[0], new byte[0],
 									 new byte[6], new byte[6],
 									 new byte[44], new byte[10],
-									 this.smk.OverlayTileSizes);
+									 this.smk.OverlayTileSizes,
+									 this.smk.OverlayTilePatterns);
 		}
 
 		[Test]

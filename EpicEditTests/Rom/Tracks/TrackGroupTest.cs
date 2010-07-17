@@ -45,14 +45,17 @@ namespace EpicEditTests.Rom.Tracks
 									new byte[0], new byte[0],
 									new byte[6], new byte[6],
 									new byte[44], new byte[10],
-									this.smk.OverlayTileSizes);
+									this.smk.OverlayTileSizes,
+									this.smk.OverlayTilePatterns
+								);
 
 			tracks[1] = new GPTrack("Test 2", theme,
 									map, new byte[128],
 									new byte[0], new byte[0],
 									new byte[6], new byte[6],
 									new byte[44], new byte[10],
-									this.smk.OverlayTileSizes);
+									this.smk.OverlayTileSizes,
+									this.smk.OverlayTilePatterns);
 
 			this.trackGroup = new TrackGroup("Flower Cup", tracks);
 		}

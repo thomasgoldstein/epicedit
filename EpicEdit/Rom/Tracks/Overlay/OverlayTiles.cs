@@ -25,9 +25,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 	{
 		private List<OverlayTile> overlayTiles;
 
-		public OverlayTiles(byte[] data, OverlayTileSizes sizes)
+		public OverlayTiles(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
 		{
-			this.SetBytes(data, sizes);
+			this.SetBytes(data, sizes, patterns);
 		}
 
 		public IEnumerator<OverlayTile> GetEnumerator()
@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			get { return this.overlayTiles[index]; }
 		}
 
-		private void SetBytes(byte[] data, OverlayTileSizes sizes)
+		private void SetBytes(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
 		{
 			if (data.Length != 128)
 			{
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 					break;
 				}
 
-				OverlayTile overlayTile = new OverlayTile(data, index, sizes);
+				OverlayTile overlayTile = new OverlayTile(data, index, patterns, sizes);
 				this.overlayTiles.Add(overlayTile);
 			}
 		}
@@ -80,7 +80,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// Returns the OverlayTiles data as a byte array, in the format the SMK ROM expects.
 		/// </summary>
 		/// <returns>The OverlayTiles bytes.</returns>
-		public byte[] GetBytes()
+		public byte[] GetBytes(OverlayTilePatterns patterns)
 		{
 			byte[] data = new byte[128];
 
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			{
 				int index = overlayTileIndex * 3;
 				OverlayTile overlayTile = this.overlayTiles[overlayTileIndex];
-				overlayTile.GetBytes(data, index);
+				overlayTile.GetBytes(data, index, patterns);
 			}
 
 			for (int index = this.overlayTiles.Count * 3; index < data.Length; index++)
