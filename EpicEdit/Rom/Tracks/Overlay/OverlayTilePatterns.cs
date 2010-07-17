@@ -133,7 +133,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		public int IndexOf(OverlayTilePattern pattern)
 		{
-			return Array.IndexOf(this.patterns, pattern);
+			for (int i = 0; i < this.patterns.Length; i++)
+			{
+				if (this.patterns[i] == pattern)
+				{
+					return i;
+				}
+			}
+
+			throw new MissingMemberException("Pattern not found.");
 		}
 
 		#region ICollection
