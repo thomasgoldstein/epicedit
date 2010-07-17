@@ -418,9 +418,7 @@ namespace EpicEdit.UI.TrackEdition
 		}
 		#endregion Menu Options
 
-		#region TrackDisplay Panel
-
-		#region Events
+		#region TrackDisplay Events
 		private void TrackDisplayPanelPaint(object sender, PaintEventArgs e)
 		{
 			this.RepaintTrackDisplay();
@@ -912,9 +910,9 @@ namespace EpicEdit.UI.TrackEdition
 				this.AddAIElement();
 			}
 		}
-		#endregion Events
+		#endregion TrackDisplay Events
 
-		#region Global methods
+		#region TrackDisplay Methods
 		private void DisplayNewTrack()
 		{
 			this.trackDrawer.LoadTrack(this.track);
@@ -1051,7 +1049,131 @@ namespace EpicEdit.UI.TrackEdition
 					break;
 			}
 		}
-		#endregion Global methods
+		#endregion TrackDisplay Methods
+
+		#region Track TreeView
+		public void RemoveModifiedHints()
+		{
+			this.trackTreeView.RemoveModifiedHints();
+		}
+
+		private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
+		{
+			this.ResetScrollingPosition();
+			this.SetCurrentTrack();
+			this.DisplayNewTrack();
+			this.tilesetControl.SelectCurrentTrackTheme();
+		}
+
+		private void ResetScrollingPosition()
+		{
+			if (this.scrollPosition.Y != 0)
+			{
+				this.scrollPosition.Y = 0;
+				this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+				this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
+				this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+				this.trackDrawer.NotifyFullRepaintNeed();
+			}
+
+			if (this.scrollPosition.X != 0)
+			{
+				this.scrollPosition.X = 0;
+				this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+				this.trackDisplayHScrollBar.Value = this.scrollPosition.X;
+				this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+				this.trackDrawer.NotifyFullRepaintNeed();
+			}
+		}
+
+		private void SetCurrentTrack()
+		{
+			this.track = this.trackTreeView.SelectedTrack;
+
+			this.tilesetControl.Track = this.track;
+			this.aiControl.TrackAI = this.track.AI;
+			this.hoveredAIElem = null;
+
+			if (this.CurrentMode == EditionMode.Objects)
+			{
+				this.SetTrackObjectZones();
+			}
+
+			if (this.track is GPTrack)
+			{
+				this.startTabPage.Enabled = true;
+				this.startControl.Track = this.track;
+			}
+			else
+			{
+				this.startTabPage.Enabled = false;
+			}
+		}
+		#endregion Track TreeView
+
+		#region EditionMode Tabs
+		private EditionMode CurrentMode
+		{
+			get
+			{
+				if (this.tilesetTabPage.Visible)
+				{
+					return EditionMode.Tileset;
+				}
+				else if (this.overlayTabPage.Visible)
+				{
+					return EditionMode.Overlay;
+				}
+				else if (this.startTabPage.Visible)
+				{
+					return EditionMode.Start;
+				}
+				else if (this.objectsTabPage.Visible)
+				{
+					return EditionMode.Objects;
+				}
+				else // if (this.aiTabPage.Visible)
+				{
+					return EditionMode.AI;
+				}
+			}
+		}
+
+		private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (this.CurrentMode == EditionMode.Objects)
+			{
+				this.SetTrackObjectZones();
+			}
+
+			this.RepaintTrackDisplay();
+			this.ResizeModeTabControl();
+		}
+
+		private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
+		{
+			int widthBefore = this.modeTabControl.Width;
+			this.ResizeModeTabControl();
+			int difference = this.modeTabControl.Width - widthBefore;
+
+			if (difference != 0)
+			{
+				// Properly reposition the modeTabControl
+				this.modeTabControl.Left -= difference;
+			}
+		}
+
+		/// <summary>
+		/// Adapt the modeTabControl width depending on whether its vertical scrollbar is visible.
+		/// </summary>
+		private void ResizeModeTabControl()
+		{
+			this.modeTabControl.Width =
+				this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
+				144 + SystemInformation.VerticalScrollBarWidth : 144;
+		}
+		#endregion EditionMode Tabs
+
 
 		#region EditionMode.Tileset
 		private void InitTilesetAction()
@@ -1146,6 +1268,33 @@ namespace EpicEdit.UI.TrackEdition
 			// We remove the first tile, which was added in TrackDisplayPanelMouseDown
 			this.tileClipboard.RemoveAt(0);
 
+			this.RepaintTrackDisplay();
+		}
+
+		private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
+		{
+			this.trackTreeView.MarkTrackAsChanged();
+			this.DisplayNewTrack();
+		}
+
+		private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
+		{
+			this.trackDrawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, this.track.GetRoadTileset());
+		}
+
+		private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
+		{
+			byte selectedTile = this.tilesetControl.SelectedTile;
+			this.tileClipboard.Clear();
+			this.tileClipboard.Add(selectedTile);
+			this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
+			this.trackDrawer.UpdateTileClipboard(this.track.GetRoadTile(selectedTile));
+		}
+
+		private void TilesetControlTrackMapChanged(object sender, EventArgs e)
+		{
+			this.trackDrawer.LoadTrack(this.track);
+			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();
 		}
 		#endregion EditionMode.Tileset
@@ -1604,159 +1753,5 @@ namespace EpicEdit.UI.TrackEdition
 			this.DeleteAIElement();
 		}
 		#endregion EditionMode.AI
-
-		#endregion TrackDisplay Panel
-
-		#region Track TreeView
-		public void RemoveModifiedHints()
-		{
-			this.trackTreeView.RemoveModifiedHints();
-		}
-
-		private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
-		{
-			this.ResetScrollingPosition();
-			this.SetCurrentTrack();
-			this.DisplayNewTrack();
-			this.tilesetControl.SelectCurrentTrackTheme();
-		}
-
-		private void ResetScrollingPosition()
-		{
-			if (this.scrollPosition.Y != 0)
-			{
-				this.scrollPosition.Y = 0;
-				this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
-				this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
-				this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
-				this.trackDrawer.NotifyFullRepaintNeed();
-			}
-
-			if (this.scrollPosition.X != 0)
-			{
-				this.scrollPosition.X = 0;
-				this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
-				this.trackDisplayHScrollBar.Value = this.scrollPosition.X;
-				this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
-				this.trackDrawer.NotifyFullRepaintNeed();
-			}
-		}
-
-		private void SetCurrentTrack()
-		{
-			this.track = this.trackTreeView.SelectedTrack;
-
-			this.tilesetControl.Track = this.track;
-			this.aiControl.TrackAI = this.track.AI;
-			this.hoveredAIElem = null;
-
-			if (this.CurrentMode == EditionMode.Objects)
-			{
-				this.SetTrackObjectZones();
-			}
-
-			if (this.track is GPTrack)
-			{
-				this.startTabPage.Enabled = true;
-				this.startControl.Track = this.track;
-			}
-			else
-			{
-				this.startTabPage.Enabled = false;
-			}
-		}
-		#endregion Track TreeView
-
-		#region Tileset Control
-		private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
-		{
-			this.trackTreeView.MarkTrackAsChanged();
-			this.DisplayNewTrack();
-		}
-
-		private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
-		{
-			this.trackDrawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, this.track.GetRoadTileset());
-		}
-
-		private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
-		{
-			byte selectedTile = this.tilesetControl.SelectedTile;
-			this.tileClipboard.Clear();
-			this.tileClipboard.Add(selectedTile);
-			this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
-			this.trackDrawer.UpdateTileClipboard(this.track.GetRoadTile(selectedTile));
-		}
-
-		private void TilesetControlTrackMapChanged(object sender, EventArgs e)
-		{
-			this.trackDrawer.LoadTrack(this.track);
-			this.trackTreeView.MarkTrackAsChanged();
-			this.RepaintTrackDisplay();
-		}
-		#endregion Tileset Control
-
-		#region EditionMode Tabs
-		private EditionMode CurrentMode
-		{
-			get
-			{
-				if (this.tilesetTabPage.Visible)
-				{
-					return EditionMode.Tileset;
-				}
-				else if (this.overlayTabPage.Visible)
-				{
-					return EditionMode.Overlay;
-				}
-				else if (this.startTabPage.Visible)
-				{
-					return EditionMode.Start;
-				}
-				else if (this.objectsTabPage.Visible)
-				{
-					return EditionMode.Objects;
-				}
-				else // if (this.aiTabPage.Visible)
-				{
-					return EditionMode.AI;
-				}
-			}
-		}
-
-		private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (this.CurrentMode == EditionMode.Objects)
-			{
-				this.SetTrackObjectZones();
-			}
-
-			this.RepaintTrackDisplay();
-			this.ResizeModeTabControl();
-		}
-
-		private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
-		{
-			int widthBefore = this.modeTabControl.Width;
-			this.ResizeModeTabControl();
-			int difference = this.modeTabControl.Width - widthBefore;
-
-			if (difference != 0)
-			{
-				// Properly reposition the modeTabControl
-				this.modeTabControl.Left -= difference;
-			}
-		}
-
-		/// <summary>
-		/// Adapt the modeTabControl width depending on whether its vertical scrollbar is visible.
-		/// </summary>
-		private void ResizeModeTabControl()
-		{
-			this.modeTabControl.Width =
-				this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
-				144 + SystemInformation.VerticalScrollBarWidth : 144;
-		}
-		#endregion EditionMode Tabs
 	}
 }
