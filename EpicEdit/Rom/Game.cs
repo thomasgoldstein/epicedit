@@ -1172,7 +1172,7 @@ namespace EpicEdit.Rom
 		private void SaveTrack(Track track, int iterator, int trackIndex, ref int epicZoneIterator, List<byte[]> savedData)
 		{
 			bool quirksMode = this.Region != Regions.US;
-			byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBuffer(), quirksMode), quirksMode);
+			byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
 
 			// Update track theme id
 			byte themeId = this.themes.GetThemeId(track.Theme);

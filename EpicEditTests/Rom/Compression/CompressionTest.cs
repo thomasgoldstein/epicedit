@@ -95,7 +95,7 @@ namespace EpicEditTests.Rom.Compression
 		{
 			Track track = game.GetTrack(trackGroupId, trackId);
 
-			byte[] bufferA = track.Map.GetBuffer();
+			byte[] bufferA = track.Map.GetBytes();
 
 			// Test simple compression
 			byte[] bufferC1 = Codec.Compress(bufferA);

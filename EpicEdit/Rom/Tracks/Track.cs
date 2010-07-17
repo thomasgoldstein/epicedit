@@ -105,7 +105,7 @@ namespace EpicEdit.Rom.Tracks
 		public void Export(string fileName, byte themeId)
 		{
 			BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write));
-			bw.Write(this.Map.GetBuffer());
+			bw.Write(this.Map.GetBytes());
 
 			themeId = (byte)(themeId << 1);
 			bw.Write(themeId);

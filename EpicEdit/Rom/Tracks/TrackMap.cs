@@ -123,7 +123,7 @@ namespace EpicEdit.Rom.Tracks
 			set { this.SetTile(x, y, value); }
 		}
 
-		public byte[] GetBuffer()
+		public byte[] GetBytes()
 		{
 			byte[] buffer = new byte[this.Width * this.Height];
 
