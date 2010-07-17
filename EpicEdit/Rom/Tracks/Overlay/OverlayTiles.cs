@@ -79,8 +79,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// <summary>
 		/// Returns the OverlayTiles data as a byte array, in the format the SMK ROM expects.
 		/// </summary>
+		/// <param name="sizes">The collection of overlay tile sizes.</param>
+		/// <param name="patterns">The collection of overlay tile patterns.</param>
 		/// <returns>The OverlayTiles bytes.</returns>
-		public byte[] GetBytes(OverlayTilePatterns patterns)
+		public byte[] GetBytes(OverlayTileSizes sizes, OverlayTilePatterns patterns)
 		{
 			byte[] data = new byte[128];
 
@@ -88,7 +90,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			{
 				int index = overlayTileIndex * 3;
 				OverlayTile overlayTile = this.overlayTiles[overlayTileIndex];
-				overlayTile.GetBytes(data, index, patterns);
+				overlayTile.GetBytes(data, index, sizes, patterns);
 			}
 
 			for (int index = this.overlayTiles.Count * 3; index < data.Length; index++)

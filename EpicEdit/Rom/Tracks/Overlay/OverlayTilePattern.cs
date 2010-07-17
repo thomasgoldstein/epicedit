@@ -95,7 +95,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 				return false;
 			}
 
-			if (other.Size.Index != this.Size.Index)
+			if (other.Size != this.Size)
 			{
 				return false;
 			}

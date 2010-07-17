@@ -41,14 +41,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			}
 		}
 
-		/// <summary>
-		/// The index used in the ROM to reference this overlay tile size.
-		/// </summary>
-		public int Index { get; private set; }
-
 		public bool Modified { get; private set; }
 
-		public OverlayTileSize(byte[] data, int index)
+		public OverlayTileSize(byte[] data)
 		{
 			if (data.Length != 2)
 			{
@@ -57,7 +52,6 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 			this.width = data[0];
 			this.height = data[1];
-			this.Index = index;
 			this.Modified = false;
 		}
 

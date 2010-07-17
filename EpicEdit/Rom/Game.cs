@@ -994,7 +994,8 @@ namespace EpicEdit.Rom
 					int trackIndex = trackOrder[i * 5 + j];
 					if (tracks[j].Modified)
 					{
-						this.SaveOverlayTileData(trackIndex, tracks[j].OverlayTiles.GetBytes(this.overlayTilePatterns));
+						byte[] overlayTileData = tracks[j].OverlayTiles.GetBytes(this.overlayTileSizes, this.overlayTilePatterns);
+						this.SaveOverlayTileData(trackIndex, overlayTileData);
 					}
 				}
 			}

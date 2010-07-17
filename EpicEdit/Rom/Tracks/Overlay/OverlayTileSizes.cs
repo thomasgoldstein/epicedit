@@ -66,7 +66,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Address.TrackOverlaySizes], 2, 4);
 			for (int i = 0; i < data.Length; i++)
 			{
-				this.sizes[i] = new OverlayTileSize(data[i], i);
+				this.sizes[i] = new OverlayTileSize(data[i]);
 			}
 		}
 
@@ -91,6 +91,19 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this.sizes.GetEnumerator();
+		}
+
+		public int IndexOf(OverlayTileSize size)
+		{
+			for (int i = 0; i < this.sizes.Length; i++)
+			{
+				if (this.sizes[i] == size)
+				{
+					return i;
+				}
+			}
+
+			throw new MissingMemberException("Size not found.");
 		}
 	}
 }
