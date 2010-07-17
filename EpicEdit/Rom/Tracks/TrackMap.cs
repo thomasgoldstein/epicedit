@@ -125,14 +125,14 @@ namespace EpicEdit.Rom.Tracks
 
 		public byte[] GetBytes()
 		{
-			byte[] buffer = new byte[this.Width * this.Height];
+			byte[] data = new byte[this.Width * this.Height];
 
 			for (int y = 0; y < this.Height; y++)
 			{
-				Array.Copy(this.map[y], 0, buffer, y * this.Width, this.Width);
+				Array.Copy(this.map[y], 0, data, y * this.Width, this.Width);
 			}
 
-			return buffer;
+			return data;
 		}
 
 		public void Clear(byte tile)
