@@ -677,6 +677,12 @@ namespace EpicEdit.Rom
 			return this.themes;
 		}
 
+		/// <returns>The track overlay tile pattern collection.</returns>
+		public OverlayTilePatterns GetOverlayTilePatterns()
+		{
+			return this.overlayTilePatterns;
+		}
+
 		public string FilePath
 		{
 			get { return this.filePath; }
