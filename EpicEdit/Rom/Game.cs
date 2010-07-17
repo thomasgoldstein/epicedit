@@ -671,7 +671,7 @@ namespace EpicEdit.Rom
 			return this.trackGroups[trackGroupId][trackId];
 		}
 
-		/// <returns>The track themes collection</returns>
+		/// <returns>The track themes collection.</returns>
 		public Themes GetThemes()
 		{
 			return this.themes;
