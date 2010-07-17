@@ -1036,6 +1036,10 @@ namespace EpicEdit.UI.TrackEdition
 					this.InitTilesetAction();
 					break;
 
+				case EditionMode.Overlay:
+					this.InitOverlayAction();
+					break;
+
 				case EditionMode.Start:
 					this.InitStartAction();
 					break;
@@ -1300,6 +1304,11 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion EditionMode.Tileset
 
 		#region EditionMode.Overlay
+		private void InitOverlayAction()
+		{
+			// TODO: Implement this.
+		}
+
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
 		{
 			this.track.OverlayTiles.Clear();
