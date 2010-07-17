@@ -1150,6 +1150,15 @@ namespace EpicEdit.UI.TrackEdition
 		}
 		#endregion EditionMode.Tileset
 
+		#region EditionMode.Overlay
+		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
+		{
+			this.track.OverlayTiles.Clear();
+			this.trackTreeView.MarkTrackAsChanged();
+			this.RepaintTrackDisplay();
+		}
+		#endregion EditionMode.Overlay
+		
 		#region EditionMode.Start
 		private void InitStartAction()
 		{

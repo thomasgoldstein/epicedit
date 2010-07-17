@@ -58,6 +58,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage = new System.Windows.Forms.TabPage();
 			this.tilesetControl = new EpicEdit.UI.TrackEdition.TilesetControl();
 			this.overlayTabPage = new System.Windows.Forms.TabPage();
+			this.overlayControl = new EpicEdit.UI.TrackEdition.OverlayControl();
 			this.startTabPage = new System.Windows.Forms.TabPage();
 			this.startControl = new EpicEdit.UI.TrackEdition.StartControl();
 			this.objectsTabPage = new System.Windows.Forms.TabPage();
@@ -73,6 +74,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayPanel.SuspendLayout();
 			this.modeTabControl.SuspendLayout();
 			this.tilesetTabPage.SuspendLayout();
+			this.overlayTabPage.SuspendLayout();
 			this.startTabPage.SuspendLayout();
 			this.objectsTabPage.SuspendLayout();
 			this.aiTabPage.SuspendLayout();
@@ -172,6 +174,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.overlayTabPage.AutoScroll = true;
 			this.overlayTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.overlayTabPage.Controls.Add(this.overlayControl);
 			this.overlayTabPage.ImageIndex = 1;
 			this.overlayTabPage.Location = new System.Drawing.Point(4, 23);
 			this.overlayTabPage.Name = "overlayTabPage";
@@ -179,6 +182,14 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTabPage.Size = new System.Drawing.Size(136, 402);
 			this.overlayTabPage.TabIndex = 4;
 			this.overlayTabPage.ToolTipText = "Overlay";
+			// 
+			// overlayControl
+			// 
+			this.overlayControl.Location = new System.Drawing.Point(3, 3);
+			this.overlayControl.Name = "overlayControl";
+			this.overlayControl.Size = new System.Drawing.Size(130, 130);
+			this.overlayControl.TabIndex = 0;
+			this.overlayControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlDeleteAllRequested);
 			// 
 			// startTabPage
 			// 
@@ -318,6 +329,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayPanel.ResumeLayout(false);
 			this.modeTabControl.ResumeLayout(false);
 			this.tilesetTabPage.ResumeLayout(false);
+			this.overlayTabPage.ResumeLayout(false);
 			this.startTabPage.ResumeLayout(false);
 			this.objectsTabPage.ResumeLayout(false);
 			this.aiTabPage.ResumeLayout(false);
@@ -326,6 +338,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
 		private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
 		private EpicEdit.UI.TrackEdition.StartControl startControl;
 		private EpicEdit.UI.TrackEdition.ObjectControl objectControl;
