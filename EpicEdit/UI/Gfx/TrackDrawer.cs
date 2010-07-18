@@ -415,31 +415,25 @@ namespace EpicEdit.UI.Gfx
 
 		private static void SetAIClipRegion(Region clipRegion, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, Point scrollPosition)
 		{
-			Rectangle clipRectangle = TrackDrawer.GetAIClipRectangleSub(hoveredAIElem, scrollPosition);
-
-			if (hoveredAIElem != selectedAIElem)
+			if (hoveredAIElem != null)
 			{
-				Rectangle clipRectangle2 = TrackDrawer.GetAIClipRectangleSub(selectedAIElem, scrollPosition);
-				int x = Math.Min(clipRectangle.X, clipRectangle2.X);
-				int y = Math.Min(clipRectangle.Y, clipRectangle2.Y);
-				int width = Math.Max(clipRectangle.Right, clipRectangle2.Right) - x;
-				int height = Math.Max(clipRectangle.Bottom, clipRectangle2.Bottom) - y;
-				clipRectangle = new Rectangle(x, y, width, height);
+				Rectangle clipRectangle = TrackDrawer.GetAIClipRectangle(hoveredAIElem, scrollPosition);
+				clipRegion.Union(clipRectangle);
 			}
 
-			clipRegion.Union(clipRectangle);
+			if (selectedAIElem != null &&
+			    hoveredAIElem != selectedAIElem)
+			{
+				Rectangle clipRectangle = TrackDrawer.GetAIClipRectangle(selectedAIElem, scrollPosition);
+				clipRegion.Union(clipRectangle);
+			}
 		}
 
-		private static Rectangle GetAIClipRectangleSub(TrackAIElement aiElement, Point scrollPosition)
+		private static Rectangle GetAIClipRectangle(TrackAIElement aiElement, Point scrollPosition)
 		{
 			// Get the rectangle that includes the whole AI element (zone + target).
 			// NOTE: This clipping method isn't optimal,
 			// returning a GraphicsPath would be more precise.
-
-			if (aiElement == null)
-			{
-				return Rectangle.Empty;
-			}
 
 			int x;
 			int y;
