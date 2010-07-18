@@ -247,7 +247,7 @@ namespace EpicEdit.UI.Gfx
 		}
 
 		public void DrawTrack(Size panelSize, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action,
-							  EditionMode editionMode, OverlayTile hoveredOverlayTile, TrackObject hoveredObject, bool frontZonesView,
+							  EditionMode editionMode, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, TrackObject hoveredObject, bool frontZonesView,
 							  TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
 			int imageWidth = (int)Math.Min(panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
@@ -274,7 +274,7 @@ namespace EpicEdit.UI.Gfx
 				}
 				else if (editionMode == EditionMode.Overlay)
 				{
-					TrackDrawer.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, scrollPosition);
+					TrackDrawer.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, scrollPosition);
 				}
 				else if (editionMode == EditionMode.Start)
 				{
@@ -310,7 +310,7 @@ namespace EpicEdit.UI.Gfx
 
 				if (editionMode == EditionMode.Overlay)
 				{
-					this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile);
+					this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile, selectedOverlayTile);
 				}
 				else if (editionMode == EditionMode.Start)
 				{
@@ -372,18 +372,28 @@ namespace EpicEdit.UI.Gfx
 			clipRegion.Union(rectangle);
 		}
 
-		private static void SetOverlayClipRegion(Region clipRegion, OverlayTile hoveredOverlayTile, Point scrollPosition)
+		private static void SetOverlayClipRegion(Region clipRegion, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, Point scrollPosition)
 		{
 			if (hoveredOverlayTile != null)
 			{
-				Rectangle hoveredOverlayRectangle =
-					new Rectangle((hoveredOverlayTile.X - scrollPosition.X) * 8,
-								  (hoveredOverlayTile.Y - scrollPosition.Y) * 8,
-								  hoveredOverlayTile.Width * 8,
-								  hoveredOverlayTile.Height * 8);
-
+				Rectangle hoveredOverlayRectangle = GetOverlayClipRectangle(hoveredOverlayTile, scrollPosition);
 				clipRegion.Union(hoveredOverlayRectangle);
 			}
+
+			if (selectedOverlayTile != null &&
+			    selectedOverlayTile != hoveredOverlayTile)
+			{
+				Rectangle selectedOverlayRectangle = GetOverlayClipRectangle(selectedOverlayTile, scrollPosition);
+				clipRegion.Union(selectedOverlayRectangle);
+			}
+		}
+
+		private static Rectangle GetOverlayClipRectangle(OverlayTile overlayTile, Point scrollPosition)
+		{
+			return new Rectangle((overlayTile.X - scrollPosition.X) * 8,
+								 (overlayTile.Y - scrollPosition.Y) * 8,
+								 overlayTile.Width * 8,
+								 overlayTile.Height * 8);
 		}
 
 		private static void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition, Point scrollPosition)
@@ -515,7 +525,7 @@ namespace EpicEdit.UI.Gfx
 			graphics.Clip = clipRegion;
 		}
 
-		private void DrawOverlay(Graphics graphics, Point scrollPosition, OverlayTile hoveredOverlayTile)
+		private void DrawOverlay(Graphics graphics, Point scrollPosition, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
 		{
 			Tile[] tiles = this.track.GetRoadTileset();
 
@@ -531,6 +541,16 @@ namespace EpicEdit.UI.Gfx
 									   (hoveredOverlayTile.Y - scrollPosition.Y) * 8,
 									   hoveredOverlayTile.Width * 8,
 									   hoveredOverlayTile.Height * 8);
+			}
+
+			if (selectedOverlayTile != null &&
+			    selectedOverlayTile != hoveredOverlayTile)
+			{
+				graphics.FillRectangle(this.overlayHighlightBrush,
+									   (selectedOverlayTile.X - scrollPosition.X) * 8,
+									   (selectedOverlayTile.Y - scrollPosition.Y) * 8,
+									   selectedOverlayTile.Width * 8,
+									   selectedOverlayTile.Height * 8);
 			}
 		}
 

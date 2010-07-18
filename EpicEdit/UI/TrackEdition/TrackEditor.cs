@@ -968,6 +968,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.buttonPressed,
 				this.CurrentMode,
 				this.hoveredOverlayTile,
+				this.selectedOverlayTile,
 				this.hoveredObject,
 				this.objectControl.FrontZonesView,
 				this.hoveredAIElem,
