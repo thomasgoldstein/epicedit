@@ -435,7 +435,7 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			if (selectedAIElem != null &&
-			    hoveredAIElem != selectedAIElem)
+			    selectedAIElem != hoveredAIElem)
 			{
 				Rectangle clipRectangle = TrackDrawer.GetAIClipRectangle(selectedAIElem, scrollPosition);
 				clipRegion.Union(clipRectangle);
