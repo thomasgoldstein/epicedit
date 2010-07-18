@@ -1327,12 +1327,14 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					this.hoveredOverlayTile = overlayTile;
 					this.Cursor = Cursors.Hand;
+					this.RepaintTrackDisplay();
 					return;
 				}
 			}
 
 			this.hoveredOverlayTile = null;
 			this.Cursor = Cursors.Default;
+			this.RepaintTrackDisplay();
 		}
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)

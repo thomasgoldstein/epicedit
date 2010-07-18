@@ -58,6 +58,11 @@ namespace EpicEdit.UI.Gfx
 		private SolidBrush selectBrush;
 
 		/// <summary>
+		/// Used to paint a rectangle over the hovered overlay tile.
+		/// </summary>
+		private SolidBrush hoveredOverlayBrush;
+
+		/// <summary>
 		/// Used to draw the lap line.
 		/// </summary>
 		private Pen lapLinePen;
@@ -106,6 +111,8 @@ namespace EpicEdit.UI.Gfx
 			this.highlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
 			this.selectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
 			this.selectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
+
+			this.hoveredOverlayBrush = new SolidBrush(Color.FromArgb(50, 255, 255, 255));
 
 			this.lapLinePen = new Pen(Color.White);
 			this.lapLineOutlinePen = new Pen(Color.Black, 3);
@@ -481,6 +488,15 @@ namespace EpicEdit.UI.Gfx
 			{
 				TrackDrawer.DrawOverlayTile(graphics, scrollPosition, overlayTile, tiles);
 			}
+
+			if (hoveredOverlayTile != null)
+			{
+				graphics.FillRectangle(this.hoveredOverlayBrush,
+									   (hoveredOverlayTile.X - scrollPosition.X) * 8,
+									   (hoveredOverlayTile.Y - scrollPosition.Y) * 8,
+									   hoveredOverlayTile.Width * 8,
+									   hoveredOverlayTile.Height * 8);
+			}
 		}
 
 		private static void DrawOverlayTile(Graphics graphics, Point scrollPosition, OverlayTile overlayTile, Tile[] tiles)
@@ -496,7 +512,7 @@ namespace EpicEdit.UI.Gfx
 					}
 
 					Tile tile = tiles[tileId];
-					
+
 					graphics.DrawImage(tile.Bitmap,
 									   (overlayTile.X + x - scrollPosition.X) * 8,
 									   (overlayTile.Y + y - scrollPosition.Y) * 8);
@@ -1093,6 +1109,8 @@ namespace EpicEdit.UI.Gfx
 			this.highlightPen.Dispose();
 			this.selectPen.Dispose();
 			this.selectBrush.Dispose();
+
+			this.hoveredOverlayBrush.Dispose();
 
 			this.lapLinePen.Dispose();
 			this.lapLineOutlinePen.Dispose();
