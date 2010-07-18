@@ -40,6 +40,22 @@ namespace EpicEdit.Rom.Tracks
 			get { return 176; }
 		}
 
+		/// <summary>
+		/// Gets the left bound of the StartPosition, depending on the <see cref="SecondRowOffset"/>.
+		/// </summary>
+		public int Left
+		{
+			get { return this.X + Math.Min(0, this.SecondRowOffset); }
+		}
+
+		/// <summary>
+		/// Gets the right bound of the StartPosition, depending on the <see cref="SecondRowOffset"/>.
+		/// </summary>
+		public int Right
+		{
+			get { return this.X + Math.Max(0, this.SecondRowOffset); }
+		}
+
 		public StartPosition(byte[] data)
 		{
 			int x = (data[1] << 8) + data[0];
@@ -84,20 +100,10 @@ namespace EpicEdit.Rom.Tracks
 
 		public bool IntersectsWith(Point point)
 		{
-			if (this.SecondRowOffset > 0)
-			{
-				return point.X >= this.X - 8 &&
-					point.X <= this.X + this.SecondRowOffset + 7 &&
-					point.Y >= this.Y - 8 &&
-					point.Y <= this.Y + this.Height;
-			}
-			else
-			{
-				return point.X >= this.X + this.SecondRowOffset - 8 &&
-					point.X <= this.X + 7 &&
-					point.Y >= this.Y - 8 &&
-					point.Y <= this.Y + this.Height;
-			}
+			return point.X >= this.Left - 8 &&
+				point.X <= this.Right + 7 &&
+				point.Y >= this.Y - 8 &&
+				point.Y <= this.Y + this.Height;
 		}
 
 		public void MoveTo(int x, int y)

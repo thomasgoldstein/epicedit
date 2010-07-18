@@ -398,9 +398,9 @@ namespace EpicEdit.UI.Gfx
 
 		private static Rectangle GetGPStartClipRectangle(LapLine lapLine, StartPosition startPosition, Point scrollPosition)
 		{
-			int x = Math.Min(lapLine.X, startPosition.X + Math.Min(0, startPosition.SecondRowOffset));
+			int x = Math.Min(lapLine.X, startPosition.Left);
 			int y = Math.Min(lapLine.Y, startPosition.Y);
-			int width = Math.Max(lapLine.Right, startPosition.X + Math.Max(0, startPosition.SecondRowOffset)) - x;
+			int width = Math.Max(lapLine.Right, startPosition.Right) - x;
 			int height = Math.Max(lapLine.Y, startPosition.Y + startPosition.Height) - y;
 
 			Rectangle startRectangle =
