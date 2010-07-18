@@ -401,7 +401,7 @@ namespace EpicEdit.UI.Gfx
 			int x = Math.Min(lapLine.X, startPosition.X + Math.Min(0, startPosition.SecondRowOffset));
 			int y = Math.Min(lapLine.Y, startPosition.Y);
 			int width = Math.Max(lapLine.Right, startPosition.X + Math.Max(0, startPosition.SecondRowOffset)) - x;
-			int height = Math.Max(lapLine.Y, startPosition.Y + 176) - y;
+			int height = Math.Max(lapLine.Y, startPosition.Y + this.Height) - y;
 
 			Rectangle startRectangle =
 				new Rectangle(x - (scrollPosition.X * 8) - 4,

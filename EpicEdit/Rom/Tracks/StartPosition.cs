@@ -35,6 +35,11 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.location.Y; }
 		}
 
+		public int Height
+		{
+			get { return 176; }
+		}
+
 		public StartPosition(byte[] data)
 		{
 			int x = (data[1] << 8) + data[0];
@@ -84,14 +89,14 @@ namespace EpicEdit.Rom.Tracks
 				return point.X >= this.X - 8 &&
 					point.X <= this.X + this.SecondRowOffset + 7 &&
 					point.Y >= this.Y - 8 &&
-					point.Y <= this.Y + 176;
+					point.Y <= this.Y + this.Height;
 			}
 			else
 			{
 				return point.X >= this.X + this.SecondRowOffset - 8 &&
 					point.X <= this.X + 7 &&
 					point.Y >= this.Y - 8 &&
-					point.Y <= this.Y + 176;
+					point.Y <= this.Y + this.Height;
 			}
 		}
 
@@ -126,9 +131,9 @@ namespace EpicEdit.Rom.Tracks
 			{
 				y = 8;
 			}
-			else if (y > limit - 176)
+			else if (y > limit - this.Height)
 			{
-				y = limit - 176;
+				y = limit - this.Height;
 			}
 
 			this.location = new Point(x, y);
