@@ -266,8 +266,8 @@ namespace EpicEdit.UI.Gfx
 				{
 					if (action != ActionButton.MiddleMouseButton)
 					{
-						Rectangle selectionRectangle = this.CreateAndDrawSelectionRectangle(trackGfxBackBuffer, scrollPosition, cursorPosition, selectionSize, selectionStart, action);
-						clipRectangle = TrackDrawer.GetSelectionClipRectangle(selectionRectangle);
+						Rectangle selectionRectangle = this.CreateAndDrawTileSelectionRectangle(trackGfxBackBuffer, scrollPosition, cursorPosition, selectionSize, selectionStart, action);
+						clipRectangle = TrackDrawer.GetTileSelectionClipRectangle(selectionRectangle);
 					}
 					else
 					{
@@ -345,7 +345,7 @@ namespace EpicEdit.UI.Gfx
 			this.trackGfx.ResetClip();
 		}
 
-		private Rectangle CreateAndDrawSelectionRectangle(Graphics graphics, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
+		private Rectangle CreateAndDrawTileSelectionRectangle(Graphics graphics, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
 		{
 			Rectangle selectionRectangle;
 			if (action == ActionButton.RightMouseButton) // A multiple tile selection is happening now
@@ -368,7 +368,7 @@ namespace EpicEdit.UI.Gfx
 			return selectionRectangle;
 		}
 
-		private static Rectangle GetSelectionClipRectangle(Rectangle rectangle)
+		private static Rectangle GetTileSelectionClipRectangle(Rectangle rectangle)
 		{
 			// Enlarge rectangle by 1px to account for the 1px border of the selection
 			rectangle.Inflate(1, 1);
