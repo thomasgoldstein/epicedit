@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
+using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
@@ -150,6 +151,11 @@ namespace EpicEdit.UI.TrackEdition
 			DragZone,
 			ResizeZone
 		}
+
+		/// <summary>
+		/// The hovered track overlay tile.
+		/// </summary>
+		private OverlayTile hoveredOverlayTile;
 
 		/// <summary>
 		/// The current action the user is doing (or about to do) on the start data.
@@ -1306,7 +1312,23 @@ namespace EpicEdit.UI.TrackEdition
 		#region EditionMode.Overlay
 		private void InitOverlayAction()
 		{
-			// TODO: Implement this.
+			Point hoveredTilePosition = this.GetHoveredTilePosition();
+
+			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+			{
+				if (hoveredTilePosition.X >= overlayTile.X &&
+				    hoveredTilePosition.X <= overlayTile.X + overlayTile.Width &&
+				    hoveredTilePosition.Y >= overlayTile.Y &&
+				    hoveredTilePosition.Y <= overlayTile.Y + overlayTile.Height)
+				{
+					this.hoveredOverlayTile = overlayTile;
+					this.Cursor = Cursors.Hand;
+					return;
+				}
+			}
+
+			this.hoveredOverlayTile = null;
+			this.Cursor = Cursors.Default;
 		}
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
