@@ -45,22 +45,22 @@ namespace EpicEdit.UI.Gfx
 		/// <summary>
 		/// Used to draw the rectangle when highlighting tiles.
 		/// </summary>
-		private Pen highlightPen;
+		private Pen tileHighlightPen;
 
 		/// <summary>
 		/// Used to draw the rectangle when selecting tiles.
 		/// </summary>
-		private Pen selectPen;
+		private Pen tileSelectPen;
 
 		/// <summary>
 		/// Used to paint the inside of the selection rectangle.
 		/// </summary>
-		private SolidBrush selectBrush;
+		private SolidBrush tileSelectBrush;
 
 		/// <summary>
 		/// Used to paint a rectangle over the hovered overlay tile.
 		/// </summary>
-		private SolidBrush hoveredOverlayBrush;
+		private SolidBrush overlayHighlightBrush;
 
 		/// <summary>
 		/// Used to draw the lap line.
@@ -91,8 +91,8 @@ namespace EpicEdit.UI.Gfx
 
 		private SolidBrush[][] aiZoneBrushes;
 		private Pen[] aiZonePens;
-		private Pen hoveredAIElementPen;
-		private Pen selectedAIElementPen;
+		private Pen aiElementHighlightPen;
+		private Pen aiElementSelectPen;
 
 		private SolidBrush startPositionBrush;
 		private Pen startPositionPen;
@@ -108,11 +108,11 @@ namespace EpicEdit.UI.Gfx
 
 			#region Pens and Brushes initialization
 
-			this.highlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
-			this.selectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
-			this.selectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
+			this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
+			this.tileSelectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
+			this.tileSelectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
 
-			this.hoveredOverlayBrush = new SolidBrush(Color.FromArgb(50, 255, 255, 255));
+			this.overlayHighlightBrush = new SolidBrush(Color.FromArgb(50, 255, 255, 255));
 
 			this.lapLinePen = new Pen(Color.White);
 			this.lapLineOutlinePen = new Pen(Color.Black, 3);
@@ -160,8 +160,8 @@ namespace EpicEdit.UI.Gfx
 			this.aiZonePens[2] = new Pen(Color.FromArgb(255, 244, 231, 124), 1);
 			this.aiZonePens[3] = new Pen(Color.FromArgb(255, 244, 172, 133), 1);
 
-			this.hoveredAIElementPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
-			this.selectedAIElementPen = new Pen(Color.White, 1);
+			this.aiElementHighlightPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
+			this.aiElementSelectPen = new Pen(Color.White, 1);
 
 			this.startPositionBrush = new SolidBrush(Color.White);
 			this.startPositionPen = new Pen(Color.Gray, 1);
@@ -312,13 +312,13 @@ namespace EpicEdit.UI.Gfx
 				selectionStart.X -= scrollPosition.X;
 				selectionStart.Y -= scrollPosition.Y;
 				selectionRectangle = new Rectangle((selectionStart.X * 8) - 1, (selectionStart.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
-				graphics.FillRectangle(this.selectBrush, selectionRectangle);
-				graphics.DrawRectangle(this.selectPen, selectionRectangle);
+				graphics.FillRectangle(this.tileSelectBrush, selectionRectangle);
+				graphics.DrawRectangle(this.tileSelectPen, selectionRectangle);
 			}
 			else if (cursorPosition.X != -1) // The user is simply hovering tiles
 			{
 				selectionRectangle = new Rectangle((cursorPosition.X * 8) - 1, (cursorPosition.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
-				graphics.DrawRectangle(this.highlightPen, selectionRectangle);
+				graphics.DrawRectangle(this.tileHighlightPen, selectionRectangle);
 			}
 			else
 			{
@@ -491,7 +491,7 @@ namespace EpicEdit.UI.Gfx
 
 			if (hoveredOverlayTile != null)
 			{
-				graphics.FillRectangle(this.hoveredOverlayBrush,
+				graphics.FillRectangle(this.overlayHighlightBrush,
 									   (hoveredOverlayTile.X - scrollPosition.X) * 8,
 									   (hoveredOverlayTile.Y - scrollPosition.Y) * 8,
 									   hoveredOverlayTile.Width * 8,
@@ -807,19 +807,19 @@ namespace EpicEdit.UI.Gfx
 
 			if (isAITargetHovered)
 			{
-				TrackDrawer.DrawAITargetLines(graphics, scrollPosition, hoveredAIElem, zone, this.hoveredAIElementPen);
+				TrackDrawer.DrawAITargetLines(graphics, scrollPosition, hoveredAIElem, zone, this.aiElementHighlightPen);
 			}
 			else
 			{
 				if (hoveredAIElem.ZoneShape == Shape.Rectangle)
 				{
-					graphics.DrawRectangle(this.hoveredAIElementPen, zone);
+					graphics.DrawRectangle(this.aiElementHighlightPen, zone);
 				}
 				else
 				{
 					Point[] points = TrackDrawer.GetAIZoneTriangle(hoveredAIElem, scrollPosition);
 
-					graphics.DrawLines(this.hoveredAIElementPen, points);
+					graphics.DrawLines(this.aiElementHighlightPen, points);
 				}
 			}
 		}
@@ -833,18 +833,18 @@ namespace EpicEdit.UI.Gfx
 
 			Rectangle zone = TrackDrawer.GetAIZoneRectangle(selectedAIElem, scrollPosition);
 
-			TrackDrawer.DrawAITargetLines(graphics, scrollPosition, selectedAIElem, zone, this.selectedAIElementPen);
+			TrackDrawer.DrawAITargetLines(graphics, scrollPosition, selectedAIElem, zone, this.aiElementSelectPen);
 
 			if (selectedAIElem.ZoneShape == Shape.Rectangle)
 			{
-				graphics.DrawRectangle(this.selectedAIElementPen, zone);
+				graphics.DrawRectangle(this.aiElementSelectPen, zone);
 				graphics.FillRectangle(this.aiZoneBrushes[selectedAIElem.Speed][0], zone);
 			}
 			else
 			{
 				Point[] points = TrackDrawer.GetAIZoneTriangle(selectedAIElem, scrollPosition);
 
-				graphics.DrawPolygon(this.selectedAIElementPen, points);
+				graphics.DrawPolygon(this.aiElementSelectPen, points);
 				graphics.FillPolygon(this.aiZoneBrushes[selectedAIElem.Speed][0], points);
 			}
 		}
@@ -1106,11 +1106,11 @@ namespace EpicEdit.UI.Gfx
 
 			this.trackGfx.Dispose();
 
-			this.highlightPen.Dispose();
-			this.selectPen.Dispose();
-			this.selectBrush.Dispose();
+			this.tileHighlightPen.Dispose();
+			this.tileSelectPen.Dispose();
+			this.tileSelectBrush.Dispose();
 
-			this.hoveredOverlayBrush.Dispose();
+			this.overlayHighlightBrush.Dispose();
 
 			this.lapLinePen.Dispose();
 			this.lapLineOutlinePen.Dispose();
@@ -1138,8 +1138,8 @@ namespace EpicEdit.UI.Gfx
 			{
 				aiZonePen.Dispose();
 			}
-			this.hoveredAIElementPen.Dispose();
-			this.selectedAIElementPen.Dispose();
+			this.aiElementHighlightPen.Dispose();
+			this.aiElementSelectPen.Dispose();
 			this.startPositionBrush.Dispose();
 			this.startPositionPen.Dispose();
 
