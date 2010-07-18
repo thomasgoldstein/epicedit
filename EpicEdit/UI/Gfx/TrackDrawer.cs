@@ -73,6 +73,16 @@ namespace EpicEdit.UI.Gfx
 		private Pen lapLineOutlinePen;
 
 		/// <summary>
+		/// Used to fill in the starting positions.
+		/// </summary>
+		private SolidBrush startPositionBrush;
+
+		/// <summary>
+		/// Used to draw the starting position outlines.
+		/// </summary>
+		private Pen startPositionPen;
+
+		/// <summary>
 		/// Used to fill in object zones.
 		/// </summary>
 		private SolidBrush[] objectZoneBrushes;
@@ -87,15 +97,30 @@ namespace EpicEdit.UI.Gfx
 		/// </summary>
 		private SolidBrush[] objectBrushes;
 
+		/// <summary>
+		/// Used to draw inside Match Race objects.
+		/// </summary>
 		private Pen objectMatchRacePen;
 
+		/// <summary>
+		/// Used to fill in AI zones.
+		/// </summary>
 		private SolidBrush[][] aiZoneBrushes;
-		private Pen[] aiZonePens;
-		private Pen aiElementHighlightPen;
-		private Pen aiElementSelectPen;
 
-		private SolidBrush startPositionBrush;
-		private Pen startPositionPen;
+		/// <summary>
+		/// Used to draw the AI zone outlines.
+		/// </summary>
+		private Pen[] aiZonePens;
+
+		/// <summary>
+		/// Used to draw the hovered AI zone outlines.
+		/// </summary>
+		private Pen aiElementHighlightPen;
+
+		/// <summary>
+		/// Used to draw the selected AI zone outlines.
+		/// </summary>
+		private Pen aiElementSelectPen;
 
 		private bool fullRepaintNeeded;
 		private Rectangle dirtyArea;
@@ -116,6 +141,8 @@ namespace EpicEdit.UI.Gfx
 
 			this.lapLinePen = new Pen(Color.White);
 			this.lapLineOutlinePen = new Pen(Color.Black, 3);
+			this.startPositionBrush = new SolidBrush(Color.White);
+			this.startPositionPen = new Pen(Color.Gray, 1);
 
 			this.objectZoneBrushes = new SolidBrush[4];
 			this.objectZoneBrushes[0] = new SolidBrush(Color.FromArgb(150, 204, 51, 51)); // Object zone 1 color
@@ -162,9 +189,6 @@ namespace EpicEdit.UI.Gfx
 
 			this.aiElementHighlightPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
 			this.aiElementSelectPen = new Pen(Color.White, 1);
-
-			this.startPositionBrush = new SolidBrush(Color.White);
-			this.startPositionPen = new Pen(Color.Gray, 1);
 
 			#endregion Pens and Brushes initialization
 
@@ -1114,6 +1138,8 @@ namespace EpicEdit.UI.Gfx
 
 			this.lapLinePen.Dispose();
 			this.lapLineOutlinePen.Dispose();
+			this.startPositionBrush.Dispose();
+			this.startPositionPen.Dispose();
 
 			foreach (SolidBrush objectZoneBrush in this.objectZoneBrushes)
 			{
@@ -1140,8 +1166,6 @@ namespace EpicEdit.UI.Gfx
 			}
 			this.aiElementHighlightPen.Dispose();
 			this.aiElementSelectPen.Dispose();
-			this.startPositionBrush.Dispose();
-			this.startPositionPen.Dispose();
 
 			GC.SuppressFinalize(this);
 		}
