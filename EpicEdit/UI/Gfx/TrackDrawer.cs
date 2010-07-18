@@ -595,8 +595,8 @@ namespace EpicEdit.UI.Gfx
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
-			int x = gpTrack.StartPosition.Location.X - scrollPosition.X * 8;
-			int y = gpTrack.StartPosition.Location.Y - scrollPosition.Y * 8;
+			int x = gpTrack.StartPosition.X - scrollPosition.X * 8;
+			int y = gpTrack.StartPosition.Y - scrollPosition.Y * 8;
 			int secondRowOffset = gpTrack.StartPosition.SecondRowOffset;
 
 			Point[] triangle;

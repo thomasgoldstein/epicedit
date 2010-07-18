@@ -731,9 +731,8 @@ namespace EpicEdit.UI.TrackEdition
 					if (this.startAction == StartAction.DragStartPosition)
 					{
 						this.buttonPressed = ActionButton.LeftMouseButton;
-						Point startPosition = gpTrack.StartPosition.Location;
-						this.anchorPoint = new Point(absPixelPos.X - startPosition.X,
-													 absPixelPos.Y - startPosition.Y);
+						this.anchorPoint = new Point(absPixelPos.X - gpTrack.StartPosition.X,
+													 absPixelPos.Y - gpTrack.StartPosition.Y);
 					}
 					else if (this.startAction != StartAction.None)
 					{
@@ -1402,13 +1401,13 @@ namespace EpicEdit.UI.TrackEdition
 						destination = new Point(((absPixelPos.X - this.anchorPoint.X) / step) * step,
 												((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
 
-						xBefore = gpTrack.StartPosition.Location.X;
-						yBefore = gpTrack.StartPosition.Location.Y;
+						xBefore = gpTrack.StartPosition.X;
+						yBefore = gpTrack.StartPosition.Y;
 
 						gpTrack.StartPosition.MoveTo(destination.X, destination.Y);
 
-						xDifference = gpTrack.StartPosition.Location.X - xBefore;
-						yDifference = gpTrack.StartPosition.Location.Y - yBefore;
+						xDifference = gpTrack.StartPosition.X - xBefore;
+						yDifference = gpTrack.StartPosition.Y - yBefore;
 
 						if (xDifference != 0 || yDifference != 0)
 						{
@@ -1432,8 +1431,8 @@ namespace EpicEdit.UI.TrackEdition
 
 						if (xDifference != 0 || yDifference != 0)
 						{
-							destination = new Point(gpTrack.StartPosition.Location.X + xDifference,
-													gpTrack.StartPosition.Location.Y + yDifference);
+							destination = new Point(gpTrack.StartPosition.X + xDifference,
+													gpTrack.StartPosition.Y + yDifference);
 
 							gpTrack.StartPosition.MoveTo(destination.X, destination.Y);
 							dataChanged = true;

@@ -22,14 +22,24 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class StartPosition
 	{
-		public Point Location { get; private set; }
+		private Point location;
 		public int SecondRowOffset { get; set; }
+
+		public int X
+		{
+			get { return this.location.X; }
+		}
+
+		public int Y
+		{
+			get { return this.location.Y; }
+		}
 
 		public StartPosition(byte[] data)
 		{
 			int x = (data[1] << 8) + data[0];
 			int y = (data[3] << 8) + data[2];
-			this.Location = new Point(x, y);
+			this.location = new Point(x, y);
 
 			this.SecondRowOffset = data[4];
 			if (data[5] != 0x00)
@@ -48,10 +58,10 @@ namespace EpicEdit.Rom.Tracks
 		public byte[] GetBytes()
 		{
 			byte[] data = new byte[6];
-			data[0] = (byte)(this.Location.X & 0xFF);
-			data[1] = (byte)((this.Location.X & 0xFF00) >> 8);
-			data[2] = (byte)(this.Location.Y & 0xFF);
-			data[3] = (byte)((this.Location.Y & 0xFF00) >> 8);
+			data[0] = (byte)(this.X & 0xFF);
+			data[1] = (byte)((this.X & 0xFF00) >> 8);
+			data[2] = (byte)(this.Y & 0xFF);
+			data[3] = (byte)((this.Y & 0xFF00) >> 8);
 
 			if (this.SecondRowOffset < 0)
 			{
@@ -71,17 +81,17 @@ namespace EpicEdit.Rom.Tracks
 		{
 			if (this.SecondRowOffset > 0)
 			{
-				return point.X >= this.Location.X - 8 &&
-					point.X <= this.Location.X + this.SecondRowOffset + 7 &&
-					point.Y >= this.Location.Y - 8 &&
-					point.Y <= this.Location.Y + 176;
+				return point.X >= this.X - 8 &&
+					point.X <= this.X + this.SecondRowOffset + 7 &&
+					point.Y >= this.Y - 8 &&
+					point.Y <= this.Y + 176;
 			}
 			else
 			{
-				return point.X >= this.Location.X + this.SecondRowOffset - 8 &&
-					point.X <= this.Location.X + 7 &&
-					point.Y >= this.Location.Y - 8 &&
-					point.Y <= this.Location.Y + 176;
+				return point.X >= this.X + this.SecondRowOffset - 8 &&
+					point.X <= this.X + 7 &&
+					point.Y >= this.Y - 8 &&
+					point.Y <= this.Y + 176;
 			}
 		}
 
@@ -121,7 +131,7 @@ namespace EpicEdit.Rom.Tracks
 				y = limit - 176;
 			}
 
-			this.Location = new Point(x, y);
+			this.location = new Point(x, y);
 		}
 	}
 }

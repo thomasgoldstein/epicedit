@@ -1232,7 +1232,7 @@ namespace EpicEdit.Rom
 			float yRelative = (1023 - track.LapLine.Y) * (xBottomRight - xBottomLeft) / 1023;
 			int y = (int)(yBottom - (yRelative * Math.Sin(0.389)) - 7);
 
-			float xPercent = (float)(track.StartPosition.Location.X + track.StartPosition.SecondRowOffset / 2) / 1023;
+			float xPercent = (float)(track.StartPosition.X + track.StartPosition.SecondRowOffset / 2) / 1023;
 			float yPercent = (float)(y - yTop) / (yBottom - yTop);
 			int xStart = (int)(xTopLeft - (xTopLeft - xBottomLeft) * yPercent);
 			int mapWidth = xBottomRight - (xStart - xBottomLeft) * 2;
