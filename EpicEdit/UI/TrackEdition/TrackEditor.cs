@@ -97,6 +97,18 @@ namespace EpicEdit.UI.TrackEdition
 		}
 
 		/// <summary>
+		/// Which tile the cursor is on (takes scrolling position in consideration).
+		/// </summary>
+		private Point AbsoluteTilePosition
+		{
+			get
+			{
+				return  new Point(this.scrollPosition.X + this.TilePosition.X,
+				                  this.scrollPosition.Y + this.TilePosition.Y);
+			}
+		}
+
+		/// <summary>
 		/// Scrolling position in the track (= location of the top-left displayed tile).
 		/// </summary>
 		private Point scrollPosition;
@@ -540,7 +552,7 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				else
 				{
-					Point hoveredTilePosition = this.GetHoveredTilePosition();
+					Point hoveredTilePosition = this.AbsoluteTilePosition;
 					this.positionToolStripStatusLabel.Text = "(" + hoveredTilePosition.X + "," + hoveredTilePosition.Y + ")";
 
 					this.InitCurrentModeAction();
@@ -620,7 +632,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void RecalculateTileClipboard()
 		{
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			this.tileClipboardSize.Width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
 			this.tileClipboardSize.Height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
@@ -669,7 +681,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.buttonPressed = ActionButton.MiddleMouseButton;
 				this.Cursor = Cursors.SizeAll;
-				this.anchorPoint = this.GetHoveredTilePosition();
+				this.anchorPoint = this.AbsoluteTilePosition;
 				this.RepaintTrackDisplay();
 			}
 			else if (currentMode == EditionMode.Tileset)
@@ -695,7 +707,7 @@ namespace EpicEdit.UI.TrackEdition
 							this.tileClipboard.Clear();
 							this.tileClipboard.Add((byte)hoveredTile);
 
-							this.anchorPoint = this.tileClipboardTopLeft = this.GetHoveredTilePosition();
+							this.anchorPoint = this.tileClipboardTopLeft = this.AbsoluteTilePosition;
 
 							this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 
@@ -1009,7 +1021,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.pixelPosition.X = (int)(position.X / this.Zoom);
 			this.pixelPosition.Y = (int)(position.Y / this.Zoom);
 
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 			this.positionToolStripStatusLabel.Text = "(" + hoveredTilePosition.X + "," + hoveredTilePosition.Y + ")";
 
 			this.InitCurrentModeAction();
@@ -1023,15 +1035,6 @@ namespace EpicEdit.UI.TrackEdition
 				// already repaints the track display.
 				this.RepaintTrackDisplay();
 			}
-		}
-
-		private Point GetHoveredTilePosition()
-		{
-			int x = this.scrollPosition.X + this.TilePosition.X;
-			int y = this.scrollPosition.Y + this.TilePosition.Y;
-			Point hoveredTilePosition = new Point(x, y);
-
-			return hoveredTilePosition;
 		}
 
 		private void InitCurrentModeAction()
@@ -1206,7 +1209,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private byte? GetHoveredTile()
 		{
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
 			   hoveredTilePosition.X < this.track.Map.Width &&
@@ -1219,7 +1222,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void LayTiles()
 		{
-			this.LayTiles(this.GetHoveredTilePosition());
+			this.LayTiles(this.AbsoluteTilePosition);
 		}
 
 		private void LayTiles(Point hoveredTilePosition)
@@ -1312,7 +1315,7 @@ namespace EpicEdit.UI.TrackEdition
 		#region EditionMode.Overlay
 		private void InitOverlayAction()
 		{
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 			{
@@ -1489,7 +1492,7 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
@@ -1556,7 +1559,7 @@ namespace EpicEdit.UI.TrackEdition
 		#region EditionMode.AI
 		private void InitAIAction()
 		{
-			Point hoveredTilePosition = this.GetHoveredTilePosition();
+			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
@@ -1745,7 +1748,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void AddAIElement()
 		{
-			Point position = this.GetHoveredTilePosition();
+			Point position = this.AbsoluteTilePosition;
 			TrackAIElement newAIElem = new TrackAIElement(position);
 
 			if (this.track.AI.Add(newAIElem))
