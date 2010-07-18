@@ -65,6 +65,18 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			}
 		}
 
+		public int Width
+		{
+			get { return this.Size.Width; }
+			set { this.Size.Width = value; }
+		}
+
+		public int Height
+		{
+			get { return this.Size.Height; }
+			set { this.Size.Height = value; }
+		}
+
 		public OverlayTileSize Size { get; set; }
 		public OverlayTilePattern Pattern { get; set; }
 
