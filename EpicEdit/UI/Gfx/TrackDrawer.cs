@@ -87,7 +87,7 @@ namespace EpicEdit.UI.Gfx
 		/// </summary>
 		private SolidBrush[] objectBrushes;
 
-		private Pen objectPen;
+		private Pen objectMatchRacePen;
 
 		private SolidBrush[][] aiZoneBrushes;
 		private Pen[] aiZonePens;
@@ -130,7 +130,7 @@ namespace EpicEdit.UI.Gfx
 			this.objectBrushes[2] = new SolidBrush(Color.FromArgb(255, 16, 150, 24)); // Zone 3 object color
 			this.objectBrushes[3] = new SolidBrush(Color.FromArgb(255, 230, 186, 64)); // Zone 4 object color
 			this.objectBrushes[4] = new SolidBrush(Color.FromArgb(255, 0, 0, 0)); // Match Race object color
-			this.objectPen = new Pen(Color.SkyBlue, 1);
+			this.objectMatchRacePen = new Pen(Color.SkyBlue, 1);
 
 			this.aiZoneBrushes = new SolidBrush[4][];
 
@@ -624,14 +624,14 @@ namespace EpicEdit.UI.Gfx
 
 				if (trackObject.Direction == Direction.Horizontal)
 				{
-					graphics.DrawLine(this.objectPen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 2, trackObjectRect.Y + 5);
-					graphics.DrawLine(this.objectPen, trackObjectRect.X + 2, trackObjectRect.Y + 3, trackObjectRect.X + 5, trackObjectRect.Y + 3);
-					graphics.DrawLine(this.objectPen, trackObjectRect.X + 5, trackObjectRect.Y + 2, trackObjectRect.X + 5, trackObjectRect.Y + 5);
+					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 2, trackObjectRect.Y + 5);
+					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 3, trackObjectRect.X + 5, trackObjectRect.Y + 3);
+					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 5, trackObjectRect.Y + 2, trackObjectRect.X + 5, trackObjectRect.Y + 5);
 				}
 				else if (trackObject.Direction == Direction.Vertical)
 				{
-					graphics.DrawLine(this.objectPen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 3, trackObjectRect.Y + 5);
-					graphics.DrawLine(this.objectPen, trackObjectRect.X + 4, trackObjectRect.Y + 5, trackObjectRect.X + 5, trackObjectRect.Y + 2);
+					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 3, trackObjectRect.Y + 5);
+					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 4, trackObjectRect.Y + 5, trackObjectRect.X + 5, trackObjectRect.Y + 2);
 				}
 			}
 
@@ -1120,7 +1120,7 @@ namespace EpicEdit.UI.Gfx
 				objectZoneBrush.Dispose();
 			}
 
-			this.objectPen.Dispose();
+			this.objectMatchRacePen.Dispose();
 			this.objectOutlinePen.Dispose();
 			foreach (SolidBrush objectBrush in this.objectBrushes)
 			{
