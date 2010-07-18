@@ -479,22 +479,27 @@ namespace EpicEdit.UI.Gfx
 
 			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 			{
-				for (int x = 0; x < overlayTile.Width; x++)
-				{
-					for (int y = 0; y < overlayTile.Height; y++)
-					{
-						byte tileId = overlayTile.Pattern.Tiles[y][x];
-						if (tileId == 0xFF)
-						{
-							continue;
-						}
+				TrackDrawer.DrawOverlayTile(graphics, scrollPosition, overlayTile, tiles);
+			}
+		}
 
-						Tile tile = tiles[tileId];
-						
-						graphics.DrawImage(tile.Bitmap,
-										   (overlayTile.X + x - scrollPosition.X) * 8,
-										   (overlayTile.Y + y - scrollPosition.Y) * 8);
+		private static void DrawOverlayTile(Graphics graphics, Point scrollPosition, OverlayTile overlayTile, Tile[] tiles)
+		{
+			for (int x = 0; x < overlayTile.Width; x++)
+			{
+				for (int y = 0; y < overlayTile.Height; y++)
+				{
+					byte tileId = overlayTile.Pattern.Tiles[y][x];
+					if (tileId == 0xFF)
+					{
+						continue;
 					}
+
+					Tile tile = tiles[tileId];
+					
+					graphics.DrawImage(tile.Bitmap,
+									   (overlayTile.X + x - scrollPosition.X) * 8,
+									   (overlayTile.Y + y - scrollPosition.Y) * 8);
 				}
 			}
 		}
