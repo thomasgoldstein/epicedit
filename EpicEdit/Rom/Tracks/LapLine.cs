@@ -25,6 +25,14 @@ namespace EpicEdit.Rom.Tracks
 		public Point Location { get; private set; }
 		public int Length { get; private set; }
 
+		/// <summary>
+		/// Gets the x-coordinate that is the sum of X and Length property values of this LapLine.
+		/// </summary>
+		public int Right
+		{
+			get { return this.Location.X + this.Length; }
+		}
+
 		public LapLine(byte[] data)
 		{
 			// In the game, the lap line data consists of a vertical value (the 2 first bytes),
@@ -46,7 +54,7 @@ namespace EpicEdit.Rom.Tracks
 		public bool IntersectsWith(Point point)
 		{
 			return point.X >= this.Location.X - 8 &&
-				point.X <= this.Location.X + this.Length + 7 &&
+				point.X <= this.Right + 7 &&
 				point.Y >= this.Location.Y - 8 &&
 				point.Y <= this.Location.Y + 7;
 		}
@@ -58,7 +66,7 @@ namespace EpicEdit.Rom.Tracks
 				return ResizeHandle.Left;
 			}
 
-			if (point.X >= this.Location.X + this.Length - 8)
+			if (point.X >= this.Right - 8)
 			{
 				return ResizeHandle.Right;
 			}
@@ -97,9 +105,9 @@ namespace EpicEdit.Rom.Tracks
 
 			if (resizeHandle == ResizeHandle.Left)
 			{
-				if (this.Length + this.Location.X - x <= 0)
+				if (this.Right - x <= 0)
 				{
-					x = this.Length + this.Location.X - 16;
+					x = this.Right - 16;
 				}
 
 				this.Length += this.Location.X - x;
