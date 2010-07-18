@@ -137,12 +137,14 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Clear(byte tile)
 		{
-			for (int y = 0; y < this.Height; y++)
+			for (int x = 0; x < this.Width; x++)
 			{
-				for (int x = 0; x < this.Width; x++)
-				{
-					this.SetTile(x, y, tile);
-				}
+				this.SetTile(x, 0, tile);
+			}
+
+			for (int y = 1; y < this.Height; y++)
+			{
+				Array.Copy(this.map[0], 0, this.map[y], 0, this.Width);
 			}
 		}
 	}
