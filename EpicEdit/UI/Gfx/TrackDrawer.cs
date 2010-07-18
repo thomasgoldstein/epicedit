@@ -274,6 +274,10 @@ namespace EpicEdit.UI.Gfx
 						clipRectangle = Rectangle.Empty;
 					}
 				}
+				else if (editionMode == EditionMode.Overlay)
+				{
+					clipRectangle = TrackDrawer.GetOverlayClipRectangle(hoveredOverlayTile, scrollPosition);
+				}
 				else if (editionMode == EditionMode.Objects)
 				{
 					clipRectangle = TrackDrawer.GetObjectClipRectangle(hoveredObject, scrollPosition);
@@ -357,6 +361,26 @@ namespace EpicEdit.UI.Gfx
 			rectangle.Inflate(1, 1);
 
 			return rectangle;
+		}
+
+		private static Rectangle GetOverlayClipRectangle(OverlayTile hoveredOverlayTile, Point scrollPosition)
+		{
+			Rectangle hoveredOverlayRectangle;
+
+			if (hoveredOverlayTile == null)
+			{
+				hoveredOverlayRectangle = Rectangle.Empty;
+			}
+			else
+			{
+				hoveredOverlayRectangle =
+					new Rectangle((hoveredOverlayTile.X - scrollPosition.X) * 8,
+								  (hoveredOverlayTile.Y - scrollPosition.Y) * 8,
+								  hoveredOverlayTile.Width * 8,
+								  hoveredOverlayTile.Height * 8);
+			}
+
+			return hoveredOverlayRectangle;
 		}
 
 		private static Rectangle GetObjectClipRectangle(TrackObject hoveredObject, Point scrollPosition)
