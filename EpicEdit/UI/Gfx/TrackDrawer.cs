@@ -278,6 +278,19 @@ namespace EpicEdit.UI.Gfx
 				{
 					clipRectangle = TrackDrawer.GetOverlayClipRectangle(hoveredOverlayTile, scrollPosition);
 				}
+				else if (editionMode == EditionMode.Start)
+				{
+					if (this.track is GPTrack)
+					{
+						GPTrack gpTrack = this.track as GPTrack;
+						clipRectangle = TrackDrawer.GetGPStartClipRectangle(gpTrack.LapLine, gpTrack.StartPosition, scrollPosition);
+					}
+					else
+					{
+						clipRectangle = Rectangle.Empty;
+						this.NotifyFullRepaintNeed();
+					}
+				}
 				else if (editionMode == EditionMode.Objects)
 				{
 					clipRectangle = TrackDrawer.GetObjectClipRectangle(hoveredObject, scrollPosition);
@@ -381,6 +394,21 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			return hoveredOverlayRectangle;
+		}
+
+		private static Rectangle GetGPStartClipRectangle(LapLine lapLine, StartPosition startPosition, Point scrollPosition)
+		{
+			int x = Math.Min(lapLine.X, startPosition.X + Math.Min(0, startPosition.SecondRowOffset));
+			int y = Math.Min(lapLine.Y, startPosition.Y);
+			int width = Math.Max(lapLine.Right, startPosition.X + Math.Max(0, startPosition.SecondRowOffset)) - x;
+			int height = Math.Max(lapLine.Y, startPosition.Y + 176) - y;
+
+			Rectangle startRectangle =
+				new Rectangle(x - (scrollPosition.X * 8) - 4,
+				              y - (scrollPosition.Y * 8) - 4,
+							  width + 8, height + 8);
+
+			return startRectangle;
 		}
 
 		private static Rectangle GetObjectClipRectangle(TrackObject hoveredObject, Point scrollPosition)
