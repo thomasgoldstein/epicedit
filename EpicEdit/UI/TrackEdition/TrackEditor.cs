@@ -729,6 +729,7 @@ namespace EpicEdit.UI.TrackEdition
 				}
 
 				this.selectedOverlayTile = this.hoveredOverlayTile;
+				this.RepaintTrackDisplay();
 			}
 			else if (currentMode == EditionMode.Start)
 			{
