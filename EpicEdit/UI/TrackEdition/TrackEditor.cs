@@ -170,6 +170,11 @@ namespace EpicEdit.UI.TrackEdition
 		private OverlayTile hoveredOverlayTile;
 
 		/// <summary>
+		/// The selected track overlay tile.
+		/// </summary>
+		private OverlayTile selectedOverlayTile;
+
+		/// <summary>
 		/// The current action the user is doing (or about to do) on the start data.
 		/// </summary>
 		private EpicEdit.UI.TrackEdition.TrackEditor.StartAction startAction;
@@ -715,6 +720,15 @@ namespace EpicEdit.UI.TrackEdition
 						}
 						break;
 				}
+			}
+			else if (currentMode == EditionMode.Overlay)
+			{
+				if (e.Button != MouseButtons.Left)
+				{
+					return;
+				}
+
+				this.selectedOverlayTile = this.hoveredOverlayTile;
 			}
 			else if (currentMode == EditionMode.Start)
 			{
