@@ -955,6 +955,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.tileClipboardTopLeft,
 				this.buttonPressed,
 				this.CurrentMode,
+				this.hoveredOverlayTile,
 				this.hoveredObject,
 				this.objectControl.FrontZonesView,
 				this.hoveredAIElem,

@@ -215,7 +215,8 @@ namespace EpicEdit.UI.Gfx
 		}
 
 		public void DrawTrack(Size panelSize, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action,
-							  EditionMode editionMode, TrackObject hoveredObject, bool frontZonesView, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+							  EditionMode editionMode, OverlayTile hoveredOverlayTile, TrackObject hoveredObject, bool frontZonesView,
+							  TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
 			int imageWidth = (int)Math.Min(panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
 			int imageHeight = (int)Math.Min(panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
@@ -265,7 +266,7 @@ namespace EpicEdit.UI.Gfx
 
 				if (editionMode == EditionMode.Overlay)
 				{
-					this.DrawOverlay(trackGfxBackBuffer, scrollPosition);
+					this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile);
 				}
 				else if (editionMode == EditionMode.Start)
 				{
@@ -472,7 +473,7 @@ namespace EpicEdit.UI.Gfx
 			graphics.Clip = paintRegion;
 		}
 
-		private void DrawOverlay(Graphics graphics, Point scrollPosition)
+		private void DrawOverlay(Graphics graphics, Point scrollPosition, OverlayTile hoveredOverlayTile)
 		{
 			Tile[] tiles = this.track.GetRoadTileset();
 
