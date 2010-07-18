@@ -478,9 +478,9 @@ namespace EpicEdit.UI.Gfx
 
 			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 			{
-				for (int x = 0; x < overlayTile.Size.Width; x++)
+				for (int x = 0; x < overlayTile.Width; x++)
 				{
-					for (int y = 0; y < overlayTile.Size.Height; y++)
+					for (int y = 0; y < overlayTile.Height; y++)
 					{
 						byte tileId = overlayTile.Pattern.Tiles[y][x];
 						if (tileId == 0xFF)
