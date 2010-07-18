@@ -25,21 +25,21 @@ namespace EpicEdit.Rom.Tracks
 	{
 		private byte[][] map;
 
-		public TrackMap(byte[] mapping)
+		public TrackMap(byte[] data)
 		{
-			if (mapping.Length != (128 * 128))
+			if (data.Length != (128 * 128))
 			{
-				throw new ArgumentOutOfRangeException("mapping", "The map array must have a length of 16384 (128 * 128)");
+				throw new ArgumentOutOfRangeException("data", "The map array must have a length of 16384 (128 * 128)");
 			}
 
-			int dimension = (int)Math.Sqrt(mapping.Length);
+			int dimension = (int)Math.Sqrt(data.Length);
 
 			this.map = new byte[dimension][];
 
 			for (int y = 0; y < dimension; y++)
 			{
 				this.map[y] = new byte[dimension];
-				Array.Copy(mapping, y * dimension, this.map[y], 0, dimension);
+				Array.Copy(data, y * dimension, this.map[y], 0, dimension);
 			}
 		}
 
