@@ -581,9 +581,8 @@ namespace EpicEdit.UI.Gfx
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
-			Point location = gpTrack.LapLine.Location;
-			location = new Point(location.X - scrollPosition.X * 8,
-								 location.Y - scrollPosition.Y * 8);
+			Point location = new Point(gpTrack.LapLine.X - scrollPosition.X * 8,
+									   gpTrack.LapLine.Y - scrollPosition.Y * 8);
 
 			graphics.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
 							  location.X + gpTrack.LapLine.Length, location.Y);

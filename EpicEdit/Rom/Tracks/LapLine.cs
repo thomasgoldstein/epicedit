@@ -22,15 +22,25 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class LapLine
 	{
-		public Point Location { get; private set; }
+		private Point location;
 		public int Length { get; private set; }
+
+		public int X
+		{
+			get { return this.location.X; }
+		}
+
+		public int Y
+		{
+			get { return this.location.Y; }
+		}
 
 		/// <summary>
 		/// Gets the x-coordinate that is the sum of X and Length property values of this LapLine.
 		/// </summary>
 		public int Right
 		{
-			get { return this.Location.X + this.Length; }
+			get { return this.X + this.Length; }
 		}
 
 		public LapLine(byte[] data)
@@ -43,7 +53,7 @@ namespace EpicEdit.Rom.Tracks
 
 			int y = (((data[1] & 0x03) << 8) + data[0]);
 			int x = (data[2] & 0x3F) * 16;
-			this.Location = new Point(x, y);
+			this.location = new Point(x, y);
 			// The bit mask on x is required for some of the original SMK track lap line zones
 			// to work properly, as some of them have the 2 highest bits needlessly set to 1.
 			// So it's necessary to only use the 6 lowest bits, like the game does.
@@ -53,15 +63,15 @@ namespace EpicEdit.Rom.Tracks
 
 		public bool IntersectsWith(Point point)
 		{
-			return point.X >= this.Location.X - 8 &&
+			return point.X >= this.X - 8 &&
 				point.X <= this.Right + 7 &&
-				point.Y >= this.Location.Y - 8 &&
-				point.Y <= this.Location.Y + 7;
+				point.Y >= this.Y - 8 &&
+				point.Y <= this.Y + 7;
 		}
 
 		public ResizeHandle GetResizeHandle(Point point)
 		{
-			if (point.X <= this.Location.X + 7)
+			if (point.X <= this.X + 7)
 			{
 				return ResizeHandle.Left;
 			}
@@ -94,7 +104,7 @@ namespace EpicEdit.Rom.Tracks
 				y = 128 * 8 - 1;
 			}
 
-			this.Location = new Point(x, y);
+			this.location = new Point(x, y);
 		}
 
 		public void Resize(ResizeHandle resizeHandle, int x)
@@ -110,20 +120,20 @@ namespace EpicEdit.Rom.Tracks
 					x = this.Right - 16;
 				}
 
-				this.Length += this.Location.X - x;
-				this.Location = new Point(x, this.Location.Y);
+				this.Length += this.X - x;
+				this.location = new Point(x, this.Y);
 			}
 			else if (resizeHandle == ResizeHandle.Right)
 			{
 				x += 16; // This makes the resizing behavior symmetrical
 
-				if (x <= this.Location.X)
+				if (x <= this.X)
 				{
 					this.Length = 16;
 				}
 				else
 				{
-					this.Length = x - this.Location.X;
+					this.Length = x - this.X;
 				}
 			}
 		}
@@ -132,14 +142,14 @@ namespace EpicEdit.Rom.Tracks
 		{
 			byte[] data = new byte[6];
 
-			int y = this.Location.Y;
+			int y = this.Y;
 			data[0] = (byte)(y & 0xFF);
 			data[1] = (byte)(y >> 8);
 
-			int recX = this.Location.X / 16;
+			int recX = this.X / 16;
 			data[2] = (byte)recX;
 
-			int recY = (int)Math.Round((float)this.Location.Y / 64) - 1;
+			int recY = (int)Math.Round((float)this.Y / 64) - 1;
 			// The minus 1 is to make the rectangle start at least 8 tiles above the lap line Y value
 
 			if (recY < 0)

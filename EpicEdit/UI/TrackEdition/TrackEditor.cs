@@ -739,9 +739,8 @@ namespace EpicEdit.UI.TrackEdition
 					{
 						// ie: StartAction.DragLapLine, ResizeLapLine or DragAll
 						this.buttonPressed = ActionButton.LeftMouseButton;
-						Point lapLinePosition = gpTrack.LapLine.Location;
-						this.anchorPoint = new Point(absPixelPos.X - lapLinePosition.X,
-													 absPixelPos.Y - lapLinePosition.Y);
+						this.anchorPoint = new Point(absPixelPos.X - gpTrack.LapLine.X,
+													 absPixelPos.Y - gpTrack.LapLine.Y);
 					}
 				}
 			}
@@ -1371,13 +1370,13 @@ namespace EpicEdit.UI.TrackEdition
 						Point destination = new Point(absPixelPos.X - this.anchorPoint.X,
 													  ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
 
-						int xBefore = gpTrack.LapLine.Location.X;
-						int yBefore = gpTrack.LapLine.Location.Y;
+						int xBefore = gpTrack.LapLine.X;
+						int yBefore = gpTrack.LapLine.Y;
 
 						gpTrack.LapLine.MoveTo(destination.X, destination.Y);
 
-						int xDifference = gpTrack.LapLine.Location.X - xBefore;
-						int yDifference = gpTrack.LapLine.Location.Y - yBefore;
+						int xDifference = gpTrack.LapLine.X - xBefore;
+						int yDifference = gpTrack.LapLine.Y - yBefore;
 
 						if (xDifference != 0 || yDifference != 0)
 						{
@@ -1423,13 +1422,13 @@ namespace EpicEdit.UI.TrackEdition
 						destination = new Point(absPixelPos.X - this.anchorPoint.X,
 												((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
 
-						xBefore = gpTrack.LapLine.Location.X;
-						yBefore = gpTrack.LapLine.Location.Y;
+						xBefore = gpTrack.LapLine.X;
+						yBefore = gpTrack.LapLine.Y;
 
 						gpTrack.LapLine.MoveTo(destination.X, destination.Y);
 
-						xDifference = gpTrack.LapLine.Location.X - xBefore;
-						yDifference = gpTrack.LapLine.Location.Y - yBefore;
+						xDifference = gpTrack.LapLine.X - xBefore;
+						yDifference = gpTrack.LapLine.Y - yBefore;
 
 						if (xDifference != 0 || yDifference != 0)
 						{
