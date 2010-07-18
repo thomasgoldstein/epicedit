@@ -94,7 +94,7 @@ namespace EpicEdit.Rom.Tracks
 
 			this.Map = new TrackMap(mapData);
 
-			if (fileLength == 16385) // if a theme is defined
+			if (fileLength == 16385) // If a theme is defined
 			{
 				byte themeId = (byte)(reader.ReadByte() / 2);
 				this.Theme = themes[themeId];
