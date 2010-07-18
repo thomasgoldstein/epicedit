@@ -586,10 +586,10 @@ namespace EpicEdit.UI.Gfx
 								 location.Y - scrollPosition.Y * 8);
 
 			graphics.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
-							  gpTrack.LapLine.Right, location.Y);
+							  location.X + gpTrack.LapLine.Length, location.Y);
 
 			graphics.DrawLine(this.lapLinePen, location.X + 1, location.Y,
-							  gpTrack.LapLine.Right - 2, location.Y);
+							  location.X + gpTrack.LapLine.Length - 2, location.Y);
 		}
 
 		private void DrawStartPositions(Graphics graphics, Point scrollPosition)
