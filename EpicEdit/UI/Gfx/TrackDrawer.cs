@@ -388,15 +388,17 @@ namespace EpicEdit.UI.Gfx
 
 		private static void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition, Point scrollPosition)
 		{
-			int x = Math.Min(lapLine.X, startPosition.Left);
-			int y = Math.Min(lapLine.Y, startPosition.Y);
-			int width = Math.Max(lapLine.Right, startPosition.Right) - x;
-			int height = Math.Max(lapLine.Y, startPosition.Y + startPosition.Height) - y;
+			Rectangle lapLineRectangle =
+				new Rectangle(lapLine.X - (scrollPosition.X * 8),
+				              lapLine.Y - (scrollPosition.Y * 8) - 1,
+							  lapLine.Length, 3);
+
+			clipRegion.Union(lapLineRectangle);
 
 			Rectangle startRectangle =
-				new Rectangle(x - (scrollPosition.X * 8) - 4,
-				              y - (scrollPosition.Y * 8) - 4,
-							  width + 8, height + 8);
+				new Rectangle(startPosition.Left - (scrollPosition.X * 8) - 4,
+				              startPosition.Y - (scrollPosition.Y * 8) - 4,
+							  startPosition.Right + 8, startPosition.Height + 8);
 
 			clipRegion.Union(startRectangle);
 		}
