@@ -405,12 +405,18 @@ namespace EpicEdit.UI.Gfx
 
 			clipRegion.Union(lapLineRectangle);
 
-			Rectangle startRectangle = new Rectangle(startPosition.Left - (scrollPosition.X * 8) - 4,
-													 startPosition.Y - (scrollPosition.Y * 8) - 4,
-													 startPosition.Right + 8 - startPosition.Left,
-													 startPosition.Height + 8);
+			Rectangle startRectangle1 = new Rectangle(startPosition.X - (scrollPosition.X * 8) - 4,
+													  startPosition.Y - (scrollPosition.Y * 8) - 4,
+													  8,
+													  startPosition.Height - 20);
 
-			clipRegion.Union(startRectangle);
+			Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
+													  startRectangle1.Y + 20,
+													  startRectangle1.Width,
+													  startRectangle1.Height);
+
+			clipRegion.Union(startRectangle1);
+			clipRegion.Union(startRectangle2);
 		}
 
 		private static void SetObjectClipRegion(Region clipRegion, TrackObject hoveredObject, Point scrollPosition)
