@@ -405,11 +405,10 @@ namespace EpicEdit.UI.Gfx
 
 			clipRegion.Union(lapLineRectangle);
 
-			int x = startPosition.Left - (scrollPosition.X * 8) - 4;
-			int y = startPosition.Y - (scrollPosition.Y * 8) - 4;
-			int width = startPosition.Right + 8 - startPosition.Left;
-			int height = startPosition.Height + 8;
-			Rectangle startRectangle = new Rectangle(x, y, width, height);
+			Rectangle startRectangle = new Rectangle(startPosition.Left - (scrollPosition.X * 8) - 4,
+													 startPosition.Y - (scrollPosition.Y * 8) - 4,
+													 startPosition.Right + 8 - startPosition.Left,
+													 startPosition.Height + 8);
 
 			clipRegion.Union(startRectangle);
 		}
