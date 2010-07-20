@@ -412,7 +412,7 @@ namespace EpicEdit.UI.Gfx
 
 			if (this.zoom < 1)
 			{
-				// HACK: Avoid clipping issues
+				// HACK: Avoid clipping issues (rounding differences)
 				lapLineRectangle.Inflate(0, 1);
 			}
 
@@ -538,7 +538,7 @@ namespace EpicEdit.UI.Gfx
 				if (PlatformInformation.IsWindows() &&
 					this.zoom < 1)
 				{
-					// HACK: Avoid clipping issues
+					// HACK: Avoid clipping issues (rounding differences)
 					zoomedClipRegion.Translate(0.5f, 0.5f);
 				}
 
