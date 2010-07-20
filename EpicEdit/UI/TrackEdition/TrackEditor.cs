@@ -1119,6 +1119,8 @@ namespace EpicEdit.UI.TrackEdition
 			this.track = this.trackTreeView.SelectedTrack;
 
 			this.tilesetControl.Track = this.track;
+			this.hoveredOverlayTile = null;
+			this.selectedOverlayTile = null;
 			this.aiControl.TrackAI = this.track.AI;
 			this.hoveredAIElem = null;
 
