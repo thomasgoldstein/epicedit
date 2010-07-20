@@ -281,7 +281,7 @@ namespace EpicEdit.UI.Gfx
 					if (this.track is GPTrack)
 					{
 						GPTrack gpTrack = this.track as GPTrack;
-						TrackDrawer.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition, scrollPosition);
+						this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition, scrollPosition);
 					}
 					else
 					{
@@ -396,7 +396,7 @@ namespace EpicEdit.UI.Gfx
 								 overlayTile.Height * 8);
 		}
 
-		private static void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition, Point scrollPosition)
+		private void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition, Point scrollPosition)
 		{
 			Rectangle lapLineRectangle =
 				new Rectangle(lapLine.X - (scrollPosition.X * 8),
@@ -408,6 +408,12 @@ namespace EpicEdit.UI.Gfx
 				// HACK: Workaround for the fact the lap line isn't drawn
 				// at the exact same position with Mono out of Windows.
 				lapLineRectangle.Offset(1, 0);
+			}
+
+			if (this.zoom < 1)
+			{
+				// HACK: Avoid clipping issues
+				lapLineRectangle.Inflate(0, 1);
 			}
 
 			clipRegion.Union(lapLineRectangle);
