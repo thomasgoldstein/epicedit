@@ -414,7 +414,7 @@ namespace EpicEdit.UI.Gfx
 
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (scrollPosition.X * 8) - 4,
 													  startPosition.Y - (scrollPosition.Y * 8) - 4,
-													  8,
+													  9,
 													  startPosition.Height - 20);
 
 			Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
