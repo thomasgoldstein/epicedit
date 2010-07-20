@@ -521,7 +521,13 @@ namespace EpicEdit.UI.Gfx
 				Matrix matrix = new Matrix();
 				matrix.Scale(this.zoom, this.zoom);
 				zoomedClipRegion.Transform(matrix);
-				zoomedClipRegion.Translate(0.5f, 0.5f); // Avoid clipping issue when zoom < 1
+
+				if (PlatformInformation.IsWindows() &&
+					this.zoom < 1)
+				{
+					// HACK: Avoid clipping issues
+					zoomedClipRegion.Translate(0.5f, 0.5f);
+				}
 
 				this.trackGfx.Clip = zoomedClipRegion;
 			}
