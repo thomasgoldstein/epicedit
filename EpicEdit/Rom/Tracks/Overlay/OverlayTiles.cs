@@ -101,6 +101,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			return data;
 		}
 
+		public void Remove(OverlayTile overlayTile)
+		{
+			this.overlayTiles.Remove(overlayTile);
+		}
+
 		/// <summary>
 		/// Removes all the overlay tiles from the collection.
 		/// </summary>

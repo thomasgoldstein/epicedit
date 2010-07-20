@@ -513,11 +513,23 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.buttonPressed = ActionButton.CtrlKey;
 			}
-			else if (e.KeyCode == Keys.Delete &&
-					 this.CurrentMode == EditionMode.AI &&
-					 this.aiControl.SelectedAIElem != null)
+			else if (e.KeyCode == Keys.Delete)
 			{
-				this.DeleteAIElement();
+				EditionMode currentMode = this.CurrentMode;
+				if (currentMode == EditionMode.Overlay)
+				{
+					if (this.selectedOverlayTile != null)
+					{
+						this.DeleteOverlayTile();
+					}
+				}
+				else if (currentMode == EditionMode.AI)
+				{
+					if (this.aiControl.SelectedAIElem != null)
+					{
+						this.DeleteAIElement();
+					}
+				}
 			}
 		}
 
@@ -1351,6 +1363,22 @@ namespace EpicEdit.UI.TrackEdition
 			this.hoveredOverlayTile = null;
 			this.Cursor = Cursors.Default;
 			this.RepaintTrackDisplay();
+		}
+
+		private void DeleteOverlayTile()
+		{
+			this.track.OverlayTiles.Remove(this.selectedOverlayTile);
+			if (this.hoveredOverlayTile == this.selectedOverlayTile)
+			{
+				this.hoveredOverlayTile = null;
+			}
+			this.selectedOverlayTile = null;
+
+			this.InitOverlayAction();
+
+			this.trackTreeView.MarkTrackAsChanged();
+			this.RepaintTrackDisplay(); // May cause a second unnecessary repaint,
+			// due to the InitOverlayAction call above. No big deal.
 		}
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
