@@ -531,9 +531,11 @@ namespace EpicEdit.UI.Gfx
 			else
 			{
 				Region zoomedClipRegion = clipRegion.Clone();
-				Matrix matrix = new Matrix();
-				matrix.Scale(this.zoom, this.zoom);
-				zoomedClipRegion.Transform(matrix);
+				using (Matrix matrix = new Matrix())
+				{
+					matrix.Scale(this.zoom, this.zoom);
+					zoomedClipRegion.Transform(matrix);
+				}
 
 				if (PlatformInformation.IsWindows() &&
 					this.zoom < 1)
