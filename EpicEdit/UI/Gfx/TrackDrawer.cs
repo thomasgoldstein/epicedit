@@ -403,6 +403,13 @@ namespace EpicEdit.UI.Gfx
 				              lapLine.Y - (scrollPosition.Y * 8) - 1,
 							  lapLine.Length, 3);
 
+			if (!PlatformInformation.IsWindows())
+			{
+				// HACK: Workaround for the fact the lap line isn't drawn
+				// at the exact same position with Mono out of Windows.
+				lapLineRectangle.Offset(1, 0);
+			}
+
 			clipRegion.Union(lapLineRectangle);
 
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (scrollPosition.X * 8) - 4,
