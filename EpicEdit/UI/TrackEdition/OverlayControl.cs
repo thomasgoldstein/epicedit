@@ -26,16 +26,37 @@ namespace EpicEdit.UI.TrackEdition
 	public partial class OverlayControl : UserControl
 	{
 		[Browsable(true)]
+		public event EventHandler<EventArgs> DeleteRequested;
+
+		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteAllRequested;
+
+		private OverlayTile selectedTile;
 
 		/// <summary>
 		/// The selected track overlay tile.
 		/// </summary>
-		public OverlayTile SelectedTile { get; set; }
+		public OverlayTile SelectedTile
+		{
+			get
+			{
+				return this.selectedTile;
+			}
+			set
+			{
+				this.selectedTile = value;
+				this.deleteButton.Enabled = this.selectedTile != null;
+			}
+		}
 
 		public OverlayControl()
 		{
 			this.InitializeComponent();
+		}
+		
+		private void DeleteButtonClick(object sender, EventArgs e)
+		{
+			this.DeleteRequested(this, EventArgs.Empty);
 		}
 
 		private void DeleteAllButtonClick(object sender, EventArgs e)

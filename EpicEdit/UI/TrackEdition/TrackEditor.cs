@@ -1376,6 +1376,11 @@ namespace EpicEdit.UI.TrackEdition
 			// due to the InitOverlayAction call above. No big deal.
 		}
 
+		private void OverlayControlDeleteRequested(object sender, EventArgs e)
+		{
+			this.DeleteOverlayTile();
+		}
+
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
 		{
 			this.overlayControl.SelectedTile = null;

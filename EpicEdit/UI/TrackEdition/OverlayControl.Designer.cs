@@ -43,11 +43,12 @@ namespace EpicEdit.UI.TrackEdition
 		private void InitializeComponent()
 		{
 			this.deleteAllButton = new System.Windows.Forms.Button();
+			this.deleteButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Location = new System.Drawing.Point(27, 23);
+			this.deleteAllButton.Location = new System.Drawing.Point(28, 67);
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
 			this.deleteAllButton.TabIndex = 0;
@@ -55,15 +56,28 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
+			// deleteButton
+			// 
+			this.deleteButton.Enabled = false;
+			this.deleteButton.Location = new System.Drawing.Point(28, 12);
+			this.deleteButton.Name = "deleteButton";
+			this.deleteButton.Size = new System.Drawing.Size(74, 40);
+			this.deleteButton.TabIndex = 1;
+			this.deleteButton.Text = "Delete selected";
+			this.deleteButton.UseVisualStyleBackColor = true;
+			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
+			// 
 			// OverlayControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.deleteButton);
 			this.Controls.Add(this.deleteAllButton);
 			this.Name = "OverlayControl";
 			this.Size = new System.Drawing.Size(130, 130);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Button deleteButton;
 		private System.Windows.Forms.Button deleteAllButton;
 	}
 }
