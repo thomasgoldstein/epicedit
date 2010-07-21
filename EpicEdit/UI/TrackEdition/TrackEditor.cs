@@ -1383,6 +1383,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
 		{
+			this.selectedOverlayTile = null;
 			this.track.OverlayTiles.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();
