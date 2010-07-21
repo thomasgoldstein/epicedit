@@ -525,7 +525,7 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				else if (currentMode == EditionMode.AI)
 				{
-					if (this.aiControl.SelectedAIElem != null)
+					if (this.aiControl.SelectedElement != null)
 					{
 						this.DeleteAIElement();
 					}
@@ -816,7 +816,7 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					if (e.Button == MouseButtons.Left)
 					{
-						this.aiControl.SelectedAIElem = null;
+						this.aiControl.SelectedElement = null;
 						this.RepaintTrackDisplay();
 					}
 					return;
@@ -826,7 +826,7 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					case MouseButtons.Left:
 						this.buttonPressed = ActionButton.LeftMouseButton;
-						this.aiControl.SelectedAIElem = this.hoveredAIElem;
+						this.aiControl.SelectedElement = this.hoveredAIElem;
 						this.RepaintTrackDisplay();
 						break;
 
@@ -840,7 +840,7 @@ namespace EpicEdit.UI.TrackEdition
 							this.hoveredAIElem.Speed = 0;
 						}
 
-						this.aiControl.SelectedAIElem = this.hoveredAIElem;
+						this.aiControl.SelectedElement = this.hoveredAIElem;
 						this.trackTreeView.MarkTrackAsChanged();
 						this.RepaintTrackDisplay();
 						break;
@@ -985,7 +985,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.hoveredObject,
 				this.objectControl.FrontZonesView,
 				this.hoveredAIElem,
-				this.aiControl.SelectedAIElem,
+				this.aiControl.SelectedElement,
 				this.aiAction == AIAction.DragTarget
 			);
 		}
@@ -1681,8 +1681,8 @@ namespace EpicEdit.UI.TrackEdition
 				#endregion Try to hover AI target
 
 				#region Priority to selected element
-				if (this.aiControl.SelectedAIElem != null &&
-					this.TryToHoverAIZone(this.aiControl.SelectedAIElem, hoveredTilePosition))
+				if (this.aiControl.SelectedElement != null &&
+					this.TryToHoverAIZone(this.aiControl.SelectedElement, hoveredTilePosition))
 				{
 					// If an element is already selected, and that it's hovered,
 					// don't try to hover anything else
@@ -1721,7 +1721,7 @@ namespace EpicEdit.UI.TrackEdition
 				// Hover AI zone
 				this.hoveredAIElem = trackAIElem;
 
-				if (this.hoveredAIElem != this.aiControl.SelectedAIElem)
+				if (this.hoveredAIElem != this.aiControl.SelectedElement)
 				{
 					this.aiAction = AIAction.DragZone;
 					this.Cursor = Cursors.SizeAll;
@@ -1729,7 +1729,7 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				else
 				{
-					this.resizeHandle = this.aiControl.SelectedAIElem.GetResizeHandle(hoveredTilePosition);
+					this.resizeHandle = this.aiControl.SelectedElement.GetResizeHandle(hoveredTilePosition);
 
 					if (this.resizeHandle == ResizeHandle.None)
 					{
@@ -1801,7 +1801,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.track.AI.Add(newAIElem))
 			{
 				this.aiControl.SetMaximumAIElementIndex();
-				this.aiControl.SelectedAIElem = newAIElem;
+				this.aiControl.SelectedElement = newAIElem;
 				this.InitAIAction();
 
 				this.trackTreeView.MarkTrackAsChanged();
@@ -1810,13 +1810,13 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void DeleteAIElement()
 		{
-			this.track.AI.Remove(this.aiControl.SelectedAIElem);
-			if (this.hoveredAIElem == this.aiControl.SelectedAIElem)
+			this.track.AI.Remove(this.aiControl.SelectedElement);
+			if (this.hoveredAIElem == this.aiControl.SelectedElement)
 			{
 				this.hoveredAIElem = null;
 			}
 
-			this.aiControl.SelectedAIElem = null;
+			this.aiControl.SelectedElement = null;
 			this.aiControl.SetMaximumAIElementIndex();
 			this.InitAIAction();
 

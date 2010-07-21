@@ -43,23 +43,23 @@ namespace EpicEdit.UI.TrackEdition
 		/// <summary>
 		/// The selected AI element.
 		/// </summary>
-		private TrackAIElement selectedAIElem;
+		private TrackAIElement selectedElement;
 
 		/// <summary>
 		/// Gets the selected AI element.
 		/// </summary>
 		[Browsable(false)]
-		public TrackAIElement SelectedAIElem
+		public TrackAIElement SelectedElement
 		{
 			get
 			{
-				return this.selectedAIElem;
+				return this.selectedElement;
 			}
 			set
 			{
-				this.selectedAIElem = value;
+				this.selectedElement = value;
 
-				if (this.selectedAIElem == null)
+				if (this.selectedElement == null)
 				{
 					this.selectedAIElementGroupBox.Enabled = false;
 				}
@@ -68,15 +68,15 @@ namespace EpicEdit.UI.TrackEdition
 					this.selectedAIElementGroupBox.Enabled = true;
 
 					this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
-					this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedAIElem);
+					this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedElement);
 					this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
 
 					this.speedNumericUpDown.ValueChanged -= new EventHandler(this.SpeedNumericUpDownValueChanged);
-					this.speedNumericUpDown.Value = this.selectedAIElem.Speed + 1;
+					this.speedNumericUpDown.Value = this.selectedElement.Speed + 1;
 					this.speedNumericUpDown.ValueChanged += new EventHandler(this.SpeedNumericUpDownValueChanged);
 
 					this.shapeComboBox.SelectedIndexChanged -= new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
-					this.shapeComboBox.SelectedItem = this.selectedAIElem.ZoneShape;
+					this.shapeComboBox.SelectedItem = this.selectedElement.ZoneShape;
 					this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
 				}
 
@@ -100,7 +100,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.trackAI = value;
 
-				this.SelectedAIElem = null;
+				this.SelectedElement = null;
 				this.SetMaximumAIElementIndex();
 			}
 		}
@@ -120,7 +120,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
 		{
-			int oldIndex = this.trackAI.GetElementIndex(this.selectedAIElem);
+			int oldIndex = this.trackAI.GetElementIndex(this.selectedElement);
 			int newIndex = (int)this.indexNumericUpDown.Value;
 			this.trackAI.ChangeElementIndex(oldIndex, newIndex);
 			
@@ -129,7 +129,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
 		{
-			this.selectedAIElem.Speed = (byte)(this.speedNumericUpDown.Value - 1);
+			this.selectedElement.Speed = (byte)(this.speedNumericUpDown.Value - 1);
 
 			this.DataChanged(this, EventArgs.Empty);
 		}
@@ -137,7 +137,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
 			Shape newShape = (Shape)this.shapeComboBox.SelectedValue;
-			this.selectedAIElem.ChangeShape(newShape);
+			this.selectedElement.ChangeShape(newShape);
 
 			this.DataChanged(this, EventArgs.Empty);
 		}
@@ -163,7 +163,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (result == DialogResult.Yes)
 			{
-				this.SelectedAIElem = null;
+				this.SelectedElement = null;
 				this.trackAI.Clear();
 				this.DataChanged(this, EventArgs.Empty);
 			}
