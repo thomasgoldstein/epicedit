@@ -55,6 +55,38 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				return this.selectedAIElem;
 			}
+			set
+			{
+				this.selectedAIElem = value;
+
+				if (this.selectedAIElem == null)
+				{
+					this.selectedAIElementGroupBox.Enabled = false;
+				}
+				else
+				{
+					this.selectedAIElementGroupBox.Enabled = true;
+
+					this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
+					this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedAIElem);
+					this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
+
+					this.speedNumericUpDown.ValueChanged -= new EventHandler(this.SpeedNumericUpDownValueChanged);
+					this.speedNumericUpDown.Value = this.selectedAIElem.Speed + 1;
+					this.speedNumericUpDown.ValueChanged += new EventHandler(this.SpeedNumericUpDownValueChanged);
+
+					this.shapeComboBox.SelectedIndexChanged -= new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+					this.shapeComboBox.SelectedItem = this.selectedAIElem.ZoneShape;
+					this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+				}
+
+				// Force controls to refresh so that the new data shows up instantly
+				// NOTE: we could do this.selectedAIElementGroupBox.Refresh(); instead
+				// but that would cause some minor flickering
+				this.indexNumericUpDown.Refresh();
+				this.speedNumericUpDown.Refresh();
+				this.shapeComboBox.Refresh();
+			}
 		}
 
 		[Browsable(false), DefaultValue(typeof(TrackAI), "")]
@@ -68,7 +100,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.trackAI = value;
 
-				this.SetSelectedAIElement(null);
+				this.SelectedAIElem = null;
 				this.SetMaximumAIElementIndex();
 			}
 		}
@@ -84,39 +116,6 @@ namespace EpicEdit.UI.TrackEdition
 		private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
 		{
 			UITools.SetValueFromEnumDescription(e);
-		}
-
-		public void SetSelectedAIElement(TrackAIElement aiElement)
-		{
-			this.selectedAIElem = aiElement;
-
-			if (this.selectedAIElem == null)
-			{
-				this.selectedAIElementGroupBox.Enabled = false;
-			}
-			else
-			{
-				this.selectedAIElementGroupBox.Enabled = true;
-
-				this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
-				this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedAIElem);
-				this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
-
-				this.speedNumericUpDown.ValueChanged -= new EventHandler(this.SpeedNumericUpDownValueChanged);
-				this.speedNumericUpDown.Value = this.selectedAIElem.Speed + 1;
-				this.speedNumericUpDown.ValueChanged += new EventHandler(this.SpeedNumericUpDownValueChanged);
-
-				this.shapeComboBox.SelectedIndexChanged -= new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
-				this.shapeComboBox.SelectedItem = this.selectedAIElem.ZoneShape;
-				this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
-			}
-
-			// Force controls to refresh so that the new data shows up instantly
-			// NOTE: we could do this.selectedAIElementGroupBox.Refresh(); instead
-			// but that would cause some minor flickering
-			this.indexNumericUpDown.Refresh();
-			this.speedNumericUpDown.Refresh();
-			this.shapeComboBox.Refresh();
 		}
 
 		private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
@@ -164,7 +163,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (result == DialogResult.Yes)
 			{
-				this.SetSelectedAIElement(null);
+				this.SelectedAIElem = null;
 				this.trackAI.Clear();
 				this.DataChanged(this, EventArgs.Empty);
 			}

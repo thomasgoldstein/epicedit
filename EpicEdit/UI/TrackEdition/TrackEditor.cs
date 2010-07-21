@@ -816,7 +816,7 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					if (e.Button == MouseButtons.Left)
 					{
-						this.aiControl.SetSelectedAIElement(null);
+						this.aiControl.SelectedAIElem = null;
 						this.RepaintTrackDisplay();
 					}
 					return;
@@ -826,7 +826,7 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					case MouseButtons.Left:
 						this.buttonPressed = ActionButton.LeftMouseButton;
-						this.aiControl.SetSelectedAIElement(this.hoveredAIElem);
+						this.aiControl.SelectedAIElem = this.hoveredAIElem;
 						this.RepaintTrackDisplay();
 						break;
 
@@ -840,7 +840,7 @@ namespace EpicEdit.UI.TrackEdition
 							this.hoveredAIElem.Speed = 0;
 						}
 
-						this.aiControl.SetSelectedAIElement(this.hoveredAIElem);
+						this.aiControl.SelectedAIElem = this.hoveredAIElem;
 						this.trackTreeView.MarkTrackAsChanged();
 						this.RepaintTrackDisplay();
 						break;
@@ -1801,7 +1801,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.track.AI.Add(newAIElem))
 			{
 				this.aiControl.SetMaximumAIElementIndex();
-				this.aiControl.SetSelectedAIElement(newAIElem);
+				this.aiControl.SelectedAIElem = newAIElem;
 				this.InitAIAction();
 
 				this.trackTreeView.MarkTrackAsChanged();
@@ -1816,7 +1816,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.hoveredAIElem = null;
 			}
 
-			this.aiControl.SetSelectedAIElement(null);
+			this.aiControl.SelectedAIElem = null;
 			this.aiControl.SetMaximumAIElementIndex();
 			this.InitAIAction();
 
