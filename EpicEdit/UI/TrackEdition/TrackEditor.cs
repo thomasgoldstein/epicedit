@@ -1829,7 +1829,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
-		private void AiControlDeleteRequested(object sender, EventArgs e)
+		private void AIControlDeleteRequested(object sender, EventArgs e)
 		{
 			this.DeleteAIElement();
 		}
