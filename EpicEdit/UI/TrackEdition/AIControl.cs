@@ -43,12 +43,12 @@ namespace EpicEdit.UI.TrackEdition
 		/// <summary>
 		/// The selected AI element.
 		/// </summary>
-		private TrackAIElement selectedElement;
+		private TrackAIElement selectedElement = null;
 
 		/// <summary>
 		/// Gets the selected AI element.
 		/// </summary>
-		[Browsable(false)]
+		[Browsable(false), DefaultValue(typeof(TrackAIElement), "")]
 		public TrackAIElement SelectedElement
 		{
 			get
