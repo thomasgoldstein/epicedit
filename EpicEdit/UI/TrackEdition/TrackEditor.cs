@@ -170,11 +170,6 @@ namespace EpicEdit.UI.TrackEdition
 		private OverlayTile hoveredOverlayTile;
 
 		/// <summary>
-		/// The selected track overlay tile.
-		/// </summary>
-		private OverlayTile selectedOverlayTile;
-
-		/// <summary>
 		/// The current action the user is doing (or about to do) on the start data.
 		/// </summary>
 		private EpicEdit.UI.TrackEdition.TrackEditor.StartAction startAction;
@@ -518,7 +513,7 @@ namespace EpicEdit.UI.TrackEdition
 				EditionMode currentMode = this.CurrentMode;
 				if (currentMode == EditionMode.Overlay)
 				{
-					if (this.selectedOverlayTile != null)
+					if (this.overlayControl.SelectedTile != null)
 					{
 						this.DeleteOverlayTile();
 					}
@@ -740,7 +735,7 @@ namespace EpicEdit.UI.TrackEdition
 					return;
 				}
 
-				this.selectedOverlayTile = this.hoveredOverlayTile;
+				this.overlayControl.SelectedTile = this.hoveredOverlayTile;
 				this.RepaintTrackDisplay();
 			}
 			else if (currentMode == EditionMode.Start)
@@ -981,7 +976,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.buttonPressed,
 				this.CurrentMode,
 				this.hoveredOverlayTile,
-				this.selectedOverlayTile,
+				this.overlayControl.SelectedTile,
 				this.hoveredObject,
 				this.objectControl.FrontZonesView,
 				this.hoveredAIElem,
@@ -1132,7 +1127,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.tilesetControl.Track = this.track;
 			this.hoveredOverlayTile = null;
-			this.selectedOverlayTile = null;
+			this.overlayControl.SelectedTile = null;
 			this.aiControl.TrackAI = this.track.AI;
 			this.hoveredAIElem = null;
 
@@ -1367,12 +1362,12 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void DeleteOverlayTile()
 		{
-			this.track.OverlayTiles.Remove(this.selectedOverlayTile);
-			if (this.hoveredOverlayTile == this.selectedOverlayTile)
+			this.track.OverlayTiles.Remove(this.overlayControl.SelectedTile);
+			if (this.hoveredOverlayTile == this.overlayControl.SelectedTile)
 			{
 				this.hoveredOverlayTile = null;
 			}
-			this.selectedOverlayTile = null;
+			this.overlayControl.SelectedTile = null;
 
 			this.InitOverlayAction();
 
@@ -1383,7 +1378,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
 		{
-			this.selectedOverlayTile = null;
+			this.overlayControl.SelectedTile = null;
 			this.track.OverlayTiles.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();
