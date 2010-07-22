@@ -35,6 +35,9 @@ namespace EpicEdit.UI.TrackEdition
 		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteRequested;
 
+		[Browsable(true)]
+		public event EventHandler<EventArgs> DeleteAllRequested;
+
 		/// <summary>
 		/// The AI of the current track.
 		/// </summary>
@@ -163,9 +166,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (result == DialogResult.Yes)
 			{
-				this.SelectedElement = null;
-				this.trackAI.Clear();
-				this.DataChanged(this, EventArgs.Empty);
+				this.DeleteAllRequested(this, EventArgs.Empty);
 			}
 		}
 	}

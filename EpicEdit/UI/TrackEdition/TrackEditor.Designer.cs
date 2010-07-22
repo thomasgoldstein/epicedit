@@ -256,6 +256,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiControl.TabIndex = 0;
 			this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
 			this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
+			this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
 			// 
 			// tabImageList
 			// 

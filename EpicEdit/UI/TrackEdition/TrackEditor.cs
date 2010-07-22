@@ -1835,6 +1835,14 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.DeleteAIElement();
 		}
+
+		private void AIControlDeleteAllRequested(object sender, EventArgs e)
+		{
+			this.aiControl.SelectedElement = null;
+			this.track.AI.Clear();
+			this.trackTreeView.MarkTrackAsChanged();
+			this.RepaintTrackDisplay();
+		}
 		#endregion EditionMode.AI
 	}
 }
