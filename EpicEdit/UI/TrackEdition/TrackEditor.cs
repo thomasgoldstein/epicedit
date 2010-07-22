@@ -674,8 +674,10 @@ namespace EpicEdit.UI.TrackEdition
 			}
 
 			this.ResetCurrentPosition();
+			this.hoveredOverlayTile = null;
+			this.hoveredObject = null;
+			this.hoveredAIElem = null;
 
-			// Clear the tile highlighting
 			this.RepaintTrackDisplay();
 		}
 
