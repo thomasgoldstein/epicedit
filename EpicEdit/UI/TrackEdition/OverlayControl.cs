@@ -31,10 +31,13 @@ namespace EpicEdit.UI.TrackEdition
 		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteAllRequested;
 
+		/// <summary>
+		/// The selected track overlay tile.
+		/// </summary>
 		private OverlayTile selectedTile = null;
 
 		/// <summary>
-		/// The selected track overlay tile.
+		/// Gets or sets the selected track overlay tile.
 		/// </summary>
 		[Browsable(false), DefaultValue(typeof(OverlayTile), "")]
 		public OverlayTile SelectedTile
