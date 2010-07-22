@@ -1838,6 +1838,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void AIControlDeleteAllRequested(object sender, EventArgs e)
 		{
+			this.hoveredAIElem = null;
 			this.aiControl.SelectedElement = null;
 			this.track.AI.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
