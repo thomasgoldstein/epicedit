@@ -1385,7 +1385,6 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
 		{
-			this.hoveredOverlayTile = null;
 			this.overlayControl.SelectedTile = null;
 			this.track.OverlayTiles.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
@@ -1840,7 +1839,6 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void AIControlDeleteAllRequested(object sender, EventArgs e)
 		{
-			this.hoveredAIElem = null;
 			this.aiControl.SelectedElement = null;
 			this.track.AI.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
