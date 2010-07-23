@@ -33,7 +33,28 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			}
 			set
 			{
-				this.location = value;
+				int x = value.X;
+				int y = value.Y;
+
+				if (x < 0)
+				{
+					x = 0;
+				}
+				else if (x + this.Width > 128)
+				{
+					x = 128 - this.Width;
+				}
+
+				if (y < 0)
+				{
+					y = 0;
+				}
+				else if (y + this.Height > 128)
+				{
+					y = 128 - this.Height;
+				}
+
+				this.location = new Point(x, y);
 			}
 		}
 
