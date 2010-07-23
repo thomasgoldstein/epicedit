@@ -798,7 +798,7 @@ namespace EpicEdit.UI.TrackEdition
 						{
 							hoveredObjectMatchRace.Direction = Direction.None;
 						}
-						else // hoveredObjectMatchRace.Direction == Direction.Static
+						else // hoveredObjectMatchRace.Direction == Direction.None
 						{
 							hoveredObjectMatchRace.Direction = Direction.Horizontal;
 						}
