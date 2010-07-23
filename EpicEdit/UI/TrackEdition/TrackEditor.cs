@@ -737,6 +737,7 @@ namespace EpicEdit.UI.TrackEdition
 					return;
 				}
 
+				this.buttonPressed = ActionButton.LeftMouseButton;
 				this.overlayControl.SelectedTile = this.hoveredOverlayTile;
 				this.RepaintTrackDisplay();
 			}
@@ -1343,22 +1344,35 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
-				if (hoveredTilePosition.X >= overlayTile.X &&
-				    hoveredTilePosition.X <= overlayTile.X + overlayTile.Width &&
-				    hoveredTilePosition.Y >= overlayTile.Y &&
-				    hoveredTilePosition.Y <= overlayTile.Y + overlayTile.Height)
+				#region Drag overlay tile
+				this.overlayControl.SelectedTile.Location = hoveredTilePosition;
+				this.trackTreeView.MarkTrackAsChanged();
+				#endregion Drag overlay tile
+			}
+			else
+			{
+				#region Try to hover overlay tile
+				foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 				{
-					this.hoveredOverlayTile = overlayTile;
-					this.Cursor = Cursors.Hand;
-					this.RepaintTrackDisplay();
-					return;
+					if (hoveredTilePosition.X >= overlayTile.X &&
+					    hoveredTilePosition.X <= overlayTile.X + overlayTile.Width &&
+					    hoveredTilePosition.Y >= overlayTile.Y &&
+					    hoveredTilePosition.Y <= overlayTile.Y + overlayTile.Height)
+					{
+						this.hoveredOverlayTile = overlayTile;
+						this.Cursor = Cursors.Hand;
+						this.RepaintTrackDisplay();
+						return;
+					}
 				}
+
+				this.hoveredOverlayTile = null;
+				this.Cursor = Cursors.Default;
+				#endregion Try to hover overlay tile
 			}
 
-			this.hoveredOverlayTile = null;
-			this.Cursor = Cursors.Default;
 			this.RepaintTrackDisplay();
 		}
 
