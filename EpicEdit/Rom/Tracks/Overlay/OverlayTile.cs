@@ -39,12 +39,12 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		public int X
 		{
-			get { return this.Location.X; }
+			get { return this.location.X; }
 		}
 
 		public int Y
 		{
-			get { return this.Location.Y; }
+			get { return this.location.Y; }
 		}
 
 		public int Width
