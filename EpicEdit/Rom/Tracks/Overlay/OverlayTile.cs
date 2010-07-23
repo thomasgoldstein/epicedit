@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace EpicEdit.Rom.Tracks.Overlay
@@ -23,46 +24,27 @@ namespace EpicEdit.Rom.Tracks.Overlay
 	/// </summary>
 	public class OverlayTile
 	{
-		private int x;
-		public int X
+		private Point location;
+		public Point Location
 		{
-			get { return this.x; }
+			get
+			{
+				return this.location;
+			}
 			set
 			{
-				if (value > 127)
-				{
-					this.x = 127;
-				}
-				else if (value < 0)
-				{
-					this.x = 0;
-				}
-				else
-				{
-					this.x = value;
-				}
+				this.location = value;
 			}
 		}
 
-		private int y;
+		public int X
+		{
+			get { return this.Location.X; }
+		}
+
 		public int Y
 		{
-			get { return this.y; }
-			set
-			{
-				if (value > 127)
-				{
-					this.y = 127;
-				}
-				else if (value < 0)
-				{
-					this.y = 0;
-				}
-				else
-				{
-					this.y = value;
-				}
-			}
+			get { return this.Location.Y; }
 		}
 
 		public int Width
@@ -97,8 +79,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			this.Size = sizes[(data[index] & 0xC0) >> 6];
 			this.Pattern = patterns[data[index] & 0x3F];
 
-			this.x = (data[index + 1] & 0x7F);
-			this.y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
+			int x = (data[index + 1] & 0x7F);
+			int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
+			this.location = new Point(x, y);
 		}
 
 		/// <summary>
@@ -114,8 +97,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			int patternIndex = patterns.IndexOf(this.Pattern);
 			data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
-			data[index + 1] = (byte)(this.x + ((this.y << 7) & 0x80));
-			data[index + 2] = (byte)(this.y >> 1);
+			data[index + 1] = (byte)(this.X + ((this.Y << 7) & 0x80));
+			data[index + 2] = (byte)(this.Y >> 1);
 		}
 	}
 }
