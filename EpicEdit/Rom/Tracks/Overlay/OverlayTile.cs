@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		private int x;
 		public int X
 		{
-			get { return x; }
+			get { return this.x; }
 			set
 			{
 				if (value > 127)
@@ -47,7 +47,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		private int y;
 		public int Y
 		{
-			get { return y; }
+			get { return this.y; }
 			set
 			{
 				if (value > 127)
