@@ -739,6 +739,9 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.buttonPressed = ActionButton.LeftMouseButton;
 				this.overlayControl.SelectedTile = this.hoveredOverlayTile;
+				Point hoveredTilePosition = this.AbsoluteTilePosition;
+				this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
+				                             hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
 				this.RepaintTrackDisplay();
 			}
 			else if (currentMode == EditionMode.Start)
@@ -1347,7 +1350,9 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
 				#region Drag overlay tile
-				this.overlayControl.SelectedTile.Location = hoveredTilePosition;
+				this.overlayControl.SelectedTile.Location =
+					new Point(hoveredTilePosition.X - this.anchorPoint.X,
+					          hoveredTilePosition.Y - this.anchorPoint.Y);
 				this.trackTreeView.MarkTrackAsChanged();
 				#endregion Drag overlay tile
 			}
