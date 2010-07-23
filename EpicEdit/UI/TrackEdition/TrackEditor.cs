@@ -737,11 +737,16 @@ namespace EpicEdit.UI.TrackEdition
 					return;
 				}
 
-				this.buttonPressed = ActionButton.LeftMouseButton;
 				this.overlayControl.SelectedTile = this.hoveredOverlayTile;
-				Point hoveredTilePosition = this.AbsoluteTilePosition;
-				this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
-				                             hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+
+				if (this.overlayControl.SelectedTile != null)
+				{
+					this.buttonPressed = ActionButton.LeftMouseButton;
+					Point hoveredTilePosition = this.AbsoluteTilePosition;
+					this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
+												 hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+				}
+
 				this.RepaintTrackDisplay();
 			}
 			else if (currentMode == EditionMode.Start)
