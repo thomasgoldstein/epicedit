@@ -913,7 +913,6 @@ namespace EpicEdit.Rom
 			this.filePath = filePath;
 
 			this.SaveDataToBuffer();
-			this.SaveOverlayTiles();
 			this.SaveItemProbabilities();
 			this.SetChecksum();
 			this.SaveFile();
@@ -977,27 +976,6 @@ namespace EpicEdit.Rom
 			for (int i = epicZoneIterator; i < epicZone.End; i++)
 			{
 				this.romBuffer[i] = 0xFF;
-			}
-		}
-
-		private void SaveOverlayTiles()
-		{
-			byte[] trackOrder = this.LoadTrackOrder();
-
-			for (int i = 0; i < this.trackGroups.Length; i++)
-			{
-				Track[] tracks = this.trackGroups[i].GetTracks();
-				int trackGroupSize = tracks.Length;
-
-				for (int j = 0; j < trackGroupSize; j++)
-				{
-					int trackIndex = trackOrder[i * 5 + j];
-					if (tracks[j].Modified)
-					{
-						byte[] overlayTileData = tracks[j].OverlayTiles.GetBytes(this.overlayTileSizes, this.overlayTilePatterns);
-						this.SaveOverlayTileData(trackIndex, overlayTileData);
-					}
-				}
 			}
 		}
 
@@ -1177,6 +1155,10 @@ namespace EpicEdit.Rom
 			byte themeId = this.themes.GetThemeId(track.Theme);
 			int themeIdOffset = this.offsets[Address.TrackThemes] + trackIndex;
 			this.romBuffer[themeIdOffset] = themeId;
+
+			// Update overlay tiles
+			byte[] overlayTileData = track.OverlayTiles.GetBytes(this.overlayTileSizes, this.overlayTilePatterns);
+			this.SaveOverlayTileData(trackIndex, overlayTileData);
 
 			if (track is GPTrack)
 			{
