@@ -1139,7 +1139,7 @@ namespace EpicEdit.Rom
 
 						if (isInEpicZone)
 						{
-							this.ResaveTrack(trackIndex, trackOffset, ref epicZoneIterator, savedData);
+							this.MoveTrackMap(trackIndex, trackOffset, ref epicZoneIterator, savedData);
 						}
 					}
 				}
@@ -1222,7 +1222,7 @@ namespace EpicEdit.Rom
 			return new Point(x, y);
 		}
 
-		private void ResaveTrack(int trackIndex, Offset trackOffset, ref int epicZoneIterator, List<byte[]> savedData)
+		private void MoveTrackMap(int trackIndex, Offset trackOffset, ref int epicZoneIterator, List<byte[]> savedData)
 		{
 			int compressedTrackLength = Codec.GetLength(this.romBuffer, trackOffset);
 			byte[] compressedTrack = new byte[compressedTrackLength];
