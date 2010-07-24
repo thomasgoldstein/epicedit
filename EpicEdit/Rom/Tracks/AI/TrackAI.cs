@@ -161,11 +161,18 @@ namespace EpicEdit.Rom.Tracks.AI
 		/// <returns>The AI bytes.</returns>
 		public byte[] GetBytes()
 		{
-			int targetDataLength = this.aiElements.Count * 3;
 			int zoneDataLength = this.ComputeZoneDataLength();
-			byte[] data = new byte[targetDataLength + zoneDataLength + 1];
+			int targetDataLength = this.aiElements.Count * 3;
+			byte[] data = new byte[zoneDataLength + 1 + targetDataLength];
 
 			int i = 0;
+
+			foreach (TrackAIElement aiElement in this.aiElements)
+			{
+				aiElement.GetZoneBytes(data, ref i);
+			}
+			data[i++] = 0xFF;
+
 			List<TrackAIElement> crossedAIElements = this.GetCrossedAIElements();
 			if (crossedAIElements == null)
 			{
@@ -191,13 +198,6 @@ namespace EpicEdit.Rom.Tracks.AI
 					}
 				}
 			}
-
-			foreach (TrackAIElement aiElement in this.aiElements)
-			{
-				aiElement.GetZoneBytes(data, ref i);
-			}
-
-			data[data.Length - 1] = 0xFF;
 
 			return data;
 		}

@@ -1118,25 +1118,19 @@ namespace EpicEdit.Rom
 			savedData.Add(trackAIData);
 
 			// Update AI offsets
-			Offset aiTargetOffset = new Offset(epicZoneIterator);
-			Offset aiZoneOffset = new Offset(epicZoneIterator + track.AI.ElementCount * 3);
-			// NOTE: In the original game, the zone data is placed first,
-			// followed by the target data. We differ by saving
-			// the target data first, because it's more simple
-			// (the size of a target element is always the same,
-			// while the size of a zone varies).
-			// This has no consequence in game.
+			Offset aiZoneOffset = new Offset(epicZoneIterator);
+			Offset aiTargetOffset = new Offset(epicZoneIterator + trackAIData.Length - track.AI.ElementCount * 3);
 
-			int trackAITargetIndex = this.offsets[Address.TrackAITargets] + trackIndex * 2;
 			int trackAIZoneIndex = this.offsets[Address.TrackAIZones] + trackIndex * 2;
+			int trackAITargetIndex = this.offsets[Address.TrackAITargets] + trackIndex * 2;
 
-			byte[] aiTargetOffsetValue = aiTargetOffset.GetBytes();
 			byte[] aiZoneOffsetValue = aiZoneOffset.GetBytes();
+			byte[] aiTargetOffsetValue = aiTargetOffset.GetBytes();
 
-			this.romBuffer[trackAITargetIndex] = aiTargetOffsetValue[0];
-			this.romBuffer[trackAITargetIndex + 1] = aiTargetOffsetValue[1];
 			this.romBuffer[trackAIZoneIndex] = aiZoneOffsetValue[0];
 			this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffsetValue[1];
+			this.romBuffer[trackAITargetIndex] = aiTargetOffsetValue[0];
+			this.romBuffer[trackAITargetIndex + 1] = aiTargetOffsetValue[1];
 
 			epicZoneIterator += trackAIData.Length;
 		}
