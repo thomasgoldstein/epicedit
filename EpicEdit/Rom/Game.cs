@@ -664,40 +664,64 @@ namespace EpicEdit.Rom
 
 		#endregion Load data
 
+		/// <summary>
+		/// Returns the main track groups.
+		/// </summary>
 		/// <returns>An array composed of the main track groups.</returns>
 		public TrackGroup[] GetTrackGroups()
 		{
 			return this.trackGroups;
 		}
 
+		/// <summary>
+		/// Returns a specific track.
+		/// </summary>
+		/// <param name="trackGroupId">The group id of the track.</param>
+		/// <param name="trackId">The id of the track.</param>
+		/// <returns>A track.</returns>
 		public Track GetTrack(int trackGroupId, int trackId)
 		{
 			return this.trackGroups[trackGroupId][trackId];
 		}
 
-		/// <returns>The track themes collection.</returns>
+		/// <summary>
+		/// Returns the track themes.
+		/// </summary>
+		/// <returns>The track theme collection.</returns>
 		public Themes GetThemes()
 		{
 			return this.themes;
 		}
 
+		/// <summary>
+		/// Returns the track overlay sizes.
+		/// </summary>
 		/// <returns>The track overlay tile size collection.</returns>
 		public OverlayTileSizes GetOverlayTileSizes()
 		{
 			return this.overlayTileSizes;
 		}
 
+		/// <summary>
+		/// Returns the track overlay sizes.
+		/// </summary>
 		/// <returns>The track overlay tile pattern collection.</returns>
 		public OverlayTilePatterns GetOverlayTilePatterns()
 		{
 			return this.overlayTilePatterns;
 		}
 
+		/// <summary>
+		/// Returns the file path of the loaded ROM.
+		/// </summary>
 		public string FilePath
 		{
 			get { return this.filePath; }
 		}
 
+		/// <summary>
+		/// Returns the file name of the loaded ROM.
+		/// </summary>
 		public string FileName
 		{
 			get { return Path.GetFileName(this.filePath); }
