@@ -23,7 +23,7 @@ namespace EpicEdit.UI.Tools
 	/// </summary>
 	public class EpicPictureBox : PictureBox
 	{
-		Image disabledImage;
+		private Image disabledImage;
 
 		public new Image Image
 		{
