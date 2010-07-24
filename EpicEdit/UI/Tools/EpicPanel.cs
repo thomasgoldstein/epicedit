@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
@@ -22,10 +23,12 @@ namespace EpicEdit.UI.Tools
 	/// </summary>
 	public class EpicPanel : Panel
 	{
+		private static readonly new bool DesignMode =
+			LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
-			if (!this.Enabled ||
-			   this.Site != null && this.Site.DesignMode == true) // WinForms design mode
+			if (!this.Enabled || EpicPanel.DesignMode)
 			{
 				base.OnPaintBackground(e);
 			}
