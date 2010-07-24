@@ -681,6 +681,12 @@ namespace EpicEdit.Rom
 			return this.themes;
 		}
 
+		/// <returns>The track overlay tile size collection.</returns>
+		public OverlayTileSizes GetOverlayTileSizes()
+		{
+			return this.overlayTileSizes;
+		}
+
 		/// <returns>The track overlay tile pattern collection.</returns>
 		public OverlayTilePatterns GetOverlayTilePatterns()
 		{
