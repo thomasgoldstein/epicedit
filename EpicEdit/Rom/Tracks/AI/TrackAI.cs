@@ -161,9 +161,9 @@ namespace EpicEdit.Rom.Tracks.AI
 		/// <returns>The AI bytes.</returns>
 		public byte[] GetBytes()
 		{
-			int zoneDataLength = this.ComputeZoneDataLength();
+			int zoneDataLength = this.ComputeZoneDataLength() + 1; // + 1 for ending 0xFF
 			int targetDataLength = this.aiElements.Count * 3;
-			byte[] data = new byte[zoneDataLength + 1 + targetDataLength];
+			byte[] data = new byte[zoneDataLength + targetDataLength];
 
 			int i = 0;
 
@@ -173,30 +173,23 @@ namespace EpicEdit.Rom.Tracks.AI
 			}
 			data[i++] = 0xFF;
 
-			List<TrackAIElement> crossedAIElements = this.GetCrossedAIElements();
-			if (crossedAIElements == null)
+			foreach (TrackAIElement aiElement in this.aiElements)
 			{
-				foreach (TrackAIElement aiElement in this.aiElements)
-				{
-					aiElement.GetTargetBytes(data, ref i);
-				}
+				aiElement.GetTargetBytes(data, ref i);
 			}
-			else
+
+			List<TrackAIElement> crossedAIElements = this.GetCrossedAIElements();
+			foreach (TrackAIElement aiElement in crossedAIElements)
 			{
-				foreach (TrackAIElement aiElement in this.aiElements)
-				{
-					aiElement.GetTargetBytes(data, ref i);
-					if (crossedAIElements.Contains(aiElement))
-					{
-						// Tack 0x80 on the byte in order to avoid object visibility issues.
-						// Without this, you'd enter another object zone as you cross the path,
-						// potentially causing momentarily disappearing objects.
-						// In the original game, this would happen in Mario Circuit 2: the
-						// 4 pipes in front of you would briefly disappear while jumping
-						// above the crossed path.
-						data[i - 1] += 0x80;
-					}
-				}
+				int elementIndex = this.aiElements.IndexOf(aiElement);
+
+				// Tack 0x80 on the byte in order to avoid object visibility issues.
+				// Without this, you'd enter another object zone as you cross the path,
+				// potentially causing momentarily disappearing objects.
+				// In the original game, this would happen in Mario Circuit 2: the
+				// 4 pipes in front of you would briefly disappear while jumping
+				// above the crossed path.
+				data[zoneDataLength + (elementIndex * 3) + 2] += 0x80;
 			}
 
 			return data;
@@ -211,15 +204,15 @@ namespace EpicEdit.Rom.Tracks.AI
 		/// <returns>The list of AI elements that are part of a crossed path.</returns>
 		private List<TrackAIElement> GetCrossedAIElements()
 		{
+			List<TrackAIElement> crossedAIElements = new List<TrackAIElement>();
+
 			if (!(this.track is GPTrack) ||
 				(this.track as GPTrack).ObjectZones == null)
 			{
-				return null;
+				return crossedAIElements;
 			}
-			
-			GPTrack gpTrack = this.track as GPTrack;
 
-			List<TrackAIElement> crossedAIElements = new List<TrackAIElement>();
+			GPTrack gpTrack = this.track as GPTrack;
 
 			for (int aiElementIndex = 0; aiElementIndex < this.aiElements.Count; aiElementIndex++)
 			{
