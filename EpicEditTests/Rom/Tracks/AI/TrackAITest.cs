@@ -23,10 +23,10 @@ namespace EpicEditTests.Rom.Tracks.AI
 	{
 		private void TestGetBytes(byte[] zoneData, byte[] targetData)
 		{
-			byte[] dataBefore = new byte[zoneData.Length + targetData.Length + 1];
-			Array.Copy(targetData, dataBefore, targetData.Length);
-			Array.Copy(zoneData, 0, dataBefore, targetData.Length, zoneData.Length);
-			dataBefore[dataBefore.Length - 1] = 0xFF; // Zone data ends with 0xFF
+			byte[] dataBefore = new byte[zoneData.Length + 1 + targetData.Length];
+			Array.Copy(zoneData, dataBefore, zoneData.Length);
+			dataBefore[zoneData.Length] = 0xFF; // Zone data ends with 0xFF
+			Array.Copy(targetData, 0, dataBefore, zoneData.Length + 1, targetData.Length);
 
 			TrackAI trackAI = new TrackAI(zoneData, targetData, null);
 
