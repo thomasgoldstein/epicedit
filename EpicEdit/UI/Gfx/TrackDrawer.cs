@@ -35,6 +35,7 @@ namespace EpicEdit.UI.Gfx
 	{
 		private Track track;
 
+		private Size panelSize;
 		private float zoom;
 
 		private Graphics trackGfx;
@@ -127,6 +128,7 @@ namespace EpicEdit.UI.Gfx
 
 		public TrackDrawer(Control trackCtrl, float zoom)
 		{
+			this.panelSize = trackCtrl.Size;
 			this.trackGfx = trackCtrl.CreateGraphics();
 
 			this.SetZoom(zoom);
@@ -246,12 +248,12 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		public void DrawTrack(Size panelSize, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action,
+		public void DrawTrack(Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action,
 							  EditionMode editionMode, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, TrackObject hoveredObject, bool frontZonesView,
 							  TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			int imageWidth = (int)Math.Min(panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			if (imageWidth == 0 || imageHeight == 0)
 			{
@@ -329,7 +331,7 @@ namespace EpicEdit.UI.Gfx
 				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight, panelSize);
+			this.PaintTrackOutbounds(imageWidth, imageHeight);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -1106,16 +1108,16 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private void PaintTrackOutbounds(int imageWidth, int imageHeight, Size panelSize)
+		private void PaintTrackOutbounds(int imageWidth, int imageHeight)
 		{
 			Rectangle trackArea = new Rectangle(0, 0, (int)(imageWidth * this.zoom), (int)(imageHeight * this.zoom));
 			Rectangle[] outBounds = new Rectangle[]
 			{
 				// Right outbounds
-				new Rectangle(trackArea.Right, 0, panelSize.Width - trackArea.Width, trackArea.Height),
+				new Rectangle(trackArea.Right, 0, this.panelSize.Width - trackArea.Width, trackArea.Height),
 				
 				// Bottom outbounds
-				new Rectangle(0, trackArea.Bottom, panelSize.Width, panelSize.Height - trackArea.Height)
+				new Rectangle(0, trackArea.Bottom, this.panelSize.Width, this.panelSize.Height - trackArea.Height)
 			};
 			this.trackGfx.FillRectangles(Brushes.Black, outBounds);
 		}
@@ -1127,6 +1129,8 @@ namespace EpicEdit.UI.Gfx
 
 		public void ResizeWindow(Control ctrl)
 		{
+			this.panelSize = ctrl.Size;
+
 			if (ctrl.Width > 0 && ctrl.Height > 0)
 			{
 				this.trackGfx = ctrl.CreateGraphics();

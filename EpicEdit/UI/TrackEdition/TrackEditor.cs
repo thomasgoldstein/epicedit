@@ -979,7 +979,6 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.trackDrawer.DrawTrack
 			(
-				this.trackDisplayPanel.Size,
 				this.scrollPosition,
 				this.TilePosition,
 				this.tileClipboardSize,
