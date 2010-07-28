@@ -292,13 +292,9 @@ namespace EpicEdit.UI.Gfx
 				{
 					TrackDrawer.SetObjectClipRegion(clipRegion, hoveredObject, scrollPosition);
 				}
-				else if (editionMode == EditionMode.AI)
+				else //if (editionMode == EditionMode.AI)
 				{
 					TrackDrawer.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem, scrollPosition);
-				}
-				else
-				{
-					this.NotifyFullRepaintNeed();
 				}
 
 				if (!this.fullRepaintNeeded)
