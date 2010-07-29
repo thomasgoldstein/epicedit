@@ -977,22 +977,28 @@ namespace EpicEdit.UI.TrackEdition
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 
-			this.trackDrawer.DrawTrack
-			(
-				this.scrollPosition,
-				this.TilePosition,
-				this.tileClipboardSize,
-				this.tileClipboardTopLeft,
-				this.buttonPressed,
-				this.CurrentMode,
-				this.hoveredOverlayTile,
-				this.overlayControl.SelectedTile,
-				this.hoveredObject,
-				this.objectControl.FrontZonesView,
-				this.hoveredAIElem,
-				this.aiControl.SelectedElement,
-				this.aiAction == AIAction.DragTarget
-			);
+			switch (this.CurrentMode)
+			{
+				case EditionMode.Tileset:
+					this.trackDrawer.DrawTrackTileset(this.scrollPosition, this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
+					break;
+
+				case EditionMode.Overlay:
+					this.trackDrawer.DrawTrackOverlay(this.scrollPosition, this.hoveredOverlayTile, this.overlayControl.SelectedTile);
+					break;
+
+				case EditionMode.Start:
+					this.trackDrawer.DrawTrackStart(this.scrollPosition);
+					break;
+
+				case EditionMode.Objects:
+					this.trackDrawer.DrawTrackObjects(this.scrollPosition, this.hoveredObject, this.objectControl.FrontZonesView);
+					break;
+
+				case EditionMode.AI:
+					this.trackDrawer.DrawTrackAI(this.scrollPosition, this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
+					break;
+			}
 		}
 
 		private void ResetCurrentPosition()

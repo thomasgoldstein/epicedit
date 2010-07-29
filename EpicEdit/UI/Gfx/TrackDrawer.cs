@@ -248,9 +248,7 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		public void DrawTrack(Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action,
-							  EditionMode editionMode, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, TrackObject hoveredObject, bool frontZonesView,
-							  TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		public void DrawTrackTileset(Point scrollPosition, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
 			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
 			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
@@ -268,37 +266,10 @@ namespace EpicEdit.UI.Gfx
 			{
 				Rectangle selectionRectangle = Rectangle.Empty;
 
-				if (editionMode == EditionMode.Tileset)
+				if (action != ActionButton.MiddleMouseButton)
 				{
-					if (action != ActionButton.MiddleMouseButton)
-					{
-						selectionRectangle = this.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
-						TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
-					}
-				}
-				else if (editionMode == EditionMode.Overlay)
-				{
-					TrackDrawer.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, scrollPosition);
-				}
-				else if (editionMode == EditionMode.Start)
-				{
-					if (this.track is GPTrack)
-					{
-						GPTrack gpTrack = this.track as GPTrack;
-						this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition, scrollPosition);
-					}
-					else
-					{
-						this.NotifyFullRepaintNeed();
-					}
-				}
-				else if (editionMode == EditionMode.Objects)
-				{
-					TrackDrawer.SetObjectClipRegion(clipRegion, hoveredObject, scrollPosition);
-				}
-				else //if (editionMode == EditionMode.AI)
-				{
-					TrackDrawer.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem, scrollPosition);
+					selectionRectangle = this.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
+					TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
 				}
 
 				if (!this.fullRepaintNeeded)
@@ -308,26 +279,167 @@ namespace EpicEdit.UI.Gfx
 					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
 
-				if (editionMode == EditionMode.Tileset)
+				this.DrawTileSelection(trackGfxBackBuffer, selectionRectangle, action);
+
+				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+			}
+
+			this.PaintTrackOutbounds(imageWidth, imageHeight);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
+			this.trackGfx.ResetClip();
+		}
+
+		public void DrawTrackOverlay(Point scrollPosition, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
+		{
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
+
+			if (imageWidth == 0 || imageHeight == 0)
+			{
+				return;
+			}
+
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			{
+				TrackDrawer.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, scrollPosition);
+
+				if (!this.fullRepaintNeeded)
 				{
-					this.DrawTileSelection(trackGfxBackBuffer, selectionRectangle, action);
+					// If a full repaint isn't needed, we set the clipping regions
+					// to only partially repaint the panel
+					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
-				else if (editionMode == EditionMode.Overlay)
+
+				this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile, selectedOverlayTile);
+
+				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+			}
+
+			this.PaintTrackOutbounds(imageWidth, imageHeight);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
+			this.trackGfx.ResetClip();
+		}
+
+		public void DrawTrackStart(Point scrollPosition)
+		{
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
+
+			if (imageWidth == 0 || imageHeight == 0)
+			{
+				return;
+			}
+
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			{
+				if (this.track is GPTrack)
 				{
-					this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile, selectedOverlayTile);
+					GPTrack gpTrack = this.track as GPTrack;
+					this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition, scrollPosition);
 				}
-				else if (editionMode == EditionMode.Start)
+				else
 				{
-					this.DrawStartData(trackGfxBackBuffer, scrollPosition);
+					this.NotifyFullRepaintNeed();
 				}
-				else if (editionMode == EditionMode.Objects)
+
+				if (!this.fullRepaintNeeded)
 				{
-					this.DrawObjectData(trackGfxBackBuffer, scrollPosition, frontZonesView);
+					// If a full repaint isn't needed, we set the clipping regions
+					// to only partially repaint the panel
+					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
-				else //if (editionMode == EditionMode.AI)
+
+				this.DrawStartData(trackGfxBackBuffer, scrollPosition);
+
+				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+			}
+
+			this.PaintTrackOutbounds(imageWidth, imageHeight);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
+			this.trackGfx.ResetClip();
+		}
+
+		public void DrawTrackObjects(Point scrollPosition, TrackObject hoveredObject, bool frontZonesView)
+		{
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
+
+			if (imageWidth == 0 || imageHeight == 0)
+			{
+				return;
+			}
+
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			{
+				TrackDrawer.SetObjectClipRegion(clipRegion, hoveredObject, scrollPosition);
+
+				if (!this.fullRepaintNeeded)
 				{
-					this.DrawAI(trackGfxBackBuffer, scrollPosition, hoveredAIElem, selectedAIElem, isAITargetHovered);
+					// If a full repaint isn't needed, we set the clipping regions
+					// to only partially repaint the panel
+					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
+
+				this.DrawObjectData(trackGfxBackBuffer, scrollPosition, frontZonesView);
+
+				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+			}
+
+			this.PaintTrackOutbounds(imageWidth, imageHeight);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
+			this.trackGfx.ResetClip();
+		}
+
+		public void DrawTrackAI(Point scrollPosition, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		{
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
+
+			if (imageWidth == 0 || imageHeight == 0)
+			{
+				return;
+			}
+
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			{
+				TrackDrawer.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem, scrollPosition);
+
+				if (!this.fullRepaintNeeded)
+				{
+					// If a full repaint isn't needed, we set the clipping regions
+					// to only partially repaint the panel
+					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+				}
+
+				this.DrawAI(trackGfxBackBuffer, scrollPosition, hoveredAIElem, selectedAIElem, isAITargetHovered);
 
 				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
 			}
