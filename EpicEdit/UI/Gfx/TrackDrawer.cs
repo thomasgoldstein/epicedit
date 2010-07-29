@@ -351,7 +351,7 @@ namespace EpicEdit.UI.Gfx
 				selectionRectangle = new Rectangle((cursorPosition.X * 8) - 1, (cursorPosition.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
 				graphics.DrawRectangle(this.tileHighlightPen, selectionRectangle);
 			}
-			else
+			else // The cursor isn't on the track map
 			{
 				selectionRectangle = Rectangle.Empty;
 			}
