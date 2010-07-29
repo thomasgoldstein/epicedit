@@ -320,12 +320,7 @@ namespace EpicEdit.UI.Gfx
 				}
 				else if (editionMode == EditionMode.AI)
 				{
-					this.DrawAI(trackGfxBackBuffer, scrollPosition);
-					if (hoveredAIElem != selectedAIElem)
-					{
-						this.HighlightHoveredAIElement(trackGfxBackBuffer, scrollPosition, hoveredAIElem, isAITargetHovered);
-					}
-					this.HighlightSelectedAIElement(trackGfxBackBuffer, scrollPosition, selectedAIElem);
+					this.DrawAI(trackGfxBackBuffer, scrollPosition, hoveredAIElem, selectedAIElem, isAITargetHovered);
 				}
 
 				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
@@ -749,7 +744,18 @@ namespace EpicEdit.UI.Gfx
 			return points;
 		}
 
-		private void DrawAI(Graphics graphics, Point scrollPosition)
+		private void DrawAI(Graphics graphics, Point scrollPosition, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		{
+			this.DrawAllAIElements(graphics, scrollPosition);
+
+			if (hoveredAIElem != selectedAIElem)
+			{
+				this.HighlightHoveredAIElement(graphics, scrollPosition, hoveredAIElem, isAITargetHovered);
+			}
+			this.HighlightSelectedAIElement(graphics, scrollPosition, selectedAIElem);
+		}
+
+		private void DrawAllAIElements(Graphics graphics, Point scrollPosition)
 		{
 			foreach (TrackAIElement aiElem in this.track.AI)
 			{
