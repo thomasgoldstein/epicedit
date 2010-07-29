@@ -266,11 +266,13 @@ namespace EpicEdit.UI.Gfx
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
+				Rectangle selectionRectangle = Rectangle.Empty;
+
 				if (editionMode == EditionMode.Tileset)
 				{
 					if (action != ActionButton.MiddleMouseButton)
 					{
-						Rectangle selectionRectangle = this.CreateAndDrawTileSelectionRectangle(trackGfxBackBuffer, scrollPosition, cursorPosition, selectionSize, selectionStart, action);
+						selectionRectangle = this.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
 						TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
 					}
 				}
@@ -306,7 +308,11 @@ namespace EpicEdit.UI.Gfx
 					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
 
-				if (editionMode == EditionMode.Overlay)
+				if (editionMode == EditionMode.Tileset)
+				{
+					this.DrawTileSelection(trackGfxBackBuffer, selectionRectangle, action);
+				}
+				else if (editionMode == EditionMode.Overlay)
 				{
 					this.DrawOverlay(trackGfxBackBuffer, scrollPosition, hoveredOverlayTile, selectedOverlayTile);
 				}
@@ -318,7 +324,7 @@ namespace EpicEdit.UI.Gfx
 				{
 					this.DrawObjectData(trackGfxBackBuffer, scrollPosition, frontZonesView);
 				}
-				else if (editionMode == EditionMode.AI)
+				else //if (editionMode == EditionMode.AI)
 				{
 					this.DrawAI(trackGfxBackBuffer, scrollPosition, hoveredAIElem, selectedAIElem, isAITargetHovered);
 				}
@@ -331,11 +337,10 @@ namespace EpicEdit.UI.Gfx
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
 			this.fullRepaintNeeded = false;
-
 			this.trackGfx.ResetClip();
 		}
 
-		private Rectangle CreateAndDrawTileSelectionRectangle(Graphics graphics, Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
+		private Rectangle GetTileSelectionRectangle(Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
 		{
 			Rectangle selectionRectangle;
 			if (action == ActionButton.RightMouseButton) // A multiple tile selection is happening now
@@ -343,13 +348,10 @@ namespace EpicEdit.UI.Gfx
 				selectionStart.X -= scrollPosition.X;
 				selectionStart.Y -= scrollPosition.Y;
 				selectionRectangle = new Rectangle((selectionStart.X * 8) - 1, (selectionStart.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
-				graphics.FillRectangle(this.tileSelectBrush, selectionRectangle);
-				graphics.DrawRectangle(this.tileSelectPen, selectionRectangle);
 			}
 			else if (cursorPosition.X != -1) // The user is simply hovering tiles
 			{
 				selectionRectangle = new Rectangle((cursorPosition.X * 8) - 1, (cursorPosition.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
-				graphics.DrawRectangle(this.tileHighlightPen, selectionRectangle);
 			}
 			else // The cursor isn't on the track map
 			{
@@ -542,6 +544,19 @@ namespace EpicEdit.UI.Gfx
 
 			// This is for the back buffer, which doesn't need the zoom level
 			graphics.Clip = clipRegion;
+		}
+
+		private void DrawTileSelection(Graphics graphics, Rectangle selectionRectangle, ActionButton action)
+		{
+			if (action == ActionButton.RightMouseButton) // A multiple tile selection is happening now
+			{
+				graphics.FillRectangle(this.tileSelectBrush, selectionRectangle);
+				graphics.DrawRectangle(this.tileSelectPen, selectionRectangle);
+			}
+			else if (selectionRectangle != Rectangle.Empty) // The user is simply hovering tiles
+			{
+				graphics.DrawRectangle(this.tileHighlightPen, selectionRectangle);
+			}
 		}
 
 		private void DrawOverlay(Graphics graphics, Point scrollPosition, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
