@@ -264,9 +264,13 @@ namespace EpicEdit.UI.Gfx
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
-				Rectangle selectionRectangle = Rectangle.Empty;
+				Rectangle selectionRectangle;
 
-				if (action != ActionButton.MiddleMouseButton)
+				if (action == ActionButton.MiddleMouseButton)
+				{
+					selectionRectangle = Rectangle.Empty;
+				}
+				else
 				{
 					selectionRectangle = this.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
 					TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
