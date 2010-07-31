@@ -32,9 +32,9 @@ namespace EpicEdit.UI.Gfx
 		private Graphics tilesetGfx;
 		private Pen tilesetPen;
 
-		public TilesetDrawer(Control tilesetCtrl)
+		public TilesetDrawer(Control control)
 		{
-			this.tilesetGfx = tilesetCtrl.CreateGraphics();
+			this.tilesetGfx = control.CreateGraphics();
 			this.tilesetGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
 			this.tilesetGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 

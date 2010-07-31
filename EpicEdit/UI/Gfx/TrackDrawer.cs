@@ -126,10 +126,10 @@ namespace EpicEdit.UI.Gfx
 		private bool fullRepaintNeeded;
 		private Region dirtyRegion;
 
-		public TrackDrawer(Control trackCtrl, float zoom)
+		public TrackDrawer(Control control, float zoom)
 		{
-			this.panelSize = trackCtrl.Size;
-			this.trackGfx = trackCtrl.CreateGraphics();
+			this.panelSize = control.Size;
+			this.trackGfx = control.CreateGraphics();
 
 			this.SetZoom(zoom);
 
@@ -1260,13 +1260,13 @@ namespace EpicEdit.UI.Gfx
 			this.fullRepaintNeeded = true;
 		}
 
-		public void ResizeWindow(Control ctrl)
+		public void ResizeWindow(Control control)
 		{
-			this.panelSize = ctrl.Size;
+			this.panelSize = control.Size;
 
-			if (ctrl.Width > 0 && ctrl.Height > 0)
+			if (control.Width > 0 && control.Height > 0)
 			{
-				this.trackGfx = ctrl.CreateGraphics();
+				this.trackGfx = control.CreateGraphics();
 				this.SetInterpolationMode();
 				this.NotifyFullRepaintNeed();
 			}
