@@ -201,7 +201,7 @@ namespace EpicEdit.UI.Gfx
 		}
 
 		/// <summary>
-		/// Load a track and generate the track image cache.
+		/// Loads a track and generate the track image cache.
 		/// </summary>
 		/// <param name="track">The track.</param>
 		public void LoadTrack(Track track)
