@@ -860,16 +860,16 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.buttonPressed = ActionButton.None;
 
-				EditionMode currentMode = this.CurrentMode;
-				if (currentMode == EditionMode.Tileset ||
-					currentMode == EditionMode.Overlay)
+				if (this.CurrentMode == EditionMode.Tileset)
 				{
+					// For other modes, the cursor will be reset
+					// by the call to the InitCurrentModeAction method below.
+					// Tileset mode is a special case as it's the only mode
+					// that doesn't change the cursor (middle mouse button aside).
 					this.Cursor = Cursors.Default;
 				}
-				else
-				{
-					this.InitCurrentModeAction();
-				}
+
+				this.InitCurrentModeAction();
 			}
 			else if (this.CurrentMode == EditionMode.Tileset)
 			{
