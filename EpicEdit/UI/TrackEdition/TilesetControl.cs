@@ -52,7 +52,7 @@ namespace EpicEdit.UI.TrackEdition
 		public event EventHandler<EventArgs> TrackMapChanged;
 
 		/// <summary>
-		/// Used to display the tileset.
+		/// Used to draw the tileset.
 		/// </summary>
 		private TilesetDrawer tilesetDrawer;
 

@@ -39,7 +39,7 @@ namespace EpicEdit.UI.TrackEdition
 	{
 		#region Private members
 		/// <summary>
-		/// Used to display the track.
+		/// Used to draw the track.
 		/// </summary>
 		private TrackDrawer trackDrawer;
 
