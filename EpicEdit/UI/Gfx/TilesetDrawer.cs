@@ -83,7 +83,11 @@ namespace EpicEdit.UI.Gfx
 			int tilePosY = selectedTile / 8;
 			Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
-			this.tilesetGfx.DrawRectangle(this.tilesetPen, (selectedTilePosition.X * 8 * zoom), (selectedTilePosition.Y * 8 * zoom), 8 * zoom - 1, 8 * zoom - 1);
+			this.tilesetGfx.DrawRectangle(this.tilesetPen,
+										  selectedTilePosition.X * 8 * zoom,
+										  selectedTilePosition.Y * 8 * zoom,
+										  8 * zoom - 1,
+										  8 * zoom - 1);
 		}
 
 		public void Dispose()
