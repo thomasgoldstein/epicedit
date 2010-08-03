@@ -226,6 +226,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.trackDrawer = new TrackDrawer(this.trackDisplayPanel, this.Zoom);
 			this.tilesetControl.InitOnRomLoading();
+			this.overlayControl.InitOnRomLoading();
 			this.InitLists();
 
 			this.SetCurrentTrack();
@@ -1333,6 +1334,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
 		{
 			this.trackDrawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, this.track.GetRoadTileset());
+			this.overlayControl.SetTileset(this.track.GetRoadTileset());
 		}
 
 		private void TilesetControlSelectedTileChanged(object sender, EventArgs e)

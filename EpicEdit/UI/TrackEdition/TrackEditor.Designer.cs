@@ -187,7 +187,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.overlayControl.Location = new System.Drawing.Point(3, 3);
 			this.overlayControl.Name = "overlayControl";
-			this.overlayControl.Size = new System.Drawing.Size(130, 130);
+			this.overlayControl.Size = new System.Drawing.Size(130, 590);
 			this.overlayControl.TabIndex = 0;
 			this.overlayControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlDeleteRequested);
 			this.overlayControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlDeleteAllRequested);

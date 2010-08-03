@@ -27,9 +27,16 @@ namespace EpicEdit.UI.TrackEdition
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing) {
-				if (components != null) {
+			if (disposing)
+			{
+				if (components != null)
+				{
 					components.Dispose();
+				}
+
+				if (this.overlayDrawer != null)
+				{
+					this.overlayDrawer.Dispose();
 				}
 			}
 			base.Dispose(disposing);
@@ -44,11 +51,12 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.deleteAllButton = new System.Windows.Forms.Button();
 			this.deleteButton = new System.Windows.Forms.Button();
+			this.overlayPanel = new EpicEdit.UI.Tools.EpicPanel();
 			this.SuspendLayout();
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Location = new System.Drawing.Point(28, 67);
+			this.deleteAllButton.Location = new System.Drawing.Point(28, 564);
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
 			this.deleteAllButton.TabIndex = 0;
@@ -59,7 +67,7 @@ namespace EpicEdit.UI.TrackEdition
 			// deleteButton
 			// 
 			this.deleteButton.Enabled = false;
-			this.deleteButton.Location = new System.Drawing.Point(28, 12);
+			this.deleteButton.Location = new System.Drawing.Point(28, 518);
 			this.deleteButton.Name = "deleteButton";
 			this.deleteButton.Size = new System.Drawing.Size(74, 40);
 			this.deleteButton.TabIndex = 1;
@@ -67,16 +75,25 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteButton.UseVisualStyleBackColor = true;
 			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
 			// 
+			// overlayPanel
+			// 
+			this.overlayPanel.Location = new System.Drawing.Point(0, 0);
+			this.overlayPanel.Name = "overlayPanel";
+			this.overlayPanel.Size = new System.Drawing.Size(128, 512);
+			this.overlayPanel.TabIndex = 2;
+			// 
 			// OverlayControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.overlayPanel);
 			this.Controls.Add(this.deleteButton);
 			this.Controls.Add(this.deleteAllButton);
 			this.Name = "OverlayControl";
-			this.Size = new System.Drawing.Size(130, 130);
+			this.Size = new System.Drawing.Size(130, 590);
 			this.ResumeLayout(false);
 		}
+		private EpicEdit.UI.Tools.EpicPanel overlayPanel;
 		private System.Windows.Forms.Button deleteButton;
 		private System.Windows.Forms.Button deleteAllButton;
 	}

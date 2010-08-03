@@ -133,6 +133,7 @@
     <Compile Include="Rom\Utilities.cs" />
     <Compile Include="UI\Gfx\FastBitmap.cs" />
     <Compile Include="UI\Gfx\GraphicsConverter.cs" />
+    <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
     <Compile Include="UI\Gfx\TilesetDrawer.cs" />
     <Compile Include="UI\Gfx\TrackDrawer.cs" />
     <Compile Include="UI\MainForm.cs">

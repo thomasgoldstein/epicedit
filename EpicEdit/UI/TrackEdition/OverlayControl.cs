@@ -16,7 +16,9 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -30,6 +32,11 @@ namespace EpicEdit.UI.TrackEdition
 
 		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteAllRequested;
+
+		/// <summary>
+		/// Used to draw the overlay tileset.
+		/// </summary>
+		private OverlayTilesetDrawer overlayDrawer;
 
 		/// <summary>
 		/// The selected track overlay tile.
@@ -57,7 +64,27 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.InitializeComponent();
 		}
-		
+
+		public void InitOnRomLoading()
+		{
+			this.overlayDrawer = new OverlayTilesetDrawer(this.overlayPanel);
+
+			// The following event handler is added here rather than in the Designer.cs
+			// to save us a null check on this.drawer in each of the corresponding functions,
+			// because the drawer doesn't exist yet before a ROM is loaded.
+			this.overlayPanel.Paint += new PaintEventHandler(this.OverlayPanelPaint);
+		}
+
+		public void SetTileset(Tile[] tileset)
+		{
+			this.overlayDrawer.SetTileset(tileset);
+		}
+
+		private void OverlayPanelPaint(object sender, PaintEventArgs e)
+		{
+			this.overlayDrawer.DrawOverlayTileset();
+		}
+
 		private void DeleteButtonClick(object sender, EventArgs e)
 		{
 			this.DeleteRequested(this, EventArgs.Empty);
