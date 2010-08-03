@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
@@ -72,45 +73,56 @@ namespace EpicEdit.UI.Gfx
 			int zoom = 2;
 			int tilesetX = 0;
 			int tilesetY = 0;
-			int panelWidth = (int)this.overlayGfx.VisibleClipBounds.Width;
+
+			RectangleF bounds = this.overlayGfx.VisibleClipBounds;
+			int panelWidth = (int)bounds.Width;
+			int panelHeight = (int)bounds.Height;
+
 			int tallestPattern = 0; // The tallest tile pattern in a given row
 
-			this.overlayGfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
-
-			foreach (OverlayTilePattern pattern in this.patterns)
+			using (Bitmap overlayBitmap = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb))
+			using (Graphics overlayGfxBackBuffer = Graphics.FromImage(overlayBitmap))
 			{
-				if (tilesetX + pattern.Width * 8 * zoom > panelWidth)
-				{
-					tilesetX = 0;
-					tilesetY += tallestPattern * 8 * zoom;
-					tallestPattern = 0;
-				}
+				overlayGfxBackBuffer.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
 
-				for (int y = 0; y < pattern.Height; y++)
+				foreach (OverlayTilePattern pattern in this.patterns)
 				{
-					for (int x = 0; x < pattern.Width; x++)
+					if ((tilesetX + pattern.Width * 8) * zoom > panelWidth)
 					{
-						int tileId = pattern.Tiles[y][x];
+						tilesetX = 0;
+						tilesetY += tallestPattern * 8;
+						tallestPattern = 0;
+					}
 
-						if (tileId == 0xFF)
+					for (int y = 0; y < pattern.Height; y++)
+					{
+						for (int x = 0; x < pattern.Width; x++)
 						{
-							continue;
-						}
+							int tileId = pattern.Tiles[y][x];
+	
+							if (tileId == 0xFF)
+							{
+								continue;
+							}
 
-						Tile tile = this.tileset[tileId];
-						this.overlayGfx.DrawImage(tile.Bitmap,
-						                          8 * (x * zoom) + tilesetX,
-						                          8 * (y * zoom) + tilesetY,
-												  8 * zoom,
-												  8 * zoom);
+							Tile tile = this.tileset[tileId];
+							overlayGfxBackBuffer.DrawImage(tile.Bitmap,
+													  8 * x + tilesetX,
+													  8 * y + tilesetY,
+													  8, 8);
+						}
+					}
+
+					tilesetX += pattern.Width * 8;
+					if (pattern.Height > tallestPattern)
+					{
+						tallestPattern = pattern.Height;
 					}
 				}
 
-				tilesetX += pattern.Width * 8 * zoom;
-				if (pattern.Height > tallestPattern)
-				{
-					tallestPattern = pattern.Height;
-				}
+				this.overlayGfx.DrawImage(overlayBitmap, 0, 0,
+										  overlayBitmap.Width * zoom,
+										  overlayBitmap.Height * zoom);
 			}
 		}
 
