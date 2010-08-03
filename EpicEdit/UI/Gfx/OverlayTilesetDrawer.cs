@@ -33,6 +33,7 @@ namespace EpicEdit.UI.Gfx
 		private Tile[] tileset;
 
 		private Graphics overlayGfx;
+		private Bitmap overlayCache;
 		private HatchBrush transparentBrush;
 
 		public OverlayTilesetDrawer(Control control)
@@ -44,6 +45,10 @@ namespace EpicEdit.UI.Gfx
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
 			this.InitPatternArray();
+
+			// The following member is initialized so it can be disposed of
+			// in each function without having to check if it's null beforehand
+			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 		}
 
 		/// <summary>
@@ -71,6 +76,26 @@ namespace EpicEdit.UI.Gfx
 		public void DrawOverlayTileset()
 		{
 			int zoom = 2;
+
+			this.overlayGfx.DrawImage(this.overlayCache, 0, 0,
+									  this.overlayCache.Width * zoom,
+									  this.overlayCache.Height * zoom);
+		}
+
+		public void SetTileset(Tile[] tileset)
+		{
+			this.tileset = tileset;
+
+			this.UpdateCache();
+
+			this.DrawOverlayTileset();
+		}
+
+		private void UpdateCache()
+		{
+			this.overlayCache.Dispose();
+
+			int zoom = 2;
 			int tilesetX = 0;
 			int tilesetY = 0;
 
@@ -80,10 +105,10 @@ namespace EpicEdit.UI.Gfx
 
 			int tallestPattern = 0; // The tallest tile pattern in a given row
 
-			using (Bitmap overlayBitmap = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb))
-			using (Graphics overlayGfxBackBuffer = Graphics.FromImage(overlayBitmap))
+			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
+			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
 			{
-				overlayGfxBackBuffer.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
+				gfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
 
 				foreach (OverlayTilePattern pattern in this.patterns)
 				{
@@ -106,7 +131,7 @@ namespace EpicEdit.UI.Gfx
 							}
 
 							Tile tile = this.tileset[tileId];
-							overlayGfxBackBuffer.DrawImage(tile.Bitmap,
+							gfx.DrawImage(tile.Bitmap,
 													  8 * x + tilesetX,
 													  8 * y + tilesetY,
 													  8, 8);
@@ -119,22 +144,13 @@ namespace EpicEdit.UI.Gfx
 						tallestPattern = pattern.Height;
 					}
 				}
-
-				this.overlayGfx.DrawImage(overlayBitmap, 0, 0,
-										  overlayBitmap.Width * zoom,
-										  overlayBitmap.Height * zoom);
 			}
-		}
-
-		public void SetTileset(Tile[] tileset)
-		{
-			this.tileset = tileset;
-			this.DrawOverlayTileset();
 		}
 
 		public void Dispose()
 		{
 			this.overlayGfx.Dispose();
+			this.overlayCache.Dispose();
 			this.transparentBrush.Dispose();
 
 			GC.SuppressFinalize(this);
