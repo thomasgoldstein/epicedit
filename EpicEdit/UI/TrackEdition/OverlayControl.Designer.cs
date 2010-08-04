@@ -52,11 +52,13 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteAllButton = new System.Windows.Forms.Button();
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.overlayPanel = new EpicEdit.UI.Tools.EpicPanel();
+			this.deletePanel = new System.Windows.Forms.Panel();
+			this.deletePanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Location = new System.Drawing.Point(28, 564);
+			this.deleteAllButton.Location = new System.Drawing.Point(27, 46);
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
 			this.deleteAllButton.TabIndex = 0;
@@ -67,7 +69,7 @@ namespace EpicEdit.UI.TrackEdition
 			// deleteButton
 			// 
 			this.deleteButton.Enabled = false;
-			this.deleteButton.Location = new System.Drawing.Point(28, 518);
+			this.deleteButton.Location = new System.Drawing.Point(27, 0);
 			this.deleteButton.Name = "deleteButton";
 			this.deleteButton.Size = new System.Drawing.Size(74, 40);
 			this.deleteButton.TabIndex = 1;
@@ -82,17 +84,28 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayPanel.Size = new System.Drawing.Size(128, 512);
 			this.overlayPanel.TabIndex = 2;
 			// 
+			// deletePanel
+			// 
+			this.deletePanel.Controls.Add(this.deleteButton);
+			this.deletePanel.Controls.Add(this.deleteAllButton);
+			this.deletePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.deletePanel.Location = new System.Drawing.Point(0, 518);
+			this.deletePanel.Name = "deletePanel";
+			this.deletePanel.Size = new System.Drawing.Size(130, 72);
+			this.deletePanel.TabIndex = 0;
+			// 
 			// OverlayControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.deletePanel);
 			this.Controls.Add(this.overlayPanel);
-			this.Controls.Add(this.deleteButton);
-			this.Controls.Add(this.deleteAllButton);
 			this.Name = "OverlayControl";
 			this.Size = new System.Drawing.Size(130, 590);
+			this.deletePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Panel deletePanel;
 		private EpicEdit.UI.Tools.EpicPanel overlayPanel;
 		private System.Windows.Forms.Button deleteButton;
 		private System.Windows.Forms.Button deleteAllButton;
