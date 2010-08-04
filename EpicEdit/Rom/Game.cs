@@ -124,6 +124,11 @@ namespace EpicEdit.Rom
 		private byte[] romBuffer;
 
 		/// <summary>
+		/// The region of the ROM (Jap, US or Euro).
+		/// </summary>
+		private Regions region;
+
+		/// <summary>
 		/// The offsets to find the needed data in the ROM.
 		/// </summary>
 		private Offsets offsets;
@@ -329,7 +334,8 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private void LoadData()
 		{
-			this.offsets = new Offsets(this.romBuffer, this.Region);
+			this.SetRegion();
+			this.offsets = new Offsets(this.romBuffer, this.region);
 
 			this.trackGroups = new TrackGroup[Game.TotalTrackGroupCount];
 
@@ -479,7 +485,7 @@ namespace EpicEdit.Rom
 			for (int i = 0; i < names.Length; i++)
 			{
 				offset = 0x10000 + (nameIndex[i][1] << 8) + new Offset(nameIndex[i][0]); // Recreates offsets from the index table loaded above
-				names[i] = Utilities.DecryptRomText(Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF), this.Region);
+				names[i] = Utilities.DecryptRomText(Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF), this.region);
 			}
 
 			return names;
@@ -727,26 +733,23 @@ namespace EpicEdit.Rom
 			get { return Path.GetFileName(this.filePath); }
 		}
 
-		private Regions Region
+		private void SetRegion()
 		{
-			get
+			int regionAddress = 0xFFD9;
+			int region = this.romBuffer[regionAddress];
+
+			if (!Enum.IsDefined(typeof(Regions), region))
 			{
-				int regionAddress = 0xFFD9;
-				int region = this.romBuffer[regionAddress];
-
-				if (!Enum.IsDefined(typeof(Regions), region))
+				if (this.romHeader != null)
 				{
-					if (this.romHeader != null)
-					{
-						regionAddress += this.romHeader.Length;
-					}
-
-					throw new InvalidDataException(string.Format("\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
-																 this.FileName, regionAddress, region));
+					regionAddress += this.romHeader.Length;
 				}
 
-				return (Regions)region;
+				throw new InvalidDataException(string.Format("\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
+															 this.FileName, regionAddress, region));
 			}
+
+			this.region = (Regions)region;
 		}
 
 		public string[] GetModeNames()
@@ -759,7 +762,7 @@ namespace EpicEdit.Rom
 			// Don't know where that data is.
 			int[] lengths;
 
-			if (this.Region == Regions.Jap)
+			if (this.region == Regions.Jap)
 			{
 				lengths = new int[] { 16, 16, 16 };
 			}
@@ -773,7 +776,7 @@ namespace EpicEdit.Rom
 				int length = lengths[i];
 				byte[] hexText = new byte[length];
 				Array.Copy(this.romBuffer, offset, hexText, 0, length);
-				modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.Region);
+				modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
 				offset += length;
 			}
 
@@ -1186,7 +1189,7 @@ namespace EpicEdit.Rom
 
 		private void SaveTrack(Track track, int iterator, int trackIndex, ref int epicZoneIterator, List<byte[]> savedData)
 		{
-			bool quirksMode = this.Region != Regions.US;
+			bool quirksMode = this.region != Regions.US;
 			byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
 
 			// Update track theme id
