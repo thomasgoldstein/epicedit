@@ -58,22 +58,22 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Location = new System.Drawing.Point(27, 46);
+			this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.button_nuke;
+			this.deleteAllButton.Location = new System.Drawing.Point(105, 3);
 			this.deleteAllButton.Name = "deleteAllButton";
-			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
+			this.deleteAllButton.Size = new System.Drawing.Size(22, 22);
 			this.deleteAllButton.TabIndex = 0;
-			this.deleteAllButton.Text = "Delete all";
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
 			// deleteButton
 			// 
 			this.deleteButton.Enabled = false;
-			this.deleteButton.Location = new System.Drawing.Point(27, 0);
+			this.deleteButton.Image = global::EpicEdit.Properties.Resources.button_delete;
+			this.deleteButton.Location = new System.Drawing.Point(77, 3);
 			this.deleteButton.Name = "deleteButton";
-			this.deleteButton.Size = new System.Drawing.Size(74, 40);
+			this.deleteButton.Size = new System.Drawing.Size(22, 22);
 			this.deleteButton.TabIndex = 1;
-			this.deleteButton.Text = "Delete selected";
 			this.deleteButton.UseVisualStyleBackColor = true;
 			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
 			// 
@@ -91,7 +91,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deletePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.deletePanel.Location = new System.Drawing.Point(0, 518);
 			this.deletePanel.Name = "deletePanel";
-			this.deletePanel.Size = new System.Drawing.Size(130, 72);
+			this.deletePanel.Size = new System.Drawing.Size(130, 32);
 			this.deletePanel.TabIndex = 0;
 			// 
 			// OverlayControl
@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.Controls.Add(this.deletePanel);
 			this.Controls.Add(this.overlayPanel);
 			this.Name = "OverlayControl";
-			this.Size = new System.Drawing.Size(130, 590);
+			this.Size = new System.Drawing.Size(130, 550);
 			this.deletePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
