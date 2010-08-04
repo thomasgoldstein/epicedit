@@ -91,6 +91,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Rom\Offsets.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbability.cs" />
@@ -214,6 +217,9 @@
     <Compile Include="UI\TrackEdition\TrackTreeView.Designer.cs">
       <DependentUpon>TrackTreeView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
