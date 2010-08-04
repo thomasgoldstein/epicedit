@@ -89,7 +89,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deletePanel.Controls.Add(this.deleteButton);
 			this.deletePanel.Controls.Add(this.deleteAllButton);
 			this.deletePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.deletePanel.Location = new System.Drawing.Point(0, 518);
+			this.deletePanel.Location = new System.Drawing.Point(0, 516);
 			this.deletePanel.Name = "deletePanel";
 			this.deletePanel.Size = new System.Drawing.Size(130, 32);
 			this.deletePanel.TabIndex = 0;
@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.Controls.Add(this.deletePanel);
 			this.Controls.Add(this.overlayPanel);
 			this.Name = "OverlayControl";
-			this.Size = new System.Drawing.Size(130, 550);
+			this.Size = new System.Drawing.Size(130, 548);
 			this.deletePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
