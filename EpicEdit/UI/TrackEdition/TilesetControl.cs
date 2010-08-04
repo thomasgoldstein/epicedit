@@ -99,6 +99,9 @@ namespace EpicEdit.UI.TrackEdition
 		public TilesetControl()
 		{
 			this.InitializeComponent();
+
+			ToolTip toolTip = new ToolTip();
+			toolTip.SetToolTip(this.resetMapButton, "Reset map");
 		}
 
 		public void InitOnRomLoading()

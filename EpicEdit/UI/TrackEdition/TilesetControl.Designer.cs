@@ -74,11 +74,11 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// resetMapButton
 			// 
-			this.resetMapButton.Location = new System.Drawing.Point(27, 548);
+			this.resetMapButton.Image = global::EpicEdit.Properties.Resources.button_nuke;
+			this.resetMapButton.Location = new System.Drawing.Point(105, 549);
 			this.resetMapButton.Name = "resetMapButton";
-			this.resetMapButton.Size = new System.Drawing.Size(74, 23);
+			this.resetMapButton.Size = new System.Drawing.Size(22, 22);
 			this.resetMapButton.TabIndex = 7;
-			this.resetMapButton.Text = "Reset map";
 			this.resetMapButton.UseVisualStyleBackColor = true;
 			this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
 			// 
