@@ -47,8 +47,8 @@ namespace EpicEdit.UI.TrackEdition
 			System.Windows.Forms.Label speedLabel;
 			this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
 			this.indexNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.shapeComboBox = new System.Windows.Forms.ComboBox();
 			this.deleteButton = new System.Windows.Forms.Button();
+			this.shapeComboBox = new System.Windows.Forms.ComboBox();
 			this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.deleteAllButton = new System.Windows.Forms.Button();
 			aiIndexLabel = new System.Windows.Forms.Label();
@@ -87,14 +87,14 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.selectedAIElementGroupBox.Controls.Add(this.indexNumericUpDown);
 			this.selectedAIElementGroupBox.Controls.Add(aiIndexLabel);
-			this.selectedAIElementGroupBox.Controls.Add(this.shapeComboBox);
 			this.selectedAIElementGroupBox.Controls.Add(this.deleteButton);
+			this.selectedAIElementGroupBox.Controls.Add(this.shapeComboBox);
 			this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
 			this.selectedAIElementGroupBox.Controls.Add(speedLabel);
 			this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
 			this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 5);
 			this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
-			this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 219);
+			this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
 			this.selectedAIElementGroupBox.TabIndex = 1;
 			this.selectedAIElementGroupBox.TabStop = false;
 			this.selectedAIElementGroupBox.Text = "Selected Element";
@@ -118,6 +118,19 @@ namespace EpicEdit.UI.TrackEdition
 									0});
 			this.indexNumericUpDown.ValueChanged += new System.EventHandler(this.IndexNumericUpDownValueChanged);
 			// 
+			// deleteButton
+			// 
+			this.deleteButton.Image = global::EpicEdit.Properties.Resources.button_delete;
+			this.deleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.deleteButton.Location = new System.Drawing.Point(29, 167);
+			this.deleteButton.Name = "deleteButton";
+			this.deleteButton.Size = new System.Drawing.Size(66, 22);
+			this.deleteButton.TabIndex = 6;
+			this.deleteButton.Text = "Delete";
+			this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.deleteButton.UseVisualStyleBackColor = true;
+			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
+			// 
 			// shapeComboBox
 			// 
 			this.shapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -127,16 +140,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.shapeComboBox.Size = new System.Drawing.Size(104, 21);
 			this.shapeComboBox.TabIndex = 5;
 			this.shapeComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ShapeComboBoxFormat);
-			// 
-			// deleteButton
-			// 
-			this.deleteButton.Location = new System.Drawing.Point(25, 176);
-			this.deleteButton.Name = "deleteButton";
-			this.deleteButton.Size = new System.Drawing.Size(74, 23);
-			this.deleteButton.TabIndex = 6;
-			this.deleteButton.Text = "Delete";
-			this.deleteButton.UseVisualStyleBackColor = true;
-			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
 			// 
 			// speedNumericUpDown
 			// 
@@ -164,11 +167,11 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Location = new System.Drawing.Point(27, 239);
+			this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.button_nuke;
+			this.deleteAllButton.Location = new System.Drawing.Point(104, 219);
 			this.deleteAllButton.Name = "deleteAllButton";
-			this.deleteAllButton.Size = new System.Drawing.Size(74, 23);
+			this.deleteAllButton.Size = new System.Drawing.Size(22, 22);
 			this.deleteAllButton.TabIndex = 2;
-			this.deleteAllButton.Text = "Delete all";
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
@@ -177,7 +180,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.Controls.Add(this.deleteAllButton);
 			this.Controls.Add(this.selectedAIElementGroupBox);
 			this.Name = "AIControl";
-			this.Size = new System.Drawing.Size(130, 276);
+			this.Size = new System.Drawing.Size(130, 248);
 			this.selectedAIElementGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
