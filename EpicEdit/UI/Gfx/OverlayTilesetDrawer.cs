@@ -38,13 +38,14 @@ namespace EpicEdit.UI.Gfx
 
 		public OverlayTilesetDrawer(Control control)
 		{
+			this.InitPatternArray();
+			this.SetControlHeight(control);
+
 			this.overlayGfx = control.CreateGraphics();
 			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
 			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
-
-			this.InitPatternArray();
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -71,6 +72,50 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			this.patterns = patternList.ToArray();
+		}
+
+		/// <summary>
+		/// Sets the height of the control and its parent depending on the tileset height.
+		/// </summary>
+		/// <param name="control">The control the tileset is painted on.</param>
+		private void SetControlHeight(Control control)
+		{
+			int tilesetHeight = this.GetTilesetHeight(control.Width);
+			int difference = tilesetHeight - control.Height;
+			control.Height = tilesetHeight;
+			control.Parent.Height += difference;
+		}
+
+		private int GetTilesetHeight(int panelWidth)
+		{
+			int zoom = 2;
+			int tilesetX = 0;
+			int tilesetY = 0;
+
+			int tallestPattern = 0; // The tallest tile pattern in a given row
+
+			foreach (OverlayTilePattern pattern in this.patterns)
+			{
+				if ((tilesetX + pattern.Width * 8) * zoom > panelWidth)
+				{
+					tilesetX = 0;
+					tilesetY += tallestPattern;
+					tallestPattern = 0;
+				}
+
+				tilesetX += pattern.Width * 8;
+				if (pattern.Height > tallestPattern)
+				{
+					tallestPattern = pattern.Height;
+				}
+			}
+
+			if (tilesetX != 0)
+			{
+				tilesetY += tallestPattern;
+			}
+
+			return tilesetY * 8 * zoom;
 		}
 
 		public void DrawOverlayTileset()
