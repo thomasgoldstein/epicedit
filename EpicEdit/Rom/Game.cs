@@ -731,10 +731,18 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				int region = this.romBuffer[0xFFD9];
+				int regionAddress = 0xFFD9;
+				int region = this.romBuffer[regionAddress];
+
 				if (!Enum.IsDefined(typeof(Regions), region))
 				{
-					throw new InvalidDataException("\"" + this.FileName + "\" has an invalid region. Value at 0xFFD9 must be 0, 1 or 2, was: " + region + ".");
+					if (this.romHeader != null)
+					{
+						regionAddress += this.romHeader.Length;
+					}
+
+					throw new InvalidDataException(string.Format("\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
+																 this.FileName, regionAddress, region));
 				}
 
 				return (Regions)region;
