@@ -132,9 +132,9 @@ namespace EpicEdit.UI.Gfx
 
 							Tile tile = this.tileset[tileId];
 							gfx.DrawImage(tile.Bitmap,
-													  8 * x + tilesetX,
-													  8 * y + tilesetY,
-													  8, 8);
+										  8 * x + tilesetX,
+										  8 * y + tilesetY,
+										  8, 8);
 						}
 					}
 
