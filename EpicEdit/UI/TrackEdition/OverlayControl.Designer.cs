@@ -59,9 +59,9 @@ namespace EpicEdit.UI.TrackEdition
 			// deleteAllButton
 			// 
 			this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.button_nuke;
-			this.deleteAllButton.Location = new System.Drawing.Point(105, 3);
+			this.deleteAllButton.Location = new System.Drawing.Point(103, 3);
 			this.deleteAllButton.Name = "deleteAllButton";
-			this.deleteAllButton.Size = new System.Drawing.Size(22, 22);
+			this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
 			this.deleteAllButton.TabIndex = 0;
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
@@ -70,9 +70,9 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.deleteButton.Enabled = false;
 			this.deleteButton.Image = global::EpicEdit.Properties.Resources.button_delete;
-			this.deleteButton.Location = new System.Drawing.Point(77, 3);
+			this.deleteButton.Location = new System.Drawing.Point(73, 3);
 			this.deleteButton.Name = "deleteButton";
-			this.deleteButton.Size = new System.Drawing.Size(22, 22);
+			this.deleteButton.Size = new System.Drawing.Size(24, 24);
 			this.deleteButton.TabIndex = 1;
 			this.deleteButton.UseVisualStyleBackColor = true;
 			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
