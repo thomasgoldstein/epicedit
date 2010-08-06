@@ -47,7 +47,7 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
-			this.delimitPen = new Pen(Color.FromArgb(200, 60, 100, 255));
+			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
