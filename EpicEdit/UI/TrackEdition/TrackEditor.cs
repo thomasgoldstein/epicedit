@@ -1050,7 +1050,6 @@ namespace EpicEdit.UI.TrackEdition
 			else
 			{
 				scrollbar.Enabled = false;
-				scrollbar.Maximum = 0;
 			}
 			// End disable or enable
 		}
