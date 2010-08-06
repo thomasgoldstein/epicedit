@@ -102,7 +102,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// patternCountLabel
 			// 
-			this.patternCountLabel.Location = new System.Drawing.Point(3, 3);
+			this.patternCountLabel.Location = new System.Drawing.Point(3, 8);
 			this.patternCountLabel.Name = "patternCountLabel";
 			this.patternCountLabel.Size = new System.Drawing.Size(45, 23);
 			this.patternCountLabel.TabIndex = 2;
