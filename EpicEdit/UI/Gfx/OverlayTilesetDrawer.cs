@@ -195,7 +195,6 @@ namespace EpicEdit.UI.Gfx
 					while (patternRowIterator < patternCountInRow)
 					{
 						OverlayTilePattern pattern = this.patterns[patternId];
-						bool patternContainsBlank = false;
 
 						for (int y = 0; y < pattern.Height; y++)
 						{
@@ -205,7 +204,6 @@ namespace EpicEdit.UI.Gfx
 		
 								if (tileId == 0xFF)
 								{
-									patternContainsBlank = true;
 									continue;
 								}
 
@@ -217,15 +215,12 @@ namespace EpicEdit.UI.Gfx
 							}
 						}
 
-						// Only delimit patterns which contain blank tiles
-						if (patternContainsBlank)
-						{
-							gfx.DrawRectangle(this.delimitPen,
-											  tilesetX,
-											  tilesetY,
-											  pattern.Width * 8 - 1,
-											  pattern.Height * 8 - 1);
-						}
+						// Delimit the pattern
+						gfx.DrawRectangle(this.delimitPen,
+										  tilesetX,
+										  tilesetY,
+										  pattern.Width * 8 - 1,
+										  pattern.Height * 8 - 1);
 
 						tilesetX += pattern.Width * 8;
 						if (pattern.Height > tallestPattern)
