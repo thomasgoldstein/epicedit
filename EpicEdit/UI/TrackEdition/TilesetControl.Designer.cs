@@ -49,9 +49,11 @@ namespace EpicEdit.UI.TrackEdition
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.themeComboBox = new System.Windows.Forms.ComboBox();
 			this.tilesetPanel = new EpicEdit.UI.Tools.EpicPanel();
 			this.resetMapButton = new System.Windows.Forms.Button();
+			this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// themeComboBox
@@ -79,6 +81,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.resetMapButton.Name = "resetMapButton";
 			this.resetMapButton.Size = new System.Drawing.Size(24, 24);
 			this.resetMapButton.TabIndex = 7;
+			this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
 			this.resetMapButton.UseVisualStyleBackColor = true;
 			this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
 			// 
@@ -91,6 +94,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.Size = new System.Drawing.Size(130, 580);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Button resetMapButton;
 		private EpicEdit.UI.Tools.EpicPanel tilesetPanel;
 		private System.Windows.Forms.ComboBox themeComboBox;

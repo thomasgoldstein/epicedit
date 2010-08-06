@@ -42,6 +42,7 @@ namespace EpicEdit.UI.TrackEdition
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Label aiIndexLabel;
 			System.Windows.Forms.Label shapeLabel;
 			System.Windows.Forms.Label speedLabel;
@@ -51,6 +52,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.shapeComboBox = new System.Windows.Forms.ComboBox();
 			this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.deleteAllButton = new System.Windows.Forms.Button();
+			this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
 			aiIndexLabel = new System.Windows.Forms.Label();
 			shapeLabel = new System.Windows.Forms.Label();
 			speedLabel = new System.Windows.Forms.Label();
@@ -172,6 +174,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
 			this.deleteAllButton.TabIndex = 2;
+			this.buttonToolTip.SetToolTip(this.deleteAllButton, "Delete all");
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
@@ -186,6 +189,7 @@ namespace EpicEdit.UI.TrackEdition
 			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Button deleteAllButton;
 		private System.Windows.Forms.NumericUpDown indexNumericUpDown;
 		private System.Windows.Forms.ComboBox shapeComboBox;

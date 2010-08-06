@@ -49,10 +49,12 @@ namespace EpicEdit.UI.TrackEdition
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.deleteAllButton = new System.Windows.Forms.Button();
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.overlayPanel = new EpicEdit.UI.Tools.EpicPanel();
 			this.deletePanel = new System.Windows.Forms.Panel();
+			this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.deletePanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -63,6 +65,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
 			this.deleteAllButton.TabIndex = 0;
+			this.buttonToolTip.SetToolTip(this.deleteAllButton, "Delete all");
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
@@ -74,6 +77,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteButton.Name = "deleteButton";
 			this.deleteButton.Size = new System.Drawing.Size(24, 24);
 			this.deleteButton.TabIndex = 1;
+			this.buttonToolTip.SetToolTip(this.deleteButton, "Delete selected");
 			this.deleteButton.UseVisualStyleBackColor = true;
 			this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
 			// 
@@ -105,6 +109,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deletePanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Panel deletePanel;
 		private EpicEdit.UI.Tools.EpicPanel overlayPanel;
 		private System.Windows.Forms.Button deleteButton;

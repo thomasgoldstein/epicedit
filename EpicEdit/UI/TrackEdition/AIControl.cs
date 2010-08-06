@@ -114,9 +114,6 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.shapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
 			this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
-
-			ToolTip toolTip = new ToolTip();
-			toolTip.SetToolTip(this.deleteAllButton, "Delete all");
 		}
 
 		private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)

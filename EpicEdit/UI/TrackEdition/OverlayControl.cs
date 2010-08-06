@@ -63,10 +63,6 @@ namespace EpicEdit.UI.TrackEdition
 		public OverlayControl()
 		{
 			this.InitializeComponent();
-
-			ToolTip toolTip = new ToolTip();
-			toolTip.SetToolTip(this.deleteButton, "Delete selected");
-			toolTip.SetToolTip(this.deleteAllButton, "Delete all");
 		}
 
 		public void InitOnRomLoading()
