@@ -1031,7 +1031,11 @@ namespace EpicEdit.UI.TrackEdition
 			int offscreenTileCount = mapSize - onscreenTileCount;
 
 			// Disable or enable the scrollbar depending on panel size
-			if (offscreenTileCount > 0)
+			if (offscreenTileCount <= 0)
+			{
+				scrollbar.Enabled = false;
+			}
+			else
 			{
 				scrollbar.Enabled = true;
 
@@ -1046,10 +1050,6 @@ namespace EpicEdit.UI.TrackEdition
 				scrollbar.Maximum = offscreenTileCount + 9;
 				// Adding 9 to the maximum, because somehow,
 				// you can't scroll up to the maximum using the scrollbars
-			}
-			else
-			{
-				scrollbar.Enabled = false;
 			}
 			// End disable or enable
 		}
