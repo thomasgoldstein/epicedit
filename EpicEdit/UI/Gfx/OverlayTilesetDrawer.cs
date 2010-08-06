@@ -35,6 +35,7 @@ namespace EpicEdit.UI.Gfx
 		private Graphics overlayGfx;
 		private Bitmap overlayCache;
 		private HatchBrush transparentBrush;
+		private Pen delimitPen;
 
 		public OverlayTilesetDrawer(Control control)
 		{
@@ -46,6 +47,7 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
+			this.delimitPen = new Pen(Color.FromArgb(200, 60, 100, 255));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -193,6 +195,7 @@ namespace EpicEdit.UI.Gfx
 					while (patternRowIterator < patternCountInRow)
 					{
 						OverlayTilePattern pattern = this.patterns[patternId];
+						bool patternContainsBlank = false;
 
 						for (int y = 0; y < pattern.Height; y++)
 						{
@@ -202,6 +205,7 @@ namespace EpicEdit.UI.Gfx
 		
 								if (tileId == 0xFF)
 								{
+									patternContainsBlank = true;
 									continue;
 								}
 
@@ -211,6 +215,16 @@ namespace EpicEdit.UI.Gfx
 											  8 * y + tilesetY,
 											  8, 8);
 							}
+						}
+
+						// Only delimit patterns which contain blank tiles
+						if (patternContainsBlank)
+						{
+							gfx.DrawRectangle(this.delimitPen,
+											  tilesetX,
+											  tilesetY,
+											  pattern.Width * 8 - 1,
+											  pattern.Height * 8 - 1);
 						}
 
 						tilesetX += pattern.Width * 8;
@@ -233,6 +247,7 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.Dispose();
 			this.overlayCache.Dispose();
 			this.transparentBrush.Dispose();
+			this.delimitPen.Dispose();
 
 			GC.SuppressFinalize(this);
 		}
