@@ -141,53 +141,89 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache.Dispose();
 
 			int zoom = 2;
-			int tilesetX = 0;
-			int tilesetY = 0;
+			int tilesetY = 0; // Current vertical drawing position in the tileset
 
 			RectangleF bounds = this.overlayGfx.VisibleClipBounds;
 			int panelWidth = (int)bounds.Width;
 			int panelHeight = (int)bounds.Height;
-
-			int tallestPattern = 0; // The tallest tile pattern in a given row
 
 			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
 			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
 			{
 				gfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
 
-				foreach (OverlayTilePattern pattern in this.patterns)
+				panelWidth /= (8 * zoom); // Take tile width and zoom in consideration
+				int patternId = 0;
+				int patternCountInRow = -1;
+
+				while (patternCountInRow != 0)
 				{
-					if ((tilesetX + pattern.Width * 8) * zoom > panelWidth)
+					patternCountInRow = 0;
+					int rowWidth = 0;
+
+					// Compute how many patterns will fit in the row
+					for (int otherPatternId = patternId; otherPatternId < this.patterns.Length; otherPatternId++)
+					{
+						OverlayTilePattern pattern = this.patterns[otherPatternId];
+						int newRowWidth = rowWidth + pattern.Width;
+
+						if (newRowWidth > panelWidth)
+						{
+							break;
+						}
+
+						rowWidth = newRowWidth;
+						patternCountInRow++;
+					}
+
+					int patternRowIterator = 0;
+					int tallestPattern = 0; // The tallest tile pattern in a given row
+					int tilesetX; // Current horizontal drawing position in the tileset
+					if (rowWidth == panelWidth)
 					{
 						tilesetX = 0;
-						tilesetY += tallestPattern * 8;
-						tallestPattern = 0;
+					}
+					else
+					{
+						// If the row isn't totally filled, center the pattern(s)
+						tilesetX = ((panelWidth - rowWidth) * 8) / 2;
 					}
 
-					for (int y = 0; y < pattern.Height; y++)
+					// Draw the pattern(s) of the row
+					while (patternRowIterator < patternCountInRow)
 					{
-						for (int x = 0; x < pattern.Width; x++)
+						OverlayTilePattern pattern = this.patterns[patternId];
+
+						for (int y = 0; y < pattern.Height; y++)
 						{
-							int tileId = pattern.Tiles[y][x];
-	
-							if (tileId == 0xFF)
+							for (int x = 0; x < pattern.Width; x++)
 							{
-								continue;
+								int tileId = pattern.Tiles[y][x];
+		
+								if (tileId == 0xFF)
+								{
+									continue;
+								}
+
+								Tile tile = this.tileset[tileId];
+								gfx.DrawImage(tile.Bitmap,
+											  8 * x + tilesetX,
+											  8 * y + tilesetY,
+											  8, 8);
 							}
-
-							Tile tile = this.tileset[tileId];
-							gfx.DrawImage(tile.Bitmap,
-										  8 * x + tilesetX,
-										  8 * y + tilesetY,
-										  8, 8);
 						}
+
+						tilesetX += pattern.Width * 8;
+						if (pattern.Height > tallestPattern)
+						{
+							tallestPattern = pattern.Height;
+						}
+
+						patternRowIterator++;
+						patternId++;
 					}
 
-					tilesetX += pattern.Width * 8;
-					if (pattern.Height > tallestPattern)
-					{
-						tallestPattern = pattern.Height;
-					}
+					tilesetY += tallestPattern * 8;
 				}
 			}
 		}
