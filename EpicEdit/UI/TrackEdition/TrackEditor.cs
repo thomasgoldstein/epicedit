@@ -1012,13 +1012,13 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void RecalculateScrollbarMaximums()
 		{
-			// Recalculate the scrollbar maximum value for the horizontal scrollbar
+			// Recalculate the maximum value of the horizontal scrollbar
 			this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
 			this.RecalculateScrollbarMaximum(this.trackDisplayPanel.Width, this.trackDisplayVScrollBar.Width, this.track.Map.Width, this.trackDisplayHScrollBar);
 			this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 
-			// Recalculate the scrollbar maximum value for the vertical scrollbar
+			// Recalculate the maximum value of the vertical scrollbar
 			this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
 			this.RecalculateScrollbarMaximum(this.trackDisplayPanel.Height, this.trackDisplayHScrollBar.Height, this.track.Map.Height, this.trackDisplayVScrollBar);
 			this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
