@@ -1337,6 +1337,7 @@ namespace EpicEdit.UI.Gfx
 
 			this.trackGfx.Dispose();
 
+			this.dirtyRegion.Dispose();
 			this.zoomedDirtyRegionMatrix.Dispose();
 
 			this.tileHighlightPen.Dispose();
