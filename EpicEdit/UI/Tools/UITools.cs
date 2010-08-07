@@ -28,7 +28,7 @@ namespace EpicEdit.UI.Tools
 		/// Sets the Value of the passed EventArgs using the Description of the underlying Enum item.
 		/// </summary>
 		/// <param name="e"></param>
-		public static void SetValueFromEnumDescription(ListControlConvertEventArgs e)
+		public static void SetValueFromEnumDescription(ConvertEventArgs e)
 		{
 			if (!(e.Value is Enum))
 			{
