@@ -1012,33 +1012,105 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void RecalculateScrollbarMaximums()
 		{
+			int offScreenTileCountX;
+			int offScreenTileCountY;
+			this.GetOffScreenTileCounts(out offScreenTileCountX, out offScreenTileCountY);
+
 			// Recalculate the maximum value of the horizontal scrollbar
 			this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
-			this.RecalculateScrollbarMaximum(this.trackDisplayPanel.Width, this.trackDisplayVScrollBar.Width, this.track.Map.Width, this.trackDisplayHScrollBar);
+			this.RecalculateScrollbarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
 			this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 
 			// Recalculate the maximum value of the vertical scrollbar
 			this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
-			this.RecalculateScrollbarMaximum(this.trackDisplayPanel.Height, this.trackDisplayHScrollBar.Height, this.track.Map.Height, this.trackDisplayVScrollBar);
+			this.RecalculateScrollbarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
 			this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 		}
 
-		private void RecalculateScrollbarMaximum(int panelSize, int scrollbarSize, int mapSize, ScrollBar scrollbar)
+		private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
 		{
-			int onScreenTileCount = (int)((panelSize - scrollbarSize) / (8 * this.Zoom));
-			int offScreenTileCount = mapSize - onScreenTileCount;
+			offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplayPanel.Width);
+			offScreenTileCountY = this.GetOffScreenTileCount(this.trackDisplayPanel.Height);
+			int offScreenTileCountXWithScrollbar = this.GetOffScreenTileCount(this.trackDisplayPanel.Width - this.trackDisplayVScrollBar.Width);
+			int offScreenTileCountYWithScrollbar = this.GetOffScreenTileCount(this.trackDisplayPanel.Height - this.trackDisplayHScrollBar.Height);
 
-			// Disable or enable the scrollbar depending on panel size
+			bool? horizontalScrollbarNeeded = this.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollbar);
+			bool? verticalScrollbarNeeded = this.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollbar);
+
+			// Replace null (unsure) values with concrete values
+			if (horizontalScrollbarNeeded == null &&
+			    verticalScrollbarNeeded == null)
+			{
+				horizontalScrollbarNeeded = false;
+				verticalScrollbarNeeded = false;
+			}
+			else if (horizontalScrollbarNeeded == null)
+			{
+				horizontalScrollbarNeeded = verticalScrollbarNeeded.Value;
+			}
+			else if (verticalScrollbarNeeded == null)
+			{
+				verticalScrollbarNeeded = horizontalScrollbarNeeded.Value;
+			}
+
+			// Update (increase) off-screen tile count if the other scrollbar is visible
+			if (verticalScrollbarNeeded.Value)
+			{
+				offScreenTileCountX = offScreenTileCountXWithScrollbar;
+			}
+
+			if (horizontalScrollbarNeeded.Value)
+			{
+				offScreenTileCountY = offScreenTileCountYWithScrollbar;
+			}
+		}
+
+		/// <summary>
+		/// Checks whether the presence of the scrollbar is necessary.
+		/// </summary>
+		/// <param name="offScreenTileCount">The number of tiles off screen if the scrollbar is hidden.</param>
+		/// <param name="offScreenTileCountWithScrollbar">The number of tiles off screen if the scrollbar is visible.</param>
+		/// <returns>true = the scrollbar is necessary
+		/// null = the scrollbar may be necessary (depending on the visibility of the other scrollbar)
+		/// false = the scrollbar is not necessary</returns>
+		private bool? IsScrollBarNeeded(int offScreenTileCount, int offScreenTileCountWithScrollbar)
+		{
+			if (offScreenTileCount > 0)
+			{
+				// The scrollbar is necessary (must be visible)
+				return true;
+			}
+
+			if (offScreenTileCountWithScrollbar > 0)
+			{
+				// The scrollbar is only necessary if the other scrollbar is visible
+				return null;
+			}
+
+			// The scrollbar is not necessary (can be hidden)
+			return false;
+		}
+
+		private int GetOffScreenTileCount(int panelSize)
+		{
+			int onscreenTileCount = (int)((panelSize) / (8 * this.Zoom));
+			int offscreenTileCount = this.track.Map.Width - onscreenTileCount; // Map.Width = Map.Height
+			return offscreenTileCount;
+		}
+
+		private void RecalculateScrollbarMaximum(ScrollBar scrollbar, int offScreenTileCount)
+		{
+			// Show or hide the scrollbar depending on whether there are tiles off screen
 			if (offScreenTileCount <= 0)
 			{
-				scrollbar.Enabled = false;
+				scrollbar.Visible = false;
 				scrollbar.Maximum = 0;
 			}
 			else
 			{
-				scrollbar.Enabled = true;
+				scrollbar.Visible = true;
 
 				// Trick to reposition the track content properly (avoiding to show off-track black)
 				// when resizing the window and the panel is scrolled to the bottom and/or right limit
@@ -1052,7 +1124,6 @@ namespace EpicEdit.UI.TrackEdition
 				// Adding 9 to the maximum, because somehow,
 				// you can't scroll up to the maximum using the scrollbars
 			}
-			// End disable or enable
 		}
 
 		private void UpdateDataAfterMouseWheel(Point position)
