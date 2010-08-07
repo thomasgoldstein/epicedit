@@ -215,6 +215,7 @@ namespace EpicEdit.UI.TrackEdition
 			// also respond to the MouseMove event
 			foreach (TabPage tab in this.modeTabControl.TabPages)
 			{
+				tab.MouseMove += ModeTabPageMouseMove;
 				EventBroadcastProvider.CreateProvider(tab, "MouseMove");
 			}
 
