@@ -13,6 +13,8 @@ vx.x (???)
   it now shifts the index of all AI elements in between.
 - Optimized screen real estate by making it so that when the track
   scrollbars are not necessary, they get hidden rather than disabled
+- Optimized screen real estate by removing the status bar,
+  the current cursor position being now displayed in the menu bar
 - Replaced DotNetZip / Ionic.Zip library with SharpZipLib
   for GPL-incompatiblity reasons
 - Made it possible to load non-compressed ROMs
