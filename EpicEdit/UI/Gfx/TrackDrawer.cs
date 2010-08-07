@@ -44,6 +44,16 @@ namespace EpicEdit.UI.Gfx
 		private Bitmap tileClipboardCache;
 
 		/// <summary>
+		/// Determines whether a full repaint is needed or not.
+		/// </summary>
+		private bool fullRepaintNeeded;
+
+		/// <summary>
+		/// Region which needs to be repainted.
+		/// </summary>
+		private Region dirtyRegion;
+
+		/// <summary>
 		/// Used to resize the dirty region depending on the zoom level.
 		/// </summary>
 		private Matrix zoomedDirtyRegionMatrix;
@@ -127,9 +137,6 @@ namespace EpicEdit.UI.Gfx
 		/// Used to draw the selected AI zone outlines.
 		/// </summary>
 		private Pen aiElementSelectPen;
-
-		private bool fullRepaintNeeded;
-		private Region dirtyRegion;
 
 		public TrackDrawer(Control control, float zoom)
 		{
