@@ -95,6 +95,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			this.SetBytes(data, index, patterns, sizes);
 		}
 
+		public bool IntersectsWith(Point point)
+		{
+			return
+				point.X >= this.X &&
+				point.X < this.X + this.Width &&
+				point.Y >= this.Y &&
+				point.Y < this.Y + this.Height;
+		}
+
 		private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
 		{
 			this.Size = sizes[(data[index] & 0xC0) >> 6];

@@ -1443,10 +1443,7 @@ namespace EpicEdit.UI.TrackEdition
 				#region Try to hover overlay tile
 				foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 				{
-					if (hoveredTilePosition.X >= overlayTile.X &&
-					    hoveredTilePosition.X < overlayTile.X + overlayTile.Width &&
-					    hoveredTilePosition.Y >= overlayTile.Y &&
-					    hoveredTilePosition.Y < overlayTile.Y + overlayTile.Height)
+					if (overlayTile.IntersectsWith(hoveredTilePosition))
 					{
 						this.hoveredOverlayTile = overlayTile;
 						this.Cursor = Cursors.Hand;
