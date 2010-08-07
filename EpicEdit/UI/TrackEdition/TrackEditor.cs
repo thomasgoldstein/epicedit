@@ -446,6 +446,15 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.ResetZoom();
 		}
+
+		private void RemoveFocus()
+		{
+			if (Form.ActiveForm != null) // If the application is focused
+			{
+				// Steal the focus from the panel to disable mouse-wheel scrolling
+				this.menuBar.Focus();
+			}
+		}
 		#endregion Menu Options
 
 		#region TrackDisplay Events
@@ -474,11 +483,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayVScrollBarMouseLeave(object sender, EventArgs e)
 		{
-			if (Form.ActiveForm != null) // If the application is focused
-			{
-				// Steal the focus from the panel to disable mouse-wheel scrolling
-				this.menuBar.Focus();
-			}
+			this.RemoveFocus();
 		}
 
 		private void TrackDisplayVScrollBarValueChanged(object sender, EventArgs e)
@@ -678,11 +683,7 @@ namespace EpicEdit.UI.TrackEdition
 			// Cancel pressed mouse boutons (needed in case the panel lost focus unexpectedly)
 			this.buttonPressed = ActionButton.None;
 
-			if (Form.ActiveForm != null) // If the application is focused
-			{
-				// Steal the focus from the panel to disable mouse-wheel scrolling
-				this.menuBar.Focus();
-			}
+			this.RemoveFocus();
 
 			this.ResetCurrentPosition();
 			this.hoveredOverlayTile = null;
@@ -1318,11 +1319,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ModeTabPageMouseLeave(object sender, EventArgs e)
 		{
-			if (Form.ActiveForm != null) // If the application is focused
-			{
-				// Steal the focus from the panel to disable mouse-wheel scrolling
-				this.menuBar.Focus();
-			}
+			this.RemoveFocus();
 		}
 		#endregion EditionMode Tabs
 
