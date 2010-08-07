@@ -46,7 +46,7 @@ namespace EpicEdit.UI.Tools
 		/// To prevent reentry, a flag is set when the first it entered, then 
 		/// cleared upon exist of that same invocation.
 		/// </remarks>
-		protected void Relay(object sender, EventArgs ea)
+		protected void Relay(Control sender, EventArgs ea)
 		{
 			//
 			// Make sure to end when the target control is the only one that send
@@ -55,7 +55,7 @@ namespace EpicEdit.UI.Tools
 			//
 			if (object.ReferenceEquals(sender, m_control))
 			{
-				if (m_chain != null) m_chain.Add((Control)sender);
+				if (m_chain != null) m_chain.Add(sender);
 				return;
 			}
 
@@ -65,7 +65,7 @@ namespace EpicEdit.UI.Tools
 			//
 			if (m_chain == null)
 				m_chain = new List<Control>();
-			m_chain.Add((Control)sender);
+			m_chain.Add(sender);
 
 			//
 			// Must flag object to prevent reentry.
@@ -83,7 +83,7 @@ namespace EpicEdit.UI.Tools
 			// Invoke the event passing the event arguments for each ancestor
 			//
 			m_noReentry = true;
-			Control curControl = ((Control)sender).Parent;
+			Control curControl = sender.Parent;
 			while (curControl != null)
 			{
 				MethodInfo mi =
