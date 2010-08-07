@@ -61,7 +61,7 @@ namespace EpicEdit.UI.Gfx
 		{
 			OverlayTilePattern previousPattern = null;
 			List<OverlayTilePattern> patternList = new List<OverlayTilePattern>();
-			foreach (OverlayTilePattern pattern in MainForm.SmkGame.GetOverlayTilePatterns())
+			foreach (OverlayTilePattern pattern in MainForm.SmkGame.OverlayTilePatterns)
 			{
 				if (pattern.Equals(previousPattern))
 				{

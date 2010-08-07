@@ -306,7 +306,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			try
 			{
-				this.track.Import(filePath, MainForm.SmkGame.GetThemes());
+				this.track.Import(filePath, MainForm.SmkGame.Themes);
 				this.trackTreeView.MarkTrackAsChanged();
 				this.DisplayNewTrack();
 			}

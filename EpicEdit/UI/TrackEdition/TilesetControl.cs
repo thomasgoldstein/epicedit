@@ -120,7 +120,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.themeComboBox.BeginUpdate();
 			this.themeComboBox.Items.Clear();
-			foreach (Theme theme in MainForm.SmkGame.GetThemes())
+			foreach (Theme theme in MainForm.SmkGame.Themes)
 			{
 				this.themeComboBox.Items.Add(theme);
 			}

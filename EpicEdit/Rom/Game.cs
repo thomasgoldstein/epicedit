@@ -691,30 +691,27 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Returns the track themes.
+		/// Gets the track themes.
 		/// </summary>
-		/// <returns>The track theme collection.</returns>
-		public Themes GetThemes()
+		public Themes Themes
 		{
-			return this.themes;
+			get { return this.themes; }
 		}
 
 		/// <summary>
-		/// Returns the track overlay sizes.
+		/// Gets the overlay tile sizes.
 		/// </summary>
-		/// <returns>The track overlay tile size collection.</returns>
-		public OverlayTileSizes GetOverlayTileSizes()
+		public OverlayTileSizes OverlayTileSizes
 		{
-			return this.overlayTileSizes;
+			get { return this.overlayTileSizes; }
 		}
 
 		/// <summary>
-		/// Returns the track overlay sizes.
+		/// Gets the overlay tile patterns.
 		/// </summary>
-		/// <returns>The track overlay tile pattern collection.</returns>
-		public OverlayTilePatterns GetOverlayTilePatterns()
+		public OverlayTilePatterns OverlayTilePatterns
 		{
-			return this.overlayTilePatterns;
+			get { return this.overlayTilePatterns; }
 		}
 
 		/// <summary>
@@ -783,9 +780,9 @@ namespace EpicEdit.Rom
 			return modeNames;
 		}
 
-		public ItemProbabilities GetItemProbabilities()
+		public ItemProbabilities ItemProbabilities
 		{
-			return this.itemProbabilities;
+			get { return this.itemProbabilities; }
 		}
 
 		public Bitmap GetItemIcon(ItemType type)

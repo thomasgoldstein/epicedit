@@ -59,7 +59,7 @@ namespace EpicEdit.UI.ThemeEdition
 		{
 			this.performEvents = false;
 
-			this.itemProbabilities = MainForm.SmkGame.GetItemProbabilities();
+			this.itemProbabilities = MainForm.SmkGame.ItemProbabilities;
 
 			this.InitializeModeList();
 			this.InitializeThemeList();
@@ -93,7 +93,7 @@ namespace EpicEdit.UI.ThemeEdition
 			this.themeComboBox.BeginUpdate();
 			this.themeComboBox.Items.Clear();
 
-			Themes themes = MainForm.SmkGame.GetThemes();
+			Themes themes = MainForm.SmkGame.Themes;
 			for (int i = 0; i < themes.Count - 2; i++)
 			{
 				this.themeComboBox.Items.Add(themes[i].Name);
