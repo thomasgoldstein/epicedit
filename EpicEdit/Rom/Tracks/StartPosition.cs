@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.location.Y; }
 		}
 
-		public int Height
+		public static int Height
 		{
 			get { return 176; }
 		}
@@ -103,7 +103,7 @@ namespace EpicEdit.Rom.Tracks
 			return point.X >= this.Left - 8 &&
 				point.X <= this.Right + 7 &&
 				point.Y >= this.Y - 8 &&
-				point.Y <= this.Y + this.Height;
+				point.Y <= this.Y + StartPosition.Height;
 		}
 
 		public void MoveTo(int x, int y)
@@ -137,9 +137,9 @@ namespace EpicEdit.Rom.Tracks
 			{
 				y = 8;
 			}
-			else if (y > limit - this.Height)
+			else if (y > limit - StartPosition.Height)
 			{
-				y = limit - this.Height;
+				y = limit - StartPosition.Height;
 			}
 
 			this.location = new Point(x, y);

@@ -290,7 +290,7 @@ namespace EpicEdit.UI.Gfx
 				}
 				else
 				{
-					selectionRectangle = this.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
+					selectionRectangle = TrackDrawer.GetTileSelectionRectangle(scrollPosition, cursorPosition, selectionSize, selectionStart, action);
 					TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
 				}
 
@@ -474,7 +474,7 @@ namespace EpicEdit.UI.Gfx
 			this.trackGfx.ResetClip();
 		}
 
-		private Rectangle GetTileSelectionRectangle(Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
+		private static Rectangle GetTileSelectionRectangle(Point scrollPosition, Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
 		{
 			Rectangle selectionRectangle;
 			if (action == ActionButton.RightMouseButton) // A multiple tile selection is happening now
@@ -550,7 +550,7 @@ namespace EpicEdit.UI.Gfx
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (scrollPosition.X * 8) - 4,
 													  startPosition.Y - (scrollPosition.Y * 8) - 4,
 													  9,
-													  startPosition.Height - 20);
+													  StartPosition.Height - 20);
 
 			Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
 													  startRectangle1.Y + 20,

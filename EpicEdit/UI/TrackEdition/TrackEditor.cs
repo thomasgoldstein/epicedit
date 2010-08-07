@@ -1029,13 +1029,13 @@ namespace EpicEdit.UI.TrackEdition
 
 			// Recalculate the maximum value of the horizontal scrollbar
 			this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
-			this.RecalculateScrollbarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
+			TrackEditor.RecalculateScrollbarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
 			this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 
 			// Recalculate the maximum value of the vertical scrollbar
 			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
-			this.RecalculateScrollbarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
+			TrackEditor.RecalculateScrollbarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
 			this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 		}
@@ -1047,8 +1047,8 @@ namespace EpicEdit.UI.TrackEdition
 			int offScreenTileCountXWithScrollbar = this.GetOffScreenTileCount(this.trackDisplayPanel.Width - this.trackDisplayVScrollBar.Width);
 			int offScreenTileCountYWithScrollbar = this.GetOffScreenTileCount(this.trackDisplayPanel.Height - this.trackDisplayHScrollBar.Height);
 
-			bool? horizontalScrollbarNeeded = this.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollbar);
-			bool? verticalScrollbarNeeded = this.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollbar);
+			bool? horizontalScrollbarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollbar);
+			bool? verticalScrollbarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollbar);
 
 			// Replace null (unsure) values with concrete values
 			if (horizontalScrollbarNeeded == null &&
@@ -1086,7 +1086,7 @@ namespace EpicEdit.UI.TrackEdition
 		/// <returns>true = the scrollbar is necessary
 		/// null = the scrollbar may be necessary (depending on the visibility of the other scrollbar)
 		/// false = the scrollbar is not necessary</returns>
-		private bool? IsScrollBarNeeded(int offScreenTileCount, int offScreenTileCountWithScrollbar)
+		private static bool? IsScrollBarNeeded(int offScreenTileCount, int offScreenTileCountWithScrollbar)
 		{
 			if (offScreenTileCount > 0)
 			{
@@ -1111,7 +1111,7 @@ namespace EpicEdit.UI.TrackEdition
 			return offscreenTileCount;
 		}
 
-		private void RecalculateScrollbarMaximum(ScrollBar scrollbar, int offScreenTileCount)
+		private static void RecalculateScrollbarMaximum(ScrollBar scrollbar, int offScreenTileCount)
 		{
 			// Show or hide the scrollbar depending on whether there are tiles off screen
 			if (offScreenTileCount <= 0)

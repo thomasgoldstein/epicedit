@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		private void LoadPatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
 		{
-			int patternCount = LoadPatternCount();
+			int patternCount = OverlayTilePatterns.LoadPatternCount();
 
 			this.patterns = new OverlayTilePattern[patternCount];
 
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			}
 		}
 
-		private int LoadPatternCount()
+		private static int LoadPatternCount()
 		{
 			// TODO: Get this from the ROM somehow
 			return 56;
