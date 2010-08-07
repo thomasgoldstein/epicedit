@@ -157,6 +157,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage.Size = new System.Drawing.Size(136, 424);
 			this.tilesetTabPage.TabIndex = 0;
 			this.tilesetTabPage.ToolTipText = "Tileset";
+			this.tilesetTabPage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModeTabPageMouseMove);
 			// 
 			// tilesetControl
 			// 
@@ -178,9 +179,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTabPage.Location = new System.Drawing.Point(4, 23);
 			this.overlayTabPage.Name = "overlayTabPage";
 			this.overlayTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.overlayTabPage.Size = new System.Drawing.Size(136, 402);
+			this.overlayTabPage.Size = new System.Drawing.Size(136, 424);
 			this.overlayTabPage.TabIndex = 4;
 			this.overlayTabPage.ToolTipText = "Overlay";
+			this.overlayTabPage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModeTabPageMouseMove);
 			// 
 			// overlayControl
 			// 
@@ -200,9 +202,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.Location = new System.Drawing.Point(4, 23);
 			this.startTabPage.Name = "startTabPage";
 			this.startTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.startTabPage.Size = new System.Drawing.Size(136, 402);
+			this.startTabPage.Size = new System.Drawing.Size(136, 424);
 			this.startTabPage.TabIndex = 3;
 			this.startTabPage.ToolTipText = "Start";
+			this.startTabPage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModeTabPageMouseMove);
 			// 
 			// startControl
 			// 
@@ -221,9 +224,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.Location = new System.Drawing.Point(4, 23);
 			this.objectsTabPage.Name = "objectsTabPage";
 			this.objectsTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.objectsTabPage.Size = new System.Drawing.Size(136, 402);
+			this.objectsTabPage.Size = new System.Drawing.Size(136, 424);
 			this.objectsTabPage.TabIndex = 1;
 			this.objectsTabPage.ToolTipText = "Objects";
+			this.objectsTabPage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModeTabPageMouseMove);
 			// 
 			// objectControl
 			// 
@@ -243,9 +247,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiTabPage.Location = new System.Drawing.Point(4, 23);
 			this.aiTabPage.Name = "aiTabPage";
 			this.aiTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.aiTabPage.Size = new System.Drawing.Size(136, 402);
+			this.aiTabPage.Size = new System.Drawing.Size(136, 424);
 			this.aiTabPage.TabIndex = 2;
 			this.aiTabPage.ToolTipText = "AI";
+			this.aiTabPage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModeTabPageMouseMove);
 			// 
 			// aiControl
 			// 

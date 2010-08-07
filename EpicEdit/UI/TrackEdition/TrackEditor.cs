@@ -1296,6 +1296,14 @@ namespace EpicEdit.UI.TrackEdition
 				this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
 				144 + SystemInformation.VerticalScrollBarWidth : 144;
 		}
+
+		private void ModeTabPageMouseMove(object sender, MouseEventArgs e)
+		{
+			if (Form.ActiveForm != null) // If the application is focused
+			{
+				this.modeTabControl.SelectedTab.Focus(); // Lets you use the mouse wheel to scroll
+			}
+		}
 		#endregion EditionMode Tabs
 
 
