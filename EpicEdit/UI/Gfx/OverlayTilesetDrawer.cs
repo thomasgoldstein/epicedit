@@ -27,7 +27,7 @@ namespace EpicEdit.UI.Gfx
 	/// <summary>
 	/// Provides the ability to paint the graphics of an overlay tileset.
 	/// </summary>
-	public class OverlayTilesetDrawer : IDisposable
+	public sealed class OverlayTilesetDrawer : IDisposable
 	{
 		private OverlayTilePattern[] patterns;
 		private Tile[] tileset;
