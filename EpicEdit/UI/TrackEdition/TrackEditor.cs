@@ -215,10 +215,10 @@ namespace EpicEdit.UI.TrackEdition
 			// and make it so all their child controls also respond to these events
 			foreach (TabPage tab in this.modeTabControl.TabPages)
 			{
-				tab.MouseMove += ModeTabPageMouseMove;
+				tab.MouseMove += this.ModeTabPageMouseMove;
 				EventBroadcastProvider.CreateProvider(tab, "MouseMove");
 
-				tab.MouseLeave += ModeTabPageMouseLeave;
+				tab.MouseLeave += this.ModeTabPageMouseLeave;
 				EventBroadcastProvider.CreateProvider(tab, "MouseLeave");
 			}
 
