@@ -35,7 +35,7 @@ namespace EpicEdit.UI.Tools
 		/// <param name="sender">
 		/// The original control that triggered this handler.
 		/// </param>
-		/// <param name="ea">
+		/// <param name="e">
 		/// The original event arguments.
 		/// </param>
 		/// <remarks>
@@ -46,7 +46,7 @@ namespace EpicEdit.UI.Tools
 		/// To prevent reentry, a flag is set when the first it entered, then 
 		/// cleared upon exist of that same invocation.
 		/// </remarks>
-		protected void Relay(Control sender, EventArgs ea)
+		protected void Relay(Control sender, EventArgs e)
 		{
 			//
 			// Make sure to end when the target control is the only one that send
@@ -97,7 +97,7 @@ namespace EpicEdit.UI.Tools
 				//
 				if (mi != null)
 				{
-					mi.Invoke(curControl, new object[] { ea });
+					mi.Invoke(curControl, new object[] { e });
 				}
 
 				//
