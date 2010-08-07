@@ -44,6 +44,11 @@ namespace EpicEdit.UI.Gfx
 		private Bitmap tileClipboardCache;
 
 		/// <summary>
+		/// Used to resize the dirty region depending on the zoom level.
+		/// </summary>
+		private Matrix zoomedDirtyRegionMatrix;
+
+		/// <summary>
 		/// Used to draw the rectangle when highlighting tiles.
 		/// </summary>
 		private Pen tileHighlightPen;
@@ -131,8 +136,6 @@ namespace EpicEdit.UI.Gfx
 			this.panelSize = control.Size;
 			this.trackGfx = control.CreateGraphics();
 
-			this.SetZoom(zoom);
-
 			#region Pens and Brushes initialization
 
 			this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
@@ -198,6 +201,9 @@ namespace EpicEdit.UI.Gfx
 			// in each function without having to check if they're null beforehand
 			this.trackCache = this.tileClipboardCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 			this.dirtyRegion = new Region();
+			this.zoomedDirtyRegionMatrix = new Matrix();
+
+			this.SetZoom(zoom);
 		}
 
 		/// <summary>
@@ -230,6 +236,11 @@ namespace EpicEdit.UI.Gfx
 		public void SetZoom(float zoom)
 		{
 			this.zoom = zoom;
+
+			this.zoomedDirtyRegionMatrix.Dispose();
+			this.zoomedDirtyRegionMatrix = new Matrix();
+			this.zoomedDirtyRegionMatrix.Scale(this.zoom, this.zoom);
+
 			this.SetInterpolationMode();
 			this.NotifyFullRepaintNeed();
 		}
@@ -642,11 +653,7 @@ namespace EpicEdit.UI.Gfx
 			else
 			{
 				Region zoomedClipRegion = clipRegion.Clone();
-				using (Matrix matrix = new Matrix())
-				{
-					matrix.Scale(this.zoom, this.zoom);
-					zoomedClipRegion.Transform(matrix);
-				}
+				zoomedClipRegion.Transform(this.zoomedDirtyRegionMatrix);
 
 				if (PlatformInformation.IsWindows() &&
 					this.zoom < 1)
@@ -1322,6 +1329,8 @@ namespace EpicEdit.UI.Gfx
 			this.tileClipboardCache.Dispose();
 
 			this.trackGfx.Dispose();
+
+			this.zoomedDirtyRegionMatrix.Dispose();
 
 			this.tileHighlightPen.Dispose();
 			this.tileSelectPen.Dispose();
