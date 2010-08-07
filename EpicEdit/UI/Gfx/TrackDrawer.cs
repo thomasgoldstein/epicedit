@@ -492,7 +492,7 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			if (selectedOverlayTile != null &&
-			    selectedOverlayTile != hoveredOverlayTile)
+				selectedOverlayTile != hoveredOverlayTile)
 			{
 				Rectangle selectedOverlayRectangle = GetOverlayClipRectangle(selectedOverlayTile, scrollPosition);
 				clipRegion.Union(selectedOverlayRectangle);
@@ -511,7 +511,7 @@ namespace EpicEdit.UI.Gfx
 		{
 			Rectangle lapLineRectangle =
 				new Rectangle(lapLine.X - (scrollPosition.X * 8),
-				              lapLine.Y - (scrollPosition.Y * 8) - 1,
+							  lapLine.Y - (scrollPosition.Y * 8) - 1,
 							  lapLine.Length, 3);
 
 			if (!PlatformInformation.IsWindows())
@@ -564,7 +564,7 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			if (selectedAIElem != null &&
-			    selectedAIElem != hoveredAIElem)
+				selectedAIElem != hoveredAIElem)
 			{
 				Rectangle clipRectangle = TrackDrawer.GetAIClipRectangle(selectedAIElem, scrollPosition);
 				clipRegion.Union(clipRectangle);
@@ -694,7 +694,7 @@ namespace EpicEdit.UI.Gfx
 			}
 
 			if (selectedOverlayTile != null &&
-			    selectedOverlayTile != hoveredOverlayTile)
+				selectedOverlayTile != hoveredOverlayTile)
 			{
 				graphics.FillRectangle(this.overlayHighlightBrush,
 									   (selectedOverlayTile.X - scrollPosition.X) * 8,
@@ -1252,7 +1252,7 @@ namespace EpicEdit.UI.Gfx
 			{
 				// Right outbounds
 				new Rectangle(trackArea.Right, 0, this.panelSize.Width - trackArea.Width, trackArea.Height),
-				
+
 				// Bottom outbounds
 				new Rectangle(0, trackArea.Bottom, this.panelSize.Width, this.panelSize.Height - trackArea.Height)
 			};
