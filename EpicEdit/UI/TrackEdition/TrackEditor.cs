@@ -1444,9 +1444,9 @@ namespace EpicEdit.UI.TrackEdition
 				foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 				{
 					if (hoveredTilePosition.X >= overlayTile.X &&
-					    hoveredTilePosition.X <= overlayTile.X + overlayTile.Width &&
+					    hoveredTilePosition.X < overlayTile.X + overlayTile.Width &&
 					    hoveredTilePosition.Y >= overlayTile.Y &&
-					    hoveredTilePosition.Y <= overlayTile.Y + overlayTile.Height)
+					    hoveredTilePosition.Y < overlayTile.Y + overlayTile.Height)
 					{
 						this.hoveredOverlayTile = overlayTile;
 						this.Cursor = Cursors.Hand;
