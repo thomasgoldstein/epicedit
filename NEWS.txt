@@ -11,6 +11,10 @@ vx.x (???)
 - Smarter behavior when changing the index of an AI element.
   Rather than swapping the current index with the new index,
   it now shifts the index of all AI elements in between.
+- Replaced DotNetZip / Ionic.Zip library with SharpZipLib
+  for GPL-incompatiblity reasons
+- Made it possible to load non-compressed ROMs
+  without the presence of the zip library DLL
 - Various other fixes and optimizations
 
 
