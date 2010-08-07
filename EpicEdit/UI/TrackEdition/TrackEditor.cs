@@ -211,8 +211,8 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.InitializeComponent();
 
-			// Make it so all the child controls of the mode tab pages
-			// also respond to the MouseMove event
+			// Attach MouseMove and MouseLeave events to each of the mode tab pages, 
+			// and make it so all their child controls also respond to these events
 			foreach (TabPage tab in this.modeTabControl.TabPages)
 			{
 				tab.MouseMove += ModeTabPageMouseMove;
