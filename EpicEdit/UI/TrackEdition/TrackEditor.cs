@@ -211,6 +211,13 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.InitializeComponent();
 
+			// Make it so all the child controls of the mode tab pages
+			// also respond to the MouseMove event
+			foreach (TabPage tab in this.modeTabControl.TabPages)
+			{
+				EventBroadcastProvider.CreateProvider(tab, "MouseMove");
+			}
+
 			this.ResetCurrentPosition();
 
 			this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4 };
