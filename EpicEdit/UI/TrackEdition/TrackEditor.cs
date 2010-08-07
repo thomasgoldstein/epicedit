@@ -217,6 +217,9 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				tab.MouseMove += ModeTabPageMouseMove;
 				EventBroadcastProvider.CreateProvider(tab, "MouseMove");
+
+				tab.MouseLeave += ModeTabPageMouseLeave;
+				EventBroadcastProvider.CreateProvider(tab, "MouseLeave");
 			}
 
 			this.ResetCurrentPosition();
@@ -1310,6 +1313,15 @@ namespace EpicEdit.UI.TrackEdition
 			if (Form.ActiveForm != null) // If the application is focused
 			{
 				this.modeTabControl.SelectedTab.Focus(); // Lets you use the mouse wheel to scroll
+			}
+		}
+
+		private void ModeTabPageMouseLeave(object sender, EventArgs e)
+		{
+			if (Form.ActiveForm != null) // If the application is focused
+			{
+				// Steal the focus from the panel to disable mouse-wheel scrolling
+				this.menuBar.Focus();
 			}
 		}
 		#endregion EditionMode Tabs
