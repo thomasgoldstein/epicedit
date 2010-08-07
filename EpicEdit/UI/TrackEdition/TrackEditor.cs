@@ -1006,7 +1006,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.pixelPosition.X = this.pixelPosition.Y = -8;
 			// -8, so that TilePosition returns -1
 
-			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
+			this.menuBar.UpdatePositionLabel();
 		}
 
 		private void RecalculateScrollbarMaximums()

@@ -134,11 +134,14 @@ namespace EpicEdit.UI
 		#endregion
 
 		#region Cursor position Label
+		public void UpdatePositionLabel()
+		{
+			this.positionToolStripLabel.Text = "(X,Y)";
+		}
+
 		public void UpdatePositionLabel(Point position)
 		{
-			string x = position.X == -1 ? "X" : position.X.ToString();
-			string y = position.Y == -1 ? "Y" : position.Y.ToString();
-			this.positionToolStripLabel.Text = "(" + x + "," + y + ")";
+			this.positionToolStripLabel.Text = "(" + position.X + "," + position.Y + ")";
 		}
 		#endregion Cursor position Label
 
