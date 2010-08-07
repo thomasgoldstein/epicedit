@@ -110,6 +110,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayHScrollBar.Name = "trackDisplayHScrollBar";
 			this.trackDisplayHScrollBar.Size = new System.Drawing.Size(386, 17);
 			this.trackDisplayHScrollBar.TabIndex = 0;
+			this.trackDisplayHScrollBar.Visible = false;
 			this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
 			// 
 			// trackDisplayVScrollBar
@@ -119,6 +120,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayVScrollBar.Name = "trackDisplayVScrollBar";
 			this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 429);
 			this.trackDisplayVScrollBar.TabIndex = 1;
+			this.trackDisplayVScrollBar.Visible = false;
 			this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseWheel);
 			this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
 			this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
