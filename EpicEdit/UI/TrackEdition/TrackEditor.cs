@@ -1027,11 +1027,11 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void RecalculateScrollbarMaximum(int panelSize, int scrollbarSize, int mapSize, ScrollBar scrollbar)
 		{
-			int onscreenTileCount = (int)((panelSize - scrollbarSize) / (8 * this.Zoom));
-			int offscreenTileCount = mapSize - onscreenTileCount;
+			int onScreenTileCount = (int)((panelSize - scrollbarSize) / (8 * this.Zoom));
+			int offScreenTileCount = mapSize - onScreenTileCount;
 
 			// Disable or enable the scrollbar depending on panel size
-			if (offscreenTileCount <= 0)
+			if (offScreenTileCount <= 0)
 			{
 				scrollbar.Enabled = false;
 				scrollbar.Maximum = 0;
@@ -1044,11 +1044,11 @@ namespace EpicEdit.UI.TrackEdition
 				// when resizing the window and the panel is scrolled to the bottom and/or right limit
 				if (!PlatformInformation.IsMono()) // HACK: Reposition track content on resize (.NET only)
 				{
-					scrollbar.Maximum = offscreenTileCount;
+					scrollbar.Maximum = offScreenTileCount;
 				}
 				// End trick
 
-				scrollbar.Maximum = offscreenTileCount + 9;
+				scrollbar.Maximum = offScreenTileCount + 9;
 				// Adding 9 to the maximum, because somehow,
 				// you can't scroll up to the maximum using the scrollbars
 			}
