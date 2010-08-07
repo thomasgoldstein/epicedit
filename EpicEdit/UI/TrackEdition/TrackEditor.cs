@@ -565,8 +565,7 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				else
 				{
-					Point hoveredTilePosition = this.AbsoluteTilePosition;
-					this.positionToolStripStatusLabel.Text = "(" + hoveredTilePosition.X + "," + hoveredTilePosition.Y + ")";
+					this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 
 					this.InitCurrentModeAction();
 				}
@@ -1007,7 +1006,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.pixelPosition.X = this.pixelPosition.Y = -8;
 			// -8, so that TilePosition returns -1
 
-			this.positionToolStripStatusLabel.Text = "(X,Y)";
+			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 		}
 
 		private void RecalculateScrollbarMaximums()
@@ -1131,8 +1130,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.pixelPosition.X = (int)(position.X / this.Zoom);
 			this.pixelPosition.Y = (int)(position.Y / this.Zoom);
 
-			Point hoveredTilePosition = this.AbsoluteTilePosition;
-			this.positionToolStripStatusLabel.Text = "(" + hoveredTilePosition.X + "," + hoveredTilePosition.Y + ")";
+			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 
 			this.InitCurrentModeAction();
 

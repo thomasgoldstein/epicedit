@@ -67,8 +67,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiControl = new EpicEdit.UI.TrackEdition.AIControl();
 			this.tabImageList = new System.Windows.Forms.ImageList(this.components);
 			this.trackTreeView = new EpicEdit.UI.TrackEdition.TrackTreeView();
-			this.statusStrip = new System.Windows.Forms.StatusStrip();
-			this.positionToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.tabFocusRemover = new System.Windows.Forms.Label();
 			this.menuBar = new EpicEdit.UI.MenuBar();
 			this.trackDisplayPanel.SuspendLayout();
@@ -78,7 +76,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.SuspendLayout();
 			this.objectsTabPage.SuspendLayout();
 			this.aiTabPage.SuspendLayout();
-			this.statusStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// trackDisplayPanel
@@ -90,7 +87,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayPanel.Enabled = false;
 			this.trackDisplayPanel.Location = new System.Drawing.Point(144, 25);
 			this.trackDisplayPanel.Name = "trackDisplayPanel";
-			this.trackDisplayPanel.Size = new System.Drawing.Size(403, 429);
+			this.trackDisplayPanel.Size = new System.Drawing.Size(403, 451);
 			this.trackDisplayPanel.TabIndex = 1;
 			this.trackDisplayPanel.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseWheel);
 			this.trackDisplayPanel.MouseLeave += new System.EventHandler(this.TrackDisplayPanelMouseLeave);
@@ -106,7 +103,7 @@ namespace EpicEdit.UI.TrackEdition
 			// trackDisplayHScrollBar
 			// 
 			this.trackDisplayHScrollBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.trackDisplayHScrollBar.Location = new System.Drawing.Point(0, 412);
+			this.trackDisplayHScrollBar.Location = new System.Drawing.Point(0, 434);
 			this.trackDisplayHScrollBar.Name = "trackDisplayHScrollBar";
 			this.trackDisplayHScrollBar.Size = new System.Drawing.Size(386, 17);
 			this.trackDisplayHScrollBar.TabIndex = 0;
@@ -118,7 +115,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayVScrollBar.Dock = System.Windows.Forms.DockStyle.Right;
 			this.trackDisplayVScrollBar.Location = new System.Drawing.Point(386, 0);
 			this.trackDisplayVScrollBar.Name = "trackDisplayVScrollBar";
-			this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 429);
+			this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 451);
 			this.trackDisplayVScrollBar.TabIndex = 1;
 			this.trackDisplayVScrollBar.Visible = false;
 			this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseWheel);
@@ -142,7 +139,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.modeTabControl.Padding = new System.Drawing.Point(0, 3);
 			this.modeTabControl.SelectedIndex = 0;
 			this.modeTabControl.ShowToolTips = true;
-			this.modeTabControl.Size = new System.Drawing.Size(144, 429);
+			this.modeTabControl.Size = new System.Drawing.Size(144, 451);
 			this.modeTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
 			this.modeTabControl.TabIndex = 2;
 			this.modeTabControl.SelectedIndexChanged += new System.EventHandler(this.ModeTabControlSelectedIndexChanged);
@@ -157,7 +154,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage.Location = new System.Drawing.Point(4, 23);
 			this.tilesetTabPage.Name = "tilesetTabPage";
 			this.tilesetTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.tilesetTabPage.Size = new System.Drawing.Size(136, 402);
+			this.tilesetTabPage.Size = new System.Drawing.Size(136, 424);
 			this.tilesetTabPage.TabIndex = 0;
 			this.tilesetTabPage.ToolTipText = "Tileset";
 			// 
@@ -275,26 +272,9 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackTreeView.Dock = System.Windows.Forms.DockStyle.Left;
 			this.trackTreeView.Location = new System.Drawing.Point(0, 25);
 			this.trackTreeView.Name = "trackTreeView";
-			this.trackTreeView.Size = new System.Drawing.Size(144, 429);
+			this.trackTreeView.Size = new System.Drawing.Size(144, 451);
 			this.trackTreeView.TabIndex = 0;
 			this.trackTreeView.SelectedTrackChanged += new System.EventHandler<System.EventArgs>(this.TrackTreeViewSelectedTrackChanged);
-			// 
-			// statusStrip
-			// 
-			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.positionToolStripStatusLabel});
-			this.statusStrip.Location = new System.Drawing.Point(0, 454);
-			this.statusStrip.Name = "statusStrip";
-			this.statusStrip.Size = new System.Drawing.Size(691, 22);
-			this.statusStrip.TabIndex = 3;
-			this.statusStrip.Text = "status";
-			// 
-			// positionToolStripStatusLabel
-			// 
-			this.positionToolStripStatusLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
-			this.positionToolStripStatusLabel.Name = "positionToolStripStatusLabel";
-			this.positionToolStripStatusLabel.Size = new System.Drawing.Size(31, 17);
-			this.positionToolStripStatusLabel.Text = "(X,Y)";
 			// 
 			// tabFocusRemover
 			// 
@@ -324,7 +304,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.Controls.Add(this.trackDisplayPanel);
 			this.Controls.Add(this.modeTabControl);
 			this.Controls.Add(this.trackTreeView);
-			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.menuBar);
 			this.Name = "TrackEditor";
 			this.Size = new System.Drawing.Size(691, 476);
@@ -337,10 +316,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.ResumeLayout(false);
 			this.objectsTabPage.ResumeLayout(false);
 			this.aiTabPage.ResumeLayout(false);
-			this.statusStrip.ResumeLayout(false);
-			this.statusStrip.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 		}
 		private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
 		private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
@@ -356,8 +332,6 @@ namespace EpicEdit.UI.TrackEdition
 		private System.Windows.Forms.TabPage tilesetTabPage;
 		private EpicEdit.UI.MenuBar menuBar;
 		private System.Windows.Forms.Label tabFocusRemover;
-		private System.Windows.Forms.ToolStripStatusLabel positionToolStripStatusLabel;
-		private System.Windows.Forms.StatusStrip statusStrip;
 		private EpicEdit.UI.TrackEdition.TrackTreeView trackTreeView;
 		private System.Windows.Forms.VScrollBar trackDisplayVScrollBar;
 		private System.Windows.Forms.HScrollBar trackDisplayHScrollBar;

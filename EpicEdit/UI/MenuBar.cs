@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
@@ -131,6 +132,15 @@ namespace EpicEdit.UI
 							MessageBoxIcon.Information);
 		}
 		#endregion
+
+		#region Cursor position Label
+		public void UpdatePositionLabel(Point position)
+		{
+			string x = position.X == -1 ? "X" : position.X.ToString();
+			string y = position.Y == -1 ? "Y" : position.Y.ToString();
+			this.positionToolStripLabel.Text = "(" + x + "," + y + ")";
+		}
+		#endregion Cursor position Label
 
 		#region Menu ShortcutKeys
 		private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
