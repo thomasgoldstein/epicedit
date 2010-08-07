@@ -1034,6 +1034,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (offscreenTileCount <= 0)
 			{
 				scrollbar.Enabled = false;
+				scrollbar.Maximum = 0;
 			}
 			else
 			{
