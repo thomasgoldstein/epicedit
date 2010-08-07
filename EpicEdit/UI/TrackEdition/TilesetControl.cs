@@ -108,12 +108,12 @@ namespace EpicEdit.UI.TrackEdition
 			// The following event handler is added here rather than in the Designer.cs
 			// to save us a null check on this.drawer in each of the corresponding functions,
 			// because the drawer doesn't exist yet before a ROM is loaded.
-			this.tilesetPanel.Paint += new PaintEventHandler(this.TilesetPanelPaint);
+			this.tilesetPanel.Paint += this.TilesetPanelPaint;
 
 			// The following event handler is added here rather than in the Designer.cs
 			// to avoid an extra repaint triggered by
 			// selecting the current theme in the theme ComboBox.
-			this.themeComboBox.SelectedIndexChanged += new EventHandler(this.ThemeComboBoxSelectedIndexChanged);
+			this.themeComboBox.SelectedIndexChanged += this.ThemeComboBoxSelectedIndexChanged;
 		}
 
 		public void InitializeThemeList()

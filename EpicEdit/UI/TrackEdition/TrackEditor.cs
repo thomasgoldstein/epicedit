@@ -246,8 +246,8 @@ namespace EpicEdit.UI.TrackEdition
 			// Adding these event handlers here rather than in the Designer.cs
 			// saves us a null check on this.drawer in each of the corresponding functions,
 			// because the drawer doesn't exist yet before a ROM is loaded
-			this.trackDisplayPanel.Paint += new PaintEventHandler(this.TrackDisplayPanelPaint);
-			this.trackDisplayPanel.SizeChanged += new EventHandler(this.TrackDisplayPanelSizeChanged);
+			this.trackDisplayPanel.Paint += this.TrackDisplayPanelPaint;
+			this.trackDisplayPanel.SizeChanged += this.TrackDisplayPanelSizeChanged;
 
 			this.RecalculateScrollbarMaximums();
 
@@ -955,9 +955,9 @@ namespace EpicEdit.UI.TrackEdition
 		private void ScrollOnMouseWheel(int value, Point position)
 		{
 			this.scrollPosition.Y = value;
-			this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 			this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
-			this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+			this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 			this.trackDrawer.NotifyFullRepaintNeed();
 			this.UpdateDataAfterMouseWheel(position);
 		}
@@ -1028,15 +1028,15 @@ namespace EpicEdit.UI.TrackEdition
 			this.GetOffScreenTileCounts(out offScreenTileCountX, out offScreenTileCountY);
 
 			// Recalculate the maximum value of the horizontal scrollbar
-			this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+			this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
 			this.RecalculateScrollbarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
-			this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+			this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 
 			// Recalculate the maximum value of the vertical scrollbar
-			this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 			this.RecalculateScrollbarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
-			this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+			this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 		}
 
@@ -1203,18 +1203,18 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.scrollPosition.Y != 0)
 			{
 				this.scrollPosition.Y = 0;
-				this.trackDisplayVScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+				this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 				this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
-				this.trackDisplayVScrollBar.ValueChanged += new EventHandler(this.TrackDisplayVScrollBarValueChanged);
+				this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 
 			if (this.scrollPosition.X != 0)
 			{
 				this.scrollPosition.X = 0;
-				this.trackDisplayHScrollBar.ValueChanged -= new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+				this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
 				this.trackDisplayHScrollBar.Value = this.scrollPosition.X;
-				this.trackDisplayHScrollBar.ValueChanged += new EventHandler(this.TrackDisplayHScrollBarValueChanged);
+				this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 		}

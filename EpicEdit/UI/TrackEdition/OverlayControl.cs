@@ -72,7 +72,7 @@ namespace EpicEdit.UI.TrackEdition
 			// The following event handler is added here rather than in the Designer.cs
 			// to save us a null check on this.drawer in each of the corresponding functions,
 			// because the drawer doesn't exist yet before a ROM is loaded.
-			this.overlayPanel.Paint += new PaintEventHandler(this.OverlayPanelPaint);
+			this.overlayPanel.Paint += this.OverlayPanelPaint;
 		}
 
 		public void SetTileset(Tile[] tileset)

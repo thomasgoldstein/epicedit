@@ -70,17 +70,17 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					this.selectedAIElementGroupBox.Enabled = true;
 
-					this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
+					this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
 					this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedElement);
-					this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
+					this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
 
-					this.speedNumericUpDown.ValueChanged -= new EventHandler(this.SpeedNumericUpDownValueChanged);
+					this.speedNumericUpDown.ValueChanged -= this.SpeedNumericUpDownValueChanged;
 					this.speedNumericUpDown.Value = this.selectedElement.Speed + 1;
-					this.speedNumericUpDown.ValueChanged += new EventHandler(this.SpeedNumericUpDownValueChanged);
+					this.speedNumericUpDown.ValueChanged += this.SpeedNumericUpDownValueChanged;
 
-					this.shapeComboBox.SelectedIndexChanged -= new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+					this.shapeComboBox.SelectedIndexChanged -= this.ShapeComboBoxSelectedIndexChanged;
 					this.shapeComboBox.SelectedItem = this.selectedElement.ZoneShape;
-					this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+					this.shapeComboBox.SelectedIndexChanged += this.ShapeComboBoxSelectedIndexChanged;
 				}
 
 				// Force controls to refresh so that the new data shows up instantly
@@ -113,7 +113,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.InitializeComponent();
 
 			this.shapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
-			this.shapeComboBox.SelectedIndexChanged += new EventHandler(this.ShapeComboBoxSelectedIndexChanged);
+			this.shapeComboBox.SelectedIndexChanged += this.ShapeComboBoxSelectedIndexChanged;
 		}
 
 		private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
@@ -152,9 +152,9 @@ namespace EpicEdit.UI.TrackEdition
 
 		public void SetMaximumAIElementIndex()
 		{
-			this.indexNumericUpDown.ValueChanged -= new EventHandler(this.IndexNumericUpDownValueChanged);
+			this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
 			this.indexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
-			this.indexNumericUpDown.ValueChanged += new EventHandler(this.IndexNumericUpDownValueChanged);
+			this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
 		}
 		
 		private void DeleteAllButtonClick(object sender, EventArgs e)

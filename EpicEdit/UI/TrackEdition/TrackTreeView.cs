@@ -252,9 +252,9 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.UpdateTrackListNames();
 
-			this.treeView.AfterSelect -= new TreeViewEventHandler(this.TreeViewAfterSelect);
+			this.treeView.AfterSelect -= this.TreeViewAfterSelect;
 			this.treeView.SelectedNode = this.treeView.Nodes[destinationTrackGroupId].Nodes[destinationTrackId];
-			this.treeView.AfterSelect += new TreeViewEventHandler(this.TreeViewAfterSelect);
+			this.treeView.AfterSelect += this.TreeViewAfterSelect;
 
 			this.draggedTrack = this.draggedTrackTarget = null;
 		}

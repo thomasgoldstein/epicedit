@@ -54,20 +54,20 @@ namespace EpicEdit.UI.TrackEdition
 				byte zone3Value = this.track.ObjectZones.GetZoneValue(this.FrontViewZones, 2);
 				byte zone4Value = this.track.ObjectZones.GetZoneValue(this.FrontViewZones, 3);
 
-				this.zone1TrackBar.ValueChanged -= new EventHandler(this.Zone1TrackBarValueChanged);
-				this.zone2TrackBar.ValueChanged -= new EventHandler(this.Zone2TrackBarValueChanged);
-				this.zone3TrackBar.ValueChanged -= new EventHandler(this.Zone3TrackBarValueChanged);
-				this.zone4TrackBar.ValueChanged -= new EventHandler(this.Zone4TrackBarValueChanged);
+				this.zone1TrackBar.ValueChanged -= this.Zone1TrackBarValueChanged;
+				this.zone2TrackBar.ValueChanged -= this.Zone2TrackBarValueChanged;
+				this.zone3TrackBar.ValueChanged -= this.Zone3TrackBarValueChanged;
+				this.zone4TrackBar.ValueChanged -= this.Zone4TrackBarValueChanged;
 
 				this.zone1TrackBar.Value = zone1Value > max ? max : zone1Value;
 				this.zone2TrackBar.Value = zone2Value > max ? max : zone2Value;
 				this.zone3TrackBar.Value = zone3Value > max ? max : zone3Value;
 				this.zone4TrackBar.Value = zone4Value > max ? max : zone4Value;
 
-				this.zone1TrackBar.ValueChanged += new EventHandler(this.Zone1TrackBarValueChanged);
-				this.zone2TrackBar.ValueChanged += new EventHandler(this.Zone2TrackBarValueChanged);
-				this.zone3TrackBar.ValueChanged += new EventHandler(this.Zone3TrackBarValueChanged);
-				this.zone4TrackBar.ValueChanged += new EventHandler(this.Zone4TrackBarValueChanged);
+				this.zone1TrackBar.ValueChanged += this.Zone1TrackBarValueChanged;
+				this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
+				this.zone3TrackBar.ValueChanged += this.Zone3TrackBarValueChanged;
+				this.zone4TrackBar.ValueChanged += this.Zone4TrackBarValueChanged;
 
 				this.Maximum = max;
 
