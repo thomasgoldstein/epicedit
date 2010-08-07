@@ -22,7 +22,7 @@ using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks
 {
-	public class Themes : IDisposable, IEnumerable<Theme>
+	public sealed class Themes : IDisposable, IEnumerable<Theme>
 	{
 		private Theme[] themes;
 
