@@ -211,6 +211,9 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.InitializeComponent();
 
+			this.trackDisplayVScrollBar.ValueChanged += UpdateScrollPositionX;
+			this.trackDisplayHScrollBar.ValueChanged += UpdateScrollPositionY;
+
 			// Attach MouseMove and MouseLeave events to each of the mode tab pages, 
 			// and make it so all their child controls also respond to these events
 			foreach (TabPage tab in this.modeTabControl.TabPages)
@@ -491,7 +494,6 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayVScrollBarValueChanged(object sender, EventArgs e)
 		{
-			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 			this.trackDrawer.NotifyFullRepaintNeed();
 
 			if (this.buttonPressed != ActionButton.MiddleMouseButton)
@@ -502,13 +504,26 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayHScrollBarValueChanged(object sender, EventArgs e)
 		{
-			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 			this.trackDrawer.NotifyFullRepaintNeed();
 
 			if (this.buttonPressed != ActionButton.MiddleMouseButton)
 			{
 				this.RepaintTrackDisplay();
 			}
+		}
+
+		private void UpdateScrollPositionX(object sender, EventArgs e)
+		{
+			// Unlike the TrackDisplayVScrollBarValueChanged event handler,
+			// this one is never detached.
+			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
+		}
+
+		private void UpdateScrollPositionY(object sender, EventArgs e)
+		{
+			// Unlike the TrackDisplayHScrollBarValueChanged event handler,
+			// this one is never detached.
+			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 		}
 
 		private void TrackDisplayPanelSizeChanged(object sender, EventArgs e)
@@ -963,9 +978,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ScrollOnMouseWheel(int value, Point position)
 		{
-			this.scrollPosition.Y = value;
 			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
-			this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
+			this.trackDisplayVScrollBar.Value = value;
 			this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 			this.trackDrawer.NotifyFullRepaintNeed();
 			this.UpdateDataAfterMouseWheel(position);
@@ -1040,13 +1054,11 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
 			TrackEditor.RecalculateScrollbarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
 			this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
-			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 
 			// Recalculate the maximum value of the vertical scrollbar
 			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 			TrackEditor.RecalculateScrollbarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
 			this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
-			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 		}
 
 		private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
@@ -1211,7 +1223,6 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			if (this.scrollPosition.Y != 0)
 			{
-				this.scrollPosition.Y = 0;
 				this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 				this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
 				this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
@@ -1220,7 +1231,6 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (this.scrollPosition.X != 0)
 			{
-				this.scrollPosition.X = 0;
 				this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
 				this.trackDisplayHScrollBar.Value = this.scrollPosition.X;
 				this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
