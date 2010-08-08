@@ -51,6 +51,15 @@ namespace EpicEdit.UI.TrackEdition
 		/// The selected overlay tile pattern.
 		/// </summary>
 		private OverlayTilePattern selectedPattern;
+		public OverlayTilePattern SelectedPattern
+		{
+			get { return this.selectedPattern; }
+			set
+			{
+				this.selectedPattern = value;
+				this.overlayDrawer.SelectedPattern = value;
+			}
+		}
 
 		/// <summary>
 		/// The selected track overlay tile.

@@ -747,19 +747,25 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else if (currentMode == EditionMode.Overlay)
 			{
-				if (e.Button != MouseButtons.Left)
+				switch (e.Button)
 				{
-					return;
-				}
+					case MouseButtons.Left:
+						this.overlayControl.SelectedTile = this.hoveredOverlayTile;
 
-				this.overlayControl.SelectedTile = this.hoveredOverlayTile;
+						if (this.overlayControl.SelectedTile != null)
+						{
+							this.buttonPressed = ActionButton.LeftMouseButton;
+							Point hoveredTilePosition = this.AbsoluteTilePosition;
+							this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
+														 hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+						}
+						break;
 
-				if (this.overlayControl.SelectedTile != null)
-				{
-					this.buttonPressed = ActionButton.LeftMouseButton;
-					Point hoveredTilePosition = this.AbsoluteTilePosition;
-					this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
-												 hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+					case MouseButtons.Right:
+						this.overlayControl.SelectedPattern =
+							this.hoveredOverlayTile == null ?
+							null : this.hoveredOverlayTile.Pattern;
+						break;
 				}
 
 				this.RepaintTrackDisplay();
