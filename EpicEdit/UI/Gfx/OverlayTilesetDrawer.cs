@@ -136,8 +136,8 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache.Dispose();
 
 			RectangleF bounds = this.overlayGfx.VisibleClipBounds;
-			int panelWidth = (int)bounds.Width;
-			int panelHeight = (int)bounds.Height;
+			int panelWidth = (int)bounds.Width / Zoom;
+			int panelHeight = (int)bounds.Height / Zoom;
 
 			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
 			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
