@@ -29,6 +29,8 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class OverlayTilesetDrawer : IDisposable
 	{
+		private const int Zoom = 2;
+
 		private Dictionary<OverlayTilePattern, Point> patternList;
 		private Tile[] tileset;
 
@@ -76,12 +78,11 @@ namespace EpicEdit.UI.Gfx
 			this.patternList = new Dictionary<OverlayTilePattern, Point>();
 			List<OverlayTilePattern> patterns = this.GetUniquePatterns();
 
-			int zoom = 2;
 			int tilesetX = 0; // Current horizontal drawing position in the tileset
 			int tilesetY = 0; // Current vertical drawing position in the tileset
 			int tallestPattern = 0; // The tallest tile pattern in a given row
 
-			panelWidth /= (8 * zoom); // Take tile width and zoom in consideration
+			panelWidth /= (8 * Zoom); // Take tile width and zoom in consideration
 			int patternId = 0;
 			int patternCountInRow = -1;
 
@@ -141,7 +142,7 @@ namespace EpicEdit.UI.Gfx
 				tilesetY += tallestPattern;
 			}
 
-			return tilesetY * zoom;
+			return tilesetY * Zoom;
 		}
 
 		/// <summary>
@@ -179,27 +180,24 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawOverlayTileset()
 		{
-			int zoom = 2;
-
 			this.overlayGfx.DrawImage(this.overlayCache, 0, 0,
-									  this.overlayCache.Width * zoom,
-									  this.overlayCache.Height * zoom);
+									  this.overlayCache.Width * Zoom,
+									  this.overlayCache.Height * Zoom);
 
 			if (this.hoveredPattern != null)
 			{
 				Point location;
 				this.patternList.TryGetValue(this.hoveredPattern, out location);
 				this.overlayGfx.DrawRectangle(this.higlightPen,
-											  location.X * zoom, location.Y * zoom,
-											  this.hoveredPattern.Width * 8 * zoom,
-											  this.hoveredPattern.Height * 8 * zoom);
+											  location.X * Zoom, location.Y * Zoom,
+											  this.hoveredPattern.Width * 8 * Zoom,
+											  this.hoveredPattern.Height * 8 * Zoom);
 			}
 		}
 
 		public void HighlightTileAt(Point point)
 		{
-			int zoom = 2;
-			point = new Point(point.X / zoom, point.Y / zoom);
+			point = new Point(point.X / Zoom, point.Y / Zoom);
 
 			OverlayTilePattern hoveredPatternBefore = this.hoveredPattern;
 			OverlayTilePattern hoveredPatternAfter = null;
