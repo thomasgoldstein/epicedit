@@ -212,7 +212,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private static void UpdateTrackBarLabel(Label label, int value1, int value2)
 		{
-			label.Text = string.Format(CultureInfo.CurrentCulture, "{0:X2}-{1:X2}", value1, value2);
+			label.Text = string.Format(CultureInfo.InvariantCulture, "{0:X2}-{1:X2}", value1, value2);
 		}
 	}
 }
