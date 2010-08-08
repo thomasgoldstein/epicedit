@@ -216,6 +216,8 @@ namespace EpicEdit.UI.ThemeEdition
 
 			this.ghostNumericUpDown.ReadOnly = !this.lightningLabel.Enabled;
 
+			CultureInfo ic = CultureInfo.InvariantCulture;
+
 			int total = this.itemProbability.Total;
 			this.mushroomNumericUpDown.Value = this.itemProbability.Mushroom;
 			this.featherNumericUpDown.Value = this.itemProbability.Feather;
@@ -225,11 +227,10 @@ namespace EpicEdit.UI.ThemeEdition
 			this.redNumericUpDown.Value = this.itemProbability.Red;
 			this.ghostNumericUpDown.Value = this.itemProbability.Ghost;
 			this.coinsNumericUpDown.Value = this.itemProbability.Coins;
-			this.lightningValue.Text = this.itemProbability.Lightning.ToString();
-			this.totalValue.Text = total.ToString();
+			this.lightningValue.Text = this.itemProbability.Lightning.ToString(ic);
+			this.totalValue.Text = total.ToString(ic);
 			this.itemBoxDisplayOption.SelectedItem = this.itemProbability.DisplayedItems;
 
-			CultureInfo ic = CultureInfo.InvariantCulture;
 			this.mushroomPctLabel.Text = ((float)this.itemProbability.Mushroom / total).ToString("P1", ic);
 			this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ic);
 			this.starPctLabel.Text = ((float)this.itemProbability.Star / total).ToString("P1", ic);
