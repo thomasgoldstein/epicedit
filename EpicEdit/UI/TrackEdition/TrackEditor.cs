@@ -220,6 +220,8 @@ namespace EpicEdit.UI.TrackEdition
 
 				tab.MouseLeave += this.ModeTabPageMouseLeave;
 				EventBroadcastProvider.CreateProvider(tab, "MouseLeave");
+				// FIXME: Mouse-wheel scrolling should be possible on the
+				// modeTabControl scrollbar, but it isn't.
 			}
 
 			this.ResetCurrentPosition();
