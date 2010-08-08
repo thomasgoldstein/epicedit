@@ -268,16 +268,16 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackTileset(Point scrollPosition, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
-
-			if (imageWidth == 0 || imageHeight == 0)
+			if (this.trackGfx == null)
 			{
 				return;
 			}
 
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
+
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
@@ -316,16 +316,16 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackOverlay(Point scrollPosition, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
 		{
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
-
-			if (imageWidth == 0 || imageHeight == 0)
+			if (this.trackGfx == null)
 			{
 				return;
 			}
 
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
+
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
@@ -354,16 +354,16 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackStart(Point scrollPosition)
 		{
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
-
-			if (imageWidth == 0 || imageHeight == 0)
+			if (this.trackGfx == null)
 			{
 				return;
 			}
 
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
+
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
@@ -400,16 +400,16 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackObjects(Point scrollPosition, TrackObject hoveredObject, bool frontZonesView)
 		{
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
-
-			if (imageWidth == 0 || imageHeight == 0)
+			if (this.trackGfx == null)
 			{
 				return;
 			}
 
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
+
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
@@ -438,16 +438,16 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackAI(Point scrollPosition, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
-
-			if (imageWidth == 0 || imageHeight == 0)
+			if (this.trackGfx == null)
 			{
 				return;
 			}
 
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
+
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - scrollPosition.Y) * 8);
 
 			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(scrollPosition.X * 8, scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
@@ -1282,9 +1282,17 @@ namespace EpicEdit.UI.Gfx
 		{
 			this.panelSize = control.Size;
 
-			if (control.Width > 0 && control.Height > 0)
+			if (this.trackGfx != null)
 			{
 				this.trackGfx.Dispose();
+			}
+
+			if (control.Width == 0 || control.Height == 0)
+			{
+				this.trackGfx = null;
+			}
+			else
+			{
 				this.trackGfx = control.CreateGraphics();
 				this.SetInterpolationMode();
 				this.NotifyFullRepaintNeed();
