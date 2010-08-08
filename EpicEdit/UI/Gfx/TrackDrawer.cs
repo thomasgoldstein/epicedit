@@ -1284,6 +1284,7 @@ namespace EpicEdit.UI.Gfx
 
 			if (control.Width > 0 && control.Height > 0)
 			{
+				this.trackGfx.Dispose();
 				this.trackGfx = control.CreateGraphics();
 				this.SetInterpolationMode();
 				this.NotifyFullRepaintNeed();
