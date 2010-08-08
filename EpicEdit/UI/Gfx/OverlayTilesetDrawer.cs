@@ -35,7 +35,11 @@ namespace EpicEdit.UI.Gfx
 		private Graphics overlayGfx;
 		private Bitmap overlayCache;
 		private HatchBrush transparentBrush;
+
 		private Pen delimitPen;
+		private Pen higlightPen;
+
+		private OverlayTilePattern hoveredPattern;
 
 		public OverlayTilesetDrawer(Control control)
 		{
@@ -46,7 +50,9 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
+
 			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
+			this.higlightPen = Pens.White;
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -178,6 +184,55 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.DrawImage(this.overlayCache, 0, 0,
 									  this.overlayCache.Width * zoom,
 									  this.overlayCache.Height * zoom);
+
+			if (this.hoveredPattern != null)
+			{
+				Point location;
+				this.patternList.TryGetValue(this.hoveredPattern, out location);
+				this.overlayGfx.DrawRectangle(this.higlightPen,
+											  location.X * zoom, location.Y * zoom,
+											  this.hoveredPattern.Width * 8 * zoom,
+											  this.hoveredPattern.Height * 8 * zoom);
+			}
+		}
+
+		public void HighlightTileAt(Point point)
+		{
+			int zoom = 2;
+			point = new Point(point.X / zoom, point.Y / zoom);
+
+			OverlayTilePattern hoveredPatternBefore = this.hoveredPattern;
+			OverlayTilePattern hoveredPatternAfter = null;
+
+			foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+			{
+				OverlayTilePattern pattern = kvp.Key;
+				Point location = kvp.Value;
+
+				if (point.X >= location.X &&
+					point.X < location.X + pattern.Width * 8 &&
+					point.Y >= location.Y &&
+					point.Y < location.Y + pattern.Height * 8)
+				{
+					hoveredPatternAfter = pattern;
+					break;
+				}
+			}
+
+			if (hoveredPatternBefore != hoveredPatternAfter)
+			{
+				this.hoveredPattern = hoveredPatternAfter;
+				this.DrawOverlayTileset();
+			}
+		}
+
+		public void ResetTileHighlighting()
+		{
+			if (this.hoveredPattern != null)
+			{
+				this.hoveredPattern = null;
+				this.DrawOverlayTileset();
+			}
 		}
 
 		public void SetTileset(Tile[] tileset)
@@ -242,7 +297,9 @@ namespace EpicEdit.UI.Gfx
 			this.overlayGfx.Dispose();
 			this.overlayCache.Dispose();
 			this.transparentBrush.Dispose();
+
 			this.delimitPen.Dispose();
+			this.higlightPen.Dispose();
 
 			GC.SuppressFinalize(this);
 		}

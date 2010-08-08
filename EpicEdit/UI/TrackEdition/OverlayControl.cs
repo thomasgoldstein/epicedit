@@ -89,6 +89,16 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.overlayDrawer.DrawOverlayTileset();
 		}
+		
+		private void OverlayPanelMouseMove(object sender, MouseEventArgs e)
+		{
+			this.overlayDrawer.HighlightTileAt(e.Location);
+		}
+		
+		private void OverlayPanelMouseLeave(object sender, EventArgs e)
+		{
+			this.overlayDrawer.ResetTileHighlighting();
+		}
 
 		private void DeleteButtonClick(object sender, EventArgs e)
 		{
