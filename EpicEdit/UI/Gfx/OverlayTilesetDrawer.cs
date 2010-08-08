@@ -86,28 +86,39 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawOverlayTileset()
 		{
-			this.overlayGfx.DrawImage(this.overlayCache, 0, 0,
-									  this.overlayCache.Width * Zoom,
-									  this.overlayCache.Height * Zoom);
+			int tilesetWidth = (int)this.overlayGfx.VisibleClipBounds.Width / Zoom;
+			int tilesetHeight = (int)this.overlayGfx.VisibleClipBounds.Height / Zoom;
 
-			this.HighlightPattern(this.hoveredPattern);
-
-			if (this.selectedPattern != this.hoveredPattern)
+			using (Bitmap image = new Bitmap(tilesetWidth, tilesetHeight, PixelFormat.Format32bppPArgb))
+			using (Graphics gfx = Graphics.FromImage(image))
 			{
-				this.HighlightPattern(this.selectedPattern);
+				gfx.DrawImage(this.overlayCache, 0, 0,
+							  this.overlayCache.Width,
+							  this.overlayCache.Height);
+
+				this.HighlightPattern(gfx, this.hoveredPattern);
+
+				if (this.selectedPattern != this.hoveredPattern)
+				{
+					this.HighlightPattern(gfx, this.selectedPattern);
+				}
+
+				this.overlayGfx.DrawImage(image, 0, 0,
+										  image.Width * Zoom,
+										  image.Height * Zoom);
 			}
 		}
 
-		private void HighlightPattern(OverlayTilePattern pattern)
+		private void HighlightPattern(Graphics graphics, OverlayTilePattern pattern)
 		{
 			if (pattern != null)
 			{
 				Point location;
 				this.PatternList.TryGetValue(pattern, out location);
-				this.overlayGfx.DrawRectangle(this.higlightPen,
-											  location.X * Zoom, location.Y * Zoom,
-											  pattern.Width * 8 * Zoom,
-											  pattern.Height * 8 * Zoom);
+				graphics.DrawRectangle(this.higlightPen,
+									   location.X, location.Y,
+									   pattern.Width * 8 - 1,
+									   pattern.Height * 8 - 1);
 			}
 		}
 
