@@ -56,6 +56,24 @@ namespace EpicEdit.UI.TrackEdition
 			get { return this.selectedPattern; }
 			set
 			{
+				if (value != null && !this.patternList.ContainsKey(value))
+				{
+					// Since duplicates are removed from the pattern list,
+					// it's possible that we can't find the exact same pattern
+					// referenced by the overlay tile.
+					// In this case, find another pattern with the same properties.
+
+					foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+					{
+						OverlayTilePattern pattern = kvp.Key;
+						if (pattern.Equals(value))
+						{
+							value = pattern;
+							break;
+						}
+					}
+				}
+				
 				this.selectedPattern = value;
 				this.overlayDrawer.SelectedPattern = value;
 			}
