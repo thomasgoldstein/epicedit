@@ -263,6 +263,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.tilesetControl.InitializeThemeList();
 			this.trackTreeView.InitializeTrackList();
+			this.overlayControl.InitalizePatternList();
 		}
 
 		private void TrackEditorDragEnter(object sender, DragEventArgs e)
