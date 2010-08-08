@@ -43,6 +43,11 @@ namespace EpicEdit.UI.TrackEdition
 		private OverlayTilesetDrawer overlayDrawer;
 
 		/// <summary>
+		/// The hovered overlay tile pattern.
+		/// </summary>
+		private OverlayTilePattern hoveredPattern;
+
+		/// <summary>
 		/// The selected track overlay tile.
 		/// </summary>
 		private OverlayTile selectedTile = null;
@@ -216,7 +221,30 @@ namespace EpicEdit.UI.TrackEdition
 		
 		private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
 		{
-			this.overlayDrawer.HighlightTileAt(e.Location);
+			this.hoveredPattern = this.GetPatternAt(e.Location);
+			this.overlayDrawer.HighlightPattern(this.hoveredPattern);
+		}
+
+		private OverlayTilePattern GetPatternAt(Point point)
+		{
+			point = new Point(point.X / OverlayTilesetDrawer.Zoom,
+							  point.Y / OverlayTilesetDrawer.Zoom);
+
+			foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+			{
+				OverlayTilePattern pattern = kvp.Key;
+				Point location = kvp.Value;
+
+				if (point.X >= location.X &&
+					point.X < location.X + pattern.Width * 8 &&
+					point.Y >= location.Y &&
+					point.Y < location.Y + pattern.Height * 8)
+				{
+					return pattern;
+				}
+			}
+
+			return null;
 		}
 		
 		private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
