@@ -88,6 +88,8 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayPanel.Name = "overlayPanel";
 			this.overlayPanel.Size = new System.Drawing.Size(128, 512);
 			this.overlayPanel.TabIndex = 2;
+			this.overlayPanel.MouseLeave += new System.EventHandler(this.OverlayPanelMouseLeave);
+			this.overlayPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OverlayPanelMouseMove);
 			// 
 			// buttonPanel
 			// 
