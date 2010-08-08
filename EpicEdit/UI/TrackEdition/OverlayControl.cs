@@ -74,13 +74,13 @@ namespace EpicEdit.UI.TrackEdition
 			int tilesetHeight = this.LoadPatternDictionary();
 			this.SetTilesetHeight(tilesetHeight);
 
-			this.overlayDrawer = new OverlayTilesetDrawer(this.overlayPanel);
+			this.overlayDrawer = new OverlayTilesetDrawer(this.overlayTilesetPanel);
 			this.overlayDrawer.PatternList = this.patternList;
 
 			// The following event handler is added here rather than in the Designer.cs
 			// to save us a null check on this.drawer in each of the corresponding functions,
 			// because the drawer doesn't exist yet before a ROM is loaded.
-			this.overlayPanel.Paint += this.OverlayPanelPaint;
+			this.overlayTilesetPanel.Paint += this.OverlayTilesetPanelPaint;
 		}
 
 		public void InitalizePatternList()
@@ -104,7 +104,7 @@ namespace EpicEdit.UI.TrackEdition
 			int tilesetY = 0; // Current vertical drawing position in the tileset
 			int tallestPattern = 0; // The tallest tile pattern in a given row
 
-			int panelWidth = this.overlayPanel.Width / (8 * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+			int panelWidth = this.overlayTilesetPanel.Width / (8 * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
 			int patternId = 0;
 			int patternCountInRow = -1;
 
@@ -194,8 +194,8 @@ namespace EpicEdit.UI.TrackEdition
 		/// </summary>
 		private void SetTilesetHeight(int tilesetHeight)
 		{
-			int difference = tilesetHeight - this.overlayPanel.Height;
-			this.overlayPanel.Height = tilesetHeight;
+			int difference = tilesetHeight - this.overlayTilesetPanel.Height;
+			this.overlayTilesetPanel.Height = tilesetHeight;
 			this.Height += difference;
 		}
 
@@ -209,17 +209,17 @@ namespace EpicEdit.UI.TrackEdition
 			this.tileCountLabel.Text = count + " / 42";
 		}
 
-		private void OverlayPanelPaint(object sender, PaintEventArgs e)
+		private void OverlayTilesetPanelPaint(object sender, PaintEventArgs e)
 		{
 			this.overlayDrawer.DrawOverlayTileset();
 		}
 		
-		private void OverlayPanelMouseMove(object sender, MouseEventArgs e)
+		private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
 		{
 			this.overlayDrawer.HighlightTileAt(e.Location);
 		}
 		
-		private void OverlayPanelMouseLeave(object sender, EventArgs e)
+		private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
 		{
 			this.overlayDrawer.ResetTileHighlighting();
 		}
