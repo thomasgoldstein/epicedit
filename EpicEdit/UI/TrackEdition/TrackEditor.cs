@@ -240,7 +240,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDrawer = new TrackDrawer(this.trackDisplayPanel, this.Zoom);
 			this.tilesetControl.InitOnRomLoading();
 			this.overlayControl.InitOnRomLoading();
-			this.InitLists();
+			this.trackTreeView.InitializeTrackList();
 
 			this.SetCurrentTrack();
 			this.trackDrawer.LoadTrack(this.track);
