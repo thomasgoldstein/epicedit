@@ -39,7 +39,7 @@ namespace EpicEdit.UI.Gfx
 			this.tilesetGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
 			this.tilesetGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
-			this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0), 2);
+			this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -75,19 +75,27 @@ namespace EpicEdit.UI.Gfx
 		{
 			int zoom = 2;
 
-			this.tilesetGfx.DrawImage(this.tilesetCache, 0, 0,
-									  this.tilesetCache.Width * zoom,
-									  this.tilesetCache.Height * zoom);
+			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
+			using (Graphics gfx = Graphics.FromImage(image))
+			{
+				gfx.DrawImage(this.tilesetCache, 0, 0,
+							  this.tilesetCache.Width,
+							  this.tilesetCache.Height);
 
-			int tilePosX = selectedTile % 8;
-			int tilePosY = selectedTile / 8;
-			Point selectedTilePosition = new Point(tilePosX, tilePosY);
+				int tilePosX = selectedTile % 8;
+				int tilePosY = selectedTile / 8;
+				Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
-			this.tilesetGfx.DrawRectangle(this.tilesetPen,
-										  selectedTilePosition.X * 8 * zoom,
-										  selectedTilePosition.Y * 8 * zoom,
-										  8 * zoom - 1,
-										  8 * zoom - 1);
+				gfx.DrawRectangle(this.tilesetPen,
+								  selectedTilePosition.X * 8,
+								  selectedTilePosition.Y * 8,
+								  8 - 1,
+								  8 - 1);
+
+				this.tilesetGfx.DrawImage(image, 0, 0,
+										  image.Width * zoom,
+										  image.Height * zoom);
+			}
 		}
 
 		public void Dispose()
