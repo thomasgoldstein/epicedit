@@ -76,31 +76,11 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		public void HighlightTileAt(Point point)
+		public void HighlightPattern(OverlayTilePattern pattern)
 		{
-			point = new Point(point.X / Zoom, point.Y / Zoom);
-
-			OverlayTilePattern hoveredPatternBefore = this.hoveredPattern;
-			OverlayTilePattern hoveredPatternAfter = null;
-
-			foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
+			if (this.hoveredPattern != pattern)
 			{
-				OverlayTilePattern pattern = kvp.Key;
-				Point location = kvp.Value;
-
-				if (point.X >= location.X &&
-					point.X < location.X + pattern.Width * 8 &&
-					point.Y >= location.Y &&
-					point.Y < location.Y + pattern.Height * 8)
-				{
-					hoveredPatternAfter = pattern;
-					break;
-				}
-			}
-
-			if (hoveredPatternBefore != hoveredPatternAfter)
-			{
-				this.hoveredPattern = hoveredPatternAfter;
+				this.hoveredPattern = pattern;
 				this.DrawOverlayTileset();
 			}
 		}
