@@ -1,0 +1,168 @@
+﻿#region GPL statement
+/*Epic Edit is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
+#endregion
+
+namespace EpicEdit.UI.TrackEdition
+{
+	partial class StartControl
+	{
+		/// <summary>
+		/// Designer variable used to keep track of non-visual components.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+		
+		/// <summary>
+		/// Disposes resources used by the control.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing) {
+				if (components != null) {
+					components.Dispose();
+				}
+			}
+			base.Dispose(disposing);
+		}
+		
+		/// <summary>
+		/// This method is required for Windows Forms designer support.
+		/// Do not change the method contents inside the source code editor. The Forms designer might
+		/// not be able to load this method if it was changed manually.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.secondRowValueLabel = new System.Windows.Forms.Label();
+			this.secondRowLabel = new System.Windows.Forms.Label();
+			this.secondRowTrackBar = new System.Windows.Forms.TrackBar();
+			this.startBindCheckBox = new System.Windows.Forms.CheckBox();
+			this.precisionGroupBox = new System.Windows.Forms.GroupBox();
+			this.step1pxRadioButton = new System.Windows.Forms.RadioButton();
+			this.step8pxRadioButton = new System.Windows.Forms.RadioButton();
+			this.step4pxRadioButton = new System.Windows.Forms.RadioButton();
+			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).BeginInit();
+			this.precisionGroupBox.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// secondRowValueLabel
+			// 
+			this.secondRowValueLabel.Location = new System.Drawing.Point(3, 190);
+			this.secondRowValueLabel.Margin = new System.Windows.Forms.Padding(0);
+			this.secondRowValueLabel.Name = "secondRowValueLabel";
+			this.secondRowValueLabel.Size = new System.Drawing.Size(35, 25);
+			this.secondRowValueLabel.TabIndex = 12;
+			this.secondRowValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// secondRowLabel
+			// 
+			this.secondRowLabel.Location = new System.Drawing.Point(2, 171);
+			this.secondRowLabel.Name = "secondRowLabel";
+			this.secondRowLabel.Size = new System.Drawing.Size(124, 16);
+			this.secondRowLabel.TabIndex = 11;
+			this.secondRowLabel.Text = "2nd row offset";
+			this.secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// secondRowTrackBar
+			// 
+			this.secondRowTrackBar.AutoSize = false;
+			this.secondRowTrackBar.Location = new System.Drawing.Point(34, 190);
+			this.secondRowTrackBar.Maximum = 255;
+			this.secondRowTrackBar.Minimum = -256;
+			this.secondRowTrackBar.Name = "secondRowTrackBar";
+			this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
+			this.secondRowTrackBar.TabIndex = 10;
+			this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
+			// 
+			// startBindCheckBox
+			// 
+			this.startBindCheckBox.Checked = true;
+			this.startBindCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.startBindCheckBox.Location = new System.Drawing.Point(13, 7);
+			this.startBindCheckBox.Name = "startBindCheckBox";
+			this.startBindCheckBox.Size = new System.Drawing.Size(103, 32);
+			this.startBindCheckBox.TabIndex = 9;
+			this.startBindCheckBox.Text = "Bind lap line && driver positions";
+			this.startBindCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.startBindCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// precisionGroupBox
+			// 
+			this.precisionGroupBox.Controls.Add(this.step1pxRadioButton);
+			this.precisionGroupBox.Controls.Add(this.step8pxRadioButton);
+			this.precisionGroupBox.Controls.Add(this.step4pxRadioButton);
+			this.precisionGroupBox.Location = new System.Drawing.Point(2, 42);
+			this.precisionGroupBox.Name = "precisionGroupBox";
+			this.precisionGroupBox.Size = new System.Drawing.Size(124, 120);
+			this.precisionGroupBox.TabIndex = 8;
+			this.precisionGroupBox.TabStop = false;
+			this.precisionGroupBox.Text = "Precision";
+			// 
+			// step1pxRadioButton
+			// 
+			this.step1pxRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+			this.step1pxRadioButton.Location = new System.Drawing.Point(47, 19);
+			this.step1pxRadioButton.Name = "step1pxRadioButton";
+			this.step1pxRadioButton.Size = new System.Drawing.Size(39, 24);
+			this.step1pxRadioButton.TabIndex = 0;
+			this.step1pxRadioButton.Text = "1px";
+			this.step1pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.step1pxRadioButton.UseVisualStyleBackColor = true;
+			// 
+			// step8pxRadioButton
+			// 
+			this.step8pxRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+			this.step8pxRadioButton.Location = new System.Drawing.Point(47, 79);
+			this.step8pxRadioButton.Name = "step8pxRadioButton";
+			this.step8pxRadioButton.Size = new System.Drawing.Size(39, 24);
+			this.step8pxRadioButton.TabIndex = 2;
+			this.step8pxRadioButton.Text = "8px";
+			this.step8pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.step8pxRadioButton.UseVisualStyleBackColor = true;
+			// 
+			// step4pxRadioButton
+			// 
+			this.step4pxRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+			this.step4pxRadioButton.Checked = true;
+			this.step4pxRadioButton.Location = new System.Drawing.Point(47, 49);
+			this.step4pxRadioButton.Name = "step4pxRadioButton";
+			this.step4pxRadioButton.Size = new System.Drawing.Size(39, 24);
+			this.step4pxRadioButton.TabIndex = 1;
+			this.step4pxRadioButton.TabStop = true;
+			this.step4pxRadioButton.Text = "4px";
+			this.step4pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.step4pxRadioButton.UseVisualStyleBackColor = true;
+			// 
+			// StartControl
+			// 
+			this.Controls.Add(this.secondRowValueLabel);
+			this.Controls.Add(this.secondRowLabel);
+			this.Controls.Add(this.secondRowTrackBar);
+			this.Controls.Add(this.startBindCheckBox);
+			this.Controls.Add(this.precisionGroupBox);
+			this.Name = "StartControl";
+			this.Size = new System.Drawing.Size(130, 220);
+			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).EndInit();
+			this.precisionGroupBox.ResumeLayout(false);
+			this.ResumeLayout(false);
+		}
+		private System.Windows.Forms.RadioButton step4pxRadioButton;
+		private System.Windows.Forms.RadioButton step8pxRadioButton;
+		private System.Windows.Forms.RadioButton step1pxRadioButton;
+		private System.Windows.Forms.GroupBox precisionGroupBox;
+		private System.Windows.Forms.CheckBox startBindCheckBox;
+		private System.Windows.Forms.TrackBar secondRowTrackBar;
+		private System.Windows.Forms.Label secondRowLabel;
+		private System.Windows.Forms.Label secondRowValueLabel;
+	}
+}

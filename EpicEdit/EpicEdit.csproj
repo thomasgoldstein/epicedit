@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectGuid>{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EpicEdit</RootNamespace>
+    <AssemblyName>EpicEdit</AssemblyName>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Stifu\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <ApplicationIcon>icons\EpicEdit.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>EpicEdit.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rom\Offsets.cs" />
+    <Compile Include="Rom\Tracks\ItemProba\ItemProbabilities.cs" />
+    <Compile Include="Rom\Tracks\ItemProba\ItemProbability.cs" />
+    <Compile Include="PlatformInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rom\Compression\ByteDictionary.cs" />
+    <Compile Include="Rom\Compression\ChunkNode.cs" />
+    <Compile Include="Rom\Compression\ChunkNodeCollection.cs" />
+    <Compile Include="Rom\Compression\Codec.cs" />
+    <Compile Include="Rom\Compression\FastCompressor.cs" />
+    <Compile Include="Rom\Compression\ICompressor.cs" />
+    <Compile Include="Rom\Compression\OptimalCompressor.cs" />
+    <Compile Include="Rom\Offset.cs" />
+    <Compile Include="Rom\Palette.cs" />
+    <Compile Include="Rom\Game.cs" />
+    <Compile Include="Rom\Range.cs" />
+    <Compile Include="Rom\Tracks\AI\TrackAI.cs" />
+    <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
+    <Compile Include="Rom\Tracks\BattleTrack.cs" />
+    <Compile Include="Rom\Tracks\GPTrack.cs" />
+    <Compile Include="Rom\Tracks\Music.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTilePatterns.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTiles.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObject.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectMatchRace.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjects.cs" />
+    <Compile Include="Rom\Tracks\LapLine.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
+    <Compile Include="Rom\Tracks\StartPosition.cs" />
+    <Compile Include="Rom\Tracks\Theme.cs" />
+    <Compile Include="Rom\Tracks\Themes.cs" />
+    <Compile Include="Rom\Tracks\Tile.cs" />
+    <Compile Include="Rom\Tracks\Track.cs" />
+    <Compile Include="Rom\Tracks\TrackGroup.cs" />
+    <Compile Include="Rom\Tracks\TrackMap.cs" />
+    <Compile Include="Rom\Utilities.cs" />
+    <Compile Include="UI\Gfx\FastBitmap.cs" />
+    <Compile Include="UI\Gfx\GraphicsConverter.cs" />
+    <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
+    <Compile Include="UI\Gfx\TilesetDrawer.cs" />
+    <Compile Include="UI\Gfx\TrackDrawer.cs" />
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MenuBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MenuBar.Designer.cs">
+      <DependentUpon>MenuBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\ItemProbaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\ItemProbaControl.Designer.cs">
+      <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\ThemeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\ThemeEditor.Designer.cs">
+      <DependentUpon>ThemeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Tools\EpicPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\EpicPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\EventArgs.cs" />
+    <Compile Include="UI\Tools\EventBroadcastProvider.cs" />
+    <Compile Include="UI\Tools\UITools.cs" />
+    <Compile Include="UI\TrackEdition\AIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\AIControl.Designer.cs">
+      <DependentUpon>AIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\ObjectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\ObjectControl.Designer.cs">
+      <DependentUpon>ObjectControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\ObjectZonesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\ObjectZonesControl.Designer.cs">
+      <DependentUpon>ObjectZonesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\OverlayControl.cs" />
+    <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
+      <DependentUpon>OverlayControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\StartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\StartControl.Designer.cs">
+      <DependentUpon>StartControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TilesetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TilesetControl.Designer.cs">
+      <DependentUpon>TilesetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TrackEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TrackEditor.Designer.cs">
+      <DependentUpon>TrackEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TrackTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\TrackTreeView.Designer.cs">
+      <DependentUpon>TrackTreeView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MenuBar.resx">
+      <DependentUpon>MenuBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaControl.resx">
+      <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\ThemeEditor.resx">
+      <DependentUpon>ThemeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\AIControl.resx">
+      <DependentUpon>AIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\ObjectControl.resx">
+      <DependentUpon>ObjectControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\ObjectZonesControl.resx">
+      <DependentUpon>ObjectZonesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\OverlayControl.resx">
+      <DependentUpon>OverlayControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\StartControl.resx">
+      <DependentUpon>StartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\TilesetControl.resx">
+      <DependentUpon>TilesetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\TrackEditor.resx">
+      <DependentUpon>TrackEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\TrackTreeView.resx">
+      <DependentUpon>TrackTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+    </BootstrapperPackage>
+    <Folder Include="UI\Tools" />
+  </ItemGroup>
+</Project>
