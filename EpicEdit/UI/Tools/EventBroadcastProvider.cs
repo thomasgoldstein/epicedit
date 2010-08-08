@@ -384,7 +384,7 @@ namespace EpicEdit.UI.Tools
 		/// <summary>
 		/// Event raised after the relay process has completed.
 		/// </summary>
-		public event RelayedEventHandler Relayed;
+		public event EventHandler<EventArgs<Control[]>> Relayed;
 
 		/// <summary>
 		/// Raises the <see cref="Relayed"/> event.
@@ -430,6 +430,4 @@ namespace EpicEdit.UI.Tools
 		ControlEventHandler m_controlRemovedHandler = null;
 		Delegate m_genericHandler = null;
 	}
-
-	 public delegate void RelayedEventHandler(object sender, EventArgs<Control[]> e);
 }
