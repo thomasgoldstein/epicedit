@@ -62,7 +62,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage = new System.Windows.Forms.TabPage();
 			this.startControl = new EpicEdit.UI.TrackEdition.StartControl();
 			this.objectsTabPage = new System.Windows.Forms.TabPage();
-			this.objectControl = new EpicEdit.UI.TrackEdition.ObjectControl();
+			this.objectsControl = new EpicEdit.UI.TrackEdition.ObjectsControl();
 			this.aiTabPage = new System.Windows.Forms.TabPage();
 			this.aiControl = new EpicEdit.UI.TrackEdition.AIControl();
 			this.tabImageList = new System.Windows.Forms.ImageList(this.components);
@@ -216,7 +216,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.objectsTabPage.AutoScroll = true;
 			this.objectsTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.objectsTabPage.Controls.Add(this.objectControl);
+			this.objectsTabPage.Controls.Add(this.objectsControl);
 			this.objectsTabPage.ImageIndex = 3;
 			this.objectsTabPage.Location = new System.Drawing.Point(4, 23);
 			this.objectsTabPage.Name = "objectsTabPage";
@@ -225,14 +225,14 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.TabIndex = 1;
 			this.objectsTabPage.ToolTipText = "Objects";
 			// 
-			// objectControl
+			// objectsControl
 			// 
-			this.objectControl.Location = new System.Drawing.Point(3, 3);
-			this.objectControl.Name = "objectControl";
-			this.objectControl.Size = new System.Drawing.Size(130, 435);
-			this.objectControl.TabIndex = 0;
-			this.objectControl.ObjectZonesChanged += new System.EventHandler<System.EventArgs>(this.ObjectControlObjectZonesChanged);
-			this.objectControl.ObjectZonesViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectControlObjectZonesViewChanged);
+			this.objectsControl.Location = new System.Drawing.Point(3, 3);
+			this.objectsControl.Name = "objectsControl";
+			this.objectsControl.Size = new System.Drawing.Size(130, 435);
+			this.objectsControl.TabIndex = 0;
+			this.objectsControl.ObjectZonesChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesChanged);
+			this.objectsControl.ObjectZonesViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesViewChanged);
 			// 
 			// aiTabPage
 			// 
@@ -321,7 +321,7 @@ namespace EpicEdit.UI.TrackEdition
 		private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
 		private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
 		private EpicEdit.UI.TrackEdition.StartControl startControl;
-		private EpicEdit.UI.TrackEdition.ObjectControl objectControl;
+		private EpicEdit.UI.TrackEdition.ObjectsControl objectsControl;
 		private EpicEdit.UI.TrackEdition.AIControl aiControl;
 		private System.Windows.Forms.TabControl modeTabControl;
 		private System.Windows.Forms.TabPage overlayTabPage;

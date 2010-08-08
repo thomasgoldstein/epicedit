@@ -1004,7 +1004,7 @@ namespace EpicEdit.UI.TrackEdition
 					break;
 
 				case EditionMode.Objects:
-					this.trackDrawer.DrawTrackObjects(this.scrollPosition, this.hoveredObject, this.objectControl.FrontZonesView);
+					this.trackDrawer.DrawTrackObjects(this.scrollPosition, this.hoveredObject, this.objectsControl.FrontZonesView);
 					break;
 
 				case EditionMode.AI:
@@ -1716,7 +1716,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				GPTrack gpTrack = this.track as GPTrack;
 				this.objectsTabPage.Enabled = true;
-				this.objectControl.Track = gpTrack;
+				this.objectsControl.Track = gpTrack;
 			}
 			else
 			{
@@ -1724,12 +1724,12 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void ObjectControlObjectZonesViewChanged(object sender, EventArgs e)
+		private void ObjectsControlObjectZonesViewChanged(object sender, EventArgs e)
 		{
 			this.RepaintTrackDisplay();
 		}
 
-		private void ObjectControlObjectZonesChanged(object sender, EventArgs e)
+		private void ObjectsControlObjectZonesChanged(object sender, EventArgs e)
 		{
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();

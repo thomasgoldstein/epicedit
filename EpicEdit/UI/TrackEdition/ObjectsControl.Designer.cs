@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.TrackEdition
 {
-	partial class ObjectControl
+	partial class ObjectsControl
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -107,14 +107,14 @@ namespace EpicEdit.UI.TrackEdition
 			this.readOnlyZonesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.readOnlyZonesLabel.Visible = false;
 			// 
-			// ObjectControl
+			// ObjectsControl
 			// 
 			this.Controls.Add(this.readOnlyZonesLabel);
 			this.Controls.Add(this.rearObjectZonesControl);
 			this.Controls.Add(this.frontObjectZonesControl);
 			this.Controls.Add(this.rearZonesRadioButton);
 			this.Controls.Add(this.frontZonesRadioButton);
-			this.Name = "ObjectControl";
+			this.Name = "ObjectsControl";
 			this.Size = new System.Drawing.Size(130, 435);
 			this.ResumeLayout(false);
 		}
