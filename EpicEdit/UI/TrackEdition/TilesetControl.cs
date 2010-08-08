@@ -114,6 +114,8 @@ namespace EpicEdit.UI.TrackEdition
 			// to avoid an extra repaint triggered by
 			// selecting the current theme in the theme ComboBox.
 			this.themeComboBox.SelectedIndexChanged += this.ThemeComboBoxSelectedIndexChanged;
+
+			this.InitializeThemeList();
 		}
 
 		public void InitializeThemeList()
