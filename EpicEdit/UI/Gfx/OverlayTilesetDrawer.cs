@@ -29,9 +29,9 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class OverlayTilesetDrawer : IDisposable
 	{
-		private const int Zoom = 2;
+		public const int Zoom = 2;
+		public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
 
-		private Dictionary<OverlayTilePattern, Point> patternList;
 		private Tile[] tileset;
 
 		private Graphics overlayGfx;
@@ -45,8 +45,6 @@ namespace EpicEdit.UI.Gfx
 
 		public OverlayTilesetDrawer(Control control)
 		{
-			this.Initialize(control);
-
 			this.overlayGfx = control.CreateGraphics();
 			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
 			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
@@ -61,123 +59,6 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 		}
 
-		/// <param name="control">The control the tileset is painted on.</param>
-		private void Initialize(Control control)
-		{
-			int tilesetHeight = this.LoadPatternDictionary(control.Width);
-			this.SetControlHeight(control, tilesetHeight);
-		}
-
-		/// <summary>
-		/// Loads the dictionary of patterns, and their location.
-		/// </summary>
-		/// <param name="panelWidth">The width of the tileset Panel.</param>
-		/// <returns>The height of the tileset.</returns>
-		private int LoadPatternDictionary(int panelWidth)
-		{
-			this.patternList = new Dictionary<OverlayTilePattern, Point>();
-			List<OverlayTilePattern> patterns = this.GetUniquePatterns();
-
-			int tilesetX = 0; // Current horizontal drawing position in the tileset
-			int tilesetY = 0; // Current vertical drawing position in the tileset
-			int tallestPattern = 0; // The tallest tile pattern in a given row
-
-			panelWidth /= (8 * Zoom); // Take tile width and zoom in consideration
-			int patternId = 0;
-			int patternCountInRow = -1;
-
-			while (patternCountInRow != 0)
-			{
-				patternCountInRow = 0;
-				int rowWidth = 0;
-
-				// Compute how many patterns will fit in the row
-				for (int otherPatternId = patternId; otherPatternId < patterns.Count; otherPatternId++)
-				{
-					OverlayTilePattern pattern = patterns[otherPatternId];
-					int newRowWidth = rowWidth + pattern.Width;
-
-					if (newRowWidth > panelWidth)
-					{
-						break;
-					}
-
-					rowWidth = newRowWidth;
-					patternCountInRow++;
-				}
-
-				int patternRowIterator = 0;
-				tallestPattern = 0;
-				if (rowWidth == panelWidth)
-				{
-					tilesetX = 0;
-				}
-				else
-				{
-					// If the row isn't totally filled, center the pattern(s)
-					tilesetX = ((panelWidth - rowWidth) * 8) / 2;
-				}
-
-				// Store the pattern(s) of the row, and their location
-				while (patternRowIterator < patternCountInRow)
-				{
-					OverlayTilePattern pattern = patterns[patternId];
-					this.patternList.Add(pattern, new Point(tilesetX, tilesetY));
-
-					tilesetX += pattern.Width * 8;
-					if (pattern.Height > tallestPattern)
-					{
-						tallestPattern = pattern.Height;
-					}
-
-					patternRowIterator++;
-					patternId++;
-				}
-
-				tilesetY += tallestPattern * 8;
-			}
-
-			if (tilesetX != 0)
-			{
-				tilesetY += tallestPattern;
-			}
-
-			return tilesetY * Zoom;
-		}
-
-		/// <summary>
-		/// Gets the overlay tile patterns of the game, skipping duplicate patterns.
-		/// </summary>
-		private List<OverlayTilePattern> GetUniquePatterns()
-		{
-			OverlayTilePattern previousPattern = null;
-			List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();
-			foreach (OverlayTilePattern pattern in MainForm.SmkGame.OverlayTilePatterns)
-			{
-				if (pattern.Equals(previousPattern))
-				{
-					// Skip duplicate patterns
-					continue;
-				}
-
-				previousPattern = pattern;
-				patterns.Add(pattern);
-			}
-
-			return patterns;
-		}
-
-		/// <summary>
-		/// Sets the height of the control and its parent depending on the tileset height.
-		/// </summary>
-		/// <param name="control">The control the tileset is painted on.</param>
-		private void SetControlHeight(Control control, int tilesetHeight)
-		{
-			int difference = tilesetHeight - control.Height;
-			control.Height = tilesetHeight;
-			control.Parent.Height += difference;
-		}
-
 		public void DrawOverlayTileset()
 		{
 			this.overlayGfx.DrawImage(this.overlayCache, 0, 0,
@@ -187,7 +68,7 @@ namespace EpicEdit.UI.Gfx
 			if (this.hoveredPattern != null)
 			{
 				Point location;
-				this.patternList.TryGetValue(this.hoveredPattern, out location);
+				this.PatternList.TryGetValue(this.hoveredPattern, out location);
 				this.overlayGfx.DrawRectangle(this.higlightPen,
 											  location.X * Zoom, location.Y * Zoom,
 											  this.hoveredPattern.Width * 8 * Zoom,
@@ -202,7 +83,7 @@ namespace EpicEdit.UI.Gfx
 			OverlayTilePattern hoveredPatternBefore = this.hoveredPattern;
 			OverlayTilePattern hoveredPatternAfter = null;
 
-			foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+			foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
 			{
 				OverlayTilePattern pattern = kvp.Key;
 				Point location = kvp.Value;
@@ -255,7 +136,7 @@ namespace EpicEdit.UI.Gfx
 			{
 				gfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
 
-				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
 				{
 					OverlayTilePattern pattern = kvp.Key;
 					Point location = kvp.Value;

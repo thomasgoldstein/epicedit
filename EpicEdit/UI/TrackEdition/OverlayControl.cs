@@ -13,7 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
@@ -32,6 +34,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteAllRequested;
+
+		private Dictionary<OverlayTilePattern, Point> patternList;
 
 		/// <summary>
 		/// Used to draw the overlay tileset.
@@ -67,12 +71,132 @@ namespace EpicEdit.UI.TrackEdition
 
 		public void InitOnRomLoading()
 		{
+			int tilesetHeight = this.LoadPatternDictionary();
+			this.SetTilesetHeight(tilesetHeight);
+
 			this.overlayDrawer = new OverlayTilesetDrawer(this.overlayPanel);
+			this.overlayDrawer.PatternList = this.patternList;
 
 			// The following event handler is added here rather than in the Designer.cs
 			// to save us a null check on this.drawer in each of the corresponding functions,
 			// because the drawer doesn't exist yet before a ROM is loaded.
 			this.overlayPanel.Paint += this.OverlayPanelPaint;
+		}
+
+		public void InitalizePatternList()
+		{
+			int tilesetHeight = this.LoadPatternDictionary();
+			this.SetTilesetHeight(tilesetHeight);
+
+			this.overlayDrawer.PatternList = this.patternList;
+		}
+
+		/// <summary>
+		/// Loads the dictionary of patterns, and their location.
+		/// </summary>
+		/// <returns>The height of the tileset.</returns>
+		private int LoadPatternDictionary()
+		{
+			this.patternList = new Dictionary<OverlayTilePattern, Point>();
+			List<OverlayTilePattern> patterns = this.GetUniquePatterns();
+
+			int tilesetX = 0; // Current horizontal drawing position in the tileset
+			int tilesetY = 0; // Current vertical drawing position in the tileset
+			int tallestPattern = 0; // The tallest tile pattern in a given row
+
+			int panelWidth = this.overlayPanel.Width / (8 * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+			int patternId = 0;
+			int patternCountInRow = -1;
+
+			while (patternCountInRow != 0)
+			{
+				patternCountInRow = 0;
+				int rowWidth = 0;
+
+				// Compute how many patterns will fit in the row
+				for (int otherPatternId = patternId; otherPatternId < patterns.Count; otherPatternId++)
+				{
+					OverlayTilePattern pattern = patterns[otherPatternId];
+					int newRowWidth = rowWidth + pattern.Width;
+
+					if (newRowWidth > panelWidth)
+					{
+						break;
+					}
+
+					rowWidth = newRowWidth;
+					patternCountInRow++;
+				}
+
+				int patternRowIterator = 0;
+				tallestPattern = 0;
+				if (rowWidth == panelWidth)
+				{
+					tilesetX = 0;
+				}
+				else
+				{
+					// If the row isn't totally filled, center the pattern(s)
+					tilesetX = ((panelWidth - rowWidth) * 8) / 2;
+				}
+
+				// Store the pattern(s) of the row, and their location
+				while (patternRowIterator < patternCountInRow)
+				{
+					OverlayTilePattern pattern = patterns[patternId];
+					this.patternList.Add(pattern, new Point(tilesetX, tilesetY));
+
+					tilesetX += pattern.Width * 8;
+					if (pattern.Height > tallestPattern)
+					{
+						tallestPattern = pattern.Height;
+					}
+
+					patternRowIterator++;
+					patternId++;
+				}
+
+				tilesetY += tallestPattern * 8;
+			}
+
+			if (tilesetX != 0)
+			{
+				tilesetY += tallestPattern;
+			}
+
+			return tilesetY * OverlayTilesetDrawer.Zoom;
+		}
+
+		/// <summary>
+		/// Gets the overlay tile patterns of the game, skipping duplicate patterns.
+		/// </summary>
+		private List<OverlayTilePattern> GetUniquePatterns()
+		{
+			OverlayTilePattern previousPattern = null;
+			List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();
+			foreach (OverlayTilePattern pattern in MainForm.SmkGame.OverlayTilePatterns)
+			{
+				if (pattern.Equals(previousPattern))
+				{
+					// Skip duplicate patterns
+					continue;
+				}
+
+				previousPattern = pattern;
+				patterns.Add(pattern);
+			}
+
+			return patterns;
+		}
+
+		/// <summary>
+		/// Sets the height of the tileset Panel (and its parent) depending on the tileset height.
+		/// </summary>
+		private void SetTilesetHeight(int tilesetHeight)
+		{
+			int difference = tilesetHeight - this.overlayPanel.Height;
+			this.overlayPanel.Height = tilesetHeight;
+			this.Height += difference;
 		}
 
 		public void SetTileset(Tile[] tileset)
