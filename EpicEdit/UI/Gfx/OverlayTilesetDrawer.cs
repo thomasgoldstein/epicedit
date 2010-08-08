@@ -66,7 +66,7 @@ namespace EpicEdit.UI.Gfx
 		private HatchBrush transparentBrush;
 
 		private Pen delimitPen;
-		private Pen higlightPen;
+		private Pen highlightPen;
 
 		public OverlayTilesetDrawer(Control control)
 		{
@@ -77,7 +77,7 @@ namespace EpicEdit.UI.Gfx
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
 			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
-			this.higlightPen = new Pen(Color.FromArgb(150, 255, 255, 255));
+			this.highlightPen = new Pen(Color.FromArgb(150, 255, 255, 255));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.Gfx
 			{
 				Point location;
 				this.PatternList.TryGetValue(pattern, out location);
-				graphics.DrawRectangle(this.higlightPen,
+				graphics.DrawRectangle(this.highlightPen,
 									   location.X, location.Y,
 									   pattern.Width * 8 - 1,
 									   pattern.Height * 8 - 1);
@@ -183,7 +183,7 @@ namespace EpicEdit.UI.Gfx
 			this.transparentBrush.Dispose();
 
 			this.delimitPen.Dispose();
-			this.higlightPen.Dispose();
+			this.highlightPen.Dispose();
 
 			GC.SuppressFinalize(this);
 		}
