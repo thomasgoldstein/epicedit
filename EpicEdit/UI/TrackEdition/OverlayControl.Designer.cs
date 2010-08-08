@@ -90,6 +90,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTilesetPanel.TabIndex = 2;
 			this.overlayTilesetPanel.MouseLeave += new System.EventHandler(this.OverlayTilesetPanelMouseLeave);
 			this.overlayTilesetPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseMove);
+			this.overlayTilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseDown);
 			// 
 			// buttonPanel
 			// 

@@ -31,8 +31,35 @@ namespace EpicEdit.UI.Gfx
 	{
 		public const int Zoom = 2;
 		public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
-
 		private Tile[] tileset;
+
+		private OverlayTilePattern hoveredPattern;
+		public OverlayTilePattern HoveredPattern
+		{
+			get { return this.hoveredPattern; }
+			set
+			{
+				if (this.hoveredPattern != value)
+				{
+					this.hoveredPattern = value;
+					this.DrawOverlayTileset();
+				}
+			}
+		}
+
+		private OverlayTilePattern selectedPattern;
+		public OverlayTilePattern SelectedPattern
+		{
+			get { return this.selectedPattern; }
+			set
+			{
+				if (this.selectedPattern != value)
+				{
+					this.selectedPattern = value;
+					this.DrawOverlayTileset();
+				}
+			}
+		}
 
 		private Graphics overlayGfx;
 		private Bitmap overlayCache;
@@ -40,8 +67,6 @@ namespace EpicEdit.UI.Gfx
 
 		private Pen delimitPen;
 		private Pen higlightPen;
-
-		private OverlayTilePattern hoveredPattern;
 
 		public OverlayTilesetDrawer(Control control)
 		{
@@ -65,32 +90,24 @@ namespace EpicEdit.UI.Gfx
 									  this.overlayCache.Width * Zoom,
 									  this.overlayCache.Height * Zoom);
 
-			if (this.hoveredPattern != null)
+			this.HighlightPattern(this.hoveredPattern);
+
+			if (this.selectedPattern != this.hoveredPattern)
+			{
+				this.HighlightPattern(this.selectedPattern);
+			}
+		}
+
+		private void HighlightPattern(OverlayTilePattern pattern)
+		{
+			if (pattern != null)
 			{
 				Point location;
-				this.PatternList.TryGetValue(this.hoveredPattern, out location);
+				this.PatternList.TryGetValue(pattern, out location);
 				this.overlayGfx.DrawRectangle(this.higlightPen,
 											  location.X * Zoom, location.Y * Zoom,
-											  this.hoveredPattern.Width * 8 * Zoom,
-											  this.hoveredPattern.Height * 8 * Zoom);
-			}
-		}
-
-		public void HighlightPattern(OverlayTilePattern pattern)
-		{
-			if (this.hoveredPattern != pattern)
-			{
-				this.hoveredPattern = pattern;
-				this.DrawOverlayTileset();
-			}
-		}
-
-		public void ResetTileHighlighting()
-		{
-			if (this.hoveredPattern != null)
-			{
-				this.hoveredPattern = null;
-				this.DrawOverlayTileset();
+											  pattern.Width * 8 * Zoom,
+											  pattern.Height * 8 * Zoom);
 			}
 		}
 
