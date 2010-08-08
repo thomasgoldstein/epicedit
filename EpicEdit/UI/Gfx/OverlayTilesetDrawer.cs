@@ -86,10 +86,7 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawOverlayTileset()
 		{
-			int tilesetWidth = (int)this.overlayGfx.VisibleClipBounds.Width / Zoom;
-			int tilesetHeight = (int)this.overlayGfx.VisibleClipBounds.Height / Zoom;
-
-			using (Bitmap image = new Bitmap(tilesetWidth, tilesetHeight, PixelFormat.Format32bppPArgb))
+			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
 			using (Graphics gfx = Graphics.FromImage(image))
 			{
 				gfx.DrawImage(this.overlayCache, 0, 0,
