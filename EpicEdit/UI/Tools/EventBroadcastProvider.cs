@@ -113,7 +113,7 @@ namespace EpicEdit.UI.Tools
 			}
 			m_noReentry = false;
 
-			OnRelayed(new RelayedEventArgs(m_chain.ToArray()));
+			OnRelayed(new EventArgs<Control[]>(m_chain.ToArray()));
 			m_chain = null;
 		}
 
@@ -391,7 +391,7 @@ namespace EpicEdit.UI.Tools
 		/// <param name="ea">
 		/// Parameters passed to the event.
 		/// </param>
-		protected void OnRelayed(RelayedEventArgs ea)
+		protected void OnRelayed(EventArgs<Control[]> ea)
 		{
 			if (Relayed != null)
 			{
@@ -430,38 +430,5 @@ namespace EpicEdit.UI.Tools
 		Delegate m_genericHandler = null;
 	}
 
-	/// <summary>
-	/// Parameters passed to the <see cref="EventBroadcastProvider"/> 
-	/// event.
-	/// </summary>
-	public class RelayedEventArgs
-	{
-		/// <summary>
-		/// Initializes a new instance.
-		/// </summary>
-		/// <param name="controls">
-		/// Lists of controls affected by the relay.  Each of these received the
-		/// targetted event invocation.
-		/// </param>
-		public RelayedEventArgs(Control[] controls)
-		{
-			m_controls = controls;
-		}
-
-		/// <summary>
-		/// Controls affected by the relay.  Each of these received the
-		/// targetted event invocation.
-		/// </summary>
-		public Control[] RelayChain
-		{
-			get
-			{
-				return m_controls;
-			}
-		}
-
-		private Control[] m_controls = null;
-	}
-
-	 public delegate void RelayedEventHandler(object sender, RelayedEventArgs ea);
+	 public delegate void RelayedEventHandler(object sender, EventArgs<Control[]> e);
 }
