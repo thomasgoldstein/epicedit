@@ -517,6 +517,7 @@ namespace EpicEdit.UI.TrackEdition
 			// Unlike the TrackDisplayVScrollBarValueChanged event handler,
 			// this one is never detached.
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
+			this.trackDrawer.ScrollPosition = this.scrollPosition;
 		}
 
 		private void UpdateScrollPositionY(object sender, EventArgs e)
@@ -524,6 +525,7 @@ namespace EpicEdit.UI.TrackEdition
 			// Unlike the TrackDisplayHScrollBarValueChanged event handler,
 			// this one is never detached.
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
+			this.trackDrawer.ScrollPosition = this.scrollPosition;
 		}
 
 		private void TrackDisplayPanelSizeChanged(object sender, EventArgs e)
@@ -1015,23 +1017,23 @@ namespace EpicEdit.UI.TrackEdition
 			switch (this.CurrentMode)
 			{
 				case EditionMode.Tileset:
-					this.trackDrawer.DrawTrackTileset(this.scrollPosition, this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
+					this.trackDrawer.DrawTrackTileset(this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
 					break;
 
 				case EditionMode.Overlay:
-					this.trackDrawer.DrawTrackOverlay(this.scrollPosition, this.hoveredOverlayTile, this.overlayControl.SelectedTile);
+					this.trackDrawer.DrawTrackOverlay(this.hoveredOverlayTile, this.overlayControl.SelectedTile);
 					break;
 
 				case EditionMode.Start:
-					this.trackDrawer.DrawTrackStart(this.scrollPosition);
+					this.trackDrawer.DrawTrackStart();
 					break;
 
 				case EditionMode.Objects:
-					this.trackDrawer.DrawTrackObjects(this.scrollPosition, this.hoveredObject, this.objectsControl.FrontZonesView);
+					this.trackDrawer.DrawTrackObjects(this.hoveredObject, this.objectsControl.FrontZonesView);
 					break;
 
 				case EditionMode.AI:
-					this.trackDrawer.DrawTrackAI(this.scrollPosition, this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
+					this.trackDrawer.DrawTrackAI(this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
 					break;
 			}
 		}
