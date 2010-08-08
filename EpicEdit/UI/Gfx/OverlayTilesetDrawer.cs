@@ -71,9 +71,7 @@ namespace EpicEdit.UI.Gfx
 
 		public OverlayTilesetDrawer(Control control)
 		{
-			this.overlayGfx = control.CreateGraphics();
-			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
-			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+			this.SetControl(control);
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
@@ -84,6 +82,19 @@ namespace EpicEdit.UI.Gfx
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
 			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+		}
+
+		public void ResetControl(Control control)
+		{
+			this.overlayGfx.Dispose();
+			this.SetControl(control);
+		}
+
+		private void SetControl(Control control)
+		{
+			this.overlayGfx = control.CreateGraphics();
+			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
+			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 		}
 
 		public void DrawOverlayTileset()
