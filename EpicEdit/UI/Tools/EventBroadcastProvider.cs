@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Windows.Forms;
@@ -77,7 +78,7 @@ namespace EpicEdit.UI.Tools
 			// must be in the format On<EventName>(...).
 			//
 			string eventMethName =
-				String.Format(EventMethodTemplate, m_eventName);
+				String.Format(CultureInfo.InvariantCulture, EventMethodTemplate, m_eventName);
 
 			//
 			// Invoke the event passing the event arguments for each ancestor

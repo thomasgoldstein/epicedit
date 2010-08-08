@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
@@ -742,7 +743,8 @@ namespace EpicEdit.Rom
 					regionAddress += this.romHeader.Length;
 				}
 
-				throw new InvalidDataException(string.Format("\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
+				throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
+															 "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
 															 this.FileName, regionAddress, region));
 			}
 
