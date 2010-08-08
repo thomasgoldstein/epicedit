@@ -77,7 +77,7 @@ namespace EpicEdit.UI.Gfx
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
 			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
-			this.higlightPen = new Pen(Color.White);
+			this.higlightPen = new Pen(Color.FromArgb(150, 255, 255, 255));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
