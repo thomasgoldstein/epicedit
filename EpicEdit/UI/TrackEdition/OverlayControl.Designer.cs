@@ -54,7 +54,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.overlayPanel = new EpicEdit.UI.Tools.EpicPanel();
 			this.buttonPanel = new System.Windows.Forms.Panel();
-			this.patternCountLabel = new System.Windows.Forms.Label();
+			this.tileCountLabel = new System.Windows.Forms.Label();
 			this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.buttonPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -91,7 +91,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// buttonPanel
 			// 
-			this.buttonPanel.Controls.Add(this.patternCountLabel);
+			this.buttonPanel.Controls.Add(this.tileCountLabel);
 			this.buttonPanel.Controls.Add(this.deleteButton);
 			this.buttonPanel.Controls.Add(this.deleteAllButton);
 			this.buttonPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -100,13 +100,13 @@ namespace EpicEdit.UI.TrackEdition
 			this.buttonPanel.Size = new System.Drawing.Size(130, 32);
 			this.buttonPanel.TabIndex = 0;
 			// 
-			// patternCountLabel
+			// tileCountLabel
 			// 
-			this.patternCountLabel.Location = new System.Drawing.Point(3, 8);
-			this.patternCountLabel.Name = "patternCountLabel";
-			this.patternCountLabel.Size = new System.Drawing.Size(45, 23);
-			this.patternCountLabel.TabIndex = 2;
-			this.patternCountLabel.Text = "...";
+			this.tileCountLabel.Location = new System.Drawing.Point(3, 8);
+			this.tileCountLabel.Name = "tileCountLabel";
+			this.tileCountLabel.Size = new System.Drawing.Size(45, 23);
+			this.tileCountLabel.TabIndex = 2;
+			this.tileCountLabel.Text = "...";
 			// 
 			// OverlayControl
 			// 
@@ -119,7 +119,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.buttonPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
-		private System.Windows.Forms.Label patternCountLabel;
+		private System.Windows.Forms.Label tileCountLabel;
 		private System.Windows.Forms.Panel buttonPanel;
 		private System.Windows.Forms.ToolTip buttonToolTip;
 		private EpicEdit.UI.Tools.EpicPanel overlayPanel;

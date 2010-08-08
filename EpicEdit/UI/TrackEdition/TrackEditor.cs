@@ -1489,7 +1489,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void UpdatePatternCount()
 		{
-			this.overlayControl.UpdatePatternCount(this.track.OverlayTiles.Count);
+			this.overlayControl.UpdateTileCount(this.track.OverlayTiles.Count);
 		}
 
 		private void DeleteOverlayTile()
