@@ -29,7 +29,7 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class OverlayTilesetDrawer : IDisposable
 	{
-		private OverlayTilePattern[] patterns;
+		private Dictionary<OverlayTilePattern, Point> patternList;
 		private Tile[] tileset;
 
 		private Graphics overlayGfx;
@@ -39,8 +39,7 @@ namespace EpicEdit.UI.Gfx
 
 		public OverlayTilesetDrawer(Control control)
 		{
-			this.InitPatternArray();
-			this.SetControlHeight(control);
+			this.Initialize(control);
 
 			this.overlayGfx = control.CreateGraphics();
 			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -54,13 +53,98 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 		}
 
+		/// <param name="control">The control the tileset is painted on.</param>
+		private void Initialize(Control control)
+		{
+			int tilesetHeight = this.LoadPatternDictionary(control.Width);
+			this.SetControlHeight(control, tilesetHeight);
+		}
+
 		/// <summary>
-		/// Loads the overlay tile patterns of the game, skipping duplicate patterns.
+		/// Loads the dictionary of patterns, and their location.
 		/// </summary>
-		private void InitPatternArray()
+		/// <param name="panelWidth">The width of the tileset Panel.</param>
+		/// <returns>The height of the tileset.</returns>
+		private int LoadPatternDictionary(int panelWidth)
+		{
+			this.patternList = new Dictionary<OverlayTilePattern, Point>();
+			List<OverlayTilePattern> patterns = this.GetUniquePatterns();
+
+			int zoom = 2;
+			int tilesetX = 0; // Current horizontal drawing position in the tileset
+			int tilesetY = 0; // Current vertical drawing position in the tileset
+			int tallestPattern = 0; // The tallest tile pattern in a given row
+
+			panelWidth /= (8 * zoom); // Take tile width and zoom in consideration
+			int patternId = 0;
+			int patternCountInRow = -1;
+
+			while (patternCountInRow != 0)
+			{
+				patternCountInRow = 0;
+				int rowWidth = 0;
+
+				// Compute how many patterns will fit in the row
+				for (int otherPatternId = patternId; otherPatternId < patterns.Count; otherPatternId++)
+				{
+					OverlayTilePattern pattern = patterns[otherPatternId];
+					int newRowWidth = rowWidth + pattern.Width;
+
+					if (newRowWidth > panelWidth)
+					{
+						break;
+					}
+
+					rowWidth = newRowWidth;
+					patternCountInRow++;
+				}
+
+				int patternRowIterator = 0;
+				tallestPattern = 0;
+				if (rowWidth == panelWidth)
+				{
+					tilesetX = 0;
+				}
+				else
+				{
+					// If the row isn't totally filled, center the pattern(s)
+					tilesetX = ((panelWidth - rowWidth) * 8) / 2;
+				}
+
+				// Store the pattern(s) of the row, and their location
+				while (patternRowIterator < patternCountInRow)
+				{
+					OverlayTilePattern pattern = patterns[patternId];
+					this.patternList.Add(pattern, new Point(tilesetX, tilesetY));
+
+					tilesetX += pattern.Width * 8;
+					if (pattern.Height > tallestPattern)
+					{
+						tallestPattern = pattern.Height;
+					}
+
+					patternRowIterator++;
+					patternId++;
+				}
+
+				tilesetY += tallestPattern * 8;
+			}
+
+			if (tilesetX != 0)
+			{
+				tilesetY += tallestPattern;
+			}
+
+			return tilesetY * zoom;
+		}
+
+		/// <summary>
+		/// Gets the overlay tile patterns of the game, skipping duplicate patterns.
+		/// </summary>
+		private List<OverlayTilePattern> GetUniquePatterns()
 		{
 			OverlayTilePattern previousPattern = null;
-			List<OverlayTilePattern> patternList = new List<OverlayTilePattern>();
+			List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();
 			foreach (OverlayTilePattern pattern in MainForm.SmkGame.OverlayTilePatterns)
 			{
 				if (pattern.Equals(previousPattern))
@@ -70,54 +154,21 @@ namespace EpicEdit.UI.Gfx
 				}
 
 				previousPattern = pattern;
-				patternList.Add(pattern);
+				patterns.Add(pattern);
 			}
 
-			this.patterns = patternList.ToArray();
+			return patterns;
 		}
 
 		/// <summary>
 		/// Sets the height of the control and its parent depending on the tileset height.
 		/// </summary>
 		/// <param name="control">The control the tileset is painted on.</param>
-		private void SetControlHeight(Control control)
+		private void SetControlHeight(Control control, int tilesetHeight)
 		{
-			int tilesetHeight = this.GetTilesetHeight(control.Width);
 			int difference = tilesetHeight - control.Height;
 			control.Height = tilesetHeight;
 			control.Parent.Height += difference;
-		}
-
-		private int GetTilesetHeight(int panelWidth)
-		{
-			int zoom = 2;
-			int tilesetX = 0;
-			int tilesetY = 0;
-
-			int tallestPattern = 0; // The tallest tile pattern in a given row
-
-			foreach (OverlayTilePattern pattern in this.patterns)
-			{
-				if ((tilesetX + pattern.Width * 8) * zoom > panelWidth)
-				{
-					tilesetX = 0;
-					tilesetY += tallestPattern;
-					tallestPattern = 0;
-				}
-
-				tilesetX += pattern.Width * 8;
-				if (pattern.Height > tallestPattern)
-				{
-					tallestPattern = pattern.Height;
-				}
-			}
-
-			if (tilesetX != 0)
-			{
-				tilesetY += tallestPattern;
-			}
-
-			return tilesetY * 8 * zoom;
 		}
 
 		public void DrawOverlayTileset()
@@ -142,9 +193,6 @@ namespace EpicEdit.UI.Gfx
 		{
 			this.overlayCache.Dispose();
 
-			int zoom = 2;
-			int tilesetY = 0; // Current vertical drawing position in the tileset
-
 			RectangleF bounds = this.overlayGfx.VisibleClipBounds;
 			int panelWidth = (int)bounds.Width;
 			int panelHeight = (int)bounds.Height;
@@ -154,85 +202,37 @@ namespace EpicEdit.UI.Gfx
 			{
 				gfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
 
-				panelWidth /= (8 * zoom); // Take tile width and zoom in consideration
-				int patternId = 0;
-				int patternCountInRow = -1;
-
-				while (patternCountInRow != 0)
+				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
 				{
-					patternCountInRow = 0;
-					int rowWidth = 0;
+					OverlayTilePattern pattern = kvp.Key;
+					Point location = kvp.Value;
 
-					// Compute how many patterns will fit in the row
-					for (int otherPatternId = patternId; otherPatternId < this.patterns.Length; otherPatternId++)
+					// Draw the pattern
+					for (int y = 0; y < pattern.Height; y++)
 					{
-						OverlayTilePattern pattern = this.patterns[otherPatternId];
-						int newRowWidth = rowWidth + pattern.Width;
-
-						if (newRowWidth > panelWidth)
+						for (int x = 0; x < pattern.Width; x++)
 						{
-							break;
-						}
-
-						rowWidth = newRowWidth;
-						patternCountInRow++;
-					}
-
-					int patternRowIterator = 0;
-					int tallestPattern = 0; // The tallest tile pattern in a given row
-					int tilesetX; // Current horizontal drawing position in the tileset
-					if (rowWidth == panelWidth)
-					{
-						tilesetX = 0;
-					}
-					else
-					{
-						// If the row isn't totally filled, center the pattern(s)
-						tilesetX = ((panelWidth - rowWidth) * 8) / 2;
-					}
-
-					// Draw the pattern(s) of the row
-					while (patternRowIterator < patternCountInRow)
-					{
-						OverlayTilePattern pattern = this.patterns[patternId];
-
-						for (int y = 0; y < pattern.Height; y++)
-						{
-							for (int x = 0; x < pattern.Width; x++)
+							int tileId = pattern.Tiles[y][x];
+	
+							if (tileId == 0xFF)
 							{
-								int tileId = pattern.Tiles[y][x];
-		
-								if (tileId == 0xFF)
-								{
-									continue;
-								}
-
-								Tile tile = this.tileset[tileId];
-								gfx.DrawImage(tile.Bitmap,
-											  8 * x + tilesetX,
-											  8 * y + tilesetY,
-											  8, 8);
+								continue;
 							}
+
+							Tile tile = this.tileset[tileId];
+							gfx.DrawImage(tile.Bitmap,
+										  8 * x + location.X,
+										  8 * y + location.Y,
+										  8, 8);
 						}
-
-						// Delimit the pattern
-						gfx.DrawRectangle(this.delimitPen,
-										  tilesetX,
-										  tilesetY,
-										  pattern.Width * 8 - 1,
-										  pattern.Height * 8 - 1);
-
-						tilesetX += pattern.Width * 8;
-						if (pattern.Height > tallestPattern)
-						{
-							tallestPattern = pattern.Height;
-						}
-
-						patternRowIterator++;
-						patternId++;
 					}
 
-					tilesetY += tallestPattern * 8;
+					// Delimit the pattern
+					gfx.DrawRectangle(this.delimitPen,
+									  location.X,
+									  location.Y,
+									  pattern.Width * 8 - 1,
+									  pattern.Height * 8 - 1);
 				}
 			}
 		}
