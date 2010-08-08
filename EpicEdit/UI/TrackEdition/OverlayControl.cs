@@ -80,9 +80,9 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayDrawer.SetTileset(tileset);
 		}
 
-		public void UpdatePatternCount(int count)
+		public void UpdateTileCount(int count)
 		{
-			this.patternCountLabel.Text = count + " / 42";
+			this.tileCountLabel.Text = count + " / 42";
 		}
 
 		private void OverlayPanelPaint(object sender, PaintEventArgs e)
