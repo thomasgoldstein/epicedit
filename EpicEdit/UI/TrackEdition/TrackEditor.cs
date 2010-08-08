@@ -1247,7 +1247,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetControl.Track = this.track;
 			this.hoveredOverlayTile = null;
 			this.overlayControl.SelectedTile = null;
-			this.UpdatePatternCount();
+			this.UpdateOverlayTileCount();
 			this.aiControl.TrackAI = this.track.AI;
 			this.hoveredAIElem = null;
 
@@ -1506,7 +1506,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
-		private void UpdatePatternCount()
+		private void UpdateOverlayTileCount()
 		{
 			this.overlayControl.UpdateTileCount(this.track.OverlayTiles.Count);
 		}
@@ -1522,7 +1522,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.InitOverlayAction();
 
-			this.UpdatePatternCount();
+			this.UpdateOverlayTileCount();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay(); // May cause a second unnecessary repaint,
 			// due to the InitOverlayAction call above. No big deal.
@@ -1537,7 +1537,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.overlayControl.SelectedTile = null;
 			this.track.OverlayTiles.Clear();
-			this.UpdatePatternCount();
+			this.UpdateOverlayTileCount();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();
 		}
