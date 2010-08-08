@@ -36,12 +36,17 @@ namespace EpicEdit.UI.Gfx
 		private Track track;
 
 		private Size panelSize;
+		private Size imageSize;
 
 		private Point scrollPosition;
 		public Point ScrollPosition
 		{
 			get { return this.scrollPosition; }
-			set { this.scrollPosition = value; }
+			set
+			{
+				this.scrollPosition = value;				
+				this.SetImageSize();
+			}
 		}
 		private float zoom;
 
@@ -255,6 +260,7 @@ namespace EpicEdit.UI.Gfx
 			this.zoomedDirtyRegionMatrix = new Matrix();
 			this.zoomedDirtyRegionMatrix.Scale(this.zoom, this.zoom);
 
+			this.SetImageSize();
 			this.SetInterpolationMode();
 			this.NotifyFullRepaintNeed();
 		}
@@ -283,10 +289,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - this.scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - this.scrollPosition.Y) * 8);
-
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				Rectangle selectionRectangle;
@@ -310,10 +313,10 @@ namespace EpicEdit.UI.Gfx
 
 				this.DrawTileSelection(trackGfxBackBuffer, selectionRectangle, action);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight);
+			this.PaintTrackOutbounds();
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -331,10 +334,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - this.scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - this.scrollPosition.Y) * 8);
-
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile);
@@ -348,10 +348,10 @@ namespace EpicEdit.UI.Gfx
 
 				this.DrawOverlay(trackGfxBackBuffer, hoveredOverlayTile, selectedOverlayTile);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight);
+			this.PaintTrackOutbounds();
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -369,10 +369,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - this.scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - this.scrollPosition.Y) * 8);
-
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				if (this.track is GPTrack)
@@ -394,10 +391,10 @@ namespace EpicEdit.UI.Gfx
 
 				this.DrawStartData(trackGfxBackBuffer);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight);
+			this.PaintTrackOutbounds();
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -415,10 +412,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - this.scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - this.scrollPosition.Y) * 8);
-
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetObjectClipRegion(clipRegion, hoveredObject);
@@ -432,10 +426,10 @@ namespace EpicEdit.UI.Gfx
 
 				this.DrawObjectData(trackGfxBackBuffer, frontZonesView);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight);
+			this.PaintTrackOutbounds();
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -453,10 +447,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (this.track.Map.Width - this.scrollPosition.X) * 8);
-			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (this.track.Map.Height - this.scrollPosition.Y) * 8);
-
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, imageWidth, imageHeight), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
@@ -470,10 +461,10 @@ namespace EpicEdit.UI.Gfx
 
 				this.DrawAI(trackGfxBackBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, imageWidth * this.zoom, imageHeight * this.zoom);
+				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(imageWidth, imageHeight);
+			this.PaintTrackOutbounds();
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -1266,9 +1257,9 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private void PaintTrackOutbounds(int imageWidth, int imageHeight)
+		private void PaintTrackOutbounds()
 		{
-			Rectangle trackArea = new Rectangle(0, 0, (int)(imageWidth * this.zoom), (int)(imageHeight * this.zoom));
+			Rectangle trackArea = new Rectangle(0, 0, (int)(this.imageSize.Width * this.zoom), (int)(this.imageSize.Height * this.zoom));
 			Rectangle[] outBounds = new Rectangle[]
 			{
 				// Right outbounds
@@ -1288,6 +1279,7 @@ namespace EpicEdit.UI.Gfx
 		public void ResizeWindow(Control control)
 		{
 			this.panelSize = control.Size;
+			this.SetImageSize();
 
 			if (this.trackGfx != null)
 			{
@@ -1304,6 +1296,14 @@ namespace EpicEdit.UI.Gfx
 				this.SetInterpolationMode();
 				this.NotifyFullRepaintNeed();
 			}
+		}
+
+		private void SetImageSize()
+		{
+			int trackMapSize = 128;
+			int imageWidth = (int)Math.Min(this.panelSize.Width / this.zoom, (trackMapSize - this.scrollPosition.X) * 8);
+			int imageHeight = (int)Math.Min(this.panelSize.Height / this.zoom, (trackMapSize - this.scrollPosition.Y) * 8);
+			this.imageSize = new Size(imageWidth, imageHeight);
 		}
 
 		public void UpdateCacheAfterTileLaying(Point absolutePosition)
