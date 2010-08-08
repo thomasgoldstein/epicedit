@@ -67,6 +67,7 @@ namespace EpicEdit.UI.Gfx
 
 		private Pen delimitPen;
 		private Pen highlightPen;
+		private SolidBrush selectBrush;
 
 		public OverlayTilesetDrawer(Control control)
 		{
@@ -78,6 +79,7 @@ namespace EpicEdit.UI.Gfx
 
 			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
 			this.highlightPen = new Pen(Color.FromArgb(150, 255, 255, 255));
+			this.selectBrush = new SolidBrush(Color.FromArgb(80, 255, 255, 255));
 
 			// The following member is initialized so it can be disposed of
 			// in each function without having to check if it's null beforehand
@@ -93,16 +95,31 @@ namespace EpicEdit.UI.Gfx
 							  this.overlayCache.Width,
 							  this.overlayCache.Height);
 
-				this.HighlightPattern(gfx, this.hoveredPattern);
+				this.OutlinePattern(gfx, this.hoveredPattern);
 
-				if (this.selectedPattern != this.hoveredPattern)
+				if (this.hoveredPattern != this.selectedPattern)
 				{
-					this.HighlightPattern(gfx, this.selectedPattern);
+					this.OutlinePattern(gfx, this.selectedPattern);
 				}
+
+				this.HighlightPattern(gfx, this.selectedPattern);
 
 				this.overlayGfx.DrawImage(image, 0, 0,
 										  image.Width * Zoom,
 										  image.Height * Zoom);
+			}
+		}
+
+		private void OutlinePattern(Graphics graphics, OverlayTilePattern pattern)
+		{
+			if (pattern != null)
+			{
+				Point location;
+				this.PatternList.TryGetValue(pattern, out location);
+				graphics.DrawRectangle(this.highlightPen,
+									   location.X, location.Y,
+									   pattern.Width * 8 - 1,
+									   pattern.Height * 8 - 1);
 			}
 		}
 
@@ -112,7 +129,7 @@ namespace EpicEdit.UI.Gfx
 			{
 				Point location;
 				this.PatternList.TryGetValue(pattern, out location);
-				graphics.DrawRectangle(this.highlightPen,
+				graphics.FillRectangle(this.selectBrush,
 									   location.X, location.Y,
 									   pattern.Width * 8 - 1,
 									   pattern.Height * 8 - 1);
@@ -184,6 +201,7 @@ namespace EpicEdit.UI.Gfx
 
 			this.delimitPen.Dispose();
 			this.highlightPen.Dispose();
+			this.selectBrush.Dispose();
 
 			GC.SuppressFinalize(this);
 		}
