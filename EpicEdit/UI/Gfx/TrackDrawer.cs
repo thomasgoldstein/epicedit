@@ -329,7 +329,7 @@ namespace EpicEdit.UI.Gfx
 			this.trackGfx.ResetClip();
 		}
 
-		public void DrawTrackOverlay(OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
+		public void DrawTrackOverlay(OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
@@ -337,7 +337,7 @@ namespace EpicEdit.UI.Gfx
 			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
-				this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile);
+				this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 
 				if (!this.fullRepaintNeeded)
 				{
@@ -346,7 +346,7 @@ namespace EpicEdit.UI.Gfx
 					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
 				}
 
-				this.DrawOverlay(trackGfxBackBuffer, hoveredOverlayTile, selectedOverlayTile);
+				this.DrawOverlay(trackGfxBackBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 
 				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
@@ -484,28 +484,34 @@ namespace EpicEdit.UI.Gfx
 			clipRegion.Union(rectangle);
 		}
 
-		private void SetOverlayClipRegion(Region clipRegion, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
+		private void SetOverlayClipRegion(Region clipRegion, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
 			if (hoveredOverlayTile != null)
 			{
-				Rectangle hoveredOverlayRectangle = this.GetOverlayClipRectangle(hoveredOverlayTile);
-				clipRegion.Union(hoveredOverlayRectangle);
+				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
+				clipRegion.Union(rec);
 			}
 
 			if (selectedOverlayTile != null &&
 				selectedOverlayTile != hoveredOverlayTile)
 			{
-				Rectangle selectedOverlayRectangle = this.GetOverlayClipRectangle(selectedOverlayTile);
-				clipRegion.Union(selectedOverlayRectangle);
+				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, selectedOverlayTile.Pattern, selectedOverlayTile.Location);
+				clipRegion.Union(rec);
+			}
+
+			if (selectedPattern != null)
+			{
+				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, selectedPattern, selectedPatternLocation);
+				clipRegion.Union(rec);
 			}
 		}
 
-		private Rectangle GetOverlayClipRectangle(OverlayTile overlayTile)
+		private Rectangle GetOverlayClipRectangle(Region clipRegion, OverlayTilePattern overlayTilePattern, Point location)
 		{
-			return new Rectangle((overlayTile.X - this.scrollPosition.X) * 8,
-								 (overlayTile.Y - this.scrollPosition.Y) * 8,
-								 overlayTile.Width * 8,
-								 overlayTile.Height * 8);
+			return new Rectangle((location.X - this.scrollPosition.X) * 8,
+								 (location.Y - this.scrollPosition.Y) * 8,
+								 overlayTilePattern.Width * 8,
+								 overlayTilePattern.Height * 8);
 		}
 
 		private void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition)
@@ -672,7 +678,7 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private void DrawOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
+		private void DrawOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
 			Tile[] tiles = this.track.GetRoadTileset();
 
@@ -699,15 +705,42 @@ namespace EpicEdit.UI.Gfx
 									   selectedOverlayTile.Width * 8,
 									   selectedOverlayTile.Height * 8);
 			}
+
+			if (selectedPattern != null)
+			{
+				this.DrawOverlayPattern(graphics, selectedPattern, selectedPatternLocation, tiles);
+			}
 		}
 
 		private void DrawOverlayTile(Graphics graphics, OverlayTile overlayTile, Tile[] tiles)
 		{
-			for (int x = 0; x < overlayTile.Width; x++)
+			this.DrawOverlayTileSub(graphics, null, overlayTile.Pattern, overlayTile.Location, tiles);
+		}
+
+		private void DrawOverlayPattern(Graphics graphics, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+		{
+			using (ImageAttributes imageAttr = new ImageAttributes())
 			{
-				for (int y = 0; y < overlayTile.Height; y++)
+				ColorMatrix matrix = new ColorMatrix(new float[][]
 				{
-					byte tileId = overlayTile.Pattern.Tiles[y][x];
+					new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+		        	new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
+		        	new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
+		        	new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
+		        	new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
+				});
+				imageAttr.SetColorMatrix(matrix);
+				this.DrawOverlayTileSub(graphics, imageAttr, overlayTilePattern, location, tiles);
+			}
+		}
+
+		private void DrawOverlayTileSub(Graphics graphics, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+		{
+			for (int x = 0; x < overlayTilePattern.Width; x++)
+			{
+				for (int y = 0; y < overlayTilePattern.Height; y++)
+				{
+					byte tileId = overlayTilePattern.Tiles[y][x];
 					if (tileId == 0xFF)
 					{
 						continue;
@@ -716,8 +749,11 @@ namespace EpicEdit.UI.Gfx
 					Tile tile = tiles[tileId];
 
 					graphics.DrawImage(tile.Bitmap,
-									   (overlayTile.X + x - this.scrollPosition.X) * 8,
-									   (overlayTile.Y + y - this.scrollPosition.Y) * 8);
+									   new Rectangle((location.X + x - this.scrollPosition.X) * 8,
+					                                 (location.Y + y - this.scrollPosition.Y) * 8,
+					                                 tile.Bitmap.Width, tile.Bitmap.Height),
+									   0, 0, tile.Bitmap.Width, tile.Bitmap.Height,
+									   GraphicsUnit.Pixel, imageAttr);
 				}
 			}
 		}
