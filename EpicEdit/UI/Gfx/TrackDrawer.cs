@@ -281,11 +281,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackTileset(Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
-			if (this.trackGfx == null)
-			{
-				return;
-			}
-
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
@@ -326,11 +321,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackOverlay(OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile)
 		{
-			if (this.trackGfx == null)
-			{
-				return;
-			}
-
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
@@ -361,11 +351,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackStart()
 		{
-			if (this.trackGfx == null)
-			{
-				return;
-			}
-
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
@@ -404,11 +389,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackObjects(TrackObject hoveredObject, bool frontZonesView)
 		{
-			if (this.trackGfx == null)
-			{
-				return;
-			}
-
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
@@ -439,11 +419,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTrackAI(TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			if (this.trackGfx == null)
-			{
-				return;
-			}
-
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
@@ -1281,17 +1256,16 @@ namespace EpicEdit.UI.Gfx
 			this.panelSize = control.Size;
 			this.SetImageSize();
 
-			if (this.trackGfx != null)
+			if (this.imageSize.Width == 0 || this.imageSize.Height == 0)
 			{
-				this.trackGfx.Dispose();
-			}
-
-			if (control.Width == 0 || control.Height == 0)
-			{
-				this.trackGfx = null;
+				// Ensure the image width and height are at least equal to 1,
+				// so that the Bitmap creation doesn't fail
+				this.imageSize.Width = 1;
+				this.imageSize.Height = 1;
 			}
 			else
 			{
+				this.trackGfx.Dispose();
 				this.trackGfx = control.CreateGraphics();
 				this.SetInterpolationMode();
 				this.NotifyFullRepaintNeed();
