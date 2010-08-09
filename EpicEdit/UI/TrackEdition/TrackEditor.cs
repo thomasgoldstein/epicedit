@@ -1021,7 +1021,7 @@ namespace EpicEdit.UI.TrackEdition
 					break;
 
 				case EditionMode.Overlay:
-					this.trackDrawer.DrawTrackOverlay(this.hoveredOverlayTile, this.overlayControl.SelectedTile);
+					this.trackDrawer.DrawTrackOverlay(this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.GetSelectedOverlayPatternLocation());
 					break;
 
 				case EditionMode.Start:
@@ -1540,6 +1540,42 @@ namespace EpicEdit.UI.TrackEdition
 			this.UpdateOverlayTileCount();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.RepaintTrackDisplay();
+		}
+
+		private Point GetSelectedOverlayPatternLocation()
+		{
+			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
+
+			if (pattern == null)
+			{
+				return Point.Empty;
+			}
+			else
+			{
+				Point hoveredTilePosition = this.AbsoluteTilePosition;
+				int x = hoveredTilePosition.X - pattern.Width / 2;
+				int y = hoveredTilePosition.Y - pattern.Height / 2;
+
+				if (x < 0)
+				{
+					x = 0;
+				}
+				else if (x + pattern.Width > this.track.Map.Width)
+				{
+					x = this.track.Map.Width - pattern.Width;
+				}
+
+				if (y < 0)
+				{
+					y = 0;
+				}
+				else if (y + pattern.Height > this.track.Map.Height)
+				{
+					y = this.track.Map.Height - pattern.Height;
+				}
+
+				return new Point(x, y);
+			}
 		}
 		#endregion EditionMode.Overlay
 		
