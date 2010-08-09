@@ -279,12 +279,22 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
+		private Bitmap CloneTrackImage()
+		{
+			return this.trackCache.Clone(
+				new Rectangle(this.scrollPosition.X * 8,
+							  this.scrollPosition.Y * 8,
+							  this.imageSize.Width,
+							  this.imageSize.Height),
+				this.trackCache.PixelFormat);
+		}
+
 		public void DrawTrackTileset(Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				Rectangle selectionRectangle;
@@ -324,7 +334,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile);
@@ -354,7 +364,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				if (this.track is GPTrack)
@@ -392,7 +402,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetObjectClipRegion(clipRegion, hoveredObject);
@@ -422,7 +432,7 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.trackCache.Clone(new Rectangle(this.scrollPosition.X * 8, this.scrollPosition.Y * 8, this.imageSize.Width, this.imageSize.Height), this.trackCache.PixelFormat))
+			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
 				this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
