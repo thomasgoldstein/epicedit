@@ -1577,10 +1577,11 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
-			if (this.TilePosition.X == -1)
+			Point tilePosition = this.TilePosition;
+			if (tilePosition.X == -1)
 			{
 				// The mouse cursor isn't over the track map
-				this.selectedOverlayPatternLocation = new Point(-1, -1);
+				this.selectedOverlayPatternLocation = tilePosition;
 			}
 			else
 			{
