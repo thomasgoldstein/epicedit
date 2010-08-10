@@ -70,34 +70,23 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		public int Width
 		{
-			get { return this.Size.Width; }
-			set { this.Size.Width = value; }
+			get { return this.Pattern.Width; }
 		}
 
 		public int Height
 		{
-			get { return this.Size.Height; }
-			set { this.Size.Height = value; }
+			get { return this.Pattern.Height; }
 		}
 
-		public OverlayTileSize Size { get; set; }
 		public OverlayTilePattern Pattern { get; set; }
 
 		/// <summary>
 		/// Initializes an OverlayTile.
 		/// </summary>
-		/// <param name="data">The byte array to get the data from.</param>
-		/// <param name="index">The index to use in the byte array.</param>
-		/// <param name="sizes">The collection of overlay tile sizes.</param>
-		/// <param name="patterns">The collection of overlay tile patterns.</param>
-		public OverlayTile(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
-		{
-			this.SetBytes(data, index, patterns, sizes);
-		}
-
+		/// <param name="location">The location of the overlay tile.</param>
+		/// <param name="pattern">The pattern of the overlay tile.</param>
 		public OverlayTile(Point location, OverlayTilePattern pattern)
 		{
-			this.Size = pattern.Size;
 			this.Pattern = pattern;
 			this.location = location;
 		}
@@ -111,7 +100,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 				point.Y < this.Y + this.Height;
 		}
 
-		private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
+		/*private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
 		{
 			this.Size = sizes[(data[index] & 0xC0) >> 6];
 			this.Pattern = patterns[data[index] & 0x3F];
@@ -119,7 +108,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			int x = (data[index + 1] & 0x7F);
 			int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
 			this.location = new Point(x, y);
-		}
+		}*/
 
 		/// <summary>
 		/// Fills the passed byte array with data in the format the SMK ROM expects.
@@ -130,7 +119,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// <param name="patterns">The collection of overlay tile patterns.</param>
 		public void GetBytes(byte[] data, int index, OverlayTileSizes sizes, OverlayTilePatterns patterns)
 		{
-			int sizeIndex = sizes.IndexOf(this.Size);
+			int sizeIndex = sizes.IndexOf(this.Pattern.Size);
 			int patternIndex = patterns.IndexOf(this.Pattern);
 			data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
