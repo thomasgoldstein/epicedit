@@ -75,6 +75,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
 				OverlayTileSize size = sizes[(data[index] & 0xC0) >> 6];
 				OverlayTilePattern pattern = patterns[data[index] & 0x3F];
 
+				if (pattern.Size != size)
+				{
+					// The overlay tile size is different from the expected pattern size,
+					// ignore this overlay tile, the editor cannot handle it.
+					continue;
+				}
+
 				int x = (data[index + 1] & 0x7F);
 				int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
 				Point location = new Point(x, y);
