@@ -5,6 +5,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 vx.x (???)
 
+- Added support for overlay tile edition (partly by teknix1)
 - Added support for item probability edition (by teknix1)
 - Added ability to reset the track map
 - Added ability to delete all AI elements
