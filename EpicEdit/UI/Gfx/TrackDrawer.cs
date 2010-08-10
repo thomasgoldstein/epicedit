@@ -150,6 +150,11 @@ namespace EpicEdit.UI.Gfx
 		/// </summary>
 		private Pen aiElementSelectPen;
 
+		/// <summary>
+		/// Image attributes to draw images as semi-transparent.
+		/// </summary>
+		private ImageAttributes translucidImageAttr;
+
 		public TrackDrawer(Control control, float zoom)
 		{
 			this.panelSize = control.Size;
@@ -215,6 +220,17 @@ namespace EpicEdit.UI.Gfx
 			this.aiElementSelectPen = new Pen(Color.White, 1);
 
 			#endregion Pens and Brushes initialization
+
+			this.translucidImageAttr = new ImageAttributes();
+			ColorMatrix matrix = new ColorMatrix(new float[][]
+			{
+				new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
+	        	new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
+	        	new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
+	        	new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
+	        	new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
+			});
+			this.translucidImageAttr.SetColorMatrix(matrix);
 
 			// The following members are initialized so they can be disposed of
 			// in each function without having to check if they're null beforehand
@@ -719,19 +735,7 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawOverlayPattern(Graphics graphics, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
 		{
-			using (ImageAttributes imageAttr = new ImageAttributes())
-			{
-				ColorMatrix matrix = new ColorMatrix(new float[][]
-				{
-					new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
-		        	new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
-		        	new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
-		        	new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
-		        	new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
-				});
-				imageAttr.SetColorMatrix(matrix);
-				this.DrawOverlayTileSub(graphics, imageAttr, overlayTilePattern, location, tiles);
-			}
+			this.DrawOverlayTileSub(graphics, this.translucidImageAttr, overlayTilePattern, location, tiles);
 		}
 
 		private void DrawOverlayTileSub(Graphics graphics, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
@@ -1412,6 +1416,8 @@ namespace EpicEdit.UI.Gfx
 			}
 			this.aiElementHighlightPen.Dispose();
 			this.aiElementSelectPen.Dispose();
+
+			this.translucidImageAttr.Dispose();
 
 			GC.SuppressFinalize(this);
 		}
