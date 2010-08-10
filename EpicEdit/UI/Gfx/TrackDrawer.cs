@@ -353,6 +353,12 @@ namespace EpicEdit.UI.Gfx
 			using (Bitmap trackImage = this.CloneTrackImage())
 			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
 			{
+				if (selectedPatternLocation.X == -1)
+				{
+					// The selected overlay tile pattern is out of the screen,
+					// act as if there isn't one
+					selectedPattern = null;
+				}
 				this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 
 				if (!this.fullRepaintNeeded)
