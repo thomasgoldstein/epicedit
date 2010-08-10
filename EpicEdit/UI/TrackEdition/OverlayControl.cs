@@ -35,6 +35,9 @@ namespace EpicEdit.UI.TrackEdition
 		[Browsable(true)]
 		public event EventHandler<EventArgs> DeleteAllRequested;
 
+		[Browsable(true)]
+		public event EventHandler<EventArgs> RepaintRequested;
+
 		private Dictionary<OverlayTilePattern, Point> patternList;
 
 		/// <summary>
@@ -50,7 +53,12 @@ namespace EpicEdit.UI.TrackEdition
 		/// <summary>
 		/// The selected overlay tile pattern.
 		/// </summary>
-		private OverlayTilePattern selectedPattern;
+		private OverlayTilePattern selectedPattern = null;
+
+		/// <summary>
+		/// Gets or sets the selected overlay tile pattern.
+		/// </summary>
+		[Browsable(false), DefaultValue(typeof(OverlayTilePattern), "")]
 		public OverlayTilePattern SelectedPattern
 		{
 			get { return this.selectedPattern; }
@@ -74,6 +82,21 @@ namespace EpicEdit.UI.TrackEdition
 					}
 				}
 				
+				this.SelectedPatternInternal = value;
+			}
+		}
+
+		private OverlayTilePattern SelectedPatternInternal
+		{
+			get { return this.selectedPattern; }
+			set
+			{
+				if (value != null)
+				{
+					this.SelectedTile = null;
+					this.RepaintRequested(this, EventArgs.Empty);
+				}
+
 				this.selectedPattern = value;
 				this.overlayDrawer.SelectedPattern = value;
 			}
@@ -292,8 +315,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayTilesetPanelMouseDown(object sender, MouseEventArgs e)
 		{
-			this.selectedPattern = this.hoveredPattern;
-			this.overlayDrawer.SelectedPattern = this.selectedPattern;
+			this.SelectedPatternInternal = this.hoveredPattern;
 		}
 
 		private void DeleteAllButtonClick(object sender, EventArgs e)

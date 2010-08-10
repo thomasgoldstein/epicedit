@@ -170,6 +170,11 @@ namespace EpicEdit.UI.TrackEdition
 		private OverlayTile hoveredOverlayTile;
 
 		/// <summary>
+		/// The location of the selected overlay tile pattern.
+		/// </summary>
+		private Point selectedOverlayPatternLocation;
+
+		/// <summary>
 		/// The current action the user is doing (or about to do) on the start data.
 		/// </summary>
 		private EpicEdit.UI.TrackEdition.TrackEditor.StartAction startAction;
@@ -707,6 +712,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.ResetCurrentPosition();
 			this.hoveredOverlayTile = null;
+			this.SetSelectedOverlayPatternLocation();
 			this.hoveredObject = null;
 			this.hoveredAIElem = null;
 
@@ -779,9 +785,17 @@ namespace EpicEdit.UI.TrackEdition
 						break;
 
 					case MouseButtons.Right:
-						this.overlayControl.SelectedPattern =
-							this.hoveredOverlayTile == null ?
-							null : this.hoveredOverlayTile.Pattern;
+						if (this.hoveredOverlayTile == null)
+						{
+							this.overlayControl.SelectedPattern = null;
+						}
+						else
+						{
+							this.overlayControl.SelectedPattern = this.hoveredOverlayTile.Pattern;
+							this.SetSelectedOverlayPatternLocation();
+							this.hoveredOverlayTile = null;
+							this.Cursor = Cursors.Default;
+						}
 						break;
 				}
 
@@ -1021,7 +1035,7 @@ namespace EpicEdit.UI.TrackEdition
 					break;
 
 				case EditionMode.Overlay:
-					this.trackDrawer.DrawTrackOverlay(this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.GetSelectedOverlayPatternLocation());
+					this.trackDrawer.DrawTrackOverlay(this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
 					break;
 
 				case EditionMode.Start:
@@ -1486,21 +1500,28 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else
 			{
-				#region Try to hover overlay tile
-				foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+				if (this.overlayControl.SelectedPattern == null)
 				{
-					if (overlayTile.IntersectsWith(hoveredTilePosition))
+					#region Try to hover overlay tile
+					foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 					{
-						this.hoveredOverlayTile = overlayTile;
-						this.Cursor = Cursors.Hand;
-						this.RepaintTrackDisplay();
-						return;
+						if (overlayTile.IntersectsWith(hoveredTilePosition))
+						{
+							this.hoveredOverlayTile = overlayTile;
+							this.Cursor = Cursors.Hand;
+							this.RepaintTrackDisplay();
+							return;
+						}
 					}
-				}
 
-				this.hoveredOverlayTile = null;
-				this.Cursor = Cursors.Default;
-				#endregion Try to hover overlay tile
+					this.hoveredOverlayTile = null;
+					this.Cursor = Cursors.Default;
+					#endregion Try to hover overlay tile
+				}
+				else
+				{
+					this.SetSelectedOverlayPatternLocation();
+				}
 			}
 
 			this.RepaintTrackDisplay();
@@ -1542,13 +1563,19 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
-		private Point GetSelectedOverlayPatternLocation()
+		private void OverlayControlRepaintRequested(object sender, EventArgs e)
+		{
+			this.RepaintTrackDisplay();
+		}
+
+		private void SetSelectedOverlayPatternLocation()
 		{
 			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
 
-			if (pattern == null)
+			if (pattern == null ||
+				this.TilePosition == new Point(-1, -1))
 			{
-				return Point.Empty;
+				this.selectedOverlayPatternLocation = new Point(-1, -1);
 			}
 			else
 			{
@@ -1574,7 +1601,7 @@ namespace EpicEdit.UI.TrackEdition
 					y = this.track.Map.Height - pattern.Height;
 				}
 
-				return new Point(x, y);
+				this.selectedOverlayPatternLocation = new Point(x, y);
 			}
 		}
 		#endregion EditionMode.Overlay
