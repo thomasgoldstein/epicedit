@@ -790,6 +790,7 @@ namespace EpicEdit.UI.TrackEdition
 							OverlayTile overlayTile = new OverlayTile(this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
 							this.track.OverlayTiles.Add(overlayTile);
 							this.UpdateOverlayTileCount();
+							this.trackTreeView.MarkTrackAsChanged();
 						}
 						break;
 
