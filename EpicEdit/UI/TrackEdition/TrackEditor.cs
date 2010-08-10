@@ -787,7 +787,7 @@ namespace EpicEdit.UI.TrackEdition
 						}
 						else
 						{
-							OverlayTile overlayTile = new OverlayTile(this.selectedOverlayPatternLocation, this.overlayControl.SelectedPattern);
+							OverlayTile overlayTile = new OverlayTile(this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
 							this.track.OverlayTiles.Add(overlayTile);
 							this.UpdateOverlayTileCount();
 						}

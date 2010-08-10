@@ -86,7 +86,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 				int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
 				Point location = new Point(x, y);
 
-				OverlayTile overlayTile = new OverlayTile(location, pattern);
+				OverlayTile overlayTile = new OverlayTile(pattern, location);
 				this.overlayTiles.Add(overlayTile);
 			}
 		}
