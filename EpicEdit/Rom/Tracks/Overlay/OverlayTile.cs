@@ -83,9 +83,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// <summary>
 		/// Initializes an OverlayTile.
 		/// </summary>
-		/// <param name="location">The location of the overlay tile.</param>
 		/// <param name="pattern">The pattern of the overlay tile.</param>
-		public OverlayTile(Point location, OverlayTilePattern pattern)
+		/// <param name="location">The location of the overlay tile.</param>
+		public OverlayTile(OverlayTilePattern pattern, Point location)
 		{
 			this.Pattern = pattern;
 			this.location = location;
