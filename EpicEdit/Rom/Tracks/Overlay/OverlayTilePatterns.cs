@@ -120,7 +120,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		private OverlayTileSize[] LoadPatternSizes(OverlayTileSizes sizes)
 		{
-			// TODO: Get this from the ROM. Possibly this is now available anywhere in the rom since the overlay tiles in a track indicates which size to use when they are displayed at runtime.
+			// TODO: Get this from the ROM. Possibly this is not available anywhere in the rom since the overlay tiles in a track indicates which size to use when they are displayed at runtime.
 			// Possibly this should be saved in the epic zone when we start supporting updating the patterns???
 			int[] sizeIndexes = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
 			OverlayTileSize[] sizeArray = new OverlayTileSize[this.Count];
