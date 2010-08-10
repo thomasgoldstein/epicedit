@@ -101,6 +101,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			return data;
 		}
 
+		public void Add(OverlayTile overlayTile)
+		{
+			if (this.Count == 42)
+			{
+				return;
+			}
+			this.overlayTiles.Add(overlayTile);
+		}
+
 		public void Remove(OverlayTile overlayTile)
 		{
 			this.overlayTiles.Remove(overlayTile);

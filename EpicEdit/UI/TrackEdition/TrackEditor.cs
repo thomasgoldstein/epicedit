@@ -773,14 +773,23 @@ namespace EpicEdit.UI.TrackEdition
 				switch (e.Button)
 				{
 					case MouseButtons.Left:
-						this.overlayControl.SelectedTile = this.hoveredOverlayTile;
-
-						if (this.overlayControl.SelectedTile != null)
+						if (this.overlayControl.SelectedPattern == null)
 						{
-							this.buttonPressed = ActionButton.LeftMouseButton;
-							Point hoveredTilePosition = this.AbsoluteTilePosition;
-							this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
-														 hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+							this.overlayControl.SelectedTile = this.hoveredOverlayTile;
+
+							if (this.overlayControl.SelectedTile != null)
+							{
+								this.buttonPressed = ActionButton.LeftMouseButton;
+								Point hoveredTilePosition = this.AbsoluteTilePosition;
+								this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
+															 hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+							}
+						}
+						else
+						{
+							OverlayTile overlayTile = new OverlayTile(this.selectedOverlayPatternLocation, this.overlayControl.SelectedPattern);
+							this.track.OverlayTiles.Add(overlayTile);
+							this.UpdateOverlayTileCount();
 						}
 						break;
 
