@@ -1572,8 +1572,12 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
 
-			if (pattern == null ||
-				this.TilePosition == new Point(-1, -1))
+			if (pattern == null)
+			{
+				return;
+			}
+
+			if (this.TilePosition == new Point(-1, -1))
 			{
 				this.selectedOverlayPatternLocation = new Point(-1, -1);
 			}
