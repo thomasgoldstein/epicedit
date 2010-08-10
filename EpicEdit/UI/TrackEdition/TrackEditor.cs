@@ -1577,8 +1577,9 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
-			if (this.TilePosition == new Point(-1, -1))
+			if (this.TilePosition.X == -1)
 			{
+				// The mouse cursor isn't over the track map
 				this.selectedOverlayPatternLocation = new Point(-1, -1);
 			}
 			else
