@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {
@@ -71,7 +72,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
 					break;
 				}
 
-				OverlayTile overlayTile = new OverlayTile(data, index, patterns, sizes);
+				OverlayTileSize size = sizes[(data[index] & 0xC0) >> 6];
+				OverlayTilePattern pattern = patterns[data[index] & 0x3F];
+
+				int x = (data[index + 1] & 0x7F);
+				int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
+				Point location = new Point(x, y);
+
+				OverlayTile overlayTile = new OverlayTile(location, pattern);
 				this.overlayTiles.Add(overlayTile);
 			}
 		}
