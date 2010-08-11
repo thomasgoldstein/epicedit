@@ -59,7 +59,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.treeView.TabIndex = 0;
 			this.treeView.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewBeforeCollapse);
 			this.treeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.TreeViewDragDrop);
-			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewAfterSelect);
 			this.treeView.DragEnter += new System.Windows.Forms.DragEventHandler(this.TreeViewDragEnter);
 			this.treeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewBeforeSelect);
 			this.treeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.TreeViewItemDrag);
