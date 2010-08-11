@@ -73,8 +73,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.treeView.ExpandAll();
 			this.treeView.SelectedNode = this.treeView.Nodes[0].Nodes[0];
 			this.treeView.EndUpdate();
-
-			this.SetSelectedTrack();
 		}
 
 		private void UpdateTrackListNames()
