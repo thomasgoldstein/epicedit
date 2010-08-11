@@ -91,7 +91,7 @@ namespace EpicEdit.UI.TrackEdition
 			get { return this.selectedPattern; }
 			set
 			{
-				if (value != null)
+				if (value != null && this.SelectedTile != null)
 				{
 					this.SelectedTile = null;
 					this.RepaintRequested(this, EventArgs.Empty);
