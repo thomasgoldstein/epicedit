@@ -712,7 +712,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.ResetCurrentPosition();
 			this.hoveredOverlayTile = null;
-			this.SetSelectedOverlayPatternLocation();
+			this.selectedOverlayPatternLocation = new Point(-1, -1);
 			this.hoveredObject = null;
 			this.hoveredAIElem = null;
 
