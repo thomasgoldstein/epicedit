@@ -248,10 +248,11 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDrawer = new TrackDrawer(this.trackDisplayPanel, this.Zoom);
 			this.tilesetControl.InitOnRomLoading();
 			this.overlayControl.InitOnRomLoading();
-			this.trackTreeView.InitializeTrackList();
+			this.trackTreeView.InitOnRomLoading();
 
 			this.SetCurrentTrack();
 			this.trackDrawer.LoadTrack(this.track);
+			this.tilesetControl.SelectCurrentTrackTheme();
 
 			// Adding these event handlers here rather than in the Designer.cs
 			// saves us a null check on this.drawer in each of the corresponding functions,
