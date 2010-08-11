@@ -54,7 +54,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		}
 
 		/// <summary>
-		/// Convert data into a nice y/x byte[][] to facilitate reading
+		/// Convert data into a nice y/x byte[][] to facilitate reading.
 		/// </summary>
 		private void SetBytes(byte[] data)
 		{
@@ -68,7 +68,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		}
 
 		/// <summary>
-		/// Reconstructs the original byte[]
+		/// Reconstructs the original byte[].
 		/// </summary>
 		public byte[] GetBytes()
 		{
