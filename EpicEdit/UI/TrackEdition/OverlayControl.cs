@@ -129,7 +129,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.InitializeComponent();
 		}
 
-		public void InitOnRomLoading()
+		public void InitOnFirstRomLoad()
 		{
 			int tilesetHeight = this.LoadPatternDictionary();
 			this.SetTilesetHeight(tilesetHeight);

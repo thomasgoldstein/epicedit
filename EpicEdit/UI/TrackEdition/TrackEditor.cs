@@ -243,12 +243,12 @@ namespace EpicEdit.UI.TrackEdition
 		}
 
 		#region Menu Options
-		public void InitOnRomLoading()
+		public void InitOnFirstRomLoad()
 		{
 			this.trackDrawer = new TrackDrawer(this.trackDisplayPanel, this.Zoom);
-			this.tilesetControl.InitOnRomLoading();
-			this.overlayControl.InitOnRomLoading();
-			this.trackTreeView.InitOnRomLoading();
+			this.tilesetControl.InitOnFirstRomLoad();
+			this.overlayControl.InitOnFirstRomLoad();
+			this.trackTreeView.InitOnFirstRomLoad();
 
 			this.SetCurrentTrack();
 			this.trackDrawer.LoadTrack(this.track);

@@ -49,7 +49,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.InitializeComponent();
 		}
 
-		public void InitOnRomLoading()
+		public void InitOnFirstRomLoad()
 		{
 			this.InitializeTrackList();
 
