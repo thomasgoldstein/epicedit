@@ -4,7 +4,7 @@ Super Mario Kart track editor
 Copyright 2007, 2010 Thomas "Stifu" Goldstein and Sébastien "Midwife" Clerc
 Epic Edit icon by Stifu
 Menu icons by Axialis Team
-Special thanks to: Presea, Cragz, smkdan, Ok Impala!
+Special thanks to: Presea, Cragz, smkdan, Ok Impala!, teknix1 and Scoub
 
 Site : http://stifu.free.fr/
 Contact: stifu@free.fr
