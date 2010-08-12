@@ -143,7 +143,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTilesetPanel.Paint += this.OverlayTilesetPanelPaint;
 		}
 
-		public void InitalizePatternList()
+		public void InitOnRomLoad()
 		{
 			int tilesetHeight = this.LoadPatternDictionary();
 			this.SetTilesetHeight(tilesetHeight);

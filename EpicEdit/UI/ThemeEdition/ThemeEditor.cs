@@ -27,9 +27,9 @@ namespace EpicEdit.UI.ThemeEdition
 			this.InitializeComponent();
 		}
 
-		public void InitControls()
+		public void InitOnRomLoad()
 		{
-			this.itemProbaControl.InitLists();
+			this.itemProbaControl.InitOnRomLoad();
 		}
 	}
 }

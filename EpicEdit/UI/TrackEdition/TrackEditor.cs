@@ -268,11 +268,11 @@ namespace EpicEdit.UI.TrackEdition
 			this.menuBar.EnableControls();
 		}
 
-		public void InitLists()
+		public void InitOnRomLoad()
 		{
-			this.tilesetControl.InitializeThemeList();
-			this.trackTreeView.InitializeTrackList();
-			this.overlayControl.InitalizePatternList();
+			this.tilesetControl.InitOnRomLoad();
+			this.trackTreeView.InitOnRomLoad();
+			this.overlayControl.InitOnRomLoad();
 		}
 
 		private void TrackEditorDragEnter(object sender, DragEventArgs e)

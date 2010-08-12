@@ -115,10 +115,10 @@ namespace EpicEdit.UI.TrackEdition
 			// selecting the current theme in the theme ComboBox.
 			this.themeComboBox.SelectedIndexChanged += this.ThemeComboBoxSelectedIndexChanged;
 
-			this.InitializeThemeList();
+			this.InitOnRomLoad();
 		}
 
-		public void InitializeThemeList()
+		public void InitOnRomLoad()
 		{
 			this.themeComboBox.BeginUpdate();
 			this.themeComboBox.Items.Clear();
