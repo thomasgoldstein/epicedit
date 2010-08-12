@@ -123,10 +123,10 @@ namespace EpicEdit.UI
 
 			MessageBox.Show(Application.ProductName + " - Super Mario Kart track editor" + Environment.NewLine +
 							"Version: " + versionText + " (2007-2010)" + Environment.NewLine +
-							"Authors: Stifu and Midwife" + Environment.NewLine + Environment.NewLine +
+							"By Stifu" + Environment.NewLine +
+							"Assistant coders: Midwife and teknix1" + Environment.NewLine + Environment.NewLine +
 							"Special thanks to:" + Environment.NewLine +
-							"Presea, Cragz, smkdan, Ok Impala!," + Environment.NewLine +
-							"teknix1, ScouB",
+							"Presea, Cragz, smkdan, Ok Impala! and ScouB",
 							"About " + Application.ProductName,
 							MessageBoxButtons.OK,
 							MessageBoxIcon.Information);
