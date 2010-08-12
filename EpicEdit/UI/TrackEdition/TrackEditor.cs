@@ -271,8 +271,8 @@ namespace EpicEdit.UI.TrackEdition
 		public void InitOnRomLoad()
 		{
 			this.tilesetControl.InitOnRomLoad();
-			this.trackTreeView.InitOnRomLoad();
 			this.overlayControl.InitOnRomLoad();
+			this.trackTreeView.InitOnRomLoad();
 		}
 
 		private void TrackEditorDragEnter(object sender, DragEventArgs e)
