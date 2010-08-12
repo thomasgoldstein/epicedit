@@ -264,7 +264,6 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.trackDisplayPanel.Enabled = true;
 			this.modeTabControl.Enabled = true;
-
 			this.menuBar.EnableControls();
 		}
 
