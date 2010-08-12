@@ -27,6 +27,12 @@ namespace EpicEdit.UI.ThemeEdition
 			this.InitializeComponent();
 		}
 
+		public void InitOnFirstRomLoad()
+		{
+			this.InitOnRomLoad();
+			this.Enabled = true;
+		}
+
 		public void InitOnRomLoad()
 		{
 			this.itemProbaControl.InitOnRomLoad();

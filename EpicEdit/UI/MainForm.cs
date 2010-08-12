@@ -177,8 +177,7 @@ namespace EpicEdit.UI
 			{
 				MainForm.SmkGame = new Game(filePath);
 				this.trackEditor.InitOnFirstRomLoad();
-				this.themeEditor.InitOnRomLoad();
-				this.themeEditor.Enabled = true;
+				this.themeEditor.InitOnFirstRomLoad();
 			}
 			else
 			{
