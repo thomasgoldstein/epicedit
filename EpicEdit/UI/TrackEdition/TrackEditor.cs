@@ -1250,7 +1250,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.scrollPosition.Y != 0)
 			{
 				this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
-				this.trackDisplayVScrollBar.Value = this.scrollPosition.Y;
+				this.trackDisplayVScrollBar.Value = 0;
 				this.trackDisplayVScrollBar.ValueChanged += this.TrackDisplayVScrollBarValueChanged;
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
@@ -1258,7 +1258,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.scrollPosition.X != 0)
 			{
 				this.trackDisplayHScrollBar.ValueChanged -= this.TrackDisplayHScrollBarValueChanged;
-				this.trackDisplayHScrollBar.Value = this.scrollPosition.X;
+				this.trackDisplayHScrollBar.Value = 0;
 				this.trackDisplayHScrollBar.ValueChanged += this.TrackDisplayHScrollBarValueChanged;
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
