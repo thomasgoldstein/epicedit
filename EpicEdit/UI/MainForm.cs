@@ -177,7 +177,7 @@ namespace EpicEdit.UI
 			{
 				MainForm.SmkGame = new Game(filePath);
 				this.trackEditor.InitOnFirstRomLoad();
-				this.themeEditor.InitControls();
+				this.themeEditor.InitOnRomLoad();
 				this.themeEditor.Enabled = true;
 			}
 			else
@@ -186,8 +186,8 @@ namespace EpicEdit.UI
 				MainForm.SmkGame.Dispose();
 				MainForm.SmkGame = null;
 				MainForm.SmkGame = newSmkGame;
-				this.trackEditor.InitLists();
-				this.themeEditor.InitControls();
+				this.trackEditor.InitOnRomLoad();
+				this.themeEditor.InitOnRomLoad();
 			}
 
 			this.UpdateApplicationTitle();

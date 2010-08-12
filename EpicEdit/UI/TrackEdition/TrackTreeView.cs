@@ -51,7 +51,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		public void InitOnFirstRomLoad()
 		{
-			this.InitializeTrackList();
+			this.InitOnRomLoad();
 
 			// Attach the AfterSelect event handler method here
 			// to avoid an extra repaint on ROM loading
@@ -59,7 +59,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.treeView.AfterSelect += this.TreeViewAfterSelect;
 		}
 
-		public void InitializeTrackList()
+		public void InitOnRomLoad()
 		{
 			TrackGroup[] trackGroups = MainForm.SmkGame.GetTrackGroups();
 

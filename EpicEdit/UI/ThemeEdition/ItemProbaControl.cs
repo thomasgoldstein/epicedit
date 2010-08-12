@@ -55,7 +55,7 @@ namespace EpicEdit.UI.ThemeEdition
 
 		#region Fields Initialization and Display
 
-		public void InitLists()
+		public void InitOnRomLoad()
 		{
 			this.performEvents = false;
 
