@@ -256,7 +256,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			// Adding these event handlers here rather than in the Designer.cs
 			// saves us a null check on this.drawer in each of the corresponding functions,
-			// because the drawer doesn't exist yet before a ROM is loaded
+			// because the drawer hasn't been initialized yet before a ROM is loaded.
 			this.trackDisplayPanel.Paint += this.TrackDisplayPanelPaint;
 			this.trackDisplayPanel.SizeChanged += this.TrackDisplayPanelSizeChanged;
 
