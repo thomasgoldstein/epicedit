@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.InitializeComponent();
 		}
 
-		public void InitOnRomLoading()
+		public void InitOnFirstRomLoad()
 		{
 			this.tilesetDrawer = new TilesetDrawer(this.tilesetPanel);
 

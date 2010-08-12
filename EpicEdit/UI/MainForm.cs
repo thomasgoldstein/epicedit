@@ -176,7 +176,7 @@ namespace EpicEdit.UI
 			if (MainForm.SmkGame == null) // First ROM loading
 			{
 				MainForm.SmkGame = new Game(filePath);
-				this.trackEditor.InitOnRomLoading();
+				this.trackEditor.InitOnFirstRomLoad();
 				this.themeEditor.InitControls();
 				this.themeEditor.Enabled = true;
 			}
