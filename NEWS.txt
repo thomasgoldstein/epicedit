@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-vx.x (???)
+v1.9 (August 12th 2010)
 
 - Added support for overlay tile edition (partly by teknix1)
 - Added support for item probability edition (by teknix1)
