@@ -170,7 +170,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Tools\EventArgs.cs" />
-    <Compile Include="UI\Tools\EventBroadcastProvider.cs" />
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
