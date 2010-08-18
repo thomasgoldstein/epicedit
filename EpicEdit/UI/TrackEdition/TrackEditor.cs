@@ -219,19 +219,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayVScrollBar.ValueChanged += UpdateScrollPositionX;
 			this.trackDisplayHScrollBar.ValueChanged += UpdateScrollPositionY;
 
-			// Attach MouseMove and MouseLeave events to each of the mode tab pages, 
-			// and make it so all their child controls also respond to these events
-			foreach (TabPage tab in this.modeTabControl.TabPages)
-			{
-				tab.MouseMove += this.ModeTabPageMouseMove;
-				EventBroadcastProvider.CreateProvider(tab, "MouseMove");
-
-				tab.MouseLeave += this.ModeTabPageMouseLeave;
-				EventBroadcastProvider.CreateProvider(tab, "MouseLeave");
-				// FIXME: Mouse-wheel scrolling should be possible on the
-				// modeTabControl scrollbar, but it isn't.
-			}
-
 			this.ResetCurrentPosition();
 
 			this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4 };
@@ -1352,19 +1339,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.modeTabControl.Width =
 				this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
 				144 + SystemInformation.VerticalScrollBarWidth : 144;
-		}
-
-		private void ModeTabPageMouseMove(object sender, MouseEventArgs e)
-		{
-			if (Form.ActiveForm != null) // If the application is focused
-			{
-				this.modeTabControl.SelectedTab.Focus(); // Lets you use the mouse wheel to scroll
-			}
-		}
-
-		private void ModeTabPageMouseLeave(object sender, EventArgs e)
-		{
-			this.RemoveFocus();
 		}
 		#endregion EditionMode Tabs
 
