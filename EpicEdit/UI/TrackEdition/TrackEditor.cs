@@ -1478,7 +1478,7 @@ namespace EpicEdit.UI.TrackEdition
 				#region Drag overlay tile
 				this.overlayControl.SelectedTile.Location =
 					new Point(hoveredTilePosition.X - this.anchorPoint.X,
-					          hoveredTilePosition.Y - this.anchorPoint.Y);
+							  hoveredTilePosition.Y - this.anchorPoint.Y);
 				this.trackTreeView.MarkTrackAsChanged();
 				#endregion Drag overlay tile
 			}
