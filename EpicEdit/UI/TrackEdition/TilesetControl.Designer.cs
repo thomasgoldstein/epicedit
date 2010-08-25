@@ -20,7 +20,7 @@ namespace EpicEdit.UI.TrackEdition
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		
+
 		/// <summary>
 		/// Disposes resources used by the control.
 		/// </summary>
@@ -41,7 +41,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			base.Dispose(disposing);
 		}
-		
+
 		/// <summary>
 		/// This method is required for Windows Forms designer support.
 		/// Do not change the method contents inside the source code editor. The Forms designer might
@@ -93,6 +93,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.Name = "TilesetControl";
 			this.Size = new System.Drawing.Size(130, 580);
 			this.ResumeLayout(false);
+
 		}
 		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Button resetMapButton;
