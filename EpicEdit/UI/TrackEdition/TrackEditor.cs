@@ -103,8 +103,8 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
-				return  new Point(this.scrollPosition.X + this.TilePosition.X,
-				                  this.scrollPosition.Y + this.TilePosition.Y);
+				return new Point(this.scrollPosition.X + this.TilePosition.X,
+								 this.scrollPosition.Y + this.TilePosition.Y);
 			}
 		}
 
