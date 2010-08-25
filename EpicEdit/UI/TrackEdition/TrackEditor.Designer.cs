@@ -318,6 +318,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.ResumeLayout(false);
 			this.aiTabPage.ResumeLayout(false);
 			this.ResumeLayout(false);
+
 		}
 		private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
 		private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
