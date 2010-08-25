@@ -1086,7 +1086,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			// Replace null (unsure) values with concrete values
 			if (horizontalScrollbarNeeded == null &&
-			    verticalScrollbarNeeded == null)
+				verticalScrollbarNeeded == null)
 			{
 				horizontalScrollbarNeeded = false;
 				verticalScrollbarNeeded = false;
