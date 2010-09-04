@@ -122,7 +122,11 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public byte[] SP_LSLY;
 
+		/// <summary>
+		/// Theme.
+		/// </summary>
 		public byte SP_REGION;
+
 		public byte[] SP_OPN;
 
 		/// <summary>
