@@ -292,7 +292,11 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
-				ofd.Filter = "SMK track file (*.mkt)|*.mkt|All files (*.*)|*.*";
+				ofd.Filter =
+					"MAKE track (*.smkc)|*.smkc|" +
+					"Track Designer track (*.mkt)|*.mkt|" +
+					"All files (*.*)|*.*";
+
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 					this.ImportTrack(ofd.FileName);
@@ -304,7 +308,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			try
 			{
-				this.track.Import(filePath, MainForm.SmkGame.Themes);
+				this.track.Import(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
 				this.trackTreeView.MarkTrackAsChanged();
 				this.DisplayNewTrack();
 			}
@@ -343,7 +347,10 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			using (SaveFileDialog sfd = new SaveFileDialog())
 			{
-				sfd.Filter = "SMK track file (*.mkt)|*.mkt|All files (*.*)|*.*";
+				sfd.Filter =
+					"Track Designer track (*.mkt)|*.mkt|" +
+					"All files (*.*)|*.*";
+
 				string fileName = this.trackTreeView.SelectedTrackFileName;
 
 				// Remove invalid filename characters
@@ -1595,7 +1602,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 		#endregion EditionMode.Overlay
-		
+
 		#region EditionMode.Start
 		private void InitStartAction()
 		{

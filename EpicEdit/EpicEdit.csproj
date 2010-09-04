@@ -114,6 +114,7 @@
     <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
     <Compile Include="Rom\Tracks\BattleTrack.cs" />
     <Compile Include="Rom\Tracks\GPTrack.cs" />
+    <Compile Include="Rom\Tracks\MakeTrack.cs" />
     <Compile Include="Rom\Tracks\Music.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
@@ -189,7 +190,9 @@
     <Compile Include="UI\TrackEdition\ObjectZonesControl.Designer.cs">
       <DependentUpon>ObjectZonesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\OverlayControl.cs" />
+    <Compile Include="UI\TrackEdition\OverlayControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
       <DependentUpon>OverlayControl.cs</DependentUpon>
     </Compile>
@@ -271,6 +274,5 @@
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
     </BootstrapperPackage>
-    <Folder Include="UI\Tools" />
   </ItemGroup>
 </Project>

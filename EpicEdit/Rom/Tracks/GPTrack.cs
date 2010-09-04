@@ -46,5 +46,19 @@ namespace EpicEdit.Rom.Tracks
 				this.ObjectZones = new TrackObjectZones(objectZoneData);
 			}
 		}
+
+		/// <summary>
+		/// Imports the GP track specific items from the MakeTrack object.
+		/// </summary>
+		protected override void ImportSmkc(MakeTrack track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		{
+			// Call the base import so that other track items can be imported
+			base.ImportSmkc(track, themes, overlayTileSizes, overlayTilePatterns);
+
+			this.StartPosition = new StartPosition(track.StartPositionX, track.StartPositionY, track.StartPositionW);
+			this.LapLine = new LapLine(track.GetLapLineData());
+			this.Objects = new TrackObjects(track.GetObjectData());
+			this.ObjectZones = new TrackObjectZones(track.AREA_BORDER);
+		}
 	}
 }

@@ -406,5 +406,15 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion Decrypt ROM Text
+
+		public static byte[] HexStringToByteArray(string input)
+		{
+			byte[] bytes = new byte[(input.Length) / 2];
+			for (int x = 0; x < bytes.Length; x++)
+			{
+				bytes[x] = Convert.ToByte(input.Substring(x * 2, 2), 16);
+			}
+			return bytes;
+		}
 	}
 }

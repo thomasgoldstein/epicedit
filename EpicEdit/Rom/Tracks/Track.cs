@@ -77,7 +77,28 @@ namespace EpicEdit.Rom.Tracks
 			return this.Theme.GetBackgroundTile(index);
 		}
 
-		public void Import(string filePath, Themes themes)
+		public void Import(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		{
+			string ext = Path.GetExtension(filePath).ToLower();
+
+			switch (ext)
+			{
+				case ".mkt":
+					this.ImportMkt(filePath, themes);
+					break;
+
+				default:
+				case ".smkc":
+					MakeTrack make = new MakeTrack(filePath);
+					this.ImportSmkc(make, themes, overlayTileSizes, overlayTilePatterns);
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Imports an MKT (Track Designer) track.
+		/// </summary>
+		private void ImportMkt(string filePath, Themes themes)
 		{
 			BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read));
 			FileInfo info = new FileInfo(filePath);
@@ -101,6 +122,27 @@ namespace EpicEdit.Rom.Tracks
 			}
 
 			reader.Close();
+		}
+
+		/// <summary>
+		/// Imports an SMKC (MAKE) track.
+		/// </summary>
+		protected virtual void ImportSmkc(MakeTrack track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		{
+			if (track.MAP.Length != 16384 || track.GPEX.Length != 128)
+			{
+				throw new InvalidDataException("File \"" + Path.GetFileName(track.FilePath) + "\"" + Environment.NewLine +
+											   "isn't a valid track file and couldn't be imported!");
+			}
+
+			this.Map = new TrackMap(track.MAP);
+			this.Theme = themes[track.SP_REGION >> 1];
+
+			this.OverlayTiles = new OverlayTiles(track.GPEX, overlayTileSizes, overlayTilePatterns);
+
+			byte[] targetData, zoneData;
+			track.GetAIData(out targetData, out zoneData);
+			this.AI = new TrackAI(zoneData, targetData, this);
 		}
 
 		public void Export(string fileName, byte themeId)
