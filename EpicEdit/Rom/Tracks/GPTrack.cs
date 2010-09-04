@@ -58,7 +58,11 @@ namespace EpicEdit.Rom.Tracks
 			this.StartPosition = new StartPosition(track.StartPositionX, track.StartPositionY, track.StartPositionW);
 			this.LapLine = new LapLine(track.GetLapLineData());
 			this.Objects = new TrackObjects(track.GetObjectData());
-			this.ObjectZones = new TrackObjectZones(track.AREA_BORDER);
+
+			if (!this.ObjectZones.ReadOnly)
+			{
+				this.ObjectZones = new TrackObjectZones(track.AREA_BORDER);
+			}
 		}
 	}
 }
