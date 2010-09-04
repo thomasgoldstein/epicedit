@@ -56,6 +56,24 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.X + Math.Max(0, this.SecondRowOffset); }
 		}
 
+		public StartPosition(short x, short y, short secondRowOffset)
+		{
+			this.location = new Point(x, y);
+
+			// Data coming from a MAKE track file can be out of bounds.
+			// Maybe move these checks to the SecondRowOffset property setter?
+			if (secondRowOffset < -256)
+			{
+				secondRowOffset = -256;
+			}
+			else if (secondRowOffset > 255)
+			{
+				secondRowOffset = 255;
+			}
+
+			this.SecondRowOffset = secondRowOffset;
+		}
+
 		public StartPosition(byte[] data)
 		{
 			int x = (data[1] << 8) + data[0];
