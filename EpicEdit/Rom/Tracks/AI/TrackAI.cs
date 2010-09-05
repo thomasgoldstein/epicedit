@@ -35,6 +35,14 @@ namespace EpicEdit.Rom.Tracks.AI
 			int j = 0; // j = iterator for targetData
 			while (i < zoneData.Length)
 			{
+				if (zoneData[i] == 0xFF)
+				{
+					// HACK: Tolerate invalid data, and consider it's the end of the AI data.
+					// Without this, some of the tracks shipped with MAKE trigger an exception
+					// due to the fact the last AI element has an invalid zone shape value.
+					break;
+				}
+				
 				TrackAIElement aiElem = new TrackAIElement(zoneData, ref i, targetData, ref j);
 
 				this.aiElements.Add(aiElem);
