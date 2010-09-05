@@ -248,7 +248,7 @@ namespace EpicEdit.Rom
 			}
 			catch (ZipException ex)
 			{
-				// NOTE: we don't throw a ZipException,
+				// NOTE: We don't throw a ZipException,
 				// so that the presence of the SharpZipLib assembly
 				// is not required to load uncompressed ROMs.
 				throw new InvalidDataException(ex.Message, ex);
