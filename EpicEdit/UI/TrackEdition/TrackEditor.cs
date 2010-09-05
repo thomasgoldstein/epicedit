@@ -342,6 +342,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void UpdateControlsOnTrackImport()
 		{
 			this.tilesetControl.SelectCurrentTrackTheme();
+			this.UpdateOverlayTileCount();
 			this.aiControl.TrackAI = this.track.AI;
 
 			if (this.CurrentMode == EditionMode.Objects)
