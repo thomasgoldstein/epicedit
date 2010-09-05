@@ -342,13 +342,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void UpdateControlsOnTrackImport()
 		{
 			this.tilesetControl.SelectCurrentTrackTheme();
-			this.UpdateOverlayTileCount();
-			this.aiControl.TrackAI = this.track.AI;
-
-			if (this.CurrentMode == EditionMode.Objects)
-			{
-				this.SetTrackObjectZones();
-			}
+			this.SetCurrentTrackSub();
 		}
 
 		private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
@@ -1276,16 +1270,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.track = this.trackTreeView.SelectedTrack;
 
 			this.tilesetControl.Track = this.track;
-			this.hoveredOverlayTile = null;
-			this.overlayControl.SelectedTile = null;
-			this.UpdateOverlayTileCount();
-			this.aiControl.TrackAI = this.track.AI;
-			this.hoveredAIElem = null;
-
-			if (this.CurrentMode == EditionMode.Objects)
-			{
-				this.SetTrackObjectZones();
-			}
+			this.SetCurrentTrackSub();
 
 			if (this.track is GPTrack)
 			{
@@ -1295,6 +1280,20 @@ namespace EpicEdit.UI.TrackEdition
 			else
 			{
 				this.startTabPage.Enabled = false;
+			}
+		}
+
+		private void SetCurrentTrackSub()
+		{
+			this.hoveredOverlayTile = null;
+			this.overlayControl.SelectedTile = null;
+			this.UpdateOverlayTileCount();
+			this.aiControl.TrackAI = this.track.AI;
+			this.hoveredAIElem = null;
+
+			if (this.CurrentMode == EditionMode.Objects)
+			{
+				this.SetTrackObjectZones();
 			}
 		}
 		#endregion Track TreeView
