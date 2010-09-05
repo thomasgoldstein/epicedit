@@ -310,8 +310,8 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.track.Import(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
 				this.trackTreeView.MarkTrackAsChanged();
-				this.DisplayNewTrack();
 				this.UpdateControlsOnTrackImport();
+				this.DisplayNewTrack();
 			}
 			catch (UnauthorizedAccessException ex)
 			{
