@@ -311,6 +311,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.track.Import(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
 				this.trackTreeView.MarkTrackAsChanged();
 				this.DisplayNewTrack();
+				this.UpdateControlsOnTrackImport();
 			}
 			catch (UnauthorizedAccessException ex)
 			{
@@ -335,6 +336,17 @@ namespace EpicEdit.UI.TrackEdition
 					Application.ProductName,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
+			}
+		}
+
+		private void UpdateControlsOnTrackImport()
+		{
+			this.tilesetControl.SelectCurrentTrackTheme();
+			this.aiControl.TrackAI = this.track.AI;
+
+			if (this.CurrentMode == EditionMode.Objects)
+			{
+				this.SetTrackObjectZones();
 			}
 		}
 
