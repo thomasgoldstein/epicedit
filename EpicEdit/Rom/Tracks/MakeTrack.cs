@@ -330,7 +330,7 @@ namespace EpicEdit.Rom
 			List<byte> ret = new List<byte>();
 
 			String line = reader.ReadLine();
-			while (line != null && line.StartsWith("#"))
+			while (!string.IsNullOrEmpty(line) && line[0] == '#')
 			{
 				ret.AddRange(Utilities.HexStringToByteArray(line.Substring(1)));
 				line = reader.ReadLine();
