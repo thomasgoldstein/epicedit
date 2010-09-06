@@ -1676,7 +1676,7 @@ namespace EpicEdit.UI.TrackEdition
 						xBefore = gpTrack.StartPosition.X;
 						yBefore = gpTrack.StartPosition.Y;
 
-						gpTrack.StartPosition.MoveTo(destination.X, destination.Y);
+						gpTrack.StartPosition.Location = destination;
 
 						xDifference = gpTrack.StartPosition.X - xBefore;
 						yDifference = gpTrack.StartPosition.Y - yBefore;
@@ -1706,7 +1706,7 @@ namespace EpicEdit.UI.TrackEdition
 							destination = new Point(gpTrack.StartPosition.X + xDifference,
 													gpTrack.StartPosition.Y + yDifference);
 
-							gpTrack.StartPosition.MoveTo(destination.X, destination.Y);
+							gpTrack.StartPosition.Location = destination;
 							dataChanged = true;
 						}
 						break;
