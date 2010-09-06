@@ -23,7 +23,71 @@ namespace EpicEdit.Rom.Tracks
 	public class StartPosition
 	{
 		private Point location;
-		public int SecondRowOffset { get; set; }
+		public Point Location
+		{
+			get { return this.location; }
+			set
+			{
+				int x = value.X;
+				int y = value.Y;
+				int limit = 128 * 8;
+
+				if (this.SecondRowOffset > 0)
+				{
+					if (x < 8)
+					{
+						x = 8;
+					}
+					else if (x + this.SecondRowOffset > limit - 8)
+					{
+						x = limit - 8 - this.SecondRowOffset;
+					}
+				}
+				else
+				{
+					if (x + this.SecondRowOffset < 8)
+					{
+						x = 8 - this.SecondRowOffset;
+					}
+					else if (x > limit - 8)
+					{
+						x = limit - 8;
+					}
+				}
+
+				if (y < 8)
+				{
+					y = 8;
+				}
+				else if (y > limit - StartPosition.Height)
+				{
+					y = limit - StartPosition.Height;
+				}
+
+				this.location = new Point(x, y);
+			}
+		}
+
+		private int secondRowOffset;
+		public int SecondRowOffset
+		{
+			get { return this.secondRowOffset; }
+			set
+			{
+				if (value < -256)
+				{
+					this.secondRowOffset = -256;
+				}
+				else if (value > 255)
+				{
+					this.secondRowOffset = 255;
+				}
+				else
+				{
+					this.secondRowOffset = value;
+				}
+			}
+		}
 
 		public int X
 		{
@@ -58,20 +122,8 @@ namespace EpicEdit.Rom.Tracks
 
 		public StartPosition(short x, short y, short secondRowOffset)
 		{
-			this.location = new Point(x, y);
-
-			// Data coming from a MAKE track file can be out of bounds.
-			// Maybe move these checks to the SecondRowOffset property setter?
-			if (secondRowOffset < -256)
-			{
-				secondRowOffset = -256;
-			}
-			else if (secondRowOffset > 255)
-			{
-				secondRowOffset = 255;
-			}
-
 			this.SecondRowOffset = secondRowOffset;
+			this.Location = new Point(x, y);
 		}
 
 		public StartPosition(byte[] data)
@@ -126,41 +178,7 @@ namespace EpicEdit.Rom.Tracks
 
 		public void MoveTo(int x, int y)
 		{
-			int limit = 128 * 8;
-
-			if (this.SecondRowOffset > 0)
-			{
-				if (x < 8)
-				{
-					x = 8;
-				}
-				else if (x + this.SecondRowOffset > limit - 8)
-				{
-					x = limit - 8 - this.SecondRowOffset;
-				}
-			}
-			else
-			{
-				if (x + this.SecondRowOffset < 8)
-				{
-					x = 8 - this.SecondRowOffset;
-				}
-				else if (x > limit - 8)
-				{
-					x = limit - 8;
-				}
-			}
-
-			if (y < 8)
-			{
-				y = 8;
-			}
-			else if (y > limit - StartPosition.Height)
-			{
-				y = limit - StartPosition.Height;
-			}
-
-			this.location = new Point(x, y);
+			this.Location = new Point(x, y);
 		}
 	}
 }
