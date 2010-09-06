@@ -175,10 +175,5 @@ namespace EpicEdit.Rom.Tracks
 				point.Y >= this.Y - 8 &&
 				point.Y <= this.Y + StartPosition.Height;
 		}
-
-		public void MoveTo(int x, int y)
-		{
-			this.Location = new Point(x, y);
-		}
 	}
 }
