@@ -1851,8 +1851,9 @@ namespace EpicEdit.UI.TrackEdition
 					int xBefore = this.hoveredAIElem.Zone.X;
 					int yBefore = this.hoveredAIElem.Zone.Y;
 
-					this.hoveredAIElem.MoveTo(hoveredTilePosition.X - this.anchorPoint.X,
-											  hoveredTilePosition.Y - this.anchorPoint.Y);
+					this.hoveredAIElem.Location =
+						new Point(hoveredTilePosition.X - this.anchorPoint.X,
+								  hoveredTilePosition.Y - this.anchorPoint.Y);
 
 					int xAfter = this.hoveredAIElem.Zone.X;
 					int yAfter = this.hoveredAIElem.Zone.Y;
