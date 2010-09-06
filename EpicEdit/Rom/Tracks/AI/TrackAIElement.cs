@@ -54,6 +54,12 @@ namespace EpicEdit.Rom.Tracks.AI
 
 		public byte Speed { get; set; }
 
+		public Point Location
+		{
+			get { return this.zone.Location; }
+			set { this.MoveTo(value.X, value.Y); }
+		}
+
 		/// <summary>
 		/// Initializes a TrackAIElement.
 		/// </summary>
@@ -427,7 +433,7 @@ namespace EpicEdit.Rom.Tracks.AI
 			return points;
 		}
 
-		public void MoveTo(int x, int y)
+		private void MoveTo(int x, int y)
 		{
 			// Halve precision, so that zones are positioned following a 2-tile (16-px) step
 			x = (x / 2) * 2;
