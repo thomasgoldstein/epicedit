@@ -38,17 +38,20 @@ namespace EpicEdit.Rom.Tracks.AI
 	public class TrackAIElement
 	{
 		public Shape ZoneShape { get; private set; }
+
 		private Rectangle zone;
 		public Rectangle Zone
 		{
 			get { return this.zone; }
 		}
+
 		private Point target;
 		public Point Target
 		{
 			get { return this.target; }
 			set { this.MoveTargetTo(value.X, value.Y); }
 		}
+
 		public byte Speed { get; set; }
 
 		/// <summary>
