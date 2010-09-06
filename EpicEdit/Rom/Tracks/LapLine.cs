@@ -23,6 +23,37 @@ namespace EpicEdit.Rom.Tracks
 	public class LapLine
 	{
 		private Point location;
+		public Point Location
+		{
+			get { return this.location; }
+			set
+			{
+				// Divide x precision, so that the lap line
+				// is horizontally positioned following a 2-tile (16-px) step
+				int x = (value.X / 16) * 16;
+				int y = value.Y;
+
+				if (x < 0)
+				{
+					x = 0;
+				}
+				else if (x + this.Length > 128 * 8)
+				{
+					x = 128 * 8 - this.Length;
+				}
+
+				if (y < 0)
+				{
+					y = 0;
+				}
+				else if (y >= 128 * 8)
+				{
+					y = 128 * 8 - 1;
+				}
+
+				this.location = new Point(x, y);
+			}
+		}
 
 		private int length;
 		public int Length
@@ -67,14 +98,14 @@ namespace EpicEdit.Rom.Tracks
 			// the rectangle, so, to simplify things, we only load the data as a line
 			// defined by a point and a length, ignoring the 2 last bytes.
 
+			this.Length = (data[4] & 0x3F) * 16;
+
 			int y = (((data[1] & 0x03) << 8) + data[0]);
 			int x = (data[2] & 0x3F) * 16;
-			this.location = new Point(x, y);
+			this.Location = new Point(x, y);
 			// The bit mask on x is required for some of the original SMK track lap line zones
 			// to work properly, as some of them have the 2 highest bits needlessly set to 1.
 			// So it's necessary to only use the 6 lowest bits, like the game does.
-
-			this.Length = (data[4] & 0x3F) * 16;
 		}
 
 		public bool IntersectsWith(Point point)
@@ -98,33 +129,6 @@ namespace EpicEdit.Rom.Tracks
 			}
 
 			return ResizeHandle.None;
-		}
-
-		public void MoveTo(int x, int y)
-		{
-			// Divide x precision, so that the lap line
-			// is horizontally positioned following a 2-tile (16-px) step
-			x = (x / 16) * 16;
-
-			if (x < 0)
-			{
-				x = 0;
-			}
-			else if (x + this.Length > 128 * 8)
-			{
-				x = 128 * 8 - this.Length;
-			}
-
-			if (y < 0)
-			{
-				y = 0;
-			}
-			else if (y >= 128 * 8)
-			{
-				y = 128 * 8 - 1;
-			}
-
-			this.location = new Point(x, y);
 		}
 
 		public void Resize(ResizeHandle resizeHandle, int x)

@@ -1644,7 +1644,7 @@ namespace EpicEdit.UI.TrackEdition
 						int xBefore = gpTrack.LapLine.X;
 						int yBefore = gpTrack.LapLine.Y;
 
-						gpTrack.LapLine.MoveTo(destination.X, destination.Y);
+						gpTrack.LapLine.Location = destination;
 
 						int xDifference = gpTrack.LapLine.X - xBefore;
 						int yDifference = gpTrack.LapLine.Y - yBefore;
@@ -1696,7 +1696,7 @@ namespace EpicEdit.UI.TrackEdition
 						xBefore = gpTrack.LapLine.X;
 						yBefore = gpTrack.LapLine.Y;
 
-						gpTrack.LapLine.MoveTo(destination.X, destination.Y);
+						gpTrack.LapLine.Location = destination;
 
 						xDifference = gpTrack.LapLine.X - xBefore;
 						yDifference = gpTrack.LapLine.Y - yBefore;
