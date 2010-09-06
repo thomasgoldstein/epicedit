@@ -23,7 +23,23 @@ namespace EpicEdit.Rom.Tracks
 	public class LapLine
 	{
 		private Point location;
-		public int Length { get; private set; }
+
+		private int length;
+		public int Length
+		{
+			get { return this.length; }
+			private set
+			{
+				if (value < 1)
+				{
+					this.length = 1;
+				}
+				else
+				{
+					this.length = value;
+				}
+			}
+		}
 
 		public int X
 		{
