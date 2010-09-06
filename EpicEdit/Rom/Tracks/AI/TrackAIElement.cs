@@ -37,23 +37,38 @@ namespace EpicEdit.Rom.Tracks.AI
 	/// </summary>
 	public class TrackAIElement
 	{
+		/// <summary>
+		/// Gets the zone shape.
+		/// </summary>
 		public Shape ZoneShape { get; private set; }
 
 		private Rectangle zone;
+		/// <summary>
+		/// Gets the zone.
+		/// </summary>
 		public Rectangle Zone
 		{
 			get { return this.zone; }
 		}
 
 		private Point target;
+		/// <summary>
+		/// Gets or sets the target.
+		/// </summary>
 		public Point Target
 		{
 			get { return this.target; }
 			set { this.MoveTargetTo(value.X, value.Y); }
 		}
 
+		/// <summary>
+		/// Gets or sets the speed.
+		/// </summary>
 		public byte Speed { get; set; }
 
+		/// <summary>
+		/// Gets or sets the location.
+		/// </summary>
 		public Point Location
 		{
 			get { return this.zone.Location; }
