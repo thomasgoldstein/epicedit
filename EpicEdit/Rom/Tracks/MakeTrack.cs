@@ -121,6 +121,9 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public byte SP_REGION;
 
+		/// <summary>
+		/// Object type.
+		/// </summary>
 		public byte[] SP_OPN;
 
 		/// <summary>
