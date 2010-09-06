@@ -44,10 +44,8 @@ namespace EpicEdit.Rom
 				{
 					return BitConverter.ToInt16(new byte[] { this.SP_STX[1], this.SP_STX[0] }, 0);
 				}
-				else
-				{
-					return BitConverter.ToInt16(this.SP_STX, 0);
-				}
+
+				return BitConverter.ToInt16(this.SP_STX, 0);
 			}
 		}
 
@@ -67,10 +65,8 @@ namespace EpicEdit.Rom
 				{
 					return BitConverter.ToInt16(new byte[] { this.SP_STY[1], this.SP_STY[0] }, 0);
 				}
-				else
-				{
-					return BitConverter.ToInt16(this.SP_STY, 0);
-				}
+
+				return BitConverter.ToInt16(this.SP_STY, 0);
 			}
 		}
 
@@ -90,10 +86,8 @@ namespace EpicEdit.Rom
 				{
 					return BitConverter.ToInt16(new byte[] { this.SP_STW[1], this.SP_STW[0] }, 0);
 				}
-				else
-				{
-					return BitConverter.ToInt16(this.SP_STW, 0);
-				}
+
+				return BitConverter.ToInt16(this.SP_STW, 0);
 			}
 		}
 
@@ -222,10 +216,8 @@ namespace EpicEdit.Rom
 				ret.RemoveRange(44, ret.Count - 44);
 				return ret.ToArray();
 			}
-			else
-			{
-				return this.OBJ;
-			}
+
+			return this.OBJ;	
 		}
 
 		/// <summary>
