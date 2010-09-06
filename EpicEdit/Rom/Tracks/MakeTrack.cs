@@ -232,7 +232,7 @@ namespace EpicEdit.Rom
 				using (TextReader reader = new StreamReader(fs))
 				{
 
-					String line = reader.ReadLine();
+					string line = reader.ReadLine();
 					while (line != null)
 					{
 						if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
@@ -308,7 +308,7 @@ namespace EpicEdit.Rom
 
 		#region Extract Data
 
-		private byte[] GetLineData(String line)
+		private byte[] GetLineData(string line)
 		{
 			int space = line.IndexOf(' ');
 			if (space == -1)
@@ -329,7 +329,7 @@ namespace EpicEdit.Rom
 		{
 			List<byte> ret = new List<byte>();
 
-			String line = reader.ReadLine();
+			string line = reader.ReadLine();
 			while (!string.IsNullOrEmpty(line) && line[0] == '#')
 			{
 				ret.AddRange(Utilities.HexStringToByteArray(line.Substring(1)));
