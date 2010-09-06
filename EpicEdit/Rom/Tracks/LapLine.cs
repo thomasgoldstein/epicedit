@@ -115,7 +115,11 @@ namespace EpicEdit.Rom.Tracks
 				x = 128 * 8 - this.Length;
 			}
 
-			if (y >= 128 * 8)
+			if (y < 0)
+			{
+				y = 0;
+			}
+			else if (y >= 128 * 8)
 			{
 				y = 128 * 8 - 1;
 			}
