@@ -211,7 +211,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Epic Edit expects 44 bytes for the obejct data, this method removes anything over 44 bytes.
+		/// Epic Edit expects 44 bytes for the object data, this method removes anything over 44 bytes.
 		/// </summary>
 		public byte[] GetObjectData()
 		{
