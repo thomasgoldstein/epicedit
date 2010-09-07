@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
 		TrackOverlayPatternAddresses, // Track overlay pattern addresses
 		TrackLapLines, // Track lap lines
 		TrackStartPositions, // Starting position of the drivers on the tracks
-		TimeTrialPreviewTrackLapLines, // Position of the track lap lines shown in Time Trial track previews
+		TrackPreviewLapLines, // Position of the track lap lines shown in track previews (Match Race / Time Trial)
 		ThemeRoadGraphics, // Theme road graphics address index
 		ThemeColorPalettes, // Theme color palette address index
 		CommonTilesetGraphics, // Common tileset graphics
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIDataFirstAddressByte] = new Offset(0x1FBC4);
 					this[Address.TrackAIZones] = 0x1FF8C;
 					this[Address.TrackStartPositions] = 0x18C27;
-					this[Address.TimeTrialPreviewTrackLapLines] = 0x1C886;
+					this[Address.TrackPreviewLapLines] = 0x1C886;
 					this[Address.ItemProbabilities] = 0x1B39F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
 					this[Address.TrackOverlaySizes] = 0x4F1FC;
@@ -86,7 +86,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
 					this[Address.TrackAIZones] = 0x1FF9B;
 					this[Address.TrackStartPositions] = 0x18C13;
-					this[Address.TimeTrialPreviewTrackLapLines] = 0x1C915;
+					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemProbabilities] = 0x1B4E3;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
 					this[Address.TrackOverlaySizes] = 0x4F384;
@@ -102,7 +102,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
 					this[Address.TrackAIZones] = 0x1FF6D;
 					this[Address.TrackStartPositions] = 0x18C2C;
-					this[Address.TimeTrialPreviewTrackLapLines] = 0x1C7B1;
+					this[Address.TrackPreviewLapLines] = 0x1C7B1;
 					this[Address.ItemProbabilities] = 0x1B37F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
 					this[Address.TrackOverlaySizes] = 0x4F2A0;
@@ -118,7 +118,7 @@ namespace EpicEdit.Rom
 			this[Address.CommonTilesetGraphics] = 0x40000;
 
 			this[Address.TrackAITargets] = this[Address.TrackAIZones] + 0x30;
-			this[Address.BattleTrackNames] = this[Address.TimeTrialPreviewTrackLapLines] + 0x2A;
+			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
 			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
 			this[Address.NameStrings] = this[Address.GPTrackNames] + 0xC1;
 

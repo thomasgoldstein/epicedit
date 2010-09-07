@@ -827,7 +827,7 @@ namespace EpicEdit.Rom
 
 				#region GP track specific data update
 				// Update Time Trial lap line positions
-				int startingLineOffset = this.offsets[Address.TimeTrialPreviewTrackLapLines];
+				int startingLineOffset = this.offsets[Address.TrackPreviewLapLines];
 				byte[] sourceTrackStartingLine =
 				{ this.romBuffer[startingLineOffset + sourceTrackId * 2],
 					this.romBuffer[startingLineOffset + sourceTrackId * 2 + 1] };
@@ -1212,11 +1212,11 @@ namespace EpicEdit.Rom
 				data = gpTrack.LapLine.GetBytes();
 				Array.Copy(data, 0, this.romBuffer, this.offsets[Address.TrackLapLines] + trackIndex * data.Length, data.Length);
 
-				// Update lap line position on Time Trial track preview
-				int timeTrialLapLineOffset = offsets[Address.TimeTrialPreviewTrackLapLines] + iterator * 2;
-				Point timeTrialLineLocation = Game.GetTimeTrialLapLineLocation(gpTrack);
-				this.romBuffer[timeTrialLapLineOffset] = (byte)timeTrialLineLocation.X;
-				this.romBuffer[timeTrialLapLineOffset + 1] = (byte)timeTrialLineLocation.Y;
+				// Update lap line position on track preview
+				int previewLapLineOffset = offsets[Address.TrackPreviewLapLines] + iterator * 2;
+				Point previewLapLineLocation = Game.GetPreviewLapLineLocation(gpTrack);
+				this.romBuffer[previewLapLineOffset] = (byte)previewLapLineLocation.X;
+				this.romBuffer[previewLapLineOffset + 1] = (byte)previewLapLineLocation.Y;
 
 				if (gpTrack.ObjectZones != null)
 				{
@@ -1236,7 +1236,7 @@ namespace EpicEdit.Rom
 			this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
 		}
 
-		private static Point GetTimeTrialLapLineLocation(GPTrack track)
+		private static Point GetPreviewLapLineLocation(GPTrack track)
 		{
 			// Track coordinates:
 			int xTopLeft = 40; // Top-left X value
