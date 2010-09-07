@@ -7,6 +7,7 @@ v2.0 (???)
 
 - Added ability to import MAKE tracks (by teknix1)
 - Added ability to drag and drop track files onto the editor
+- Various minor fixes
 
 
 v1.9.1 (August 22nd 2010)
