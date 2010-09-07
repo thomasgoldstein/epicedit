@@ -196,7 +196,7 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion Private members
 
 		[Browsable(true)]
-		public event EventHandler<EventArgs<string>> RomDragged;
+		public event EventHandler<EventArgs<string>> FileDragged;
 
 		[Browsable(true)]
 		public event EventHandler<EventArgs> OpenRomDialogRequested
@@ -279,7 +279,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 				EventArgs<string> sea = new EventArgs<string>(files[0]);
-				this.RomDragged(this, sea);
+				this.FileDragged(this, sea);
 			}
 		}
 
@@ -304,7 +304,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void ImportTrack(string filePath)
+		public void ImportTrack(string filePath)
 		{
 			try
 			{

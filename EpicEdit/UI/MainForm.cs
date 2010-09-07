@@ -192,10 +192,31 @@ namespace EpicEdit.UI
 			this.UpdateApplicationTitle();
 		}
 
-		private void TrackEditorRomDragged(object sender, EventArgs<string> e)
+		private void TrackEditorFileDragged(object sender, EventArgs<string> e)
 		{
 			string filePath = e.Value;
-			this.TryToOpenRom(filePath);
+			string ext = Path.GetExtension(filePath);
+
+			if (".mkt".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+				".smkc".Equals(ext, StringComparison.OrdinalIgnoreCase))
+			{
+				if (MainForm.SmkGame == null)
+				{
+					MessageBox.Show(
+						"You cannot load a track before having loaded a ROM.",
+						Application.ProductName,
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+				}
+				else
+				{
+					this.trackEditor.ImportTrack(filePath);
+				}
+			}
+			else
+			{
+				this.TryToOpenRom(filePath);
+			}
 		}
 
 		private void TrackEditorSaveRomDialogRequested(object sender, EventArgs e)

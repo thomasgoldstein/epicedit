@@ -91,7 +91,7 @@ namespace EpicEdit.UI
 			this.trackEditor.Size = new System.Drawing.Size(846, 635);
 			this.trackEditor.TabIndex = 0;
 			this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
-			this.trackEditor.RomDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorRomDragged);
+			this.trackEditor.FileDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorFileDragged);
 			this.trackEditor.SaveRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorSaveRomDialogRequested);
 			// 
 			// themeTabPage
