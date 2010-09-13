@@ -122,7 +122,7 @@ namespace EpicEdit.Rom
 		public byte SP_REGION;
 
 		/// <summary>
-		/// Object type.
+		/// Object behavior.
 		/// </summary>
 		public byte[] SP_OPN;
 
