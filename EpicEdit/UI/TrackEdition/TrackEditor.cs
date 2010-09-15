@@ -424,6 +424,20 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
+		private void MouseWheelZoom(MouseEventArgs e)
+		{
+			if (e.Delta > 0)
+			{
+				this.ZoomInSub();
+			}
+			else
+			{
+				this.ZoomOutSub();
+			}
+
+			this.UpdateDataAfterMouseWheel(e.Location);
+		}
+
 		private void ZoomInSub()
 		{
 			if (this.zoomLevelIndex < this.zoomLevels.Length - 1)
@@ -963,47 +977,43 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (this.buttonPressed == ActionButton.CtrlKey)
 			{
-				if (e.Delta > 0)
-				{
-					this.ZoomInSub();
-				}
-				else
-				{
-					this.ZoomOutSub();
-				}
-
-				this.UpdateDataAfterMouseWheel(e.Location);
+				this.MouseWheelZoom(e);
 			}
 			else if (this.buttonPressed != ActionButton.MiddleMouseButton)
 			{
-				int newVsbVal = this.scrollPosition.Y - (e.Delta / 64);
-				int limit = Math.Max(this.trackDisplayVScrollBar.Maximum - 9, this.trackDisplayVScrollBar.Minimum);
-				// "-9", because unlike when using the scrollbars/arrows,
-				// you can actually reach the scrollbar maximum value with the mousewheel
-
-				// Below: detach and reattach vertical scrollbar ValueChanged event handler to avoid an extra repaint
-				if (newVsbVal < 0)
-				{
-					if (this.scrollPosition.Y != 0)
-					{
-						this.ScrollOnMouseWheel(0, e.Location);
-					}
-				}
-				else if (newVsbVal > limit)
-				{
-					if (this.scrollPosition.Y != limit)
-					{
-						this.ScrollOnMouseWheel(limit, e.Location);
-					}
-				}
-				else
-				{
-					this.ScrollOnMouseWheel(newVsbVal, e.Location);
-				}
+				this.MouseWheelScroll(e);
 			}
 		}
 
-		private void ScrollOnMouseWheel(int value, Point position)
+		private void MouseWheelScroll(MouseEventArgs e)
+		{
+			int newVsbVal = this.scrollPosition.Y - (e.Delta / 64);
+			int limit = Math.Max(this.trackDisplayVScrollBar.Maximum - 9, this.trackDisplayVScrollBar.Minimum);
+			// "-9", because unlike when using the scrollbars/arrows,
+			// you can actually reach the scrollbar maximum value with the mousewheel
+
+			// Below: detach and reattach vertical scrollbar ValueChanged event handler to avoid an extra repaint
+			if (newVsbVal < 0)
+			{
+				if (this.scrollPosition.Y != 0)
+				{
+					this.MouseWheelScrollSub(0, e.Location);
+				}
+			}
+			else if (newVsbVal > limit)
+			{
+				if (this.scrollPosition.Y != limit)
+				{
+					this.MouseWheelScrollSub(limit, e.Location);
+				}
+			}
+			else
+			{
+				this.MouseWheelScrollSub(newVsbVal, e.Location);
+			}
+		}
+
+		private void MouseWheelScrollSub(int value, Point position)
 		{
 			this.trackDisplayVScrollBar.ValueChanged -= this.TrackDisplayVScrollBarValueChanged;
 			this.trackDisplayVScrollBar.Value = value;
