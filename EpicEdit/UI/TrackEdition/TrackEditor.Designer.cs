@@ -109,6 +109,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayHScrollBar.TabIndex = 0;
 			this.trackDisplayHScrollBar.Visible = false;
 			this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
+			this.trackDisplayHScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayHScrollBarScroll);
 			// 
 			// trackDisplayVScrollBar
 			// 
@@ -122,6 +123,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
 			this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
 			this.trackDisplayVScrollBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayVScrollBarMouseMove);
+			this.trackDisplayVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayVScrollBarScroll);
 			// 
 			// modeTabControl
 			// 
@@ -318,7 +320,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.ResumeLayout(false);
 			this.aiTabPage.ResumeLayout(false);
 			this.ResumeLayout(false);
-
 		}
 		private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
 		private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
