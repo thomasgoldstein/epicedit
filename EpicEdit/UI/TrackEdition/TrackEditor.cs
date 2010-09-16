@@ -992,7 +992,6 @@ namespace EpicEdit.UI.TrackEdition
 			// "-9", because unlike when using the scrollbars/arrows,
 			// you can actually reach the scrollbar maximum value with the mousewheel
 
-			// Below: detach and reattach vertical scrollbar ValueChanged event handler to avoid an extra repaint
 			if (newVsbVal < 0)
 			{
 				if (this.scrollPosition.Y != 0)
