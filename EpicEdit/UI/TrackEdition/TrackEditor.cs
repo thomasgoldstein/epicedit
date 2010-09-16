@@ -1206,10 +1206,11 @@ namespace EpicEdit.UI.TrackEdition
 
 			EditionMode currentMode = this.CurrentMode;
 
-			if (currentMode != EditionMode.Tileset &&
-				currentMode != EditionMode.AI)
+			if (currentMode == EditionMode.Start ||
+				currentMode == EditionMode.Objects)
 			{
-				// In EditionMode.Tileset and AI, the call to InitCurrentModeAction above
+				// In EditionMode.Tileset, Overlay and AI,
+				// the call to InitCurrentModeAction above
 				// already repaints the track display.
 				this.RepaintTrackDisplay();
 			}
