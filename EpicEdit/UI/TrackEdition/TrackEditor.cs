@@ -522,7 +522,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.CheckRepaintNecessityAfterScrolling();
 		}
 
-		private void TrackDisplayVScrollBarScroll(object sender, System.Windows.Forms.ScrollEventArgs e)
+		private void TrackDisplayVScrollBarScroll(object sender, ScrollEventArgs e)
 		{
 			if (e.OldValue != e.NewValue)
 			{
@@ -537,7 +537,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.CheckRepaintNecessityAfterScrolling();
 		}
 		
-		private void TrackDisplayHScrollBarScroll(object sender, System.Windows.Forms.ScrollEventArgs e)
+		private void TrackDisplayHScrollBarScroll(object sender, ScrollEventArgs e)
 		{
 			if (e.OldValue != e.NewValue)
 			{
