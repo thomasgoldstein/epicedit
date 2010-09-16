@@ -668,8 +668,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else if (xValue > this.trackDisplayHScrollBar.Maximum - 9)
 			{
-				this.trackDisplayHScrollBar.Value = this.trackDisplayHScrollBar.Maximum < 9 ?
-					0 : this.trackDisplayHScrollBar.Maximum - 9;
+				this.trackDisplayHScrollBar.Value = Math.Max(0, this.trackDisplayHScrollBar.Maximum - 9);
 			}
 			else
 			{
@@ -683,8 +682,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else if (yValue > this.trackDisplayVScrollBar.Maximum - 9)
 			{
-				this.trackDisplayVScrollBar.Value = this.trackDisplayVScrollBar.Maximum < 9 ?
-					0 : this.trackDisplayVScrollBar.Maximum - 9;
+				this.trackDisplayVScrollBar.Value = Math.Max(0, this.trackDisplayVScrollBar.Maximum - 9);
 			}
 			else
 			{
