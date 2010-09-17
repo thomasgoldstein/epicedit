@@ -417,12 +417,22 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ZoomIn()
 		{
+			if (!this.CanZoomIn())
+			{
+				return;
+			}
+
 			this.ZoomInSub();
 			this.RepaintTrackDisplay();
 		}
 
 		private void ZoomOut()
 		{
+			if (!this.CanZoomOut())
+			{
+				return;
+			}
+
 			this.ZoomOutSub();
 			this.RepaintTrackDisplay();
 		}
@@ -431,10 +441,18 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			if (e.Delta > 0)
 			{
+				if (!this.CanZoomIn())
+				{
+					return;
+				}
 				this.ZoomInSub();
 			}
 			else
 			{
+				if (!this.CanZoomOut())
+				{
+					return;
+				}
 				this.ZoomOutSub();
 			}
 
@@ -443,22 +461,26 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ZoomInSub()
 		{
-			if (this.zoomLevelIndex < this.zoomLevels.Length - 1)
-			{
-				this.zoomLevelIndex++;
-				this.trackDrawer.SetZoom(this.Zoom);
-				this.RecalculateScrollbarMaximums();
-			}
+			this.zoomLevelIndex++;
+			this.trackDrawer.SetZoom(this.Zoom);
+			this.RecalculateScrollbarMaximums();
 		}
 
 		private void ZoomOutSub()
 		{
-			if (this.zoomLevelIndex > 0)
-			{
-				this.zoomLevelIndex--;
-				this.trackDrawer.SetZoom(this.Zoom);
-				this.RecalculateScrollbarMaximums();
-			}
+			this.zoomLevelIndex--;
+			this.trackDrawer.SetZoom(this.Zoom);
+			this.RecalculateScrollbarMaximums();
+		}
+
+		private bool CanZoomIn()
+		{
+			return this.zoomLevelIndex < this.zoomLevels.Length - 1;
+		}
+
+		private bool CanZoomOut()
+		{
+			return this.zoomLevelIndex > 0;
 		}
 
 		private void MenuBarZoomInRequested(object sender, EventArgs e)
