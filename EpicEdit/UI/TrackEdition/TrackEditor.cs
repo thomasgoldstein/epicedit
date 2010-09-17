@@ -536,7 +536,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDrawer.ScrollPosition = this.scrollPosition;
 			this.RepaintAfterScrollingIfNeeded();
 		}
-		
+
 		private void TrackDisplayHScrollBarScroll(object sender, ScrollEventArgs e)
 		{
 			if (e.OldValue != e.NewValue)
