@@ -519,7 +519,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 			this.trackDrawer.ScrollPosition = this.scrollPosition;
-			this.CheckRepaintNecessityAfterScrolling();
+			this.RepaintAfterScrollingIfNeeded();
 		}
 
 		private void TrackDisplayVScrollBarScroll(object sender, ScrollEventArgs e)
@@ -534,7 +534,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 			this.trackDrawer.ScrollPosition = this.scrollPosition;
-			this.CheckRepaintNecessityAfterScrolling();
+			this.RepaintAfterScrollingIfNeeded();
 		}
 		
 		private void TrackDisplayHScrollBarScroll(object sender, ScrollEventArgs e)
@@ -545,7 +545,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void CheckRepaintNecessityAfterScrolling()
+		private void RepaintAfterScrollingIfNeeded()
 		{
 			if (this.repaintAfterScrolling)
 			{
