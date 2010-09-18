@@ -417,12 +417,22 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ZoomIn()
 		{
+			if (!this.CanZoomIn())
+			{
+				return;
+			}
+
 			this.ZoomInSub();
 			this.RepaintTrackDisplay();
 		}
 
 		private void ZoomOut()
 		{
+			if (!this.CanZoomOut())
+			{
+				return;
+			}
+
 			this.ZoomOutSub();
 			this.RepaintTrackDisplay();
 		}
@@ -431,10 +441,18 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			if (e.Delta > 0)
 			{
+				if (!this.CanZoomIn())
+				{
+					return;
+				}
 				this.ZoomInSub();
 			}
 			else
 			{
+				if (!this.CanZoomOut())
+				{
+					return;
+				}
 				this.ZoomOutSub();
 			}
 
@@ -443,22 +461,26 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ZoomInSub()
 		{
-			if (this.zoomLevelIndex < this.zoomLevels.Length - 1)
-			{
-				this.zoomLevelIndex++;
-				this.trackDrawer.SetZoom(this.Zoom);
-				this.RecalculateScrollbarMaximums();
-			}
+			this.zoomLevelIndex++;
+			this.trackDrawer.SetZoom(this.Zoom);
+			this.RecalculateScrollbarMaximums();
 		}
 
 		private void ZoomOutSub()
 		{
-			if (this.zoomLevelIndex > 0)
-			{
-				this.zoomLevelIndex--;
-				this.trackDrawer.SetZoom(this.Zoom);
-				this.RecalculateScrollbarMaximums();
-			}
+			this.zoomLevelIndex--;
+			this.trackDrawer.SetZoom(this.Zoom);
+			this.RecalculateScrollbarMaximums();
+		}
+
+		private bool CanZoomIn()
+		{
+			return this.zoomLevelIndex < this.zoomLevels.Length - 1;
+		}
+
+		private bool CanZoomOut()
+		{
+			return this.zoomLevelIndex > 0;
 		}
 
 		private void MenuBarZoomInRequested(object sender, EventArgs e)
@@ -519,7 +541,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
 			this.trackDrawer.ScrollPosition = this.scrollPosition;
-			this.CheckRepaintNecessityAfterScrolling();
+			this.RepaintAfterScrollingIfNeeded();
 		}
 
 		private void TrackDisplayVScrollBarScroll(object sender, ScrollEventArgs e)
@@ -534,9 +556,9 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
 			this.trackDrawer.ScrollPosition = this.scrollPosition;
-			this.CheckRepaintNecessityAfterScrolling();
+			this.RepaintAfterScrollingIfNeeded();
 		}
-		
+
 		private void TrackDisplayHScrollBarScroll(object sender, ScrollEventArgs e)
 		{
 			if (e.OldValue != e.NewValue)
@@ -545,7 +567,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void CheckRepaintNecessityAfterScrolling()
+		private void RepaintAfterScrollingIfNeeded()
 		{
 			if (this.repaintAfterScrolling)
 			{
@@ -998,7 +1020,6 @@ namespace EpicEdit.UI.TrackEdition
 			// "-9", because unlike when using the scrollbars/arrows,
 			// you can actually reach the scrollbar maximum value with the mousewheel
 
-			// Below: detach and reattach vertical scrollbar ValueChanged event handler to avoid an extra repaint
 			if (newVsbVal < 0)
 			{
 				if (this.scrollPosition.Y != 0)
