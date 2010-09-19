@@ -1294,8 +1294,8 @@ namespace EpicEdit.UI.TrackEdition
 			int xBefore = this.scrollPosition.X;
 			int yBefore = this.scrollPosition.Y;
 
-			this.trackDisplayVScrollBar.Value = 0;
 			this.trackDisplayHScrollBar.Value = 0;
+			this.trackDisplayVScrollBar.Value = 0;
 
 			if (xBefore != this.scrollPosition.X ||
 				yBefore != this.scrollPosition.Y)
