@@ -7,6 +7,7 @@ v2.0 (???)
 
 - Added ability to import MAKE tracks (by teknix1)
 - Added ability to drag and drop track files onto the editor
+- Centered zoom position (and on mouse cursor, when mouse-wheel zooming)
 - Various minor fixes
 
 
