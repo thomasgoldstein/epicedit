@@ -439,12 +439,15 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void MouseWheelZoom(MouseEventArgs e)
 		{
+			Point hoveredTilePosition;
+			
 			if (e.Delta > 0)
 			{
 				if (!this.CanZoomIn())
 				{
 					return;
 				}
+				hoveredTilePosition = this.AbsoluteTilePosition;
 				this.ZoomInSub();
 			}
 			else
@@ -453,10 +456,39 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					return;
 				}
+				hoveredTilePosition = this.AbsoluteTilePosition;
 				this.ZoomOutSub();
 			}
 
+			this.CenterTrackDisplayOn(hoveredTilePosition);
 			this.UpdateDataAfterMouseWheel(e.Location);
+		}
+
+		private void CenterTrackDisplayOn(Point location)
+		{
+			int x = location.X - (this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2);
+			int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
+
+			if (x < this.trackDisplayHScrollBar.Minimum)
+			{
+				x = this.trackDisplayHScrollBar.Minimum;
+			}
+			else if (x > this.trackDisplayHScrollBar.Maximum - 9)
+			{
+				x = Math.Max(0, this.trackDisplayHScrollBar.Maximum - 9);
+			}
+
+			if (y < this.trackDisplayVScrollBar.Minimum)
+			{
+				y = this.trackDisplayVScrollBar.Minimum;
+			}
+			else if (y > this.trackDisplayVScrollBar.Maximum - 9)
+			{
+				y = Math.Max(0, this.trackDisplayVScrollBar.Maximum - 9);
+			}
+
+			this.trackDisplayHScrollBar.Value = x;
+			this.trackDisplayVScrollBar.Value = y;
 		}
 
 		private void ZoomInSub()
@@ -1185,9 +1217,13 @@ namespace EpicEdit.UI.TrackEdition
 
 		private int GetOffScreenTileCount(int panelSize)
 		{
-			int onscreenTileCount = (int)((panelSize) / (8 * this.Zoom));
-			int offscreenTileCount = this.track.Map.Width - onscreenTileCount; // Map.Width = Map.Height
+			int offscreenTileCount = this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
 			return offscreenTileCount;
+		}
+
+		private int GetOnScreenTileCount(int panelSize)
+		{
+			return (int)((panelSize) / (8 * this.Zoom));
 		}
 
 		private static void RecalculateScrollbarMaximum(ScrollBar scrollbar, int offScreenTileCount)
