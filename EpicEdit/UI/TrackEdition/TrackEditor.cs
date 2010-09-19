@@ -469,26 +469,8 @@ namespace EpicEdit.UI.TrackEdition
 			int x = location.X - (this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2);
 			int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
 
-			if (x < this.trackDisplayHScrollBar.Minimum)
-			{
-				x = this.trackDisplayHScrollBar.Minimum;
-			}
-			else if (x > this.trackDisplayHScrollBar.Maximum - 9)
-			{
-				x = Math.Max(0, this.trackDisplayHScrollBar.Maximum - 9);
-			}
-
-			if (y < this.trackDisplayVScrollBar.Minimum)
-			{
-				y = this.trackDisplayVScrollBar.Minimum;
-			}
-			else if (y > this.trackDisplayVScrollBar.Maximum - 9)
-			{
-				y = Math.Max(0, this.trackDisplayVScrollBar.Maximum - 9);
-			}
-
-			this.trackDisplayHScrollBar.Value = x;
-			this.trackDisplayVScrollBar.Value = y;
+			this.SetHorizontalScrollingValue(x);
+			this.SetVerticalScrollingValue(y);
 		}
 
 		private void ZoomInSub()
@@ -596,6 +578,44 @@ namespace EpicEdit.UI.TrackEdition
 			if (e.OldValue != e.NewValue)
 			{
 				this.repaintAfterScrolling = true;
+			}
+		}
+
+		private void SetHorizontalScrollingValue(int x)
+		{
+			if (x < this.trackDisplayHScrollBar.Minimum)
+			{
+				this.trackDisplayHScrollBar.Value = this.trackDisplayHScrollBar.Minimum;
+			}
+			else if (x > this.trackDisplayHScrollBar.Maximum - 9)
+			{
+				// "-9", because unlike when using the scrollbars/arrows,
+				// you can actually reach the scrollbar maximum value with the mouse wheel
+				this.trackDisplayHScrollBar.Value = Math.Max(this.trackDisplayHScrollBar.Minimum,
+															 this.trackDisplayHScrollBar.Maximum - 9);
+			}
+			else
+			{
+				this.trackDisplayHScrollBar.Value = x;
+			}
+		}
+
+		private void SetVerticalScrollingValue(int y)
+		{
+			if (y < this.trackDisplayVScrollBar.Minimum)
+			{
+				this.trackDisplayVScrollBar.Value = this.trackDisplayVScrollBar.Minimum;
+			}
+			else if (y > this.trackDisplayVScrollBar.Maximum - 9)
+			{
+				// "-9", because unlike when using the scrollbars/arrows,
+				// you can actually reach the scrollbar maximum value with the mouse wheel
+				this.trackDisplayVScrollBar.Value = Math.Max(this.trackDisplayVScrollBar.Minimum,
+															 this.trackDisplayVScrollBar.Maximum - 9);
+			}
+			else
+			{
+				this.trackDisplayVScrollBar.Value = y;
 			}
 		}
 
@@ -722,33 +742,8 @@ namespace EpicEdit.UI.TrackEdition
 			int xBefore = this.scrollPosition.X;
 			int yBefore = this.scrollPosition.Y;
 
-			int xValue = this.anchorPoint.X - this.TilePosition.X;
-			if (xValue < this.trackDisplayHScrollBar.Minimum)
-			{
-				this.trackDisplayHScrollBar.Value = 0;
-			}
-			else if (xValue > this.trackDisplayHScrollBar.Maximum - 9)
-			{
-				this.trackDisplayHScrollBar.Value = Math.Max(0, this.trackDisplayHScrollBar.Maximum - 9);
-			}
-			else
-			{
-				this.trackDisplayHScrollBar.Value = xValue;
-			}
-
-			int yValue = this.anchorPoint.Y - this.TilePosition.Y;
-			if (yValue < this.trackDisplayVScrollBar.Minimum)
-			{
-				this.trackDisplayVScrollBar.Value = 0;
-			}
-			else if (yValue > this.trackDisplayVScrollBar.Maximum - 9)
-			{
-				this.trackDisplayVScrollBar.Value = Math.Max(0, this.trackDisplayVScrollBar.Maximum - 9);
-			}
-			else
-			{
-				this.trackDisplayVScrollBar.Value = yValue;
-			}
+			this.SetHorizontalScrollingValue(this.anchorPoint.X - this.TilePosition.X);
+			this.SetVerticalScrollingValue(this.anchorPoint.Y - this.TilePosition.Y);
 
 			if (xBefore != this.scrollPosition.X ||
 				yBefore != this.scrollPosition.Y)
@@ -1047,36 +1042,16 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void MouseWheelScroll(MouseEventArgs e)
 		{
-			int newVsbVal = this.scrollPosition.Y - (e.Delta / 64);
-			int limit = Math.Max(this.trackDisplayVScrollBar.Maximum - 9, this.trackDisplayVScrollBar.Minimum);
-			// "-9", because unlike when using the scrollbars/arrows,
-			// you can actually reach the scrollbar maximum value with the mousewheel
+			int y = this.scrollPosition.Y - (e.Delta / 64);
+			int yBefore = this.scrollPosition.Y;
+			this.SetVerticalScrollingValue(y);
+			int yAfter = this.scrollPosition.Y;
 
-			if (newVsbVal < 0)
+			if (yBefore != yAfter)
 			{
-				if (this.scrollPosition.Y != 0)
-				{
-					this.MouseWheelScrollSub(0, e.Location);
-				}
+				this.trackDrawer.NotifyFullRepaintNeed();
+				this.UpdateDataAfterMouseWheel(e.Location);
 			}
-			else if (newVsbVal > limit)
-			{
-				if (this.scrollPosition.Y != limit)
-				{
-					this.MouseWheelScrollSub(limit, e.Location);
-				}
-			}
-			else
-			{
-				this.MouseWheelScrollSub(newVsbVal, e.Location);
-			}
-		}
-
-		private void MouseWheelScrollSub(int value, Point position)
-		{
-			this.trackDisplayVScrollBar.Value = value;
-			this.trackDrawer.NotifyFullRepaintNeed();
-			this.UpdateDataAfterMouseWheel(position);
 		}
 
 		private void TrackDisplayPanelMouseDoubleClick(object sender, MouseEventArgs e)
