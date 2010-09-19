@@ -422,7 +422,10 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
+			Point location = this.GetCenterTileLocation();
 			this.ZoomInSub();
+			this.CenterTrackDisplayOn(location);
+
 			this.RepaintTrackDisplay();
 		}
 
@@ -433,8 +436,17 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
+			Point location = this.GetCenterTileLocation();
 			this.ZoomOutSub();
+			this.CenterTrackDisplayOn(location);
+
 			this.RepaintTrackDisplay();
+		}
+
+		private Point GetCenterTileLocation()
+		{
+			return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2,
+							 this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
 		}
 
 		private void MouseWheelZoom(MouseEventArgs e)
