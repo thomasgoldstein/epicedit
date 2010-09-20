@@ -1917,10 +1917,8 @@ namespace EpicEdit.UI.TrackEdition
 						new Point(hoveredTilePosition.X - this.anchorPoint.X,
 								  hoveredTilePosition.Y - this.anchorPoint.Y);
 
-					int xAfter = this.hoveredAIElem.Zone.X;
-					int yAfter = this.hoveredAIElem.Zone.Y;
-
-					if (xBefore != xAfter || yBefore != yAfter)
+					if (xBefore != this.hoveredAIElem.Zone.X ||
+						yBefore != this.hoveredAIElem.Zone.Y)
 					{
 						dataChanged = true;
 					}
