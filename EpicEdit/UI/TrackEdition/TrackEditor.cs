@@ -99,6 +99,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				if (this.pixelPosition.X == -1)
 				{
+					// The mouse cursor isn't over the track
 					return this.pixelPosition;
 				}
 
