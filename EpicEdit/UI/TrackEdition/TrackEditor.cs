@@ -97,6 +97,11 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
+				if (this.pixelPosition.X == -1)
+				{
+					return this.pixelPosition;
+				}
+
 				return new Point((int)(this.pixelPosition.X / (8 * this.Zoom)),
 								 (int)(this.pixelPosition.Y / (8 * this.Zoom)));
 			}
@@ -1121,9 +1126,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void ResetCurrentPosition()
 		{
-			this.pixelPosition.X = this.pixelPosition.Y = -8;
-			// -8, so that TilePosition returns -1
-
+			this.pixelPosition.X = this.pixelPosition.Y = -1;
 			this.menuBar.UpdatePositionLabel();
 		}
 
