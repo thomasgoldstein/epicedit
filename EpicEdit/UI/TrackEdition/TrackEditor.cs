@@ -729,10 +729,10 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void SetCurrentPosition(Point point)
+		private void SetCurrentPosition(Point location)
 		{
-			int x = point.X;
-			int y = point.Y;
+			int x = location.X;
+			int y = location.Y;
 			int zoomedTileSize = (int)(8 * this.Zoom);
 
 			// We check that the new position isn't out of the track limits, if it is,
@@ -1247,9 +1247,9 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void UpdateDataAfterMouseWheel(Point position)
+		private void UpdateDataAfterMouseWheel(Point location)
 		{
-			this.pixelPosition = position;
+			this.pixelPosition = location;
 
 			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 
@@ -2080,8 +2080,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void AddAIElement()
 		{
-			Point position = this.AbsoluteTilePosition;
-			TrackAIElement newAIElem = new TrackAIElement(position);
+			Point location = this.AbsoluteTilePosition;
+			TrackAIElement newAIElem = new TrackAIElement(location);
 
 			if (this.track.AI.Add(newAIElem))
 			{
