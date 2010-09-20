@@ -85,8 +85,8 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
-				return new Point(this.scrollPosition.X * 8 + this.pixelPosition.X,
-								 this.scrollPosition.Y * 8 + this.pixelPosition.Y);
+				return new Point(this.scrollPosition.X * 8 + (int)(this.pixelPosition.X / this.Zoom),
+								 this.scrollPosition.Y * 8 + (int)(this.pixelPosition.Y / this.Zoom));
 			}
 		}
 
@@ -97,8 +97,8 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
-				return new Point(this.pixelPosition.X / 8,
-								 this.pixelPosition.Y / 8);
+				return new Point((int)(this.pixelPosition.X / (8 * this.Zoom)),
+								 (int)(this.pixelPosition.Y / (8 * this.Zoom)));
 			}
 		}
 
@@ -725,8 +725,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void SetCurrentPosition(Point point)
 		{
-			int x = (int)(point.X / this.Zoom);
-			int y = (int)(point.Y / this.Zoom);
+			int x = point.X;
+			int y = point.Y;
 
 			// We check that the new position isn't out of the track limits, if it is,
 			// we set it to the lowest or highest (depending on case) possible coordinate
@@ -1244,8 +1244,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void UpdateDataAfterMouseWheel(Point position)
 		{
-			this.pixelPosition.X = (int)(position.X / this.Zoom);
-			this.pixelPosition.Y = (int)(position.Y / this.Zoom);
+			this.pixelPosition = position;
 
 			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 
