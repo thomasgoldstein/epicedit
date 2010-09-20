@@ -599,12 +599,13 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.trackDisplayHScrollBar.Value = this.trackDisplayHScrollBar.Minimum;
 			}
-			else if (x > this.trackDisplayHScrollBar.Maximum - 9)
+			else if (x > this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1))
 			{
-				// "-9", because unlike when using the scrollbars/arrows,
-				// you can actually reach the scrollbar maximum value with the mouse wheel
+				// The inclusion of the LargeChange - 1 part in the calculation
+				// is due to the fact it's not possible for users to reach the scroll bar maximum.
+				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 				this.trackDisplayHScrollBar.Value = Math.Max(this.trackDisplayHScrollBar.Minimum,
-															 this.trackDisplayHScrollBar.Maximum - 9);
+				                                             this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1));
 			}
 			else
 			{
@@ -618,12 +619,13 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.trackDisplayVScrollBar.Value = this.trackDisplayVScrollBar.Minimum;
 			}
-			else if (y > this.trackDisplayVScrollBar.Maximum - 9)
+			else if (y > this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1))
 			{
-				// "-9", because unlike when using the scrollbars/arrows,
-				// you can actually reach the scrollbar maximum value with the mouse wheel
+				// The inclusion of the LargeChange - 1 part in the calculation
+				// is due to the fact it's not possible for users to reach the scroll bar maximum.
+				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 				this.trackDisplayVScrollBar.Value = Math.Max(this.trackDisplayVScrollBar.Minimum,
-															 this.trackDisplayVScrollBar.Maximum - 9);
+				                                             this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1));
 			}
 			else
 			{
@@ -1233,9 +1235,10 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				// End trick
 
-				scrollbar.Maximum = offScreenTileCount + 9;
-				// Adding 9 to the maximum, because somehow,
-				// you can't scroll up to the maximum using the scrollbars
+				scrollbar.Maximum = offScreenTileCount + (scrollbar.LargeChange - 1);
+				// The inclusion of the LargeChange - 1 part in the calculation
+				// is due to the fact it's not possible for users to reach the scroll bar maximum.
+				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 			}
 		}
 
