@@ -432,6 +432,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomInSub();
 			this.CenterTrackDisplayOn(location);
 
+			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 			this.RepaintTrackDisplay();
 		}
 
@@ -446,6 +447,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomOutSub();
 			this.CenterTrackDisplayOn(location);
 
+			this.menuBar.UpdatePositionLabel(this.AbsoluteTilePosition);
 			this.RepaintTrackDisplay();
 		}
 
