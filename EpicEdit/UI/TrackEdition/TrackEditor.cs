@@ -1609,7 +1609,11 @@ namespace EpicEdit.UI.TrackEdition
 				return true;
 			}
 
-			return this.SetSelectedOverlayPatternLocation();
+			Point originalPatternLocation = this.selectedOverlayPatternLocation;
+			this.SetSelectedOverlayPatternLocation();
+			// Return whether the location has changed
+			return originalPatternLocation.X != this.selectedOverlayPatternLocation.X ||
+				   originalPatternLocation.Y != this.selectedOverlayPatternLocation.Y;
 		}
 
 		private void UpdateOverlayTileCount()
@@ -1654,10 +1658,8 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
-		private bool SetSelectedOverlayPatternLocation()
+		private void SetSelectedOverlayPatternLocation()
 		{
-			Point originalPatternLocation = this.selectedOverlayPatternLocation;
-
 			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
 
 			Point tilePosition = this.TilePosition;
@@ -1692,10 +1694,6 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.selectedOverlayPatternLocation = new Point(x, y);
 			}
-
-			// Return whether the location has changed
-			return originalPatternLocation.X != this.selectedOverlayPatternLocation.X ||
-				   originalPatternLocation.Y != this.selectedOverlayPatternLocation.Y;
 		}
 		#endregion EditionMode.Overlay
 
