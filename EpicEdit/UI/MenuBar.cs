@@ -145,17 +145,17 @@ namespace EpicEdit.UI
 		}
 		#endregion
 
-		#region Cursor position Label
-		public void UpdatePositionLabel()
+		#region Cursor coordinate Label
+		public void UpdateCoordinateLabel()
 		{
-			this.positionToolStripLabel.Text = "(X,Y)";
+			this.coordinateToolStripLabel.Text = "(X,Y)";
 		}
 
-		public void UpdatePositionLabel(Point position)
+		public void UpdatePositionLabel(Point location)
 		{
-			this.positionToolStripLabel.Text = "(" + position.X + "," + position.Y + ")";
+			this.coordinateToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
 		}
-		#endregion Cursor position Label
+		#endregion Cursor coordinate Label
 
 		#region Menu ShortcutKeys
 		private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
