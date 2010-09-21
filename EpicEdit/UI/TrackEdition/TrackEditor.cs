@@ -1158,6 +1158,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void ResetCurrentPosition()
 		{
 			this.pixelPosition = new Point(-1, -1);
+			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
 		}
 
 		private void RecalculateScrollBarMaximums()
