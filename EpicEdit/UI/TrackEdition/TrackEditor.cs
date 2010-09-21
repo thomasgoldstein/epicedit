@@ -1455,8 +1455,8 @@ namespace EpicEdit.UI.TrackEdition
 			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
-			   hoveredTilePosition.X < this.track.Map.Width &&
-			   hoveredTilePosition.Y < this.track.Map.Height)
+				hoveredTilePosition.X < this.track.Map.Width &&
+				hoveredTilePosition.Y < this.track.Map.Height)
 			{
 				return this.track.Map.GetTile(hoveredTilePosition);
 			}
@@ -1471,7 +1471,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void LayTiles(Point hoveredTilePosition)
 		{
 			if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
-			   hoveredTilePosition.X < this.track.Map.Width && hoveredTilePosition.Y < this.track.Map.Height)
+				hoveredTilePosition.X < this.track.Map.Width && hoveredTilePosition.Y < this.track.Map.Height)
 			{
 				Size affectedSurface = this.GetTruncatedRectangle();
 				this.track.Map.SetTiles(hoveredTilePosition, affectedSurface, this.tileClipboardSize, this.tileClipboard);
