@@ -146,14 +146,16 @@ namespace EpicEdit.UI
 		#endregion
 
 		#region Cursor coordinate Label
-		public void UpdateCoordinateLabel()
-		{
-			this.coordinateToolStripLabel.Text = "(X,Y)";
-		}
-
 		public void UpdateCoordinateLabel(Point location)
 		{
-			this.coordinateToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
+			if (location.X == -1)
+			{
+				this.coordinateToolStripLabel.Text = "(X,Y)";
+			}
+			else
+			{
+				this.coordinateToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
+			}
 		}
 		#endregion Cursor coordinate Label
 

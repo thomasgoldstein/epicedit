@@ -115,6 +115,12 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
+				if (this.pixelPosition.X == -1)
+				{
+					// The mouse cursor isn't over the track
+					return this.pixelPosition;
+				}
+
 				return new Point(this.scrollPosition.X + this.TilePosition.X,
 								 this.scrollPosition.Y + this.TilePosition.Y);
 			}
@@ -432,7 +438,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomInSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
 			this.RepaintTrackDisplay();
 		}
 
@@ -447,7 +452,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomOutSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
 			this.RepaintTrackDisplay();
 		}
 
@@ -724,8 +728,6 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				else
 				{
-					this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
-
 					this.InitCurrentModeAction();
 				}
 			}
@@ -1130,12 +1132,13 @@ namespace EpicEdit.UI.TrackEdition
 					this.trackDrawer.DrawTrackAI(this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
 					break;
 			}
+
+			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
 		}
 
 		private void ResetCurrentPosition()
 		{
 			this.pixelPosition.X = this.pixelPosition.Y = -1;
-			this.menuBar.UpdateCoordinateLabel();
 		}
 
 		private void RecalculateScrollBarMaximums()
@@ -1256,8 +1259,6 @@ namespace EpicEdit.UI.TrackEdition
 		private void UpdateDataAfterMouseWheel(Point location)
 		{
 			this.pixelPosition = location;
-
-			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
 
 			this.InitCurrentModeAction();
 
