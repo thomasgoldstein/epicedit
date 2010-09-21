@@ -1300,7 +1300,7 @@ namespace EpicEdit.UI.TrackEdition
 					break;
 			}
 
-			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
+			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
 		}
 		#endregion TrackDisplay Methods
 

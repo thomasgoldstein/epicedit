@@ -55,7 +55,7 @@ namespace EpicEdit.UI
 			this.zoomInToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-			this.coordinateToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+			this.coordinatesToolStripLabel = new System.Windows.Forms.ToolStripLabel();
 			this.hiddenMenuStrip = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openRomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +85,7 @@ namespace EpicEdit.UI
 									this.toolStripSeparator2,
 									this.aboutToolStripLabel,
 									this.toolStripSeparator3,
-									this.coordinateToolStripLabel});
+									this.coordinatesToolStripLabel});
 			this.menuToolStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuToolStrip.Name = "menuToolStrip";
 			this.menuToolStrip.Size = new System.Drawing.Size(668, 25);
@@ -184,12 +184,12 @@ namespace EpicEdit.UI
 			this.aboutToolStripLabel.ToolTipText = "About Epic Edit";
 			this.aboutToolStripLabel.Click += new System.EventHandler(this.AboutToolStripLabelClick);
 			// 
-			// coordinateToolStripLabel
+			// coordinatesToolStripLabel
 			// 
-			this.coordinateToolStripLabel.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-			this.coordinateToolStripLabel.Name = "coordinateToolStripLabel";
-			this.coordinateToolStripLabel.Size = new System.Drawing.Size(31, 22);
-			this.coordinateToolStripLabel.Text = "(X,Y)";
+			this.coordinatesToolStripLabel.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+			this.coordinatesToolStripLabel.Name = "coordinatesToolStripLabel";
+			this.coordinatesToolStripLabel.Size = new System.Drawing.Size(31, 22);
+			this.coordinatesToolStripLabel.Text = "(X,Y)";
 			// 
 			// hiddenMenuStrip
 			// 
@@ -306,7 +306,7 @@ namespace EpicEdit.UI
 			this.PerformLayout();
 		}
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-		private System.Windows.Forms.ToolStripLabel coordinateToolStripLabel;
+		private System.Windows.Forms.ToolStripLabel coordinatesToolStripLabel;
 		private System.Windows.Forms.ToolStripMenuItem resetZoomNumToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
