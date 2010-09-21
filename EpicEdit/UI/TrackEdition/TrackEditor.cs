@@ -1877,19 +1877,13 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					this.hoveredObject = trackObject;
 					this.Cursor = Cursors.Hand;
-					return true;
+					return false;
 				}
 			}
 
 			this.Cursor = Cursors.Default;
-
-			if (this.hoveredObject == null)
-			{
-				return false;
-			}
-
 			this.hoveredObject = null;
-			return true;
+			return false;
 		}
 
 		private void SetTrackObjectZones()
