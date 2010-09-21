@@ -151,7 +151,7 @@ namespace EpicEdit.UI
 			this.coordinateToolStripLabel.Text = "(X,Y)";
 		}
 
-		public void UpdatePositionLabel(Point location)
+		public void UpdateCoordinateLabel(Point location)
 		{
 			this.coordinateToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
 		}
