@@ -438,7 +438,8 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomInSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.RepaintTrackDisplay();
+			this.InitCurrentModeAction();
+			this.ConditionalRepaint();
 		}
 
 		private void ZoomOut()
@@ -452,7 +453,8 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomOutSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.RepaintTrackDisplay();
+			this.InitCurrentModeAction();
+			this.ConditionalRepaint();
 		}
 
 		private Point GetCenterTileLocation()
@@ -485,7 +487,9 @@ namespace EpicEdit.UI.TrackEdition
 			}
 
 			this.CenterTrackDisplayOn(hoveredTilePosition);
-			this.UpdateDataAfterMouseWheel(e.Location);
+
+			this.InitCurrentModeAction();
+			this.ConditionalRepaint();
 		}
 
 		private void CenterTrackDisplayOn(Point location)
@@ -1081,7 +1085,8 @@ namespace EpicEdit.UI.TrackEdition
 			if (yBefore != yAfter)
 			{
 				this.trackDrawer.NotifyFullRepaintNeed();
-				this.UpdateDataAfterMouseWheel(e.Location);
+				this.InitCurrentModeAction();
+				this.ConditionalRepaint();
 			}
 		}
 
@@ -1134,8 +1139,20 @@ namespace EpicEdit.UI.TrackEdition
 					this.trackDrawer.DrawTrackAI(this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
 					break;
 			}
+		}
 
-			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
+		private void ConditionalRepaint()
+		{
+			EditionMode currentMode = this.CurrentMode;
+
+			if (currentMode == EditionMode.Start ||
+				currentMode == EditionMode.Objects)
+			{
+				// In EditionMode.Tileset, Overlay and AI,
+				// the call to InitCurrentModeAction above
+				// already repaints the track display.
+				this.RepaintTrackDisplay();
+			}
 		}
 
 		private void ResetCurrentPosition()
@@ -1258,24 +1275,6 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void UpdateDataAfterMouseWheel(Point location)
-		{
-			this.pixelPosition = location;
-
-			this.InitCurrentModeAction();
-
-			EditionMode currentMode = this.CurrentMode;
-
-			if (currentMode == EditionMode.Start ||
-				currentMode == EditionMode.Objects)
-			{
-				// In EditionMode.Tileset, Overlay and AI,
-				// the call to InitCurrentModeAction above
-				// already repaints the track display.
-				this.RepaintTrackDisplay();
-			}
-		}
-
 		private void InitCurrentModeAction()
 		{
 			switch (this.CurrentMode)
@@ -1300,6 +1299,8 @@ namespace EpicEdit.UI.TrackEdition
 					this.InitAIAction();
 					break;
 			}
+
+			this.menuBar.UpdateCoordinateLabel(this.AbsoluteTilePosition);
 		}
 		#endregion TrackDisplay Methods
 
