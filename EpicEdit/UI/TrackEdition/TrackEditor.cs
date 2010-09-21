@@ -742,23 +742,25 @@ namespace EpicEdit.UI.TrackEdition
 			int zoomedScrollPositionY = this.scrollPosition.Y * zoomedTileSize;
 			int zoomedTrackWidth = this.track.Map.Width * zoomedTileSize;
 			int zoomedTrackHeight = this.track.Map.Height * zoomedTileSize;
+			int absoluteX = x + zoomedScrollPositionX;
+			int absoluteY = y + zoomedScrollPositionY;
 
 			// We check that the new position isn't out of the track limits, if it is,
 			// we set it to the lowest or highest (depending on case) possible coordinate
-			if (x + zoomedScrollPositionX < 0)
+			if (absoluteX < 0)
 			{
 				x = 0;
 			}
-			else if (x + zoomedScrollPositionX >= zoomedTrackWidth)
+			else if (absoluteX >= zoomedTrackWidth)
 			{
 				x = zoomedTrackWidth - 1 - zoomedScrollPositionX;
 			}
 
-			if (y + zoomedScrollPositionY < 0)
+			if (absoluteY < 0)
 			{
 				y = 0;
 			}
-			else if (y + zoomedScrollPositionY >= zoomedTrackHeight)
+			else if (absoluteY >= zoomedTrackHeight)
 			{
 				y = zoomedTrackHeight - 1 - zoomedScrollPositionY;
 			}
