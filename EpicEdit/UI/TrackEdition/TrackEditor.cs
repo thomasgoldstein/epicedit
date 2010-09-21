@@ -438,8 +438,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomInSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.InitCurrentModeAction();
-			this.ConditionalRepaint();
+			this.InitCurrentModeAction(true);
 		}
 
 		private void ZoomOut()
@@ -453,8 +452,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomOutSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.InitCurrentModeAction();
-			this.ConditionalRepaint();
+			this.InitCurrentModeAction(true);
 		}
 
 		private Point GetCenterTileLocation()
@@ -488,8 +486,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.CenterTrackDisplayOn(hoveredTilePosition);
 
-			this.InitCurrentModeAction();
-			this.ConditionalRepaint();
+			this.InitCurrentModeAction(true);
 		}
 
 		private void CenterTrackDisplayOn(Point location)
@@ -721,7 +718,10 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					// The only mode that needs pixel precision,
 					// as opposed to tile precision
-					this.InitStartAction();
+					if (this.InitStartAction())
+					{
+						this.RepaintTrackDisplay();
+					}
 				}
 			}
 			else
@@ -797,8 +797,6 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.tileClipboardTopLeft.X = Math.Min(this.anchorPoint.X, hoveredTilePosition.X);
 			this.tileClipboardTopLeft.Y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
-
-			this.RepaintTrackDisplay();
 		}
 
 		private void TrackDisplayPanelMouseLeave(object sender, EventArgs e)
@@ -847,7 +845,10 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					case MouseButtons.Left:
 						this.buttonPressed = ActionButton.LeftMouseButton;
-						this.LayTiles();
+						if (this.LayTiles())
+						{
+							this.RepaintTrackDisplay();
+						}
 						break;
 
 					case MouseButtons.Right:
@@ -1085,8 +1086,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (yBefore != yAfter)
 			{
 				this.trackDrawer.NotifyFullRepaintNeed();
-				this.InitCurrentModeAction();
-				this.ConditionalRepaint();
+				this.InitCurrentModeAction(true);
 			}
 		}
 
@@ -1138,20 +1138,6 @@ namespace EpicEdit.UI.TrackEdition
 				case EditionMode.AI:
 					this.trackDrawer.DrawTrackAI(this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
 					break;
-			}
-		}
-
-		private void ConditionalRepaint()
-		{
-			EditionMode currentMode = this.CurrentMode;
-
-			if (currentMode == EditionMode.Start ||
-				currentMode == EditionMode.Objects)
-			{
-				// In EditionMode.Tileset, Overlay and AI,
-				// the call to InitCurrentModeAction above
-				// already repaints the track display.
-				this.RepaintTrackDisplay();
 			}
 		}
 
@@ -1278,27 +1264,43 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void InitCurrentModeAction()
 		{
+			this.InitCurrentModeAction(false);
+		}
+
+		private void InitCurrentModeAction(bool forceRepaint)
+		{
+			bool repaintNeeded;
+
 			switch (this.CurrentMode)
 			{
 				case EditionMode.Tileset:
-					this.InitTilesetAction();
+					repaintNeeded = this.InitTilesetAction();
 					break;
 
 				case EditionMode.Overlay:
-					this.InitOverlayAction();
+					repaintNeeded = this.InitOverlayAction();
 					break;
 
 				case EditionMode.Start:
-					this.InitStartAction();
+					repaintNeeded = this.InitStartAction();
 					break;
 
 				case EditionMode.Objects:
-					this.InitObjectAction();
+					repaintNeeded = this.InitObjectAction();
 					break;
 
 				case EditionMode.AI:
-					this.InitAIAction();
+					repaintNeeded = this.InitAIAction();
 					break;
+
+				default:
+					repaintNeeded = false;
+					break;
+			}
+
+			if (repaintNeeded || forceRepaint)
+			{
+				this.RepaintTrackDisplay();
 			}
 
 			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
@@ -1432,22 +1434,27 @@ namespace EpicEdit.UI.TrackEdition
 
 
 		#region EditionMode.Tileset
-		private void InitTilesetAction()
+		private bool InitTilesetAction()
 		{
+			bool repaintNeeded;
+
 			switch (this.buttonPressed)
 			{
 				case ActionButton.LeftMouseButton:
-					this.LayTiles();
+					repaintNeeded = this.LayTiles();
 					break;
 
 				case ActionButton.RightMouseButton:
 					this.RecalculateTileClipboard();
+					repaintNeeded = true;
 					break;
 
 				default:
-					this.RepaintTrackDisplay();
+					repaintNeeded = true;
 					break;
 			}
+
+			return repaintNeeded;
 		}
 
 		private byte? GetHoveredTile()
@@ -1463,12 +1470,12 @@ namespace EpicEdit.UI.TrackEdition
 			return null;
 		}
 
-		private void LayTiles()
+		private bool LayTiles()
 		{
-			this.LayTiles(this.AbsoluteTilePosition);
+			return this.LayTiles(this.AbsoluteTilePosition);
 		}
 
-		private void LayTiles(Point hoveredTilePosition)
+		private bool LayTiles(Point hoveredTilePosition)
 		{
 			if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
 				hoveredTilePosition.X < this.track.Map.Width && hoveredTilePosition.Y < this.track.Map.Height)
@@ -1479,8 +1486,10 @@ namespace EpicEdit.UI.TrackEdition
 				this.trackDrawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
 				this.trackTreeView.MarkTrackAsChanged();
-				this.RepaintTrackDisplay();
+				return true;
 			}
+
+			return false;
 		}
 
 		private Size GetTruncatedRectangle()
@@ -1557,46 +1566,50 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion EditionMode.Tileset
 
 		#region EditionMode.Overlay
-		private void InitOverlayAction()
+		private bool InitOverlayAction()
 		{
 			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
-				#region Drag overlay tile
+				// Drag overlay tile
 				this.overlayControl.SelectedTile.Location =
 					new Point(hoveredTilePosition.X - this.anchorPoint.X,
 							  hoveredTilePosition.Y - this.anchorPoint.Y);
 				this.trackTreeView.MarkTrackAsChanged();
-				#endregion Drag overlay tile
+				return true;
 			}
-			else
+
+			if (this.overlayControl.SelectedPattern == null)
 			{
-				if (this.overlayControl.SelectedPattern == null)
+				// Try to hover overlay tile
+				foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 				{
-					#region Try to hover overlay tile
-					foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+					if (overlayTile.IntersectsWith(hoveredTilePosition))
 					{
-						if (overlayTile.IntersectsWith(hoveredTilePosition))
+						if (this.hoveredOverlayTile == overlayTile)
 						{
-							this.hoveredOverlayTile = overlayTile;
-							this.Cursor = Cursors.Hand;
-							this.RepaintTrackDisplay();
-							return;
+							return false;
 						}
-					}
 
-					this.hoveredOverlayTile = null;
-					this.Cursor = Cursors.Default;
-					#endregion Try to hover overlay tile
+						this.hoveredOverlayTile = overlayTile;
+						this.Cursor = Cursors.Hand;
+						return true;
+					}
 				}
-				else
+
+				this.Cursor = Cursors.Default;
+
+				if (this.hoveredOverlayTile == null)
 				{
-					this.SetSelectedOverlayPatternLocation();
+					return false;
 				}
+
+				this.hoveredOverlayTile = null;
+				return true;
 			}
 
-			this.RepaintTrackDisplay();
+			return this.SetSelectedOverlayPatternLocation();
 		}
 
 		private void UpdateOverlayTileCount()
@@ -1613,12 +1626,13 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			this.overlayControl.SelectedTile = null;
 
-			this.InitOverlayAction();
+			if (this.InitOverlayAction())
+			{
+				this.RepaintTrackDisplay();
+			}
 
 			this.UpdateOverlayTileCount();
 			this.trackTreeView.MarkTrackAsChanged();
-			this.RepaintTrackDisplay(); // May cause a second unnecessary repaint,
-			// due to the InitOverlayAction call above. No big deal.
 		}
 
 		private void OverlayControlDeleteRequested(object sender, EventArgs e)
@@ -1640,14 +1654,11 @@ namespace EpicEdit.UI.TrackEdition
 			this.RepaintTrackDisplay();
 		}
 
-		private void SetSelectedOverlayPatternLocation()
+		private bool SetSelectedOverlayPatternLocation()
 		{
-			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
+			Point originalPatternLocation = this.selectedOverlayPatternLocation;
 
-			if (pattern == null)
-			{
-				return;
-			}
+			OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
 
 			Point tilePosition = this.TilePosition;
 			if (tilePosition.X == -1)
@@ -1681,19 +1692,25 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.selectedOverlayPatternLocation = new Point(x, y);
 			}
+
+			// Return whether the location has changed
+			return originalPatternLocation.X != this.selectedOverlayPatternLocation.X ||
+				   originalPatternLocation.Y != this.selectedOverlayPatternLocation.Y;
 		}
 		#endregion EditionMode.Overlay
 
 		#region EditionMode.Start
-		private void InitStartAction()
+		private bool InitStartAction()
 		{
 			if (this.track is GPTrack)
 			{
-				this.InitGPStartAction();
+				return this.InitGPStartAction();
 			}
+
+			return false;
 		}
 
-		private void InitGPStartAction()
+		private bool InitGPStartAction()
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 			Point absPixelPos = this.AbsolutePixelPosition;
@@ -1784,39 +1801,40 @@ namespace EpicEdit.UI.TrackEdition
 				if (dataChanged)
 				{
 					this.trackTreeView.MarkTrackAsChanged();
-					this.RepaintTrackDisplay();
 				}
-			}
-			else
-			{
-				if (gpTrack.LapLine.IntersectsWith(absPixelPos))
-				{
-					this.resizeHandle = gpTrack.LapLine.GetResizeHandle(absPixelPos);
 
-					if (this.resizeHandle == ResizeHandle.None)
-					{
-						this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
-							StartAction.DragAll : StartAction.DragLapLine;
-						this.Cursor = Cursors.SizeAll;
-					}
-					else
-					{
-						this.startAction = StartAction.ResizeLapLine;
-						this.Cursor = Cursors.SizeWE;
-					}
-				}
-				else if (gpTrack.StartPosition.IntersectsWith(absPixelPos))
+				return dataChanged;
+			}
+
+			if (gpTrack.LapLine.IntersectsWith(absPixelPos))
+			{
+				this.resizeHandle = gpTrack.LapLine.GetResizeHandle(absPixelPos);
+
+				if (this.resizeHandle == ResizeHandle.None)
 				{
 					this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
-						StartAction.DragAll : StartAction.DragStartPosition;
+						StartAction.DragAll : StartAction.DragLapLine;
 					this.Cursor = Cursors.SizeAll;
 				}
 				else
 				{
-					this.startAction = StartAction.None;
-					this.Cursor = Cursors.Default;
+					this.startAction = StartAction.ResizeLapLine;
+					this.Cursor = Cursors.SizeWE;
 				}
 			}
+			else if (gpTrack.StartPosition.IntersectsWith(absPixelPos))
+			{
+				this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
+					StartAction.DragAll : StartAction.DragStartPosition;
+				this.Cursor = Cursors.SizeAll;
+			}
+			else
+			{
+				this.startAction = StartAction.None;
+				this.Cursor = Cursors.Default;
+			}
+
+			return false;
 		}
 
 		private void StartControlDataChanged(object sender, EventArgs e)
@@ -1827,48 +1845,51 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion EditionMode.Start
 
 		#region EditionMode.Objects
-		private void InitObjectAction()
+		private bool InitObjectAction()
 		{
 			if (!(this.track is GPTrack))
 			{
-				return;
+				return false;
 			}
 
 			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
-				#region Drag object
+				// Drag object
 				this.hoveredObject.Location = hoveredTilePosition;
 				this.trackTreeView.MarkTrackAsChanged();
-				this.RepaintTrackDisplay();
-				#endregion Drag object
+				return true;
 			}
-			else
+
+			// Try to hover object
+			GPTrack gpTrack = this.track as GPTrack;
+
+			if (gpTrack.Objects == null) // Ghost Valley pillar objects (not supported)
 			{
-				#region Try to hover object
-				GPTrack gpTrack = this.track as GPTrack;
-
-				if (gpTrack.Objects == null)
-				{
-					return;
-				}
-
-				foreach (TrackObject trackObject in gpTrack.Objects)
-				{
-					if (trackObject.X == hoveredTilePosition.X &&
-						trackObject.Y == hoveredTilePosition.Y)
-					{
-						this.hoveredObject = trackObject;
-						this.Cursor = Cursors.Hand;
-						return;
-					}
-				}
-
-				this.hoveredObject = null;
-				this.Cursor = Cursors.Default;
-				#endregion Try to hover object
+				return false;
 			}
+
+			foreach (TrackObject trackObject in gpTrack.Objects)
+			{
+				if (trackObject.X == hoveredTilePosition.X &&
+					trackObject.Y == hoveredTilePosition.Y)
+				{
+					this.hoveredObject = trackObject;
+					this.Cursor = Cursors.Hand;
+					return true;
+				}
+			}
+
+			this.Cursor = Cursors.Default;
+
+			if (this.hoveredObject == null)
+			{
+				return false;
+			}
+
+			this.hoveredObject = null;
+			return true;
 		}
 
 		private void SetTrackObjectZones()
@@ -1899,13 +1920,13 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion EditionMode.Objects
 
 		#region EditionMode.AI
-		private void InitAIAction()
+		private bool InitAIAction()
 		{
 			Point hoveredTilePosition = this.AbsoluteTilePosition;
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
-				#region Drag or resize AI element
+				// Drag or resize AI element
 				bool dataChanged = false;
 
 				if (this.aiAction == AIAction.DragTarget)
@@ -1952,60 +1973,61 @@ namespace EpicEdit.UI.TrackEdition
 				if (dataChanged)
 				{
 					this.trackTreeView.MarkTrackAsChanged();
-					this.RepaintTrackDisplay();
 				}
-				#endregion Drag AI element
+
+				return dataChanged;
 			}
-			else
+
+			// Try to hover AI target
+			foreach (TrackAIElement trackAIElem in this.track.AI)
 			{
-				#region Try to hover AI target
-				foreach (TrackAIElement trackAIElem in this.track.AI)
+				if (trackAIElem.Target.X == hoveredTilePosition.X &&
+					trackAIElem.Target.Y == hoveredTilePosition.Y)
 				{
-					if (trackAIElem.Target.X == hoveredTilePosition.X &&
-						trackAIElem.Target.Y == hoveredTilePosition.Y)
-					{
-						// Hover AI target
-						this.hoveredAIElem = trackAIElem;
-						this.aiAction = AIAction.DragTarget;
-						this.Cursor = Cursors.Hand;
-						this.RepaintTrackDisplay();
-						return;
-					}
+					// Hover AI target
+					bool repaintNeeded = this.hoveredAIElem != trackAIElem;
+					this.hoveredAIElem = trackAIElem;
+					this.aiAction = AIAction.DragTarget;
+					this.Cursor = Cursors.Hand;
+					return repaintNeeded;
 				}
-				#endregion Try to hover AI target
-
-				#region Priority to selected element
-				if (this.aiControl.SelectedElement != null &&
-					this.TryToHoverAIZone(this.aiControl.SelectedElement, hoveredTilePosition))
-				{
-					// If an element is already selected, and that it's hovered,
-					// don't try to hover anything else
-					return;
-				}
-				#endregion Priority to selected element
-
-				#region Try to hover AI zone
-				if (this.hoveredAIElem != null &&
-					this.TryToHoverAIZone(this.hoveredAIElem, hoveredTilePosition))
-				{
-					// If an element is already hovered,
-					// don't try to hover anything else
-					return;
-				}
-
-				foreach (TrackAIElement trackAIElem in this.track.AI)
-				{
-					if (this.TryToHoverAIZone(trackAIElem, hoveredTilePosition))
-					{
-						return;
-					}
-				}
-				#endregion Try to hover AI zone
-
-				this.hoveredAIElem = null;
-				this.Cursor = Cursors.Default;
-				this.RepaintTrackDisplay();
 			}
+
+			// Priority to selected element
+			if (this.aiControl.SelectedElement != null &&
+				this.TryToHoverAIZone(this.aiControl.SelectedElement, hoveredTilePosition))
+			{
+				// If an element is already selected, and that it's hovered,
+				// don't try to hover anything else
+				return false;
+			}
+
+			// Try to hover AI zone
+			if (this.hoveredAIElem != null &&
+				this.TryToHoverAIZone(this.hoveredAIElem, hoveredTilePosition))
+			{
+				// If an element is already hovered,
+				// don't try to hover anything else
+				return false;
+			}
+
+			foreach (TrackAIElement trackAIElem in this.track.AI)
+			{
+				if (this.TryToHoverAIZone(trackAIElem, hoveredTilePosition))
+				{
+					return true;
+				}
+			}
+
+			this.Cursor = Cursors.Default;
+
+			if (this.hoveredAIElem == null)
+			{
+				return false;
+			}
+
+			this.hoveredAIElem = null;
+			return true;
 		}
 
 		private bool TryToHoverAIZone(TrackAIElement trackAIElem, Point hoveredTilePosition)
