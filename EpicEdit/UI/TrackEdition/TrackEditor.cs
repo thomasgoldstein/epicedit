@@ -1977,11 +1977,10 @@ namespace EpicEdit.UI.TrackEdition
 					trackAIElem.Target.Y == hoveredTilePosition.Y)
 				{
 					// Hover AI target
-					bool repaintNeeded = this.hoveredAIElem != trackAIElem;
 					this.hoveredAIElem = trackAIElem;
 					this.aiAction = AIAction.DragTarget;
 					this.Cursor = Cursors.Hand;
-					return repaintNeeded;
+					return true;
 				}
 			}
 
