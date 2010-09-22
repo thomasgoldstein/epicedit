@@ -260,6 +260,12 @@
     <EmbeddedResource Include="UI\TrackEdition\TrackTreeView.resx">
       <DependentUpon>TrackTreeView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="NEWS.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
