@@ -1261,50 +1261,6 @@ namespace EpicEdit.UI.TrackEdition
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 			}
 		}
-
-		private void InitCurrentModeAction()
-		{
-			this.InitCurrentModeAction(false);
-		}
-
-		private void InitCurrentModeAction(bool forceRepaint)
-		{
-			bool repaintNeeded;
-
-			switch (this.CurrentMode)
-			{
-				case EditionMode.Tileset:
-					repaintNeeded = this.InitTilesetAction();
-					break;
-
-				case EditionMode.Overlay:
-					repaintNeeded = this.InitOverlayAction();
-					break;
-
-				case EditionMode.Start:
-					repaintNeeded = this.InitStartAction();
-					break;
-
-				case EditionMode.Objects:
-					repaintNeeded = this.InitObjectAction();
-					break;
-
-				case EditionMode.AI:
-					repaintNeeded = this.InitAIAction();
-					break;
-
-				default:
-					repaintNeeded = false;
-					break;
-			}
-
-			if (repaintNeeded || forceRepaint)
-			{
-				this.RepaintTrackDisplay();
-			}
-
-			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
-		}
 		#endregion TrackDisplay Methods
 
 		#region Track TreeView
@@ -1370,6 +1326,50 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion Track TreeView
 
 		#region EditionMode Tabs
+		private void InitCurrentModeAction()
+		{
+			this.InitCurrentModeAction(false);
+		}
+
+		private void InitCurrentModeAction(bool forceRepaint)
+		{
+			bool repaintNeeded;
+
+			switch (this.CurrentMode)
+			{
+				case EditionMode.Tileset:
+					repaintNeeded = this.InitTilesetAction();
+					break;
+
+				case EditionMode.Overlay:
+					repaintNeeded = this.InitOverlayAction();
+					break;
+
+				case EditionMode.Start:
+					repaintNeeded = this.InitStartAction();
+					break;
+
+				case EditionMode.Objects:
+					repaintNeeded = this.InitObjectAction();
+					break;
+
+				case EditionMode.AI:
+					repaintNeeded = this.InitAIAction();
+					break;
+
+				default:
+					repaintNeeded = false;
+					break;
+			}
+
+			if (repaintNeeded || forceRepaint)
+			{
+				this.RepaintTrackDisplay();
+			}
+
+			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
+		}
+
 		private EditionMode CurrentMode
 		{
 			get
