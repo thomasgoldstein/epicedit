@@ -2085,7 +2085,6 @@ namespace EpicEdit.UI.TrackEdition
 					}
 				}
 
-				this.RepaintTrackDisplay();
 				return true;
 			}
 
