@@ -1404,8 +1404,15 @@ namespace EpicEdit.UI.TrackEdition
 				this.SetTrackObjectZones();
 			}
 
-			this.RepaintTrackDisplay();
+			int widthBefore = this.modeTabControl.Width;
 			this.ResizeModeTabControl();
+
+			if (widthBefore <= this.modeTabControl.Width)
+			{
+				// Avoid an unnecessary second repaint when the mode control
+				// gets less wide (ie: the scroll bar was visible but gets hidden)
+				this.RepaintTrackDisplay();
+			}
 		}
 
 		private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
