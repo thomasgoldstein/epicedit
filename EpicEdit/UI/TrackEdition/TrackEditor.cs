@@ -115,12 +115,6 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			get
 			{
-				if (this.pixelPosition.X == -1)
-				{
-					// The mouse cursor isn't over the track
-					return this.pixelPosition;
-				}
-
 				return new Point(this.scrollPosition.X + this.TilePosition.X,
 								 this.scrollPosition.Y + this.TilePosition.Y);
 			}
@@ -1144,7 +1138,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void ResetCurrentPosition()
 		{
 			this.pixelPosition = new Point(-1, -1);
-			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
+			this.menuBar.ResetCoordinates();
 		}
 
 		private void RecalculateScrollBarMaximums()
