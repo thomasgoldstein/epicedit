@@ -49,6 +49,11 @@ namespace EpicEdit.UI.TrackEdition
 		private Track track;
 
 		/// <summary>
+		/// The current edition mode.
+		/// </summary>
+		private EditionMode currentMode = EditionMode.Tileset;
+
+		/// <summary>
 		/// All the available zoom levels.
 		/// </summary>
 		private float[] zoomLevels;
@@ -669,15 +674,14 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else if (e.KeyCode == Keys.Delete)
 			{
-				EditionMode currentMode = this.CurrentMode;
-				if (currentMode == EditionMode.Overlay)
+				if (this.currentMode == EditionMode.Overlay)
 				{
 					if (this.overlayControl.SelectedTile != null)
 					{
 						this.DeleteOverlayTile();
 					}
 				}
-				else if (currentMode == EditionMode.AI)
+				else if (this.currentMode == EditionMode.AI)
 				{
 					if (this.aiControl.SelectedElement != null)
 					{
@@ -707,7 +711,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (tilePositionBefore == this.TilePosition) // If the cursor has not moved to another tile
 			{
-				if (this.CurrentMode == EditionMode.Start &&
+				if (this.currentMode == EditionMode.Start &&
 					this.buttonPressed != ActionButton.MiddleMouseButton)
 				{
 					// The only mode that needs pixel precision,
@@ -824,8 +828,6 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
-			EditionMode currentMode = this.CurrentMode;
-
 			if (e.Button == MouseButtons.Middle)
 			{
 				this.buttonPressed = ActionButton.MiddleMouseButton;
@@ -833,7 +835,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.anchorPoint = this.AbsoluteTilePosition;
 				this.RepaintTrackDisplay();
 			}
-			else if (currentMode == EditionMode.Tileset)
+			else if (this.currentMode == EditionMode.Tileset)
 			{
 				switch (e.Button)
 				{
@@ -868,7 +870,7 @@ namespace EpicEdit.UI.TrackEdition
 						break;
 				}
 			}
-			else if (currentMode == EditionMode.Overlay)
+			else if (this.currentMode == EditionMode.Overlay)
 			{
 				switch (e.Button)
 				{
@@ -911,7 +913,7 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.RepaintTrackDisplay();
 			}
-			else if (currentMode == EditionMode.Start)
+			else if (this.currentMode == EditionMode.Start)
 			{
 				if (e.Button != MouseButtons.Left)
 				{
@@ -938,7 +940,7 @@ namespace EpicEdit.UI.TrackEdition
 					}
 				}
 			}
-			else if (currentMode == EditionMode.Objects)
+			else if (this.currentMode == EditionMode.Objects)
 			{
 				if (this.hoveredObject == null)
 				{
@@ -978,7 +980,7 @@ namespace EpicEdit.UI.TrackEdition
 						break;
 				}
 			}
-			else if (currentMode == EditionMode.AI)
+			else if (this.currentMode == EditionMode.AI)
 			{
 				if (this.hoveredAIElem == null)
 				{
@@ -1022,7 +1024,7 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.buttonPressed = ActionButton.None;
 
-				if (this.CurrentMode == EditionMode.Tileset)
+				if (this.currentMode == EditionMode.Tileset)
 				{
 					// For other modes, the cursor will be reset
 					// by the call to the InitCurrentModeAction method below.
@@ -1033,7 +1035,7 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.InitCurrentModeAction();
 			}
-			else if (this.CurrentMode == EditionMode.Tileset)
+			else if (this.currentMode == EditionMode.Tileset)
 			{
 				// When the user releases a mouse button, we ensure this button is the same
 				// as the one that was initially hold down before validating the action
@@ -1086,7 +1088,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayPanelMouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			if (this.CurrentMode == EditionMode.AI &&
+			if (this.currentMode == EditionMode.AI &&
 				e.Button == MouseButtons.Left &&
 				this.hoveredAIElem == null)
 			{
@@ -1111,7 +1113,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 
-			switch (this.CurrentMode)
+			switch (this.currentMode)
 			{
 				case EditionMode.Tileset:
 					this.trackDrawer.DrawTrackTileset(this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
@@ -1312,7 +1314,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiControl.TrackAI = this.track.AI;
 			this.hoveredAIElem = null;
 
-			if (this.CurrentMode == EditionMode.Objects)
+			if (this.currentMode == EditionMode.Objects)
 			{
 				this.SetTrackObjectZones();
 			}
@@ -1329,7 +1331,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			bool repaintNeeded;
 
-			switch (this.CurrentMode)
+			switch (this.currentMode)
 			{
 				case EditionMode.Tileset:
 					repaintNeeded = this.InitTilesetAction();
@@ -1364,36 +1366,35 @@ namespace EpicEdit.UI.TrackEdition
 			this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
 		}
 
-		private EditionMode CurrentMode
+		private void SetCurrentMode()
 		{
-			get
+			if (this.tilesetTabPage.Visible)
 			{
-				if (this.tilesetTabPage.Visible)
-				{
-					return EditionMode.Tileset;
-				}
-				else if (this.overlayTabPage.Visible)
-				{
-					return EditionMode.Overlay;
-				}
-				else if (this.startTabPage.Visible)
-				{
-					return EditionMode.Start;
-				}
-				else if (this.objectsTabPage.Visible)
-				{
-					return EditionMode.Objects;
-				}
-				else // if (this.aiTabPage.Visible)
-				{
-					return EditionMode.AI;
-				}
+				this.currentMode = EditionMode.Tileset;
+			}
+			else if (this.overlayTabPage.Visible)
+			{
+				this.currentMode = EditionMode.Overlay;
+			}
+			else if (this.startTabPage.Visible)
+			{
+				this.currentMode = EditionMode.Start;
+			}
+			else if (this.objectsTabPage.Visible)
+			{
+				this.currentMode = EditionMode.Objects;
+			}
+			else // if (this.aiTabPage.Visible)
+			{
+				this.currentMode = EditionMode.AI;
 			}
 		}
 
 		private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (this.CurrentMode == EditionMode.Objects)
+			this.SetCurrentMode();
+
+			if (this.currentMode == EditionMode.Objects)
 			{
 				this.SetTrackObjectZones();
 			}
