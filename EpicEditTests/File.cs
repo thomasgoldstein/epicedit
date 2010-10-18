@@ -49,9 +49,10 @@ namespace EpicEditTests
 
 		public static void WriteFile(byte[] array, string fileName)
 		{
-			BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write));
-			bw.Write(array);
-			bw.Close();
+			using (BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write)))
+			{
+				bw.Write(array);
+			}
 		}
 	}
 }
