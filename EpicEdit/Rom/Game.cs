@@ -1298,7 +1298,6 @@ namespace EpicEdit.Rom
 					bw.Write(this.romHeader);
 				}
 				bw.Write(this.romBuffer);
-				bw.Close();
 			}
 		}
 
