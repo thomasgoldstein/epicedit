@@ -100,28 +100,28 @@ namespace EpicEdit.Rom.Tracks
 		/// </summary>
 		private void ImportMkt(string filePath, Themes themes)
 		{
-			BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read));
-			FileInfo info = new FileInfo(filePath);
-			int fileLength = (int)info.Length;
-
-			if (fileLength != 16384 && fileLength != 16385)
+			using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read)))
 			{
-				throw new InvalidDataException("File \"" + Path.GetFileName(filePath) + "\"" + Environment.NewLine +
-											   "isn't a valid track file and couldn't be imported!");
+				FileInfo info = new FileInfo(filePath);
+				int fileLength = (int)info.Length;
+
+				if (fileLength != 16384 && fileLength != 16385)
+				{
+					throw new InvalidDataException("File \"" + Path.GetFileName(filePath) + "\"" + Environment.NewLine +
+												   "isn't a valid track file and couldn't be imported!");
+				}
+
+				byte[] mapData = new byte[16384];
+				reader.Read(mapData, 0, 16384);
+
+				this.Map = new TrackMap(mapData);
+
+				if (fileLength == 16385) // If a theme is defined
+				{
+					byte themeId = (byte)(reader.ReadByte() / 2);
+					this.Theme = themes[themeId];
+				}
 			}
-
-			byte[] mapData = new byte[16384];
-			reader.Read(mapData, 0, 16384);
-
-			this.Map = new TrackMap(mapData);
-
-			if (fileLength == 16385) // If a theme is defined
-			{
-				byte themeId = (byte)(reader.ReadByte() / 2);
-				this.Theme = themes[themeId];
-			}
-
-			reader.Close();
 		}
 
 		/// <summary>
@@ -147,13 +147,13 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Export(string fileName, byte themeId)
 		{
-			BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write));
-			bw.Write(this.Map.GetBytes());
+			using (BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write)))
+			{
+				bw.Write(this.Map.GetBytes());
 
-			themeId = (byte)(themeId << 1);
-			bw.Write(themeId);
-
-			bw.Close();
+				themeId = (byte)(themeId << 1);
+				bw.Write(themeId);
+			}
 		}
 	}
 }
