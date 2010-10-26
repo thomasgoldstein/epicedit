@@ -67,15 +67,14 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		public void DrawTileset(byte selectedTile)
+		public void DrawTileset(Graphics graphics, byte selectedTile)
 		{
 			int zoom = 2;
 
-			using (Graphics controlGfx = this.control.CreateGraphics())
 			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
 			{
-				controlGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
-				controlGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+				graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
@@ -93,7 +92,7 @@ namespace EpicEdit.UI.Gfx
 											 8 - 1,
 											 8 - 1);
 				}
-				controlGfx.DrawImage(image, 0, 0,
+				graphics.DrawImage(image, 0, 0,
 										  image.Width * zoom,
 										  image.Height * zoom);
 			}

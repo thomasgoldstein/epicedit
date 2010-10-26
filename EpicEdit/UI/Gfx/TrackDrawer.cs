@@ -276,21 +276,18 @@ namespace EpicEdit.UI.Gfx
 			this.NotifyFullRepaintNeed();
 		}
 
-		private Graphics GetControlGraphics()
+		private void SetGraphics(Graphics graphics)
 		{
-			Graphics gfx = this.control.CreateGraphics();
-			gfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+			graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			if (this.zoom >= 1)
 			{
-				gfx.InterpolationMode = InterpolationMode.NearestNeighbor;
+				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
 			}
 			else
 			{
-				gfx.InterpolationMode = InterpolationMode.Bilinear;
+				graphics.InterpolationMode = InterpolationMode.Bilinear;
 			}
-
-			return gfx;
 		}
 
 		private Bitmap CloneTrackImage()
@@ -303,193 +300,183 @@ namespace EpicEdit.UI.Gfx
 				this.trackCache.PixelFormat);
 		}
 
-		public void DrawTrackTileset(Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
+		public void DrawTrackTileset(Graphics graphics, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
-			using (Graphics controlGfx = this.GetControlGraphics())
+			this.SetGraphics(graphics);
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap image = this.CloneTrackImage())
 			{
-				Region clipRegion = new Region();
-				clipRegion.MakeEmpty();
-
-				using (Bitmap image = this.CloneTrackImage())
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					using (Graphics backBuffer = Graphics.FromImage(image))
+					Rectangle selectionRectangle;
+
+					if (action == ActionButton.MiddleMouseButton)
 					{
-						Rectangle selectionRectangle;
-
-						if (action == ActionButton.MiddleMouseButton)
-						{
-							selectionRectangle = Rectangle.Empty;
-						}
-						else
-						{
-							selectionRectangle = this.GetTileSelectionRectangle(cursorPosition, selectionSize, selectionStart, action);
-							TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
-						}
-
-						if (!this.fullRepaintNeeded)
-						{
-							// If a full repaint isn't needed, we set the clipping regions
-							// to only partially repaint the panel
-							this.SetPaintRegions(controlGfx, backBuffer, clipRegion);
-						}
-
-						this.DrawTileSelection(backBuffer, selectionRectangle, action);
+						selectionRectangle = Rectangle.Empty;
 					}
-					controlGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+					else
+					{
+						selectionRectangle = this.GetTileSelectionRectangle(cursorPosition, selectionSize, selectionStart, action);
+						TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
+					}
+
+					if (!this.fullRepaintNeeded)
+					{
+						// If a full repaint isn't needed, we set the clipping regions
+						// to only partially repaint the panel
+						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+					}
+
+					this.DrawTileSelection(backBuffer, selectionRectangle, action);
 				}
-
-				this.PaintTrackOutbounds(controlGfx);
-
-				this.dirtyRegion.Dispose();
-				this.dirtyRegion = clipRegion;
-				this.fullRepaintNeeded = false;
+				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
+
+			this.PaintTrackOutbounds(graphics);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackOverlay(OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
+		public void DrawTrackOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
-			using (Graphics controlGfx = this.GetControlGraphics())
+			this.SetGraphics(graphics);
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap image = this.CloneTrackImage())
 			{
-				Region clipRegion = new Region();
-				clipRegion.MakeEmpty();
-
-				using (Bitmap image = this.CloneTrackImage())
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					using (Graphics backBuffer = Graphics.FromImage(image))
+					if (selectedPatternLocation.X == -1)
 					{
-						if (selectedPatternLocation.X == -1)
-						{
-							// The selected overlay tile pattern is out of the screen,
-							// act as if there isn't one
-							selectedPattern = null;
-						}
-						this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
-
-						if (!this.fullRepaintNeeded)
-						{
-							// If a full repaint isn't needed, we set the clipping regions
-							// to only partially repaint the panel
-							this.SetPaintRegions(controlGfx, backBuffer, clipRegion);
-						}
-
-						this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
+						// The selected overlay tile pattern is out of the screen,
+						// act as if there isn't one
+						selectedPattern = null;
 					}
-					controlGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+					this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
+
+					if (!this.fullRepaintNeeded)
+					{
+						// If a full repaint isn't needed, we set the clipping regions
+						// to only partially repaint the panel
+						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+					}
+
+					this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 				}
-
-				this.PaintTrackOutbounds(controlGfx);
-
-				this.dirtyRegion.Dispose();
-				this.dirtyRegion = clipRegion;
-				this.fullRepaintNeeded = false;
+				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
+
+			this.PaintTrackOutbounds(graphics);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackStart()
+		public void DrawTrackStart(Graphics graphics)
 		{
-			using (Graphics controlGfx = this.GetControlGraphics())
+			this.SetGraphics(graphics);
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap image = this.CloneTrackImage())
 			{
-				Region clipRegion = new Region();
-				clipRegion.MakeEmpty();
-
-				using (Bitmap image = this.CloneTrackImage())
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					using (Graphics backBuffer = Graphics.FromImage(image))
+					if (this.track is GPTrack)
 					{
-						if (this.track is GPTrack)
-						{
-							GPTrack gpTrack = this.track as GPTrack;
-							this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition);
-						}
-						else
-						{
-							this.NotifyFullRepaintNeed();
-						}
-
-						if (!this.fullRepaintNeeded)
-						{
-							// If a full repaint isn't needed, we set the clipping regions
-							// to only partially repaint the panel
-							this.SetPaintRegions(controlGfx, backBuffer, clipRegion);
-						}
-
-						this.DrawStartData(backBuffer);
+						GPTrack gpTrack = this.track as GPTrack;
+						this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition);
 					}
-					controlGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+					else
+					{
+						this.NotifyFullRepaintNeed();
+					}
+
+					if (!this.fullRepaintNeeded)
+					{
+						// If a full repaint isn't needed, we set the clipping regions
+						// to only partially repaint the panel
+						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+					}
+
+					this.DrawStartData(backBuffer);
 				}
-
-				this.PaintTrackOutbounds(controlGfx);
-
-				this.dirtyRegion.Dispose();
-				this.dirtyRegion = clipRegion;
-				this.fullRepaintNeeded = false;
+				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
+
+			this.PaintTrackOutbounds(graphics);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackObjects(TrackObject hoveredObject, bool frontZonesView)
+		public void DrawTrackObjects(Graphics graphics, TrackObject hoveredObject, bool frontZonesView)
 		{
-			using (Graphics controlGfx = this.GetControlGraphics())
+			this.SetGraphics(graphics);
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap image = this.CloneTrackImage())
 			{
-				Region clipRegion = new Region();
-				clipRegion.MakeEmpty();
-
-				using (Bitmap image = this.CloneTrackImage())
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					using (Graphics backBuffer = Graphics.FromImage(image))
+					this.SetObjectClipRegion(clipRegion, hoveredObject);
+
+					if (!this.fullRepaintNeeded)
 					{
-						this.SetObjectClipRegion(clipRegion, hoveredObject);
-
-						if (!this.fullRepaintNeeded)
-						{
-							// If a full repaint isn't needed, we set the clipping regions
-							// to only partially repaint the panel
-							this.SetPaintRegions(controlGfx, backBuffer, clipRegion);
-						}
-
-						this.DrawObjectData(backBuffer, frontZonesView);
+						// If a full repaint isn't needed, we set the clipping regions
+						// to only partially repaint the panel
+						this.SetPaintRegions(graphics, backBuffer, clipRegion);
 					}
-					controlGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+
+					this.DrawObjectData(backBuffer, frontZonesView);
 				}
-
-				this.PaintTrackOutbounds(controlGfx);
-
-				this.dirtyRegion.Dispose();
-				this.dirtyRegion = clipRegion;
-				this.fullRepaintNeeded = false;
+				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
+
+			this.PaintTrackOutbounds(graphics);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackAI(TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		public void DrawTrackAI(Graphics graphics, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			using (Graphics controlGfx = this.GetControlGraphics())
+			this.SetGraphics(graphics);
+			Region clipRegion = new Region();
+			clipRegion.MakeEmpty();
+
+			using (Bitmap image = this.CloneTrackImage())
 			{
-				Region clipRegion = new Region();
-				clipRegion.MakeEmpty();
-
-				using (Bitmap image = this.CloneTrackImage())
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					using (Graphics backBuffer = Graphics.FromImage(image))
+					this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
+
+					if (!this.fullRepaintNeeded)
 					{
-						this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
-
-						if (!this.fullRepaintNeeded)
-						{
-							// If a full repaint isn't needed, we set the clipping regions
-							// to only partially repaint the panel
-							this.SetPaintRegions(controlGfx, backBuffer, clipRegion);
-						}
-
-						this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
+						// If a full repaint isn't needed, we set the clipping regions
+						// to only partially repaint the panel
+						this.SetPaintRegions(graphics, backBuffer, clipRegion);
 					}
-					controlGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+
+					this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
 				}
-
-				this.PaintTrackOutbounds(controlGfx);
-
-				this.dirtyRegion.Dispose();
-				this.dirtyRegion = clipRegion;
-				this.fullRepaintNeeded = false;
+				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
+
+			this.PaintTrackOutbounds(graphics);
+
+			this.dirtyRegion.Dispose();
+			this.dirtyRegion = clipRegion;
+			this.fullRepaintNeeded = false;
 		}
 
 		private Rectangle GetTileSelectionRectangle(Point cursorPosition, Size selectionSize, Point selectionStart, ActionButton action)
