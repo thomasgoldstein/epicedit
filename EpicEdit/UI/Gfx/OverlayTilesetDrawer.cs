@@ -167,7 +167,7 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
 			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
 			{
-				gfx.FillRegion(this.transparentBrush, this.overlayGfx.Clip);
+				gfx.FillRegion(this.transparentBrush, gfx.Clip);
 
 				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
 				{
