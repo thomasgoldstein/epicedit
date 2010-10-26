@@ -27,18 +27,14 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class TilesetDrawer : IDisposable
 	{
+		private Control control;
 		private Tile[] tileset;
-
-		private Graphics tilesetGfx;
 		private Bitmap tilesetCache;
 		private Pen tilesetPen;
 
 		public TilesetDrawer(Control control)
 		{
-			this.tilesetGfx = control.CreateGraphics();
-			this.tilesetGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
-			this.tilesetGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-
+			this.control = control;
 			this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 
 			// The following member is initialized so it can be disposed of
@@ -75,24 +71,28 @@ namespace EpicEdit.UI.Gfx
 		{
 			int zoom = 2;
 
+			using (Graphics controlGfx = this.control.CreateGraphics())
 			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
-			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
-				backBuffer.DrawImage(this.tilesetCache, 0, 0,
-							  this.tilesetCache.Width,
-							  this.tilesetCache.Height);
+				controlGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
+				controlGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
-				int tilePosX = selectedTile % 8;
-				int tilePosY = selectedTile / 8;
-				Point selectedTilePosition = new Point(tilePosX, tilePosY);
+				using (Graphics backBuffer = Graphics.FromImage(image))
+				{
+					backBuffer.DrawImage(this.tilesetCache, 0, 0,
+										 this.tilesetCache.Width,
+										 this.tilesetCache.Height);
 
-				backBuffer.DrawRectangle(this.tilesetPen,
-								  selectedTilePosition.X * 8,
-								  selectedTilePosition.Y * 8,
-								  8 - 1,
-								  8 - 1);
+					int tilePosX = selectedTile % 8;
+					int tilePosY = selectedTile / 8;
+					Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
-				this.tilesetGfx.DrawImage(image, 0, 0,
+					backBuffer.DrawRectangle(this.tilesetPen,
+											 selectedTilePosition.X * 8,
+											 selectedTilePosition.Y * 8,
+											 8 - 1);
+				}
+				controlGfx.DrawImage(image, 0, 0,
 										  image.Width * zoom,
 										  image.Height * zoom);
 			}
@@ -100,7 +100,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void Dispose()
 		{
-			this.tilesetGfx.Dispose();
 			this.tilesetCache.Dispose();
 			this.tilesetPen.Dispose();
 

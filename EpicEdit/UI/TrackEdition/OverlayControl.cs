@@ -148,7 +148,6 @@ namespace EpicEdit.UI.TrackEdition
 			int tilesetHeight = this.LoadPatternDictionary();
 			this.SetTilesetHeight(tilesetHeight);
 
-			this.overlayDrawer.ResetControl(this.overlayTilesetPanel);
 			this.overlayDrawer.PatternList = this.patternList;
 		}
 
