@@ -97,8 +97,12 @@ namespace EpicEdit.UI.TrackEdition
 					this.RepaintRequested(this, EventArgs.Empty);
 				}
 
-				this.selectedPattern = value;
-				this.overlayDrawer.SelectedPattern = value;
+				if (this.selectedPattern != value)
+				{
+					this.selectedPattern = value;
+					this.overlayDrawer.SelectedPattern = value;
+					this.overlayTilesetPanel.Invalidate();
+				}
 			}
 		}
 
@@ -262,6 +266,7 @@ namespace EpicEdit.UI.TrackEdition
 		public void SetTileset(Tile[] tileset)
 		{
 			this.overlayDrawer.SetTileset(tileset);
+			this.overlayTilesetPanel.Invalidate();
 		}
 
 		public void UpdateTileCount(int count)
@@ -271,13 +276,18 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayTilesetPanelPaint(object sender, PaintEventArgs e)
 		{
-			this.overlayDrawer.DrawOverlayTileset();
+			this.overlayDrawer.DrawOverlayTileset(e.Graphics);
 		}
 		
 		private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
 		{
 			this.hoveredPattern = this.GetPatternAt(e.Location);
-			this.overlayDrawer.HoveredPattern = this.hoveredPattern;
+
+			if (this.overlayDrawer.HoveredPattern != this.hoveredPattern)
+			{
+				this.overlayDrawer.HoveredPattern = this.hoveredPattern;
+				this.overlayTilesetPanel.Invalidate();
+			}
 		}
 
 		private OverlayTilePattern GetPatternAt(Point point)

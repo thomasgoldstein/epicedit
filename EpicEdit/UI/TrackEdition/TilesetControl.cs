@@ -83,7 +83,7 @@ namespace EpicEdit.UI.TrackEdition
 			set
 			{
 				this.selectedTile = value;
-				this.tilesetDrawer.DrawTileset(this.selectedTile);
+				this.tilesetPanel.Invalidate();
 			}
 		}
 
@@ -140,7 +140,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			Tile[] tileset = this.track.GetRoadTileset();
 			this.tilesetDrawer.SetTileset(tileset);
-			this.tilesetDrawer.DrawTileset(this.selectedTile);
+			this.tilesetPanel.Invalidate();
 			this.SelectedThemeChanged(this, EventArgs.Empty);
 		}
 
@@ -151,7 +151,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TilesetPanelPaint(object sender, PaintEventArgs e)
 		{
-			this.tilesetDrawer.DrawTileset(this.selectedTile);
+			this.tilesetDrawer.DrawTileset(e.Graphics, this.selectedTile);
 		}
 
 		private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
@@ -162,7 +162,7 @@ namespace EpicEdit.UI.TrackEdition
 			if (this.selectedTile != newSelectedTile)
 			{
 				this.selectedTile = newSelectedTile;
-				this.tilesetDrawer.DrawTileset(this.selectedTile);
+				this.tilesetPanel.Invalidate();
 				this.SelectedTileChanged(this, EventArgs.Empty);
 			}
 		}
