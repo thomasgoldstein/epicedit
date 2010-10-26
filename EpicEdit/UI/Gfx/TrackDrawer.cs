@@ -310,8 +310,8 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.CloneTrackImage())
-			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			using (Bitmap image = this.CloneTrackImage())
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
 				Rectangle selectionRectangle;
 
@@ -329,12 +329,12 @@ namespace EpicEdit.UI.Gfx
 				{
 					// If a full repaint isn't needed, we set the clipping regions
 					// to only partially repaint the panel
-					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+					this.SetPaintRegions(backBuffer, clipRegion);
 				}
 
-				this.DrawTileSelection(trackGfxBackBuffer, selectionRectangle, action);
+				this.DrawTileSelection(backBuffer, selectionRectangle, action);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				this.trackGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
 			this.PaintTrackOutbounds();
@@ -350,8 +350,8 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.CloneTrackImage())
-			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			using (Bitmap image = this.CloneTrackImage())
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
 				if (selectedPatternLocation.X == -1)
 				{
@@ -365,12 +365,12 @@ namespace EpicEdit.UI.Gfx
 				{
 					// If a full repaint isn't needed, we set the clipping regions
 					// to only partially repaint the panel
-					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+					this.SetPaintRegions(backBuffer, clipRegion);
 				}
 
-				this.DrawOverlay(trackGfxBackBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
+				this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				this.trackGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
 			this.PaintTrackOutbounds();
@@ -386,8 +386,8 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.CloneTrackImage())
-			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			using (Bitmap image = this.CloneTrackImage())
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
 				if (this.track is GPTrack)
 				{
@@ -403,12 +403,12 @@ namespace EpicEdit.UI.Gfx
 				{
 					// If a full repaint isn't needed, we set the clipping regions
 					// to only partially repaint the panel
-					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+					this.SetPaintRegions(backBuffer, clipRegion);
 				}
 
-				this.DrawStartData(trackGfxBackBuffer);
+				this.DrawStartData(backBuffer);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				this.trackGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
 			this.PaintTrackOutbounds();
@@ -424,8 +424,8 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.CloneTrackImage())
-			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			using (Bitmap image = this.CloneTrackImage())
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
 				this.SetObjectClipRegion(clipRegion, hoveredObject);
 
@@ -433,12 +433,12 @@ namespace EpicEdit.UI.Gfx
 				{
 					// If a full repaint isn't needed, we set the clipping regions
 					// to only partially repaint the panel
-					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+					this.SetPaintRegions(backBuffer, clipRegion);
 				}
 
-				this.DrawObjectData(trackGfxBackBuffer, frontZonesView);
+				this.DrawObjectData(backBuffer, frontZonesView);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				this.trackGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
 			this.PaintTrackOutbounds();
@@ -454,8 +454,8 @@ namespace EpicEdit.UI.Gfx
 			Region clipRegion = new Region();
 			clipRegion.MakeEmpty();
 
-			using (Bitmap trackImage = this.CloneTrackImage())
-			using (Graphics trackGfxBackBuffer = Graphics.FromImage(trackImage))
+			using (Bitmap image = this.CloneTrackImage())
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
 				this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
 
@@ -463,12 +463,12 @@ namespace EpicEdit.UI.Gfx
 				{
 					// If a full repaint isn't needed, we set the clipping regions
 					// to only partially repaint the panel
-					this.SetPaintRegions(trackGfxBackBuffer, clipRegion);
+					this.SetPaintRegions(backBuffer, clipRegion);
 				}
 
-				this.DrawAI(trackGfxBackBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
+				this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
 
-				this.trackGfx.DrawImage(trackImage, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				this.trackGfx.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
 			this.PaintTrackOutbounds();
