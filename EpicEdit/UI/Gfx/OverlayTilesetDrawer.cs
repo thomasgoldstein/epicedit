@@ -29,6 +29,7 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class OverlayTilesetDrawer : IDisposable
 	{
+		private Control control;
 		public const int Zoom = 2;
 		public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
 		private Tile[] tileset;
@@ -61,7 +62,6 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private Graphics overlayGfx;
 		private Bitmap overlayCache;
 		private HatchBrush transparentBrush;
 
@@ -71,7 +71,7 @@ namespace EpicEdit.UI.Gfx
 
 		public OverlayTilesetDrawer(Control control)
 		{
-			this.SetControl(control);
+			this.control = control;
 
 			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
@@ -84,38 +84,29 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 		}
 
-		public void ResetControl(Control control)
-		{
-			this.overlayGfx.Dispose();
-			this.SetControl(control);
-		}
-
-		private void SetControl(Control control)
-		{
-			this.overlayGfx = control.CreateGraphics();
-			this.overlayGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
-			this.overlayGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-		}
-
 		public void DrawOverlayTileset()
 		{
+			using (Graphics controlGfx = this.control.CreateGraphics())
 			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
-			using (Graphics backBuffer = Graphics.FromImage(image))
+			using (Graphics gfx = Graphics.FromImage(image))
 			{
-				backBuffer.DrawImage(this.overlayCache, 0, 0,
+				controlGfx.InterpolationMode = InterpolationMode.NearestNeighbor;
+				controlGfx.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+
+				gfx.DrawImage(this.overlayCache, 0, 0,
 							  this.overlayCache.Width,
 							  this.overlayCache.Height);
 
-				this.OutlinePattern(backBuffer, this.hoveredPattern);
+				this.OutlinePattern(gfx, this.hoveredPattern);
 
 				if (this.hoveredPattern != this.selectedPattern)
 				{
-					this.OutlinePattern(backBuffer, this.selectedPattern);
+					this.OutlinePattern(gfx, this.selectedPattern);
 				}
 
-				this.HighlightPattern(backBuffer, this.selectedPattern);
+				this.HighlightPattern(gfx, this.selectedPattern);
 
-				this.overlayGfx.DrawImage(image, 0, 0,
+				controlGfx.DrawImage(image, 0, 0,
 										  image.Width * Zoom,
 										  image.Height * Zoom);
 			}
@@ -160,9 +151,8 @@ namespace EpicEdit.UI.Gfx
 		{
 			this.overlayCache.Dispose();
 
-			RectangleF bounds = this.overlayGfx.VisibleClipBounds;
-			int panelWidth = (int)bounds.Width / Zoom;
-			int panelHeight = (int)bounds.Height / Zoom;
+			int panelWidth = (int)this.control.Width / Zoom;
+			int panelHeight = (int)this.control.Height / Zoom;
 
 			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
 			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
@@ -206,7 +196,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void Dispose()
 		{
-			this.overlayGfx.Dispose();
 			this.overlayCache.Dispose();
 			this.transparentBrush.Dispose();
 
