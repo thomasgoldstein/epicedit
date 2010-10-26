@@ -90,6 +90,7 @@ namespace EpicEdit.UI.Gfx
 					backBuffer.DrawRectangle(this.tilesetPen,
 											 selectedTilePosition.X * 8,
 											 selectedTilePosition.Y * 8,
+											 8 - 1,
 											 8 - 1);
 				}
 				controlGfx.DrawImage(image, 0, 0,
