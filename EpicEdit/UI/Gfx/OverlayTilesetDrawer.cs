@@ -100,20 +100,20 @@ namespace EpicEdit.UI.Gfx
 		public void DrawOverlayTileset()
 		{
 			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
-			using (Graphics gfx = Graphics.FromImage(image))
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
-				gfx.DrawImage(this.overlayCache, 0, 0,
+				backBuffer.DrawImage(this.overlayCache, 0, 0,
 							  this.overlayCache.Width,
 							  this.overlayCache.Height);
 
-				this.OutlinePattern(gfx, this.hoveredPattern);
+				this.OutlinePattern(backBuffer, this.hoveredPattern);
 
 				if (this.hoveredPattern != this.selectedPattern)
 				{
-					this.OutlinePattern(gfx, this.selectedPattern);
+					this.OutlinePattern(backBuffer, this.selectedPattern);
 				}
 
-				this.HighlightPattern(gfx, this.selectedPattern);
+				this.HighlightPattern(backBuffer, this.selectedPattern);
 
 				this.overlayGfx.DrawImage(image, 0, 0,
 										  image.Width * Zoom,

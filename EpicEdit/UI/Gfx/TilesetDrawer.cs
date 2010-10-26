@@ -76,9 +76,9 @@ namespace EpicEdit.UI.Gfx
 			int zoom = 2;
 
 			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
-			using (Graphics gfx = Graphics.FromImage(image))
+			using (Graphics backBuffer = Graphics.FromImage(image))
 			{
-				gfx.DrawImage(this.tilesetCache, 0, 0,
+				backBuffer.DrawImage(this.tilesetCache, 0, 0,
 							  this.tilesetCache.Width,
 							  this.tilesetCache.Height);
 
@@ -86,7 +86,7 @@ namespace EpicEdit.UI.Gfx
 				int tilePosY = selectedTile / 8;
 				Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
-				gfx.DrawRectangle(this.tilesetPen,
+				backBuffer.DrawRectangle(this.tilesetPen,
 								  selectedTilePosition.X * 8,
 								  selectedTilePosition.Y * 8,
 								  8 - 1,
