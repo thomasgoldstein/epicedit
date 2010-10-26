@@ -44,7 +44,7 @@ namespace EpicEdit.UI.Gfx
 			get { return this.scrollPosition; }
 			set
 			{
-				this.scrollPosition = value;				
+				this.scrollPosition = value;
 				this.SetImageSize();
 			}
 		}
@@ -225,10 +225,10 @@ namespace EpicEdit.UI.Gfx
 			ColorMatrix matrix = new ColorMatrix(new float[][]
 			{
 				new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
-	        	new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
-	        	new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
-	        	new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
-	        	new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
+				new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
+				new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
+				new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
+				new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
 			});
 			this.translucidImageAttr.SetColorMatrix(matrix);
 
@@ -760,8 +760,8 @@ namespace EpicEdit.UI.Gfx
 
 					graphics.DrawImage(tile.Bitmap,
 									   new Rectangle((location.X + x - this.scrollPosition.X) * 8,
-					                                 (location.Y + y - this.scrollPosition.Y) * 8,
-					                                 tile.Bitmap.Width, tile.Bitmap.Height),
+													 (location.Y + y - this.scrollPosition.Y) * 8,
+													  tile.Bitmap.Width, tile.Bitmap.Height),
 									   0, 0, tile.Bitmap.Width, tile.Bitmap.Height,
 									   GraphicsUnit.Pixel, imageAttr);
 				}
