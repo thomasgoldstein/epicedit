@@ -54,7 +54,10 @@ namespace EpicEdit.UI.Gfx
 		{
 			this.tilesetCache.Dispose();
 
-			this.tilesetCache = new Bitmap(64, 256, PixelFormat.Format32bppPArgb);
+			int imageWidth = this.control.Width / Zoom;
+			int imageHeight = (this.tileset.Length / (imageWidth / 8)) * 8;
+
+			this.tilesetCache = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppPArgb);
 			using (Graphics gfx = Graphics.FromImage(this.tilesetCache))
 			{
 				for (int x = 0; x < 8; x++)
