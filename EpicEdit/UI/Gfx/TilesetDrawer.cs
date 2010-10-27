@@ -27,6 +27,7 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class TilesetDrawer : IDisposable
 	{
+		public const int Zoom = 2;
 		private Control control;
 		private Tile[] tileset;
 		private Bitmap tilesetCache;
@@ -69,8 +70,6 @@ namespace EpicEdit.UI.Gfx
 
 		public void DrawTileset(Graphics graphics, byte selectedTile)
 		{
-			int zoom = 2;
-
 			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
 			{
 				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -93,8 +92,8 @@ namespace EpicEdit.UI.Gfx
 											 8 - 1);
 				}
 				graphics.DrawImage(image, 0, 0,
-										  image.Width * zoom,
-										  image.Height * zoom);
+								   image.Width * Zoom,
+								   image.Height * Zoom);
 			}
 		}
 
