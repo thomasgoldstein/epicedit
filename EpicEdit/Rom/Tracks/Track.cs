@@ -13,7 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
+
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Overlay;
 
@@ -79,7 +81,7 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Import(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
-			string ext = Path.GetExtension(filePath).ToLower();
+			string ext = Path.GetExtension(filePath).ToLower(CultureInfo.InvariantCulture);
 
 			switch (ext)
 			{
