@@ -156,7 +156,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
 		{
-			int zoom = 2;
+			int zoom = TilesetDrawer.Zoom;
 			byte newSelectedTile = (byte)((e.X / (8 * zoom)) + (e.Y / (8 * zoom)) * 8);
 
 			if (this.selectedTile != newSelectedTile)
