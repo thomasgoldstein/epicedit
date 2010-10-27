@@ -81,16 +81,16 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Import(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
-			string ext = Path.GetExtension(filePath).ToLower(CultureInfo.InvariantCulture);
+			string ext = Path.GetExtension(filePath).ToUpperInvariant();
 
 			switch (ext)
 			{
-				case ".mkt":
+				case ".MKT":
 					this.ImportMkt(filePath, themes);
 					break;
 
 				default:
-				case ".smkc":
+				case ".SMKC":
 					MakeTrack make = new MakeTrack(filePath);
 					this.ImportSmkc(make, themes, overlayTileSizes, overlayTilePatterns);
 					break;
