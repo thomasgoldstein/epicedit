@@ -686,7 +686,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayPanelSizeChanged(object sender, EventArgs e)
 		{
-			this.trackDrawer.ResizeWindow(this.trackDisplayPanel);
+			this.trackDrawer.ResizeWindow();
 			this.RecalculateScrollBarMaximums();
 		}
 

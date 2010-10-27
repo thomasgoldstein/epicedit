@@ -1307,7 +1307,7 @@ namespace EpicEdit.UI.Gfx
 			this.fullRepaintNeeded = true;
 		}
 
-		public void ResizeWindow(Control control)
+		public void ResizeWindow()
 		{
 			this.SetImageSize();
 
