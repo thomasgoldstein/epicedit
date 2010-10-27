@@ -162,7 +162,7 @@ namespace EpicEdit.UI.TrackEdition
 		private int LoadPatternDictionary()
 		{
 			this.patternList = new Dictionary<OverlayTilePattern, Point>();
-			List<OverlayTilePattern> patterns = this.GetUniquePatterns();
+			List<OverlayTilePattern> patterns = OverlayControl.GetUniquePatterns();
 
 			int tilesetX = 0; // Current horizontal drawing position in the tileset
 			int tilesetY = 0; // Current vertical drawing position in the tileset
@@ -234,7 +234,7 @@ namespace EpicEdit.UI.TrackEdition
 		/// <summary>
 		/// Gets the overlay tile patterns of the game, skipping duplicate patterns.
 		/// </summary>
-		private List<OverlayTilePattern> GetUniquePatterns()
+		private static List<OverlayTilePattern> GetUniquePatterns()
 		{
 			OverlayTilePattern previousPattern = null;
 			List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();

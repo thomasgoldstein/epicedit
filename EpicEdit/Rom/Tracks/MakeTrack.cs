@@ -240,67 +240,67 @@ namespace EpicEdit.Rom
 					{
 						if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
 						{
-							this.SP_STX = GetLineData(line);
+							this.SP_STX = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_STY ", StringComparison.Ordinal))
 						{
-							this.SP_STY = GetLineData(line);
+							this.SP_STY = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_STW ", StringComparison.Ordinal))
 						{
-							this.SP_STW = GetLineData(line);
+							this.SP_STW = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_LSPX ", StringComparison.Ordinal))
 						{
-							this.SP_LSPX = GetLineData(line);
+							this.SP_LSPX = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_LSPY ", StringComparison.Ordinal))
 						{
-							this.SP_LSPY = GetLineData(line);
+							this.SP_LSPY = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_LSPW ", StringComparison.Ordinal))
 						{
-							this.SP_LSPW = GetLineData(line);
+							this.SP_LSPW = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_LSPH ", StringComparison.Ordinal))
 						{
-							this.SP_LSPH = GetLineData(line);
+							this.SP_LSPH = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_LSLY ", StringComparison.Ordinal))
 						{
-							this.SP_LSLY = GetLineData(line);
+							this.SP_LSLY = MakeTrack.GetLineData(line);
 						}
 						else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
 						{
-							this.SP_REGION = GetLineData(line)[1];
+							this.SP_REGION = MakeTrack.GetLineData(line)[1];
 						}
 						else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
 						{
-							this.SP_OPN = GetLineData(line);
+							this.SP_OPN = MakeTrack.GetLineData(line);
 						}
 						else if (line.Equals("#MAP", StringComparison.Ordinal))
 						{
-							this.MAP = GetBlockData(reader);
+							this.MAP = MakeTrack.GetBlockData(reader);
 						}
 						else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
 						{
-							this.MAPMASK = GetBlockData(reader);
+							this.MAPMASK = MakeTrack.GetBlockData(reader);
 						}
 						else if (line.Equals("#GPEX", StringComparison.Ordinal))
 						{
-							this.GPEX = GetBlockData(reader);
+							this.GPEX = MakeTrack.GetBlockData(reader);
 						}
 						else if (line.Equals("#AREA", StringComparison.Ordinal))
 						{
-							this.AREA = GetBlockData(reader);
+							this.AREA = MakeTrack.GetBlockData(reader);
 						}
 						else if (line.Equals("#OBJ", StringComparison.Ordinal))
 						{
-							this.OBJ = GetBlockData(reader);
+							this.OBJ = MakeTrack.GetBlockData(reader);
 						}
 						else if (line.Equals("#AREA_BORDER", StringComparison.Ordinal))
 						{
-							this.AREA_BORDER = GetBlockData(reader);
+							this.AREA_BORDER = MakeTrack.GetBlockData(reader);
 						}
 
 						line = reader.ReadLine();
@@ -311,7 +311,7 @@ namespace EpicEdit.Rom
 
 		#region Extract Data
 
-		private byte[] GetLineData(string line)
+		private static byte[] GetLineData(string line)
 		{
 			int space = line.IndexOf(' ');
 			if (space == -1)
@@ -328,7 +328,7 @@ namespace EpicEdit.Rom
 			return Utilities.HexStringToByteArray(line);
 		}
 
-		private byte[] GetBlockData(TextReader reader)
+		private static byte[] GetBlockData(TextReader reader)
 		{
 			List<byte> ret = new List<byte>();
 
