@@ -510,25 +510,25 @@ namespace EpicEdit.UI.Gfx
 		{
 			if (hoveredOverlayTile != null)
 			{
-				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
+				Rectangle rec = this.GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
 				clipRegion.Union(rec);
 			}
 
 			if (selectedOverlayTile != null &&
 				selectedOverlayTile != hoveredOverlayTile)
 			{
-				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, selectedOverlayTile.Pattern, selectedOverlayTile.Location);
+				Rectangle rec = this.GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
 				clipRegion.Union(rec);
 			}
 
 			if (selectedPattern != null)
 			{
-				Rectangle rec = this.GetOverlayClipRectangle(clipRegion, selectedPattern, selectedPatternLocation);
+				Rectangle rec = this.GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
 				clipRegion.Union(rec);
 			}
 		}
 
-		private Rectangle GetOverlayClipRectangle(Region clipRegion, OverlayTilePattern overlayTilePattern, Point location)
+		private Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
 		{
 			return new Rectangle((location.X - this.scrollPosition.X) * 8,
 								 (location.Y - this.scrollPosition.Y) * 8,
