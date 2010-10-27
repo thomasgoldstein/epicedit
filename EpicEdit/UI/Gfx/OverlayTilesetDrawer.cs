@@ -29,8 +29,8 @@ namespace EpicEdit.UI.Gfx
 	/// </summary>
 	public sealed class OverlayTilesetDrawer : IDisposable
 	{
-		private Control control;
 		public const int Zoom = 2;
+		private Control control;
 		public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
 		private Tile[] tileset;
 
