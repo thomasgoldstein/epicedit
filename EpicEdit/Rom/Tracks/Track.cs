@@ -13,9 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Globalization;
 using System.IO;
-
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Overlay;
 
