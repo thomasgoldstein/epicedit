@@ -220,7 +220,7 @@ namespace EpicEdit.Rom
 							continue;
 						}
 
-						String fileExt = Path.GetExtension(entry.Name);
+						string fileExt = Path.GetExtension(entry.Name);
 						if (".bin".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
 							".fig".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
 							".sfc".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
