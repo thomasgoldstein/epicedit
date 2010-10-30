@@ -369,6 +369,7 @@ namespace EpicEdit.UI.TrackEdition
 			using (SaveFileDialog sfd = new SaveFileDialog())
 			{
 				sfd.Filter =
+					"MAKE track (*.smkc)|*.smkc|" +
 					"Track Designer track (*.mkt)|*.mkt|" +
 					"All files (*.*)|*.*";
 
