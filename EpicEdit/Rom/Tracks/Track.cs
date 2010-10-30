@@ -147,7 +147,21 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Export(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
-			this.ExportMkt(filePath, themes);
+			string ext = Path.GetExtension(filePath).ToUpperInvariant();
+
+			switch (ext)
+			{
+				case ".MKT":
+					this.ExportMkt(filePath, themes);
+					break;
+
+				default:
+				case ".SMKC":
+					throw new NotImplementedException();
+					//MakeTrack make = new MakeTrack(filePath);
+					//this.ExportSmkc(make, themes, overlayTileSizes, overlayTilePatterns);
+					break;
+			}
 		}
 
 		private void ExportMkt(string filePath, Themes themes)
