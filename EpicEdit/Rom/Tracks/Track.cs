@@ -145,18 +145,18 @@ namespace EpicEdit.Rom.Tracks
 			this.AI = new TrackAI(zoneData, targetData, this);
 		}
 
-		public void Export(string filePath, byte themeId)
+		public void Export(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
-			this.ExportMkt(filePath, themeId);
+			this.ExportMkt(filePath, themes);
 		}
 
-		private void ExportMkt(string filePath, byte themeId)
+		private void ExportMkt(string filePath, Themes themes)
 		{
 			using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
 			{
 				bw.Write(this.Map.GetBytes());
 
-				themeId = (byte)(themeId << 1);
+				byte themeId = themes.GetThemeId(this.Theme);
 				bw.Write(themeId);
 			}
 		}
