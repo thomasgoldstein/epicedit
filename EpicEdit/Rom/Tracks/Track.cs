@@ -145,9 +145,9 @@ namespace EpicEdit.Rom.Tracks
 			this.AI = new TrackAI(zoneData, targetData, this);
 		}
 
-		public void Export(string fileName, byte themeId)
+		public void Export(string filePath, byte themeId)
 		{
-			using (BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Create, FileAccess.Write)))
+			using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
 			{
 				bw.Write(this.Map.GetBytes());
 
