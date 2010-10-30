@@ -392,7 +392,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			try
 			{
-				this.track.Export(filePath, (byte)this.tilesetControl.SelectedThemeIndex);
+				this.track.Export(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
 			}
 			catch (UnauthorizedAccessException ex)
 			{

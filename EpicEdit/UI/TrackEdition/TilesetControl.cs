@@ -87,15 +87,6 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		[Browsable(false)]
-		public int SelectedThemeIndex
-		{
-			get
-			{
-				return this.themeComboBox.SelectedIndex;
-			}
-		}
-
 		public TilesetControl()
 		{
 			this.InitializeComponent();
