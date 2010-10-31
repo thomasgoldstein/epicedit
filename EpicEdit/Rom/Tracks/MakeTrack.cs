@@ -231,80 +231,77 @@ namespace EpicEdit.Rom
 			this.FilePath = filePath;
 
 			using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
+			using (TextReader reader = new StreamReader(fs))
 			{
-				using (TextReader reader = new StreamReader(fs))
+				string line = reader.ReadLine();
+				while (line != null)
 				{
-
-					string line = reader.ReadLine();
-					while (line != null)
+					if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
 					{
-						if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
-						{
-							this.SP_STX = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_STY ", StringComparison.Ordinal))
-						{
-							this.SP_STY = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_STW ", StringComparison.Ordinal))
-						{
-							this.SP_STW = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_LSPX ", StringComparison.Ordinal))
-						{
-							this.SP_LSPX = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_LSPY ", StringComparison.Ordinal))
-						{
-							this.SP_LSPY = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_LSPW ", StringComparison.Ordinal))
-						{
-							this.SP_LSPW = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_LSPH ", StringComparison.Ordinal))
-						{
-							this.SP_LSPH = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_LSLY ", StringComparison.Ordinal))
-						{
-							this.SP_LSLY = MakeTrack.GetLineData(line);
-						}
-						else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
-						{
-							this.SP_REGION = MakeTrack.GetLineData(line)[1];
-						}
-						else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
-						{
-							this.SP_OPN = MakeTrack.GetLineData(line);
-						}
-						else if (line.Equals("#MAP", StringComparison.Ordinal))
-						{
-							this.MAP = MakeTrack.GetBlockData(reader);
-						}
-						else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
-						{
-							this.MAPMASK = MakeTrack.GetBlockData(reader);
-						}
-						else if (line.Equals("#GPEX", StringComparison.Ordinal))
-						{
-							this.GPEX = MakeTrack.GetBlockData(reader);
-						}
-						else if (line.Equals("#AREA", StringComparison.Ordinal))
-						{
-							this.AREA = MakeTrack.GetBlockData(reader);
-						}
-						else if (line.Equals("#OBJ", StringComparison.Ordinal))
-						{
-							this.OBJ = MakeTrack.GetBlockData(reader);
-						}
-						else if (line.Equals("#AREA_BORDER", StringComparison.Ordinal))
-						{
-							this.AREA_BORDER = MakeTrack.GetBlockData(reader);
-						}
-
-						line = reader.ReadLine();
+						this.SP_STX = MakeTrack.GetLineData(line);
 					}
+					else if (line.StartsWith("#SP_STY ", StringComparison.Ordinal))
+					{
+						this.SP_STY = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_STW ", StringComparison.Ordinal))
+					{
+						this.SP_STW = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_LSPX ", StringComparison.Ordinal))
+					{
+						this.SP_LSPX = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_LSPY ", StringComparison.Ordinal))
+					{
+						this.SP_LSPY = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_LSPW ", StringComparison.Ordinal))
+					{
+						this.SP_LSPW = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_LSPH ", StringComparison.Ordinal))
+					{
+						this.SP_LSPH = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_LSLY ", StringComparison.Ordinal))
+					{
+						this.SP_LSLY = MakeTrack.GetLineData(line);
+					}
+					else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
+					{
+						this.SP_REGION = MakeTrack.GetLineData(line)[1];
+					}
+					else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
+					{
+						this.SP_OPN = MakeTrack.GetLineData(line);
+					}
+					else if (line.Equals("#MAP", StringComparison.Ordinal))
+					{
+						this.MAP = MakeTrack.GetBlockData(reader);
+					}
+					else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
+					{
+						this.MAPMASK = MakeTrack.GetBlockData(reader);
+					}
+					else if (line.Equals("#GPEX", StringComparison.Ordinal))
+					{
+						this.GPEX = MakeTrack.GetBlockData(reader);
+					}
+					else if (line.Equals("#AREA", StringComparison.Ordinal))
+					{
+						this.AREA = MakeTrack.GetBlockData(reader);
+					}
+					else if (line.Equals("#OBJ", StringComparison.Ordinal))
+					{
+						this.OBJ = MakeTrack.GetBlockData(reader);
+					}
+					else if (line.Equals("#AREA_BORDER", StringComparison.Ordinal))
+					{
+						this.AREA_BORDER = MakeTrack.GetBlockData(reader);
+					}
+
+					line = reader.ReadLine();
 				}
 			}
 		}
