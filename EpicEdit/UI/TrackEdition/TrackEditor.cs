@@ -438,7 +438,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomInSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.InitCurrentModeAction(true);
+			this.EndZoom();
 		}
 
 		private void ZoomOut()
@@ -452,13 +452,26 @@ namespace EpicEdit.UI.TrackEdition
 			this.ZoomOutSub();
 			this.CenterTrackDisplayOn(location);
 
-			this.InitCurrentModeAction(true);
+			this.EndZoom();
 		}
 
 		private Point GetCenterTileLocation()
 		{
 			return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2,
 							 this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
+		}
+
+		private void EndZoom()
+		{
+			if (this.pixelPosition.X == -1)
+			{
+				// The cursor isn't over the track
+				this.trackDisplayPanel.Invalidate();
+			}
+			else
+			{
+				this.InitCurrentModeAction(true);
+			}
 		}
 
 		private void MouseWheelZoom(MouseEventArgs e)
