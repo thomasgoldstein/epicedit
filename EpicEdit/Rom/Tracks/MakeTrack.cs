@@ -197,14 +197,15 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public byte[] GetLapLineData()
 		{
-			byte[] ret = new byte[6];
-			ret[0] = this.SP_LSLY[1];
-			ret[1] = this.SP_LSLY[0];
-			ret[2] = this.SP_LSPX[1];
-			ret[3] = this.SP_LSPY[1];
-			ret[4] = this.SP_LSPW[1];
-			ret[5] = this.SP_LSPH[1];
-			return ret;
+			return new byte[]
+			{
+				this.SP_LSLY[1],
+				this.SP_LSLY[0],
+				this.SP_LSPX[1],
+				this.SP_LSPY[1],
+				this.SP_LSPW[1],
+				this.SP_LSPH[1]
+			};
 		}
 
 		/// <summary>
