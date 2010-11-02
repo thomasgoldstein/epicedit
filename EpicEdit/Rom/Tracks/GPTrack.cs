@@ -48,7 +48,7 @@ namespace EpicEdit.Rom.Tracks
 		}
 
 		/// <summary>
-		/// Imports the GP track specific items from the MakeTrack object.
+		/// Imports the GPTrack-specific items from the MakeTrack object.
 		/// </summary>
 		protected override void ImportSmkc(MakeTrack track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
