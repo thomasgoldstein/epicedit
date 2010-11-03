@@ -201,17 +201,17 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte SP_REGION;
 
-		/// <summary>
+		/*/// <summary>
 		/// Object behavior.
 		/// </summary>
-		private byte[] SP_OPN;
+		private byte[] SP_OPN;*/
 
 		/// <summary>
 		/// Tile Map.
 		/// </summary>
 		private byte[] MAP;
 
-		private byte[] MAPMASK;
+		//private byte[] MAPMASK;
 
 		/// <summary>
 		/// Overlay Tiles.
@@ -360,18 +360,18 @@ namespace EpicEdit.Rom
 					{
 						this.SP_REGION = MakeTrack.GetLineData(line)[1];
 					}
-					else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
+					/*else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
 					{
 						this.SP_OPN = MakeTrack.GetLineData(line);
-					}
+					}*/
 					else if (line.Equals("#MAP", StringComparison.Ordinal))
 					{
 						this.MAP = MakeTrack.GetBlockData(reader);
 					}
-					else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
+					/*else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
 					{
 						this.MAPMASK = MakeTrack.GetBlockData(reader);
-					}
+					}*/
 					else if (line.Equals("#GPEX", StringComparison.Ordinal))
 					{
 						this.GPEX = MakeTrack.GetBlockData(reader);
