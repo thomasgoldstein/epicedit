@@ -241,7 +241,6 @@ namespace EpicEdit.Rom
 			this.overlayTilePatterns = overlayTilePatterns;
 
 			this.Import(filePath);
-			this.CheckData();
 		}
 
 		/// <summary>
@@ -392,6 +391,8 @@ namespace EpicEdit.Rom
 					line = reader.ReadLine();
 				}
 			}
+
+			this.CheckData();
 		}
 
 		private void CheckData()
