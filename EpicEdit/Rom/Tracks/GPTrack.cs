@@ -50,21 +50,21 @@ namespace EpicEdit.Rom.Tracks
 		/// <summary>
 		/// Imports the GPTrack-specific items from the MakeTrack object.
 		/// </summary>
-		protected override void ImportSmkc(MakeTrack track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		protected override void ImportSmkc(MakeTrack track)
 		{
 			// Call the base import so that other track items can be imported
-			base.ImportSmkc(track, themes, overlayTileSizes, overlayTilePatterns);
+			base.ImportSmkc(track);
 
-			this.StartPosition = new StartPosition(track.StartPositionX, track.StartPositionY, track.StartPositionW);
-			this.LapLine = new LapLine(track.GetLapLineData());
+			this.StartPosition = track.StartPosition;
+			this.LapLine = track.LapLine;
 
 			if (this.Objects != null) // If the track objects are not ghost pillars
 			{
-				this.Objects = new TrackObjects(track.GetObjectData());
+				this.Objects = track.Objects;
 
 				if (!this.ObjectZones.ReadOnly)
 				{
-					this.ObjectZones = new TrackObjectZones(track.AREA_BORDER);
+					this.ObjectZones = track.ObjectZones;
 				}
 			}
 		}
