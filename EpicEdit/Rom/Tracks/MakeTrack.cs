@@ -16,6 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.AI;
+using EpicEdit.Rom.Tracks.Objects;
+using EpicEdit.Rom.Tracks.Overlay;
+
 namespace EpicEdit.Rom
 {
 	/// <summary>
@@ -26,17 +31,87 @@ namespace EpicEdit.Rom
 		/// <summary>
 		/// Path to the imported file.
 		/// </summary>
-		public string FilePath { get; private set; }
+		private string filePath;
 
-		/// <summary>
-		/// Start Position X.
-		/// </summary>
-		public byte[] SP_STX;
+		private Track track;
+		private Themes themes;
+		private OverlayTileSizes overlayTileSizes;
+		private OverlayTilePatterns overlayTilePatterns;
+
+		public TrackMap Map
+		{
+			get
+			{
+				return new TrackMap(this.MAP);
+			}
+		}
+
+		public Theme Theme
+		{
+			get
+			{
+				return this.themes[this.SP_REGION >> 1];
+			}
+		}
+
+		public OverlayTiles OverlayTiles
+		{
+			get
+			{
+				return new OverlayTiles(this.GPEX,
+										this.overlayTileSizes,
+										this.overlayTilePatterns);
+			}
+		}
+
+		public StartPosition StartPosition
+		{
+			get
+			{
+				return new StartPosition(this.StartPositionX,
+										 this.StartPositionY,
+										 this.StartPositionW);
+			}
+		}
+
+		public LapLine LapLine
+		{
+			get
+			{
+				return new LapLine(this.GetLapLineData());
+			}
+		}
+
+		public TrackObjects Objects
+		{
+			get
+			{
+				return new TrackObjects(this.GetObjectData());
+			}
+		}
+
+		public TrackObjectZones ObjectZones
+		{
+			get
+			{
+				return new TrackObjectZones(this.AREA_BORDER);
+			}
+		}
+
+		public TrackAI AI
+		{
+			get
+			{
+				byte[] targetData, zoneData;
+				this.GetAIData(out targetData, out zoneData);
+				return new TrackAI(zoneData, targetData, this.track);
+			}
+		}
 
 		/// <summary>
 		/// Converted Start Position X.
 		/// </summary>
-		public short StartPositionX
+		private short StartPositionX
 		{
 			get
 			{
@@ -50,14 +125,9 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Start Position Y.
-		/// </summary>
-		public byte[] SP_STY;
-
-		/// <summary>
 		/// Converted Start Position Y.
 		/// </summary>
-		public short StartPositionY
+		private short StartPositionY
 		{
 			get
 			{
@@ -71,14 +141,9 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Start Position Width (2nd Row Offset).
-		/// </summary>
-		public byte[] SP_STW;
-
-		/// <summary>
 		/// Converted Start Position Width (2nd Row Offset).
 		/// </summary>
-		public short StartPositionW
+		private short StartPositionW
 		{
 			get
 			{
@@ -92,75 +157,129 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
+		/// Start Position X.
+		/// </summary>
+		private byte[] SP_STX;
+
+		/// <summary>
+		/// Start Position Y.
+		/// </summary>
+		private byte[] SP_STY;
+
+		/// <summary>
+		/// Start Position Width (2nd Row Offset).
+		/// </summary>
+		private byte[] SP_STW;
+
+		/// <summary>
 		/// Lap Line Area X.
 		/// </summary>
-		public byte[] SP_LSPX;
+		private byte[] SP_LSPX;
 
 		/// <summary>
 		/// Lap Line Area Y.
 		/// </summary>
-		public byte[] SP_LSPY;
+		private byte[] SP_LSPY;
 
 		/// <summary>
 		/// Lap Line Area Width.
 		/// </summary>
-		public byte[] SP_LSPW;
+		private byte[] SP_LSPW;
 
 		/// <summary>
 		/// Lap Line Area Height.
 		/// </summary>
-		public byte[] SP_LSPH;
+		private byte[] SP_LSPH;
 
 		/// <summary>
 		/// Lap Line Y.
 		/// </summary>
-		public byte[] SP_LSLY;
+		private byte[] SP_LSLY;
 
 		/// <summary>
 		/// Theme.
 		/// </summary>
-		public byte SP_REGION;
+		private byte SP_REGION;
 
 		/// <summary>
 		/// Object behavior.
 		/// </summary>
-		public byte[] SP_OPN;
+		private byte[] SP_OPN;
 
 		/// <summary>
 		/// Tile Map.
 		/// </summary>
-		public byte[] MAP;
-		public byte[] MAPMASK;
+		private byte[] MAP;
+
+		private byte[] MAPMASK;
 
 		/// <summary>
 		/// Overlay Tiles.
 		/// </summary>
-		public byte[] GPEX;
+		private byte[] GPEX;
 
 		/// <summary>
 		/// AI.
 		/// </summary>
-		public byte[] AREA;
+		private byte[] AREA;
 
 		/// <summary>
 		/// Objects.
 		/// </summary>
-		public byte[] OBJ;
+		private byte[] OBJ;
 
 		/// <summary>
 		/// Object View Zones.
 		/// </summary>
-		public byte[] AREA_BORDER;
+		private byte[] AREA_BORDER;
 
-		public MakeTrack(string filePath)
+		public MakeTrack(string filePath, Track track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
 		{
+			this.track = track;
+			this.themes = themes;
+			this.overlayTileSizes = overlayTileSizes;
+			this.overlayTilePatterns = overlayTilePatterns;
+
 			this.Import(filePath);
+			this.CheckData();
+		}
+
+		/// <summary>
+		/// Converts the MAKE data into the lap line data Epic Edit expects.
+		/// </summary>
+		private byte[] GetLapLineData()
+		{
+			return new byte[]
+			{
+				this.SP_LSLY[1],
+				this.SP_LSLY[0],
+				this.SP_LSPX[1],
+				this.SP_LSPY[1],
+				this.SP_LSPW[1],
+				this.SP_LSPH[1]
+			};
+		}
+
+		/// <summary>
+		/// Epic Edit expects 44 bytes for the object data, this method removes anything over 44 bytes.
+		/// </summary>
+		private byte[] GetObjectData()
+		{
+			if (this.OBJ.Length > 44)
+			{
+				List<byte> ret = new List<byte>();
+				ret.AddRange(this.OBJ);
+				ret.RemoveRange(44, ret.Count - 44);
+				return ret.ToArray();
+			}
+
+			return this.OBJ;	
 		}
 
 		/// <summary>
 		/// Converts the MAKE data into the AI target and zone data into the format Epic Edit expects.
 		/// </summary>
-		public void GetAIData(out byte[] targetData, out byte[] zoneData)
+		private void GetAIData(out byte[] targetData, out byte[] zoneData)
 		{
 			List<byte> targetDataList = new List<byte>();
 			List<byte> zoneDataList = new List<byte>();
@@ -193,43 +312,11 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Converts the MAKE data into the lap line data Epic Edit expects.
-		/// </summary>
-		public byte[] GetLapLineData()
-		{
-			return new byte[]
-			{
-				this.SP_LSLY[1],
-				this.SP_LSLY[0],
-				this.SP_LSPX[1],
-				this.SP_LSPY[1],
-				this.SP_LSPW[1],
-				this.SP_LSPH[1]
-			};
-		}
-
-		/// <summary>
-		/// Epic Edit expects 44 bytes for the object data, this method removes anything over 44 bytes.
-		/// </summary>
-		public byte[] GetObjectData()
-		{
-			if (this.OBJ.Length > 44)
-			{
-				List<byte> ret = new List<byte>();
-				ret.AddRange(this.OBJ);
-				ret.RemoveRange(44, ret.Count - 44);
-				return ret.ToArray();
-			}
-
-			return this.OBJ;	
-		}
-
-		/// <summary>
 		/// Reads the MAKE file and sets the members with data.
 		/// </summary>
 		private void Import(string filePath)
 		{
-			this.FilePath = filePath;
+			this.filePath = filePath;
 
 			using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
 			using (TextReader reader = new StreamReader(fs))
@@ -304,6 +391,15 @@ namespace EpicEdit.Rom
 
 					line = reader.ReadLine();
 				}
+			}
+		}
+
+		private void CheckData()
+		{
+			if (this.MAP.Length != 16384 || this.GPEX.Length != 128)
+			{
+				throw new InvalidDataException("File \"" + Path.GetFileName(this.filePath) + "\"" + Environment.NewLine +
+											   "isn't a valid track file and couldn't be imported!");
 			}
 		}
 

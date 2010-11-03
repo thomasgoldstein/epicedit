@@ -89,8 +89,8 @@ namespace EpicEdit.Rom.Tracks
 
 				default:
 				case ".SMKC":
-					MakeTrack make = new MakeTrack(filePath);
-					this.ImportSmkc(make, themes, overlayTileSizes, overlayTilePatterns);
+					MakeTrack make = new MakeTrack(filePath, this, themes, overlayTileSizes, overlayTilePatterns);
+					this.ImportSmkc(make);
 					break;
 			}
 		}
@@ -127,22 +127,12 @@ namespace EpicEdit.Rom.Tracks
 		/// <summary>
 		/// Imports an SMKC (MAKE) track.
 		/// </summary>
-		protected virtual void ImportSmkc(MakeTrack track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		protected virtual void ImportSmkc(MakeTrack track)
 		{
-			if (track.MAP.Length != 16384 || track.GPEX.Length != 128)
-			{
-				throw new InvalidDataException("File \"" + Path.GetFileName(track.FilePath) + "\"" + Environment.NewLine +
-											   "isn't a valid track file and couldn't be imported!");
-			}
-
-			this.Map = new TrackMap(track.MAP);
-			this.Theme = themes[track.SP_REGION >> 1];
-
-			this.OverlayTiles = new OverlayTiles(track.GPEX, overlayTileSizes, overlayTilePatterns);
-
-			byte[] targetData, zoneData;
-			track.GetAIData(out targetData, out zoneData);
-			this.AI = new TrackAI(zoneData, targetData, this);
+			this.Map = track.Map;
+			this.Theme = track.Theme;
+			this.OverlayTiles = track.OverlayTiles;
+			this.AI = track.AI;
 		}
 
 		public void Export(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
@@ -158,9 +148,6 @@ namespace EpicEdit.Rom.Tracks
 				default:
 				case ".SMKC":
 					throw new NotImplementedException();
-					//MakeTrack make = new MakeTrack(filePath);
-					//this.ExportSmkc(make, themes, overlayTileSizes, overlayTilePatterns);
-					break;
 			}
 		}
 
