@@ -118,7 +118,7 @@ namespace EpicEdit.Rom.Tracks
 
 				if (fileLength == 16385) // If a theme is defined
 				{
-					byte themeId = (byte)(reader.ReadByte() / 2);
+					byte themeId = (byte)(reader.ReadByte() >> 1);
 					this.Theme = themes[themeId];
 				}
 			}
