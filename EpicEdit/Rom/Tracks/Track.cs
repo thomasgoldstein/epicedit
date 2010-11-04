@@ -89,8 +89,8 @@ namespace EpicEdit.Rom.Tracks
 
 				default:
 				case ".SMKC":
-					MakeTrack make = new MakeTrack(filePath, this, themes, overlayTileSizes, overlayTilePatterns);
-					this.ImportSmkc(make);
+					MakeTrack track = new MakeTrack(filePath, this, themes, overlayTileSizes, overlayTilePatterns);
+					this.ImportSmkc(track);
 					break;
 			}
 		}
