@@ -264,15 +264,15 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte[] GetObjectData()
 		{
-			if (this.OBJ.Length > 44)
+			int size = 44;
+			if (this.OBJ.Length > size)
 			{
-				List<byte> ret = new List<byte>();
-				ret.AddRange(this.OBJ);
-				ret.RemoveRange(44, ret.Count - 44);
-				return ret.ToArray();
+				byte[] ret = new byte[size];
+				Array.Copy(this.OBJ, ret, size);
+				return ret;
 			}
 
-			return this.OBJ;	
+			return this.OBJ;
 		}
 
 		/// <summary>
