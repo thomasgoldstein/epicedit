@@ -68,9 +68,21 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return new StartPosition(this.StartPositionX,
-										 this.StartPositionY,
-										 this.StartPositionW);
+				short x, y, w;
+				if (BitConverter.IsLittleEndian)
+				{
+					x = BitConverter.ToInt16(new byte[] { this.SP_STX[1], this.SP_STX[0] }, 0);
+					y = BitConverter.ToInt16(new byte[] { this.SP_STY[1], this.SP_STY[0] }, 0);
+					w = BitConverter.ToInt16(new byte[] { this.SP_STW[1], this.SP_STW[0] }, 0);
+				}
+				else
+				{
+					x = BitConverter.ToInt16(this.SP_STX, 0);
+					y = BitConverter.ToInt16(this.SP_STY, 0);
+					w = BitConverter.ToInt16(this.SP_STW, 0);
+				}
+
+				return new StartPosition(x, y, w);
 			}
 		}
 
@@ -105,54 +117,6 @@ namespace EpicEdit.Rom
 				byte[] targetData, zoneData;
 				this.GetAIData(out targetData, out zoneData);
 				return new TrackAI(zoneData, targetData, this.track);
-			}
-		}
-
-		/// <summary>
-		/// Converted Start Position X.
-		/// </summary>
-		private short StartPositionX
-		{
-			get
-			{
-				if (BitConverter.IsLittleEndian)
-				{
-					return BitConverter.ToInt16(new byte[] { this.SP_STX[1], this.SP_STX[0] }, 0);
-				}
-
-				return BitConverter.ToInt16(this.SP_STX, 0);
-			}
-		}
-
-		/// <summary>
-		/// Converted Start Position Y.
-		/// </summary>
-		private short StartPositionY
-		{
-			get
-			{
-				if (BitConverter.IsLittleEndian)
-				{
-					return BitConverter.ToInt16(new byte[] { this.SP_STY[1], this.SP_STY[0] }, 0);
-				}
-
-				return BitConverter.ToInt16(this.SP_STY, 0);
-			}
-		}
-
-		/// <summary>
-		/// Converted Start Position Width (2nd Row Offset).
-		/// </summary>
-		private short StartPositionW
-		{
-			get
-			{
-				if (BitConverter.IsLittleEndian)
-				{
-					return BitConverter.ToInt16(new byte[] { this.SP_STW[1], this.SP_STW[0] }, 0);
-				}
-
-				return BitConverter.ToInt16(this.SP_STW, 0);
 			}
 		}
 
