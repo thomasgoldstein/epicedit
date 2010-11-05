@@ -132,6 +132,9 @@ namespace EpicEdit.Rom.Tracks
 			this.LoadDataFrom(track);
 		}
 
+		/// <summary>
+		/// Loads the regular track items from the MakeTrack object.
+		/// </summary>
 		protected virtual void LoadDataFrom(MakeTrack track)
 		{
 			this.Map = track.Map;
