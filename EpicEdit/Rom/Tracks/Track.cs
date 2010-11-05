@@ -84,13 +84,12 @@ namespace EpicEdit.Rom.Tracks
 			switch (ext)
 			{
 				case ".MKT":
-					this.ImportMkt(filePath, game.Themes);
+					this.ImportMkt(filePath, game);
 					break;
 
 				default:
 				case ".SMKC":
-					MakeTrack track = new MakeTrack(filePath, this, game);
-					this.ImportSmkc(track);
+					this.ImportSmkc(filePath, game);
 					break;
 			}
 		}
@@ -98,7 +97,7 @@ namespace EpicEdit.Rom.Tracks
 		/// <summary>
 		/// Imports an MKT (Track Designer) track.
 		/// </summary>
-		private void ImportMkt(string filePath, Themes themes)
+		private void ImportMkt(string filePath, Game game)
 		{
 			using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read)))
 			{
@@ -119,7 +118,7 @@ namespace EpicEdit.Rom.Tracks
 				if (fileLength == 16385) // If a theme is defined
 				{
 					byte themeId = (byte)(reader.ReadByte() >> 1);
-					this.Theme = themes[themeId];
+					this.Theme = game.Themes[themeId];
 				}
 			}
 		}
@@ -127,7 +126,13 @@ namespace EpicEdit.Rom.Tracks
 		/// <summary>
 		/// Imports an SMKC (MAKE) track.
 		/// </summary>
-		protected virtual void ImportSmkc(MakeTrack track)
+		private void ImportSmkc(string filePath, Game game)
+		{
+			MakeTrack track = new MakeTrack(filePath, this, game);
+			this.LoadDataFrom(track);
+		}
+
+		protected virtual void LoadDataFrom(MakeTrack track)
 		{
 			this.Map = track.Map;
 			this.Theme = track.Theme;
@@ -142,7 +147,7 @@ namespace EpicEdit.Rom.Tracks
 			switch (ext)
 			{
 				case ".MKT":
-					this.ExportMkt(filePath, game.Themes);
+					this.ExportMkt(filePath, game);
 					break;
 
 				default:
@@ -154,13 +159,13 @@ namespace EpicEdit.Rom.Tracks
 		/// <summary>
 		/// Exports track as MKT (Track Designer).
 		/// </summary>
-		private void ExportMkt(string filePath, Themes themes)
+		private void ExportMkt(string filePath, Game game)
 		{
 			using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
 			{
 				bw.Write(this.Map.GetBytes());
 
-				byte themeId = themes.GetThemeId(this.Theme);
+				byte themeId = game.Themes.GetThemeId(this.Theme);
 				bw.Write(themeId);
 			}
 		}
