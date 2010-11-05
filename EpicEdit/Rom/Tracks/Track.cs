@@ -151,6 +151,9 @@ namespace EpicEdit.Rom.Tracks
 			}
 		}
 
+		/// <summary>
+		/// Exports track as MKT (Track Designer).
+		/// </summary>
 		private void ExportMkt(string filePath, Themes themes)
 		{
 			using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
