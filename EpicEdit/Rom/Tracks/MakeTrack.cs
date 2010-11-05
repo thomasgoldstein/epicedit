@@ -50,7 +50,7 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return this.themes[this.SP_REGION >> 1];
+				return this.themes[this.SP_REGION[1] >> 1];
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace EpicEdit.Rom
 		/// <summary>
 		/// Theme.
 		/// </summary>
-		private byte SP_REGION;
+		private byte[] SP_REGION;
 
 		/*/// <summary>
 		/// Object behavior.
@@ -321,7 +321,7 @@ namespace EpicEdit.Rom
 					}
 					else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
 					{
-						this.SP_REGION = MakeTrack.GetLineData(line)[1];
+						this.SP_REGION = MakeTrack.GetLineData(line);
 					}
 					/*else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
 					{
