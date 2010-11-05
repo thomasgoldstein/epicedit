@@ -48,12 +48,11 @@ namespace EpicEdit.Rom.Tracks
 		}
 
 		/// <summary>
-		/// Imports the GPTrack-specific items from the MakeTrack object.
+		/// Loads the GPTrack-specific items from the MakeTrack object.
 		/// </summary>
-		protected override void ImportSmkc(MakeTrack track)
+		protected override void LoadDataFrom(MakeTrack track)
 		{
-			// Call the base import so that other track items can be imported
-			base.ImportSmkc(track);
+			base.LoadDataFrom(track);
 
 			this.StartPosition = track.StartPosition;
 			this.LapLine = track.LapLine;
