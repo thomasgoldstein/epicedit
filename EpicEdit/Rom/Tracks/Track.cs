@@ -77,19 +77,19 @@ namespace EpicEdit.Rom.Tracks
 			return this.Theme.GetBackgroundTile(index);
 		}
 
-		public void Import(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		public void Import(string filePath, Game game)
 		{
 			string ext = Path.GetExtension(filePath).ToUpperInvariant();
 
 			switch (ext)
 			{
 				case ".MKT":
-					this.ImportMkt(filePath, themes);
+					this.ImportMkt(filePath, game.Themes);
 					break;
 
 				default:
 				case ".SMKC":
-					MakeTrack track = new MakeTrack(filePath, this, themes, overlayTileSizes, overlayTilePatterns);
+					MakeTrack track = new MakeTrack(filePath, this, game);
 					this.ImportSmkc(track);
 					break;
 			}
@@ -135,14 +135,14 @@ namespace EpicEdit.Rom.Tracks
 			this.AI = track.AI;
 		}
 
-		public void Export(string filePath, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		public void Export(string filePath, Game game)
 		{
 			string ext = Path.GetExtension(filePath).ToUpperInvariant();
 
 			switch (ext)
 			{
 				case ".MKT":
-					this.ExportMkt(filePath, themes);
+					this.ExportMkt(filePath, game.Themes);
 					break;
 
 				default:

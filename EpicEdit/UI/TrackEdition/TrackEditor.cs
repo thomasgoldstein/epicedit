@@ -322,7 +322,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			try
 			{
-				this.track.Import(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
+				this.track.Import(filePath, MainForm.SmkGame);
 				this.trackTreeView.MarkTrackAsChanged();
 				this.UpdateControlsOnTrackImport();
 				this.DisplayNewTrack();
@@ -393,7 +393,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			try
 			{
-				this.track.Export(filePath, MainForm.SmkGame.Themes, MainForm.SmkGame.OverlayTileSizes, MainForm.SmkGame.OverlayTilePatterns);
+				this.track.Export(filePath, MainForm.SmkGame);
 			}
 			catch (UnauthorizedAccessException ex)
 			{

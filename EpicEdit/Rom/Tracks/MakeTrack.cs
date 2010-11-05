@@ -197,12 +197,12 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte[] AREA_BORDER;
 
-		public MakeTrack(string filePath, Track track, Themes themes, OverlayTileSizes overlayTileSizes, OverlayTilePatterns overlayTilePatterns)
+		public MakeTrack(string filePath, Track track, Game game)
 		{
 			this.track = track;
-			this.themes = themes;
-			this.overlayTileSizes = overlayTileSizes;
-			this.overlayTilePatterns = overlayTilePatterns;
+			this.themes = game.Themes;
+			this.overlayTileSizes = game.OverlayTileSizes;
+			this.overlayTilePatterns = game.OverlayTilePatterns;
 
 			this.Import(filePath);
 		}
