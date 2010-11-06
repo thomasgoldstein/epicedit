@@ -34,9 +34,7 @@ namespace EpicEdit.Rom
 		private string filePath;
 
 		private Track track;
-		private Themes themes;
-		private OverlayTileSizes overlayTileSizes;
-		private OverlayTilePatterns overlayTilePatterns;
+		private Game game;
 
 		public TrackMap Map
 		{
@@ -50,7 +48,7 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return this.themes[this.SP_REGION[1] >> 1];
+				return this.game.Themes[this.SP_REGION[1] >> 1];
 			}
 		}
 
@@ -59,8 +57,8 @@ namespace EpicEdit.Rom
 			get
 			{
 				return new OverlayTiles(this.GPEX,
-										this.overlayTileSizes,
-										this.overlayTilePatterns);
+										this.game.OverlayTileSizes,
+										this.game.OverlayTilePatterns);
 			}
 		}
 
@@ -200,9 +198,7 @@ namespace EpicEdit.Rom
 		public MakeTrack(string filePath, Track track, Game game)
 		{
 			this.track = track;
-			this.themes = game.Themes;
-			this.overlayTileSizes = game.OverlayTileSizes;
-			this.overlayTilePatterns = game.OverlayTilePatterns;
+			this.game = game;
 
 			this.Import(filePath);
 		}
