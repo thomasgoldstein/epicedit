@@ -24,11 +24,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
 	/// </summary>
 	public class OverlayTiles : IEnumerable<OverlayTile>
 	{
+		private OverlayTileSizes sizes;
+		private OverlayTilePatterns patterns;
 		private List<OverlayTile> overlayTiles;
 
 		public OverlayTiles(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
 		{
-			this.SetBytes(data, sizes, patterns);
+			this.sizes = sizes;
+			this.patterns = patterns;
+			this.SetBytes(data);
 		}
 
 		public IEnumerator<OverlayTile> GetEnumerator()
@@ -54,7 +58,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			get { return this.overlayTiles[index]; }
 		}
 
-		private void SetBytes(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
+		private void SetBytes(byte[] data)
 		{
 			if (data.Length != 128)
 			{
@@ -72,8 +76,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
 					break;
 				}
 
-				OverlayTileSize size = sizes[(data[index] & 0xC0) >> 6];
-				OverlayTilePattern pattern = patterns[data[index] & 0x3F];
+				OverlayTileSize size = this.sizes[(data[index] & 0xC0) >> 6];
+				OverlayTilePattern pattern = this.patterns[data[index] & 0x3F];
 
 				if (pattern.Size != size)
 				{
@@ -94,10 +98,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		/// <summary>
 		/// Returns the OverlayTiles data as a byte array, in the format the SMK ROM expects.
 		/// </summary>
-		/// <param name="sizes">The collection of overlay tile sizes.</param>
-		/// <param name="patterns">The collection of overlay tile patterns.</param>
 		/// <returns>The OverlayTiles bytes.</returns>
-		public byte[] GetBytes(OverlayTileSizes sizes, OverlayTilePatterns patterns)
+		public byte[] GetBytes()
 		{
 			byte[] data = new byte[128];
 
@@ -105,7 +107,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			{
 				int index = overlayTileIndex * 3;
 				OverlayTile overlayTile = this.overlayTiles[overlayTileIndex];
-				overlayTile.GetBytes(data, index, sizes, patterns);
+				overlayTile.GetBytes(data, index, this.sizes, this.patterns);
 			}
 
 			for (int index = this.overlayTiles.Count * 3; index < data.Length; index++)
