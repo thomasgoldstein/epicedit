@@ -5,7 +5,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 v2.0 (???)
 
-- Added ability to import MAKE tracks (by teknix1)
+- Added ability to import / export MAKE (.smkc) tracks (partly by teknix1)
 - Added ability to drag and drop track files onto the editor
 - Centered zoom position (and on mouse cursor, when mouse-wheel zooming)
 - Made drawing logic more robust, fixed graphics rendering on Mac
