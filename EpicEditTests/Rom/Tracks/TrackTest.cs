@@ -13,12 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
-using EpicEdit.Rom.Tracks.Overlay;
 using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks
@@ -26,70 +22,167 @@ namespace EpicEditTests.Rom.Tracks
 	[TestFixture]
 	public class TrackTest
 	{
-		private Smk smk;
-		private Track track;
-		private Theme theme;
+		private Game game;
 
 		public TrackTest()
 		{
-			this.smk = new Smk();
+			this.game = new Game(File.RelativePath + "smk.smc");
+		}
 
-			byte[] map = new byte[128 * 128];
-			for (int x = 0; x < 128; x++)
-			{
-				for (int y = 0; y < 128; y++)
-				{
-					map[x + y * 128] = 1;
-				}
-			}
+		private void TestMktImportExport(int trackGroupId, int trackId)
+		{
+			Track track1 = this.game.GetTrack(trackGroupId, trackId);
+			Track track2 = this.game.GetTrack(0, 0);
 
-			Tile[] tiles = new Tile[10];
-			for (int i = 0; i < 10; i++)
-			{
-				Bitmap image = new Bitmap(10, 10, PixelFormat.Format24bppRgb);
-				tiles[i] = new StillTile(image, TileGenre.Road);
-			}
-			this.theme = new Theme("Theme Test", new Palette[16], tiles, tiles, new Music());
+			track1.Export("track.mkt", this.game);
+			track2.Import("track.mkt", this.game);
 
-			this.track = new GPTrack("Stifu & Midwife's Track", this.theme,
-									 map, new byte[128],
-									 new byte[0], new byte[0],
-									 new byte[6], new byte[6],
-									 new byte[44], new byte[10],
-									 this.smk.OverlayTileSizes,
-									 this.smk.OverlayTilePatterns);
+			Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
+			Assert.AreEqual(game.Themes.GetThemeId(track1.Theme), game.Themes.GetThemeId(track2.Theme));
 		}
 
 		[Test]
-		public void TestName()
+		public void TestMktImportExport1()
 		{
-			Assert.AreEqual("Stifu & Midwife's Track", this.track.Name);
+			this.TestMktImportExport(0, 0);
 		}
 
 		[Test]
-		public void TestMap()
+		public void TestMktImportExport2()
 		{
-			Assert.AreEqual(1, this.track.Map[0, 0]);
+			this.TestMktImportExport(0, 1);
 		}
 
 		[Test]
-		public void TestTheme()
+		public void TestMktImportExport3()
 		{
-			Assert.AreEqual(this.theme, this.track.Theme);
+			this.TestMktImportExport(0, 2);
 		}
 
 		[Test]
-		public void TestRoadTiles()
+		public void TestMktImportExport4()
 		{
-			Assert.AreEqual(10, this.track.GetRoadTile(0).Bitmap.Height);
+			this.TestMktImportExport(0, 3);
 		}
 
 		[Test]
-		public void TestBackgroundTiles()
+		public void TestMktImportExport5()
 		{
-			Assert.AreEqual(10, this.track.GetBackgroundTile(0).Bitmap.Height);
+			this.TestMktImportExport(0, 4);
 		}
 
-		// TODO: Test track map export and import
+		[Test]
+		public void TestMktImportExport6()
+		{
+			this.TestMktImportExport(1, 0);
+		}
+
+		[Test]
+		public void TestMktImportExport7()
+		{
+			this.TestMktImportExport(1, 1);
+		}
+
+		[Test]
+		public void TestMktImportExport8()
+		{
+			this.TestMktImportExport(1, 2);
+		}
+
+		[Test]
+		public void TestMktImportExport9()
+		{
+			this.TestMktImportExport(1, 3);
+		}
+
+		[Test]
+		public void TestMktImportExport10()
+		{
+			this.TestMktImportExport(1, 4);
+		}
+
+		[Test]
+		public void TestMktImportExport11()
+		{
+			this.TestMktImportExport(2, 0);
+		}
+
+		[Test]
+		public void TestMktImportExport12()
+		{
+			this.TestMktImportExport(2, 1);
+		}
+
+		[Test]
+		public void TestMktImportExport13()
+		{
+			this.TestMktImportExport(2, 2);
+		}
+
+		[Test]
+		public void TestMktImportExport14()
+		{
+			this.TestMktImportExport(2, 3);
+		}
+
+		[Test]
+		public void TestMktImportExport15()
+		{
+			this.TestMktImportExport(2, 4);
+		}
+
+		[Test]
+		public void TestMktImportExport16()
+		{
+			this.TestMktImportExport(3, 0);
+		}
+
+		[Test]
+		public void TestMktImportExport17()
+		{
+			this.TestMktImportExport(3, 1);
+		}
+
+		[Test]
+		public void TestMktImportExport18()
+		{
+			this.TestMktImportExport(3, 2);
+		}
+
+		[Test]
+		public void TestMktImportExport19()
+		{
+			this.TestMktImportExport(3, 3);
+		}
+
+		[Test]
+		public void TestMktImportExport20()
+		{
+			this.TestMktImportExport(3, 4);
+		}
+
+		[Test]
+		public void TestMktImportExport21()
+		{
+			this.TestMktImportExport(4, 0);
+		}
+
+		[Test]
+		public void TestMktImportExport22()
+		{
+			this.TestMktImportExport(4, 1);
+		}
+
+		[Test]
+		public void TestMktImportExport23()
+		{
+			this.TestMktImportExport(4, 2);
+		}
+
+		[Test]
+		public void TestMktImportExport24()
+		{
+			this.TestMktImportExport(4, 3);
+		}
 	}
 }
