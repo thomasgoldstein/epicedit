@@ -200,7 +200,46 @@ namespace EpicEdit.Rom
 			this.track = track;
 			this.game = game;
 
+			this.InitFields();
 			this.Import(filePath);
+		}
+
+		/// <summary>
+		/// Set fields to default values (in case the imported file or the loaded data is incomplete).
+		/// </summary>
+		private void InitFields()
+		{
+			this.SP_STX = new byte[2];
+			this.SP_STY = new byte[2];
+			this.SP_STW = new byte[2];
+			this.SP_LSPX = new byte[2];
+			this.SP_LSPY = new byte[2];
+			this.SP_LSPW = new byte[2];
+			this.SP_LSPH = new byte[2];
+			this.SP_LSLY = new byte[2];
+			this.SP_REGION = new byte[] { 0, 2 };
+
+			this.MAP = new byte[16384];
+
+			this.GPEX = new byte[128];
+			for (int i = 0; i < this.GPEX.Length; i++)
+			{
+				this.GPEX[i] = 0xFF;
+			}
+
+			this.AREA = new byte[4064];
+			for (int i = 0; i < this.AREA.Length; i++)
+			{
+				this.AREA[i] = 0xFF;
+			}
+
+			this.OBJ = new byte[64];
+
+			this.AREA_BORDER = new byte[10];
+			for (int i = 0; i < this.AREA_BORDER.Length; i++)
+			{
+				this.AREA_BORDER[i] = 0xFF;
+			}
 		}
 
 		/// <summary>
