@@ -67,5 +67,26 @@ namespace EpicEdit.Rom.Tracks
 				}
 			}
 		}
+
+		/// <summary>
+		/// Loads the GPTrack-specific items to the MakeTrack object.
+		/// </summary>
+		protected override void LoadDataTo(MakeTrack track)
+		{
+			base.LoadDataTo(track);
+
+			track.StartPosition = this.StartPosition;
+			track.LapLine = this.LapLine;
+
+			if (this.Objects != null) // If the track objects are not ghost pillars
+			{
+				track.Objects = this.Objects;
+
+				if (!this.ObjectZones.ReadOnly)
+				{
+					track.ObjectZones = this.ObjectZones;
+				}
+			}
+		}
 	}
 }
