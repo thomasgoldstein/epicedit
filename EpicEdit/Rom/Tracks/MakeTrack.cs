@@ -15,6 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
@@ -42,6 +44,10 @@ namespace EpicEdit.Rom
 			{
 				return new TrackMap(this.MAP);
 			}
+			set
+			{
+				this.MAP = value.GetBytes();
+			}
 		}
 
 		public Theme Theme
@@ -49,6 +55,10 @@ namespace EpicEdit.Rom
 			get
 			{
 				return this.game.Themes[this.SP_REGION[1] >> 1];
+			}
+			set
+			{
+				this.SP_REGION = new byte[] {0, this.game.Themes.GetThemeId(value)};
 			}
 		}
 
@@ -59,6 +69,10 @@ namespace EpicEdit.Rom
 				return new OverlayTiles(this.GPEX,
 										this.game.OverlayTileSizes,
 										this.game.OverlayTilePatterns);
+			}
+			set
+			{
+				this.GPEX = value.GetBytes();
 			}
 		}
 
@@ -82,6 +96,12 @@ namespace EpicEdit.Rom
 
 				return new StartPosition(x, y, w);
 			}
+			set
+			{
+				this.SP_STX = new byte[] { (byte)((value.X & 0xFF00) >> 8), (byte)(value.X & 0xFF) };
+				this.SP_STY = new byte[] { (byte)((value.Y & 0xFF00) >> 8), (byte)(value.Y & 0xFF) };
+				this.SP_STW = new byte[] { (byte)((value.SecondRowOffset & 0xFF00) >> 8), (byte)(value.SecondRowOffset & 0xFF) };
+			}
 		}
 
 		public LapLine LapLine
@@ -99,6 +119,15 @@ namespace EpicEdit.Rom
 				};
 				return new LapLine(data);
 			}
+			set
+			{
+				byte[] data = value.GetBytes();
+				this.SP_LSLY = new byte[] { data[1], data[0] };
+				this.SP_LSPX = new byte[] { 0, data[2] };
+				this.SP_LSPY = new byte[] { 0, data[3] };
+				this.SP_LSPW = new byte[] { 0, data[4] };
+				this.SP_LSPH = new byte[] { 0, data[5] };
+			}
 		}
 
 		public TrackObjects Objects
@@ -109,6 +138,12 @@ namespace EpicEdit.Rom
 				Array.Copy(this.OBJ, data, data.Length);
 				return new TrackObjects(data);
 			}
+			set
+			{
+				int size = this.OBJ.Length;
+				this.OBJ = value.GetBytes();
+				Array.Resize<byte>(ref this.OBJ, size);
+			}
 		}
 
 		public TrackObjectZones ObjectZones
@@ -116,6 +151,10 @@ namespace EpicEdit.Rom
 			get
 			{
 				return new TrackObjectZones(this.AREA_BORDER);
+			}
+			set
+			{
+				this.AREA_BORDER = value.GetBytes();
 			}
 		}
 
@@ -126,6 +165,10 @@ namespace EpicEdit.Rom
 				byte[] targetData, zoneData;
 				this.GetAIData(out targetData, out zoneData);
 				return new TrackAI(zoneData, targetData, this.track);
+			}
+			set
+			{
+				this.SetAIData(value);
 			}
 		}
 
@@ -206,13 +249,11 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte[] AREA_BORDER;
 
-		public MakeTrack(string filePath, Track track, Game game)
+		public MakeTrack(Track track, Game game)
 		{
 			this.track = track;
 			this.game = game;
-
 			this.InitFields();
-			this.Import(filePath);
 		}
 
 		/// <summary>
@@ -290,10 +331,34 @@ namespace EpicEdit.Rom
 			zoneData = zoneDataList.ToArray();
 		}
 
+		private void SetAIData(TrackAI ai)
+		{
+			int lineLength = 32; // Byte count per line
+			byte[] data = ai.GetBytes();
+			int index = 0;
+
+			for (int x = 0; x < ai.ElementCount; x++)
+			{
+				this.AREA[x * lineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
+				this.AREA[x * lineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
+				this.AREA[x * lineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
+
+				byte zoneShape = data[index++];
+				this.AREA[x * lineLength + 16] = zoneShape;
+				this.AREA[x * lineLength + 17] = data[index++];
+				this.AREA[x * lineLength + 18] = data[index++];
+				this.AREA[x * lineLength + 19] = data[index++];
+				if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
+				{
+					this.AREA[x * lineLength + 20] = data[index++];
+				}
+			}
+		}
+
 		/// <summary>
 		/// Reads the MAKE file and sets the members with data.
 		/// </summary>
-		private void Import(string filePath)
+		public void Load(string filePath)
 		{
 			this.filePath = filePath;
 
@@ -370,6 +435,66 @@ namespace EpicEdit.Rom
 
 					line = reader.ReadLine();
 				}
+			}
+		}
+
+		public void Save(string filePath)
+		{
+			this.filePath = filePath;
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
+
+			sb.AppendFormat("#SP_STX {0:X2}{1:X2}", this.SP_STX[0], this.SP_STX[1]).AppendLine();
+			sb.AppendFormat("#SP_STY {0:X2}{1:X2}", this.SP_STY[0], this.SP_STY[1]).AppendLine();
+			sb.AppendFormat("#SP_STW {0:X2}{1:X2}", this.SP_STW[0], this.SP_STW[1]).AppendLine();
+			sb.AppendFormat("#SP_LSPX {0:X2}{1:X2}", this.SP_LSPX[0], this.SP_LSPX[1]).AppendLine();
+			sb.AppendFormat("#SP_LSPY {0:X2}{1:X2}", this.SP_LSPY[0], this.SP_LSPY[1]).AppendLine();
+			sb.AppendFormat("#SP_LSPW {0:X2}{1:X2}", this.SP_LSPW[0], this.SP_LSPW[1]).AppendLine();
+			sb.AppendFormat("#SP_LSPH {0:X2}{1:X2}", this.SP_LSPH[0], this.SP_LSPH[1]).AppendLine();
+			sb.AppendFormat("#SP_LSLY {0:X2}{1:X2}", this.SP_LSLY[0], this.SP_LSLY[1]).AppendLine();
+			sb.AppendFormat("#SP_REGION {0:X2}{1:X2}", this.SP_REGION[0], this.SP_REGION[1]).AppendLine();
+			// SP_OPN not supported, do not write SP_OPN data
+
+			sb.AppendLine();
+
+			sb.AppendLine("#MAP");
+			MakeTrack.WriteByteArray(sb, this.MAP);
+
+			sb.AppendLine();
+			// MAP_MASK not supported, do not write MAP_MASK data
+
+			sb.AppendLine("#GPEX");
+			MakeTrack.WriteByteArray(sb, this.GPEX);
+
+			sb.AppendLine();
+
+			sb.AppendLine("#AREA");
+			MakeTrack.WriteByteArray(sb, this.AREA);
+
+			sb.AppendLine();
+
+			sb.AppendLine("#OBJ");
+			MakeTrack.WriteByteArray(sb, this.OBJ);
+
+			sb.AppendLine();
+
+			sb.AppendLine("#AREA_BORDER");
+			sb.AppendLine("#" + string.Concat(Array.ConvertAll(this.AREA_BORDER, x => x.ToString("X2"))));
+
+			File.WriteAllText(filePath, sb.ToString());
+		}
+
+		private static void WriteByteArray(StringBuilder sb, byte[] data)
+		{
+			int lineLength = 32; // Byte count per line
+
+			for (int y = 0; y < data.Length / lineLength; y++)
+			{
+				byte[] lineBytes = new byte[lineLength];
+				Array.Copy(data, y * lineLength, lineBytes, 0, lineLength);
+				sb.AppendLine("#" + string.Concat(Array.ConvertAll(lineBytes, x => x.ToString("X2"))));
 			}
 		}
 

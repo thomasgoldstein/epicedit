@@ -128,7 +128,8 @@ namespace EpicEdit.Rom.Tracks
 		/// </summary>
 		private void ImportSmkc(string filePath, Game game)
 		{
-			MakeTrack track = new MakeTrack(filePath, this, game);
+			MakeTrack track = new MakeTrack(this, game);
+			track.Load(filePath);
 			this.LoadDataFrom(track);
 		}
 
@@ -155,7 +156,8 @@ namespace EpicEdit.Rom.Tracks
 
 				default:
 				case ".SMKC":
-					throw new NotImplementedException();
+					this.ExportSmkc(filePath, game);
+					break;
 			}
 		}
 
@@ -171,6 +173,27 @@ namespace EpicEdit.Rom.Tracks
 				byte themeId = game.Themes.GetThemeId(this.Theme);
 				bw.Write(themeId);
 			}
+		}
+
+		/// <summary>
+		/// Exports track as SMKC (MAKE).
+		/// </summary>
+		private void ExportSmkc(string filePath, Game game)
+		{
+			MakeTrack track = new MakeTrack(this, game);
+			this.LoadDataTo(track);
+			track.Save(filePath);
+		}
+
+		/// <summary>
+		/// Loads the regular track items from to MakeTrack object.
+		/// </summary>
+		protected virtual void LoadDataTo(MakeTrack track)
+		{
+			track.Map = this.Map;
+			track.Theme = this.Theme;
+			track.OverlayTiles = this.OverlayTiles;
+			track.AI = this.AI;
 		}
 	}
 }
