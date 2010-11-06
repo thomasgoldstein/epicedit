@@ -88,7 +88,16 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return new LapLine(this.GetLapLineData());
+				byte[] data = new byte[]
+				{
+					this.SP_LSLY[1],
+					this.SP_LSLY[0],
+					this.SP_LSPX[1],
+					this.SP_LSPY[1],
+					this.SP_LSPW[1],
+					this.SP_LSPH[1]
+				};
+				return new LapLine(data);
 			}
 		}
 
@@ -96,7 +105,9 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return new TrackObjects(this.GetObjectData());
+				byte[] data = new byte[44];
+				Array.Copy(this.OBJ, data, data.Length);
+				return new TrackObjects(data);
 			}
 		}
 
@@ -240,32 +251,6 @@ namespace EpicEdit.Rom
 			{
 				this.AREA_BORDER[i] = 0xFF;
 			}
-		}
-
-		/// <summary>
-		/// Converts the MAKE data into the lap line data Epic Edit expects.
-		/// </summary>
-		private byte[] GetLapLineData()
-		{
-			return new byte[]
-			{
-				this.SP_LSLY[1],
-				this.SP_LSLY[0],
-				this.SP_LSPX[1],
-				this.SP_LSPY[1],
-				this.SP_LSPW[1],
-				this.SP_LSPH[1]
-			};
-		}
-
-		/// <summary>
-		/// Epic Edit expects 44 bytes for the object data, this method removes anything over 44 bytes.
-		/// </summary>
-		private byte[] GetObjectData()
-		{
-			byte[] ret = new byte[44];
-			Array.Copy(this.OBJ, ret, ret.Length);
-			return ret;
 		}
 
 		/// <summary>
