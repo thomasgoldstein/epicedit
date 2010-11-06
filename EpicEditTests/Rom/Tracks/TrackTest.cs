@@ -33,7 +33,7 @@ namespace EpicEditTests.Rom.Tracks
 		public TrackTest()
 		{
 			this.smk = new Smk();
-			
+
 			byte[] map = new byte[128 * 128];
 			for (int x = 0; x < 128; x++)
 			{
