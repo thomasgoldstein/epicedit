@@ -263,15 +263,9 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte[] GetObjectData()
 		{
-			int size = 44;
-			if (this.OBJ.Length > size)
-			{
-				byte[] ret = new byte[size];
-				Array.Copy(this.OBJ, ret, size);
-				return ret;
-			}
-
-			return this.OBJ;
+			byte[] ret = new byte[44];
+			Array.Copy(this.OBJ, ret, ret.Length);
+			return ret;
 		}
 
 		/// <summary>
@@ -324,88 +318,77 @@ namespace EpicEdit.Rom
 				{
 					if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
 					{
-						this.SP_STX = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_STX, line);
 					}
 					else if (line.StartsWith("#SP_STY ", StringComparison.Ordinal))
 					{
-						this.SP_STY = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_STY, line);
 					}
 					else if (line.StartsWith("#SP_STW ", StringComparison.Ordinal))
 					{
-						this.SP_STW = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_STW, line);
 					}
 					else if (line.StartsWith("#SP_LSPX ", StringComparison.Ordinal))
 					{
-						this.SP_LSPX = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_LSPX, line);
 					}
 					else if (line.StartsWith("#SP_LSPY ", StringComparison.Ordinal))
 					{
-						this.SP_LSPY = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_LSPY, line);
 					}
 					else if (line.StartsWith("#SP_LSPW ", StringComparison.Ordinal))
 					{
-						this.SP_LSPW = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_LSPW, line);
 					}
 					else if (line.StartsWith("#SP_LSPH ", StringComparison.Ordinal))
 					{
-						this.SP_LSPH = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_LSPH, line);
 					}
 					else if (line.StartsWith("#SP_LSLY ", StringComparison.Ordinal))
 					{
-						this.SP_LSLY = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_LSLY, line);
 					}
 					else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
 					{
-						this.SP_REGION = MakeTrack.GetLineData(line);
+						MakeTrack.LoadLineData(this.SP_REGION, line);
 					}
 					/*else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
 					{
-						this.SP_OPN = MakeTrack.GetLineData(line);
+						MakeTrack.LoadData(this.SP_OPN, line);
 					}*/
 					else if (line.Equals("#MAP", StringComparison.Ordinal))
 					{
-						this.MAP = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.MAP, reader);
 					}
 					/*else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
 					{
-						this.MAPMASK = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.MAPMASK, reader);
 					}*/
 					else if (line.Equals("#GPEX", StringComparison.Ordinal))
 					{
-						this.GPEX = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.GPEX, reader);
 					}
 					else if (line.Equals("#AREA", StringComparison.Ordinal))
 					{
-						this.AREA = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.AREA, reader);
 					}
 					else if (line.Equals("#OBJ", StringComparison.Ordinal))
 					{
-						this.OBJ = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.OBJ, reader);
 					}
 					else if (line.Equals("#AREA_BORDER", StringComparison.Ordinal))
 					{
-						this.AREA_BORDER = MakeTrack.GetBlockData(reader);
+						MakeTrack.LoadBlockData(this.AREA_BORDER, reader);
 					}
 
 					line = reader.ReadLine();
 				}
 			}
-
-			this.CheckData();
-		}
-
-		private void CheckData()
-		{
-			if (this.MAP.Length != 16384 || this.GPEX.Length != 128)
-			{
-				throw new InvalidDataException("File \"" + Path.GetFileName(this.filePath) + "\"" + Environment.NewLine +
-											   "isn't a valid track file and couldn't be imported!");
-			}
 		}
 
 		#region Extract Data
 
-		private static byte[] GetLineData(string line)
+		private static void LoadLineData(byte[] field, string line)
 		{
 			int space = line.IndexOf(' ');
 			if (space == -1)
@@ -419,21 +402,20 @@ namespace EpicEdit.Rom
 				throw new InvalidDataException("Invalid data length");
 			}
 
-			return Utilities.HexStringToByteArray(line);
+			Utilities.LoadByteArrayFromString(field, line);
 		}
 
-		private static byte[] GetBlockData(TextReader reader)
+		private static void LoadBlockData(byte[] field, TextReader reader)
 		{
-			List<byte> ret = new List<byte>();
-
+			int index = 0;
 			string line = reader.ReadLine();
 			while (!string.IsNullOrEmpty(line) && line[0] == '#')
 			{
-				ret.AddRange(Utilities.HexStringToByteArray(line.Substring(1)));
+				byte[] lineBytes = Utilities.HexStringToByteArray(line.Substring(1));
+				Array.Copy(lineBytes, 0, field, index, lineBytes.Length);
 				line = reader.ReadLine();
+				index += lineBytes.Length;
 			}
-
-			return ret.ToArray();
 		}
 
 		#endregion Extract Data
