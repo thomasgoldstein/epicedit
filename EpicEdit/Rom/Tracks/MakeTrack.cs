@@ -503,11 +503,6 @@ namespace EpicEdit.Rom
 		private static void LoadLineData(byte[] field, string line)
 		{
 			int space = line.IndexOf(' ');
-			if (space == -1)
-			{
-				throw new InvalidDataException("Unable to find space character");
-			}
-
 			line = line.Substring(space).Trim();
 			if (line.Length % 2 != 0)
 			{
