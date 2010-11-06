@@ -1197,7 +1197,7 @@ namespace EpicEdit.Rom
 			this.romBuffer[themeIdOffset] = themeId;
 
 			// Update overlay tiles
-			byte[] overlayTileData = track.OverlayTiles.GetBytes(this.overlayTileSizes, this.overlayTilePatterns);
+			byte[] overlayTileData = track.OverlayTiles.GetBytes();
 			this.SaveOverlayTileData(trackIndex, overlayTileData);
 
 			if (track is GPTrack)
