@@ -53,7 +53,7 @@ namespace EpicEditTests.Rom.Tracks.Overlay
 			};
 
 			OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-			byte[] dataAfter = overlayTiles.GetBytes(this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
+			byte[] dataAfter = overlayTiles.GetBytes();
 
 			Assert.AreEqual(dataBefore, dataAfter);
 		}
@@ -82,7 +82,7 @@ namespace EpicEditTests.Rom.Tracks.Overlay
 			};
 
 			OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-			byte[] dataAfter = overlayTiles.GetBytes(this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
+			byte[] dataAfter = overlayTiles.GetBytes();
 
 			Assert.AreEqual(dataBefore, dataAfter);
 		}
@@ -111,7 +111,7 @@ namespace EpicEditTests.Rom.Tracks.Overlay
 			};
 
 			OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-			byte[] dataAfter = overlayTiles.GetBytes(this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
+			byte[] dataAfter = overlayTiles.GetBytes();
 
 			Assert.AreEqual(dataBefore, dataAfter);
 		}
