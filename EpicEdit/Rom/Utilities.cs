@@ -407,20 +407,20 @@ namespace EpicEdit.Rom
 
 		#endregion Decrypt ROM Text
 
-		public static byte[] HexStringToByteArray(string input)
+		public static byte[] HexStringToByteArray(string data)
 		{
-			byte[] bytes = new byte[input.Length / 2];
-			Utilities.LoadByteArrayFromHexString(bytes, input);
+			byte[] bytes = new byte[data.Length / 2];
+			Utilities.LoadByteArrayFromHexString(bytes, data);
 			return bytes;
 		}
 
-		public static void LoadByteArrayFromHexString(byte[] bytes, string input)
+		public static void LoadByteArrayFromHexString(byte[] bytes, string hex)
 		{
 			int bl = bytes.Length;
 			for (int i = 0; i < bl; ++i)
 			{
-				bytes[i] = (byte)((input[2 * i] > 'F' ? input[2 * i] - 0x57 : input[2 * i] > '9' ? input[2 * i] - 0x37 : input[2 * i] - 0x30) << 4);
-				bytes[i] |= (byte)(input[2 * i + 1] > 'F' ? input[2 * i + 1] - 0x57 : input[2 * i + 1] > '9' ? input[2 * i + 1] - 0x37 : input[2 * i + 1] - 0x30);
+				bytes[i] = (byte)((hex[2 * i] > 'F' ? hex[2 * i] - 0x57 : hex[2 * i] > '9' ? hex[2 * i] - 0x37 : hex[2 * i] - 0x30) << 4);
+				bytes[i] |= (byte)(hex[2 * i + 1] > 'F' ? hex[2 * i + 1] - 0x57 : hex[2 * i + 1] > '9' ? hex[2 * i + 1] - 0x37 : hex[2 * i + 1] - 0x30);
 			}
 		}
 
