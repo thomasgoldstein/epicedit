@@ -30,11 +30,6 @@ namespace EpicEdit.Rom
 	/// </summary>
 	public class MakeTrack
 	{
-		/// <summary>
-		/// Path to the imported file.
-		/// </summary>
-		private string filePath;
-
 		private Track track;
 		private Game game;
 
@@ -360,8 +355,6 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public void Load(string filePath)
 		{
-			this.filePath = filePath;
-
 			using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
 			using (TextReader reader = new StreamReader(fs))
 			{
@@ -440,8 +433,6 @@ namespace EpicEdit.Rom
 
 		public void Save(string filePath)
 		{
-			this.filePath = filePath;
-
 			StringBuilder sb = new StringBuilder();
 
 			sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
