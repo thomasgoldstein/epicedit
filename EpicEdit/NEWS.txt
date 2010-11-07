@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.0 (???)
+v2.0 (November 7th 2010)
 
 - Added ability to import / export MAKE (.smkc) tracks (partly by teknix1)
 - Added ability to drag and drop track files onto the editor
