@@ -424,17 +424,19 @@ namespace EpicEdit.Rom
 
 		public static string ByteArrayToHexString(byte[] data)
 		{
-			char[] lookup = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-			int i = 0, p = 0, l = data.Length;
-			char[] c = new char[l * 2];
-			byte d;
-			while (i < l)
+			byte b;
+			int i, j, k;
+			int l = data.Length;
+			char[] r = new char[l * 2];
+			for (i = 0, j = 0; i < l; ++i)
 			{
-				d = data[i++];
-				c[p++] = lookup[d / 0x10];
-				c[p++] = lookup[d % 0x10];
+				b = data[i];
+				k = b >> 4;
+				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
+				k = b & 15;
+				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
 			}
-			return new string(c, 0, c.Length);
+			return new string(r);
 		}
 	}
 }
