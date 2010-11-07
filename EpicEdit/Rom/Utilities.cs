@@ -407,6 +407,8 @@ namespace EpicEdit.Rom
 
 		#endregion Decrypt ROM Text
 
+		#region String <-> Bytes conversion
+
 		public static byte[] HexStringToByteArray(string data)
 		{
 			byte[] bytes = new byte[data.Length / 2];
@@ -440,5 +442,7 @@ namespace EpicEdit.Rom
 			}
 			return new string(r);
 		}
+
+		#endregion String <-> Bytes conversion
 	}
 }
