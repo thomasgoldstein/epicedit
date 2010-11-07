@@ -410,11 +410,11 @@ namespace EpicEdit.Rom
 		public static byte[] HexStringToByteArray(string input)
 		{
 			byte[] bytes = new byte[(input.Length) / 2];
-			Utilities.LoadByteArrayFromString(bytes, input);
+			Utilities.LoadByteArrayFromHexString(bytes, input);
 			return bytes;
 		}
 
-		public static void LoadByteArrayFromString(byte[] bytes, string input)
+		public static void LoadByteArrayFromHexString(byte[] bytes, string input)
 		{
 			for (int x = 0; x < bytes.Length; x++)
 			{

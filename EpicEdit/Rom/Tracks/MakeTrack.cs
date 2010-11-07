@@ -509,7 +509,7 @@ namespace EpicEdit.Rom
 				throw new InvalidDataException("Invalid data length");
 			}
 
-			Utilities.LoadByteArrayFromString(field, line);
+			Utilities.LoadByteArrayFromHexString(field, line);
 		}
 
 		private static void LoadBlockData(byte[] field, TextReader reader)
