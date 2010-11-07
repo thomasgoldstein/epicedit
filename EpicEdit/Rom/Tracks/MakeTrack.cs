@@ -481,7 +481,7 @@ namespace EpicEdit.Rom
 			sb.AppendLine();
 
 			sb.AppendLine("#AREA_BORDER");
-			sb.AppendLine("#" + string.Concat(Array.ConvertAll(this.AREA_BORDER, x => x.ToString("X2"))));
+			sb.AppendLine("#" + Utilities.ByteArrayToHexString(this.AREA_BORDER));
 
 			File.WriteAllText(filePath, sb.ToString());
 		}
@@ -494,7 +494,7 @@ namespace EpicEdit.Rom
 			{
 				byte[] lineBytes = new byte[lineLength];
 				Array.Copy(data, y * lineLength, lineBytes, 0, lineLength);
-				sb.AppendLine("#" + string.Concat(Array.ConvertAll(lineBytes, x => x.ToString("X2"))));
+				sb.AppendLine("#" + Utilities.ByteArrayToHexString(lineBytes));
 			}
 		}
 

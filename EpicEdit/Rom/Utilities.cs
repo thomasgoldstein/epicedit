@@ -421,5 +421,20 @@ namespace EpicEdit.Rom
 				bytes[x] = Convert.ToByte(input.Substring(x * 2, 2), 16);
 			}
 		}
+
+		public static string ByteArrayToHexString(byte[] data)
+		{
+			char[] lookup = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+			int i = 0, p = 0, l = data.Length;
+			char[] c = new char[l * 2];
+			byte d;
+			while (i < l)
+			{
+				d = data[i++];
+				c[p++] = lookup[d / 0x10];
+				c[p++] = lookup[d % 0x10];
+			}
+			return new string(c, 0, c.Length);
+		}
 	}
 }
