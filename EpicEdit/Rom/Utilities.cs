@@ -19,7 +19,7 @@ namespace EpicEdit.Rom
 {
 	internal class Utilities
 	{
-		#region Read Blocks
+		#region Read byte blocks
 
 		/// <summary>
 		/// Reads of a part of the ROM, byte by byte, until we reach a certain amount of bytes.
@@ -144,9 +144,9 @@ namespace EpicEdit.Rom
 			return offsetGroup;
 		}
 
-		#endregion Read Blocks
+		#endregion Read byte blocks
 
-		#region Decrypt ROM Text
+		#region Decrypt ROM text
 
 		/// <summary>
 		/// Decrypts a single character of text data, for a Japanese game.
@@ -405,7 +405,7 @@ namespace EpicEdit.Rom
 			return text;
 		}
 
-		#endregion Decrypt ROM Text
+		#endregion Decrypt ROM text
 
 		#region String <-> Bytes conversion
 
