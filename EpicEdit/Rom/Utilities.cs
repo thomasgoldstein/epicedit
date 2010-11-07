@@ -416,9 +416,11 @@ namespace EpicEdit.Rom
 
 		public static void LoadByteArrayFromHexString(byte[] bytes, string input)
 		{
-			for (int x = 0; x < bytes.Length; x++)
+			int bl = bytes.Length;
+			for (int i = 0; i < bl; ++i)
 			{
-				bytes[x] = Convert.ToByte(input.Substring(x * 2, 2), 16);
+				bytes[i] = (byte)((input[2 * i] > 'F' ? input[2 * i] - 0x57 : input[2 * i] > '9' ? input[2 * i] - 0x37 : input[2 * i] - 0x30) << 4);
+				bytes[i] |= (byte)(input[2 * i + 1] > 'F' ? input[2 * i + 1] - 0x57 : input[2 * i + 1] > '9' ? input[2 * i + 1] - 0x37 : input[2 * i + 1] - 0x30);
 			}
 		}
 
