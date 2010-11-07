@@ -446,15 +446,15 @@ namespace EpicEdit.Rom
 
 			sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
 
-			sb.AppendFormat("#SP_STX {0:X2}{1:X2}", this.SP_STX[0], this.SP_STX[1]).AppendLine();
-			sb.AppendFormat("#SP_STY {0:X2}{1:X2}", this.SP_STY[0], this.SP_STY[1]).AppendLine();
-			sb.AppendFormat("#SP_STW {0:X2}{1:X2}", this.SP_STW[0], this.SP_STW[1]).AppendLine();
-			sb.AppendFormat("#SP_LSPX {0:X2}{1:X2}", this.SP_LSPX[0], this.SP_LSPX[1]).AppendLine();
-			sb.AppendFormat("#SP_LSPY {0:X2}{1:X2}", this.SP_LSPY[0], this.SP_LSPY[1]).AppendLine();
-			sb.AppendFormat("#SP_LSPW {0:X2}{1:X2}", this.SP_LSPW[0], this.SP_LSPW[1]).AppendLine();
-			sb.AppendFormat("#SP_LSPH {0:X2}{1:X2}", this.SP_LSPH[0], this.SP_LSPH[1]).AppendLine();
-			sb.AppendFormat("#SP_LSLY {0:X2}{1:X2}", this.SP_LSLY[0], this.SP_LSLY[1]).AppendLine();
-			sb.AppendFormat("#SP_REGION {0:X2}{1:X2}", this.SP_REGION[0], this.SP_REGION[1]).AppendLine();
+			sb.AppendLine("#SP_STX " + Utilities.ByteArrayToHexString(this.SP_STX));
+			sb.AppendLine("#SP_STY " + Utilities.ByteArrayToHexString(this.SP_STY));
+			sb.AppendLine("#SP_STW " + Utilities.ByteArrayToHexString(this.SP_STW));
+			sb.AppendLine("#SP_LSPX " + Utilities.ByteArrayToHexString(this.SP_LSPX));
+			sb.AppendLine("#SP_LSPY " + Utilities.ByteArrayToHexString(this.SP_LSPY));
+			sb.AppendLine("#SP_LSPW " + Utilities.ByteArrayToHexString(this.SP_LSPW));
+			sb.AppendLine("#SP_LSPH " + Utilities.ByteArrayToHexString(this.SP_LSPH));
+			sb.AppendLine("#SP_LSLY " + Utilities.ByteArrayToHexString(this.SP_LSLY));
+			sb.AppendLine("#SP_REGION " + Utilities.ByteArrayToHexString(this.SP_REGION));
 			// SP_OPN not supported, do not write SP_OPN data
 
 			sb.AppendLine();
