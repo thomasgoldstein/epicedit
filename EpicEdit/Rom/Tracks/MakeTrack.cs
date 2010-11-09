@@ -438,7 +438,7 @@ namespace EpicEdit.Rom
 		{
 			int space = line.IndexOf(' ');
 			line = line.Substring(space).Trim();
-			if (line.Length % 2 != 0)
+			if (line.Length != field.Length * 2)
 			{
 				throw new InvalidDataException("Invalid data length");
 			}
