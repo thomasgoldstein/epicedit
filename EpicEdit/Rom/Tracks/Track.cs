@@ -106,8 +106,8 @@ namespace EpicEdit.Rom.Tracks
 
 				if (fileLength != 16384 && fileLength != 16385)
 				{
-					throw new InvalidDataException("File \"" + Path.GetFileName(filePath) + "\"" + Environment.NewLine +
-												   "isn't a valid track file and couldn't be imported!");
+					throw new InvalidDataException("\"" + Path.GetFileName(filePath) + "\"" + Environment.NewLine +
+												   "isn't a valid track file. Import aborted.");
 				}
 
 				byte[] mapData = new byte[16384];
