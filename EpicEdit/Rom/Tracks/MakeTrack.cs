@@ -476,23 +476,23 @@ namespace EpicEdit.Rom
 			sb.AppendLine();
 
 			sb.AppendLine("#MAP");
-			MakeTrack.WriteByteArray(sb, this.MAP);
+			MakeTrack.AppendBlockData(sb, this.MAP);
 
 			sb.AppendLine();
 			// MAP_MASK not supported, do not write MAP_MASK data
 
 			sb.AppendLine("#GPEX");
-			MakeTrack.WriteByteArray(sb, this.GPEX);
+			MakeTrack.AppendBlockData(sb, this.GPEX);
 
 			sb.AppendLine();
 
 			sb.AppendLine("#AREA");
-			MakeTrack.WriteByteArray(sb, this.AREA);
+			MakeTrack.AppendBlockData(sb, this.AREA);
 
 			sb.AppendLine();
 
 			sb.AppendLine("#OBJ");
-			MakeTrack.WriteByteArray(sb, this.OBJ);
+			MakeTrack.AppendBlockData(sb, this.OBJ);
 
 			sb.AppendLine();
 
@@ -502,7 +502,7 @@ namespace EpicEdit.Rom
 			File.WriteAllText(filePath, sb.ToString());
 		}
 
-		private static void WriteByteArray(StringBuilder sb, byte[] data)
+		private static void AppendBlockData(StringBuilder sb, byte[] data)
 		{
 			int lineLength = 32; // Byte count per line
 
