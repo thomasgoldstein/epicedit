@@ -453,9 +453,21 @@ namespace EpicEdit.Rom
 			while (!string.IsNullOrEmpty(line) && line[0] == '#')
 			{
 				byte[] lineBytes = Utilities.HexStringToByteArray(line.Substring(1));
-				Array.Copy(lineBytes, 0, field, index, lineBytes.Length);
+				int lineBytesLength = lineBytes.Length;
+
+				if (index + lineBytesLength > field.Length)
+				{
+					throw new InvalidDataException("Invalid data length.");
+				}
+
+				Array.Copy(lineBytes, 0, field, index, lineBytesLength);
 				line = reader.ReadLine();
-				index += lineBytes.Length;
+				index += lineBytesLength;
+			}
+
+			if (index != field.Length)
+			{
+				throw new InvalidDataException("Invalid data length.");
 			}
 		}
 
