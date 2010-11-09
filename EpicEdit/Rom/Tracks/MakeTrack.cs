@@ -213,7 +213,7 @@ namespace EpicEdit.Rom
 		private byte[] SP_REGION;
 
 		/*/// <summary>
-		/// Object behavior.
+		/// Object Behavior.
 		/// </summary>
 		private byte[] SP_OPN;*/
 
@@ -290,7 +290,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Converts the MAKE data into the AI target and zone data into the format Epic Edit expects.
+		/// Converts the MAKE AI data into the target and zone data format that Epic Edit expects.
 		/// </summary>
 		private void GetAIData(out byte[] targetData, out byte[] zoneData)
 		{
@@ -326,6 +326,9 @@ namespace EpicEdit.Rom
 			zoneData = zoneDataList.ToArray();
 		}
 
+		/// <summary>
+		/// Sets the AI data with the TrackAI object converted into the MAKE track format.
+		/// </summary>
 		private void SetAIData(TrackAI ai)
 		{
 			int lineLength = 32; // Byte count per line
@@ -351,7 +354,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Reads the MAKE file and sets the members with data.
+		/// Loads the MAKE track file data.
 		/// </summary>
 		public void Load(string filePath)
 		{
@@ -456,6 +459,9 @@ namespace EpicEdit.Rom
 			}
 		}
 
+		/// <summary>
+		/// Saves the data as a MAKE track file.
+		/// </summary>
 		public void Save(string filePath)
 		{
 			StringBuilder sb = new StringBuilder();
