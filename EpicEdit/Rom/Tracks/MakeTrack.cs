@@ -441,7 +441,7 @@ namespace EpicEdit.Rom
 			if (line.Length != field.Length * 2)
 			{
 				// Data length is higher or lower than expected
-				throw new InvalidDataException("Invalid data length.");
+				throw new InvalidDataException("Invalid data length. Import aborted.");
 			}
 
 			Utilities.LoadByteArrayFromHexString(field, line);
@@ -459,7 +459,7 @@ namespace EpicEdit.Rom
 				if (index + lineBytesLength > field.Length)
 				{
 					// Data length is higher than expected
-					throw new InvalidDataException("Invalid data length.");
+					throw new InvalidDataException("Invalid data length. Import aborted.");
 				}
 
 				Array.Copy(lineBytes, 0, field, index, lineBytesLength);
@@ -470,7 +470,7 @@ namespace EpicEdit.Rom
 			if (index != field.Length)
 			{
 				// Data length is lower than expected
-				throw new InvalidDataException("Invalid data length.");
+				throw new InvalidDataException("Invalid data length. Import aborted.");
 			}
 		}
 
