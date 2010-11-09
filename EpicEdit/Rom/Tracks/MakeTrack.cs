@@ -431,6 +431,31 @@ namespace EpicEdit.Rom
 			}
 		}
 
+		private static void LoadLineData(byte[] field, string line)
+		{
+			int space = line.IndexOf(' ');
+			line = line.Substring(space).Trim();
+			if (line.Length % 2 != 0)
+			{
+				throw new InvalidDataException("Invalid data length");
+			}
+
+			Utilities.LoadByteArrayFromHexString(field, line);
+		}
+
+		private static void LoadBlockData(byte[] field, TextReader reader)
+		{
+			int index = 0;
+			string line = reader.ReadLine();
+			while (!string.IsNullOrEmpty(line) && line[0] == '#')
+			{
+				byte[] lineBytes = Utilities.HexStringToByteArray(line.Substring(1));
+				Array.Copy(lineBytes, 0, field, index, lineBytes.Length);
+				line = reader.ReadLine();
+				index += lineBytes.Length;
+			}
+		}
+
 		public void Save(string filePath)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -488,34 +513,5 @@ namespace EpicEdit.Rom
 				sb.AppendLine("#" + Utilities.ByteArrayToHexString(lineBytes));
 			}
 		}
-
-		#region Extract Data
-
-		private static void LoadLineData(byte[] field, string line)
-		{
-			int space = line.IndexOf(' ');
-			line = line.Substring(space).Trim();
-			if (line.Length % 2 != 0)
-			{
-				throw new InvalidDataException("Invalid data length");
-			}
-
-			Utilities.LoadByteArrayFromHexString(field, line);
-		}
-
-		private static void LoadBlockData(byte[] field, TextReader reader)
-		{
-			int index = 0;
-			string line = reader.ReadLine();
-			while (!string.IsNullOrEmpty(line) && line[0] == '#')
-			{
-				byte[] lineBytes = Utilities.HexStringToByteArray(line.Substring(1));
-				Array.Copy(lineBytes, 0, field, index, lineBytes.Length);
-				line = reader.ReadLine();
-				index += lineBytes.Length;
-			}
-		}
-
-		#endregion Extract Data
 	}
 }
