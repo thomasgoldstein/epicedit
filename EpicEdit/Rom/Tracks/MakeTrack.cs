@@ -440,7 +440,7 @@ namespace EpicEdit.Rom
 			line = line.Substring(space).Trim();
 			if (line.Length != field.Length * 2)
 			{
-				throw new InvalidDataException("Invalid data length");
+				throw new InvalidDataException("Invalid data length.");
 			}
 
 			Utilities.LoadByteArrayFromHexString(field, line);
