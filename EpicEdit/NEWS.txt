@@ -20,8 +20,8 @@ v1.9.1 (August 22nd 2010)
 
 v1.9 (August 12th 2010)
 
-- Added support for overlay tile edition (partly by teknix1)
-- Added support for item probability edition (by teknix1)
+- Added support for overlay tile editing (partly by teknix1)
+- Added support for item probability editing (by teknix1)
 - Added ability to reset the track map
 - Added ability to delete all AI elements
 - Smarter behavior when changing the index of an AI element.
@@ -40,8 +40,8 @@ v1.9 (August 12th 2010)
 
 v1.6 (June 4th 2010)
 
-- Added support for lap line edition
-- Added support for driver starting position edition (partly by teknix1)
+- Added support for lap line editing
+- Added support for driver starting position editing (partly by teknix1)
 - Disabled object zones editing for Koopa Beach 1
   (cannot be edited, used to lead to data corruption)
 - Fixed track compression for Japanese and European ROMs
@@ -56,10 +56,10 @@ v1.6 (June 4th 2010)
 
 v1.5 (January 5th 2010)
 
-- Added support for track objects edition (partial)
+- Added support for track objects editing (partial)
   Implemented: moving objects and modifying object zones
   Missing: changing object types and moving Ghost Valley pillars
-- Added support for track AI edition
+- Added support for track AI editing
 - Added the ability to reorder tracks by dragging them in the track list
 - Data is saved in a more aggressive way: the editor assumes everything
   between 512 KiB and 1024 KiB is reserved for it,
