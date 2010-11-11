@@ -775,6 +775,10 @@ namespace EpicEdit.UI.Gfx
 				this.DrawLapLine(graphics);
 				this.DrawGPStartPositions(graphics);
 			}
+			else
+			{
+				this.DrawBattleStartPositions(graphics);
+			}
 		}
 
 		private void DrawLapLine(Graphics graphics)
@@ -814,6 +818,26 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
+		private void DrawBattleStartPositions(Graphics graphics)
+		{
+			BattleTrack bTrack = this.track as BattleTrack;
+
+			this.DrawBattleStartPosition(graphics, bTrack.P1StartPosition, GetInvertedStartPositionShape);
+			this.DrawBattleStartPosition(graphics, bTrack.P2StartPosition, GetStartPositionShape);
+		}
+
+		private void DrawBattleStartPosition(Graphics graphics, Point location, StartPositionShapeCreator shapeCreator)
+		{
+			int x = location.X - this.scrollPosition.X * 8;
+			int y = location.Y - this.scrollPosition.Y * 8;
+
+			Point[] triangle = shapeCreator(x, y);
+			graphics.FillPolygon(this.startPositionBrush, triangle);
+			graphics.DrawPolygon(this.startPositionPen, triangle);
+		}
+
+		private delegate Point[] StartPositionShapeCreator(int x, int y);
+
 		private static Point[] GetStartPositionShape(int x, int y)
 		{
 			return new Point[]
@@ -821,6 +845,16 @@ namespace EpicEdit.UI.Gfx
 				new Point(x, y - 4),
 				new Point(x + 4, y + 3),
 				new Point(x - 4, y + 3)
+			};
+		}
+
+		private static Point[] GetInvertedStartPositionShape(int x, int y)
+		{
+			return new Point[]
+			{
+				new Point(x - 4, y - 3),
+				new Point(x + 4, y - 3),
+				new Point(x, y + 4)
 			};
 		}
 
