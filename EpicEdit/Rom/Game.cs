@@ -457,8 +457,12 @@ namespace EpicEdit.Rom
 					}
 					else
 					{
-						// TODO: Load battle track start position data.
-						byte[] startPositionData = null;
+						int startPositionOffset = this.offsets[Address.BattleTrackStartPositions];
+						byte[] startPositionData = new byte[8];
+						for (int k = 0; k < startPositionData.Length; k++)
+						{
+							startPositionData[k] = this.romBuffer[startPositionOffset + k];
+						}
 
 						tracks[j] = new BattleTrack(trackName, trackTheme,
 													trackMap, overlayTileData,
