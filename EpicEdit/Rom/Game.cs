@@ -415,7 +415,7 @@ namespace EpicEdit.Rom
 					if (trackIndex < Game.GPTrackCount)
 					{
 						#region startPositionData parameter
-						byte[] startPositionData = this.LoadStartPositionData(trackIndex);
+						byte[] startPositionData = this.LoadGPStartPositionData(trackIndex);
 						#endregion startPositionData parameter
 
 						#region lapLineData parameter
@@ -591,31 +591,31 @@ namespace EpicEdit.Rom
 
 		#region Start Position
 
-		private byte[] LoadStartPositionData(int trackIndex)
+		private byte[] LoadGPStartPositionData(int trackIndex)
 		{
 			if (trackIndex >= Game.GPTrackCount) // If the track is a battle track
 			{
 				return null;
 			}
 
-			int offset = this.GetStartPositionDataOffset(trackIndex);
+			int offset = this.GetGPStartPositionDataOffset(trackIndex);
 			byte[] data = new byte[6];
 			Array.Copy(this.romBuffer, offset, data, 0, data.Length);
 			return data;
 		}
 
-		private void SaveStartPositionData(int trackIndex, byte[] data)
+		private void SaveGPStartPositionData(int trackIndex, byte[] data)
 		{
 			if (data == null)
 			{
 				return;
 			}
 
-			int offset = this.GetStartPositionDataOffset(trackIndex);
+			int offset = this.GetGPStartPositionDataOffset(trackIndex);
 			Array.Copy(data, 0, this.romBuffer, offset, 6);
 		}
 
-		private int GetStartPositionDataOffset(int trackIndex)
+		private int GetGPStartPositionDataOffset(int trackIndex)
 		{
 			int[] reorder = { 14, 10, 7, 8, 15, 19, 16, 4, 17, 13, 6, 12, 11, 5, 18, 9, 2, 3, 1, 0 };
 			// TODO: Retrieve order dynamically from the ROM
@@ -1206,7 +1206,7 @@ namespace EpicEdit.Rom
 				byte[] data;
 
 				// Update driver starting position
-				this.SaveStartPositionData(trackIndex, gpTrack.StartPosition.GetBytes());
+				this.SaveGPStartPositionData(trackIndex, gpTrack.StartPosition.GetBytes());
 
 				// Update lap line position and length
 				data = gpTrack.LapLine.GetBytes();
