@@ -1067,12 +1067,11 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.buttonPressed = ActionButton.None;
 
-				if (this.currentMode == EditionMode.Tileset)
+				if (this.currentMode == EditionMode.Tileset ||
+					this.track is BattleTrack && this.currentMode == EditionMode.Objects)
 				{
 					// For other modes, the cursor will be reset
 					// by the call to the InitCurrentModeAction method below.
-					// Tileset mode is a special case as it's the only mode
-					// that doesn't change the cursor (middle mouse button aside).
 					this.Cursor = Cursors.Default;
 				}
 
