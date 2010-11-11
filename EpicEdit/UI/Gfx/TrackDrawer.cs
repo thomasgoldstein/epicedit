@@ -816,11 +816,12 @@ namespace EpicEdit.UI.Gfx
 
 		private static Point[] GetStartPositionShape(int x, int y)
 		{
-			Point[] triangle = new Point[3];
-			triangle[0] = new Point(x, y - 4);
-			triangle[1] = new Point(x + 4, y + 3);
-			triangle[2] = new Point(x - 4, y + 3);
-			return triangle;
+			return new Point[]
+			{
+				new Point(x, y - 4),
+				new Point(x + 4, y + 3),
+				new Point(x - 4, y + 3)
+			};
 		}
 
 		private void DrawObjectData(Graphics graphics, bool frontZonesView)
