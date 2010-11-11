@@ -1593,13 +1593,14 @@ namespace EpicEdit.UI.TrackEdition
 				{
 					if (overlayTile.IntersectsWith(hoveredTilePosition))
 					{
+						this.Cursor = Cursors.Hand;
+
 						if (this.hoveredOverlayTile == overlayTile)
 						{
 							return false;
 						}
 
 						this.hoveredOverlayTile = overlayTile;
-						this.Cursor = Cursors.Hand;
 						return true;
 					}
 				}
