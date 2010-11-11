@@ -80,7 +80,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		private int[] LoadPatternDataAddresses(byte[] romBuffer, Offsets offsets)
 		{
 			int[] addresses = new int[this.Count];
-			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Address.TrackOverlayPatternAddresses], 2, this.Count);
+			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Address.TrackOverlayPatterns], 2, this.Count);
 			for (int x = 0; x < data.Length; x++)
 			{
 				addresses[x] = (data[x][1] << 8) + data[x][0] + 0x40000;
