@@ -34,8 +34,8 @@ namespace EpicEdit.Rom.Tracks
 						   OverlayTilePatterns overlayTilePatterns) :
 			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
 		{
-			this.P1StartPosition = BattleTrack.GetStartPosition(startPositionData, 0);
-			this.P2StartPosition = BattleTrack.GetStartPosition(startPositionData, 4);
+			this.P1StartPosition = BattleTrack.GetStartPosition(startPositionData, 4);
+			this.P2StartPosition = BattleTrack.GetStartPosition(startPositionData, 0);
 		}
 
 		private static Point GetStartPosition(byte[] data, int index)
