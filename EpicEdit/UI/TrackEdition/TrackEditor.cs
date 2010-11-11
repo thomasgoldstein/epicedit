@@ -1877,6 +1877,7 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (gpTrack.Objects == null) // Ghost Valley pillar objects (not supported)
 			{
+				this.Cursor = Cursors.Default;
 				return false;
 			}
 
