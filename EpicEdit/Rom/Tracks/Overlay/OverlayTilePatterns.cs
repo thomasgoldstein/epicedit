@@ -90,9 +90,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		private int[] LoadPatternDataLengths(Offsets offsets, int[] dataAddresses)
 		{
-			// TODO: This data must be somewhere in the rom, but for now, let's just do a substraction between the addresses, they are ordered in the rom anyways.
+			// TODO: This data must be somewhere in the ROM, but for now, let's just do a substraction between the addresses, they are ordered in the rom anyways.
 			// This also assumes the entire data area is used, which is why this code should be changed eventually when we start modifying these patterns.
-			// From the documentation the games loads up 32 bytes into vram starting at one of these data addresses when the overlay is required.
+			// From the documentation the games loads up 32 bytes into VRAM starting at one of these data addresses when the overlay is required.
 			// This means that quite possibly there is no data in the ROM about the lengths of these items, the overlay tile map of the track tells 
 			// the engine how many bytes to use.
 			int[] lengths = new int[this.Count];
