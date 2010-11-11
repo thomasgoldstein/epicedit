@@ -34,7 +34,7 @@ namespace EpicEdit.Rom
 		Jap,
 		US,
 		Euro
-	};
+	}
 
 	public enum ItemType
 	{
