@@ -1711,7 +1711,7 @@ namespace EpicEdit.UI.TrackEdition
 				return this.InitGPStartAction();
 			}
 
-			return false;
+			return this.InitBattleStartAction();
 		}
 
 		private bool InitGPStartAction()
@@ -1838,6 +1838,12 @@ namespace EpicEdit.UI.TrackEdition
 				this.Cursor = Cursors.Default;
 			}
 
+			return false;
+		}
+
+		private bool InitBattleStartAction()
+		{
+			this.Cursor = Cursors.Default;
 			return false;
 		}
 
