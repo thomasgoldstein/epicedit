@@ -73,7 +73,6 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIZones] = 0x1FF8C;
 					this[Address.BattleTrackStartPositions] = 0x18C13;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
-					this[Address.ItemProbabilities] = 0x1B39F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
 					this[Address.TrackOverlaySizes] = 0x4F1FC;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F0B5;
@@ -88,7 +87,6 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIZones] = 0x1FF9B;
 					this[Address.BattleTrackStartPositions] = 0x18BFF;
 					this[Address.TrackPreviewLapLines] = 0x1C915;
-					this[Address.ItemProbabilities] = 0x1B4E3;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
 					this[Address.TrackOverlaySizes] = 0x4F384;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F23D;
@@ -104,7 +102,6 @@ namespace EpicEdit.Rom
 					this[Address.TrackAIZones] = 0x1FF6D;
 					this[Address.BattleTrackStartPositions] = 0x18C18;
 					this[Address.TrackPreviewLapLines] = 0x1C7B1;
-					this[Address.ItemProbabilities] = 0x1B37F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
 					this[Address.TrackOverlaySizes] = 0x4F2A0;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F159;
@@ -123,6 +120,7 @@ namespace EpicEdit.Rom
 			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
 			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
 			this[Address.NameStrings] = this[Address.GPTrackNames] + 0xC1;
+			this[Address.ItemProbabilities] = this[Address.ItemIconTilesPalettes] + 0x1C3;
 
 			this[Address.ThemeRoadGraphics] = this[Address.TrackMaps] + Game.TrackCount * 3;
 			this[Address.ThemeColorPalettes] = this[Address.ThemeRoadGraphics] + Game.ThemeCount * 3;
