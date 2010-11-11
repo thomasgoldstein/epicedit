@@ -38,8 +38,8 @@ namespace EpicEdit.Rom
 		TrackOverlayItems, // Track overlay items
 		TrackOverlaySizes, // Track overlay sizes
 		TrackOverlayPatternAddresses, // Track overlay pattern addresses
-		TrackLapLines, // Track lap lines
 		GPTrackStartPositions, // Starting position of the drivers on the GP tracks
+		TrackLapLines, // Track lap lines
 		TrackPreviewLapLines, // Position of the track lap lines shown in track previews (Match Race / Time Trial)
 		ThemeRoadGraphics, // Theme road graphics address index
 		ThemeColorPalettes, // Theme color palette address index
