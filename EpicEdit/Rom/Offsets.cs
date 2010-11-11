@@ -18,37 +18,155 @@ namespace EpicEdit.Rom
 {
 	public enum Address : int
 	{
-		ModeStrings, // Names of the modes on the title screen
-		NameStrings, // Name texts (cups, themes, tracks)
-		TrackMaps, // Track address index
-		TrackThemes, // Track theme index
-		GPTrackOrder, // GP track order index
-		GPTrackNames, // GP track name index
-		BattleTrackOrder, // Battle track order index
-		BattleTrackNames, // Battle track name index
-		FirstBattleTrack, // Index of the first battle track (track displayed by default when entering the battle track selection)
-		TrackObjectGraphics, // Track object graphics address index
-		TrackBackgroundGraphics, // Track background graphics address index
-		TrackBackgroundLayouts, // Track background layout address index
-		TrackAIDataFirstAddressByte, // The leading byte that composes AI-related addresses
-		TrackAIZones, // AI zone index
-		TrackAITargets, // AI target index
-		TrackObjects, // Track objects
-		TrackObjectZones, // Track object zones
-		TrackOverlayItems, // Track overlay items
-		TrackOverlaySizes, // Track overlay sizes
-		TrackOverlayPatternAddresses, // Track overlay pattern addresses
-		GPTrackStartPositions, // Starting position of the drivers on the GP tracks
-		TrackLapLines, // Track lap lines
-		TrackPreviewLapLines, // Position of the track lap lines shown in track previews (Match Race / Time Trial)
-		BattleTrackStartPositions, // Starting position of the drivers on the battle tracks
-		ThemeRoadGraphics, // Theme road graphics address index
-		ThemeColorPalettes, // Theme color palette address index
-		CommonTilesetGraphics, // Common tileset graphics
-		ItemProbabilities, // Item probabilities
-		ItemIcons, // Item icon graphics
-		ItemIconTilesPalettes, // Item icon color tile and palette indexes
-		//UnknownMakeRelated
+		/// <summary>
+		/// Names of the modes on the title screen.
+		/// </summary>
+		ModeStrings,
+
+		/// <summary>
+		/// Name texts (cups, themes, tracks).
+		/// </summary>
+		NameStrings,
+
+		/// <summary>
+		/// Track map address index.
+		/// </summary>
+		TrackMaps,
+
+		/// <summary>
+		/// Track theme index.
+		/// </summary>
+		TrackThemes,
+
+		/// <summary>
+		/// GP track order index.
+		/// </summary>
+		GPTrackOrder,
+
+		/// <summary>
+		/// GP track name index.
+		/// </summary>
+		GPTrackNames,
+
+		/// <summary>
+		/// Battle track order index.
+		/// </summary>
+		BattleTrackOrder,
+
+		/// <summary>
+		/// Battle track name index.
+		/// </summary>
+		BattleTrackNames,
+
+		/// <summary>
+		/// Index of the first battle track (track displayed by default when entering the battle track selection).
+		/// </summary>
+		FirstBattleTrack,
+
+		/// <summary>
+		/// Track object graphics address index.
+		/// </summary>
+		TrackObjectGraphics,
+
+		/// <summary>
+		/// Track background graphics address index.
+		/// </summary>
+		TrackBackgroundGraphics,
+
+		/// <summary>
+		/// Track background layout address index.
+		/// </summary>
+		TrackBackgroundLayouts,
+
+		/// <summary>
+		/// The leading byte that composes AI-related addresses.
+		/// </summary>
+		TrackAIDataFirstAddressByte,
+
+		/// <summary>
+		/// AI zone index.
+		/// </summary>
+		TrackAIZones,
+
+		/// <summary>
+		/// AI target index.
+		/// </summary>
+		TrackAITargets,
+
+		/// <summary>
+		/// Track objects.
+		/// </summary>
+		TrackObjects,
+
+		/// <summary>
+		/// Track object zones.
+		/// </summary>
+		TrackObjectZones,
+
+		/// <summary>
+		/// Track overlay items.
+		/// </summary>
+		TrackOverlayItems,
+
+		/// <summary>
+		/// Track overlay sizes.
+		/// </summary>
+		TrackOverlaySizes,
+
+		/// <summary>
+		/// Track overlay pattern addresses.
+		/// </summary>
+		TrackOverlayPatternAddresses,
+
+		/// <summary>
+		/// Starting position of the drivers on the GP tracks.
+		/// </summary>
+		GPTrackStartPositions,
+
+		/// <summary>
+		/// Track lap lines.
+		/// </summary>
+		TrackLapLines,
+
+		/// <summary>
+		/// Position of the track lap lines shown in track previews (Match Race / Time Trial).
+		/// </summary>
+		TrackPreviewLapLines,
+
+		/// <summary>
+		/// Starting position of the drivers on the battle tracks.
+		/// </summary>
+		BattleTrackStartPositions,
+
+		/// <summary>
+		/// Theme road graphics address index.
+		/// </summary>
+		ThemeRoadGraphics,
+
+		/// <summary>
+		/// Theme color palette address index.
+		/// </summary>
+		ThemeColorPalettes,
+
+		/// <summary>
+		/// Common tileset graphics.
+		/// </summary>
+		CommonTilesetGraphics,
+
+		/// <summary>
+		/// Item probabilities.
+		/// </summary>
+		ItemProbabilities,
+
+		/// <summary>
+		/// Item icon graphics.
+		/// </summary>
+		ItemIcons,
+
+		/// <summary>
+		/// Item icon color tile and palette indexes.
+		/// </summary>
+		ItemIconTilesPalettes
 	}
 
 	public class Offsets
