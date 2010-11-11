@@ -458,6 +458,13 @@ namespace EpicEdit.Rom
 					else
 					{
 						int startPositionOffset = this.offsets[Address.BattleTrackStartPositions];
+
+						// TODO: Load exact offset for each track from ROM
+						if (trackIndex == Game.GPTrackCount)
+						{
+							startPositionOffset += 10;
+						}
+
 						byte[] startPositionData = new byte[8];
 						for (int k = 0; k < startPositionData.Length; k++)
 						{
