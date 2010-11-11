@@ -39,7 +39,7 @@ namespace EpicEdit.Rom
 		TrackOverlaySizes, // Track overlay sizes
 		TrackOverlayPatternAddresses, // Track overlay pattern addresses
 		TrackLapLines, // Track lap lines
-		TrackStartPositions, // Starting position of the drivers on the tracks
+		GPTrackStartPositions, // Starting position of the drivers on the GP tracks
 		TrackPreviewLapLines, // Position of the track lap lines shown in track previews (Match Race / Time Trial)
 		ThemeRoadGraphics, // Theme road graphics address index
 		ThemeColorPalettes, // Theme color palette address index
@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
 					this[Address.TrackAIDataFirstAddressByte] = new Offset(0x1FBC4);
 					this[Address.TrackAIZones] = 0x1FF8C;
-					this[Address.TrackStartPositions] = 0x18C27;
+					this[Address.GPTrackStartPositions] = 0x18C27;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
 					this[Address.ItemProbabilities] = 0x1B39F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
@@ -85,7 +85,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E749), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
 					this[Address.TrackAIZones] = 0x1FF9B;
-					this[Address.TrackStartPositions] = 0x18C13;
+					this[Address.GPTrackStartPositions] = 0x18C13;
 					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemProbabilities] = 0x1B4E3;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
@@ -101,7 +101,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E738), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
 					this[Address.TrackAIZones] = 0x1FF6D;
-					this[Address.TrackStartPositions] = 0x18C2C;
+					this[Address.GPTrackStartPositions] = 0x18C2C;
 					this[Address.TrackPreviewLapLines] = 0x1C7B1;
 					this[Address.ItemProbabilities] = 0x1B37F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;

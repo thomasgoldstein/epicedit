@@ -619,7 +619,7 @@ namespace EpicEdit.Rom
 		{
 			int[] reorder = { 14, 10, 7, 8, 15, 19, 16, 4, 17, 13, 6, 12, 11, 5, 18, 9, 2, 3, 1, 0 };
 			// TODO: Retrieve order dynamically from the ROM
-			return this.offsets[Address.TrackStartPositions] + reorder[trackIndex] * 8;
+			return this.offsets[Address.GPTrackStartPositions] + reorder[trackIndex] * 8;
 		}
 
 		#endregion Start Position
