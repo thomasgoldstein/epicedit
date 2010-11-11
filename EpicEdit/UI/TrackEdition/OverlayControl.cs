@@ -315,6 +315,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
 		{
 			this.overlayDrawer.HoveredPattern = null;
+			this.overlayTilesetPanel.Invalidate();
 		}
 
 		private void DeleteButtonClick(object sender, EventArgs e)
