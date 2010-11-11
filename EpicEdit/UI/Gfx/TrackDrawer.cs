@@ -773,7 +773,7 @@ namespace EpicEdit.UI.Gfx
 			if (this.track is GPTrack)
 			{
 				this.DrawLapLine(graphics);
-				this.DrawStartPositions(graphics);
+				this.DrawGPStartPositions(graphics);
 			}
 		}
 
@@ -791,7 +791,7 @@ namespace EpicEdit.UI.Gfx
 							  location.X + gpTrack.LapLine.Length - 2, location.Y);
 		}
 
-		private void DrawStartPositions(Graphics graphics)
+		private void DrawGPStartPositions(Graphics graphics)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
