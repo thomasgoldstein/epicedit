@@ -69,7 +69,7 @@ namespace EpicEdit.Rom
 					this[Address.BattleTrackOrder] = 0x1C022;
 					this[Address.FirstBattleTrack] = 0x1BF0A;
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
-					this[Address.TrackAIDataFirstAddressByte] = new Offset(0x1FBC4);
+					this[Address.TrackAIDataFirstAddressByte] = 0x1FBC4;
 					this[Address.TrackAIZones] = 0x1FF8C;
 					this[Address.BattleTrackStartPositions] = 0x18C13;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
