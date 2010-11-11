@@ -41,6 +41,7 @@ namespace EpicEdit.Rom
 		GPTrackStartPositions, // Starting position of the drivers on the GP tracks
 		TrackLapLines, // Track lap lines
 		TrackPreviewLapLines, // Position of the track lap lines shown in track previews (Match Race / Time Trial)
+		BattleTrackStartPositions, // Starting position of the drivers on the battle tracks
 		ThemeRoadGraphics, // Theme road graphics address index
 		ThemeColorPalettes, // Theme color palette address index
 		CommonTilesetGraphics, // Common tileset graphics
@@ -70,7 +71,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
 					this[Address.TrackAIDataFirstAddressByte] = new Offset(0x1FBC4);
 					this[Address.TrackAIZones] = 0x1FF8C;
-					this[Address.GPTrackStartPositions] = 0x18C27;
+					this[Address.BattleTrackStartPositions] = 0x18C13;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
 					this[Address.ItemProbabilities] = 0x1B39F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
@@ -85,7 +86,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E749), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
 					this[Address.TrackAIZones] = 0x1FF9B;
-					this[Address.GPTrackStartPositions] = 0x18C13;
+					this[Address.BattleTrackStartPositions] = 0x18BFF;
 					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemProbabilities] = 0x1B4E3;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
@@ -101,7 +102,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E738), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
 					this[Address.TrackAIZones] = 0x1FF6D;
-					this[Address.GPTrackStartPositions] = 0x18C2C;
+					this[Address.BattleTrackStartPositions] = 0x18C18;
 					this[Address.TrackPreviewLapLines] = 0x1C7B1;
 					this[Address.ItemProbabilities] = 0x1B37F;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
@@ -117,6 +118,7 @@ namespace EpicEdit.Rom
 			this[Address.TrackLapLines] = 0x180D4;
 			this[Address.CommonTilesetGraphics] = 0x40000;
 
+			this[Address.GPTrackStartPositions] = this[Address.BattleTrackStartPositions] + 0x14;
 			this[Address.TrackAITargets] = this[Address.TrackAIZones] + 0x30;
 			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
 			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
