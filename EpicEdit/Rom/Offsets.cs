@@ -134,7 +134,7 @@ namespace EpicEdit.Rom
 		TrackPreviewLapLines,
 
 		/// <summary>
-		/// Starting position of the drivers on the battle tracks.
+		/// Addresses to the starting position of the drivers on the battle tracks.
 		/// </summary>
 		BattleTrackStartPositions,
 
@@ -189,7 +189,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBC4;
 					this[Address.TrackAIZones] = 0x1FF8C;
-					this[Address.BattleTrackStartPositions] = 0x18C13;
+					this[Address.BattleTrackStartPositions] = 0x18B5F;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
 					this[Address.TrackOverlayPatterns] = 0x4F0B5;
@@ -202,7 +202,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E749), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
 					this[Address.TrackAIZones] = 0x1FF9B;
-					this[Address.BattleTrackStartPositions] = 0x18BFF;
+					this[Address.BattleTrackStartPositions] = 0x18B4B;
 					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
 					this[Address.TrackOverlayPatterns] = 0x4F23D;
@@ -216,7 +216,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E738), 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
 					this[Address.TrackAIZones] = 0x1FF6D;
-					this[Address.BattleTrackStartPositions] = 0x18C18;
+					this[Address.BattleTrackStartPositions] = 0x18B64;
 					this[Address.TrackPreviewLapLines] = 0x1C7B1;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
 					this[Address.TrackOverlayPatterns] = 0x4F159;
@@ -230,7 +230,7 @@ namespace EpicEdit.Rom
 			this[Address.TrackLapLines] = 0x180D4;
 			this[Address.CommonTilesetGraphics] = 0x40000;
 
-			this[Address.GPTrackStartPositions] = this[Address.BattleTrackStartPositions] + 0x14;
+			this[Address.GPTrackStartPositions] = this[Address.BattleTrackStartPositions] + 0xC8;
 			this[Address.TrackAITargets] = this[Address.TrackAIZones] + 0x30;
 			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
 			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
