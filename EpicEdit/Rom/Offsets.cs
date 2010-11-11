@@ -74,7 +74,6 @@ namespace EpicEdit.Rom
 					this[Address.BattleTrackStartPositions] = 0x18C13;
 					this[Address.TrackPreviewLapLines] = 0x1C886;
 					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
-					this[Address.TrackOverlaySizes] = 0x4F1FC;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F0B5;
 					break;
 
@@ -88,7 +87,6 @@ namespace EpicEdit.Rom
 					this[Address.BattleTrackStartPositions] = 0x18BFF;
 					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
-					this[Address.TrackOverlaySizes] = 0x4F384;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F23D;
 					//this[Offsets.UnknownMakeRelated] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E765), 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
 					break;
@@ -103,7 +101,6 @@ namespace EpicEdit.Rom
 					this[Address.BattleTrackStartPositions] = 0x18C18;
 					this[Address.TrackPreviewLapLines] = 0x1C7B1;
 					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
-					this[Address.TrackOverlaySizes] = 0x4F2A0;
 					this[Address.TrackOverlayPatternAddresses] = 0x4F159;
 					break;
 			}
@@ -120,6 +117,7 @@ namespace EpicEdit.Rom
 			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
 			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
 			this[Address.NameStrings] = this[Address.GPTrackNames] + 0xC1;
+			this[Address.TrackOverlaySizes] = this[Address.TrackOverlayPatternAddresses] + 0x147;
 			this[Address.ItemProbabilities] = this[Address.ItemIconTilesPalettes] + 0x1C3;
 
 			this[Address.ThemeRoadGraphics] = this[Address.TrackMaps] + Game.TrackCount * 3;
