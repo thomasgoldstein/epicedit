@@ -1843,7 +1843,19 @@ namespace EpicEdit.UI.TrackEdition
 
 		private bool InitBattleStartAction()
 		{
-			this.Cursor = Cursors.Default;
+			BattleTrack bTrack = this.track as BattleTrack;
+			Point absPixelPos = this.AbsolutePixelPosition;
+
+			if (bTrack.StartPositionP1.IntersectsWith(absPixelPos) ||
+				bTrack.StartPositionP2.IntersectsWith(absPixelPos))
+			{
+				this.Cursor = Cursors.Hand;
+			}
+			else
+			{
+				this.Cursor = Cursors.Default;
+			}
+
 			return false;
 		}
 
