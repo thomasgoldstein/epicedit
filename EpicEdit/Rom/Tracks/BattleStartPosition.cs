@@ -35,5 +35,13 @@ namespace EpicEdit.Rom.Tracks
 		{
 			return position.Location;
 		}
+
+		public bool IntersectsWith(Point point)
+		{
+			return point.X >= this.Location.X - 8 &&
+				point.X <= this.Location.X  + 7 &&
+				point.Y >= this.Location.Y - 8 &&
+				point.Y <= this.Location.Y + 7;
+		}
 	}
 }
