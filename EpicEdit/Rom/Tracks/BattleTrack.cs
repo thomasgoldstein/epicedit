@@ -23,8 +23,8 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class BattleTrack : Track
 	{
-		public BattleStartPosition P1StartPosition { get; private set; }
-		public BattleStartPosition P2StartPosition { get; private set; }
+		public BattleStartPosition StartPositionP1 { get; private set; }
+		public BattleStartPosition StartPositionP2 { get; private set; }
 
 		public BattleTrack(string name, Theme theme,
 						   byte[] map, byte[] overlayTileData,
@@ -34,8 +34,8 @@ namespace EpicEdit.Rom.Tracks
 						   OverlayTilePatterns overlayTilePatterns) :
 			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
 		{
-			this.P1StartPosition = new BattleStartPosition(startPositionData, 4);
-			this.P2StartPosition = new BattleStartPosition(startPositionData, 0);
+			this.StartPositionP1 = new BattleStartPosition(startPositionData, 4);
+			this.StartPositionP2 = new BattleStartPosition(startPositionData, 0);
 		}
 	}
 }
