@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class GPTrack : Track
 	{
-		public StartPosition StartPosition { get; private set; }
+		public GPStartPosition StartPosition { get; private set; }
 		public LapLine LapLine { get; private set; }
 		public TrackObjects Objects { get; private set; }
 		public TrackObjectZones ObjectZones { get; private set; }
@@ -37,7 +37,7 @@ namespace EpicEdit.Rom.Tracks
 					   OverlayTilePatterns overlayTilePatterns) :
 			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
 		{
-			this.StartPosition = new StartPosition(startPositionData);
+			this.StartPosition = new GPStartPosition(startPositionData);
 			this.LapLine = new LapLine(lapLineData);
 
 			if (objectZoneData != null) // null for Ghost Valley tracks, by default

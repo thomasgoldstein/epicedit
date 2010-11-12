@@ -71,7 +71,7 @@ namespace EpicEdit.Rom
 			}
 		}
 
-		public StartPosition StartPosition
+		public GPStartPosition StartPosition
 		{
 			get
 			{
@@ -89,7 +89,7 @@ namespace EpicEdit.Rom
 					w = BitConverter.ToInt16(this.SP_STW, 0);
 				}
 
-				return new StartPosition(x, y, w);
+				return new GPStartPosition(x, y, w);
 			}
 			set
 			{
