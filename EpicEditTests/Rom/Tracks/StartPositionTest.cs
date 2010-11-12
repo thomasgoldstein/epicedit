@@ -60,7 +60,7 @@ namespace EpicEditTests.Rom.Tracks
 				dataBefore[i] = this.allData[index + i];
 			}
 
-			StartPosition startPosition = new StartPosition(dataBefore);
+			GPStartPosition startPosition = new GPStartPosition(dataBefore);
 			byte[] dataAfter = startPosition.GetBytes();
 
 			Assert.AreEqual(dataBefore, dataAfter);

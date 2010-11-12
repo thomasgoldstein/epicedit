@@ -18,9 +18,9 @@ using System.Drawing;
 namespace EpicEdit.Rom.Tracks
 {
 	/// <summary>
-	/// The starting position of the drivers on the track.
+	/// The starting position of the drivers on a GP track.
 	/// </summary>
-	public class StartPosition
+	public class GPStartPosition
 	{
 		private Point location;
 		public Point Location
@@ -59,9 +59,9 @@ namespace EpicEdit.Rom.Tracks
 				{
 					y = 8;
 				}
-				else if (y > limit - StartPosition.Height)
+				else if (y > limit - GPStartPosition.Height)
 				{
-					y = limit - StartPosition.Height;
+					y = limit - GPStartPosition.Height;
 				}
 
 				this.location = new Point(x, y);
@@ -120,13 +120,13 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.X + Math.Max(0, this.SecondRowOffset); }
 		}
 
-		public StartPosition(short x, short y, short secondRowOffset)
+		public GPStartPosition(short x, short y, short secondRowOffset)
 		{
 			this.SecondRowOffset = secondRowOffset;
 			this.Location = new Point(x, y);
 		}
 
-		public StartPosition(byte[] data)
+		public GPStartPosition(byte[] data)
 		{
 			int x = (data[1] << 8) + data[0];
 			int y = (data[3] << 8) + data[2];
@@ -173,7 +173,7 @@ namespace EpicEdit.Rom.Tracks
 			return point.X >= this.Left - 8 &&
 				point.X <= this.Right + 7 &&
 				point.Y >= this.Y - 8 &&
-				point.Y <= this.Y + StartPosition.Height;
+				point.Y <= this.Y + GPStartPosition.Height;
 		}
 	}
 }

@@ -127,7 +127,7 @@
     <Compile Include="Rom\Tracks\LapLine.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
-    <Compile Include="Rom\Tracks\StartPosition.cs" />
+    <Compile Include="Rom\Tracks\GPStartPosition.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />
     <Compile Include="Rom\Tracks\Tile.cs" />

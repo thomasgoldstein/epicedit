@@ -536,7 +536,7 @@ namespace EpicEdit.UI.Gfx
 								 overlayTilePattern.Height * 8);
 		}
 
-		private void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, StartPosition startPosition)
+		private void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, GPStartPosition startPosition)
 		{
 			Rectangle lapLineRectangle =
 				new Rectangle(lapLine.X - (this.scrollPosition.X * 8),
@@ -561,7 +561,7 @@ namespace EpicEdit.UI.Gfx
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
 													  startPosition.Y - (this.scrollPosition.Y * 8) - 4,
 													  9,
-													  StartPosition.Height - 20);
+													  GPStartPosition.Height - 20);
 
 			Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
 													  startRectangle1.Y + 20,
