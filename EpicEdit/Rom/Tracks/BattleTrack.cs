@@ -23,7 +23,14 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class BattleTrack : Track
 	{
+		/// <summary>
+		/// The starting position of Player 1.
+		/// </summary>
 		public BattleStartPosition StartPositionP1 { get; private set; }
+
+		/// <summary>
+		/// The starting position of Player 2.
+		/// </summary>
 		public BattleStartPosition StartPositionP2 { get; private set; }
 
 		public BattleTrack(string name, Theme theme,
