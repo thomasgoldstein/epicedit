@@ -542,29 +542,6 @@ namespace EpicEdit.Rom
 			return trackNameIndex;
 		}
 
-		#region Object Zones
-		private int GetObjectZonesOffset(int trackIndex)
-		{
-			int[] reorder =
-			{
-				2, -1 /* Ghost Valley x */, 12, 8, 15,
-				10, 17, 0, -1 /* Ghost Valley x */, 9,
-				5, 13, 14, -2 /* Koopa Beach 1 */, 3,
-				1, -1 /* Ghost Valley x */, 7, 4, 11
-			};
-			// TODO: Retrieve order dynamically from the ROM
-
-			if (reorder[trackIndex] < 0)
-			{
-				return reorder[trackIndex];
-			}
-
-			int objectZonesOffset = this.offsets[Address.TrackObjectZones];
-			int index = objectZonesOffset + reorder[trackIndex] * 2;
-			return 0x40000 + (this.romBuffer[index + 1] << 8) + this.romBuffer[index];
-		}
-		#endregion Object Zones
-
 		#region Track Overlay Tiles
 
 		private byte[] LoadOverlayTileData(int trackIndex)
@@ -673,6 +650,31 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion Battle Start Position
+
+		#region Object Zones
+
+		private int GetObjectZonesOffset(int trackIndex)
+		{
+			int[] reorder =
+			{
+				2, -1 /* Ghost Valley x */, 12, 8, 15,
+				10, 17, 0, -1 /* Ghost Valley x */, 9,
+				5, 13, 14, -2 /* Koopa Beach 1 */, 3,
+				1, -1 /* Ghost Valley x */, 7, 4, 11
+			};
+			// TODO: Retrieve order dynamically from the ROM
+
+			if (reorder[trackIndex] < 0)
+			{
+				return reorder[trackIndex];
+			}
+
+			int objectZonesOffset = this.offsets[Address.TrackObjectZones];
+			int index = objectZonesOffset + reorder[trackIndex] * 2;
+			return 0x40000 + (this.romBuffer[index + 1] << 8) + this.romBuffer[index];
+		}
+
+		#endregion Object Zones
 
 		#region Item Probabilities
 
