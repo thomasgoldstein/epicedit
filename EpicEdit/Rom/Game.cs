@@ -380,72 +380,28 @@ namespace EpicEdit.Rom
 					int iterator = i * 5 + j;
 					int trackIndex = trackOrder[iterator];
 
-					#region trackName parameter
 					string trackName = names[trackNameIndex[iterator][1]];
 					if (trackNameIndex[iterator].Length > 2) // We check if there is a track number (eg: Rainbow Road doesn't have one)
 					{
 						trackName += trackNameIndex[iterator][2];
 					}
-					#endregion trackName parameter
 
-					#region trackTheme parameter
 					int themeId = trackThemes[trackIndex] >> 1;
 					Theme trackTheme = this.themes[themeId];
-					#endregion trackTheme parameter
 
-					#region trackMap parameter
 					byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapAddresses[trackIndex]), 0, 16384);
-					#endregion trackMap parameter
 
-					#region overlayTileData parameter
-					byte[] overlayTileData = this.LoadOverlayTileData(trackIndex);
-					#endregion overlayTileData parameter
+					byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
 
-					#region aiZoneData & aiTargetData parameters
-					int aiOffset = trackIndex * 2;
-
-					int aiZoneDataOffset = aiOffsetBase + (aiZoneOffsets[aiOffset + 1] << 8) + aiZoneOffsets[aiOffset];
-					byte[] aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
-
-					int aiTargetDataOffset = aiOffsetBase + (aiTargetOffsets[aiOffset + 1] << 8) + aiTargetOffsets[aiOffset];
-					int aiTargetDataLength = TrackAI.ComputeTargetDataLength(aiZoneData);
-					byte[] aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
-					#endregion aiZoneData & aiTargetData parameters
+					byte[] aiZoneData, aiTargetData;
+					this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out aiZoneData, out aiTargetData);
 
 					if (trackIndex < Game.GPTrackCount)
 					{
-						#region startPositionData parameter
-						byte[] startPositionData = this.LoadGPStartPositionData(trackIndex);
-						#endregion startPositionData parameter
-
-						#region lapLineData parameter
-						byte[] lapLineData = new byte[6];
-						int lapLineDataOffset = this.offsets[Address.TrackLapLines] + trackIndex * lapLineData.Length;
-						Array.Copy(this.romBuffer, lapLineDataOffset, lapLineData, 0, lapLineData.Length);
-						#endregion lapLineData parameter
-
-						#region objectData & objectZoneData parameters
-						int objectOffset = this.offsets[Address.TrackObjects] + (trackIndex * 64);
-						byte[] objectData = Utilities.ReadBlock(this.romBuffer, objectOffset, 44);
-						// 16 objects * 2 coordinate bytes = 32 bytes
-						// + 6 Match Race objects (Chain Chomps) * 2 coordinate bytes = 12 bytes
-						// Total = 44 bytes
-
-						int objectZoneOffset = this.GetObjectZonesOffset(trackIndex);
-
-						byte[] objectZoneData;
-						
-						if (objectZoneOffset < 0)
-						{
-							objectZoneData = objectZoneOffset == -1 ?
-								null : new byte[0];
-						}
-						else
-						{
-							objectZoneData = Utilities.ReadBlock(this.romBuffer, objectZoneOffset, 10);
-						}
-
-						#endregion objectData & objectZoneData parameters
+						byte[] startPositionData = this.GetGPStartPositionData(trackIndex);
+						byte[] lapLineData = this.GetLapLineData(trackIndex);
+						byte[] objectData = this.GetObjectData(trackIndex);
+						byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
 
 						tracks[j] = new GPTrack(trackName, trackTheme,
 												trackMap, overlayTileData,
@@ -457,7 +413,7 @@ namespace EpicEdit.Rom
 					}
 					else
 					{
-						byte[] startPositionData = this.LoadBattleStartPositionData(trackIndex);
+						byte[] startPositionData = this.GetBattleStartPositionData(trackIndex);
 
 						tracks[j] = new BattleTrack(trackName, trackTheme,
 													trackMap, overlayTileData,
@@ -544,7 +500,7 @@ namespace EpicEdit.Rom
 
 		#region Track Overlay Tiles
 
-		private byte[] LoadOverlayTileData(int trackIndex)
+		private byte[] GetOverlayTileData(int trackIndex)
 		{
 			int offset = this.GetOverlayTileDataOffset(trackIndex);
 			byte[] data = new byte[128];
@@ -552,7 +508,7 @@ namespace EpicEdit.Rom
 			return data;
 		}
 
-		private void SaveOverlayTileData(int trackIndex, byte[] data)
+		private void SetOverlayTileData(int trackIndex, byte[] data)
 		{
 			int offset = this.GetOverlayTileDataOffset(trackIndex);
 			Array.Copy(data, 0, this.romBuffer, offset, 128);
@@ -565,9 +521,9 @@ namespace EpicEdit.Rom
 
 		#endregion Track Overlay Tiles
 
-		#region GP Start Position
+		#region GP Start Positions
 
-		private byte[] LoadGPStartPositionData(int trackIndex)
+		private byte[] GetGPStartPositionData(int trackIndex)
 		{
 			int offset = this.GetGPStartPositionDataOffset(trackIndex);
 			byte[] data = new byte[6];
@@ -575,7 +531,7 @@ namespace EpicEdit.Rom
 			return data;
 		}
 
-		private void SaveGPStartPositionData(GPTrack track, int trackIndex)
+		private void SetGPStartPositionData(GPTrack track, int trackIndex)
 		{
 			byte[] data = track.StartPosition.GetBytes();
 			int offset = this.GetGPStartPositionDataOffset(trackIndex);
@@ -589,11 +545,23 @@ namespace EpicEdit.Rom
 			return this.offsets[Address.GPTrackStartPositions] + reorder[trackIndex] * 8;
 		}
 
-		#endregion GP Start Position
+		#endregion GP Start Positions
 
-		#region Battle Start Position
+		#region Lap Line
 
-		private byte[] LoadBattleStartPositionData(int trackIndex)
+		private byte[] GetLapLineData(int trackIndex)
+		{
+			byte[] data = new byte[6];
+			int lapLineDataOffset = this.offsets[Address.TrackLapLines] + trackIndex * data.Length;
+			Array.Copy(this.romBuffer, lapLineDataOffset, data, 0, data.Length);
+			return data;
+		}
+
+		#endregion Lap Line
+		
+		#region Battle Start Positions
+
+		private byte[] GetBattleStartPositionData(int trackIndex)
 		{
 			int startPositionOffset = this.GetBattleStartingPositionDataOffset(trackIndex) + 2; // Skip 2 leading bytes
 
@@ -607,7 +575,7 @@ namespace EpicEdit.Rom
 		}
 
 		// FIXME: Calling this method corrupts the track (black screen)
-		private void SaveBattleStartPositionData(BattleTrack track, int trackIndex)
+		private void SetBattleStartPositionData(BattleTrack track, int trackIndex)
 		{
 			int bTrackIndex = trackIndex - Game.GPTrackCount;
 
@@ -649,11 +617,44 @@ namespace EpicEdit.Rom
 			return startPositionOffset;
 		}
 
-		#endregion Battle Start Position
+		#endregion Battle Start Positions
 
+		#region Objects
+
+		private byte[] GetObjectData(int trackIndex)
+		{
+			int objectOffset = this.offsets[Address.TrackObjects] + (trackIndex * 64);
+			byte[] data = Utilities.ReadBlock(this.romBuffer, objectOffset, 44);
+			// 16 objects * 2 coordinate bytes = 32 bytes
+			// + 6 Match Race objects (Chain Chomps) * 2 coordinate bytes = 12 bytes
+			// Total = 44 bytes
+			return data;
+		}
+
+		#endregion Objects
+		
 		#region Object Zones
 
-		private int GetObjectZonesOffset(int trackIndex)
+		private byte[] GetObjectZoneData(int trackIndex)
+		{
+			int objectZoneOffset = this.GetObjectZoneOffset(trackIndex);
+
+			byte[] data;
+			
+			if (objectZoneOffset < 0)
+			{
+				data = objectZoneOffset == -1 ?
+					null : new byte[0];
+			}
+			else
+			{
+				data = Utilities.ReadBlock(this.romBuffer, objectZoneOffset, 10);
+			}
+
+			return data;
+		}
+		
+		private int GetObjectZoneOffset(int trackIndex)
 		{
 			int[] reorder =
 			{
@@ -676,6 +677,22 @@ namespace EpicEdit.Rom
 
 		#endregion Object Zones
 
+		#region AI
+
+		private void LoadAIData(int trackIndex, int aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
+		{
+			int aiOffset = trackIndex * 2;
+
+			int aiZoneDataOffset = aiOffsetBase + (aiZoneOffsets[aiOffset + 1] << 8) + aiZoneOffsets[aiOffset];
+			aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
+
+			int aiTargetDataOffset = aiOffsetBase + (aiTargetOffsets[aiOffset + 1] << 8) + aiTargetOffsets[aiOffset];
+			int aiTargetDataLength = TrackAI.ComputeTargetDataLength(aiZoneData);
+			aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
+		}
+
+		#endregion AI
+		
 		#region Item Probabilities
 
 		private void LoadItemProbabilities()
@@ -1250,7 +1267,7 @@ namespace EpicEdit.Rom
 
 			// Update overlay tiles
 			byte[] overlayTileData = track.OverlayTiles.GetBytes();
-			this.SaveOverlayTileData(trackIndex, overlayTileData);
+			this.SetOverlayTileData(trackIndex, overlayTileData);
 
 			if (track is GPTrack)
 			{
@@ -1258,7 +1275,7 @@ namespace EpicEdit.Rom
 				byte[] data;
 
 				// Update driver starting position
-				this.SaveGPStartPositionData(gpTrack, trackIndex);
+				this.SetGPStartPositionData(gpTrack, trackIndex);
 
 				// Update lap line position and length
 				data = gpTrack.LapLine.GetBytes();
@@ -1276,7 +1293,7 @@ namespace EpicEdit.Rom
 					if (!gpTrack.ObjectZones.ReadOnly)
 					{
 						data = gpTrack.ObjectZones.GetBytes();
-						Array.Copy(data, 0, this.romBuffer, this.GetObjectZonesOffset(trackIndex), data.Length);
+						Array.Copy(data, 0, this.romBuffer, this.GetObjectZoneOffset(trackIndex), data.Length);
 					}
 
 					// Update object coordinates
@@ -1287,7 +1304,7 @@ namespace EpicEdit.Rom
 			else
 			{
 				BattleTrack bTrack = track as BattleTrack;
-				//this.SaveBattleStartPositionData(bTrack, trackIndex);
+				//this.SetBattleStartPositionData(bTrack, trackIndex);
 			}
 
 			this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
