@@ -125,6 +125,30 @@ namespace EpicEdit.Rom
 			}
 		}
 
+		public BattleStartPosition StartPositionP1
+		{
+			get
+			{
+				return new BattleStartPosition(this.EE_BATTLESTART1);
+			}
+			set
+			{
+				this.EE_BATTLESTART1 = value.GetBytes();
+			}
+		}
+
+		public BattleStartPosition StartPositionP2
+		{
+			get
+			{
+				return new BattleStartPosition(this.EE_BATTLESTART2);
+			}
+			set
+			{
+				this.EE_BATTLESTART2 = value.GetBytes();
+			}
+		}
+
 		public TrackObjects Objects
 		{
 			get
@@ -244,6 +268,16 @@ namespace EpicEdit.Rom
 		/// </summary>
 		private byte[] AREA_BORDER;
 
+		/// <summary>
+		/// Battle Starting Position for Player 1.
+		/// </summary>
+		private byte[] EE_BATTLESTART1;
+
+		/// <summary>
+		/// Battle Starting Position for Player 2.
+		/// </summary>
+		private byte[] EE_BATTLESTART2;
+
 		public MakeTrack(Track track, Game game)
 		{
 			this.track = track;
@@ -287,6 +321,9 @@ namespace EpicEdit.Rom
 			{
 				this.AREA_BORDER[i] = 0xFF;
 			}
+
+			this.EE_BATTLESTART1 = new byte[] { 0x00, 0x02, 0x78, 0x02 };
+			this.EE_BATTLESTART2 = new byte[] { 0x00, 0x02, 0x88, 0x01 };
 		}
 
 		/// <summary>
@@ -428,6 +465,14 @@ namespace EpicEdit.Rom
 					{
 						MakeTrack.LoadBlockData(this.AREA_BORDER, reader);
 					}
+					else if (line.StartsWith("#EE_BATTLESTART1 ", StringComparison.Ordinal))
+					{
+						MakeTrack.LoadLineData(this.EE_BATTLESTART1, line);
+					}
+					else if (line.StartsWith("#EE_BATTLESTART2 ", StringComparison.Ordinal))
+					{
+						MakeTrack.LoadLineData(this.EE_BATTLESTART2, line);
+					}
 
 					line = reader.ReadLine();
 				}
@@ -519,6 +564,12 @@ namespace EpicEdit.Rom
 
 			sb.AppendLine("#AREA_BORDER");
 			sb.AppendLine("#" + Utilities.ByteArrayToHexString(this.AREA_BORDER));
+
+			sb.AppendLine();
+
+			// Epic Edit only fields:
+			sb.AppendLine("#EE_BATTLESTART1 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART1));
+			sb.AppendLine("#EE_BATTLESTART2 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART2));
 
 			File.WriteAllText(filePath, sb.ToString());
 		}
