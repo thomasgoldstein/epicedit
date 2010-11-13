@@ -445,7 +445,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Load the order of the tracks.
+		/// Gets the order of the tracks.
 		/// </summary>
 		/// <returns></returns>
 		private byte[] GetTrackOrder()
