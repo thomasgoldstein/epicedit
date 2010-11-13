@@ -113,7 +113,7 @@ namespace EpicEdit.Rom.Tracks
 		}
 
 		/// <summary>
-		/// Gets the left bound of the StartPosition, depending on the <see cref="SecondRowOffset"/>.
+		/// Gets the left bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
 		/// </summary>
 		public int Left
 		{
@@ -121,7 +121,7 @@ namespace EpicEdit.Rom.Tracks
 		}
 
 		/// <summary>
-		/// Gets the right bound of the StartPosition, depending on the <see cref="SecondRowOffset"/>.
+		/// Gets the right bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
 		/// </summary>
 		public int Right
 		{
@@ -151,9 +151,9 @@ namespace EpicEdit.Rom.Tracks
 		}
 
 		/// <summary>
-		/// Returns the StartPosition data as a byte array, in the format the SMK ROM expects.
+		/// Returns the GPStartPosition data as a byte array, in the format the SMK ROM expects.
 		/// </summary>
-		/// <returns>The StartPosition bytes.</returns>
+		/// <returns>The GPStartPosition bytes.</returns>
 		public byte[] GetBytes()
 		{
 			byte[] data = new byte[6];
