@@ -340,7 +340,7 @@ namespace EpicEdit.Rom
 
 			this.trackGroups = new TrackGroup[Game.TotalTrackGroupCount];
 
-			string[] names = this.LoadTrackNames();
+			string[] names = this.GetTrackNames();
 
 			this.themes = new Themes(this.romBuffer, this.offsets, names);
 
@@ -349,8 +349,8 @@ namespace EpicEdit.Rom
 			this.overlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.overlayTileSizes);
 
 			byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackThemes], Game.TrackCount);
-			byte[] trackOrder = this.LoadTrackOrder();
-			byte[][] trackNameIndex = this.LoadTrackNameIndexes();
+			byte[] trackOrder = this.GetTrackOrder();
+			byte[][] trackNameIndex = this.GetTrackNameIndexes();
 
 			Offset[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
@@ -431,7 +431,7 @@ namespace EpicEdit.Rom
 			this.LoadItemIcons();
 		}
 
-		private string[] LoadTrackNames()
+		private string[] GetTrackNames()
 		{
 			int nameCount = this.trackGroups.Length + Game.ThemeCount;
 			string[] names = new string[nameCount];
@@ -451,7 +451,7 @@ namespace EpicEdit.Rom
 		/// Load the order of the tracks.
 		/// </summary>
 		/// <returns></returns>
-		private byte[] LoadTrackOrder()
+		private byte[] GetTrackOrder()
 		{
 			byte[] gpTrackOrder = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.GPTrackOrder], Game.GPTrackCount);
 			byte[] battleTrackOrder = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.BattleTrackOrder], Game.BattleTrackCount);
@@ -463,7 +463,7 @@ namespace EpicEdit.Rom
 			return trackOrder;
 		}
 
-		private byte[][] LoadTrackNameIndexes()
+		private byte[][] GetTrackNameIndexes()
 		{
 			int gpTrackNamesOffset = this.offsets[Address.GPTrackNames];
 
@@ -1184,7 +1184,7 @@ namespace EpicEdit.Rom
 				this.romBuffer[aiFirstAddressByteOffset] = 0xC8;
 			}
 
-			byte[] trackOrder = this.LoadTrackOrder();
+			byte[] trackOrder = this.GetTrackOrder();
 
 			for (int i = 0; i < this.trackGroups.Length; i++)
 			{
@@ -1224,7 +1224,7 @@ namespace EpicEdit.Rom
 
 		private void SaveTracks(Range epicZone, ref int epicZoneIterator, List<byte[]> savedData)
 		{
-			byte[] trackOrder = this.LoadTrackOrder();
+			byte[] trackOrder = this.GetTrackOrder();
 			Offset[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
 			for (int i = 0; i < this.trackGroups.Length; i++)
