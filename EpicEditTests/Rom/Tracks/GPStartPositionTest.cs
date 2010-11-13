@@ -55,7 +55,7 @@ namespace EpicEditTests.Rom.Tracks
 			byte[] dataBefore = new byte[6];
 
 			int index = id * 8 + 2;
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < dataBefore.Length; i++)
 			{
 				dataBefore[i] = this.allData[index + i];
 			}
