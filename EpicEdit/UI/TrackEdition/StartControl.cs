@@ -105,16 +105,20 @@ namespace EpicEdit.UI.TrackEdition
 
 			int valueBefore = gpTrack.StartPosition.SecondRowOffset;
 			int step = this.Precision;
-			int valueAfter = (this.secondRowTrackBar.Value / step) * step;
+			gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / step) * step;
+			int valueAfter = gpTrack.StartPosition.SecondRowOffset;
 			
 			if (valueBefore != valueAfter)
 			{
-				this.secondRowTrackBar.Value = valueAfter;
-				gpTrack.StartPosition.SecondRowOffset = valueAfter;
 				this.secondRowValueLabel.Text = valueAfter.ToString(CultureInfo.InvariantCulture);
-
 				this.DataChanged(this, EventArgs.Empty);
 			}
+		}
+		
+		private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
+		{
+			GPTrack gpTrack = this.track as GPTrack;
+			this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
 		}
 	}
 }
