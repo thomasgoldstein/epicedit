@@ -1349,7 +1349,7 @@ namespace EpicEdit.UI.TrackEdition
 		/// Init an action depending on the current edition mode.
 		/// </summary>
 		/// <param name="forceRepaint">If true: trigger a repaint after the action, whether something has changed or not.
-		/// If false: only repaint if something has been modified on the track.</param>
+		/// If false: only repaint if something has visually changed on the track.</param>
 		private void InitCurrentModeAction(bool forceRepaint)
 		{
 			bool repaintNeeded;
