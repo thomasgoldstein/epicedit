@@ -63,10 +63,10 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.location.Y; }
 		}
 
-		public BattleStartPosition(byte[] data, int index)
+		public BattleStartPosition(byte[] data)
 		{
-			int x = (data[index + 1] << 8) + data[index + 0];
-			int y = (data[index + 3] << 8) + data[index + 2];
+			int x = (data[1] << 8) + data[0];
+			int y = (data[3] << 8) + data[2];
 			this.location = new Point(x, y);
 		}
 

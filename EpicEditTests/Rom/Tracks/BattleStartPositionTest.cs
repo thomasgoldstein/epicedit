@@ -42,7 +42,7 @@ namespace EpicEditTests.Rom.Tracks
 				dataBefore[i] = this.allData[index + i];
 			}
 
-			BattleStartPosition startPosition = new BattleStartPosition(dataBefore, 0);
+			BattleStartPosition startPosition = new BattleStartPosition(dataBefore);
 			byte[] dataAfter = startPosition.GetBytes();
 
 			Assert.AreEqual(dataBefore, dataAfter);
