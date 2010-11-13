@@ -638,6 +638,41 @@ namespace EpicEdit.Rom
 			return data;
 		}
 
+		// FIXME: Calling this method corrupts the track (black screen)
+		private void SaveBattleStartPositionData(int trackIndex, BattleTrack track)
+		{
+			int bTrackIndex = trackIndex - Game.GPTrackCount;
+
+			int startPositionOffset = this.GetBattleStartingPositionDataOffset(trackIndex);
+
+			int newStartPositionOffset = 0x11FD8 + bTrackIndex * 10;
+			// There is free space available at the location above, which is where we'll move the battle starting positions.
+			// It's necessary to move the data in order to make starting positions independent for each track
+			// (they're shared in the original game).
+
+			// Update pointer to data
+			int startPositionOffsetIndex = this.offsets[Address.BattleTrackStartPositions] + bTrackIndex * 8;
+			this.romBuffer[startPositionOffsetIndex] = (byte)(newStartPositionOffset & 0xFF);
+			this.romBuffer[startPositionOffsetIndex + 1] = (byte)((newStartPositionOffset >> 8) & 0xFF);
+
+			// Update data
+			this.romBuffer[newStartPositionOffset++] = this.romBuffer[startPositionOffset];
+			this.romBuffer[newStartPositionOffset++] = this.romBuffer[startPositionOffset + 1];
+
+			byte[] startPositionP2Data = track.StartPositionP2.GetBytes();
+			byte[] startPositionP1Data = track.StartPositionP1.GetBytes();
+
+			foreach (byte b in startPositionP2Data)
+			{
+				this.romBuffer[newStartPositionOffset++] = b;
+			}
+
+			foreach (byte b in startPositionP1Data)
+			{
+				this.romBuffer[newStartPositionOffset++] = b;
+			}
+		}
+
 		private int GetBattleStartingPositionDataOffset(int trackIndex)
 		{
 			int bTrackIndex = trackIndex - Game.GPTrackCount;
@@ -1255,6 +1290,11 @@ namespace EpicEdit.Rom
 					data = gpTrack.Objects.GetBytes();
 					Array.Copy(data, 0, this.romBuffer, this.offsets[Address.TrackObjects] + trackIndex * 64, data.Length);
 				}
+			}
+			else
+			{
+				BattleTrack bTrack = track as BattleTrack;
+				//this.SaveBattleStartPositionData(trackIndex, bTrack);
 			}
 
 			this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
