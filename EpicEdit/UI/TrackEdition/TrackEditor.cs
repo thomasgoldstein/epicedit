@@ -1904,7 +1904,14 @@ namespace EpicEdit.UI.TrackEdition
 			int xDifference = position.X - xBefore;
 			int yDifference = position.Y - yBefore;
 
-			return xDifference != 0 || yDifference != 0;
+			bool dataChanged = xDifference != 0 || yDifference != 0;
+
+			if (dataChanged)
+			{
+				this.trackTreeView.MarkTrackAsChanged();
+			}
+
+			return dataChanged;
 		}
 
 		private void StartControlDataChanged(object sender, EventArgs e)
