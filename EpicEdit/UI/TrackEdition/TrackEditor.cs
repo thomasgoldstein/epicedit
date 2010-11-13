@@ -1895,8 +1895,6 @@ namespace EpicEdit.UI.TrackEdition
 
 		private bool InitBattleStartActionSub(BattleStartPosition position)
 		{
-			bool dataChanged = false;
-
 			Point absPixelPos = this.AbsolutePixelPosition;
 
 			int step = this.startControl.Precision;
@@ -1911,12 +1909,7 @@ namespace EpicEdit.UI.TrackEdition
 			int xDifference = position.X - xBefore;
 			int yDifference = position.Y - yBefore;
 
-			if (xDifference != 0 || yDifference != 0)
-			{
-				dataChanged = true;
-			}
-
-			return dataChanged;
+			return xDifference != 0 || yDifference != 0;
 		}
 
 		private void StartControlDataChanged(object sender, EventArgs e)
