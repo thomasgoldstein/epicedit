@@ -822,8 +822,8 @@ namespace EpicEdit.UI.Gfx
 		{
 			BattleTrack bTrack = this.track as BattleTrack;
 
-			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP1, GetStartPositionShape);
 			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP2, GetInvertedStartPositionShape);
+			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP1, GetStartPositionShape);
 		}
 
 		private void DrawBattleStartPosition(Graphics graphics, Point location, StartPositionShapeCreator shapeCreator)
