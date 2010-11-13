@@ -158,6 +158,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
 			this.secondRowTrackBar.TabIndex = 13;
 			this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.secondRowTrackBar.ValueChanged += new System.EventHandler(this.SecondRowTrackBarValueChanged);
 			this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
 			// 
 			// StartControl
