@@ -22,26 +22,57 @@ namespace EpicEdit.Rom.Tracks
 	/// </summary>
 	public class BattleStartPosition
 	{
-		public Point Location { get; set; }
+		private Point location;
+		public Point Location
+		{
+			get { return this.location; }
+			set
+			{
+				int x = value.X;
+				int y = value.Y;
+				int limit = 127 * 8;
+
+				if (x < 8)
+				{
+					x = 8;
+				}
+				else if (x > limit)
+				{
+					x = limit;
+				}
+
+				if (y < 8)
+				{
+					y = 8;
+				}
+				else if (y > limit)
+				{
+					y = limit;
+				}
+
+				this.location = new Point(x, y);
+			}
+		}
+
 		public int X
 		{
-			get { return this.Location.X; }
+			get { return this.location.X; }
 		}
 		public int Y
 		{
-			get { return this.Location.Y; }
+			get { return this.location.Y; }
 		}
 
 		public BattleStartPosition(byte[] data, int index)
 		{
 			int x = (data[index + 1] << 8) + data[index + 0];
 			int y = (data[index + 3] << 8) + data[index + 2];
-			this.Location = new Point(x, y);
+			this.location = new Point(x, y);
 		}
 
 		public static implicit operator Point(BattleStartPosition position)
 		{
-			return position.Location;
+			return position.location;
 		}
 
 		public bool IntersectsWith(Point point)
