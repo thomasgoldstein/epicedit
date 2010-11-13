@@ -112,7 +112,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.DataChanged(this, EventArgs.Empty);
 			}
 		}
-		
+
 		private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
