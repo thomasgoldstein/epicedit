@@ -598,7 +598,7 @@ namespace EpicEdit.Rom
 			return data;
 		}
 
-		private void SaveGPStartPositionData(int trackIndex, GPTrack track)
+		private void SaveGPStartPositionData(GPTrack track, int trackIndex)
 		{
 			byte[] data = track.StartPosition.GetBytes();
 			int offset = this.GetGPStartPositionDataOffset(trackIndex);
@@ -630,7 +630,7 @@ namespace EpicEdit.Rom
 		}
 
 		// FIXME: Calling this method corrupts the track (black screen)
-		private void SaveBattleStartPositionData(int trackIndex, BattleTrack track)
+		private void SaveBattleStartPositionData(BattleTrack track, int trackIndex)
 		{
 			int bTrackIndex = trackIndex - Game.GPTrackCount;
 
@@ -1256,7 +1256,7 @@ namespace EpicEdit.Rom
 				byte[] data;
 
 				// Update driver starting position
-				this.SaveGPStartPositionData(trackIndex, gpTrack);
+				this.SaveGPStartPositionData(gpTrack, trackIndex);
 
 				// Update lap line position and length
 				data = gpTrack.LapLine.GetBytes();
@@ -1285,7 +1285,7 @@ namespace EpicEdit.Rom
 			else
 			{
 				BattleTrack bTrack = track as BattleTrack;
-				//this.SaveBattleStartPositionData(trackIndex, bTrack);
+				//this.SaveBattleStartPositionData(bTrack, trackIndex);
 			}
 
 			this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
