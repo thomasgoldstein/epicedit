@@ -46,5 +46,27 @@ namespace EpicEdit.Rom.Tracks
 			this.StartPositionP1 = new BattleStartPosition(startPosition1Data);
 			this.StartPositionP2 = new BattleStartPosition(startPosition2Data);
 		}
+
+		/// <summary>
+		/// Loads the BattleTrack-specific items from the MakeTrack object.
+		/// </summary>
+		protected override void LoadDataFrom(MakeTrack track)
+		{
+			base.LoadDataFrom(track);
+
+			this.StartPositionP1 = track.StartPositionP1;
+			this.StartPositionP2 = track.StartPositionP2;
+		}
+
+		/// <summary>
+		/// Loads the BattleTrack-specific items to the MakeTrack object.
+		/// </summary>
+		protected override void LoadDataTo(MakeTrack track)
+		{
+			base.LoadDataTo(track);
+
+			track.StartPositionP1 = this.StartPositionP1;
+			track.StartPositionP2 = this.StartPositionP2;
+		}
 	}
 }
