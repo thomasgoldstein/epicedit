@@ -457,15 +457,7 @@ namespace EpicEdit.Rom
 					}
 					else
 					{
-						int battleTrackIndex = trackIndex - Game.GPTrackCount;
-						int startPositionOffsetIndex = this.offsets[Address.BattleTrackStartPositions] + battleTrackIndex * 8;
-						int startPositionOffset = 0x10000 + (this.romBuffer[startPositionOffsetIndex + 1] << 8) + this.romBuffer[startPositionOffsetIndex] + 2; // Skip 2 leading bytes
-
-						byte[] startPositionData = new byte[8];
-						for (int k = 0; k < startPositionData.Length; k++)
-						{
-							startPositionData[k] = this.romBuffer[startPositionOffset + k];
-						}
+						byte[] startPositionData = this.LoadBattleStartPositionData(trackIndex);
 
 						tracks[j] = new BattleTrack(trackName, trackTheme,
 													trackMap, overlayTileData,
@@ -630,6 +622,31 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion GP Start Position
+
+		#region Battle Start Position
+
+		private byte[] LoadBattleStartPositionData(int trackIndex)
+		{
+			int startPositionOffset = this.GetBattleStartingPositionDataOffset(trackIndex) + 2; // Skip 2 leading bytes
+
+			byte[] data = new byte[8];
+			for (int i = 0; i < data.Length; i++)
+			{
+				data[i] = this.romBuffer[startPositionOffset + i];
+			}
+
+			return data;
+		}
+
+		private int GetBattleStartingPositionDataOffset(int trackIndex)
+		{
+			int bTrackIndex = trackIndex - Game.GPTrackCount;
+			int startPositionOffsetIndex = this.offsets[Address.BattleTrackStartPositions] + bTrackIndex * 8;
+			int startPositionOffset = 0x10000 + (this.romBuffer[startPositionOffsetIndex + 1] << 8) + this.romBuffer[startPositionOffsetIndex];
+			return startPositionOffset;
+		}
+
+		#endregion Battle Start Position
 
 		#region Item Probabilities
 
