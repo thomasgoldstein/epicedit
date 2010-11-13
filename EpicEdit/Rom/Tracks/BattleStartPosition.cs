@@ -81,7 +81,12 @@ namespace EpicEdit.Rom.Tracks
 		/// <returns>The BattleStartPosition bytes.</returns>
 		public byte[] GetBytes()
 		{
-			throw new NotImplementedException();
+			byte[] data = new byte[4];
+			data[0] = (byte)(this.X & 0xFF);
+			data[1] = (byte)((this.X >> 8) & 0xFF);
+			data[2] = (byte)(this.Y & 0xFF);
+			data[3] = (byte)((this.Y >> 8) & 0xFF);
+			return data;
 		}
 
 		public bool IntersectsWith(Point point)
