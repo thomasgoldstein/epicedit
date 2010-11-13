@@ -592,11 +592,6 @@ namespace EpicEdit.Rom
 
 		private byte[] LoadGPStartPositionData(int trackIndex)
 		{
-			if (trackIndex >= Game.GPTrackCount) // If the track is a battle track
-			{
-				return null;
-			}
-
 			int offset = this.GetGPStartPositionDataOffset(trackIndex);
 			byte[] data = new byte[6];
 			Array.Copy(this.romBuffer, offset, data, 0, data.Length);
@@ -606,12 +601,6 @@ namespace EpicEdit.Rom
 		private void SaveGPStartPositionData(int trackIndex, GPTrack track)
 		{
 			byte[] data = track.StartPosition.GetBytes();
-
-			if (data == null)
-			{
-				return;
-			}
-
 			int offset = this.GetGPStartPositionDataOffset(trackIndex);
 			Array.Copy(data, 0, this.romBuffer, offset, 6);
 		}
