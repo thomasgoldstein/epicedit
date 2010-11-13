@@ -23,6 +23,14 @@ namespace EpicEdit.Rom.Tracks
 	public class BattleStartPosition
 	{
 		public Point Location { get; set; }
+		public int X
+		{
+			get { return this.Location.X; }
+		}
+		public int Y
+		{
+			get { return this.Location.Y; }
+		}
 
 		public BattleStartPosition(byte[] data, int index)
 		{
@@ -38,10 +46,10 @@ namespace EpicEdit.Rom.Tracks
 
 		public bool IntersectsWith(Point point)
 		{
-			return point.X >= this.Location.X - 8 &&
-				point.X <= this.Location.X + 7 &&
-				point.Y >= this.Location.Y - 8 &&
-				point.Y <= this.Location.Y + 7;
+			return point.X >= this.X - 8 &&
+				point.X <= this.X + 7 &&
+				point.Y >= this.Y - 8 &&
+				point.Y <= this.Y + 7;
 		}
 	}
 }
