@@ -505,8 +505,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void CenterTrackDisplayOn(Point location)
 		{
-			int x = location.X + 1 - (this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2);
-			int y = location.Y + 1 - (this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
+			int x = location.X - (this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2);
+			int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
 
 			this.SetHorizontalScrollingValue(x);
 			this.SetVerticalScrollingValue(y);
