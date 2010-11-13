@@ -825,16 +825,9 @@ namespace EpicEdit.Rom
 
 			// TODO: Retrieve name length dynamically from the ROM.
 			// Don't know where that data is.
-			int[] lengths;
-
-			if (this.region == Regions.Jap)
-			{
-				lengths = new int[] { 16, 16, 16 };
-			}
-			else
-			{
-				lengths = new int[] { 24, 20, 22 };
-			}
+			int[] lengths = this.region == Regions.Jap ?
+				new int[] { 16, 16, 16 } :
+				new int[] { 24, 20, 22 };
 
 			for (int i = 0; i < modeNames.Length; i++)
 			{
