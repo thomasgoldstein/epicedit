@@ -19,11 +19,11 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
 	[TestFixture]
-	public class StartPositionTest
+	public class GPStartPositionTest
 	{
 		private byte[] allData;
 
-		public StartPositionTest()
+		public GPStartPositionTest()
 		{
 			this.allData = new byte[]
 			{
