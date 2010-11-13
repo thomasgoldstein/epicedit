@@ -44,66 +44,26 @@ namespace EpicEdit.UI.TrackEdition
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.secondRowValueLabel = new System.Windows.Forms.Label();
-			this.secondRowLabel = new System.Windows.Forms.Label();
-			this.secondRowTrackBar = new System.Windows.Forms.TrackBar();
-			this.startBindCheckBox = new System.Windows.Forms.CheckBox();
 			this.precisionGroupBox = new System.Windows.Forms.GroupBox();
 			this.step1pxRadioButton = new System.Windows.Forms.RadioButton();
 			this.step8pxRadioButton = new System.Windows.Forms.RadioButton();
 			this.step4pxRadioButton = new System.Windows.Forms.RadioButton();
-			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).BeginInit();
+			this.gpTrackGroupBox = new System.Windows.Forms.GroupBox();
+			this.startBindCheckBox = new System.Windows.Forms.CheckBox();
+			this.secondRowValueLabel = new System.Windows.Forms.Label();
+			this.secondRowLabel = new System.Windows.Forms.Label();
+			this.secondRowTrackBar = new System.Windows.Forms.TrackBar();
 			this.precisionGroupBox.SuspendLayout();
+			this.gpTrackGroupBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// secondRowValueLabel
-			// 
-			this.secondRowValueLabel.Location = new System.Drawing.Point(3, 190);
-			this.secondRowValueLabel.Margin = new System.Windows.Forms.Padding(0);
-			this.secondRowValueLabel.Name = "secondRowValueLabel";
-			this.secondRowValueLabel.Size = new System.Drawing.Size(35, 25);
-			this.secondRowValueLabel.TabIndex = 12;
-			this.secondRowValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// secondRowLabel
-			// 
-			this.secondRowLabel.Location = new System.Drawing.Point(2, 171);
-			this.secondRowLabel.Name = "secondRowLabel";
-			this.secondRowLabel.Size = new System.Drawing.Size(124, 16);
-			this.secondRowLabel.TabIndex = 11;
-			this.secondRowLabel.Text = "2nd row offset";
-			this.secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// secondRowTrackBar
-			// 
-			this.secondRowTrackBar.AutoSize = false;
-			this.secondRowTrackBar.Location = new System.Drawing.Point(34, 190);
-			this.secondRowTrackBar.Maximum = 255;
-			this.secondRowTrackBar.Minimum = -256;
-			this.secondRowTrackBar.Name = "secondRowTrackBar";
-			this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
-			this.secondRowTrackBar.TabIndex = 10;
-			this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-			this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
-			// 
-			// startBindCheckBox
-			// 
-			this.startBindCheckBox.Checked = true;
-			this.startBindCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.startBindCheckBox.Location = new System.Drawing.Point(13, 7);
-			this.startBindCheckBox.Name = "startBindCheckBox";
-			this.startBindCheckBox.Size = new System.Drawing.Size(103, 32);
-			this.startBindCheckBox.TabIndex = 9;
-			this.startBindCheckBox.Text = "Bind lap line && driver positions";
-			this.startBindCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.startBindCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// precisionGroupBox
 			// 
 			this.precisionGroupBox.Controls.Add(this.step1pxRadioButton);
 			this.precisionGroupBox.Controls.Add(this.step8pxRadioButton);
 			this.precisionGroupBox.Controls.Add(this.step4pxRadioButton);
-			this.precisionGroupBox.Location = new System.Drawing.Point(2, 42);
+			this.precisionGroupBox.Location = new System.Drawing.Point(2, 4);
 			this.precisionGroupBox.Name = "precisionGroupBox";
 			this.precisionGroupBox.Size = new System.Drawing.Size(124, 120);
 			this.precisionGroupBox.TabIndex = 8;
@@ -145,20 +105,73 @@ namespace EpicEdit.UI.TrackEdition
 			this.step4pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.step4pxRadioButton.UseVisualStyleBackColor = true;
 			// 
+			// gpTrackGroupBox
+			// 
+			this.gpTrackGroupBox.Controls.Add(this.startBindCheckBox);
+			this.gpTrackGroupBox.Controls.Add(this.secondRowValueLabel);
+			this.gpTrackGroupBox.Controls.Add(this.secondRowLabel);
+			this.gpTrackGroupBox.Controls.Add(this.secondRowTrackBar);
+			this.gpTrackGroupBox.Location = new System.Drawing.Point(2, 137);
+			this.gpTrackGroupBox.Name = "gpTrackGroupBox";
+			this.gpTrackGroupBox.Size = new System.Drawing.Size(124, 124);
+			this.gpTrackGroupBox.TabIndex = 13;
+			this.gpTrackGroupBox.TabStop = false;
+			this.gpTrackGroupBox.Text = "GP Track Settings";
+			// 
+			// startBindCheckBox
+			// 
+			this.startBindCheckBox.Checked = true;
+			this.startBindCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.startBindCheckBox.Location = new System.Drawing.Point(15, 19);
+			this.startBindCheckBox.Name = "startBindCheckBox";
+			this.startBindCheckBox.Size = new System.Drawing.Size(103, 32);
+			this.startBindCheckBox.TabIndex = 16;
+			this.startBindCheckBox.Text = "Bind lap line && driver positions";
+			this.startBindCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.startBindCheckBox.UseVisualStyleBackColor = true;
+			// 
+			// secondRowValueLabel
+			// 
+			this.secondRowValueLabel.Location = new System.Drawing.Point(1, 85);
+			this.secondRowValueLabel.Margin = new System.Windows.Forms.Padding(0);
+			this.secondRowValueLabel.Name = "secondRowValueLabel";
+			this.secondRowValueLabel.Size = new System.Drawing.Size(35, 25);
+			this.secondRowValueLabel.TabIndex = 15;
+			this.secondRowValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// secondRowLabel
+			// 
+			this.secondRowLabel.Location = new System.Drawing.Point(2, 66);
+			this.secondRowLabel.Name = "secondRowLabel";
+			this.secondRowLabel.Size = new System.Drawing.Size(120, 16);
+			this.secondRowLabel.TabIndex = 14;
+			this.secondRowLabel.Text = "2nd row offset";
+			this.secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// secondRowTrackBar
+			// 
+			this.secondRowTrackBar.AutoSize = false;
+			this.secondRowTrackBar.Location = new System.Drawing.Point(31, 85);
+			this.secondRowTrackBar.Maximum = 255;
+			this.secondRowTrackBar.Minimum = -256;
+			this.secondRowTrackBar.Name = "secondRowTrackBar";
+			this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
+			this.secondRowTrackBar.TabIndex = 13;
+			this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
+			// 
 			// StartControl
 			// 
-			this.Controls.Add(this.secondRowValueLabel);
-			this.Controls.Add(this.secondRowLabel);
-			this.Controls.Add(this.secondRowTrackBar);
-			this.Controls.Add(this.startBindCheckBox);
+			this.Controls.Add(this.gpTrackGroupBox);
 			this.Controls.Add(this.precisionGroupBox);
 			this.Name = "StartControl";
-			this.Size = new System.Drawing.Size(130, 220);
-			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).EndInit();
+			this.Size = new System.Drawing.Size(130, 270);
 			this.precisionGroupBox.ResumeLayout(false);
+			this.gpTrackGroupBox.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).EndInit();
 			this.ResumeLayout(false);
-
 		}
+		private System.Windows.Forms.GroupBox gpTrackGroupBox;
 		private System.Windows.Forms.RadioButton step4pxRadioButton;
 		private System.Windows.Forms.RadioButton step8pxRadioButton;
 		private System.Windows.Forms.RadioButton step1pxRadioButton;

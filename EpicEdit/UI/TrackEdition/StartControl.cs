@@ -52,8 +52,13 @@ namespace EpicEdit.UI.TrackEdition
 				if (value is GPTrack)
 				{
 					GPTrack gpTrack = value as GPTrack;
+					this.gpTrackGroupBox.Enabled = true;
 					this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
 					this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.InvariantCulture);
+				}
+				else
+				{
+					this.gpTrackGroupBox.Enabled = false;
 				}
 			}
 		}
@@ -61,14 +66,6 @@ namespace EpicEdit.UI.TrackEdition
 		public StartControl()
 		{
 			this.InitializeComponent();
-		}
-
-		public bool LapLineAndDriverPositionsBound
-		{
-			get
-			{
-				return this.startBindCheckBox.Checked;
-			}
 		}
 
 		public int Precision
@@ -91,6 +88,14 @@ namespace EpicEdit.UI.TrackEdition
 				}
 
 				return precision;
+			}
+		}
+
+		public bool LapLineAndDriverPositionsBound
+		{
+			get
+			{
+				return this.startBindCheckBox.Checked;
 			}
 		}
 
