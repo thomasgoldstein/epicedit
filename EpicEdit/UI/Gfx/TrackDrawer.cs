@@ -395,7 +395,8 @@ namespace EpicEdit.UI.Gfx
 					}
 					else
 					{
-						this.NotifyFullRepaintNeed();
+						BattleTrack bTrack = this.track as BattleTrack;
+						this.SetBattleStartClipRegion(clipRegion, bTrack.StartPositionP1, bTrack.StartPositionP2);
 					}
 
 					if (!this.fullRepaintNeeded)
@@ -570,6 +571,21 @@ namespace EpicEdit.UI.Gfx
 
 			clipRegion.Union(startRectangle1);
 			clipRegion.Union(startRectangle2);
+		}
+
+		private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
+		{
+			this.SetBattleStartClipRegionSub(clipRegion, startPositionP1);
+			this.SetBattleStartClipRegionSub(clipRegion, startPositionP2);
+		}
+
+		private void SetBattleStartClipRegionSub(Region clipRegion, BattleStartPosition startPosition)
+		{
+			Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
+													 startPosition.Y - (this.scrollPosition.Y * 8) - 4,
+													 9, 8);
+
+			clipRegion.Union(startRectangle);
 		}
 
 		private void SetObjectClipRegion(Region clipRegion, TrackObject hoveredObject)
