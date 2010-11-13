@@ -168,17 +168,17 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Start Position X.
+		/// GP Start Position X.
 		/// </summary>
 		private byte[] SP_STX;
 
 		/// <summary>
-		/// Start Position Y.
+		/// GP Start Position Y.
 		/// </summary>
 		private byte[] SP_STY;
 
 		/// <summary>
-		/// Start Position Width (2nd Row Offset).
+		/// GP Start Position Width (2nd Row Offset).
 		/// </summary>
 		private byte[] SP_STW;
 
