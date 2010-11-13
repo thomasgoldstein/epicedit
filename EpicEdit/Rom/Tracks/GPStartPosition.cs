@@ -74,18 +74,26 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.secondRowOffset; }
 			set
 			{
-				if (value < -256)
+				int limit = 127 * 8;
+
+				if (this.X + value < 8)
 				{
-					this.secondRowOffset = -256;
+					value = 8 - this.X;
+				}
+				else if (this.X + value > limit)
+				{
+					value = limit - this.X;
+				}
+				else if (value < -256)
+				{
+					value = -256;
 				}
 				else if (value > 255)
 				{
-					this.secondRowOffset = 255;
+					value = 255;
 				}
-				else
-				{
-					this.secondRowOffset = value;
-				}
+
+				this.secondRowOffset = value;
 			}
 		}
 
