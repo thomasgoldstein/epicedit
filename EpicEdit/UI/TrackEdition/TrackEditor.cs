@@ -169,6 +169,7 @@ namespace EpicEdit.UI.TrackEdition
 			DragLapLine,
 			ResizeLapLine,
 			DragStartPosition,
+			DragStartPosition2,
 			//DragStartPosition2ndRow,
 			DragAll
 		}
@@ -964,11 +965,12 @@ namespace EpicEdit.UI.TrackEdition
 					return;
 				}
 
+				this.buttonPressed = ActionButton.LeftMouseButton;
+				Point absPixelPos = this.AbsolutePixelPosition;
+
 				if (this.track is GPTrack)
 				{
 					GPTrack gpTrack = this.track as GPTrack;
-					Point absPixelPos = this.AbsolutePixelPosition;
-					this.buttonPressed = ActionButton.LeftMouseButton;
 
 					if (this.startAction == StartAction.DragStartPosition)
 					{
@@ -980,6 +982,21 @@ namespace EpicEdit.UI.TrackEdition
 						// ie: StartAction.DragLapLine, ResizeLapLine or DragAll
 						this.anchorPoint = new Point(absPixelPos.X - gpTrack.LapLine.X,
 													 absPixelPos.Y - gpTrack.LapLine.Y);
+					}
+				}
+				else
+				{
+					BattleTrack bTrack = this.track as BattleTrack;
+
+					if (this.startAction == StartAction.DragStartPosition)
+					{
+						this.anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP1.X,
+													 absPixelPos.Y - bTrack.StartPositionP1.Y);
+					}
+					else
+					{
+						this.anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP2.X,
+													 absPixelPos.Y - bTrack.StartPositionP2.Y);
 					}
 				}
 			}
@@ -1844,19 +1861,62 @@ namespace EpicEdit.UI.TrackEdition
 		private bool InitBattleStartAction()
 		{
 			BattleTrack bTrack = this.track as BattleTrack;
+
+			if (this.buttonPressed == ActionButton.LeftMouseButton)
+			{
+				if (this.startAction == StartAction.DragStartPosition)
+				{
+					return this.InitBattleStartActionSub(bTrack.StartPositionP1);
+				}
+
+				return this.InitBattleStartActionSub(bTrack.StartPositionP2);
+			}
+
 			Point absPixelPos = this.AbsolutePixelPosition;
 
-			if (bTrack.StartPositionP1.IntersectsWith(absPixelPos) ||
-				bTrack.StartPositionP2.IntersectsWith(absPixelPos))
+			if (bTrack.StartPositionP1.IntersectsWith(absPixelPos))
 			{
+				this.startAction = StartAction.DragStartPosition;
+				this.Cursor = Cursors.Hand;
+			}
+			else if (bTrack.StartPositionP2.IntersectsWith(absPixelPos))
+			{
+				this.startAction = StartAction.DragStartPosition2;
 				this.Cursor = Cursors.Hand;
 			}
 			else
 			{
+				this.startAction = StartAction.None;
 				this.Cursor = Cursors.Default;
 			}
 
 			return false;
+		}
+
+		private bool InitBattleStartActionSub(BattleStartPosition position)
+		{
+			bool dataChanged = false;
+
+			Point absPixelPos = this.AbsolutePixelPosition;
+
+			int step = this.startControl.Precision;
+			Point destination = new Point(((absPixelPos.X - this.anchorPoint.X) / step) * step,
+										 ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
+
+			int xBefore = position.X;
+			int yBefore = position.Y;
+
+			position.Location = destination;
+
+			int xDifference = position.X - xBefore;
+			int yDifference = position.Y - yBefore;
+
+			if (xDifference != 0 || yDifference != 0)
+			{
+				dataChanged = true;
+			}
+
+			return dataChanged;
 		}
 
 		private void StartControlDataChanged(object sender, EventArgs e)
