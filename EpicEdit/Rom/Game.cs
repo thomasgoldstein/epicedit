@@ -596,7 +596,7 @@ namespace EpicEdit.Rom
 
 		#endregion Track Overlay Tiles
 
-		#region Start Position
+		#region GP Start Position
 
 		private byte[] LoadGPStartPositionData(int trackIndex)
 		{
@@ -629,7 +629,7 @@ namespace EpicEdit.Rom
 			return this.offsets[Address.GPTrackStartPositions] + reorder[trackIndex] * 8;
 		}
 
-		#endregion Start Position
+		#endregion GP Start Position
 
 		#region Item Probabilities
 
