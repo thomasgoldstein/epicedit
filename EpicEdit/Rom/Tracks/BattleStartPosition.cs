@@ -75,6 +75,15 @@ namespace EpicEdit.Rom.Tracks
 			return position.location;
 		}
 
+		/// <summary>
+		/// Returns the BattleStartPosition data as a byte array, in the format the SMK ROM expects.
+		/// </summary>
+		/// <returns>The BattleStartPosition bytes.</returns>
+		public byte[] GetBytes()
+		{
+			throw new NotImplementedException();
+		}
+
 		public bool IntersectsWith(Point point)
 		{
 			return point.X >= this.X - 8 &&
