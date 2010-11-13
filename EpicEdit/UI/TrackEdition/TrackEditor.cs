@@ -1321,15 +1321,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetControl.Track = this.track;
 			this.SetCurrentTrackSub();
 
-			if (this.track is GPTrack)
-			{
-				this.startTabPage.Enabled = true;
-				this.startControl.Track = this.track;
-			}
-			else
-			{
-				this.startTabPage.Enabled = false;
-			}
+			this.startControl.Track = this.track;
 		}
 
 		private void SetCurrentTrackSub()
