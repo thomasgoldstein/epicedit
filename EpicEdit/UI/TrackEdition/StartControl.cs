@@ -52,9 +52,7 @@ namespace EpicEdit.UI.TrackEdition
 				if (value is GPTrack)
 				{
 					GPTrack gpTrack = value as GPTrack;
-					this.secondRowTrackBar.Scroll -= this.SecondRowTrackBarScroll;
 					this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
-					this.secondRowTrackBar.Scroll += this.SecondRowTrackBarScroll;
 					this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.InvariantCulture);
 				}
 			}
