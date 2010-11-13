@@ -1340,6 +1340,9 @@ namespace EpicEdit.UI.TrackEdition
 		#endregion Track TreeView
 
 		#region EditionMode Tabs
+		/// <summary>
+		/// Init an action depending on the current edition mode.
+		/// </summary>
 		private void InitCurrentModeAction()
 		{
 			this.InitCurrentModeAction(false);
