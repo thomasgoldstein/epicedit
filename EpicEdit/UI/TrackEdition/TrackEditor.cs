@@ -958,7 +958,8 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			else if (this.currentMode == EditionMode.Start)
 			{
-				if (e.Button != MouseButtons.Left)
+				if (e.Button != MouseButtons.Left ||
+					this.startAction == StartAction.None)
 				{
 					return;
 				}
@@ -966,18 +967,17 @@ namespace EpicEdit.UI.TrackEdition
 				if (this.track is GPTrack)
 				{
 					GPTrack gpTrack = this.track as GPTrack;
-
 					Point absPixelPos = this.AbsolutePixelPosition;
+					this.buttonPressed = ActionButton.LeftMouseButton;
+
 					if (this.startAction == StartAction.DragStartPosition)
 					{
-						this.buttonPressed = ActionButton.LeftMouseButton;
 						this.anchorPoint = new Point(absPixelPos.X - gpTrack.StartPosition.X,
 													 absPixelPos.Y - gpTrack.StartPosition.Y);
 					}
-					else if (this.startAction != StartAction.None)
+					else
 					{
 						// ie: StartAction.DragLapLine, ResizeLapLine or DragAll
-						this.buttonPressed = ActionButton.LeftMouseButton;
 						this.anchorPoint = new Point(absPixelPos.X - gpTrack.LapLine.X,
 													 absPixelPos.Y - gpTrack.LapLine.Y);
 					}
