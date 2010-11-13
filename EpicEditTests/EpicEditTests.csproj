@@ -82,6 +82,7 @@
     <Compile Include="Rom\OffsetTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
+    <Compile Include="Rom\Tracks\BattleStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\GPTrackTest.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbabilitiesTest.cs" />
     <Compile Include="Rom\Tracks\LapLineTest.cs" />
