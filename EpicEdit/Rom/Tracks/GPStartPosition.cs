@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks
 			{
 				int x = value.X;
 				int y = value.Y;
-				int limit = 128 * 8;
+				int limit = 127 * 8;
 
 				if (this.SecondRowOffset > 0)
 				{
@@ -38,9 +38,9 @@ namespace EpicEdit.Rom.Tracks
 					{
 						x = 8;
 					}
-					else if (x + this.SecondRowOffset > limit - 8)
+					else if (x + this.SecondRowOffset > limit)
 					{
-						x = limit - 8 - this.SecondRowOffset;
+						x = limit - this.SecondRowOffset;
 					}
 				}
 				else
@@ -49,9 +49,9 @@ namespace EpicEdit.Rom.Tracks
 					{
 						x = 8 - this.SecondRowOffset;
 					}
-					else if (x > limit - 8)
+					else if (x > limit)
 					{
-						x = limit - 8;
+						x = limit;
 					}
 				}
 
@@ -101,7 +101,7 @@ namespace EpicEdit.Rom.Tracks
 
 		public static int Height
 		{
-			get { return 176; }
+			get { return 168; }
 		}
 
 		/// <summary>
@@ -173,7 +173,7 @@ namespace EpicEdit.Rom.Tracks
 			return point.X >= this.Left - 8 &&
 				point.X <= this.Right + 7 &&
 				point.Y >= this.Y - 8 &&
-				point.Y <= this.Y + GPStartPosition.Height;
+				point.Y <= this.Y + GPStartPosition.Height + 7;
 		}
 	}
 }

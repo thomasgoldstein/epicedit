@@ -561,12 +561,12 @@ namespace EpicEdit.UI.Gfx
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
 													  startPosition.Y - (this.scrollPosition.Y * 8) - 4,
 													  9,
-													  GPStartPosition.Height - 20);
+													  GPStartPosition.Height - 12);
 
 			Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
 													  startRectangle1.Y + 20,
 													  startRectangle1.Width,
-													  startRectangle1.Height);
+													  startRectangle1.Height + 8);
 
 			clipRegion.Union(startRectangle1);
 			clipRegion.Union(startRectangle2);
