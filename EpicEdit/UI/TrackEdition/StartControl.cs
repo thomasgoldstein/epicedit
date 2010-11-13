@@ -54,7 +54,6 @@ namespace EpicEdit.UI.TrackEdition
 					GPTrack gpTrack = value as GPTrack;
 					this.gpTrackGroupBox.Enabled = true;
 					this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
-					this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.InvariantCulture);
 				}
 				else
 				{
@@ -110,7 +109,6 @@ namespace EpicEdit.UI.TrackEdition
 			
 			if (valueBefore != valueAfter)
 			{
-				this.secondRowValueLabel.Text = valueAfter.ToString(CultureInfo.InvariantCulture);
 				this.DataChanged(this, EventArgs.Empty);
 			}
 		}
@@ -118,7 +116,15 @@ namespace EpicEdit.UI.TrackEdition
 		private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
-			this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+
+			if (this.secondRowTrackBar.Value != gpTrack.StartPosition.SecondRowOffset)
+			{
+				this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+			}
+			else
+			{
+				this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.InvariantCulture);
+			}
 		}
 	}
 }
