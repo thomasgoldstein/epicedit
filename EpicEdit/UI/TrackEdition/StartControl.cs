@@ -49,9 +49,9 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.track = value;
 
-				if (value is GPTrack)
+				if (this.track is GPTrack)
 				{
-					GPTrack gpTrack = value as GPTrack;
+					GPTrack gpTrack = this.track as GPTrack;
 					this.gpTrackGroupBox.Enabled = true;
 					this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
 				}
