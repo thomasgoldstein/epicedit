@@ -603,8 +603,10 @@ namespace EpicEdit.Rom
 			return data;
 		}
 
-		private void SaveGPStartPositionData(int trackIndex, byte[] data)
+		private void SaveGPStartPositionData(int trackIndex, GPTrack track)
 		{
+			byte[] data = track.StartPosition.GetBytes();
+
 			if (data == null)
 			{
 				return;
@@ -1265,7 +1267,7 @@ namespace EpicEdit.Rom
 				byte[] data;
 
 				// Update driver starting position
-				this.SaveGPStartPositionData(trackIndex, gpTrack.StartPosition.GetBytes());
+				this.SaveGPStartPositionData(trackIndex, gpTrack);
 
 				// Update lap line position and length
 				data = gpTrack.LapLine.GetBytes();
