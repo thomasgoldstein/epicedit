@@ -339,13 +339,10 @@ namespace EpicEdit.Rom
 			this.offsets = new Offsets(this.romBuffer, this.region);
 
 			this.trackGroups = new TrackGroup[Game.TotalTrackGroupCount];
-
 			string[] names = this.GetTrackNames();
 
 			this.themes = new Themes(this.romBuffer, this.offsets, names);
-
 			this.overlayTileSizes = new OverlayTileSizes(this.romBuffer, this.offsets);
-
 			this.overlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.overlayTileSizes);
 
 			byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackThemes], Game.TrackCount);
