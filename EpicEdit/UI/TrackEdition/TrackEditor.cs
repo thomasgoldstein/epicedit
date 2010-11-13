@@ -1864,12 +1864,10 @@ namespace EpicEdit.UI.TrackEdition
 
 			if (this.buttonPressed == ActionButton.LeftMouseButton)
 			{
-				if (this.startAction == StartAction.DragStartPosition)
-				{
-					return this.InitBattleStartActionSub(bTrack.StartPositionP1);
-				}
+				BattleStartPosition position = this.startAction == StartAction.DragStartPosition ?
+					bTrack.StartPositionP1 : bTrack.StartPositionP2;
 
-				return this.InitBattleStartActionSub(bTrack.StartPositionP2);
+				return this.InitBattleStartActionSub(position);
 			}
 
 			Point absPixelPos = this.AbsolutePixelPosition;
