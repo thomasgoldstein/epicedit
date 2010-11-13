@@ -354,6 +354,10 @@ namespace EpicEdit.Rom
 
 			Offset[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
+			int aiOffsetBase = (this.romBuffer[this.offsets[Address.TrackAIDataFirstAddressByte]] & 0xF) << 16;
+			byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAIZones], Game.TrackCount * 2); // 2 offset bytes per track
+			byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAITargets], Game.TrackCount * 2); // 2 offset bytes per track
+
 			for (int i = 0; i < this.trackGroups.Length; i++)
 			{
 				int trackCountInGroup;
@@ -368,10 +372,6 @@ namespace EpicEdit.Rom
 					trackCountInGroup = Game.BattleTrackCount;
 					trackGroupName = names[trackNameIndex[Game.GPTrackCount][1]];
 				}
-
-				int aiOffsetBase = (this.romBuffer[this.offsets[Address.TrackAIDataFirstAddressByte]] & 0xF) << 16;
-				byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAIZones], Game.TrackCount * 2); // 2 offset bytes per track
-				byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAITargets], Game.TrackCount * 2); // 2 offset bytes per track
 
 				Track[] tracks = new Track[trackCountInGroup];
 
