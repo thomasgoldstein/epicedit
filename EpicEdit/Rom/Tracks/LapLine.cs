@@ -61,9 +61,9 @@ namespace EpicEdit.Rom.Tracks
 			get { return this.length; }
 			private set
 			{
-				if (value < 1)
+				if (value < 16)
 				{
-					this.length = 1;
+					this.length = 16;
 				}
 				else
 				{
