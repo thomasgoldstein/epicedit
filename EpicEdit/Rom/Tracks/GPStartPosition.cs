@@ -130,8 +130,8 @@ namespace EpicEdit.Rom.Tracks
 
 		public GPStartPosition(short x, short y, short secondRowOffset)
 		{
-			this.SecondRowOffset = secondRowOffset;
 			this.Location = new Point(x, y);
+			this.SecondRowOffset = secondRowOffset;
 		}
 
 		public GPStartPosition(byte[] data)
