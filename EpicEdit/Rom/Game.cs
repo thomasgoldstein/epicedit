@@ -437,7 +437,7 @@ namespace EpicEdit.Rom
 
 			for (int i = 0; i < names.Length; i++)
 			{
-				offset = 0x10000 + (nameIndex[i][1] << 8) + new Offset(nameIndex[i][0]); // Recreates offsets from the index table loaded above
+				offset = 0x10000 + (nameIndex[i][1] << 8) + nameIndex[i][0]; // Recreates offsets from the index table loaded above
 				names[i] = Utilities.DecryptRomText(Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF), this.region);
 			}
 
