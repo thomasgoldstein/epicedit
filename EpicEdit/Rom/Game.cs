@@ -819,23 +819,20 @@ namespace EpicEdit.Rom
 
 		public string[] GetModeNames()
 		{
-			int offset = this.offsets[Address.ModeStrings];
-
 			string[] modeNames = new string[3];
 
-			// TODO: Retrieve name length dynamically from the ROM.
-			// Don't know where that data is.
-			int[] lengths = this.region == Regions.Jap ?
-				new int[] { 16, 16, 16 } :
-				new int[] { 24, 20, 22 };
+			int offset = this.offsets[Address.ModeStrings];
+			int nameOffset = 0x50000 + (this.romBuffer[offset + 1] << 8) + this.romBuffer[offset];
+			int lengthOffset = offset + 6;
 
 			for (int i = 0; i < modeNames.Length; i++)
 			{
-				int length = lengths[i];
+				int length = this.romBuffer[lengthOffset] * 2;
 				byte[] hexText = new byte[length];
-				Array.Copy(this.romBuffer, offset, hexText, 0, length);
+				Array.Copy(this.romBuffer, nameOffset, hexText, 0, length);
 				modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
-				offset += length;
+				nameOffset += length;
+				lengthOffset += 2;
 			}
 
 			return modeNames;

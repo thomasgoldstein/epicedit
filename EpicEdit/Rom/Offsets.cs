@@ -19,7 +19,7 @@ namespace EpicEdit.Rom
 	public enum Address : int
 	{
 		/// <summary>
-		/// Names of the modes on the title screen.
+		/// Offset to the names of the modes on the title screen.
 		/// </summary>
 		ModeStrings,
 
@@ -183,7 +183,7 @@ namespace EpicEdit.Rom
 			switch (region)
 			{
 				case Regions.Jap:
-					this[Address.ModeStrings] = 0x58418;
+					this[Address.ModeStrings] = 0x58B19;
 					this[Address.BattleTrackOrder] = 0x1C022;
 					this[Address.FirstBattleTrack] = 0x1BF0A;
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
@@ -196,7 +196,7 @@ namespace EpicEdit.Rom
 					break;
 
 				case Regions.US:
-					this[Address.ModeStrings] = 0x583DB;
+					this[Address.ModeStrings] = 0x58B00;
 					this[Address.BattleTrackOrder] = 0x1C15C;
 					this[Address.FirstBattleTrack] = 0x1C04C;
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E749), 3));
@@ -210,7 +210,7 @@ namespace EpicEdit.Rom
 					break;
 
 				case Regions.Euro:
-					this[Address.ModeStrings] = 0x583D9;
+					this[Address.ModeStrings] = 0x58AF2;
 					this[Address.BattleTrackOrder] = 0x1BFF8;
 					this[Address.FirstBattleTrack] = 0x1BEE8;
 					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E738), 3));
