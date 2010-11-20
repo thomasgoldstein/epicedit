@@ -351,7 +351,7 @@ namespace EpicEdit.Rom
 
 			int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
-			int aiOffsetBase = (this.romBuffer[this.offsets[Address.TrackAIDataFirstAddressByte]] & 0xF) << 16;
+			byte aiOffsetBase = this.romBuffer[this.offsets[Address.TrackAIDataFirstAddressByte]];
 			byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAIZones], Game.TrackCount * 2); // 2 offset bytes per track
 			byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAITargets], Game.TrackCount * 2); // 2 offset bytes per track
 
@@ -437,7 +437,7 @@ namespace EpicEdit.Rom
 
 			for (int i = 0; i < names.Length; i++)
 			{
-				offset = 0x10000 + (nameIndex[i][1] << 8) + nameIndex[i][0]; // Recreates offsets from the index table loaded above
+				offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
 				names[i] = Utilities.DecryptRomText(Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF), this.region);
 			}
 
@@ -477,14 +477,14 @@ namespace EpicEdit.Rom
 
 			for (int i = 0; i < gpTrackPointers.Length; i++)
 			{
-				int address = 0x10000 + (gpTrackPointers[i][1] << 8) + gpTrackPointers[i][0];
-				trackNameIndex[i] = Utilities.ReadBlockUntil(this.romBuffer, address, 0xFF);
+				int offset = Utilities.BytesToOffset(gpTrackPointers[i][0], gpTrackPointers[i][1], 1);
+				trackNameIndex[i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
 			}
 
 			for (int i = 0; i < battleTrackPointers.Length; i++)
 			{
-				int address = 0x10000 + (battleTrackPointers[i][1] << 8) + battleTrackPointers[i][0];
-				trackNameIndex[gpTrackPointers.Length + i] = Utilities.ReadBlockUntil(this.romBuffer, address, 0xFF);
+				int offset = Utilities.BytesToOffset(battleTrackPointers[i][0], battleTrackPointers[i][1], 1);
+				trackNameIndex[gpTrackPointers.Length + i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
 			}
 
 			for (int i = 0; i < trackNameIndex.Length; i++)
@@ -610,7 +610,7 @@ namespace EpicEdit.Rom
 		{
 			int bTrackIndex = trackIndex - Game.GPTrackCount;
 			int startPositionOffsetIndex = this.offsets[Address.BattleTrackStartPositions] + bTrackIndex * 8;
-			int startPositionOffset = 0x10000 + (this.romBuffer[startPositionOffsetIndex + 1] << 8) + this.romBuffer[startPositionOffsetIndex];
+			int startPositionOffset = Utilities.BytesToOffset(this.romBuffer[startPositionOffsetIndex], this.romBuffer[startPositionOffsetIndex + 1], 1);
 			return startPositionOffset;
 		}
 
@@ -669,21 +669,21 @@ namespace EpicEdit.Rom
 
 			int objectZonesOffset = this.offsets[Address.TrackObjectZones];
 			int index = objectZonesOffset + reorder[trackIndex] * 2;
-			return 0x40000 + (this.romBuffer[index + 1] << 8) + this.romBuffer[index];
+			return Utilities.BytesToOffset(this.romBuffer[index], this.romBuffer[index + 1], 4);
 		}
 
 		#endregion Object Zones
 
 		#region AI
 
-		private void LoadAIData(int trackIndex, int aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
+		private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
 		{
 			int aiOffset = trackIndex * 2;
 
-			int aiZoneDataOffset = aiOffsetBase + (aiZoneOffsets[aiOffset + 1] << 8) + aiZoneOffsets[aiOffset];
+			int aiZoneDataOffset = Utilities.BytesToOffset(aiZoneOffsets[aiOffset], aiZoneOffsets[aiOffset + 1], aiOffsetBase);
 			aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
 
-			int aiTargetDataOffset = aiOffsetBase + (aiTargetOffsets[aiOffset + 1] << 8) + aiTargetOffsets[aiOffset];
+			int aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
 			int aiTargetDataLength = TrackAI.ComputeTargetDataLength(aiZoneData);
 			aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
 		}
@@ -822,7 +822,7 @@ namespace EpicEdit.Rom
 			string[] modeNames = new string[3];
 
 			int offset = this.offsets[Address.ModeStrings];
-			int nameOffset = 0x50000 + (this.romBuffer[offset + 1] << 8) + this.romBuffer[offset];
+			int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
 			int lengthOffset = offset + 6;
 
 			for (int i = 0; i < modeNames.Length; i++)
