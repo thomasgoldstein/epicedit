@@ -16,7 +16,7 @@ using System;
 
 namespace EpicEdit.Rom
 {
-	public enum Address : int
+	public enum Offset : int
 	{
 		/// <summary>
 		/// Offset to the names of the modes on the title screen.
@@ -178,79 +178,79 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public Offsets(byte[] romBuffer, Regions region)
 		{
-			this.offsets = new int[Enum.GetValues(typeof(Address)).Length];
+			this.offsets = new int[Enum.GetValues(typeof(Offset)).Length];
 
 			switch (region)
 			{
 				case Regions.Jap:
-					this[Address.ModeStrings] = 0x58B19;
-					this[Address.BattleTrackOrder] = 0x1C022;
-					this[Address.FirstBattleTrack] = 0x1BF0A;
-					this[Address.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
-					this[Address.TrackAIDataFirstAddressByte] = 0x1FBC4;
-					this[Address.TrackAIZones] = 0x1FF8C;
-					this[Address.BattleTrackStartPositions] = 0x18B5F;
-					this[Address.TrackPreviewLapLines] = 0x1C886;
-					this[Address.ItemIconTilesPalettes] = 0x1B1DC;
-					this[Address.TrackOverlayPatterns] = 0x4F0B5;
+					this[Offset.ModeStrings] = 0x58B19;
+					this[Offset.BattleTrackOrder] = 0x1C022;
+					this[Offset.FirstBattleTrack] = 0x1BF0A;
+					this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
+					this[Offset.TrackAIDataFirstAddressByte] = 0x1FBC4;
+					this[Offset.TrackAIZones] = 0x1FF8C;
+					this[Offset.BattleTrackStartPositions] = 0x18B5F;
+					this[Offset.TrackPreviewLapLines] = 0x1C886;
+					this[Offset.ItemIconTilesPalettes] = 0x1B1DC;
+					this[Offset.TrackOverlayPatterns] = 0x4F0B5;
 					break;
 
 				case Regions.US:
-					this[Address.ModeStrings] = 0x58B00;
-					this[Address.BattleTrackOrder] = 0x1C15C;
-					this[Address.FirstBattleTrack] = 0x1C04C;
-					this[Address.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
-					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
-					this[Address.TrackAIZones] = 0x1FF9B;
-					this[Address.BattleTrackStartPositions] = 0x18B4B;
-					this[Address.TrackPreviewLapLines] = 0x1C915;
-					this[Address.ItemIconTilesPalettes] = 0x1B320;
-					this[Address.TrackOverlayPatterns] = 0x4F23D;
+					this[Offset.ModeStrings] = 0x58B00;
+					this[Offset.BattleTrackOrder] = 0x1C15C;
+					this[Offset.FirstBattleTrack] = 0x1C04C;
+					this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
+					this[Offset.TrackAIDataFirstAddressByte] = 0x1FBD3;
+					this[Offset.TrackAIZones] = 0x1FF9B;
+					this[Offset.BattleTrackStartPositions] = 0x18B4B;
+					this[Offset.TrackPreviewLapLines] = 0x1C915;
+					this[Offset.ItemIconTilesPalettes] = 0x1B320;
+					this[Offset.TrackOverlayPatterns] = 0x4F23D;
 					//this[Offsets.UnknownMakeRelated] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
 					break;
 
 				case Regions.Euro:
-					this[Address.ModeStrings] = 0x58AF2;
-					this[Address.BattleTrackOrder] = 0x1BFF8;
-					this[Address.FirstBattleTrack] = 0x1BEE8;
-					this[Address.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
-					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
-					this[Address.TrackAIZones] = 0x1FF6D;
-					this[Address.BattleTrackStartPositions] = 0x18B64;
-					this[Address.TrackPreviewLapLines] = 0x1C7B1;
-					this[Address.ItemIconTilesPalettes] = 0x1B1BC;
-					this[Address.TrackOverlayPatterns] = 0x4F159;
+					this[Offset.ModeStrings] = 0x58AF2;
+					this[Offset.BattleTrackOrder] = 0x1BFF8;
+					this[Offset.FirstBattleTrack] = 0x1BEE8;
+					this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
+					this[Offset.TrackAIDataFirstAddressByte] = 0x1FB9D;
+					this[Offset.TrackAIZones] = 0x1FF6D;
+					this[Offset.BattleTrackStartPositions] = 0x18B64;
+					this[Offset.TrackPreviewLapLines] = 0x1C7B1;
+					this[Offset.ItemIconTilesPalettes] = 0x1B1BC;
+					this[Offset.TrackOverlayPatterns] = 0x4F159;
 					break;
 			}
 
-			this[Address.ItemIcons] = 0x112F8;
-			this[Address.TrackObjects] = 0x5C800;
-			this[Address.TrackObjectZones] = 0x4DB93;
-			this[Address.TrackOverlayItems] = 0x5D000;
-			this[Address.TrackLapLines] = 0x180D4;
-			this[Address.CommonTilesetGraphics] = 0x40000;
+			this[Offset.ItemIcons] = 0x112F8;
+			this[Offset.TrackObjects] = 0x5C800;
+			this[Offset.TrackObjectZones] = 0x4DB93;
+			this[Offset.TrackOverlayItems] = 0x5D000;
+			this[Offset.TrackLapLines] = 0x180D4;
+			this[Offset.CommonTilesetGraphics] = 0x40000;
 
-			this[Address.GPTrackStartPositions] = this[Address.BattleTrackStartPositions] + 0xC8;
-			this[Address.TrackAITargets] = this[Address.TrackAIZones] + 0x30;
-			this[Address.BattleTrackNames] = this[Address.TrackPreviewLapLines] + 0x2A;
-			this[Address.GPTrackNames] = this[Address.BattleTrackNames] + 0x32;
-			this[Address.NameStrings] = this[Address.GPTrackNames] + 0xC1;
-			this[Address.TrackOverlaySizes] = this[Address.TrackOverlayPatterns] + 0x147;
-			this[Address.ItemProbabilities] = this[Address.ItemIconTilesPalettes] + 0x1C3;
+			this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
+			this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
+			this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x2A;
+			this[Offset.GPTrackNames] = this[Offset.BattleTrackNames] + 0x32;
+			this[Offset.NameStrings] = this[Offset.GPTrackNames] + 0xC1;
+			this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
+			this[Offset.ItemProbabilities] = this[Offset.ItemIconTilesPalettes] + 0x1C3;
 
-			this[Address.ThemeRoadGraphics] = this[Address.TrackMaps] + Game.TrackCount * 3;
-			this[Address.ThemeColorPalettes] = this[Address.ThemeRoadGraphics] + Game.ThemeCount * 3;
-			this[Address.TrackObjectGraphics] = this[Address.ThemeColorPalettes] + Game.ThemeCount * 3;
-			this[Address.TrackBackgroundGraphics] = this[Address.TrackObjectGraphics] + Game.ThemeCount * 3;
-			this[Address.TrackBackgroundLayouts] = this[Address.TrackBackgroundGraphics] + Game.ThemeCount * 3;
-			this[Address.GPTrackOrder] = this[Address.TrackBackgroundLayouts] + Game.ThemeCount * 3;
-			this[Address.TrackThemes] = this[Address.GPTrackOrder] + Game.GPTrackCount;
+			this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Game.TrackCount * 3;
+			this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Game.ThemeCount * 3;
+			this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Game.ThemeCount * 3;
+			this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Game.ThemeCount * 3;
+			this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Game.ThemeCount * 3;
+			this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Game.ThemeCount * 3;
+			this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + Game.GPTrackCount;
 		}
 
-		public int this[Address address]
+		public int this[Offset offset]
 		{
-			get { return offsets[(int)address]; }
-			set { this.offsets[(int)address] = value; }
+			get { return offsets[(int)offset]; }
+			set { this.offsets[(int)offset] = value; }
 		}
 	}
 }

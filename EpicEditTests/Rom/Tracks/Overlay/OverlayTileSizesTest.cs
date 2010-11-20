@@ -32,9 +32,9 @@ namespace EpicEditTests.Rom.Tracks.Overlay
 		[Test]
 		public void TestSave()
 		{
-			byte[] dataBefore = File.ReadBlock(this.smk.RomBuffer, this.smk.Offsets[Address.TrackOverlaySizes], 8);
+			byte[] dataBefore = File.ReadBlock(this.smk.RomBuffer, this.smk.Offsets[Offset.TrackOverlaySizes], 8);
 			OverlayTileSizes sizes = new OverlayTileSizes(this.smk.RomBuffer, this.smk.Offsets);
-			this.smk.Offsets[Address.TrackOverlaySizes] = 0; // Trick the OverlayTileSizes class to write at the beginning of our dataAfter array
+			this.smk.Offsets[Offset.TrackOverlaySizes] = 0; // Trick the OverlayTileSizes class to write at the beginning of our dataAfter array
 			byte[] dataAfter = new byte[8];
 			sizes.Save(dataAfter, this.smk.Offsets);
 
