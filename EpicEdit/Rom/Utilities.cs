@@ -150,7 +150,12 @@ namespace EpicEdit.Rom
 		
 		public static int ByteArrayToOffset(byte[] data)
 		{
-			return ((data[2] & 0xF) << 16) + (data[1] << 8) + data[0];
+			return Utilities.BytesToOffset(data[0], data[1], data[2]);
+		}
+
+		public static int BytesToOffset(byte val1, byte val2, byte val3)
+		{
+			return ((val3 & 0xF) << 16) + (val2 << 8) + val1;
 		}
 
 		public static byte[] OffsetToByteArray(int data)
