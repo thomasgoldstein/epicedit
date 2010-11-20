@@ -48,9 +48,9 @@ namespace EpicEdit.Rom.Tracks
 			int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
 			// TODO: Retrieve order dynamically from the ROM
 
-			Offset[] themeColorPaletteAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.ThemeColorPalettes], themes.Length);
-			Offset[] roadTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.ThemeRoadGraphics], themes.Length);
-			Offset[] backgroundTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.TrackBackgroundGraphics], themes.Length);
+			int[] themeColorPaletteAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.ThemeColorPalettes], themes.Length);
+			int[] roadTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.ThemeRoadGraphics], themes.Length);
+			int[] backgroundTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Address.TrackBackgroundGraphics], themes.Length);
 
 			byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Address.CommonTilesetGraphics]);
 			byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);

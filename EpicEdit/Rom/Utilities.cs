@@ -129,10 +129,10 @@ namespace EpicEdit.Rom
 		/// <param name="offset">The buffer position the function starts reading from.</param>
 		/// <param name="offsetCount">The number of offsets to retrieve.</param>
 		/// <returns>An array of offsets.</returns>
-		public static Offset[] ReadBlockOffset(byte[] buffer, int offset, int offsetCount)
+		public static int[] ReadBlockOffset(byte[] buffer, int offset, int offsetCount)
 		{
 			int offsetSize = 3;
-			Offset[] offsetGroup = new Offset[offsetCount];
+			int[] offsetGroup = new int[offsetCount];
 
 			for (int i = 0; i < offsetCount; i++)
 			{
