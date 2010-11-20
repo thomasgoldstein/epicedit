@@ -138,13 +138,75 @@ namespace EpicEdit.Rom
 			{
 				byte[] address = new byte[offsetSize];
 				Array.Copy(buffer, offset + (i * offsetSize), address, 0, offsetSize);
-				offsetGroup[i] = new Offset(address);
+				offsetGroup[i] = Utilities.ByteArrayToOffset(address);
 			}
 
 			return offsetGroup;
 		}
 
 		#endregion Read byte blocks
+
+		#region Bytes <-> Offset conversion
+		
+		public static int ByteArrayToOffset(byte[] data)
+		{
+			return ((data[2] & 0xF) << 16) + (data[1] << 8) + data[0];
+		}
+
+		public static byte[] OffsetToByteArray(int data)
+		{
+			if (data > 0xFFFFF)
+			{
+				throw new ArgumentOutOfRangeException("data", "The offset value is too high.");
+			}
+
+			return new byte[]
+			{
+				(byte)(data & 0xFF),
+				(byte)((data & 0xFF00) >> 8),
+				(byte)(0xC0 + ((data & 0xF0000) >> 16))
+			};
+		}
+
+		#endregion Bytes <-> Offset conversion
+
+		#region String <-> Bytes conversion
+
+		public static byte[] HexStringToByteArray(string data)
+		{
+			byte[] bytes = new byte[data.Length / 2];
+			Utilities.LoadByteArrayFromHexString(bytes, data);
+			return bytes;
+		}
+
+		public static void LoadByteArrayFromHexString(byte[] bytes, string hex)
+		{
+			int bl = bytes.Length;
+			for (int i = 0; i < bl; ++i)
+			{
+				bytes[i] = (byte)((hex[2 * i] > 'F' ? hex[2 * i] - 0x57 : hex[2 * i] > '9' ? hex[2 * i] - 0x37 : hex[2 * i] - 0x30) << 4);
+				bytes[i] |= (byte)(hex[2 * i + 1] > 'F' ? hex[2 * i + 1] - 0x57 : hex[2 * i + 1] > '9' ? hex[2 * i + 1] - 0x37 : hex[2 * i + 1] - 0x30);
+			}
+		}
+
+		public static string ByteArrayToHexString(byte[] data)
+		{
+			byte b;
+			int i, j, k;
+			int l = data.Length;
+			char[] r = new char[l * 2];
+			for (i = 0, j = 0; i < l; ++i)
+			{
+				b = data[i];
+				k = b >> 4;
+				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
+				k = b & 15;
+				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
+			}
+			return new string(r);
+		}
+
+		#endregion String <-> Bytes conversion
 
 		#region Decrypt ROM text
 
@@ -406,43 +468,5 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion Decrypt ROM text
-
-		#region String <-> Bytes conversion
-
-		public static byte[] HexStringToByteArray(string data)
-		{
-			byte[] bytes = new byte[data.Length / 2];
-			Utilities.LoadByteArrayFromHexString(bytes, data);
-			return bytes;
-		}
-
-		public static void LoadByteArrayFromHexString(byte[] bytes, string hex)
-		{
-			int bl = bytes.Length;
-			for (int i = 0; i < bl; ++i)
-			{
-				bytes[i] = (byte)((hex[2 * i] > 'F' ? hex[2 * i] - 0x57 : hex[2 * i] > '9' ? hex[2 * i] - 0x37 : hex[2 * i] - 0x30) << 4);
-				bytes[i] |= (byte)(hex[2 * i + 1] > 'F' ? hex[2 * i + 1] - 0x57 : hex[2 * i + 1] > '9' ? hex[2 * i + 1] - 0x37 : hex[2 * i + 1] - 0x30);
-			}
-		}
-
-		public static string ByteArrayToHexString(byte[] data)
-		{
-			byte b;
-			int i, j, k;
-			int l = data.Length;
-			char[] r = new char[l * 2];
-			for (i = 0, j = 0; i < l; ++i)
-			{
-				b = data[i];
-				k = b >> 4;
-				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
-				k = b & 15;
-				r[j++] = (char)(k > 9 ? k + 0x37 : k + 0x30);
-			}
-			return new string(r);
-		}
-
-		#endregion String <-> Bytes conversion
 	}
 }

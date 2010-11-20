@@ -107,7 +107,6 @@
     <Compile Include="Rom\Compression\FastCompressor.cs" />
     <Compile Include="Rom\Compression\ICompressor.cs" />
     <Compile Include="Rom\Compression\OptimalCompressor.cs" />
-    <Compile Include="Rom\Offset.cs" />
     <Compile Include="Rom\Palette.cs" />
     <Compile Include="Rom\Game.cs" />
     <Compile Include="Rom\Range.cs" />
