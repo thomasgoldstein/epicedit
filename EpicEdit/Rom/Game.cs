@@ -1007,7 +1007,7 @@ namespace EpicEdit.Rom
 		}
 		#endregion Track reodering
 
-		#region ROM saving
+		#region Save data
 		public void SaveRom(string filePath)
 		{
 			this.filePath = filePath;
@@ -1414,7 +1414,7 @@ namespace EpicEdit.Rom
 
 			return false;
 		}
-		#endregion ROM saving
+		#endregion Save data
 
 		public void Dispose()
 		{
