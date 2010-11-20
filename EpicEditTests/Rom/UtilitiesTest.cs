@@ -19,69 +19,69 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom
 {
 	[TestFixture]
-	public class OffsetTest
+	public class UtilitiesTest
 	{
 		[Test]
-		public void TestOffset000000()
+		public void TestByteArrayToOffset000000()
 		{
 			byte[] buffer = { 0x00, 0x00, 0x00 };
-			Offset ofs = new Offset(buffer);
+			int offset = Utilities.ByteArrayToOffset(buffer);
 
-			Assert.AreEqual(ofs, 0x000000);
+			Assert.AreEqual(0x000000, offset);
 		}
 
 		[Test]
-		public void TestOffset0Fffff()
+		public void TestByteArrayToOffset0fffff()
 		{
 			byte[] buffer = { 0xFF, 0xFF, 0xFF };
-			Offset ofs = new Offset(buffer);
+			int offset = Utilities.ByteArrayToOffset(buffer);
 
-			Assert.AreEqual(ofs, 0x0FFFFF);
+			Assert.AreEqual(0x0FFFFF, offset);
 		}
 
 		[Test]
-		public void TestOffset063412()
+		public void TestByteArrayToOffset063412()
 		{
 			byte[] buffer = { 0x12, 0x34, 0x56 };
-			Offset ofs = new Offset(buffer);
+			int offset = Utilities.ByteArrayToOffset(buffer);
 
-			Assert.AreEqual(ofs, 0x063412);
+			Assert.AreEqual(0x063412, offset);
 		}
 
 		[Test]
-		public void TestOffset080400()
+		public void TestByteArrayToOffset080400()
 		{
 			byte[] buffer = { 0x00, 0x04, 0xC8 };
-			Offset ofs = new Offset(buffer);
+			int offset = Utilities.ByteArrayToOffset(buffer);
 
-			Assert.AreEqual(ofs, 0x080400);
+			Assert.AreEqual(0x080400, offset);
 		}
 
 		[Test]
-		public void TestOffset0FffffEncoded()
+		public void TestOffsetToByteArray0fffff()
 		{
-			Offset ofs = new Offset(0x0FFFFF);
 			byte[] buffer = { 0xFF, 0xFF, 0xCF };
+			byte[] buffer2 = Utilities.OffsetToByteArray(0x0FFFFF);
 
-			Assert.AreEqual(buffer, ofs.GetBytes());
+			Assert.AreEqual(buffer, buffer2);
 		}
 
 		[Test]
-		public void TestOffset063412Encoded()
+		public void TestOffsetToByteArray063412()
 		{
-			Offset ofs = new Offset(0x063412);
 			byte[] buffer = { 0x12, 0x34, 0xC6 };
+			byte[] buffer2 = Utilities.OffsetToByteArray(0x063412);
 
-			Assert.AreEqual(buffer, ofs.GetBytes());
+			Assert.AreEqual(buffer, buffer2);
 		}
 
 		[Test]
-		public void TestOffset080400Encoded()
+		public void TestOffsetToByteArray080400()
 		{
-			Offset ofs = new Offset(0x080400);
 			byte[] buffer = { 0x00, 0x04, 0xC8 };
+			byte[] buffer2 = Utilities.OffsetToByteArray(0x080400);
 
-			Assert.AreEqual(buffer, ofs.GetBytes());
+			Assert.AreEqual(buffer, buffer2);
 		}
 	}
 }
