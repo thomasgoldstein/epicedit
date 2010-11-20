@@ -495,6 +495,10 @@ namespace EpicEdit.Rom
 			return trackNameIndex;
 		}
 
+		#endregion Load data
+
+		#region Get / Set, Load / Save specific data
+
 		#region Track Overlay Tiles
 
 		private byte[] GetOverlayTileData(int trackIndex)
@@ -735,7 +739,7 @@ namespace EpicEdit.Rom
 
 		#endregion Item Icons
 
-		#endregion Load data
+		#endregion Get / Set, Load / Save specific data
 
 		/// <summary>
 		/// Returns the main track groups.
