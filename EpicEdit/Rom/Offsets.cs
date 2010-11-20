@@ -171,14 +171,14 @@ namespace EpicEdit.Rom
 
 	public class Offsets
 	{
-		private Offset[] offsets;
+		private int[] offsets;
 
 		/// <summary>
 		/// Loads all the needed offsets depending on the ROM region.
 		/// </summary>
 		public Offsets(byte[] romBuffer, Regions region)
 		{
-			this.offsets = new Offset[Enum.GetValues(typeof(Address)).Length];
+			this.offsets = new int[Enum.GetValues(typeof(Address)).Length];
 
 			switch (region)
 			{
@@ -250,7 +250,7 @@ namespace EpicEdit.Rom
 		public int this[Address address]
 		{
 			get { return offsets[(int)address]; }
-			set { this.offsets[(int)address] = new Offset(value); }
+			set { this.offsets[(int)address] = value; }
 		}
 	}
 }
