@@ -206,7 +206,7 @@ namespace EpicEdit.Rom
 					this[Address.TrackPreviewLapLines] = 0x1C915;
 					this[Address.ItemIconTilesPalettes] = 0x1B320;
 					this[Address.TrackOverlayPatterns] = 0x4F23D;
-					//this[Offsets.UnknownMakeRelated] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E765), 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
+					//this[Offsets.UnknownMakeRelated] = new Offset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
 					break;
 
 				case Regions.Euro:
