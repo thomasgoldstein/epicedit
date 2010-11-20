@@ -186,7 +186,7 @@ namespace EpicEdit.Rom
 					this[Address.ModeStrings] = 0x58B19;
 					this[Address.BattleTrackOrder] = 0x1C022;
 					this[Address.FirstBattleTrack] = 0x1BF0A;
-					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E74D), 3));
+					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBC4;
 					this[Address.TrackAIZones] = 0x1FF8C;
 					this[Address.BattleTrackStartPositions] = 0x18B5F;
@@ -199,7 +199,7 @@ namespace EpicEdit.Rom
 					this[Address.ModeStrings] = 0x58B00;
 					this[Address.BattleTrackOrder] = 0x1C15C;
 					this[Address.FirstBattleTrack] = 0x1C04C;
-					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E749), 3));
+					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FBD3;
 					this[Address.TrackAIZones] = 0x1FF9B;
 					this[Address.BattleTrackStartPositions] = 0x18B4B;
@@ -213,7 +213,7 @@ namespace EpicEdit.Rom
 					this[Address.ModeStrings] = 0x58AF2;
 					this[Address.BattleTrackOrder] = 0x1BFF8;
 					this[Address.FirstBattleTrack] = 0x1BEE8;
-					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, new Offset(0x1E738), 3));
+					this[Address.TrackMaps] = new Offset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
 					this[Address.TrackAIDataFirstAddressByte] = 0x1FB9D;
 					this[Address.TrackAIZones] = 0x1FF6D;
 					this[Address.BattleTrackStartPositions] = 0x18B64;
