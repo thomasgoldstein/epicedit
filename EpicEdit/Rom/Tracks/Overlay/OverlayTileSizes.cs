@@ -63,7 +63,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 		{
 			// There are only ever 4 sizes in the game
 			this.sizes = new OverlayTileSize[4];
-			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Address.TrackOverlaySizes], 2, 4);
+			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TrackOverlaySizes], 2, 4);
 			for (int i = 0; i < data.Length; i++)
 			{
 				this.sizes[i] = new OverlayTileSize(data[i]);
@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 		public void Save(byte[] romBuffer, Offsets offsets)
 		{
-			int offset = offsets[Address.TrackOverlaySizes];
+			int offset = offsets[Offset.TrackOverlaySizes];
 
 			for (int i = 0; i < this.sizes.Length; i++)
 			{
