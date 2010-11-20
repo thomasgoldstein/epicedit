@@ -1192,19 +1192,16 @@ namespace EpicEdit.Rom
 			savedData.Add(trackAIData);
 
 			// Update AI offsets
-			Offset aiZoneOffset = new Offset(epicZoneIterator);
-			Offset aiTargetOffset = new Offset(epicZoneIterator + trackAIData.Length - track.AI.ElementCount * 3);
-
 			int trackAIZoneIndex = this.offsets[Address.TrackAIZones] + trackIndex * 2;
 			int trackAITargetIndex = this.offsets[Address.TrackAITargets] + trackIndex * 2;
 
-			byte[] aiZoneOffsetValue = aiZoneOffset.GetBytes();
-			byte[] aiTargetOffsetValue = aiTargetOffset.GetBytes();
+			byte[] aiZoneOffset = Utilities.OffsetToByteArray(epicZoneIterator);
+			byte[] aiTargetOffset = Utilities.OffsetToByteArray(epicZoneIterator + trackAIData.Length - track.AI.ElementCount * 3);
 
-			this.romBuffer[trackAIZoneIndex] = aiZoneOffsetValue[0];
-			this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffsetValue[1];
-			this.romBuffer[trackAITargetIndex] = aiTargetOffsetValue[0];
-			this.romBuffer[trackAITargetIndex + 1] = aiTargetOffsetValue[1];
+			this.romBuffer[trackAIZoneIndex] = aiZoneOffset[0];
+			this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffset[1];
+			this.romBuffer[trackAITargetIndex] = aiTargetOffset[0];
+			this.romBuffer[trackAITargetIndex + 1] = aiTargetOffset[1];
 
 			epicZoneIterator += trackAIData.Length;
 		}
@@ -1337,9 +1334,9 @@ namespace EpicEdit.Rom
 			savedData.Add(compressedTrack);
 
 			// Update track offset
-			Offset offset = new Offset(epicZoneIterator);
+			byte[] offset = Utilities.OffsetToByteArray(epicZoneIterator);
 			int trackAddressIndex = this.offsets[Address.TrackMaps] + trackIndex * 3;
-			Array.Copy(offset.GetBytes(), 0, this.romBuffer, trackAddressIndex, 3);
+			Array.Copy(offset, 0, this.romBuffer, trackAddressIndex, 3);
 
 			epicZoneIterator += compressedTrack.Length;
 		}
