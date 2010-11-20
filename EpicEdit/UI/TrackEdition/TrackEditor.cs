@@ -308,8 +308,8 @@ namespace EpicEdit.UI.TrackEdition
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
 				ofd.Filter =
-					"MAKE track (*.smkc)|*.smkc|" +
-					"Track Designer track (*.mkt)|*.mkt|" +
+					"Full track (*.smkc)|*.smkc|" +
+					"Track map only (*.mkt)|*.mkt|" +
 					"All files (*.*)|*.*";
 
 				if (ofd.ShowDialog() == DialogResult.OK)
@@ -370,8 +370,8 @@ namespace EpicEdit.UI.TrackEdition
 			using (SaveFileDialog sfd = new SaveFileDialog())
 			{
 				sfd.Filter =
-					"MAKE track (*.smkc)|*.smkc|" +
-					"Track Designer track (*.mkt)|*.mkt|" +
+					"Full track (*.smkc)|*.smkc|" +
+					"Track map only (*.mkt)|*.mkt|" +
 					"All files (*.*)|*.*";
 
 				string fileName = this.trackTreeView.SelectedTrackFileName;
