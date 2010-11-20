@@ -349,7 +349,7 @@ namespace EpicEdit.Rom
 			byte[] trackOrder = this.GetTrackOrder();
 			byte[][] trackNameIndex = this.GetTrackNameIndexes();
 
-			Offset[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
+			int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
 			int aiOffsetBase = (this.romBuffer[this.offsets[Address.TrackAIDataFirstAddressByte]] & 0xF) << 16;
 			byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Address.TrackAIZones], Game.TrackCount * 2); // 2 offset bytes per track
@@ -1212,7 +1212,7 @@ namespace EpicEdit.Rom
 		private void SaveTracks(Range epicZone, ref int epicZoneIterator, List<byte[]> savedData)
 		{
 			byte[] trackOrder = this.GetTrackOrder();
-			Offset[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
+			int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Address.TrackMaps], Game.TrackCount);
 
 			for (int i = 0; i < this.trackGroups.Length; i++)
 			{
@@ -1230,7 +1230,7 @@ namespace EpicEdit.Rom
 					}
 					else
 					{
-						Offset trackOffset = mapAddresses[trackIndex];
+						int trackOffset = mapAddresses[trackIndex];
 						bool isInEpicZone = epicZone.Includes(trackOffset);
 
 						if (isInEpicZone)
@@ -1323,7 +1323,7 @@ namespace EpicEdit.Rom
 			return new Point(x, y);
 		}
 
-		private void MoveTrackMap(int trackIndex, Offset trackOffset, ref int epicZoneIterator, List<byte[]> savedData)
+		private void MoveTrackMap(int trackIndex, int trackOffset, ref int epicZoneIterator, List<byte[]> savedData)
 		{
 			int compressedTrackLength = Codec.GetLength(this.romBuffer, trackOffset);
 			byte[] compressedTrack = new byte[compressedTrackLength];
