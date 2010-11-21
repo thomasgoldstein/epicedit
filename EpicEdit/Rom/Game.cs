@@ -428,6 +428,10 @@ namespace EpicEdit.Rom
 			this.LoadItemIcons();
 		}
 
+		/// <summary>
+		/// Gets the names of the cups and track themes.
+		/// </summary>
+		/// <returns>The names of the cups and track themes.</returns>
 		private string[] GetCupAndThemeNames()
 		{
 			int nameCount = this.trackGroups.Length + Game.ThemeCount;
