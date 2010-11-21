@@ -575,14 +575,23 @@ namespace EpicEdit.UI.Gfx
 
 		private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
 		{
-			this.SetBattleStartClipRegionSub(clipRegion, startPositionP1);
-			this.SetBattleStartClipRegionSub(clipRegion, startPositionP2);
+			this.SetBattleStartClipRegionSub1(clipRegion, startPositionP1);
+			this.SetBattleStartClipRegionSub2(clipRegion, startPositionP2);
 		}
 
-		private void SetBattleStartClipRegionSub(Region clipRegion, BattleStartPosition startPosition)
+		private void SetBattleStartClipRegionSub1(Region clipRegion, BattleStartPosition startPosition)
 		{
 			Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
 													 startPosition.Y - (this.scrollPosition.Y * 8) - 4,
+													 9, 8);
+
+			clipRegion.Union(startRectangle);
+		}
+
+		private void SetBattleStartClipRegionSub2(Region clipRegion, BattleStartPosition startPosition)
+		{
+			Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
+													 startPosition.Y - (this.scrollPosition.Y * 8) - 3,
 													 9, 8);
 
 			clipRegion.Union(startRectangle);
