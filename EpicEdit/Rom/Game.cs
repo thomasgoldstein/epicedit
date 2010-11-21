@@ -339,7 +339,7 @@ namespace EpicEdit.Rom
 			this.offsets = new Offsets(this.romBuffer, this.region);
 
 			this.trackGroups = new TrackGroup[Game.TotalTrackGroupCount];
-			string[] names = this.GetTrackNames();
+			string[] names = this.GetCupAndThemeNames();
 
 			this.themes = new Themes(this.romBuffer, this.offsets, names);
 			this.overlayTileSizes = new OverlayTileSizes(this.romBuffer, this.offsets);
@@ -428,7 +428,7 @@ namespace EpicEdit.Rom
 			this.LoadItemIcons();
 		}
 
-		private string[] GetTrackNames()
+		private string[] GetCupAndThemeNames()
 		{
 			int nameCount = this.trackGroups.Length + Game.ThemeCount;
 			string[] names = new string[nameCount];
