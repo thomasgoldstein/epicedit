@@ -175,7 +175,7 @@ namespace EpicEdit.Rom
 
 		#endregion Bytes <-> Offset conversion
 
-		#region String <-> Bytes conversion
+		#region Bytes <-> String conversion
 
 		public static byte[] HexStringToByteArray(string data)
 		{
@@ -211,7 +211,7 @@ namespace EpicEdit.Rom
 			return new string(r);
 		}
 
-		#endregion String <-> Bytes conversion
+		#endregion Bytes <-> String conversion
 
 		#region Decrypt ROM text
 
