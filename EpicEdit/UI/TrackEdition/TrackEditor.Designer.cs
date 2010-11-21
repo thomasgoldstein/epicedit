@@ -152,7 +152,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage.AutoScroll = true;
 			this.tilesetTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.tilesetTabPage.Controls.Add(this.tilesetControl);
-			this.tilesetTabPage.ImageIndex = 0;
+			this.tilesetTabPage.ImageKey = "TilesetTab";
 			this.tilesetTabPage.Location = new System.Drawing.Point(4, 23);
 			this.tilesetTabPage.Name = "tilesetTabPage";
 			this.tilesetTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -176,7 +176,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTabPage.AutoScroll = true;
 			this.overlayTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.overlayTabPage.Controls.Add(this.overlayControl);
-			this.overlayTabPage.ImageIndex = 1;
+			this.overlayTabPage.ImageKey = "OverlayTab";
 			this.overlayTabPage.Location = new System.Drawing.Point(4, 23);
 			this.overlayTabPage.Name = "overlayTabPage";
 			this.overlayTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -199,7 +199,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.AutoScroll = true;
 			this.startTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.startTabPage.Controls.Add(this.startControl);
-			this.startTabPage.ImageIndex = 2;
+			this.startTabPage.ImageKey = "StartTab";
 			this.startTabPage.Location = new System.Drawing.Point(4, 23);
 			this.startTabPage.Name = "startTabPage";
 			this.startTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -220,7 +220,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.AutoScroll = true;
 			this.objectsTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.objectsTabPage.Controls.Add(this.objectsControl);
-			this.objectsTabPage.ImageIndex = 3;
+			this.objectsTabPage.ImageKey = "ObjectTab";
 			this.objectsTabPage.Location = new System.Drawing.Point(4, 23);
 			this.objectsTabPage.Name = "objectsTabPage";
 			this.objectsTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -242,7 +242,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiTabPage.AutoScroll = true;
 			this.aiTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.aiTabPage.Controls.Add(this.aiControl);
-			this.aiTabPage.ImageIndex = 4;
+			this.aiTabPage.ImageKey = "AITab";
 			this.aiTabPage.Location = new System.Drawing.Point(4, 23);
 			this.aiTabPage.Name = "aiTabPage";
 			this.aiTabPage.Padding = new System.Windows.Forms.Padding(3);
