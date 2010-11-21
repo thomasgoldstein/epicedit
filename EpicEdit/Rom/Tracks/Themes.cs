@@ -66,7 +66,7 @@ namespace EpicEdit.Rom.Tracks
 				for (int j = 0; j < colorPalettes.Length; j++)
 				{
 					byte[] paletteBytes = new byte[32];
-					Array.Copy(colorPaletteData, (j * 32), paletteBytes, 0, 32);
+					Array.Copy(colorPaletteData, j * 32, paletteBytes, 0, 32);
 					colorPalettes[j] = new Palette(paletteBytes);
 				}
 
@@ -75,8 +75,8 @@ namespace EpicEdit.Rom.Tracks
 				byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, 0x100, -1, 32);
 
 				Bitmap[] roadBitmaps = Themes.GetRoadTilesetBitmaps(colorPalettes,
-																  roadTilesetPaletteIndexes, roadTilesetGfx,
-																  roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
+																	roadTilesetPaletteIndexes, roadTilesetGfx,
+																	roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
 
 				Tile[] roadTileset = new Tile[roadBitmaps.Length];
 
