@@ -264,11 +264,11 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
 			this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-			this.tabImageList.Images.SetKeyName(0, "tab_tileset.png");
-			this.tabImageList.Images.SetKeyName(1, "tab_overlay.png");
-			this.tabImageList.Images.SetKeyName(2, "tab_start.png");
-			this.tabImageList.Images.SetKeyName(3, "tab_object.png");
-			this.tabImageList.Images.SetKeyName(4, "tab_ai.png");
+			this.tabImageList.Images.SetKeyName(0, "TilesetTab");
+			this.tabImageList.Images.SetKeyName(1, "OverlayTab");
+			this.tabImageList.Images.SetKeyName(2, "StartTab");
+			this.tabImageList.Images.SetKeyName(3, "ObjectTab");
+			this.tabImageList.Images.SetKeyName(4, "AITab");
 			// 
 			// trackTreeView
 			// 
