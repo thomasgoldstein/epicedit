@@ -3,12 +3,18 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.1 (???)
+- Added support for driver starting position editing on battle tracks
+  (and extended the .smkc format to include this data)
+- Minor tweaks and fixes
+
+
 v2.0 (November 7th 2010)
 
 - Added ability to import / export MAKE (.smkc) tracks (partly by teknix1)
 - Added ability to drag and drop track files onto the editor
 - Centered zoom position (and on mouse cursor, when mouse-wheel zooming)
-- Made drawing logic more robust, fixed graphics rendering on Mac
+- More robust drawing logic, fixed graphics rendering on Mac
   (thanks to Ralph Leckett)
 - Various other fixes and optimizations
 
