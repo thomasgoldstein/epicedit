@@ -61,7 +61,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// deleteAllButton
 			// 
-			this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.button_nuke;
+			this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
 			this.deleteAllButton.Location = new System.Drawing.Point(103, 3);
 			this.deleteAllButton.Name = "deleteAllButton";
 			this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
@@ -73,7 +73,7 @@ namespace EpicEdit.UI.TrackEdition
 			// deleteButton
 			// 
 			this.deleteButton.Enabled = false;
-			this.deleteButton.Image = global::EpicEdit.Properties.Resources.button_delete;
+			this.deleteButton.Image = global::EpicEdit.Properties.Resources.DeleteButton;
 			this.deleteButton.Location = new System.Drawing.Point(73, 3);
 			this.deleteButton.Name = "deleteButton";
 			this.deleteButton.Size = new System.Drawing.Size(24, 24);
