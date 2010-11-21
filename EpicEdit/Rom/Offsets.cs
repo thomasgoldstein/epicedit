@@ -24,7 +24,7 @@ namespace EpicEdit.Rom
 		ModeStrings,
 
 		/// <summary>
-		/// Name texts (cups, themes, tracks).
+		/// Name texts (cups and themes).
 		/// </summary>
 		NameStrings,
 
