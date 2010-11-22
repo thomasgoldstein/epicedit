@@ -22,9 +22,19 @@ namespace EpicEdit.Rom
 	/// </summary>
 	public class Palette
 	{
-		private Color[] colors = new Color[16];
+		private RomColor[] colors;
 
-		public Palette(Color[] palette)
+		public Palette()
+		{
+			// This is used to initialize a default palette, all black
+			this.colors = new RomColor[16];
+			for (int x = 0; x < 16; x++)
+			{
+				this.colors[x] = new RomColor();
+			}
+		}
+
+		public Palette(RomColor[] palette)
 		{
 			if (palette.Length != 16)
 			{
@@ -41,23 +51,29 @@ namespace EpicEdit.Rom
 				throw new ArgumentException("The palette is not 32-byte long.", "palette");
 			}
 
+			this.colors = new RomColor[16];
 			for (int i = 0; i < 16; i++)
 			{
-				byte lobyte = palette[i * 2];
-				byte hibyte = palette[i * 2 + 1];
-
-				int R = (lobyte & 0x1F) << 3;
-				int G = (((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5)) << 3;
-				int B = (hibyte & 0x7C) << 1;
-
-				this.colors[i] = Color.FromArgb(R, G, B);
+				this.colors[i] = RomColor.FromBytes(palette, i * 2);
 			}
 		}
 
-		public Color this[int index]
+		public RomColor this[int index]
 		{
 			get { return this.colors[index]; }
 			set { this.colors[index] = value; }
+		}
+
+		public byte[] GetBytes()
+		{
+			byte[] bytes = new byte[32];
+
+			for (int i = 0; i < 16; i++)
+			{
+				Array.Copy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
+			}
+
+			return bytes;
 		}
 	}
 }
