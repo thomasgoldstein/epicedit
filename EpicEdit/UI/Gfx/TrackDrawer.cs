@@ -601,9 +601,24 @@ namespace EpicEdit.UI.Gfx
 		{
 			if (hoveredObject != null)
 			{
-				Rectangle hoveredObjectRectangle =
-					new Rectangle((hoveredObject.X - this.scrollPosition.X) * 8,
-								  (hoveredObject.Y - this.scrollPosition.Y) * 8, 8, 8);
+				int x = (hoveredObject.X - this.scrollPosition.X) * 8;
+				int y = (hoveredObject.Y - this.scrollPosition.Y) * 8;
+				int width = 8;
+				int height = 8;
+
+				if (hoveredObject is TrackObjectMatchRace)
+				{
+					TrackObjectMatchRace hoveredObjectMatchRace = hoveredObject as TrackObjectMatchRace;
+					if (hoveredObjectMatchRace.Direction != Direction.None)
+					{
+						x -= 11;
+						y -= 11;
+						width += 22;
+						height += 22;
+					}
+				}
+
+				Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
 
 				clipRegion.Union(hoveredObjectRectangle);
 			}
@@ -877,6 +892,54 @@ namespace EpicEdit.UI.Gfx
 			this.DrawArrow(graphics, arrow);
 		}
 
+		private void DrawSmallUpArrow(Graphics graphics, int x, int y)
+		{
+			Point[] arrow = new Point[]
+			{
+				new Point(x, y - 4),
+				new Point(x - 1, y - 4),
+				new Point(x + 3, y + 3),
+				new Point(x - 4, y + 3)
+			};
+			this.DrawArrow(graphics, arrow);
+		}
+
+		private void DrawSmallDownArrow(Graphics graphics, int x, int y)
+		{
+			Point[] arrow = new Point[]
+			{
+				new Point(x - 4, y - 3),
+				new Point(x + 3, y - 3),
+				new Point(x - 1, y + 4),
+				new Point(x, y + 4)
+			};
+			this.DrawArrow(graphics, arrow);
+		}
+
+		private void DrawSmallLeftArrow(Graphics graphics, int x, int y)
+		{
+			Point[] arrow = new Point[]
+			{
+				new Point(x - 4, y),
+				new Point(x - 4, y - 1),
+				new Point(x + 3, y + 3),
+				new Point(x + 3, y - 4)
+			};
+			this.DrawArrow(graphics, arrow);
+		}
+
+		private void DrawSmallRightArrow(Graphics graphics, int x, int y)
+		{
+			Point[] arrow = new Point[]
+			{
+				new Point(x - 3, y - 4),
+				new Point(x - 3, y + 3),
+				new Point(x + 4, y - 1),
+				new Point(x + 4, y)
+			};
+			this.DrawArrow(graphics, arrow);
+		}
+
 		private void DrawArrow(Graphics graphics, Point[] arrow)
 		{
 			graphics.FillPolygon(this.startPositionBrush, arrow);
@@ -931,14 +994,13 @@ namespace EpicEdit.UI.Gfx
 
 				if (trackObject.Direction == Direction.Horizontal)
 				{
-					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 2, trackObjectRect.Y + 5);
-					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 3, trackObjectRect.X + 5, trackObjectRect.Y + 3);
-					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 5, trackObjectRect.Y + 2, trackObjectRect.X + 5, trackObjectRect.Y + 5);
+					this.DrawSmallLeftArrow(graphics, x - 7, y + 4);
+					this.DrawSmallRightArrow(graphics, x + 14, y + 4);
 				}
 				else if (trackObject.Direction == Direction.Vertical)
 				{
-					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 2, trackObjectRect.Y + 2, trackObjectRect.X + 3, trackObjectRect.Y + 5);
-					graphics.DrawLine(this.objectMatchRacePen, trackObjectRect.X + 4, trackObjectRect.Y + 5, trackObjectRect.X + 5, trackObjectRect.Y + 2);
+					this.DrawSmallUpArrow(graphics, x + 4, y - 7);
+					this.DrawSmallDownArrow(graphics, x + 4, y + 14);
 				}
 			}
 
