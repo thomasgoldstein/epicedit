@@ -2194,6 +2194,7 @@ namespace EpicEdit.UI.TrackEdition
 				this.InitAIAction();
 
 				this.trackTreeView.MarkTrackAsChanged();
+				this.trackDisplayPanel.Invalidate();
 			}
 		}
 
@@ -2210,6 +2211,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.InitAIAction();
 
 			this.trackTreeView.MarkTrackAsChanged();
+			this.trackDisplayPanel.Invalidate();
 		}
 
 		private void AIControlDataChanged(object sender, EventArgs e)
