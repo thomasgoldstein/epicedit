@@ -828,18 +828,13 @@ namespace EpicEdit.UI.Gfx
 			int y = gpTrack.StartPosition.Y - this.scrollPosition.Y * 8;
 			int secondRowOffset = gpTrack.StartPosition.SecondRowOffset;
 
-			Point[] triangle;
 			for (int pos = 0; pos <= 18; pos += 6)
 			{
 				// 1st Column
-				triangle = TrackDrawer.GetStartPositionShape(x, y + pos * 8);
-				graphics.FillPolygon(this.startPositionBrush, triangle);
-				graphics.DrawPolygon(this.startPositionPen, triangle);
+				this.DrawUpArrow(graphics, x, y + pos * 8);
 
 				// 2nd Column
-				triangle = TrackDrawer.GetStartPositionShape(x + secondRowOffset, y + ((3 + pos) * 8));
-				graphics.FillPolygon(this.startPositionBrush, triangle);
-				graphics.DrawPolygon(this.startPositionPen, triangle);
+				this.DrawUpArrow(graphics, x + secondRowOffset, y + ((3 + pos) * 8));
 			}
 		}
 
@@ -847,40 +842,45 @@ namespace EpicEdit.UI.Gfx
 		{
 			BattleTrack bTrack = this.track as BattleTrack;
 
-			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP2, TrackDrawer.GetInvertedStartPositionShape);
-			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP1, TrackDrawer.GetStartPositionShape);
+			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP2, this.DrawDownArrow);
+			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP1, this.DrawUpArrow);
 		}
 
-		private void DrawBattleStartPosition(Graphics graphics, Point location, StartPositionShapeCreator shapeCreator)
+		private void DrawBattleStartPosition(Graphics graphics, Point location, ArrowDrawer arrowDrawer)
 		{
 			int x = location.X - this.scrollPosition.X * 8;
 			int y = location.Y - this.scrollPosition.Y * 8;
-
-			Point[] triangle = shapeCreator(x, y);
-			graphics.FillPolygon(this.startPositionBrush, triangle);
-			graphics.DrawPolygon(this.startPositionPen, triangle);
+			arrowDrawer(graphics, x, y);
 		}
 
-		private delegate Point[] StartPositionShapeCreator(int x, int y);
+		private delegate void ArrowDrawer(Graphics graphics, int x, int y);
 
-		private static Point[] GetStartPositionShape(int x, int y)
+		private void DrawUpArrow(Graphics graphics, int x, int y)
 		{
-			return new Point[]
+			Point[] triangle = new Point[]
 			{
 				new Point(x, y - 4),
 				new Point(x + 4, y + 3),
 				new Point(x - 4, y + 3)
 			};
+			this.DrawArrow(graphics, triangle);
 		}
 
-		private static Point[] GetInvertedStartPositionShape(int x, int y)
+		private void DrawDownArrow(Graphics graphics, int x, int y)
 		{
-			return new Point[]
+			Point[] triangle = new Point[]
 			{
 				new Point(x - 4, y - 3),
 				new Point(x + 4, y - 3),
 				new Point(x, y + 4)
 			};
+			this.DrawArrow(graphics, triangle);
+		}
+
+		private void DrawArrow(Graphics graphics, Point[] triangle)
+		{
+			graphics.FillPolygon(this.startPositionBrush, triangle);
+			graphics.DrawPolygon(this.startPositionPen, triangle);
 		}
 
 		private void DrawObjectData(Graphics graphics, bool frontZonesView)
