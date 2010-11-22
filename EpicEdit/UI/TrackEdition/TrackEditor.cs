@@ -1653,13 +1653,11 @@ namespace EpicEdit.UI.TrackEdition
 			}
 			this.overlayControl.SelectedTile = null;
 
-			if (this.InitOverlayAction())
-			{
-				this.trackDisplayPanel.Invalidate();
-			}
-
+			this.InitOverlayAction();
 			this.UpdateOverlayTileCount();
+
 			this.trackTreeView.MarkTrackAsChanged();
+			this.trackDisplayPanel.Invalidate();
 		}
 
 		private void OverlayControlDeleteRequested(object sender, EventArgs e)
