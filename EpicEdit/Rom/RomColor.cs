@@ -273,5 +273,24 @@ namespace EpicEdit.Rom
 								 this.Green5Bit, this.Green,
 								 this.Blue5Bit, this.Blue);
 		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is RomColor)
+			{
+				RomColor color = (RomColor)obj;
+				return color == this;
+			}
+			else
+			{
+				return base.Equals(obj);
+			}
+		}
+
 	}
 }
