@@ -857,30 +857,30 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawUpArrow(Graphics graphics, int x, int y)
 		{
-			Point[] triangle = new Point[]
+			Point[] arrow = new Point[]
 			{
 				new Point(x, y - 4),
 				new Point(x + 4, y + 3),
 				new Point(x - 4, y + 3)
 			};
-			this.DrawArrow(graphics, triangle);
+			this.DrawArrow(graphics, arrow);
 		}
 
 		private void DrawDownArrow(Graphics graphics, int x, int y)
 		{
-			Point[] triangle = new Point[]
+			Point[] arrow = new Point[]
 			{
 				new Point(x - 4, y - 3),
 				new Point(x + 4, y - 3),
 				new Point(x, y + 4)
 			};
-			this.DrawArrow(graphics, triangle);
+			this.DrawArrow(graphics, arrow);
 		}
 
-		private void DrawArrow(Graphics graphics, Point[] triangle)
+		private void DrawArrow(Graphics graphics, Point[] arrow)
 		{
-			graphics.FillPolygon(this.startPositionBrush, triangle);
-			graphics.DrawPolygon(this.startPositionPen, triangle);
+			graphics.FillPolygon(this.startPositionBrush, arrow);
+			graphics.DrawPolygon(this.startPositionPen, arrow);
 		}
 
 		private void DrawObjectData(Graphics graphics, bool frontZonesView)
