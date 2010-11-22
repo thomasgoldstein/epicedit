@@ -6,6 +6,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 v2.1 (???)
 - Added support for driver starting position editing on battle tracks
   (and extended the .smkc format to include this data)
+- More accurate color conversions, making colors brighter (by teknix1)
 - Minor tweaks and fixes
 
 
