@@ -99,6 +99,15 @@ namespace EpicEdit.Rom.Tracks.Objects
 
 		public byte[][] GetGrid(bool frontZonesView)
 		{
+			byte[][] zones = TrackObjectZones.CreateGrid();
+
+			this.FillGrid(zones, frontZonesView);
+
+			return zones;
+		}
+
+		private static byte[][] CreateGrid()
+		{
 			byte[][] zones = new byte[64][];
 
 			for (int y = 0; y < zones.Length; y++)
@@ -111,6 +120,11 @@ namespace EpicEdit.Rom.Tracks.Objects
 				}
 			}
 
+			return zones;
+		}
+
+		private void FillGrid(byte[][] zones, bool frontZonesView)
+		{
 			foreach (TrackAIElement aiElem in this.track.AI)
 			{
 				int aiElemIndex = this.track.AI.GetElementIndex(aiElem);
@@ -179,8 +193,6 @@ namespace EpicEdit.Rom.Tracks.Objects
 						break;
 				}
 			}
-
-			return zones;
 		}
 
 		/// <summary>
