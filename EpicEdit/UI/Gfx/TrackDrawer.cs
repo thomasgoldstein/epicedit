@@ -608,14 +608,10 @@ namespace EpicEdit.UI.Gfx
 
 				if (hoveredObject is TrackObjectMatchRace)
 				{
-					TrackObjectMatchRace hoveredObjectMatchRace = hoveredObject as TrackObjectMatchRace;
-					if (hoveredObjectMatchRace.Direction != Direction.None)
-					{
-						x -= 11;
-						y -= 11;
-						width += 22;
-						height += 22;
-					}
+					x -= 11;
+					y -= 11;
+					width += 22;
+					height += 22;
 				}
 
 				Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
