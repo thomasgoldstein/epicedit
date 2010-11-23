@@ -120,7 +120,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 				int right = aiElem.Zone.Right / 2;
 				int bottom = aiElem.Zone.Bottom / 2;
 
-				switch(aiElem.ZoneShape)
+				switch (aiElem.ZoneShape)
 				{
 					case Shape.Rectangle:
 						for (int y = top; y < bottom; y++)
