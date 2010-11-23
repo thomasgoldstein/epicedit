@@ -956,20 +956,21 @@ namespace EpicEdit.UI.Gfx
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
-			foreach (TrackAIElement aiElem in gpTrack.AI)
-			{
-				int aiElemIndex = gpTrack.AI.GetElementIndex(aiElem);
-				int zoneIndex = gpTrack.ObjectZones.GetZoneIndex(frontZonesView, aiElemIndex);
+			byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
 
-				if (aiElem.ZoneShape == Shape.Rectangle)
+			for (int y = 0; y < zones.Length; y++)
+			{
+				for (int x = 0; x < zones[y].Length; x++)
 				{
-					Rectangle zone = this.GetObjectZoneRectangle(aiElem);
-					graphics.FillRectangle(this.objectZoneBrushes[zoneIndex], zone);
-				}
-				else
-				{
-					Point[] points = this.GetObjectZoneTriangle(aiElem);
-					graphics.FillPolygon(this.objectZoneBrushes[zoneIndex], points);
+					byte zoneIndex = zones[y][x];
+					if (zoneIndex == 0xFF)
+					{
+						continue;
+					}
+					graphics.FillRectangle(this.objectZoneBrushes[zoneIndex],
+										   new Rectangle(x * 16 - this.scrollPosition.X * 8,
+														 y * 16 - this.scrollPosition.Y * 8,
+														 16, 16));
 				}
 			}
 		}
@@ -1015,30 +1016,6 @@ namespace EpicEdit.UI.Gfx
 				graphics.DrawEllipse(this.objectOutlinePen, trackObjectRect);
 				graphics.FillEllipse(this.objectBrushes[i / 4], trackObjectRect);
 			}
-		}
-
-		private Rectangle GetObjectZoneRectangle(TrackAIElement aiElem)
-		{
-			int zoneX = (aiElem.Zone.X - this.scrollPosition.X) * 8;
-			int zoneY = (aiElem.Zone.Y - this.scrollPosition.Y) * 8;
-			int zoneWidth = aiElem.Zone.Width * 8;
-			int zoneHeight = aiElem.Zone.Height * 8;
-
-			return new Rectangle(zoneX, zoneY, zoneWidth, zoneHeight);
-		}
-
-		private Point[] GetObjectZoneTriangle(TrackAIElement aiElem)
-		{
-			Point[] points = aiElem.GetTriangle();
-
-			for (int i = 0; i < points.Length; i++)
-			{
-				points[i] =
-					new Point((points[i].X - this.scrollPosition.X) * 8,
-							  (points[i].Y - this.scrollPosition.Y) * 8);
-			}
-
-			return points;
 		}
 
 		private void DrawAI(Graphics graphics, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)

@@ -169,7 +169,7 @@ namespace EpicEdit.Rom
 		{
 			get
 			{
-				return new TrackObjectZones(this.AREA_BORDER);
+				return new TrackObjectZones(this.AREA_BORDER, this.track as GPTrack);
 			}
 			set
 			{

@@ -23,12 +23,16 @@ namespace EpicEdit.Rom.Tracks.Objects
 	/// </summary>
 	public class TrackObjectZones
 	{
+		private GPTrack track;
+
 		public bool ReadOnly { get; set; }
 		private byte[] frontZones;
 		private byte[] rearZones;
 
-		public TrackObjectZones(byte[] data)
+		public TrackObjectZones(byte[] data, GPTrack track)
 		{
+			this.track = track;
+
 			if (data.Length == 0)
 			{
 				// Koopa Beach 1, which has only a single, non-editable object zone
@@ -49,16 +53,16 @@ namespace EpicEdit.Rom.Tracks.Objects
 			this.rearZones[3] = Math.Max(this.rearZones[2], data[8]);
 		}
 
-		public int GetZoneIndex(bool frontZonesView, int aiElementIndex)
+		private byte GetZoneIndex(bool frontZonesView, int aiElementIndex)
 		{
 			return frontZonesView ?
 				TrackObjectZones.GetZoneIndexSub(this.frontZones, aiElementIndex) :
 				TrackObjectZones.GetZoneIndexSub(this.rearZones, aiElementIndex);
 		}
 
-		private static int GetZoneIndexSub(byte[] zones, int aiElementIndex)
+		private static byte GetZoneIndexSub(byte[] zones, int aiElementIndex)
 		{
-			for (int i = 0; i < zones.Length; i++)
+			for (byte i = 0; i < zones.Length; i++)
 			{
 				if (aiElementIndex < zones[i])
 				{
@@ -91,6 +95,92 @@ namespace EpicEdit.Rom.Tracks.Objects
 			{
 				this.rearZones[zoneIndex] = value;
 			}
+		}
+
+		public byte[][] GetGrid(bool frontZonesView)
+		{
+			byte[][] zones = new byte[64][];
+
+			for (int y = 0; y < zones.Length; y++)
+			{
+				zones[y] = new byte[64];
+				
+				for (int x = 0; x < zones[y].Length; x++)
+				{
+					zones[y][x] = 0xFF;
+				}
+			}
+
+			foreach (TrackAIElement aiElem in this.track.AI)
+			{
+				int aiElemIndex = this.track.AI.GetElementIndex(aiElem);
+				byte zoneIndex = this.GetZoneIndex(frontZonesView, aiElemIndex);
+				int left = aiElem.Zone.X / 2;
+				int top = aiElem.Zone.Y / 2;
+				int right = aiElem.Zone.Right / 2;
+				int bottom = aiElem.Zone.Bottom / 2;
+
+				switch(aiElem.ZoneShape)
+				{
+					case Shape.Rectangle:
+						for (int y = top; y < bottom; y++)
+						{
+							for (int x = left; x < right; x++)
+							{
+								zones[y][x] = zoneIndex;
+							}
+						}
+						break;
+
+					case Shape.TriangleTopLeft:
+						for (int y = top; y < bottom; y++)
+						{
+							for (int x = left; x < right; x++)
+							{
+								zones[y][x] = zoneIndex;
+							}
+							right--;
+						}
+						break;
+
+					case Shape.TriangleTopRight:
+						for (int y = top; y < bottom; y++)
+						{
+							for (int x = left; x < right; x++)
+							{
+								zones[y][x] = zoneIndex;
+							}
+							left++;
+						}
+						break;
+
+					case Shape.TriangleBottomRight:
+						left = right - 1;
+						for (int y = top; y < bottom; y++)
+						{
+							for (int x = left; x < right; x++)
+							{
+								zones[y][x] = zoneIndex;
+							}
+							left--;
+						}
+						break;
+
+					case Shape.TriangleBottomLeft:
+						right = left + 1;
+						for (int y = top; y < bottom; y++)
+						{
+							for (int x = left; x < right; x++)
+							{
+								zones[y][x] = zoneIndex;
+							}
+							right++;
+						}
+						break;
+				}
+			}
+
+			return zones;
 		}
 
 		/// <summary>

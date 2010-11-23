@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 
@@ -43,7 +44,7 @@ namespace EpicEdit.Rom.Tracks
 			if (objectZoneData != null) // null for Ghost Valley tracks, by default
 			{
 				this.Objects = new TrackObjects(objectData);
-				this.ObjectZones = new TrackObjectZones(objectZoneData);
+				this.ObjectZones = new TrackObjectZones(objectZoneData, this);
 			}
 		}
 

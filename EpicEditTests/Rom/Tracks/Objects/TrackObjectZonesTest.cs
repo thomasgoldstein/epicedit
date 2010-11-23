@@ -23,7 +23,7 @@ namespace EpicEditTests.Rom.Tracks.Objects
 	{
 		public void TestGetBytes(byte[] dataBefore)
 		{
-			TrackObjectZones objectZones = new TrackObjectZones(dataBefore);
+			TrackObjectZones objectZones = new TrackObjectZones(dataBefore, null);
 			byte[] dataAfter = objectZones.GetBytes();
 			Assert.AreEqual(dataBefore, dataAfter);
 		}
