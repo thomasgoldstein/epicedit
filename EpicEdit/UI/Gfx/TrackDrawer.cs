@@ -992,11 +992,16 @@ namespace EpicEdit.UI.Gfx
 				{
 					this.DrawSmallLeftArrow(graphics, x - 7, y + 4);
 					this.DrawSmallRightArrow(graphics, x + 14, y + 4);
+					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 2, y + 5);
+					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 3, x + 5, y + 3);
+					graphics.DrawLine(this.objectMatchRacePen, x + 5, y + 2, x + 5, y + 5);
 				}
 				else if (trackObject.Direction == Direction.Vertical)
 				{
 					this.DrawSmallUpArrow(graphics, x + 4, y - 7);
 					this.DrawSmallDownArrow(graphics, x + 4, y + 14);
+					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 3, y + 5);
+					graphics.DrawLine(this.objectMatchRacePen, x + 4, y + 5, x + 5, y + 2);
 				}
 			}
 
