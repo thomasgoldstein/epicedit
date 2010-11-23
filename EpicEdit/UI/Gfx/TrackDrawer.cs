@@ -963,12 +963,12 @@ namespace EpicEdit.UI.Gfx
 
 				if (aiElem.ZoneShape == Shape.Rectangle)
 				{
-					Rectangle zone = this.GetObjectZoneRectanglePart(aiElem);
+					Rectangle zone = this.GetObjectZoneRectangle(aiElem);
 					graphics.FillRectangle(this.objectZoneBrushes[zoneIndex], zone);
 				}
 				else
 				{
-					Point[] points = this.GetObjectZoneTrianglePart(aiElem);
+					Point[] points = this.GetObjectZoneTriangle(aiElem);
 					graphics.FillPolygon(this.objectZoneBrushes[zoneIndex], points);
 				}
 			}
@@ -1017,7 +1017,7 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private Rectangle GetObjectZoneRectanglePart(TrackAIElement aiElem)
+		private Rectangle GetObjectZoneRectangle(TrackAIElement aiElem)
 		{
 			int zoneX = (aiElem.Zone.X - this.scrollPosition.X) * 8;
 			int zoneY = (aiElem.Zone.Y - this.scrollPosition.Y) * 8;
@@ -1027,7 +1027,7 @@ namespace EpicEdit.UI.Gfx
 			return new Rectangle(zoneX, zoneY, zoneWidth, zoneHeight);
 		}
 
-		private Point[] GetObjectZoneTrianglePart(TrackAIElement aiElem)
+		private Point[] GetObjectZoneTriangle(TrackAIElement aiElem)
 		{
 			Point[] points = aiElem.GetTriangle();
 
