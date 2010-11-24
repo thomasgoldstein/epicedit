@@ -963,10 +963,6 @@ namespace EpicEdit.UI.Gfx
 				for (int x = 0; x < zones[y].Length; x++)
 				{
 					byte zoneIndex = zones[y][x];
-					if (zoneIndex == 0xFF)
-					{
-						continue;
-					}
 					graphics.FillRectangle(this.objectZoneBrushes[zoneIndex],
 										   new Rectangle(x * 16 - this.scrollPosition.X * 8,
 														 y * 16 - this.scrollPosition.Y * 8,
