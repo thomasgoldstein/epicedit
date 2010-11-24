@@ -101,7 +101,12 @@ namespace EpicEdit.Rom.Tracks.Objects
 		{
 			byte[][] zones = TrackObjectZones.CreateGrid();
 
-			this.FillGrid(zones, frontZonesView);
+			this.FillGridFromAI(zones, frontZonesView);
+
+			if (this.track.AI.ElementCount > 0)
+			{
+				TrackObjectZones.FillGridFromNearestTiles(ref zones);
+			}
 
 			return zones;
 		}
@@ -123,7 +128,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 			return zones;
 		}
 
-		private void FillGrid(byte[][] zones, bool frontZonesView)
+		private void FillGridFromAI(byte[][] zones, bool frontZonesView)
 		{
 			foreach (TrackAIElement aiElem in this.track.AI)
 			{
@@ -193,6 +198,173 @@ namespace EpicEdit.Rom.Tracks.Objects
 						break;
 				}
 			}
+		}
+
+		private static void FillGridFromNearestTiles(ref byte[][] zones)
+		{
+			byte[][] newZones = new byte[zones.Length][];
+
+			for (int y = 0; y < zones.Length; y++)
+			{
+				newZones[y] = new byte[zones[y].Length];
+				for (int x = 0; x < zones[y].Length; x++)
+				{
+					if (zones[y][x] != 0xFF)
+					{
+						newZones[y][x] = zones[y][x];
+						continue;
+					}
+
+					int depth = 1;
+					sbyte zoneIndex = -1;
+					while (zoneIndex == -1)
+					{
+						sbyte matchFound;
+
+						matchFound = TrackObjectZones.GetTopRightNearestTile(zones, x, y, depth);
+						if (matchFound > zoneIndex)
+						{
+							zoneIndex = matchFound;
+						}
+
+						matchFound = TrackObjectZones.GetBottomRightNearestTile(zones, x, y, depth);
+						if (matchFound > zoneIndex)
+						{
+							zoneIndex = matchFound;
+						}
+
+						matchFound = TrackObjectZones.GetBottomLeftNearestTile(zones, x, y, depth);
+						if (matchFound > zoneIndex)
+						{
+							zoneIndex = matchFound;
+						}
+
+						matchFound = TrackObjectZones.GetTopLeftNearestTile(zones, x, y, depth);
+						if (matchFound > zoneIndex)
+						{
+							zoneIndex = matchFound;
+						}
+
+						depth++;
+					}
+
+					newZones[y][x] = (byte)zoneIndex;
+				}
+			}
+
+			zones = newZones;
+		}
+
+		private static sbyte GetTopRightNearestTile(byte[][] zones, int x, int y, int depth)
+		{
+			sbyte matchFound = -1;
+
+			int x2 = x;
+			int y2 = y - depth;
+
+			if (y2 < 0)
+			{
+				x2 -= y2;
+				y2 = 0;
+			}
+
+			while (x2 <= 63 && y2 <= y)
+			{
+				if (zones[y2][x2] != 0xFF &&
+					zones[y2][x2] > matchFound)
+				{
+					matchFound = (sbyte)zones[y2][x2];
+				}
+
+				x2++;
+				y2++;
+			}
+
+			return matchFound;
+		}
+
+		private static sbyte GetBottomRightNearestTile(byte[][] zones, int x, int y, int depth)
+		{
+			sbyte matchFound = -1;
+
+			int x2 = x + depth;
+			int y2 = y;
+
+			if (x2 > 63)
+			{
+				y2 += x2 - 63;
+				x2 = 63;
+			}
+
+			while (x2 >= x && y2 <= 63)
+			{
+				if (zones[y2][x2] != 0xFF &&
+					zones[y2][x2] > matchFound)
+				{
+					matchFound = (sbyte)zones[y2][x2];
+				}
+
+				x2--;
+				y2++;
+			}
+
+			return matchFound;
+		}
+
+		private static sbyte GetBottomLeftNearestTile(byte[][] zones, int x, int y, int depth)
+		{
+			sbyte matchFound = -1;
+
+			int x2 = x;
+			int y2 = y + depth;
+
+			if (y2 > 63)
+			{
+				x2 -= y2 - 63;
+				y2 = 63;
+			}
+
+			while (x2 >= 0 && y2 >= y)
+			{
+				if (zones[y2][x2] != 0xFF &&
+					zones[y2][x2] > matchFound)
+				{
+					matchFound = (sbyte)zones[y2][x2];
+				}
+
+				x2--;
+				y2--;
+			}
+
+			return matchFound;
+		}
+
+		private static sbyte GetTopLeftNearestTile(byte[][] zones, int x, int y, int depth)
+		{
+			sbyte matchFound = -1;
+
+			int x2 = x - depth;
+			int y2 = y;
+
+			if (x2 < 0)
+			{
+				y2 += x2;
+				x2 = 0;
+			}
+
+			while (x2 <= x && y2 >= 0)
+			{
+				if (zones[y2][x2] != 0xFF &&
+					zones[y2][x2] > matchFound)
+				{
+					matchFound = (sbyte)zones[y2][x2];
+				}
+
+				x2++;
+				y2--;
+			}
+
+			return matchFound;
 		}
 
 		/// <summary>
