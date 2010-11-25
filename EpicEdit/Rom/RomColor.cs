@@ -95,7 +95,7 @@ namespace EpicEdit.Rom
 		/// <returns>The created RomColor object.</returns>
 		public RomColor To5Bit()
 		{
-			return From5BitRGB(ConvertTo5BitColor(this.Red), ConvertTo5BitColor(this.Green), ConvertTo5BitColor(this.Blue));
+			return From5BitRgb(ConvertTo5BitColor(this.Red), ConvertTo5BitColor(this.Green), ConvertTo5BitColor(this.Blue));
 		}
 
 		/// <summary>
@@ -105,9 +105,9 @@ namespace EpicEdit.Rom
 		/// <param name="green">Green channel (0-31).</param>
 		/// <param name="blue">Blue channel (0-31).</param>
 		/// <returns>The created RomColor object.</returns>
-		public static RomColor From5BitRGB(int red, int green, int blue)
+		public static RomColor From5BitRgb(int red, int green, int blue)
 		{
-			return From8BitRGB(ConvertTo8BitColor(red), ConvertTo8BitColor(green), ConvertTo8BitColor(blue));
+			return From8BitRgb(ConvertTo8BitColor(red), ConvertTo8BitColor(green), ConvertTo8BitColor(blue));
 		}
 
 		/// <summary>
@@ -117,7 +117,7 @@ namespace EpicEdit.Rom
 		/// <param name="green">Green channel (0-255).</param>
 		/// <param name="blue">Blue channel (0-255).</param>
 		/// <returns>The created RomColor object.</returns>
-		public static RomColor From8BitRGB(int red, int green, int blue)
+		public static RomColor From8BitRgb(int red, int green, int blue)
 		{
 			RomColor color = new RomColor();
 			color.Red = (byte)red;
@@ -247,7 +247,7 @@ namespace EpicEdit.Rom
 			double stepB = ((double)target.Blue - (double)this.Blue) / (step - 1);
 			for (double x = 0; x < step; x++)
 			{
-				yield return RomColor.From8BitRGB((int)(this.Red + (x * stepR)), (int)(this.Green + (x * stepG)), (int)(this.Blue + (x * stepB)));
+				yield return RomColor.From8BitRgb((int)(this.Red + (x * stepR)), (int)(this.Green + (x * stepG)), (int)(this.Blue + (x * stepB)));
 			}
 		}
 
@@ -257,7 +257,7 @@ namespace EpicEdit.Rom
 		/// <returns></returns>
 		public RomColor Opposite()
 		{
-			return RomColor.From8BitRGB(255 - this.Red, 255 - this.Green, 255 - this.Blue);
+			return RomColor.From8BitRgb(255 - this.Red, 255 - this.Green, 255 - this.Blue);
 		}
 
 		/// <summary>
