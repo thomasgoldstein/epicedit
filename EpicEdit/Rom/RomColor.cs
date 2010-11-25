@@ -83,10 +83,10 @@ namespace EpicEdit.Rom
 			byte green = ConvertTo5BitColor(this.Green);
 			byte blue = ConvertTo5BitColor(this.Blue);
 
-			byte[] bytes = new byte[2];
-			bytes[0] = (byte)(red | ((green & 0x07) << 5));
-			bytes[1] = (byte)(((green & 0x18) >> 3) | ((blue & 0x1F) << 2));
-			return bytes;
+			byte[] data = new byte[2];
+			data[0] = (byte)(red | ((green & 0x07) << 5));
+			data[1] = (byte)(((green & 0x18) >> 3) | ((blue & 0x1F) << 2));
+			return data;
 		}
 
 		/// <summary>
@@ -144,35 +144,35 @@ namespace EpicEdit.Rom
 		/// <summary>
 		/// Creates a RomColor object from 5 bit encoded byte array (2 bytes).
 		/// </summary>
-		/// <param name="bytes">The bytes to decode.</param>
+		/// <param name="data">The bytes to decode.</param>
 		/// <returns>The created RomColor object.</returns>
-		public static RomColor FromBytes(byte[] bytes)
+		public static RomColor FromBytes(byte[] data)
 		{
-			return FromBytes(bytes, 0);
+			return FromBytes(data, 0);
 		}
 
 		/// <summary>
 		/// Creates a RomColor object from 5 bit encoded byte array (2 bytes).
 		/// </summary>
-		/// <param name="bytes">The bytes to decode.</param>
+		/// <param name="data">The bytes to decode.</param>
 		/// <param name="index">The index at which to start the decoding.</param>
 		/// <returns>The created RomColor object.</returns>
-		public static RomColor FromBytes(byte[] bytes, int index)
+		public static RomColor FromBytes(byte[] data, int index)
 		{
-			if (bytes == null || bytes.Length - index < 2)
+			if (data == null || data.Length - index < 2)
 			{
 				throw new Exception("Invalid color byte data");
 			}
 
-			if (index > bytes.Length - 2)
+			if (index > data.Length - 2)
 			{
 				throw new Exception("Invalid position");
 			}
 
 			// Decode the bytes into red, green and blue components (8 bit)
 			RomColor rc = new RomColor();
-			byte lobyte = bytes[index];
-			byte hibyte = bytes[index + 1];
+			byte lobyte = data[index];
+			byte hibyte = data[index + 1];
 			rc.Red = ConvertTo8BitColor(lobyte & 0x1F);
 			rc.Green = ConvertTo8BitColor(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5));
 			rc.Blue = ConvertTo8BitColor((hibyte & 0x7C) >> 2);
