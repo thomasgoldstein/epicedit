@@ -162,12 +162,12 @@ namespace EpicEdit.Rom
 		{
 			if (data == null || data.Length - index < 2)
 			{
-				throw new Exception("Invalid color byte data");
+				throw new ArgumentException("Invalid color byte data");
 			}
 
 			if (index > data.Length - 2)
 			{
-				throw new Exception("Invalid position");
+				throw new ArgumentException("Invalid position");
 			}
 
 			// Decode the bytes into red, green and blue components (8 bit)
