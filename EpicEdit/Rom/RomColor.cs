@@ -291,6 +291,5 @@ namespace EpicEdit.Rom
 				return base.Equals(obj);
 			}
 		}
-
 	}
 }
