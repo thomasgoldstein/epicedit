@@ -947,7 +947,6 @@ namespace EpicEdit.UI.Gfx
 			InterpolationMode im = graphics.InterpolationMode;
 			PixelOffsetMode pom = graphics.PixelOffsetMode;
 
-			graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
 			graphics.PixelOffsetMode = PixelOffsetMode.Half;
 			
 			using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
@@ -961,7 +960,6 @@ namespace EpicEdit.UI.Gfx
 								   GraphicsUnit.Pixel, this.translucidImageAttr);
 			}
 
-			graphics.InterpolationMode = im;
 			graphics.PixelOffsetMode = pom;
 		}
 
