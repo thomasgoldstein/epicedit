@@ -108,11 +108,6 @@ namespace EpicEdit.UI.Gfx
 		private Pen startPositionPen;
 
 		/// <summary>
-		/// Used to fill in object zones.
-		/// </summary>
-		private SolidBrush[] objectZoneBrushes;
-
-		/// <summary>
 		/// Used to paint object outlines.
 		/// </summary>
 		private Pen objectOutlinePen;
@@ -168,12 +163,6 @@ namespace EpicEdit.UI.Gfx
 			this.lapLineOutlinePen = new Pen(Color.Black, 3);
 			this.startPositionBrush = new SolidBrush(Color.White);
 			this.startPositionPen = new Pen(Color.Gray, 1);
-
-			this.objectZoneBrushes = new SolidBrush[4];
-			this.objectZoneBrushes[0] = new SolidBrush(Color.FromArgb(150, 204, 51, 51)); // Object zone 1 color
-			this.objectZoneBrushes[1] = new SolidBrush(Color.FromArgb(150, 21, 94, 177)); // Object zone 2 color
-			this.objectZoneBrushes[2] = new SolidBrush(Color.FromArgb(150, 16, 150, 24)); // Object zone 3 color
-			this.objectZoneBrushes[3] = new SolidBrush(Color.FromArgb(150, 230, 186, 64)); // Object zone 4 color
 
 			this.objectOutlinePen = new Pen(Color.White, 2);
 			this.objectBrushes = new SolidBrush[5];
@@ -954,8 +943,34 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawObjectZones(Graphics graphics, bool frontZonesView)
 		{
-			GPTrack gpTrack = this.track as GPTrack;
+			// Back up graphics properties to restore them afterwards
+			InterpolationMode im = graphics.InterpolationMode;
+			PixelOffsetMode pom = graphics.PixelOffsetMode;
 
+			graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+			graphics.PixelOffsetMode = PixelOffsetMode.Half;
+			
+			using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
+			{
+				graphics.DrawImage(bitmap,
+				                   new Rectangle(-this.scrollPosition.X * 8,
+												 -this.scrollPosition.Y * 8,
+												 this.trackCache.Width,
+												 this.trackCache.Height),
+								   0, 0, bitmap.Width, bitmap.Height,
+								   GraphicsUnit.Pixel, this.translucidImageAttr);
+			}
+
+			graphics.InterpolationMode = im;
+			graphics.PixelOffsetMode = pom;
+		}
+
+		private Bitmap GetObjectZonesBitmap(bool frontZonesView)
+		{
+			Bitmap bitmap = new Bitmap(64, 64, this.trackCache.PixelFormat);
+			FastBitmap fBitmap = new FastBitmap(bitmap);
+
+			GPTrack gpTrack = this.track as GPTrack;
 			byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
 
 			for (int y = 0; y < zones.Length; y++)
@@ -963,12 +978,12 @@ namespace EpicEdit.UI.Gfx
 				for (int x = 0; x < zones[y].Length; x++)
 				{
 					byte zoneIndex = zones[y][x];
-					graphics.FillRectangle(this.objectZoneBrushes[zoneIndex],
-										   new Rectangle(x * 16 - this.scrollPosition.X * 8,
-														 y * 16 - this.scrollPosition.Y * 8,
-														 16, 16));
+					fBitmap.SetPixel(x, y, this.objectBrushes[zoneIndex].Color);
 				}
 			}
+
+			fBitmap.Release();
+			return bitmap;
 		}
 
 		private void DrawObjects(Graphics graphics)
@@ -1486,11 +1501,6 @@ namespace EpicEdit.UI.Gfx
 			this.lapLineOutlinePen.Dispose();
 			this.startPositionBrush.Dispose();
 			this.startPositionPen.Dispose();
-
-			foreach (SolidBrush objectZoneBrush in this.objectZoneBrushes)
-			{
-				objectZoneBrush.Dispose();
-			}
 
 			this.objectMatchRacePen.Dispose();
 			this.objectOutlinePen.Dispose();
