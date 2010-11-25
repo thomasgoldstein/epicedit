@@ -267,7 +267,7 @@ namespace EpicEdit.Rom
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return String.Format(CultureInfo.InvariantCulture,
+			return string.Format(CultureInfo.InvariantCulture,
 								 "R: {0} ({1})" + Environment.NewLine +
 								 "G: {2} ({3})" + Environment.NewLine +
 								 "B: {4} ({5})",
