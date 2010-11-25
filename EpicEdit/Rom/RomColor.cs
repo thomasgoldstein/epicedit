@@ -90,11 +90,13 @@ namespace EpicEdit.Rom
 		/// <summary>
 		/// Gets the .NET Framework Color object representation of this color.
 		/// </summary>
-		/// <returns>Returns a Color object.</returns>
-		public Color GetColor()
+		public Color Color
 		{
-			// Generate the .NET Framework Color object
-			return Color.FromArgb(this.red, this.green, this.blue);
+			get
+			{
+				// Generate the .NET Framework Color object
+				return Color.FromArgb(this.red, this.green, this.blue);
+			}
 		}
 
 		/// <summary>
@@ -239,7 +241,7 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public static implicit operator Color(RomColor color)
 		{
-			return color.GetColor();
+			return color.Color;
 		}
 
 		/// <summary>
