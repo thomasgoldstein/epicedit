@@ -943,8 +943,7 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawObjectZones(Graphics graphics, bool frontZonesView)
 		{
-			// Back up graphics properties to restore them afterwards
-			InterpolationMode im = graphics.InterpolationMode;
+			// Store PixelOffsetMode to restore it afterwards
 			PixelOffsetMode pom = graphics.PixelOffsetMode;
 
 			graphics.PixelOffsetMode = PixelOffsetMode.Half;
