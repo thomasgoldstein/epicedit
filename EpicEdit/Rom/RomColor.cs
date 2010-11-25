@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 
 namespace EpicEdit.Rom
 {
@@ -266,7 +267,8 @@ namespace EpicEdit.Rom
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return String.Format("R: {0} ({1})" + Environment.NewLine +
+			return String.Format(CultureInfo.InvariantCulture,
+								 "R: {0} ({1})" + Environment.NewLine +
 								 "G: {2} ({3})" + Environment.NewLine +
 								 "B: {4} ({5})",
 								 this.Red5Bit, this.Red,
