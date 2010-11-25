@@ -64,7 +64,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Red channel (5 bit).
+		/// Gets the red channel (5 bit).
 		/// </summary>
 		public byte Red5Bit
 		{
@@ -72,7 +72,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Green channel (5 bit).
+		/// Gets the green channel (5 bit).
 		/// </summary>
 		public byte Green5Bit
 		{
@@ -80,7 +80,7 @@ namespace EpicEdit.Rom
 		}
 
 		/// <summary>
-		/// Blue channel (5 bit).
+		/// Gets the blue channel (5 bit).
 		/// </summary>
 		public byte Blue5Bit
 		{
