@@ -212,7 +212,7 @@ namespace EpicEdit.UI.Gfx
 				new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
 				new float[] { 0.0f, 1.0f, 0.0f, 0.0f, 0.0f },
 				new float[] { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f },
-				new float[] { 0.0f, 0.0f, 0.0f, 0.5f, 0.0f },
+				new float[] { 0.0f, 0.0f, 0.0f, 0.58f, 0.0f },
 				new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
 			});
 			this.translucidImageAttr.SetColorMatrix(matrix);
