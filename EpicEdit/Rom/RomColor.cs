@@ -27,24 +27,48 @@ namespace EpicEdit.Rom
 		/// <summary>
 		/// Red channel (8 bit).
 		/// </summary>
-		public byte Red;
+		private byte red;
 
 		/// <summary>
 		/// Green channel (8 bit).
 		/// </summary>
-		public byte Green;
+		private byte green;
 
 		/// <summary>
 		/// Blue channel (8 bit).
 		/// </summary>
-		public byte Blue;
+		private byte blue;
+
+		/// <summary>
+		/// Gets the red channel (8 bit).
+		/// </summary>
+		public byte Red
+		{
+			get { return this.red; }
+		}
+
+		/// <summary>
+		/// Gets the green channel (8 bit).
+		/// </summary>
+		public byte Green
+		{
+			get { return this.green; }
+		}
+
+		/// <summary>
+		/// Gets the blue channel (8 bit).
+		/// </summary>
+		public byte Blue
+		{
+			get { return this.blue; }
+		}
 
 		/// <summary>
 		/// Red channel (5 bit).
 		/// </summary>
 		public byte Red5Bit
 		{
-			get { return ConvertTo5BitColor(this.Red); }
+			get { return ConvertTo5BitColor(this.red); }
 		}
 
 		/// <summary>
@@ -52,7 +76,7 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public byte Green5Bit
 		{
-			get { return ConvertTo5BitColor(this.Green); }
+			get { return ConvertTo5BitColor(this.green); }
 		}
 
 		/// <summary>
@@ -60,7 +84,7 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public byte Blue5Bit
 		{
-			get { return ConvertTo5BitColor(this.Blue); }
+			get { return ConvertTo5BitColor(this.blue); }
 		}
 
 		/// <summary>
@@ -70,7 +94,7 @@ namespace EpicEdit.Rom
 		public Color GetColor()
 		{
 			// Generate the .NET Framework Color object
-			return Color.FromArgb(this.Red, this.Green, this.Blue);
+			return Color.FromArgb(this.red, this.green, this.blue);
 		}
 
 		/// <summary>
@@ -80,9 +104,9 @@ namespace EpicEdit.Rom
 		public byte[] GetBytes()
 		{
 			// Encode the red, green and blue components into the 2 bytes (5 bit)
-			byte red = ConvertTo5BitColor(this.Red);
-			byte green = ConvertTo5BitColor(this.Green);
-			byte blue = ConvertTo5BitColor(this.Blue);
+			byte red = ConvertTo5BitColor(this.red);
+			byte green = ConvertTo5BitColor(this.green);
+			byte blue = ConvertTo5BitColor(this.blue);
 
 			byte[] data = new byte[2];
 			data[0] = (byte)(red | ((green & 0x07) << 5));
@@ -96,7 +120,7 @@ namespace EpicEdit.Rom
 		/// <returns>The created RomColor object.</returns>
 		public RomColor To5Bit()
 		{
-			return From5BitRgb(ConvertTo5BitColor(this.Red), ConvertTo5BitColor(this.Green), ConvertTo5BitColor(this.Blue));
+			return From5BitRgb(ConvertTo5BitColor(this.red), ConvertTo5BitColor(this.green), ConvertTo5BitColor(this.blue));
 		}
 
 		/// <summary>
@@ -121,9 +145,9 @@ namespace EpicEdit.Rom
 		public static RomColor From8BitRgb(int red, int green, int blue)
 		{
 			RomColor color = new RomColor();
-			color.Red = (byte)red;
-			color.Green = (byte)green;
-			color.Blue = (byte)blue;
+			color.red = (byte)red;
+			color.green = (byte)green;
+			color.blue = (byte)blue;
 			return color;
 		}
 
@@ -136,9 +160,9 @@ namespace EpicEdit.Rom
 		{
 			// Extract the bytes into red, green and blue components (8 bit).
 			RomColor rc = new RomColor();
-			rc.Red = color.R;
-			rc.Green = color.G;
-			rc.Blue = color.B;
+			rc.red = color.R;
+			rc.green = color.G;
+			rc.blue = color.B;
 			return rc;
 		}
 
@@ -174,9 +198,9 @@ namespace EpicEdit.Rom
 			RomColor rc = new RomColor();
 			byte lobyte = data[index];
 			byte hibyte = data[index + 1];
-			rc.Red = ConvertTo8BitColor(lobyte & 0x1F);
-			rc.Green = ConvertTo8BitColor(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5));
-			rc.Blue = ConvertTo8BitColor((hibyte & 0x7C) >> 2);
+			rc.red = ConvertTo8BitColor(lobyte & 0x1F);
+			rc.green = ConvertTo8BitColor(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5));
+			rc.blue = ConvertTo8BitColor((hibyte & 0x7C) >> 2);
 			return rc;
 		}
 
@@ -223,7 +247,7 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public static Boolean operator ==(RomColor color1, RomColor color2)
 		{
-			return (color1.Red == color2.Red) && (color1.Green == color2.Green) && (color1.Blue == color2.Blue);
+			return (color1.red == color2.red) && (color1.green == color2.green) && (color1.blue == color2.blue);
 		}
 
 		/// <summary>
@@ -231,7 +255,7 @@ namespace EpicEdit.Rom
 		/// </summary>
 		public static Boolean operator !=(RomColor color1, RomColor color2)
 		{
-			return (color1.Red != color2.Red) || (color1.Green != color2.Green) || (color1.Blue != color2.Blue);
+			return (color1.red != color2.red) || (color1.green != color2.green) || (color1.blue != color2.blue);
 		}
 
 		/// <summary>
@@ -243,12 +267,12 @@ namespace EpicEdit.Rom
 		/// <returns>A RomColor object representing one of the steps.</returns>
 		public IEnumerator<RomColor> GetEnumerator(RomColor target, int step)
 		{
-			double stepR = ((double)target.Red - (double)this.Red) / (step - 1);
-			double stepG = ((double)target.Green - (double)this.Green) / (step - 1);
-			double stepB = ((double)target.Blue - (double)this.Blue) / (step - 1);
+			double stepR = ((double)target.red - (double)this.red) / (step - 1);
+			double stepG = ((double)target.green - (double)this.green) / (step - 1);
+			double stepB = ((double)target.blue - (double)this.blue) / (step - 1);
 			for (double x = 0; x < step; x++)
 			{
-				yield return RomColor.From8BitRgb((int)(this.Red + (x * stepR)), (int)(this.Green + (x * stepG)), (int)(this.Blue + (x * stepB)));
+				yield return RomColor.From8BitRgb((int)(this.red + (x * stepR)), (int)(this.green + (x * stepG)), (int)(this.blue + (x * stepB)));
 			}
 		}
 
@@ -258,7 +282,7 @@ namespace EpicEdit.Rom
 		/// <returns></returns>
 		public RomColor Opposite()
 		{
-			return RomColor.From8BitRgb(255 - this.Red, 255 - this.Green, 255 - this.Blue);
+			return RomColor.From8BitRgb(255 - this.red, 255 - this.green, 255 - this.blue);
 		}
 
 		/// <summary>
@@ -271,9 +295,9 @@ namespace EpicEdit.Rom
 								 "R: {0} ({1})" + Environment.NewLine +
 								 "G: {2} ({3})" + Environment.NewLine +
 								 "B: {4} ({5})",
-								 this.Red5Bit, this.Red,
-								 this.Green5Bit, this.Green,
-								 this.Blue5Bit, this.Blue);
+								 this.Red5Bit, this.red,
+								 this.Green5Bit, this.green,
+								 this.Blue5Bit, this.blue);
 		}
 
 		public override int GetHashCode()
