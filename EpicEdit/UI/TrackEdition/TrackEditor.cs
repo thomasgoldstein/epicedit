@@ -2193,6 +2193,11 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.trackTreeView.MarkTrackAsChanged();
 				this.trackDisplayPanel.Invalidate();
+
+				if (this.track.AI.ElementCount == 1)
+				{
+					this.aiControl.HideWarning();
+				}
 			}
 		}
 
@@ -2210,6 +2215,11 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.trackTreeView.MarkTrackAsChanged();
 			this.trackDisplayPanel.Invalidate();
+
+			if (this.track.AI.ElementCount == 0)
+			{
+				this.aiControl.ShowWarning();
+			}
 		}
 
 		private void AIControlDataChanged(object sender, EventArgs e)
@@ -2229,6 +2239,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.track.AI.Clear();
 			this.trackTreeView.MarkTrackAsChanged();
 			this.trackDisplayPanel.Invalidate();
+			this.aiControl.ShowWarning();
 		}
 		#endregion EditionMode.AI
 	}
