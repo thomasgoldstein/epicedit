@@ -53,6 +53,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.deleteAllButton = new System.Windows.Forms.Button();
 			this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.warningLabel = new System.Windows.Forms.Label();
 			aiIndexLabel = new System.Windows.Forms.Label();
 			shapeLabel = new System.Windows.Forms.Label();
 			speedLabel = new System.Windows.Forms.Label();
@@ -178,17 +179,27 @@ namespace EpicEdit.UI.TrackEdition
 			this.deleteAllButton.UseVisualStyleBackColor = true;
 			this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
 			// 
+			// warningLabel
+			// 
+			this.warningLabel.Location = new System.Drawing.Point(4, 219);
+			this.warningLabel.Name = "warningLabel";
+			this.warningLabel.Size = new System.Drawing.Size(93, 56);
+			this.warningLabel.TabIndex = 3;
+			this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
+			// 
 			// AIControl
 			// 
+			this.Controls.Add(this.warningLabel);
 			this.Controls.Add(this.deleteAllButton);
 			this.Controls.Add(this.selectedAIElementGroupBox);
 			this.Name = "AIControl";
-			this.Size = new System.Drawing.Size(130, 248);
+			this.Size = new System.Drawing.Size(130, 280);
 			this.selectedAIElementGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
 			this.ResumeLayout(false);
 		}
+		private System.Windows.Forms.Label warningLabel;
 		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Button deleteAllButton;
 		private System.Windows.Forms.NumericUpDown indexNumericUpDown;

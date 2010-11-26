@@ -105,6 +105,8 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.SelectedElement = null;
 				this.SetMaximumAIElementIndex();
+
+				this.warningLabel.Visible = this.trackAI.ElementCount == 0;
 			}
 		}
 
@@ -168,6 +170,16 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				this.DeleteAllRequested(this, EventArgs.Empty);
 			}
+		}
+
+		public void ShowWarning()
+		{
+			this.warningLabel.Visible = true;
+		}
+
+		public void HideWarning()
+		{
+			this.warningLabel.Visible = false;
 		}
 	}
 }
