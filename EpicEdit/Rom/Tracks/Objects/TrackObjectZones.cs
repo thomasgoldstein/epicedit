@@ -99,30 +99,25 @@ namespace EpicEdit.Rom.Tracks.Objects
 
 		public byte[][] GetGrid(bool frontZonesView)
 		{
-			byte[][] zones = TrackObjectZones.CreateGrid();
-
-			this.FillGridFromAI(zones, frontZonesView);
-
-			if (this.track.AI.ElementCount > 0)
-			{
-				TrackObjectZones.FillGridFromNearestTiles(ref zones);
-			}
-
-			return zones;
-		}
-
-		private static byte[][] CreateGrid()
-		{
 			byte[][] zones = new byte[64][];
 
 			for (int y = 0; y < zones.Length; y++)
 			{
 				zones[y] = new byte[64];
-				
-				for (int x = 0; x < zones[y].Length; x++)
+			}
+
+			if (this.track.AI.ElementCount > 0)
+			{
+				for (int y = 0; y < zones.Length; y++)
 				{
-					zones[y][x] = 0xFF;
+					for (int x = 0; x < zones[y].Length; x++)
+					{
+						zones[y][x] = 0xFF;
+					}
 				}
+
+				this.FillGridFromAI(zones, frontZonesView);
+				TrackObjectZones.FillGridFromNearestTiles(ref zones);
 			}
 
 			return zones;
