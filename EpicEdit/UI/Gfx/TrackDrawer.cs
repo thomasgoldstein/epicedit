@@ -168,8 +168,8 @@ namespace EpicEdit.UI.Gfx
 			this.objectBrushes = new SolidBrush[5];
 			this.objectBrushes[0] = new SolidBrush(Color.FromArgb(255, 204, 51, 51)); // Zone 1 object color
 			this.objectBrushes[1] = new SolidBrush(Color.FromArgb(255, 21, 94, 177)); // Zone 2 object color
-			this.objectBrushes[2] = new SolidBrush(Color.FromArgb(255, 16, 150, 24)); // Zone 3 object color
-			this.objectBrushes[3] = new SolidBrush(Color.FromArgb(255, 230, 186, 64)); // Zone 4 object color
+			this.objectBrushes[2] = new SolidBrush(Color.FromArgb(255, 230, 186, 64)); // Zone 3 object color
+			this.objectBrushes[3] = new SolidBrush(Color.FromArgb(255, 16, 150, 24)); // Zone 4 object color
 			this.objectBrushes[4] = new SolidBrush(Color.FromArgb(255, 0, 0, 0)); // Match Race object color
 			this.objectMatchRacePen = new Pen(Color.SkyBlue, 1);
 
