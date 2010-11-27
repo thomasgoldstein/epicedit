@@ -77,7 +77,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// zone4Label
 			// 
-			this.zone4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(186)))), ((int)(((byte)(64)))));
+			this.zone4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(150)))), ((int)(((byte)(24)))));
 			this.zone4Label.Location = new System.Drawing.Point(6, 109);
 			this.zone4Label.Margin = new System.Windows.Forms.Padding(0);
 			this.zone4Label.Name = "zone4Label";
@@ -87,7 +87,7 @@ namespace EpicEdit.UI.TrackEdition
 			// 
 			// zone3Label
 			// 
-			this.zone3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(150)))), ((int)(((byte)(24)))));
+			this.zone3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(186)))), ((int)(((byte)(64)))));
 			this.zone3Label.Location = new System.Drawing.Point(6, 81);
 			this.zone3Label.Margin = new System.Windows.Forms.Padding(0);
 			this.zone3Label.Name = "zone3Label";
