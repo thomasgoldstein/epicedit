@@ -177,9 +177,15 @@ namespace EpicEdit.UI.TrackEdition
 
 				foreach (TreeNode trackNode in trackNodes)
 				{
-					if (trackNode.Text.EndsWith("*", StringComparison.OrdinalIgnoreCase))
+					if (trackNode.Text.Length == 0)
 					{
-						trackNode.Text = trackNode.Text.Substring(0, trackNode.Text.Length - 1);
+						continue;
+					}
+
+					int lastCharIndex = trackNode.Text.Length - 1;
+					if (trackNode.Text[lastCharIndex] == '*')
+					{
+						trackNode.Text = trackNode.Text.Substring(0, lastCharIndex);
 					}
 				}
 			}
