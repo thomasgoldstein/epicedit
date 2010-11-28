@@ -149,7 +149,7 @@ namespace EpicEdit.UI
 		#endregion
 
 		#region Full Screen
-		private void FullScreenToolStripMenuItemClick(object sender, EventArgs e)
+		private void FullScreenToolStripButtonClick(object sender, EventArgs e)
 		{
 			this.ToggleScreenModeRequested(this, e);
 		}
@@ -201,6 +201,11 @@ namespace EpicEdit.UI
 		private void ResetZoomNumToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			this.ZoomResetRequested(this, EventArgs.Empty);
+		}
+
+		private void FullScreenToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			this.ToggleScreenModeRequested(this, e);
 		}
 		#endregion
 	}
