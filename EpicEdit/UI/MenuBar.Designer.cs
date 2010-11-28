@@ -68,6 +68,7 @@ namespace EpicEdit.UI
 			this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resetZoomNumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.menuToolStrip.SuspendLayout();
 			this.hiddenMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -83,6 +84,7 @@ namespace EpicEdit.UI
 									this.toolStripSeparator1,
 									this.zoomOutToolStripButton,
 									this.zoomInToolStripButton,
+									this.fullScreenToolStripButton,
 									this.toolStripSeparator2,
 									this.aboutToolStripLabel,
 									this.toolStripSeparator3,
@@ -302,6 +304,17 @@ namespace EpicEdit.UI
 			this.fullScreenToolStripMenuItem.Text = "Full Screen";
 			this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.FullScreenToolStripMenuItemClick);
 			// 
+			// fullScreenToolStripButton
+			// 
+			this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.fullScreenToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("fullScreenToolStripButton.Image")));
+			this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.fullScreenToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+			this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
+			this.fullScreenToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this.fullScreenToolStripButton.Text = "Full Screen";
+			this.fullScreenToolStripButton.Click += new System.EventHandler(this.FullScreenToolStripButtonClick);
+			// 
 			// MenuBar
 			// 
 			this.Controls.Add(this.hiddenMenuStrip);
@@ -315,6 +328,7 @@ namespace EpicEdit.UI
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripButton fullScreenToolStripButton;
 		private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripLabel coordinatesToolStripLabel;
