@@ -68,16 +68,16 @@ namespace EpicEdit.UI.TrackEdition
 
 			foreach (TrackGroup trackGroup in trackGroups)
 			{
-				TreeNode trackList = new TreeNode(trackGroup.Name);
-				trackList.ForeColor = SystemColors.WindowText;
-				trackList.BackColor = Color.Transparent;
+				TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
+				trackGroupNode.ForeColor = SystemColors.WindowText;
+				trackGroupNode.BackColor = Color.Transparent;
 
 				foreach (Track track in trackGroup)
 				{
-					trackList.Nodes.Add(track.Name);
+					trackGroupNode.Nodes.Add(track.Name);
 				}
 
-				this.treeView.Nodes.Add(trackList);
+				this.treeView.Nodes.Add(trackGroupNode);
 			}
 
 			this.treeView.ExpandAll();
