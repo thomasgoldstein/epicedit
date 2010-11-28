@@ -33,6 +33,12 @@ namespace EpicEdit.UI
 		public event EventHandler<EventArgs> SaveRomDialogRequested;
 
 		[Browsable(true)]
+		public event EventHandler<EventArgs> TrackImportDialogRequested;
+
+		[Browsable(true)]
+		public event EventHandler<EventArgs> TrackExportDialogRequested;
+
+		[Browsable(true)]
 		public event EventHandler<EventArgs> ZoomInRequested;
 
 		[Browsable(true)]
@@ -40,12 +46,6 @@ namespace EpicEdit.UI
 
 		[Browsable(true)]
 		public event EventHandler<EventArgs> ZoomResetRequested;
-
-		[Browsable(true)]
-		public event EventHandler<EventArgs> TrackImportDialogRequested;
-
-		[Browsable(true)]
-		public event EventHandler<EventArgs> TrackExportDialogRequested;
 
 		[Browsable(true)]
 		public event EventHandler<EventArgs> ToggleScreenModeRequested;
