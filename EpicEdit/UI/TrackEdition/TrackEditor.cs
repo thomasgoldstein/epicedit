@@ -230,6 +230,13 @@ namespace EpicEdit.UI.TrackEdition
 			remove { this.menuBar.SaveRomDialogRequested -= value; }
 		}
 
+		[Browsable(true)]
+		public event EventHandler<EventArgs> ToggleScreenModeRequested
+		{
+			add { this.menuBar.ToggleScreenModeRequested += value; }
+			remove { this.menuBar.ToggleScreenModeRequested -= value; }
+		}
+
 		public TrackEditor()
 		{
 			this.InitializeComponent();
