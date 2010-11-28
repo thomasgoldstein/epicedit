@@ -47,6 +47,9 @@ namespace EpicEdit.UI
 		[Browsable(true)]
 		public event EventHandler<EventArgs> TrackExportDialogRequested;
 
+		[Browsable(true)]
+		public event EventHandler<EventArgs> ToggleScreenModeRequested;
+
 		public MenuBar()
 		{
 			this.InitializeComponent();
@@ -144,6 +147,13 @@ namespace EpicEdit.UI
 							MessageBoxIcon.Information);
 		}
 		#endregion
+
+		#region Full Screen
+		private void FullScreenToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			this.ToggleScreenModeRequested(this, e);
+		}
+		#endregion Full Screen
 
 		#region Cursor coordinates Label
 		public void ResetCoordinates()

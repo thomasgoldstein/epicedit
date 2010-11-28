@@ -33,6 +33,11 @@ namespace EpicEdit.UI
 		/// </summary>
 		internal static Game SmkGame;
 
+		/// <summary>
+		/// The state of the window before going full screen, to restore it later.
+		/// </summary>
+		private FormWindowState previousWindowState;
+
 		[STAThread]
 		public static void Main(string[] args)
 		{
@@ -273,6 +278,34 @@ namespace EpicEdit.UI
 			MainForm.SmkGame.SaveRom(filePath);
 			this.trackEditor.RemoveModifiedHints();
 			this.UpdateApplicationTitle();
+		}
+		
+		private void TrackEditorToggleScreenModeRequested(object sender, EventArgs e)
+		{
+			this.ToggleScreenMode();
+		}
+
+		private void ToggleScreenMode()
+		{
+			if (!this.TopMost)
+			{
+				// Go full screen
+				this.TopMost = true;
+				this.FormBorderStyle = FormBorderStyle.None;
+				this.previousWindowState = this.WindowState;
+
+				// HACK: Go back to Normal first, otherwise the task bar doesn't
+				// get covered by the application if the app was already Maximized.
+				this.WindowState = FormWindowState.Normal;
+				this.WindowState = FormWindowState.Maximized;
+			}
+			else
+			{
+				// Go back to windowed mode
+				this.TopMost = false;
+				this.FormBorderStyle = FormBorderStyle.Sizable;
+				this.WindowState = this.previousWindowState;
+			}
 		}
 	}
 }
