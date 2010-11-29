@@ -116,6 +116,30 @@ namespace EpicEdit.UI
 		}
 		#endregion
 
+		#region Full Screen
+		private void FullScreenToolStripButtonClick(object sender, EventArgs e)
+		{
+			this.ToggleScreenModeRequested(this, e);
+			this.UpdateFullScreenButton();
+		}
+
+		private void UpdateFullScreenButton()
+		{
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(MenuBar));
+
+			if (this.fullScreenToolStripButton.ToolTipText.Equals("Full Screen", StringComparison.OrdinalIgnoreCase))
+			{
+				this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
+				this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image2")));
+			}
+			else
+			{
+				this.fullScreenToolStripButton.ToolTipText = "Full Screen";
+				this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image")));
+			}
+		}
+		#endregion Full Screen
+
 		#region About
 		private void AboutToolStripLabelClick(object sender, EventArgs e)
 		{
@@ -147,30 +171,6 @@ namespace EpicEdit.UI
 							MessageBoxIcon.Information);
 		}
 		#endregion
-
-		#region Full Screen
-		private void FullScreenToolStripButtonClick(object sender, EventArgs e)
-		{
-			this.ToggleScreenModeRequested(this, e);
-			this.UpdateFullScreenButton();
-		}
-
-		private void UpdateFullScreenButton()
-		{
-			ComponentResourceManager resources = new ComponentResourceManager(typeof(MenuBar));
-
-			if (this.fullScreenToolStripButton.ToolTipText.Equals("Full Screen", StringComparison.OrdinalIgnoreCase))
-			{
-				this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-				this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image2")));
-			}
-			else
-			{
-				this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-				this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image")));
-			}
-		}
-		#endregion Full Screen
 
 		#region Cursor coordinates Label
 		public void ResetCoordinates()
