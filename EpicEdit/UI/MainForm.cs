@@ -300,14 +300,8 @@ namespace EpicEdit.UI
 				}
 				else
 				{
-					// HACK: Go back to FormWindowState.Normal first,
-					// otherwise the task bar doesn't get covered by the application
-					// if the app was already Maximized.
-					// Also toggle visibility to make things smooth, avoiding the
-					// window animation going from Maximized to Normal and to Maximized again.
+					// HACK: Toggle form visibility to make it cover the task bar.
 					this.Visible = false;
-					this.WindowState = FormWindowState.Normal;
-					this.WindowState = FormWindowState.Maximized;
 					this.Visible = true;
 				}
 			}
