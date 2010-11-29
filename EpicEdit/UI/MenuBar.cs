@@ -55,7 +55,7 @@ namespace EpicEdit.UI
 			this.InitializeComponent();
 		}
 
-		#region OpenRom function
+		#region Open ROM
 		private void OpenRomToolStripButtonClick(object sender, EventArgs e)
 		{
 			this.OpenRomDialogRequested(this, EventArgs.Empty);
@@ -78,9 +78,9 @@ namespace EpicEdit.UI
 			this.resetZoomToolStripMenuItem.Enabled = true;
 			this.resetZoomNumToolStripMenuItem.Enabled = true;
 		}
-		#endregion
+		#endregion Open ROM
 
-		#region SaveRom function
+		#region Save ROM
 		private void SaveRomToolStripButtonClick(object sender, EventArgs e)
 		{
 			this.SaveRomDialogRequested(this, EventArgs.Empty);
@@ -90,9 +90,9 @@ namespace EpicEdit.UI
 		{
 			this.SaveRomDialogRequested(this, EventArgs.Empty);
 		}
-		#endregion
+		#endregion Save ROM
 
-		#region Import/Export functions
+		#region Import / Export track
 		private void ImportTrackToolStripButtonClick(object sender, EventArgs e)
 		{
 			this.TrackImportDialogRequested(this, EventArgs.Empty);
@@ -102,9 +102,9 @@ namespace EpicEdit.UI
 		{
 			this.TrackExportDialogRequested(this, EventArgs.Empty);
 		}
-		#endregion
+		#endregion Import / Export track
 
-		#region Zoom functions
+		#region Zoom in / out
 		private void ZoomInToolStripButtonClick(object sender, EventArgs e)
 		{
 			this.ZoomInRequested(this, e);
@@ -114,7 +114,7 @@ namespace EpicEdit.UI
 		{
 			this.ZoomOutRequested(this, e);
 		}
-		#endregion
+		#endregion Zoom in / out
 
 		#region Full Screen
 		private void FullScreenToolStripButtonClick(object sender, EventArgs e)
@@ -184,7 +184,7 @@ namespace EpicEdit.UI
 		}
 		#endregion Cursor coordinate Label
 
-		#region Menu ShortcutKeys
+		#region Menu shortcut keys
 		private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			this.OpenRomDialogRequested(this, EventArgs.Empty);
@@ -225,6 +225,6 @@ namespace EpicEdit.UI
 			this.ToggleScreenModeRequested(this, e);
 			this.UpdateFullScreenButton();
 		}
-		#endregion
+		#endregion Menu shortcut keys
 	}
 }
