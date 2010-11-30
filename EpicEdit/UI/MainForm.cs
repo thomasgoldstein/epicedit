@@ -287,10 +287,9 @@ namespace EpicEdit.UI
 
 		private void ToggleScreenMode()
 		{
-			if (!this.TopMost)
+			if (this.FormBorderStyle != FormBorderStyle.None)
 			{
 				// Go full screen
-				this.TopMost = true;
 				this.FormBorderStyle = FormBorderStyle.None;
 				this.previousWindowState = this.WindowState;
 
@@ -308,7 +307,6 @@ namespace EpicEdit.UI
 			else
 			{
 				// Go back to windowed mode
-				this.TopMost = false;
 				this.FormBorderStyle = FormBorderStyle.Sizable;
 				this.WindowState = this.previousWindowState;
 			}
