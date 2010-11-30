@@ -524,6 +524,9 @@ namespace EpicEdit.UI.TrackEdition
 			this.zoomLevelIndex++;
 			this.trackDrawer.SetZoom(this.Zoom);
 			this.RecalculateScrollBarMaximums();
+
+			this.menuBar.ZoomInEnabled = this.CanZoomIn();
+			this.menuBar.ZoomOutEnabled = true;
 		}
 
 		private void ZoomOutSub()
@@ -531,6 +534,9 @@ namespace EpicEdit.UI.TrackEdition
 			this.zoomLevelIndex--;
 			this.trackDrawer.SetZoom(this.Zoom);
 			this.RecalculateScrollBarMaximums();
+
+			this.menuBar.ZoomInEnabled = true;
+			this.menuBar.ZoomOutEnabled = this.CanZoomOut();
 		}
 
 		private bool CanZoomIn()

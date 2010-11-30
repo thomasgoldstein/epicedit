@@ -114,6 +114,18 @@ namespace EpicEdit.UI
 		{
 			this.ZoomOutRequested(this, e);
 		}
+
+		public bool ZoomInEnabled
+		{
+			get { return this.zoomInToolStripButton.Enabled; }
+			set { this.zoomInToolStripButton.Enabled = value; }
+		}
+
+		public bool ZoomOutEnabled
+		{
+			get { return this.zoomOutToolStripButton.Enabled; }
+			set { this.zoomOutToolStripButton.Enabled = value; }
+		}
 		#endregion Zoom in / out
 
 		#region Full Screen
