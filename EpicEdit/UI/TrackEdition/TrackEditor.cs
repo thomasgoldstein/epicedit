@@ -1286,7 +1286,10 @@ namespace EpicEdit.UI.TrackEdition
 				// when resizing the window and the panel is scrolled to the bottom and/or right limit
 				if (!PlatformInformation.IsMono()) // HACK: Reposition track content on resize (.NET only)
 				{
-					scrollBar.Maximum = offScreenTileCount;
+					if (scrollBar.Value > offScreenTileCount)
+					{
+						scrollBar.Value = offScreenTileCount;
+					}
 				}
 				// End trick
 
