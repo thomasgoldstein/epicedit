@@ -465,8 +465,8 @@ namespace EpicEdit.UI.TrackEdition
 
 		private Point GetCenterTileLocation()
 		{
-			return new Point(this.scrollPosition.X + Math.Min(this.GetOnScreenTileCount(this.trackDisplayPanel.Width), this.track.Map.Width) / 2,
-							 this.scrollPosition.Y + Math.Min(this.GetOnScreenTileCount(this.trackDisplayPanel.Height), this.track.Map.Height) / 2);
+			return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2,
+							 this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
 		}
 
 		private void EndZoom()
@@ -1267,7 +1267,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private int GetOnScreenTileCount(int panelSize)
 		{
-			return (int)((panelSize) / (8 * this.Zoom));
+			return Math.Min(this.track.Map.Width, (int)((panelSize) / (8 * this.Zoom)));
 		}
 
 		private void RecalculateScrollBarMaximum(ScrollBar scrollBar, int offScreenTileCount)
