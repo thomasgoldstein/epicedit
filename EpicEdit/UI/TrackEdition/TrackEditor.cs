@@ -269,7 +269,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayPanel.Paint += this.TrackDisplayPanelPaint;
 			this.trackDisplayPanel.SizeChanged += this.TrackDisplayPanelSizeChanged;
 
-			this.RecalculateScrollBarMaximums();
+			this.UpdateScrollBars();
 
 			this.trackDisplayPanel.Enabled = true;
 			this.modeTabControl.Enabled = true;
@@ -431,7 +431,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 			this.trackDrawer.SetZoom(this.Zoom);
 
-			this.RecalculateScrollBarMaximums();
+			this.UpdateScrollBars();
 			this.trackDisplayPanel.Invalidate();
 		}
 
@@ -523,7 +523,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.zoomLevelIndex++;
 			this.trackDrawer.SetZoom(this.Zoom);
-			this.RecalculateScrollBarMaximums();
+			this.UpdateScrollBars();
 
 			this.menuBar.ZoomInEnabled = this.CanZoomIn();
 			this.menuBar.ZoomOutEnabled = true;
@@ -533,7 +533,7 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			this.zoomLevelIndex--;
 			this.trackDrawer.SetZoom(this.Zoom);
-			this.RecalculateScrollBarMaximums();
+			this.UpdateScrollBars();
 
 			this.menuBar.ZoomInEnabled = true;
 			this.menuBar.ZoomOutEnabled = this.CanZoomOut();
@@ -715,7 +715,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void TrackDisplayPanelSizeChanged(object sender, EventArgs e)
 		{
 			this.trackDrawer.ResizeWindow();
-			this.RecalculateScrollBarMaximums();
+			this.UpdateScrollBars();
 		}
 
 		private void TrackDisplayPanelKeyDown(object sender, KeyEventArgs e)
@@ -1182,17 +1182,17 @@ namespace EpicEdit.UI.TrackEdition
 			this.menuBar.ResetCoordinates();
 		}
 
-		private void RecalculateScrollBarMaximums()
+		private void UpdateScrollBars()
 		{
 			int offScreenTileCountX;
 			int offScreenTileCountY;
 			this.GetOffScreenTileCounts(out offScreenTileCountX, out offScreenTileCountY);
 
 			// Recalculate the maximum value of the horizontal scroll bar
-			this.RecalculateScrollBarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
+			this.UpdateScrollBar(this.trackDisplayHScrollBar, offScreenTileCountX);
 
 			// Recalculate the maximum value of the vertical scroll bar
-			this.RecalculateScrollBarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
+			this.UpdateScrollBar(this.trackDisplayVScrollBar, offScreenTileCountY);
 		}
 
 		private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
@@ -1269,7 +1269,7 @@ namespace EpicEdit.UI.TrackEdition
 			return Math.Min(this.track.Map.Width, (int)((panelSize) / (8 * this.Zoom)));
 		}
 
-		private void RecalculateScrollBarMaximum(ScrollBar scrollBar, int offScreenTileCount)
+		private void UpdateScrollBar(ScrollBar scrollBar, int offScreenTileCount)
 		{
 			// Show or hide the scroll bar depending on whether there are tiles off screen
 			if (offScreenTileCount <= 0)
