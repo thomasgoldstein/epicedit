@@ -279,7 +279,7 @@ namespace EpicEdit.UI
 			this.trackEditor.RemoveModifiedHints();
 			this.UpdateApplicationTitle();
 		}
-		
+
 		private void TrackEditorToggleScreenModeRequested(object sender, EventArgs e)
 		{
 			this.ToggleScreenMode();

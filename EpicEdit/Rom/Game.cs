@@ -563,7 +563,7 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion Lap Line
-		
+
 		#region Battle Start Positions
 
 		private byte[] GetBattleStartPositionData(int trackIndex)
@@ -637,7 +637,7 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion Objects
-		
+
 		#region Object Zones
 
 		private byte[] GetObjectZoneData(int trackIndex)
@@ -645,7 +645,7 @@ namespace EpicEdit.Rom
 			int objectZoneOffset = this.GetObjectZoneOffset(trackIndex);
 
 			byte[] data;
-			
+
 			if (objectZoneOffset < 0)
 			{
 				data = objectZoneOffset == -1 ?
@@ -658,7 +658,7 @@ namespace EpicEdit.Rom
 
 			return data;
 		}
-		
+
 		private int GetObjectZoneOffset(int trackIndex)
 		{
 			int[] reorder =
@@ -697,7 +697,7 @@ namespace EpicEdit.Rom
 		}
 
 		#endregion AI
-		
+
 		#region Item Probabilities
 
 		private void LoadItemProbabilities()
