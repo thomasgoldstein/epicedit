@@ -1282,16 +1282,12 @@ namespace EpicEdit.UI.TrackEdition
 			{
 				scrollBar.Visible = true;
 
-				// Trick to reposition the track content properly (avoiding to show off-track black)
-				// when resizing the window and the panel is scrolled to the bottom and/or right limit
-				if (!PlatformInformation.IsMono()) // HACK: Reposition track content on resize (.NET only)
+				// Reposition the track content properly (avoiding to show off-track black)
+				// when resizing the window and the panel is scrolled to the bottom and/or right limit.
+				if (scrollBar.Value > offScreenTileCount)
 				{
-					if (scrollBar.Value > offScreenTileCount)
-					{
-						scrollBar.Value = offScreenTileCount;
-					}
+					scrollBar.Value = offScreenTileCount;
 				}
-				// End trick
 
 				int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
 				scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
