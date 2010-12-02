@@ -1189,10 +1189,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.GetOffScreenTileCounts(out offScreenTileCountX, out offScreenTileCountY);
 
 			// Recalculate the maximum value of the horizontal scroll bar
-			TrackEditor.RecalculateScrollBarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
+			this.RecalculateScrollBarMaximum(this.trackDisplayHScrollBar, offScreenTileCountX);
 
 			// Recalculate the maximum value of the vertical scroll bar
-			TrackEditor.RecalculateScrollBarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
+			this.RecalculateScrollBarMaximum(this.trackDisplayVScrollBar, offScreenTileCountY);
 		}
 
 		private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
@@ -1270,7 +1270,7 @@ namespace EpicEdit.UI.TrackEdition
 			return (int)((panelSize) / (8 * this.Zoom));
 		}
 
-		private static void RecalculateScrollBarMaximum(ScrollBar scrollBar, int offScreenTileCount)
+		private void RecalculateScrollBarMaximum(ScrollBar scrollBar, int offScreenTileCount)
 		{
 			// Show or hide the scroll bar depending on whether there are tiles off screen
 			if (offScreenTileCount <= 0)
@@ -1293,7 +1293,9 @@ namespace EpicEdit.UI.TrackEdition
 				}
 				// End trick
 
-				scrollBar.Maximum = offScreenTileCount + (scrollBar.LargeChange - 1);
+				int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
+				scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
+				scrollBar.LargeChange = onScreenTileCount;
 				// The inclusion of the LargeChange - 1 part in the calculation
 				// is due to the fact it's not possible for users to reach the scroll bar maximum.
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
