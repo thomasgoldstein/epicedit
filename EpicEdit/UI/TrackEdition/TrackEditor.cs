@@ -1261,8 +1261,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private int GetOffScreenTileCount(int panelSize)
 		{
-			int offscreenTileCount = this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
-			return offscreenTileCount;
+			return this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
 		}
 
 		private int GetOnScreenTileCount(int panelSize)
