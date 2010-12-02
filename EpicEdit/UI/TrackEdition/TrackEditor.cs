@@ -1182,6 +1182,10 @@ namespace EpicEdit.UI.TrackEdition
 			this.menuBar.ResetCoordinates();
 		}
 
+		/// <summary>
+		/// Updates the horizontal and vertical scroll bar properties
+		/// depending on the track display panel size and zoom level.
+		/// </summary>
 		private void UpdateScrollBars()
 		{
 			int offScreenTileCountX;
@@ -1195,6 +1199,11 @@ namespace EpicEdit.UI.TrackEdition
 			this.UpdateScrollBar(this.trackDisplayVScrollBar, offScreenTileCountY);
 		}
 
+		/// <summary>
+		/// Gets the number of track tiles that are off screen (not visible), horizontally and vertically.
+		/// </summary>
+		/// <param name="offScreenTileCountX">The number of horizontally off-screen tiles (from 0 to 128).</param>
+		/// <param name="offScreenTileCountY">The number of vertically off-screen tiles (from 0 to 128).</param>
 		private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
 		{
 			offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplayPanel.Width);
@@ -1259,16 +1268,29 @@ namespace EpicEdit.UI.TrackEdition
 			return false;
 		}
 
+		/// <summary>
+		/// Gets the number of track tiles that are off screen (not visible).
+		/// </summary>
+		/// <param name="panelSize">The width or height of the track display panel.</param>
+		/// <returns>The number of off-screen tiles (from 0 to 128).</returns>
 		private int GetOffScreenTileCount(int panelSize)
 		{
 			return this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
 		}
 
+		/// <summary>
+		/// Gets the number of track tiles that are on screen (visible).
+		/// </summary>
+		/// <param name="panelSize">The width or height of the track display panel.</param>
+		/// <returns>The number of on-screen tiles (from 0 to 128).</returns>
 		private int GetOnScreenTileCount(int panelSize)
 		{
 			return Math.Min(this.track.Map.Width, (int)((panelSize) / (8 * this.Zoom)));
 		}
 
+		/// <summary>
+		/// Updates the properties of the passed scroll bar.
+		/// </summary>
 		private void UpdateScrollBar(ScrollBar scrollBar, int offScreenTileCount)
 		{
 			// Show or hide the scroll bar depending on whether there are tiles off screen
