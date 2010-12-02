@@ -485,7 +485,7 @@ namespace EpicEdit.UI.TrackEdition
 		private void MouseWheelZoom(MouseEventArgs e)
 		{
 			Point hoveredTilePosition;
-			
+
 			if (e.Delta > 0)
 			{
 				if (!this.CanZoomIn())
@@ -674,7 +674,7 @@ namespace EpicEdit.UI.TrackEdition
 				// is due to the fact it's not possible for users to reach the scroll bar maximum.
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 				this.trackDisplayHScrollBar.Value = Math.Max(this.trackDisplayHScrollBar.Minimum,
-				                                             this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1));
+															 this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1));
 			}
 			else
 			{
@@ -694,7 +694,7 @@ namespace EpicEdit.UI.TrackEdition
 				// is due to the fact it's not possible for users to reach the scroll bar maximum.
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 				this.trackDisplayVScrollBar.Value = Math.Max(this.trackDisplayVScrollBar.Minimum,
-				                                             this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1));
+															 this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1));
 			}
 			else
 			{

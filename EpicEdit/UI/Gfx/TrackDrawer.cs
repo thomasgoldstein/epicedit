@@ -947,11 +947,11 @@ namespace EpicEdit.UI.Gfx
 			PixelOffsetMode pom = graphics.PixelOffsetMode;
 
 			graphics.PixelOffsetMode = PixelOffsetMode.Half;
-			
+
 			using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
 			{
 				graphics.DrawImage(bitmap,
-				                   new Rectangle(-this.scrollPosition.X * 8,
+								   new Rectangle(-this.scrollPosition.X * 8,
 												 -this.scrollPosition.Y * 8,
 												 this.trackCache.Width,
 												 this.trackCache.Height),
