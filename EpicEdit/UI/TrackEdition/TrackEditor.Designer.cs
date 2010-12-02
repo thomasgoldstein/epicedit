@@ -152,7 +152,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage.AutoScroll = true;
 			this.tilesetTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.tilesetTabPage.Controls.Add(this.tilesetControl);
-			this.tilesetTabPage.ImageKey = "TilesetTab";
+			this.tilesetTabPage.ImageIndex = 0;
 			this.tilesetTabPage.Location = new System.Drawing.Point(4, 23);
 			this.tilesetTabPage.Name = "tilesetTabPage";
 			this.tilesetTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -176,7 +176,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTabPage.AutoScroll = true;
 			this.overlayTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.overlayTabPage.Controls.Add(this.overlayControl);
-			this.overlayTabPage.ImageKey = "OverlayTab";
+			this.overlayTabPage.ImageIndex = 1;
 			this.overlayTabPage.Location = new System.Drawing.Point(4, 23);
 			this.overlayTabPage.Name = "overlayTabPage";
 			this.overlayTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -199,7 +199,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.AutoScroll = true;
 			this.startTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.startTabPage.Controls.Add(this.startControl);
-			this.startTabPage.ImageKey = "StartTab";
+			this.startTabPage.ImageIndex = 2;
 			this.startTabPage.Location = new System.Drawing.Point(4, 23);
 			this.startTabPage.Name = "startTabPage";
 			this.startTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -220,7 +220,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.AutoScroll = true;
 			this.objectsTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.objectsTabPage.Controls.Add(this.objectsControl);
-			this.objectsTabPage.ImageKey = "ObjectTab";
+			this.objectsTabPage.ImageIndex = 3;
 			this.objectsTabPage.Location = new System.Drawing.Point(4, 23);
 			this.objectsTabPage.Name = "objectsTabPage";
 			this.objectsTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -242,7 +242,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiTabPage.AutoScroll = true;
 			this.aiTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.aiTabPage.Controls.Add(this.aiControl);
-			this.aiTabPage.ImageKey = "AITab";
+			this.aiTabPage.ImageIndex = 4;
 			this.aiTabPage.Location = new System.Drawing.Point(4, 23);
 			this.aiTabPage.Name = "aiTabPage";
 			this.aiTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -294,10 +294,12 @@ namespace EpicEdit.UI.TrackEdition
 			this.menuBar.Name = "menuBar";
 			this.menuBar.Size = new System.Drawing.Size(691, 25);
 			this.menuBar.TabIndex = 4;
+			this.menuBar.ZoomInEnabled = false;
+			this.menuBar.ZoomOutEnabled = false;
 			this.menuBar.ZoomOutRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomOutRequested);
-			this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
-			this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
 			this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);
+			this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
+			this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
 			this.menuBar.TrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportDialogRequested);
 			// 
 			// TrackEditor
