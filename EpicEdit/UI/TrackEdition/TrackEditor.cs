@@ -1296,8 +1296,10 @@ namespace EpicEdit.UI.TrackEdition
 				int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
 				scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
 				scrollBar.LargeChange = onScreenTileCount;
-				// The inclusion of the LargeChange - 1 part in the calculation
-				// is due to the fact it's not possible for users to reach the scroll bar maximum.
+				// Adding the equivalent of LargeChange - 1 to the Maximum because
+				// it's not possible for users to reach the scroll bar maximum.
+				// "The maximum value that can be reached through user interaction is equal to
+				// 1 plus the Maximum property value minus the LargeChange property value."
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
 			}
 		}
