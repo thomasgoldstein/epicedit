@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition
@@ -212,7 +213,9 @@ namespace EpicEdit.UI.TrackEdition
 
 		private static void UpdateTrackBarLabel(Label label, int value1, int value2)
 		{
-			label.Text = string.Format(CultureInfo.InvariantCulture, "{0:X2}-{1:X2}", value1, value2);
+			label.Text =
+				Utilities.ByteToHexString((byte)value1) + "-" +
+				Utilities.ByteToHexString((byte)value2);
 		}
 	}
 }
