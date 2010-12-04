@@ -99,6 +99,7 @@ namespace EpicEdit.UI.TrackEdition
 			this.trackDisplayPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseUp);
 			this.trackDisplayPanel.MouseEnter += new System.EventHandler(this.NotifyTrackDisplayPanelFullRepaint);
 			this.trackDisplayPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayPanelKeyDown);
+			this.trackDisplayPanel.GotFocus += new System.EventHandler(this.NotifyTrackDisplayPanelFullRepaint);
 			// 
 			// trackDisplayHScrollBar
 			// 
