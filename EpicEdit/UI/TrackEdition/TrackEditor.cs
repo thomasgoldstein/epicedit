@@ -609,12 +609,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void TrackDisplayPanelMouseEnter(object sender, EventArgs e)
-		{
-			this.trackDrawer.NotifyFullRepaintNeed();
-		}
-
-		private void TrackDisplayPanelEnter(object sender, EventArgs e)
+		private void NotifyTrackDisplayPanelFullRepaint(object sender, EventArgs e)
 		{
 			this.trackDrawer.NotifyFullRepaintNeed();
 		}
