@@ -1204,8 +1204,8 @@ namespace EpicEdit.UI.TrackEdition
 		{
 			offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplayPanel.Width);
 			offScreenTileCountY = this.GetOffScreenTileCount(this.trackDisplayPanel.Height);
-			int offScreenTileCountXWithScrollBar = this.GetOffScreenTileCountWithScrollBar(this.trackDisplayPanel.Width, this.trackDisplayVScrollBar.Width);
-			int offScreenTileCountYWithScrollBar = this.GetOffScreenTileCountWithScrollBar(this.trackDisplayPanel.Height, this.trackDisplayHScrollBar.Height);
+			int offScreenTileCountXWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplayPanel.Width - this.trackDisplayVScrollBar.Width));
+			int offScreenTileCountYWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplayPanel.Height - this.trackDisplayHScrollBar.Height));
 
 			bool? horizontalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
 			bool? verticalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
@@ -1272,15 +1272,6 @@ namespace EpicEdit.UI.TrackEdition
 		private int GetOffScreenTileCount(int panelSize)
 		{
 			return this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
-		}
-
-		private int GetOffScreenTileCountWithScrollBar(int panelSize, int scrollBarSize)
-		{
-			if (panelSize != 0)
-			{
-				panelSize -= scrollBarSize;
-			}
-			return this.GetOffScreenTileCount(panelSize);
 		}
 
 		/// <summary>
