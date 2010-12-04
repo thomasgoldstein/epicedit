@@ -952,6 +952,7 @@ namespace EpicEdit.UI.TrackEdition
 						if (this.hoveredOverlayTile == null)
 						{
 							this.overlayControl.SelectedPattern = null;
+							this.InitOverlayAction();
 						}
 						else
 						{
