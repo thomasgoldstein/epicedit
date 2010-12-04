@@ -211,6 +211,19 @@ namespace EpicEdit.Rom
 			return new string(r);
 		}
 
+		public static string ByteToHexString(byte data)
+		{
+			byte b;
+			int k;
+			char[] r = new char[2];
+			b = data;
+			k = b >> 4;
+			r[0] = (char)(k > 9 ? k + 0x37 : k + 0x30);
+			k = b & 15;
+			r[1] = (char)(k > 9 ? k + 0x37 : k + 0x30);
+			return new string(r);
+		}
+
 		#endregion Bytes <-> String conversion
 
 		#region Decrypt ROM text
