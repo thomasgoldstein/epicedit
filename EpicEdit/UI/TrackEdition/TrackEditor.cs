@@ -609,7 +609,7 @@ namespace EpicEdit.UI.TrackEdition
 			}
 		}
 
-		private void NotifyTrackDisplayPanelFullRepaint(object sender, EventArgs e)
+		private void TrackDisplayPanelGotFocus(object sender, EventArgs e)
 		{
 			this.trackDrawer.NotifyFullRepaintNeed();
 		}
