@@ -292,17 +292,13 @@ namespace EpicEdit.UI
 				// Go full screen
 				this.FormBorderStyle = FormBorderStyle.None;
 				this.previousWindowState = this.WindowState;
+				this.WindowState = FormWindowState.Maximized;
 
-				if (this.WindowState != FormWindowState.Maximized)
-				{
-					this.WindowState = FormWindowState.Maximized;
-				}
-				else
-				{
-					// HACK: Toggle form visibility to make it cover the task bar.
-					this.Visible = false;
-					this.Visible = true;
-				}
+				// HACK: Toggle form visibility to make it cover the task bar.
+				// If the form was already maximized, the task bar wouldn't be covered.
+				// If the form wasn't maximized, it would be covered but not repainted right away.
+				this.Visible = false;
+				this.Visible = true;
 			}
 			else
 			{
