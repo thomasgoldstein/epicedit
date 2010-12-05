@@ -30,7 +30,6 @@ using EpicEdit.UI.Tools;
 namespace EpicEdit.UI.TrackEdition
 {
 	public enum ActionButton { None, LeftMouseButton, MiddleMouseButton, RightMouseButton, CtrlKey }
-	public enum EditionMode { Tileset, Overlay, Start, Objects, AI }
 
 	/// <summary>
 	/// A track editor.
@@ -47,6 +46,15 @@ namespace EpicEdit.UI.TrackEdition
 		/// The track currently displayed.
 		/// </summary>
 		private Track track;
+
+		private enum EditionMode
+		{
+			Tileset,
+			Overlay,
+			Start,
+			Objects,
+			AI
+		}
 
 		/// <summary>
 		/// The current edition mode.
