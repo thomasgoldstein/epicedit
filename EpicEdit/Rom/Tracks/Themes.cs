@@ -50,7 +50,7 @@ namespace EpicEdit.Rom.Tracks
 
 			int[] themeColorPaletteAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeColorPalettes], themes.Length);
 			int[] roadTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], themes.Length);
-			int[] backgroundTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], themes.Length);
+			//int[] backgroundTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], themes.Length);
 
 			byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
 			byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);
