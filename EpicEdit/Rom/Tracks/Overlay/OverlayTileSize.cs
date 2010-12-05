@@ -76,9 +76,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
 			this.Modified = false;
 		}
 
-		public void Save(byte[] romBuffer, Offsets offsets, int index)
+		public void Save(byte[] romBuffer, int offset, int index)
 		{
-			int offset = offsets[Offset.TrackOverlaySizes];
 			romBuffer[index * 2 + offset] = (byte)this.width;
 			romBuffer[index * 2 + offset + 1] = (byte)this.height;
 		}
