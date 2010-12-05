@@ -76,7 +76,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
 			for (int i = 0; i < this.sizes.Length; i++)
 			{
-				this.sizes[i].Save(romBuffer, offsets, i);
+				this.sizes[i].Save(romBuffer, offset, i);
 			}
 		}
 
