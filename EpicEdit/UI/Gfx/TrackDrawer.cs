@@ -683,7 +683,7 @@ namespace EpicEdit.UI.Gfx
 			return hoveredAIElemRectangle;
 		}
 
-		private void SetPaintRegions(Graphics controlGfx, Graphics graphics, Region clipRegion)
+		private void SetPaintRegions(Graphics graphics, Graphics backBuffer, Region clipRegion)
 		{
 			// Do not alter the original object
 			clipRegion = clipRegion.Clone();
@@ -694,7 +694,7 @@ namespace EpicEdit.UI.Gfx
 			// which needs to know the zoom level to define the right clipping
 			if (this.zoom == 1)
 			{
-				controlGfx.Clip = clipRegion;
+				graphics.Clip = clipRegion;
 			}
 			else
 			{
@@ -708,11 +708,11 @@ namespace EpicEdit.UI.Gfx
 					zoomedClipRegion.Translate(0.5f, 0.5f);
 				}
 
-				controlGfx.Clip = zoomedClipRegion;
+				graphics.Clip = zoomedClipRegion;
 			}
 
-			// This is for the back buffer, which doesn't need the zoom level
-			graphics.Clip = clipRegion;
+			// The back buffer doesn't vary depending on the zoom level
+			backBuffer.Clip = clipRegion;
 		}
 
 		private void DrawTileSelection(Graphics graphics, Rectangle selectionRectangle, ActionButton action)
