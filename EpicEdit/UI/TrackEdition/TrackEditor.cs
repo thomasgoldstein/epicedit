@@ -445,8 +445,11 @@ namespace EpicEdit.UI.TrackEdition
 
 			this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 			this.trackDrawer.SetZoom(this.Zoom);
-
 			this.UpdateScrollBars();
+
+			this.menuBar.ZoomInEnabled = true;
+			this.menuBar.ZoomOutEnabled = true;
+
 			this.trackDisplayPanel.Invalidate();
 		}
 
