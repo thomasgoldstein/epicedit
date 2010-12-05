@@ -700,8 +700,7 @@ namespace EpicEdit.UI.Gfx
 				Region zoomedClipRegion = clipRegion.Clone();
 				zoomedClipRegion.Transform(this.zoomedDirtyRegionMatrix);
 
-				if (PlatformInformation.IsWindows() &&
-					this.zoom < 1)
+				if (this.zoom < 1)
 				{
 					// HACK: Avoid clipping issues (rounding differences)
 					// with the DrawTrackTileset method.
