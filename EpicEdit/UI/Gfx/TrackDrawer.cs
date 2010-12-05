@@ -631,8 +631,7 @@ namespace EpicEdit.UI.Gfx
 		private Rectangle GetAIClipRectangle(TrackAIElement aiElement)
 		{
 			// Get the rectangle that includes the whole AI element (zone + target).
-			// NOTE: This clipping method isn't optimal,
-			// returning a GraphicsPath would be more precise.
+			// NOTE: Returning a GraphicsPath would be more precise.
 
 			int x;
 			int y;
