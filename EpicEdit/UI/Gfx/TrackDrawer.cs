@@ -1396,7 +1396,7 @@ namespace EpicEdit.UI.Gfx
 			}
 		}
 
-		private void PaintTrackOutbounds(Graphics controlGfx)
+		private void PaintTrackOutbounds(Graphics graphics)
 		{
 			Rectangle trackArea = new Rectangle(0, 0, (int)(this.imageSize.Width * this.zoom), (int)(this.imageSize.Height * this.zoom));
 			Rectangle[] outBounds = new Rectangle[]
@@ -1407,7 +1407,7 @@ namespace EpicEdit.UI.Gfx
 				// Bottom outbounds
 				new Rectangle(0, trackArea.Bottom, this.control.Width, this.control.Height - trackArea.Height)
 			};
-			controlGfx.FillRectangles(Brushes.Black, outBounds);
+			graphics.FillRectangles(Brushes.Black, outBounds);
 		}
 
 		public void NotifyFullRepaintNeed()
