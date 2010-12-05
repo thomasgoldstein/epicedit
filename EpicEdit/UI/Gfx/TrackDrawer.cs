@@ -704,6 +704,7 @@ namespace EpicEdit.UI.Gfx
 					this.zoom < 1)
 				{
 					// HACK: Avoid clipping issues (rounding differences)
+					// with the DrawTrackTileset method.
 					zoomedClipRegion.Translate(0.5f, 0.5f);
 				}
 
