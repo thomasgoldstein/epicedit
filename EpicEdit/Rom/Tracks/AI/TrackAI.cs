@@ -220,8 +220,6 @@ namespace EpicEdit.Rom.Tracks.AI
 				return crossedAIElements;
 			}
 
-			GPTrack gpTrack = this.track as GPTrack;
-
 			for (int aiElementIndex = 0; aiElementIndex < this.aiElements.Count; aiElementIndex++)
 			{
 				TrackAIElement aiElement = this.aiElements[aiElementIndex];
