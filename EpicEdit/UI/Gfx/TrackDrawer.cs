@@ -943,9 +943,6 @@ namespace EpicEdit.UI.Gfx
 
 		private void DrawObjectZones(Graphics graphics, bool frontZonesView)
 		{
-			// Store PixelOffsetMode to restore it afterwards
-			PixelOffsetMode pom = graphics.PixelOffsetMode;
-
 			graphics.PixelOffsetMode = PixelOffsetMode.Half;
 
 			using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
@@ -959,7 +956,7 @@ namespace EpicEdit.UI.Gfx
 								   GraphicsUnit.Pixel, this.translucidImageAttr);
 			}
 
-			graphics.PixelOffsetMode = pom;
+			graphics.PixelOffsetMode = PixelOffsetMode.Default;
 		}
 
 		private Bitmap GetObjectZonesBitmap(bool frontZonesView)
