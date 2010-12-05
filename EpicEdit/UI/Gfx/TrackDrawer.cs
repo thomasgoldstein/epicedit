@@ -599,8 +599,11 @@ namespace EpicEdit.UI.Gfx
 				{
 					x -= 11;
 					y -= 11;
-					width += 22;
-					height += 22;
+					width += 23;
+					height += 23;
+					// HACK: Should be 22 rather than 23,
+					// but this is needed if the zoom level is below 1,
+					// due to the hack in the SetPaintRegions method.
 				}
 
 				Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
