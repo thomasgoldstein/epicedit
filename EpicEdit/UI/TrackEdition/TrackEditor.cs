@@ -29,7 +29,14 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
 {
-	public enum ActionButton { None, LeftMouseButton, MiddleMouseButton, RightMouseButton, CtrlKey }
+	public enum ActionButton
+	{
+		None,
+		LeftMouseButton,
+		MiddleMouseButton,
+		RightMouseButton,
+		CtrlKey
+	}
 
 	/// <summary>
 	/// A track editor.
