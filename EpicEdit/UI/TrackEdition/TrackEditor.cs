@@ -443,12 +443,16 @@ namespace EpicEdit.UI.TrackEdition
 				return;
 			}
 
+			Point location = this.GetCenterTileLocation();
+
 			this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 			this.trackDrawer.SetZoom(this.Zoom);
 			this.UpdateScrollBars();
 
 			this.menuBar.ZoomInEnabled = true;
 			this.menuBar.ZoomOutEnabled = true;
+
+			this.CenterTrackDisplayOn(location);
 
 			this.trackDisplayPanel.Invalidate();
 		}
