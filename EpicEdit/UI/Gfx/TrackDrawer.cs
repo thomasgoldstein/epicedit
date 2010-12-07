@@ -65,7 +65,7 @@ namespace EpicEdit.UI.Gfx
 		/// <summary>
 		/// Used to resize the dirty region depending on the zoom level.
 		/// </summary>
-		private Matrix zoomedDirtyRegionMatrix;
+		private Matrix zoomMatrix;
 
 		/// <summary>
 		/// Used to draw the rectangle when highlighting tiles.
@@ -221,7 +221,7 @@ namespace EpicEdit.UI.Gfx
 			// in each function without having to check if they're null beforehand
 			this.trackCache = this.tileClipboardCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 			this.dirtyRegion = new Region();
-			this.zoomedDirtyRegionMatrix = new Matrix();
+			this.zoomMatrix = new Matrix();
 
 			this.SetZoom(zoom);
 		}
@@ -257,9 +257,9 @@ namespace EpicEdit.UI.Gfx
 		{
 			this.zoom = zoom;
 
-			this.zoomedDirtyRegionMatrix.Dispose();
-			this.zoomedDirtyRegionMatrix = new Matrix();
-			this.zoomedDirtyRegionMatrix.Scale(this.zoom, this.zoom);
+			this.zoomMatrix.Dispose();
+			this.zoomMatrix = new Matrix();
+			this.zoomMatrix.Scale(this.zoom, this.zoom);
 
 			this.SetImageSize();
 			this.NotifyFullRepaintNeed();
@@ -698,7 +698,7 @@ namespace EpicEdit.UI.Gfx
 			else
 			{
 				Region zoomedClipRegion = clipRegion.Clone();
-				zoomedClipRegion.Transform(this.zoomedDirtyRegionMatrix);
+				zoomedClipRegion.Transform(this.zoomMatrix);
 
 				if (this.zoom < 1)
 				{
@@ -1485,7 +1485,7 @@ namespace EpicEdit.UI.Gfx
 			this.tileClipboardCache.Dispose();
 
 			this.dirtyRegion.Dispose();
-			this.zoomedDirtyRegionMatrix.Dispose();
+			this.zoomMatrix.Dispose();
 
 			this.tileHighlightPen.Dispose();
 			this.tileSelectPen.Dispose();
