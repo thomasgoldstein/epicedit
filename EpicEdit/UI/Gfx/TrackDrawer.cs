@@ -679,20 +679,18 @@ namespace EpicEdit.UI.Gfx
 
 		private void SetPaintRegions(Graphics graphics, Graphics backBuffer, Region clipRegion)
 		{
-			// Do not alter the original object
-			clipRegion = clipRegion.Clone();
+			backBuffer.Clip = clipRegion;
+			backBuffer.SetClip(this.dirtyRegion, CombineMode.Union);
 
-			clipRegion.Union(this.dirtyRegion);
-
-			// This is for the main buffer,
-			// which needs to know the zoom level to define the right clipping
+			// This is for the front buffer,
+			// which needs to clip graphics depending on the zoom level
 			if (this.zoom == 1)
 			{
-				graphics.Clip = clipRegion;
+				graphics.Clip = backBuffer.Clip;
 			}
 			else
 			{
-				Region zoomedClipRegion = clipRegion.Clone();
+				Region zoomedClipRegion = backBuffer.Clip;
 				zoomedClipRegion.Transform(this.zoomMatrix);
 
 				if (this.zoom < 1)
@@ -704,9 +702,6 @@ namespace EpicEdit.UI.Gfx
 
 				graphics.Clip = zoomedClipRegion;
 			}
-
-			// The back buffer doesn't vary depending on the zoom level
-			backBuffer.Clip = clipRegion;
 		}
 
 		private void DrawTileSelection(Graphics graphics, Rectangle selectionRectangle, ActionButton action)
