@@ -292,8 +292,7 @@ namespace EpicEdit.UI.Gfx
 		public void DrawTrackTileset(Graphics graphics, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
 			this.SetGraphics(graphics);
-			Region clipRegion = new Region();
-			clipRegion.MakeEmpty();
+			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
 			{
@@ -333,8 +332,7 @@ namespace EpicEdit.UI.Gfx
 		public void DrawTrackOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
 			this.SetGraphics(graphics);
-			Region clipRegion = new Region();
-			clipRegion.MakeEmpty();
+			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
 			{
@@ -370,8 +368,7 @@ namespace EpicEdit.UI.Gfx
 		public void DrawTrackStart(Graphics graphics)
 		{
 			this.SetGraphics(graphics);
-			Region clipRegion = new Region();
-			clipRegion.MakeEmpty();
+			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
 			{
@@ -410,8 +407,7 @@ namespace EpicEdit.UI.Gfx
 		public void DrawTrackObjects(Graphics graphics, TrackObject hoveredObject, bool frontZonesView)
 		{
 			this.SetGraphics(graphics);
-			Region clipRegion = new Region();
-			clipRegion.MakeEmpty();
+			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
 			{
@@ -441,8 +437,7 @@ namespace EpicEdit.UI.Gfx
 		public void DrawTrackAI(Graphics graphics, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
 			this.SetGraphics(graphics);
-			Region clipRegion = new Region();
-			clipRegion.MakeEmpty();
+			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
 			{
