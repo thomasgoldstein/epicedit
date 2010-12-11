@@ -1115,23 +1115,21 @@ namespace EpicEdit.UI.TrackEdition
 
 				this.InitCurrentModeAction();
 			}
-			else if (this.currentMode == EditionMode.Tileset)
+			else
 			{
 				// When the user releases a mouse button, we ensure this button is the same
 				// as the one that was initially hold down before validating the action
-				if ((e.Button == MouseButtons.Left && this.buttonPressed == ActionButton.LeftMouseButton)
-					|| (e.Button == MouseButtons.Right && this.buttonPressed == ActionButton.RightMouseButton))
+				if ((e.Button == MouseButtons.Left && this.buttonPressed == ActionButton.LeftMouseButton) ||
+					(e.Button == MouseButtons.Right && this.buttonPressed == ActionButton.RightMouseButton))
 				{
 					this.buttonPressed = ActionButton.None;
-					if (e.Button == MouseButtons.Right)
+
+					if (this.currentMode == EditionMode.Tileset &&
+						e.Button == MouseButtons.Right)
 					{
 						this.OnRightMouseButtonRelease();
 					}
 				}
-			}
-			else
-			{
-				this.buttonPressed = ActionButton.None;
 			}
 		}
 
