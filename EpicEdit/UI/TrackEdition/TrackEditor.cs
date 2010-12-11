@@ -1118,7 +1118,7 @@ namespace EpicEdit.UI.TrackEdition
 			else
 			{
 				// When the user releases a mouse button, we ensure this button is the same
-				// as the one that was initially hold down before validating the action
+				// as the one that was initially held down before validating the action
 				if ((e.Button == MouseButtons.Left && this.buttonPressed == ActionButton.LeftMouseButton) ||
 					(e.Button == MouseButtons.Right && this.buttonPressed == ActionButton.RightMouseButton))
 				{
