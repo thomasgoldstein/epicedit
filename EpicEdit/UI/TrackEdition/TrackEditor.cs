@@ -1330,6 +1330,7 @@ namespace EpicEdit.UI.TrackEdition
 				if (scrollBar.Value > offScreenTileCount)
 				{
 					scrollBar.Value = offScreenTileCount;
+					this.trackDisplayPanel.Invalidate();
 				}
 
 				int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
