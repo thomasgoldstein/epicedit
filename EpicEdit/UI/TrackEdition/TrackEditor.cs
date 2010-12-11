@@ -1691,6 +1691,7 @@ namespace EpicEdit.UI.TrackEdition
 				return true;
 			}
 
+			// Move selected tile pattern
 			Point originalPatternLocation = this.selectedOverlayPatternLocation;
 			this.SetSelectedOverlayPatternLocation();
 			// Return whether the location has changed
