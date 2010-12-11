@@ -1101,35 +1101,51 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void TrackDisplayPanelMouseUp(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Middle && this.buttonPressed == ActionButton.MiddleMouseButton)
+			// When the user releases a mouse button, we ensure this button is the same
+			// as the one that was initially held down before validating the action.
+			switch (e.Button)
 			{
-				this.buttonPressed = ActionButton.None;
+				case MouseButtons.Middle:
+					if (this.buttonPressed != ActionButton.MiddleMouseButton)
+					{
+						break;
+					}
 
-				if (this.currentMode == EditionMode.Tileset ||
-					this.track is BattleTrack && this.currentMode == EditionMode.Objects)
-				{
-					// For other modes, the cursor will be reset
-					// by the call to the InitCurrentModeAction method below.
-					this.Cursor = Cursors.Default;
-				}
-
-				this.InitCurrentModeAction();
-			}
-			else
-			{
-				// When the user releases a mouse button, we ensure this button is the same
-				// as the one that was initially held down before validating the action
-				if ((e.Button == MouseButtons.Left && this.buttonPressed == ActionButton.LeftMouseButton) ||
-					(e.Button == MouseButtons.Right && this.buttonPressed == ActionButton.RightMouseButton))
-				{
 					this.buttonPressed = ActionButton.None;
 
-					if (this.currentMode == EditionMode.Tileset &&
-						e.Button == MouseButtons.Right)
+					if (this.currentMode == EditionMode.Tileset ||
+						this.track is BattleTrack && this.currentMode == EditionMode.Objects)
+					{
+						// For other modes, the cursor will be reset
+						// by the call to the InitCurrentModeAction method below.
+						this.Cursor = Cursors.Default;
+					}
+
+					this.InitCurrentModeAction();
+					break;
+
+				case MouseButtons.Left:
+					if (this.buttonPressed != ActionButton.LeftMouseButton)
+					{
+						break;
+					}
+
+					this.buttonPressed = ActionButton.None;
+					break;
+
+				case MouseButtons.Right:
+					if (this.buttonPressed != ActionButton.RightMouseButton)
+					{
+						break;
+					}
+
+					this.buttonPressed = ActionButton.None;
+
+					if (this.currentMode == EditionMode.Tileset)
 					{
 						this.OnRightMouseButtonRelease();
 					}
-				}
+					break;
 			}
 		}
 
