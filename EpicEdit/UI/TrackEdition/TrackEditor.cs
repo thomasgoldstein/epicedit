@@ -691,7 +691,7 @@ namespace EpicEdit.UI.TrackEdition
 
 		private static void SetScrollingValue(ScrollBar scrollBar, int value)
 		{
-			if (value < scrollBar.Minimum)
+			if (value < scrollBar.Minimum || scrollBar.Minimum == scrollBar.Maximum)
 			{
 				scrollBar.Value = scrollBar.Minimum;
 			}
