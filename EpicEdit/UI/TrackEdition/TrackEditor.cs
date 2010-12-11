@@ -681,41 +681,31 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void SetHorizontalScrollingValue(int x)
 		{
-			if (x < this.trackDisplayHScrollBar.Minimum)
-			{
-				this.trackDisplayHScrollBar.Value = this.trackDisplayHScrollBar.Minimum;
-			}
-			else if (x > this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1))
-			{
-				// The inclusion of the LargeChange - 1 part in the calculation
-				// is due to the fact it's not possible for users to reach the scroll bar maximum.
-				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
-				this.trackDisplayHScrollBar.Value = Math.Max(this.trackDisplayHScrollBar.Minimum,
-															 this.trackDisplayHScrollBar.Maximum - (this.trackDisplayHScrollBar.LargeChange - 1));
-			}
-			else
-			{
-				this.trackDisplayHScrollBar.Value = x;
-			}
+			TrackEditor.SetScrollingValue(this.trackDisplayHScrollBar, x);
 		}
 
 		private void SetVerticalScrollingValue(int y)
 		{
-			if (y < this.trackDisplayVScrollBar.Minimum)
+			TrackEditor.SetScrollingValue(this.trackDisplayVScrollBar, y);
+		}
+
+		private static void SetScrollingValue(ScrollBar scrollBar, int value)
+		{
+			if (value < scrollBar.Minimum)
 			{
-				this.trackDisplayVScrollBar.Value = this.trackDisplayVScrollBar.Minimum;
+				scrollBar.Value = scrollBar.Minimum;
 			}
-			else if (y > this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1))
+			else if (value > scrollBar.Maximum - (scrollBar.LargeChange - 1))
 			{
 				// The inclusion of the LargeChange - 1 part in the calculation
 				// is due to the fact it's not possible for users to reach the scroll bar maximum.
 				// See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
-				this.trackDisplayVScrollBar.Value = Math.Max(this.trackDisplayVScrollBar.Minimum,
-															 this.trackDisplayVScrollBar.Maximum - (this.trackDisplayVScrollBar.LargeChange - 1));
+				scrollBar.Value = Math.Max(scrollBar.Minimum,
+										   scrollBar.Maximum - (scrollBar.LargeChange - 1));
 			}
 			else
 			{
-				this.trackDisplayVScrollBar.Value = y;
+				scrollBar.Value = value;
 			}
 		}
 
