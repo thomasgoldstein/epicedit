@@ -154,7 +154,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.tilesetTabPage.ImageIndex = 0;
 			this.tilesetTabPage.Location = new System.Drawing.Point(4, 23);
 			this.tilesetTabPage.Name = "tilesetTabPage";
-			this.tilesetTabPage.Padding = new System.Windows.Forms.Padding(3);
 			this.tilesetTabPage.Size = new System.Drawing.Size(136, 424);
 			this.tilesetTabPage.TabIndex = 0;
 			this.tilesetTabPage.ToolTipText = "Tileset";
@@ -178,7 +177,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.overlayTabPage.ImageIndex = 1;
 			this.overlayTabPage.Location = new System.Drawing.Point(4, 23);
 			this.overlayTabPage.Name = "overlayTabPage";
-			this.overlayTabPage.Padding = new System.Windows.Forms.Padding(3);
 			this.overlayTabPage.Size = new System.Drawing.Size(136, 424);
 			this.overlayTabPage.TabIndex = 4;
 			this.overlayTabPage.ToolTipText = "Overlay";
@@ -201,7 +199,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.startTabPage.ImageIndex = 2;
 			this.startTabPage.Location = new System.Drawing.Point(4, 23);
 			this.startTabPage.Name = "startTabPage";
-			this.startTabPage.Padding = new System.Windows.Forms.Padding(3);
 			this.startTabPage.Size = new System.Drawing.Size(136, 424);
 			this.startTabPage.TabIndex = 3;
 			this.startTabPage.ToolTipText = "Start";
@@ -222,7 +219,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.objectsTabPage.ImageIndex = 3;
 			this.objectsTabPage.Location = new System.Drawing.Point(4, 23);
 			this.objectsTabPage.Name = "objectsTabPage";
-			this.objectsTabPage.Padding = new System.Windows.Forms.Padding(3);
 			this.objectsTabPage.Size = new System.Drawing.Size(136, 424);
 			this.objectsTabPage.TabIndex = 1;
 			this.objectsTabPage.ToolTipText = "Objects";
@@ -244,7 +240,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.aiTabPage.ImageIndex = 4;
 			this.aiTabPage.Location = new System.Drawing.Point(4, 23);
 			this.aiTabPage.Name = "aiTabPage";
-			this.aiTabPage.Padding = new System.Windows.Forms.Padding(3);
 			this.aiTabPage.Size = new System.Drawing.Size(136, 424);
 			this.aiTabPage.TabIndex = 2;
 			this.aiTabPage.ToolTipText = "AI";
