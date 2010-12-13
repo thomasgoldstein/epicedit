@@ -49,7 +49,7 @@ namespace EpicEdit.UI.ThemeEdition
 			// 
 			// itemProbaControl
 			// 
-			this.itemProbaControl.Location = new System.Drawing.Point(3, 3);
+			this.itemProbaControl.Location = new System.Drawing.Point(6, 6);
 			this.itemProbaControl.Name = "itemProbaControl";
 			this.itemProbaControl.Size = new System.Drawing.Size(430, 270);
 			this.itemProbaControl.TabIndex = 0;
