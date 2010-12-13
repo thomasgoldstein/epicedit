@@ -93,7 +93,6 @@ namespace EpicEdit.UI.TrackEdition
 			this.Name = "TilesetControl";
 			this.Size = new System.Drawing.Size(130, 580);
 			this.ResumeLayout(false);
-
 		}
 		private System.Windows.Forms.ToolTip buttonToolTip;
 		private System.Windows.Forms.Button resetMapButton;
