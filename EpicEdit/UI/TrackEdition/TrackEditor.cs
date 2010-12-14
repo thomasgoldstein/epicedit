@@ -264,6 +264,15 @@ namespace EpicEdit.UI.TrackEdition
 			this.tileClipboard = new List<byte>();
 			this.tileClipboard.Add(this.tilesetControl.SelectedTile);
 			this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
+
+			if (Application.RenderWithVisualStyles)
+			{
+				// Force background color to fix the look of TrackBar controls
+				foreach (TabPage page in this.modeTabControl.TabPages)
+				{
+					page.BackColor = SystemColors.ControlLightLight;
+				}
+			}
 		}
 
 		#region Menu Options
