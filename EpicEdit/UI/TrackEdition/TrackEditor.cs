@@ -615,27 +615,27 @@ namespace EpicEdit.UI.TrackEdition
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 
-			Graphics gfx = e.Graphics;
+			Graphics g = e.Graphics;
 			switch (this.currentMode)
 			{
 				case EditionMode.Tileset:
-					this.trackDrawer.DrawTrackTileset(gfx, this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
+					this.trackDrawer.DrawTrackTileset(g, this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
 					break;
 
 				case EditionMode.Overlay:
-					this.trackDrawer.DrawTrackOverlay(gfx, this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
+					this.trackDrawer.DrawTrackOverlay(g, this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
 					break;
 
 				case EditionMode.Start:
-					this.trackDrawer.DrawTrackStart(gfx);
+					this.trackDrawer.DrawTrackStart(g);
 					break;
 
 				case EditionMode.Objects:
-					this.trackDrawer.DrawTrackObjects(gfx, this.hoveredObject, this.objectsControl.FrontZonesView);
+					this.trackDrawer.DrawTrackObjects(g, this.hoveredObject, this.objectsControl.FrontZonesView);
 					break;
 
 				case EditionMode.AI:
-					this.trackDrawer.DrawTrackAI(gfx, this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
+					this.trackDrawer.DrawTrackAI(g, this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
 					break;
 			}
 		}

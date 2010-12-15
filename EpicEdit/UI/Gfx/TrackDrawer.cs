@@ -238,14 +238,14 @@ namespace EpicEdit.UI.Gfx
 			Tile[] tileset = track.GetRoadTileset();
 
 			this.trackCache = new Bitmap(this.track.Map.Width * 8, this.track.Map.Height * 8, PixelFormat.Format32bppPArgb);
-			using (Graphics gfx = Graphics.FromImage(this.trackCache))
+			using (Graphics g = Graphics.FromImage(this.trackCache))
 			{
 				for (int x = 0; x < this.track.Map.Width; x++)
 				{
 					for (int y = 0; y < this.track.Map.Height; y++)
 					{
 						Tile tile = tileset[this.track.Map[x, y]];
-						gfx.DrawImage(tile.Bitmap, x * 8, y * 8);
+						g.DrawImage(tile.Bitmap, x * 8, y * 8);
 					}
 				}
 			}
@@ -265,17 +265,17 @@ namespace EpicEdit.UI.Gfx
 			this.NotifyFullRepaintNeed();
 		}
 
-		private void SetGraphics(Graphics graphics)
+		private void SetGraphics(Graphics g)
 		{
-			graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+			g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 			if (this.zoom >= 1)
 			{
-				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+				g.InterpolationMode = InterpolationMode.NearestNeighbor;
 			}
 			else
 			{
-				graphics.InterpolationMode = InterpolationMode.Bilinear;
+				g.InterpolationMode = InterpolationMode.Bilinear;
 			}
 		}
 
@@ -289,9 +289,9 @@ namespace EpicEdit.UI.Gfx
 				this.trackCache.PixelFormat);
 		}
 
-		public void DrawTrackTileset(Graphics graphics, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
+		public void DrawTrackTileset(Graphics g, Point cursorPosition, ActionButton action, Size selectionSize, Point selectionStart)
 		{
-			this.SetGraphics(graphics);
+			this.SetGraphics(g);
 			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
@@ -314,24 +314,24 @@ namespace EpicEdit.UI.Gfx
 					{
 						// If a full repaint isn't needed, we set the clipping regions
 						// to only partially repaint the panel
-						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+						this.SetPaintRegions(g, backBuffer, clipRegion);
 					}
 
 					this.DrawTileSelection(backBuffer, selectionRectangle, action);
 				}
-				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(graphics);
+			this.PaintTrackOutbounds(g);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
 			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
+		public void DrawTrackOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
-			this.SetGraphics(graphics);
+			this.SetGraphics(g);
 			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
@@ -350,24 +350,24 @@ namespace EpicEdit.UI.Gfx
 					{
 						// If a full repaint isn't needed, we set the clipping regions
 						// to only partially repaint the panel
-						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+						this.SetPaintRegions(g, backBuffer, clipRegion);
 					}
 
 					this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
 				}
-				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(graphics);
+			this.PaintTrackOutbounds(g);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
 			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackStart(Graphics graphics)
+		public void DrawTrackStart(Graphics g)
 		{
-			this.SetGraphics(graphics);
+			this.SetGraphics(g);
 			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
@@ -389,24 +389,24 @@ namespace EpicEdit.UI.Gfx
 					{
 						// If a full repaint isn't needed, we set the clipping regions
 						// to only partially repaint the panel
-						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+						this.SetPaintRegions(g, backBuffer, clipRegion);
 					}
 
 					this.DrawStartData(backBuffer);
 				}
-				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(graphics);
+			this.PaintTrackOutbounds(g);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
 			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackObjects(Graphics graphics, TrackObject hoveredObject, bool frontZonesView)
+		public void DrawTrackObjects(Graphics g, TrackObject hoveredObject, bool frontZonesView)
 		{
-			this.SetGraphics(graphics);
+			this.SetGraphics(g);
 			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
@@ -419,24 +419,24 @@ namespace EpicEdit.UI.Gfx
 					{
 						// If a full repaint isn't needed, we set the clipping regions
 						// to only partially repaint the panel
-						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+						this.SetPaintRegions(g, backBuffer, clipRegion);
 					}
 
 					this.DrawObjectData(backBuffer, frontZonesView);
 				}
-				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(graphics);
+			this.PaintTrackOutbounds(g);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
 			this.fullRepaintNeeded = false;
 		}
 
-		public void DrawTrackAI(Graphics graphics, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		public void DrawTrackAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			this.SetGraphics(graphics);
+			this.SetGraphics(g);
 			Region clipRegion = new Region(Rectangle.Empty);
 
 			using (Bitmap image = this.CloneTrackImage())
@@ -449,15 +449,15 @@ namespace EpicEdit.UI.Gfx
 					{
 						// If a full repaint isn't needed, we set the clipping regions
 						// to only partially repaint the panel
-						this.SetPaintRegions(graphics, backBuffer, clipRegion);
+						this.SetPaintRegions(g, backBuffer, clipRegion);
 					}
 
 					this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
 				}
-				graphics.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+				g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
 			}
 
-			this.PaintTrackOutbounds(graphics);
+			this.PaintTrackOutbounds(g);
 
 			this.dirtyRegion.Dispose();
 			this.dirtyRegion = clipRegion;
@@ -677,7 +677,7 @@ namespace EpicEdit.UI.Gfx
 			return hoveredAIElemRectangle;
 		}
 
-		private void SetPaintRegions(Graphics graphics, Graphics backBuffer, Region clipRegion)
+		private void SetPaintRegions(Graphics g, Graphics backBuffer, Region clipRegion)
 		{
 			backBuffer.Clip = clipRegion;
 			backBuffer.SetClip(this.dirtyRegion, CombineMode.Union);
@@ -686,7 +686,7 @@ namespace EpicEdit.UI.Gfx
 			// which needs to clip graphics depending on the zoom level
 			if (this.zoom == 1)
 			{
-				graphics.Clip = backBuffer.Clip;
+				g.Clip = backBuffer.Clip;
 			}
 			else
 			{
@@ -700,68 +700,68 @@ namespace EpicEdit.UI.Gfx
 					zoomedClipRegion.Translate(0.5f, 0.5f);
 				}
 
-				graphics.Clip = zoomedClipRegion;
+				g.Clip = zoomedClipRegion;
 			}
 		}
 
-		private void DrawTileSelection(Graphics graphics, Rectangle selectionRectangle, ActionButton action)
+		private void DrawTileSelection(Graphics g, Rectangle selectionRectangle, ActionButton action)
 		{
 			if (action == ActionButton.RightMouseButton) // A multiple tile selection is happening now
 			{
-				graphics.FillRectangle(this.tileSelectBrush, selectionRectangle);
-				graphics.DrawRectangle(this.tileSelectPen, selectionRectangle);
+				g.FillRectangle(this.tileSelectBrush, selectionRectangle);
+				g.DrawRectangle(this.tileSelectPen, selectionRectangle);
 			}
 			else if (selectionRectangle != Rectangle.Empty) // The user is simply hovering tiles
 			{
-				graphics.DrawRectangle(this.tileHighlightPen, selectionRectangle);
+				g.DrawRectangle(this.tileHighlightPen, selectionRectangle);
 			}
 		}
 
-		private void DrawOverlay(Graphics graphics, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
+		private void DrawOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
 		{
 			Tile[] tiles = this.track.GetRoadTileset();
 
 			foreach (OverlayTile overlayTile in this.track.OverlayTiles)
 			{
-				this.DrawOverlayTile(graphics, overlayTile, tiles);
+				this.DrawOverlayTile(g, overlayTile, tiles);
 			}
 
 			if (hoveredOverlayTile != null)
 			{
-				graphics.FillRectangle(this.overlayHighlightBrush,
-									   (hoveredOverlayTile.X - this.scrollPosition.X) * 8,
-									   (hoveredOverlayTile.Y - this.scrollPosition.Y) * 8,
-									   hoveredOverlayTile.Width * 8,
-									   hoveredOverlayTile.Height * 8);
+				g.FillRectangle(this.overlayHighlightBrush,
+								(hoveredOverlayTile.X - this.scrollPosition.X) * 8,
+								(hoveredOverlayTile.Y - this.scrollPosition.Y) * 8,
+								hoveredOverlayTile.Width * 8,
+								hoveredOverlayTile.Height * 8);
 			}
 
 			if (selectedOverlayTile != null &&
 				selectedOverlayTile != hoveredOverlayTile)
 			{
-				graphics.FillRectangle(this.overlayHighlightBrush,
-									   (selectedOverlayTile.X - this.scrollPosition.X) * 8,
-									   (selectedOverlayTile.Y - this.scrollPosition.Y) * 8,
-									   selectedOverlayTile.Width * 8,
-									   selectedOverlayTile.Height * 8);
+				g.FillRectangle(this.overlayHighlightBrush,
+								(selectedOverlayTile.X - this.scrollPosition.X) * 8,
+								(selectedOverlayTile.Y - this.scrollPosition.Y) * 8,
+								selectedOverlayTile.Width * 8,
+								selectedOverlayTile.Height * 8);
 			}
 
 			if (selectedPattern != null)
 			{
-				this.DrawOverlayPattern(graphics, selectedPattern, selectedPatternLocation, tiles);
+				this.DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tiles);
 			}
 		}
 
-		private void DrawOverlayTile(Graphics graphics, OverlayTile overlayTile, Tile[] tiles)
+		private void DrawOverlayTile(Graphics g, OverlayTile overlayTile, Tile[] tiles)
 		{
-			this.DrawOverlayTileSub(graphics, null, overlayTile.Pattern, overlayTile.Location, tiles);
+			this.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tiles);
 		}
 
-		private void DrawOverlayPattern(Graphics graphics, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+		private void DrawOverlayPattern(Graphics g, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
 		{
-			this.DrawOverlayTileSub(graphics, this.translucidImageAttr, overlayTilePattern, location, tiles);
+			this.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tiles);
 		}
 
-		private void DrawOverlayTileSub(Graphics graphics, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+		private void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
 		{
 			for (int x = 0; x < overlayTilePattern.Width; x++)
 			{
@@ -775,44 +775,44 @@ namespace EpicEdit.UI.Gfx
 
 					Tile tile = tiles[tileId];
 
-					graphics.DrawImage(tile.Bitmap,
-									   new Rectangle((location.X + x - this.scrollPosition.X) * 8,
-													 (location.Y + y - this.scrollPosition.Y) * 8,
-													  tile.Bitmap.Width, tile.Bitmap.Height),
-									   0, 0, tile.Bitmap.Width, tile.Bitmap.Height,
-									   GraphicsUnit.Pixel, imageAttr);
+					g.DrawImage(tile.Bitmap,
+								new Rectangle((location.X + x - this.scrollPosition.X) * 8,
+											  (location.Y + y - this.scrollPosition.Y) * 8,
+											  tile.Bitmap.Width, tile.Bitmap.Height),
+								0, 0, tile.Bitmap.Width, tile.Bitmap.Height,
+								GraphicsUnit.Pixel, imageAttr);
 				}
 			}
 		}
 
-		private void DrawStartData(Graphics graphics)
+		private void DrawStartData(Graphics g)
 		{
 			if (this.track is GPTrack)
 			{
-				this.DrawLapLine(graphics);
-				this.DrawGPStartPositions(graphics);
+				this.DrawLapLine(g);
+				this.DrawGPStartPositions(g);
 			}
 			else
 			{
-				this.DrawBattleStartPositions(graphics);
+				this.DrawBattleStartPositions(g);
 			}
 		}
 
-		private void DrawLapLine(Graphics graphics)
+		private void DrawLapLine(Graphics g)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
 			Point location = new Point(gpTrack.LapLine.X - this.scrollPosition.X * 8,
 									   gpTrack.LapLine.Y - this.scrollPosition.Y * 8);
 
-			graphics.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
-							  location.X + gpTrack.LapLine.Length, location.Y);
+			g.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
+					   location.X + gpTrack.LapLine.Length, location.Y);
 
-			graphics.DrawLine(this.lapLinePen, location.X + 1, location.Y,
-							  location.X + gpTrack.LapLine.Length - 2, location.Y);
+			g.DrawLine(this.lapLinePen, location.X + 1, location.Y,
+					   location.X + gpTrack.LapLine.Length - 2, location.Y);
 		}
 
-		private void DrawGPStartPositions(Graphics graphics)
+		private void DrawGPStartPositions(Graphics g)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
@@ -823,31 +823,31 @@ namespace EpicEdit.UI.Gfx
 			for (int pos = 0; pos <= 18; pos += 6)
 			{
 				// 1st Column
-				this.DrawUpArrow(graphics, x, y + pos * 8);
+				this.DrawUpArrow(g, x, y + pos * 8);
 
 				// 2nd Column
-				this.DrawUpArrow(graphics, x + secondRowOffset, y + ((3 + pos) * 8));
+				this.DrawUpArrow(g, x + secondRowOffset, y + ((3 + pos) * 8));
 			}
 		}
 
-		private void DrawBattleStartPositions(Graphics graphics)
+		private void DrawBattleStartPositions(Graphics g)
 		{
 			BattleTrack bTrack = this.track as BattleTrack;
 
-			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP2, this.DrawDownArrow);
-			this.DrawBattleStartPosition(graphics, bTrack.StartPositionP1, this.DrawUpArrow);
+			this.DrawBattleStartPosition(g, bTrack.StartPositionP2, this.DrawDownArrow);
+			this.DrawBattleStartPosition(g, bTrack.StartPositionP1, this.DrawUpArrow);
 		}
 
-		private void DrawBattleStartPosition(Graphics graphics, Point location, ArrowDrawer arrowDrawer)
+		private void DrawBattleStartPosition(Graphics g, Point location, ArrowDrawer arrowDrawer)
 		{
 			int x = location.X - this.scrollPosition.X * 8;
 			int y = location.Y - this.scrollPosition.Y * 8;
-			arrowDrawer(graphics, x, y);
+			arrowDrawer(g, x, y);
 		}
 
-		private delegate void ArrowDrawer(Graphics graphics, int x, int y);
+		private delegate void ArrowDrawer(Graphics g, int x, int y);
 
-		private void DrawUpArrow(Graphics graphics, int x, int y)
+		private void DrawUpArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -855,10 +855,10 @@ namespace EpicEdit.UI.Gfx
 				new Point(x + 4, y + 3),
 				new Point(x - 4, y + 3)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawDownArrow(Graphics graphics, int x, int y)
+		private void DrawDownArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -866,10 +866,10 @@ namespace EpicEdit.UI.Gfx
 				new Point(x + 4, y - 3),
 				new Point(x, y + 4)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawSmallUpArrow(Graphics graphics, int x, int y)
+		private void DrawSmallUpArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -878,10 +878,10 @@ namespace EpicEdit.UI.Gfx
 				new Point(x + 3, y + 3),
 				new Point(x - 4, y + 3)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawSmallDownArrow(Graphics graphics, int x, int y)
+		private void DrawSmallDownArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -890,10 +890,10 @@ namespace EpicEdit.UI.Gfx
 				new Point(x - 1, y + 4),
 				new Point(x, y + 4)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawSmallLeftArrow(Graphics graphics, int x, int y)
+		private void DrawSmallLeftArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -902,10 +902,10 @@ namespace EpicEdit.UI.Gfx
 				new Point(x + 3, y + 3),
 				new Point(x + 3, y - 4)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawSmallRightArrow(Graphics graphics, int x, int y)
+		private void DrawSmallRightArrow(Graphics g, int x, int y)
 		{
 			Point[] arrow = new Point[]
 			{
@@ -914,41 +914,41 @@ namespace EpicEdit.UI.Gfx
 				new Point(x + 4, y - 1),
 				new Point(x + 4, y)
 			};
-			this.DrawArrow(graphics, arrow);
+			this.DrawArrow(g, arrow);
 		}
 
-		private void DrawArrow(Graphics graphics, Point[] arrow)
+		private void DrawArrow(Graphics g, Point[] arrow)
 		{
-			graphics.FillPolygon(this.startPositionBrush, arrow);
-			graphics.DrawPolygon(this.startPositionPen, arrow);
+			g.FillPolygon(this.startPositionBrush, arrow);
+			g.DrawPolygon(this.startPositionPen, arrow);
 		}
 
-		private void DrawObjectData(Graphics graphics, bool frontZonesView)
+		private void DrawObjectData(Graphics g, bool frontZonesView)
 		{
 			if (this.track is GPTrack &&
 				(this.track as GPTrack).ObjectZones != null)
 			{
-				this.DrawObjectZones(graphics, frontZonesView);
-				this.DrawObjects(graphics);
+				this.DrawObjectZones(g, frontZonesView);
+				this.DrawObjects(g);
 			}
 		}
 
-		private void DrawObjectZones(Graphics graphics, bool frontZonesView)
+		private void DrawObjectZones(Graphics g, bool frontZonesView)
 		{
-			graphics.PixelOffsetMode = PixelOffsetMode.Half;
+			g.PixelOffsetMode = PixelOffsetMode.Half;
 
 			using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
 			{
-				graphics.DrawImage(bitmap,
-								   new Rectangle(-this.scrollPosition.X * 8,
-												 -this.scrollPosition.Y * 8,
-												 this.trackCache.Width,
-												 this.trackCache.Height),
-								   0, 0, bitmap.Width, bitmap.Height,
-								   GraphicsUnit.Pixel, this.translucidImageAttr);
+				g.DrawImage(bitmap,
+							new Rectangle(-this.scrollPosition.X * 8,
+										  -this.scrollPosition.Y * 8,
+										  this.trackCache.Width,
+										  this.trackCache.Height),
+							0, 0, bitmap.Width, bitmap.Height,
+							GraphicsUnit.Pixel, this.translucidImageAttr);
 			}
 
-			graphics.PixelOffsetMode = PixelOffsetMode.Default;
+			g.PixelOffsetMode = PixelOffsetMode.Default;
 		}
 
 		private Bitmap GetObjectZonesBitmap(bool frontZonesView)
@@ -972,7 +972,7 @@ namespace EpicEdit.UI.Gfx
 			return bitmap;
 		}
 
-		private void DrawObjects(Graphics graphics)
+		private void DrawObjects(Graphics g)
 		{
 			GPTrack gpTrack = this.track as GPTrack;
 
@@ -983,23 +983,23 @@ namespace EpicEdit.UI.Gfx
 				int x = (trackObject.X - this.scrollPosition.X) * 8;
 				int y = (trackObject.Y - this.scrollPosition.Y) * 8;
 				Rectangle trackObjectRect = new Rectangle(x, y, 7, 7);
-				graphics.DrawEllipse(this.objectOutlinePen, trackObjectRect);
-				graphics.FillEllipse(this.objectBrushes[4], trackObjectRect);
+				g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
+				g.FillEllipse(this.objectBrushes[4], trackObjectRect);
 
 				if (trackObject.Direction == Direction.Horizontal)
 				{
-					this.DrawSmallLeftArrow(graphics, x - 7, y + 4);
-					this.DrawSmallRightArrow(graphics, x + 14, y + 4);
-					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 2, y + 5);
-					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 3, x + 5, y + 3);
-					graphics.DrawLine(this.objectMatchRacePen, x + 5, y + 2, x + 5, y + 5);
+					this.DrawSmallLeftArrow(g, x - 7, y + 4);
+					this.DrawSmallRightArrow(g, x + 14, y + 4);
+					g.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 2, y + 5);
+					g.DrawLine(this.objectMatchRacePen, x + 2, y + 3, x + 5, y + 3);
+					g.DrawLine(this.objectMatchRacePen, x + 5, y + 2, x + 5, y + 5);
 				}
 				else if (trackObject.Direction == Direction.Vertical)
 				{
-					this.DrawSmallUpArrow(graphics, x + 4, y - 7);
-					this.DrawSmallDownArrow(graphics, x + 4, y + 14);
-					graphics.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 3, y + 5);
-					graphics.DrawLine(this.objectMatchRacePen, x + 4, y + 5, x + 5, y + 2);
+					this.DrawSmallUpArrow(g, x + 4, y - 7);
+					this.DrawSmallDownArrow(g, x + 4, y + 14);
+					g.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 3, y + 5);
+					g.DrawLine(this.objectMatchRacePen, x + 4, y + 5, x + 5, y + 2);
 				}
 			}
 
@@ -1010,29 +1010,29 @@ namespace EpicEdit.UI.Gfx
 				int x = (trackObject.X - this.scrollPosition.X) * 8;
 				int y = (trackObject.Y - this.scrollPosition.Y) * 8;
 				Rectangle trackObjectRect = new Rectangle(x, y, 7, 7);
-				graphics.DrawEllipse(this.objectOutlinePen, trackObjectRect);
-				graphics.FillEllipse(this.objectBrushes[i / 4], trackObjectRect);
+				g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
+				g.FillEllipse(this.objectBrushes[i / 4], trackObjectRect);
 			}
 		}
 
-		private void DrawAI(Graphics graphics, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+		private void DrawAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
 		{
-			this.DrawAllAIElements(graphics);
+			this.DrawAllAIElements(g);
 
 			if (hoveredAIElem != selectedAIElem)
 			{
-				this.HighlightHoveredAIElement(graphics, hoveredAIElem, isAITargetHovered);
+				this.HighlightHoveredAIElement(g, hoveredAIElem, isAITargetHovered);
 			}
-			this.HighlightSelectedAIElement(graphics, selectedAIElem);
+			this.HighlightSelectedAIElement(g, selectedAIElem);
 		}
 
-		private void DrawAllAIElements(Graphics graphics)
+		private void DrawAllAIElements(Graphics g)
 		{
 			foreach (TrackAIElement aiElem in this.track.AI)
 			{
 				int pointX = (aiElem.Target.X - this.scrollPosition.X) * 8;
 				int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * 8;
-				graphics.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, 5, 5);
+				g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, 5, 5);
 
 				Rectangle zone = this.GetAIZoneRectangle(aiElem);
 
@@ -1042,50 +1042,50 @@ namespace EpicEdit.UI.Gfx
 
 				if (aiElem.ZoneShape == Shape.Rectangle)
 				{
-					this.PaintTopSide(graphics, zone, target, speed);
-					this.PaintRightSide(graphics, zone, target, speed);
-					this.PaintBottomSide(graphics, zone, target, speed);
-					this.PaintLeftSide(graphics, zone, target, speed);
+					this.PaintTopSide(g, zone, target, speed);
+					this.PaintRightSide(g, zone, target, speed);
+					this.PaintBottomSide(g, zone, target, speed);
+					this.PaintLeftSide(g, zone, target, speed);
 
-					graphics.DrawRectangle(this.aiZonePens[speed], zone);
+					g.DrawRectangle(this.aiZonePens[speed], zone);
 				}
 				else
 				{
 					Point[] points = this.GetAIZoneTriangle(aiElem);
 
-					graphics.DrawPolygon(this.aiZonePens[aiElem.Speed], points);
+					g.DrawPolygon(this.aiZonePens[aiElem.Speed], points);
 
 					switch (aiElem.ZoneShape)
 					{
 						case Shape.TriangleTopLeft:
-							this.PaintTopSide(graphics, zone, target, speed);
-							this.PaintLeftSide(graphics, zone, target, speed);
-							TrackDrawer.PaintTriangleDiagonalSide(graphics, points, target, this.aiZoneBrushes[speed][2]);
+							this.PaintTopSide(g, zone, target, speed);
+							this.PaintLeftSide(g, zone, target, speed);
+							TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][2]);
 							break;
 
 						case Shape.TriangleTopRight:
-							this.PaintTopSide(graphics, zone, target, speed);
-							this.PaintRightSide(graphics, zone, target, speed);
-							TrackDrawer.PaintTriangleDiagonalSide(graphics, points, target, this.aiZoneBrushes[speed][2]);
+							this.PaintTopSide(g, zone, target, speed);
+							this.PaintRightSide(g, zone, target, speed);
+							TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][2]);
 							break;
 
 						case Shape.TriangleBottomRight:
-							this.PaintBottomSide(graphics, zone, target, speed);
-							this.PaintRightSide(graphics, zone, target, speed);
-							TrackDrawer.PaintTriangleDiagonalSide(graphics, points, target, this.aiZoneBrushes[speed][0]);
+							this.PaintBottomSide(g, zone, target, speed);
+							this.PaintRightSide(g, zone, target, speed);
+							TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][0]);
 							break;
 
 						case Shape.TriangleBottomLeft:
-							this.PaintBottomSide(graphics, zone, target, speed);
-							this.PaintLeftSide(graphics, zone, target, speed);
-							TrackDrawer.PaintTriangleDiagonalSide(graphics, points, target, this.aiZoneBrushes[speed][0]);
+							this.PaintBottomSide(g, zone, target, speed);
+							this.PaintLeftSide(g, zone, target, speed);
+							TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][0]);
 							break;
 					}
 				}
 			}
 		}
 
-		private void PaintTopSide(Graphics graphics, Rectangle zone, Point target, int speed)
+		private void PaintTopSide(Graphics g, Rectangle zone, Point target, int speed)
 		{
 			if (target.Y > zone.Top)
 			{
@@ -1096,11 +1096,11 @@ namespace EpicEdit.UI.Gfx
 					target
 				};
 
-				graphics.FillPolygon(this.aiZoneBrushes[speed][0], side);
+				g.FillPolygon(this.aiZoneBrushes[speed][0], side);
 			}
 		}
 
-		private void PaintRightSide(Graphics graphics, Rectangle zone, Point target, int speed)
+		private void PaintRightSide(Graphics g, Rectangle zone, Point target, int speed)
 		{
 			if (target.X < zone.Right)
 			{
@@ -1111,11 +1111,11 @@ namespace EpicEdit.UI.Gfx
 					target
 				};
 
-				graphics.FillPolygon(this.aiZoneBrushes[speed][1], side);
+				g.FillPolygon(this.aiZoneBrushes[speed][1], side);
 			}
 		}
 
-		private void PaintBottomSide(Graphics graphics, Rectangle zone, Point target, int speed)
+		private void PaintBottomSide(Graphics g, Rectangle zone, Point target, int speed)
 		{
 			if (target.Y < zone.Bottom)
 			{
@@ -1126,11 +1126,11 @@ namespace EpicEdit.UI.Gfx
 					target
 				};
 
-				graphics.FillPolygon(this.aiZoneBrushes[speed][2], side);
+				g.FillPolygon(this.aiZoneBrushes[speed][2], side);
 			}
 		}
 
-		private void PaintLeftSide(Graphics graphics, Rectangle zone, Point target, int speed)
+		private void PaintLeftSide(Graphics g, Rectangle zone, Point target, int speed)
 		{
 			if (target.X > zone.Left)
 			{
@@ -1141,17 +1141,17 @@ namespace EpicEdit.UI.Gfx
 					target
 				};
 
-				graphics.FillPolygon(this.aiZoneBrushes[speed][1], side);
+				g.FillPolygon(this.aiZoneBrushes[speed][1], side);
 			}
 		}
 
-		private static void PaintTriangleDiagonalSide(Graphics graphics, Point[] points, Point target, SolidBrush brush)
+		private static void PaintTriangleDiagonalSide(Graphics g, Point[] points, Point target, SolidBrush brush)
 		{
 			points[points.Length - 2] = target;
-			graphics.FillPolygon(brush, points);
+			g.FillPolygon(brush, points);
 		}
 
-		private void HighlightHoveredAIElement(Graphics graphics, TrackAIElement hoveredAIElem, bool isAITargetHovered)
+		private void HighlightHoveredAIElement(Graphics g, TrackAIElement hoveredAIElem, bool isAITargetHovered)
 		{
 			if (hoveredAIElem == null)
 			{
@@ -1162,24 +1162,24 @@ namespace EpicEdit.UI.Gfx
 
 			if (isAITargetHovered)
 			{
-				this.DrawAITargetLines(graphics, hoveredAIElem, zone, this.aiElementHighlightPen);
+				this.DrawAITargetLines(g, hoveredAIElem, zone, this.aiElementHighlightPen);
 			}
 			else
 			{
 				if (hoveredAIElem.ZoneShape == Shape.Rectangle)
 				{
-					graphics.DrawRectangle(this.aiElementHighlightPen, zone);
+					g.DrawRectangle(this.aiElementHighlightPen, zone);
 				}
 				else
 				{
 					Point[] points = this.GetAIZoneTriangle(hoveredAIElem);
 
-					graphics.DrawLines(this.aiElementHighlightPen, points);
+					g.DrawLines(this.aiElementHighlightPen, points);
 				}
 			}
 		}
 
-		private void HighlightSelectedAIElement(Graphics graphics, TrackAIElement selectedAIElem)
+		private void HighlightSelectedAIElement(Graphics g, TrackAIElement selectedAIElem)
 		{
 			if (selectedAIElem == null)
 			{
@@ -1188,19 +1188,19 @@ namespace EpicEdit.UI.Gfx
 
 			Rectangle zone = this.GetAIZoneRectangle(selectedAIElem);
 
-			this.DrawAITargetLines(graphics, selectedAIElem, zone, this.aiElementSelectPen);
+			this.DrawAITargetLines(g, selectedAIElem, zone, this.aiElementSelectPen);
 
 			if (selectedAIElem.ZoneShape == Shape.Rectangle)
 			{
-				graphics.DrawRectangle(this.aiElementSelectPen, zone);
-				graphics.FillRectangle(this.aiZoneBrushes[selectedAIElem.Speed][0], zone);
+				g.DrawRectangle(this.aiElementSelectPen, zone);
+				g.FillRectangle(this.aiZoneBrushes[selectedAIElem.Speed][0], zone);
 			}
 			else
 			{
 				Point[] points = this.GetAIZoneTriangle(selectedAIElem);
 
-				graphics.DrawPolygon(this.aiElementSelectPen, points);
-				graphics.FillPolygon(this.aiZoneBrushes[selectedAIElem.Speed][0], points);
+				g.DrawPolygon(this.aiElementSelectPen, points);
+				g.FillPolygon(this.aiZoneBrushes[selectedAIElem.Speed][0], points);
 			}
 		}
 
@@ -1297,7 +1297,7 @@ namespace EpicEdit.UI.Gfx
 			return points;
 		}
 
-		private void DrawAITargetLines(Graphics graphics, TrackAIElement aiElem, Rectangle zone, Pen pen)
+		private void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle zone, Pen pen)
 		{
 			int pointX = (aiElem.Target.X - this.scrollPosition.X) * 8;
 			int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * 8;
@@ -1319,7 +1319,7 @@ namespace EpicEdit.UI.Gfx
 							targetPoint,
 							new Point(zone.Left, zone.Bottom)
 						};
-						graphics.DrawLines(pen, targetLines);
+						g.DrawLines(pen, targetLines);
 						break;
 					}
 
@@ -1334,7 +1334,7 @@ namespace EpicEdit.UI.Gfx
 							targetPoint,
 							new Point(zone.Left, zone.Bottom)
 						};
-						graphics.DrawLines(pen, targetLines);
+						g.DrawLines(pen, targetLines);
 						break;
 					}
 
@@ -1349,7 +1349,7 @@ namespace EpicEdit.UI.Gfx
 							targetPoint,
 							new Point(zone.Right, zone.Bottom)
 						};
-						graphics.DrawLines(pen, targetLines);
+						g.DrawLines(pen, targetLines);
 						break;
 					}
 
@@ -1364,7 +1364,7 @@ namespace EpicEdit.UI.Gfx
 							targetPoint,
 							new Point(zone.Left, zone.Bottom)
 						};
-						graphics.DrawLines(pen, targetLines);
+						g.DrawLines(pen, targetLines);
 						break;
 					}
 
@@ -1379,13 +1379,13 @@ namespace EpicEdit.UI.Gfx
 							targetPoint,
 							new Point(zone.Left, zone.Bottom)
 						};
-						graphics.DrawLines(pen, targetLines);
+						g.DrawLines(pen, targetLines);
 						break;
 					}
 			}
 		}
 
-		private void PaintTrackOutbounds(Graphics graphics)
+		private void PaintTrackOutbounds(Graphics g)
 		{
 			Rectangle trackArea = new Rectangle(0, 0, (int)(this.imageSize.Width * this.zoom), (int)(this.imageSize.Height * this.zoom));
 			Rectangle[] outBounds = new Rectangle[]
@@ -1396,7 +1396,7 @@ namespace EpicEdit.UI.Gfx
 				// Bottom outbounds
 				new Rectangle(0, trackArea.Bottom, this.control.Width, this.control.Height - trackArea.Height)
 			};
-			graphics.FillRectangles(Brushes.Black, outBounds);
+			g.FillRectangles(Brushes.Black, outBounds);
 		}
 
 		public void NotifyFullRepaintNeed()
@@ -1456,14 +1456,14 @@ namespace EpicEdit.UI.Gfx
 			this.tileClipboardCache.Dispose();
 
 			this.tileClipboardCache = new Bitmap(clipboardSize.Width * 8, clipboardSize.Height * 8, PixelFormat.Format32bppPArgb);
-			using (Graphics gfx = Graphics.FromImage(this.tileClipboardCache))
+			using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
 			{
 				for (int y = 0; y < clipboardSize.Height; y++)
 				{
 					for (int x = 0; x < clipboardSize.Width; x++)
 					{
 						Tile tile = tileset[tiles[x + y * clipboardSize.Width]];
-						gfx.DrawImage(tile.Bitmap, x * 8, y * 8);
+						g.DrawImage(tile.Bitmap, x * 8, y * 8);
 					}
 				}
 			}

@@ -59,14 +59,14 @@ namespace EpicEdit.UI.Gfx
 			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
 		}
 
-		public void DrawOverlayTileset(Graphics graphics)
+		public void DrawOverlayTileset(Graphics g)
 		{
 			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
 			{
 				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-					graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+					g.InterpolationMode = InterpolationMode.NearestNeighbor;
+					g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 					backBuffer.DrawImage(this.overlayCache, 0, 0,
 								  this.overlayCache.Width,
@@ -81,35 +81,35 @@ namespace EpicEdit.UI.Gfx
 
 					this.HighlightPattern(backBuffer, this.SelectedPattern);
 				}
-				graphics.DrawImage(image, 0, 0,
-								   image.Width * Zoom,
-								   image.Height * Zoom);
+				g.DrawImage(image, 0, 0,
+							image.Width * Zoom,
+							image.Height * Zoom);
 			}
 		}
 
-		private void OutlinePattern(Graphics graphics, OverlayTilePattern pattern)
+		private void OutlinePattern(Graphics g, OverlayTilePattern pattern)
 		{
 			if (pattern != null)
 			{
 				Point location;
 				this.PatternList.TryGetValue(pattern, out location);
-				graphics.DrawRectangle(this.highlightPen,
-									   location.X, location.Y,
-									   pattern.Width * 8 - 1,
-									   pattern.Height * 8 - 1);
+				g.DrawRectangle(this.highlightPen,
+								location.X, location.Y,
+								pattern.Width * 8 - 1,
+								pattern.Height * 8 - 1);
 			}
 		}
 
-		private void HighlightPattern(Graphics graphics, OverlayTilePattern pattern)
+		private void HighlightPattern(Graphics g, OverlayTilePattern pattern)
 		{
 			if (pattern != null)
 			{
 				Point location;
 				this.PatternList.TryGetValue(pattern, out location);
-				graphics.FillRectangle(this.selectBrush,
-									   location.X, location.Y,
-									   pattern.Width * 8 - 1,
-									   pattern.Height * 8 - 1);
+				g.FillRectangle(this.selectBrush,
+								location.X, location.Y,
+								pattern.Width * 8 - 1,
+								pattern.Height * 8 - 1);
 			}
 		}
 
@@ -127,9 +127,9 @@ namespace EpicEdit.UI.Gfx
 			int panelHeight = (int)this.control.Height / Zoom;
 
 			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
-			using (Graphics gfx = Graphics.FromImage(this.overlayCache))
+			using (Graphics g = Graphics.FromImage(this.overlayCache))
 			{
-				gfx.FillRegion(this.transparentBrush, gfx.Clip);
+				g.FillRegion(this.transparentBrush, g.Clip);
 
 				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
 				{
@@ -142,26 +142,26 @@ namespace EpicEdit.UI.Gfx
 						for (int x = 0; x < pattern.Width; x++)
 						{
 							int tileId = pattern.Tiles[y][x];
-	
+
 							if (tileId == 0xFF)
 							{
 								continue;
 							}
 
 							Tile tile = this.tileset[tileId];
-							gfx.DrawImage(tile.Bitmap,
-										  8 * x + location.X,
-										  8 * y + location.Y,
-										  8, 8);
+							g.DrawImage(tile.Bitmap,
+										8 * x + location.X,
+										8 * y + location.Y,
+										8, 8);
 						}
 					}
 
 					// Delimit the pattern
-					gfx.DrawRectangle(this.delimitPen,
-									  location.X,
-									  location.Y,
-									  pattern.Width * 8 - 1,
-									  pattern.Height * 8 - 1);
+					g.DrawRectangle(this.delimitPen,
+									location.X,
+									location.Y,
+									pattern.Width * 8 - 1,
+									pattern.Height * 8 - 1);
 				}
 			}
 		}
