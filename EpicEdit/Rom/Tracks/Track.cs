@@ -79,18 +79,15 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Import(string filePath, Game game)
 		{
-			string ext = Path.GetExtension(filePath).ToUpperInvariant();
+			string ext = Path.GetExtension(filePath);
 
-			switch (ext)
+			if (ext.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
 			{
-				case ".MKT":
-					this.ImportMkt(filePath, game);
-					break;
-
-				default:
-				case ".SMKC":
-					this.ImportSmkc(filePath, game);
-					break;
+				this.ImportMkt(filePath, game);
+			}
+			else
+			{
+				this.ImportSmkc(filePath, game);
 			}
 		}
 
@@ -146,18 +143,15 @@ namespace EpicEdit.Rom.Tracks
 
 		public void Export(string filePath, Game game)
 		{
-			string ext = Path.GetExtension(filePath).ToUpperInvariant();
+			string ext = Path.GetExtension(filePath);
 
-			switch (ext)
+			if (ext.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
 			{
-				case ".MKT":
-					this.ExportMkt(filePath, game);
-					break;
-
-				default:
-				case ".SMKC":
-					this.ExportSmkc(filePath, game);
-					break;
+				this.ExportMkt(filePath, game);
+			}
+			else
+			{
+				this.ExportSmkc(filePath, game);
 			}
 		}
 
