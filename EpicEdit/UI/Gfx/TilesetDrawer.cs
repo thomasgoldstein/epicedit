@@ -58,25 +58,25 @@ namespace EpicEdit.UI.Gfx
 			int imageHeight = (this.tileset.Length / (imageWidth / 8)) * 8;
 
 			this.tilesetCache = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppPArgb);
-			using (Graphics gfx = Graphics.FromImage(this.tilesetCache))
+			using (Graphics g = Graphics.FromImage(this.tilesetCache))
 			{
 				for (int x = 0; x < 8; x++)
 				{
 					for (int y = 0; y < 32; y++)
 					{
 						Tile tile = this.tileset[x + (y * 8)];
-						gfx.DrawImage(tile.Bitmap, x * 8, y * 8);
+						g.DrawImage(tile.Bitmap, x * 8, y * 8);
 					}
 				}
 			}
 		}
 
-		public void DrawTileset(Graphics graphics, byte selectedTile)
+		public void DrawTileset(Graphics g, byte selectedTile)
 		{
 			using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
 			{
-				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-				graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+				g.InterpolationMode = InterpolationMode.NearestNeighbor;
+				g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
 				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
@@ -94,9 +94,9 @@ namespace EpicEdit.UI.Gfx
 											 8 - 1,
 											 8 - 1);
 				}
-				graphics.DrawImage(image, 0, 0,
-								   image.Width * Zoom,
-								   image.Height * Zoom);
+				g.DrawImage(image, 0, 0,
+							image.Width * Zoom,
+							image.Height * Zoom);
 			}
 		}
 
