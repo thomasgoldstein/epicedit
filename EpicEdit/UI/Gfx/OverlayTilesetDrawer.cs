@@ -62,24 +62,25 @@ namespace EpicEdit.UI.Gfx
 		public void DrawOverlayTileset(Graphics graphics)
 		{
 			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
-			using (Graphics gfx = Graphics.FromImage(image))
 			{
-				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-				graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-
-				gfx.DrawImage(this.overlayCache, 0, 0,
-							  this.overlayCache.Width,
-							  this.overlayCache.Height);
-
-				this.OutlinePattern(gfx, this.HoveredPattern);
-
-				if (this.HoveredPattern != this.SelectedPattern)
+				using (Graphics backBuffer = Graphics.FromImage(image))
 				{
-					this.OutlinePattern(gfx, this.SelectedPattern);
+					graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+					graphics.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+
+					backBuffer.DrawImage(this.overlayCache, 0, 0,
+								  this.overlayCache.Width,
+								  this.overlayCache.Height);
+
+					this.OutlinePattern(backBuffer, this.HoveredPattern);
+
+					if (this.HoveredPattern != this.SelectedPattern)
+					{
+						this.OutlinePattern(backBuffer, this.SelectedPattern);
+					}
+
+					this.HighlightPattern(backBuffer, this.SelectedPattern);
 				}
-
-				this.HighlightPattern(gfx, this.SelectedPattern);
-
 				graphics.DrawImage(image, 0, 0,
 								   image.Width * Zoom,
 								   image.Height * Zoom);
