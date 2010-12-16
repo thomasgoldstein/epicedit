@@ -25,29 +25,35 @@ namespace EpicEdit
 		/// Checks whether the framework used is Mono.
 		/// </summary>
 		/// <returns>True (using Mono) or false (not using Mono).</returns>
-		public static bool IsMono()
+		public static bool IsMono
 		{
-			return Type.GetType("Mono.Runtime") != null;
+			get { return Type.GetType("Mono.Runtime") != null; }
 		}
 
 		/// <summary>
 		/// Checks whether the application is run on Windows.
 		/// </summary>
 		/// <returns>True (Windows) or false (not Windows).</returns>
-		public static bool IsWindows()
+		public static bool IsWindows
 		{
-			return Environment.OSVersion.Platform == PlatformID.Win32NT ||
-				Environment.OSVersion.Platform == PlatformID.Win32Windows;
+			get
+			{
+				return Environment.OSVersion.Platform == PlatformID.Win32NT ||
+					Environment.OSVersion.Platform == PlatformID.Win32Windows;
+			}
 		}
 
 		/// <summary>
 		/// Checks whether the application is run on Linux, Unix or Mac.
 		/// </summary>
 		/// <returns>True (Unix) or false (not Unix).</returns>
-		public static bool IsLinuxOrMac()
+		public static bool IsLinuxOrMac
 		{
-			int p = (int)Environment.OSVersion.Platform;
-			return p == 4 || p == 128;
+			get
+			{
+				int p = (int)Environment.OSVersion.Platform;
+				return p == 4 || p == 128;
+			}
 		}
 	}
 }
