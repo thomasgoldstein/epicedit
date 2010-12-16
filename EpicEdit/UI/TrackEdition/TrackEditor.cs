@@ -16,9 +16,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
@@ -265,13 +267,31 @@ namespace EpicEdit.UI.TrackEdition
 			this.tileClipboard.Add(this.tilesetControl.SelectedTile);
 			this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 
-			if (Application.RenderWithVisualStyles)
+			if (VisualStyleRenderer.IsSupported)
 			{
+				Color backColor = TrackEditor.GetTabBackColor();
+
 				// Force background color to fix the look of TrackBar controls
 				foreach (TabPage page in this.modeTabControl.TabPages)
 				{
-					page.BackColor = SystemColors.ControlLightLight;
+					page.BackColor = backColor;
 				}
+			}
+		}
+
+		private static Color GetTabBackColor()
+		{
+			// NOTE: Couldn't find a more simple way to retrieve the tab background color
+			// (or top color, for themes which use a gradient for tabs).
+
+			VisualStyleElement vse = VisualStyleElement.Tab.TabItem.Pressed;
+			VisualStyleRenderer vsr = new VisualStyleRenderer(vse);
+
+			using (Bitmap image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb))
+			using (Graphics g = Graphics.FromImage(image))
+			{
+				vsr.DrawBackground(g, new Rectangle(0, 0, image.Width, image.Height));
+				return image.GetPixel(0, 0);
 			}
 		}
 
