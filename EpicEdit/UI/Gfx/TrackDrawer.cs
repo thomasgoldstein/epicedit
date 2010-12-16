@@ -528,20 +528,11 @@ namespace EpicEdit.UI.Gfx
 							  lapLine.Y - (this.scrollPosition.Y * 8) - 1,
 							  lapLine.Length, 3);
 
-			if (!PlatformInformation.IsWindows())
-			{
-				// HACK: Workaround for the fact the lap line isn't drawn
-				// at the exact same position with Mono out of Windows.
-				lapLineRectangle.Offset(1, 0);
-			}
-
 			if (this.zoom < 1)
 			{
 				// HACK: Avoid clipping issues (rounding differences)
 				lapLineRectangle.Inflate(0, 1);
 			}
-
-			clipRegion.Union(lapLineRectangle);
 
 			Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
 													  startPosition.Y - (this.scrollPosition.Y * 8) - 4,
@@ -553,6 +544,16 @@ namespace EpicEdit.UI.Gfx
 													  startRectangle1.Width,
 													  startRectangle1.Height + 8);
 
+			if (!PlatformInformation.IsWindows())
+			{
+				// HACK: Workaround for differences with Mono out of Windows
+				// (differently-sized lap line / arrow graphics).
+				lapLineRectangle.X++;
+				startRectangle1.Y--;
+				startRectangle2.Y--;
+			}
+
+			clipRegion.Union(lapLineRectangle);
 			clipRegion.Union(startRectangle1);
 			clipRegion.Union(startRectangle2);
 		}
@@ -569,6 +570,14 @@ namespace EpicEdit.UI.Gfx
 													 startPosition.Y - (this.scrollPosition.Y * 8) - 4,
 													 9, 8);
 
+			if (!PlatformInformation.IsWindows())
+			{
+				// HACK: Workaround for differences with Mono out of Windows
+				// (differently-sized arrow graphics).
+				startRectangle.Y--;
+				startRectangle.Inflate(0, 1);
+			}
+
 			clipRegion.Union(startRectangle);
 		}
 
@@ -577,6 +586,13 @@ namespace EpicEdit.UI.Gfx
 			Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * 8) - 4,
 													 startPosition.Y - (this.scrollPosition.Y * 8) - 3,
 													 9, 8);
+
+			if (!PlatformInformation.IsWindows())
+			{
+				// HACK: Workaround for differences with Mono out of Windows
+				// (differently-sized arrow graphics).
+				startRectangle.Inflate(0, 1);
+			}
 
 			clipRegion.Union(startRectangle);
 		}
