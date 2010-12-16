@@ -544,7 +544,7 @@ namespace EpicEdit.UI.Gfx
 													  startRectangle1.Width,
 													  startRectangle1.Height + 8);
 
-			if (!PlatformInformation.IsWindows())
+			if (!PlatformInformation.IsWindows)
 			{
 				// HACK: Workaround for differences with Mono out of Windows
 				// (differently-sized lap line / arrow graphics).
@@ -570,7 +570,7 @@ namespace EpicEdit.UI.Gfx
 													 startPosition.Y - (this.scrollPosition.Y * 8) - 4,
 													 9, 8);
 
-			if (!PlatformInformation.IsWindows())
+			if (!PlatformInformation.IsWindows)
 			{
 				// HACK: Workaround for differences with Mono out of Windows
 				// (differently-sized arrow graphics).
@@ -587,7 +587,7 @@ namespace EpicEdit.UI.Gfx
 													 startPosition.Y - (this.scrollPosition.Y * 8) - 3,
 													 9, 8);
 
-			if (!PlatformInformation.IsWindows())
+			if (!PlatformInformation.IsWindows)
 			{
 				// HACK: Workaround for differences with Mono out of Windows
 				// (differently-sized arrow graphics).
