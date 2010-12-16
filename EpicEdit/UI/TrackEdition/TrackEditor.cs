@@ -631,7 +631,6 @@ namespace EpicEdit.UI.TrackEdition
 			if (!this.trackDisplayPanel.Focused)
 			{
 				// Redraw the whole panel if the focus has been lost
-				// There may be a better way to do this, by retrieving only the dirty region
 				this.trackDrawer.NotifyFullRepaintNeed();
 			}
 
