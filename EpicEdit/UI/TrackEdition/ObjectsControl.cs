@@ -22,64 +22,64 @@ using EpicEdit.Rom.Tracks.Objects;
 
 namespace EpicEdit.UI.TrackEdition
 {
-	/// <summary>
-	/// Represents a collection of controls to edit <see cref="TrackObjects"/>.
-	/// </summary>
-	public partial class ObjectsControl : UserControl
-	{
-		[Browsable(true)]
-		public event EventHandler<EventArgs> ObjectZonesChanged;
-		
-		[Browsable(true)]
-		public event EventHandler<EventArgs> ObjectZonesViewChanged;
+    /// <summary>
+    /// Represents a collection of controls to edit <see cref="TrackObjects"/>.
+    /// </summary>
+    public partial class ObjectsControl : UserControl
+    {
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ObjectZonesChanged;
+        
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ObjectZonesViewChanged;
 
-		public ObjectsControl()
-		{
-			this.InitializeComponent();
-		}
+        public ObjectsControl()
+        {
+            this.InitializeComponent();
+        }
 
-		[Browsable(false), DefaultValue(typeof(GPTrack), "")]
-		public GPTrack Track
-		{
-			get
-			{
-				return this.frontObjectZonesControl.Track;
-			}
-			set
-			{
-				this.frontObjectZonesControl.Track = value;
-				this.rearObjectZonesControl.Track = value;
-				this.readOnlyZonesLabel.Visible = value.ObjectZones.ReadOnly;
-			}
-		}
-		
-		/// <summary>
-		/// Gets a value indicating whether the current view is the front-zones one.
-		/// </summary>
-		public bool FrontZonesView
-		{
-			get
-			{
-				return this.frontZonesRadioButton.Checked;
-			}
-		}
+        [Browsable(false), DefaultValue(typeof(GPTrack), "")]
+        public GPTrack Track
+        {
+            get
+            {
+                return this.frontObjectZonesControl.Track;
+            }
+            set
+            {
+                this.frontObjectZonesControl.Track = value;
+                this.rearObjectZonesControl.Track = value;
+                this.readOnlyZonesLabel.Visible = value.ObjectZones.ReadOnly;
+            }
+        }
+        
+        /// <summary>
+        /// Gets a value indicating whether the current view is the front-zones one.
+        /// </summary>
+        public bool FrontZonesView
+        {
+            get
+            {
+                return this.frontZonesRadioButton.Checked;
+            }
+        }
 
-		private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
-		{
-			this.ObjectZonesViewChanged(this, EventArgs.Empty);
+        private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
+        {
+            this.ObjectZonesViewChanged(this, EventArgs.Empty);
 
-			this.frontObjectZonesControl.Enabled = this.frontZonesRadioButton.Checked;
-			this.rearObjectZonesControl.Enabled = this.rearZonesRadioButton.Checked;
-		}
+            this.frontObjectZonesControl.Enabled = this.frontZonesRadioButton.Checked;
+            this.rearObjectZonesControl.Enabled = this.rearZonesRadioButton.Checked;
+        }
 
-		private void FrontObjectZonesControlValueChanged(object sender, EventArgs e)
-		{
-			this.ObjectZonesChanged(this, EventArgs.Empty);
-		}
+        private void FrontObjectZonesControlValueChanged(object sender, EventArgs e)
+        {
+            this.ObjectZonesChanged(this, EventArgs.Empty);
+        }
 
-		private void RearObjectZonesControlValueChanged(object sender, EventArgs e)
-		{
-			this.ObjectZonesChanged(this, EventArgs.Empty);
-		}
-	}
+        private void RearObjectZonesControlValueChanged(object sender, EventArgs e)
+        {
+            this.ObjectZonesChanged(this, EventArgs.Empty);
+        }
+    }
 }

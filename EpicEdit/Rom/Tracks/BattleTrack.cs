@@ -18,55 +18,55 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEdit.Rom.Tracks
 {
-	/// <summary>
-	/// A Battle track (Battle Mode).
-	/// </summary>
-	public class BattleTrack : Track
-	{
-		/// <summary>
-		/// The starting position of Player 1.
-		/// </summary>
-		public BattleStartPosition StartPositionP1 { get; private set; }
+    /// <summary>
+    /// A Battle track (Battle Mode).
+    /// </summary>
+    public class BattleTrack : Track
+    {
+        /// <summary>
+        /// The starting position of Player 1.
+        /// </summary>
+        public BattleStartPosition StartPositionP1 { get; private set; }
 
-		/// <summary>
-		/// The starting position of Player 2.
-		/// </summary>
-		public BattleStartPosition StartPositionP2 { get; private set; }
+        /// <summary>
+        /// The starting position of Player 2.
+        /// </summary>
+        public BattleStartPosition StartPositionP2 { get; private set; }
 
-		public BattleTrack(string name, Theme theme,
-						   byte[] map, byte[] overlayTileData,
-						   byte[] aiZoneData, byte[] aiTargetData,
-						   byte[] startPositionData,
-						   OverlayTileSizes overlayTileSizes,
-						   OverlayTilePatterns overlayTilePatterns) :
-			base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
-		{
-			byte[] startPosition1Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
-			byte[] startPosition2Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
-			this.StartPositionP1 = new BattleStartPosition(startPosition1Data);
-			this.StartPositionP2 = new BattleStartPosition(startPosition2Data);
-		}
+        public BattleTrack(string name, Theme theme,
+                           byte[] map, byte[] overlayTileData,
+                           byte[] aiZoneData, byte[] aiTargetData,
+                           byte[] startPositionData,
+                           OverlayTileSizes overlayTileSizes,
+                           OverlayTilePatterns overlayTilePatterns) :
+            base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+        {
+            byte[] startPosition1Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
+            byte[] startPosition2Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
+            this.StartPositionP1 = new BattleStartPosition(startPosition1Data);
+            this.StartPositionP2 = new BattleStartPosition(startPosition2Data);
+        }
 
-		/// <summary>
-		/// Loads the BattleTrack-specific items from the MakeTrack object.
-		/// </summary>
-		protected override void LoadDataFrom(MakeTrack track)
-		{
-			base.LoadDataFrom(track);
+        /// <summary>
+        /// Loads the BattleTrack-specific items from the MakeTrack object.
+        /// </summary>
+        protected override void LoadDataFrom(MakeTrack track)
+        {
+            base.LoadDataFrom(track);
 
-			this.StartPositionP1 = track.StartPositionP1;
-			this.StartPositionP2 = track.StartPositionP2;
-		}
+            this.StartPositionP1 = track.StartPositionP1;
+            this.StartPositionP2 = track.StartPositionP2;
+        }
 
-		/// <summary>
-		/// Loads the BattleTrack-specific items to the MakeTrack object.
-		/// </summary>
-		protected override void LoadDataTo(MakeTrack track)
-		{
-			base.LoadDataTo(track);
+        /// <summary>
+        /// Loads the BattleTrack-specific items to the MakeTrack object.
+        /// </summary>
+        protected override void LoadDataTo(MakeTrack track)
+        {
+            base.LoadDataTo(track);
 
-			track.StartPositionP1 = this.StartPositionP1;
-			track.StartPositionP2 = this.StartPositionP2;
-		}
-	}
+            track.StartPositionP1 = this.StartPositionP1;
+            track.StartPositionP2 = this.StartPositionP2;
+        }
+    }
 }

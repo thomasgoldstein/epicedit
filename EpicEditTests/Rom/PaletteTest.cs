@@ -19,31 +19,31 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom
 {
-	[TestFixture]
-	public class PaletteTest
-	{
-		[Test]
-		public void Test0000()
-		{
-			byte[] polo = new byte[32];
-			for (int i = 0; i < 32; i++)
-			{
-				polo[i] = 0;
-			}
-			Palette pal = new Palette(polo);
-			Assert.AreEqual(pal[0], Color.FromArgb(0, 0, 0));
-		}
+    [TestFixture]
+    public class PaletteTest
+    {
+        [Test]
+        public void Test0000()
+        {
+            byte[] polo = new byte[32];
+            for (int i = 0; i < 32; i++)
+            {
+                polo[i] = 0;
+            }
+            Palette pal = new Palette(polo);
+            Assert.AreEqual(pal[0], Color.FromArgb(0, 0, 0));
+        }
 
-		[Test]
-		public void TestFfff()
-		{
-			byte[] polo = new byte[32];
-			for (int i = 0; i < 32; i++)
-			{
-				polo[i] = 0xFF;
-			}
-			Palette pal = new Palette(polo);
-			Assert.AreEqual(pal[0], Color.FromArgb(248, 248, 248));
-		}
-	}
+        [Test]
+        public void TestFfff()
+        {
+            byte[] polo = new byte[32];
+            for (int i = 0; i < 32; i++)
+            {
+                polo[i] = 0xFF;
+            }
+            Palette pal = new Palette(polo);
+            Assert.AreEqual(pal[0], Color.FromArgb(248, 248, 248));
+        }
+    }
 }

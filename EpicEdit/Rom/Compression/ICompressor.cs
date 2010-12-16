@@ -16,11 +16,11 @@ using System;
 
 namespace EpicEdit.Rom.Compression
 {
-	/// <summary>
-	/// Interface for compressors.
-	/// </summary>
-	public interface ICompressor
-	{
-		byte[] Compress(byte[] buffer, bool quirksMode);
-	}
+    /// <summary>
+    /// Interface for compressors.
+    /// </summary>
+    public interface ICompressor
+    {
+        byte[] Compress(byte[] buffer, bool quirksMode);
+    }
 }

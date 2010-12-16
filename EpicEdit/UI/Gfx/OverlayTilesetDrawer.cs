@@ -24,158 +24,158 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEdit.UI.Gfx
 {
-	/// <summary>
-	/// Provides the ability to paint the graphics of an overlay tileset.
-	/// </summary>
-	public sealed class OverlayTilesetDrawer : IDisposable
-	{
-		public const int Zoom = 2;
-		private Control control;
-		public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
-		private Tile[] tileset;
+    /// <summary>
+    /// Provides the ability to paint the graphics of an overlay tileset.
+    /// </summary>
+    public sealed class OverlayTilesetDrawer : IDisposable
+    {
+        public const int Zoom = 2;
+        private Control control;
+        public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
+        private Tile[] tileset;
 
-		public OverlayTilePattern HoveredPattern { get; set; }
-		public OverlayTilePattern SelectedPattern { get; set; }
+        public OverlayTilePattern HoveredPattern { get; set; }
+        public OverlayTilePattern SelectedPattern { get; set; }
 
-		private Bitmap overlayCache;
-		private HatchBrush transparentBrush;
+        private Bitmap overlayCache;
+        private HatchBrush transparentBrush;
 
-		private Pen delimitPen;
-		private Pen highlightPen;
-		private SolidBrush selectBrush;
+        private Pen delimitPen;
+        private Pen highlightPen;
+        private SolidBrush selectBrush;
 
-		public OverlayTilesetDrawer(Control control)
-		{
-			this.control = control;
+        public OverlayTilesetDrawer(Control control)
+        {
+            this.control = control;
 
-			this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
+            this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
-			this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
-			this.highlightPen = new Pen(Color.FromArgb(200, 255, 255, 255));
-			this.selectBrush = new SolidBrush(Color.FromArgb(80, 255, 255, 255));
+            this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
+            this.highlightPen = new Pen(Color.FromArgb(200, 255, 255, 255));
+            this.selectBrush = new SolidBrush(Color.FromArgb(80, 255, 255, 255));
 
-			// The following member is initialized so it can be disposed of
-			// in each function without having to check if it's null beforehand
-			this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-		}
+            // The following member is initialized so it can be disposed of
+            // in each function without having to check if it's null beforehand
+            this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+        }
 
-		public void DrawOverlayTileset(Graphics g)
-		{
-			using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
-			{
-				using (Graphics backBuffer = Graphics.FromImage(image))
-				{
-					g.InterpolationMode = InterpolationMode.NearestNeighbor;
-					g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+        public void DrawOverlayTileset(Graphics g)
+        {
+            using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
+            {
+                using (Graphics backBuffer = Graphics.FromImage(image))
+                {
+                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
-					backBuffer.DrawImage(this.overlayCache, 0, 0,
-								  this.overlayCache.Width,
-								  this.overlayCache.Height);
+                    backBuffer.DrawImage(this.overlayCache, 0, 0,
+                                  this.overlayCache.Width,
+                                  this.overlayCache.Height);
 
-					this.OutlinePattern(backBuffer, this.HoveredPattern);
+                    this.OutlinePattern(backBuffer, this.HoveredPattern);
 
-					if (this.HoveredPattern != this.SelectedPattern)
-					{
-						this.OutlinePattern(backBuffer, this.SelectedPattern);
-					}
+                    if (this.HoveredPattern != this.SelectedPattern)
+                    {
+                        this.OutlinePattern(backBuffer, this.SelectedPattern);
+                    }
 
-					this.HighlightPattern(backBuffer, this.SelectedPattern);
-				}
-				g.DrawImage(image, 0, 0,
-							image.Width * Zoom,
-							image.Height * Zoom);
-			}
-		}
+                    this.HighlightPattern(backBuffer, this.SelectedPattern);
+                }
+                g.DrawImage(image, 0, 0,
+                            image.Width * Zoom,
+                            image.Height * Zoom);
+            }
+        }
 
-		private void OutlinePattern(Graphics g, OverlayTilePattern pattern)
-		{
-			if (pattern != null)
-			{
-				Point location;
-				this.PatternList.TryGetValue(pattern, out location);
-				g.DrawRectangle(this.highlightPen,
-								location.X, location.Y,
-								pattern.Width * 8 - 1,
-								pattern.Height * 8 - 1);
-			}
-		}
+        private void OutlinePattern(Graphics g, OverlayTilePattern pattern)
+        {
+            if (pattern != null)
+            {
+                Point location;
+                this.PatternList.TryGetValue(pattern, out location);
+                g.DrawRectangle(this.highlightPen,
+                                location.X, location.Y,
+                                pattern.Width * 8 - 1,
+                                pattern.Height * 8 - 1);
+            }
+        }
 
-		private void HighlightPattern(Graphics g, OverlayTilePattern pattern)
-		{
-			if (pattern != null)
-			{
-				Point location;
-				this.PatternList.TryGetValue(pattern, out location);
-				g.FillRectangle(this.selectBrush,
-								location.X, location.Y,
-								pattern.Width * 8 - 1,
-								pattern.Height * 8 - 1);
-			}
-		}
+        private void HighlightPattern(Graphics g, OverlayTilePattern pattern)
+        {
+            if (pattern != null)
+            {
+                Point location;
+                this.PatternList.TryGetValue(pattern, out location);
+                g.FillRectangle(this.selectBrush,
+                                location.X, location.Y,
+                                pattern.Width * 8 - 1,
+                                pattern.Height * 8 - 1);
+            }
+        }
 
-		public void SetTileset(Tile[] tileset)
-		{
-			this.tileset = tileset;
-			this.UpdateCache();
-		}
+        public void SetTileset(Tile[] tileset)
+        {
+            this.tileset = tileset;
+            this.UpdateCache();
+        }
 
-		private void UpdateCache()
-		{
-			this.overlayCache.Dispose();
+        private void UpdateCache()
+        {
+            this.overlayCache.Dispose();
 
-			int panelWidth = (int)this.control.Width / Zoom;
-			int panelHeight = (int)this.control.Height / Zoom;
+            int panelWidth = (int)this.control.Width / Zoom;
+            int panelHeight = (int)this.control.Height / Zoom;
 
-			this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
-			using (Graphics g = Graphics.FromImage(this.overlayCache))
-			{
-				g.FillRegion(this.transparentBrush, g.Clip);
+            this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
+            using (Graphics g = Graphics.FromImage(this.overlayCache))
+            {
+                g.FillRegion(this.transparentBrush, g.Clip);
 
-				foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
-				{
-					OverlayTilePattern pattern = kvp.Key;
-					Point location = kvp.Value;
+                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
+                {
+                    OverlayTilePattern pattern = kvp.Key;
+                    Point location = kvp.Value;
 
-					// Draw the pattern
-					for (int y = 0; y < pattern.Height; y++)
-					{
-						for (int x = 0; x < pattern.Width; x++)
-						{
-							int tileId = pattern.Tiles[y][x];
+                    // Draw the pattern
+                    for (int y = 0; y < pattern.Height; y++)
+                    {
+                        for (int x = 0; x < pattern.Width; x++)
+                        {
+                            int tileId = pattern.Tiles[y][x];
 
-							if (tileId == 0xFF)
-							{
-								continue;
-							}
+                            if (tileId == 0xFF)
+                            {
+                                continue;
+                            }
 
-							Tile tile = this.tileset[tileId];
-							g.DrawImage(tile.Bitmap,
-										8 * x + location.X,
-										8 * y + location.Y,
-										8, 8);
-						}
-					}
+                            Tile tile = this.tileset[tileId];
+                            g.DrawImage(tile.Bitmap,
+                                        8 * x + location.X,
+                                        8 * y + location.Y,
+                                        8, 8);
+                        }
+                    }
 
-					// Delimit the pattern
-					g.DrawRectangle(this.delimitPen,
-									location.X,
-									location.Y,
-									pattern.Width * 8 - 1,
-									pattern.Height * 8 - 1);
-				}
-			}
-		}
+                    // Delimit the pattern
+                    g.DrawRectangle(this.delimitPen,
+                                    location.X,
+                                    location.Y,
+                                    pattern.Width * 8 - 1,
+                                    pattern.Height * 8 - 1);
+                }
+            }
+        }
 
-		public void Dispose()
-		{
-			this.overlayCache.Dispose();
-			this.transparentBrush.Dispose();
+        public void Dispose()
+        {
+            this.overlayCache.Dispose();
+            this.transparentBrush.Dispose();
 
-			this.delimitPen.Dispose();
-			this.highlightPen.Dispose();
-			this.selectBrush.Dispose();
+            this.delimitPen.Dispose();
+            this.highlightPen.Dispose();
+            this.selectBrush.Dispose();
 
-			GC.SuppressFinalize(this);
-		}
-	}
+            GC.SuppressFinalize(this);
+        }
+    }
 }

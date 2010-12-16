@@ -16,100 +16,100 @@ using System;
 
 namespace EpicEdit.Rom.Tracks
 {
-	/// <summary>
-	/// Represents the graphics set and music of a track.
-	/// </summary>
-	public sealed class Theme : IDisposable
-	{
-		public string Name { get; private set; }
-		public Palette[] Palettes { get; private set; }
-		public Music Music { get; set; }
-		private Tile[] roadTileset;
-		private Tile[] backgroundTileset;
+    /// <summary>
+    /// Represents the graphics set and music of a track.
+    /// </summary>
+    public sealed class Theme : IDisposable
+    {
+        public string Name { get; private set; }
+        public Palette[] Palettes { get; private set; }
+        public Music Music { get; set; }
+        private Tile[] roadTileset;
+        private Tile[] backgroundTileset;
 
-		public Theme(string name, Palette[] palettes, Tile[] roadTileset, Tile[] backgroundTileset, Music music)
-		{
-			this.Name = name;
-			this.Palettes = palettes;
-			this.roadTileset = roadTileset;
-			this.backgroundTileset = backgroundTileset;
-			this.Music = music;
-		}
+        public Theme(string name, Palette[] palettes, Tile[] roadTileset, Tile[] backgroundTileset, Music music)
+        {
+            this.Name = name;
+            this.Palettes = palettes;
+            this.roadTileset = roadTileset;
+            this.backgroundTileset = backgroundTileset;
+            this.Music = music;
+        }
 
-		public void SetRoadTileset(Tile[] tiles)
-		{
-			this.roadTileset = tiles;
-		}
+        public void SetRoadTileset(Tile[] tiles)
+        {
+            this.roadTileset = tiles;
+        }
 
-		public void SetRoadTile(int index, Tile tile)
-		{
-			this.roadTileset[index] = tile;
-		}
+        public void SetRoadTile(int index, Tile tile)
+        {
+            this.roadTileset[index] = tile;
+        }
 
-		public void SetBackgroundTileset(Tile[] tiles)
-		{
-			this.backgroundTileset = tiles;
-		}
+        public void SetBackgroundTileset(Tile[] tiles)
+        {
+            this.backgroundTileset = tiles;
+        }
 
-		public void SetBackgroundTile(int index, Tile tile)
-		{
-			this.backgroundTileset[index] = tile;
-		}
+        public void SetBackgroundTile(int index, Tile tile)
+        {
+            this.backgroundTileset[index] = tile;
+        }
 
-		public Tile[] GetRoadTileset()
-		{
-			return this.roadTileset;
-		}
+        public Tile[] GetRoadTileset()
+        {
+            return this.roadTileset;
+        }
 
-		public Tile GetRoadTile(int index)
-		{
-			return this.roadTileset[index];
-		}
+        public Tile GetRoadTile(int index)
+        {
+            return this.roadTileset[index];
+        }
 
-		public Tile[] GetBackgroundTileset()
-		{
-			return this.backgroundTileset;
-		}
+        public Tile[] GetBackgroundTileset()
+        {
+            return this.backgroundTileset;
+        }
 
-		public Tile GetBackgroundTile(int index)
-		{
-			return this.backgroundTileset[index];
-		}
+        public Tile GetBackgroundTile(int index)
+        {
+            return this.backgroundTileset[index];
+        }
 
-		public void ClearRoadTileset()
-		{
-			for (int i = 0; i < this.roadTileset.Length; i++)
-			{
-				this.roadTileset[i] = null;
-			}
-		}
+        public void ClearRoadTileset()
+        {
+            for (int i = 0; i < this.roadTileset.Length; i++)
+            {
+                this.roadTileset[i] = null;
+            }
+        }
 
-		public void ClearBackgroundTileset()
-		{
-			for (int i = 0; i < this.backgroundTileset.Length; i++)
-			{
-				this.backgroundTileset[i] = null;
-			}
-		}
+        public void ClearBackgroundTileset()
+        {
+            for (int i = 0; i < this.backgroundTileset.Length; i++)
+            {
+                this.backgroundTileset[i] = null;
+            }
+        }
 
-		public override string ToString()
-		{
-			return this.Name;
-		}
+        public override string ToString()
+        {
+            return this.Name;
+        }
 
-		public void Dispose()
-		{
-			foreach (Tile tile in this.roadTileset)
-			{
-				tile.Dispose();
-			}
+        public void Dispose()
+        {
+            foreach (Tile tile in this.roadTileset)
+            {
+                tile.Dispose();
+            }
 
-			foreach (Tile tile in this.backgroundTileset)
-			{
-				tile.Dispose();
-			}
+            foreach (Tile tile in this.backgroundTileset)
+            {
+                tile.Dispose();
+            }
 
-			GC.SuppressFinalize(this);
-		}
-	}
+            GC.SuppressFinalize(this);
+        }
+    }
 }

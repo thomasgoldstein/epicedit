@@ -18,92 +18,92 @@ using System.Collections.Generic;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {
-	/// <summary>
-	/// Collection of all the overlay tile sizes in the game.
-	/// </summary>
-	public class OverlayTileSizes : IEnumerable<OverlayTileSize>
-	{
-		private OverlayTileSize[] sizes;
+    /// <summary>
+    /// Collection of all the overlay tile sizes in the game.
+    /// </summary>
+    public class OverlayTileSizes : IEnumerable<OverlayTileSize>
+    {
+        private OverlayTileSize[] sizes;
 
-		public OverlayTileSize this[int index]
-		{
-			get
-			{
-				return this.sizes[index];
-			}
-		}
+        public OverlayTileSize this[int index]
+        {
+            get
+            {
+                return this.sizes[index];
+            }
+        }
 
-		public int Count
-		{
-			get { return this.sizes.Length; }
-		}
+        public int Count
+        {
+            get { return this.sizes.Length; }
+        }
 
-		public bool Modified
-		{
-			get
-			{
-				foreach (OverlayTileSize size in this.sizes)
-				{
-					if (size.Modified)
-					{
-						return true;
-					}
-				}
+        public bool Modified
+        {
+            get
+            {
+                foreach (OverlayTileSize size in this.sizes)
+                {
+                    if (size.Modified)
+                    {
+                        return true;
+                    }
+                }
 
-				return false;
-			}
-		}
+                return false;
+            }
+        }
 
-		public OverlayTileSizes(byte[] romBuffer, Offsets offsets)
-		{
-			this.LoadSizes(romBuffer, offsets);
-		}
+        public OverlayTileSizes(byte[] romBuffer, Offsets offsets)
+        {
+            this.LoadSizes(romBuffer, offsets);
+        }
 
-		private void LoadSizes(byte[] romBuffer, Offsets offsets)
-		{
-			// There are only ever 4 sizes in the game
-			this.sizes = new OverlayTileSize[4];
-			byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TrackOverlaySizes], 2, 4);
-			for (int i = 0; i < data.Length; i++)
-			{
-				this.sizes[i] = new OverlayTileSize(data[i]);
-			}
-		}
+        private void LoadSizes(byte[] romBuffer, Offsets offsets)
+        {
+            // There are only ever 4 sizes in the game
+            this.sizes = new OverlayTileSize[4];
+            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TrackOverlaySizes], 2, 4);
+            for (int i = 0; i < data.Length; i++)
+            {
+                this.sizes[i] = new OverlayTileSize(data[i]);
+            }
+        }
 
-		public void Save(byte[] romBuffer, Offsets offsets)
-		{
-			int offset = offsets[Offset.TrackOverlaySizes];
+        public void Save(byte[] romBuffer, Offsets offsets)
+        {
+            int offset = offsets[Offset.TrackOverlaySizes];
 
-			for (int i = 0; i < this.sizes.Length; i++)
-			{
-				this.sizes[i].Save(romBuffer, offset, i);
-			}
-		}
+            for (int i = 0; i < this.sizes.Length; i++)
+            {
+                this.sizes[i].Save(romBuffer, offset, i);
+            }
+        }
 
-		public IEnumerator<OverlayTileSize> GetEnumerator()
-		{
-			foreach (OverlayTileSize size in this.sizes)
-			{
-				yield return size;
-			}
-		}
+        public IEnumerator<OverlayTileSize> GetEnumerator()
+        {
+            foreach (OverlayTileSize size in this.sizes)
+            {
+                yield return size;
+            }
+        }
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return this.sizes.GetEnumerator();
-		}
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.sizes.GetEnumerator();
+        }
 
-		public int IndexOf(OverlayTileSize size)
-		{
-			for (int i = 0; i < this.sizes.Length; i++)
-			{
-				if (this.sizes[i] == size)
-				{
-					return i;
-				}
-			}
+        public int IndexOf(OverlayTileSize size)
+        {
+            for (int i = 0; i < this.sizes.Length; i++)
+            {
+                if (this.sizes[i] == size)
+                {
+                    return i;
+                }
+            }
 
-			throw new MissingMemberException("Size not found.");
-		}
-	}
+            throw new MissingMemberException("Size not found.");
+        }
+    }
 }

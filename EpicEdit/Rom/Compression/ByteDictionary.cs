@@ -17,160 +17,160 @@ using System.Collections.Generic;
 
 namespace EpicEdit.Rom.Compression
 {
-	/// <summary>
-	/// Represents a dictionary of bytes.
-	/// </summary>
-	internal class ByteDictionary
-	{
-		private byte[] buffer;
-		private Dictionary<byte, List<int>> byteDictionary;
+    /// <summary>
+    /// Represents a dictionary of bytes.
+    /// </summary>
+    internal class ByteDictionary
+    {
+        private byte[] buffer;
+        private Dictionary<byte, List<int>> byteDictionary;
 
-		public ByteDictionary(byte[] buffer)
-		{
-			this.buffer = buffer;
-			this.byteDictionary = new Dictionary<byte, List<int>>();
+        public ByteDictionary(byte[] buffer)
+        {
+            this.buffer = buffer;
+            this.byteDictionary = new Dictionary<byte, List<int>>();
 
-			for (int i = 0; i < buffer.Length; i++)
-			{
-				this.Add(buffer[i], i);
-			}
-		}
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                this.Add(buffer[i], i);
+            }
+        }
 
-		private void Add(byte value, int offset)
-		{
-			if (!this.byteDictionary.ContainsKey(value))
-			{
-				this.byteDictionary.Add(value, new List<int>());
-			}
+        private void Add(byte value, int offset)
+        {
+            if (!this.byteDictionary.ContainsKey(value))
+            {
+                this.byteDictionary.Add(value, new List<int>());
+            }
 
-			this.byteDictionary[value].Add(offset);
-		}
+            this.byteDictionary[value].Add(offset);
+        }
 
-		public Range GetMaxBackRange(int offset)
-		{
-			Range maxBackRange = Range.Empty;
+        public Range GetMaxBackRange(int offset)
+        {
+            Range maxBackRange = Range.Empty;
 
-			byte value = this.buffer[offset];
+            byte value = this.buffer[offset];
 
-			foreach (int otherOffset in this.byteDictionary[value])
-			{
-				if (otherOffset >= offset)
-				{
-					break;
-				}
+            foreach (int otherOffset in this.byteDictionary[value])
+            {
+                if (otherOffset >= offset)
+                {
+                    break;
+                }
 
-				int iterator = offset;
-				int backIterator = otherOffset;
+                int iterator = offset;
+                int backIterator = otherOffset;
 
-				do
-				{
-					iterator++;
-					backIterator++;
-				}
-				while (iterator < this.buffer.Length &&
-					   this.buffer[backIterator] == this.buffer[iterator]);
+                do
+                {
+                    iterator++;
+                    backIterator++;
+                }
+                while (iterator < this.buffer.Length &&
+                       this.buffer[backIterator] == this.buffer[iterator]);
 
-				int start = otherOffset;
-				int end = backIterator;
+                int start = otherOffset;
+                int end = backIterator;
 
-				Range backRange = new Range(start, end);
+                Range backRange = new Range(start, end);
 
-				if (backRange.Length > 1024)
-				{
-					backRange.Length = 1024;
-				}
+                if (backRange.Length > 1024)
+                {
+                    backRange.Length = 1024;
+                }
 
-				if (backRange.Length >= maxBackRange.Length)
-				{
-					maxBackRange = backRange;
-				}
-			}
+                if (backRange.Length >= maxBackRange.Length)
+                {
+                    maxBackRange = backRange;
+                }
+            }
 
-			return maxBackRange;
-		}
+            return maxBackRange;
+        }
 
-		public Range[] GetMaxBackRanges(int offset)
-		{
-			Range[] maxRanges = new Range[4];
-			maxRanges[0] = Range.Empty; // Command 4 normal
-			maxRanges[1] = Range.Empty; // Command 4 super
-			maxRanges[2] = Range.Empty; // Command 6 normal
-			maxRanges[3] = Range.Empty; // Command 6 super
+        public Range[] GetMaxBackRanges(int offset)
+        {
+            Range[] maxRanges = new Range[4];
+            maxRanges[0] = Range.Empty; // Command 4 normal
+            maxRanges[1] = Range.Empty; // Command 4 super
+            maxRanges[2] = Range.Empty; // Command 6 normal
+            maxRanges[3] = Range.Empty; // Command 6 super
 
-			byte value = this.buffer[offset];
+            byte value = this.buffer[offset];
 
-			int startPosition = offset - 0xFF;
-			if (startPosition < 0)
-			{
-				startPosition = 0;
-			}
+            int startPosition = offset - 0xFF;
+            if (startPosition < 0)
+            {
+                startPosition = 0;
+            }
 
-			foreach (int otherOffset in this.byteDictionary[value])
-			{
-				if (otherOffset >= offset)
-				{
-					break;
-				}
+            foreach (int otherOffset in this.byteDictionary[value])
+            {
+                if (otherOffset >= offset)
+                {
+                    break;
+                }
 
-				int iterator = offset;
-				int backIterator = otherOffset;
+                int iterator = offset;
+                int backIterator = otherOffset;
 
-				do
-				{
-					iterator++;
-					backIterator++;
-				}
-				while (iterator < this.buffer.Length &&
-					   this.buffer[backIterator] == this.buffer[iterator]);
+                do
+                {
+                    iterator++;
+                    backIterator++;
+                }
+                while (iterator < this.buffer.Length &&
+                       this.buffer[backIterator] == this.buffer[iterator]);
 
-				int start = otherOffset;
-				int end = backIterator;
+                int start = otherOffset;
+                int end = backIterator;
 
-				Range backRange = new Range(start, end);
+                Range backRange = new Range(start, end);
 
-				if (backRange.Length > 1024)
-				{
-					backRange.Length = 1024;
-				}
+                if (backRange.Length > 1024)
+                {
+                    backRange.Length = 1024;
+                }
 
-				int rangeArrayIndex = otherOffset < startPosition ? 1 : 3;
-				if (backRange.Length >= maxRanges[rangeArrayIndex].Length)
-				{
-					maxRanges[rangeArrayIndex] = backRange;
-				}
-			}
+                int rangeArrayIndex = otherOffset < startPosition ? 1 : 3;
+                if (backRange.Length >= maxRanges[rangeArrayIndex].Length)
+                {
+                    maxRanges[rangeArrayIndex] = backRange;
+                }
+            }
 
-			maxRanges[2] = maxRanges[3];
-			if (maxRanges[2].Length <= 32)
-			{
-				maxRanges[3] = Range.Empty;
-			}
-			else
-			{
-				maxRanges[2].Length = 32;
-			}
+            maxRanges[2] = maxRanges[3];
+            if (maxRanges[2].Length <= 32)
+            {
+                maxRanges[3] = Range.Empty;
+            }
+            else
+            {
+                maxRanges[2].Length = 32;
+            }
 
-			maxRanges[0] = maxRanges[1];
-			if (maxRanges[0].Length <= 32)
-			{
-				maxRanges[1] = Range.Empty;
-			}
-			else
-			{
-				maxRanges[0].Length = 32;
-			}
+            maxRanges[0] = maxRanges[1];
+            if (maxRanges[0].Length <= 32)
+            {
+                maxRanges[1] = Range.Empty;
+            }
+            else
+            {
+                maxRanges[0].Length = 32;
+            }
 
-			if (maxRanges[0].Length == maxRanges[2].Length)
-			{
-				maxRanges[0] = Range.Empty;
-			}
+            if (maxRanges[0].Length == maxRanges[2].Length)
+            {
+                maxRanges[0] = Range.Empty;
+            }
 
-			if (maxRanges[1].Length == maxRanges[3].Length)
-			{
-				maxRanges[1] = Range.Empty;
-			}
+            if (maxRanges[1].Length == maxRanges[3].Length)
+            {
+                maxRanges[1] = Range.Empty;
+            }
 
-			return maxRanges;
-		}
-	}
+            return maxRanges;
+        }
+    }
 }

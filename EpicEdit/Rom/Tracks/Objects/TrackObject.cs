@@ -17,44 +17,44 @@ using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-	/// <summary>
-	/// A track object. E.g.: a pipe, a Cheep-Cheep, a Thwomp...
-	/// </summary>
-	public class TrackObject
-	{
-		public Point Location { get; set; }
+    /// <summary>
+    /// A track object. E.g.: a pipe, a Cheep-Cheep, a Thwomp...
+    /// </summary>
+    public class TrackObject
+    {
+        public Point Location { get; set; }
 
-		/// <summary>
-		/// Initializes a TrackObject.
-		/// </summary>
-		/// <param name="data">The byte array to get the data from.</param>
-		/// <param name="index">The index to use in the byte array.</param>
-		public TrackObject(byte[] data, int index)
-		{
-			int x = (data[index] & 0x7F);
-			int y = ((data[index + 1] & 0x3F) << 1) + ((data[index] & 0x80) >> 7);
-			this.Location = new Point(x, y);
-		}
+        /// <summary>
+        /// Initializes a TrackObject.
+        /// </summary>
+        /// <param name="data">The byte array to get the data from.</param>
+        /// <param name="index">The index to use in the byte array.</param>
+        public TrackObject(byte[] data, int index)
+        {
+            int x = (data[index] & 0x7F);
+            int y = ((data[index + 1] & 0x3F) << 1) + ((data[index] & 0x80) >> 7);
+            this.Location = new Point(x, y);
+        }
 
-		public int X
-		{
-			get { return this.Location.X; }
-		}
+        public int X
+        {
+            get { return this.Location.X; }
+        }
 
-		public int Y
-		{
-			get { return this.Location.Y; }
-		}
+        public int Y
+        {
+            get { return this.Location.Y; }
+        }
 
-		/// <summary>
-		/// Fills the passed byte array with data in the format the SMK ROM expects.
-		/// </summary>
-		/// <param name="data">The byte array to fill.</param>
-		/// <param name="index">The array position where the data will be copied.</param>
-		public virtual void GetBytes(byte[] data, int index)
-		{
-			data[index] = (byte)(this.X + ((this.Y << 7) & 0x80));
-			data[index + 1] = (byte)(this.Y >> 1);
-		}
-	}
+        /// <summary>
+        /// Fills the passed byte array with data in the format the SMK ROM expects.
+        /// </summary>
+        /// <param name="data">The byte array to fill.</param>
+        /// <param name="index">The array position where the data will be copied.</param>
+        public virtual void GetBytes(byte[] data, int index)
+        {
+            data[index] = (byte)(this.X + ((this.Y << 7) & 0x80));
+            data[index + 1] = (byte)(this.Y >> 1);
+        }
+    }
 }

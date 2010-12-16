@@ -18,42 +18,42 @@ using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
 {
-	/// <summary>
-	/// Represents a PictureBox that displays a grayed-out image when disabled.
-	/// </summary>
-	public class EpicPictureBox : PictureBox
-	{
-		private Image disabledImage;
+    /// <summary>
+    /// Represents a PictureBox that displays a grayed-out image when disabled.
+    /// </summary>
+    public class EpicPictureBox : PictureBox
+    {
+        private Image disabledImage;
 
-		public new Image Image
-		{
-			get { return base.Image; }
-			set
-			{
-				base.Image = value;
+        public new Image Image
+        {
+            get { return base.Image; }
+            set
+            {
+                base.Image = value;
 
-				if (this.disabledImage != null)
-				{
-					this.disabledImage.Dispose();
-					this.disabledImage = null;
-				}
-			}
-		}
+                if (this.disabledImage != null)
+                {
+                    this.disabledImage.Dispose();
+                    this.disabledImage = null;
+                }
+            }
+        }
 
-		protected override void OnPaint(PaintEventArgs pe)
-		{
-			if (this.Enabled)
-			{
-				base.OnPaint(pe);
-			}
-			else if (this.Image != null)
-			{
-				if (this.disabledImage == null)
-				{
-					this.disabledImage = ToolStripRenderer.CreateDisabledImage(this.Image);
-				}
-				pe.Graphics.DrawImage(this.disabledImage, 0, 0);
-			}
-		}
-	}
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            if (this.Enabled)
+            {
+                base.OnPaint(pe);
+            }
+            else if (this.Image != null)
+            {
+                if (this.disabledImage == null)
+                {
+                    this.disabledImage = ToolStripRenderer.CreateDisabledImage(this.Image);
+                }
+                pe.Graphics.DrawImage(this.disabledImage, 0, 0);
+            }
+        }
+    }
 }

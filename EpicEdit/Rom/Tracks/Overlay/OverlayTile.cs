@@ -19,112 +19,112 @@ using System.Text;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {
-	/// <summary>
-	/// Represents an element located over the track map. E.g.: a coin, an item block...
-	/// </summary>
-	public class OverlayTile
-	{
-		private Point location;
-		public Point Location
-		{
-			get
-			{
-				return this.location;
-			}
-			set
-			{
-				int x = value.X;
-				int y = value.Y;
+    /// <summary>
+    /// Represents an element located over the track map. E.g.: a coin, an item block...
+    /// </summary>
+    public class OverlayTile
+    {
+        private Point location;
+        public Point Location
+        {
+            get
+            {
+                return this.location;
+            }
+            set
+            {
+                int x = value.X;
+                int y = value.Y;
 
-				if (x < 0)
-				{
-					x = 0;
-				}
-				else if (x + this.Width > 128)
-				{
-					x = 128 - this.Width;
-				}
+                if (x < 0)
+                {
+                    x = 0;
+                }
+                else if (x + this.Width > 128)
+                {
+                    x = 128 - this.Width;
+                }
 
-				if (y < 0)
-				{
-					y = 0;
-				}
-				else if (y + this.Height > 128)
-				{
-					y = 128 - this.Height;
-				}
+                if (y < 0)
+                {
+                    y = 0;
+                }
+                else if (y + this.Height > 128)
+                {
+                    y = 128 - this.Height;
+                }
 
-				this.location = new Point(x, y);
-			}
-		}
+                this.location = new Point(x, y);
+            }
+        }
 
-		public int X
-		{
-			get { return this.location.X; }
-		}
+        public int X
+        {
+            get { return this.location.X; }
+        }
 
-		public int Y
-		{
-			get { return this.location.Y; }
-		}
+        public int Y
+        {
+            get { return this.location.Y; }
+        }
 
-		public int Width
-		{
-			get { return this.Pattern.Width; }
-		}
+        public int Width
+        {
+            get { return this.Pattern.Width; }
+        }
 
-		public int Height
-		{
-			get { return this.Pattern.Height; }
-		}
+        public int Height
+        {
+            get { return this.Pattern.Height; }
+        }
 
-		public OverlayTilePattern Pattern { get; set; }
+        public OverlayTilePattern Pattern { get; set; }
 
-		/// <summary>
-		/// Initializes an OverlayTile.
-		/// </summary>
-		/// <param name="pattern">The pattern of the overlay tile.</param>
-		/// <param name="location">The location of the overlay tile.</param>
-		public OverlayTile(OverlayTilePattern pattern, Point location)
-		{
-			this.Pattern = pattern;
-			this.location = location;
-		}
+        /// <summary>
+        /// Initializes an OverlayTile.
+        /// </summary>
+        /// <param name="pattern">The pattern of the overlay tile.</param>
+        /// <param name="location">The location of the overlay tile.</param>
+        public OverlayTile(OverlayTilePattern pattern, Point location)
+        {
+            this.Pattern = pattern;
+            this.location = location;
+        }
 
-		public bool IntersectsWith(Point point)
-		{
-			return
-				point.X >= this.X &&
-				point.X < this.X + this.Width &&
-				point.Y >= this.Y &&
-				point.Y < this.Y + this.Height;
-		}
+        public bool IntersectsWith(Point point)
+        {
+            return
+                point.X >= this.X &&
+                point.X < this.X + this.Width &&
+                point.Y >= this.Y &&
+                point.Y < this.Y + this.Height;
+        }
 
-		/*private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
-		{
-			this.Size = sizes[(data[index] & 0xC0) >> 6];
-			this.Pattern = patterns[data[index] & 0x3F];
+        /*private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
+        {
+            this.Size = sizes[(data[index] & 0xC0) >> 6];
+            this.Pattern = patterns[data[index] & 0x3F];
 
-			int x = (data[index + 1] & 0x7F);
-			int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
-			this.location = new Point(x, y);
-		}*/
+            int x = (data[index + 1] & 0x7F);
+            int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
+            this.location = new Point(x, y);
+        }*/
 
-		/// <summary>
-		/// Fills the passed byte array with data in the format the SMK ROM expects.
-		/// </summary>
-		/// <param name="data">The byte array to fill.</param>
-		/// <param name="index">The array position where the data will be copied.</param>
-		/// <param name="sizes">The collection of overlay tile sizes.</param>
-		/// <param name="patterns">The collection of overlay tile patterns.</param>
-		public void GetBytes(byte[] data, int index, OverlayTileSizes sizes, OverlayTilePatterns patterns)
-		{
-			int sizeIndex = sizes.IndexOf(this.Pattern.Size);
-			int patternIndex = patterns.IndexOf(this.Pattern);
-			data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
+        /// <summary>
+        /// Fills the passed byte array with data in the format the SMK ROM expects.
+        /// </summary>
+        /// <param name="data">The byte array to fill.</param>
+        /// <param name="index">The array position where the data will be copied.</param>
+        /// <param name="sizes">The collection of overlay tile sizes.</param>
+        /// <param name="patterns">The collection of overlay tile patterns.</param>
+        public void GetBytes(byte[] data, int index, OverlayTileSizes sizes, OverlayTilePatterns patterns)
+        {
+            int sizeIndex = sizes.IndexOf(this.Pattern.Size);
+            int patternIndex = patterns.IndexOf(this.Pattern);
+            data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
-			data[index + 1] = (byte)(this.X + ((this.Y << 7) & 0x80));
-			data[index + 2] = (byte)(this.Y >> 1);
-		}
-	}
+            data[index + 1] = (byte)(this.X + ((this.Y << 7) & 0x80));
+            data[index + 2] = (byte)(this.Y >> 1);
+        }
+    }
 }

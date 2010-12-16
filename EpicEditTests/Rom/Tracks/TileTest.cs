@@ -21,71 +21,71 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks
 {
-	[TestFixture]
-	public class TileTest
-	{
-		private StillTile tile;
+    [TestFixture]
+    public class TileTest
+    {
+        private StillTile tile;
 
-		public TileTest()
-		{
-			Bitmap image = new Bitmap(1, 1, PixelFormat.Format24bppRgb);
-			this.tile = new StillTile(image, TileGenre.Road);
-		}
+        public TileTest()
+        {
+            Bitmap image = new Bitmap(1, 1, PixelFormat.Format24bppRgb);
+            this.tile = new StillTile(image, TileGenre.Road);
+        }
 
-		[Test]
-		public void TestTileBitmap()
-		{
-			Assert.IsInstanceOf(typeof(Bitmap), this.tile.Bitmap);
-			Assert.AreEqual(1, this.tile.Height);
-			Assert.AreEqual(1, this.tile.Width);
-		}
+        [Test]
+        public void TestTileBitmap()
+        {
+            Assert.IsInstanceOf(typeof(Bitmap), this.tile.Bitmap);
+            Assert.AreEqual(1, this.tile.Height);
+            Assert.AreEqual(1, this.tile.Width);
+        }
 
-		[Test]
-		public void TestTileGenre()
-		{
-			Assert.AreEqual(this.tile.Genre, TileGenre.Road);
-		}
+        [Test]
+        public void TestTileGenre()
+        {
+            Assert.AreEqual(this.tile.Genre, TileGenre.Road);
+        }
 
-		[Test]
-		public void TestTileSnesColorBlack()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(0, 0, 0));
-			Assert.AreEqual(0x0000, this.tile.ToSnesBitmap()[0]);
-		}
+        [Test]
+        public void TestTileSnesColorBlack()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(0, 0, 0));
+            Assert.AreEqual(0x0000, this.tile.ToSnesBitmap()[0]);
+        }
 
-		[Test]
-		public void TestTileSnesColorWhite()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(255, 255, 255));
-			Assert.AreEqual(0xFF7F, this.tile.ToSnesBitmap()[0]);
-		}
+        [Test]
+        public void TestTileSnesColorWhite()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(255, 255, 255));
+            Assert.AreEqual(0xFF7F, this.tile.ToSnesBitmap()[0]);
+        }
 
-		[Test]
-		public void TestTileSnesColorGray()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 80));
-			Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
-		}
+        [Test]
+        public void TestTileSnesColorGray()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 80));
+            Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
+        }
 
-		[Test]
-		public void TestTileSnesColorAverageHigh()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 88));
-			Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
-		}
+        [Test]
+        public void TestTileSnesColorAverageHigh()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 88));
+            Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
+        }
 
-		[Test]
-		public void TestTileSnesColorAverageMid()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 86));
-			Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
-		}
+        [Test]
+        public void TestTileSnesColorAverageMid()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 86));
+            Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
+        }
 
-		[Test]
-		public void TestTileSnesColorAverageLow()
-		{
-			this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 82));
-			Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
-		}
-	}
+        [Test]
+        public void TestTileSnesColorAverageLow()
+        {
+            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 82));
+            Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
+        }
+    }
 }
