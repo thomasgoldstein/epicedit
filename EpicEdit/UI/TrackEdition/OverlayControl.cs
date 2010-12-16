@@ -325,6 +325,11 @@ namespace EpicEdit.UI.TrackEdition
 
 		private void OverlayTilesetPanelMouseDown(object sender, MouseEventArgs e)
 		{
+			if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
+			{
+				return;
+			}
+
 			this.SelectedPatternInternal = this.hoveredPattern;
 		}
 
