@@ -17,63 +17,63 @@ using System.Drawing;
 
 namespace EpicEdit.Rom
 {
-	/// <summary>
-	/// Represents a palette composed of 16 colors.
-	/// </summary>
-	public class Palette
-	{
-		private RomColor[] colors;
+    /// <summary>
+    /// Represents a palette composed of 16 colors.
+    /// </summary>
+    public class Palette
+    {
+        private RomColor[] colors;
 
-		public Palette()
-		{
-			// This is used to initialize a default palette, all black
-			this.colors = new RomColor[16];
-			for (int x = 0; x < 16; x++)
-			{
-				this.colors[x] = new RomColor();
-			}
-		}
+        public Palette()
+        {
+            // This is used to initialize a default palette, all black
+            this.colors = new RomColor[16];
+            for (int x = 0; x < 16; x++)
+            {
+                this.colors[x] = new RomColor();
+            }
+        }
 
-		public Palette(RomColor[] palette)
-		{
-			if (palette.Length != 16)
-			{
-				throw new ArgumentException("The palette doesn't contain 16 colors.", "palette");
-			}
+        public Palette(RomColor[] palette)
+        {
+            if (palette.Length != 16)
+            {
+                throw new ArgumentException("The palette doesn't contain 16 colors.", "palette");
+            }
 
-			this.colors = palette;
-		}
+            this.colors = palette;
+        }
 
-		public Palette(byte[] palette)
-		{
-			if (palette.Length != 32)
-			{
-				throw new ArgumentException("The palette is not 32-byte long.", "palette");
-			}
+        public Palette(byte[] palette)
+        {
+            if (palette.Length != 32)
+            {
+                throw new ArgumentException("The palette is not 32-byte long.", "palette");
+            }
 
-			this.colors = new RomColor[16];
-			for (int i = 0; i < 16; i++)
-			{
-				this.colors[i] = RomColor.FromBytes(palette, i * 2);
-			}
-		}
+            this.colors = new RomColor[16];
+            for (int i = 0; i < 16; i++)
+            {
+                this.colors[i] = RomColor.FromBytes(palette, i * 2);
+            }
+        }
 
-		public RomColor this[int index]
-		{
-			get { return this.colors[index]; }
-			set { this.colors[index] = value; }
-		}
+        public RomColor this[int index]
+        {
+            get { return this.colors[index]; }
+            set { this.colors[index] = value; }
+        }
 
-		public byte[] GetBytes()
-		{
-			byte[] bytes = new byte[32];
+        public byte[] GetBytes()
+        {
+            byte[] bytes = new byte[32];
 
-			for (int i = 0; i < 16; i++)
-			{
-				Array.Copy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
-			}
+            for (int i = 0; i < 16; i++)
+            {
+                Array.Copy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
+            }
 
-			return bytes;
-		}
-	}
+            return bytes;
+        }
+    }
 }

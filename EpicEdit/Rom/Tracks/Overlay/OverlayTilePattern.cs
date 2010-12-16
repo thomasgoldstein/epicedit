@@ -17,101 +17,101 @@ using System.Collections;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {
-	/// <summary>
-	/// Describes a single overlay pattern, including its dimensions.
-	/// </summary>
-	public class OverlayTilePattern : IEquatable<OverlayTilePattern>
-	{
-		/// <summary>
-		/// Tiles[y][x]
-		/// </summary>
-		public byte[][] Tiles { get; private set; }
+    /// <summary>
+    /// Describes a single overlay pattern, including its dimensions.
+    /// </summary>
+    public class OverlayTilePattern : IEquatable<OverlayTilePattern>
+    {
+        /// <summary>
+        /// Tiles[y][x]
+        /// </summary>
+        public byte[][] Tiles { get; private set; }
 
-		public OverlayTileSize Size { get; private set; }
+        public OverlayTileSize Size { get; private set; }
 
-		public int Width
-		{
-			get { return this.Size.Width; }
-		}
+        public int Width
+        {
+            get { return this.Size.Width; }
+        }
 
-		public int Height
-		{
-			get { return this.Size.Height; }
-		}
+        public int Height
+        {
+            get { return this.Size.Height; }
+        }
 
-		public bool Modified { get; private set; }
+        public bool Modified { get; private set; }
 
-		public OverlayTilePattern(byte[] data, OverlayTileSize size)
-		{
-			if (data.Length != size.Width * size.Height)
-			{
-				throw new ArgumentException("Data does not match size.");
-			}
+        public OverlayTilePattern(byte[] data, OverlayTileSize size)
+        {
+            if (data.Length != size.Width * size.Height)
+            {
+                throw new ArgumentException("Data does not match size.");
+            }
 
-			this.Size = size;
-			this.SetBytes(data);
-			this.Modified = false;
-		}
+            this.Size = size;
+            this.SetBytes(data);
+            this.Modified = false;
+        }
 
-		/// <summary>
-		/// Convert data into a nice y/x byte[][] to facilitate reading.
-		/// </summary>
-		private void SetBytes(byte[] data)
-		{
-			this.Tiles = new byte[this.Height][];
+        /// <summary>
+        /// Convert data into a nice y/x byte[][] to facilitate reading.
+        /// </summary>
+        private void SetBytes(byte[] data)
+        {
+            this.Tiles = new byte[this.Height][];
 
-			for (int y = 0; y < this.Height; y++)
-			{
-				this.Tiles[y] = new byte[this.Width];
-				Array.Copy(data, y * this.Width, this.Tiles[y], 0, this.Width);
-			}
-		}
+            for (int y = 0; y < this.Height; y++)
+            {
+                this.Tiles[y] = new byte[this.Width];
+                Array.Copy(data, y * this.Width, this.Tiles[y], 0, this.Width);
+            }
+        }
 
-		/// <summary>
-		/// Reconstructs the original byte[].
-		/// </summary>
-		public byte[] GetBytes()
-		{
-			byte[] buffer = new byte[this.Width * this.Height];
+        /// <summary>
+        /// Reconstructs the original byte[].
+        /// </summary>
+        public byte[] GetBytes()
+        {
+            byte[] buffer = new byte[this.Width * this.Height];
 
-			for (int y = 0; y < this.Height; y++)
-			{
-				Array.Copy(this.Tiles[y], 0, buffer, y * this.Width, this.Width);
-			}
+            for (int y = 0; y < this.Height; y++)
+            {
+                Array.Copy(this.Tiles[y], 0, buffer, y * this.Width, this.Width);
+            }
 
-			return buffer;
-		}
+            return buffer;
+        }
 
-		public bool Equals(OverlayTilePattern other)
-		{
-			if (other == null)
-			{
-				return false;
-			}
+        public bool Equals(OverlayTilePattern other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
 
-			if (other.Width != this.Width ||
-				other.Height != this.Height)
-			{
-				return false;
-			}
+            if (other.Width != this.Width ||
+                other.Height != this.Height)
+            {
+                return false;
+            }
 
-			if (other.Size != this.Size)
-			{
-				return false;
-			}
+            if (other.Size != this.Size)
+            {
+                return false;
+            }
 
-			for (int y = 0; y < this.Height; y++)
-			{
-				for (int x = 0; x < this.Width; x++)
-				{
-					if (other.Tiles[y][x] != this.Tiles[y][x])
-					{
-						return false;
-					}
-				}
-			}
+            for (int y = 0; y < this.Height; y++)
+            {
+                for (int x = 0; x < this.Width; x++)
+                {
+                    if (other.Tiles[y][x] != this.Tiles[y][x])
+                    {
+                        return false;
+                    }
+                }
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }

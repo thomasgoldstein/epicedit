@@ -17,25 +17,25 @@ using System.Windows.Forms;
 
 namespace EpicEdit.UI.ThemeEdition
 {
-	/// <summary>
-	/// A theme editor.
-	/// </summary>
-	public partial class ThemeEditor : UserControl
-	{
-		public ThemeEditor()
-		{
-			this.InitializeComponent();
-		}
+    /// <summary>
+    /// A theme editor.
+    /// </summary>
+    public partial class ThemeEditor : UserControl
+    {
+        public ThemeEditor()
+        {
+            this.InitializeComponent();
+        }
 
-		public void InitOnFirstRomLoad()
-		{
-			this.InitOnRomLoad();
-			this.Enabled = true;
-		}
+        public void InitOnFirstRomLoad()
+        {
+            this.InitOnRomLoad();
+            this.Enabled = true;
+        }
 
-		public void InitOnRomLoad()
-		{
-			this.itemProbaControl.InitOnRomLoad();
-		}
-	}
+        public void InitOnRomLoad()
+        {
+            this.itemProbaControl.InitOnRomLoad();
+        }
+    }
 }

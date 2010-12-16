@@ -16,44 +16,44 @@ using System;
 
 namespace EpicEdit
 {
-	/// <summary>
-	/// Returns information about the OS and the framework run by the user.
-	/// </summary>
-	public static class PlatformInformation
-	{
-		/// <summary>
-		/// Checks whether the framework used is Mono.
-		/// </summary>
-		/// <returns>True (using Mono) or false (not using Mono).</returns>
-		public static bool IsMono
-		{
-			get { return Type.GetType("Mono.Runtime") != null; }
-		}
+    /// <summary>
+    /// Returns information about the OS and the framework run by the user.
+    /// </summary>
+    public static class PlatformInformation
+    {
+        /// <summary>
+        /// Checks whether the framework used is Mono.
+        /// </summary>
+        /// <returns>True (using Mono) or false (not using Mono).</returns>
+        public static bool IsMono
+        {
+            get { return Type.GetType("Mono.Runtime") != null; }
+        }
 
-		/// <summary>
-		/// Checks whether the application is run on Windows.
-		/// </summary>
-		/// <returns>True (Windows) or false (not Windows).</returns>
-		public static bool IsWindows
-		{
-			get
-			{
-				return Environment.OSVersion.Platform == PlatformID.Win32NT ||
-					Environment.OSVersion.Platform == PlatformID.Win32Windows;
-			}
-		}
+        /// <summary>
+        /// Checks whether the application is run on Windows.
+        /// </summary>
+        /// <returns>True (Windows) or false (not Windows).</returns>
+        public static bool IsWindows
+        {
+            get
+            {
+                return Environment.OSVersion.Platform == PlatformID.Win32NT ||
+                    Environment.OSVersion.Platform == PlatformID.Win32Windows;
+            }
+        }
 
-		/// <summary>
-		/// Checks whether the application is run on Linux, Unix or Mac.
-		/// </summary>
-		/// <returns>True (Unix) or false (not Unix).</returns>
-		public static bool IsLinuxOrMac
-		{
-			get
-			{
-				int p = (int)Environment.OSVersion.Platform;
-				return p == 4 || p == 128;
-			}
-		}
-	}
+        /// <summary>
+        /// Checks whether the application is run on Linux, Unix or Mac.
+        /// </summary>
+        /// <returns>True (Unix) or false (not Unix).</returns>
+        public static bool IsLinuxOrMac
+        {
+            get
+            {
+                int p = (int)Environment.OSVersion.Platform;
+                return p == 4 || p == 128;
+            }
+        }
+    }
 }

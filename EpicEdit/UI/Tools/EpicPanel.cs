@@ -18,20 +18,20 @@ using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
 {
-	/// <summary>
-	/// This is simply a Panel with OnPaintBackground disabled. Not all that Epic.
-	/// </summary>
-	public class EpicPanel : Panel
-	{
-		private static readonly new bool DesignMode =
-			LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+    /// <summary>
+    /// This is simply a Panel with OnPaintBackground disabled. Not all that Epic.
+    /// </summary>
+    public class EpicPanel : Panel
+    {
+        private static readonly new bool DesignMode =
+            LicenseManager.UsageMode == LicenseUsageMode.Designtime;
 
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{
-			if (!this.Enabled || EpicPanel.DesignMode)
-			{
-				base.OnPaintBackground(e);
-			}
-		}
-	}
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (!this.Enabled || EpicPanel.DesignMode)
+            {
+                base.OnPaintBackground(e);
+            }
+        }
+    }
 }

@@ -16,74 +16,74 @@ using System;
 
 namespace EpicEdit.Rom
 {
-	/// <summary>
-	/// Represents an interval defined by a <see cref="Start"/> and <see cref="End"/> value.
-	/// </summary>
-	public struct Range
-	{
-		public static readonly Range Empty;
+    /// <summary>
+    /// Represents an interval defined by a <see cref="Start"/> and <see cref="End"/> value.
+    /// </summary>
+    public struct Range
+    {
+        public static readonly Range Empty;
 
-		private int start;
-		private int end;
+        private int start;
+        private int end;
 
-		public Range(int start, int end)
-		{
-			this.start = start;
-			this.end = end;
-		}
+        public Range(int start, int end)
+        {
+            this.start = start;
+            this.end = end;
+        }
 
-		/// <summary>
-		/// Gets or sets the range start value.
-		/// </summary>
-		public int Start
-		{
-			get { return this.start; }
-			set { this.start = value; }
-		}
+        /// <summary>
+        /// Gets or sets the range start value.
+        /// </summary>
+        public int Start
+        {
+            get { return this.start; }
+            set { this.start = value; }
+        }
 
-		/// <summary>
-		/// Gets or sets the range end value.
-		/// </summary>
-		public int End
-		{
-			get { return this.end; }
-			set { this.end = value; }
-		}
+        /// <summary>
+        /// Gets or sets the range end value.
+        /// </summary>
+        public int End
+        {
+            get { return this.end; }
+            set { this.end = value; }
+        }
 
-		/// <summary>
-		/// Gets or sets the range length.
-		/// </summary>
-		public int Length
-		{
-			get { return this.end - this.start; }
-			set { this.end = this.start + value; }
-		}
+        /// <summary>
+        /// Gets or sets the range length.
+        /// </summary>
+        public int Length
+        {
+            get { return this.end - this.start; }
+            set { this.end = this.start + value; }
+        }
 
-		public static bool operator ==(Range left, Range right)
-		{
-			return left.start == right.start &&
-				left.end == right.end;
-		}
+        public static bool operator ==(Range left, Range right)
+        {
+            return left.start == right.start &&
+                left.end == right.end;
+        }
 
-		public static bool operator !=(Range left, Range right)
-		{
-			return left.start != right.start ||
-				left.end != right.end;
-		}
+        public static bool operator !=(Range left, Range right)
+        {
+            return left.start != right.start ||
+                left.end != right.end;
+        }
 
-		public override bool Equals(object obj)
-		{
-			return obj is Range && this == (Range)obj;
-		}
+        public override bool Equals(object obj)
+        {
+            return obj is Range && this == (Range)obj;
+        }
 
-		public override int GetHashCode()
-		{
-			return this.start ^ this.end;
-		}
+        public override int GetHashCode()
+        {
+            return this.start ^ this.end;
+        }
 
-		public bool Includes(int value)
-		{
-			return this.start <= value && value <= this.end;
-		}
-	}
+        public bool Includes(int value)
+        {
+            return this.start <= value && value <= this.end;
+        }
+    }
 }

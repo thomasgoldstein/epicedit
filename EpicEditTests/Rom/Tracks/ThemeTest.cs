@@ -20,93 +20,93 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks
 {
-	[TestFixture]
-	public class ThemeTest
-	{
-		int count;
-		Theme theme;
+    [TestFixture]
+    public class ThemeTest
+    {
+        int count;
+        Theme theme;
 
-		public ThemeTest()
-		{
-			this.count = 64;
-			this.theme = new Theme("Stifu's & Midwife theme", new Palette[16], new Tile[this.count], new Tile[this.count], new Music());
-		}
+        public ThemeTest()
+        {
+            this.count = 64;
+            this.theme = new Theme("Stifu's & Midwife theme", new Palette[16], new Tile[this.count], new Tile[this.count], new Music());
+        }
 
-		[Test]
-		public void TestName()
-		{
-			Assert.AreEqual("Stifu's & Midwife theme", this.theme.Name);
-		}
+        [Test]
+        public void TestName()
+        {
+            Assert.AreEqual("Stifu's & Midwife theme", this.theme.Name);
+        }
 
-		[Test]
-		public void TestMusic()
-		{
-			Music music = new Music();
-			this.theme.Music = music;
-			Assert.AreEqual(music, this.theme.Music);
-		}
+        [Test]
+        public void TestMusic()
+        {
+            Music music = new Music();
+            this.theme.Music = music;
+            Assert.AreEqual(music, this.theme.Music);
+        }
 
-		[Test]
-		public void TestRoadTileset()
-		{
-			Tile[] tiles = new StillTile[this.count];
-			for (int i = 0; i < this.count; i++)
-			{
-				tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-			}
-			this.theme.SetRoadTileset(tiles);
-			Assert.AreEqual(this.theme.GetRoadTile(0), tiles[0]);
-			Assert.AreEqual(this.theme.GetRoadTile(63), tiles[63]);
-		}
+        [Test]
+        public void TestRoadTileset()
+        {
+            Tile[] tiles = new StillTile[this.count];
+            for (int i = 0; i < this.count; i++)
+            {
+                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+            }
+            this.theme.SetRoadTileset(tiles);
+            Assert.AreEqual(this.theme.GetRoadTile(0), tiles[0]);
+            Assert.AreEqual(this.theme.GetRoadTile(63), tiles[63]);
+        }
 
-		[Test]
-		public void TestRoadTiles()
-		{
-			Tile[] tiles = new StillTile[this.count];
-			this.theme.ClearRoadTileset();
-			for (int i = 0; i < this.count; i++)
-			{
-				tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-				this.theme.SetRoadTile(i, tiles[i]);
-			}
+        [Test]
+        public void TestRoadTiles()
+        {
+            Tile[] tiles = new StillTile[this.count];
+            this.theme.ClearRoadTileset();
+            for (int i = 0; i < this.count; i++)
+            {
+                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                this.theme.SetRoadTile(i, tiles[i]);
+            }
 
-			for (int i = 0; i < this.count; i++)
-			{
-				Assert.AreEqual(this.theme.GetRoadTile(i), tiles[i]);
-			}
-		}
+            for (int i = 0; i < this.count; i++)
+            {
+                Assert.AreEqual(this.theme.GetRoadTile(i), tiles[i]);
+            }
+        }
 
-		[Test]
-		public void TestBackgroundTileset()
-		{
-			Tile[] tiles = new StillTile[this.count];
-			for (int i = 0; i < this.count; i++)
-			{
-				tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-			}
-			this.theme.SetBackgroundTileset(tiles);
+        [Test]
+        public void TestBackgroundTileset()
+        {
+            Tile[] tiles = new StillTile[this.count];
+            for (int i = 0; i < this.count; i++)
+            {
+                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+            }
+            this.theme.SetBackgroundTileset(tiles);
 
-			for (int i = 0; i < this.count; i++)
-			{
-				Assert.AreEqual(this.theme.GetBackgroundTile(i), tiles[i]);
-			}
-		}
+            for (int i = 0; i < this.count; i++)
+            {
+                Assert.AreEqual(this.theme.GetBackgroundTile(i), tiles[i]);
+            }
+        }
 
-		[Test]
-		public void TestBackgroundTiles()
-		{
-			Tile[] tiles = new StillTile[this.count];
-			this.theme.ClearBackgroundTileset();
-			for (int i = 0; i < this.count; i++)
-			{
-				tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-				this.theme.SetBackgroundTile(i, tiles[i]);
-			}
+        [Test]
+        public void TestBackgroundTiles()
+        {
+            Tile[] tiles = new StillTile[this.count];
+            this.theme.ClearBackgroundTileset();
+            for (int i = 0; i < this.count; i++)
+            {
+                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                this.theme.SetBackgroundTile(i, tiles[i]);
+            }
 
-			for (int i = 0; i < this.count; i++)
-			{
-				Assert.AreEqual(this.theme.GetBackgroundTile(i), tiles[i]);
-			}
-		}
-	}
+            for (int i = 0; i < this.count; i++)
+            {
+                Assert.AreEqual(this.theme.GetBackgroundTile(i), tiles[i]);
+            }
+        }
+    }
 }

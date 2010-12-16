@@ -16,21 +16,21 @@ using System;
 
 namespace EpicEdit.UI.Tools
 {
-	/// <summary>
-	/// Generic EventArgs.
-	/// </summary>
-	public class EventArgs<T> : EventArgs
-	{
-		public EventArgs(T value)
-		{
-			this.value = value;
-		}
+    /// <summary>
+    /// Generic EventArgs.
+    /// </summary>
+    public class EventArgs<T> : EventArgs
+    {
+        public EventArgs(T value)
+        {
+            this.value = value;
+        }
 
-		private T value;
+        private T value;
 
-		public T Value
-		{
-			get { return value; }
-		}
-	}
+        public T Value
+        {
+            get { return value; }
+        }
+    }
 }

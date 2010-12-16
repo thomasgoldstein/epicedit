@@ -19,43 +19,43 @@ using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
 {
-	/// <summary>
-	/// Represents a UI helper class.
-	/// </summary>
-	public static class UITools
-	{
-		/// <summary>
-		/// Sets the Value of the passed EventArgs using the Description of the underlying Enum item.
-		/// </summary>
-		/// <param name="e"></param>
-		public static void SetValueFromEnumDescription(ConvertEventArgs e)
-		{
-			if (!(e.Value is Enum))
-			{
-				// HACK: Do nothing in order to prevent an exception.
-				// Workaround for Mono bug #620326
-				// https://bugzilla.novell.com/show_bug.cgi?id=620326
-				return;
-			}
-			
-			bool foundDescription = false;
-			Enum en = (Enum)e.Value;
-			Type type = en.GetType();
-			MemberInfo[] memInfo = type.GetMember(en.ToString());
-			if (memInfo != null && memInfo.Length > 0)
-			{
-				object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-				if (attrs != null && attrs.Length > 0)
-				{
-					foundDescription = true;
-					e.Value = ((DescriptionAttribute)attrs[0]).Description;
-				}
-			}
+    /// <summary>
+    /// Represents a UI helper class.
+    /// </summary>
+    public static class UITools
+    {
+        /// <summary>
+        /// Sets the Value of the passed EventArgs using the Description of the underlying Enum item.
+        /// </summary>
+        /// <param name="e"></param>
+        public static void SetValueFromEnumDescription(ConvertEventArgs e)
+        {
+            if (!(e.Value is Enum))
+            {
+                // HACK: Do nothing in order to prevent an exception.
+                // Workaround for Mono bug #620326
+                // https://bugzilla.novell.com/show_bug.cgi?id=620326
+                return;
+            }
+            
+            bool foundDescription = false;
+            Enum en = (Enum)e.Value;
+            Type type = en.GetType();
+            MemberInfo[] memInfo = type.GetMember(en.ToString());
+            if (memInfo != null && memInfo.Length > 0)
+            {
+                object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attrs != null && attrs.Length > 0)
+                {
+                    foundDescription = true;
+                    e.Value = ((DescriptionAttribute)attrs[0]).Description;
+                }
+            }
 
-			if (!foundDescription)
-			{
-				e.Value = en.ToString();
-			}
-		}
-	}
+            if (!foundDescription)
+            {
+                e.Value = en.ToString();
+            }
+        }
+    }
 }

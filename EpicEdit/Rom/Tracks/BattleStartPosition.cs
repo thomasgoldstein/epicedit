@@ -17,84 +17,84 @@ using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks
 {
-	/// <summary>
-	/// The starting position of the drivers on a battle track.
-	/// </summary>
-	public class BattleStartPosition
-	{
-		private Point location;
-		public Point Location
-		{
-			get { return this.location; }
-			set
-			{
-				int x = value.X;
-				int y = value.Y;
-				int limit = 127 * 8;
+    /// <summary>
+    /// The starting position of the drivers on a battle track.
+    /// </summary>
+    public class BattleStartPosition
+    {
+        private Point location;
+        public Point Location
+        {
+            get { return this.location; }
+            set
+            {
+                int x = value.X;
+                int y = value.Y;
+                int limit = 127 * 8;
 
-				if (x < 8)
-				{
-					x = 8;
-				}
-				else if (x > limit)
-				{
-					x = limit;
-				}
+                if (x < 8)
+                {
+                    x = 8;
+                }
+                else if (x > limit)
+                {
+                    x = limit;
+                }
 
-				if (y < 8)
-				{
-					y = 8;
-				}
-				else if (y > limit)
-				{
-					y = limit;
-				}
+                if (y < 8)
+                {
+                    y = 8;
+                }
+                else if (y > limit)
+                {
+                    y = limit;
+                }
 
-				this.location = new Point(x, y);
-			}
-		}
+                this.location = new Point(x, y);
+            }
+        }
 
-		public int X
-		{
-			get { return this.location.X; }
-		}
-		public int Y
-		{
-			get { return this.location.Y; }
-		}
+        public int X
+        {
+            get { return this.location.X; }
+        }
+        public int Y
+        {
+            get { return this.location.Y; }
+        }
 
-		public BattleStartPosition(byte[] data)
-		{
-			int x = (data[1] << 8) + data[0];
-			int y = (data[3] << 8) + data[2];
-			this.location = new Point(x, y);
-		}
+        public BattleStartPosition(byte[] data)
+        {
+            int x = (data[1] << 8) + data[0];
+            int y = (data[3] << 8) + data[2];
+            this.location = new Point(x, y);
+        }
 
-		public static implicit operator Point(BattleStartPosition position)
-		{
-			return position.location;
-		}
+        public static implicit operator Point(BattleStartPosition position)
+        {
+            return position.location;
+        }
 
-		/// <summary>
-		/// Returns the BattleStartPosition data as a byte array, in the format the SMK ROM expects.
-		/// </summary>
-		/// <returns>The BattleStartPosition bytes.</returns>
-		public byte[] GetBytes()
-		{
-			byte[] data = new byte[4];
-			data[0] = (byte)(this.X & 0xFF);
-			data[1] = (byte)((this.X >> 8) & 0xFF);
-			data[2] = (byte)(this.Y & 0xFF);
-			data[3] = (byte)((this.Y >> 8) & 0xFF);
-			return data;
-		}
+        /// <summary>
+        /// Returns the BattleStartPosition data as a byte array, in the format the SMK ROM expects.
+        /// </summary>
+        /// <returns>The BattleStartPosition bytes.</returns>
+        public byte[] GetBytes()
+        {
+            byte[] data = new byte[4];
+            data[0] = (byte)(this.X & 0xFF);
+            data[1] = (byte)((this.X >> 8) & 0xFF);
+            data[2] = (byte)(this.Y & 0xFF);
+            data[3] = (byte)((this.Y >> 8) & 0xFF);
+            return data;
+        }
 
-		public bool IntersectsWith(Point point)
-		{
-			return point.X >= this.X - 8 &&
-				point.X <= this.X + 7 &&
-				point.Y >= this.Y - 8 &&
-				point.Y <= this.Y + 7;
-		}
-	}
+        public bool IntersectsWith(Point point)
+        {
+            return point.X >= this.X - 8 &&
+                point.X <= this.X + 7 &&
+                point.Y >= this.Y - 8 &&
+                point.Y <= this.Y + 7;
+        }
+    }
 }

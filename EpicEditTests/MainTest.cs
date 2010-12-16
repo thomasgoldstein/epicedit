@@ -16,13 +16,13 @@ using System;
 
 namespace EpicEditTests
 {
-	/// <summary>
-	/// Description of MainTest.
-	/// </summary>
-	public class MainTest
-	{
-		public static void Main()
-		{
-		}
-	}
+    /// <summary>
+    /// Description of MainTest.
+    /// </summary>
+    public class MainTest
+    {
+        public static void Main()
+        {
+        }
+    }
 }

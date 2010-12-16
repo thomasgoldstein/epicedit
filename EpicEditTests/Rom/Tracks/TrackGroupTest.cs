@@ -21,55 +21,55 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks
 {
-	[TestFixture]
-	public class TrackGroupTest
-	{
-		private Smk smk;
-		private TrackGroup trackGroup;
+    [TestFixture]
+    public class TrackGroupTest
+    {
+        private Smk smk;
+        private TrackGroup trackGroup;
 
-		public TrackGroupTest()
-		{
-			this.smk = new Smk();
+        public TrackGroupTest()
+        {
+            this.smk = new Smk();
 
-			byte[] map = new byte[128 * 128];
+            byte[] map = new byte[128 * 128];
 
-			Tile[] tiles = new StillTile[2];
-			tiles[0] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-			tiles[1] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+            Tile[] tiles = new StillTile[2];
+            tiles[0] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+            tiles[1] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
 
-			Theme theme = new Theme("TestTheme", new Palette[16], tiles, tiles, new Music());
+            Theme theme = new Theme("TestTheme", new Palette[16], tiles, tiles, new Music());
 
-			Track[] tracks = new Track[2];
-			tracks[0] = new GPTrack("Test 1", theme,
-									map, new byte[128],
-									new byte[0], new byte[0],
-									new byte[6], new byte[6],
-									new byte[44], new byte[10],
-									this.smk.OverlayTileSizes,
-									this.smk.OverlayTilePatterns
-								);
+            Track[] tracks = new Track[2];
+            tracks[0] = new GPTrack("Test 1", theme,
+                                    map, new byte[128],
+                                    new byte[0], new byte[0],
+                                    new byte[6], new byte[6],
+                                    new byte[44], new byte[10],
+                                    this.smk.OverlayTileSizes,
+                                    this.smk.OverlayTilePatterns
+                                );
 
-			tracks[1] = new GPTrack("Test 2", theme,
-									map, new byte[128],
-									new byte[0], new byte[0],
-									new byte[6], new byte[6],
-									new byte[44], new byte[10],
-									this.smk.OverlayTileSizes,
-									this.smk.OverlayTilePatterns);
+            tracks[1] = new GPTrack("Test 2", theme,
+                                    map, new byte[128],
+                                    new byte[0], new byte[0],
+                                    new byte[6], new byte[6],
+                                    new byte[44], new byte[10],
+                                    this.smk.OverlayTileSizes,
+                                    this.smk.OverlayTilePatterns);
 
-			this.trackGroup = new TrackGroup("Flower Cup", tracks);
-		}
+            this.trackGroup = new TrackGroup("Flower Cup", tracks);
+        }
 
-		[Test]
-		public void TestName()
-		{
-			Assert.AreEqual("Flower Cup", this.trackGroup.Name);
-		}
+        [Test]
+        public void TestName()
+        {
+            Assert.AreEqual("Flower Cup", this.trackGroup.Name);
+        }
 
-		[Test]
-		public void TestNumberOfTracksInside()
-		{
-			Assert.AreEqual(2, this.trackGroup.GetTracks().Length);
-		}
-	}
+        [Test]
+        public void TestNumberOfTracksInside()
+        {
+            Assert.AreEqual(2, this.trackGroup.GetTracks().Length);
+        }
+    }
 }

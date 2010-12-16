@@ -19,54 +19,54 @@ using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks
 {
-	[TestFixture]
-	public class BattleTrackTest
-	{
-		private Game game;
+    [TestFixture]
+    public class BattleTrackTest
+    {
+        private Game game;
 
-		public BattleTrackTest()
-		{
-			this.game = new Game(File.RelativePath + "smk.smc");
-		}
+        public BattleTrackTest()
+        {
+            this.game = new Game(File.RelativePath + "smk.smc");
+        }
 
-		private void TestSmkcImportExport(int trackGroupId, int trackId)
-		{
-			BattleTrack track1 = this.game.GetTrack(trackGroupId, trackId) as BattleTrack;
-			BattleTrack track2 = this.game.GetTrack(4, 0) as BattleTrack;
+        private void TestSmkcImportExport(int trackGroupId, int trackId)
+        {
+            BattleTrack track1 = this.game.GetTrack(trackGroupId, trackId) as BattleTrack;
+            BattleTrack track2 = this.game.GetTrack(4, 0) as BattleTrack;
 
-			track1.Export("track.smkc", this.game);
-			track2.Import("track.smkc", this.game);
+            track1.Export("track.smkc", this.game);
+            track2.Import("track.smkc", this.game);
 
-			Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
-			Assert.AreEqual(game.Themes.GetThemeId(track1.Theme), game.Themes.GetThemeId(track2.Theme));
-			Assert.AreEqual(track1.OverlayTiles.GetBytes(), track2.OverlayTiles.GetBytes());
-			Assert.AreEqual(track1.StartPositionP1.GetBytes(), track2.StartPositionP1.GetBytes());
-			Assert.AreEqual(track1.StartPositionP2.GetBytes(), track2.StartPositionP2.GetBytes());
-			Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
-		}
+            Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
+            Assert.AreEqual(game.Themes.GetThemeId(track1.Theme), game.Themes.GetThemeId(track2.Theme));
+            Assert.AreEqual(track1.OverlayTiles.GetBytes(), track2.OverlayTiles.GetBytes());
+            Assert.AreEqual(track1.StartPositionP1.GetBytes(), track2.StartPositionP1.GetBytes());
+            Assert.AreEqual(track1.StartPositionP2.GetBytes(), track2.StartPositionP2.GetBytes());
+            Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
+        }
 
-		[Test]
-		public void TestSmkcImportExport21()
-		{
-			this.TestSmkcImportExport(4, 0);
-		}
+        [Test]
+        public void TestSmkcImportExport21()
+        {
+            this.TestSmkcImportExport(4, 0);
+        }
 
-		[Test]
-		public void TestSmkcImportExport22()
-		{
-			this.TestSmkcImportExport(4, 1);
-		}
+        [Test]
+        public void TestSmkcImportExport22()
+        {
+            this.TestSmkcImportExport(4, 1);
+        }
 
-		[Test]
-		public void TestSmkcImportExport23()
-		{
-			this.TestSmkcImportExport(4, 2);
-		}
+        [Test]
+        public void TestSmkcImportExport23()
+        {
+            this.TestSmkcImportExport(4, 2);
+        }
 
-		[Test]
-		public void TestSmkcImportExport24()
-		{
-			this.TestSmkcImportExport(4, 3);
-		}
-	}
+        [Test]
+        public void TestSmkcImportExport24()
+        {
+            this.TestSmkcImportExport(4, 3);
+        }
+    }
 }

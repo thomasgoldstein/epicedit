@@ -18,107 +18,107 @@ using System.Collections.Generic;
 
 namespace EpicEdit.Rom.Compression
 {
-	/// <summary>
-	/// A collection of <see cref="ChunkNodes">chunk nodes</see>.
-	/// It keeps track of the best solutions (ie: resulting in the highest compression rate) among the nodes.
-	/// </summary>
-	internal class ChunkNodeCollection : IEnumerable<KeyValuePair<int, ChunkNode>>
-	{
-		/// <summary>
-		/// A dictionary of all the best <see cref="ChunkNode">nodes</see> (ie: nodes that lead to the best compression rate).
-		/// The integer value represents the offset (position) in the buffer we want to compress.
-		/// </summary>
-		private Dictionary<int, ChunkNode> nodeDictionary;
+    /// <summary>
+    /// A collection of <see cref="ChunkNodes">chunk nodes</see>.
+    /// It keeps track of the best solutions (ie: resulting in the highest compression rate) among the nodes.
+    /// </summary>
+    internal class ChunkNodeCollection : IEnumerable<KeyValuePair<int, ChunkNode>>
+    {
+        /// <summary>
+        /// A dictionary of all the best <see cref="ChunkNode">nodes</see> (ie: nodes that lead to the best compression rate).
+        /// The integer value represents the offset (position) in the buffer we want to compress.
+        /// </summary>
+        private Dictionary<int, ChunkNode> nodeDictionary;
 
-		/// <summary>
-		/// The queue of offsets to process.
-		/// Using it with the <see cref="nodeDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
-		/// </summary>
-		private Queue<int> offsetQueue;
+        /// <summary>
+        /// The queue of offsets to process.
+        /// Using it with the <see cref="nodeDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
+        /// </summary>
+        private Queue<int> offsetQueue;
 
-		public ChunkNodeCollection()
-		{
-			this.nodeDictionary = new Dictionary<int, ChunkNode>();
-			this.offsetQueue = new Queue<int>();
+        public ChunkNodeCollection()
+        {
+            this.nodeDictionary = new Dictionary<int, ChunkNode>();
+            this.offsetQueue = new Queue<int>();
 
-			ChunkNode rootNode = new ChunkNode(null, new byte[0]);
-			this.Add(0, rootNode);
-		}
+            ChunkNode rootNode = new ChunkNode(null, new byte[0]);
+            this.Add(0, rootNode);
+        }
 
-		public void Add(int offset, ChunkNode node)
-		{
-			if (!this.nodeDictionary.ContainsKey(offset))
-			{
-				this.nodeDictionary.Add(offset, node);
-				this.offsetQueue.Enqueue(offset);
-			}
-			else
-			{
-				if (node.CompressedBufferSize < this.nodeDictionary[offset].CompressedBufferSize)
-				{
-					this.nodeDictionary[offset].SetAsNonOptimal();
-					this.nodeDictionary[offset] = node;
-					this.offsetQueue.Enqueue(offset);
-				}
-			}
-		}
+        public void Add(int offset, ChunkNode node)
+        {
+            if (!this.nodeDictionary.ContainsKey(offset))
+            {
+                this.nodeDictionary.Add(offset, node);
+                this.offsetQueue.Enqueue(offset);
+            }
+            else
+            {
+                if (node.CompressedBufferSize < this.nodeDictionary[offset].CompressedBufferSize)
+                {
+                    this.nodeDictionary[offset].SetAsNonOptimal();
+                    this.nodeDictionary[offset] = node;
+                    this.offsetQueue.Enqueue(offset);
+                }
+            }
+        }
 
-		public IEnumerator<KeyValuePair<int, ChunkNode>> GetEnumerator()
-		{
-			return this.nodeDictionary.GetEnumerator();
-		}
+        public IEnumerator<KeyValuePair<int, ChunkNode>> GetEnumerator()
+        {
+            return this.nodeDictionary.GetEnumerator();
+        }
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return this.nodeDictionary.GetEnumerator();
-		}
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.nodeDictionary.GetEnumerator();
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public ChunkNode this[int offset]
-		{
-			get { return this.nodeDictionary[offset]; }
-		}
+        /// <summary>
+        /// 
+        /// </summary>
+        public ChunkNode this[int offset]
+        {
+            get { return this.nodeDictionary[offset]; }
+        }
 
-		/// <summary>
-		/// The number of remaining nodes to process.
-		/// </summary>
-		public int Count
-		{
-			get { return this.offsetQueue.Count; }
-		}
+        /// <summary>
+        /// The number of remaining nodes to process.
+        /// </summary>
+        public int Count
+        {
+            get { return this.offsetQueue.Count; }
+        }
 
-		/// <summary>
-		/// Checks whether the next <see cref="ChunkNode">node</see> in the queue is worth processing,
-		/// based on whether it's already been processed and if it's possibly in the path leading to the optimal compression rate.
-		/// </summary>
-		/// <returns>False if the next <see cref="ChunkNode">node</see> is known not to be worth processing, true otherwise.</returns>
-		public bool IsNextNodeOptimal()
-		{
-			int offset = this.offsetQueue.Peek();
-			ChunkNode node = this.nodeDictionary[offset];
+        /// <summary>
+        /// Checks whether the next <see cref="ChunkNode">node</see> in the queue is worth processing,
+        /// based on whether it's already been processed and if it's possibly in the path leading to the optimal compression rate.
+        /// </summary>
+        /// <returns>False if the next <see cref="ChunkNode">node</see> is known not to be worth processing, true otherwise.</returns>
+        public bool IsNextNodeOptimal()
+        {
+            int offset = this.offsetQueue.Peek();
+            ChunkNode node = this.nodeDictionary[offset];
 
-			if (node.Processed || !node.IsOptimal)
-			{
-				this.offsetQueue.Dequeue();
-			}
+            if (node.Processed || !node.IsOptimal)
+            {
+                this.offsetQueue.Dequeue();
+            }
 
-			return !node.Processed && node.IsOptimal;
-		}
+            return !node.Processed && node.IsOptimal;
+        }
 
-		/// <summary>
-		/// Get the next <see cref="ChunkNode">node</see> in the queue.
-		/// </summary>
-		/// <returns>The next <see cref="ChunkNode">node</see> in the queue.</returns>
-		public KeyValuePair<int, ChunkNode> GetNextNode()
-		{
-			int offset = this.offsetQueue.Dequeue();
-			ChunkNode node = this.nodeDictionary[offset];
-			node.Processed = true;
+        /// <summary>
+        /// Get the next <see cref="ChunkNode">node</see> in the queue.
+        /// </summary>
+        /// <returns>The next <see cref="ChunkNode">node</see> in the queue.</returns>
+        public KeyValuePair<int, ChunkNode> GetNextNode()
+        {
+            int offset = this.offsetQueue.Dequeue();
+            ChunkNode node = this.nodeDictionary[offset];
+            node.Processed = true;
 
-			KeyValuePair<int, ChunkNode> offsetNode = new KeyValuePair<int, ChunkNode>(offset, node);
-			return offsetNode;
-		}
-	}
+            KeyValuePair<int, ChunkNode> offsetNode = new KeyValuePair<int, ChunkNode>(offset, node);
+            return offsetNode;
+        }
+    }
 }

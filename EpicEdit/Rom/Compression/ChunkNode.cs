@@ -17,100 +17,100 @@ using System.Collections.Generic;
 
 namespace EpicEdit.Rom.Compression
 {
-	/// <summary>
-	/// A chunk nodes is the result of a compression command.
-	/// </summary>
-	internal class ChunkNode
-	{
-		public int CompressedBufferSize { get; private set; }
+    /// <summary>
+    /// A chunk nodes is the result of a compression command.
+    /// </summary>
+    internal class ChunkNode
+    {
+        public int CompressedBufferSize { get; private set; }
 
-		/// <summary>
-		/// Get or set the value determining whether the node has already been processed.
-		/// </summary>
-		public bool Processed { get; set; }
+        /// <summary>
+        /// Get or set the value determining whether the node has already been processed.
+        /// </summary>
+        public bool Processed { get; set; }
 
-		/// <summary>
-		/// Get a value indicidating whether the node is among the optimal solutions.
-		/// </summary>
-		public bool IsOptimal { get; private set; }
+        /// <summary>
+        /// Get a value indicidating whether the node is among the optimal solutions.
+        /// </summary>
+        public bool IsOptimal { get; private set; }
 
-		private ChunkNode parent;
-		private List<ChunkNode> children;
-		private byte[] compressedChunk;
+        private ChunkNode parent;
+        private List<ChunkNode> children;
+        private byte[] compressedChunk;
 
-		public ChunkNode(ChunkNode parent, byte[] compressedChunk)
-		{
-			if (compressedChunk == null)
-			{
-				throw new ArgumentNullException("compressedChunk", "The compressed chunk can't be null.");
-			}
+        public ChunkNode(ChunkNode parent, byte[] compressedChunk)
+        {
+            if (compressedChunk == null)
+            {
+                throw new ArgumentNullException("compressedChunk", "The compressed chunk can't be null.");
+            }
 
-			this.IsOptimal = true;
-			this.compressedChunk = compressedChunk;
-			this.CompressedBufferSize = this.compressedChunk.Length;
+            this.IsOptimal = true;
+            this.compressedChunk = compressedChunk;
+            this.CompressedBufferSize = this.compressedChunk.Length;
 
-			if (parent != null)
-			{
-				this.parent = parent;
-				this.parent.AddChild(this);
-				this.CompressedBufferSize += this.parent.CompressedBufferSize;
-			}
-		}
+            if (parent != null)
+            {
+                this.parent = parent;
+                this.parent.AddChild(this);
+                this.CompressedBufferSize += this.parent.CompressedBufferSize;
+            }
+        }
 
-		/// <summary>
-		/// Returns all the data compressed up to this node.
-		/// </summary>
-		/// <returns>The compressed data.</returns>
-		public byte[] GetCompressedBuffer()
-		{
-			byte[] compressedBuffer = new byte[this.CompressedBufferSize + 1];
-			// + 1 for the ending 0xFF command
+        /// <summary>
+        /// Returns all the data compressed up to this node.
+        /// </summary>
+        /// <returns>The compressed data.</returns>
+        public byte[] GetCompressedBuffer()
+        {
+            byte[] compressedBuffer = new byte[this.CompressedBufferSize + 1];
+            // + 1 for the ending 0xFF command
 
-			if (this.parent != null)
-			{
-				this.parent.CopyChunk(compressedBuffer);
-			}
+            if (this.parent != null)
+            {
+                this.parent.CopyChunk(compressedBuffer);
+            }
 
-			this.CopyChunk(compressedBuffer);
-			compressedBuffer[this.CompressedBufferSize] = 0xFF;
+            this.CopyChunk(compressedBuffer);
+            compressedBuffer[this.CompressedBufferSize] = 0xFF;
 
-			return compressedBuffer;
-		}
+            return compressedBuffer;
+        }
 
-		private void CopyChunk(byte[] compressedBuffer)
-		{
-			if (this.parent != null)
-			{
-				this.parent.CopyChunk(compressedBuffer);
-			}
+        private void CopyChunk(byte[] compressedBuffer)
+        {
+            if (this.parent != null)
+            {
+                this.parent.CopyChunk(compressedBuffer);
+            }
 
-			Array.Copy(this.compressedChunk, 0, compressedBuffer, this.CompressedBufferSize - this.compressedChunk.Length, this.compressedChunk.Length);
-		}
+            Array.Copy(this.compressedChunk, 0, compressedBuffer, this.CompressedBufferSize - this.compressedChunk.Length, this.compressedChunk.Length);
+        }
 
-		private void AddChild(ChunkNode child)
-		{
-			if (this.children == null)
-			{
-				this.children = new List<ChunkNode>();
-			}
+        private void AddChild(ChunkNode child)
+        {
+            if (this.children == null)
+            {
+                this.children = new List<ChunkNode>();
+            }
 
-			this.children.Add(child);
-		}
+            this.children.Add(child);
+        }
 
-		/// <summary>
-		/// Mark the node and all of its descendants as non-optimal.
-		/// </summary>
-		public void SetAsNonOptimal()
-		{
-			this.IsOptimal = false;
+        /// <summary>
+        /// Mark the node and all of its descendants as non-optimal.
+        /// </summary>
+        public void SetAsNonOptimal()
+        {
+            this.IsOptimal = false;
 
-			if (this.children != null)
-			{
-				foreach (ChunkNode child in this.children)
-				{
-					child.SetAsNonOptimal();
-				}
-			}
-		}
-	}
+            if (this.children != null)
+            {
+                foreach (ChunkNode child in this.children)
+                {
+                    child.SetAsNonOptimal();
+                }
+            }
+        }
+    }
 }

@@ -18,89 +18,89 @@ using System.Drawing.Imaging;
 
 namespace EpicEdit.UI.Gfx
 {
-	public unsafe class FastBitmap
-	{
-		private struct PixelData
-		{
-			public byte blue;
-			public byte green;
-			public byte red;
-		}
+    public unsafe class FastBitmap
+    {
+        private struct PixelData
+        {
+            public byte blue;
+            public byte green;
+            public byte red;
+        }
 
-		private Bitmap subject;
-		private int subjectWidth;
-		private BitmapData bitmapData;
-		private Byte* pBase;
+        private Bitmap subject;
+        private int subjectWidth;
+        private BitmapData bitmapData;
+        private Byte* pBase;
 
-		public FastBitmap(Bitmap subjectBitmap)
-		{
-			this.subject = subjectBitmap;
-			this.LockBitmap();
-		}
+        public FastBitmap(Bitmap subjectBitmap)
+        {
+            this.subject = subjectBitmap;
+            this.LockBitmap();
+        }
 
-		public void Release()
-		{
-			this.UnlockBitmap();
-		}
+        public void Release()
+        {
+            this.UnlockBitmap();
+        }
 
-		public static implicit operator Bitmap(FastBitmap fBitmap)
-		{
-			return fBitmap.subject;
-		}
+        public static implicit operator Bitmap(FastBitmap fBitmap)
+        {
+            return fBitmap.subject;
+        }
 
-		public Bitmap ToBitmap()
-		{
-			return this.subject;
-		}
+        public Bitmap ToBitmap()
+        {
+            return this.subject;
+        }
 
-		public Bitmap Bitmap
-		{
-			get { return this.subject; }
-		}
+        public Bitmap Bitmap
+        {
+            get { return this.subject; }
+        }
 
-		public void SetPixel(int x, int y, Color color)
-		{
-			PixelData* p = this.PixelAt(x, y);
-			p->red = color.R;
-			p->green = color.G;
-			p->blue = color.B;
-		}
+        public void SetPixel(int x, int y, Color color)
+        {
+            PixelData* p = this.PixelAt(x, y);
+            p->red = color.R;
+            p->green = color.G;
+            p->blue = color.B;
+        }
 
-		public Color GetPixel(int x, int y)
-		{
-			PixelData* p = this.PixelAt(x, y);
-			return Color.FromArgb((int)p->red, (int)p->green, (int)p->blue);
-		}
+        public Color GetPixel(int x, int y)
+        {
+            PixelData* p = this.PixelAt(x, y);
+            return Color.FromArgb((int)p->red, (int)p->green, (int)p->blue);
+        }
 
-		private void LockBitmap()
-		{
-			GraphicsUnit unit = GraphicsUnit.Pixel;
-			RectangleF boundsF = this.subject.GetBounds(ref unit);
-			Rectangle bounds = new Rectangle((int)boundsF.X,
-				(int)boundsF.Y,
-				(int)boundsF.Width,
-				(int)boundsF.Height);
+        private void LockBitmap()
+        {
+            GraphicsUnit unit = GraphicsUnit.Pixel;
+            RectangleF boundsF = this.subject.GetBounds(ref unit);
+            Rectangle bounds = new Rectangle((int)boundsF.X,
+                (int)boundsF.Y,
+                (int)boundsF.Width,
+                (int)boundsF.Height);
 
-			this.subjectWidth = (int)boundsF.Width * sizeof(PixelData);
-			if (this.subjectWidth % 4 != 0)
-			{
-				this.subjectWidth = 4 * (this.subjectWidth / 4 + 1);
-			}
+            this.subjectWidth = (int)boundsF.Width * sizeof(PixelData);
+            if (this.subjectWidth % 4 != 0)
+            {
+                this.subjectWidth = 4 * (this.subjectWidth / 4 + 1);
+            }
 
-			this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-			this.pBase = (Byte*)this.bitmapData.Scan0.ToPointer();
-		}
+            this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            this.pBase = (Byte*)this.bitmapData.Scan0.ToPointer();
+        }
 
-		private PixelData* PixelAt(int x, int y)
-		{
-			return (PixelData*)(this.pBase + y * this.subjectWidth + x * sizeof(PixelData));
-		}
+        private PixelData* PixelAt(int x, int y)
+        {
+            return (PixelData*)(this.pBase + y * this.subjectWidth + x * sizeof(PixelData));
+        }
 
-		private void UnlockBitmap()
-		{
-			this.subject.UnlockBits(this.bitmapData);
-			this.bitmapData = null;
-			this.pBase = null;
-		}
-	}
+        private void UnlockBitmap()
+        {
+            this.subject.UnlockBits(this.bitmapData);
+            this.bitmapData = null;
+            this.pBase = null;
+        }
+    }
 }

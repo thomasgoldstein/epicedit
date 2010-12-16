@@ -16,14 +16,14 @@ using System;
 
 namespace EpicEdit.Rom.Tracks
 {
-	/// <summary>
-	/// The music of a track theme.
-	/// </summary>
-	public class Music
-	{
-		public Music()
-		{
+    /// <summary>
+    /// The music of a track theme.
+    /// </summary>
+    public class Music
+    {
+        public Music()
+        {
 
-		}
-	}
+        }
+    }
 }
