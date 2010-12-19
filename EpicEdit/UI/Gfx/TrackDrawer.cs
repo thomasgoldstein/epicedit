@@ -237,7 +237,9 @@ namespace EpicEdit.UI.Gfx
             this.track = track;
             Tile[] tileset = track.GetRoadTileset();
 
-            this.trackCache = new Bitmap(this.track.Map.Width * 8, this.track.Map.Height * 8, PixelFormat.Format32bppPArgb);
+            this.trackCache = new Bitmap(this.track.Map.Width * 8,
+                                         this.track.Map.Height * 8,
+                                         PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
                 for (int x = 0; x < this.track.Map.Width; x++)
@@ -267,7 +269,8 @@ namespace EpicEdit.UI.Gfx
 
         private void SetGraphics(Graphics g)
         {
-            g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
+            // Solves a GDI+ bug which crops scaled images
+            g.PixelOffsetMode = PixelOffsetMode.Half;
 
             if (this.zoom >= 1)
             {
@@ -471,11 +474,13 @@ namespace EpicEdit.UI.Gfx
             {
                 selectionStart.X -= this.scrollPosition.X;
                 selectionStart.Y -= this.scrollPosition.Y;
-                selectionRectangle = new Rectangle((selectionStart.X * 8) - 1, (selectionStart.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
+                selectionRectangle = new Rectangle((selectionStart.X * 8) - 1, (selectionStart.Y * 8) - 1,
+                                                   selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
             }
             else if (cursorPosition.X != -1) // The user is simply hovering tiles
             {
-                selectionRectangle = new Rectangle((cursorPosition.X * 8) - 1, (cursorPosition.Y * 8) - 1, selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
+                selectionRectangle = new Rectangle((cursorPosition.X * 8) - 1, (cursorPosition.Y * 8) - 1,
+                                                   selectionSize.Width * 8 + 1, selectionSize.Height * 8 + 1);
             }
             else // The cursor isn't on the track map
             {
