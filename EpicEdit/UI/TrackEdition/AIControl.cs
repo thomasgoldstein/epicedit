@@ -36,6 +36,9 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> DeleteRequested;
 
         [Browsable(true)]
+        public event EventHandler<EventArgs> AddRequested;
+
+        [Browsable(true)]
         public event EventHandler<EventArgs> DeleteAllRequested;
 
         /// <summary>
@@ -158,7 +161,12 @@ namespace EpicEdit.UI.TrackEdition
             this.indexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
             this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
         }
-        
+
+        private void AddButtonClick(object sender, EventArgs e)
+        {
+            this.AddRequested(this, EventArgs.Empty);
+        }
+
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Do you really want to delete all AI elements?",
