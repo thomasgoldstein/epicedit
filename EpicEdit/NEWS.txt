@@ -9,6 +9,8 @@ v2.1 (???)
 - Object zones now visually cover the whole track, not just the AI path(s)
 - More accurate color conversions, making colors brighter (by teknix1)
 - Added a full-screen mode, accessible through a menu button or F11
+- Added a button to add new AI elements
+  (was only possible by double clicking before)
 - Fixed the size of the horizontal and vertical scroll bar thumbs,
   which now properly represent the size of the shown track portion
 - Minor tweaks and fixes
