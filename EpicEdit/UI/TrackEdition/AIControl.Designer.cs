@@ -54,6 +54,7 @@ namespace EpicEdit.UI.TrackEdition
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.warningLabel = new System.Windows.Forms.Label();
+            this.addButton = new System.Windows.Forms.Button();
             aiIndexLabel = new System.Windows.Forms.Label();
             shapeLabel = new System.Windows.Forms.Label();
             speedLabel = new System.Windows.Forms.Label();
@@ -181,24 +182,37 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 219);
+            this.warningLabel.Location = new System.Drawing.Point(4, 252);
             this.warningLabel.Name = "warningLabel";
-            this.warningLabel.Size = new System.Drawing.Size(93, 56);
+            this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 3;
             this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
             // 
+            // addButton
+            // 
+            this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
+            this.addButton.Location = new System.Drawing.Point(73, 219);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(24, 24);
+            this.addButton.TabIndex = 4;
+            this.buttonToolTip.SetToolTip(this.addButton, "Add new element");
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.AddButtonClick);
+            // 
             // AIControl
             // 
+            this.Controls.Add(this.addButton);
             this.Controls.Add(this.warningLabel);
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 280);
+            this.Size = new System.Drawing.Size(130, 300);
             this.selectedAIElementGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button deleteAllButton;

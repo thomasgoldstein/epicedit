@@ -1214,7 +1214,7 @@ namespace EpicEdit.UI.TrackEdition
                 e.Button == MouseButtons.Left &&
                 this.hoveredAIElem == null)
             {
-                this.AddAIElement();
+                this.AddAIElement(this.AbsoluteTilePosition);
             }
         }
         #endregion TrackDisplay Events
@@ -2270,9 +2270,8 @@ namespace EpicEdit.UI.TrackEdition
                                          hoveredTilePosition.Y - this.hoveredAIElem.Zone.Y);
         }
 
-        private void AddAIElement()
+        private void AddAIElement(Point location)
         {
-            Point location = this.AbsoluteTilePosition;
             TrackAIElement newAIElem = new TrackAIElement(location);
 
             if (this.track.AI.Add(newAIElem))
@@ -2321,6 +2320,11 @@ namespace EpicEdit.UI.TrackEdition
         private void AIControlDeleteRequested(object sender, EventArgs e)
         {
             this.DeleteAIElement();
+        }
+
+        private void AIControlAddRequested(object sender, EventArgs e)
+        {
+            this.AddAIElement(this.GetCenterTileLocation());
         }
 
         private void AIControlDeleteAllRequested(object sender, EventArgs e)
