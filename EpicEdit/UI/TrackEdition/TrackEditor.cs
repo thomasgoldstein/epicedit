@@ -31,14 +31,6 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
 {
-    public enum ActionButton
-    {
-        None,
-        LeftMouseButton,
-        MiddleMouseButton,
-        RightMouseButton
-    }
-
     /// <summary>
     /// A track editor.
     /// </summary>
@@ -167,11 +159,9 @@ namespace EpicEdit.UI.TrackEdition
         private Point tileClipboardTopLeft;
 
         /// <summary>
-        /// Defines which action button is currently pressed, if any.
-        /// Only one button is considered pressed at a given time,
-        /// the ones pressed before the first one has been released are ignored.
+        /// Defines which mouse buttons are currently pressed, if any.
         /// </summary>
-        private ActionButton buttonPressed;
+        private MouseButtons buttonsPressed;
 
         /// <summary>
         /// Determines from which side the current element is being resized.
@@ -637,7 +627,7 @@ namespace EpicEdit.UI.TrackEdition
             switch (this.currentMode)
             {
                 case EditionMode.Tileset:
-                    this.trackDrawer.DrawTrackTileset(g, this.TilePosition, this.buttonPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
+                    this.trackDrawer.DrawTrackTileset(g, this.TilePosition, this.buttonsPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
                     break;
 
                 case EditionMode.Overlay:
@@ -754,7 +744,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayPanelKeyDown(object sender, KeyEventArgs e)
         {
-            if (this.buttonPressed != ActionButton.None)
+            if (this.buttonsPressed != MouseButtons.None)
             {
                 return;
             }
@@ -791,7 +781,7 @@ namespace EpicEdit.UI.TrackEdition
             if (tilePositionBefore == this.TilePosition) // If the cursor has not moved to another tile
             {
                 if (this.currentMode == EditionMode.Start &&
-                    this.buttonPressed != ActionButton.MiddleMouseButton)
+                    this.buttonsPressed != MouseButtons.Middle)
                 {
                     // The only mode that needs pixel precision,
                     // as opposed to tile precision
@@ -803,7 +793,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                if (this.buttonPressed == ActionButton.MiddleMouseButton)
+                if (this.buttonsPressed == MouseButtons.Middle)
                 {
                     this.ScrollTrack();
                 }
@@ -880,13 +870,13 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.Cursor = Cursors.Default;
 
-            if (this.buttonPressed == ActionButton.RightMouseButton)
+            if (this.buttonsPressed == MouseButtons.Middle)
             {
                 this.OnRightMouseButtonRelease();
             }
 
             // Cancel pressed mouse boutons (needed in case the panel lost focus unexpectedly)
-            this.buttonPressed = ActionButton.None;
+            this.buttonsPressed = MouseButtons.None;
 
             this.RemoveFocus();
 
@@ -902,14 +892,14 @@ namespace EpicEdit.UI.TrackEdition
         private void TrackDisplayPanelMouseDown(object sender, MouseEventArgs e)
         {
             // We only acknowledge the click if neither the left nor right mouse button is already pressed
-            if (this.buttonPressed != ActionButton.None)
+            if (this.buttonsPressed != MouseButtons.None)
             {
                 return;
             }
 
             if (e.Button == MouseButtons.Middle)
             {
-                this.buttonPressed = ActionButton.MiddleMouseButton;
+                this.buttonsPressed = MouseButtons.Middle;
                 this.Cursor = Cursors.SizeAll;
                 this.anchorPoint = this.AbsoluteTilePosition;
                 this.trackDisplayPanel.Invalidate();
@@ -919,7 +909,7 @@ namespace EpicEdit.UI.TrackEdition
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonPressed = ActionButton.LeftMouseButton;
+                        this.buttonsPressed = MouseButtons.Left;
                         if (this.LayTiles())
                         {
                             this.trackDisplayPanel.Invalidate();
@@ -930,7 +920,7 @@ namespace EpicEdit.UI.TrackEdition
                         byte? hoveredTile = this.GetHoveredTile();
                         if (hoveredTile != null)
                         {
-                            this.buttonPressed = ActionButton.RightMouseButton;
+                            this.buttonsPressed = MouseButtons.Right;
 
                             if (this.tileClipboard[0] != hoveredTile)
                             {
@@ -960,7 +950,7 @@ namespace EpicEdit.UI.TrackEdition
 
                             if (this.overlayControl.SelectedTile != null)
                             {
-                                this.buttonPressed = ActionButton.LeftMouseButton;
+                                this.buttonsPressed = MouseButtons.Left;
                                 Point hoveredTilePosition = this.AbsoluteTilePosition;
                                 this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
                                                              hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
@@ -1001,7 +991,7 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
-                this.buttonPressed = ActionButton.LeftMouseButton;
+                this.buttonsPressed = MouseButtons.Left;
                 Point absPixelPos = this.AbsolutePixelPosition;
 
                 if (this.track is GPTrack)
@@ -1046,7 +1036,7 @@ namespace EpicEdit.UI.TrackEdition
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonPressed = ActionButton.LeftMouseButton;
+                        this.buttonsPressed = MouseButtons.Left;
                         this.trackDisplayPanel.Invalidate();
                         break;
 
@@ -1091,7 +1081,7 @@ namespace EpicEdit.UI.TrackEdition
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonPressed = ActionButton.LeftMouseButton;
+                        this.buttonsPressed = MouseButtons.Left;
                         this.aiControl.SelectedElement = this.hoveredAIElem;
                         this.trackDisplayPanel.Invalidate();
                         break;
@@ -1121,12 +1111,12 @@ namespace EpicEdit.UI.TrackEdition
             switch (e.Button)
             {
                 case MouseButtons.Middle:
-                    if (this.buttonPressed != ActionButton.MiddleMouseButton)
+                    if (this.buttonsPressed != MouseButtons.Middle)
                     {
                         break;
                     }
 
-                    this.buttonPressed = ActionButton.None;
+                    this.buttonsPressed = MouseButtons.None;
 
                     if (this.currentMode == EditionMode.Tileset ||
                         this.track is BattleTrack && this.currentMode == EditionMode.Objects)
@@ -1140,21 +1130,21 @@ namespace EpicEdit.UI.TrackEdition
                     break;
 
                 case MouseButtons.Left:
-                    if (this.buttonPressed != ActionButton.LeftMouseButton)
+                    if (this.buttonsPressed != MouseButtons.Left)
                     {
                         break;
                     }
 
-                    this.buttonPressed = ActionButton.None;
+                    this.buttonsPressed = MouseButtons.None;
                     break;
 
                 case MouseButtons.Right:
-                    if (this.buttonPressed != ActionButton.RightMouseButton)
+                    if (this.buttonsPressed != MouseButtons.Right)
                     {
                         break;
                     }
 
-                    this.buttonPressed = ActionButton.None;
+                    this.buttonsPressed = MouseButtons.None;
 
                     if (this.currentMode == EditionMode.Tileset)
                     {
@@ -1175,7 +1165,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.MouseWheelZoom(e);
             }
-            else if (this.buttonPressed != ActionButton.MiddleMouseButton)
+            else if (this.buttonsPressed != MouseButtons.Middle)
             {
                 this.MouseWheelScroll(e);
             }
@@ -1535,13 +1525,13 @@ namespace EpicEdit.UI.TrackEdition
         {
             bool repaintNeeded;
 
-            switch (this.buttonPressed)
+            switch (this.buttonsPressed)
             {
-                case ActionButton.LeftMouseButton:
+                case MouseButtons.Left:
                     repaintNeeded = this.LayTiles();
                     break;
 
-                case ActionButton.RightMouseButton:
+                case MouseButtons.Right:
                     this.RecalculateTileClipboard();
                     repaintNeeded = true;
                     break;
@@ -1667,7 +1657,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            if (this.buttonPressed == ActionButton.LeftMouseButton)
+            if (this.buttonsPressed == MouseButtons.Left)
             {
                 // Drag overlay tile
                 this.overlayControl.SelectedTile.Location =
@@ -1811,7 +1801,7 @@ namespace EpicEdit.UI.TrackEdition
             GPTrack gpTrack = this.track as GPTrack;
             Point absPixelPos = this.AbsolutePixelPosition;
 
-            if (this.buttonPressed == ActionButton.LeftMouseButton)
+            if (this.buttonsPressed == MouseButtons.Left)
             {
                 bool dataChanged = false;
 
@@ -1937,7 +1927,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             BattleTrack bTrack = this.track as BattleTrack;
 
-            if (this.buttonPressed == ActionButton.LeftMouseButton)
+            if (this.buttonsPressed == MouseButtons.Left)
             {
                 BattleStartPosition position = this.startAction == StartAction.DragStartPosition ?
                     bTrack.StartPositionP1 : bTrack.StartPositionP2;
@@ -2009,7 +1999,7 @@ namespace EpicEdit.UI.TrackEdition
 
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            if (this.buttonPressed == ActionButton.LeftMouseButton)
+            if (this.buttonsPressed == MouseButtons.Left)
             {
                 // Drag object
                 this.hoveredObject.Location = hoveredTilePosition;
@@ -2074,7 +2064,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            if (this.buttonPressed == ActionButton.LeftMouseButton)
+            if (this.buttonsPressed == MouseButtons.Left)
             {
                 // Drag or resize AI element
                 bool dataChanged = false;
