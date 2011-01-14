@@ -94,7 +94,6 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplayPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseMove);
             this.trackDisplayPanel.GotFocus += new System.EventHandler(this.TrackDisplayPanelGotFocus);
             this.trackDisplayPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseDoubleClick);
-            this.trackDisplayPanel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayPanelKeyUp);
             this.trackDisplayPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseDown);
             this.trackDisplayPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayPanelMouseUp);
             this.trackDisplayPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayPanelKeyDown);
