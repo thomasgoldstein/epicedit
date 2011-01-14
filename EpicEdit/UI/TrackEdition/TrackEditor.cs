@@ -891,7 +891,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayPanelMouseDown(object sender, MouseEventArgs e)
         {
-            // We only acknowledge the click if neither the left nor right mouse button is already pressed
+            // We only acknowledge the click if no mouse button is already pressed
             if (this.buttonsPressed != MouseButtons.None)
             {
                 return;
