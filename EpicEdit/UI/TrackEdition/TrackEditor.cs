@@ -36,8 +36,7 @@ namespace EpicEdit.UI.TrackEdition
         None,
         LeftMouseButton,
         MiddleMouseButton,
-        RightMouseButton,
-        CtrlKey
+        RightMouseButton
     }
 
     /// <summary>
@@ -760,11 +759,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            if (e.KeyCode == Keys.ControlKey)
-            {
-                this.buttonPressed = ActionButton.CtrlKey;
-            }
-            else if (e.KeyCode == Keys.Delete)
+            if (e.KeyCode == Keys.Delete)
             {
                 if (this.currentMode == EditionMode.Overlay)
                 {
@@ -780,14 +775,6 @@ namespace EpicEdit.UI.TrackEdition
                         this.DeleteAIElement();
                     }
                 }
-            }
-        }
-
-        private void TrackDisplayPanelKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.ControlKey && this.buttonPressed == ActionButton.CtrlKey)
-            {
-                this.buttonPressed = ActionButton.None;
             }
         }
 
@@ -1184,7 +1171,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            if (this.buttonPressed == ActionButton.CtrlKey)
+            if (Control.ModifierKeys == Keys.Control)
             {
                 this.MouseWheelZoom(e);
             }
