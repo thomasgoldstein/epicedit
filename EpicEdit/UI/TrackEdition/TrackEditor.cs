@@ -870,7 +870,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.Cursor = Cursors.Default;
 
-            if (this.buttonsPressed == MouseButtons.Middle)
+            if (this.buttonsPressed == MouseButtons.Right)
             {
                 this.OnRightMouseButtonRelease();
             }
