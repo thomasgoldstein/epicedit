@@ -1173,12 +1173,24 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MouseWheelScroll(MouseEventArgs e)
         {
-            int y = this.scrollPosition.Y - (e.Delta / 64);
-            int yBefore = this.scrollPosition.Y;
-            this.SetVerticalScrollingValue(y);
-            int yAfter = this.scrollPosition.Y;
+            int before;
+            int after;
+            if (Control.ModifierKeys != Keys.Shift)
+            {
+                int y = this.scrollPosition.Y - (e.Delta / 64);
+                before = this.scrollPosition.Y;
+                this.SetVerticalScrollingValue(y);
+                after = this.scrollPosition.Y;
+            }
+            else
+            {
+                int x = this.scrollPosition.X - (e.Delta / 64);
+                before = this.scrollPosition.X;
+                this.SetHorizontalScrollingValue(x);
+                after = this.scrollPosition.X;
+            }
 
-            if (yBefore != yAfter)
+            if (before != after)
             {
                 this.trackDrawer.NotifyFullRepaintNeed();
                 this.InitCurrentModeAction(true);
