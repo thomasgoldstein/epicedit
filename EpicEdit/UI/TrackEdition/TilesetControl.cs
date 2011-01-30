@@ -135,7 +135,7 @@ namespace EpicEdit.UI.TrackEdition
             this.SelectedThemeChanged(this, EventArgs.Empty);
         }
 
-        public void SelectCurrentTrackTheme()
+        public void SelectTrackTheme()
         {
             this.themeComboBox.SelectedItem = this.track.Theme;
         }
