@@ -443,14 +443,14 @@ namespace EpicEdit.Rom.Compression
             chunk[2] = (byte)distance;
         }
 
-        private static bool IsBackCommandComing(byte[] buffer, int currentPosition)
+        private static bool IsBackCommandComing(byte[] buffer, int position)
         {
-            for (int backRangeStart = 0; backRangeStart < currentPosition; backRangeStart++)
+            for (int backRangeStart = 0; backRangeStart < position; backRangeStart++)
             {
-                if (buffer[currentPosition] == buffer[backRangeStart])
+                if (buffer[position] == buffer[backRangeStart])
                 {
                     int backRangeIterator = backRangeStart;
-                    int rangeIterator = currentPosition;
+                    int rangeIterator = position;
 
                     while (rangeIterator < buffer.Length &&
                            buffer[rangeIterator] == buffer[backRangeIterator])
@@ -461,7 +461,7 @@ namespace EpicEdit.Rom.Compression
 
                     Range backRange = new Range(backRangeStart, backRangeIterator);
                     if (backRange.Length > 4 ||
-                        currentPosition - backRangeStart <= 0xFF && backRange.Length > 3)
+                        position - backRangeStart <= 0xFF && backRange.Length > 3)
                     {
                         return true;
                     }
