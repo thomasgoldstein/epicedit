@@ -18,19 +18,19 @@ using System.Collections.Generic;
 namespace EpicEdit.Rom.Compression
 {
     /// <summary>
-    /// A chunk nodes is the result of a compression command.
+    /// A chunk node is the result of a compression command.
     /// </summary>
     internal class ChunkNode
     {
         public int CompressedBufferSize { get; private set; }
 
         /// <summary>
-        /// Get or set the value determining whether the node has already been processed.
+        /// Gets or sets the value determining whether the node has already been processed.
         /// </summary>
         public bool Processed { get; set; }
 
         /// <summary>
-        /// Get a value indicidating whether the node is among the optimal solutions.
+        /// Gets a value indicidating whether the node is among the optimal solutions.
         /// </summary>
         public bool IsOptimal { get; private set; }
 
@@ -98,7 +98,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Mark the node and all of its descendants as non-optimal.
+        /// Marks the node and all of its descendants as non-optimal.
         /// </summary>
         public void SetAsNonOptimal()
         {

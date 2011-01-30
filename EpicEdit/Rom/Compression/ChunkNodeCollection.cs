@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Compression
 
         /// <summary>
         /// The queue of offsets to process.
-        /// Using it with the <see cref="nodeDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
+        /// Using it with the <see cref="ByteDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
         /// </summary>
         private Queue<int> offsetQueue;
 
@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// 
+        /// Gets the node at a given index.
         /// </summary>
         public ChunkNode this[int offset]
         {
@@ -82,7 +82,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// The number of remaining nodes to process.
+        /// Gets the number of remaining nodes to process.
         /// </summary>
         public int Count
         {
@@ -108,7 +108,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Get the next <see cref="ChunkNode">node</see> in the queue.
+        /// Gets the next <see cref="ChunkNode">node</see> in the queue.
         /// </summary>
         /// <returns>The next <see cref="ChunkNode">node</see> in the queue.</returns>
         public KeyValuePair<int, ChunkNode> GetNextNode()
