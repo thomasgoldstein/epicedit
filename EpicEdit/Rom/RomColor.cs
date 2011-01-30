@@ -262,7 +262,6 @@ namespace EpicEdit.Rom
 
         /// <summary>
         /// Enumerates colors between the current RomColor object and the specified one in a specific number of steps.
-        /// This function is used by the color picker to generate.
         /// </summary>
         /// <param name="target">The target color.</param>
         /// <param name="step">The number of steps.</param>

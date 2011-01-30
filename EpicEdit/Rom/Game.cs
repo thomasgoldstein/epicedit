@@ -256,7 +256,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Function that checks if the ROM is valid. If it is, the ROM header value is initialized.
+        /// Checks if the ROM is valid. If it is, the ROM header value is initialized.
         /// Either there is no ROM header (value 0), or if there is one, it's usually a 512-byte one.
         /// The ROM header is used by adding its value to all ROM offsets, to find the relevent data.
         /// </summary>
