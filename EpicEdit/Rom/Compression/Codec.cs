@@ -25,7 +25,7 @@ namespace EpicEdit.Rom.Compression
         private static ICompressor compressor;
 
         /// <summary>
-        /// Function which decompresses data until it encounters a stop (0xFF) command.
+        /// Decompresses data until a stop (0xFF) command is found.
         /// </summary>
         /// <param name="buffer">The buffer to decompress data from.</param>
         /// <returns>The decompressed data.</returns>
@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Function which decompresses data until it encounters a stop (0xFF) command.
+        /// Decompresses data until a stop (0xFF) command is found.
         /// </summary>
         /// <param name="buffer">The buffer to decompress data from.</param>
         /// <param name="offset">The buffer position to start from.</param>
@@ -156,8 +156,8 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Decompression function that stops after having reached a certain size.
-        /// Providing the length improves performances and lets you decompress corrupt data.
+        /// Decompresses data until a certain size is reached.
+        /// Specifying the length improves performances and makes it possible to decompress corrupt data.
         /// </summary>
         /// <param name="buffer">The buffer to decompress data from.</param>
         /// <param name="offset">The buffer position to start from.</param>
@@ -320,7 +320,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Function which compresses the data of the passed buffer.
+        /// Compresses the data of the passed buffer.
         /// </summary>
         /// <param name="buffer">The data to compress.</param>
         /// <returns>The compressed data.</returns>
@@ -330,7 +330,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Function which compresses the data of the passed buffer.
+        /// Compresses the data of the passed buffer.
         /// </summary>
         /// <param name="buffer">The data to compress.</param>
         /// <param name="quirksMode">Quirks mode has a lower compression rate,
@@ -347,7 +347,7 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Function which compresses the data of a passed buffer into a destination buffer,
+        /// Compresses the data of a passed buffer into a destination buffer,
         /// starting at the offset value.
         /// </summary>
         /// <param name="bufferToCompress">The data to compress.</param>
