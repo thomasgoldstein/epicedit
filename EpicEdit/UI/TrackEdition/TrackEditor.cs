@@ -287,7 +287,7 @@ namespace EpicEdit.UI.TrackEdition
         #region Menu Options
         public void InitOnFirstRomLoad()
         {
-            this.trackDrawer = new TrackDrawer(this.trackDisplayPanel, this.Zoom);
+            this.trackDrawer = new TrackDrawer(this.trackDisplay, this.Zoom);
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
             this.trackTreeView.InitOnFirstRomLoad();
@@ -299,12 +299,12 @@ namespace EpicEdit.UI.TrackEdition
             // Adding these event handlers here rather than in the Designer.cs
             // saves us a null check on this.drawer in each of the corresponding functions,
             // because the drawer hasn't been initialized yet before a ROM is loaded.
-            this.trackDisplayPanel.Paint += this.TrackDisplayPanelPaint;
-            this.trackDisplayPanel.SizeChanged += this.TrackDisplayPanelSizeChanged;
+            this.trackDisplay.Paint += this.TrackDisplayPaint;
+            this.trackDisplay.SizeChanged += this.TrackDisplaySizeChanged;
 
             this.UpdateScrollBars();
 
-            this.trackDisplayPanel.Enabled = true;
+            this.trackDisplay.Enabled = true;
             this.modeTabControl.Enabled = true;
             this.menuBar.EnableControls();
         }
@@ -472,7 +472,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.CenterTrackDisplayOn(location);
 
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void ZoomIn()
@@ -505,8 +505,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private Point GetCenterTileLocation()
         {
-            return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2,
-                             this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
+            return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplay.Width) / 2,
+                             this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
         }
 
         private void EndZoom()
@@ -514,7 +514,7 @@ namespace EpicEdit.UI.TrackEdition
             if (this.pixelPosition.X == -1)
             {
                 // The cursor isn't over the track
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
             }
             else
             {
@@ -552,8 +552,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void CenterTrackDisplayOn(Point location)
         {
-            int x = location.X - (this.GetOnScreenTileCount(this.trackDisplayPanel.Width) / 2);
-            int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplayPanel.Height) / 2);
+            int x = location.X - (this.GetOnScreenTileCount(this.trackDisplay.Width) / 2);
+            int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
 
             this.SetHorizontalScrollingValue(x);
             this.SetVerticalScrollingValue(y);
@@ -615,9 +615,9 @@ namespace EpicEdit.UI.TrackEdition
         #endregion Menu Options
 
         #region TrackDisplay Events
-        private void TrackDisplayPanelPaint(object sender, PaintEventArgs e)
+        private void TrackDisplayPaint(object sender, PaintEventArgs e)
         {
-            if (!this.trackDisplayPanel.Focused)
+            if (!this.trackDisplay.Focused)
             {
                 // Redraw the whole panel if the focus has been lost
                 this.trackDrawer.NotifyFullRepaintNeed();
@@ -648,7 +648,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void TrackDisplayPanelGotFocus(object sender, EventArgs e)
+        private void TrackDisplayGotFocus(object sender, EventArgs e)
         {
             this.trackDrawer.NotifyFullRepaintNeed();
         }
@@ -731,18 +731,18 @@ namespace EpicEdit.UI.TrackEdition
             if (this.repaintAfterScrolling)
             {
                 this.trackDrawer.NotifyFullRepaintNeed();
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
                 this.repaintAfterScrolling = false;
             }
         }
 
-        private void TrackDisplayPanelSizeChanged(object sender, EventArgs e)
+        private void TrackDisplaySizeChanged(object sender, EventArgs e)
         {
             this.trackDrawer.ResizeWindow();
             this.UpdateScrollBars();
         }
 
-        private void TrackDisplayPanelKeyDown(object sender, KeyEventArgs e)
+        private void TrackDisplayKeyDown(object sender, KeyEventArgs e)
         {
             if (this.buttonsPressed != MouseButtons.None)
             {
@@ -768,11 +768,11 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void TrackDisplayPanelMouseMove(object sender, MouseEventArgs e)
+        private void TrackDisplayMouseMove(object sender, MouseEventArgs e)
         {
             if (Form.ActiveForm != null) // If the application is focused
             {
-                this.trackDisplayPanel.Focus(); // Lets you use the mouse wheel to scroll
+                this.trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
             }
 
             Point tilePositionBefore = this.TilePosition;
@@ -787,7 +787,7 @@ namespace EpicEdit.UI.TrackEdition
                     // as opposed to tile precision
                     if (this.InitStartAction())
                     {
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                     }
                 }
             }
@@ -851,7 +851,7 @@ namespace EpicEdit.UI.TrackEdition
                 yBefore != this.scrollPosition.Y)
             {
                 this.trackDrawer.NotifyFullRepaintNeed();
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
             }
         }
 
@@ -866,7 +866,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tileClipboardTopLeft.Y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
         }
 
-        private void TrackDisplayPanelMouseLeave(object sender, EventArgs e)
+        private void TrackDisplayMouseLeave(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Default;
 
@@ -886,10 +886,10 @@ namespace EpicEdit.UI.TrackEdition
             this.hoveredObject = null;
             this.hoveredAIElem = null;
 
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
-        private void TrackDisplayPanelMouseDown(object sender, MouseEventArgs e)
+        private void TrackDisplayMouseDown(object sender, MouseEventArgs e)
         {
             // We only acknowledge the click if no mouse button is already pressed
             if (this.buttonsPressed != MouseButtons.None)
@@ -902,7 +902,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.buttonsPressed = MouseButtons.Middle;
                 this.Cursor = Cursors.SizeAll;
                 this.anchorPoint = this.AbsoluteTilePosition;
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
             }
             else if (this.editionMode == EditionMode.Tileset)
             {
@@ -912,7 +912,7 @@ namespace EpicEdit.UI.TrackEdition
                         this.buttonsPressed = MouseButtons.Left;
                         if (this.LayTiles())
                         {
-                            this.trackDisplayPanel.Invalidate();
+                            this.trackDisplay.Invalidate();
                         }
                         break;
 
@@ -934,7 +934,7 @@ namespace EpicEdit.UI.TrackEdition
 
                             this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 
-                            this.trackDisplayPanel.Invalidate();
+                            this.trackDisplay.Invalidate();
                         }
                         break;
                 }
@@ -981,7 +981,7 @@ namespace EpicEdit.UI.TrackEdition
                         break;
                 }
 
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
             }
             else if (this.editionMode == EditionMode.Start)
             {
@@ -1037,7 +1037,7 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     case MouseButtons.Left:
                         this.buttonsPressed = MouseButtons.Left;
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                         break;
 
                     case MouseButtons.Right:
@@ -1062,7 +1062,7 @@ namespace EpicEdit.UI.TrackEdition
                         }
 
                         this.trackTreeView.MarkTrackAsChanged();
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                         break;
                 }
             }
@@ -1073,7 +1073,7 @@ namespace EpicEdit.UI.TrackEdition
                     if (e.Button == MouseButtons.Left)
                     {
                         this.aiControl.SelectedElement = null;
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                     }
                     return;
                 }
@@ -1083,7 +1083,7 @@ namespace EpicEdit.UI.TrackEdition
                     case MouseButtons.Left:
                         this.buttonsPressed = MouseButtons.Left;
                         this.aiControl.SelectedElement = this.hoveredAIElem;
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                         break;
 
                     case MouseButtons.Right:
@@ -1098,13 +1098,13 @@ namespace EpicEdit.UI.TrackEdition
 
                         this.aiControl.SelectedElement = this.hoveredAIElem;
                         this.trackTreeView.MarkTrackAsChanged();
-                        this.trackDisplayPanel.Invalidate();
+                        this.trackDisplay.Invalidate();
                         break;
                 }
             }
         }
 
-        private void TrackDisplayPanelMouseUp(object sender, MouseEventArgs e)
+        private void TrackDisplayMouseUp(object sender, MouseEventArgs e)
         {
             // When the user releases a mouse button, we ensure this button is the same
             // as the one that was initially held down before validating the action.
@@ -1154,9 +1154,9 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void TrackDisplayPanelMouseWheel(object sender, MouseEventArgs e)
+        private void TrackDisplayMouseWheel(object sender, MouseEventArgs e)
         {
-            if (!this.trackDisplayPanel.Focused)
+            if (!this.trackDisplay.Focused)
             {
                 return;
             }
@@ -1197,7 +1197,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void TrackDisplayPanelMouseDoubleClick(object sender, MouseEventArgs e)
+        private void TrackDisplayMouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (this.editionMode == EditionMode.AI &&
                 e.Button == MouseButtons.Left &&
@@ -1212,7 +1212,7 @@ namespace EpicEdit.UI.TrackEdition
         private void DisplayNewTrack()
         {
             this.trackDrawer.LoadTrack(this.track);
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void ResetPosition()
@@ -1245,10 +1245,10 @@ namespace EpicEdit.UI.TrackEdition
         /// <param name="offScreenTileCountY">The number of vertically off-screen tiles (from 0 to 128).</param>
         private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
         {
-            offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplayPanel.Width);
-            offScreenTileCountY = this.GetOffScreenTileCount(this.trackDisplayPanel.Height);
-            int offScreenTileCountXWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplayPanel.Width - this.trackDisplayVScrollBar.Width));
-            int offScreenTileCountYWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplayPanel.Height - this.trackDisplayHScrollBar.Height));
+            offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplay.Width);
+            offScreenTileCountY = this.GetOffScreenTileCount(this.trackDisplay.Height);
+            int offScreenTileCountXWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplay.Width - this.trackDisplayVScrollBar.Width));
+            int offScreenTileCountYWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplay.Height - this.trackDisplayHScrollBar.Height));
 
             bool? horizontalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
             bool? verticalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
@@ -1347,7 +1347,7 @@ namespace EpicEdit.UI.TrackEdition
                 if (scrollBar.Value > offScreenTileCount)
                 {
                     scrollBar.Value = offScreenTileCount;
-                    this.trackDisplayPanel.Invalidate();
+                    this.trackDisplay.Invalidate();
                 }
 
                 int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
@@ -1463,7 +1463,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (repaintNeeded || forceRepaint)
             {
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
             }
 
             this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
@@ -1504,7 +1504,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.ResizeModeTabControl();
 
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
@@ -1629,10 +1629,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetControl.SelectedTile = this.tileClipboard[1];
             }
 
-            // We remove the first tile, which was added in TrackDisplayPanelMouseDown
+            // We remove the first tile, which was added in TrackDisplayMouseDown
             this.tileClipboard.RemoveAt(0);
 
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
@@ -1660,7 +1660,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.trackDrawer.LoadTrack(this.track);
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
         #endregion EditionMode.Tileset
 
@@ -1736,7 +1736,7 @@ namespace EpicEdit.UI.TrackEdition
             this.UpdateOverlayTileCount();
 
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void OverlayControlDeleteRequested(object sender, EventArgs e)
@@ -1750,12 +1750,12 @@ namespace EpicEdit.UI.TrackEdition
             this.track.OverlayTiles.Clear();
             this.UpdateOverlayTileCount();
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void OverlayControlRepaintRequested(object sender, EventArgs e)
         {
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void SetSelectedOverlayPatternLocation()
@@ -1997,7 +1997,7 @@ namespace EpicEdit.UI.TrackEdition
         private void StartControlDataChanged(object sender, EventArgs e)
         {
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
         #endregion EditionMode.Start
 
@@ -2061,13 +2061,13 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ObjectsControlObjectZonesViewChanged(object sender, EventArgs e)
         {
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void ObjectsControlObjectZonesChanged(object sender, EventArgs e)
         {
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
         #endregion EditionMode.Objects
 
@@ -2270,7 +2270,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitAIAction();
 
                 this.trackTreeView.MarkTrackAsChanged();
-                this.trackDisplayPanel.Invalidate();
+                this.trackDisplay.Invalidate();
 
                 if (this.track.AI.ElementCount == 1)
                 {
@@ -2292,7 +2292,7 @@ namespace EpicEdit.UI.TrackEdition
             this.InitAIAction();
 
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
 
             if (this.track.AI.ElementCount == 0)
             {
@@ -2303,7 +2303,7 @@ namespace EpicEdit.UI.TrackEdition
         private void AIControlDataChanged(object sender, EventArgs e)
         {
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
         }
 
         private void AIControlDeleteRequested(object sender, EventArgs e)
@@ -2321,7 +2321,7 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.SelectedElement = null;
             this.track.AI.Clear();
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDisplayPanel.Invalidate();
+            this.trackDisplay.Invalidate();
             this.aiControl.ShowWarning();
         }
         #endregion EditionMode.AI
