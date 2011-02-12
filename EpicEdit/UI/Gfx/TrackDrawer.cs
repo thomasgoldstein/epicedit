@@ -51,6 +51,13 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap trackCache;
         private Bitmap tileClipboardCache;
+        private Bitmap objectZonesCache;
+
+        /// <summary>
+        /// The object zones of the track.
+        /// They're cached in order to figure out when to update the objectZonesCache.
+        /// </summary>
+        private byte[][] zones;
 
         /// <summary>
         /// Determines whether a full repaint is needed or not.
@@ -219,7 +226,7 @@ namespace EpicEdit.UI.Gfx
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
-            this.trackCache = this.tileClipboardCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            this.trackCache = this.tileClipboardCache = this.objectZonesCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
             this.dirtyRegion = new Region();
             this.zoomMatrix = new Matrix();
 
@@ -958,33 +965,44 @@ namespace EpicEdit.UI.Gfx
         {
             g.PixelOffsetMode = PixelOffsetMode.Half;
 
-            using (Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView))
-            {
-                g.DrawImage(bitmap,
-                            new Rectangle(-this.scrollPosition.X * 8,
-                                          -this.scrollPosition.Y * 8,
-                                          this.trackCache.Width,
-                                          this.trackCache.Height),
-                            0, 0, bitmap.Width, bitmap.Height,
-                            GraphicsUnit.Pixel, this.translucidImageAttr);
-            }
+            Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView);
+            g.DrawImage(bitmap,
+                        new Rectangle(-this.scrollPosition.X * 8,
+                                      -this.scrollPosition.Y * 8,
+                                      this.trackCache.Width,
+                                      this.trackCache.Height),
+                        0, 0, bitmap.Width, bitmap.Height,
+                        GraphicsUnit.Pixel, this.translucidImageAttr);
+            // NOTE: Do not dispose bitmap, it's cached (field objectZonesCache).
 
             g.PixelOffsetMode = PixelOffsetMode.Default;
         }
 
         private Bitmap GetObjectZonesBitmap(bool frontZonesView)
         {
-            Bitmap bitmap = new Bitmap(64, 64, this.trackCache.PixelFormat);
-            FastBitmap fBitmap = new FastBitmap(bitmap);
-
             GPTrack gpTrack = this.track as GPTrack;
             byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
 
-            for (int y = 0; y < zones.Length; y++)
+            if (this.zones != zones)
             {
-                for (int x = 0; x < zones[y].Length; x++)
+                this.zones = zones;
+                this.objectZonesCache.Dispose();
+                this.objectZonesCache = this.CreateObjectZonesBitmap();
+            }
+
+            return this.objectZonesCache;
+        }
+
+        private Bitmap CreateObjectZonesBitmap()
+        {
+            Bitmap bitmap = new Bitmap(64, 64, this.trackCache.PixelFormat);
+            FastBitmap fBitmap = new FastBitmap(bitmap);
+
+            for (int y = 0; y < this.zones.Length; y++)
+            {
+                for (int x = 0; x < this.zones[y].Length; x++)
                 {
-                    byte zoneIndex = zones[y][x];
+                    byte zoneIndex = this.zones[y][x];
                     fBitmap.SetPixel(x, y, this.objectBrushes[zoneIndex].Color);
                 }
             }
