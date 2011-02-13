@@ -1512,6 +1512,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.trackCache.Dispose();
             this.tileClipboardCache.Dispose();
+            this.objectZonesCache.Dispose();
 
             this.dirtyRegion.Dispose();
             this.zoomMatrix.Dispose();
