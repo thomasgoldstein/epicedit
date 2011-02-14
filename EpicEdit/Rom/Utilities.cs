@@ -437,7 +437,7 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="hexText">Values that define the location of each character of a text string among the font graphics.</param>
         /// <returns>The corresponding text string.</returns>
-        public static string DecryptRomText(byte[] hexText, Regions region)
+        public static string DecryptRomText(byte[] hexText, Region region)
         {
             return DecryptRomText(hexText, 1, region);
         }
@@ -447,17 +447,17 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="hexText">Values that define the location of each character of a text string among the font graphics.</param>
         /// <returns>The corresponding text string.</returns>
-        public static string DecryptRomTextOdd(byte[] hexText, Regions region)
+        public static string DecryptRomTextOdd(byte[] hexText, Region region)
         {
             return DecryptRomText(hexText, 2, region);
         }
 
-        public static string DecryptRomText(byte[] hexText, int step, Regions region)
+        public static string DecryptRomText(byte[] hexText, int step, Region region)
         {
             char[] textArray = new char[hexText.Length / step];
             string text;
 
-            if (region == Regions.Jap)
+            if (region == Region.Jap)
             {
                 for (int i = 0; i < textArray.Length; i++)
                 {

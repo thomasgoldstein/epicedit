@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
 {
     #region Enumerations
 
-    public enum ItemProbaThemes
+    public enum ItemProbaTheme
     {
         MarioCircuit = 0,
         GhostValley = 1,
@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         VanillaLake = 6
     }
 
-    public enum GrandprixConditions
+    public enum GrandprixCondition
     {
         [Description("Lap 1 or 1st")]
         Lap1_1st = 1,
@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         Lap2To5_5thTo8th = 2
     }
 
-    public enum MatchRaceConditions
+    public enum MatchRaceCondition
     {
         [Description("Lap 1")]
         Lap1 = 0,
@@ -88,13 +88,13 @@ namespace EpicEdit.Rom.Tracks.ItemProba
 
         #region Get Single Item Probability
 
-        public ItemProbability GetGrandprixProbability(ItemProbaThemes theme, GrandprixConditions condition)
+        public ItemProbability GetGrandprixProbability(ItemProbaTheme theme, GrandprixCondition condition)
         {
             int offset = (int)theme * 3 + (int)condition + (3 * 7);
             return this.itemProbabilities[offset];
         }
 
-        public ItemProbability GetMatchRaceProbability(ItemProbaThemes theme, MatchRaceConditions condition)
+        public ItemProbability GetMatchRaceProbability(ItemProbaTheme theme, MatchRaceCondition condition)
         {
             int offset = (int)theme * 3 + (int)condition;
             return this.itemProbabilities[offset];

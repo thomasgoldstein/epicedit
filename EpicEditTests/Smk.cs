@@ -29,7 +29,7 @@ namespace EpicEditTests
         {
             byte[] headeredRomBuffer = File.ReadFile("smk.smc");
             this.RomBuffer = File.ReadBlock(headeredRomBuffer, 512, headeredRomBuffer.Length - 512);
-            this.Offsets = new Offsets(this.RomBuffer, Regions.US);
+            this.Offsets = new Offsets(this.RomBuffer, Region.US);
             this.OverlayTileSizes = new OverlayTileSizes(this.RomBuffer, this.Offsets);
             this.OverlayTilePatterns = new OverlayTilePatterns(this.RomBuffer, this.Offsets, this.OverlayTileSizes);
         }

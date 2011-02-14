@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace EpicEdit.Rom
 {
-    public enum Regions
+    public enum Region
     {
         Jap,
         US,
@@ -127,7 +127,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The region of the ROM (Jap, US or Euro).
         /// </summary>
-        private Regions region;
+        private Region region;
 
         /// <summary>
         /// The offsets to find the needed data in the ROM.
@@ -810,7 +810,7 @@ namespace EpicEdit.Rom
             int regionAddress = 0xFFD9;
             int region = this.romBuffer[regionAddress];
 
-            if (!Enum.IsDefined(typeof(Regions), region))
+            if (!Enum.IsDefined(typeof(Region), region))
             {
                 if (this.romHeader != null)
                 {
@@ -822,7 +822,7 @@ namespace EpicEdit.Rom
                                                              this.FileName, regionAddress, region));
             }
 
-            this.region = (Regions)region;
+            this.region = (Region)region;
         }
 
         public string[] GetModeNames()
@@ -1249,7 +1249,7 @@ namespace EpicEdit.Rom
 
         private void SaveTrack(Track track, int iterator, int trackIndex, ref int epicZoneIterator, List<byte[]> savedData)
         {
-            bool quirksMode = this.region != Regions.US;
+            bool quirksMode = this.region != Region.US;
             byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
 
             // Update track theme id

@@ -176,13 +176,13 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Loads all the needed offsets depending on the ROM region.
         /// </summary>
-        public Offsets(byte[] romBuffer, Regions region)
+        public Offsets(byte[] romBuffer, Region region)
         {
             this.offsets = new int[Enum.GetValues(typeof(Offset)).Length];
 
             switch (region)
             {
-                case Regions.Jap:
+                case Region.Jap:
                     this[Offset.ModeStrings] = 0x58B19;
                     this[Offset.BattleTrackOrder] = 0x1C022;
                     this[Offset.FirstBattleTrack] = 0x1BF0A;
@@ -195,7 +195,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackOverlayPatterns] = 0x4F0B5;
                     break;
 
-                case Regions.US:
+                case Region.US:
                     this[Offset.ModeStrings] = 0x58B00;
                     this[Offset.BattleTrackOrder] = 0x1C15C;
                     this[Offset.FirstBattleTrack] = 0x1C04C;
@@ -209,7 +209,7 @@ namespace EpicEdit.Rom
                     //this[Offsets.UnknownMakeRelated] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
-                case Regions.Euro:
+                case Region.Euro:
                     this[Offset.ModeStrings] = 0x58AF2;
                     this[Offset.BattleTrackOrder] = 0x1BFF8;
                     this[Offset.FirstBattleTrack] = 0x1BEE8;

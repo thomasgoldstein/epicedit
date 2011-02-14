@@ -112,16 +112,16 @@ namespace EpicEdit.UI.ThemeEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0:
-                    this.lapRankComboBox.Items.Add(GrandprixConditions.Lap1_1st);
-                    this.lapRankComboBox.Items.Add(GrandprixConditions.Lap2To5_2ndTo4th);
-                    this.lapRankComboBox.Items.Add(GrandprixConditions.Lap2To5_5thTo8th);
+                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap1_1st);
+                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap2To5_2ndTo4th);
+                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap2To5_5thTo8th);
                     this.lapRankComboBox.SelectedIndex = 0;
                     break;
 
                 case 1:
-                    this.lapRankComboBox.Items.Add(MatchRaceConditions.Lap1);
-                    this.lapRankComboBox.Items.Add(MatchRaceConditions.Lap2to5_1st);
-                    this.lapRankComboBox.Items.Add(MatchRaceConditions.Lap2to5_2nd);
+                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap1);
+                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2to5_1st);
+                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2to5_2nd);
                     this.lapRankComboBox.SelectedIndex = 0;
                     break;
             }
@@ -162,7 +162,7 @@ namespace EpicEdit.UI.ThemeEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0: // GP
-                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.GetTheme(), (GrandprixConditions)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.GetTheme(), (GrandprixCondition)this.lapRankComboBox.SelectedItem);
                     if (this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                         this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
                     {
@@ -171,7 +171,7 @@ namespace EpicEdit.UI.ThemeEdition
                     break;
 
                 case 1: // Match Race
-                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.GetTheme(), (MatchRaceConditions)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.GetTheme(), (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
                     break;
 
                 case 2: // Battle Mode
@@ -262,39 +262,39 @@ namespace EpicEdit.UI.ThemeEdition
 
         #region Getters / Converters for the ComboBoxes
 
-        private ItemProbaThemes GetTheme()
+        private ItemProbaTheme GetTheme()
         {
-            ItemProbaThemes ret;
+            ItemProbaTheme ret;
 
             switch (this.themeComboBox.SelectedIndex)
             {
                 case 0:
-                    ret = ItemProbaThemes.GhostValley;
+                    ret = ItemProbaTheme.GhostValley;
                     break;
 
                 default:
                 case 1:
-                    ret = ItemProbaThemes.MarioCircuit;
+                    ret = ItemProbaTheme.MarioCircuit;
                     break;
 
                 case 2:
-                    ret = ItemProbaThemes.DonutPlains;
+                    ret = ItemProbaTheme.DonutPlains;
                     break;
 
                 case 3:
-                    ret = ItemProbaThemes.ChocoIsland;
+                    ret = ItemProbaTheme.ChocoIsland;
                     break;
 
                 case 4:
-                    ret = ItemProbaThemes.VanillaLake;
+                    ret = ItemProbaTheme.VanillaLake;
                     break;
 
                 case 5:
-                    ret = ItemProbaThemes.KoopaBeach;
+                    ret = ItemProbaTheme.KoopaBeach;
                     break;
 
                 case 6:
-                    ret = ItemProbaThemes.BowserCastleAndRainbowRoad;
+                    ret = ItemProbaTheme.BowserCastleAndRainbowRoad;
                     break;
             }
 
