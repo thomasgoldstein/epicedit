@@ -670,6 +670,11 @@ namespace EpicEdit.Rom
             };
             // TODO: Retrieve order dynamically from the ROM
 
+            // NOTE: The 2 bytes at 4DB85 (93DB) are an address (4DB93)
+            // to 2 other bytes (CFDA), which are an address (4DACF)
+            // to the object zones of Mario Circuit 1. The other tracks follow.
+            // But I don't know where the track order is defined.
+
             if (reorder[trackIndex] < 0)
             {
                 return reorder[trackIndex];
