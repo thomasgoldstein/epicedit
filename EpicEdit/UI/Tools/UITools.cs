@@ -32,7 +32,7 @@ namespace EpicEdit.UI.Tools
         {
             if (!(e.Value is Enum))
             {
-                // HACK: Do nothing in order to prevent an exception.
+                // HACK: Do nothing in order to avoid an exception.
                 // Workaround for Mono bug #620326
                 // https://bugzilla.novell.com/show_bug.cgi?id=620326
                 return;
