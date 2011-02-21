@@ -23,6 +23,11 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     public class TrackObjectZones
     {
+    	/// <summary>
+    	/// The maximum value (horizontally and vertically) within the object zone grid (64x64).
+    	/// </summary>
+    	private const int GridLimit = 63;
+    	
         private GPTrack track;
 
         public bool ReadOnly { get; set; }
@@ -263,7 +268,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 y2 = 0;
             }
 
-            while (x2 <= 63 && y2 <= y)
+            while (x2 <= GridLimit && y2 <= y)
             {
                 if (zones[y2][x2] != 0xFF &&
                     zones[y2][x2] > matchFound)
@@ -285,13 +290,13 @@ namespace EpicEdit.Rom.Tracks.Objects
             int x2 = x + depth;
             int y2 = y;
 
-            if (x2 > 63)
+            if (x2 > GridLimit)
             {
-                y2 += x2 - 63;
-                x2 = 63;
+                y2 += x2 - GridLimit;
+                x2 = GridLimit;
             }
 
-            while (x2 >= x && y2 <= 63)
+            while (x2 >= x && y2 <= GridLimit)
             {
                 if (zones[y2][x2] != 0xFF &&
                     zones[y2][x2] > matchFound)
@@ -313,10 +318,10 @@ namespace EpicEdit.Rom.Tracks.Objects
             int x2 = x;
             int y2 = y + depth;
 
-            if (y2 > 63)
+            if (y2 > GridLimit)
             {
-                x2 -= y2 - 63;
-                y2 = 63;
+                x2 -= y2 - GridLimit;
+                y2 = GridLimit;
             }
 
             while (x2 >= 0 && y2 >= y)
