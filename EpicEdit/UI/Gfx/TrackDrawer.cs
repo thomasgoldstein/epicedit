@@ -996,7 +996,7 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap CreateObjectZonesBitmap()
         {
-            Bitmap bitmap = new Bitmap(64, 64, this.trackCache.PixelFormat);
+            Bitmap bitmap = new Bitmap(TrackObjectZones.GridSize, TrackObjectZones.GridSize, this.trackCache.PixelFormat);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
             for (int y = 0; y < this.zones.Length; y++)
