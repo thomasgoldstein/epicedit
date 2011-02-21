@@ -24,9 +24,14 @@ namespace EpicEdit.Rom.Tracks.Objects
     public class TrackObjectZones
     {
     	/// <summary>
-    	/// The maximum value (horizontally and vertically) within the object zone grid (64x64).
+    	/// The object zone grid size (horizontally and vertically).
     	/// </summary>
-    	private const int GridLimit = 63;
+    	private const int GridSize = 64;
+    	
+    	/// <summary>
+    	/// The maximum value (horizontally and vertically) within the object zone grid.
+    	/// </summary>
+    	private const int GridLimit = GridSize - 1;
     	
         private GPTrack track;
 
@@ -104,11 +109,11 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte[][] GetGrid(bool frontZonesView)
         {
-            byte[][] zones = new byte[64][];
+            byte[][] zones = new byte[GridSize][];
 
             for (int y = 0; y < zones.Length; y++)
             {
-                zones[y] = new byte[64];
+                zones[y] = new byte[GridSize];
             }
 
             if (this.track.AI.ElementCount > 0)
