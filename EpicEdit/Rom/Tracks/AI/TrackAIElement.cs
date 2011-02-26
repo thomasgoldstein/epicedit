@@ -141,18 +141,18 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 zoneX = 0;
             }
-            else if ((zoneX + size) > 128)
+            else if ((zoneX + size) > TrackMap.Size)
             {
-                zoneX = 128 - size;
+                zoneX = TrackMap.Size - size;
             }
 
             if (zoneY < 0)
             {
                 zoneY = 0;
             }
-            else if ((zoneY + size) > 128)
+            else if ((zoneY + size) > TrackMap.Size)
             {
-                zoneY = 128 - size;
+                zoneY = TrackMap.Size - size;
             }
             #endregion Ensure the element isn't out of the track bounds
 
@@ -458,18 +458,18 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 x = 0;
             }
-            else if (x + this.zone.Width > 128)
+            else if (x + this.zone.Width > TrackMap.Size)
             {
-                x = 128 - this.zone.Width;
+                x = TrackMap.Size - this.zone.Width;
             }
 
             if (y < 0)
             {
                 y = 0;
             }
-            else if (y + this.zone.Height > 128)
+            else if (y + this.zone.Height > TrackMap.Size)
             {
-                y = 128 - this.zone.Height;
+                y = TrackMap.Size - this.zone.Height;
             }
 
             int targetX = x - (this.zone.X - this.target.X);
@@ -685,10 +685,10 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offbounds = Math.Max(length - this.zone.Right, length - this.zone.Bottom);
-                        if (offbounds > 0)
+                        int offBounds = length - Math.Max(this.zone.Right, this.zone.Bottom);
+                        if (offBounds > 0)
                         {
-                            length -= offbounds;
+                            length -= offBounds;
                         }
                     }
                     #endregion Validate zone length
@@ -713,10 +713,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = this.zone.X + length - 128;
-                            if (offbounds > 0)
+                            int offBounds = this.zone.X + length - TrackMap.Size;
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length
@@ -732,10 +732,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = length - this.zone.Right;
-                            if (offbounds > 0)
+                            int offBounds = length - this.zone.Right;
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length
@@ -758,10 +758,10 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offbounds = Math.Max(zoneX + length - 128, length - this.zone.Bottom);
-                        if (offbounds > 0)
+                        int offBounds = length - Math.Max(zoneX + TrackMap.Size, this.zone.Bottom);
+                        if (offBounds > 0)
                         {
-                            length -= offbounds;
+                            length -= offBounds;
                         }
                     }
                     #endregion Validate zone length
@@ -786,10 +786,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(zoneX + length - 128, zoneY + length - 128);
-                            if (offbounds > 0)
+                            int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length
@@ -803,10 +803,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(zoneX + length - 128, length - this.zone.Bottom);
-                            if (offbounds > 0)
+                            int offBounds = length - Math.Max(zoneX + TrackMap.Size, this.zone.Bottom);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length
@@ -829,10 +829,10 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offbounds = Math.Max(zoneX + length - 128, zoneY + length - 128);
-                        if (offbounds > 0)
+                        int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                        if (offBounds > 0)
                         {
-                            length -= offbounds;
+                            length -= offBounds;
                         }
                     }
                     #endregion Validate zone length
@@ -853,13 +853,13 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(length - this.zone.Right, zoneY + length - 128);
-                            if (offbounds > 0)
+                            int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
-                        #endregion
+                        #endregion Validate zone length
 
                         zoneX = this.zone.Right - length;
                     }
@@ -874,13 +874,13 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(zoneX + length - 128, zoneY + length - 128);
-                            if (offbounds > 0)
+                            int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
-                        #endregion
+                        #endregion Validate zone length
                     }
                     #endregion
                     break;
@@ -897,10 +897,10 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offbounds = Math.Max(length - this.zone.Right, zoneY + length - 128);
-                        if (offbounds > 0)
+                        int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                        if (offBounds > 0)
                         {
-                            length -= offbounds;
+                            length -= offBounds;
                         }
                     }
                     #endregion Validate zone length
@@ -924,10 +924,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(length - this.zone.Right, zoneY + length - 128);
-                            if (offbounds > 0)
+                            int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length
@@ -941,10 +941,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offbounds = Math.Max(length - this.zone.Right, length - this.zone.Bottom);
-                            if (offbounds > 0)
+                            int offBounds = length - Math.Max(this.zone.Right, this.zone.Bottom);
+                            if (offBounds > 0)
                             {
-                                length -= offbounds;
+                                length -= offBounds;
                             }
                         }
                         #endregion Validate zone length

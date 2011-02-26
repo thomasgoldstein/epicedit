@@ -19,6 +19,7 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.AI;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -47,7 +48,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.zone3TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
                 this.zone4TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
 
-                this.Maximum = 128;
+                this.Maximum = TrackAI.MaxElementCount;
                 int max = this.track.AI.ElementCount;
 
                 byte zone1Value = this.track.ObjectZones.GetZoneValue(this.FrontViewZones, 0);

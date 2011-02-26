@@ -22,6 +22,9 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class LapLine
     {
+    	private const int PrecisionX = 16;
+    	private const int PrecisionY = 2;
+    	
         private Point location;
         public Point Location
         {
@@ -30,25 +33,25 @@ namespace EpicEdit.Rom.Tracks
             {
                 // Divide x precision, so that the lap line
                 // is horizontally positioned following a 2-tile (16-px) step
-                int x = (value.X / 16) * 16;
+                int x = (value.X / LapLine.PrecisionX) * LapLine.PrecisionX;
                 int y = value.Y;
 
                 if (x < 0)
                 {
                     x = 0;
                 }
-                else if (x + this.Length > 128 * 8)
+                else if (x + this.Length > TrackMap.Size * Tile.Size)
                 {
-                    x = 128 * 8 - this.Length;
+                    x = TrackMap.Size * Tile.Size - this.Length;
                 }
 
                 if (y < 0)
                 {
                     y = 0;
                 }
-                else if (y >= 128 * 8)
+                else if (y >= TrackMap.Size * Tile.Size)
                 {
-                    y = 128 * 8 - 1;
+                    y = TrackMap.Size * Tile.Size - 1;
                 }
 
                 this.location = new Point(x, y);
@@ -61,9 +64,9 @@ namespace EpicEdit.Rom.Tracks
             get { return this.length; }
             private set
             {
-                if (value < 16)
+                if (value < LapLine.PrecisionX)
                 {
-                    this.length = 16;
+                    this.length = LapLine.PrecisionX;
                 }
                 else
                 {
@@ -98,10 +101,10 @@ namespace EpicEdit.Rom.Tracks
             // the rectangle, so, to simplify things, we only load the data as a line
             // defined by a point and a length, ignoring the 2 last bytes.
 
-            this.Length = (data[4] & 0x3F) * 16;
+            this.Length = (data[4] & 0x3F) * LapLine.PrecisionX;
 
             int y = (((data[1] & 0x03) << 8) + data[0]);
-            int x = (data[2] & 0x3F) * 16;
+            int x = (data[2] & 0x3F) * LapLine.PrecisionX;
             this.Location = new Point(x, y);
             // The bit mask on x is required for some of the original SMK track lap line zones
             // to work properly, as some of them have the 2 highest bits needlessly set to 1.
@@ -135,13 +138,13 @@ namespace EpicEdit.Rom.Tracks
         {
             // Divide x precision, so that the lap line
             // is horizontally positioned following a 2-tile (16-px) step
-            x = (x / 16) * 16;
+            x = (x / LapLine.PrecisionX) * LapLine.PrecisionX;
 
             if (resizeHandle == ResizeHandle.Left)
             {
                 if (this.Right - x <= 0)
                 {
-                    x = this.Right - 16;
+                    x = this.Right - LapLine.PrecisionX;
                 }
 
                 this.Length += this.X - x;
@@ -149,11 +152,11 @@ namespace EpicEdit.Rom.Tracks
             }
             else if (resizeHandle == ResizeHandle.Right)
             {
-                x += 16; // This makes the resizing behavior symmetrical
+                x += LapLine.PrecisionX; // This makes the resizing behavior symmetrical
 
                 if (x <= this.X)
                 {
-                    this.Length = 16;
+                    this.Length = LapLine.PrecisionX;
                 }
                 else
                 {
@@ -170,7 +173,7 @@ namespace EpicEdit.Rom.Tracks
             data[0] = (byte)(y & 0xFF);
             data[1] = (byte)(y >> 8);
 
-            int recX = this.X / 16;
+            int recX = this.X / LapLine.PrecisionX;
             data[2] = (byte)recX;
 
             int recY = (int)Math.Round((float)this.Y / 64) - 1;
@@ -182,13 +185,13 @@ namespace EpicEdit.Rom.Tracks
             }
             data[3] = (byte)recY;
 
-            int width = this.Length / 16;
+            int width = this.Length / LapLine.PrecisionX;
             data[4] = (byte)width;
 
-            int height = 8; // 8 = 16 tiles
-            if (recY + height > 64) // 64 = 128 tiles, the height of a track map.
+            int height = 16 / LapLine.PrecisionY; // 16 tiles
+            if (recY + height > TrackMap.Size / LapLine.PrecisionY)
             {
-                height = 64 - recY;
+                height = TrackMap.Size / LapLine.PrecisionY - recY;
             }
             data[5] = (byte)height;
 

@@ -23,13 +23,15 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class TrackMap
     {
+    	public const int Size = 128;
+
         private byte[][] map;
 
         public TrackMap(byte[] data)
         {
-            if (data.Length != (128 * 128))
+            if (data.Length != (TrackMap.Size * TrackMap.Size))
             {
-                throw new ArgumentOutOfRangeException("data", "The map array must have a length of 16384 (128 * 128)");
+                throw new ArgumentOutOfRangeException("data", "The map array must have a length of 16384 (" + TrackMap.Size + " * " + TrackMap.Size + ")");
             }
 
             int dimension = (int)Math.Sqrt(data.Length);

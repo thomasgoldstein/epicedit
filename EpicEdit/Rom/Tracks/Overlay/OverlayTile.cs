@@ -40,18 +40,18 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 {
                     x = 0;
                 }
-                else if (x + this.Width > 128)
+                else if (x + this.Width > TrackMap.Size)
                 {
-                    x = 128 - this.Width;
+                    x = TrackMap.Size - this.Width;
                 }
 
                 if (y < 0)
                 {
                     y = 0;
                 }
-                else if (y + this.Height > 128)
+                else if (y + this.Height > TrackMap.Size)
                 {
-                    y = 128 - this.Height;
+                    y = TrackMap.Size - this.Height;
                 }
 
                 this.location = new Point(x, y);
