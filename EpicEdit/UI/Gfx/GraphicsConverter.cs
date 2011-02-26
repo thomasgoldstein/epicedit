@@ -17,6 +17,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.Gfx
 {
@@ -33,19 +34,19 @@ namespace EpicEdit.UI.Gfx
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
             int index = start;
-            for (int tileY = 0; tileY < bitmap.Height; tileY += 8)
+            for (int tileY = 0; tileY < bitmap.Height; tileY += Tile.Size)
             {
-                for (int tileX = 0; tileX < bitmap.Width; tileX += 8)
+                for (int tileX = 0; tileX < bitmap.Width; tileX += Tile.Size)
                 {
-                    for (int y = 0; y < 8; y++)
+                    for (int y = 0; y < Tile.Size; y++)
                     {
                         byte val1 = data[index++];
                         byte val2 = data[index++];
-                        for (int x = 0; x < 8; x++)
+                        for (int x = 0; x < Tile.Size; x++)
                         {
                             int mask = 1 << x;
                             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-                            fBitmap.SetPixel(tileX + 7 - x, tileY + y, palette[colIndex]);
+                            fBitmap.SetPixel(tileX + (Tile.Size - 1) - x, tileY + y, palette[colIndex]);
                         }
                     }
                 }
@@ -61,7 +62,7 @@ namespace EpicEdit.UI.Gfx
 
             for (int i = 0; i < count; i++)
             {
-                Bitmap tileBitmap = new Bitmap(8, 8, PixelFormat.Format32bppPArgb);
+                Bitmap tileBitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
                 FastBitmap fTileBitmap = new FastBitmap(tileBitmap);
 
                 if (i < gfx.Length)

@@ -95,8 +95,8 @@ namespace EpicEdit.UI.Gfx
                 this.PatternList.TryGetValue(pattern, out location);
                 g.DrawRectangle(this.highlightPen,
                                 location.X, location.Y,
-                                pattern.Width * 8 - 1,
-                                pattern.Height * 8 - 1);
+                                pattern.Width * Tile.Size - 1,
+                                pattern.Height * Tile.Size - 1);
             }
         }
 
@@ -108,8 +108,8 @@ namespace EpicEdit.UI.Gfx
                 this.PatternList.TryGetValue(pattern, out location);
                 g.FillRectangle(this.selectBrush,
                                 location.X, location.Y,
-                                pattern.Width * 8 - 1,
-                                pattern.Height * 8 - 1);
+                                pattern.Width * Tile.Size - 1,
+                                pattern.Height * Tile.Size - 1);
             }
         }
 
@@ -150,9 +150,9 @@ namespace EpicEdit.UI.Gfx
 
                             Tile tile = this.tileset[tileId];
                             g.DrawImage(tile.Bitmap,
-                                        8 * x + location.X,
-                                        8 * y + location.Y,
-                                        8, 8);
+                                        Tile.Size * x + location.X,
+                                        Tile.Size * y + location.Y,
+                                        Tile.Size, Tile.Size);
                         }
                     }
 
@@ -160,8 +160,8 @@ namespace EpicEdit.UI.Gfx
                     g.DrawRectangle(this.delimitPen,
                                     location.X,
                                     location.Y,
-                                    pattern.Width * 8 - 1,
-                                    pattern.Height * 8 - 1);
+                                    pattern.Width * Tile.Size - 1,
+                                    pattern.Height * Tile.Size - 1);
                 }
             }
         }

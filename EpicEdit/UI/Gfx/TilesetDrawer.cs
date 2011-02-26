@@ -55,7 +55,7 @@ namespace EpicEdit.UI.Gfx
             this.tilesetCache.Dispose();
 
             int imageWidth = this.control.Width / Zoom;
-            int imageHeight = (this.tileset.Length / (imageWidth / 8)) * 8;
+            int imageHeight = (this.tileset.Length / (imageWidth / Tile.Size)) * Tile.Size;
 
             this.tilesetCache = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
@@ -64,8 +64,8 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int y = 0; y < 32; y++)
                     {
-                        Tile tile = this.tileset[x + (y * 8)];
-                        g.DrawImage(tile.Bitmap, x * 8, y * 8);
+                        Tile tile = this.tileset[x + (y * Tile.Size)];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
             }
@@ -84,15 +84,15 @@ namespace EpicEdit.UI.Gfx
                                          this.tilesetCache.Width,
                                          this.tilesetCache.Height);
 
-                    int tilePosX = selectedTile % 8;
-                    int tilePosY = selectedTile / 8;
+                    int tilePosX = selectedTile % Tile.Size;
+                    int tilePosY = selectedTile / Tile.Size;
                     Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
                     backBuffer.DrawRectangle(this.tilesetPen,
-                                             selectedTilePosition.X * 8,
-                                             selectedTilePosition.Y * 8,
-                                             8 - 1,
-                                             8 - 1);
+                                             selectedTilePosition.X * Tile.Size,
+                                             selectedTilePosition.Y * Tile.Size,
+                                             Tile.Size - 1,
+                                             Tile.Size - 1);
                 }
                 g.DrawImage(image, 0, 0,
                             image.Width * Zoom,

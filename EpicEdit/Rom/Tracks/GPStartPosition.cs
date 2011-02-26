@@ -22,6 +22,10 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class GPStartPosition
     {
+        public const int Height = 168;
+        private const int SecondRowMin = -256;
+        private const int SecondRowMax = 255;
+
         private Point location;
         public Point Location
         {
@@ -30,13 +34,13 @@ namespace EpicEdit.Rom.Tracks
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = 127 * 8;
+                int limit = (TrackMap.Size - 1) * Tile.Size;
 
                 if (this.SecondRowOffset > 0)
                 {
-                    if (x < 8)
+                    if (x < Tile.Size)
                     {
-                        x = 8;
+                        x = Tile.Size;
                     }
                     else if (x + this.SecondRowOffset > limit)
                     {
@@ -45,9 +49,9 @@ namespace EpicEdit.Rom.Tracks
                 }
                 else
                 {
-                    if (x + this.SecondRowOffset < 8)
+                    if (x + this.SecondRowOffset < Tile.Size)
                     {
-                        x = 8 - this.SecondRowOffset;
+                        x = Tile.Size - this.SecondRowOffset;
                     }
                     else if (x > limit)
                     {
@@ -55,9 +59,9 @@ namespace EpicEdit.Rom.Tracks
                     }
                 }
 
-                if (y < 8)
+                if (y < Tile.Size)
                 {
-                    y = 8;
+                    y = Tile.Size;
                 }
                 else if (y > limit - GPStartPosition.Height)
                 {
@@ -74,23 +78,23 @@ namespace EpicEdit.Rom.Tracks
             get { return this.secondRowOffset; }
             set
             {
-                int limit = 127 * 8;
+                int limit = (TrackMap.Size - 1) * Tile.Size;
 
-                if (this.X + value < 8)
+                if (this.X + value < Tile.Size)
                 {
-                    value = 8 - this.X;
+                    value = Tile.Size - this.X;
                 }
                 else if (this.X + value > limit)
                 {
                     value = limit - this.X;
                 }
-                else if (value < -256)
+                else if (value < GPStartPosition.SecondRowMin)
                 {
-                    value = -256;
+                    value = GPStartPosition.SecondRowMin;
                 }
-                else if (value > 255)
+                else if (value > GPStartPosition.SecondRowMax)
                 {
-                    value = 255;
+                    value = GPStartPosition.SecondRowMax;
                 }
 
                 this.secondRowOffset = value;
@@ -105,11 +109,6 @@ namespace EpicEdit.Rom.Tracks
         public int Y
         {
             get { return this.location.Y; }
-        }
-
-        public static int Height
-        {
-            get { return 168; }
         }
 
         /// <summary>
@@ -178,10 +177,10 @@ namespace EpicEdit.Rom.Tracks
 
         public bool IntersectsWith(Point point)
         {
-            return point.X >= this.Left - 8 &&
-                point.X <= this.Right + 7 &&
-                point.Y >= this.Y - 8 &&
-                point.Y <= this.Y + GPStartPosition.Height + 7;
+            return point.X >= this.Left - Tile.Size &&
+                point.X <= this.Right + (Tile.Size - 1) &&
+                point.Y >= this.Y - Tile.Size &&
+                point.Y <= this.Y + GPStartPosition.Height + (Tile.Size - 1);
         }
     }
 }
