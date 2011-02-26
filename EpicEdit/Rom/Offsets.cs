@@ -240,11 +240,11 @@ namespace EpicEdit.Rom
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTilesPalettes] + 0x1C3;
 
             this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
-            this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Game.ThemeCount * 3;
-            this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Game.ThemeCount * 3;
-            this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Game.ThemeCount * 3;
-            this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Game.ThemeCount * 3;
-            this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Game.ThemeCount * 3;
+            this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Theme.Count * 3;
+            this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Theme.Count * 3;
+            this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Theme.Count * 3;
+            this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Theme.Count * 3;
+            this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Theme.Count * 3;
             this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + GPTrack.Count;
         }
 

@@ -21,6 +21,11 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public sealed class Theme : IDisposable
     {
+        /// <summary>
+        /// Number of themes.
+        /// </summary>
+        public const int Count = 8;
+
         public string Name { get; private set; }
         public Palette[] Palettes { get; private set; }
         public Music Music { get; set; }

@@ -43,7 +43,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void LoadThemes(byte[] romBuffer, Offsets offsets, string[] names)
         {
-            this.themes = new Theme[Game.ThemeCount];
+            this.themes = new Theme[Theme.Count];
 
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
             // TODO: Retrieve order dynamically from the ROM
