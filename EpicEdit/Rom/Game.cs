@@ -54,11 +54,6 @@ namespace EpicEdit.Rom
     /// </summary>
     public sealed class Game : IDisposable
     {
-        /// <summary>
-        /// Number of themes.
-        /// </summary>
-        public const int ThemeCount = 8;
-
         private static class RomSize
         {
             internal const int Size256 = 256 * 1024; // The smallest SNES ROM size possible: 256 KiB (2 megabits), and the step value between each possible ROM sizes.
@@ -399,7 +394,7 @@ namespace EpicEdit.Rom
         /// <returns>The names of the cups and track themes.</returns>
         private string[] GetCupAndThemeNames()
         {
-            int nameCount = this.trackGroups.Length + Game.ThemeCount;
+            int nameCount = this.trackGroups.Length + Theme.Count;
             string[] names = new string[nameCount];
             byte[][] nameIndex = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.NameStrings], 2, names.Length);
             int offset;
