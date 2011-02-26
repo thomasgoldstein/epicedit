@@ -300,7 +300,7 @@ namespace EpicEdit.Rom
             this.SP_LSLY = new byte[2];
             this.SP_REGION = new byte[] { 0, 2 };
 
-            this.MAP = new byte[16384];
+            this.MAP = new byte[TrackMap.SquareSize];
 
             this.GPEX = new byte[OverlayTiles.Size];
             for (int i = 0; i < this.GPEX.Length; i++)

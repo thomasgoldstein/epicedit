@@ -111,18 +111,18 @@ namespace EpicEdit.Rom.Tracks
                 FileInfo info = new FileInfo(filePath);
                 int fileLength = (int)info.Length;
 
-                if (fileLength != 16384 && fileLength != 16385)
+                if (fileLength != TrackMap.SquareSize && fileLength != TrackMap.SquareSize + 1)
                 {
                     throw new InvalidDataException("\"" + Path.GetFileName(filePath) + "\"" + Environment.NewLine +
                                                    "isn't a valid track file. Import aborted.");
                 }
 
-                byte[] mapData = new byte[16384];
-                reader.Read(mapData, 0, 16384);
+                byte[] mapData = new byte[TrackMap.SquareSize];
+                reader.Read(mapData, 0, mapData.Length);
 
                 this.Map = new TrackMap(mapData);
 
-                if (fileLength == 16385) // If a theme is defined
+                if (fileLength == TrackMap.SquareSize + 1) // If a theme is defined
                 {
                     byte themeId = (byte)(reader.ReadByte() >> 1);
                     this.Theme = game.Themes[themeId];
