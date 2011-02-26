@@ -37,6 +37,16 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public abstract class Track
     {
+        /// <summary>
+        /// Total number of tracks (GP tracks + battle tracks).
+        /// </summary>
+        public const int Count = GPTrack.Count + BattleTrack.Count;
+
+        /// <summary>
+        /// Total number of track groups (GP and Battle).
+        /// </summary>
+        public const int GroupCount = GPTrack.GroupCount + BattleTrack.GroupCount;
+
         public string Name { get; private set; }
         public Theme Theme { get; set; }
         public TrackMap Map { get; private set; }

@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.Rom
 {
@@ -238,13 +239,13 @@ namespace EpicEdit.Rom
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTilesPalettes] + 0x1C3;
 
-            this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Game.TrackCount * 3;
+            this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
             this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Game.ThemeCount * 3;
             this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Game.ThemeCount * 3;
             this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Game.ThemeCount * 3;
             this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Game.ThemeCount * 3;
             this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Game.ThemeCount * 3;
-            this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + Game.GPTrackCount;
+            this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + GPTrack.Count;
         }
 
         public int this[Offset offset]

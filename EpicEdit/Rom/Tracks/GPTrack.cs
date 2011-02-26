@@ -24,6 +24,21 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class GPTrack : Track
     {
+        /// <summary>
+        /// Number of GP tracks.
+        /// </summary>
+        public new const int Count = GPTrack.GroupCount * GPTrack.CountPerGroup;
+
+        /// <summary>
+        /// Number of GP Groups (Cups).
+        /// </summary>
+        public new const int GroupCount = 4;
+
+        /// <summary>
+        /// Number of GP tracks per Group (Cup).
+        /// </summary>
+        public const int CountPerGroup = 5;
+
         public GPStartPosition StartPosition { get; private set; }
         public LapLine LapLine { get; private set; }
         public TrackObjects Objects { get; private set; }

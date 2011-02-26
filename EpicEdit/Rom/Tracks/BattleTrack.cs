@@ -24,6 +24,16 @@ namespace EpicEdit.Rom.Tracks
     public class BattleTrack : Track
     {
         /// <summary>
+        /// Number of battle tracks.
+        /// </summary>
+        public new const int Count = 4;
+
+        /// <summary>
+        /// Number of battle track groups.
+        /// </summary>
+        public new const int GroupCount = 1;
+
+        /// <summary>
         /// The starting position of Player 1.
         /// </summary>
         public BattleStartPosition StartPositionP1 { get; private set; }
