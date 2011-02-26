@@ -1463,9 +1463,8 @@ namespace EpicEdit.UI.Gfx
 
         private void SetImageSize()
         {
-            int trackMapSize = 128;
-            int imageWidth = (int)Math.Min(this.control.Width / this.zoom, (trackMapSize - this.scrollPosition.X) * 8);
-            int imageHeight = (int)Math.Min(this.control.Height / this.zoom, (trackMapSize - this.scrollPosition.Y) * 8);
+            int imageWidth = (int)Math.Min(this.control.Width / this.zoom, (TrackMap.Size - this.scrollPosition.X) * 8);
+            int imageHeight = (int)Math.Min(this.control.Height / this.zoom, (TrackMap.Size - this.scrollPosition.Y) * 8);
             this.imageSize = new Size(imageWidth, imageHeight);
         }
 

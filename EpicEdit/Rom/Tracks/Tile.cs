@@ -26,6 +26,8 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public abstract class Tile : IDisposable
     {
+    	public const int Size = 8;
+
         private int width;
         private int height;
         private TileGenre genre = TileGenre.Road;

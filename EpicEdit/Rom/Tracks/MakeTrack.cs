@@ -302,7 +302,7 @@ namespace EpicEdit.Rom
 
             this.MAP = new byte[16384];
 
-            this.GPEX = new byte[128];
+            this.GPEX = new byte[OverlayTiles.Size];
             for (int i = 0; i < this.GPEX.Length; i++)
             {
                 this.GPEX[i] = 0xFF;

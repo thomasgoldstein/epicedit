@@ -24,6 +24,8 @@ namespace EpicEdit.Rom.Tracks.AI
     /// </summary>
     public class TrackAI : IEnumerable<TrackAIElement>
     {
+    	public const int MaxElementCount = 128;
+    	
         private Track track;
         private List<TrackAIElement> aiElements;
 
@@ -76,7 +78,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
         public bool Add(TrackAIElement aiElement)
         {
-            if (this.aiElements.Count < 128)
+            if (this.aiElements.Count < TrackAI.MaxElementCount)
             {
                 this.aiElements.Add(aiElement);
                 return true;

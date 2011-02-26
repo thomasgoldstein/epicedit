@@ -508,20 +508,20 @@ namespace EpicEdit.Rom
         private byte[] GetOverlayTileData(int trackIndex)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
-            byte[] data = new byte[128];
-            Array.Copy(this.romBuffer, offset, data, 0, 128);
+            byte[] data = new byte[OverlayTiles.Size];
+            Array.Copy(this.romBuffer, offset, data, 0, data.Length);
             return data;
         }
 
         private void SetOverlayTileData(int trackIndex, byte[] data)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
-            Array.Copy(data, 0, this.romBuffer, offset, 128);
+            Array.Copy(data, 0, this.romBuffer, offset, OverlayTiles.Size);
         }
 
         private int GetOverlayTileDataOffset(int trackIndex)
         {
-            return this.offsets[Offset.TrackOverlayItems] + trackIndex * 128;
+            return this.offsets[Offset.TrackOverlayItems] + trackIndex * OverlayTiles.Size;
         }
 
         #endregion Track Overlay Tiles

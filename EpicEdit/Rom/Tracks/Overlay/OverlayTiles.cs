@@ -24,6 +24,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     public class OverlayTiles : IEnumerable<OverlayTile>
     {
+    	public const int Size = 128;
+    	public const int MaxTileCount = 42;
+
         private OverlayTileSizes sizes;
         private OverlayTilePatterns patterns;
         private List<OverlayTile> overlayTiles;
@@ -60,14 +63,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         private void SetBytes(byte[] data)
         {
-            if (data.Length != 128)
+            if (data.Length != OverlayTiles.Size)
             {
                 throw new ArgumentOutOfRangeException("data");
             }
 
             this.overlayTiles = new List<OverlayTile>();
 
-            for (int overlayTileIndex = 0; overlayTileIndex < 42; overlayTileIndex++)
+            for (int overlayTileIndex = 0; overlayTileIndex < OverlayTiles.MaxTileCount; overlayTileIndex++)
             {
                 int index = overlayTileIndex * 3;
                 if (data[index + 1] == 0xFF &&
@@ -101,7 +104,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <returns>The OverlayTiles bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[128];
+            byte[] data = new byte[OverlayTiles.Size];
 
             for (int overlayTileIndex = 0; overlayTileIndex < this.overlayTiles.Count; overlayTileIndex++)
             {
@@ -120,7 +123,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void Add(OverlayTile overlayTile)
         {
-            if (this.Count == 42)
+            if (this.Count == OverlayTiles.MaxTileCount)
             {
                 return;
             }
