@@ -201,7 +201,7 @@ namespace EpicEdit.UI.TrackEdition
                 else
                 {
                     // If the row isn't totally filled, center the pattern(s)
-                    tilesetX = ((panelWidth - rowWidth) * 8) / 2;
+                    tilesetX = ((panelWidth - rowWidth) * Tile.Size) / 2;
                 }
 
                 // Store the pattern(s) of the row, and their location
@@ -210,7 +210,7 @@ namespace EpicEdit.UI.TrackEdition
                     OverlayTilePattern pattern = patterns[patternId];
                     this.patternList.Add(pattern, new Point(tilesetX, tilesetY));
 
-                    tilesetX += pattern.Width * 8;
+                    tilesetX += pattern.Width * Tile.Size;
                     if (pattern.Height > tallestPattern)
                     {
                         tallestPattern = pattern.Height;
@@ -220,7 +220,7 @@ namespace EpicEdit.UI.TrackEdition
                     patternId++;
                 }
 
-                tilesetY += tallestPattern * 8;
+                tilesetY += tallestPattern * Tile.Size;
             }
 
             if (tilesetX != 0)
@@ -301,9 +301,9 @@ namespace EpicEdit.UI.TrackEdition
                 Point location = kvp.Value;
 
                 if (point.X >= location.X &&
-                    point.X < location.X + pattern.Width * 8 &&
+                    point.X < location.X + pattern.Width * Tile.Size &&
                     point.Y >= location.Y &&
-                    point.Y < location.Y + pattern.Height * 8)
+                    point.Y < location.Y + pattern.Height * Tile.Size)
                 {
                     return pattern;
                 }

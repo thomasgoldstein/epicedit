@@ -30,20 +30,20 @@ namespace EpicEdit.Rom.Tracks
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = 127 * 8;
+                int limit = (TrackMap.Size - 1) * Tile.Size;
 
-                if (x < 8)
+                if (x < Tile.Size)
                 {
-                    x = 8;
+                    x = Tile.Size;
                 }
                 else if (x > limit)
                 {
                     x = limit;
                 }
 
-                if (y < 8)
+                if (y < Tile.Size)
                 {
-                    y = 8;
+                    y = Tile.Size;
                 }
                 else if (y > limit)
                 {
@@ -91,10 +91,10 @@ namespace EpicEdit.Rom.Tracks
 
         public bool IntersectsWith(Point point)
         {
-            return point.X >= this.X - 8 &&
-                point.X <= this.X + 7 &&
-                point.Y >= this.Y - 8 &&
-                point.Y <= this.Y + 7;
+            return point.X >= this.X - Tile.Size &&
+            	point.X <= this.X + (Tile.Size - 1) &&
+                point.Y >= this.Y - Tile.Size &&
+                point.Y <= this.Y + (Tile.Size - 1);
         }
     }
 }
