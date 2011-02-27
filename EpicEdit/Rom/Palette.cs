@@ -28,7 +28,7 @@ namespace EpicEdit.Rom
         {
             // This is used to initialize a default palette, all black
             this.colors = new RomColor[16];
-            for (int x = 0; x < 16; x++)
+            for (int x = 0; x < this.colors.Length; x++)
             {
                 this.colors[x] = new RomColor();
             }
@@ -52,7 +52,7 @@ namespace EpicEdit.Rom
             }
 
             this.colors = new RomColor[16];
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < this.colors.Length; i++)
             {
                 this.colors[i] = RomColor.FromBytes(palette, i * 2);
             }
@@ -68,7 +68,7 @@ namespace EpicEdit.Rom
         {
             byte[] bytes = new byte[32];
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < this.colors.Length; i++)
             {
                 Array.Copy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
             }
