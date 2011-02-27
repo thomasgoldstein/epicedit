@@ -23,26 +23,22 @@ namespace EpicEditTests.Rom
     public class PaletteTest
     {
         [Test]
-        public void Test0000()
+        public void TestBlack()
         {
-            byte[] polo = new byte[32];
-            for (int i = 0; i < 32; i++)
-            {
-                polo[i] = 0;
-            }
-            Palette pal = new Palette(polo);
+            byte[] palData = new byte[32];
+            palData[0] = 0x00;
+            palData[1] = 0x00;
+            Palette pal = new Palette(palData);
             Assert.AreEqual(Color.FromArgb(0, 0, 0), pal[0].Color);
         }
 
         [Test]
-        public void TestFfff()
+        public void TestWhite()
         {
-            byte[] polo = new byte[32];
-            for (int i = 0; i < 32; i++)
-            {
-                polo[i] = 0xFF;
-            }
-            Palette pal = new Palette(polo);
+            byte[] palData = new byte[32];
+            palData[0] = 0xFF;
+            palData[1] = 0xFF;
+            Palette pal = new Palette(palData);
             Assert.AreEqual(Color.FromArgb(255, 255, 255), pal[0].Color);
         }
     }
