@@ -67,6 +67,101 @@ namespace EpicEdit.Rom
             internal const int Size8192 = 8192 * 1024; // 64 megabits
         }
 
+        #region Public members and methods
+
+        /// <summary>
+        /// Returns the main track groups.
+        /// </summary>
+        /// <returns>An array composed of the main track groups.</returns>
+        public TrackGroup[] GetTrackGroups()
+        {
+            return this.trackGroups;
+        }
+
+        /// <summary>
+        /// Returns a specific track.
+        /// </summary>
+        /// <param name="trackGroupId">The group id of the track.</param>
+        /// <param name="trackId">The id of the track.</param>
+        /// <returns>A track.</returns>
+        public Track GetTrack(int trackGroupId, int trackId)
+        {
+            return this.trackGroups[trackGroupId][trackId];
+        }
+
+        /// <summary>
+        /// Gets the track themes.
+        /// </summary>
+        public Themes Themes
+        {
+            get { return this.themes; }
+        }
+
+        /// <summary>
+        /// Gets the overlay tile sizes.
+        /// </summary>
+        public OverlayTileSizes OverlayTileSizes
+        {
+            get { return this.overlayTileSizes; }
+        }
+
+        /// <summary>
+        /// Gets the overlay tile patterns.
+        /// </summary>
+        public OverlayTilePatterns OverlayTilePatterns
+        {
+            get { return this.overlayTilePatterns; }
+        }
+
+        /// <summary>
+        /// Returns the file path of the loaded ROM.
+        /// </summary>
+        public string FilePath
+        {
+            get { return this.filePath; }
+        }
+
+        /// <summary>
+        /// Returns the file name of the loaded ROM.
+        /// </summary>
+        public string FileName
+        {
+            get { return Path.GetFileName(this.filePath); }
+        }
+
+        public string[] GetModeNames()
+        {
+            string[] modeNames = new string[3];
+
+            int offset = this.offsets[Offset.ModeStrings];
+            int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
+            int lengthOffset = offset + 6;
+
+            for (int i = 0; i < modeNames.Length; i++)
+            {
+                int length = this.romBuffer[lengthOffset] * 2;
+                byte[] hexText = new byte[length];
+                Array.Copy(this.romBuffer, nameOffset, hexText, 0, length);
+                modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
+                nameOffset += length;
+                lengthOffset += 2;
+            }
+
+            return modeNames;
+        }
+
+        public ItemProbabilities ItemProbabilities
+        {
+            get { return this.itemProbabilities; }
+        }
+
+        public Bitmap GetItemIcon(ItemType type)
+        {
+            return this.itemIcons[(int)type];
+        }
+
+        #endregion Public members and methods
+
         #region Private members
 
         /// <summary>
@@ -386,6 +481,26 @@ namespace EpicEdit.Rom
 
             this.LoadItemProbabilities();
             this.LoadItemIcons();
+        }
+
+        private void SetRegion()
+        {
+            int regionAddress = 0xFFD9;
+            int region = this.romBuffer[regionAddress];
+
+            if (!Enum.IsDefined(typeof(Region), region))
+            {
+                if (this.romHeader != null)
+                {
+                    regionAddress += this.romHeader.Length;
+                }
+
+                throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
+                                                             "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
+                                                             this.FileName, regionAddress, region));
+            }
+
+            this.region = (Region)region;
         }
 
         /// <summary>
@@ -709,117 +824,6 @@ namespace EpicEdit.Rom
         #endregion Item Icons
 
         #endregion Get / Set, Load / Save specific data
-
-        /// <summary>
-        /// Returns the main track groups.
-        /// </summary>
-        /// <returns>An array composed of the main track groups.</returns>
-        public TrackGroup[] GetTrackGroups()
-        {
-            return this.trackGroups;
-        }
-
-        /// <summary>
-        /// Returns a specific track.
-        /// </summary>
-        /// <param name="trackGroupId">The group id of the track.</param>
-        /// <param name="trackId">The id of the track.</param>
-        /// <returns>A track.</returns>
-        public Track GetTrack(int trackGroupId, int trackId)
-        {
-            return this.trackGroups[trackGroupId][trackId];
-        }
-
-        /// <summary>
-        /// Gets the track themes.
-        /// </summary>
-        public Themes Themes
-        {
-            get { return this.themes; }
-        }
-
-        /// <summary>
-        /// Gets the overlay tile sizes.
-        /// </summary>
-        public OverlayTileSizes OverlayTileSizes
-        {
-            get { return this.overlayTileSizes; }
-        }
-
-        /// <summary>
-        /// Gets the overlay tile patterns.
-        /// </summary>
-        public OverlayTilePatterns OverlayTilePatterns
-        {
-            get { return this.overlayTilePatterns; }
-        }
-
-        /// <summary>
-        /// Returns the file path of the loaded ROM.
-        /// </summary>
-        public string FilePath
-        {
-            get { return this.filePath; }
-        }
-
-        /// <summary>
-        /// Returns the file name of the loaded ROM.
-        /// </summary>
-        public string FileName
-        {
-            get { return Path.GetFileName(this.filePath); }
-        }
-
-        private void SetRegion()
-        {
-            int regionAddress = 0xFFD9;
-            int region = this.romBuffer[regionAddress];
-
-            if (!Enum.IsDefined(typeof(Region), region))
-            {
-                if (this.romHeader != null)
-                {
-                    regionAddress += this.romHeader.Length;
-                }
-
-                throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
-                                                             "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
-                                                             this.FileName, regionAddress, region));
-            }
-
-            this.region = (Region)region;
-        }
-
-        public string[] GetModeNames()
-        {
-            string[] modeNames = new string[3];
-
-            int offset = this.offsets[Offset.ModeStrings];
-            int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
-            int lengthOffset = offset + 6;
-
-            for (int i = 0; i < modeNames.Length; i++)
-            {
-                int length = this.romBuffer[lengthOffset] * 2;
-                byte[] hexText = new byte[length];
-                Array.Copy(this.romBuffer, nameOffset, hexText, 0, length);
-                modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
-                nameOffset += length;
-                lengthOffset += 2;
-            }
-
-            return modeNames;
-        }
-
-        public ItemProbabilities ItemProbabilities
-        {
-            get { return this.itemProbabilities; }
-        }
-
-        public Bitmap GetItemIcon(ItemType type)
-        {
-            return this.itemIcons[(int)type];
-        }
 
         #region Track reodering
         public void ReorderTracks(int sourceTrackGroupId, int sourceTrackId, int destinationTrackGroupId, int destinationTrackId)
