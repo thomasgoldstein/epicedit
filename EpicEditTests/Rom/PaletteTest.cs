@@ -31,7 +31,7 @@ namespace EpicEditTests.Rom
                 polo[i] = 0;
             }
             Palette pal = new Palette(polo);
-            Assert.AreEqual(pal[0], Color.FromArgb(0, 0, 0));
+            Assert.AreEqual(Color.FromArgb(0, 0, 0), pal[0].Color);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace EpicEditTests.Rom
                 polo[i] = 0xFF;
             }
             Palette pal = new Palette(polo);
-            Assert.AreEqual(pal[0], Color.FromArgb(248, 248, 248));
+            Assert.AreEqual(Color.FromArgb(255, 255, 255), pal[0].Color);
         }
     }
 }
