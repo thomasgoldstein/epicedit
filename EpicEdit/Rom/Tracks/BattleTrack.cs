@@ -51,8 +51,8 @@ namespace EpicEdit.Rom.Tracks
                            OverlayTilePatterns overlayTilePatterns) :
             base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
-            byte[] startPosition1Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
-            byte[] startPosition2Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
+            byte[] startPosition1Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
+            byte[] startPosition2Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
             this.StartPositionP1 = new BattleStartPosition(startPosition1Data);
             this.StartPositionP2 = new BattleStartPosition(startPosition2Data);
         }

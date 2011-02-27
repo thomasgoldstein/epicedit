@@ -136,8 +136,15 @@ namespace EpicEdit.Rom
 
         /// <summary>
         /// Addresses to the starting position of the drivers on the battle tracks.
+        /// Used to retrieve the positions in the original game.
         /// </summary>
         BattleTrackStartPositions,
+
+        /// <summary>
+        /// Address to the starting position of the drivers on the battle tracks.
+        /// Used to relocate the starting positions.
+        /// </summary>
+        BattleTrackStartPositionsIndex,
 
         /// <summary>
         /// Theme road graphics address index.
@@ -232,6 +239,7 @@ namespace EpicEdit.Rom
             this[Offset.CommonTilesetGraphics] = 0x40000;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
+            this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
             this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
             this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x2A;
             this[Offset.GPTrackNames] = this[Offset.BattleTrackNames] + 0x32;
