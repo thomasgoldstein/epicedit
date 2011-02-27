@@ -1072,8 +1072,6 @@ namespace EpicEdit.Rom
 
         private void SaveBattleStartPositions(SaveBuffer saveBuffer)
         {
-            this.RelocateBattleStartPositionsPart1();
-
             byte[] trackOrder = this.GetTrackOrder();
 
             Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
@@ -1088,22 +1086,7 @@ namespace EpicEdit.Rom
                 this.SaveBattleStartPositions(tracks[bTrackIndex] as BattleTrack, saveBuffer);
             }
 
-            this.RelocateBattleStartPositionsPart2(saveBuffer);
-        }
-
-        private void RelocateBattleStartPositionsPart1()
-        {
-            if (this.BattleStartPositionsRelocated)
-            {
-                return;
-            }
-
-            // Relocate the battle track starting positions (to 0x80000).
-            int offset = this.offsets[Offset.BattleTrackStartPositionsIndex];
-            this.romBuffer[offset++] = 0x5C;
-            this.romBuffer[offset++] = 0x20;
-            this.romBuffer[offset++] = 0x00;
-            this.romBuffer[offset] = 0xC8;
+            this.RelocateBattleStartPositions(saveBuffer);
         }
 
         private void SaveBattleStartPositions(BattleTrack track, SaveBuffer saveBuffer)
@@ -1114,8 +1097,16 @@ namespace EpicEdit.Rom
             saveBuffer.Add(startPositionP2Data);
         }
 
-        private void RelocateBattleStartPositionsPart2(SaveBuffer saveBuffer)
+        private void RelocateBattleStartPositions(SaveBuffer saveBuffer)
         {
+            // Relocate the battle track starting positions (to 0x80000).
+            int offset = this.offsets[Offset.BattleTrackStartPositionsIndex];
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x20;
+            this.romBuffer[offset++] = 0x00;
+            this.romBuffer[offset] = 0xC8;
+
+            // New code for battle track starting positions
             byte[] hack =
             {
                 0xAD, 0x24, 0x01, 0xC9, 0x14, 0x00, 0x90, 0x35,
