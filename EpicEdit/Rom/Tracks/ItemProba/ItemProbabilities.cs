@@ -47,9 +47,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         [Description("Lap 1")]
         Lap1 = 0,
         [Description("Lap 2-5 / 1st")]
-        Lap2to5_1st = 1,
+        Lap2To5_1st = 1,
         [Description("Lap 2-5 / 2nd")]
-        Lap2to5_2nd = 2
+        Lap2To5_2nd = 2
     }
 
     #endregion Enumerations

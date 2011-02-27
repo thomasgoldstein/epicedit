@@ -120,8 +120,8 @@ namespace EpicEdit.UI.ThemeEdition
 
                 case 1:
                     this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap1);
-                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2to5_1st);
-                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2to5_2nd);
+                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2To5_1st);
+                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2To5_2nd);
                     this.lapRankComboBox.SelectedIndex = 0;
                     break;
             }
