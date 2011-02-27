@@ -36,8 +36,8 @@ namespace EpicEdit.Rom
             this.romBuffer = romBuffer;
             this.savedData = new Queue<byte[]>();
 
-            int zoneStart = Game.RomSize.Size512;
-            int zoneEnd = Math.Min(this.romBuffer.Length, Game.RomSize.Size1024);
+            int zoneStart = RomSize.Size512;
+            int zoneEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
             this.zone = new Range(zoneStart, zoneEnd);
             this.Index = this.zone.Start;
         }
@@ -93,18 +93,18 @@ namespace EpicEdit.Rom
             // Check if all the saved data fits in the zone
             if (savedDataSize > this.zone.Length)
             {
-                if (savedDataSize <= Game.RomSize.Size512)
+                if (savedDataSize <= RomSize.Size512)
                 {
                     if (this.zone.Length == 0 && // If the ROM is 512 KiB (ie: the original SMK ROM size)
-                        savedDataSize > Game.RomSize.Size256) // And if the data that needs to be saved is over 256 Kib
+                        savedDataSize > RomSize.Size256) // And if the data that needs to be saved is over 256 Kib
                     {
-                        this.ExpandRomBuffer(Game.RomSize.Size512);
+                        this.ExpandRomBuffer(RomSize.Size512);
                     }
                     else
                     {
                         // The ROM size is 512 or 768 KiB
                         // and can be expanded by 256 KiB to make all the data fit
-                        this.ExpandRomBuffer(Game.RomSize.Size256);
+                        this.ExpandRomBuffer(RomSize.Size256);
                     }
 
                     this.zone.End = this.romBuffer.Length;
@@ -132,7 +132,7 @@ namespace EpicEdit.Rom
         /// <param name="newSize">New ROM buffer length.</param>
         private void ResizeRomBuffer(int size)
         {
-            if (size > Game.RomSize.Size8192)
+            if (size > RomSize.Size8192)
             {
                 throw new ArgumentOutOfRangeException("size", "The ROM can't be expanded because the maximum size has been reached.");
             }
