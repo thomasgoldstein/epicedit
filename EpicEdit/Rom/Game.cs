@@ -633,7 +633,7 @@ namespace EpicEdit.Rom
             int startPositionOffset = this.GetBattleStartPositionDataOffset(trackIndex);
 
             byte[] data = new byte[8];
-            
+
             if (this.BattleStartPositionsRelocated)
             {
                 for (int i = 0; i < data.Length; i++)
@@ -693,7 +693,7 @@ namespace EpicEdit.Rom
                 {
                     return true;
                 }
-    
+
                 if (this.romBuffer[offset] == 0xAD &&
                     this.romBuffer[offset + 1] == 0x24 &&
                     this.romBuffer[offset + 2] == 0x01 &&
@@ -701,7 +701,7 @@ namespace EpicEdit.Rom
                 {
                     return false;
                 }
-    
+
                 throw new InvalidDataException("Error when loading battle track starting positions.");
             }
         }
