@@ -238,10 +238,12 @@ namespace EpicEdit.UI
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
+                string fileName = MainForm.SmkGame.FileName;
+                string ext = Path.GetExtension(fileName);
                 sfd.Filter = "SNES ROM file (*.bin, *.fig, *.sfc, *.smc, *.swc)|" +
-                             "*.bin; *.fig; *.sfc; *.smc; *.swc|" +
+                             "*" + ext + "; *.bin; *.fig; *.sfc; *.smc; *.swc|" +
                              "All files (*.*)|*.*";
-                sfd.FileName = MainForm.SmkGame.FilePath;
+                sfd.FileName = Path.GetFileNameWithoutExtension(fileName);
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
