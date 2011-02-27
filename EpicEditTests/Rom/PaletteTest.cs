@@ -41,5 +41,35 @@ namespace EpicEditTests.Rom
             Palette pal = new Palette(palData);
             Assert.AreEqual(Color.FromArgb(255, 255, 255), pal[0].Color);
         }
+
+        [Test]
+        public void TestRed()
+        {
+            byte[] palData = new byte[32];
+            palData[0] = 0x1F;
+            palData[1] = 0x00;
+            Palette pal = new Palette(palData);
+            Assert.AreEqual(Color.FromArgb(255, 0, 0), pal[0].Color);
+        }
+
+        [Test]
+        public void TestGreen()
+        {
+            byte[] palData = new byte[32];
+            palData[0] = 0xE0;
+            palData[1] = 0x03;
+            Palette pal = new Palette(palData);
+            Assert.AreEqual(Color.FromArgb(0, 255, 0), pal[0].Color);
+        }
+
+        [Test]
+        public void TestBlue()
+        {
+            byte[] palData = new byte[32];
+            palData[0] = 0x00;
+            palData[1] = 0xFC;
+            Palette pal = new Palette(palData);
+            Assert.AreEqual(Color.FromArgb(0, 0, 255), pal[0].Color);
+        }
     }
 }
