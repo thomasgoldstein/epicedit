@@ -1008,7 +1008,6 @@ namespace EpicEdit.Rom
             this.filePath = filePath;
 
             this.SaveDataToBuffer();
-            this.SaveItemProbabilities();
             this.SetChecksum();
             this.SaveFile();
             this.ResetModifiedFlags();
@@ -1017,12 +1016,12 @@ namespace EpicEdit.Rom
         private void SaveDataToBuffer()
         {
             SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
-
             this.SaveBattleStartPositions(saveBuffer);
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
-
             this.romBuffer = saveBuffer.GetRomBuffer();
+
+            this.SaveItemProbabilities();
         }
 
         private void SetChecksum()
