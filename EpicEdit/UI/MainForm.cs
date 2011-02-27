@@ -202,10 +202,9 @@ namespace EpicEdit.UI
         private void TrackEditorFileDragged(object sender, EventArgs<string> e)
         {
             string filePath = e.Value;
-            string ext = Path.GetExtension(filePath);
 
-            if (".mkt".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
-                ".smkc".Equals(ext, StringComparison.OrdinalIgnoreCase))
+            if (filePath.EndsWith(".smkc", StringComparison.OrdinalIgnoreCase) ||
+                filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
                 if (MainForm.SmkGame == null)
                 {
