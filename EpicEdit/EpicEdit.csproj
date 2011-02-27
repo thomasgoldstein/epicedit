@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Rom\Offsets.cs" />
     <Compile Include="Rom\RomColor.cs" />
+    <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbability.cs" />

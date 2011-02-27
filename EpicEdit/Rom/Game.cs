@@ -54,7 +54,7 @@ namespace EpicEdit.Rom
     /// </summary>
     public sealed class Game : IDisposable
     {
-        private static class RomSize
+        public static class RomSize
         {
             internal const int Size256 = 256 * 1024; // The smallest SNES ROM size possible: 256 KiB (2 megabits), and the step value between each possible ROM sizes.
             internal const int Size512 = 512 * 1024; // The size of the original Super Mario Kart ROM: 512 KiB (4 megabits).
@@ -1016,63 +1016,13 @@ namespace EpicEdit.Rom
 
         private void SaveDataToBuffer()
         {
-            int zoneStart = RomSize.Size512;
-            int zoneEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
-            Range epicZone = new Range(zoneStart, zoneEnd);
+            SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
 
-            int epicZoneIterator = epicZone.Start;
-            List<byte[]> savedData = new List<byte[]>();
+            this.SaveBattleStartPositions(saveBuffer);
+            this.SaveAIs(saveBuffer);
+            this.SaveTracks(saveBuffer);
 
-            this.SaveBattleStartPositions(ref epicZoneIterator, savedData);
-            this.SaveAIs(ref epicZoneIterator, savedData);
-            this.SaveTracks(epicZone, ref epicZoneIterator, savedData);
-
-            // Compute total size of all the saved data to make sure it fits
-            int savedDataSize = 0;
-            foreach (byte[] dataBlock in savedData)
-            {
-                savedDataSize += dataBlock.Length;
-            }
-
-            // Check if all the saved data fits in the zone
-            if (savedDataSize > epicZone.Length)
-            {
-                if (savedDataSize <= RomSize.Size512)
-                {
-                    if (epicZone.Length == 0 && // If the ROM is 512 KiB (ie: the original SMK ROM size)
-                        savedDataSize > RomSize.Size256) // And if the data that needs to be saved is over 256 Kib
-                    {
-                        this.ExpandRomBuffer(RomSize.Size512);
-                    }
-                    else
-                    {
-                        // The ROM size is 512 or 768 KiB
-                        // and can be expanded by 256 KiB to make all the data fit
-                        this.ExpandRomBuffer(RomSize.Size256);
-                    }
-
-                    epicZone.End = this.romBuffer.Length;
-                }
-                else
-                {
-                    // The data doesn't fit and we can't expand the ROM for more free space
-                    throw new InvalidOperationException("It's not possible to fit more data in this ROM.");
-                }
-            }
-
-            // Save data to buffer
-            epicZoneIterator = epicZone.Start;
-            foreach (byte[] dataBlock in savedData)
-            {
-                Array.Copy(dataBlock, 0, this.romBuffer, epicZoneIterator, dataBlock.Length);
-                epicZoneIterator += dataBlock.Length;
-            }
-
-            // Wipe out the rest of the zone
-            for (int i = epicZoneIterator; i < epicZone.End; i++)
-            {
-                this.romBuffer[i] = 0xFF;
-            }
+            this.romBuffer = saveBuffer.GetRomBuffer();
         }
 
         private void SetChecksum()
@@ -1134,33 +1084,7 @@ namespace EpicEdit.Rom
             this.romBuffer[0xFFDD] = (byte)(0xFF - this.romBuffer[0xFFDF]);
         }
 
-        /// <summary>
-        /// Expands the ROM buffer by the given value.
-        /// </summary>
-        /// <param name="expandValue">Number of bytes added to the buffer.</param>
-        private void ExpandRomBuffer(int expandValue)
-        {
-            this.ResizeRomBuffer(this.romBuffer.Length + expandValue);
-        }
-
-        /// <summary>
-        /// Resize the ROM buffer to the given size.
-        /// </summary>
-        /// <param name="newSize">New ROM buffer length.</param>
-        private void ResizeRomBuffer(int newSize)
-        {
-            if (newSize > RomSize.Size8192)
-            {
-                throw new ArgumentOutOfRangeException("newSize", "The ROM can't be expanded because the maximum size has been reached.");
-            }
-
-            byte[] resizedRomBuffer = new byte[newSize];
-            Array.Copy(this.romBuffer, resizedRomBuffer, this.romBuffer.Length);
-
-            this.romBuffer = resizedRomBuffer;
-        }
-
-        private void SaveBattleStartPositions(ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveBattleStartPositions(SaveBuffer saveBuffer)
         {
             this.RelocateBattleStartPositionsPart1();
 
@@ -1175,10 +1099,10 @@ namespace EpicEdit.Rom
                 int trackIndex = trackOrder[iterator];
                 int bTrackIndex = trackIndex - GPTrack.Count;
 
-                this.SaveBattleStartPositions(tracks[bTrackIndex] as BattleTrack, ref epicZoneIterator, savedData);
+                this.SaveBattleStartPositions(tracks[bTrackIndex] as BattleTrack, saveBuffer);
             }
 
-            this.RelocateBattleStartPositionsPart2(ref epicZoneIterator, savedData);
+            this.RelocateBattleStartPositionsPart2(saveBuffer);
         }
 
         private void RelocateBattleStartPositionsPart1()
@@ -1196,16 +1120,15 @@ namespace EpicEdit.Rom
             this.romBuffer[offset] = 0xC8;
         }
 
-        private void SaveBattleStartPositions(BattleTrack track, ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveBattleStartPositions(BattleTrack track, SaveBuffer saveBuffer)
         {
             byte[] startPositionP1Data = track.StartPositionP1.GetBytes();
             byte[] startPositionP2Data = track.StartPositionP2.GetBytes();
-            savedData.Add(startPositionP1Data);
-            savedData.Add(startPositionP2Data);
-            epicZoneIterator += startPositionP1Data.Length + startPositionP2Data.Length;
+            saveBuffer.Add(startPositionP1Data);
+            saveBuffer.Add(startPositionP2Data);
         }
 
-        private void RelocateBattleStartPositionsPart2(ref int epicZoneIterator, List<byte[]> savedData)
+        private void RelocateBattleStartPositionsPart2(SaveBuffer saveBuffer)
         {
             byte[] hack =
             {
@@ -1220,11 +1143,10 @@ namespace EpicEdit.Rom
                 0x8F, 0x81
             };
 
-            savedData.Add(hack);
-            epicZoneIterator += hack.Length;
+            saveBuffer.Add(hack);
         }
 
-        private void SaveAIs(ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveAIs(SaveBuffer saveBuffer)
         {
             int aiFirstAddressByteOffset = this.offsets[Offset.TrackAIDataFirstAddressByte];
 
@@ -1245,32 +1167,31 @@ namespace EpicEdit.Rom
                 for (int j = 0; j < trackGroupSize; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    this.SaveAI(tracks[j], trackIndex, ref epicZoneIterator, savedData);
+                    this.SaveAI(tracks[j], trackIndex, saveBuffer);
                 }
             }
         }
 
-        private void SaveAI(Track track, int trackIndex, ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveAI(Track track, int trackIndex, SaveBuffer saveBuffer)
         {
             byte[] trackAIData = track.AI.GetBytes();
-            savedData.Add(trackAIData);
 
             // Update AI offsets
             int trackAIZoneIndex = this.offsets[Offset.TrackAIZones] + trackIndex * 2;
             int trackAITargetIndex = this.offsets[Offset.TrackAITargets] + trackIndex * 2;
 
-            byte[] aiZoneOffset = Utilities.OffsetToByteArray(epicZoneIterator);
-            byte[] aiTargetOffset = Utilities.OffsetToByteArray(epicZoneIterator + trackAIData.Length - track.AI.ElementCount * 3);
+            byte[] aiZoneOffset = Utilities.OffsetToByteArray(saveBuffer.Index);
+            byte[] aiTargetOffset = Utilities.OffsetToByteArray(saveBuffer.Index + trackAIData.Length - track.AI.ElementCount * 3);
 
             this.romBuffer[trackAIZoneIndex] = aiZoneOffset[0];
             this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffset[1];
             this.romBuffer[trackAITargetIndex] = aiTargetOffset[0];
             this.romBuffer[trackAITargetIndex + 1] = aiTargetOffset[1];
 
-            epicZoneIterator += trackAIData.Length;
+            saveBuffer.Add(trackAIData);
         }
 
-        private void SaveTracks(Range epicZone, ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveTracks(SaveBuffer saveBuffer)
         {
             byte[] trackOrder = this.GetTrackOrder();
             int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
@@ -1287,23 +1208,23 @@ namespace EpicEdit.Rom
 
                     if (tracks[j].Modified)
                     {
-                        this.SaveTrack(tracks[j], iterator, trackIndex, ref epicZoneIterator, savedData);
+                        this.SaveTrack(tracks[j], iterator, trackIndex, saveBuffer);
                     }
                     else
                     {
                         int trackOffset = mapAddresses[trackIndex];
-                        bool isInEpicZone = epicZone.Includes(trackOffset);
+                        bool isInZone = saveBuffer.Includes(trackOffset);
 
-                        if (isInEpicZone)
+                        if (isInZone)
                         {
-                            this.MoveTrackMap(trackIndex, trackOffset, ref epicZoneIterator, savedData);
+                            this.MoveTrackMap(trackIndex, trackOffset, saveBuffer);
                         }
                     }
                 }
             }
         }
 
-        private void SaveTrack(Track track, int iterator, int trackIndex, ref int epicZoneIterator, List<byte[]> savedData)
+        private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
         {
             bool quirksMode = this.region != Region.US;
             byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
@@ -1350,7 +1271,7 @@ namespace EpicEdit.Rom
                 }
             }
 
-            this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
+            this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
         }
 
         private static Point GetPreviewLapLineLocation(GPTrack track)
@@ -1379,25 +1300,23 @@ namespace EpicEdit.Rom
             return new Point(x, y);
         }
 
-        private void MoveTrackMap(int trackIndex, int trackOffset, ref int epicZoneIterator, List<byte[]> savedData)
+        private void MoveTrackMap(int trackIndex, int trackOffset, SaveBuffer saveBuffer)
         {
             int compressedTrackLength = Codec.GetLength(this.romBuffer, trackOffset);
             byte[] compressedTrack = new byte[compressedTrackLength];
             Array.Copy(this.romBuffer, trackOffset, compressedTrack, 0, compressedTrackLength);
 
-            this.SaveTrackSub(trackIndex, ref epicZoneIterator, savedData, compressedTrack);
+            this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
         }
 
-        private void SaveTrackSub(int trackIndex, ref int epicZoneIterator, List<byte[]> savedData, byte[] compressedTrack)
+        private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
-            savedData.Add(compressedTrack);
-
             // Update track offset
-            byte[] offset = Utilities.OffsetToByteArray(epicZoneIterator);
+            byte[] offset = Utilities.OffsetToByteArray(saveBuffer.Index);
             int trackAddressIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
             Array.Copy(offset, 0, this.romBuffer, trackAddressIndex, 3);
 
-            epicZoneIterator += compressedTrack.Length;
+            saveBuffer.Add(compressedTrack);
         }
 
         private void SaveItemProbabilities()
