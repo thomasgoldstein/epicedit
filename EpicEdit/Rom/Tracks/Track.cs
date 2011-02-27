@@ -89,9 +89,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void Import(string filePath, Game game)
         {
-            string ext = Path.GetExtension(filePath);
-
-            if (ext.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
+            if (filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
                 this.ImportMkt(filePath, game);
             }
@@ -153,9 +151,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void Export(string filePath, Game game)
         {
-            string ext = Path.GetExtension(filePath);
-
-            if (ext.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
+            if (filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
                 this.ExportMkt(filePath, game);
             }
