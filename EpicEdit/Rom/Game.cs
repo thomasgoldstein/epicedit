@@ -275,12 +275,12 @@ namespace EpicEdit.Rom
                             continue;
                         }
 
-                        string fileExt = Path.GetExtension(entry.Name);
-                        if (".bin".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
-                            ".fig".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
-                            ".sfc".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
-                            ".smc".Equals(fileExt, StringComparison.OrdinalIgnoreCase) ||
-                            ".swc".Equals(fileExt, StringComparison.OrdinalIgnoreCase))
+                        string ext = Path.GetExtension(entry.Name);
+                        if (".bin".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+                            ".fig".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+                            ".sfc".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+                            ".smc".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+                            ".swc".Equals(ext, StringComparison.OrdinalIgnoreCase))
                         {
                             using (ZipFile zf = new ZipFile(this.filePath))
                             using (InflaterInputStream iis = (InflaterInputStream)zf.GetInputStream(entry))
