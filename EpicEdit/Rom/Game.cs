@@ -54,19 +54,6 @@ namespace EpicEdit.Rom
     /// </summary>
     public sealed class Game : IDisposable
     {
-        public static class RomSize
-        {
-            internal const int Size256 = 256 * 1024; // The smallest SNES ROM size possible: 256 KiB (2 megabits), and the step value between each possible ROM sizes.
-            internal const int Size512 = 512 * 1024; // The size of the original Super Mario Kart ROM: 512 KiB (4 megabits).
-            internal const int Size768 = 768 * 1024; // 768 KiB (6 megabits)
-            internal const int Size1024 = 1024 * 1024; // The limit up to which Epic Edit can write data: 1024 KiB (8 megabits).
-            // Epic Edit doesn't save data beyond 1024 KiB because offsets don't go beyond 0xFFFFF.
-            internal const int Size2048 = 2048 * 1024; // 16 megabits
-            internal const int Size4096 = 4096 * 1024; // 32 megabits
-            //internal const int Size6144 = 6144 * 1024; // 48 megabits
-            internal const int Size8192 = 8192 * 1024; // 64 megabits
-        }
-
         #region Public members and methods
 
         /// <summary>
