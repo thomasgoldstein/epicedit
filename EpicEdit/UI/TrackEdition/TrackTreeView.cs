@@ -147,7 +147,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                int trackId = this.treeView.SelectedNode.Parent.Index * 5 + this.treeView.SelectedNode.Index + 1;
+                int trackId = this.treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
                 string trackFileName = trackId + "- " + this.selectedTrack.Name;
                 return trackFileName;
             }
