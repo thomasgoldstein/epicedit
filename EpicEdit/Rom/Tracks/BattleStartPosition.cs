@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = (TrackMap.Size - 1) * Tile.Size;
+                int limit = TrackMap.Limit * Tile.Size;
 
                 if (x < Tile.Size)
                 {

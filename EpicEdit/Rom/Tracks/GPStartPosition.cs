@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = (TrackMap.Size - 1) * Tile.Size;
+                int limit = TrackMap.Limit * Tile.Size;
 
                 if (this.SecondRowOffset > 0)
                 {
@@ -78,7 +78,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.secondRowOffset; }
             set
             {
-                int limit = (TrackMap.Size - 1) * Tile.Size;
+                int limit = TrackMap.Limit * Tile.Size;
 
                 if (this.X + value < Tile.Size)
                 {

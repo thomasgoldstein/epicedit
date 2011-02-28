@@ -485,18 +485,18 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 x = 0;
             }
-            else if (x > 127)
+            else if (x > TrackMap.Limit)
             {
-                x = 127;
+                x = TrackMap.Limit;
             }
 
             if (y < 0)
             {
                 y = 0;
             }
-            else if (y > 127)
+            else if (y > TrackMap.Limit)
             {
-                y = 127;
+                y = TrackMap.Limit;
             }
 
             this.target = new Point(x, y);
