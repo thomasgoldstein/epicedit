@@ -40,6 +40,11 @@ namespace EpicEdit.Rom.Tracks.ItemProba
     {
         public const int ProbabilityByteSize = 9;
 
+        /// <summary>
+        /// The total number of item probability items.
+        /// </summary>
+        private const int TotalCount = 32;
+
         #region Item Box Display
 
         private ItemBoxDisplay displayedItems;
@@ -92,9 +97,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.mushroom; }
             set
             {
-                if (this.subTotal - this.mushroom + value > 32)
+                if (this.subTotal - this.mushroom + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.mushroom);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.mushroom);
                 }
 
                 if (value != this.mushroom)
@@ -111,9 +116,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.feather; }
             set
             {
-                if (this.subTotal - this.feather + value > 32)
+                if (this.subTotal - this.feather + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.feather);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.feather);
                 }
 
                 if (value != this.feather)
@@ -130,9 +135,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.star; }
             set
             {
-                if (this.subTotal - this.star + value > 32)
+                if (this.subTotal - this.star + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.star);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.star);
                 }
 
                 if (value != this.star)
@@ -149,9 +154,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.banana; }
             set
             {
-                if (this.subTotal - this.banana + value > 32)
+                if (this.subTotal - this.banana + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.banana);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.banana);
                 }
 
                 if (value != this.banana)
@@ -168,9 +173,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.green; }
             set
             {
-                if (this.subTotal - this.green + value > 32)
+                if (this.subTotal - this.green + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.green);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.green);
                 }
 
                 if (value != this.green)
@@ -187,9 +192,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.red; }
             set
             {
-                if (this.subTotal - this.red + value > 32)
+                if (this.subTotal - this.red + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.red);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.red);
                 }
 
                 if (value != this.red)
@@ -206,9 +211,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.ghost; }
             set
             {
-                if (this.subTotal - this.ghost + value > 32)
+                if (this.subTotal - this.ghost + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.ghost);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.ghost);
                 }
 
                 if (value != this.ghost)
@@ -225,9 +230,9 @@ namespace EpicEdit.Rom.Tracks.ItemProba
             get { return this.coins; }
             set
             {
-                if (this.subTotal - this.coins + value > 32)
+                if (this.subTotal - this.coins + value > ItemProbability.TotalCount)
                 {
-                    value = 32 - (this.subTotal - this.coins);
+                    value = ItemProbability.TotalCount - (this.subTotal - this.coins);
                 }
 
                 if (value != this.coins)
@@ -240,7 +245,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
 
         public int Lightning
         {
-            get { return 32 - this.subTotal; }
+            get { return ItemProbability.TotalCount - this.subTotal; }
         }
 
         private int subTotal
