@@ -428,7 +428,7 @@ namespace EpicEdit.Rom
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.themes[themeId];
 
-                    byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapAddresses[trackIndex]), 0, 16384);
+                    byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapAddresses[trackIndex]), 0, TrackMap.SquareSize);
 
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
 
