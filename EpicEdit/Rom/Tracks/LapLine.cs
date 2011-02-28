@@ -113,20 +113,20 @@ namespace EpicEdit.Rom.Tracks
 
         public bool IntersectsWith(Point point)
         {
-            return point.X >= this.X - 8 &&
-                point.X <= this.Right + 7 &&
-                point.Y >= this.Y - 8 &&
-                point.Y <= this.Y + 7;
+            return point.X >= this.X - Tile.Size &&
+                point.X <= this.Right + (Tile.Size - 1) &&
+                point.Y >= this.Y - Tile.Size &&
+                point.Y <= this.Y + (Tile.Size - 1);
         }
 
         public ResizeHandle GetResizeHandle(Point point)
         {
-            if (point.X <= this.X + 7)
+            if (point.X <= this.X + (Tile.Size - 1))
             {
                 return ResizeHandle.Left;
             }
 
-            if (point.X >= this.Right - 8)
+            if (point.X >= this.Right - Tile.Size)
             {
                 return ResizeHandle.Right;
             }
