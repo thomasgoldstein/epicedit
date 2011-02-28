@@ -6,7 +6,7 @@ Epic Edit icon by Stifu
 Menu icons by Axialis Team
 Special thanks to: Presea, Cragz, smkdan, Ok Impala!, teknix1 and Scoub
 
-Site : http://stifu.free.fr/
+Site: http://stifu.free.fr/
 Contact: stifu@free.fr
 
 ---------------------------------------------------------------------------
