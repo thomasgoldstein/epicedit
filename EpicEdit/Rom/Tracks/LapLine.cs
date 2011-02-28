@@ -22,8 +22,22 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class LapLine
     {
+        /// <summary>
+        /// The precision X for the lap line (16 pixels).
+        /// </summary>
     	private const int PrecisionX = 16;
-    	private const int PrecisionY = 2;
+
+    	/// <summary>
+    	/// The precision (X, width and height) used for the zone rectangle around the lap line.
+    	/// 2 tiles (or 16 pixels).
+    	/// </summary>
+    	private const int ZonePrecision = LapLine.PrecisionX / Tile.Size;
+
+    	/// <summary>
+    	/// The precision (Y) used for the zone rectangle around the lap line.
+    	/// 8 tiles (or 64 pixels).
+    	/// </summary>
+    	private const int ZonePrecisionY = 8;
     	
         private Point location;
         public Point Location
@@ -173,27 +187,28 @@ namespace EpicEdit.Rom.Tracks
             data[0] = (byte)(y & 0xFF);
             data[1] = (byte)(y >> 8);
 
-            int recX = this.X / LapLine.PrecisionX;
-            data[2] = (byte)recX;
+            int zoneX = this.X / LapLine.PrecisionX;
+            data[2] = (byte)zoneX;
 
-            int recY = (int)Math.Round((float)this.Y / 64) - 1;
+            int zoneY = (int)Math.Round((float)this.Y / (Tile.Size * LapLine.ZonePrecisionY)) - 1; // Precision: 1 = 8 tiles
             // The minus 1 is to make the rectangle start at least 8 tiles above the lap line Y value
 
-            if (recY < 0)
+            if (zoneY < 0)
             {
-                recY = 0;
+                zoneY = 0;
             }
-            data[3] = (byte)recY;
+            data[3] = (byte)zoneY;
 
-            int width = this.Length / LapLine.PrecisionX;
-            data[4] = (byte)width;
+            int zoneWidth = this.Length / LapLine.PrecisionX;
+            data[4] = (byte)zoneWidth;
 
-            int height = 16 / LapLine.PrecisionY; // 16 tiles
-            if (recY + height > TrackMap.Size / LapLine.PrecisionY)
+            int zoneHeight = 16 / LapLine.ZonePrecision; // 16 tiles
+            int trackHeight = TrackMap.Size / LapLine.ZonePrecision;
+            if (zoneY + zoneHeight > trackHeight)
             {
-                height = TrackMap.Size / LapLine.PrecisionY - recY;
+                zoneHeight = trackHeight - zoneY;
             }
-            data[5] = (byte)height;
+            data[5] = (byte)zoneHeight;
 
             return data;
         }
