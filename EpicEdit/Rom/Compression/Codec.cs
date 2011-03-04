@@ -22,8 +22,19 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     public static class Codec
     {
+        /// <summary>
+        /// The size of the buffer to handle data compression and decompression.
+        /// </summary>
         internal const int BufferSize = 16384;
+
+        /// <summary>
+        /// The maximum number of bytes stored by regular compression commands.
+        /// </summary>
         internal const int NormalCommandMax = 32;
+
+        /// <summary>
+        /// The maximum number of bytes stored by super compression commands.
+        /// </summary>
         internal const int SuperCommandMax = 1024;
 
         private static ICompressor compressor;
