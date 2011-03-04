@@ -75,9 +75,9 @@ namespace EpicEdit.Rom.Compression
 
                 Range backRange = new Range(start, end);
 
-                if (backRange.Length > 1024)
+                if (backRange.Length > Codec.SuperCommandMax)
                 {
-                    backRange.Length = 1024;
+                    backRange.Length = Codec.SuperCommandMax;
                 }
 
                 if (backRange.Length >= maxBackRange.Length)
@@ -128,9 +128,9 @@ namespace EpicEdit.Rom.Compression
 
                 Range backRange = new Range(start, end);
 
-                if (backRange.Length > 1024)
+                if (backRange.Length > Codec.SuperCommandMax)
                 {
-                    backRange.Length = 1024;
+                    backRange.Length = Codec.SuperCommandMax;
                 }
 
                 int rangeArrayIndex = otherOffset < startPosition ? 1 : 3;
@@ -141,23 +141,23 @@ namespace EpicEdit.Rom.Compression
             }
 
             maxRanges[2] = maxRanges[3];
-            if (maxRanges[2].Length <= 32)
+            if (maxRanges[2].Length <= Codec.NormalCommandMax)
             {
                 maxRanges[3] = Range.Empty;
             }
             else
             {
-                maxRanges[2].Length = 32;
+                maxRanges[2].Length = Codec.NormalCommandMax;
             }
 
             maxRanges[0] = maxRanges[1];
-            if (maxRanges[0].Length <= 32)
+            if (maxRanges[0].Length <= Codec.NormalCommandMax)
             {
                 maxRanges[1] = Range.Empty;
             }
             else
             {
-                maxRanges[0].Length = 32;
+                maxRanges[0].Length = Codec.NormalCommandMax;
             }
 
             if (maxRanges[0].Length == maxRanges[2].Length)

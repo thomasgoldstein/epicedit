@@ -164,16 +164,16 @@ namespace EpicEdit.Rom.Compression
 
             int k = 0; // Iterator for compressed chunk
 
-            if (byteCount <= 32)
+            if (byteCount <= Codec.NormalCommandMax)
             {
                 chunk = new byte[byteCount + 1];
                 chunk[k++] = (byte)(byteCount - 1);
             }
             else
             {
-                if (byteCount > 1024)
+                if (byteCount > Codec.SuperCommandMax)
                 {
-                    byteCount = 1024;
+                    byteCount = Codec.SuperCommandMax;
                 }
 
                 chunk = new byte[byteCount + 2];
@@ -247,9 +247,9 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand1Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount > 32)
+            if (byteCount > Codec.NormalCommandMax)
             {
-                byteCount = 32;
+                byteCount = Codec.NormalCommandMax;
             }
 
             chunk = new byte[2];
@@ -258,15 +258,15 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand1Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount <= 32)
+            if (byteCount <= Codec.NormalCommandMax)
             {
                 chunk = null;
                 return;
             }
 
-            if (byteCount > 1024)
+            if (byteCount > Codec.SuperCommandMax)
             {
-                byteCount = 1024;
+                byteCount = Codec.SuperCommandMax;
             }
 
             chunk = new byte[3];
@@ -294,9 +294,9 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand2Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount > 32)
+            if (byteCount > Codec.NormalCommandMax)
             {
-                byteCount = 32;
+                byteCount = Codec.NormalCommandMax;
             }
 
             chunk = new byte[3];
@@ -306,15 +306,15 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand2Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount <= 32)
+            if (byteCount <= Codec.NormalCommandMax)
             {
                 chunk = null;
                 return;
             }
 
-            if (byteCount > 1024)
+            if (byteCount > Codec.SuperCommandMax)
             {
-                byteCount = 1024;
+                byteCount = Codec.SuperCommandMax;
             }
 
             chunk = new byte[4];
@@ -343,9 +343,9 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand3Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount > 32)
+            if (byteCount > Codec.NormalCommandMax)
             {
-                byteCount = 32;
+                byteCount = Codec.NormalCommandMax;
             }
 
             chunk = new byte[2];
@@ -354,15 +354,15 @@ namespace EpicEdit.Rom.Compression
         }
         private static void CallCommand3Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
-            if (byteCount <= 32)
+            if (byteCount <= Codec.NormalCommandMax)
             {
                 chunk = null;
                 return;
             }
 
-            if (byteCount > 1024)
+            if (byteCount > Codec.SuperCommandMax)
             {
-                byteCount = 1024;
+                byteCount = Codec.SuperCommandMax;
             }
 
             chunk = new byte[3];

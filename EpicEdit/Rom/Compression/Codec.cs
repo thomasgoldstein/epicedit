@@ -22,6 +22,9 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     public static class Codec
     {
+        internal const int NormalCommandMax = 32;
+        internal const int SuperCommandMax = 1024;
+
         private static ICompressor compressor;
 
         /// <summary>

@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Compression
                         #region Call command 1
                         int byteCount = range.Length;
 
-                        if (byteCount <= 32)
+                        if (byteCount <= Codec.NormalCommandMax)
                         {
                             compBuffer[j++] = (byte)(0x20 + byteCount - 1);
                         }
@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.Compression
                         #region Call command 2
                         int byteCount = range.Length;
 
-                        if (byteCount <= 32)
+                        if (byteCount <= Codec.NormalCommandMax)
                         {
                             compBuffer[j++] = (byte)(0x40 + byteCount - 1);
                         }
@@ -153,7 +153,7 @@ namespace EpicEdit.Rom.Compression
                         #region Call command 3
                         int byteCount = range.Length;
 
-                        if (byteCount <= 32)
+                        if (byteCount <= Codec.NormalCommandMax)
                         {
                             compBuffer[j++] = (byte)(0x60 + byteCount - 1);
                         }
@@ -230,7 +230,7 @@ namespace EpicEdit.Rom.Compression
                         #region Call command 0
                         int byteCount = range.Length;
 
-                        if (byteCount <= 32)
+                        if (byteCount <= Codec.NormalCommandMax)
                         {
                             compBuffer[j++] = (byte)(byteCount - 1);
                         }
@@ -266,7 +266,7 @@ namespace EpicEdit.Rom.Compression
             {
                 // Use a relative address (on 1 byte) to previous data
                 #region Command 6
-                if (byteCount <= 32)
+                if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0xC0 + byteCount - 1);
                 }
@@ -283,7 +283,7 @@ namespace EpicEdit.Rom.Compression
             {
                 // Use an absolute address (on 2 bytes) to previous data
                 #region Command 4
-                if (byteCount <= 32)
+                if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0x80 + byteCount - 1);
                 }
@@ -303,9 +303,9 @@ namespace EpicEdit.Rom.Compression
 
         private static Range GetRange(int start, int end)
         {
-            if (end - start > 1024)
+            if (end - start > Codec.SuperCommandMax)
             {
-                end = start + 1024;
+                end = start + Codec.SuperCommandMax;
             }
 
             return new Range(start, end);
