@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Compression
         public byte[] Compress(byte[] buffer, bool quirksMode)
         {
             ByteDictionary byteDictionary = new ByteDictionary(buffer);
-            byte[] compBuffer = new byte[16384];
+            byte[] compBuffer = new byte[Codec.BufferSize];
 
             int i = 0; // Iterator for buffer
             int j = 0; // Iterator for compBuffer
