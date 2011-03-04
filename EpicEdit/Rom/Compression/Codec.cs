@@ -22,6 +22,7 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     public static class Codec
     {
+        internal const int BufferSize = 16384;
         internal const int NormalCommandMax = 32;
         internal const int SuperCommandMax = 1024;
 
@@ -45,7 +46,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset)
         {
-            byte[] decBuffer = new byte[16384];
+            byte[] decBuffer = new byte[Codec.BufferSize];
 
             int destPosition = 0;
             byte cmd;
