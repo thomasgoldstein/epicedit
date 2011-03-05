@@ -238,12 +238,7 @@ namespace EpicEdit.Rom
 
         private void LoadUnzippedRom()
         {
-            using (FileStream fs = new FileStream(this.filePath, FileMode.Open, FileAccess.Read))
-            using (BinaryReader br = new BinaryReader(fs))
-            {
-                int size = (int)br.BaseStream.Length;
-                this.romBuffer = br.ReadBytes(size);
-            }
+            this.romBuffer = File.ReadAllBytes(this.filePath);
         }
 
         private void LoadZippedRom()
