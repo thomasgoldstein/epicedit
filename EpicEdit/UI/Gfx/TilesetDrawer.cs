@@ -50,7 +50,6 @@ namespace EpicEdit.UI.Gfx
         public void SetTileset(Tile[] tileset)
         {
             this.tileset = tileset;
-
             this.UpdateCache();
         }
 
