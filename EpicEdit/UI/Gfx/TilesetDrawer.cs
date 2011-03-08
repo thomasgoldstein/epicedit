@@ -62,14 +62,17 @@ namespace EpicEdit.UI.Gfx
             int imageHeight = (this.tileset.Length / (imageWidth / Tile.Size)) * Tile.Size;
             this.imageSize = new Size(imageWidth, imageHeight);
 
+            int tileCountX = this.imageSize.Width / Tile.Size;
+            int tileCountY = this.imageSize.Height / Tile.Size;
+
             this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
             {
-                for (int x = 0; x < 8; x++)
+                for (int x = 0; x < tileCountX; x++)
                 {
-                    for (int y = 0; y < 32; y++)
+                    for (int y = 0; y < tileCountY; y++)
                     {
-                        Tile tile = this.tileset[x + (y * Tile.Size)];
+                        Tile tile = this.tileset[x + (y * tileCountX)];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
