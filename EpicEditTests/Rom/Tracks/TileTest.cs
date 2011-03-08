@@ -36,8 +36,8 @@ namespace EpicEditTests.Rom.Tracks
         public void TestTileBitmap()
         {
             Assert.IsInstanceOf(typeof(Bitmap), this.tile.Bitmap);
-            Assert.AreEqual(1, this.tile.Height);
-            Assert.AreEqual(1, this.tile.Width);
+            Assert.AreEqual(1, Tile.Size);
+            Assert.AreEqual(1, Tile.Size);
         }
 
         [Test]

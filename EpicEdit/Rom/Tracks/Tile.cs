@@ -28,21 +28,7 @@ namespace EpicEdit.Rom.Tracks
     {
     	public const int Size = 8;
 
-        private int width;
-        private int height;
         private TileGenre genre = TileGenre.Road;
-
-        public int Width
-        {
-            get { return this.width; }
-            protected set { this.width = value; }
-        }
-
-        public int Height
-        {
-            get { return this.height; }
-            protected set { this.height = value; }
-        }
 
         public TileGenre Genre
         {
@@ -72,20 +58,18 @@ namespace EpicEdit.Rom.Tracks
         public StillTile(Bitmap image, TileGenre genre)
         {
             this.image = image;
-            this.Height = image.Height;
-            this.Width = image.Width;
             this.Genre = genre;
         }
 
         public ushort[] ToSnesBitmap()
         {
-            ushort[] buffer = new ushort[this.Height * this.Width];
+            ushort[] buffer = new ushort[Tile.Size * Tile.Size];
             ushort tempo;
             byte r, g, b;
 
-            for (int x = 0; x < this.Height; x++)
+            for (int x = 0; x < Tile.Size; x++)
             {
-                for (int y = 0; y < this.Width; y++)
+                for (int y = 0; y < Tile.Size; y++)
                 {
                     r = this.image.GetPixel(x, y).R;
                     if (((r & 0x07) >= 4) && (r < 251))
@@ -107,7 +91,7 @@ namespace EpicEdit.Rom.Tracks
 
                     tempo = (ushort)(((r >> 3) << 10) + ((g >> 3) << 5) + (b >> 3));
                     tempo = (ushort)((tempo / 256) + ((tempo & 0x00FF) * 256));
-                    buffer[x + y * this.Width] = tempo;
+                    buffer[x + y * Tile.Size] = tempo;
                 }
             }
             return buffer;
