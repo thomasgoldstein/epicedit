@@ -34,9 +34,9 @@ namespace EpicEdit.UI.Gfx
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
             int index = start;
-            for (int tileY = 0; tileY < bitmap.Height; tileY += Tile.Size)
+            for (int tileY = 0; tileY < height; tileY += Tile.Size)
             {
-                for (int tileX = 0; tileX < bitmap.Width; tileX += Tile.Size)
+                for (int tileX = 0; tileX < width; tileX += Tile.Size)
                 {
                     for (int y = 0; y < Tile.Size; y++)
                     {

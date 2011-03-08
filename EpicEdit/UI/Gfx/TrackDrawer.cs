@@ -807,8 +807,8 @@ namespace EpicEdit.UI.Gfx
                     g.DrawImage(tile.Bitmap,
                                 new Rectangle((location.X + x - this.scrollPosition.X) * Tile.Size,
                                               (location.Y + y - this.scrollPosition.Y) * Tile.Size,
-                                              tile.Bitmap.Width, tile.Bitmap.Height),
-                                0, 0, tile.Bitmap.Width, tile.Bitmap.Height,
+                                              Tile.Size, Tile.Size),
+                                0, 0, Tile.Size, Tile.Size,
                                 GraphicsUnit.Pixel, imageAttr);
                 }
             }
@@ -970,9 +970,9 @@ namespace EpicEdit.UI.Gfx
             g.DrawImage(bitmap,
                         new Rectangle(-this.scrollPosition.X * Tile.Size,
                                       -this.scrollPosition.Y * Tile.Size,
-                                      this.trackCache.Width,
-                                      this.trackCache.Height),
-                        0, 0, bitmap.Width, bitmap.Height,
+                                      this.track.Map.Width * Tile.Size,
+                                      this.track.Map.Height * Tile.Size),
+                        0, 0, TrackObjectZones.GridSize, TrackObjectZones.GridSize,
                         GraphicsUnit.Pixel, this.translucidImageAttr);
             // NOTE: Do not dispose bitmap, it's cached (field objectZonesCache).
 

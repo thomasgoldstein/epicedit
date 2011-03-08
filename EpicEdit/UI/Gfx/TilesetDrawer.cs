@@ -28,14 +28,18 @@ namespace EpicEdit.UI.Gfx
     public sealed class TilesetDrawer : IDisposable
     {
         public const int Zoom = 2;
+
         private Control control;
         private Tile[] tileset;
+        private Size imageSize;
+
         private Bitmap tilesetCache;
         private Pen tilesetPen;
 
         public TilesetDrawer(Control control)
         {
             this.control = control;
+
             this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 
             // The following member is initialized so it can be disposed of
@@ -56,8 +60,9 @@ namespace EpicEdit.UI.Gfx
 
             int imageWidth = this.control.Width / Zoom;
             int imageHeight = (this.tileset.Length / (imageWidth / Tile.Size)) * Tile.Size;
+            this.imageSize = new Size(imageWidth, imageHeight);
 
-            this.tilesetCache = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppPArgb);
+            this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
             {
                 for (int x = 0; x < 8; x++)
@@ -73,7 +78,7 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            using (Bitmap image = new Bitmap(this.tilesetCache.Width, this.tilesetCache.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
             {
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;
                 g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
@@ -81,8 +86,8 @@ namespace EpicEdit.UI.Gfx
                 using (Graphics backBuffer = Graphics.FromImage(image))
                 {
                     backBuffer.DrawImage(this.tilesetCache, 0, 0,
-                                         this.tilesetCache.Width,
-                                         this.tilesetCache.Height);
+                                         this.imageSize.Width,
+                                         this.imageSize.Height);
 
                     int tilePosX = selectedTile % Tile.Size;
                     int tilePosY = selectedTile / Tile.Size;

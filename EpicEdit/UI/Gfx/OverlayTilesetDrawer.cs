@@ -30,9 +30,11 @@ namespace EpicEdit.UI.Gfx
     public sealed class OverlayTilesetDrawer : IDisposable
     {
         public const int Zoom = 2;
+
         private Control control;
         public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
         private Tile[] tileset;
+        private Size imageSize;
 
         public OverlayTilePattern HoveredPattern { get; set; }
         public OverlayTilePattern SelectedPattern { get; set; }
@@ -48,6 +50,10 @@ namespace EpicEdit.UI.Gfx
         {
             this.control = control;
 
+            int imageWidth = (int)this.control.Width / Zoom;
+            int imageHeight = (int)this.control.Height / Zoom;
+            this.imageSize = new Size(imageWidth, imageHeight);
+
             this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
             this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
@@ -61,7 +67,7 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawOverlayTileset(Graphics g)
         {
-            using (Bitmap image = new Bitmap(this.overlayCache.Width, this.overlayCache.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
             {
                 using (Graphics backBuffer = Graphics.FromImage(image))
                 {
@@ -69,8 +75,8 @@ namespace EpicEdit.UI.Gfx
                     g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
                     backBuffer.DrawImage(this.overlayCache, 0, 0,
-                                  this.overlayCache.Width,
-                                  this.overlayCache.Height);
+                                  this.imageSize.Width,
+                                  this.imageSize.Height);
 
                     this.OutlinePattern(backBuffer, this.HoveredPattern);
 
@@ -123,10 +129,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.overlayCache.Dispose();
 
-            int panelWidth = (int)this.control.Width / Zoom;
-            int panelHeight = (int)this.control.Height / Zoom;
-
-            this.overlayCache = new Bitmap(panelWidth, panelHeight, PixelFormat.Format32bppPArgb);
+            this.overlayCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.overlayCache))
             {
                 g.FillRegion(this.transparentBrush, g.Clip);
