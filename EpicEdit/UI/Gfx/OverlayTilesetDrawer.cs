@@ -65,6 +65,56 @@ namespace EpicEdit.UI.Gfx
             this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
+        public void SetTileset(Tile[] tileset)
+        {
+            this.tileset = tileset;
+            this.UpdateCache();
+        }
+
+        private void UpdateCache()
+        {
+            this.overlayCache.Dispose();
+
+            this.overlayCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            using (Graphics g = Graphics.FromImage(this.overlayCache))
+            {
+                g.FillRegion(this.transparentBrush, g.Clip);
+
+                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
+                {
+                    OverlayTilePattern pattern = kvp.Key;
+                    Point location = kvp.Value;
+
+                    // Draw the pattern
+                    for (int y = 0; y < pattern.Height; y++)
+                    {
+                        for (int x = 0; x < pattern.Width; x++)
+                        {
+                            int tileId = pattern.Tiles[y][x];
+
+                            if (tileId == 0xFF)
+                            {
+                                continue;
+                            }
+
+                            Tile tile = this.tileset[tileId];
+                            g.DrawImage(tile.Bitmap,
+                                        Tile.Size * x + location.X,
+                                        Tile.Size * y + location.Y,
+                                        Tile.Size, Tile.Size);
+                        }
+                    }
+
+                    // Delimit the pattern
+                    g.DrawRectangle(this.delimitPen,
+                                    location.X,
+                                    location.Y,
+                                    pattern.Width * Tile.Size - 1,
+                                    pattern.Height * Tile.Size - 1);
+                }
+            }
+        }
+
         public void DrawOverlayTileset(Graphics g)
         {
             using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
@@ -116,56 +166,6 @@ namespace EpicEdit.UI.Gfx
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,
                                 pattern.Height * Tile.Size - 1);
-            }
-        }
-
-        public void SetTileset(Tile[] tileset)
-        {
-            this.tileset = tileset;
-            this.UpdateCache();
-        }
-
-        private void UpdateCache()
-        {
-            this.overlayCache.Dispose();
-
-            this.overlayCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(this.overlayCache))
-            {
-                g.FillRegion(this.transparentBrush, g.Clip);
-
-                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
-                {
-                    OverlayTilePattern pattern = kvp.Key;
-                    Point location = kvp.Value;
-
-                    // Draw the pattern
-                    for (int y = 0; y < pattern.Height; y++)
-                    {
-                        for (int x = 0; x < pattern.Width; x++)
-                        {
-                            int tileId = pattern.Tiles[y][x];
-
-                            if (tileId == 0xFF)
-                            {
-                                continue;
-                            }
-
-                            Tile tile = this.tileset[tileId];
-                            g.DrawImage(tile.Bitmap,
-                                        Tile.Size * x + location.X,
-                                        Tile.Size * y + location.Y,
-                                        Tile.Size, Tile.Size);
-                        }
-                    }
-
-                    // Delimit the pattern
-                    g.DrawRectangle(this.delimitPen,
-                                    location.X,
-                                    location.Y,
-                                    pattern.Width * Tile.Size - 1,
-                                    pattern.Height * Tile.Size - 1);
-                }
             }
         }
 
