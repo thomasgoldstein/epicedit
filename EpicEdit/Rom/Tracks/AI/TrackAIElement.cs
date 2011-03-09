@@ -38,6 +38,11 @@ namespace EpicEdit.Rom.Tracks.AI
     public class TrackAIElement
     {
         /// <summary>
+        /// The precision for AI elements: 2 tiles (16 pixels).
+        /// </summary>
+        public const int Precision = 2;
+        
+        /// <summary>
         /// Gets the zone shape.
         /// </summary>
         public Shape ZoneShape { get; private set; }
@@ -85,19 +90,19 @@ namespace EpicEdit.Rom.Tracks.AI
         public TrackAIElement(byte[] zoneData, ref int zoneDataIndex, byte[] targetData, ref int targetDataIndex)
         {
             this.ZoneShape = (Shape)zoneData[zoneDataIndex++];
-            int zoneX = zoneData[zoneDataIndex++] * 2;
-            int zoneY = zoneData[zoneDataIndex++] * 2;
+            int zoneX = zoneData[zoneDataIndex++] * Precision;
+            int zoneY = zoneData[zoneDataIndex++] * Precision;
 
             if (this.ZoneShape == Shape.Rectangle)
             {
-                int zoneWidth = zoneData[zoneDataIndex++] * 2;
-                int zoneHeight = zoneData[zoneDataIndex++] * 2;
+                int zoneWidth = zoneData[zoneDataIndex++] * Precision;
+                int zoneHeight = zoneData[zoneDataIndex++] * Precision;
 
                 this.zone = new Rectangle(zoneX, zoneY, zoneWidth, zoneHeight);
             }
             else
             {
-                int zoneSize = zoneData[zoneDataIndex++] * 2;
+                int zoneSize = zoneData[zoneDataIndex++] * Precision;
 
                 // In the ROM, the X and Y values of a triangle
                 // determine the location of its right angle.
@@ -105,16 +110,16 @@ namespace EpicEdit.Rom.Tracks.AI
                 // to make them always determine the top left corner.
                 if (this.ZoneShape == Shape.TriangleTopRight)
                 {
-                    zoneX -= zoneSize - 2;
+                    zoneX -= zoneSize - Precision;
                 }
                 else if (this.ZoneShape == Shape.TriangleBottomRight)
                 {
-                    zoneX -= zoneSize - 2;
-                    zoneY -= zoneSize - 2;
+                    zoneX -= zoneSize - Precision;
+                    zoneY -= zoneSize - Precision;
                 }
                 else if (this.ZoneShape == Shape.TriangleBottomLeft)
                 {
-                    zoneY -= zoneSize - 2;
+                    zoneY -= zoneSize - Precision;
                 }
 
                 this.zone = new Rectangle(zoneX, zoneY, zoneSize, zoneSize);
@@ -132,9 +137,10 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public TrackAIElement(Point position)
         {
-            int zoneX = ((position.X - 8) / 2) * 2;
-            int zoneY = ((position.Y - 8) / 2) * 2;
             int size = 16;
+            // Halve precision, so that zones are positioned following a 2-tile (16-px) step
+            int zoneX = ((position.X - (size / 2)) / Precision) * Precision;
+            int zoneY = ((position.Y - (size / 2)) / Precision) * Precision;
 
             #region Ensure the element isn't out of the track bounds
             if (zoneX < 0)
@@ -160,8 +166,8 @@ namespace EpicEdit.Rom.Tracks.AI
 
             this.zone = zone;
 
-            int x = zone.X + zone.Width / 2;
-            int y = zone.Y + zone.Height / 2;
+            int x = zone.X + zone.Width / Precision;
+            int y = zone.Y + zone.Height / Precision;
             this.target = new Point(x, y);
             this.Speed = 0;
         }
@@ -193,20 +199,20 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             // Divide precision by 2
-            point = new Point((point.X / 2) * 2, (point.Y / 2) * 2);
+            point = new Point((point.X / Precision) * Precision, (point.Y / Precision) * Precision);
             int x = point.X - this.zone.X; // X coordinate relative to the triangle top-left corner
             int y = point.Y - this.zone.Y; // Y coordinate relative to the triangle top-left corner
 
             switch (this.ZoneShape)
             {
                 case Shape.TriangleTopLeft:
-                    return x + y <= this.zone.Width - 2;
+                    return x + y <= this.zone.Width - Precision;
 
                 case Shape.TriangleTopRight:
                     return x >= y;
 
                 case Shape.TriangleBottomRight:
-                    return x + y >= this.zone.Width - 2;
+                    return x + y >= this.zone.Width - Precision;
 
                 case Shape.TriangleBottomLeft:
                     return x <= y;
@@ -294,7 +300,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 case Shape.TriangleTopLeft:
                     #region
                     diagonal = (point.X - this.zone.X) + (point.Y - this.zone.Y);
-                    if (diagonal >= this.zone.Width - 2 && diagonal <= this.zone.Width)
+                    if (diagonal >= this.zone.Width - Precision && diagonal <= this.zone.Width)
                     {
                         return ResizeHandle.BottomRight;
                     }
@@ -314,7 +320,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 case Shape.TriangleTopRight:
                     #region
                     diagonal = (point.X - this.zone.X) - (point.Y - this.zone.Y);
-                    if (diagonal >= -2 && diagonal <= 0)
+                    if (diagonal >= -Precision && diagonal <= 0)
                     {
                         return ResizeHandle.BottomLeft;
                     }
@@ -334,7 +340,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 case Shape.TriangleBottomRight:
                     #region
                     diagonal = (point.X - this.zone.X) + (point.Y - this.zone.Y);
-                    if (diagonal >= this.zone.Width - 2 && diagonal <= this.zone.Width)
+                    if (diagonal >= this.zone.Width - Precision && diagonal <= this.zone.Width)
                     {
                         return ResizeHandle.TopLeft;
                     }
@@ -354,7 +360,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 case Shape.TriangleBottomLeft:
                     #region
                     diagonal = (point.X - this.zone.X) - (point.Y - this.zone.Y);
-                    if (diagonal >= 0 && diagonal <= 2)
+                    if (diagonal >= 0 && diagonal <= Precision)
                     {
                         return ResizeHandle.TopRight;
                     }
@@ -393,32 +399,32 @@ namespace EpicEdit.Rom.Tracks.AI
                 case Shape.TriangleTopLeft:
                     x = this.zone.X;
                     y = this.zone.Y + this.zone.Height;
-                    xStep = 2;
-                    yStep = -2;
+                    xStep = Precision;
+                    yStep = -Precision;
                     rightAngle = this.zone.Location;
                     break;
 
                 case Shape.TriangleTopRight:
                     x = this.zone.X + this.zone.Width;
                     y = this.zone.Y + this.zone.Height;
-                    xStep = -2;
-                    yStep = -2;
+                    xStep = -Precision;
+                    yStep = -Precision;
                     rightAngle = new Point(x, this.zone.Y);
                     break;
 
                 case Shape.TriangleBottomRight:
                     x = this.zone.X + this.zone.Width;
                     y = this.zone.Y;
-                    xStep = -2;
-                    yStep = 2;
+                    xStep = -Precision;
+                    yStep = Precision;
                     rightAngle = new Point(x, this.zone.Y + this.zone.Height);
                     break;
 
                 case Shape.TriangleBottomLeft:
                     x = this.zone.X;
                     y = this.zone.Y;
-                    xStep = 2;
-                    yStep = 2;
+                    xStep = Precision;
+                    yStep = Precision;
                     rightAngle = new Point(x, this.zone.Y + this.zone.Height);
                     break;
 
@@ -428,7 +434,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             int i = 0;
             bool even = true;
-            while (i < points.Length - 2)
+            while (i < points.Length - Precision)
             {
                 points[i++] = new Point(x, y);
                 if (even)
@@ -451,8 +457,8 @@ namespace EpicEdit.Rom.Tracks.AI
         private void MoveTo(int x, int y)
         {
             // Halve precision, so that zones are positioned following a 2-tile (16-px) step
-            x = (x / 2) * 2;
-            y = (y / 2) * 2;
+            x = (x / Precision) * Precision;
+            y = (y / Precision) * Precision;
 
             if (x < 0)
             {
@@ -505,8 +511,8 @@ namespace EpicEdit.Rom.Tracks.AI
         public void Resize(ResizeHandle resizeHandle, int x, int y)
         {
             // Halve precision, so that zones are positioned following a 2-tile (16-px) step
-            x = (x / 2) * 2;
-            y = (y / 2) * 2;
+            x = (x / Precision) * Precision;
+            y = (y / Precision) * Precision;
 
             if (this.ZoneShape == Shape.Rectangle)
             {
@@ -531,12 +537,12 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     if (x >= this.zone.Right)
                     {
-                        x = this.zone.Right - 2;
+                        x = this.zone.Right - Precision;
                     }
 
                     if (y >= this.zone.Bottom)
                     {
-                        y = this.zone.Bottom - 2;
+                        y = this.zone.Bottom - Precision;
                     }
 
                     zoneX = x;
@@ -550,7 +556,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     if (y >= this.zone.Bottom)
                     {
-                        y = this.zone.Bottom - 2;
+                        y = this.zone.Bottom - Precision;
                     }
 
                     zoneX = this.zone.X;
@@ -569,12 +575,12 @@ namespace EpicEdit.Rom.Tracks.AI
 
                     if (y >= this.zone.Bottom)
                     {
-                        y = this.zone.Bottom - 2;
+                        y = this.zone.Bottom - Precision;
                     }
 
                     zoneX = this.zone.X;
                     zoneY = y;
-                    width = x - this.zone.Left + 2;
+                    width = x - this.zone.Left + Precision;
                     height = this.zone.Bottom - y;
                     #endregion
                     break;
@@ -588,7 +594,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
                     zoneX = this.zone.X;
                     zoneY = this.zone.Y;
-                    width = x - this.zone.Left + 2;
+                    width = x - this.zone.Left + Precision;
                     height = this.zone.Height;
                     #endregion
                     break;
@@ -607,8 +613,8 @@ namespace EpicEdit.Rom.Tracks.AI
 
                     zoneX = this.zone.X;
                     zoneY = this.zone.Y;
-                    width = x - this.zone.Left + 2;
-                    height = y - this.zone.Top + 2;
+                    width = x - this.zone.Left + Precision;
+                    height = y - this.zone.Top + Precision;
                     #endregion
                     break;
 
@@ -622,7 +628,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     zoneX = this.zone.X;
                     zoneY = this.zone.Y;
                     width = this.zone.Width;
-                    height = y - this.zone.Top + 2;
+                    height = y - this.zone.Top + Precision;
                     #endregion
                     break;
 
@@ -630,7 +636,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     if (x >= this.zone.Right)
                     {
-                        x = this.zone.Right - 2;
+                        x = this.zone.Right - Precision;
                     }
 
                     if (y < this.zone.Top)
@@ -641,7 +647,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     zoneX = x;
                     zoneY = this.zone.Y;
                     width = this.zone.Right - x;
-                    height = y - this.zone.Top + 2;
+                    height = y - this.zone.Top + Precision;
                     #endregion
                     break;
 
@@ -649,7 +655,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     if (x >= this.zone.Right)
                     {
-                        x = this.zone.Right - 2;
+                        x = this.zone.Right - Precision;
                     }
 
                     zoneX = x;
@@ -679,9 +685,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     length = (this.zone.Right - x) + (this.zone.Bottom - y);
 
                     #region Validate zone length
-                    if (length < 2)
+                    if (length < Precision)
                     {
-                        length = 2;
+                        length = Precision;
                     }
                     else
                     {
@@ -707,9 +713,9 @@ namespace EpicEdit.Rom.Tracks.AI
                         zoneX = this.zone.Left;
 
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -726,9 +732,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     else //if (this.ZoneShape == Shape.TriangleTopRight)
                     {
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -752,9 +758,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     zoneX = this.zone.X;
 
                     #region Validate zone length
-                    if (length < 2)
+                    if (length < Precision)
                     {
-                        length = 2;
+                        length = Precision;
                     }
                     else
                     {
@@ -772,7 +778,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case ResizeHandle.Right:
                     #region
-                    length = x - this.zone.X + 2;
+                    length = x - this.zone.X + Precision;
                     zoneX = this.zone.X;
 
                     if (this.ZoneShape == Shape.TriangleTopRight)
@@ -780,9 +786,9 @@ namespace EpicEdit.Rom.Tracks.AI
                         zoneY = this.zone.Y;
 
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -797,9 +803,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     else //if (this.ZoneShape == Shape.TriangleBottomRight)
                     {
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -823,9 +829,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     zoneY = this.zone.Y;
 
                     #region Validate zone length
-                    if (length < 2)
+                    if (length < Precision)
                     {
-                        length = 2;
+                        length = Precision;
                     }
                     else
                     {
@@ -841,15 +847,15 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case ResizeHandle.Bottom:
                     #region
-                    length = y - this.zone.Y + 2;
+                    length = y - this.zone.Y + Precision;
                     zoneY = this.zone.Y;
 
                     if (this.ZoneShape == Shape.TriangleBottomRight)
                     {
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -868,9 +874,9 @@ namespace EpicEdit.Rom.Tracks.AI
                         zoneX = this.zone.X;
 
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -891,9 +897,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     zoneY = this.zone.Y;
 
                     #region Validate zone length
-                    if (length < 2)
+                    if (length < Precision)
                     {
-                        length = 2;
+                        length = Precision;
                     }
                     else
                     {
@@ -918,9 +924,9 @@ namespace EpicEdit.Rom.Tracks.AI
                         zoneY = this.zone.Y;
 
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -935,9 +941,9 @@ namespace EpicEdit.Rom.Tracks.AI
                     else //if (this.ZoneShape == Shape.TriangleBottomLeft)
                     {
                         #region Validate zone length
-                        if (length < 2)
+                        if (length < Precision)
                         {
-                            length = 2;
+                            length = Precision;
                         }
                         else
                         {
@@ -1004,35 +1010,35 @@ namespace EpicEdit.Rom.Tracks.AI
 
             if (this.ZoneShape == Shape.Rectangle)
             {
-                data[index++] = (byte)(this.zone.X / 2);
-                data[index++] = (byte)(this.zone.Y / 2);
-                data[index++] = (byte)(this.zone.Width / 2);
-                data[index++] = (byte)(this.zone.Height / 2);
+                data[index++] = (byte)(this.zone.X / Precision);
+                data[index++] = (byte)(this.zone.Y / Precision);
+                data[index++] = (byte)(this.zone.Width / Precision);
+                data[index++] = (byte)(this.zone.Height / Precision);
             }
             else
             {
-                int size = this.zone.Width / 2;
+                int size = this.zone.Width / Precision;
 
                 switch (this.ZoneShape)
                 {
                     case Shape.TriangleTopLeft:
-                        data[index++] = (byte)(this.zone.X / 2);
-                        data[index++] = (byte)(this.zone.Y / 2);
+                        data[index++] = (byte)(this.zone.X / Precision);
+                        data[index++] = (byte)(this.zone.Y / Precision);
                         break;
 
                     case Shape.TriangleTopRight:
-                        data[index++] = (byte)(this.zone.X / 2 + size - 1);
-                        data[index++] = (byte)(this.zone.Y / 2);
+                        data[index++] = (byte)(this.zone.X / Precision + size - 1);
+                        data[index++] = (byte)(this.zone.Y / Precision);
                         break;
 
                     case Shape.TriangleBottomRight:
-                        data[index++] = (byte)(this.zone.X / 2 + size - 1);
-                        data[index++] = (byte)(this.zone.Y / 2 + size - 1);
+                        data[index++] = (byte)(this.zone.X / Precision + size - 1);
+                        data[index++] = (byte)(this.zone.Y / Precision + size - 1);
                         break;
 
                     case Shape.TriangleBottomLeft:
-                        data[index++] = (byte)(this.zone.X / 2);
-                        data[index++] = (byte)(this.zone.Y / 2 + size - 1);
+                        data[index++] = (byte)(this.zone.X / Precision);
+                        data[index++] = (byte)(this.zone.Y / Precision + size - 1);
                         break;
                 }
 
