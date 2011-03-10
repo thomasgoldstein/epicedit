@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     	/// <summary>
     	/// The object zone grid size (horizontally and vertically).
     	/// </summary>
-    	public const int GridSize = 64;
+    	public const int GridSize = TrackMap.Size / TrackAIElement.Precision;
     	
     	/// <summary>
     	/// The maximum value (horizontally and vertically) within the object zone grid.
