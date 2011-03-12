@@ -269,7 +269,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         public ItemProbability(byte[] romBuffer, int offset)
         {
             this.backupData = new byte[ItemProbability.ProbabilityByteSize];
-            Array.Copy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
+            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
 
             this.Load(romBuffer, offset);
         }
@@ -369,7 +369,7 @@ namespace EpicEdit.Rom.Tracks.ItemProba
 
             romBuffer[offset + 8] = (byte)this.displayedItems;
 
-            Array.Copy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
+            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
 
             this.Modified = false;
         }

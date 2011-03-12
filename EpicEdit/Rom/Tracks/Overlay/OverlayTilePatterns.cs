@@ -195,7 +195,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void CopyTo(OverlayTilePattern[] array, int arrayIndex)
         {
-            Array.Copy(patterns, 0, array, arrayIndex, this.Count);
+            Buffer.BlockCopy(patterns, 0, array, arrayIndex, this.Count);
         }
 
         public bool Remove(OverlayTilePattern item)

@@ -66,7 +66,7 @@ namespace EpicEdit.Rom.Tracks
                 for (int j = 0; j < colorPalettes.Length; j++)
                 {
                     byte[] paletteBytes = new byte[32];
-                    Array.Copy(colorPaletteData, j * 32, paletteBytes, 0, 32);
+                    Buffer.BlockCopy(colorPaletteData, j * 32, paletteBytes, 0, 32);
                     colorPalettes[j] = new Palette(paletteBytes);
                 }
 
@@ -97,7 +97,7 @@ namespace EpicEdit.Rom.Tracks
         private static byte[] GetPaletteIndexes(byte[] tilesetData)
         {
             byte[] paletteIndexes = new byte[0x100];
-            Array.Copy(tilesetData, 0, paletteIndexes, 0, paletteIndexes.Length);
+            Buffer.BlockCopy(tilesetData, 0, paletteIndexes, 0, paletteIndexes.Length);
             for (int i = 0; i < paletteIndexes.Length; i++)
             {
                 paletteIndexes[i] = (byte)(paletteIndexes[i] >> 4);
