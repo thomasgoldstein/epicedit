@@ -127,7 +127,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.FillGridFromAI(zones, frontZonesView);
-                TrackObjectZones.FillGridFromNearestTiles(ref zones);
+                zones = TrackObjectZones.GetGridFilledFromNearestTiles(zones);
             }
 
             return zones;
@@ -205,7 +205,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private static void FillGridFromNearestTiles(ref byte[][] zones)
+        private static byte[][] GetGridFilledFromNearestTiles(byte[][] zones)
         {
             byte[][] newZones = new byte[zones.Length][];
 
@@ -257,7 +257,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
             }
 
-            zones = newZones;
+            return newZones;
         }
 
         private static sbyte GetTopRightNearestTile(byte[][] zones, int x, int y, int depth)
