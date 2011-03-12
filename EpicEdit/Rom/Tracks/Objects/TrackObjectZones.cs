@@ -118,12 +118,14 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             if (this.track.AI.ElementCount > 0)
             {
-                for (int y = 0; y < zones.Length; y++)
+                for (int x = 0; x < zones[0].Length; x++)
                 {
-                    for (int x = 0; x < zones[y].Length; x++)
-                    {
-                        zones[y][x] = -1;
-                    }
+                    zones[0][x] = -1;
+                }
+
+                for (int y = 1; y < zones.Length; y++)
+                {
+                    Buffer.BlockCopy(zones[0], 0, zones[y], 0, zones[y].Length);
                 }
 
                 this.FillGridFromAI(zones, frontZonesView);
