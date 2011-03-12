@@ -109,6 +109,29 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte[][] GetGrid(bool frontZonesView)
         {
+            byte[][] zones;
+
+            if (this.track.AI.ElementCount == 0)
+            {
+                zones = new byte[GridSize][];
+
+                for (int y = 0; y < zones.Length; y++)
+                {
+                    zones[y] = new byte[GridSize];
+                }
+                
+                return zones;
+            }
+
+            sbyte[][] sZones = TrackObjectZones.InitZones();
+            this.FillGridFromAI(sZones, frontZonesView);
+            zones = TrackObjectZones.GetGridFilledFromNearestTiles(sZones);
+
+            return zones;
+        }
+        
+        private static sbyte[][] InitZones()
+        {
             sbyte[][] zones = new sbyte[GridSize][];
 
             for (int y = 0; y < zones.Length; y++)
@@ -116,31 +139,17 @@ namespace EpicEdit.Rom.Tracks.Objects
                 zones[y] = new sbyte[GridSize];
             }
 
-            if (this.track.AI.ElementCount > 0)
+            for (int x = 0; x < zones[0].Length; x++)
             {
-                for (int x = 0; x < zones[0].Length; x++)
-                {
-                    zones[0][x] = -1;
-                }
-
-                for (int y = 1; y < zones.Length; y++)
-                {
-                    Buffer.BlockCopy(zones[0], 0, zones[y], 0, zones[y].Length);
-                }
-
-                this.FillGridFromAI(zones, frontZonesView);
-                zones = TrackObjectZones.GetGridFilledFromNearestTiles(zones);
+                zones[0][x] = -1;
             }
 
-            byte[][] uzones = new byte[zones.Length][];
-            
-            for (int y = 0; y < zones.Length; y++)
+            for (int y = 1; y < zones.Length; y++)
             {
-                uzones[y] = new byte[zones[y].Length];
-                Buffer.BlockCopy(zones[y], 0, uzones[y], 0, zones[y].Length);
+                Buffer.BlockCopy(zones[0], 0, zones[y], 0, zones[y].Length);
             }
             
-            return uzones;
+            return zones;
         }
 
         private void FillGridFromAI(sbyte[][] zones, bool frontZonesView)
@@ -215,18 +224,18 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private static sbyte[][] GetGridFilledFromNearestTiles(sbyte[][] zones)
+        private static byte[][] GetGridFilledFromNearestTiles(sbyte[][] zones)
         {
-            sbyte[][] newZones = new sbyte[zones.Length][];
+            byte[][] newZones = new byte[zones.Length][];
 
             for (int y = 0; y < zones.Length; y++)
             {
-                newZones[y] = new sbyte[zones[y].Length];
+                newZones[y] = new byte[zones[y].Length];
                 for (int x = 0; x < zones[y].Length; x++)
                 {
                     if (zones[y][x] != -1)
                     {
-                        newZones[y][x] = zones[y][x];
+                        newZones[y][x] = (byte)zones[y][x];
                         continue;
                     }
 
@@ -263,7 +272,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         depth++;
                     }
 
-                    newZones[y][x] = zoneIndex;
+                    newZones[y][x] = (byte)zoneIndex;
                 }
             }
 
