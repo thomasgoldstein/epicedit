@@ -109,11 +109,11 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte[][] GetGrid(bool frontZonesView)
         {
-            byte[][] zones = new byte[GridSize][];
+            sbyte[][] zones = new sbyte[GridSize][];
 
             for (int y = 0; y < zones.Length; y++)
             {
-                zones[y] = new byte[GridSize];
+                zones[y] = new sbyte[GridSize];
             }
 
             if (this.track.AI.ElementCount > 0)
@@ -122,7 +122,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 {
                     for (int x = 0; x < zones[y].Length; x++)
                     {
-                        zones[y][x] = 0xFF;
+                        zones[y][x] = -1;
                     }
                 }
 
@@ -130,15 +130,23 @@ namespace EpicEdit.Rom.Tracks.Objects
                 zones = TrackObjectZones.GetGridFilledFromNearestTiles(zones);
             }
 
-            return zones;
+            byte[][] uzones = new byte[zones.Length][];
+            
+            for (int y = 0; y < zones.Length; y++)
+            {
+                uzones[y] = new byte[zones[y].Length];
+                System.Buffer.BlockCopy(zones[y], 0, uzones[y], 0, zones[y].Length);
+            }
+            
+            return uzones;
         }
 
-        private void FillGridFromAI(byte[][] zones, bool frontZonesView)
+        private void FillGridFromAI(sbyte[][] zones, bool frontZonesView)
         {
             foreach (TrackAIElement aiElem in this.track.AI)
             {
                 int aiElemIndex = this.track.AI.GetElementIndex(aiElem);
-                byte zoneIndex = this.GetZoneIndex(frontZonesView, aiElemIndex);
+                sbyte zoneIndex = (sbyte)this.GetZoneIndex(frontZonesView, aiElemIndex);
                 int left = aiElem.Zone.X / TrackAIElement.Precision;
                 int top = aiElem.Zone.Y / TrackAIElement.Precision;
                 int right = aiElem.Zone.Right / TrackAIElement.Precision;
@@ -205,16 +213,16 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private static byte[][] GetGridFilledFromNearestTiles(byte[][] zones)
+        private static sbyte[][] GetGridFilledFromNearestTiles(sbyte[][] zones)
         {
-            byte[][] newZones = new byte[zones.Length][];
+            sbyte[][] newZones = new sbyte[zones.Length][];
 
             for (int y = 0; y < zones.Length; y++)
             {
-                newZones[y] = new byte[zones[y].Length];
+                newZones[y] = new sbyte[zones[y].Length];
                 for (int x = 0; x < zones[y].Length; x++)
                 {
-                    if (zones[y][x] != 0xFF)
+                    if (zones[y][x] != -1)
                     {
                         newZones[y][x] = zones[y][x];
                         continue;
@@ -253,14 +261,14 @@ namespace EpicEdit.Rom.Tracks.Objects
                         depth++;
                     }
 
-                    newZones[y][x] = (byte)zoneIndex;
+                    newZones[y][x] = zoneIndex;
                 }
             }
 
             return newZones;
         }
 
-        private static sbyte GetTopRightNearestTile(byte[][] zones, int x, int y, int depth)
+        private static sbyte GetTopRightNearestTile(sbyte[][] zones, int x, int y, int depth)
         {
             sbyte matchFound = -1;
 
@@ -275,8 +283,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             while (x2 <= GridLimit && y2 <= y)
             {
-                if (zones[y2][x2] != 0xFF &&
-                    zones[y2][x2] > matchFound)
+                if (zones[y2][x2] > matchFound)
                 {
                     matchFound = (sbyte)zones[y2][x2];
                 }
@@ -288,7 +295,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return matchFound;
         }
 
-        private static sbyte GetBottomRightNearestTile(byte[][] zones, int x, int y, int depth)
+        private static sbyte GetBottomRightNearestTile(sbyte[][] zones, int x, int y, int depth)
         {
             sbyte matchFound = -1;
 
@@ -303,8 +310,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             while (x2 >= x && y2 <= GridLimit)
             {
-                if (zones[y2][x2] != 0xFF &&
-                    zones[y2][x2] > matchFound)
+                if (zones[y2][x2] > matchFound)
                 {
                     matchFound = (sbyte)zones[y2][x2];
                 }
@@ -316,7 +322,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return matchFound;
         }
 
-        private static sbyte GetBottomLeftNearestTile(byte[][] zones, int x, int y, int depth)
+        private static sbyte GetBottomLeftNearestTile(sbyte[][] zones, int x, int y, int depth)
         {
             sbyte matchFound = -1;
 
@@ -331,8 +337,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             while (x2 >= 0 && y2 >= y)
             {
-                if (zones[y2][x2] != 0xFF &&
-                    zones[y2][x2] > matchFound)
+                if (zones[y2][x2] > matchFound)
                 {
                     matchFound = (sbyte)zones[y2][x2];
                 }
@@ -344,7 +349,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return matchFound;
         }
 
-        private static sbyte GetTopLeftNearestTile(byte[][] zones, int x, int y, int depth)
+        private static sbyte GetTopLeftNearestTile(sbyte[][] zones, int x, int y, int depth)
         {
             sbyte matchFound = -1;
 
@@ -359,8 +364,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             while (x2 <= x && y2 >= 0)
             {
-                if (zones[y2][x2] != 0xFF &&
-                    zones[y2][x2] > matchFound)
+                if (zones[y2][x2] > matchFound)
                 {
                     matchFound = (sbyte)zones[y2][x2];
                 }
