@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Compression
                 this.parent.CopyChunk(compressedBuffer);
             }
 
-            Array.Copy(this.compressedChunk, 0, compressedBuffer, this.CompressedBufferSize - this.compressedChunk.Length, this.compressedChunk.Length);
+            Buffer.BlockCopy(this.compressedChunk, 0, compressedBuffer, this.CompressedBufferSize - this.compressedChunk.Length, this.compressedChunk.Length);
         }
 
         private void AddChild(ChunkNode child)

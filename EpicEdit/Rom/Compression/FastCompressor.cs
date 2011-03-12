@@ -240,7 +240,7 @@ namespace EpicEdit.Rom.Compression
                             compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
                         }
 
-                        Array.Copy(buffer, i, compBuffer, j, byteCount);
+                        Buffer.BlockCopy(buffer, i, compBuffer, j, byteCount);
                         j += byteCount;
                         i += byteCount;
                         #endregion
@@ -252,7 +252,7 @@ namespace EpicEdit.Rom.Compression
             compBuffer[j++] = 0xFF;
 
             byte[] compData = new byte[j];
-            Array.Copy(compBuffer, compData, j);
+            Buffer.BlockCopy(compBuffer, 0, compData, 0, j);
 
             return compData;
         }

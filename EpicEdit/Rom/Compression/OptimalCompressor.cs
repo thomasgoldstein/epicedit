@@ -181,7 +181,7 @@ namespace EpicEdit.Rom.Compression
                 chunk[k++] = (byte)(byteCount - 1 & 0xFF);
             }
 
-            Array.Copy(buffer, i, chunk, k, byteCount);
+            Buffer.BlockCopy(buffer, i, chunk, k, byteCount);
         }
         private static Range GetCommand0Range(byte[] buffer, int i)
         {

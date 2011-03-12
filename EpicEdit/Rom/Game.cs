@@ -128,7 +128,7 @@ namespace EpicEdit.Rom
             {
                 int length = this.romBuffer[lengthOffset] * 2;
                 byte[] hexText = new byte[length];
-                Array.Copy(this.romBuffer, nameOffset, hexText, 0, length);
+                Buffer.BlockCopy(this.romBuffer, nameOffset, hexText, 0, length);
                 modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
                 nameOffset += length;
                 lengthOffset += 2;
@@ -320,10 +320,10 @@ namespace EpicEdit.Rom
             if (romHeaderSize == 512)
             {
                 this.romHeader = new byte[512];
-                Array.Copy(this.romBuffer, this.romHeader, this.romHeader.Length);
+                Buffer.BlockCopy(this.romBuffer, 0, this.romHeader, 0, this.romHeader.Length);
 
                 byte[] romBufferWithoutHeader = new byte[this.romBuffer.Length - this.romHeader.Length];
-                Array.Copy(this.romBuffer, this.romHeader.Length, romBufferWithoutHeader, 0, romBufferWithoutHeader.Length);
+                Buffer.BlockCopy(this.romBuffer, this.romHeader.Length, romBufferWithoutHeader, 0, romBufferWithoutHeader.Length);
                 this.romBuffer = romBufferWithoutHeader;
             }
             else if (romHeaderSize != 0)
@@ -516,8 +516,8 @@ namespace EpicEdit.Rom
 
             byte[] trackOrder = new byte[Track.Count];
 
-            Array.Copy(gpTrackOrder, 0, trackOrder, 0, GPTrack.Count);
-            Array.Copy(battleTrackOrder, 0, trackOrder, GPTrack.Count, BattleTrack.Count);
+            Buffer.BlockCopy(gpTrackOrder, 0, trackOrder, 0, GPTrack.Count);
+            Buffer.BlockCopy(battleTrackOrder, 0, trackOrder, GPTrack.Count, BattleTrack.Count);
             return trackOrder;
         }
 
@@ -566,14 +566,14 @@ namespace EpicEdit.Rom
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
             byte[] data = new byte[OverlayTiles.Size];
-            Array.Copy(this.romBuffer, offset, data, 0, data.Length);
+            Buffer.BlockCopy(this.romBuffer, offset, data, 0, data.Length);
             return data;
         }
 
         private void SetOverlayTileData(int trackIndex, byte[] data)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
-            Array.Copy(data, 0, this.romBuffer, offset, OverlayTiles.Size);
+            Buffer.BlockCopy(data, 0, this.romBuffer, offset, OverlayTiles.Size);
         }
 
         private int GetOverlayTileDataOffset(int trackIndex)
@@ -589,7 +589,7 @@ namespace EpicEdit.Rom
         {
             int offset = this.GetGPStartPositionDataOffset(trackIndex);
             byte[] data = new byte[6];
-            Array.Copy(this.romBuffer, offset, data, 0, data.Length);
+            Buffer.BlockCopy(this.romBuffer, offset, data, 0, data.Length);
             return data;
         }
 
@@ -597,7 +597,7 @@ namespace EpicEdit.Rom
         {
             byte[] data = track.StartPosition.GetBytes();
             int offset = this.GetGPStartPositionDataOffset(trackIndex);
-            Array.Copy(data, 0, this.romBuffer, offset, 6);
+            Buffer.BlockCopy(data, 0, this.romBuffer, offset, 6);
         }
 
         private int GetGPStartPositionDataOffset(int trackIndex)
@@ -615,7 +615,7 @@ namespace EpicEdit.Rom
         {
             byte[] data = new byte[6];
             int lapLineDataOffset = this.offsets[Offset.TrackLapLines] + trackIndex * data.Length;
-            Array.Copy(this.romBuffer, lapLineDataOffset, data, 0, data.Length);
+            Buffer.BlockCopy(this.romBuffer, lapLineDataOffset, data, 0, data.Length);
             return data;
         }
 
@@ -871,7 +871,7 @@ namespace EpicEdit.Rom
 
                 if (sourceTrackId < destinationTrackId)
                 {
-                    Array.Copy(
+                    Buffer.BlockCopy(
                         this.romBuffer,
                         startingLineOffset + (sourceTrackId + 1) * 2,
                         this.romBuffer,
@@ -881,7 +881,7 @@ namespace EpicEdit.Rom
                 }
                 else
                 {
-                    Array.Copy(
+                    Buffer.BlockCopy(
                         this.romBuffer,
                         startingLineOffset + destinationTrackId * 2,
                         this.romBuffer,
@@ -1220,7 +1220,7 @@ namespace EpicEdit.Rom
 
                 // Update lap line position and length
                 data = gpTrack.LapLine.GetBytes();
-                Array.Copy(data, 0, this.romBuffer, this.offsets[Offset.TrackLapLines] + trackIndex * data.Length, data.Length);
+                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackLapLines] + trackIndex * data.Length, data.Length);
 
                 // Update lap line position on track preview
                 int previewLapLineOffset = offsets[Offset.TrackPreviewLapLines] + iterator * 2;
@@ -1234,12 +1234,12 @@ namespace EpicEdit.Rom
                     if (!gpTrack.ObjectZones.ReadOnly)
                     {
                         data = gpTrack.ObjectZones.GetBytes();
-                        Array.Copy(data, 0, this.romBuffer, this.GetObjectZoneOffset(trackIndex), data.Length);
+                        Buffer.BlockCopy(data, 0, this.romBuffer, this.GetObjectZoneOffset(trackIndex), data.Length);
                     }
 
                     // Update object coordinates
                     data = gpTrack.Objects.GetBytes();
-                    Array.Copy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
+                    Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
                 }
             }
 
@@ -1276,7 +1276,7 @@ namespace EpicEdit.Rom
         {
             int compressedTrackLength = Codec.GetLength(this.romBuffer, trackOffset);
             byte[] compressedTrack = new byte[compressedTrackLength];
-            Array.Copy(this.romBuffer, trackOffset, compressedTrack, 0, compressedTrackLength);
+            Buffer.BlockCopy(this.romBuffer, trackOffset, compressedTrack, 0, compressedTrackLength);
 
             this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
         }
@@ -1286,7 +1286,7 @@ namespace EpicEdit.Rom
             // Update track offset
             byte[] offset = Utilities.OffsetToByteArray(saveBuffer.Index);
             int trackAddressIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            Array.Copy(offset, 0, this.romBuffer, trackAddressIndex, 3);
+            Buffer.BlockCopy(offset, 0, this.romBuffer, trackAddressIndex, 3);
 
             saveBuffer.Add(compressedTrack);
         }

@@ -31,7 +31,7 @@ namespace EpicEdit.Rom
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)
         {
             byte[] bytes = new byte[length];
-            Array.Copy(buffer, offset, bytes, 0, length);
+            Buffer.BlockCopy(buffer, offset, bytes, 0, length);
             return bytes;
         }
 
@@ -59,7 +59,7 @@ namespace EpicEdit.Rom
             }
 
             byte[] bytes = new byte[length];
-            Array.Copy(buffer, offset, bytes, 0, length);
+            Buffer.BlockCopy(buffer, offset, bytes, 0, length);
 
             return bytes;
         }
@@ -79,7 +79,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < groupCount; i++)
             {
                 group[i] = new byte[groupSize];
-                Array.Copy(buffer, offset + (i * groupSize), group[i], 0, groupSize);
+                Buffer.BlockCopy(buffer, offset + (i * groupSize), group[i], 0, groupSize);
             }
 
             return group;
@@ -116,7 +116,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < length; i++)
             {
                 group[i] = new byte[groupSize];
-                Array.Copy(buffer, offset + (i * groupSize), group[i], 0, groupSize);
+                Buffer.BlockCopy(buffer, offset + (i * groupSize), group[i], 0, groupSize);
             }
 
             return group;
@@ -137,7 +137,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < offsetCount; i++)
             {
                 byte[] address = new byte[offsetSize];
-                Array.Copy(buffer, offset + (i * offsetSize), address, 0, offsetSize);
+                Buffer.BlockCopy(buffer, offset + (i * offsetSize), address, 0, offsetSize);
                 offsetGroup[i] = Utilities.ByteArrayToOffset(address);
             }
 

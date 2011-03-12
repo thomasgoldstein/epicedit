@@ -63,7 +63,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             for (int y = 0; y < this.Height; y++)
             {
                 this.Tiles[y] = new byte[this.Width];
-                Array.Copy(data, y * this.Width, this.Tiles[y], 0, this.Width);
+                Buffer.BlockCopy(data, y * this.Width, this.Tiles[y], 0, this.Width);
             }
         }
 
@@ -76,7 +76,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
             for (int y = 0; y < this.Height; y++)
             {
-                Array.Copy(this.Tiles[y], 0, buffer, y * this.Width, this.Width);
+                Buffer.BlockCopy(this.Tiles[y], 0, buffer, y * this.Width, this.Width);
             }
 
             return buffer;

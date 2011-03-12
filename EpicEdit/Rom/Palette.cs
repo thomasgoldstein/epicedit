@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.colors.Length; i++)
             {
-                Array.Copy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
+                Buffer.BlockCopy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
             }
 
             return bytes;

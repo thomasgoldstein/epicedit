@@ -165,7 +165,7 @@ namespace EpicEdit.Rom.Compression
             }
 
             byte[] returnBuffer = new byte[destPosition];
-            Array.Copy(decBuffer, returnBuffer, destPosition);
+            Buffer.BlockCopy(decBuffer, 0, returnBuffer, 0, destPosition);
 
             return returnBuffer;
         }
@@ -373,7 +373,7 @@ namespace EpicEdit.Rom.Compression
         public static void Compress(byte[] bufferToCompress, byte[] destinationBuffer, int offset, bool quirksMode)
         {
             byte[] compBuffer = Codec.Compress(bufferToCompress, quirksMode);
-            Array.Copy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
+            Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
         }
     }
 }

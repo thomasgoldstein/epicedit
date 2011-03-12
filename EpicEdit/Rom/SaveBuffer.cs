@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
             int index = this.zone.Start;
             foreach (byte[] dataBlock in savedData)
             {
-                Array.Copy(dataBlock, 0, this.romBuffer, index, dataBlock.Length);
+                Buffer.BlockCopy(dataBlock, 0, this.romBuffer, index, dataBlock.Length);
                 index += dataBlock.Length;
             }
 
@@ -138,7 +138,7 @@ namespace EpicEdit.Rom
             }
 
             byte[] resizedRomBuffer = new byte[size];
-            Array.Copy(this.romBuffer, resizedRomBuffer, this.romBuffer.Length);
+            Buffer.BlockCopy(this.romBuffer, 0, resizedRomBuffer, 0, this.romBuffer.Length);
 
             this.romBuffer = resizedRomBuffer;
         }

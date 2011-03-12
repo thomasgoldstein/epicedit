@@ -154,7 +154,7 @@ namespace EpicEdit.Rom
             get
             {
                 byte[] data = new byte[44];
-                Array.Copy(this.OBJ, data, data.Length);
+                Buffer.BlockCopy(this.OBJ, 0, data, 0, data.Length);
                 return new TrackObjects(data);
             }
             set
@@ -507,7 +507,7 @@ namespace EpicEdit.Rom
                     throw new InvalidDataException("Invalid data length. Import aborted.");
                 }
 
-                Array.Copy(lineBytes, 0, field, index, lineBytesLength);
+                Buffer.BlockCopy(lineBytes, 0, field, index, lineBytesLength);
                 line = reader.ReadLine();
                 index += lineBytesLength;
             }
@@ -581,7 +581,7 @@ namespace EpicEdit.Rom
             for (int y = 0; y < data.Length / lineLength; y++)
             {
                 byte[] lineBytes = new byte[lineLength];
-                Array.Copy(data, y * lineLength, lineBytes, 0, lineLength);
+                Buffer.BlockCopy(data, y * lineLength, lineBytes, 0, lineLength);
                 sb.AppendLine("#" + Utilities.ByteArrayToHexString(lineBytes));
             }
         }

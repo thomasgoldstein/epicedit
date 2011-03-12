@@ -45,7 +45,7 @@ namespace EpicEdit.Rom.Tracks
             for (int y = 0; y < dimension; y++)
             {
                 this.map[y] = new byte[dimension];
-                Array.Copy(data, y * dimension, this.map[y], 0, dimension);
+                Buffer.BlockCopy(data, y * dimension, this.map[y], 0, dimension);
             }
         }
 
@@ -135,7 +135,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int y = 0; y < this.Height; y++)
             {
-                Array.Copy(this.map[y], 0, data, y * this.Width, this.Width);
+                Buffer.BlockCopy(this.map[y], 0, data, y * this.Width, this.Width);
             }
 
             return data;
@@ -150,7 +150,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int y = 1; y < this.Height; y++)
             {
-                Array.Copy(this.map[0], 0, this.map[y], 0, this.Width);
+                Buffer.BlockCopy(this.map[0], 0, this.map[y], 0, this.Width);
             }
         }
     }
