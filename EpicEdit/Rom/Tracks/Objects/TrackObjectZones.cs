@@ -135,7 +135,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             for (int y = 0; y < zones.Length; y++)
             {
                 uzones[y] = new byte[zones[y].Length];
-                System.Buffer.BlockCopy(zones[y], 0, uzones[y], 0, zones[y].Length);
+                Buffer.BlockCopy(zones[y], 0, uzones[y], 0, zones[y].Length);
             }
             
             return uzones;
