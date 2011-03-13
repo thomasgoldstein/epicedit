@@ -369,7 +369,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOptionLabel.Name = "itemBoxDisplayOptionLabel";
             this.itemBoxDisplayOptionLabel.Size = new System.Drawing.Size(117, 13);
             this.itemBoxDisplayOptionLabel.TabIndex = 39;
-            this.itemBoxDisplayOptionLabel.Text = "Item box display option:";
+            this.itemBoxDisplayOptionLabel.Text = "Item box display option";
             // 
             // itemBoxDisplayOption
             // 
