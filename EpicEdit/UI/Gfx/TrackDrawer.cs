@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -240,19 +241,45 @@ namespace EpicEdit.UI.Gfx
         /// <param name="track">The track.</param>
         public void LoadTrack(Track track)
         {
+            // First load the visible part of the track,
+            // then the rest of the track in another thread,
+            // so as the be able to display the track ASAP.
+
+            int width = (int)Math.Ceiling((float)this.imageSize.Width / Tile.Size);
+            int height = (int)Math.Ceiling((float)this.imageSize.Height / Tile.Size);
+
+            this.LoadTrackVisiblePart(track, width, height);
+
+            if (width == TrackMap.Size && height == TrackMap.Size)
+            {
+                // The whole track is visible, so it was fully loaded.
+                // No need to create a BackgroundWorker to load the rest.
+                return;
+            }
+
+            using (BackgroundWorker bw = new BackgroundWorker())
+            {
+                bw.DoWork += delegate { this.LoadTrackRest(width, height); };
+                bw.RunWorkerAsync();
+            }
+        }
+
+        private void LoadTrackVisiblePart(Track track, int width, int height)
+        {
             this.trackCache.Dispose();
 
             this.track = track;
-            Tile[] tileset = track.GetRoadTileset();
+            Tile[] tileset = this.track.GetRoadTileset();
 
             this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
                                          this.track.Map.Height * Tile.Size,
                                          PixelFormat.Format32bppPArgb);
+
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
-                for (int x = 0; x < this.track.Map.Width; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int y = 0; y < this.track.Map.Height; y++)
+                    for (int y = 0; y < height; y++)
                     {
                         Tile tile = tileset[this.track.Map[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
@@ -261,6 +288,32 @@ namespace EpicEdit.UI.Gfx
             }
 
             this.NotifyFullRepaintNeed();
+        }
+
+        private void LoadTrackRest(int width, int height)
+        {
+            Tile[] tileset = this.track.GetRoadTileset();
+
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                for (int x = width; x < this.track.Map.Width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        Tile tile = tileset[this.track.Map[x, y]];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                    }
+                }
+
+                for (int x = 0; x < this.track.Map.Width; x++)
+                {
+                    for (int y = height; y < this.track.Map.Height; y++)
+                    {
+                        Tile tile = tileset[this.track.Map[x, y]];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                    }
+                }
+            }
         }
 
         public void SetZoom(float zoom)
