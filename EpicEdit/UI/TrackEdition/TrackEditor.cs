@@ -116,8 +116,8 @@ namespace EpicEdit.UI.TrackEdition
                     return this.pixelPosition;
                 }
 
-                return new Point((int)(this.pixelPosition.X / (8 * this.Zoom)),
-                                 (int)(this.pixelPosition.Y / (8 * this.Zoom)));
+                return new Point((int)(this.pixelPosition.X / (Tile.Size * this.Zoom)),
+                                 (int)(this.pixelPosition.Y / (Tile.Size * this.Zoom)));
             }
         }
 
@@ -790,7 +790,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             int x = location.X;
             int y = location.Y;
-            int zoomedTileSize = (int)(8 * this.Zoom);
+            int zoomedTileSize = (int)(Tile.Size * this.Zoom);
             int zoomedScrollPositionX = this.scrollPosition.X * zoomedTileSize;
             int zoomedScrollPositionY = this.scrollPosition.Y * zoomedTileSize;
             int zoomedTrackWidth = this.track.Map.Width * zoomedTileSize;
@@ -1306,7 +1306,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <returns>The number of on-screen tiles (from 0 to 128).</returns>
         private int GetOnScreenTileCount(int panelSize)
         {
-            return Math.Min(this.track.Map.Width, (int)((panelSize) / (8 * this.Zoom)));
+            return Math.Min(this.track.Map.Width, (int)((panelSize) / (Tile.Size * this.Zoom)));
         }
 
         /// <summary>

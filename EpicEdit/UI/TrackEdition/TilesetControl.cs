@@ -154,8 +154,8 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             int zoom = TilesetDrawer.Zoom;
-            int rowTileCount = this.tilesetPanel.Width / (8 * zoom);
-            byte newSelectedTile = (byte)((e.X / (8 * zoom)) + (e.Y / (8 * zoom)) * rowTileCount);
+            int rowTileCount = this.tilesetPanel.Width / (Tile.Size * zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 
             if (this.selectedTile != newSelectedTile)
             {
