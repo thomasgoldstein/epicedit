@@ -168,7 +168,7 @@ namespace EpicEdit.UI.TrackEdition
             int tilesetY = 0; // Current vertical drawing position in the tileset
             int tallestPattern = 0; // The tallest tile pattern in a given row
 
-            int panelWidth = this.overlayTilesetPanel.Width / (8 * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+            int panelWidth = this.overlayTilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
             int patternId = 0;
             int patternCountInRow = -1;
 
