@@ -278,7 +278,6 @@ namespace EpicEdit.UI.TrackEdition
 
             this.SetTrack();
             this.trackDrawer.LoadTrack(this.track);
-            this.tilesetControl.SelectTrackTheme();
 
             // Adding these event handlers here rather than in the Designer.cs
             // saves us a null check on this.drawer in each of the corresponding functions,
@@ -380,8 +379,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateControlsOnTrackImport()
         {
-            this.tilesetControl.SelectTrackTheme();
-            this.SetTrackSub();
+            this.SetTrack();
         }
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
@@ -1357,7 +1355,6 @@ namespace EpicEdit.UI.TrackEdition
             this.ResetScrollingPosition();
             this.SetTrack();
             this.DisplayNewTrack();
-            this.tilesetControl.SelectTrackTheme();
         }
 
         private void ResetScrollingPosition()
@@ -1380,16 +1377,10 @@ namespace EpicEdit.UI.TrackEdition
             this.track = this.trackTreeView.SelectedTrack;
 
             this.tilesetControl.Track = this.track;
-            this.SetTrackSub();
-
-            this.startControl.Track = this.track;
-        }
-
-        private void SetTrackSub()
-        {
             this.hoveredOverlayTile = null;
             this.overlayControl.SelectedTile = null;
             this.UpdateOverlayTileCount();
+            this.startControl.Track = this.track;
             this.aiControl.TrackAI = this.track.AI;
             this.hoveredAIElem = null;
 

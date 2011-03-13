@@ -68,6 +68,7 @@ namespace EpicEdit.UI.TrackEdition
             set
             {
                 this.track = value;
+                this.SelectTrackTheme();
             }
         }
 
@@ -135,7 +136,7 @@ namespace EpicEdit.UI.TrackEdition
             this.SelectedThemeChanged(this, EventArgs.Empty);
         }
 
-        public void SelectTrackTheme()
+        private void SelectTrackTheme()
         {
             this.themeComboBox.SelectedItem = this.track.Theme;
         }
