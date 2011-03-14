@@ -985,7 +985,7 @@ namespace EpicEdit.UI.Gfx
             GPTrack gpTrack = this.track as GPTrack;
             byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
 
-            if (this.zones != zones)
+            if (this.ZonesChanged(zones))
             {
                 this.zones = zones;
                 this.objectZonesCache.Dispose();
@@ -993,6 +993,27 @@ namespace EpicEdit.UI.Gfx
             }
 
             return this.objectZonesCache;
+        }
+
+        private bool ZonesChanged(byte[][] zones)
+        {
+            if (this.zones == null)
+            {
+                return true;
+            }
+
+            for (int y = 0; y < zones.Length; y++)
+            {
+                for (int x = 0; x < zones[y].Length; x++)
+                {
+                    if (this.zones[y][x] != zones[y][x])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private Bitmap CreateObjectZonesBitmap()
