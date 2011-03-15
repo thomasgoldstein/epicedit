@@ -1016,6 +1016,9 @@ namespace EpicEdit.UI.Gfx
             return false;
         }
 
+        /// <summary>
+        /// Creates a small bitmap (64x64) containing colored zones which represent object zones.
+        /// </summary>
         private Bitmap CreateObjectZonesBitmap()
         {
             Bitmap bitmap = new Bitmap(TrackObjectZones.GridSize, TrackObjectZones.GridSize, this.trackCache.PixelFormat);
