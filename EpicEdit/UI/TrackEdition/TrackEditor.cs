@@ -1438,7 +1438,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (repaintNeeded || forceRepaint)
             {
-                this.trackDisplay.Invalidate();
+                this.trackDisplay.Refresh();
             }
 
             this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
