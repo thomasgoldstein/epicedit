@@ -1121,13 +1121,7 @@ namespace EpicEdit.Rom
         private void SaveAIs(SaveBuffer saveBuffer)
         {
             int aiFirstAddressByteOffset = this.offsets[Offset.TrackAIDataFirstAddressByte];
-
-            if (this.romBuffer[aiFirstAddressByteOffset] != 0xC8)
-            {
-                // This is either the original SMK ROM (if == 0xC6)
-                // or possibly an altered ROM (if != 0xC6)
-                this.romBuffer[aiFirstAddressByteOffset] = 0xC8;
-            }
+            this.romBuffer[aiFirstAddressByteOffset] = 0xC8;
 
             byte[] trackOrder = this.GetTrackOrder();
 
