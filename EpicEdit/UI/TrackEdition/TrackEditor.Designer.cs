@@ -89,14 +89,14 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Name = "trackDisplay";
             this.trackDisplay.Size = new System.Drawing.Size(403, 451);
             this.trackDisplay.TabIndex = 1;
-            this.trackDisplay.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
-            this.trackDisplay.MouseLeave += new System.EventHandler(this.TrackDisplayMouseLeave);
-            this.trackDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseMove);
+            this.trackDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayKeyDown);
             this.trackDisplay.GotFocus += new System.EventHandler(this.TrackDisplayGotFocus);
             this.trackDisplay.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDoubleClick);
             this.trackDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDown);
+            this.trackDisplay.MouseLeave += new System.EventHandler(this.TrackDisplayMouseLeave);
+            this.trackDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseMove);
             this.trackDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseUp);
-            this.trackDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayKeyDown);
+            this.trackDisplay.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
             // 
             // trackDisplayHScrollBar
             // 
@@ -106,8 +106,8 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplayHScrollBar.Size = new System.Drawing.Size(386, 17);
             this.trackDisplayHScrollBar.TabIndex = 0;
             this.trackDisplayHScrollBar.Visible = false;
-            this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
             this.trackDisplayHScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayHScrollBarScroll);
+            this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
             // 
             // trackDisplayVScrollBar
             // 
@@ -117,11 +117,11 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 451);
             this.trackDisplayVScrollBar.TabIndex = 1;
             this.trackDisplayVScrollBar.Visible = false;
-            this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
-            this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
-            this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
             this.trackDisplayVScrollBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayVScrollBarMouseMove);
             this.trackDisplayVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayVScrollBarScroll);
+            this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
+            this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
+            this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
             // 
             // modeTabControl
             // 
@@ -162,10 +162,10 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.Name = "tilesetControl";
             this.tilesetControl.Size = new System.Drawing.Size(130, 580);
             this.tilesetControl.TabIndex = 0;
-            this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
             this.tilesetControl.TrackThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackThemeChanged);
-            this.tilesetControl.TrackMapChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackMapChanged);
+            this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
             this.tilesetControl.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedTileChanged);
+            this.tilesetControl.TrackMapChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackMapChanged);
             // 
             // overlayTabPage
             // 
@@ -184,9 +184,9 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.Name = "overlayControl";
             this.overlayControl.Size = new System.Drawing.Size(130, 548);
             this.overlayControl.TabIndex = 0;
-            this.overlayControl.RepaintRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlRepaintRequested);
             this.overlayControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlDeleteRequested);
             this.overlayControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlDeleteAllRequested);
+            this.overlayControl.RepaintRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlRepaintRequested);
             // 
             // startTabPage
             // 
@@ -244,9 +244,9 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.Name = "aiControl";
             this.aiControl.Size = new System.Drawing.Size(130, 300);
             this.aiControl.TabIndex = 0;
-            this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
             this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
             this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
+            this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
             this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
             // 
             // tabImageList
@@ -285,11 +285,11 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.TabIndex = 4;
             this.menuBar.ZoomInEnabled = false;
             this.menuBar.ZoomOutEnabled = false;
-            this.menuBar.ZoomOutRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomOutRequested);
-            this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);
-            this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
-            this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
             this.menuBar.TrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportDialogRequested);
+            this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
+            this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);
+            this.menuBar.ZoomOutRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomOutRequested);
+            this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
             // 
             // TrackEditor
             // 
