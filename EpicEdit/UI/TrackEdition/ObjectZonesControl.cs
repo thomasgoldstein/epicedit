@@ -43,10 +43,6 @@ namespace EpicEdit.UI.TrackEdition
             set
             {
                 this.track = value;
-                this.zone1TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
-                this.zone2TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
-                this.zone3TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
-                this.zone4TrackBar.Enabled = !this.track.ObjectZones.ReadOnly;
 
                 this.Maximum = TrackAI.MaxElementCount;
                 int max = this.track.AI.ElementCount;

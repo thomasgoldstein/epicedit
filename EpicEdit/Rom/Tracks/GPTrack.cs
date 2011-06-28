@@ -76,11 +76,7 @@ namespace EpicEdit.Rom.Tracks
             if (this.Objects != null) // If the track objects are not ghost pillars
             {
                 this.Objects = track.Objects;
-
-                if (!this.ObjectZones.ReadOnly)
-                {
-                    this.ObjectZones = track.ObjectZones;
-                }
+                this.ObjectZones = track.ObjectZones;
             }
         }
 
@@ -97,11 +93,7 @@ namespace EpicEdit.Rom.Tracks
             if (this.Objects != null) // If the track objects are not ghost pillars
             {
                 track.Objects = this.Objects;
-
-                if (!this.ObjectZones.ReadOnly)
-                {
-                    track.ObjectZones = this.ObjectZones;
-                }
+                track.ObjectZones = this.ObjectZones;
             }
         }
     }
