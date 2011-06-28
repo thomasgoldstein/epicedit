@@ -725,10 +725,9 @@ namespace EpicEdit.Rom
 
             byte[] data;
 
-            if (objectZoneOffset < 0)
+            if (objectZoneOffset == -1)
             {
-                data = objectZoneOffset == -1 ?
-                    null : new byte[0];
+                data = null;
             }
             else
             {
@@ -740,11 +739,16 @@ namespace EpicEdit.Rom
 
         private int GetObjectZoneOffset(int trackIndex)
         {
+            if (this.ObjectZonesRelocated)
+            {
+                return 0x80216 + trackIndex * 10; // TODO: Define in offsets
+            }
+
             int[] reorder =
             {
                 2, -1 /* Ghost Valley x */, 12, 8, 15,
                 10, 17, 0, -1 /* Ghost Valley x */, 9,
-                5, 13, 14, -2 /* Koopa Beach 1 */, 3,
+                5, 13, 14, 17, 3,
                 1, -1 /* Ghost Valley x */, 7, 4, 11
             };
             // TODO: Retrieve order dynamically from the ROM
@@ -754,7 +758,7 @@ namespace EpicEdit.Rom
             // to the object zones of Mario Circuit 1. The other tracks follow.
             // But I don't know where the track order is defined.
 
-            if (reorder[trackIndex] < 0)
+            if (reorder[trackIndex] == -1)
             {
                 return reorder[trackIndex];
             }
@@ -762,6 +766,14 @@ namespace EpicEdit.Rom
             int objectZonesOffset = this.offsets[Offset.TrackObjectZones];
             int index = objectZonesOffset + reorder[trackIndex] * 2;
             return Utilities.BytesToOffset(this.romBuffer[index], this.romBuffer[index + 1], 4);
+        }
+
+        private bool ObjectZonesRelocated
+        {
+            get
+            {
+                return this.romBuffer[0x4DCA9] == 0xB7;
+            }
         }
 
         #endregion Object Zones
@@ -999,6 +1011,7 @@ namespace EpicEdit.Rom
         {
             SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
             this.SaveBattleStartPositions(saveBuffer);
+            this.SaveObjectData(saveBuffer);
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
@@ -1118,6 +1131,228 @@ namespace EpicEdit.Rom
             saveBuffer.Add(hack);
         }
 
+        /// <summary>
+        /// Saves the object zones.
+        /// Also applies a hack that makes the track object engine more flexible.
+        /// </summary>
+        private void SaveObjectData(SaveBuffer saveBuffer)
+        {
+            /*
+                The hacks below include the following improvements:
+
+                - Make all tracks have independent object zones (Koopa Beach 1 and 2 share the same one in the original game)
+                - Make it possible to change the object type of each track (regular or GV pillar)
+                - Remove Donut Plains pipe / mole hacks with something cleaner and reusable
+                - Make it possible to mix the properties of each object (graphics, movements, interaction)
+            */
+
+            this.RelocateObjectData();
+            this.AddObjectCodeChunk1(saveBuffer);
+            this.SaveObjectLocationsAndZones(saveBuffer);
+            this.AddObjectCodeChunk2(saveBuffer);
+            this.SaveGVPillars(saveBuffer);
+            this.AddObjectCodeChunk3(saveBuffer);
+        }
+
+        private void RelocateObjectData()
+        {
+            /*
+                Update addresses to point to the relocated data:
+
+                table tileset: c80062
+                table interact: c8007a
+                table routine: c80092
+                table Z: c800aa
+                table loading: c800c2
+                A ptr: c800da
+                B ptr: c80123
+                C ptr: c8014f
+                D ptr: c801ab
+                normal zone table: c80216
+                GV checkpoint table: c80328
+                GV position data: c80d28
+                E ptr: c85d28
+            */
+
+            // TODO: Move offsets to Offsets.cs, and support Japanese and Euro ROMs
+
+            int offset = 0x18EDF;
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x23;
+            this.romBuffer[offset++] = 0x01;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0x19141;
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x4F;
+            this.romBuffer[offset++] = 0x01;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0x19E2B;
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x28;
+            this.romBuffer[offset++] = 0x5D;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0x1E992;
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0xDA;
+            this.romBuffer[offset++] = 0x00;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0x4DABC;
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0xAB;
+            this.romBuffer[offset++] = 0x01;
+            this.romBuffer[offset] = 0xC8;
+
+            this.romBuffer[0x4DCA9] = 0xB7;
+            this.romBuffer[0x4DCBD] = 0xB7;
+            this.romBuffer[0x4DCC2] = 0xB7;
+        }
+
+        private void AddObjectCodeChunk1(SaveBuffer saveBuffer)
+        {
+            byte[] hack =
+            {
+                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
+                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
+                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
+                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
+                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
+                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
+                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
+                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
+                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,
+                0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
+                0x02, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x03,
+                0xE2, 0x30, 0xAE, 0x24, 0x01, 0xBF, 0x7A, 0x00,
+                0xC8, 0xAA, 0xBF, 0x15, 0x01, 0xC8, 0x8D, 0x30,
+                0x0E, 0x9C, 0x31, 0x0E, 0xAE, 0x24, 0x01, 0xBF,
+                0x62, 0x00, 0xC8, 0xAA, 0xBF, 0x1C, 0x01, 0xC8,
+                0x48, 0x4A, 0x18, 0x63, 0x01, 0x83, 0x01, 0x68,
+                0xC2, 0x30, 0x29, 0xFF, 0x00, 0xAA, 0xBF, 0xD3,
+                0xEB, 0x81, 0xA8, 0xBF, 0xD5, 0xEB, 0x81, 0x5C,
+                0x98, 0xE9, 0x81, 0x02, 0x00, 0x0C, 0x04, 0x06,
+                0x0A, 0x0C, 0x02, 0x00, 0x0C, 0x04, 0x06, 0x0A,
+                0x0E, 0xE2, 0x30, 0xAE, 0x24, 0x01, 0xBF, 0xAA,
+                0x00, 0xC8, 0xAA, 0xBF, 0x48, 0x01, 0xC8, 0xAA,
+                0xC2, 0x20, 0xBF, 0xCD, 0x8B, 0x81, 0x8D, 0xFC,
+                0x0F, 0xBF, 0xDD, 0x8B, 0x81, 0x8D, 0xFE, 0x0F,
+                0xC2, 0x30, 0x5C, 0xEB, 0x8E, 0x81, 0x02, 0x00,
+                0x0C, 0x04, 0x06, 0x0A, 0x0C, 0xE2, 0x30, 0xAE,
+                0x24, 0x01, 0xBF, 0x92, 0x00, 0xC8, 0x0A, 0x48,
+                0x0A, 0x18, 0x63, 0x01, 0x83, 0x01, 0xFA, 0xC2,
+                0x20, 0xBF, 0x81, 0x01, 0xC8, 0x85, 0x06, 0xBF,
+                0x83, 0x01, 0xC8, 0x8D, 0x98, 0x0F, 0x85, 0x08,
+                0xBF, 0x85, 0x01, 0xC8, 0x8D, 0x9A, 0x0F, 0x85,
+                0x0A, 0xC2, 0x10, 0x5C, 0x56, 0x91, 0x81, 0xD0,
+                0x91, 0xE7, 0xE4, 0xF7, 0xE4, 0xD0, 0x91, 0xFE,
+                0xE6, 0x08, 0xE7, 0xD0, 0x91, 0x8B, 0xE1, 0x9D,
+                0xE1, 0xE4, 0x91, 0x6B, 0xE3, 0x7B, 0xE3, 0xD0,
+                0x91, 0x6E, 0xE0, 0x7A, 0xE0, 0xC0, 0x91, 0x7E,
+                0xDF, 0x8E, 0xDF, 0xD0, 0x91, 0x44, 0xE1, 0x56,
+                0xE1, 0xE2, 0x30, 0xAE, 0x24, 0x01, 0xBF, 0xC2,
+                0x00, 0xC8, 0x0A, 0xAA, 0xFC, 0xBF, 0x01, 0xC2,
+                0x30, 0x5C, 0xC2, 0xDA, 0x84, 0xC8, 0x01, 0xDE,
+                0x02, 0xEF, 0x02, 0xC7, 0x01, 0x60, 0xC2, 0x30,
+                0xAD, 0x24, 0x01, 0x0A, 0x0A, 0x18, 0x6D, 0x24,
+                0x01, 0x0A, 0x18, 0x69, 0x16, 0x02, 0x85, 0x08,
+                0xA9, 0xC8, 0x00, 0x85, 0x0A, 0xAC, 0xE4, 0x1E,
+                0xB6, 0xC8, 0x10, 0x11, 0xA5, 0x08, 0x18, 0x69,
+                0x05, 0x00, 0x85, 0x08, 0x98, 0x49, 0x02, 0x00,
+                0xA8, 0xB6, 0xC8, 0x30, 0x1E, 0xA0, 0x00, 0x00,
+                0xE2, 0x20, 0xB5, 0xC0, 0xC9, 0xFF, 0xF0, 0x06,
+                0x88, 0xC8, 0xD7, 0x08, 0xB0, 0xFB, 0xC2, 0x20,
+                0x4B, 0x62, 0x06, 0x00, 0xF4, 0xAD, 0xBD, 0x5C,
+                0x0B, 0xDC, 0x84, 0x60
+            };
+
+            saveBuffer.Add(hack);
+        }
+
+        private void SaveObjectLocationsAndZones(SaveBuffer saveBuffer)
+        {
+            byte[] objectZonesData = new byte[GPTrack.Count * 10];
+            byte[] noData = new byte[10]; // GV pillar place holder
+            byte[] trackOrder = this.GetTrackOrder();
+
+            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            {
+                Track[] tracks = this.trackGroups[i].GetTracks();
+                int trackGroupSize = tracks.Length;
+
+                for (int j = 0; j < trackGroupSize; j++)
+                {
+                    int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
+                    GPTrack gpTrack = tracks[j] as GPTrack;
+
+                    // Update object zones
+                    byte[] data = gpTrack.ObjectZones == null ?
+                        noData : gpTrack.ObjectZones.GetBytes();
+
+                    Buffer.BlockCopy(data, 0, objectZonesData,
+                                     trackIndex * data.Length,
+                                     data.Length);
+
+                    if (gpTrack.ObjectZones != null)
+                    {
+                        // Update object coordinates
+                        data = gpTrack.Objects.GetBytes();
+                        Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
+                    }
+                }
+            }
+
+            saveBuffer.Add(objectZonesData);
+        }
+        
+        private void AddObjectCodeChunk2(SaveBuffer saveBuffer)
+        {
+            byte[] hack =
+            {
+                0x20, 0xC8, 0x01, 0x90, 0x0B, 0x4B, 0x62, 0x06,
+                0x00, 0xF4, 0xAD, 0xBD, 0x5C, 0xBC, 0xDB, 0x84,
+                0x60, 0xC2, 0x30, 0xAC, 0xE4, 0x1E, 0xB6, 0xC8,
+                0x30, 0x2F, 0xB9, 0x7C, 0xDC, 0x85, 0x0C, 0xAD,
+                0x24, 0x01, 0xEB, 0x4A, 0x85, 0x04, 0x0A, 0x0A,
+                0x0A, 0x18, 0x69, 0x28, 0x0D, 0x85, 0x08, 0xA5,
+                0x04, 0x18, 0x69, 0x28, 0x03, 0x85, 0x04, 0xA9,
+                0xC8, 0x00, 0x85, 0x06, 0x85, 0x0A, 0x4B, 0x62,
+                0x06, 0x00, 0xF4, 0xAD, 0xBD, 0x5C, 0xA3, 0xDC,
+                0x84, 0x60
+            };
+
+            saveBuffer.Add(hack);
+        }
+
+        private void SaveGVPillars(SaveBuffer saveBuffer)
+        {
+            // TODO: Load and save GV pillar data
+
+            // GV checkpoint table: c80328 (20 * 128 bytes)
+            // GV position data: c80d28 (20 * 1024 bytes)
+
+            byte[] data = new byte[GPTrack.Count * (128 + 1024)];
+            saveBuffer.Add(data);
+        }
+
+        private void AddObjectCodeChunk3(SaveBuffer saveBuffer)
+        {
+            byte[] hack =
+            {
+                0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
+                0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
+                0x31, 0x9E, 0x81
+            };
+
+            saveBuffer.Add(hack);
+        }
+
         private void SaveAIs(SaveBuffer saveBuffer)
         {
             int aiFirstAddressByteOffset = this.offsets[Offset.TrackAIDataFirstAddressByte];
@@ -1221,20 +1456,6 @@ namespace EpicEdit.Rom
                 Point previewLapLineLocation = Game.GetPreviewLapLineLocation(gpTrack);
                 this.romBuffer[previewLapLineOffset] = (byte)previewLapLineLocation.X;
                 this.romBuffer[previewLapLineOffset + 1] = (byte)previewLapLineLocation.Y;
-
-                if (gpTrack.ObjectZones != null)
-                {
-                    // Update object zones
-                    if (!gpTrack.ObjectZones.ReadOnly)
-                    {
-                        data = gpTrack.ObjectZones.GetBytes();
-                        Buffer.BlockCopy(data, 0, this.romBuffer, this.GetObjectZoneOffset(trackIndex), data.Length);
-                    }
-
-                    // Update object coordinates
-                    data = gpTrack.Objects.GetBytes();
-                    Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
-                }
             }
 
             this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);

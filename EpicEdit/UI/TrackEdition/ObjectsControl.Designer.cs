@@ -46,7 +46,6 @@ namespace EpicEdit.UI.TrackEdition
             this.frontObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
-            this.readOnlyZonesLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rearObjectZonesControl
@@ -96,29 +95,16 @@ namespace EpicEdit.UI.TrackEdition
             this.frontZonesRadioButton.UseVisualStyleBackColor = true;
             this.frontZonesRadioButton.CheckedChanged += new System.EventHandler(this.FrontZonesRadioButtonCheckedChanged);
             // 
-            // readOnlyZonesLabel
-            // 
-            this.readOnlyZonesLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.readOnlyZonesLabel.Location = new System.Drawing.Point(0, 391);
-            this.readOnlyZonesLabel.Name = "readOnlyZonesLabel";
-            this.readOnlyZonesLabel.Size = new System.Drawing.Size(130, 44);
-            this.readOnlyZonesLabel.TabIndex = 8;
-            this.readOnlyZonesLabel.Text = "The object zones of this track cannot be edited";
-            this.readOnlyZonesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.readOnlyZonesLabel.Visible = false;
-            // 
             // ObjectsControl
             // 
-            this.Controls.Add(this.readOnlyZonesLabel);
             this.Controls.Add(this.rearObjectZonesControl);
             this.Controls.Add(this.frontObjectZonesControl);
             this.Controls.Add(this.rearZonesRadioButton);
             this.Controls.Add(this.frontZonesRadioButton);
             this.Name = "ObjectsControl";
-            this.Size = new System.Drawing.Size(130, 435);
+            this.Size = new System.Drawing.Size(130, 400);
             this.ResumeLayout(false);
         }
-        private System.Windows.Forms.Label readOnlyZonesLabel;
         private System.Windows.Forms.RadioButton frontZonesRadioButton;
         private System.Windows.Forms.RadioButton rearZonesRadioButton;
         private EpicEdit.UI.TrackEdition.ObjectZonesControl frontObjectZonesControl;

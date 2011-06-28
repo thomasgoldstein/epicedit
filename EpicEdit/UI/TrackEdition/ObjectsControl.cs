@@ -49,7 +49,6 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.frontObjectZonesControl.Track = value;
                 this.rearObjectZonesControl.Track = value;
-                this.readOnlyZonesLabel.Visible = value.ObjectZones.ReadOnly;
             }
         }
         

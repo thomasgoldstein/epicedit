@@ -35,20 +35,12 @@ namespace EpicEdit.Rom.Tracks.Objects
     	
         private GPTrack track;
 
-        public bool ReadOnly { get; set; }
         private byte[] frontZones;
         private byte[] rearZones;
 
         public TrackObjectZones(byte[] data, GPTrack track)
         {
             this.track = track;
-
-            if (data.Length == 0)
-            {
-                // Koopa Beach 1, which has only a single, non-editable object zone
-                data = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-                this.ReadOnly = true;
-            }
 
             this.frontZones = new byte[4];
             this.frontZones[0] = data[0];
