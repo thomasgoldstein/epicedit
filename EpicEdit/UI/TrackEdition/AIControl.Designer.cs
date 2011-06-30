@@ -53,8 +53,8 @@ namespace EpicEdit.UI.TrackEdition
             this.speedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.warningLabel = new System.Windows.Forms.Label();
             this.addButton = new System.Windows.Forms.Button();
+            this.warningLabel = new System.Windows.Forms.Label();
             aiIndexLabel = new System.Windows.Forms.Label();
             shapeLabel = new System.Windows.Forms.Label();
             speedLabel = new System.Windows.Forms.Label();
@@ -180,14 +180,6 @@ namespace EpicEdit.UI.TrackEdition
             this.deleteAllButton.UseVisualStyleBackColor = true;
             this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
             // 
-            // warningLabel
-            // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 252);
-            this.warningLabel.Name = "warningLabel";
-            this.warningLabel.Size = new System.Drawing.Size(122, 44);
-            this.warningLabel.TabIndex = 3;
-            this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
-            // 
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
@@ -198,6 +190,14 @@ namespace EpicEdit.UI.TrackEdition
             this.buttonToolTip.SetToolTip(this.addButton, "Add new element");
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.AddButtonClick);
+            // 
+            // warningLabel
+            // 
+            this.warningLabel.Location = new System.Drawing.Point(4, 252);
+            this.warningLabel.Name = "warningLabel";
+            this.warningLabel.Size = new System.Drawing.Size(122, 44);
+            this.warningLabel.TabIndex = 3;
+            this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
             // 
             // AIControl
             // 
