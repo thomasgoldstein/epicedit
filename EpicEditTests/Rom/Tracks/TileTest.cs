@@ -28,7 +28,7 @@ namespace EpicEditTests.Rom.Tracks
 
         public TileTest()
         {
-            Bitmap image = new Bitmap(1, 1, PixelFormat.Format24bppRgb);
+            Bitmap image = new Bitmap(8, 8, PixelFormat.Format24bppRgb);
             this.tile = new StillTile(image, TileGenre.Road);
         }
 
@@ -36,8 +36,7 @@ namespace EpicEditTests.Rom.Tracks
         public void TestTileBitmap()
         {
             Assert.IsInstanceOf(typeof(Bitmap), this.tile.Bitmap);
-            Assert.AreEqual(1, Tile.Size);
-            Assert.AreEqual(1, Tile.Size);
+            Assert.AreEqual(8, Tile.Size);
         }
 
         [Test]
