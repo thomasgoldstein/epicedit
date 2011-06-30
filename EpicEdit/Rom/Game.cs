@@ -742,6 +742,7 @@ namespace EpicEdit.Rom
                         break;
 
                     case 1: // Mario Circuit
+                    case 4: // Vanilla Lake
                         objectType = ObjectType.Pipe;
                         objectLoading = ObjectLoading.Regular;
                         break;
@@ -753,11 +754,6 @@ namespace EpicEdit.Rom
 
                     case 3: // Choco Island
                         objectType = ObjectType.Plant;
-                        objectLoading = ObjectLoading.Regular;
-                        break;
-
-                    case 4: // Vanilla Lake
-                        objectType = ObjectType.Pipe;
                         objectLoading = ObjectLoading.Regular;
                         break;
 
