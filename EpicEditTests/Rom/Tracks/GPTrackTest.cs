@@ -42,11 +42,8 @@ namespace EpicEditTests.Rom.Tracks
             Assert.AreEqual(track1.OverlayTiles.GetBytes(), track2.OverlayTiles.GetBytes());
             Assert.AreEqual(track1.StartPosition.GetBytes(), track2.StartPosition.GetBytes());
             Assert.AreEqual(track1.LapLine.GetBytes(), track2.LapLine.GetBytes());
-            if (track1.Objects != null) // If the track objects are not ghost pillars
-            {
-                Assert.AreEqual(track1.Objects.GetBytes(), track2.Objects.GetBytes());
-                Assert.AreEqual(track1.ObjectZones.GetBytes(), track2.ObjectZones.GetBytes());
-            }
+            Assert.AreEqual(track1.Objects.GetBytes(), track2.Objects.GetBytes());
+            Assert.AreEqual(track1.ObjectZones.GetBytes(), track2.ObjectZones.GetBytes());
             Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
         }
 

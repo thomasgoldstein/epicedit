@@ -92,12 +92,8 @@ namespace EpicEdit.Rom.Tracks
 
             this.StartPosition = track.StartPosition;
             this.LapLine = track.LapLine;
-
-            if (this.Objects != null) // If the track objects are not ghost pillars
-            {
-                this.Objects = track.Objects;
-                this.ObjectZones = track.ObjectZones;
-            }
+            this.Objects = track.Objects;
+            this.ObjectZones = track.ObjectZones;
         }
 
         /// <summary>
@@ -109,12 +105,8 @@ namespace EpicEdit.Rom.Tracks
 
             track.StartPosition = this.StartPosition;
             track.LapLine = this.LapLine;
-
-            if (this.Objects != null) // If the track objects are not ghost pillars
-            {
-                track.Objects = this.Objects;
-                track.ObjectZones = this.ObjectZones;
-            }
+            track.Objects = this.Objects;
+            track.ObjectZones = this.ObjectZones;
         }
     }
 }
