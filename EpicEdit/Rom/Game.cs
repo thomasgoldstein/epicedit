@@ -437,13 +437,17 @@ namespace EpicEdit.Rom
                         byte[] objectData = this.GetObjectData(trackIndex);
                         byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
 
-                        tracks[j] = new GPTrack(trackName, trackTheme,
-                                                trackMap, overlayTileData,
-                                                aiZoneData, aiTargetData,
-                                                startPositionData, lapLineData,
-                                                objectData, objectZoneData,
-                                                this.overlayTileSizes,
-                                                this.overlayTilePatterns);
+                        GPTrack gpTrack = new GPTrack(trackName, trackTheme,
+                                                      trackMap, overlayTileData,
+                                                      aiZoneData, aiTargetData,
+                                                      startPositionData, lapLineData,
+                                                      objectData, objectZoneData,
+                                                      this.overlayTileSizes,
+                                                      this.overlayTilePatterns);
+
+                        this.SetObjectProperties(gpTrack, trackIndex, themeId);
+
+                        tracks[j] = gpTrack;
                     }
                     else // Battle track
                     {
@@ -715,6 +719,73 @@ namespace EpicEdit.Rom
             return data;
         }
 
+        private void SetObjectProperties(GPTrack track, int trackIndex, int themeId)
+        {
+            if (this.ObjectZonesRelocated)
+            {
+                int offset = 0x80062 + trackIndex; // TODO: Define in Offsets.cs
+                track.ObjectTileset = (ObjectType)this.romBuffer[offset];
+                track.ObjectInteraction = (ObjectType)this.romBuffer[offset + Track.Count];
+                track.ObjectRoutine = (ObjectType)this.romBuffer[offset + Track.Count * 2];
+                track.ObjectLoading = (ObjectLoading)this.romBuffer[offset + Track.Count * 4];
+            }
+            else
+            {
+                ObjectType objectType;
+                ObjectLoading objectLoading;
+
+                switch (themeId)
+                {
+                    case 0: // Ghost Valley
+                        objectType = ObjectType.Pillar;
+                        objectLoading = ObjectLoading.Pillar;
+                        break;
+
+                    case 1: // Mario Circuit
+                        objectType = ObjectType.Pipe;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    case 2: // Donut Plains
+                        objectType = trackIndex == 19 ? ObjectType.Pipe : ObjectType.Mole;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    case 3: // Choco Island
+                        objectType = ObjectType.Plant;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    case 4: // Vanilla Lake
+                        objectType = ObjectType.Pipe;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    case 5: // Koopa Beach
+                        objectType = ObjectType.Fish;
+                        objectLoading = ObjectLoading.Fish;
+                        break;
+
+                    case 6: // Bowser Castle
+                        objectType = ObjectType.Thwomp;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    case 7: // Rainbow Road
+                        objectType = ObjectType.RThwomp;
+                        objectLoading = ObjectLoading.Regular;
+                        break;
+
+                    default: throw new InvalidDataException();
+                }
+
+                track.ObjectTileset = objectType;
+                track.ObjectInteraction = objectType;
+                track.ObjectRoutine = objectType;
+                track.ObjectLoading = objectLoading;
+            }
+        }
+
         #endregion Objects
 
         #region Object Zones
@@ -727,7 +798,7 @@ namespace EpicEdit.Rom
 
             if (objectZoneOffset == -1)
             {
-                data = null;
+                data = new byte[10]; // Ghost Valley track, has pillars
             }
             else
             {
@@ -1147,6 +1218,7 @@ namespace EpicEdit.Rom
             */
 
             this.RelocateObjectData();
+            this.SaveObjectProperties(saveBuffer);
             this.AddObjectCodeChunk1(saveBuffer);
             this.SaveObjectLocationsAndZones(saveBuffer);
             this.AddObjectCodeChunk2(saveBuffer);
@@ -1211,25 +1283,52 @@ namespace EpicEdit.Rom
             this.romBuffer[0x4DCC2] = 0xB7;
         }
 
+        private void SaveObjectProperties(SaveBuffer saveBuffer)
+        {
+            byte[] trackOrder = this.GetTrackOrder();
+
+            byte[] tilesetData = new byte[Track.Count];
+            byte[] interactData = new byte[Track.Count];
+            byte[] routineData = new byte[Track.Count];
+            byte[] zData = new byte[Track.Count];
+            byte[] loadingData = new byte[Track.Count];
+
+            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            {
+                Track[] tracks = this.trackGroups[i].GetTracks();
+                int trackGroupSize = tracks.Length;
+
+                for (int j = 0; j < trackGroupSize; j++)
+                {
+                    int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
+                    GPTrack gpTrack = tracks[j] as GPTrack;
+
+                    tilesetData[trackIndex] = (byte)gpTrack.ObjectTileset;
+                    interactData[trackIndex] = (byte)gpTrack.ObjectInteraction;
+                    routineData[trackIndex] = (byte)gpTrack.ObjectRoutine;
+                    zData[trackIndex] = routineData[trackIndex];
+                    loadingData[trackIndex] = (byte)gpTrack.ObjectLoading;
+                }
+            }
+
+            // Mark battle tracks as not having objects
+            byte noObject = (byte)ObjectLoading.None;
+            loadingData[GPTrack.Count] = noObject;
+            loadingData[GPTrack.Count + 1] = noObject;
+            loadingData[GPTrack.Count + 2] = noObject;
+            loadingData[GPTrack.Count + 3] = noObject;
+
+            saveBuffer.Add(tilesetData);
+            saveBuffer.Add(interactData);
+            saveBuffer.Add(routineData);
+            saveBuffer.Add(zData);
+            saveBuffer.Add(loadingData);
+        }
+
         private void AddObjectCodeChunk1(SaveBuffer saveBuffer)
         {
             byte[] hack =
             {
-                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
-                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
-                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
-                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
-                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
-                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
-                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x01, 0x03, 0x02, 0x00, 0x06, 0x05, 0x00,
-                0x01, 0x02, 0x04, 0x03, 0x00, 0x05, 0x00, 0x00,
-                0x01, 0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,
-                0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
-                0x02, 0x00, 0x00, 0x00, 0x03, 0x03, 0x03, 0x03,
                 0xE2, 0x30, 0xAE, 0x24, 0x01, 0xBF, 0x7A, 0x00,
                 0xC8, 0xAA, 0xBF, 0x15, 0x01, 0xC8, 0x8D, 0x30,
                 0x0E, 0x9C, 0x31, 0x0E, 0xAE, 0x24, 0x01, 0xBF,
@@ -1277,9 +1376,8 @@ namespace EpicEdit.Rom
 
         private void SaveObjectLocationsAndZones(SaveBuffer saveBuffer)
         {
-            byte[] objectZonesData = new byte[GPTrack.Count * 10];
-            byte[] noData = new byte[10]; // GV pillar place holder
             byte[] trackOrder = this.GetTrackOrder();
+            byte[] objectZonesData = new byte[GPTrack.Count * 10];
 
             for (int i = 0; i < this.trackGroups.Length - 1; i++)
             {
@@ -1292,19 +1390,14 @@ namespace EpicEdit.Rom
                     GPTrack gpTrack = tracks[j] as GPTrack;
 
                     // Update object zones
-                    byte[] data = gpTrack.ObjectZones == null ?
-                        noData : gpTrack.ObjectZones.GetBytes();
-
+                    byte[] data = gpTrack.ObjectZones.GetBytes();
                     Buffer.BlockCopy(data, 0, objectZonesData,
                                      trackIndex * data.Length,
                                      data.Length);
 
-                    if (gpTrack.ObjectZones != null)
-                    {
-                        // Update object coordinates
-                        data = gpTrack.Objects.GetBytes();
-                        Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
-                    }
+                    // Update object coordinates
+                    data = gpTrack.Objects.GetBytes();
+                    Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
                 }
             }
 
