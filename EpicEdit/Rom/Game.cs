@@ -574,7 +574,7 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        private void SetOverlayTileData(int trackIndex, byte[] data)
+        private void SaveOverlayTileData(int trackIndex, byte[] data)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
             Buffer.BlockCopy(data, 0, this.romBuffer, offset, OverlayTiles.Size);
@@ -597,7 +597,7 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        private void SetGPStartPositionData(GPTrack track, int trackIndex)
+        private void SaveGPStartPositionData(GPTrack track, int trackIndex)
         {
             byte[] data = track.StartPosition.GetBytes();
             int offset = this.GetGPStartPositionDataOffset(trackIndex);
@@ -1530,7 +1530,7 @@ namespace EpicEdit.Rom
 
             // Update overlay tiles
             byte[] overlayTileData = track.OverlayTiles.GetBytes();
-            this.SetOverlayTileData(trackIndex, overlayTileData);
+            this.SaveOverlayTileData(trackIndex, overlayTileData);
 
             if (track is GPTrack)
             {
@@ -1538,7 +1538,7 @@ namespace EpicEdit.Rom
                 byte[] data;
 
                 // Update driver starting position
-                this.SetGPStartPositionData(gpTrack, trackIndex);
+                this.SaveGPStartPositionData(gpTrack, trackIndex);
 
                 // Update lap line position and length
                 data = gpTrack.LapLine.GetBytes();
