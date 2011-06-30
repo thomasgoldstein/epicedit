@@ -839,7 +839,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                return this.romBuffer[0x4DCA9] == 0xB7;
+                return this.romBuffer[0x4DCA9] == 0xB7; // TODO: Define in Offsets.cs
             }
         }
 
