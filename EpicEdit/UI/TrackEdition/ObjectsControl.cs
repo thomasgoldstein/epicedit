@@ -67,8 +67,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.ObjectZonesViewChanged(this, EventArgs.Empty);
 
-            this.frontObjectZonesControl.Enabled = this.frontZonesRadioButton.Checked;
-            this.rearObjectZonesControl.Enabled = this.rearZonesRadioButton.Checked;
+            this.frontObjectZonesControl.Visible = this.frontZonesRadioButton.Checked;
+            this.rearObjectZonesControl.Visible = this.rearZonesRadioButton.Checked;
         }
 
         private void FrontObjectZonesControlValueChanged(object sender, EventArgs e)
