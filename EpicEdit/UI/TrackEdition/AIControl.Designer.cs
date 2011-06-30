@@ -96,7 +96,7 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
             this.selectedAIElementGroupBox.Controls.Add(speedLabel);
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
-            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 5);
+            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 4);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
             this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
             this.selectedAIElementGroupBox.TabIndex = 1;
