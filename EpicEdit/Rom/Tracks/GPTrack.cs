@@ -19,6 +19,25 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEdit.Rom.Tracks
 {
+    public enum ObjectType : byte
+    {
+        Pipe = 0,
+        Pillar = 1,
+        Thwomp = 2,
+        Mole = 3,
+        Plant = 4,
+        Fish = 5,
+        RThwomp = 6
+    }
+
+    public enum ObjectLoading : byte
+    {
+        Regular = 0,
+        Fish = 1,
+        Pillar = 2,
+        None = 3
+    }
+
     /// <summary>
     /// A Grand Prix track.
     /// </summary>
@@ -44,6 +63,11 @@ namespace EpicEdit.Rom.Tracks
         public TrackObjects Objects { get; private set; }
         public TrackObjectZones ObjectZones { get; private set; }
 
+        public ObjectType ObjectTileset { get; set; }
+        public ObjectType ObjectInteraction { get; set; }
+        public ObjectType ObjectRoutine { get; set; }
+        public ObjectLoading ObjectLoading { get; set; }
+
         public GPTrack(string name, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
@@ -55,12 +79,8 @@ namespace EpicEdit.Rom.Tracks
         {
             this.StartPosition = new GPStartPosition(startPositionData);
             this.LapLine = new LapLine(lapLineData);
-
-            if (objectZoneData != null) // null for Ghost Valley tracks, by default
-            {
-                this.Objects = new TrackObjects(objectData);
-                this.ObjectZones = new TrackObjectZones(objectZoneData, this);
-            }
+            this.Objects = new TrackObjects(objectData);
+            this.ObjectZones = new TrackObjectZones(objectZoneData, this);
         }
 
         /// <summary>
