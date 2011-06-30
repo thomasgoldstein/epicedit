@@ -1210,7 +1210,7 @@ namespace EpicEdit.Rom
                 - Make all tracks have independent object zones (Koopa Beach 1 and 2 share the same one in the original game)
                 - Make it possible to change the object type of each track (regular or GV pillar)
                 - Remove Donut Plains pipe / mole hacks with something cleaner and reusable
-                - Make it possible to mix the properties of each object (graphics, movements, interaction)
+                - Make it possible to mix the properties of each object (tileset, interaction, routine)
             */
 
             this.RelocateObjectData();
