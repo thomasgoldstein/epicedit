@@ -54,8 +54,6 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetLabel = new System.Windows.Forms.Label();
             this.zoneGroupBox = new System.Windows.Forms.GroupBox();
-            this.loadingLabel = new System.Windows.Forms.Label();
-            this.loadingComboBox = new System.Windows.Forms.ComboBox();
             this.propertiesGroupBox.SuspendLayout();
             this.zoneGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -109,8 +107,6 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // propertiesGroupBox
             // 
-            this.propertiesGroupBox.Controls.Add(this.loadingComboBox);
-            this.propertiesGroupBox.Controls.Add(this.loadingLabel);
             this.propertiesGroupBox.Controls.Add(this.routineComboBox);
             this.propertiesGroupBox.Controls.Add(this.routineLabel);
             this.propertiesGroupBox.Controls.Add(this.interactComboBox);
@@ -119,7 +115,7 @@ namespace EpicEdit.UI.TrackEdition
             this.propertiesGroupBox.Controls.Add(this.tilesetLabel);
             this.propertiesGroupBox.Location = new System.Drawing.Point(2, 4);
             this.propertiesGroupBox.Name = "propertiesGroupBox";
-            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 215);
+            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 171);
             this.propertiesGroupBox.TabIndex = 8;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Object Properties";
@@ -181,42 +177,23 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.Controls.Add(this.rearZonesRadioButton);
             this.zoneGroupBox.Controls.Add(this.rearObjectZonesControl);
             this.zoneGroupBox.Controls.Add(this.frontObjectZonesControl);
-            this.zoneGroupBox.Location = new System.Drawing.Point(2, 225);
+            this.zoneGroupBox.Location = new System.Drawing.Point(2, 181);
             this.zoneGroupBox.Name = "zoneGroupBox";
             this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
             this.zoneGroupBox.TabIndex = 9;
             this.zoneGroupBox.TabStop = false;
             this.zoneGroupBox.Text = "Object Visibility Zones";
             // 
-            // loadingLabel
-            // 
-            this.loadingLabel.Location = new System.Drawing.Point(6, 164);
-            this.loadingLabel.Name = "loadingLabel";
-            this.loadingLabel.Size = new System.Drawing.Size(100, 23);
-            this.loadingLabel.TabIndex = 6;
-            this.loadingLabel.Text = "Loading";
-            // 
-            // loadingComboBox
-            // 
-            this.loadingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.loadingComboBox.FormattingEnabled = true;
-            this.loadingComboBox.Location = new System.Drawing.Point(10, 181);
-            this.loadingComboBox.Name = "loadingComboBox";
-            this.loadingComboBox.Size = new System.Drawing.Size(104, 21);
-            this.loadingComboBox.TabIndex = 7;
-            // 
             // ObjectsControl
             // 
             this.Controls.Add(this.zoneGroupBox);
             this.Controls.Add(this.propertiesGroupBox);
             this.Name = "ObjectsControl";
-            this.Size = new System.Drawing.Size(130, 470);
+            this.Size = new System.Drawing.Size(130, 420);
             this.propertiesGroupBox.ResumeLayout(false);
             this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
-        private System.Windows.Forms.ComboBox loadingComboBox;
-        private System.Windows.Forms.Label loadingLabel;
         private System.Windows.Forms.GroupBox zoneGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
         private System.Windows.Forms.Label interactLabel;

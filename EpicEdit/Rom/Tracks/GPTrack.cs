@@ -66,7 +66,31 @@ namespace EpicEdit.Rom.Tracks
         public ObjectType ObjectTileset { get; set; }
         public ObjectType ObjectInteraction { get; set; }
         public ObjectType ObjectRoutine { get; set; }
-        public ObjectLoading ObjectLoading { get; set; }
+
+        public ObjectLoading ObjectLoading
+        {
+            get
+            {
+                switch (this.ObjectRoutine)
+                {
+                    case ObjectType.Pipe:
+                    case ObjectType.Thwomp:
+                    case ObjectType.Mole:
+                    case ObjectType.Plant:
+                    case ObjectType.RThwomp:
+                        return ObjectLoading.Regular;
+
+                    case ObjectType.Fish:
+                        return ObjectLoading.Fish;
+
+                    case ObjectType.Pillar:
+                        return ObjectLoading.Pillar;
+
+                    default:
+                        return ObjectLoading.None;
+                }
+            }
+        }
 
         public GPTrack(string name, Theme theme,
                        byte[] map, byte[] overlayTileData,

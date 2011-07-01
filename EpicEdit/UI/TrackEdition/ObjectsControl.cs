@@ -40,7 +40,6 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
             this.interactComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
             this.routineComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
-            this.loadingComboBox.DataSource = Enum.GetValues(typeof(ObjectLoading));
         }
 
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
@@ -58,17 +57,14 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
-                this.loadingComboBox.SelectedIndexChanged -= this.LoadingComboBoxSelectedIndexChanged;
-
+                
                 this.tilesetComboBox.SelectedItem = value.ObjectTileset;
                 this.interactComboBox.SelectedItem = value.ObjectInteraction;
                 this.routineComboBox.SelectedItem = value.ObjectRoutine;
-                this.loadingComboBox.SelectedItem = value.ObjectLoading;
 
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
-                this.loadingComboBox.SelectedIndexChanged += this.LoadingComboBoxSelectedIndexChanged;
             }
         }
         
@@ -116,12 +112,6 @@ namespace EpicEdit.UI.TrackEdition
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
         	this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
-            // TODO: Mark track as changed
-        }
-        
-        private void LoadingComboBoxSelectedIndexChanged(object sender, EventArgs e)
-        {
-        	this.Track.ObjectLoading = (ObjectLoading)this.loadingComboBox.SelectedItem;
             // TODO: Mark track as changed
         }
     }
