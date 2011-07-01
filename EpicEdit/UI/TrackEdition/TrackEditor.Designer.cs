@@ -224,8 +224,8 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsControl.Name = "objectsControl";
             this.objectsControl.Size = new System.Drawing.Size(130, 420);
             this.objectsControl.TabIndex = 0;
-            this.objectsControl.ObjectZonesChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesChanged);
-            this.objectsControl.ObjectZonesViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesViewChanged);
+            this.objectsControl.DataChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlDataChanged);
+            this.objectsControl.ViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlViewChanged);
             // 
             // aiTabPage
             // 
