@@ -2022,8 +2022,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetTrackObjectZones()
         {
-            if (this.track is GPTrack &&
-                (this.track as GPTrack).ObjectLoading != ObjectLoading.Pillar)
+            if (this.track is GPTrack)
             {
                 GPTrack gpTrack = this.track as GPTrack;
                 this.objectsTabPage.Enabled = true;
