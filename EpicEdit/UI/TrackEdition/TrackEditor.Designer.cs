@@ -222,7 +222,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.objectsControl.Location = new System.Drawing.Point(3, 3);
             this.objectsControl.Name = "objectsControl";
-            this.objectsControl.Size = new System.Drawing.Size(130, 470);
+            this.objectsControl.Size = new System.Drawing.Size(130, 420);
             this.objectsControl.TabIndex = 0;
             this.objectsControl.ObjectZonesChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesChanged);
             this.objectsControl.ObjectZonesViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlObjectZonesViewChanged);

@@ -727,49 +727,40 @@ namespace EpicEdit.Rom
                 track.ObjectTileset = (ObjectType)this.romBuffer[offset];
                 track.ObjectInteraction = (ObjectType)this.romBuffer[offset + Track.Count];
                 track.ObjectRoutine = (ObjectType)this.romBuffer[offset + Track.Count * 2];
-                track.ObjectLoading = (ObjectLoading)this.romBuffer[offset + Track.Count * 4];
             }
             else
             {
                 ObjectType objectType;
-                ObjectLoading objectLoading;
 
                 switch (themeId)
                 {
                     case 0: // Ghost Valley
                         objectType = ObjectType.Pillar;
-                        objectLoading = ObjectLoading.Pillar;
                         break;
 
                     case 1: // Mario Circuit
                     case 4: // Vanilla Lake
                         objectType = ObjectType.Pipe;
-                        objectLoading = ObjectLoading.Regular;
                         break;
 
                     case 2: // Donut Plains
                         objectType = trackIndex == 19 ? ObjectType.Pipe : ObjectType.Mole;
-                        objectLoading = ObjectLoading.Regular;
                         break;
 
                     case 3: // Choco Island
                         objectType = ObjectType.Plant;
-                        objectLoading = ObjectLoading.Regular;
                         break;
 
                     case 5: // Koopa Beach
                         objectType = ObjectType.Fish;
-                        objectLoading = ObjectLoading.Fish;
                         break;
 
                     case 6: // Bowser Castle
                         objectType = ObjectType.Thwomp;
-                        objectLoading = ObjectLoading.Regular;
                         break;
 
                     case 7: // Rainbow Road
                         objectType = ObjectType.RThwomp;
-                        objectLoading = ObjectLoading.Regular;
                         break;
 
                     default: throw new InvalidDataException();
@@ -778,7 +769,6 @@ namespace EpicEdit.Rom
                 track.ObjectTileset = objectType;
                 track.ObjectInteraction = objectType;
                 track.ObjectRoutine = objectType;
-                track.ObjectLoading = objectLoading;
             }
         }
 
