@@ -956,7 +956,7 @@ namespace EpicEdit.UI.Gfx
         private void DrawObjectData(Graphics g, bool frontZonesView)
         {
             if (this.track is GPTrack &&
-                (this.track as GPTrack).ObjectLoading != ObjectLoading.Pillar)
+                (this.track as GPTrack).ObjectRoutine != ObjectType.Pillar)
             {
                 this.DrawObjectZones(g, frontZonesView);
                 this.DrawObjects(g);
