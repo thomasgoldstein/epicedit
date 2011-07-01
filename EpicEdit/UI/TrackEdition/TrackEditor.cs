@@ -2034,12 +2034,12 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void ObjectsControlObjectZonesViewChanged(object sender, EventArgs e)
+        private void ObjectsControlViewChanged(object sender, EventArgs e)
         {
             this.trackDisplay.Invalidate();
         }
 
-        private void ObjectsControlObjectZonesChanged(object sender, EventArgs e)
+        private void ObjectsControlDataChanged(object sender, EventArgs e)
         {
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();

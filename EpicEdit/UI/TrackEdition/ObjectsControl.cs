@@ -28,10 +28,10 @@ namespace EpicEdit.UI.TrackEdition
     public partial class ObjectsControl : UserControl
     {
         [Browsable(true)]
-        public event EventHandler<EventArgs> ObjectZonesChanged;
+        public event EventHandler<EventArgs> DataChanged;
         
         [Browsable(true)]
-        public event EventHandler<EventArgs> ObjectZonesViewChanged;
+        public event EventHandler<EventArgs> ViewChanged;
 
         public ObjectsControl()
         {
@@ -81,7 +81,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
         {
-            this.ObjectZonesViewChanged(this, EventArgs.Empty);
+            this.ViewChanged(this, EventArgs.Empty);
 
             this.frontObjectZonesControl.Visible = this.frontZonesRadioButton.Checked;
             this.rearObjectZonesControl.Visible = this.rearZonesRadioButton.Checked;
@@ -89,12 +89,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void FrontObjectZonesControlValueChanged(object sender, EventArgs e)
         {
-            this.ObjectZonesChanged(this, EventArgs.Empty);
+            this.DataChanged(this, EventArgs.Empty);
         }
 
         private void RearObjectZonesControlValueChanged(object sender, EventArgs e)
         {
-            this.ObjectZonesChanged(this, EventArgs.Empty);
+            this.DataChanged(this, EventArgs.Empty);
         }
         
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
