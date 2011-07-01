@@ -123,7 +123,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ToggleZoneGroupBox()
         {
-            this.zoneGroupBox.Enabled = this.Track.ObjectLoading != ObjectLoading.Pillar;
+            this.zoneGroupBox.Enabled = this.Track.ObjectRoutine != ObjectType.Pillar;
         }
     }
 }

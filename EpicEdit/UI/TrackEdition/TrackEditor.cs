@@ -1997,7 +1997,7 @@ namespace EpicEdit.UI.TrackEdition
             // Try to hover object
             GPTrack gpTrack = this.track as GPTrack;
 
-            if (gpTrack.ObjectLoading == ObjectLoading.Pillar)
+            if (gpTrack.ObjectRoutine == ObjectType.Pillar)
             {
                 // Not supported yet
                 this.Cursor = Cursors.Default;
