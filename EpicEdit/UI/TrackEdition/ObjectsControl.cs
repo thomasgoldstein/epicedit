@@ -36,6 +36,11 @@ namespace EpicEdit.UI.TrackEdition
         public ObjectsControl()
         {
             this.InitializeComponent();
+
+            this.tilesetComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
+            this.interactComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
+            this.routineComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
+            this.loadingComboBox.DataSource = Enum.GetValues(typeof(ObjectLoading));
         }
 
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
@@ -49,6 +54,21 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.frontObjectZonesControl.Track = value;
                 this.rearObjectZonesControl.Track = value;
+
+                this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
+                this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
+                this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
+                this.loadingComboBox.SelectedIndexChanged -= this.LoadingComboBoxSelectedIndexChanged;
+
+                this.tilesetComboBox.SelectedItem = value.ObjectTileset;
+                this.interactComboBox.SelectedItem = value.ObjectInteraction;
+                this.routineComboBox.SelectedItem = value.ObjectRoutine;
+                this.loadingComboBox.SelectedItem = value.ObjectLoading;
+
+                this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
+                this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
+                this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
+                this.loadingComboBox.SelectedIndexChanged += this.LoadingComboBoxSelectedIndexChanged;
             }
         }
         
@@ -79,6 +99,30 @@ namespace EpicEdit.UI.TrackEdition
         private void RearObjectZonesControlValueChanged(object sender, EventArgs e)
         {
             this.ObjectZonesChanged(this, EventArgs.Empty);
+        }
+        
+        private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Track.ObjectTileset = (ObjectType)this.tilesetComboBox.SelectedItem;
+            // TODO: Mark track as changed
+        }
+        
+        private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+        	this.Track.ObjectInteraction = (ObjectType)this.interactComboBox.SelectedItem;
+            // TODO: Mark track as changed
+        }
+        
+        private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+        	this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
+            // TODO: Mark track as changed
+        }
+        
+        private void LoadingComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+        	this.Track.ObjectLoading = (ObjectLoading)this.loadingComboBox.SelectedItem;
+            // TODO: Mark track as changed
         }
     }
 }

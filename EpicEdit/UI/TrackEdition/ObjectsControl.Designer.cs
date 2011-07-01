@@ -46,14 +46,26 @@ namespace EpicEdit.UI.TrackEdition
             this.frontObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
+            this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.routineComboBox = new System.Windows.Forms.ComboBox();
+            this.routineLabel = new System.Windows.Forms.Label();
+            this.interactComboBox = new System.Windows.Forms.ComboBox();
+            this.interactLabel = new System.Windows.Forms.Label();
+            this.tilesetComboBox = new System.Windows.Forms.ComboBox();
+            this.tilesetLabel = new System.Windows.Forms.Label();
+            this.zoneGroupBox = new System.Windows.Forms.GroupBox();
+            this.loadingLabel = new System.Windows.Forms.Label();
+            this.loadingComboBox = new System.Windows.Forms.ComboBox();
+            this.propertiesGroupBox.SuspendLayout();
+            this.zoneGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // rearObjectZonesControl
             // 
             this.rearObjectZonesControl.FrontViewZones = false;
-            this.rearObjectZonesControl.Location = new System.Drawing.Point(3, 75);
+            this.rearObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.rearObjectZonesControl.Name = "rearObjectZonesControl";
-            this.rearObjectZonesControl.Size = new System.Drawing.Size(124, 149);
+            this.rearObjectZonesControl.Size = new System.Drawing.Size(122, 149);
             this.rearObjectZonesControl.TabIndex = 7;
             this.rearObjectZonesControl.Title = "Rear-view Zones";
             this.rearObjectZonesControl.Visible = false;
@@ -62,9 +74,9 @@ namespace EpicEdit.UI.TrackEdition
             // frontObjectZonesControl
             // 
             this.frontObjectZonesControl.FrontViewZones = true;
-            this.frontObjectZonesControl.Location = new System.Drawing.Point(3, 75);
+            this.frontObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.frontObjectZonesControl.Name = "frontObjectZonesControl";
-            this.frontObjectZonesControl.Size = new System.Drawing.Size(124, 149);
+            this.frontObjectZonesControl.Size = new System.Drawing.Size(122, 149);
             this.frontObjectZonesControl.TabIndex = 6;
             this.frontObjectZonesControl.Title = "Front-view Zones";
             this.frontObjectZonesControl.ValueChanged += new System.EventHandler<System.EventArgs>(this.FrontObjectZonesControlValueChanged);
@@ -72,7 +84,7 @@ namespace EpicEdit.UI.TrackEdition
             // rearZonesRadioButton
             // 
             this.rearZonesRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rearZonesRadioButton.Location = new System.Drawing.Point(12, 39);
+            this.rearZonesRadioButton.Location = new System.Drawing.Point(10, 50);
             this.rearZonesRadioButton.Name = "rearZonesRadioButton";
             this.rearZonesRadioButton.Size = new System.Drawing.Size(104, 24);
             this.rearZonesRadioButton.TabIndex = 5;
@@ -85,7 +97,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.frontZonesRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.frontZonesRadioButton.Checked = true;
-            this.frontZonesRadioButton.Location = new System.Drawing.Point(12, 9);
+            this.frontZonesRadioButton.Location = new System.Drawing.Point(10, 20);
             this.frontZonesRadioButton.Name = "frontZonesRadioButton";
             this.frontZonesRadioButton.Size = new System.Drawing.Size(104, 24);
             this.frontZonesRadioButton.TabIndex = 4;
@@ -95,16 +107,124 @@ namespace EpicEdit.UI.TrackEdition
             this.frontZonesRadioButton.UseVisualStyleBackColor = true;
             this.frontZonesRadioButton.CheckedChanged += new System.EventHandler(this.FrontZonesRadioButtonCheckedChanged);
             // 
+            // propertiesGroupBox
+            // 
+            this.propertiesGroupBox.Controls.Add(this.loadingComboBox);
+            this.propertiesGroupBox.Controls.Add(this.loadingLabel);
+            this.propertiesGroupBox.Controls.Add(this.routineComboBox);
+            this.propertiesGroupBox.Controls.Add(this.routineLabel);
+            this.propertiesGroupBox.Controls.Add(this.interactComboBox);
+            this.propertiesGroupBox.Controls.Add(this.interactLabel);
+            this.propertiesGroupBox.Controls.Add(this.tilesetComboBox);
+            this.propertiesGroupBox.Controls.Add(this.tilesetLabel);
+            this.propertiesGroupBox.Location = new System.Drawing.Point(2, 4);
+            this.propertiesGroupBox.Name = "propertiesGroupBox";
+            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 215);
+            this.propertiesGroupBox.TabIndex = 8;
+            this.propertiesGroupBox.TabStop = false;
+            this.propertiesGroupBox.Text = "Object Properties";
+            // 
+            // routineComboBox
+            // 
+            this.routineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.routineComboBox.FormattingEnabled = true;
+            this.routineComboBox.Location = new System.Drawing.Point(10, 131);
+            this.routineComboBox.Name = "routineComboBox";
+            this.routineComboBox.Size = new System.Drawing.Size(104, 21);
+            this.routineComboBox.TabIndex = 5;
+            // 
+            // routineLabel
+            // 
+            this.routineLabel.Location = new System.Drawing.Point(6, 116);
+            this.routineLabel.Name = "routineLabel";
+            this.routineLabel.Size = new System.Drawing.Size(100, 23);
+            this.routineLabel.TabIndex = 4;
+            this.routineLabel.Text = "Routine";
+            // 
+            // interactComboBox
+            // 
+            this.interactComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.interactComboBox.FormattingEnabled = true;
+            this.interactComboBox.Location = new System.Drawing.Point(10, 83);
+            this.interactComboBox.Name = "interactComboBox";
+            this.interactComboBox.Size = new System.Drawing.Size(104, 21);
+            this.interactComboBox.TabIndex = 3;
+            // 
+            // interactLabel
+            // 
+            this.interactLabel.Location = new System.Drawing.Point(6, 66);
+            this.interactLabel.Name = "interactLabel";
+            this.interactLabel.Size = new System.Drawing.Size(100, 23);
+            this.interactLabel.TabIndex = 2;
+            this.interactLabel.Text = "Interaction";
+            // 
+            // tilesetComboBox
+            // 
+            this.tilesetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tilesetComboBox.FormattingEnabled = true;
+            this.tilesetComboBox.Location = new System.Drawing.Point(10, 33);
+            this.tilesetComboBox.Name = "tilesetComboBox";
+            this.tilesetComboBox.Size = new System.Drawing.Size(104, 21);
+            this.tilesetComboBox.TabIndex = 1;
+            // 
+            // tilesetLabel
+            // 
+            this.tilesetLabel.Location = new System.Drawing.Point(6, 16);
+            this.tilesetLabel.Name = "tilesetLabel";
+            this.tilesetLabel.Size = new System.Drawing.Size(100, 23);
+            this.tilesetLabel.TabIndex = 0;
+            this.tilesetLabel.Text = "Tileset";
+            // 
+            // zoneGroupBox
+            // 
+            this.zoneGroupBox.Controls.Add(this.frontZonesRadioButton);
+            this.zoneGroupBox.Controls.Add(this.rearZonesRadioButton);
+            this.zoneGroupBox.Controls.Add(this.rearObjectZonesControl);
+            this.zoneGroupBox.Controls.Add(this.frontObjectZonesControl);
+            this.zoneGroupBox.Location = new System.Drawing.Point(2, 225);
+            this.zoneGroupBox.Name = "zoneGroupBox";
+            this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
+            this.zoneGroupBox.TabIndex = 9;
+            this.zoneGroupBox.TabStop = false;
+            this.zoneGroupBox.Text = "Object Visibility Zones";
+            // 
+            // loadingLabel
+            // 
+            this.loadingLabel.Location = new System.Drawing.Point(6, 164);
+            this.loadingLabel.Name = "loadingLabel";
+            this.loadingLabel.Size = new System.Drawing.Size(100, 23);
+            this.loadingLabel.TabIndex = 6;
+            this.loadingLabel.Text = "Loading";
+            // 
+            // loadingComboBox
+            // 
+            this.loadingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.loadingComboBox.FormattingEnabled = true;
+            this.loadingComboBox.Location = new System.Drawing.Point(10, 181);
+            this.loadingComboBox.Name = "loadingComboBox";
+            this.loadingComboBox.Size = new System.Drawing.Size(104, 21);
+            this.loadingComboBox.TabIndex = 7;
+            // 
             // ObjectsControl
             // 
-            this.Controls.Add(this.rearObjectZonesControl);
-            this.Controls.Add(this.frontObjectZonesControl);
-            this.Controls.Add(this.rearZonesRadioButton);
-            this.Controls.Add(this.frontZonesRadioButton);
+            this.Controls.Add(this.zoneGroupBox);
+            this.Controls.Add(this.propertiesGroupBox);
             this.Name = "ObjectsControl";
-            this.Size = new System.Drawing.Size(130, 400);
+            this.Size = new System.Drawing.Size(130, 470);
+            this.propertiesGroupBox.ResumeLayout(false);
+            this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ComboBox loadingComboBox;
+        private System.Windows.Forms.Label loadingLabel;
+        private System.Windows.Forms.GroupBox zoneGroupBox;
+        private System.Windows.Forms.ComboBox interactComboBox;
+        private System.Windows.Forms.Label interactLabel;
+        private System.Windows.Forms.ComboBox routineComboBox;
+        private System.Windows.Forms.Label routineLabel;
+        private System.Windows.Forms.ComboBox tilesetComboBox;
+        private System.Windows.Forms.Label tilesetLabel;
+        private System.Windows.Forms.GroupBox propertiesGroupBox;
         private System.Windows.Forms.RadioButton frontZonesRadioButton;
         private System.Windows.Forms.RadioButton rearZonesRadioButton;
         private EpicEdit.UI.TrackEdition.ObjectZonesControl frontObjectZonesControl;
