@@ -118,6 +118,9 @@ namespace EpicEdit.Rom.Tracks
             this.LapLine = track.LapLine;
             this.Objects = track.Objects;
             this.ObjectZones = track.ObjectZones;
+            this.ObjectTileset = track.ObjectTileset;
+            this.ObjectInteraction = track.ObjectInteraction;
+            this.ObjectRoutine = track.ObjectRoutine;
         }
 
         /// <summary>
@@ -131,6 +134,9 @@ namespace EpicEdit.Rom.Tracks
             track.LapLine = this.LapLine;
             track.Objects = this.Objects;
             track.ObjectZones = this.ObjectZones;
+            track.ObjectTileset = this.ObjectTileset;
+            track.ObjectInteraction = this.ObjectInteraction;
+            track.ObjectRoutine = this.ObjectRoutine;
         }
     }
 }
