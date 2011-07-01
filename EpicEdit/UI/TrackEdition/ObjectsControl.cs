@@ -110,15 +110,15 @@ namespace EpicEdit.UI.TrackEdition
         
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-        	this.Track.ObjectInteraction = (ObjectType)this.interactComboBox.SelectedItem;
-        	this.DataChangedNoRepaint(this, EventArgs.Empty);
+            this.Track.ObjectInteraction = (ObjectType)this.interactComboBox.SelectedItem;
+            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
         
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-        	this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
-        	this.ToggleZoneGroupBox();
-        	this.DataChanged(this, EventArgs.Empty);
+            this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
+            this.ToggleZoneGroupBox();
+            this.DataChanged(this, EventArgs.Empty);
         }
 
         private void ToggleZoneGroupBox()
