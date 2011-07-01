@@ -2044,6 +2044,11 @@ namespace EpicEdit.UI.TrackEdition
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();
         }
+
+        private void ObjectsControlDataChangedNoRepaint(object sender, EventArgs e)
+        {
+            this.trackTreeView.MarkTrackAsChanged();
+        }
         #endregion EditionMode.Objects
 
         #region EditionMode.AI
