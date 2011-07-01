@@ -29,6 +29,9 @@ namespace EpicEdit.UI.TrackEdition
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> DataChanged;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> DataChangedNoRepaint;
         
         [Browsable(true)]
         public event EventHandler<EventArgs> ViewChanged;
@@ -65,6 +68,8 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
+
+                this.ToggleZoneGroupBox();
             }
         }
         
@@ -100,19 +105,25 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.ObjectTileset = (ObjectType)this.tilesetComboBox.SelectedItem;
-            // TODO: Mark track as changed
+            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
         
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
         	this.Track.ObjectInteraction = (ObjectType)this.interactComboBox.SelectedItem;
-            // TODO: Mark track as changed
+        	this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
         
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
         	this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
-            // TODO: Mark track as changed
+        	this.ToggleZoneGroupBox();
+        	this.DataChanged(this, EventArgs.Empty);
+        }
+
+        private void ToggleZoneGroupBox()
+        {
+            this.zoneGroupBox.Enabled = this.Track.ObjectLoading != ObjectLoading.Pillar;
         }
     }
 }
