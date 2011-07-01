@@ -177,6 +177,42 @@ namespace EpicEdit.Rom
             }
         }
 
+        public ObjectType ObjectTileset
+        {
+            get
+            {
+                return (ObjectType)this.EE_OBJTILESET[1];
+            }
+            set
+            {
+                this.EE_OBJTILESET = new byte[] {0, (byte)value };
+            }
+        }
+
+        public ObjectType ObjectInteraction
+        {
+            get
+            {
+                return (ObjectType)this.EE_OBJINTERACT[1];
+            }
+            set
+            {
+                this.EE_OBJINTERACT = new byte[] {0, (byte)value };
+            }
+        }
+
+        public ObjectType ObjectRoutine
+        {
+            get
+            {
+                return (ObjectType)this.EE_OBJROUTINE[1];
+            }
+            set
+            {
+                this.EE_OBJROUTINE = new byte[] {0, (byte)value };
+            }
+        }
+
         public TrackAI AI
         {
             get
@@ -278,6 +314,21 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_BATTLESTART2;
 
+        /// <summary>
+        /// Object Tileset.
+        /// </summary>
+        private byte[] EE_OBJTILESET;
+
+        /// <summary>
+        /// Object Interaction.
+        /// </summary>
+        private byte[] EE_OBJINTERACT;
+
+        /// <summary>
+        /// Object Routine.
+        /// </summary>
+        private byte[] EE_OBJROUTINE;
+
         public MakeTrack(Track track, Game game)
         {
             this.track = track;
@@ -324,6 +375,10 @@ namespace EpicEdit.Rom
 
             this.EE_BATTLESTART1 = new byte[] { 0x00, 0x02, 0x78, 0x02 };
             this.EE_BATTLESTART2 = new byte[] { 0x00, 0x02, 0x88, 0x01 };
+
+            this.EE_OBJTILESET = new byte[2];
+            this.EE_OBJINTERACT = new byte[2];
+            this.EE_OBJROUTINE = new byte[2];
         }
 
         /// <summary>
@@ -473,6 +528,18 @@ namespace EpicEdit.Rom
                     {
                         MakeTrack.LoadLineData(this.EE_BATTLESTART2, line);
                     }
+                    else if (line.StartsWith("#EE_OBJTILESET ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_OBJTILESET, line);
+                    }
+                    else if (line.StartsWith("#EE_OBJINTERACT ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_OBJINTERACT, line);
+                    }
+                    else if (line.StartsWith("#EE_OBJROUTINE ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_OBJROUTINE, line);
+                    }
 
                     line = reader.ReadLine();
                 }
@@ -570,6 +637,12 @@ namespace EpicEdit.Rom
             // Epic Edit only fields:
             sb.AppendLine("#EE_BATTLESTART1 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART1));
             sb.AppendLine("#EE_BATTLESTART2 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART2));
+
+            sb.AppendLine();
+
+            sb.AppendLine("#EE_OBJTILESET " + Utilities.ByteArrayToHexString(this.EE_OBJTILESET));
+            sb.AppendLine("#EE_OBJINTERACT " + Utilities.ByteArrayToHexString(this.EE_OBJINTERACT));
+            sb.AppendLine("#EE_OBJROUTINE " + Utilities.ByteArrayToHexString(this.EE_OBJROUTINE));
 
             File.WriteAllText(filePath, sb.ToString());
         }
