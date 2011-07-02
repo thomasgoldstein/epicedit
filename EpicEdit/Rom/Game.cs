@@ -1417,6 +1417,16 @@ namespace EpicEdit.Rom
             // GV position data: c80d28 (20 * 1024 bytes)
 
             byte[] data = new byte[GPTrack.Count * (128 + 1024)];
+
+            // Copy original pillar data to new location
+            Buffer.BlockCopy(this.romBuffer, 0x4DE2E, data, 128, 128);
+            Buffer.BlockCopy(this.romBuffer, 0x4DF08, data, 1024, 128);
+            Buffer.BlockCopy(this.romBuffer, 0x4DD91, data, 2048, 128);
+            Buffer.BlockCopy(this.romBuffer, 0x4DDB4, data, 3584, 172);
+            Buffer.BlockCopy(this.romBuffer, 0x4DDB4, data, 6656, 120);
+            Buffer.BlockCopy(this.romBuffer, 0x4DE60, data, 10752, 166);
+            Buffer.BlockCopy(this.romBuffer, 0x4DD1D, data, 18944, 114);
+
             saveBuffer.Add(data);
         }
 
