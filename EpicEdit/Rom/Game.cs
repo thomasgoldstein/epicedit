@@ -1205,11 +1205,11 @@ namespace EpicEdit.Rom
 
             this.RelocateObjectData();
             this.SaveObjectProperties(saveBuffer);
-            this.AddObjectCodeChunk1(saveBuffer);
+            Game.AddObjectCodeChunk1(saveBuffer);
             this.SaveObjectLocationsAndZones(saveBuffer);
-            this.AddObjectCodeChunk2(saveBuffer);
+            Game.AddObjectCodeChunk2(saveBuffer);
             this.SavePillars(saveBuffer);
-            this.AddObjectCodeChunk3(saveBuffer);
+            Game.AddObjectCodeChunk3(saveBuffer);
         }
 
         private void RelocateObjectData()
@@ -1311,7 +1311,7 @@ namespace EpicEdit.Rom
             saveBuffer.Add(loadingData);
         }
 
-        private void AddObjectCodeChunk1(SaveBuffer saveBuffer)
+        private static void AddObjectCodeChunk1(SaveBuffer saveBuffer)
         {
             byte[] hack =
             {
@@ -1390,7 +1390,7 @@ namespace EpicEdit.Rom
             saveBuffer.Add(objectZonesData);
         }
         
-        private void AddObjectCodeChunk2(SaveBuffer saveBuffer)
+        private static void AddObjectCodeChunk2(SaveBuffer saveBuffer)
         {
             byte[] hack =
             {
@@ -1430,7 +1430,7 @@ namespace EpicEdit.Rom
             saveBuffer.Add(data);
         }
 
-        private void AddObjectCodeChunk3(SaveBuffer saveBuffer)
+        private static void AddObjectCodeChunk3(SaveBuffer saveBuffer)
         {
             byte[] hack =
             {
