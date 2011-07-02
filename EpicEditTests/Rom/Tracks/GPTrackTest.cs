@@ -45,6 +45,9 @@ namespace EpicEditTests.Rom.Tracks
             Assert.AreEqual(track1.Objects.GetBytes(), track2.Objects.GetBytes());
             Assert.AreEqual(track1.ObjectZones.GetBytes(), track2.ObjectZones.GetBytes());
             Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
+            Assert.AreEqual(track1.ObjectTileset, track2.ObjectTileset);
+            Assert.AreEqual(track1.ObjectInteraction, track2.ObjectInteraction);
+            Assert.AreEqual(track1.ObjectRoutine, track2.ObjectRoutine);
         }
 
         [Test]
