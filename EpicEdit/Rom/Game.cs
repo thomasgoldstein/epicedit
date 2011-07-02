@@ -1189,8 +1189,8 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Saves the object zones.
-        /// Also applies a hack that makes the track object engine more flexible.
+        /// Saves all the object data (locations, zones, properties).
+        /// Also applies hacks that make the track object engine more flexible.
         /// </summary>
         private void SaveObjectData(SaveBuffer saveBuffer)
         {
