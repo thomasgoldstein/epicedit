@@ -17,7 +17,7 @@ using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.Rom
 {
-    public enum Offset : int
+    public enum Offset
     {
         /// <summary>
         /// Offset to the names of the modes on the title screen.
