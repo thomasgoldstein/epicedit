@@ -1208,7 +1208,7 @@ namespace EpicEdit.Rom
             this.AddObjectCodeChunk1(saveBuffer);
             this.SaveObjectLocationsAndZones(saveBuffer);
             this.AddObjectCodeChunk2(saveBuffer);
-            this.SaveGVPillars(saveBuffer);
+            this.SavePillars(saveBuffer);
             this.AddObjectCodeChunk3(saveBuffer);
         }
 
@@ -1409,7 +1409,7 @@ namespace EpicEdit.Rom
             saveBuffer.Add(hack);
         }
 
-        private void SaveGVPillars(SaveBuffer saveBuffer)
+        private void SavePillars(SaveBuffer saveBuffer)
         {
             // TODO: Load and save GV pillar data
 
