@@ -1381,9 +1381,12 @@ namespace EpicEdit.Rom
                                      trackIndex * data.Length,
                                      data.Length);
 
-                    // Update object coordinates
-                    data = gpTrack.Objects.GetBytes();
-                    Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
+                    if (gpTrack.Modified) // Avoid saving data if not necessary
+                    {
+                        // Update object coordinates
+                        data = gpTrack.Objects.GetBytes();
+                        Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackObjects] + trackIndex * 64, data.Length);
+                    }
                 }
             }
 
