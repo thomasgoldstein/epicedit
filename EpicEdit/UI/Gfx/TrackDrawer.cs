@@ -965,22 +965,22 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawObjectZones(Graphics g, bool frontZonesView)
         {
+            this.InitObjectZonesBitmap(frontZonesView);
+
             g.PixelOffsetMode = PixelOffsetMode.Half;
 
-            Bitmap bitmap = this.GetObjectZonesBitmap(frontZonesView);
-            g.DrawImage(bitmap,
+            g.DrawImage(this.objectZonesCache,
                         new Rectangle(-this.scrollPosition.X * Tile.Size,
                                       -this.scrollPosition.Y * Tile.Size,
                                       this.track.Map.Width * Tile.Size,
                                       this.track.Map.Height * Tile.Size),
                         0, 0, TrackObjectZones.GridSize, TrackObjectZones.GridSize,
                         GraphicsUnit.Pixel, this.translucidImageAttr);
-            // NOTE: Do not dispose bitmap, it's cached (field objectZonesCache).
 
             g.PixelOffsetMode = PixelOffsetMode.Default;
         }
 
-        private Bitmap GetObjectZonesBitmap(bool frontZonesView)
+        private void InitObjectZonesBitmap(bool frontZonesView)
         {
             GPTrack gpTrack = this.track as GPTrack;
             byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
@@ -991,8 +991,6 @@ namespace EpicEdit.UI.Gfx
                 this.objectZonesCache.Dispose();
                 this.objectZonesCache = this.CreateObjectZonesBitmap();
             }
-
-            return this.objectZonesCache;
         }
 
         private bool ZonesChanged(byte[][] zones)
