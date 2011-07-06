@@ -19,25 +19,6 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEdit.Rom.Tracks
 {
-    public enum ObjectType : byte
-    {
-        Pipe = 0,
-        Pillar = 1,
-        Thwomp = 2,
-        Mole = 3,
-        Plant = 4,
-        Fish = 5,
-        RThwomp = 6
-    }
-
-    public enum ObjectLoading : byte
-    {
-        Regular = 0,
-        Fish = 1,
-        Pillar = 2,
-        None = 3
-    }
-
     /// <summary>
     /// A Grand Prix track.
     /// </summary>
