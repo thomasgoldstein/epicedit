@@ -22,6 +22,7 @@ using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.ItemProba;
+using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
 using ICSharpCode.SharpZipLib.Zip;

@@ -17,6 +17,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 
+using EpicEdit.Rom.Tracks.Objects;
+
 namespace EpicEdit.Rom.Tracks.AI
 {
     /// <summary>
