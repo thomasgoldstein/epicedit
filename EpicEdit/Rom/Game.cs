@@ -1069,7 +1069,12 @@ namespace EpicEdit.Rom
         {
             SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
             this.SaveBattleStartPositions(saveBuffer);
-            this.SaveObjectData(saveBuffer);
+
+            if (this.region == Region.US) // TODO: Add support for other regions
+            {
+                this.SaveObjectData(saveBuffer);
+            }
+
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
