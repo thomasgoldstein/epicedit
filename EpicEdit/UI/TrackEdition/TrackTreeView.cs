@@ -70,7 +70,9 @@ namespace EpicEdit.UI.TrackEdition
             {
                 TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
                 trackGroupNode.ForeColor = SystemColors.WindowText;
-                trackGroupNode.BackColor = Color.Transparent;
+
+                // Makes it so group nodes don't appear highlighted when clicked
+                trackGroupNode.BackColor = this.treeView.BackColor;
 
                 foreach (Track track in trackGroup)
                 {
