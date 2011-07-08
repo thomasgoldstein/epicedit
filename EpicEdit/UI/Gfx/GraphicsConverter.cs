@@ -45,7 +45,8 @@ namespace EpicEdit.UI.Gfx
                         {
                             int mask = 1 << x;
                             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-                            fBitmap.SetPixel(tileX + (Tile.Size - 1) - x, tileY + y, palette[paletteIndex + colIndex]);
+                            Color color = palette[paletteIndex + colIndex];
+                            fBitmap.SetPixel(tileX + (Tile.Size - 1) - x, tileY + y, color);
                         }
                     }
                 }
