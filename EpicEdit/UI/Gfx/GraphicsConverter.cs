@@ -56,34 +56,26 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public static void GetBitmapFrom4bppLinearReversed(Bitmap[] tileBitmaps, Palette[] colorPalettes, byte[] paletteIndexes, byte[][] gfx, int start, int count)
+        public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette colorPalette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
-            for (int i = 0; i < count; i++)
+            Bitmap tileBitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            FastBitmap fTileBitmap = new FastBitmap(tileBitmap);
+
+            for (int x = 0; x < 4; x++)
             {
-                Bitmap tileBitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-                FastBitmap fTileBitmap = new FastBitmap(tileBitmap);
-
-                if (i < gfx.Length)
+                for (int y = 0; y < 8; y++)
                 {
-                    Palette colorPalette = colorPalettes[paletteIndexes[i]];
-
-                    for (int x = 0; x < 4; x++)
-                    {
-                        for (int y = 0; y < 8; y++)
-                        {
-                            Color color1 = colorPalette[(gfx[i][x + y * 4]) & 0x0F];
-                            Color color2 = colorPalette[((gfx[i][x + y * 4]) & 0xF0) >> 4];
-                            fTileBitmap.SetPixel(x * 2, y, color1);
-                            fTileBitmap.SetPixel(x * 2 + 1, y, color2);
-                        }
-                    }
+                    Color color1 = colorPalette[(gfx[x + y * 4]) & 0x0F];
+                    Color color2 = colorPalette[((gfx[x + y * 4]) & 0xF0) >> 4];
+                    fTileBitmap.SetPixel(x * 2, y, color1);
+                    fTileBitmap.SetPixel(x * 2 + 1, y, color2);
                 }
-
-                fTileBitmap.Release();
-                tileBitmaps[start + i] = tileBitmap;
             }
+
+            fTileBitmap.Release();
+            return tileBitmap;
         }
     }
 }
