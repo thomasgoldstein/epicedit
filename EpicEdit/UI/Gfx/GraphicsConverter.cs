@@ -26,12 +26,10 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     public static class GraphicsConverter
     {
-        public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, int gfxIndex, Palette palette, int paletteIndex)
+        public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, int gfxIndex, Palette palette, int paletteIndex, int width, int height)
         {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
-            int width = 16;
-            int height = 16;
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
