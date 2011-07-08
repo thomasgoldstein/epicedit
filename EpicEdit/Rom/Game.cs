@@ -885,7 +885,7 @@ namespace EpicEdit.Rom
             Palette palette = this.themes[0].Palettes[palIndex];
             int subPalIndex = globalPalIndex % 16;
 
-            this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemGfx, tileIndex * 16, palette, subPalIndex);
+            this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemGfx, tileIndex * 16, palette, subPalIndex, 16, 16);
         }
 
         #endregion Item Icons
