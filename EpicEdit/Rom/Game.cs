@@ -865,34 +865,27 @@ namespace EpicEdit.Rom
 
         private void LoadItemIcons()
         {
-            byte[] itemIconData = Codec.Decompress(this.romBuffer, this.offsets[Offset.ItemIcons]);
+            byte[] iconGfx = Codec.Decompress(this.romBuffer, this.offsets[Offset.ItemIcons]);
             int itemCount = Enum.GetValues(typeof(ItemType)).Length;
             this.itemIcons = new Bitmap[itemCount];
 
             for (int i = 0; i < this.itemIcons.Length; i++)
             {
-                this.LoadItemIcon(itemIconData, i);
+                this.LoadItemIcon(iconGfx, i);
             }
         }
 
-        private void LoadItemIcon(byte[] itemIconData, int index)
+        private void LoadItemIcon(byte[] itemGfx, int index)
         {
             int iconPaletteOffset = this.offsets[Offset.ItemIconTilesPalettes] + index * 2;
 
             int tileIndex = this.romBuffer[iconPaletteOffset] & 0x7F;
             byte globalPalIndex = this.romBuffer[iconPaletteOffset + 1];
             int palIndex = globalPalIndex / 16;
-            int subPalIndex = globalPalIndex % 16;
             Palette palette = this.themes[0].Palettes[palIndex];
-            Color[] mushPal =
-            {
-                palette[subPalIndex],
-                palette[subPalIndex + 1],
-                palette[subPalIndex + 2],
-                palette[subPalIndex + 3]
-            };
+            int subPalIndex = globalPalIndex % 16;
 
-            this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemIconData, tileIndex * 16, mushPal, 16, 16);
+            this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemGfx, tileIndex * 16, palette, subPalIndex);
         }
 
         #endregion Item Icons
