@@ -57,7 +57,7 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette colorPalette)
+        public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
@@ -68,8 +68,8 @@ namespace EpicEdit.UI.Gfx
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    Color color1 = colorPalette[(gfx[x + y * 4]) & 0x0F];
-                    Color color2 = colorPalette[((gfx[x + y * 4]) & 0xF0) >> 4];
+                    Color color1 = palette[(gfx[x + y * 4]) & 0x0F];
+                    Color color2 = palette[((gfx[x + y * 4]) & 0xF0) >> 4];
                     fTileBitmap.SetPixel(x * 2, y, color1);
                     fTileBitmap.SetPixel(x * 2 + 1, y, color2);
                 }
