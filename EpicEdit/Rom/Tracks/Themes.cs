@@ -16,6 +16,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 using EpicEdit.Rom.Compression;
 using EpicEdit.UI.Gfx;
@@ -111,12 +112,37 @@ namespace EpicEdit.Rom.Tracks
             Bitmap[] tileBitmaps = new Bitmap[256];
 
             // Get the tiles that are specific to this tileset
-            GraphicsConverter.GetBitmapFrom4bppLinearReversed(tileBitmaps, colorPalettes, tilesetPaletteIndexes, tilesetGfx, 0, 192);
+            Themes.SetRoadTilesetBitmaps(tileBitmaps, tilesetGfx, colorPalettes, tilesetPaletteIndexes, 0, 192);
 
             // Get the tiles that are common to all tilesets
-            GraphicsConverter.GetBitmapFrom4bppLinearReversed(tileBitmaps, colorPalettes, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
+            Themes.SetRoadTilesetBitmaps(tileBitmaps, commonTilesetGfx, colorPalettes, commonTilesetPaletteIndexes, 192, 64);
 
             return tileBitmaps;
+        }
+
+        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, byte[][] gfx, Palette[] colorPalettes, byte[] tilesetPaletteIndexes, int tileIndex, int tileCount)
+        {
+            for (int i = 0; i < gfx.Length; i++)
+            {
+                Palette palette = colorPalettes[tilesetPaletteIndexes[i]];
+                tileBitmaps[tileIndex + i] = GraphicsConverter.GetBitmapFrom4bppLinearReversed(gfx[i], palette);
+            }
+            
+            if (gfx.Length < tileCount) // The tileset isn't full, there are missing tiles
+            {
+                Bitmap emptyTile = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+                // Turns bitmap black
+                FastBitmap fBitmap = new FastBitmap(emptyTile);
+                fBitmap.Release();
+
+                Rectangle tileRectangle = new Rectangle(0, 0, Tile.Size, Tile.Size);
+
+                for (int i = gfx.Length; i < tileCount; i++)
+                {
+                    // Fill in the rest of the tileset with empty (black) tiles
+                    tileBitmaps[tileIndex + i] = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
+                }
+            }
         }
 
         public byte GetThemeId(Theme theme)
