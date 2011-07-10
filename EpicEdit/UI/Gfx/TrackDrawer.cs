@@ -879,7 +879,7 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x, y - 4), // Top center (tip)
+                new Point(x, y - 5), // Top center (tip)
                 new Point(x + 4, y + 3), // Bottom right
                 new Point(x - 4, y + 3) // Bottom left
             };
@@ -892,34 +892,12 @@ namespace EpicEdit.UI.Gfx
             {
                 new Point(x - 4, y - 3), // Top left
                 new Point(x + 4, y - 3), // Top right
-                new Point(x, y + 4) // Bottom center (tip)
-            };
-            this.DrawArrow(g, arrow);
-        }
-
-        private void DrawMRUpArrow(Graphics g, int x, int y)
-        {
-            Point[] arrow = new Point[]
-            {
-                new Point(x, y - 5), // Top center (tip)
-                new Point(x + 4, y + 3), // Bottom right
-                new Point(x - 4, y + 3) // Bottom left
-            };
-            this.DrawArrow(g, arrow);
-        }
-
-        private void DrawMRDownArrow(Graphics g, int x, int y)
-        {
-            Point[] arrow = new Point[]
-            {
-                new Point(x - 4, y - 3), // Top left
-                new Point(x + 4, y - 3), // Top right
                 new Point(x, y + 5) // Bottom center (tip)
             };
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawMRLeftArrow(Graphics g, int x, int y)
+        private void DrawLeftArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
@@ -930,7 +908,7 @@ namespace EpicEdit.UI.Gfx
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawMRRightArrow(Graphics g, int x, int y)
+        private void DrawRightArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
@@ -1061,13 +1039,13 @@ namespace EpicEdit.UI.Gfx
 
                 if (trackObject.Direction == Direction.Horizontal)
                 {
-                    this.DrawMRLeftArrow(g, x - 8, y + 4);
-                    this.DrawMRRightArrow(g, x + 17, y + 4);
+                    this.DrawLeftArrow(g, x - 8, y + 4);
+                    this.DrawRightArrow(g, x + 17, y + 4);
                 }
                 else if (trackObject.Direction == Direction.Vertical)
                 {
-                    this.DrawMRUpArrow(g, x + 4, y - 8);
-                    this.DrawMRDownArrow(g, x + 4, y + 17);
+                    this.DrawUpArrow(g, x + 4, y - 8);
+                    this.DrawDownArrow(g, x + 4, y + 17);
                 }
             }
 
