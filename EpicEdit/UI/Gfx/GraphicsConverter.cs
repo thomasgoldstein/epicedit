@@ -56,6 +56,39 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
+        public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, int gfxIndex, Palette palette)
+        {
+            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, gfxIndex, palette, 0, 0);
+            return bitmap;
+        }
+
+        internal static void SetBitmapFrom4bppPlanarComposite(Bitmap bitmap, byte[] gfx, int gfxIndex, Palette palette, int startX, int startY)
+        {
+            // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
+            // NOTE: We use a Bitmap rather than a FastBitmap, because FastBitmap does not support transparency
+
+            for (int y = 0; y < 8; y++)
+            {
+                int val1 = gfx[gfxIndex + y * 2];
+                int val2 = gfx[gfxIndex + y * 2 + 1];
+                int val3 = gfx[gfxIndex + y * 2 + 16];
+                int val4 = gfx[gfxIndex + y * 2 + 17];
+
+                for (int x = 0; x < 8; x++)
+                {
+                    int mask = 1 << x;
+                    int val1b = ((val1 & mask) >> x);
+                    int val2b = (((val2 & mask) << 1) >> x);
+                    int val3b = (((val3 & mask) << 2) >> x);
+                    int val4b = (((val4 & mask) << 3) >> x);
+                    int colIndex = val1b + val2b + val3b + val4b;
+                    Color color = colIndex == 0 ? Color.Transparent : palette[colIndex].Color;
+                    bitmap.SetPixel(startX + (Tile.Size - 1) - x, startY + y, color);
+                }
+            }
+        }
+
         public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
