@@ -1593,8 +1593,8 @@ namespace EpicEdit.Rom
             int trackAIZoneIndex = this.offsets[Offset.TrackAIZones] + trackIndex * 2;
             int trackAITargetIndex = this.offsets[Offset.TrackAITargets] + trackIndex * 2;
 
-            byte[] aiZoneOffset = Utilities.OffsetToByteArray(saveBuffer.Index);
-            byte[] aiTargetOffset = Utilities.OffsetToByteArray(saveBuffer.Index + trackAIData.Length - track.AI.ElementCount * 3);
+            byte[] aiZoneOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+            byte[] aiTargetOffset = Utilities.OffsetToBytes(saveBuffer.Index + trackAIData.Length - track.AI.ElementCount * 3);
 
             this.romBuffer[trackAIZoneIndex] = aiZoneOffset[0];
             this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffset[1];
@@ -1711,7 +1711,7 @@ namespace EpicEdit.Rom
         private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
             // Update track offset
-            byte[] offset = Utilities.OffsetToByteArray(saveBuffer.Index);
+            byte[] offset = Utilities.OffsetToBytes(saveBuffer.Index);
             int trackAddressIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
             Buffer.BlockCopy(offset, 0, this.romBuffer, trackAddressIndex, 3);
 
