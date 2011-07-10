@@ -204,7 +204,7 @@ namespace EpicEdit.Rom
                     this[Offset.ModeStrings] = 0x58B19;
                     this[Offset.BattleTrackOrder] = 0x1C022;
                     this[Offset.FirstBattleTrack] = 0x1BF0A;
-                    this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FBC4;
                     this[Offset.TrackAIZones] = 0x1FF8C;
                     this[Offset.BattleTrackStartPositions] = 0x18B5F;
@@ -217,21 +217,21 @@ namespace EpicEdit.Rom
                     this[Offset.ModeStrings] = 0x58B00;
                     this[Offset.BattleTrackOrder] = 0x1C15C;
                     this[Offset.FirstBattleTrack] = 0x1C04C;
-                    this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FBD3;
                     this[Offset.TrackAIZones] = 0x1FF9B;
                     this[Offset.BattleTrackStartPositions] = 0x18B4B;
                     this[Offset.TrackPreviewLapLines] = 0x1C915;
                     this[Offset.ItemIconTilesPalettes] = 0x1B320;
                     this[Offset.TrackOverlayPatterns] = 0x4F23D;
-                    //this[Offsets.UnknownMakeRelated] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
+                    //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
                 case Region.Euro:
                     this[Offset.ModeStrings] = 0x58AF2;
                     this[Offset.BattleTrackOrder] = 0x1BFF8;
                     this[Offset.FirstBattleTrack] = 0x1BEE8;
-                    this[Offset.TrackMaps] = Utilities.ByteArrayToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FB9D;
                     this[Offset.TrackAIZones] = 0x1FF6D;
                     this[Offset.BattleTrackStartPositions] = 0x18B64;

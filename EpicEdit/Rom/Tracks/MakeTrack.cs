@@ -556,7 +556,7 @@ namespace EpicEdit.Rom
                 throw new InvalidDataException("Invalid data length. Import aborted.");
             }
 
-            Utilities.LoadByteArrayFromHexString(field, line);
+            Utilities.LoadBytesFromHexString(field, line);
         }
 
         private static void LoadBlockData(byte[] field, TextReader reader)
@@ -565,7 +565,7 @@ namespace EpicEdit.Rom
             string line = reader.ReadLine();
             while (!string.IsNullOrEmpty(line) && line[0] == '#')
             {
-                byte[] lineBytes = Utilities.HexStringToByteArray(line.Substring(1));
+                byte[] lineBytes = Utilities.HexStringToBytes(line.Substring(1));
                 int lineBytesLength = lineBytes.Length;
 
                 if (index + lineBytesLength > field.Length)
@@ -595,15 +595,15 @@ namespace EpicEdit.Rom
 
             sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
 
-            sb.AppendLine("#SP_STX " + Utilities.ByteArrayToHexString(this.SP_STX));
-            sb.AppendLine("#SP_STY " + Utilities.ByteArrayToHexString(this.SP_STY));
-            sb.AppendLine("#SP_STW " + Utilities.ByteArrayToHexString(this.SP_STW));
-            sb.AppendLine("#SP_LSPX " + Utilities.ByteArrayToHexString(this.SP_LSPX));
-            sb.AppendLine("#SP_LSPY " + Utilities.ByteArrayToHexString(this.SP_LSPY));
-            sb.AppendLine("#SP_LSPW " + Utilities.ByteArrayToHexString(this.SP_LSPW));
-            sb.AppendLine("#SP_LSPH " + Utilities.ByteArrayToHexString(this.SP_LSPH));
-            sb.AppendLine("#SP_LSLY " + Utilities.ByteArrayToHexString(this.SP_LSLY));
-            sb.AppendLine("#SP_REGION " + Utilities.ByteArrayToHexString(this.SP_REGION));
+            sb.AppendLine("#SP_STX " + Utilities.BytesToHexString(this.SP_STX));
+            sb.AppendLine("#SP_STY " + Utilities.BytesToHexString(this.SP_STY));
+            sb.AppendLine("#SP_STW " + Utilities.BytesToHexString(this.SP_STW));
+            sb.AppendLine("#SP_LSPX " + Utilities.BytesToHexString(this.SP_LSPX));
+            sb.AppendLine("#SP_LSPY " + Utilities.BytesToHexString(this.SP_LSPY));
+            sb.AppendLine("#SP_LSPW " + Utilities.BytesToHexString(this.SP_LSPW));
+            sb.AppendLine("#SP_LSPH " + Utilities.BytesToHexString(this.SP_LSPH));
+            sb.AppendLine("#SP_LSLY " + Utilities.BytesToHexString(this.SP_LSLY));
+            sb.AppendLine("#SP_REGION " + Utilities.BytesToHexString(this.SP_REGION));
             // SP_OPN not supported, do not write SP_OPN data
 
             sb.AppendLine();
@@ -630,19 +630,19 @@ namespace EpicEdit.Rom
             sb.AppendLine();
 
             sb.AppendLine("#AREA_BORDER");
-            sb.AppendLine("#" + Utilities.ByteArrayToHexString(this.AREA_BORDER));
+            sb.AppendLine("#" + Utilities.BytesToHexString(this.AREA_BORDER));
 
             sb.AppendLine();
 
             // Epic Edit only fields:
-            sb.AppendLine("#EE_BATTLESTART1 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART1));
-            sb.AppendLine("#EE_BATTLESTART2 " + Utilities.ByteArrayToHexString(this.EE_BATTLESTART2));
+            sb.AppendLine("#EE_BATTLESTART1 " + Utilities.BytesToHexString(this.EE_BATTLESTART1));
+            sb.AppendLine("#EE_BATTLESTART2 " + Utilities.BytesToHexString(this.EE_BATTLESTART2));
 
             sb.AppendLine();
 
-            sb.AppendLine("#EE_OBJTILESET " + Utilities.ByteArrayToHexString(this.EE_OBJTILESET));
-            sb.AppendLine("#EE_OBJINTERACT " + Utilities.ByteArrayToHexString(this.EE_OBJINTERACT));
-            sb.AppendLine("#EE_OBJROUTINE " + Utilities.ByteArrayToHexString(this.EE_OBJROUTINE));
+            sb.AppendLine("#EE_OBJTILESET " + Utilities.BytesToHexString(this.EE_OBJTILESET));
+            sb.AppendLine("#EE_OBJINTERACT " + Utilities.BytesToHexString(this.EE_OBJINTERACT));
+            sb.AppendLine("#EE_OBJROUTINE " + Utilities.BytesToHexString(this.EE_OBJROUTINE));
 
             File.WriteAllText(filePath, sb.ToString());
         }
@@ -655,7 +655,7 @@ namespace EpicEdit.Rom
             {
                 byte[] lineBytes = new byte[lineLength];
                 Buffer.BlockCopy(data, y * lineLength, lineBytes, 0, lineLength);
-                sb.AppendLine("#" + Utilities.ByteArrayToHexString(lineBytes));
+                sb.AppendLine("#" + Utilities.BytesToHexString(lineBytes));
             }
         }
     }

@@ -138,7 +138,7 @@ namespace EpicEdit.Rom
             {
                 byte[] address = new byte[offsetSize];
                 Buffer.BlockCopy(buffer, offset + (i * offsetSize), address, 0, offsetSize);
-                offsetGroup[i] = Utilities.ByteArrayToOffset(address);
+                offsetGroup[i] = Utilities.BytesToOffset(address);
             }
 
             return offsetGroup;
@@ -148,7 +148,7 @@ namespace EpicEdit.Rom
 
         #region Bytes <-> Offset conversion
         
-        public static int ByteArrayToOffset(byte[] data)
+        public static int BytesToOffset(byte[] data)
         {
             return Utilities.BytesToOffset(data[0], data[1], data[2]);
         }
@@ -158,7 +158,7 @@ namespace EpicEdit.Rom
             return ((val3 & 0xF) << 16) + (val2 << 8) + val1;
         }
 
-        public static byte[] OffsetToByteArray(int data)
+        public static byte[] OffsetToBytes(int data)
         {
             if (data > 0xFFFFF)
             {
@@ -177,14 +177,14 @@ namespace EpicEdit.Rom
 
         #region Bytes <-> String conversion
 
-        public static byte[] HexStringToByteArray(string data)
+        public static byte[] HexStringToBytes(string data)
         {
             byte[] bytes = new byte[data.Length / 2];
-            Utilities.LoadByteArrayFromHexString(bytes, data);
+            Utilities.LoadBytesFromHexString(bytes, data);
             return bytes;
         }
 
-        public static void LoadByteArrayFromHexString(byte[] bytes, string hex)
+        public static void LoadBytesFromHexString(byte[] bytes, string hex)
         {
             int bl = bytes.Length;
             for (int i = 0; i < bl; ++i)
@@ -194,7 +194,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        public static string ByteArrayToHexString(byte[] data)
+        public static string BytesToHexString(byte[] data)
         {
             byte b;
             int i, j, k;
