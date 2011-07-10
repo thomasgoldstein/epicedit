@@ -93,8 +93,8 @@ namespace EpicEdit.UI.Gfx
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
-            Bitmap tileBitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            FastBitmap fTileBitmap = new FastBitmap(tileBitmap);
+            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            FastBitmap fBitmap = new FastBitmap(bitmap);
 
             for (int x = 0; x < 4; x++)
             {
@@ -102,13 +102,13 @@ namespace EpicEdit.UI.Gfx
                 {
                     Color color1 = palette[(gfx[x + y * 4]) & 0x0F];
                     Color color2 = palette[((gfx[x + y * 4]) & 0xF0) >> 4];
-                    fTileBitmap.SetPixel(x * 2, y, color1);
-                    fTileBitmap.SetPixel(x * 2 + 1, y, color2);
+                    fBitmap.SetPixel(x * 2, y, color1);
+                    fBitmap.SetPixel(x * 2 + 1, y, color2);
                 }
             }
 
-            fTileBitmap.Release();
-            return tileBitmap;
+            fBitmap.Release();
+            return bitmap;
         }
     }
 }
