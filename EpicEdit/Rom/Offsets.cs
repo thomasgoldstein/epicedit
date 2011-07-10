@@ -174,7 +174,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Item icon graphics.
         /// </summary>
-        ItemIcons,
+        ItemIconGraphics,
 
         /// <summary>
         /// Item graphics.
@@ -241,7 +241,7 @@ namespace EpicEdit.Rom
                     break;
             }
 
-            this[Offset.ItemIcons] = 0x112F8;
+            this[Offset.ItemIconGraphics] = 0x112F8;
             this[Offset.TrackObjects] = 0x5C800;
             this[Offset.TrackObjectZones] = 0x4DB93;
             this[Offset.TrackOverlayItems] = 0x5D000;

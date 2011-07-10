@@ -986,7 +986,7 @@ namespace EpicEdit.Rom
 
         private void LoadItemIcons()
         {
-            byte[] itemGfx = Codec.Decompress(this.romBuffer, this.offsets[Offset.ItemIcons]);
+            byte[] itemGfx = Codec.Decompress(this.romBuffer, this.offsets[Offset.ItemIconGraphics]);
             int itemCount = Enum.GetValues(typeof(ItemType)).Length;
             this.itemIcons = new Bitmap[itemCount];
 
