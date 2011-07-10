@@ -70,6 +70,11 @@ namespace EpicEdit.Rom
         TrackObjectGraphics,
 
         /// <summary>
+        /// Match Race object graphics address.
+        /// </summary>
+        MatchRaceObjectGraphics,
+
+        /// <summary>
         /// Track background graphics address index.
         /// </summary>
         TrackBackgroundGraphics,
@@ -172,6 +177,11 @@ namespace EpicEdit.Rom
         ItemIcons,
 
         /// <summary>
+        /// Item graphics.
+        /// </summary>
+        ItemGraphics,
+
+        /// <summary>
         /// Item icon color tile and palette indexes.
         /// </summary>
         ItemIconTilesPalettes
@@ -237,6 +247,8 @@ namespace EpicEdit.Rom
             this[Offset.TrackOverlayItems] = 0x5D000;
             this[Offset.TrackLapLines] = 0x180D4;
             this[Offset.CommonTilesetGraphics] = 0x40000;
+            this[Offset.MatchRaceObjectGraphics] = 0x60000;
+            this[Offset.ItemGraphics] = 0x40594;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
