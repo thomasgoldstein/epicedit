@@ -425,6 +425,7 @@ namespace EpicEdit.UI.Gfx
             {
                 using (Graphics backBuffer = Graphics.FromImage(image))
                 {
+                    backBuffer.PixelOffsetMode = PixelOffsetMode.Half;
                     this.SetObjectClipRegion(clipRegion, hoveredObject);
 
                     if (!this.fullRepaintNeeded)
@@ -434,7 +435,7 @@ namespace EpicEdit.UI.Gfx
                         this.SetPaintRegions(g, backBuffer, clipRegion);
                     }
 
-                    this.DrawObjectData(backBuffer, frontZonesView);
+                    this.DrawObjectData(backBuffer, frontZonesView, hoveredObject);
                 }
                 g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
             }
@@ -615,20 +616,17 @@ namespace EpicEdit.UI.Gfx
         {
             if (hoveredObject != null)
             {
-                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size;
-                int width = Tile.Size;
-                int height = Tile.Size;
+                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size - Tile.Size;
+                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - Tile.Size;
+                int width = 24;
+                int height = 24;
 
                 if (hoveredObject is TrackObjectMatchRace)
                 {
-                    x -= 11;
-                    y -= 11;
-                    width += 23;
-                    height += 23;
-                    // HACK: Should be 22 rather than 23,
-                    // but this is needed if the zoom level is below 1,
-                    // due to the hack in the SetPaintRegions method.
+                    x -= 6;
+                    y -= 6;
+                    width += 12;
+                    height += 12;
                 }
 
                 Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
@@ -881,9 +879,9 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x, y - 4),
-                new Point(x + 4, y + 3),
-                new Point(x - 4, y + 3)
+                new Point(x, y - 4), // Top center (tip)
+                new Point(x + 4, y + 3), // Bottom right
+                new Point(x - 4, y + 3) // Bottom left
             };
             this.DrawArrow(g, arrow);
         }
@@ -892,57 +890,53 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 4, y - 3),
-                new Point(x + 4, y - 3),
-                new Point(x, y + 4)
+                new Point(x - 4, y - 3), // Top left
+                new Point(x + 4, y - 3), // Top right
+                new Point(x, y + 4) // Bottom center (tip)
             };
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawSmallUpArrow(Graphics g, int x, int y)
+        private void DrawMRUpArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
-                new Point(x, y - 4),
-                new Point(x - 1, y - 4),
-                new Point(x + 3, y + 3),
-                new Point(x - 4, y + 3)
+                new Point(x, y - 5), // Top center (tip)
+                new Point(x + 4, y + 3), // Bottom right
+                new Point(x - 4, y + 3) // Bottom left
             };
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawSmallDownArrow(Graphics g, int x, int y)
+        private void DrawMRDownArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 4, y - 3),
-                new Point(x + 3, y - 3),
-                new Point(x - 1, y + 4),
-                new Point(x, y + 4)
+                new Point(x - 4, y - 3), // Top left
+                new Point(x + 4, y - 3), // Top right
+                new Point(x, y + 5) // Bottom center (tip)
             };
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawSmallLeftArrow(Graphics g, int x, int y)
+        private void DrawMRLeftArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 4, y),
-                new Point(x - 4, y - 1),
-                new Point(x + 3, y + 3),
-                new Point(x + 3, y - 4)
+                new Point(x - 5, y), // Center left (tip)
+                new Point(x + 3, y + 4), // Bottom right
+                new Point(x + 3, y - 4) // Top right
             };
             this.DrawArrow(g, arrow);
         }
 
-        private void DrawSmallRightArrow(Graphics g, int x, int y)
+        private void DrawMRRightArrow(Graphics g, int x, int y)
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 3, y - 4),
-                new Point(x - 3, y + 3),
-                new Point(x + 4, y - 1),
-                new Point(x + 4, y)
+                new Point(x - 3, y - 4), // Top left
+                new Point(x - 3, y + 4), // Bottom left
+                new Point(x + 5, y) // Center right (tip)
             };
             this.DrawArrow(g, arrow);
         }
@@ -953,21 +947,29 @@ namespace EpicEdit.UI.Gfx
             g.DrawPolygon(this.startPositionPen, arrow);
         }
 
-        private void DrawObjectData(Graphics g, bool frontZonesView)
+        private void DrawObjectData(Graphics g, bool frontZonesView, TrackObject hoveredObject)
         {
-            if (this.track is GPTrack &&
-                (this.track as GPTrack).ObjectRoutine != ObjectType.Pillar)
+            if (this.track is GPTrack)
             {
-                this.DrawObjectZones(g, frontZonesView);
-                this.DrawObjects(g);
+                GPTrack gpTrack = this.track as GPTrack;
+
+                if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+                {
+                    this.DrawObjectZones(g, frontZonesView);
+
+                    using (Bitmap objectImage = MainForm.SmkGame.GetObjectImage(gpTrack.Theme, gpTrack.ObjectTileset))
+                    using (Bitmap matchRaceObjectImage = MainForm.SmkGame.GetMatchRaceObjectImage(gpTrack.Theme))
+                    using (Bitmap stillMatchRaceObjectImage = MainForm.SmkGame.GetStillMatchRaceObjectImage(gpTrack.Theme))
+                    {
+                        this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
+                    }
+                }
             }
         }
 
         private void DrawObjectZones(Graphics g, bool frontZonesView)
         {
             this.InitObjectZonesBitmap(frontZonesView);
-
-            g.PixelOffsetMode = PixelOffsetMode.Half;
 
             g.DrawImage(this.objectZonesCache,
                         new Rectangle(-this.scrollPosition.X * Tile.Size,
@@ -976,8 +978,6 @@ namespace EpicEdit.UI.Gfx
                                       this.track.Map.Height * Tile.Size),
                         0, 0, TrackObjectZones.GridSize, TrackObjectZones.GridSize,
                         GraphicsUnit.Pixel, this.translucidImageAttr);
-
-            g.PixelOffsetMode = PixelOffsetMode.Default;
         }
 
         private void InitObjectZonesBitmap(bool frontZonesView)
@@ -1035,9 +1035,11 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        private void DrawObjects(Graphics g)
+        private void DrawObjects(Graphics g, Bitmap objectImage, Bitmap matchRaceObjectImage, Bitmap stillMatchRaceObjectImage, TrackObject hoveredObject)
         {
             GPTrack gpTrack = this.track as GPTrack;
+
+            int hoveredObjectIndex = 0;
 
             // 2P Match Race objects (Chain Chomps or Bananas)
             for (int i = gpTrack.Objects.Count - 1; i >= 16; i--)
@@ -1045,24 +1047,27 @@ namespace EpicEdit.UI.Gfx
                 TrackObjectMatchRace trackObject = gpTrack.Objects[i] as TrackObjectMatchRace;
                 int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
                 int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size;
-                Rectangle trackObjectRect = new Rectangle(x, y, Tile.Size - 1, Tile.Size - 1);
-                g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
-                g.FillEllipse(this.objectBrushes[4], trackObjectRect);
+
+                if (trackObject == hoveredObject)
+                {
+                    hoveredObjectIndex = i;
+                }
+                else
+                {
+                    Bitmap image = trackObject.Direction == Direction.None ?
+                        stillMatchRaceObjectImage : matchRaceObjectImage;
+                    g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                }
 
                 if (trackObject.Direction == Direction.Horizontal)
                 {
-                    this.DrawSmallLeftArrow(g, x - 7, y + 4);
-                    this.DrawSmallRightArrow(g, x + 14, y + 4);
-                    g.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 2, y + 5);
-                    g.DrawLine(this.objectMatchRacePen, x + 2, y + 3, x + 5, y + 3);
-                    g.DrawLine(this.objectMatchRacePen, x + 5, y + 2, x + 5, y + 5);
+                    this.DrawMRLeftArrow(g, x - 8, y + 4);
+                    this.DrawMRRightArrow(g, x + 17, y + 4);
                 }
                 else if (trackObject.Direction == Direction.Vertical)
                 {
-                    this.DrawSmallUpArrow(g, x + 4, y - 7);
-                    this.DrawSmallDownArrow(g, x + 4, y + 14);
-                    g.DrawLine(this.objectMatchRacePen, x + 2, y + 2, x + 3, y + 5);
-                    g.DrawLine(this.objectMatchRacePen, x + 4, y + 5, x + 5, y + 2);
+                    this.DrawMRUpArrow(g, x + 4, y - 8);
+                    this.DrawMRDownArrow(g, x + 4, y + 17);
                 }
             }
 
@@ -1072,10 +1077,36 @@ namespace EpicEdit.UI.Gfx
                 TrackObject trackObject = gpTrack.Objects[i];
                 int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
                 int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size;
-                Rectangle trackObjectRect = new Rectangle(x, y, Tile.Size - 1, Tile.Size - 1);
-                g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
-                g.FillEllipse(this.objectBrushes[i / 4], trackObjectRect);
+
+                if (trackObject == hoveredObject)
+                {
+                    hoveredObjectIndex = i;
+                }
+                else
+                {
+                    g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                }
             }
+
+            if (hoveredObject != null)
+            {
+                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size;
+                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size;
+                Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
+                g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
+
+                if (!(hoveredObject is TrackObjectMatchRace))
+                {
+                    g.FillEllipse(this.objectBrushes[hoveredObjectIndex / 4], trackObjectRect);
+                    g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                }
+                else
+                {
+                    Bitmap image = (hoveredObject as TrackObjectMatchRace).Direction == Direction.None ?
+                        stillMatchRaceObjectImage : matchRaceObjectImage;
+                    g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                }
+            }  
         }
 
         private void DrawAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
