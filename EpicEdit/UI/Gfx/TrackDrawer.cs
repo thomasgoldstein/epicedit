@@ -126,11 +126,6 @@ namespace EpicEdit.UI.Gfx
         private SolidBrush[] objectBrushes;
 
         /// <summary>
-        /// Used to draw inside Match Race objects.
-        /// </summary>
-        private Pen objectMatchRacePen;
-
-        /// <summary>
         /// Used to fill in AI zones.
         /// </summary>
         private SolidBrush[][] aiZoneBrushes;
@@ -179,7 +174,6 @@ namespace EpicEdit.UI.Gfx
             this.objectBrushes[2] = new SolidBrush(Color.FromArgb(255, 230, 186, 64)); // Zone 3 object color
             this.objectBrushes[3] = new SolidBrush(Color.FromArgb(255, 16, 150, 24)); // Zone 4 object color
             this.objectBrushes[4] = new SolidBrush(Color.FromArgb(255, 0, 0, 0)); // Match Race object color
-            this.objectMatchRacePen = new Pen(Color.SkyBlue, 1);
 
             this.aiZoneBrushes = new SolidBrush[4][];
 
@@ -1560,7 +1554,6 @@ namespace EpicEdit.UI.Gfx
             this.startPositionBrush.Dispose();
             this.startPositionPen.Dispose();
 
-            this.objectMatchRacePen.Dispose();
             this.objectOutlinePen.Dispose();
             foreach (SolidBrush objectBrush in this.objectBrushes)
             {
