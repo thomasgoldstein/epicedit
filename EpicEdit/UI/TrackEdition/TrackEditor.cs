@@ -2011,12 +2011,18 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.hoveredObject = trackObject;
                     this.Cursor = Cursors.Hand;
-                    return false;
+                    return true;
                 }
             }
 
             this.Cursor = Cursors.Default;
-            this.hoveredObject = null;
+
+            if (this.hoveredObject != null)
+            {
+                this.hoveredObject = null;
+                return true;
+            }
+
             return false;
         }
 
