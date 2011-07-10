@@ -10,6 +10,8 @@ v2.2 (???)
 - Made the object zones of Koopa Beach 1 editable
   (KB1 and KB2 used to share the same zones)
 - Display actual object sprites on the track map
+- Show track objects that are out of their zone as grayed out, to hint that
+  they most likely won't (fully) appear when playing the game
 - Minor tweaks and fixes
 
 
