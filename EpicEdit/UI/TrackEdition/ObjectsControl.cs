@@ -105,7 +105,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.ObjectTileset = (ObjectType)this.tilesetComboBox.SelectedItem;
-            this.DataChangedNoRepaint(this, EventArgs.Empty);
+            this.DataChanged(this, EventArgs.Empty);
         }
         
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
