@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 
@@ -146,6 +147,126 @@ namespace EpicEdit.Rom
         public Bitmap GetItemIcon(ItemType type)
         {
             return this.itemIcons[(int)type];
+        }
+
+        public Bitmap GetObjectImage(Theme theme, ObjectType type)
+        {
+            int offset = this.GetObjectGraphicsOffset(type);
+            byte[] gfx = Codec.Decompress(this.romBuffer, offset);            
+            Palette palette = this.GetObjectPalette(theme, type);
+            int[] tileIndexes = Game.GetObjectTileIndexes(type);
+
+            return Game.GetObjectImage(gfx, tileIndexes, palette);
+        }
+
+        public Bitmap GetMatchRaceObjectImage(Theme theme)
+        {
+            int offset = this.offsets[Offset.MatchRaceObjectGraphics];
+            byte[] gfx = Codec.Decompress(this.romBuffer, offset);
+            Palette palette = theme.Palettes[12];
+            int[] tileIndexes = { 0, 32, 64, 96 };
+
+            return Game.GetObjectImage(gfx, tileIndexes, palette);
+        }
+
+        public Bitmap GetStillMatchRaceObjectImage(Theme theme)
+        {
+            int offset = this.offsets[Offset.ItemGraphics];
+            byte[] gfx = Codec.Decompress(this.romBuffer, offset);
+            Palette palette = theme.Palettes[14];
+            int[] tileIndexes = { 0, 32, 64, 96 };
+
+            return Game.GetObjectImage(gfx, tileIndexes, palette);
+        }
+
+        private static Bitmap GetObjectImage(byte[] gfx, int[] tileIndexes, Palette palette)
+        {
+            Bitmap bitmap = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[0], palette, 0, 0);
+                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[1], palette, 8, 0);
+                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[2], palette, 0, 8);
+                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[3], palette, 8, 8);
+            }
+
+            return bitmap;
+        }
+
+        private int GetObjectGraphicsOffset(ObjectType tileset)
+        {
+            int offsetLocation = this.offsets[Offset.TrackObjectGraphics];
+
+            switch (tileset)
+            {
+                case ObjectType.Pipe:
+                    offsetLocation += 3;
+                    break;
+
+                case ObjectType.Thwomp:
+                    offsetLocation += 18;
+                    break;
+
+                case ObjectType.Mole:
+                    offsetLocation += 6;
+                    break;
+
+                case ObjectType.Plant:
+                    offsetLocation += 9;
+                    break;
+
+                case ObjectType.Fish:
+                    offsetLocation += 15;
+                    break;
+
+                case ObjectType.RThwomp:
+                    offsetLocation += 21;
+                    break;
+            }
+
+            return Utilities.BytesToOffset(this.romBuffer[offsetLocation],
+                                           this.romBuffer[offsetLocation + 1],
+                                           this.romBuffer[offsetLocation + 2]);
+        }
+
+        private Palette GetObjectPalette(Theme theme, ObjectType type)
+        {
+            int paletteIndex = 0;
+            
+            switch (this.themes.GetThemeId(theme))
+            {
+                case 0: // Ghost Valley
+                case 2: // Mario Circuit
+                case 8: // Vanilla Lake
+                    paletteIndex = 15;
+                    break;
+
+                case 4: // Donut Plains
+                    paletteIndex = type == ObjectType.Pipe ? 13 : 15;
+                    break;
+
+                case 6: // Choco Island
+                case 10: // Koopa Beach
+                    paletteIndex = 14;
+                    break;
+
+                case 12: // Bowser Castle
+                case 14: // Rainbow Road
+                    paletteIndex = 12;
+                    break;
+            }
+            
+            return theme.Palettes[paletteIndex];
+        }
+
+        private static int[] GetObjectTileIndexes(ObjectType type)
+        {
+            if (type == ObjectType.Plant || type == ObjectType.Fish)
+            {
+                return new int[] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
+            }
+
+            return new int[] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
         }
 
         #endregion Public members and methods
