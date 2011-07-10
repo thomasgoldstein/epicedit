@@ -150,6 +150,11 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private ImageAttributes translucidImageAttr;
 
+        /// <summary>
+        /// Image attributes to draw images as grayed out / disabled
+        /// </summary>
+        private ImageAttributes grayScaleImageAttr;
+
         public TrackDrawer(Control control, float zoom)
         {
             this.control = control;
@@ -217,6 +222,17 @@ namespace EpicEdit.UI.Gfx
                 new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
             });
             this.translucidImageAttr.SetColorMatrix(matrix);
+
+            this.grayScaleImageAttr = new ImageAttributes();
+            matrix = new ColorMatrix(new float[][]
+            {
+                new float[] { 0.22f, 0.22f, 0.22f, 0.0f, 0.0f },
+                new float[] { 0.27f, 0.27f, 0.27f, 0.0f, 0.0f },
+                new float[] { 0.04f, 0.04f, 0.04f, 0.0f, 0.0f },
+                new float[] { 0.365f, 0.365f, 0.365f, 0.7f, 0.0f },
+                new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
+            });
+            this.grayScaleImageAttr.SetColorMatrix(matrix);
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
@@ -1055,7 +1071,23 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                    int precision = TrackAIElement.Precision;
+                    if (this.zones[trackObject.Y / precision]
+                                  [trackObject.X / precision] != (i / 4))
+                    {
+                        // The object is out of its zone, it most likely won't
+                        // (fully) appear when playing the game. Show it as grayed out.
+                        g.DrawImage(objectImage,
+                                    new Rectangle(x - (Tile.Size / 2),
+                                                  y - (Tile.Size / 2),
+                                                  16, 16),
+                                    0, 0, 16, 16,
+                                    GraphicsUnit.Pixel, this.grayScaleImageAttr);
+                    }
+                    else
+                    {
+                        g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
+                    }
                 }
             }
 
@@ -1574,6 +1606,7 @@ namespace EpicEdit.UI.Gfx
             this.aiElementSelectPen.Dispose();
 
             this.translucidImageAttr.Dispose();
+            this.grayScaleImageAttr.Dispose();
 
             GC.SuppressFinalize(this);
         }
