@@ -106,14 +106,14 @@ namespace EpicEdit.UI.Gfx
         private Pen lapLineOutlinePen;
 
         /// <summary>
-        /// Used to fill in the starting positions.
+        /// Used to fill in arrows.
         /// </summary>
-        private SolidBrush startPositionBrush;
+        private SolidBrush arrowBrush;
 
         /// <summary>
-        /// Used to draw the starting position outlines.
+        /// Used to draw arrow outlines.
         /// </summary>
-        private Pen startPositionPen;
+        private Pen arrowPen;
 
         /// <summary>
         /// Used to paint object outlines.
@@ -169,8 +169,8 @@ namespace EpicEdit.UI.Gfx
 
             this.lapLinePen = new Pen(Color.White);
             this.lapLineOutlinePen = new Pen(Color.Black, 3);
-            this.startPositionBrush = new SolidBrush(Color.White);
-            this.startPositionPen = new Pen(Color.Gray, 1);
+            this.arrowBrush = new SolidBrush(Color.White);
+            this.arrowPen = new Pen(Color.Gray, 1);
 
             this.objectOutlinePen = new Pen(Color.White, 2);
             this.objectBrushes = new SolidBrush[4];
@@ -930,8 +930,8 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawArrow(Graphics g, Point[] arrow)
         {
-            g.FillPolygon(this.startPositionBrush, arrow);
-            g.DrawPolygon(this.startPositionPen, arrow);
+            g.FillPolygon(this.arrowBrush, arrow);
+            g.DrawPolygon(this.arrowPen, arrow);
         }
 
         private void DrawObjectData(Graphics g, bool frontZonesView, TrackObject hoveredObject)
@@ -1582,8 +1582,8 @@ namespace EpicEdit.UI.Gfx
 
             this.lapLinePen.Dispose();
             this.lapLineOutlinePen.Dispose();
-            this.startPositionBrush.Dispose();
-            this.startPositionPen.Dispose();
+            this.arrowBrush.Dispose();
+            this.arrowPen.Dispose();
 
             this.objectOutlinePen.Dispose();
             foreach (SolidBrush objectBrush in this.objectBrushes)
