@@ -845,7 +845,7 @@ namespace EpicEdit.Rom
         {
             if (this.ObjectZonesRelocated)
             {
-                int offset = 0x80062 + trackIndex; // TODO: Define in Offsets.cs
+                int offset = this.offsets[Offset.TrackObjectProperties] + trackIndex;
                 track.ObjectTileset = (ObjectType)this.romBuffer[offset];
                 track.ObjectInteraction = (ObjectType)this.romBuffer[offset + Track.Count];
                 track.ObjectRoutine = (ObjectType)this.romBuffer[offset + Track.Count * 2];
@@ -920,7 +920,7 @@ namespace EpicEdit.Rom
         {
             if (this.ObjectZonesRelocated)
             {
-                return 0x80216 + trackIndex * 10; // TODO: Define in offsets
+                return this.offsets[Offset.TrackObjectZonesRelocated] + trackIndex * 10;
             }
 
             int[] reorder =

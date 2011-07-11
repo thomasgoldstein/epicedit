@@ -224,7 +224,17 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        TrackObjectHack8
+        TrackObjectHack8,
+
+        /// <summary>
+        /// The track object properties (tileset, interaction, routine) for each track.
+        /// </summary>
+        TrackObjectProperties,
+
+        /// <summary>
+        /// Track object zones (new offset, after relocation by the editor).
+        /// </summary>
+        TrackObjectZonesRelocated,
     }
 
     public class Offsets
@@ -305,6 +315,8 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectHack6] = 0x4DCA9;
             this[Offset.TrackObjectHack7] = 0x4DCBD;
             this[Offset.TrackObjectHack8] = 0x4DCC2;
+            this[Offset.TrackObjectProperties] = 0x80062;
+            this[Offset.TrackObjectZonesRelocated] = 0x80216;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
