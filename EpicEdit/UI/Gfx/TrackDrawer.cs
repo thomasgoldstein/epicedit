@@ -626,7 +626,7 @@ namespace EpicEdit.UI.Gfx
             if (hoveredObject != null)
             {
                 int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size - Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - Tile.Size;
+                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size + Tile.Size / 2);
                 int width = 24;
                 int height = 24;
 
@@ -1033,7 +1033,7 @@ namespace EpicEdit.UI.Gfx
             {
                 TrackObjectMatchRace trackObject = gpTrack.Objects[i] as TrackObjectMatchRace;
                 int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size;
+                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
 
                 if (trackObject == hoveredObject)
                 {
@@ -1063,7 +1063,7 @@ namespace EpicEdit.UI.Gfx
             {
                 TrackObject trackObject = gpTrack.Objects[i];
                 int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size;
+                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
 
                 if (trackObject == hoveredObject)
                 {
@@ -1094,7 +1094,7 @@ namespace EpicEdit.UI.Gfx
             if (hoveredObject != null)
             {
                 int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size;
+                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
                 Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
                 g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
 
