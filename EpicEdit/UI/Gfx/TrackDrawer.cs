@@ -559,9 +559,9 @@ namespace EpicEdit.UI.Gfx
             }
 
             Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                      startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
+                                                      startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 5,
                                                       Tile.Size + 1,
-                                                      GPStartPosition.Height - 12);
+                                                      GPStartPosition.Height - 15);
 
             Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
                                                       startRectangle1.Y + 20,
@@ -591,8 +591,8 @@ namespace EpicEdit.UI.Gfx
         private void SetBattleStartClipRegionSub1(Region clipRegion, BattleStartPosition startPosition)
         {
             Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
-                                                     Tile.Size + 1, Tile.Size);
+                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 6,
+                                                     Tile.Size + 1, Tile.Size + 2);
 
             if (!PlatformInformation.IsWindows)
             {
@@ -608,8 +608,8 @@ namespace EpicEdit.UI.Gfx
         private void SetBattleStartClipRegionSub2(Region clipRegion, BattleStartPosition startPosition)
         {
             Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 3,
-                                                     Tile.Size + 1, Tile.Size);
+                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
+                                                     Tile.Size + 1, Tile.Size + 2);
 
             if (!PlatformInformation.IsWindows)
             {
