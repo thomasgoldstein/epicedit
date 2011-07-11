@@ -951,7 +951,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                return this.romBuffer[this.offsets[Offset.ObjectHack6]] == 0xB7;
+                return this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7;
             }
         }
 
@@ -1359,39 +1359,39 @@ namespace EpicEdit.Rom
                 E ptr: c85d28
             */
 
-            int offset = this.offsets[Offset.ObjectHack1];
+            int offset = this.offsets[Offset.TrackObjectHack1];
             this.romBuffer[offset++] = 0x5C;
             this.romBuffer[offset++] = 0x23;
             this.romBuffer[offset++] = 0x01;
             this.romBuffer[offset] = 0xC8;
 
-            offset = this.offsets[Offset.ObjectHack2];
+            offset = this.offsets[Offset.TrackObjectHack2];
             this.romBuffer[offset++] = 0x5C;
             this.romBuffer[offset++] = 0x4F;
             this.romBuffer[offset++] = 0x01;
             this.romBuffer[offset] = 0xC8;
 
-            offset = this.offsets[Offset.ObjectHack3];
+            offset = this.offsets[Offset.TrackObjectHack3];
             this.romBuffer[offset++] = 0x5C;
             this.romBuffer[offset++] = 0x28;
             this.romBuffer[offset++] = 0x5D;
             this.romBuffer[offset] = 0xC8;
 
-            offset = this.offsets[Offset.ObjectHack4];
+            offset = this.offsets[Offset.TrackObjectHack4];
             this.romBuffer[offset++] = 0x5C;
             this.romBuffer[offset++] = 0xDA;
             this.romBuffer[offset++] = 0x00;
             this.romBuffer[offset] = 0xC8;
 
-            offset = this.offsets[Offset.ObjectHack5];
+            offset = this.offsets[Offset.TrackObjectHack5];
             this.romBuffer[offset++] = 0x5C;
             this.romBuffer[offset++] = 0xAB;
             this.romBuffer[offset++] = 0x01;
             this.romBuffer[offset] = 0xC8;
 
-            this.romBuffer[this.offsets[Offset.ObjectHack6]] = 0xB7;
-            this.romBuffer[this.offsets[Offset.ObjectHack7]] = 0xB7;
-            this.romBuffer[this.offsets[Offset.ObjectHack8]] = 0xB7;
+            this.romBuffer[this.offsets[Offset.TrackObjectHack6]] = 0xB7;
+            this.romBuffer[this.offsets[Offset.TrackObjectHack7]] = 0xB7;
+            this.romBuffer[this.offsets[Offset.TrackObjectHack8]] = 0xB7;
         }
 
         private void SaveObjectProperties(SaveBuffer saveBuffer)
