@@ -561,12 +561,12 @@ namespace EpicEdit.UI.Gfx
             Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
                                                       startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 5,
                                                       Tile.Size + 1,
-                                                      GPStartPosition.Height - 15);
+                                                      GPStartPosition.Height - 14);
 
             Rectangle startRectangle2 = new Rectangle(startRectangle1.X + startPosition.SecondRowOffset,
-                                                      startRectangle1.Y + 20,
+                                                      startRectangle1.Y + 24,
                                                       startRectangle1.Width,
-                                                      startRectangle1.Height + Tile.Size);
+                                                      startRectangle1.Height);
 
             if (!PlatformInformation.IsWindows)
             {
@@ -584,39 +584,15 @@ namespace EpicEdit.UI.Gfx
 
         private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
         {
-            this.SetBattleStartClipRegionSub1(clipRegion, startPositionP1);
-            this.SetBattleStartClipRegionSub2(clipRegion, startPositionP2);
+            this.SetBattleStartClipRegion(clipRegion, startPositionP1);
+            this.SetBattleStartClipRegion(clipRegion, startPositionP2);
         }
 
-        private void SetBattleStartClipRegionSub1(Region clipRegion, BattleStartPosition startPosition)
-        {
-            Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 6,
-                                                     Tile.Size + 1, Tile.Size + 2);
-
-            if (!PlatformInformation.IsWindows)
-            {
-                // HACK: Workaround for differences with Mono out of Windows
-                // (differently-sized arrow graphics).
-                startRectangle.Y--;
-                startRectangle.Inflate(0, 1);
-            }
-
-            clipRegion.Union(startRectangle);
-        }
-
-        private void SetBattleStartClipRegionSub2(Region clipRegion, BattleStartPosition startPosition)
+        private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPosition)
         {
             Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
                                                      startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
-                                                     Tile.Size + 1, Tile.Size + 2);
-
-            if (!PlatformInformation.IsWindows)
-            {
-                // HACK: Workaround for differences with Mono out of Windows
-                // (differently-sized arrow graphics).
-                startRectangle.Inflate(0, 1);
-            }
+                                                     Tile.Size + 1, Tile.Size + 1);
 
             clipRegion.Union(startRectangle);
         }
@@ -888,9 +864,9 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x, y - 5), // Top center (tip)
-                new Point(x + 4, y + 3), // Bottom right
-                new Point(x - 4, y + 3) // Bottom left
+                new Point(x, y - 4), // Top center (tip)
+                new Point(x + 4, y + 4), // Bottom right
+                new Point(x - 4, y + 4) // Bottom left
             };
             this.DrawArrow(g, arrow);
         }
@@ -899,9 +875,9 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 4, y - 3), // Top left
-                new Point(x + 4, y - 3), // Top right
-                new Point(x, y + 5) // Bottom center (tip)
+                new Point(x - 4, y - 4), // Top left
+                new Point(x + 4, y - 4), // Top right
+                new Point(x, y + 4) // Bottom center (tip)
             };
             this.DrawArrow(g, arrow);
         }
@@ -910,9 +886,9 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 5, y), // Center left (tip)
-                new Point(x + 3, y + 4), // Bottom right
-                new Point(x + 3, y - 4) // Top right
+                new Point(x - 4, y), // Center left (tip)
+                new Point(x + 4, y + 4), // Bottom right
+                new Point(x + 4, y - 4) // Top right
             };
             this.DrawArrow(g, arrow);
         }
@@ -921,9 +897,9 @@ namespace EpicEdit.UI.Gfx
         {
             Point[] arrow = new Point[]
             {
-                new Point(x - 3, y - 4), // Top left
-                new Point(x - 3, y + 4), // Bottom left
-                new Point(x + 5, y) // Center right (tip)
+                new Point(x - 4, y - 4), // Top left
+                new Point(x - 4, y + 4), // Bottom left
+                new Point(x + 4, y) // Center right (tip)
             };
             this.DrawArrow(g, arrow);
         }
@@ -1048,13 +1024,13 @@ namespace EpicEdit.UI.Gfx
 
                 if (trackObject.Direction == Direction.Horizontal)
                 {
-                    this.DrawLeftArrow(g, x - 8, y + 4);
-                    this.DrawRightArrow(g, x + 17, y + 4);
+                    this.DrawLeftArrow(g, x - 9, y + 4);
+                    this.DrawRightArrow(g, x + 18, y + 4);
                 }
                 else if (trackObject.Direction == Direction.Vertical)
                 {
-                    this.DrawUpArrow(g, x + 4, y - 8);
-                    this.DrawDownArrow(g, x + 4, y + 17);
+                    this.DrawUpArrow(g, x + 4, y - 9);
+                    this.DrawDownArrow(g, x + 4, y + 18);
                 }
             }
 
