@@ -1331,12 +1331,12 @@ namespace EpicEdit.Rom
             */
 
             this.RelocateObjectData();
-            this.SaveObjectProperties(saveBuffer);
-            Game.AddObjectCodeChunk1(saveBuffer, region);
-            this.SaveObjectLocationsAndZones(saveBuffer);
-            Game.AddObjectCodeChunk2(saveBuffer);
-            this.SavePillars(saveBuffer);
-            Game.AddObjectCodeChunk3(saveBuffer, region);
+            this.SaveObjectProperties(saveBuffer); // From 0x80062 to 0x800D9
+            Game.AddObjectCodeChunk1(saveBuffer, region); // From 0x800DA to 0x80215
+            this.SaveObjectLocationsAndZones(saveBuffer); // From 0x80216 to 0x802DE
+            Game.AddObjectCodeChunk2(saveBuffer); // From 0x802DF to 0x80327
+            this.SavePillars(saveBuffer); // From 0x80328 to 0x85D27
+            Game.AddObjectCodeChunk3(saveBuffer, region); // From 0x85D28 to 0x85D3A
         }
 
         private void RelocateObjectData()
