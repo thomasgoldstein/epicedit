@@ -568,7 +568,7 @@ namespace EpicEdit.UI.Gfx
                                                       startRectangle1.Width,
                                                       startRectangle1.Height);
 
-            if (!PlatformInformation.IsWindows)
+            if (!Platform.IsWindows)
             {
                 // HACK: Workaround for differences with Mono out of Windows
                 // (differently-sized lap line / arrow graphics).

@@ -101,7 +101,7 @@
     <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\ItemProba\ItemProbability.cs" />
-    <Compile Include="PlatformInformation.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rom\Compression\ByteDictionary.cs" />
     <Compile Include="Rom\Compression\ChunkNode.cs" />
