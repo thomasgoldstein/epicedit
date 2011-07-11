@@ -1183,12 +1183,7 @@ namespace EpicEdit.Rom
         {
             SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
             this.SaveBattleStartPositions(saveBuffer);
-
-            if (this.region != Region.Euro) // TODO: Add support for Euro ROMs
-            {
-                this.SaveObjectData(saveBuffer);
-            }
-
+            this.SaveObjectData(saveBuffer);
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
@@ -1321,6 +1316,11 @@ namespace EpicEdit.Rom
         /// </summary>
         private void SaveObjectData(SaveBuffer saveBuffer)
         {
+            if (this.region == Region.Euro)
+            {
+                // TODO: Add support for Euro ROMs
+                return;
+            }
             /*
                 The hacks below include the following improvements:
 
