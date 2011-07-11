@@ -189,42 +189,42 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack1,
+        TrackObjectHack1,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack2,
+        TrackObjectHack2,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack3,
+        TrackObjectHack3,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack4,
+        TrackObjectHack4,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack5,
+        TrackObjectHack5,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack6,
+        TrackObjectHack6,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack7,
+        TrackObjectHack7,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
-        ObjectHack8
+        TrackObjectHack8
     }
 
     public class Offsets
@@ -251,10 +251,10 @@ namespace EpicEdit.Rom
                     this[Offset.TrackPreviewLapLines] = 0x1C886;
                     this[Offset.ItemIconTilesPalettes] = 0x1B1DC;
                     this[Offset.TrackOverlayPatterns] = 0x4F0B5;
-                    this[Offset.ObjectHack1] = 0x18EF3;
-                    this[Offset.ObjectHack2] = 0x19155;
-                    this[Offset.ObjectHack3] = 0x19E8E;
-                    this[Offset.ObjectHack4] = 0x1E996;
+                    this[Offset.TrackObjectHack1] = 0x18EF3;
+                    this[Offset.TrackObjectHack2] = 0x19155;
+                    this[Offset.TrackObjectHack3] = 0x19E8E;
+                    this[Offset.TrackObjectHack4] = 0x1E996;
                     break;
 
                 case Region.US:
@@ -268,10 +268,10 @@ namespace EpicEdit.Rom
                     this[Offset.TrackPreviewLapLines] = 0x1C915;
                     this[Offset.ItemIconTilesPalettes] = 0x1B320;
                     this[Offset.TrackOverlayPatterns] = 0x4F23D;
-                    this[Offset.ObjectHack1] = 0x18EDF;
-                    this[Offset.ObjectHack2] = 0x19141;
-                    this[Offset.ObjectHack3] = 0x19E2B;
-                    this[Offset.ObjectHack4] = 0x1E992;
+                    this[Offset.TrackObjectHack1] = 0x18EDF;
+                    this[Offset.TrackObjectHack2] = 0x19141;
+                    this[Offset.TrackObjectHack3] = 0x19E2B;
+                    this[Offset.TrackObjectHack4] = 0x1E992;
                     //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
@@ -286,10 +286,10 @@ namespace EpicEdit.Rom
                     this[Offset.TrackPreviewLapLines] = 0x1C7B1;
                     this[Offset.ItemIconTilesPalettes] = 0x1B1BC;
                     this[Offset.TrackOverlayPatterns] = 0x4F159;
-                    this[Offset.ObjectHack1] = 0; // TODO
-                    this[Offset.ObjectHack2] = 0; // TODO
-                    this[Offset.ObjectHack3] = 0; // TODO
-                    this[Offset.ObjectHack4] = 0; // TODO
+                    this[Offset.TrackObjectHack1] = 0; // TODO
+                    this[Offset.TrackObjectHack2] = 0; // TODO
+                    this[Offset.TrackObjectHack3] = 0; // TODO
+                    this[Offset.TrackObjectHack4] = 0; // TODO
                     break;
             }
 
@@ -301,10 +301,10 @@ namespace EpicEdit.Rom
             this[Offset.CommonTilesetGraphics] = 0x40000;
             this[Offset.MatchRaceObjectGraphics] = 0x60000;
             this[Offset.ItemGraphics] = 0x40594;
-            this[Offset.ObjectHack5] = 0x4DABC;
-            this[Offset.ObjectHack6] = 0x4DCA9;
-            this[Offset.ObjectHack7] = 0x4DCBD;
-            this[Offset.ObjectHack8] = 0x4DCC2;
+            this[Offset.TrackObjectHack5] = 0x4DABC;
+            this[Offset.TrackObjectHack6] = 0x4DCA9;
+            this[Offset.TrackObjectHack7] = 0x4DCBD;
+            this[Offset.TrackObjectHack8] = 0x4DCC2;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
