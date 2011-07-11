@@ -1257,6 +1257,13 @@ namespace EpicEdit.Rom
 
         private void SaveBattleStartPositions(SaveBuffer saveBuffer)
         {
+            if (this.region != Region.US)
+            {
+                // TODO: Add support for Jap and Euro ROMs
+                saveBuffer.Add(new byte[98]);
+                return;
+            }
+            
             byte[] trackOrder = this.GetTrackOrder();
 
             Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
