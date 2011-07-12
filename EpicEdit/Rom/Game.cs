@@ -1259,9 +1259,8 @@ namespace EpicEdit.Rom
             byte[] trackOrder = this.GetTrackOrder();
 
             Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
-            int trackGroupSize = tracks.Length;
 
-            for (int i = 0; i < trackGroupSize; i++)
+            for (int i = 0; i < tracks.Length; i++)
             {
                 int iterator = GPTrack.Count + i;
                 int trackIndex = trackOrder[iterator];
@@ -1427,9 +1426,8 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.trackGroups.Length - 1; i++)
             {
                 Track[] tracks = this.trackGroups[i].GetTracks();
-                int trackGroupSize = tracks.Length;
 
-                for (int j = 0; j < trackGroupSize; j++)
+                for (int j = 0; j < tracks.Length; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     GPTrack gpTrack = tracks[j] as GPTrack;
@@ -1571,9 +1569,8 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.trackGroups.Length - 1; i++)
             {
                 Track[] tracks = this.trackGroups[i].GetTracks();
-                int trackGroupSize = tracks.Length;
 
-                for (int j = 0; j < trackGroupSize; j++)
+                for (int j = 0; j < tracks.Length; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     GPTrack gpTrack = tracks[j] as GPTrack;
@@ -1679,9 +1676,8 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.trackGroups.Length; i++)
             {
                 Track[] tracks = this.trackGroups[i].GetTracks();
-                int trackGroupSize = tracks.Length;
 
-                for (int j = 0; j < trackGroupSize; j++)
+                for (int j = 0; j < tracks.Length; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     this.SaveAI(tracks[j], trackIndex, saveBuffer);
@@ -1716,9 +1712,8 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.trackGroups.Length; i++)
             {
                 Track[] tracks = this.trackGroups[i].GetTracks();
-                int trackGroupSize = tracks.Length;
 
-                for (int j = 0; j < trackGroupSize; j++)
+                for (int j = 0; j < tracks.Length; j++)
                 {
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
