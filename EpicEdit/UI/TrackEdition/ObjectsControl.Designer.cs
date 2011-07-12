@@ -217,7 +217,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
             this.zoneGroupBox.TabIndex = 9;
             this.zoneGroupBox.TabStop = false;
-            this.zoneGroupBox.Text = "Object Visibility Zones";
+            this.zoneGroupBox.Text = "Object Visibility";
             // 
             // ObjectsControl
             // 
