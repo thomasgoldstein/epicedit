@@ -12,6 +12,8 @@ v2.2 (???)
 - Display actual object sprites on the track map
 - Show track objects that are out of their zone as grayed out, to hint that
   they most likely won't (fully) appear when playing the game
+- Fixed Euro and Jap ROM corruption caused by the battle starting position
+  hack, which only worked with US ROMs (thanks to SMK Dan again)
 - Minor tweaks and fixes
 
 
