@@ -47,6 +47,8 @@ namespace EpicEdit.UI.TrackEdition
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.paletteLabel = new System.Windows.Forms.Label();
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.routineLabel = new System.Windows.Forms.Label();
             this.interactComboBox = new System.Windows.Forms.ComboBox();
@@ -55,6 +57,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetLabel = new System.Windows.Forms.Label();
             this.zoneGroupBox = new System.Windows.Forms.GroupBox();
             this.propertiesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.zoneGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,6 +110,8 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // propertiesGroupBox
             // 
+            this.propertiesGroupBox.Controls.Add(this.paletteNumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.paletteLabel);
             this.propertiesGroupBox.Controls.Add(this.routineComboBox);
             this.propertiesGroupBox.Controls.Add(this.routineLabel);
             this.propertiesGroupBox.Controls.Add(this.interactComboBox);
@@ -115,26 +120,56 @@ namespace EpicEdit.UI.TrackEdition
             this.propertiesGroupBox.Controls.Add(this.tilesetLabel);
             this.propertiesGroupBox.Location = new System.Drawing.Point(2, 4);
             this.propertiesGroupBox.Name = "propertiesGroupBox";
-            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 171);
+            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 198);
             this.propertiesGroupBox.TabIndex = 8;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Object Properties";
+            // 
+            // paletteNumericUpDown
+            // 
+            this.paletteNumericUpDown.Location = new System.Drawing.Point(77, 166);
+            this.paletteNumericUpDown.Maximum = new decimal(new int[] {
+                                    16,
+                                    0,
+                                    0,
+                                    0});
+            this.paletteNumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.paletteNumericUpDown.Name = "paletteNumericUpDown";
+            this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.paletteNumericUpDown.TabIndex = 7;
+            this.paletteNumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            // 
+            // paletteLabel
+            // 
+            this.paletteLabel.Location = new System.Drawing.Point(6, 168);
+            this.paletteLabel.Name = "paletteLabel";
+            this.paletteLabel.Size = new System.Drawing.Size(100, 23);
+            this.paletteLabel.TabIndex = 6;
+            this.paletteLabel.Text = "Color palette";
             // 
             // routineComboBox
             // 
             this.routineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.routineComboBox.FormattingEnabled = true;
-            this.routineComboBox.Location = new System.Drawing.Point(10, 131);
+            this.routineComboBox.Location = new System.Drawing.Point(10, 33);
             this.routineComboBox.Name = "routineComboBox";
             this.routineComboBox.Size = new System.Drawing.Size(104, 21);
-            this.routineComboBox.TabIndex = 5;
+            this.routineComboBox.TabIndex = 1;
             // 
             // routineLabel
             // 
-            this.routineLabel.Location = new System.Drawing.Point(6, 116);
+            this.routineLabel.Location = new System.Drawing.Point(6, 16);
             this.routineLabel.Name = "routineLabel";
             this.routineLabel.Size = new System.Drawing.Size(100, 23);
-            this.routineLabel.TabIndex = 4;
+            this.routineLabel.TabIndex = 0;
             this.routineLabel.Text = "Routine";
             // 
             // interactComboBox
@@ -158,17 +193,17 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.tilesetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tilesetComboBox.FormattingEnabled = true;
-            this.tilesetComboBox.Location = new System.Drawing.Point(10, 33);
+            this.tilesetComboBox.Location = new System.Drawing.Point(10, 133);
             this.tilesetComboBox.Name = "tilesetComboBox";
             this.tilesetComboBox.Size = new System.Drawing.Size(104, 21);
-            this.tilesetComboBox.TabIndex = 1;
+            this.tilesetComboBox.TabIndex = 5;
             // 
             // tilesetLabel
             // 
-            this.tilesetLabel.Location = new System.Drawing.Point(6, 16);
+            this.tilesetLabel.Location = new System.Drawing.Point(6, 116);
             this.tilesetLabel.Name = "tilesetLabel";
             this.tilesetLabel.Size = new System.Drawing.Size(100, 23);
-            this.tilesetLabel.TabIndex = 0;
+            this.tilesetLabel.TabIndex = 4;
             this.tilesetLabel.Text = "Tileset";
             // 
             // zoneGroupBox
@@ -177,7 +212,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.Controls.Add(this.rearZonesRadioButton);
             this.zoneGroupBox.Controls.Add(this.rearObjectZonesControl);
             this.zoneGroupBox.Controls.Add(this.frontObjectZonesControl);
-            this.zoneGroupBox.Location = new System.Drawing.Point(2, 181);
+            this.zoneGroupBox.Location = new System.Drawing.Point(2, 208);
             this.zoneGroupBox.Name = "zoneGroupBox";
             this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
             this.zoneGroupBox.TabIndex = 9;
@@ -189,11 +224,14 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.zoneGroupBox);
             this.Controls.Add(this.propertiesGroupBox);
             this.Name = "ObjectsControl";
-            this.Size = new System.Drawing.Size(130, 420);
+            this.Size = new System.Drawing.Size(130, 450);
             this.propertiesGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
+        private System.Windows.Forms.Label paletteLabel;
         private System.Windows.Forms.GroupBox zoneGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
         private System.Windows.Forms.Label interactLabel;

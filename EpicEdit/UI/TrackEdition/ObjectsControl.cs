@@ -60,14 +60,17 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
-                
+                this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+
                 this.tilesetComboBox.SelectedItem = value.ObjectTileset;
                 this.interactComboBox.SelectedItem = value.ObjectInteraction;
                 this.routineComboBox.SelectedItem = value.ObjectRoutine;
+                this.paletteNumericUpDown.Value = value.ObjectPaletteIndex + 1;
 
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
+                this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
 
                 this.ToggleZoneGroupBox();
             }
@@ -124,6 +127,12 @@ namespace EpicEdit.UI.TrackEdition
         private void ToggleZoneGroupBox()
         {
             this.zoneGroupBox.Enabled = this.Track.ObjectRoutine != ObjectType.Pillar;
+        }
+        
+        private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            this.Track.ObjectPaletteIndex = (int)(this.paletteNumericUpDown.Value - 1);
+            this.DataChanged(this, EventArgs.Empty);
         }
     }
 }

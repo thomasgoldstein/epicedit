@@ -149,12 +149,12 @@ namespace EpicEdit.Rom
             return this.itemIcons[(int)type];
         }
 
-        public Bitmap GetObjectImage(Theme theme, ObjectType type)
+        public Bitmap GetObjectImage(GPTrack track)
         {
-            int offset = this.GetObjectGraphicsOffset(type);
-            byte[] gfx = Codec.Decompress(this.romBuffer, offset);            
-            Palette palette = this.GetObjectPalette(theme, type);
-            int[] tileIndexes = Game.GetObjectTileIndexes(type);
+            int offset = this.GetObjectGraphicsOffset(track.ObjectTileset);
+            byte[] gfx = Codec.Decompress(this.romBuffer, offset);
+            Palette palette = track.ObjectPalette;
+            int[] tileIndexes = Game.GetObjectTileIndexes(track.ObjectTileset);
 
             return Game.GetObjectImage(gfx, tileIndexes, palette);
         }
@@ -227,36 +227,6 @@ namespace EpicEdit.Rom
             return Utilities.BytesToOffset(this.romBuffer[offsetLocation],
                                            this.romBuffer[offsetLocation + 1],
                                            this.romBuffer[offsetLocation + 2]);
-        }
-
-        private Palette GetObjectPalette(Theme theme, ObjectType type)
-        {
-            int paletteIndex = 0;
-            
-            switch (this.themes.GetThemeId(theme))
-            {
-                case 0: // Ghost Valley
-                case 2: // Mario Circuit
-                case 8: // Vanilla Lake
-                    paletteIndex = 15;
-                    break;
-
-                case 4: // Donut Plains
-                    paletteIndex = type == ObjectType.Pipe ? 13 : 15;
-                    break;
-
-                case 6: // Choco Island
-                case 10: // Koopa Beach
-                    paletteIndex = 14;
-                    break;
-
-                case 12: // Bowser Castle
-                case 14: // Rainbow Road
-                    paletteIndex = 12;
-                    break;
-            }
-            
-            return theme.Palettes[paletteIndex];
         }
 
         private static int[] GetObjectTileIndexes(ObjectType type)
@@ -866,7 +836,8 @@ namespace EpicEdit.Rom
                         break;
 
                     case 2: // Donut Plains
-                        objectType = trackIndex == 19 ? ObjectType.Pipe : ObjectType.Mole;
+                        objectType = trackIndex == 19 ? // Donut Plains 1
+                            ObjectType.Pipe : ObjectType.Mole;
                         break;
 
                     case 3: // Choco Island
@@ -892,6 +863,39 @@ namespace EpicEdit.Rom
                 track.ObjectInteraction = objectType;
                 track.ObjectRoutine = objectType;
             }
+
+            track.ObjectPaletteIndex = this.GetObjectPaletteIndex(themeId, trackIndex);
+        }
+
+        private int GetObjectPaletteIndex(int themeId, int trackIndex)
+        {
+            int paletteIndex = 0;
+            
+            switch (themeId)
+            {
+                case 0: // Ghost Valley
+                case 1: // Mario Circuit
+                case 4: // Vanilla Lake
+                    paletteIndex = 15;
+                    break;
+
+                case 2: // Donut Plains
+                    paletteIndex = trackIndex == 19 ? // Donut Plains 1
+                        13 : 15;
+                    break;
+
+                case 3: // Choco Island
+                case 5: // Koopa Beach
+                    paletteIndex = 14;
+                    break;
+
+                case 6: // Bowser Castle
+                case 7: // Rainbow Road
+                    paletteIndex = 12;
+                    break;
+            }
+            
+            return paletteIndex;
         }
 
         #endregion Objects
