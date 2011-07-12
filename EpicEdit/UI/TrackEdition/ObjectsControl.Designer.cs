@@ -134,7 +134,7 @@ namespace EpicEdit.UI.TrackEdition
                                     0,
                                     0});
             this.paletteNumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    9,
                                     0,
                                     0,
                                     0});
@@ -142,7 +142,7 @@ namespace EpicEdit.UI.TrackEdition
             this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.paletteNumericUpDown.TabIndex = 7;
             this.paletteNumericUpDown.Value = new decimal(new int[] {
-                                    1,
+                                    9,
                                     0,
                                     0,
                                     0});
