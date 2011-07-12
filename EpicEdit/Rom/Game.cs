@@ -1256,13 +1256,6 @@ namespace EpicEdit.Rom
 
         private void SaveBattleStartPositions(SaveBuffer saveBuffer)
         {
-            if (this.region != Region.US)
-            {
-                // TODO: Add support for Jap and Euro ROMs
-                saveBuffer.Add(new byte[98]);
-                return;
-            }
-            
             byte[] trackOrder = this.GetTrackOrder();
 
             Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
@@ -1297,6 +1290,29 @@ namespace EpicEdit.Rom
             this.romBuffer[offset++] = 0x00;
             this.romBuffer[offset] = 0xC8;
 
+            // Some values differ depending on the ROM region
+            byte diff;
+
+            switch(this.region)
+            {
+                case Region.Jap:
+                    diff = 0x14;
+                    break;
+
+                default:
+                case Region.US:
+                    diff = 0;
+                    break;
+
+                case Region.Euro:
+                    diff = 0x19;
+                    break;
+            }
+
+            byte val1 = (byte)(0x79 + diff);
+            byte val2 = (byte)(0x26 + diff);
+            byte val3 = (byte)(0x18 + diff);
+
             // New code for battle track starting positions
             byte[] hack =
             {
@@ -1306,8 +1322,8 @@ namespace EpicEdit.Rom
                 0x00, 0xC8, 0x8D, 0x1C, 0x10, 0xBF, 0x04, 0x00,
                 0xC8, 0x8D, 0x18, 0x11, 0xBF, 0x06, 0x00, 0xC8,
                 0x8D, 0x1C, 0x11, 0x9C, 0x20, 0x10, 0x9C, 0x20,
-                0x11, 0xAD, 0x24, 0x01, 0x0A, 0xAA, 0xBC, 0x79,
-                0x8A, 0x5C, 0x26, 0x8F, 0x81, 0x0A, 0x5C, 0x18,
+                0x11, 0xAD, 0x24, 0x01, 0x0A, 0xAA, 0xBC, val1,
+                0x8A, 0x5C, val2, 0x8F, 0x81, 0x0A, 0x5C, val3,
                 0x8F, 0x81
             };
 
