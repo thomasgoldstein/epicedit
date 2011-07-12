@@ -47,6 +47,14 @@ namespace EpicEdit.Rom.Tracks
         public ObjectType ObjectTileset { get; set; }
         public ObjectType ObjectInteraction { get; set; }
         public ObjectType ObjectRoutine { get; set; }
+        public int ObjectPaletteIndex { get; set; }
+        public Palette ObjectPalette
+        {
+            get
+            {
+                return this.Theme.Palettes[this.ObjectPaletteIndex];
+            }
+        }
 
         public ObjectLoading ObjectLoading
         {
