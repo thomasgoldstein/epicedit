@@ -822,56 +822,62 @@ namespace EpicEdit.Rom
             }
             else
             {
-                ObjectType objectType;
-
-                if (trackIndex == 19) // Donut Plains 1
-                {
-                    // This track is an exception
-                    objectType = ObjectType.Pipe;
-                }
-                else
-                {
-                    switch (themeId)
-                    {
-                        case 0: // Ghost Valley
-                            objectType = ObjectType.Pillar;
-                            break;
-
-                        case 1: // Mario Circuit
-                        case 4: // Vanilla Lake
-                            objectType = ObjectType.Pipe;
-                            break;
-
-                        case 2: // Donut Plains
-                            objectType = ObjectType.Mole;
-                            break;
-
-                        case 3: // Choco Island
-                            objectType = ObjectType.Plant;
-                            break;
-
-                        case 5: // Koopa Beach
-                            objectType = ObjectType.Fish;
-                            break;
-
-                        case 6: // Bowser Castle
-                            objectType = ObjectType.Thwomp;
-                            break;
-
-                        case 7: // Rainbow Road
-                            objectType = ObjectType.RThwomp;
-                            break;
-
-                        default: throw new InvalidDataException();
-                    }
-                }
-
+                ObjectType objectType = this.GetObjectType(themeId, trackIndex);
                 track.ObjectTileset = objectType;
                 track.ObjectInteraction = objectType;
                 track.ObjectRoutine = objectType;
             }
 
             track.ObjectPaletteIndex = this.GetObjectPaletteIndex(themeId, trackIndex);
+        }
+
+        private ObjectType GetObjectType(int themeId, int trackIndex)
+        {
+            ObjectType objectType;
+
+            if (trackIndex == 19) // Donut Plains 1
+            {
+                // This track is an exception
+                objectType = ObjectType.Pipe;
+            }
+            else
+            {
+                switch (themeId)
+                {
+                    case 0: // Ghost Valley
+                        objectType = ObjectType.Pillar;
+                        break;
+
+                    case 1: // Mario Circuit
+                    case 4: // Vanilla Lake
+                        objectType = ObjectType.Pipe;
+                        break;
+
+                    case 2: // Donut Plains
+                        objectType = ObjectType.Mole;
+                        break;
+
+                    case 3: // Choco Island
+                        objectType = ObjectType.Plant;
+                        break;
+
+                    case 5: // Koopa Beach
+                        objectType = ObjectType.Fish;
+                        break;
+
+                    case 6: // Bowser Castle
+                        objectType = ObjectType.Thwomp;
+                        break;
+
+                    case 7: // Rainbow Road
+                        objectType = ObjectType.RThwomp;
+                        break;
+
+                    default: throw new InvalidDataException();
+                }
+            }
+
+            return objectType;
         }
 
         private int GetObjectPaletteIndex(int themeId, int trackIndex)
