@@ -1691,38 +1691,31 @@ namespace EpicEdit.Rom
 
         private static void AddObjectCodeChunk3(SaveBuffer saveBuffer, Region region)
         {
-            byte[] hack;
+            byte val;
 
+            // A value differs depending on the ROM region
             switch (region)
             {
                 case Region.Jap:
-                    hack = new byte[]
-                    {
-                        0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
-                        0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
-                        0x94, 0x9E, 0x81
-                    };
+                    val = 0x94;
                     break;
 
                 default:
                 case Region.US:
-                    hack = new byte[]
-                    {
-                        0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
-                        0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
-                        0x31, 0x9E, 0x81
-                    };
+                    val = 0x31;
                     break;
 
                 case Region.Euro:
-                    hack = new byte[]
-                    {
-                        0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
-                        0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
-                        0x6E, 0x9E, 0x81
-                    };
+                    val = 0x6E;
                     break;
             }
+
+            byte[] hack =
+            {
+                0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
+                0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
+                val, 0x9E, 0x81
+            };
 
             saveBuffer.Add(hack);
         }
