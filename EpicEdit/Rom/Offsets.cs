@@ -296,10 +296,10 @@ namespace EpicEdit.Rom
                     this[Offset.TrackPreviewLapLines] = 0x1C7B1;
                     this[Offset.ItemIconTilesPalettes] = 0x1B1BC;
                     this[Offset.TrackOverlayPatterns] = 0x4F159;
-                    this[Offset.TrackObjectHack1] = 0; // TODO
-                    this[Offset.TrackObjectHack2] = 0; // TODO
-                    this[Offset.TrackObjectHack3] = 0; // TODO
-                    this[Offset.TrackObjectHack4] = 0; // TODO
+                    this[Offset.TrackObjectHack1] = 0x18EF8;
+                    this[Offset.TrackObjectHack2] = 0x1915A;
+                    this[Offset.TrackObjectHack3] = 0x19E68;
+                    this[Offset.TrackObjectHack4] = 0x1E981;
                     break;
             }
 
