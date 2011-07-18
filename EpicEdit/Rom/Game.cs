@@ -824,39 +824,46 @@ namespace EpicEdit.Rom
             {
                 ObjectType objectType;
 
-                switch (themeId)
+                if (trackIndex == 19) // Donut Plains 1
                 {
-                    case 0: // Ghost Valley
-                        objectType = ObjectType.Pillar;
-                        break;
+                    // This track is an exception
+                    objectType = ObjectType.Pipe;
+                }
+                else
+                {
+                    switch (themeId)
+                    {
+                        case 0: // Ghost Valley
+                            objectType = ObjectType.Pillar;
+                            break;
 
-                    case 1: // Mario Circuit
-                    case 4: // Vanilla Lake
-                        objectType = ObjectType.Pipe;
-                        break;
+                        case 1: // Mario Circuit
+                        case 4: // Vanilla Lake
+                            objectType = ObjectType.Pipe;
+                            break;
 
-                    case 2: // Donut Plains
-                        objectType = trackIndex == 19 ? // Donut Plains 1
-                            ObjectType.Pipe : ObjectType.Mole;
-                        break;
+                        case 2: // Donut Plains
+                            objectType = ObjectType.Mole;
+                            break;
 
-                    case 3: // Choco Island
-                        objectType = ObjectType.Plant;
-                        break;
+                        case 3: // Choco Island
+                            objectType = ObjectType.Plant;
+                            break;
 
-                    case 5: // Koopa Beach
-                        objectType = ObjectType.Fish;
-                        break;
+                        case 5: // Koopa Beach
+                            objectType = ObjectType.Fish;
+                            break;
 
-                    case 6: // Bowser Castle
-                        objectType = ObjectType.Thwomp;
-                        break;
+                        case 6: // Bowser Castle
+                            objectType = ObjectType.Thwomp;
+                            break;
 
-                    case 7: // Rainbow Road
-                        objectType = ObjectType.RThwomp;
-                        break;
+                        case 7: // Rainbow Road
+                            objectType = ObjectType.RThwomp;
+                            break;
 
-                    default: throw new InvalidDataException();
+                        default: throw new InvalidDataException();
+                    }
                 }
 
                 track.ObjectTileset = objectType;
@@ -869,30 +876,36 @@ namespace EpicEdit.Rom
 
         private int GetObjectPaletteIndex(int themeId, int trackIndex)
         {
-            int paletteIndex = 0;
+            int paletteIndex;
             
-            switch (themeId)
+            if (trackIndex == 19) // Donut Plains 1
             {
-                case 0: // Ghost Valley
-                case 1: // Mario Circuit
-                case 4: // Vanilla Lake
-                    paletteIndex = 15;
-                    break;
+                // This track is an exception
+                paletteIndex = 13;
+            }
+            else
+            {
+                switch (themeId)
+                {
+                    case 0: // Ghost Valley
+                    case 1: // Mario Circuit
+                    case 2: // Donut Plains
+                    case 4: // Vanilla Lake
+                        paletteIndex = 15;
+                        break;
 
-                case 2: // Donut Plains
-                    paletteIndex = trackIndex == 19 ? // Donut Plains 1
-                        13 : 15;
-                    break;
+                    case 3: // Choco Island
+                    case 5: // Koopa Beach
+                        paletteIndex = 14;
+                        break;
 
-                case 3: // Choco Island
-                case 5: // Koopa Beach
-                    paletteIndex = 14;
-                    break;
+                    case 6: // Bowser Castle
+                    case 7: // Rainbow Road
+                        paletteIndex = 12;
+                        break;
 
-                case 6: // Bowser Castle
-                case 7: // Rainbow Road
-                    paletteIndex = 12;
-                    break;
+                    default: throw new InvalidDataException();
+                }
             }
             
             return paletteIndex;
