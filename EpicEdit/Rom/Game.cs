@@ -822,16 +822,16 @@ namespace EpicEdit.Rom
             }
             else
             {
-                ObjectType objectType = this.GetObjectType(themeId, trackIndex);
+                ObjectType objectType = Game.GetObjectType(themeId, trackIndex);
                 track.ObjectTileset = objectType;
                 track.ObjectInteraction = objectType;
                 track.ObjectRoutine = objectType;
             }
 
-            track.ObjectPaletteIndex = this.GetObjectPaletteIndex(themeId, trackIndex);
+            track.ObjectPaletteIndex = Game.GetObjectPaletteIndex(themeId, trackIndex);
         }
 
-        private ObjectType GetObjectType(int themeId, int trackIndex)
+        private static ObjectType GetObjectType(int themeId, int trackIndex)
         {
             ObjectType objectType;
 
@@ -880,7 +880,7 @@ namespace EpicEdit.Rom
             return objectType;
         }
 
-        private int GetObjectPaletteIndex(int themeId, int trackIndex)
+        private static int GetObjectPaletteIndex(int themeId, int trackIndex)
         {
             int paletteIndex;
             
