@@ -47,14 +47,30 @@ namespace EpicEdit.Rom.Tracks
         public ObjectType ObjectTileset { get; set; }
         public ObjectType ObjectInteraction { get; set; }
         public ObjectType ObjectRoutine { get; set; }
-        public int ObjectPaletteIndex { get; set; }
+
+        private byte[] objectPaletteIndexes;
+        public byte[] ObjectPaletteIndexes
+        {
+            get
+            {
+                return this.objectPaletteIndexes;
+            }
+        }
+
         public Palette ObjectPalette
         {
             get
             {
-                return this.Theme.Palettes[this.ObjectPaletteIndex];
+                // + 8 because the sprite palettes are the second half of the 16 palettes
+                return this.Theme.Palettes[this.objectPaletteIndexes[0] + 8];
             }
         }
+
+        /// <summary>
+        /// If true, the object sprites will loop through 4 color palettes at 60 FPS
+        /// (like the Rainbow Road Thwomps do).
+        /// </summary>
+        public bool ObjectFlashing { get; set; }
 
         public ObjectLoading ObjectLoading
         {
@@ -94,6 +110,7 @@ namespace EpicEdit.Rom.Tracks
             this.LapLine = new LapLine(lapLineData);
             this.Objects = new TrackObjects(objectData);
             this.ObjectZones = new TrackObjectZones(objectZoneData, this);
+            this.objectPaletteIndexes = new byte[4];
         }
 
         /// <summary>

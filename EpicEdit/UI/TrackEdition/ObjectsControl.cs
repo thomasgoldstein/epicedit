@@ -65,7 +65,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedItem = value.ObjectTileset;
                 this.interactComboBox.SelectedItem = value.ObjectInteraction;
                 this.routineComboBox.SelectedItem = value.ObjectRoutine;
-                this.paletteNumericUpDown.Value = value.ObjectPaletteIndex + 1;
+                this.paletteNumericUpDown.Value = value.ObjectPaletteIndexes[0] + 1;
 
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
@@ -131,7 +131,7 @@ namespace EpicEdit.UI.TrackEdition
         
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            this.Track.ObjectPaletteIndex = (int)(this.paletteNumericUpDown.Value - 1);
+            this.Track.ObjectPaletteIndexes[0] = (byte)(this.paletteNumericUpDown.Value - 1);
             this.DataChanged(this, EventArgs.Empty);
         }
     }
