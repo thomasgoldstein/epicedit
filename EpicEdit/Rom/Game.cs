@@ -813,12 +813,16 @@ namespace EpicEdit.Rom
 
         private void SetObjectProperties(GPTrack track, int trackIndex, int themeId)
         {
+            byte[] paletteIndexes;
+
             if (this.ObjectZonesRelocated)
             {
                 int offset = this.offsets[Offset.TrackObjectProperties] + trackIndex;
                 track.ObjectTileset = (ObjectType)this.romBuffer[offset];
                 track.ObjectInteraction = (ObjectType)this.romBuffer[offset + Track.Count];
                 track.ObjectRoutine = (ObjectType)this.romBuffer[offset + Track.Count * 2];
+                paletteIndexes = this.GetObjectPaletteIndexes(trackIndex);
+                track.ObjectFlashing = this.GetObjectFlashing(trackIndex);
             }
             else
             {
@@ -826,9 +830,14 @@ namespace EpicEdit.Rom
                 track.ObjectTileset = objectType;
                 track.ObjectInteraction = objectType;
                 track.ObjectRoutine = objectType;
+                paletteIndexes = Game.GetObjectPaletteIndexes(themeId, trackIndex);
+                track.ObjectFlashing = themeId == 7; // Rainbow Road
             }
 
-            track.ObjectPaletteIndex = Game.GetObjectPaletteIndex(themeId, trackIndex);
+            track.ObjectPaletteIndexes[0] = paletteIndexes[0];
+            track.ObjectPaletteIndexes[1] = paletteIndexes[1];
+            track.ObjectPaletteIndexes[2] = paletteIndexes[2];
+            track.ObjectPaletteIndexes[3] = paletteIndexes[3];
         }
 
         private static ObjectType GetObjectType(int themeId, int trackIndex)
@@ -880,14 +889,31 @@ namespace EpicEdit.Rom
             return objectType;
         }
 
-        private static int GetObjectPaletteIndex(int themeId, int trackIndex)
+        private byte[] GetObjectPaletteIndexes(int trackIndex)
         {
-            int paletteIndex;
+            int offset = 0x85D3B + trackIndex * 4; // TODO: Define in Offsets.cs
+            byte[] data =
+            {
+                (byte)(this.romBuffer[offset++] >> 1),
+                (byte)(this.romBuffer[offset++] >> 1),
+                (byte)(this.romBuffer[offset++] >> 1),
+                (byte)(this.romBuffer[offset] >> 1)
+            };
+
+            return data;
+        }
+
+        /// <summary>
+        /// Guesses the object palette indexes from the theme id (and track index for Donut Plains 1).
+        /// </summary>
+        private static byte[] GetObjectPaletteIndexes(int themeId, int trackIndex)
+        {
+            byte[] paletteIndexes = new byte[4];
             
             if (trackIndex == 19) // Donut Plains 1
             {
                 // This track is an exception
-                paletteIndex = 13;
+                paletteIndexes[0] = 5;
             }
             else
             {
@@ -897,24 +923,35 @@ namespace EpicEdit.Rom
                     case 1: // Mario Circuit
                     case 2: // Donut Plains
                     case 4: // Vanilla Lake
-                        paletteIndex = 15;
+                        paletteIndexes[0] = 7;
                         break;
 
                     case 3: // Choco Island
                     case 5: // Koopa Beach
-                        paletteIndex = 14;
+                        paletteIndexes[0] = 6;
                         break;
 
                     case 6: // Bowser Castle
+                        paletteIndexes[0] = 4;
+                        break;
+
                     case 7: // Rainbow Road
-                        paletteIndex = 12;
+                        paletteIndexes[0] = 1;
+                        paletteIndexes[1] = 7;
+                        paletteIndexes[2] = 4;
+                        paletteIndexes[3] = 7;
                         break;
 
                     default: throw new InvalidDataException();
                 }
             }
             
-            return paletteIndex;
+            return paletteIndexes;
+        }
+        
+        private bool GetObjectFlashing(int trackIndex)
+        {
+            return false;
         }
 
         #endregion Objects
@@ -1361,6 +1398,8 @@ namespace EpicEdit.Rom
                 - Make it possible to change the object type of each track (regular or GV pillar)
                 - Remove Donut Plains pipe / mole hacks with something cleaner and reusable
                 - Make it possible to mix the properties of each object (tileset, interaction, routine)
+                - Make it possible to define the object palette used for each track
+                - Make it possible to add Rainbow Road Thwomp-like flashing (palette cycler) for each track
             */
 
             this.RelocateObjectData();
@@ -1370,6 +1409,14 @@ namespace EpicEdit.Rom
             Game.AddObjectCodeChunk2(saveBuffer); // From 0x802DF to 0x80327
             this.SavePillars(saveBuffer); // From 0x80328 to 0x85D27
             Game.AddObjectCodeChunk3(saveBuffer, region); // From 0x85D28 to 0x85D3A
+
+            if (this.region != Region.US) // TODO: Support other regions
+            {
+                return;
+            }
+
+            this.SaveObjectPalettes(saveBuffer); // From 0x85D3B to 0x85DB2
+            Game.AddObjectPaletteCodeChunk(saveBuffer); // From 0x85DB3 to 0x85EF3
         }
 
         private void RelocateObjectData()
@@ -1390,6 +1437,13 @@ namespace EpicEdit.Rom
                 GV checkpoint table: c80328
                 GV position data: c80d28
                 E ptr: c85d28
+                palettes: c85d3b
+                palette cycle flags: c85d9b
+                pw1: c85db3
+                pw2: c85e14
+                pw3: c85e40
+                co: c85e7b
+                getcp: c85ec8
             */
 
             int offset = this.offsets[Offset.TrackObjectHack1];
@@ -1425,6 +1479,33 @@ namespace EpicEdit.Rom
             this.romBuffer[this.offsets[Offset.TrackObjectHack6]] = 0xB7;
             this.romBuffer[this.offsets[Offset.TrackObjectHack7]] = 0xB7;
             this.romBuffer[this.offsets[Offset.TrackObjectHack8]] = 0xB7;
+
+            if (this.region != Region.US) // TODO: Support other regions
+            {
+                return;
+            }
+
+            // Object palette changes:
+
+            offset = 0xBD0E; // TODO: Define in Offsets.cs
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0xB3;
+            this.romBuffer[offset++] = 0x5D;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0xBD1C; // TODO: Define in Offsets.cs
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x40;
+            this.romBuffer[offset++] = 0x5E;
+            this.romBuffer[offset] = 0xC8;
+
+            offset = 0xBD86; // TODO: Define in Offsets.cs
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x14;
+            this.romBuffer[offset++] = 0x5E;
+            this.romBuffer[offset] = 0xC8;
+
+            this.romBuffer[0xE4D6] = 0x80; // TODO: Define in Offsets.cs
         }
 
         private void SaveObjectProperties(SaveBuffer saveBuffer)
@@ -1688,6 +1769,85 @@ namespace EpicEdit.Rom
                 0xDA, 0xAE, 0x24, 0x01, 0xE2, 0x20, 0xBF, 0x7A,
                 0x00, 0xC8, 0xFA, 0xC9, 0x06, 0xC2, 0x20, 0x5C,
                 val, 0x9E, 0x81
+            };
+
+            saveBuffer.Add(hack);
+        }
+
+        private void SaveObjectPalettes(SaveBuffer saveBuffer)
+        {
+            byte[] trackOrder = this.GetTrackOrder();
+            byte[] objectPalData = new byte[Track.Count * 5];
+            int flashingOffset = Track.Count * 4;
+
+            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            {
+                Track[] tracks = this.trackGroups[i].GetTracks();
+
+                for (int j = 0; j < tracks.Length; j++)
+                {
+                    int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
+                    int offset = trackIndex * 4;
+                    GPTrack gpTrack = tracks[j] as GPTrack;
+
+                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[0] << 1);
+                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[1] << 1);
+                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[2] << 1);
+                    objectPalData[offset] = (byte)(gpTrack.ObjectPaletteIndexes[3] << 1);
+
+                    objectPalData[flashingOffset + trackIndex] =
+                        gpTrack.ObjectFlashing ? (byte)1 : (byte)0;
+                }
+            }
+
+            saveBuffer.Add(objectPalData);
+        }
+
+        private static void AddObjectPaletteCodeChunk(SaveBuffer saveBuffer)
+        {
+            byte[] hack =
+            {
+                0x20, 0x7B, 0x5E, 0xD0, 0x3C, 0xD4, 0x00, 0x20,
+                0xC8, 0x5E, 0xB9, 0x06, 0x00, 0x45, 0x1A, 0x29,
+                0xFF, 0xF1, 0x05, 0x00, 0x95, 0x0E, 0xB9, 0x04,
+                0x00, 0x45, 0x1A, 0x29, 0xFF, 0xF1, 0x05, 0x00,
+                0x95, 0x0A, 0xB9, 0x02, 0x00, 0x45, 0x1A, 0x29,
+                0xFF, 0xF1, 0x05, 0x00, 0x95, 0x06, 0xB9, 0x00,
+                0x00, 0x45, 0x1A, 0x29, 0xFF, 0xF1, 0x05, 0x00,
+                0x95, 0x02, 0x68, 0x85, 0x00, 0x5C, 0x2A, 0xBD,
+                0x80, 0xB9, 0x06, 0x00, 0x45, 0x1A, 0x95, 0x0E,
+                0xB9, 0x04, 0x00, 0x45, 0x1A, 0x95, 0x0A, 0xB9,
+                0x02, 0x00, 0x45, 0x1A, 0x95, 0x06, 0xB9, 0x00,
+                0x00, 0x45, 0x1A, 0x95, 0x02, 0x5C, 0x2A, 0xBD,
+                0x80, 0x20, 0x7B, 0x5E, 0xD0, 0x1A, 0xD4, 0x00,
+                0x20, 0xC8, 0x5E, 0xBD, 0x02, 0x00, 0xA6, 0x3C,
+                0x45, 0x1A, 0x29, 0xFF, 0xF1, 0x05, 0x00, 0x95,
+                0x02, 0x68, 0x85, 0x00, 0x5C, 0x8F, 0xBD, 0x80,
+                0xBD, 0x02, 0x00, 0xA6, 0x3C, 0x45, 0x1A, 0x95,
+                0x02, 0x5C, 0x8F, 0xBD, 0x80, 0x20, 0x7B, 0x5E,
+                0xD0, 0x24, 0xD4, 0x00, 0x20, 0xC8, 0x5E, 0xB9,
+                0x02, 0x00, 0x45, 0x1A, 0x29, 0xFF, 0xF1, 0x05,
+                0x00, 0x95, 0x06, 0xB9, 0x00, 0x00, 0x45, 0x1A,
+                0x29, 0xFF, 0xF1, 0x05, 0x00, 0x95, 0x02, 0x68,
+                0x85, 0x00, 0x5C, 0x2A, 0xBD, 0x80, 0xB9, 0x02,
+                0x00, 0x45, 0x1A, 0x95, 0x06, 0xB9, 0x00, 0x00,
+                0x45, 0x1A, 0x95, 0x02, 0x5C, 0x2A, 0xBD, 0x80,
+                0xDA, 0xA6, 0xB4, 0xB5, 0x04, 0xAE, 0x24, 0x01,
+                0x48, 0xBF, 0x92, 0x00, 0xC8, 0x29, 0xFF, 0x00,
+                0x0A, 0xAA, 0x68, 0xDF, 0xAC, 0x5E, 0xC8, 0xF0,
+                0x11, 0xDF, 0xBA, 0x5E, 0xC8, 0xF0, 0x0B, 0xC0,
+                0x4E, 0xE4, 0xF0, 0x06, 0xFA, 0x18, 0xA9, 0x01,
+                0x00, 0x60, 0x18, 0xFA, 0x18, 0xA9, 0x00, 0x00,
+                0x60, 0xE7, 0xE4, 0xFE, 0xE6, 0x8B, 0xE1, 0x6B,
+                0xE3, 0x6E, 0xE0, 0x7E, 0xDF, 0x44, 0xE1, 0xF7,
+                0xE4, 0x08, 0xE7, 0x9D, 0xE1, 0x7B, 0xE3, 0x7A,
+                0xE0, 0x8E, 0xDF, 0x56, 0xE1, 0xDA, 0xAE, 0x24,
+                0x01, 0xE2, 0x20, 0xBF, 0x9B, 0x5D, 0xC8, 0xF0,
+                0x0E, 0x8A, 0x0A, 0x0A, 0x85, 0x00, 0xA5, 0x38,
+                0x29, 0x03, 0x18, 0x65, 0x00, 0x80, 0x03, 0x8A,
+                0x0A, 0x0A, 0xAA, 0xBF, 0x3B, 0x5D, 0xC8, 0xC2,
+                0x20, 0x29, 0xFF, 0x00, 0xEB, 0x85, 0x00, 0xFA,
+                0x60
             };
 
             saveBuffer.Add(hack);
