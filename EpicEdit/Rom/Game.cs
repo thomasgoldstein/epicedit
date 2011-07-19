@@ -951,7 +951,8 @@ namespace EpicEdit.Rom
         
         private bool GetObjectFlashing(int trackIndex)
         {
-            return false;
+            int offset = 0x85D3B + Track.Count * 4 + trackIndex; // TODO: Define in Offsets.cs
+            return this.romBuffer[offset] != 0;
         }
 
         #endregion Objects

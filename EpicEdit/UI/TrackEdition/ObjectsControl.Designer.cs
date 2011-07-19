@@ -47,7 +47,12 @@ namespace EpicEdit.UI.TrackEdition
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
-            this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palette4NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palette3NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palette2NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palettesLabel = new System.Windows.Forms.Label();
+            this.flashingCheckBox = new System.Windows.Forms.CheckBox();
+            this.palette1NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.paletteLabel = new System.Windows.Forms.Label();
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.routineLabel = new System.Windows.Forms.Label();
@@ -57,7 +62,10 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetLabel = new System.Windows.Forms.Label();
             this.zoneGroupBox = new System.Windows.Forms.GroupBox();
             this.propertiesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette4NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette3NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette2NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).BeginInit();
             this.zoneGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,7 +118,12 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // propertiesGroupBox
             // 
-            this.propertiesGroupBox.Controls.Add(this.paletteNumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.palette4NumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.palette3NumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.palette2NumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.palettesLabel);
+            this.propertiesGroupBox.Controls.Add(this.flashingCheckBox);
+            this.propertiesGroupBox.Controls.Add(this.palette1NumericUpDown);
             this.propertiesGroupBox.Controls.Add(this.paletteLabel);
             this.propertiesGroupBox.Controls.Add(this.routineComboBox);
             this.propertiesGroupBox.Controls.Add(this.routineLabel);
@@ -120,28 +133,111 @@ namespace EpicEdit.UI.TrackEdition
             this.propertiesGroupBox.Controls.Add(this.tilesetLabel);
             this.propertiesGroupBox.Location = new System.Drawing.Point(2, 4);
             this.propertiesGroupBox.Name = "propertiesGroupBox";
-            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 198);
+            this.propertiesGroupBox.Size = new System.Drawing.Size(124, 293);
             this.propertiesGroupBox.TabIndex = 8;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Object Properties";
             // 
-            // paletteNumericUpDown
+            // palette4NumericUpDown
             // 
-            this.paletteNumericUpDown.Location = new System.Drawing.Point(77, 166);
-            this.paletteNumericUpDown.Maximum = new decimal(new int[] {
+            this.palette4NumericUpDown.Location = new System.Drawing.Point(77, 257);
+            this.palette4NumericUpDown.Maximum = new decimal(new int[] {
                                     8,
                                     0,
                                     0,
                                     0});
-            this.paletteNumericUpDown.Minimum = new decimal(new int[] {
+            this.palette4NumericUpDown.Minimum = new decimal(new int[] {
                                     1,
                                     0,
                                     0,
                                     0});
-            this.paletteNumericUpDown.Name = "paletteNumericUpDown";
-            this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
-            this.paletteNumericUpDown.TabIndex = 7;
-            this.paletteNumericUpDown.Value = new decimal(new int[] {
+            this.palette4NumericUpDown.Name = "palette4NumericUpDown";
+            this.palette4NumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.palette4NumericUpDown.TabIndex = 12;
+            this.palette4NumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            // 
+            // palette3NumericUpDown
+            // 
+            this.palette3NumericUpDown.Location = new System.Drawing.Point(77, 237);
+            this.palette3NumericUpDown.Maximum = new decimal(new int[] {
+                                    8,
+                                    0,
+                                    0,
+                                    0});
+            this.palette3NumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.palette3NumericUpDown.Name = "palette3NumericUpDown";
+            this.palette3NumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.palette3NumericUpDown.TabIndex = 11;
+            this.palette3NumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            // 
+            // palette2NumericUpDown
+            // 
+            this.palette2NumericUpDown.Location = new System.Drawing.Point(77, 217);
+            this.palette2NumericUpDown.Maximum = new decimal(new int[] {
+                                    8,
+                                    0,
+                                    0,
+                                    0});
+            this.palette2NumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.palette2NumericUpDown.Name = "palette2NumericUpDown";
+            this.palette2NumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.palette2NumericUpDown.TabIndex = 10;
+            this.palette2NumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            // 
+            // palettesLabel
+            // 
+            this.palettesLabel.Location = new System.Drawing.Point(10, 227);
+            this.palettesLabel.Name = "palettesLabel";
+            this.palettesLabel.Size = new System.Drawing.Size(61, 30);
+            this.palettesLabel.TabIndex = 9;
+            this.palettesLabel.Text = "Flashing palettes";
+            // 
+            // flashingCheckBox
+            // 
+            this.flashingCheckBox.Location = new System.Drawing.Point(10, 192);
+            this.flashingCheckBox.Name = "flashingCheckBox";
+            this.flashingCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.flashingCheckBox.TabIndex = 8;
+            this.flashingCheckBox.Text = "Enable flashing";
+            this.flashingCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // palette1NumericUpDown
+            // 
+            this.palette1NumericUpDown.Location = new System.Drawing.Point(77, 166);
+            this.palette1NumericUpDown.Maximum = new decimal(new int[] {
+                                    8,
+                                    0,
+                                    0,
+                                    0});
+            this.palette1NumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.palette1NumericUpDown.Name = "palette1NumericUpDown";
+            this.palette1NumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.palette1NumericUpDown.TabIndex = 7;
+            this.palette1NumericUpDown.Value = new decimal(new int[] {
                                     1,
                                     0,
                                     0,
@@ -212,7 +308,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.Controls.Add(this.rearZonesRadioButton);
             this.zoneGroupBox.Controls.Add(this.rearObjectZonesControl);
             this.zoneGroupBox.Controls.Add(this.frontObjectZonesControl);
-            this.zoneGroupBox.Location = new System.Drawing.Point(2, 208);
+            this.zoneGroupBox.Location = new System.Drawing.Point(2, 303);
             this.zoneGroupBox.Name = "zoneGroupBox";
             this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
             this.zoneGroupBox.TabIndex = 9;
@@ -224,13 +320,21 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.zoneGroupBox);
             this.Controls.Add(this.propertiesGroupBox);
             this.Name = "ObjectsControl";
-            this.Size = new System.Drawing.Size(130, 450);
+            this.Size = new System.Drawing.Size(130, 550);
             this.propertiesGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette4NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette3NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette2NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).EndInit();
             this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
-        private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
+        private System.Windows.Forms.NumericUpDown palette1NumericUpDown;
+        private System.Windows.Forms.NumericUpDown palette4NumericUpDown;
+        private System.Windows.Forms.NumericUpDown palette3NumericUpDown;
+        private System.Windows.Forms.NumericUpDown palette2NumericUpDown;
+        private System.Windows.Forms.Label palettesLabel;
+        private System.Windows.Forms.CheckBox flashingCheckBox;
         private System.Windows.Forms.Label paletteLabel;
         private System.Windows.Forms.GroupBox zoneGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
