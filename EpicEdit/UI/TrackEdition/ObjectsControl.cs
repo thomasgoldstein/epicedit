@@ -36,6 +36,11 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ViewChanged;
 
+        /// <summary>
+        /// Used to get the index of the paletteNumericUpDown control.
+        /// </summary>
+        private Control[] palettePickers;
+
         public ObjectsControl()
         {
             this.InitializeComponent();
@@ -43,6 +48,14 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
             this.interactComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
             this.routineComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
+
+            this.palettePickers = new Control[]
+            {
+                this.palette1NumericUpDown,
+                this.palette2NumericUpDown,
+                this.palette3NumericUpDown,
+                this.palette4NumericUpDown
+            };
         }
 
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
@@ -60,19 +73,32 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
-                this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+                this.palette1NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+                this.palette2NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+                this.palette3NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+                this.palette4NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+                this.flashingCheckBox.CheckedChanged -= this.FlashingCheckBoxCheckedChanged;
 
                 this.tilesetComboBox.SelectedItem = value.ObjectTileset;
                 this.interactComboBox.SelectedItem = value.ObjectInteraction;
                 this.routineComboBox.SelectedItem = value.ObjectRoutine;
-                this.paletteNumericUpDown.Value = value.ObjectPaletteIndexes[0] + 1;
+                this.palette1NumericUpDown.Value = value.ObjectPaletteIndexes[0] + 1;
+                this.palette2NumericUpDown.Value = value.ObjectPaletteIndexes[1] + 1;
+                this.palette3NumericUpDown.Value = value.ObjectPaletteIndexes[2] + 1;
+                this.palette4NumericUpDown.Value = value.ObjectPaletteIndexes[3] + 1;
+                this.flashingCheckBox.Checked = value.ObjectFlashing;
 
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
                 this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
                 this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
-                this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+                this.palette1NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+                this.palette2NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+                this.palette3NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+                this.palette4NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+                this.flashingCheckBox.CheckedChanged += this.FlashingCheckBoxCheckedChanged;
 
                 this.ToggleZoneGroupBox();
+                this.ToggleAlternatePalettes();
             }
         }
         
@@ -131,8 +157,43 @@ namespace EpicEdit.UI.TrackEdition
         
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            this.Track.ObjectPaletteIndexes[0] = (byte)(this.paletteNumericUpDown.Value - 1);
-            this.DataChanged(this, EventArgs.Empty);
+            NumericUpDown control = sender as NumericUpDown;
+
+            int index;
+            for (index = 0; index < this.palettePickers.Length; index++)
+            {
+                if (control == palettePickers[index])
+                {
+                    break;
+                }
+            }
+
+            this.Track.ObjectPaletteIndexes[index] = (byte)(control.Value - 1);
+
+            if (index == 0)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
+            else
+            {
+                // No visible change
+                this.DataChangedNoRepaint(this, EventArgs.Empty);
+            }
+        }
+        
+        private void FlashingCheckBoxCheckedChanged(object sender, EventArgs e)
+        {
+            this.Track.ObjectFlashing = this.flashingCheckBox.Checked;
+            this.ToggleAlternatePalettes();
+        }
+
+        private void ToggleAlternatePalettes()
+        {
+            bool enable = this.Track.ObjectFlashing;
+            this.palettesLabel.Enabled = enable;
+            this.palette2NumericUpDown.Enabled = enable;
+            this.palette3NumericUpDown.Enabled = enable;
+            this.palette4NumericUpDown.Enabled = enable;
         }
     }
 }
