@@ -38,7 +38,7 @@ namespace EpicEditTests.Rom.Tracks
             track2.Import("track.smkc", this.game);
 
             Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
-            Assert.AreEqual(game.Themes.GetThemeId(track1.Theme), game.Themes.GetThemeId(track2.Theme));
+            Assert.AreEqual(track1.Theme, track2.Theme);
             Assert.AreEqual(track1.OverlayTiles.GetBytes(), track2.OverlayTiles.GetBytes());
             Assert.AreEqual(track1.StartPosition.GetBytes(), track2.StartPosition.GetBytes());
             Assert.AreEqual(track1.LapLine.GetBytes(), track2.LapLine.GetBytes());
