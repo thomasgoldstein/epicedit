@@ -48,6 +48,8 @@ namespace EpicEditTests.Rom.Tracks
             Assert.AreEqual(track1.ObjectTileset, track2.ObjectTileset);
             Assert.AreEqual(track1.ObjectInteraction, track2.ObjectInteraction);
             Assert.AreEqual(track1.ObjectRoutine, track2.ObjectRoutine);
+            Assert.AreEqual(track1.ObjectPaletteIndexes, track2.ObjectPaletteIndexes);
+            Assert.AreEqual(track1.ObjectFlashing, track2.ObjectFlashing);
         }
 
         [Test]
