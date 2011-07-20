@@ -213,6 +213,30 @@ namespace EpicEdit.Rom
             }
         }
 
+        public byte[] ObjectPaletteIndexes
+        {
+            get
+            {
+                return this.EE_OBJPALETTES;
+            }
+            set
+            {
+                this.EE_OBJPALETTES = value;
+            }
+        }
+
+        public bool ObjectFlashing
+        {
+            get
+            {
+                return this.EE_OBJFLASHING[1] != 0;
+            }
+            set
+            {
+                this.EE_OBJFLASHING[1] = value ? (byte)1 : (byte)0;
+            }
+        }
+
         public TrackAI AI
         {
             get
@@ -329,6 +353,16 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJROUTINE;
 
+        /// <summary>
+        /// Object Palettes.
+        /// </summary>
+        private byte[] EE_OBJPALETTES;
+
+        /// <summary>
+        /// Object Flashing.
+        /// </summary>
+        private byte[] EE_OBJFLASHING;
+
         public MakeTrack(Track track, Game game)
         {
             this.track = track;
@@ -379,6 +413,8 @@ namespace EpicEdit.Rom
             this.EE_OBJTILESET = new byte[2];
             this.EE_OBJINTERACT = new byte[2];
             this.EE_OBJROUTINE = new byte[2];
+            this.EE_OBJPALETTES = new byte[4];
+            this.EE_OBJFLASHING = new byte[2];
         }
 
         /// <summary>
@@ -540,6 +576,14 @@ namespace EpicEdit.Rom
                     {
                         MakeTrack.LoadLineData(this.EE_OBJROUTINE, line);
                     }
+                    else if (line.StartsWith("#EE_OBJPALETTES ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_OBJPALETTES, line);
+                    }
+                    else if (line.StartsWith("#EE_OBJFLASHING ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_OBJFLASHING, line);
+                    }
 
                     line = reader.ReadLine();
                 }
@@ -643,6 +687,8 @@ namespace EpicEdit.Rom
             sb.AppendLine("#EE_OBJTILESET " + Utilities.BytesToHexString(this.EE_OBJTILESET));
             sb.AppendLine("#EE_OBJINTERACT " + Utilities.BytesToHexString(this.EE_OBJINTERACT));
             sb.AppendLine("#EE_OBJROUTINE " + Utilities.BytesToHexString(this.EE_OBJROUTINE));
+            sb.AppendLine("#EE_OBJPALETTES " + Utilities.BytesToHexString(this.EE_OBJPALETTES));
+            sb.AppendLine("#EE_OBJFLASHING " + Utilities.BytesToHexString(this.EE_OBJFLASHING));
 
             File.WriteAllText(filePath, sb.ToString());
         }
