@@ -127,6 +127,11 @@ namespace EpicEdit.Rom.Tracks
             this.ObjectTileset = track.ObjectTileset;
             this.ObjectInteraction = track.ObjectInteraction;
             this.ObjectRoutine = track.ObjectRoutine;
+            this.ObjectPaletteIndexes[0] = track.ObjectPaletteIndexes[0];
+            this.ObjectPaletteIndexes[1] = track.ObjectPaletteIndexes[1];
+            this.ObjectPaletteIndexes[2] = track.ObjectPaletteIndexes[2];
+            this.ObjectPaletteIndexes[3] = track.ObjectPaletteIndexes[3];
+            this.ObjectFlashing = track.ObjectFlashing;
         }
 
         /// <summary>
@@ -143,6 +148,11 @@ namespace EpicEdit.Rom.Tracks
             track.ObjectTileset = this.ObjectTileset;
             track.ObjectInteraction = this.ObjectInteraction;
             track.ObjectRoutine = this.ObjectRoutine;
+            track.ObjectPaletteIndexes[0] = this.ObjectPaletteIndexes[0];
+            track.ObjectPaletteIndexes[1] = this.ObjectPaletteIndexes[1];
+            track.ObjectPaletteIndexes[2] = this.ObjectPaletteIndexes[2];
+            track.ObjectPaletteIndexes[3] = this.ObjectPaletteIndexes[3];
+            track.ObjectFlashing = this.ObjectFlashing;
         }
     }
 }
