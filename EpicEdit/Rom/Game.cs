@@ -951,7 +951,7 @@ namespace EpicEdit.Rom
         
         private bool GetObjectFlashing(int trackIndex)
         {
-            int offset = this.offsets[Offset.TrackObjectFlashing];
+            int offset = this.offsets[Offset.TrackObjectFlashing] + trackIndex;
             return this.romBuffer[offset] != 0;
         }
 
