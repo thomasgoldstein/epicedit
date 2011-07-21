@@ -235,6 +235,40 @@ namespace EpicEdit.Rom
         /// Track object zones (new offset, after relocation by the editor).
         /// </summary>
         TrackObjectZonesRelocated,
+
+        /// <summary>
+        /// Offset for hack to make it possible to define the
+        /// track object color palette and flashing settings for each track.
+        /// </summary>
+        TrackObjectPalHack1,
+
+        /// <summary>
+        /// Offset for hack to make it possible to define the
+        /// track object color palette and flashing settings for each track.
+        /// </summary>
+        TrackObjectPalHack2,
+
+        /// <summary>
+        /// Offset for hack to make it possible to define the
+        /// track object color palette and flashing settings for each track.
+        /// </summary>
+        TrackObjectPalHack3,
+
+        /// <summary>
+        /// Offset for hack to make it possible to define the
+        /// track object color palette and flashing settings for each track.
+        /// </summary>
+        TrackObjectPalHack4,
+
+        /// <summary>
+        /// The object color palette indexes.
+        /// </summary>
+        TrackObjectPaletteIndexes,
+
+        /// <summary>
+        /// The object color flashing setting.
+        /// </summary>
+        TrackObjectFlashing
     }
 
     public class Offsets
@@ -265,6 +299,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack2] = 0x19155;
                     this[Offset.TrackObjectHack3] = 0x19E8E;
                     this[Offset.TrackObjectHack4] = 0x1E996;
+                    this[Offset.TrackObjectPalHack1] = 0xBD33;
                     break;
 
                 case Region.US:
@@ -282,6 +317,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack2] = 0x19141;
                     this[Offset.TrackObjectHack3] = 0x19E2B;
                     this[Offset.TrackObjectHack4] = 0x1E992;
+                    this[Offset.TrackObjectPalHack1] = 0xBD0E;
                     //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
@@ -300,6 +336,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack2] = 0x1915A;
                     this[Offset.TrackObjectHack3] = 0x19E68;
                     this[Offset.TrackObjectHack4] = 0x1E981;
+                    this[Offset.TrackObjectPalHack1] = 0xBD33;
                     break;
             }
 
@@ -317,6 +354,8 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectHack8] = 0x4DCC2;
             this[Offset.TrackObjectProperties] = 0x80062;
             this[Offset.TrackObjectZonesRelocated] = 0x80216;
+            this[Offset.TrackObjectPaletteIndexes] = 0x85D3B;
+            this[Offset.TrackObjectFlashing] = this[Offset.TrackObjectPaletteIndexes] + Track.Count * 4;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
@@ -334,6 +373,10 @@ namespace EpicEdit.Rom
             this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Theme.Count * 3;
             this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Theme.Count * 3;
             this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + GPTrack.Count;
+
+            this[Offset.TrackObjectPalHack2] = this[Offset.TrackObjectPalHack1] + 0x0E;
+            this[Offset.TrackObjectPalHack3] = this[Offset.TrackObjectPalHack2] + 0x6A;
+            this[Offset.TrackObjectPalHack4] = this[Offset.TrackObjectPalHack3] + 0x2750;
         }
 
         public int this[Offset offset]
