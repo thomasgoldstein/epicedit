@@ -726,6 +726,9 @@ namespace EpicEdit.UI.Gfx
             }
             else if (selectionRectangle != Rectangle.Empty) // The user is simply hovering tiles
             {
+                g.DrawImage(this.tileClipboardCache, selectionRectangle,
+                            0, 0, selectionRectangle.Width, selectionRectangle.Height,
+                            GraphicsUnit.Pixel, this.translucidImageAttr);
                 g.DrawRectangle(this.tileHighlightPen, selectionRectangle);
             }
         }
