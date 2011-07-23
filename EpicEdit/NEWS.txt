@@ -3,9 +3,9 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.2 (???)
+v2.2 (July 23rd 2011)
 
-- Added support for editing object properties, thanks to a hack by SMK Dan
+- Added support for editing object properties, thanks to hacks by SMK Dan
   (and extended the .smkc format to include this data)
 - Made the object zones of Koopa Beach 1 editable
   (KB1 and KB2 used to share the same zones)
