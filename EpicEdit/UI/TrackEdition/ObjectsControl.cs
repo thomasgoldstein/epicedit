@@ -153,7 +153,6 @@ namespace EpicEdit.UI.TrackEdition
         private void ToggleZoneGroupBox()
         {
             this.zoneGroupBox.Enabled = this.Track.ObjectRoutine != ObjectType.Pillar;
-            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
         
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
@@ -186,6 +185,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.Track.ObjectFlashing = this.flashingCheckBox.Checked;
             this.ToggleAlternatePalettes();
+            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
 
         private void ToggleAlternatePalettes()
