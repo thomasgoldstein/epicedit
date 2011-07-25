@@ -29,21 +29,13 @@ namespace EpicEditTests.Rom.Tracks
         public ThemeTest()
         {
             this.count = 64;
-            this.theme = new Theme("Stifu's & Midwife theme", new Palette[16], new Tile[this.count], new Tile[this.count], new Music());
+            this.theme = new Theme("Stifu's & Midwife theme", new Palette[16], new Tile[this.count], new Tile[this.count]);
         }
 
         [Test]
         public void TestName()
         {
             Assert.AreEqual("Stifu's & Midwife theme", this.theme.Name);
-        }
-
-        [Test]
-        public void TestMusic()
-        {
-            Music music = new Music();
-            this.theme.Music = music;
-            Assert.AreEqual(music, this.theme.Music);
         }
 
         [Test]

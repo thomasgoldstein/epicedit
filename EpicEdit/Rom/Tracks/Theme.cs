@@ -28,17 +28,15 @@ namespace EpicEdit.Rom.Tracks
 
         public string Name { get; private set; }
         public Palette[] Palettes { get; private set; }
-        public Music Music { get; set; }
         private Tile[] roadTileset;
         private Tile[] backgroundTileset;
 
-        public Theme(string name, Palette[] palettes, Tile[] roadTileset, Tile[] backgroundTileset, Music music)
+        public Theme(string name, Palette[] palettes, Tile[] roadTileset, Tile[] backgroundTileset)
         {
             this.Name = name;
             this.Palettes = palettes;
             this.roadTileset = roadTileset;
             this.backgroundTileset = backgroundTileset;
-            this.Music = music;
         }
 
         public void SetRoadTileset(Tile[] tiles)

@@ -118,7 +118,6 @@
     <Compile Include="Rom\Tracks\BattleTrack.cs" />
     <Compile Include="Rom\Tracks\GPTrack.cs" />
     <Compile Include="Rom\Tracks\MakeTrack.cs" />
-    <Compile Include="Rom\Tracks\Music.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTypes.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
