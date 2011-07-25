@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+#if DEBUG
 using System;
 using System.Collections.Generic;
 
@@ -114,3 +115,4 @@ namespace EpicEdit.Rom.Compression
         }
     }
 }
+#endif

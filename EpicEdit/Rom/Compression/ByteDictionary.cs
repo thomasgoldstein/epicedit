@@ -89,6 +89,7 @@ namespace EpicEdit.Rom.Compression
             return maxBackRange;
         }
 
+        #if DEBUG
         public Range[] GetMaxBackRanges(int offset)
         {
             Range[] maxRanges = new Range[4];
@@ -172,5 +173,6 @@ namespace EpicEdit.Rom.Compression
 
             return maxRanges;
         }
+        #endif
     }
 }
