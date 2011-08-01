@@ -1,4 +1,4 @@
-Epic Edit v2.1
+Epic Edit
 Super Mario Kart track editor
 
 Copyright 2007, 2011 Thomas "Stifu" Goldstein and Sébastien "Midwife" Clerc
