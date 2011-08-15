@@ -50,7 +50,7 @@ namespace EpicEdit.Rom.Tracks
         }
 
         /// <summary>
-        /// Get the tile value at the given coordinate.
+        /// Gets the tile value at the given coordinate.
         /// </summary>
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
@@ -61,7 +61,7 @@ namespace EpicEdit.Rom.Tracks
         }
 
         /// <summary>
-        /// Get the tile value at the given coordinate.
+        /// Gets the tile value at the given coordinate.
         /// </summary>
         /// <param name="position">Position.</param>
         /// <returns>Tile value.</returns>
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom.Tracks
         }
 
         /// <summary>
-        /// Set the tile value at the given coordinate.
+        /// Sets the tile value at the given coordinate.
         /// </summary>
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
@@ -82,7 +82,7 @@ namespace EpicEdit.Rom.Tracks
         }
 
         /// <summary>
-        /// Set the tile value at the given coordinate.
+        /// Sets the tile value at the given coordinate.
         /// </summary>
         /// <param name="position">Position.</param>
         /// <param name="tile">Tile value.</param>
@@ -92,7 +92,7 @@ namespace EpicEdit.Rom.Tracks
         }
 
         /// <summary>
-        /// Set the value of a group of tiles.
+        /// Sets the value of a group of tiles.
         /// </summary>
         /// <param name="startingPosition">Top-left position of <paramref name="affectedSurface"/> and <paramref name="rectangleSize"/>.</param>
         /// <param name="affectedSurface">The area to be modified.</param>
