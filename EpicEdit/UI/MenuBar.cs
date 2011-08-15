@@ -142,7 +142,7 @@ namespace EpicEdit.UI
             if (this.fullScreenToolStripButton.ToolTipText.Equals("Full Screen", StringComparison.OrdinalIgnoreCase))
             {
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image2")));
+                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton2.Image")));
             }
             else
             {
