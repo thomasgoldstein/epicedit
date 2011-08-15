@@ -188,10 +188,9 @@ namespace EpicEdit.UI
             }
             else
             {
-                Game newSmkGame = new Game(filePath);
                 MainForm.SmkGame.Dispose();
                 MainForm.SmkGame = null;
-                MainForm.SmkGame = newSmkGame;
+                MainForm.SmkGame = new Game(filePath);
                 this.trackEditor.InitOnRomLoad();
                 this.themeEditor.InitOnRomLoad();
             }
