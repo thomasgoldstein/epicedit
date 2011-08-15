@@ -201,7 +201,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The current action the user is doing (or about to do) on the start data.
         /// </summary>
-        private EpicEdit.UI.TrackEdition.TrackEditor.StartAction startAction;
+        private StartAction startAction;
 
         /// <summary>
         /// The hovered track object.
@@ -216,7 +216,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The current action the user is doing (or about to do) on the AI.
         /// </summary>
-        private EpicEdit.UI.TrackEdition.TrackEditor.AIAction aiAction;
+        private AIAction aiAction;
         #endregion Private members
 
         [Browsable(true)]
