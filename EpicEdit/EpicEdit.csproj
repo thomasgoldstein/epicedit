@@ -176,6 +176,9 @@
     </Compile>
     <Compile Include="UI\Tools\EventArgs.cs" />
     <Compile Include="UI\Tools\UITools.cs" />
+    <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
+    <Compile Include="UI\Tools\UndoRedo\TileChanges.cs" />
+    <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />
     <Compile Include="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -226,6 +229,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -284,5 +288,8 @@
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Tools\UndoRedo" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,8 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
+using EpicEdit.UI.Tools.UndoRedo;
+
 namespace EpicEdit.UI
 {
     /// <summary>
@@ -37,6 +39,12 @@ namespace EpicEdit.UI
 
         [Browsable(true)]
         public event EventHandler<EventArgs> TrackExportDialogRequested;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> UndoRequested;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> RedoRequested;
 
         [Browsable(true)]
         public event EventHandler<EventArgs> ZoomInRequested;
@@ -103,6 +111,67 @@ namespace EpicEdit.UI
             this.TrackExportDialogRequested(this, EventArgs.Empty);
         }
         #endregion Import / Export track
+
+        #region Undo / Redo
+        public void EnableUndo()
+        {
+            this.undoToolStripButton.Enabled = true;
+        }
+
+        public void DisableUndoRedo()
+        {
+            this.undoToolStripButton.Enabled = false;
+            this.redoToolStripButton.Enabled = false;
+        }
+
+        private void Undo()
+        {
+            this.UndoRequested(this, EventArgs.Empty);
+        }
+
+        private void Redo()
+        {
+            this.RedoRequested(this, EventArgs.Empty);
+        }
+
+        private void TryToUndo()
+        {
+            if (this.undoToolStripButton.Enabled)
+            {
+                this.Undo();
+            }
+        }
+
+        private void TryToRedo()
+        {
+            if (this.redoToolStripButton.Enabled)
+            {
+                this.Redo();
+            }
+        }
+
+        private void UndoToolStripButtonClick(object sender, EventArgs e)
+        {
+            this.Undo();
+        }
+
+        private void RedoToolStripButtonClick(object sender, EventArgs e)
+        {
+            this.Redo();
+        }
+
+        public bool UndoEnabled
+        {
+            get { return this.undoToolStripButton.Enabled; }
+            set { this.undoToolStripButton.Enabled = value; }
+        }
+
+        public bool RedoEnabled
+        {
+            get { return this.redoToolStripButton.Enabled; }
+            set { this.redoToolStripButton.Enabled = value; }
+        }
+        #endregion Undo / Redo
 
         #region Zoom in / out
         private void ZoomInToolStripButtonClick(object sender, EventArgs e)
@@ -236,6 +305,21 @@ namespace EpicEdit.UI
         {
             this.ToggleScreenModeRequested(this, e);
             this.UpdateFullScreenButton();
+        }
+
+        private void UndoToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            this.TryToUndo();
+        }
+
+        private void RedoToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            this.TryToRedo();
+        }
+
+        private void RedoToolStripMenuItem2Click(object sender, EventArgs e)
+        {
+            this.TryToRedo();
         }
         #endregion Menu shortcut keys
     }

@@ -28,6 +28,7 @@ using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
+using EpicEdit.UI.Tools.UndoRedo;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -217,6 +218,22 @@ namespace EpicEdit.UI.TrackEdition
         /// The current action the user is doing (or about to do) on the AI.
         /// </summary>
         private AIAction aiAction;
+        
+        /// <summary>
+        /// Undo/redo buffers for tile changes, for each track.
+        /// </summary>
+        private Dictionary<Track, UndoRedoBuffer> undoRedoBuffers;
+        
+        /// <summary>
+        /// Undo/redo buffer for tile changes, for the current track.
+        /// </summary>
+        private UndoRedoBuffer undoRedoBuffer
+        {
+            get
+            {
+                return this.undoRedoBuffers[this.track];
+            }
+        }
         #endregion Private members
 
         [Browsable(true)]
@@ -256,6 +273,8 @@ namespace EpicEdit.UI.TrackEdition
             this.tileClipboard.Add(this.tilesetControl.SelectedTile);
             this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 
+            this.undoRedoBuffers = new Dictionary<Track, UndoRedoBuffer>();
+
             if (VisualStyleRenderer.IsSupported)
             {
                 // Force background color to fix the look of TrackBar controls
@@ -290,6 +309,8 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Enabled = true;
             this.modeTabControl.Enabled = true;
             this.menuBar.EnableControls();
+
+            this.InitUndoRedo();
         }
 
         public void InitOnRomLoad()
@@ -297,6 +318,13 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.InitOnRomLoad();
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
+
+            foreach (var buffer in this.undoRedoBuffers.Values)
+            {
+                buffer.Clear();
+            }
+            this.undoRedoBuffers.Clear();
+            this.InitUndoRedo();
         }
 
         private void TrackEditorDragEnter(object sender, DragEventArgs e)
@@ -347,6 +375,10 @@ namespace EpicEdit.UI.TrackEdition
             try
             {
                 this.track.Import(filePath, MainForm.SmkGame);
+
+                this.undoRedoBuffer.Clear();
+                this.menuBar.DisableUndoRedo();
+
                 this.trackTreeView.MarkTrackAsChanged();
                 this.UpdateControlsOnTrackImport();
                 this.DisplayNewTrack();
@@ -434,6 +466,70 @@ namespace EpicEdit.UI.TrackEdition
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void MenuBarUndoRequested(object sender, EventArgs e)
+        {
+            TileChanges changes = this.undoRedoBuffer.GetNextUndo();
+            this.undoRedoBuffer.Undo(this.track);
+            this.menuBar.RedoEnabled = true;
+            this.EnableDisableUndo();
+            this.EndUndoRedo(changes);
+        }
+
+        private void MenuBarRedoRequested(object sender, EventArgs e)
+        {
+            TileChanges changes = this.undoRedoBuffer.GetNextRedo();
+            this.undoRedoBuffer.Redo(this.track);
+            this.menuBar.UndoEnabled = true;
+            this.EnableDisableRedo();
+            this.EndUndoRedo(changes);
+        }
+
+        private void EnableDisableUndo()
+        {
+            this.menuBar.UndoEnabled = this.undoRedoBuffer.HasUndo;
+        }
+
+        private void EnableDisableRedo()
+        {
+            this.menuBar.RedoEnabled = this.undoRedoBuffer.HasRedo;
+        }
+
+        private void EnableDisableUndoRedo()
+        {
+            if (!this.undoRedoBuffers.ContainsKey(this.track))
+            {
+                this.InitUndoRedo();
+            }
+            else
+            {
+                if (this.editionMode == EditionMode.Tileset)
+                {
+                    this.EnableDisableUndo();
+                    this.EnableDisableRedo();
+                }
+                else
+                {
+                    this.menuBar.DisableUndoRedo();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Init undo/redo buffer for the current track.
+        /// </summary>
+        private void InitUndoRedo()
+        {
+            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer());
+            this.menuBar.DisableUndoRedo();
+        }
+
+        private void EndUndoRedo(TileChanges changes)
+        {
+            this.trackTreeView.MarkTrackAsChanged();
+            this.trackDrawer.ReloadTrackPart(changes);
+            this.trackDisplay.Invalidate();
         }
 
         private void ResetZoom()
@@ -892,6 +988,9 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     case MouseButtons.Left:
                         this.buttonsPressed = MouseButtons.Left;
+
+                        this.undoRedoBuffer.BeginAdd();
+
                         if (this.LayTiles())
                         {
                             this.trackDisplay.Invalidate();
@@ -1115,6 +1214,12 @@ namespace EpicEdit.UI.TrackEdition
                     if (this.buttonsPressed != MouseButtons.Left)
                     {
                         break;
+                    }
+
+                    if (this.editionMode == EditionMode.Tileset)
+                    {
+                        this.undoRedoBuffer.EndAdd();
+                        this.menuBar.EnableUndo();
                     }
 
                     this.buttonsPressed = MouseButtons.None;
@@ -1354,6 +1459,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.ResetScrollingPosition();
             this.SetTrack();
+            this.EnableDisableUndoRedo();
             this.DisplayNewTrack();
         }
 
@@ -1461,24 +1567,20 @@ namespace EpicEdit.UI.TrackEdition
             else if (this.objectsTabPage.Visible)
             {
                 this.editionMode = EditionMode.Objects;
+                this.SetTrackObjectZones();
             }
             else // if (this.aiTabPage.Visible)
             {
                 this.editionMode = EditionMode.AI;
             }
+
+            this.EnableDisableUndoRedo();
         }
 
         private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
             this.SetEditionMode();
-
-            if (this.editionMode == EditionMode.Objects)
-            {
-                this.SetTrackObjectZones();
-            }
-
             this.ResizeModeTabControl();
-
             this.trackDisplay.Invalidate();
         }
 
@@ -1555,15 +1657,25 @@ namespace EpicEdit.UI.TrackEdition
                 hoveredTilePosition.X < this.track.Map.Width && hoveredTilePosition.Y < this.track.Map.Height)
             {
                 Size affectedSurface = this.GetTruncatedRectangle();
+
+                this.AddUndoChange(hoveredTilePosition, affectedSurface);
+
                 this.track.Map.SetTiles(hoveredTilePosition, affectedSurface, this.tileClipboardSize, this.tileClipboard);
 
                 this.trackDrawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
                 this.trackTreeView.MarkTrackAsChanged();
+
                 return true;
             }
 
             return false;
+        }
+
+        private void AddUndoChange(Point location, Size size)
+        {
+            TileChange tileChange = new TileChange(location, size, this.track);
+            this.undoRedoBuffer.Add(tileChange);
         }
 
         private Size GetTruncatedRectangle()
