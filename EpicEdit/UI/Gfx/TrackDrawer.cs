@@ -18,14 +18,15 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using Region = System.Drawing.Region;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.UI.Tools.UndoRedo;
 using EpicEdit.UI.TrackEdition;
+using Region = System.Drawing.Region;
 
 namespace EpicEdit.UI.Gfx
 {
@@ -271,6 +272,37 @@ namespace EpicEdit.UI.Gfx
             }
 
             this.NotifyFullRepaintNeed();
+        }
+
+        public void ReloadTrackPart(TileChanges changes)
+        {
+            Tile[] tileset = this.track.GetRoadTileset();
+
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                foreach (TileChange change in changes)
+                {
+                    for (int x = 0; x < change.Width; x++)
+                    {
+                        for (int y = 0; y < change.Height; y++)
+                        {
+                            Tile tile = tileset[change[x, y]];
+                            g.DrawImage(tile.Bitmap,
+                                        (change.X + x) * Tile.Size,
+                                        (change.Y + y) * Tile.Size);
+                        }
+                    }
+
+                    if (!this.fullRepaintNeeded)
+                    {
+                        Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
+                                                                 change.Y * Tile.Size,
+                                                                 change.Width * Tile.Size,
+                                                                 change.Height * Tile.Size);
+                        this.dirtyRegion.Union(dirtyRectangle);
+                    }
+                }
+            }
         }
 
         public void SetZoom(float zoom)

@@ -51,8 +51,11 @@ namespace EpicEdit.UI
             this.importTrackToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.exportTrackToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.redoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomInToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -63,12 +66,14 @@ namespace EpicEdit.UI
             this.saveRomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetZoomNumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuToolStrip.SuspendLayout();
             this.hiddenMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +87,8 @@ namespace EpicEdit.UI
                                     this.importTrackToolStripButton,
                                     this.exportTrackToolStripButton,
                                     this.toolStripSeparator1,
+                                    this.undoToolStripButton,
+                                    this.redoToolStripButton,
                                     this.zoomOutToolStripButton,
                                     this.zoomInToolStripButton,
                                     this.fullScreenToolStripButton,
@@ -148,6 +155,30 @@ namespace EpicEdit.UI
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // undoToolStripButton
+            // 
+            this.undoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undoToolStripButton.Enabled = false;
+            this.undoToolStripButton.Image = global::EpicEdit.Properties.Resources.UndoButton;
+            this.undoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.undoToolStripButton.Name = "undoToolStripButton";
+            this.undoToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.undoToolStripButton.Text = "Undo";
+            this.undoToolStripButton.Click += new System.EventHandler(this.UndoToolStripButtonClick);
+            // 
+            // redoToolStripButton
+            // 
+            this.redoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redoToolStripButton.Enabled = false;
+            this.redoToolStripButton.Image = global::EpicEdit.Properties.Resources.RedoButton;
+            this.redoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.redoToolStripButton.Name = "redoToolStripButton";
+            this.redoToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.redoToolStripButton.Text = "Redo";
+            this.redoToolStripButton.Click += new System.EventHandler(this.RedoToolStripButtonClick);
+            // 
             // zoomOutToolStripButton
             // 
             this.zoomOutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -171,6 +202,17 @@ namespace EpicEdit.UI
             this.zoomInToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.zoomInToolStripButton.Text = "Zoom In";
             this.zoomInToolStripButton.Click += new System.EventHandler(this.ZoomInToolStripButtonClick);
+            // 
+            // fullScreenToolStripButton
+            // 
+            this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fullScreenToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("fullScreenToolStripButton.Image")));
+            this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullScreenToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
+            this.fullScreenToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.fullScreenToolStripButton.Text = "Full Screen";
+            this.fullScreenToolStripButton.Click += new System.EventHandler(this.FullScreenToolStripButtonClick);
             // 
             // toolStripSeparator2
             // 
@@ -216,6 +258,9 @@ namespace EpicEdit.UI
                                     this.saveRomToolStripMenuItem,
                                     this.importTrackToolStripMenuItem,
                                     this.exportTrackToolStripMenuItem,
+                                    this.undoToolStripMenuItem,
+                                    this.redoToolStripMenuItem,
+                                    this.redoToolStripMenuItem2,
                                     this.zoomInToolStripMenuItem,
                                     this.zoomOutToolStripMenuItem,
                                     this.resetZoomToolStripMenuItem,
@@ -259,6 +304,31 @@ namespace EpicEdit.UI
             this.exportTrackToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.exportTrackToolStripMenuItem.Text = "Export Track";
             this.exportTrackToolStripMenuItem.Click += new System.EventHandler(this.ExportTrackToolStripMenuItemClick);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.UndoToolStripMenuItemClick);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.RedoToolStripMenuItemClick);
+            // 
+            // redoToolStripMenuItem2
+            // 
+            this.redoToolStripMenuItem2.Name = "redoToolStripMenuItem2";
+            this.redoToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+                                    | System.Windows.Forms.Keys.Z)));
+            this.redoToolStripMenuItem2.Size = new System.Drawing.Size(208, 22);
+            this.redoToolStripMenuItem2.Text = "Redo";
+            this.redoToolStripMenuItem2.Click += new System.EventHandler(this.RedoToolStripMenuItem2Click);
             // 
             // zoomInToolStripMenuItem
             // 
@@ -304,17 +374,6 @@ namespace EpicEdit.UI
             this.fullScreenToolStripMenuItem.Text = "Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.FullScreenToolStripMenuItemClick);
             // 
-            // fullScreenToolStripButton
-            // 
-            this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fullScreenToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("fullScreenToolStripButton.Image")));
-            this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fullScreenToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
-            this.fullScreenToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.fullScreenToolStripButton.Text = "Full Screen";
-            this.fullScreenToolStripButton.Click += new System.EventHandler(this.FullScreenToolStripButtonClick);
-            // 
             // MenuBar
             // 
             this.Controls.Add(this.hiddenMenuStrip);
@@ -328,6 +387,11 @@ namespace EpicEdit.UI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton redoToolStripButton;
+        private System.Windows.Forms.ToolStripButton undoToolStripButton;
         private System.Windows.Forms.ToolStripButton fullScreenToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
