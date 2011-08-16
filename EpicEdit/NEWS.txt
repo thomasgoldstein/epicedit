@@ -3,6 +3,11 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.? (???)
+
+- Added undo/redo feature for track tile changes
+
+
 v2.2 (July 23rd 2011)
 
 - Added support for editing object properties, thanks to hacks by SMK Dan
