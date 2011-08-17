@@ -113,17 +113,6 @@ namespace EpicEdit.UI
         #endregion Import / Export track
 
         #region Undo / Redo
-        public void EnableUndo()
-        {
-            this.undoToolStripButton.Enabled = true;
-        }
-
-        public void DisableUndoRedo()
-        {
-            this.undoToolStripButton.Enabled = false;
-            this.redoToolStripButton.Enabled = false;
-        }
-
         private void Undo()
         {
             this.UndoRequested(this, EventArgs.Empty);
