@@ -377,7 +377,8 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.Import(filePath, MainForm.SmkGame);
 
                 this.undoRedoBuffer.Clear();
-                this.menuBar.DisableUndoRedo();
+                this.menuBar.UndoEnabled = false;
+                this.menuBar.RedoEnabled = false;
 
                 this.trackTreeView.MarkTrackAsChanged();
                 this.UpdateControlsOnTrackImport();
@@ -491,7 +492,8 @@ namespace EpicEdit.UI.TrackEdition
                 }
                 else
                 {
-                    this.menuBar.DisableUndoRedo();
+                    this.menuBar.UndoEnabled = false;
+                    this.menuBar.RedoEnabled = false;
                 }
             }
         }
@@ -502,7 +504,8 @@ namespace EpicEdit.UI.TrackEdition
         private void InitUndoRedo()
         {
             this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer());
-            this.menuBar.DisableUndoRedo();
+            this.menuBar.UndoEnabled = false;
+            this.menuBar.RedoEnabled = false;
         }
 
         private void EndUndoRedo(TileChanges changes)
@@ -1199,7 +1202,7 @@ namespace EpicEdit.UI.TrackEdition
                     if (this.editionMode == EditionMode.Tileset)
                     {
                         this.undoRedoBuffer.EndAdd();
-                        this.menuBar.EnableUndo();
+                        this.menuBar.UndoEnabled = true;
                         this.menuBar.RedoEnabled = false;
                     }
 
