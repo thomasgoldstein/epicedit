@@ -385,27 +385,15 @@ namespace EpicEdit.UI.TrackEdition
             }
             catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
             catch (IOException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
             catch (InvalidDataException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
         }
 
@@ -452,19 +440,11 @@ namespace EpicEdit.UI.TrackEdition
             }
             catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
             catch (IOException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
         }
 
