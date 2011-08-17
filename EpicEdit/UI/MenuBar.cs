@@ -240,7 +240,7 @@ namespace EpicEdit.UI
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
         }
-        #endregion
+        #endregion About
 
         #region Cursor coordinates Label
         public void ResetCoordinates()
