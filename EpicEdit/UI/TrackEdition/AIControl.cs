@@ -169,10 +169,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you really want to delete all AI elements?",
-                                                  Application.ProductName,
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Warning);
+            DialogResult result = UITools.ShowWarning("Do you really want to delete all AI elements?");
 
             if (result == DialogResult.Yes)
             {

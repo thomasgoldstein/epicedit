@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
+using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -167,10 +168,7 @@ namespace EpicEdit.UI.TrackEdition
         
         private void ResetMapButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you really want to reset the map?",
-                                                  Application.ProductName,
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Warning);
+            DialogResult result = UITools.ShowWarning("Do you really want to reset the map?");
 
             if (result == DialogResult.Yes)
             {

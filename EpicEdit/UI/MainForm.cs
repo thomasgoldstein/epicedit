@@ -83,12 +83,9 @@ namespace EpicEdit.UI
         {
             bool cancelPreviousAction = false;
 
-            DialogResult dialogResult =
-                MessageBox.Show(
-                    "Do you want to save the changes to \"" + MainForm.SmkGame.FileName + "\"?",
-                    Application.ProductName,
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Warning);
+            DialogResult dialogResult = UITools.ShowWarning(
+                "Do you want to save the changes to \"" + MainForm.SmkGame.FileName + "\"?",
+                MessageBoxButtons.YesNoCancel);
 
             switch (dialogResult)
             {
@@ -154,27 +151,15 @@ namespace EpicEdit.UI
             }
             catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
             catch (IOException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
             catch (InvalidDataException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    Application.ProductName,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                UITools.ShowError(ex.Message);
             }
         }
 
@@ -207,11 +192,7 @@ namespace EpicEdit.UI
             {
                 if (MainForm.SmkGame == null)
                 {
-                    MessageBox.Show(
-                        "You cannot load a track before having loaded a ROM.",
-                        Application.ProductName,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    UITools.ShowError("You cannot load a track before having loaded a ROM.");
                 }
                 else
                 {
@@ -251,27 +232,15 @@ namespace EpicEdit.UI
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        MessageBox.Show(
-                            ex.Message,
-                            Application.ProductName,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        UITools.ShowError(ex.Message);
                     }
                     catch (IOException ex)
                     {
-                        MessageBox.Show(
-                            ex.Message,
-                            Application.ProductName,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        UITools.ShowError(ex.Message);
                     }
                     catch (InvalidOperationException ex)
                     {
-                        MessageBox.Show(
-                            ex.Message,
-                            Application.ProductName,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        UITools.ShowError(ex.Message);
                     }
                 }
             }

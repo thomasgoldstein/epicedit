@@ -24,6 +24,30 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     public static class UITools
     {
+        public static DialogResult ShowWarning(string message, MessageBoxButtons buttons)
+        {
+            return
+                MessageBox.Show(
+                    message,
+                    Application.ProductName,
+                    buttons,
+                    MessageBoxIcon.Warning);
+        }
+
+        public static DialogResult ShowWarning(string message)
+        {
+            return UITools.ShowWarning(message, MessageBoxButtons.YesNo);
+        }
+
+        public static void ShowError(string message)
+        {
+            MessageBox.Show(
+                message,
+                Application.ProductName,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+
         /// <summary>
         /// Sets the Value of the passed EventArgs using the Description of the underlying Enum item.
         /// </summary>

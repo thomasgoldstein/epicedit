@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
+using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -335,10 +336,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you really want to delete all overlay tiles?",
-                                                  Application.ProductName,
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Warning);
+            DialogResult result = UITools.ShowWarning("Do you really want to delete all overlay tiles?");
 
             if (result == DialogResult.Yes)
             {
