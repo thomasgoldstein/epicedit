@@ -153,14 +153,20 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
         }
 
-        public TileChanges GetNextUndo()
+        public TileChanges NextUndo
         {
-            return this.undoBuffer.Last.Value;
+            get
+            {
+                return this.undoBuffer.Last.Value;
+            }
         }
 
-        public TileChanges GetNextRedo()
+        public TileChanges NextRedo
         {
-            return this.redoBuffer.First.Value;
+            get
+            {
+                return this.redoBuffer.First.Value;
+            }
         }
     }
 }
