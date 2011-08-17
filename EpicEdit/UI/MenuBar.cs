@@ -225,21 +225,10 @@ namespace EpicEdit.UI
         private void AboutToolStripLabelClick(object sender, EventArgs e)
         {
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            string versionText;
 
-            if (version.Build == 0)
-            {
-                versionText =
-                    version.Major.ToString(CultureInfo.InvariantCulture) +
-                    "." + version.Minor.ToString(CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                versionText =
-                    version.Major.ToString(CultureInfo.InvariantCulture) +
-                    "." + version.Minor.ToString(CultureInfo.InvariantCulture) +
-                    "." + version.Build.ToString();
-            }
+            string versionText = version.Build == 0 ?
+                version.Major + "." + version.Minor :
+                version.Major + "." + version.Minor + "." + version.Build;
 
             MessageBox.Show(Application.ProductName + " - Super Mario Kart track editor" + Environment.NewLine +
                             "Version: " + versionText + " (2007-2011)" + Environment.NewLine +
