@@ -1200,6 +1200,7 @@ namespace EpicEdit.UI.TrackEdition
                     {
                         this.undoRedoBuffer.EndAdd();
                         this.menuBar.EnableUndo();
+                        this.menuBar.RedoEnabled = false;
                     }
 
                     this.buttonsPressed = MouseButtons.None;
