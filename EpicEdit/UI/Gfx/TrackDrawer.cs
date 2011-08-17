@@ -1124,7 +1124,7 @@ namespace EpicEdit.UI.Gfx
                         stillMatchRaceObjectImage : matchRaceObjectImage;
                     g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }
-            }  
+            }
         }
 
         private void DrawAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)

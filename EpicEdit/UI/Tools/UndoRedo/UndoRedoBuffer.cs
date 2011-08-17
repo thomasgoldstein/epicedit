@@ -99,17 +99,17 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.redoBuffer.RemoveFirst();
             this.undoBuffer.AddLast(undoChanges);
         }
-        
+
         private static TileChanges UndoRedoCommon(Track track, TileChanges changes)
         {
             TileChanges previousChanges = new TileChanges();
-            
+
             foreach (TileChange change in changes)
             {
                 TileChange previousChange = UndoRedoBuffer.UndoRedoCommon(track, change);
                 previousChanges.Push(previousChange);
             }
-            
+
             return previousChanges;
         }
 

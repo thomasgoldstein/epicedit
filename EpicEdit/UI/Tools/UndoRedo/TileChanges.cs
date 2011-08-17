@@ -22,6 +22,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
     /// </summary>
     public class TileChanges : Stack<TileChange>
     {
-        
+
     }
 }

@@ -218,12 +218,12 @@ namespace EpicEdit.UI.TrackEdition
         /// The current action the user is doing (or about to do) on the AI.
         /// </summary>
         private AIAction aiAction;
-        
+
         /// <summary>
         /// Undo/redo buffers for tile changes, for each track.
         /// </summary>
         private Dictionary<Track, UndoRedoBuffer> undoRedoBuffers;
-        
+
         /// <summary>
         /// Undo/redo buffer for tile changes, for the current track.
         /// </summary>
