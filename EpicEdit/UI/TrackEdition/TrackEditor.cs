@@ -1730,6 +1730,11 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
         {
             this.trackDrawer.LoadTrack(this.track);
+
+            this.undoRedoBuffer.Clear();
+            this.menuBar.UndoEnabled = false;
+            this.menuBar.RedoEnabled = false;
+
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();
         }
