@@ -45,6 +45,7 @@ namespace EpicEdit.Rom
         public byte Red
         {
             get { return this.red; }
+            set { this.red = value; }
         }
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace EpicEdit.Rom
         public byte Green
         {
             get { return this.green; }
+            set { this.green = value; }
         }
 
         /// <summary>
@@ -61,6 +63,7 @@ namespace EpicEdit.Rom
         public byte Blue
         {
             get { return this.blue; }
+            set { this.blue = value; }
         }
 
         /// <summary>
