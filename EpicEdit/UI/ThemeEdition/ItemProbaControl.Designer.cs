@@ -115,7 +115,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.Location = new System.Drawing.Point(124, 20);
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(182, 21);
-            this.themeComboBox.TabIndex = 0;
+            this.themeComboBox.TabIndex = 1;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.themeComboBox_SelectedIndexChanged);
             // 
             // modeComboBox
@@ -125,7 +125,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.Location = new System.Drawing.Point(11, 20);
             this.modeComboBox.Name = "modeComboBox";
             this.modeComboBox.Size = new System.Drawing.Size(107, 21);
-            this.modeComboBox.TabIndex = 1;
+            this.modeComboBox.TabIndex = 0;
             this.modeComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeComboBoxSelectedIndexChanged);
             // 
             // itemGroupBox
