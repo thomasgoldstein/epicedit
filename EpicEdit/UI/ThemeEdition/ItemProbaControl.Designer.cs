@@ -180,7 +180,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemGroupBox.Size = new System.Drawing.Size(430, 270);
             this.itemGroupBox.TabIndex = 3;
             this.itemGroupBox.TabStop = false;
-            this.itemGroupBox.Text = "Item probability";
+            this.itemGroupBox.Text = "Item probabilities";
             // 
             // totalPctLabel
             // 
@@ -367,7 +367,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOptionLabel.AutoSize = true;
             this.itemBoxDisplayOptionLabel.Location = new System.Drawing.Point(59, 205);
             this.itemBoxDisplayOptionLabel.Name = "itemBoxDisplayOptionLabel";
-            this.itemBoxDisplayOptionLabel.Size = new System.Drawing.Size(117, 13);
+            this.itemBoxDisplayOptionLabel.Size = new System.Drawing.Size(114, 13);
             this.itemBoxDisplayOptionLabel.TabIndex = 39;
             this.itemBoxDisplayOptionLabel.Text = "Item box display option";
             // 
