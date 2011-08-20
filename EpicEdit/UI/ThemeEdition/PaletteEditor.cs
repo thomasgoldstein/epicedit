@@ -194,6 +194,8 @@ namespace EpicEdit.Rom.ThemeEdition
             this.palette[this.selectedColor] = color;
             this.panels[this.selectedColor].BackColor = color;
             this.SetToolTip(this.selectedColor);
+
+            MainForm.SmkGame.Modified = true;
         }
 
         /// <summary>
