@@ -65,14 +65,7 @@ namespace EpicEdit.Rom.Tracks
                 byte[] colorPaletteData = Codec.Decompress(romBuffer, themeColorPaletteAddresses[i], 512);
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
 
-                Palettes colorPalettes = new Palettes(16);
-
-                for (int j = 0; j < colorPalettes.Count; j++)
-                {
-                    byte[] paletteBytes = new byte[32];
-                    Buffer.BlockCopy(colorPaletteData, j * 32, paletteBytes, 0, 32);
-                    colorPalettes[j] = new Palette(paletteBytes);
-                }
+                Palettes colorPalettes = new Palettes(colorPaletteData);
 
                 byte[] roadTilesetData = Codec.Decompress(romBuffer, roadTilesetGfxAddresses[i]);
                 byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
