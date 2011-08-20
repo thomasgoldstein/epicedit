@@ -25,6 +25,11 @@ namespace EpicEdit.Rom
     public struct RomColor
     {
         /// <summary>
+        /// The number of bytes that compose a palette.
+        /// </summary>
+        public const int Size = 2;
+
+        /// <summary>
         /// Red channel (8 bit).
         /// </summary>
         private byte red;

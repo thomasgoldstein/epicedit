@@ -25,13 +25,13 @@ namespace EpicEdit.Rom
 
         public Palettes(byte[] data)
         {
-            int count = data.Length / 32;
+            int count = data.Length / Palette.Size;
             this.palettes = new Palette[count];
 
             for (int i = 0; i < count; i++)
             {
-                byte[] paletteData = new byte[32];
-                Buffer.BlockCopy(data, i * 32, paletteData, 0, 32);
+                byte[] paletteData = new byte[Palette.Size];
+                Buffer.BlockCopy(data, i * Palette.Size, paletteData, 0, Palette.Size);
                 this.palettes[i] = new Palette(paletteData);
             }
         }

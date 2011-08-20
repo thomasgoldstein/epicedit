@@ -22,12 +22,22 @@ namespace EpicEdit.Rom
     /// </summary>
     public class Palette
     {
+        /// <summary>
+        /// The number of bytes that compose a palette.
+        /// </summary>
+        public const int Size = 32;
+
+        /// <summary>
+        /// The number of colors that compose a palette.
+        /// </summary>
+        public const int ColorCount = Palette.Size / RomColor.Size;
+
         private RomColor[] colors;
 
         public Palette()
         {
             // This is used to initialize a default palette, all black
-            this.colors = new RomColor[16];
+            this.colors = new RomColor[Palette.ColorCount];
             for (int x = 0; x < this.colors.Length; x++)
             {
                 this.colors[x] = new RomColor();
@@ -36,7 +46,7 @@ namespace EpicEdit.Rom
 
         public Palette(RomColor[] palette)
         {
-            if (palette.Length != 16)
+            if (palette.Length != Palette.ColorCount)
             {
                 throw new ArgumentException("The palette doesn't contain 16 colors.", "palette");
             }
@@ -46,15 +56,15 @@ namespace EpicEdit.Rom
 
         public Palette(byte[] palette)
         {
-            if (palette.Length != 32)
+            if (palette.Length != Palette.Size)
             {
                 throw new ArgumentException("The palette is not 32-byte long.", "palette");
             }
 
-            this.colors = new RomColor[16];
+            this.colors = new RomColor[Palette.ColorCount];
             for (int i = 0; i < this.colors.Length; i++)
             {
-                this.colors[i] = RomColor.FromBytes(palette, i * 2);
+                this.colors[i] = RomColor.FromBytes(palette, i * RomColor.Size);
             }
         }
 
@@ -66,11 +76,11 @@ namespace EpicEdit.Rom
 
         public byte[] GetBytes()
         {
-            byte[] bytes = new byte[32];
+            byte[] bytes = new byte[Palette.Size];
 
             for (int i = 0; i < this.colors.Length; i++)
             {
-                Buffer.BlockCopy(this.colors[i].GetBytes(), 0, bytes, i * 2, 2);
+                Buffer.BlockCopy(this.colors[i].GetBytes(), 0, bytes, i * RomColor.Size, RomColor.Size);
             }
 
             return bytes;
