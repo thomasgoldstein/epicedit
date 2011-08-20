@@ -209,8 +209,18 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Theme selectedTheme = (Theme)this.themeComboBox.SelectedItem;
-            this.SetPalette(selectedTheme.Palettes[0]);
+            this.SetCurrentPalette();
+        }
+        
+        private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            this.SetCurrentPalette();
+        }
+
+        private void SetCurrentPalette()
+        {
+            Theme selectedTheme = this.themeComboBox.SelectedItem as Theme;
+            this.SetPalette(selectedTheme.Palettes[(int)this.paletteNumericUpDown.Value]);
         }
     }
 }
