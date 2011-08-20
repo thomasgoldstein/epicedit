@@ -116,7 +116,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(182, 21);
             this.themeComboBox.TabIndex = 1;
-            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.themeComboBox_SelectedIndexChanged);
+            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
             // modeComboBox
             // 
@@ -360,7 +360,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.resetButton.TabIndex = 40;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            this.resetButton.Click += new System.EventHandler(this.ResetButtonClick);
             // 
             // itemBoxDisplayOptionLabel
             // 
@@ -608,7 +608,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.Name = "lapRankComboBox";
             this.lapRankComboBox.Size = new System.Drawing.Size(107, 21);
             this.lapRankComboBox.TabIndex = 2;
-            this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.lapRankComboBox_SelectedIndexChanged);
+            this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
             this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.GetDescription);
             // 
             // ItemProbaControl
