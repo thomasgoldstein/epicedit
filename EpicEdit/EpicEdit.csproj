@@ -161,11 +161,11 @@
     <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaControl.cs">
+    <Compile Include="UI\ThemeEdition\ItemProbaEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaControl.Designer.cs">
-      <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    <Compile Include="UI\ThemeEdition\ItemProbaEditor.Designer.cs">
+      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ThemeEdition\PaletteEditor.cs" />
     <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
@@ -250,8 +250,8 @@
     <EmbeddedResource Include="UI\ThemeEdition\ColorPicker.resx">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaControl.resx">
-      <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaEditor.resx">
+      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
       <DependentUpon>PaletteEditor.cs</DependentUpon>

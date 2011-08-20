@@ -44,16 +44,16 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.itemProbaControl = new EpicEdit.UI.ThemeEdition.ItemProbaControl();
+            this.itemProbaEditor = new EpicEdit.UI.ThemeEdition.ItemProbaEditor();
             this.paletteEditor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
             this.SuspendLayout();
             // 
-            // itemProbaControl
+            // itemProbaEditor
             // 
-            this.itemProbaControl.Location = new System.Drawing.Point(6, 262);
-            this.itemProbaControl.Name = "itemProbaControl";
-            this.itemProbaControl.Size = new System.Drawing.Size(430, 270);
-            this.itemProbaControl.TabIndex = 1;
+            this.itemProbaEditor.Location = new System.Drawing.Point(6, 262);
+            this.itemProbaEditor.Name = "itemProbaEditor";
+            this.itemProbaEditor.Size = new System.Drawing.Size(430, 270);
+            this.itemProbaEditor.TabIndex = 1;
             // 
             // paletteEditor
             // 
@@ -65,12 +65,12 @@ namespace EpicEdit.UI.ThemeEdition
             // ThemeEditor
             // 
             this.Controls.Add(this.paletteEditor);
-            this.Controls.Add(this.itemProbaControl);
+            this.Controls.Add(this.itemProbaEditor);
             this.Name = "ThemeEditor";
             this.Size = new System.Drawing.Size(596, 554);
             this.ResumeLayout(false);
         }
         private EpicEdit.Rom.ThemeEdition.PaletteEditor paletteEditor;
-        private EpicEdit.UI.ThemeEdition.ItemProbaControl itemProbaControl;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor itemProbaEditor;
     }
 }
