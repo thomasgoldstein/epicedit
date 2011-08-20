@@ -478,7 +478,7 @@ namespace EpicEdit.Rom
             byte[] trackOrder = this.GetTrackOrder();
             byte[][] trackNameIndex = this.GetTrackNameIndexes();
 
-            int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
+            int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
 
             byte aiOffsetBase = this.romBuffer[this.offsets[Offset.TrackAIDataFirstAddressByte]];
             byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIZones], Track.Count * 2); // 2 offset bytes per track
@@ -515,7 +515,7 @@ namespace EpicEdit.Rom
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.themes[themeId];
 
-                    byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapAddresses[trackIndex]), 0, TrackMap.SquareSize);
+                    byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapOffsets[trackIndex]), 0, TrackMap.SquareSize);
 
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
 
@@ -563,19 +563,19 @@ namespace EpicEdit.Rom
 
         private void SetRegion()
         {
-            int regionAddress = 0xFFD9;
-            int region = this.romBuffer[regionAddress];
+            int regionOffset = 0xFFD9;
+            int region = this.romBuffer[regionOffset];
 
             if (!Enum.IsDefined(typeof(Region), region))
             {
                 if (this.romHeader != null)
                 {
-                    regionAddress += this.romHeader.Length;
+                    regionOffset += this.romHeader.Length;
                 }
 
                 throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
                                                              "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
-                                                             this.FileName, regionAddress, region));
+                                                             this.FileName, regionOffset, region));
             }
 
             this.region = (Region)region;
@@ -1966,7 +1966,7 @@ namespace EpicEdit.Rom
         private void SaveTracks(SaveBuffer saveBuffer)
         {
             byte[] trackOrder = this.GetTrackOrder();
-            int[] mapAddresses = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
+            int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
 
             for (int i = 0; i < this.trackGroups.Length; i++)
             {
@@ -1983,12 +1983,12 @@ namespace EpicEdit.Rom
                     }
                     else
                     {
-                        int trackOffset = mapAddresses[trackIndex];
-                        bool isInZone = saveBuffer.Includes(trackOffset);
+                        int mapOffset = mapOffsets[trackIndex];
+                        bool isInZone = saveBuffer.Includes(mapOffset);
 
                         if (isInZone)
                         {
-                            this.MoveTrackMap(trackIndex, trackOffset, saveBuffer);
+                            this.MoveTrackMap(trackIndex, mapOffset, saveBuffer);
                         }
                     }
                 }
@@ -2069,9 +2069,9 @@ namespace EpicEdit.Rom
         private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
             // Update track offset
-            byte[] offset = Utilities.OffsetToBytes(saveBuffer.Index);
-            int trackAddressIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            Buffer.BlockCopy(offset, 0, this.romBuffer, trackAddressIndex, 3);
+            byte[] trackOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+            int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
+            Buffer.BlockCopy(trackOffset, 0, this.romBuffer, trackOffsetIndex, 3);
 
             saveBuffer.Add(compressedTrack);
         }
