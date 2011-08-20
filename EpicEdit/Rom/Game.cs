@@ -118,6 +118,7 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.filePath); }
         }
 
+        // NOTE: Maybe handle this using events raised in property setters instead?
         public bool Modified { get; set; }
 
         public string[] GetModeNames()
