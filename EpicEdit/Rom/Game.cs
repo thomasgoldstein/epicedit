@@ -118,6 +118,8 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.filePath); }
         }
 
+        public bool Modified { get; set; }
+
         public string[] GetModeNames()
         {
             string[] modeNames = new string[3];
@@ -297,8 +299,6 @@ namespace EpicEdit.Rom
         /// The item icons.
         /// </summary>
         private Bitmap[] itemIcons;
-
-        private bool modified;
 
         #endregion Private members
 
@@ -1173,7 +1173,7 @@ namespace EpicEdit.Rom
                 #endregion Battle track specific data update
             }
 
-            this.modified = true;
+            this.Modified = true;
         }
 
         private void ReorderTracksSub(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
@@ -2111,7 +2111,7 @@ namespace EpicEdit.Rom
 
         private void ResetModifiedFlags()
         {
-            this.modified = false;
+            this.Modified = false;
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
@@ -2127,7 +2127,7 @@ namespace EpicEdit.Rom
 
         public bool HasPendingChanges()
         {
-            if (this.modified)
+            if (this.Modified)
             {
                 return true;
             }
