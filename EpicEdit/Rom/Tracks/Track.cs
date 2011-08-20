@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.Tracks
         public OverlayTiles OverlayTiles { get; private set; }
         public TrackAI AI { get; private set; }
 
-        // NOTE: Maybe handle this using events raised in property setters instead?
+        // NOTE: Maybe do not expose this, and change it in property setters
         public bool Modified { get; set; }
 
         protected Track(string name, Theme theme,
