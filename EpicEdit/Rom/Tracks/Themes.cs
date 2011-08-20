@@ -32,12 +32,12 @@ namespace EpicEdit.Rom.Tracks
 
         public Theme this[int index]
         {
-            get { return themes[index]; }
+            get { return this.themes[index]; }
         }
 
         public int Count
         {
-            get { return themes.Length; }
+            get { return this.themes.Length; }
         }
 
         public Themes(byte[] romBuffer, Offsets offsets, string[] names)
@@ -52,15 +52,15 @@ namespace EpicEdit.Rom.Tracks
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
             // TODO: Retrieve order dynamically from the ROM
 
-            int[] colorPaletteAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeColorPalettes], themes.Length);
-            int[] roadTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], themes.Length);
+            int[] colorPaletteAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeColorPalettes], this.themes.Length);
+            int[] roadTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
             //int[] backgroundTilesetGfxAddresses = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], themes.Length);
 
             byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
             byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);
             byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, 0x100, -1, 32);
 
-            for (int i = 0; i < themes.Length; i++)
+            for (int i = 0; i < this.themes.Length; i++)
             {
                 byte[] colorPaletteData = Codec.Decompress(romBuffer, colorPaletteAddresses[i], 512);
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
@@ -86,7 +86,7 @@ namespace EpicEdit.Rom.Tracks
                 //byte[] backgroundTilesetData = Codec.Decompress(this.romBuffer, backgroundTilesetGfxAddresses[i]);
                 Tile[] backgroundTileset = new Tile[0];
 
-                themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset, backgroundTileset);
+                this.themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset, backgroundTileset);
             }
         }
 
