@@ -156,11 +156,19 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\ColorPicker.cs" />
+    <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ThemeEdition\ItemProbaControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\ThemeEdition\ItemProbaControl.Designer.cs">
       <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\PaletteEditor.cs" />
+    <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ThemeEdition\ThemeEditor.cs">
       <SubType>UserControl</SubType>
@@ -238,8 +246,14 @@
     <EmbeddedResource Include="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\ItemProbaControl.resx">
       <DependentUpon>ItemProbaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\ThemeEditor.resx">
       <DependentUpon>ThemeEditor.cs</DependentUpon>
