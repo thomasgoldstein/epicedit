@@ -54,9 +54,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// The cache for the shadesBitmap.
         /// </summary>
         private Bitmap shadesCache;
-        
+
         /// <summary>
-        
+
         /// Cached size for shadesBitmap / shadesCache.
         /// </summary>
         private Size shadesSize;
@@ -191,7 +191,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.basicColorsBitmap.Dispose();
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
-            
+
             using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
             using (Pen pen = new Pen(selectedColor.Opposite()))
             {
@@ -246,35 +246,35 @@ namespace EpicEdit.UI.ThemeEdition
                     brush.Color = RomColor.From5BitRgb(31, index, 0);
                     g.FillRectangle(brush, index, 0, 1, 15);
                 }
-    
+
                 // Yellow to green
                 for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(index, 31, 0);
                     g.FillRectangle(brush, 31 - index + 31, 0, 1, 15);
                 }
-    
+
                 // Green to cyan
                 for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(0, 31, index);
                     g.FillRectangle(brush, index + 62, 0, 1, 15);
                 }
-    
+
                 // Cyan to blue
                 for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(0, index, 31);
                     g.FillRectangle(brush, (31 - index) + 93, 0, 1, 15);
                 }
-    
+
                 // Blue to purple
                 for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(index, 0, 31);
                     g.FillRectangle(brush, index + 124, 0, 1, 15);
                 }
-    
+
                 // Purple to red
                 for (int index = 31; index >= 0; index--)
                 {
@@ -376,7 +376,7 @@ namespace EpicEdit.UI.ThemeEdition
             using (SolidBrush brush = new SolidBrush(Color.White))
             {
                 #region Gray Colors
-    
+
                 // Generate the grays from black to white, these are at the bottom of the square, left to right
                 RomColor[] grays = new RomColor[64];
                 IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 64);
@@ -386,9 +386,9 @@ namespace EpicEdit.UI.ThemeEdition
                     grays[index] = graysIte.Current.To5Bit();
                     index++;
                 }
-    
+
                 #endregion Gray Colors
-    
+
                 // Draw from black (top left) to our selected color (in the middle at the top)
                 IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(basicColor, 32);
                 index = 0;
@@ -403,10 +403,10 @@ namespace EpicEdit.UI.ThemeEdition
                         g.FillRectangle(brush, (int)(index * 2), (int)(index2 * 2), 2, 2);
                         index2++;
                     }
-    
+
                     index++;
                 }
-    
+
                 // Draw from white (top right) to our selected color (in the middle at the top)
                 colorsIte = basicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 32);
                 index = 0;
@@ -421,7 +421,7 @@ namespace EpicEdit.UI.ThemeEdition
                         g.FillRectangle(brush, (int)((index + 32) * 2), (int)(index2 * 2), 2, 2);
                         index2++;
                     }
-    
+
                     index++;
                 }
             }
