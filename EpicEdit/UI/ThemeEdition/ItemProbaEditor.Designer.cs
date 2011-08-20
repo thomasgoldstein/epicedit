@@ -380,7 +380,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOption.Size = new System.Drawing.Size(130, 21);
             this.itemBoxDisplayOption.TabIndex = 38;
             this.itemBoxDisplayOption.SelectedIndexChanged += new System.EventHandler(this.ValueChanged);
-            this.itemBoxDisplayOption.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.GetDescription);
+            this.itemBoxDisplayOption.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
             // 
             // totalValue
             // 
@@ -609,7 +609,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.Size = new System.Drawing.Size(107, 21);
             this.lapRankComboBox.TabIndex = 2;
             this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
-            this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.GetDescription);
+            this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
             // 
             // ItemProbaEditor
             // 
