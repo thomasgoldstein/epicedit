@@ -206,7 +206,7 @@ namespace EpicEdit.Rom.ThemeEdition
             Palette palette = new Palette(this.paletteBackup);
             this.SetPalette(palette);
         }
-        
+
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             Theme selectedTheme = (Theme)this.themeComboBox.SelectedItem;
