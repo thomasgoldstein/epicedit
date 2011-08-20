@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.ThemeEdition
 {
-    partial class ItemProbaControl
+    partial class ItemProbaEditor
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
@@ -611,10 +611,10 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
             this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.GetDescription);
             // 
-            // ItemProbaControl
+            // ItemProbaEditor
             // 
             this.Controls.Add(this.itemGroupBox);
-            this.Name = "ItemProbaControl";
+            this.Name = "ItemProbaEditor";
             this.Size = new System.Drawing.Size(430, 270);
             this.itemGroupBox.ResumeLayout(false);
             this.itemGroupBox.PerformLayout();
