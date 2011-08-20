@@ -124,7 +124,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Theme selectedTheme = (Theme)this.themeComboBox.SelectedItem;
+            Theme selectedTheme = this.themeComboBox.SelectedItem as Theme;
             if (selectedTheme != this.track.Theme)
             {
                 this.track.Theme = selectedTheme;
