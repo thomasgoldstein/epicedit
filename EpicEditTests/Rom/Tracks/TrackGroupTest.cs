@@ -37,7 +37,7 @@ namespace EpicEditTests.Rom.Tracks
             tiles[0] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
             tiles[1] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
 
-            Theme theme = new Theme("TestTheme", new Palette[16], tiles, tiles);
+            Theme theme = new Theme("TestTheme", new Palettes(16), tiles, tiles);
 
             Track[] tracks = new Track[2];
             tracks[0] = new GPTrack("Test 1", theme,

@@ -62,9 +62,9 @@ namespace EpicEdit.Rom.Tracks
                 byte[] colorPaletteData = Codec.Decompress(romBuffer, themeColorPaletteAddresses[i], 512);
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
 
-                Palette[] colorPalettes = new Palette[16];
+                Palettes colorPalettes = new Palettes(16);
 
-                for (int j = 0; j < colorPalettes.Length; j++)
+                for (int j = 0; j < colorPalettes.Count; j++)
                 {
                     byte[] paletteBytes = new byte[32];
                     Buffer.BlockCopy(colorPaletteData, j * 32, paletteBytes, 0, 32);
@@ -106,7 +106,7 @@ namespace EpicEdit.Rom.Tracks
             return paletteIndexes;
         }
 
-        private static Bitmap[] GetRoadTilesetBitmaps(Palette[] colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
+        private static Bitmap[] GetRoadTilesetBitmaps(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
         {
             Bitmap[] tileBitmaps = new Bitmap[256];
 
@@ -119,7 +119,7 @@ namespace EpicEdit.Rom.Tracks
             return tileBitmaps;
         }
 
-        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, byte[][] gfx, Palette[] colorPalettes, byte[] tilesetPaletteIndexes, int tileIndex, int tileCount)
+        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, byte[][] gfx, Palettes colorPalettes, byte[] tilesetPaletteIndexes, int tileIndex, int tileCount)
         {
             for (int i = 0; i < gfx.Length; i++)
             {

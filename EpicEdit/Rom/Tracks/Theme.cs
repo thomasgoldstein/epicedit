@@ -27,11 +27,11 @@ namespace EpicEdit.Rom.Tracks
         public const int Count = 8;
 
         public string Name { get; private set; }
-        public Palette[] Palettes { get; private set; }
+        public Palettes Palettes { get; private set; }
         private Tile[] roadTileset;
         private Tile[] backgroundTileset;
 
-        public Theme(string name, Palette[] palettes, Tile[] roadTileset, Tile[] backgroundTileset)
+        public Theme(string name, Palettes palettes, Tile[] roadTileset, Tile[] backgroundTileset)
         {
             this.Name = name;
             this.Palettes = palettes;
