@@ -23,6 +23,9 @@ using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks
 {
+    /// <summary>
+    /// Represents a collection of <see cref="Theme">themes</see>.
+    /// </summary>
     public sealed class Themes : IDisposable, IEnumerable<Theme>
     {
         private Theme[] themes;
