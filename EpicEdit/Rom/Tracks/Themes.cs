@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Tracks
 
         public Themes(byte[] romBuffer, Offsets offsets, string[] names)
         {
-            LoadThemes(romBuffer, offsets, names);
+            this.LoadThemes(romBuffer, offsets, names);
         }
 
         private void LoadThemes(byte[] romBuffer, Offsets offsets, string[] names)
