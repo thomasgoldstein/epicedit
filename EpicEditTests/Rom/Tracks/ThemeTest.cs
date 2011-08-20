@@ -29,7 +29,7 @@ namespace EpicEditTests.Rom.Tracks
         public ThemeTest()
         {
             this.count = 64;
-            this.theme = new Theme("Stifu's & Midwife theme", new Palette[16], new Tile[this.count], new Tile[this.count]);
+            this.theme = new Theme("Stifu's & Midwife theme", new Palettes(16), new Tile[this.count], new Tile[this.count]);
         }
 
         [Test]
