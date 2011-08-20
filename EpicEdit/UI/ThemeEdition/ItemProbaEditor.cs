@@ -44,11 +44,11 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         /// <summary>
-        /// Gets the description attribute text of an enum that was passed as an item into a ComboBox.
+        /// Sets the Value of the Control using the Description of the underlying Enum item.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GetDescription(object sender, ListControlConvertEventArgs e)
+        private void SetValueFromDescription(object sender, ListControlConvertEventArgs e)
         {
             UITools.SetValueFromEnumDescription(e);
         }
