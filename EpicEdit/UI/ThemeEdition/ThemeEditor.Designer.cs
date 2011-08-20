@@ -45,22 +45,32 @@ namespace EpicEdit.UI.ThemeEdition
         private void InitializeComponent()
         {
             this.itemProbaControl = new EpicEdit.UI.ThemeEdition.ItemProbaControl();
+            this.paletteEditor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
             this.SuspendLayout();
             // 
             // itemProbaControl
             // 
-            this.itemProbaControl.Location = new System.Drawing.Point(6, 6);
+            this.itemProbaControl.Location = new System.Drawing.Point(6, 262);
             this.itemProbaControl.Name = "itemProbaControl";
             this.itemProbaControl.Size = new System.Drawing.Size(430, 270);
-            this.itemProbaControl.TabIndex = 0;
+            this.itemProbaControl.TabIndex = 1;
+            // 
+            // paletteEditor
+            // 
+            this.paletteEditor.Location = new System.Drawing.Point(6, 6);
+            this.paletteEditor.Name = "paletteEditor";
+            this.paletteEditor.Size = new System.Drawing.Size(430, 250);
+            this.paletteEditor.TabIndex = 0;
             // 
             // ThemeEditor
             // 
+            this.Controls.Add(this.paletteEditor);
             this.Controls.Add(this.itemProbaControl);
             this.Name = "ThemeEditor";
-            this.Size = new System.Drawing.Size(596, 508);
+            this.Size = new System.Drawing.Size(596, 554);
             this.ResumeLayout(false);
         }
+        private EpicEdit.Rom.ThemeEdition.PaletteEditor paletteEditor;
         private EpicEdit.UI.ThemeEdition.ItemProbaControl itemProbaControl;
     }
 }

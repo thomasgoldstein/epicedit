@@ -35,6 +35,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void InitOnRomLoad()
         {
+            this.paletteEditor.InitOnRomLoad();
             this.itemProbaControl.InitOnRomLoad();
         }
     }
