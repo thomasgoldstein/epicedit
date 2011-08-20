@@ -1247,6 +1247,7 @@ namespace EpicEdit.Rom
             this.SaveObjectData(saveBuffer);
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
+            this.SaveThemes(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
 
             this.SaveItemProbabilities();
@@ -2073,6 +2074,21 @@ namespace EpicEdit.Rom
             Buffer.BlockCopy(offset, 0, this.romBuffer, trackAddressIndex, 3);
 
             saveBuffer.Add(compressedTrack);
+        }
+
+        private void SaveThemes(SaveBuffer saveBuffer)
+        {
+            for (int i = 0; i < this.themes.Count; i++)
+            {
+                Theme theme = this.themes[i];
+
+                // Save color palettes
+                byte[] paletteOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+                int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
+                Buffer.BlockCopy(paletteOffset, 0, this.romBuffer, paletteOffsetIndex, 3);
+                byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
+                saveBuffer.Add(paletteData);
+            }
         }
 
         private void SaveItemProbabilities()
