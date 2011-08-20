@@ -354,7 +354,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(344, 234);
+            this.resetButton.Location = new System.Drawing.Point(11, 234);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 40;
