@@ -17,7 +17,7 @@ using System;
 namespace EpicEdit.Rom
 {
     /// <summary>
-    /// Description of Palettes.
+    /// Represents a collection of <see cref="Palette">palettes</see>.
     /// </summary>
     public class Palettes
     {
