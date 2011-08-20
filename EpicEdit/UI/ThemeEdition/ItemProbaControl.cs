@@ -377,7 +377,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.performEvents = true;
         }
 
-        private void lapRankComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void LapRankComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.performEvents)
             {
@@ -386,7 +386,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private void themeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.performEvents)
             {
@@ -395,7 +395,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private void resetButton_Click(object sender, EventArgs e)
+        private void ResetButtonClick(object sender, EventArgs e)
         {
             this.itemProbability.Reset();
             this.DisplayProbability();
