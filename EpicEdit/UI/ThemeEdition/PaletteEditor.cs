@@ -205,13 +205,11 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void ResetButtonClick(object sender, EventArgs e)
         {
-            // FIXME: Minor inconsistency: if resetting data,
-            // the Game is still marked as modified (and will prompt to save unsaved changes),
-            // which is not the case with the ItemProbaEditor, which restores the Modified value
             this.palette.Load(this.paletteBackup);
             this.SetPalette(this.palette);
 
-            this.palette.Modified = true;
+            this.palette.Modified = false;
+            this.palette.UpdateTiles = true;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
