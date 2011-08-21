@@ -32,6 +32,8 @@ namespace EpicEdit.Rom
         /// </summary>
         public const int ColorCount = Palette.Size / RomColor.Size;
 
+        private byte[] backupData;
+
         private bool modified;
 
         public bool Modified
@@ -92,10 +94,12 @@ namespace EpicEdit.Rom
 
         public Palette(byte[] data)
         {
+            this.backupData = data;
+
             this.Load(data);
         }
 
-        public void Load(byte[] data)
+        private void Load(byte[] data)
         {
             if (data.Length != Palette.Size)
             {
@@ -107,6 +111,14 @@ namespace EpicEdit.Rom
             {
                 this.colors[i] = RomColor.FromBytes(data, i * RomColor.Size);
             }
+        }
+
+        public void Reset()
+        {
+            this.Load(this.backupData);
+
+            this.modified = false;
+            this.updateTiles = true;
         }
 
         public RomColor this[int index]

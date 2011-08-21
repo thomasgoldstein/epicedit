@@ -45,11 +45,6 @@ namespace EpicEdit.Rom.ThemeEdition
         private Palette palette;
 
         /// <summary>
-        /// Used to reset the palette with the reset button
-        /// </summary>
-        private byte[] paletteBackup;
-
-        /// <summary>
         /// Constructs the editor using the default palette (all black).
         /// </summary>
         public PaletteEditor() : this(new Palette()) { }
@@ -165,7 +160,6 @@ namespace EpicEdit.Rom.ThemeEdition
         public void SetPalette(Palette palette)
         {
             this.palette = palette;
-            this.paletteBackup = palette.GetBytes();
 
             this.DrawPalette();
 
@@ -205,11 +199,8 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void ResetButtonClick(object sender, EventArgs e)
         {
-            this.palette.Load(this.paletteBackup);
+            this.palette.Reset();
             this.SetPalette(this.palette);
-
-            this.palette.Modified = false;
-            this.palette.UpdateTiles = true;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
