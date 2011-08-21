@@ -208,8 +208,10 @@ namespace EpicEdit.Rom.ThemeEdition
             // FIXME: Minor inconsistency: if resetting data,
             // the Game is still marked as modified (and will prompt to save unsaved changes),
             // which is not the case with the ItemProbaEditor, which restores the Modified value
-            Palette palette = new Palette(this.paletteBackup);
-            this.SetPalette(palette);
+            this.palette.Load(this.paletteBackup);
+            this.SetPalette(this.palette);
+
+            this.palette.Modified = true;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
