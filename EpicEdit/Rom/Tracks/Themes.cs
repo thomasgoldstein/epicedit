@@ -96,39 +96,23 @@ namespace EpicEdit.Rom.Tracks
 
         private static Tile[] GetRoadTileset(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
         {
-            Bitmap[] roadBitmaps = Themes.GetRoadTilesetBitmaps(colorPalettes,
-                                                                tilesetPaletteIndexes, tilesetGfx,
-                                                                commonTilesetPaletteIndexes, commonTilesetGfx);
-
-            Tile[] roadTileset = new Tile[roadBitmaps.Length];
-
-            for (int tileId = 0; tileId < roadBitmaps.Length; tileId++)
-            {
-                roadTileset[tileId] = new StillTile(roadBitmaps[tileId], TileGenre.Road);
-            }
-
-            return roadTileset;
-        }
-
-        private static Bitmap[] GetRoadTilesetBitmaps(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
-        {
-            Bitmap[] tileBitmaps = new Bitmap[256];
+            Tile[] tiles = new Tile[256];
 
             // Get the tiles that are specific to this tileset
-            Themes.SetRoadTilesetBitmaps(tileBitmaps, colorPalettes, tilesetPaletteIndexes, tilesetGfx, 0, 192);
+            Themes.SetRoadTileset(tiles, colorPalettes, tilesetPaletteIndexes, tilesetGfx, 0, 192);
 
             // Get the tiles that are common to all tilesets
-            Themes.SetRoadTilesetBitmaps(tileBitmaps, colorPalettes, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
+            Themes.SetRoadTileset(tiles, colorPalettes, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
 
-            return tileBitmaps;
+            return tiles;
         }
 
-        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, int tileIndex, int tileCount)
+        private static void SetRoadTileset(Tile[] tiles, Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, int tileIndex, int tileCount)
         {
             for (int i = 0; i < tilesetGfx.Length; i++)
             {
                 Palette palette = colorPalettes[tilesetPaletteIndexes[i]];
-                tileBitmaps[tileIndex + i] = GraphicsConverter.GetBitmapFrom4bppLinearReversed(tilesetGfx[i], palette);
+                tiles[tileIndex + i] = new StillTile(palette, tilesetGfx[i], TileGenre.Road);
             }
             
             if (tilesetGfx.Length < tileCount) // The tileset isn't full, there are missing tiles
@@ -143,7 +127,8 @@ namespace EpicEdit.Rom.Tracks
                 for (int i = tilesetGfx.Length; i < tileCount; i++)
                 {
                     // Fill in the rest of the tileset with empty (black) tiles
-                    tileBitmaps[tileIndex + i] = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
+                    Bitmap image = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
+                    tiles[tileIndex + i] = new StillTile(image, TileGenre.Road);
                 }
             }
         }
