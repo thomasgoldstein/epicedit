@@ -13,13 +13,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace EpicEdit.Rom
 {
     /// <summary>
     /// Represents a collection of <see cref="Palette">palettes</see>.
     /// </summary>
-    public class Palettes
+    public class Palettes : IEnumerable<Palette>
     {
         private Palette[] palettes;
 
@@ -68,6 +70,19 @@ namespace EpicEdit.Rom
             }
 
             return data;
+        }
+
+        public IEnumerator<Palette> GetEnumerator()
+        {
+            foreach (Palette palette in this.palettes)
+            {
+                yield return palette;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.palettes.GetEnumerator();
         }
     }
 }
