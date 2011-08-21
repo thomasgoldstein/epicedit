@@ -136,9 +136,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// Gets the user selected color (new color).
         /// </summary>
         /// <returns>The color.</returns>
-        public RomColor GetColor()
+        public RomColor SelectedColor
         {
-            return (RomColor)this.newColorBitmap.GetPixel(0, 0);
+            get
+            {
+                return (RomColor)this.newColorBitmap.GetPixel(0, 0);
+            }
         }
 
         /// <summary>

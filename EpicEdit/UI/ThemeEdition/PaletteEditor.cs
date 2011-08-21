@@ -175,7 +175,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private void SetColorButtonClick(object sender, EventArgs e)
         {
             // Draw the appropriate color back to the panel and update the tooltip
-            RomColor color = this.colorPicker.GetColor();
+            RomColor color = this.colorPicker.SelectedColor;
             this.palette[this.selectedColor] = color;
             this.panels[this.selectedColor].BackColor = color;
             this.SetToolTip(this.selectedColor);
