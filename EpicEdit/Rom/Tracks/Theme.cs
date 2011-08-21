@@ -97,6 +97,11 @@ namespace EpicEdit.Rom.Tracks
 
         public void UpdateTiles()
         {
+            if (!this.TilesNeedUpdating)
+            {
+                return;
+            }
+
             foreach (Tile tile in this.roadTileset)
             {
                 if (tile.Palette.UpdateTiles)
@@ -110,6 +115,22 @@ namespace EpicEdit.Rom.Tracks
             foreach (Palette palette in this.Palettes)
             {
                 palette.UpdateTiles = false;
+            }
+        }
+
+        private bool TilesNeedUpdating
+        {
+            get
+            {
+                foreach (Palette palette in this.Palettes)
+                {
+                    if (palette.UpdateTiles)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 
