@@ -90,9 +90,14 @@ namespace EpicEdit.Rom
             this.colors = palette;
         }
 
-        public Palette(byte[] palette)
+        public Palette(byte[] data)
         {
-            if (palette.Length != Palette.Size)
+            this.Load(data);
+        }
+
+        public void Load(byte[] data)
+        {
+            if (data.Length != Palette.Size)
             {
                 throw new ArgumentException("The palette is not 32-byte long.", "palette");
             }
@@ -100,7 +105,7 @@ namespace EpicEdit.Rom
             this.colors = new RomColor[Palette.ColorCount];
             for (int i = 0; i < this.colors.Length; i++)
             {
-                this.colors[i] = RomColor.FromBytes(palette, i * RomColor.Size);
+                this.colors[i] = RomColor.FromBytes(data, i * RomColor.Size);
             }
         }
 
