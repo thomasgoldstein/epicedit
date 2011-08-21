@@ -117,6 +117,8 @@ namespace EpicEdit.Rom.Tracks
             
             if (tilesetGfx.Length < tileCount) // The tileset isn't full, there are missing tiles
             {
+                Palette palette = colorPalettes[0];
+
                 Bitmap emptyTile = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
                 // Turns bitmap black
                 FastBitmap fBitmap = new FastBitmap(emptyTile);
@@ -128,7 +130,7 @@ namespace EpicEdit.Rom.Tracks
                 {
                     // Fill in the rest of the tileset with empty (black) tiles
                     Bitmap image = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
-                    tiles[tileIndex + i] = new StillTile(image, TileGenre.Road);
+                    tiles[tileIndex + i] = new StillTile(palette, image, TileGenre.Road);
                 }
             }
         }

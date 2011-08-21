@@ -67,8 +67,9 @@ namespace EpicEdit.Rom.Tracks
             this.GenerateBitmap();
         }
 
-        public StillTile(Bitmap image, TileGenre genre)
+        public StillTile(Palette palette, Bitmap image, TileGenre genre)
         {
+            this.Palette = palette;
             this.image = image;
             this.Genre = genre;
         }

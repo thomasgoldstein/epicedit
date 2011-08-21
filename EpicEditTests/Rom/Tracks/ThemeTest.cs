@@ -44,7 +44,7 @@ namespace EpicEditTests.Rom.Tracks
             Tile[] tiles = new StillTile[this.count];
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
             }
             this.theme.SetRoadTileset(tiles);
             Assert.AreEqual(this.theme.GetRoadTile(0), tiles[0]);
@@ -58,7 +58,7 @@ namespace EpicEditTests.Rom.Tracks
             this.theme.ClearRoadTileset();
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
                 this.theme.SetRoadTile(i, tiles[i]);
             }
 
@@ -74,7 +74,7 @@ namespace EpicEditTests.Rom.Tracks
             Tile[] tiles = new StillTile[this.count];
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
             }
             this.theme.SetBackgroundTileset(tiles);
 
@@ -91,7 +91,7 @@ namespace EpicEditTests.Rom.Tracks
             this.theme.ClearBackgroundTileset();
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
                 this.theme.SetBackgroundTile(i, tiles[i]);
             }
 
