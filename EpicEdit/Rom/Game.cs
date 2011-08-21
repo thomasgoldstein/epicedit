@@ -699,8 +699,8 @@ namespace EpicEdit.Rom
 
         private int GetGPStartPositionDataOffset(int trackIndex)
         {
-            int[] reorder = { 14, 10, 7, 8, 15, 19, 16, 4, 17, 13, 6, 12, 11, 5, 18, 9, 2, 3, 1, 0 };
             // TODO: Retrieve order dynamically from the ROM
+            int[] reorder = { 14, 10, 7, 8, 15, 19, 16, 4, 17, 13, 6, 12, 11, 5, 18, 9, 2, 3, 1, 0 };
             return this.offsets[Offset.GPTrackStartPositions] + reorder[trackIndex] * 8;
         }
 
@@ -985,6 +985,7 @@ namespace EpicEdit.Rom
                 return this.offsets[Offset.TrackObjectZonesRelocated] + trackIndex * 10;
             }
 
+            // TODO: Retrieve order dynamically from the ROM
             int[] reorder =
             {
                 2, -1 /* Ghost Valley x */, 12, 8, 15,
@@ -992,7 +993,6 @@ namespace EpicEdit.Rom
                 5, 13, 14, 17, 3,
                 1, -1 /* Ghost Valley x */, 7, 4, 11
             };
-            // TODO: Retrieve order dynamically from the ROM
 
             // NOTE: The 2 bytes at 4DB85 (93DB) are an address (4DB93)
             // to 2 other bytes (CFDA), which are an address (4DACF)

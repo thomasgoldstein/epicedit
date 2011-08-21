@@ -49,8 +49,8 @@ namespace EpicEdit.Rom.Tracks
         {
             this.themes = new Theme[Theme.Count];
 
-            int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
             // TODO: Retrieve order dynamically from the ROM
+            int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
 
             int[] colorPaletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeColorPalettes], this.themes.Length);
             int[] roadTilesetGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
@@ -62,8 +62,8 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < this.themes.Length; i++)
             {
-                byte[] colorPaletteData = Codec.Decompress(romBuffer, colorPaletteOffsets[i], 512);
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
+                byte[] colorPaletteData = Codec.Decompress(romBuffer, colorPaletteOffsets[i], 512);
 
                 Palettes colorPalettes = new Palettes(colorPaletteData);
 
