@@ -29,9 +29,9 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (disposing)
             {
-                if (components != null)
+                if (this.components != null)
                 {
-                    components.Dispose();
+                    this.components.Dispose();
                 }
 
                 if (this.trackDrawer != null)
