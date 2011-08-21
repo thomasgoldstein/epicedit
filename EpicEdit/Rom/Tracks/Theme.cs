@@ -118,7 +118,7 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        private bool TilesNeedUpdating
+        public bool TilesNeedUpdating
         {
             get
             {
