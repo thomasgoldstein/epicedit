@@ -56,7 +56,6 @@ namespace EpicEdit.UI.ThemeEdition
         private Bitmap shadesCache;
 
         /// <summary>
-
         /// Cached size for shadesBitmap / shadesCache.
         /// </summary>
         private Size shadesSize;
