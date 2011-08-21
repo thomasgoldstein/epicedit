@@ -45,6 +45,8 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         /// </summary>
         private const int TotalCount = 32;
 
+        private byte[] backupData;
+
         #region Item Box Display
 
         private ItemBoxDisplay displayedItems;
@@ -280,8 +282,6 @@ namespace EpicEdit.Rom.Tracks.ItemProba
         }
 
         #region Reading and Writing Byte Data
-
-        private byte[] backupData;
 
         public void Save(byte[] romBuffer, int offset)
         {
