@@ -303,7 +303,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Getters / Converters for the ComboBoxes
 
-        #region Events
+        #region Events Handlers
 
         private void ValueChanged(object sender, EventArgs e)
         {
@@ -401,6 +401,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.DisplayProbability();
         }
 
-        #endregion Events
+        #endregion Events Handlers
     }
 }

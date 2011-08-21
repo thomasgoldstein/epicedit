@@ -462,7 +462,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Bitmap Drawing
 
-        #region Events
+        #region Events Handlers
 
         /// <summary>
         /// Catches when the user moves in the basic colors while clicked.
@@ -639,7 +639,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Paint
 
-        #endregion Events
+        #endregion Events Handlers
 
         #region Find Colors
 
