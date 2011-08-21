@@ -71,6 +71,7 @@ namespace EpicEdit.UI
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(854, 661);
             this.tabControl.TabIndex = 0;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControlSelectedIndexChanged);
             // 
             // trackTabPage
             // 
@@ -90,10 +91,10 @@ namespace EpicEdit.UI
             this.trackEditor.Name = "trackEditor";
             this.trackEditor.Size = new System.Drawing.Size(846, 635);
             this.trackEditor.TabIndex = 0;
-            this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
             this.trackEditor.FileDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorFileDragged);
-            this.trackEditor.ToggleScreenModeRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorToggleScreenModeRequested);
+            this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
             this.trackEditor.SaveRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorSaveRomDialogRequested);
+            this.trackEditor.ToggleScreenModeRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorToggleScreenModeRequested);
             // 
             // themeTabPage
             // 
