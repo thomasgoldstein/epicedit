@@ -154,7 +154,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.selectedBasicColor = this.DrawBasicColorsBitmap(this.FindBasicColor(color));
             this.basicColorsPictureBox.Refresh();
 
-            this.DrawShadesBitmap(this.selectedBasicColor, color);
+            this.DrawShadesBitmap(color);
             this.shadesPictureBox.Refresh();
 
             this.DrawNewColorBitmap(color);
@@ -312,9 +312,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// This is used to find a color that user might have entered manually.
         /// It does not always draw the ellipse as not all colors are necessarily displayed.
         /// </summary>
-        /// <param name="basicColor">The color selected by the basic color.</param>
         /// <param name="color">The color to draw a circle around.</param>
-        private void DrawShadesBitmap(RomColor basicColor, RomColor color)
+        private void DrawShadesBitmap(RomColor color)
         {
             this.shadesBitmap.Dispose();
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
