@@ -27,9 +27,32 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (this.components != null)
+                {
+                    this.components.Dispose();
+                }
+
+                if (this.basicColorsBitmap != null)
+                {
+                    this.basicColorsBitmap.Dispose();
+                }
+
+                if (this.basicColorsCache != null)
+                {
+                    this.basicColorsCache.Dispose();
+                }
+
+                if (this.shadesBitmap != null)
+                {
+                    this.shadesBitmap.Dispose();
+                }
+
+                if (this.shadesCache != null)
+                {
+                    this.shadesCache.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
