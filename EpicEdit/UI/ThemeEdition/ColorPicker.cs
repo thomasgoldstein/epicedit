@@ -108,7 +108,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.selectedBasicColor = this.DrawBasicColorsBitmap(0);
             this.InitShadesCache(this.selectedBasicColor);
-            RomColor shadeColor = this.DrawShadesBitmap(this.selectedBasicColor, 63, 0);
+            RomColor shadeColor = this.DrawShadesBitmap(63, 0);
             this.DrawNewColorBitmap(shadeColor);
 
             this.performEvents = false;
@@ -287,11 +287,10 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Draws the shades of a color with the circle around a certain x, y position.
         /// </summary>
-        /// <param name="basicColor">The color selected by the basic color.</param>
         /// <param name="x">The x coordinate to select.</param>
         /// <param name="y">The y coordinate to select.</param>
         /// <returns>The color at x, y.</returns>
-        private RomColor DrawShadesBitmap(RomColor basicColor, int x, int y)
+        private RomColor DrawShadesBitmap(int x, int y)
         {
             this.selectedShadeLocation = new Point(x, y);
             RomColor selectedShadeColor = (RomColor)this.shadesCache.GetPixel(x, y);
@@ -512,7 +511,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsPictureBox.Refresh();
 
             this.InitShadesCache(this.selectedBasicColor);
-            RomColor shadeColor = this.DrawShadesBitmap(this.selectedBasicColor, this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
+            RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
             this.shadesPictureBox.Refresh();
 
             this.performEvents = false;
@@ -576,7 +575,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             // Redraw shades and new color
-            RomColor shadeColor = this.DrawShadesBitmap(this.selectedBasicColor, x, y);
+            RomColor shadeColor = this.DrawShadesBitmap(x, y);
             this.shadesPictureBox.Refresh();
 
             this.performEvents = false;
