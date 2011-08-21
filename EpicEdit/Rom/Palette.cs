@@ -86,7 +86,7 @@ namespace EpicEdit.Rom
         {
             if (palette.Length != Palette.ColorCount)
             {
-                throw new ArgumentException("The palette doesn't contain 16 colors.", "palette");
+                throw new ArgumentException("The palette doesn't contain " + Palette.ColorCount + " colors.", "palette");
             }
 
             this.colors = palette;
@@ -103,7 +103,7 @@ namespace EpicEdit.Rom
         {
             if (data.Length != Palette.Size)
             {
-                throw new ArgumentException("The palette is not 32-byte long.", "palette");
+                throw new ArgumentException("The palette is not " + Palette.Size + "-byte long.", "palette");
             }
 
             this.colors = new RomColor[Palette.ColorCount];
