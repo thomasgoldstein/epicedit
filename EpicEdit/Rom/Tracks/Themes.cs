@@ -70,16 +70,9 @@ namespace EpicEdit.Rom.Tracks
                 byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
                 byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, 0x100, -1, 32);
 
-                Bitmap[] roadBitmaps = Themes.GetRoadTilesetBitmaps(colorPalettes,
-                                                                    roadTilesetPaletteIndexes, roadTilesetGfx,
-                                                                    roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
-
-                Tile[] roadTileset = new Tile[roadBitmaps.Length];
-
-                for (int tileId = 0; tileId < roadBitmaps.Length; tileId++)
-                {
-                    roadTileset[tileId] = new StillTile(roadBitmaps[tileId], TileGenre.Road);
-                }
+                Tile[] roadTileset = Themes.GetRoadTileset(colorPalettes,
+                                                           roadTilesetPaletteIndexes, roadTilesetGfx,
+                                                           roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
 
                 // TODO: Add support for background tilesets
                 //byte[] backgroundTilesetData = Codec.Decompress(romBuffer, backgroundTilesetGfxOffsets[i]);
@@ -99,6 +92,22 @@ namespace EpicEdit.Rom.Tracks
             }
 
             return paletteIndexes;
+        }
+
+        private static Tile[] GetRoadTileset(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
+        {
+            Bitmap[] roadBitmaps = Themes.GetRoadTilesetBitmaps(colorPalettes,
+                                                                tilesetPaletteIndexes, tilesetGfx,
+                                                                commonTilesetPaletteIndexes, commonTilesetGfx);
+
+            Tile[] roadTileset = new Tile[roadBitmaps.Length];
+
+            for (int tileId = 0; tileId < roadBitmaps.Length; tileId++)
+            {
+                roadTileset[tileId] = new StillTile(roadBitmaps[tileId], TileGenre.Road);
+            }
+
+            return roadTileset;
         }
 
         private static Bitmap[] GetRoadTilesetBitmaps(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
