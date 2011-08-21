@@ -291,6 +291,32 @@ namespace EpicEdit.UI.TrackEdition
         }
         #endregion Constructor
 
+        #region Public Methods
+        /// <summary>
+        /// If the user changed the color palettes, the tiles need to be updated to reflect this.
+        /// </summary>
+        public void UpdateTiles()
+        {
+            bool update = this.track.Theme.TilesNeedUpdating;
+
+            foreach (Theme theme in MainForm.SmkGame.Themes)
+            {
+                // Update all theme tiles
+                theme.UpdateTiles();
+            }
+
+            if (update)
+            {
+                // Reset current track cache
+                this.trackDrawer.LoadTrack(this.track);
+                int xStart = this.tileClipboardTopLeft.X;
+                int yStart = this.tileClipboardTopLeft.Y;
+                this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+                this.tilesetControl.UpdateTileset();
+            }
+        }
+        #endregion Public Methods
+
         #region Menu Options
         public void InitOnFirstRomLoad()
         {

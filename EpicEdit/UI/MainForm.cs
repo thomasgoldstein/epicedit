@@ -19,6 +19,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI
@@ -278,6 +279,14 @@ namespace EpicEdit.UI
                 // Go back to windowed mode
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = this.previousWindowState;
+            }
+        }
+        
+        private void TabControlSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.tabControl.SelectedIndex == 0) // Switch to Track editor tab
+            {
+                this.trackEditor.UpdateTiles();
             }
         }
     }
