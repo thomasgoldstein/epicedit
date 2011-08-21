@@ -107,23 +107,23 @@ namespace EpicEdit.Rom.Tracks
             Bitmap[] tileBitmaps = new Bitmap[256];
 
             // Get the tiles that are specific to this tileset
-            Themes.SetRoadTilesetBitmaps(tileBitmaps, tilesetGfx, colorPalettes, tilesetPaletteIndexes, 0, 192);
+            Themes.SetRoadTilesetBitmaps(tileBitmaps, colorPalettes, tilesetPaletteIndexes, tilesetGfx, 0, 192);
 
             // Get the tiles that are common to all tilesets
-            Themes.SetRoadTilesetBitmaps(tileBitmaps, commonTilesetGfx, colorPalettes, commonTilesetPaletteIndexes, 192, 64);
+            Themes.SetRoadTilesetBitmaps(tileBitmaps, colorPalettes, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
 
             return tileBitmaps;
         }
 
-        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, byte[][] gfx, Palettes colorPalettes, byte[] tilesetPaletteIndexes, int tileIndex, int tileCount)
+        private static void SetRoadTilesetBitmaps(Bitmap[] tileBitmaps, Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, int tileIndex, int tileCount)
         {
-            for (int i = 0; i < gfx.Length; i++)
+            for (int i = 0; i < tilesetGfx.Length; i++)
             {
                 Palette palette = colorPalettes[tilesetPaletteIndexes[i]];
-                tileBitmaps[tileIndex + i] = GraphicsConverter.GetBitmapFrom4bppLinearReversed(gfx[i], palette);
+                tileBitmaps[tileIndex + i] = GraphicsConverter.GetBitmapFrom4bppLinearReversed(tilesetGfx[i], palette);
             }
             
-            if (gfx.Length < tileCount) // The tileset isn't full, there are missing tiles
+            if (tilesetGfx.Length < tileCount) // The tileset isn't full, there are missing tiles
             {
                 Bitmap emptyTile = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
                 // Turns bitmap black
@@ -132,7 +132,7 @@ namespace EpicEdit.Rom.Tracks
 
                 Rectangle tileRectangle = new Rectangle(0, 0, Tile.Size, Tile.Size);
 
-                for (int i = gfx.Length; i < tileCount; i++)
+                for (int i = tilesetGfx.Length; i < tileCount; i++)
                 {
                     // Fill in the rest of the tileset with empty (black) tiles
                     tileBitmaps[tileIndex + i] = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
