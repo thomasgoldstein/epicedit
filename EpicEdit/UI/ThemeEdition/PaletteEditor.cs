@@ -168,15 +168,6 @@ namespace EpicEdit.Rom.ThemeEdition
         }
 
         /// <summary>
-        /// Returns the palette with modified colors (if any were changed).
-        /// </summary>
-        /// <returns></returns>
-        public Palette GetPalette()
-        {
-            return this.palette;
-        }
-
-        /// <summary>
         /// Catches the user setting the color.
         /// </summary>
         /// <param name="sender"></param>
