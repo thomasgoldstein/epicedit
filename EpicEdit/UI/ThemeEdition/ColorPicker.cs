@@ -226,20 +226,18 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsBitmap.Dispose();
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
 
-            using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
+            for (int x = 0; x < this.basicColorsSize.Width; x++)
             {
-                for (int x = 0; x < this.basicColorsSize.Width; x++)
+                RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
+                if (selectedColor == color)
                 {
-                    RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
-                    if (selectedColor == color)
+                    using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
+                    using (Pen pen = new Pen(selectedColor.Opposite()))
                     {
-                        using (Pen pen = new Pen(selectedColor.Opposite()))
-                        {
-                            int y = this.basicColorsSize.Height / 2;
-                            g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
-                        }
-                        return selectedColor;
+                        int y = this.basicColorsSize.Height / 2;
+                        g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
                     }
+                    return selectedColor;
                 }
             }
 
@@ -334,22 +332,20 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesBitmap.Dispose();
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
 
-            using (Graphics g = Graphics.FromImage(this.shadesBitmap))
+            for (int x = 0; x < this.shadesSize.Width; x++)
             {
-                for (int x = 0; x < this.shadesSize.Width; x++)
+                for (int y = 0; y < this.shadesSize.Height; y++)
                 {
-                    for (int y = 0; y < this.shadesSize.Height; y++)
+                    RomColor selectedShadeColor = (RomColor)this.shadesBitmap.GetPixel(x, y);
+                    if (selectedShadeColor == color)
                     {
-                        RomColor selectedShadeColor = (RomColor)this.shadesBitmap.GetPixel(x, y);
-                        if (selectedShadeColor == color)
+                        this.selectedShadeLocation = new Point(x, y);
+                        using (Graphics g = Graphics.FromImage(this.shadesBitmap))
+                        using (Pen pen = new Pen(GetPenColor(x, y)))
                         {
-                            this.selectedShadeLocation = new Point(x, y);
-                            using (Pen pen = new Pen(GetPenColor(x, y)))
-                            {
-                                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
-                            }
-                            return;
+                            g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
                         }
+                        return;
                     }
                 }
             }
