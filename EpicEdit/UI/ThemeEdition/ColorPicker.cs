@@ -184,6 +184,17 @@ namespace EpicEdit.UI.ThemeEdition
         #region Bitmap Drawing
 
         /// <summary>
+        /// Returns the bounds of the passed selection coordinates.
+        /// </summary>
+        /// <param name="x">X value.</param>
+        /// <param name="y">Y value.</param>
+        /// <returns>The bounds of the passed selection coordinates.</returns>
+        private static Rectangle GetSelectionBounds(int x, int y)
+        {
+            return new Rectangle(x - 3, y - 3, 6, 6);
+        }
+
+        /// <summary>
         /// Draws the basic colors with the circle around a certain x position.
         /// </summary>
         /// <param name="x">The position to select.</param>
@@ -198,7 +209,8 @@ namespace EpicEdit.UI.ThemeEdition
             using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
             using (Pen pen = new Pen(selectedColor.Opposite()))
             {
-                g.DrawEllipse(pen, x - 3, 4, 6, 6);
+                int y = this.basicColorsSize.Height / 2;
+                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
             }
 
             return selectedColor;
@@ -223,7 +235,8 @@ namespace EpicEdit.UI.ThemeEdition
                     {
                         using (Pen pen = new Pen(selectedColor.Opposite()))
                         {
-                            g.DrawEllipse(pen, x - 3, 4, 6, 6);
+                            int y = this.basicColorsSize.Height / 2;
+                            g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
                         }
                         return selectedColor;
                     }
@@ -304,7 +317,7 @@ namespace EpicEdit.UI.ThemeEdition
             using (Graphics g = Graphics.FromImage(this.shadesBitmap))
             using (Pen pen = new Pen(this.GetPenColor(x, y)))
             {
-                g.DrawEllipse(pen, x - 3, y - 3, 6, 6);
+                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
             }
 
             return selectedShadeColor;
@@ -333,7 +346,7 @@ namespace EpicEdit.UI.ThemeEdition
                             this.selectedShadeLocation = new Point(x, y);
                             using (Pen pen = new Pen(GetPenColor(x, y)))
                             {
-                                g.DrawEllipse(pen, x - 3, y - 3, 6, 6);
+                                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
                             }
                             return;
                         }
