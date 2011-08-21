@@ -154,8 +154,9 @@ namespace EpicEdit.UI.ThemeEdition
             // This is possibly due to the fact that not every shade is displayed. FindBasicColor may possibly be flawed as well.
             color = color.To5Bit();
 
+            this.InvalidateBasicColorsSelection();
             this.selectedBasicColor = this.DrawBasicColorsBitmap(ColorPicker.FindBasicColor(color));
-            this.basicColorsPictureBox.Refresh();
+            this.InvalidateBasicColorsSelection();
 
             this.DrawShadesBitmap(color);
             this.shadesPictureBox.Refresh();
@@ -194,6 +195,20 @@ namespace EpicEdit.UI.ThemeEdition
             return new Rectangle(x - 3, y - 3, 6, 6);
         }
 
+        private void InvalidateBasicColorsSelection()
+        {
+            Rectangle rec = ColorPicker.GetSelectionBounds(this.FindColorIndex(this.selectedBasicColor), this.basicColorsSize.Height / 2);
+            rec.Inflate(1, 1);
+            this.basicColorsPictureBox.Invalidate(rec);
+        }
+
+        private void InvalidateShadesSelection()
+        {
+            Rectangle rec = ColorPicker.GetSelectionBounds(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
+            rec.Inflate(1, 1);
+            this.shadesPictureBox.Invalidate(rec);
+        }
+
         /// <summary>
         /// Draws the basic colors with the circle around a certain x position.
         /// </summary>
@@ -226,22 +241,33 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsBitmap.Dispose();
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
 
+            int x = this.FindColorIndex(color);
+            if (x == -1)
+            {
+                return new RomColor();
+            }
+
+            using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
+            using (Pen pen = new Pen(color.Opposite()))
+            {
+                g.DrawEllipse(pen, x - 3, 4, 6, 6);
+            }
+
+            return color;
+        }
+
+        private int FindColorIndex(RomColor color)
+        {
             for (int x = 0; x < this.basicColorsSize.Width; x++)
             {
                 RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
                 if (selectedColor == color)
                 {
-                    using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
-                    using (Pen pen = new Pen(selectedColor.Opposite()))
-                    {
-                        int y = this.basicColorsSize.Height / 2;
-                        g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
-                    }
-                    return selectedColor;
+                    return x;
                 }
             }
 
-            return new RomColor();
+            return -1;
         }
 
         /// <summary>
@@ -517,9 +543,11 @@ namespace EpicEdit.UI.ThemeEdition
                 x = this.basicColorsSize.Width - 1;
             }
 
+            this.InvalidateBasicColorsSelection();
             // Redraw all pieces, basic colors, shades and new color
             this.selectedBasicColor = this.DrawBasicColorsBitmap(x);
-            this.basicColorsPictureBox.Refresh();
+            this.InvalidateBasicColorsSelection();
+            this.basicColorsPictureBox.Update();
 
             this.InitShadesCache(this.selectedBasicColor);
             RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
@@ -585,9 +613,10 @@ namespace EpicEdit.UI.ThemeEdition
                 y = this.shadesBitmap.Height - 1;
             }
 
+            this.InvalidateShadesSelection();
             // Redraw shades and new color
             RomColor shadeColor = this.DrawShadesBitmap(x, y);
-            this.shadesPictureBox.Refresh();
+            this.InvalidateShadesSelection();
 
             this.performEvents = false;
 
