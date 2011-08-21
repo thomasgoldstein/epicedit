@@ -62,7 +62,7 @@ namespace EpicEdit.UI.ThemeEdition
         private Size shadesSize;
 
         /// <summary>
-        /// The hilighted color from shadesBitmap.
+        /// The highlighted color from shadesBitmap.
         /// </summary>
         private Point selectedShadeLocation;
 
