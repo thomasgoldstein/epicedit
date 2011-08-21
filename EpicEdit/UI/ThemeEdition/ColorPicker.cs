@@ -297,7 +297,7 @@ namespace EpicEdit.UI.ThemeEdition
                 }
 
                 // Purple to red
-                for (int index = 31; index >= 0; index--)
+                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
                 {
                     brush.Color = RomColor.From5BitRgb(31, 0, index);
                     g.FillRectangle(brush, (31 - index) + 155, 0, 1, 15);

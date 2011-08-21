@@ -94,7 +94,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.basicColorsPictureBox.Location = new System.Drawing.Point(0, 0);
             this.basicColorsPictureBox.Name = "basicColorsPictureBox";
-            this.basicColorsPictureBox.Size = new System.Drawing.Size(189, 17);
+            this.basicColorsPictureBox.Size = new System.Drawing.Size(188, 17);
             this.basicColorsPictureBox.TabIndex = 8;
             this.basicColorsPictureBox.TabStop = false;
             this.basicColorsPictureBox.Click += new System.EventHandler(this.BasicColorsPictureBoxClick);
