@@ -257,20 +257,6 @@ namespace EpicEdit.UI.ThemeEdition
             return color;
         }
 
-        private int FindColorIndex(RomColor color)
-        {
-            for (int x = 0; x < this.basicColorsSize.Width; x++)
-            {
-                RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
-                if (selectedColor == color)
-                {
-                    return x;
-                }
-            }
-
-            return -1;
-        }
-
         /// <summary>
         /// Initializes the basicColorsCache member.
         /// </summary>
@@ -727,6 +713,20 @@ namespace EpicEdit.UI.ThemeEdition
             float blue = color.Blue * multiplier;
 
             return RomColor.From8BitRgb((byte)red, (byte)green, (byte)blue).To5Bit();
+        }
+
+        private int FindColorIndex(RomColor color)
+        {
+            for (int x = 0; x < this.basicColorsSize.Width; x++)
+            {
+                RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
+                if (selectedColor == color)
+                {
+                    return x;
+                }
+            }
+
+            return -1;
         }
 
         #endregion Find Colors
