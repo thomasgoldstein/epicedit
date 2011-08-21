@@ -32,7 +32,41 @@ namespace EpicEdit.Rom
         /// </summary>
         public const int ColorCount = Palette.Size / RomColor.Size;
 
-        public bool Modified { get; set; }
+        private bool modified;
+
+        public bool Modified
+        {
+            get
+            {
+                return this.modified;
+            }
+            set
+            {
+                this.modified = value;
+
+                if (value)
+                {
+                    this.updateTiles = value;
+                }
+            }
+        }
+
+        private bool updateTiles;
+
+        /// <summary>
+        /// Specifies whether the tiles need to be updated.
+        /// </summary>
+        public bool UpdateTiles
+        {
+            get
+            {
+                return this.updateTiles;
+            }
+            set
+            {
+                this.updateTiles = value;
+            }
+        }
 
         private RomColor[] colors;
 
