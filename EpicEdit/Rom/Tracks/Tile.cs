@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks
     	public const int Size = 8;
 
         private TileGenre genre = TileGenre.Road;
-        protected Palette palette;
+        public Palette Palette { get; protected set; }
         protected byte[] gfx;
 
         public TileGenre Genre
@@ -41,6 +41,8 @@ namespace EpicEdit.Rom.Tracks
         protected Tile() { }
 
         public abstract Bitmap Bitmap { get; }
+
+        public abstract void UpdateBitmap();
 
         public abstract void Dispose();
     }
@@ -59,7 +61,7 @@ namespace EpicEdit.Rom.Tracks
 
         public StillTile(Palette palette, byte[] gfx, TileGenre genre)
         {
-            this.palette = palette;
+            this.Palette = palette;
             this.gfx = gfx;
             this.Genre = genre;
             this.GenerateBitmap();
@@ -71,7 +73,7 @@ namespace EpicEdit.Rom.Tracks
             this.Genre = genre;
         }
 
-        public void UpdateBitmap()
+        public override void UpdateBitmap()
         {
             if (this.gfx == null)
             {
@@ -85,7 +87,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void GenerateBitmap()
         {
-            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.gfx, this.palette);
+            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.gfx, this.Palette);
         }
 
         public ushort[] ToSnesBitmap()
