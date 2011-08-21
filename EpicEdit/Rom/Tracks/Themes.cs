@@ -82,7 +82,7 @@ namespace EpicEdit.Rom.Tracks
                 }
 
                 // TODO: Add support for background tilesets
-                //byte[] backgroundTilesetData = Codec.Decompress(this.romBuffer, backgroundTilesetGfxOffsets[i]);
+                //byte[] backgroundTilesetData = Codec.Decompress(romBuffer, backgroundTilesetGfxOffsets[i]);
                 Tile[] backgroundTileset = new Tile[0];
 
                 this.themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset, backgroundTileset);
