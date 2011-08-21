@@ -154,7 +154,7 @@ namespace EpicEdit.UI.ThemeEdition
             // This is possibly due to the fact that not every shade is displayed. FindBasicColor may possibly be flawed as well.
             color = color.To5Bit();
 
-            this.selectedBasicColor = this.DrawBasicColorsBitmap(this.FindBasicColor(color));
+            this.selectedBasicColor = this.DrawBasicColorsBitmap(ColorPicker.FindBasicColor(color));
             this.basicColorsPictureBox.Refresh();
 
             this.DrawShadesBitmap(color);
@@ -650,7 +650,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        public RomColor FindBasicColor(RomColor color)
+        public static RomColor FindBasicColor(RomColor color)
         {
             byte max = Math.Max(color.Red, color.Green);
             max = Math.Max(max, color.Blue);
