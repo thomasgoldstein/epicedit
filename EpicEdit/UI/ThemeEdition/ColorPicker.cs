@@ -72,14 +72,9 @@ namespace EpicEdit.UI.ThemeEdition
         private RomColor oldColor;
 
         /// <summary>
-        /// Bitmap used to display the old color.
+        /// The new color, not yet set in the palette.
         /// </summary>
-        private Bitmap oldColorBitmap;
-
-        /// <summary>
-        /// Bitmap used to display the new color, not yet set in the palette.
-        /// </summary>
-        private Bitmap newColorBitmap;
+        private RomColor newColor;
 
         /// <summary>
         /// Used to prevent loops when certain clicks are performed in different UI controls.
@@ -140,7 +135,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             get
             {
-                return (RomColor)this.newColorBitmap.GetPixel(0, 0);
+                return this.newColor;
             }
         }
 
@@ -456,7 +451,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="color">The color.</param>
         private void DrawOldColorBitmap(RomColor color)
         {
-            this.oldColorBitmap = ColorPicker.GetColorBitmap(color);
+            this.oldColor = color;
+            this.oldColorPictureBox.BackColor = color;
             ColorPicker.SetToolTip(this.oldColorToolTip, this.oldColorPictureBox, color);
         }
 
@@ -466,21 +462,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="color">The color.</param>
         private void DrawNewColorBitmap(RomColor color)
         {
-            this.newColorBitmap = ColorPicker.GetColorBitmap(color);
+            this.newColor = color;
+            this.newColorPictureBox.BackColor = color;
             ColorPicker.SetToolTip(this.newColorToolTip, this.newColorPictureBox, color);
-        }
-
-        private static Bitmap GetColorBitmap(RomColor color)
-        {
-            Bitmap bitmap = new Bitmap(48, 48, PixelFormat.Format32bppPArgb);
-
-            using (Graphics g = Graphics.FromImage(bitmap))
-            using (SolidBrush brush = new SolidBrush(color))
-            {
-                g.FillRectangle(brush, 0, 0, 48, 48);
-            }
-
-            return bitmap;
         }
 
         #endregion Bitmap Drawing
@@ -638,7 +622,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void OldColorPictureBoxClick(object sender, EventArgs e)
         {
-            this.SetNewColor(this.oldColorBitmap.GetPixel(0, 0));
+            this.SetNewColor(this.oldColor);
         }
 
         #region Paint
@@ -651,16 +635,6 @@ namespace EpicEdit.UI.ThemeEdition
         private void ShadesPictureBoxPaint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(this.shadesBitmap, 0, 0);
-        }
-
-        private void NewColorPictureBoxPaint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(this.newColorBitmap, 0, 0);
-        }
-
-        private void OldColorPictureBoxPaint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(this.oldColorBitmap, 0, 0);
         }
 
         #endregion Paint

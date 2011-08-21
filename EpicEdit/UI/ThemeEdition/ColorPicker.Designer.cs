@@ -187,7 +187,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.newColorPictureBox.Size = new System.Drawing.Size(48, 48);
             this.newColorPictureBox.TabIndex = 16;
             this.newColorPictureBox.TabStop = false;
-            this.newColorPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.NewColorPictureBoxPaint);
             // 
             // newColorLabel
             // 
@@ -216,7 +215,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.oldColorPictureBox.TabIndex = 18;
             this.oldColorPictureBox.TabStop = false;
             this.oldColorPictureBox.Click += new System.EventHandler(this.OldColorPictureBoxClick);
-            this.oldColorPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.OldColorPictureBoxPaint);
             // 
             // newColorToolTip
             // 
