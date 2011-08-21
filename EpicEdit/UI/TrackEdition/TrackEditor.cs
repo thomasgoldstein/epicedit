@@ -236,6 +236,7 @@ namespace EpicEdit.UI.TrackEdition
         }
         #endregion Private members
 
+        #region Events
         [Browsable(true)]
         public event EventHandler<EventArgs<string>> FileDragged;
 
@@ -259,7 +260,9 @@ namespace EpicEdit.UI.TrackEdition
             add { this.menuBar.ToggleScreenModeRequested += value; }
             remove { this.menuBar.ToggleScreenModeRequested -= value; }
         }
+        #endregion Events
 
+        #region Constructor
         public TrackEditor()
         {
             this.InitializeComponent();
@@ -286,6 +289,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
         }
+        #endregion Constructor
 
         #region Menu Options
         public void InitOnFirstRomLoad()
