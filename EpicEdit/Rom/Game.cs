@@ -118,9 +118,6 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.filePath); }
         }
 
-        // NOTE: Maybe do not expose this, and change it in property setters
-        public bool Modified { get; set; }
-
         public string[] GetModeNames()
         {
             string[] modeNames = new string[3];
@@ -300,6 +297,8 @@ namespace EpicEdit.Rom
         /// The item icons.
         /// </summary>
         private Bitmap[] itemIcons;
+
+        private bool modified;
 
         #endregion Private members
 
@@ -1174,7 +1173,7 @@ namespace EpicEdit.Rom
                 #endregion Battle track specific data update
             }
 
-            this.Modified = true;
+            this.modified = true;
         }
 
         private void ReorderTracksSub(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
@@ -2112,7 +2111,7 @@ namespace EpicEdit.Rom
 
         private void ResetModifiedFlags()
         {
-            this.Modified = false;
+            this.modified = false;
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
@@ -2124,11 +2123,22 @@ namespace EpicEdit.Rom
                     }
                 }
             }
+
+            foreach (Theme theme in this.themes)
+            {
+                foreach (Palette palette in theme.Palettes)
+                {
+                    if (palette.Modified)
+                    {
+                        palette.Modified = false;
+                    }
+                }
+            }
         }
 
         public bool HasPendingChanges()
         {
-            if (this.Modified)
+            if (this.modified)
             {
                 return true;
             }
@@ -2153,6 +2163,17 @@ namespace EpicEdit.Rom
                 foreach (Track track in trackGroup)
                 {
                     if (track.Modified)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            foreach (Theme theme in this.themes)
+            {
+                foreach (Palette palette in theme.Palettes)
+                {
+                    if (palette.Modified)
                     {
                         return true;
                     }
