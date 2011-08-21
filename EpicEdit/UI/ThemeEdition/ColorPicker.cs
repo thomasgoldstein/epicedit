@@ -101,7 +101,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.DrawOldColorBitmap(this.oldColor);
 
             this.selectedBasicColor = this.DrawBasicColorsBitmap(0);
-            this.InitShadesCache(this.selectedBasicColor);
+            this.InitShadesCache();
             RomColor shadeColor = this.DrawShadesBitmap(63, 0);
             this.DrawNewColorBitmap(shadeColor);
 
@@ -152,7 +152,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.selectedBasicColor = this.DrawBasicColorsBitmap(ColorPicker.FindBasicColor(color));
             this.InvalidateBasicColorsSelection();
 
-            this.InitShadesCache(this.selectedBasicColor);
+            this.InitShadesCache();
             this.DrawShadesBitmap(color);
             this.shadesPictureBox.Invalidate();
 
@@ -383,8 +383,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Initializes the shadesCache member.
         /// </summary>
-        /// <param name="basicColor">The selected color.</param>
-        private void InitShadesCache(RomColor basicColor)
+        private void InitShadesCache()
         {
             this.shadesCache = new Bitmap(128, 128, PixelFormat.Format32bppPArgb);
             int index, index2;
@@ -407,7 +406,7 @@ namespace EpicEdit.UI.ThemeEdition
                 #endregion Gray Colors
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
-                IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(basicColor, 32);
+                IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, 32);
                 index = 0;
                 while (colorsIte.MoveNext())
                 {
@@ -425,7 +424,7 @@ namespace EpicEdit.UI.ThemeEdition
                 }
 
                 // Draw from white (top right) to our selected color (in the middle at the top)
-                colorsIte = basicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 32);
+                colorsIte = this.selectedBasicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 32);
                 index = 0;
                 while (colorsIte.MoveNext())
                 {
@@ -519,7 +518,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.InvalidateBasicColorsSelection();
             this.basicColorsPictureBox.Update();
 
-            this.InitShadesCache(this.selectedBasicColor);
+            this.InitShadesCache();
             RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
             this.shadesPictureBox.Refresh();
 
