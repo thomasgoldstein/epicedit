@@ -34,8 +34,8 @@ namespace EpicEditTests.Rom.Tracks
             byte[] map = new byte[128 * 128];
 
             Tile[] tiles = new StillTile[2];
-            tiles[0] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
-            tiles[1] = new StillTile(new Bitmap(1, 1), TileGenre.Road);
+            tiles[0] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
+            tiles[1] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
 
             Theme theme = new Theme("TestTheme", new Palettes(new byte[0]), tiles, tiles);
 

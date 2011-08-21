@@ -16,6 +16,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using NUnit.Framework;
 
@@ -29,7 +30,7 @@ namespace EpicEditTests.Rom.Tracks
         public TileTest()
         {
             Bitmap image = new Bitmap(8, 8, PixelFormat.Format24bppRgb);
-            this.tile = new StillTile(image, TileGenre.Road);
+            this.tile = new StillTile(new Palette(), image, TileGenre.Road);
         }
 
         [Test]
