@@ -129,7 +129,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.SetNewColor(color);
 
             this.DrawOldColorBitmap(color);
-            this.oldColorPictureBox.Refresh();
+            this.oldColorPictureBox.Invalidate();
         }
 
         /// <summary>
@@ -160,10 +160,10 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InitShadesCache(color);
             this.DrawShadesBitmap(color);
-            this.shadesPictureBox.Refresh();
+            this.shadesPictureBox.Invalidate();
 
             this.DrawNewColorBitmap(color);
-            this.newColorPictureBox.Refresh();
+            this.newColorPictureBox.Invalidate();
 
             this.performEvents = false;
 
@@ -628,7 +628,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.performEvents = true;
 
             this.DrawNewColorBitmap(shadeColor);
-            this.newColorPictureBox.Refresh();
+            this.newColorPictureBox.Invalidate();
         }
 
         /// <summary>
