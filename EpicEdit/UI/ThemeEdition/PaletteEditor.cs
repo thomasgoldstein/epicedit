@@ -134,12 +134,12 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            for (int x = 0; x < 16; x++)
+            for (int i = 0; i < 16; i++)
             {
-                if (this.panels[x] != null && this.panels[x].BorderStyle != BorderStyle.FixedSingle)
+                if (this.panels[i] != null && this.panels[i].BorderStyle != BorderStyle.FixedSingle)
                 {
                     // Undo the selection, redraw the border
-                    this.panels[x].BorderStyle = BorderStyle.FixedSingle;
+                    this.panels[i].BorderStyle = BorderStyle.FixedSingle;
                 }
             }
 
