@@ -27,12 +27,12 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <summary>
         /// The 16 boxes where the colors of the palette are drawn
         /// </summary>
-        private Panel[] panels = new Panel[16];
+        private Panel[] panels = new Panel[Palette.ColorCount];
 
         /// <summary>
         /// The tooltips associated with the above panels.
         /// </summary>
-        private ToolTip[] toolTips = new ToolTip[16];
+        private ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
 
         /// <summary>
         /// Index of the selected color from the palette
@@ -77,7 +77,7 @@ namespace EpicEdit.Rom.ThemeEdition
         /// </summary>
         private void DrawPalette()
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < this.panels.Length; i++)
             {
                 if (this.panels[i] == null)
                 {
@@ -134,7 +134,7 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < this.panels.Length; i++)
             {
                 if (this.panels[i] != null && this.panels[i].BorderStyle != BorderStyle.FixedSingle)
                 {
