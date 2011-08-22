@@ -182,7 +182,7 @@ namespace EpicEdit.UI.ThemeEdition
             toolTip.SetToolTip(control, color.ToString());
         }
 
-        #region Bitmap Drawing
+        #region Bitmap drawing
 
         /// <summary>
         /// Returns the bounds of the passed selection coordinates.
@@ -397,7 +397,7 @@ namespace EpicEdit.UI.ThemeEdition
             using (Graphics g = Graphics.FromImage(this.shadesCache))
             using (SolidBrush brush = new SolidBrush(Color.White))
             {
-                #region Gray Colors
+                #region Gray colors
 
                 // Generate the grays from black to white, these are at the bottom of the square, left to right
                 RomColor[] grays = new RomColor[64];
@@ -409,7 +409,7 @@ namespace EpicEdit.UI.ThemeEdition
                     index++;
                 }
 
-                #endregion Gray Colors
+                #endregion Gray colors
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
                 IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, 32);
@@ -471,9 +471,9 @@ namespace EpicEdit.UI.ThemeEdition
             ColorPicker.SetToolTip(this.newColorToolTip, this.newColorPictureBox, color);
         }
 
-        #endregion Bitmap Drawing
+        #endregion Bitmap drawing
 
-        #region Events Handlers
+        #region Events handlers
 
         /// <summary>
         /// Catches when the user moves in the basic colors while clicked.
@@ -644,9 +644,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Paint
 
-        #endregion Events Handlers
+        #endregion Events handlers
 
-        #region Find Colors
+        #region Find colors
 
         /// <summary>
         /// Finds the basic color of any RomColor.
@@ -708,6 +708,6 @@ namespace EpicEdit.UI.ThemeEdition
             return -1;
         }
 
-        #endregion Find Colors
+        #endregion Find colors
     }
 }

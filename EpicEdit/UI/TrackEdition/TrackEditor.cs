@@ -291,7 +291,7 @@ namespace EpicEdit.UI.TrackEdition
         }
         #endregion Constructor
 
-        #region Public Methods
+        #region Public methods
         /// <summary>
         /// If the user changed the color palettes, the tiles need to be updated to reflect this.
         /// </summary>
@@ -315,9 +315,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetControl.UpdateTileset();
             }
         }
-        #endregion Public Methods
+        #endregion Public methods
 
-        #region Menu Options
+        #region MenuBar
         public void InitOnFirstRomLoad()
         {
             this.trackDrawer = new TrackDrawer(this.trackDisplay, this.Zoom);
@@ -703,9 +703,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.menuBar.Focus();
             }
         }
-        #endregion Menu Options
+        #endregion MenuBar
 
-        #region TrackDisplay Events
+        #region TrackDisplay events
         private void TrackDisplayPaint(object sender, PaintEventArgs e)
         {
             if (!this.trackDisplay.Focused)
@@ -1307,9 +1307,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.AddAIElement(this.AbsoluteTilePosition);
             }
         }
-        #endregion TrackDisplay Events
+        #endregion TrackDisplay events
 
-        #region TrackDisplay Methods
+        #region TrackDisplay methods
         private void DisplayNewTrack()
         {
             this.trackDrawer.LoadTrack(this.track);
@@ -1461,9 +1461,9 @@ namespace EpicEdit.UI.TrackEdition
                 // See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
             }
         }
-        #endregion TrackDisplay Methods
+        #endregion TrackDisplay methods
 
-        #region Track TreeView
+        #region TrackTreeView
         public void RemoveModifiedHints()
         {
             this.trackTreeView.RemoveModifiedHints();
@@ -1509,9 +1509,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.SetTrackObjectZones();
             }
         }
-        #endregion Track TreeView
+        #endregion TrackTreeView
 
-        #region EditionMode Tabs
+        #region EditionMode tabs
         /// <summary>
         /// Init an action depending on the current edition mode.
         /// </summary>
@@ -1620,7 +1620,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
                 144 + SystemInformation.VerticalScrollBarWidth : 144;
         }
-        #endregion EditionMode Tabs
+        #endregion EditionMode tabs
 
 
         #region EditionMode.Tileset
