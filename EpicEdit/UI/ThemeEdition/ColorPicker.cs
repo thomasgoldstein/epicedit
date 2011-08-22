@@ -99,12 +99,12 @@ namespace EpicEdit.UI.ThemeEdition
 
             // Convert the input color to an SNES (5-bit) color
             color = color.To5Bit();
-            this.DrawOldColorBitmap(color);
+            this.UpdateOldColor(color);
 
             this.selectedBasicColor = this.DrawBasicColorsBitmap(0);
             this.InitShadesCache();
             RomColor shadeColor = this.DrawShadesBitmap(63, 0);
-            this.DrawNewColorBitmap(shadeColor);
+            this.UpdateNewColor(shadeColor);
 
             this.performEvents = false;
 
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.SetNewColor(color);
 
-            this.DrawOldColorBitmap(color);
+            this.UpdateOldColor(color);
             this.oldColorPictureBox.Invalidate();
         }
 
@@ -157,7 +157,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.DrawShadesBitmap(color);
             this.shadesPictureBox.Invalidate();
 
-            this.DrawNewColorBitmap(color);
+            this.UpdateNewColor(color);
             this.newColorPictureBox.Invalidate();
 
             this.performEvents = false;
@@ -446,10 +446,10 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         /// <summary>
-        /// Draws the old color bitmap.
+        /// Updates the old color.
         /// </summary>
         /// <param name="color">The color.</param>
-        private void DrawOldColorBitmap(RomColor color)
+        private void UpdateOldColor(RomColor color)
         {
             this.oldColor = color;
             this.oldColorPictureBox.BackColor = color;
@@ -457,10 +457,10 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         /// <summary>
-        /// Draws the new color bitmap.
+        /// Updates the new color.
         /// </summary>
         /// <param name="color">The color.</param>
-        private void DrawNewColorBitmap(RomColor color)
+        private void UpdateNewColor(RomColor color)
         {
             this.newColor = color;
             this.newColorPictureBox.BackColor = color;
@@ -532,7 +532,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.performEvents = true;
 
-            this.DrawNewColorBitmap(shadeColor);
+            this.UpdateNewColor(shadeColor);
             this.newColorPictureBox.Refresh();
         }
 
@@ -598,7 +598,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.performEvents = true;
 
-            this.DrawNewColorBitmap(shadeColor);
+            this.UpdateNewColor(shadeColor);
             this.newColorPictureBox.Refresh();
         }
 
