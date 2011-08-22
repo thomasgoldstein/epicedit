@@ -98,8 +98,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.InitBasicColorsBitmapCache();
 
             // Convert the input color to an SNES (5-bit) color
-            this.oldColor = color.To5Bit();
-            this.DrawOldColorBitmap(this.oldColor);
+            color = color.To5Bit();
+            this.DrawOldColorBitmap(color);
 
             this.selectedBasicColor = this.DrawBasicColorsBitmap(0);
             this.InitShadesCache();
