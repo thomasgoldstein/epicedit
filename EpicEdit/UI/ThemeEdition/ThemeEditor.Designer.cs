@@ -64,6 +64,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ThemeEditor
             // 
+            this.AutoScroll = true;
             this.Controls.Add(this.paletteEditor);
             this.Controls.Add(this.itemProbaEditor);
             this.Name = "ThemeEditor";
