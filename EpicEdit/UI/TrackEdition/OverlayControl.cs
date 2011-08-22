@@ -239,7 +239,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             OverlayTilePattern previousPattern = null;
             List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();
-            foreach (OverlayTilePattern pattern in MainForm.SmkGame.OverlayTilePatterns)
+            foreach (OverlayTilePattern pattern in Context.Game.OverlayTilePatterns)
             {
                 if (pattern.Equals(previousPattern))
                 {

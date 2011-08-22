@@ -64,7 +64,7 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
-            foreach (Theme theme in MainForm.SmkGame.Themes)
+            foreach (Theme theme in Context.Game.Themes)
             {
                 this.themeComboBox.Items.Add(theme);
             }

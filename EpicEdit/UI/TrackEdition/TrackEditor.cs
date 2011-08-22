@@ -299,7 +299,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             bool update = this.track.Theme.TilesNeedUpdating;
 
-            foreach (Theme theme in MainForm.SmkGame.Themes)
+            foreach (Theme theme in Context.Game.Themes)
             {
                 // Update all theme tiles
                 theme.UpdateTiles();
@@ -404,7 +404,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             try
             {
-                this.track.Import(filePath, MainForm.SmkGame);
+                this.track.Import(filePath, Context.Game);
 
                 this.undoRedoBuffer.Clear();
                 this.menuBar.UndoEnabled = false;
@@ -467,7 +467,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             try
             {
-                this.track.Export(filePath, MainForm.SmkGame);
+                this.track.Export(filePath, Context.Game);
             }
             catch (UnauthorizedAccessException ex)
             {
