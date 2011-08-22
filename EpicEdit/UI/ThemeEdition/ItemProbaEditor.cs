@@ -53,7 +53,7 @@ namespace EpicEdit.UI.ThemeEdition
             UITools.SetValueFromEnumDescription(e);
         }
 
-        #region Fields Initialization and Display
+        #region Fields initialization and display
 
         public void InitOnRomLoad()
         {
@@ -258,9 +258,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.lightningPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Lightning);
         }
 
-        #endregion Fields Initialization and Display
+        #endregion Fields initialization and display
 
-        #region Getters / Converters for the ComboBoxes
+        #region Getters / converters for the ComboBoxes
 
         private ItemProbaTheme GetTheme()
         {
@@ -301,9 +301,9 @@ namespace EpicEdit.UI.ThemeEdition
             return ret;
         }
 
-        #endregion Getters / Converters for the ComboBoxes
+        #endregion Getters / converters for the ComboBoxes
 
-        #region Events Handlers
+        #region Events handlers
 
         private void ValueChanged(object sender, EventArgs e)
         {
@@ -401,6 +401,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.DisplayProbability();
         }
 
-        #endregion Events Handlers
+        #endregion Events handlers
     }
 }
