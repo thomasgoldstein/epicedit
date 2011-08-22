@@ -94,6 +94,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             // Initializing Bitmaps in order to avoid having to check if they're null before disposal
             this.basicColorsBitmap = this.shadesBitmap = this.shadesCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+
             this.InitBasicColorsBitmapCache();
 
             // Convert the input color to an SNES (5-bit) color
