@@ -171,6 +171,7 @@ namespace EpicEdit.UI
                 MainForm.SmkGame = new Game(filePath);
                 this.trackEditor.InitOnFirstRomLoad();
                 this.themeEditor.InitOnFirstRomLoad();
+                this.tabControl.SelectedIndexChanged += this.TabControlSelectedIndexChanged;
             }
             else
             {

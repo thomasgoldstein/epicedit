@@ -71,7 +71,6 @@ namespace EpicEdit.UI
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(854, 661);
             this.tabControl.TabIndex = 0;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControlSelectedIndexChanged);
             // 
             // trackTabPage
             // 
