@@ -30,11 +30,6 @@ namespace EpicEdit.UI
     public partial class MainForm : Form
     {
         /// <summary>
-        /// The Super Mario Kart Game.
-        /// </summary>
-        internal static Game SmkGame;
-
-        /// <summary>
         /// The state of the window before going full screen, to restore it later.
         /// </summary>
         private FormWindowState previousWindowState;
@@ -64,7 +59,7 @@ namespace EpicEdit.UI
 
         private void UpdateApplicationTitle()
         {
-            this.Text = MainForm.SmkGame.FileName + " - " + Application.ProductName;
+            this.Text = Context.Game.FileName + " - " + Application.ProductName;
         }
 
         private void MainFormFormClosing(object sender, FormClosingEventArgs e)
@@ -85,13 +80,13 @@ namespace EpicEdit.UI
             bool cancelPreviousAction = false;
 
             DialogResult dialogResult = UITools.ShowWarning(
-                "Do you want to save the changes to \"" + MainForm.SmkGame.FileName + "\"?",
+                "Do you want to save the changes to \"" + Context.Game.FileName + "\"?",
                 MessageBoxButtons.YesNoCancel);
 
             switch (dialogResult)
             {
                 case DialogResult.Yes:
-                    this.SaveRom(MainForm.SmkGame.FilePath);
+                    this.SaveRom(Context.Game.FilePath);
                     break;
 
                 case DialogResult.No:
@@ -107,9 +102,9 @@ namespace EpicEdit.UI
 
         private static bool HasPendingChanges()
         {
-            if (MainForm.SmkGame != null)
+            if (Context.Game != null)
             {
-                return MainForm.SmkGame.HasPendingChanges();
+                return Context.Game.HasPendingChanges();
             }
 
             return false;
@@ -166,18 +161,18 @@ namespace EpicEdit.UI
 
         private void OpenRom(string filePath)
         {
-            if (MainForm.SmkGame == null) // First ROM loading
+            if (Context.Game == null) // First ROM loading
             {
-                MainForm.SmkGame = new Game(filePath);
+                Context.Game = new Game(filePath);
                 this.trackEditor.InitOnFirstRomLoad();
                 this.themeEditor.InitOnFirstRomLoad();
                 this.tabControl.SelectedIndexChanged += this.TabControlSelectedIndexChanged;
             }
             else
             {
-                MainForm.SmkGame.Dispose();
-                MainForm.SmkGame = null;
-                MainForm.SmkGame = new Game(filePath);
+                Context.Game.Dispose();
+                Context.Game = null;
+                Context.Game = new Game(filePath);
                 this.trackEditor.InitOnRomLoad();
                 this.themeEditor.InitOnRomLoad();
             }
@@ -192,7 +187,7 @@ namespace EpicEdit.UI
             if (filePath.EndsWith(".smkc", StringComparison.OrdinalIgnoreCase) ||
                 filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
-                if (MainForm.SmkGame == null)
+                if (Context.Game == null)
                 {
                     UITools.ShowError("You cannot load a track before having loaded a ROM.");
                 }
@@ -219,7 +214,7 @@ namespace EpicEdit.UI
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                string fileName = MainForm.SmkGame.FileName;
+                string fileName = Context.Game.FileName;
                 string ext = Path.GetExtension(fileName);
                 sfd.Filter = "SNES ROM file (*.bin, *.fig, *.sfc, *.smc, *.swc)|" +
                              "*" + ext + "; *.bin; *.fig; *.sfc; *.smc; *.swc|" +
@@ -250,7 +245,7 @@ namespace EpicEdit.UI
 
         private void SaveRom(string filePath)
         {
-            MainForm.SmkGame.SaveRom(filePath);
+            Context.Game.SaveRom(filePath);
             this.trackEditor.RemoveModifiedHints();
             this.UpdateApplicationTitle();
         }

@@ -34,9 +34,9 @@ namespace EpicEdit.UI
                     components.Dispose();
                 }
 
-                if (MainForm.SmkGame != null)
+                if (Context.Game != null)
                 {
-                    MainForm.SmkGame.Dispose();
+                    Context.Game.Dispose();
                 }
             }
             base.Dispose(disposing);

@@ -59,7 +59,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.performEvents = false;
 
-            this.itemProbabilities = MainForm.SmkGame.ItemProbabilities;
+            this.itemProbabilities = Context.Game.ItemProbabilities;
 
             this.InitializeModeList();
             this.InitializeThemeList();
@@ -78,7 +78,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
 
-            string[] modeNames = MainForm.SmkGame.GetModeNames();
+            string[] modeNames = Context.Game.GetModeNames();
             foreach (string modeName in modeNames)
             {
                 this.modeComboBox.Items.Add(modeName);
@@ -93,7 +93,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
 
-            Themes themes = MainForm.SmkGame.Themes;
+            Themes themes = Context.Game.Themes;
             for (int i = 0; i < themes.Count - 2; i++)
             {
                 this.themeComboBox.Items.Add(themes[i].Name);
@@ -247,15 +247,15 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void DisplayItemIcons()
         {
-            this.mushroomPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Mushroom);
-            this.featherPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Feather);
-            this.starPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Star);
-            this.bananaPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Banana);
-            this.greenPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.GreenShell);
-            this.redPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.RedShell);
-            this.ghostPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Ghost);
-            this.coinsPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Coin);
-            this.lightningPictureBox.Image = MainForm.SmkGame.GetItemIcon(ItemType.Lightning);
+            this.mushroomPictureBox.Image = Context.Game.GetItemIcon(ItemType.Mushroom);
+            this.featherPictureBox.Image = Context.Game.GetItemIcon(ItemType.Feather);
+            this.starPictureBox.Image = Context.Game.GetItemIcon(ItemType.Star);
+            this.bananaPictureBox.Image = Context.Game.GetItemIcon(ItemType.Banana);
+            this.greenPictureBox.Image = Context.Game.GetItemIcon(ItemType.GreenShell);
+            this.redPictureBox.Image = Context.Game.GetItemIcon(ItemType.RedShell);
+            this.ghostPictureBox.Image = Context.Game.GetItemIcon(ItemType.Ghost);
+            this.coinsPictureBox.Image = Context.Game.GetItemIcon(ItemType.Coin);
+            this.lightningPictureBox.Image = Context.Game.GetItemIcon(ItemType.Lightning);
         }
 
         #endregion Fields initialization and display

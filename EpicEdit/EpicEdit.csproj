@@ -140,6 +140,7 @@
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
     <Compile Include="Rom\Tracks\TrackMap.cs" />
     <Compile Include="Rom\Utilities.cs" />
+    <Compile Include="UI\Context.cs" />
     <Compile Include="UI\Gfx\FastBitmap.cs" />
     <Compile Include="UI\Gfx\GraphicsConverter.cs" />
     <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />

@@ -61,7 +61,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            TrackGroup[] trackGroups = MainForm.SmkGame.GetTrackGroups();
+            TrackGroup[] trackGroups = Context.Game.GetTrackGroups();
 
             this.treeView.BeginUpdate();
             this.treeView.Nodes.Clear();
@@ -89,7 +89,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTrackListNames()
         {
-            TrackGroup[] trackGroups = MainForm.SmkGame.GetTrackGroups();
+            TrackGroup[] trackGroups = Context.Game.GetTrackGroups();
 
             this.treeView.BeginUpdate();
 
@@ -134,7 +134,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             int trackGroupId = this.treeView.SelectedNode.Parent.Index;
             int trackId = this.treeView.SelectedNode.Index;
-            this.selectedTrack = MainForm.SmkGame.GetTrack(trackGroupId, trackId);
+            this.selectedTrack = Context.Game.GetTrack(trackGroupId, trackId);
         }
 
         public Track SelectedTrack
@@ -264,7 +264,7 @@ namespace EpicEdit.UI.TrackEdition
             int destinationTrackGroupId = this.draggedTrackTarget.Parent.Index;
             int destinationTrackId = this.draggedTrackTarget.Index;
 
-            MainForm.SmkGame.ReorderTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
+            Context.Game.ReorderTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
 
             this.UpdateTrackListNames();
 
