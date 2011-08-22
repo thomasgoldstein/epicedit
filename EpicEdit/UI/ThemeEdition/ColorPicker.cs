@@ -25,6 +25,8 @@ namespace EpicEdit.UI.ThemeEdition
 {
     public partial class ColorPicker : UserControl
     {
+        #region Private members
+
         /// <summary>
         /// The image of the top bar, goes from red to green to blue and back to red.
         /// </summary>
@@ -79,6 +81,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// Used to prevent loops when certain clicks are performed in different UI controls.
         /// </summary>
         private bool performEvents = false;
+
+        #endregion Private members
 
         public ColorPicker() : this(new RomColor()) { }
 
