@@ -279,7 +279,7 @@ namespace EpicEdit.UI.ThemeEdition
             for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
             {
                 Color color = RomColor.From5BitRgb(index, 31, 0);
-                fTempBitmap.SetPixel(31 - index + 31, 0, color);
+                fTempBitmap.SetPixel((31 - index) + 31, 0, color);
             }
 
             // Green to cyan
