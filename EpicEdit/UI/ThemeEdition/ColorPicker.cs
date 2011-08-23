@@ -402,7 +402,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void InitShadesCache()
         {
             this.shadesCache.Dispose();
-            this.shadesCache = new Bitmap(128, 128, PixelFormat.Format32bppPArgb);
+            this.shadesCache = new Bitmap(this.shadesSize.Width, this.shadesSize.Height, PixelFormat.Format32bppPArgb);
             int index, index2;
 
             using (Graphics g = Graphics.FromImage(this.shadesCache))
