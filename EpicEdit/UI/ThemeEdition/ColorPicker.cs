@@ -261,7 +261,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitBasicColorsBitmapCache()
         {
-            this.basicColorsCache = new Bitmap(this.basicColorsSize.Width, this.basicColorsSize.Height, PixelFormat.Format32bppPArgb);
+            int width = this.basicColorsSize.Width;
+            int height = this.basicColorsSize.Height;
+            this.basicColorsCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
 
             using (Graphics g = Graphics.FromImage(this.basicColorsCache))
             using (SolidBrush brush = new SolidBrush(Color.White))
@@ -270,42 +272,42 @@ namespace EpicEdit.UI.ThemeEdition
                 for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(31, index, 0);
-                    g.FillRectangle(brush, index, 0, 1, 15);
+                    g.FillRectangle(brush, index, 0, 1, height);
                 }
 
                 // Yellow to green
                 for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(index, 31, 0);
-                    g.FillRectangle(brush, 31 - index + 31, 0, 1, 15);
+                    g.FillRectangle(brush, 31 - index + 31, 0, 1, height);
                 }
 
                 // Green to cyan
                 for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(0, 31, index);
-                    g.FillRectangle(brush, index + 62, 0, 1, 15);
+                    g.FillRectangle(brush, index + 62, 0, 1, height);
                 }
 
                 // Cyan to blue
                 for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(0, index, 31);
-                    g.FillRectangle(brush, (31 - index) + 93, 0, 1, 15);
+                    g.FillRectangle(brush, (31 - index) + 93, 0, 1, height);
                 }
 
                 // Blue to purple
                 for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     brush.Color = RomColor.From5BitRgb(index, 0, 31);
-                    g.FillRectangle(brush, index + 124, 0, 1, 15);
+                    g.FillRectangle(brush, index + 124, 0, 1, height);
                 }
 
                 // Purple to red
                 for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
                 {
                     brush.Color = RomColor.From5BitRgb(31, 0, index);
-                    g.FillRectangle(brush, (31 - index) + 155, 0, 1, 15);
+                    g.FillRectangle(brush, (31 - index) + 155, 0, 1, height);
                 }
             }
         }
