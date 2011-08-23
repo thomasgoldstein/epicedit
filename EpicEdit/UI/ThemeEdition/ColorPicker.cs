@@ -408,8 +408,6 @@ namespace EpicEdit.UI.ThemeEdition
             using (Graphics g = Graphics.FromImage(this.shadesCache))
             using (SolidBrush brush = new SolidBrush(Color.White))
             {
-                #region Gray colors
-
                 // Generate the grays from black to white, these are at the bottom of the square, left to right
                 RomColor[] grays = new RomColor[64];
                 IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 64);
@@ -419,8 +417,6 @@ namespace EpicEdit.UI.ThemeEdition
                     grays[index] = graysIte.Current.To5Bit();
                     index++;
                 }
-
-                #endregion Gray colors
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
                 IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, 32);
