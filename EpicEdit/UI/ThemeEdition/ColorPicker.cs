@@ -404,13 +404,14 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitShadesCache()
         {
-            this.shadesCache.Dispose();
-            this.shadesCache = new Bitmap(this.shadesSize.Width, this.shadesSize.Height, PixelFormat.Format32bppPArgb);
+            int width = this.shadesSize.Width;
+            int height = this.shadesSize.Height;
             int index, index2;
 
-            using (Graphics g = Graphics.FromImage(this.shadesCache))
-            using (SolidBrush brush = new SolidBrush(Color.White))
+            using (Bitmap tempBitmap = new Bitmap(width / 2, height / 2, PixelFormat.Format32bppPArgb))
             {
+                FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
+
                 // Generate the grays from black to white, these are at the bottom of the square, left to right
                 RomColor[] grays = new RomColor[64];
                 IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 64);
@@ -431,11 +432,11 @@ namespace EpicEdit.UI.ThemeEdition
                     // Draw the vertical colors that goes from our shade (our color to black) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
-                        brush.Color = toGrayIte.Current.To5Bit();
-                        g.FillRectangle(brush, (int)(index * 2), (int)(index2 * 2), 2, 2);
+                        RomColor color = toGrayIte.Current.To5Bit();
+                        fTempBitmap.SetPixel(index, index2, color);
                         index2++;
                     }
-
+    
                     index++;
                 }
 
@@ -449,12 +450,23 @@ namespace EpicEdit.UI.ThemeEdition
                     // Draw the vertical colors that goes from our shade (our color to white) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
-                        brush.Color = toGrayIte.Current.To5Bit();
-                        g.FillRectangle(brush, (int)((index + 32) * 2), (int)(index2 * 2), 2, 2);
+                        RomColor color = toGrayIte.Current.To5Bit();
+                        fTempBitmap.SetPixel(index + 32, index2, color);
                         index2++;
                     }
 
                     index++;
+                }
+
+                fTempBitmap.Release();
+
+                this.shadesCache.Dispose();
+                this.shadesCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
+                using (Graphics g = Graphics.FromImage(this.shadesCache))
+                {
+                    g.PixelOffsetMode = PixelOffsetMode.Half;
+                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    g.DrawImage(tempBitmap, 0, 0, width, height);
                 }
             }
         }
