@@ -265,59 +265,62 @@ namespace EpicEdit.UI.ThemeEdition
         {
             int width = this.basicColorsSize.Width;
             int height = this.basicColorsSize.Height;
-            Bitmap tempBitmap = new Bitmap(width, 1, PixelFormat.Format32bppPArgb);
-            FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
 
-            // Red to yellow
-            for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+            using (Bitmap tempBitmap = new Bitmap(width, 1, PixelFormat.Format32bppPArgb))
             {
-                Color color = RomColor.From5BitRgb(31, index, 0);
-                fTempBitmap.SetPixel(index, 0, color);
-            }
+                FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
 
-            // Yellow to green
-            for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
-            {
-                Color color = RomColor.From5BitRgb(index, 31, 0);
-                fTempBitmap.SetPixel((31 - index) + 31, 0, color);
-            }
+                // Red to yellow
+                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                {
+                    Color color = RomColor.From5BitRgb(31, index, 0);
+                    fTempBitmap.SetPixel(index, 0, color);
+                }
 
-            // Green to cyan
-            for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
-            {
-                Color color = RomColor.From5BitRgb(0, 31, index);
-                fTempBitmap.SetPixel(index + 62, 0, color);
-            }
+                // Yellow to green
+                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
+                {
+                    Color color = RomColor.From5BitRgb(index, 31, 0);
+                    fTempBitmap.SetPixel((31 - index) + 31, 0, color);
+                }
 
-            // Cyan to blue
-            for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
-            {
-                Color color = RomColor.From5BitRgb(0, index, 31);
-                fTempBitmap.SetPixel((31 - index) + 93, 0, color);
-            }
+                // Green to cyan
+                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                {
+                    Color color = RomColor.From5BitRgb(0, 31, index);
+                    fTempBitmap.SetPixel(index + 62, 0, color);
+                }
 
-            // Blue to purple
-            for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
-            {
-                Color color = RomColor.From5BitRgb(index, 0, 31);
-                fTempBitmap.SetPixel(index + 124, 0, color);
-            }
+                // Cyan to blue
+                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
+                {
+                    Color color = RomColor.From5BitRgb(0, index, 31);
+                    fTempBitmap.SetPixel((31 - index) + 93, 0, color);
+                }
 
-            // Purple to red
-            for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
-            {
-                Color color = RomColor.From5BitRgb(31, 0, index);
-                fTempBitmap.SetPixel((31 - index) + 155, 0, color);
-            }
+                // Blue to purple
+                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                {
+                    Color color = RomColor.From5BitRgb(index, 0, 31);
+                    fTempBitmap.SetPixel(index + 124, 0, color);
+                }
 
-            fTempBitmap.Release();
+                // Purple to red
+                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
+                {
+                    Color color = RomColor.From5BitRgb(31, 0, index);
+                    fTempBitmap.SetPixel((31 - index) + 155, 0, color);
+                }
 
-            this.basicColorsCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(this.basicColorsCache))
-            {
-                g.PixelOffsetMode = PixelOffsetMode.Half;
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.DrawImage(tempBitmap, 0, 0, width, height);
+                fTempBitmap.Release();
+
+                this.basicColorsCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
+                using (Graphics g = Graphics.FromImage(this.basicColorsCache))
+                {
+                    g.PixelOffsetMode = PixelOffsetMode.Half;
+                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    g.DrawImage(tempBitmap, 0, 0, width, height);
+                }
             }
         }
 
