@@ -252,7 +252,8 @@ namespace EpicEdit.UI.ThemeEdition
             using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
             using (Pen pen = new Pen(color.Opposite()))
             {
-                g.DrawEllipse(pen, x - 3, 4, 6, 6);
+                int y = this.basicColorsSize.Height / 2;
+                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
             }
 
             return color;
