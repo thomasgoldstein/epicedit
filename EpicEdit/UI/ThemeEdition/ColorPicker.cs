@@ -718,15 +718,18 @@ namespace EpicEdit.UI.ThemeEdition
 
         private int FindColorIndex(RomColor color)
         {
+            FastBitmap fBasicColors = new FastBitmap(this.basicColorsCache);
             for (int x = 0; x < this.basicColorsSize.Width; x++)
             {
-                RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
+                RomColor selectedColor = (RomColor)fBasicColors.GetPixel(x, 0);
                 if (selectedColor == color)
                 {
+                    fBasicColors.Release();
                     return x;
                 }
             }
 
+            fBasicColors.Release();
             return -1;
         }
 
