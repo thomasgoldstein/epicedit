@@ -358,13 +358,16 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesBitmap.Dispose();
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
 
+            FastBitmap fShadesBitmap = new FastBitmap(this.shadesBitmap);
+            
             for (int x = 0; x < this.shadesSize.Width; x++)
             {
                 for (int y = 0; y < this.shadesSize.Height; y++)
                 {
-                    RomColor selectedShadeColor = (RomColor)this.shadesBitmap.GetPixel(x, y);
+                    RomColor selectedShadeColor = (RomColor)fShadesBitmap.GetPixel(x, y);
                     if (selectedShadeColor == color)
                     {
+                        fShadesBitmap.Release();
                         this.selectedShadeLocation = new Point(x, y);
                         using (Graphics g = Graphics.FromImage(this.shadesBitmap))
                         using (Pen pen = new Pen(GetPenColor(x, y)))
@@ -376,6 +379,7 @@ namespace EpicEdit.UI.ThemeEdition
                 }
             }
 
+            fShadesBitmap.Release();
             this.selectedShadeLocation = new Point(63, 0);
         }
 
