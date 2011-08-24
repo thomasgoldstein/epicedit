@@ -333,7 +333,7 @@ namespace EpicEdit.UI.ThemeEdition
         private RomColor DrawShadesBitmap(int x, int y)
         {
             this.selectedShadeLocation = new Point(x, y);
-            RomColor selectedShadeColor = (RomColor)this.shadesCache.GetPixel(x, y);
+            RomColor selectedColor = (RomColor)this.shadesCache.GetPixel(x, y);
 
             this.shadesBitmap.Dispose();
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
@@ -344,7 +344,7 @@ namespace EpicEdit.UI.ThemeEdition
                 g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
             }
 
-            return selectedShadeColor;
+            return selectedColor;
         }
 
         /// <summary>
@@ -364,8 +364,8 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 for (int y = 0; y < this.shadesSize.Height; y++)
                 {
-                    RomColor selectedShadeColor = (RomColor)fShadesBitmap.GetPixel(x, y);
-                    if (selectedShadeColor == color)
+                    RomColor selectedColor = (RomColor)fShadesBitmap.GetPixel(x, y);
+                    if (selectedColor == color)
                     {
                         fShadesBitmap.Release();
                         this.selectedShadeLocation = new Point(x, y);
