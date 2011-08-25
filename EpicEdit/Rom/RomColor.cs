@@ -140,7 +140,7 @@ namespace EpicEdit.Rom
         /// <param name="green">Green channel (0-31).</param>
         /// <param name="blue">Blue channel (0-31).</param>
         /// <returns>The created RomColor object.</returns>
-        public static RomColor From5BitRgb(int red, int green, int blue)
+        public static RomColor From5BitRgb(byte red, byte green, byte blue)
         {
             return From8BitRgb(ConvertTo8BitColor(red), ConvertTo8BitColor(green), ConvertTo8BitColor(blue));
         }
@@ -152,12 +152,12 @@ namespace EpicEdit.Rom
         /// <param name="green">Green channel (0-255).</param>
         /// <param name="blue">Blue channel (0-255).</param>
         /// <returns>The created RomColor object.</returns>
-        public static RomColor From8BitRgb(int red, int green, int blue)
+        public static RomColor From8BitRgb(byte red, byte green, byte blue)
         {
             RomColor color = new RomColor();
-            color.red = (byte)red;
-            color.green = (byte)green;
-            color.blue = (byte)blue;
+            color.red = red;
+            color.green = green;
+            color.blue = blue;
             return color;
         }
 
@@ -208,9 +208,9 @@ namespace EpicEdit.Rom
             RomColor rc = new RomColor();
             byte lobyte = data[index];
             byte hibyte = data[index + 1];
-            rc.red = ConvertTo8BitColor(lobyte & 0x1F);
-            rc.green = ConvertTo8BitColor(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5));
-            rc.blue = ConvertTo8BitColor((hibyte & 0x7C) >> 2);
+            rc.red = ConvertTo8BitColor((byte)(lobyte & 0x1F));
+            rc.green = ConvertTo8BitColor((byte)(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5)));
+            rc.blue = ConvertTo8BitColor((byte)((hibyte & 0x7C) >> 2));
             return rc;
         }
 
@@ -221,7 +221,7 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="value5bit">The 5 bit int color value (0-31).</param>
         /// <returns>The color value in 8 bit precision.</returns>
-        private static byte ConvertTo8BitColor(int value5bit)
+        private static byte ConvertTo8BitColor(byte value5bit)
         {
             return (byte)(value5bit * 8.25);
         }
@@ -231,7 +231,7 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="value8bit">The 8 bit int color value (0-255).</param>
         /// <returns>The color value in 5 bit precision.</returns>
-        private static byte ConvertTo5BitColor(int value8bit)
+        private static byte ConvertTo5BitColor(byte value8bit)
         {
             return (byte)Math.Round((double)value8bit / (255d / 31d), 0, MidpointRounding.ToEven);
         }
@@ -281,7 +281,7 @@ namespace EpicEdit.Rom
             double stepB = ((double)target.blue - (double)this.blue) / (step - 1);
             for (double x = 0; x < step; x++)
             {
-                yield return RomColor.From8BitRgb((int)(this.red + (x * stepR)), (int)(this.green + (x * stepG)), (int)(this.blue + (x * stepB)));
+                yield return RomColor.From8BitRgb((byte)(this.red + (x * stepR)), (byte)(this.green + (x * stepG)), (byte)(this.blue + (x * stepB)));
             }
         }
 
@@ -291,7 +291,7 @@ namespace EpicEdit.Rom
         /// <returns></returns>
         public RomColor Opposite()
         {
-            return RomColor.From8BitRgb(255 - this.red, 255 - this.green, 255 - this.blue);
+            return RomColor.From8BitRgb((byte)(255 - this.red), (byte)(255 - this.green), (byte)(255 - this.blue));
         }
 
         /// <summary>

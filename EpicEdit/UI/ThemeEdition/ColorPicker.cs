@@ -272,42 +272,42 @@ namespace EpicEdit.UI.ThemeEdition
                 FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
 
                 // Red to yellow
-                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                for (byte index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     Color color = RomColor.From5BitRgb(31, index, 0);
                     fTempBitmap.SetPixel(index, 0, color);
                 }
 
                 // Yellow to green
-                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
+                for (byte index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     Color color = RomColor.From5BitRgb(index, 31, 0);
                     fTempBitmap.SetPixel((31 - index) + 31, 0, color);
                 }
 
                 // Green to cyan
-                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                for (byte index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     Color color = RomColor.From5BitRgb(0, 31, index);
                     fTempBitmap.SetPixel(index + 62, 0, color);
                 }
 
                 // Cyan to blue
-                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
+                for (byte index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the next loop
                 {
                     Color color = RomColor.From5BitRgb(0, index, 31);
                     fTempBitmap.SetPixel((31 - index) + 93, 0, color);
                 }
 
                 // Blue to purple
-                for (int index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
+                for (byte index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
                 {
                     Color color = RomColor.From5BitRgb(index, 0, 31);
                     fTempBitmap.SetPixel(index + 124, 0, color);
                 }
 
                 // Purple to red
-                for (int index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
+                for (byte index = 31; index >= 1; index--) // Skip the last one (0) because it is the same value as the first one of the first loop
                 {
                     Color color = RomColor.From5BitRgb(31, 0, index);
                     fTempBitmap.SetPixel((31 - index) + 155, 0, color);
@@ -642,7 +642,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (this.performEvents)
             {
-                RomColor color = RomColor.From5BitRgb((int)redNumericUpDown.Value, (int)greenNumericUpDown.Value, (int)blueNumericUpDown.Value);
+                RomColor color = RomColor.From5BitRgb((byte)redNumericUpDown.Value, (byte)greenNumericUpDown.Value, (byte)blueNumericUpDown.Value);
                 this.SetNewColor(color);
             }
         }
