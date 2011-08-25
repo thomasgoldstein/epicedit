@@ -134,7 +134,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a new 5-bit precise RomColor object from the rgb channel values.
+        /// Creates a new 5-bit precise RomColor object from the RGB channel values.
         /// </summary>
         /// <param name="red">Red channel (0-31).</param>
         /// <param name="green">Green channel (0-31).</param>
@@ -146,7 +146,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a new 8-bit precise RomColor object from the rgb channel values.
+        /// Creates a new 8-bit precise RomColor object from the RGB channel values.
         /// </summary>
         /// <param name="red">Red channel (0-255).</param>
         /// <param name="green">Green channel (0-255).</param>
