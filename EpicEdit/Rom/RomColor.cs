@@ -30,22 +30,22 @@ namespace EpicEdit.Rom
         public const int Size = 2;
 
         /// <summary>
-        /// Red channel (8 bit).
+        /// Red channel (8-bit).
         /// </summary>
         private byte red;
 
         /// <summary>
-        /// Green channel (8 bit).
+        /// Green channel (8-bit).
         /// </summary>
         private byte green;
 
         /// <summary>
-        /// Blue channel (8 bit).
+        /// Blue channel (8-bit).
         /// </summary>
         private byte blue;
 
         /// <summary>
-        /// Gets the red channel (8 bit).
+        /// Gets the red channel (8-bit).
         /// </summary>
         public byte Red
         {
@@ -54,7 +54,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the green channel (8 bit).
+        /// Gets the green channel (8-bit).
         /// </summary>
         public byte Green
         {
@@ -63,7 +63,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the blue channel (8 bit).
+        /// Gets the blue channel (8-bit).
         /// </summary>
         public byte Blue
         {
@@ -72,7 +72,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the red channel (5 bit).
+        /// Gets the red channel (5-bit).
         /// </summary>
         public byte Red5Bit
         {
@@ -80,7 +80,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the green channel (5 bit).
+        /// Gets the green channel (5-bit).
         /// </summary>
         public byte Green5Bit
         {
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the blue channel (5 bit).
+        /// Gets the blue channel (5-bit).
         /// </summary>
         public byte Blue5Bit
         {
@@ -108,12 +108,12 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Gets the SMK ROM encoded bytes for this color (5 bit precise).
+        /// Gets the SMK ROM encoded bytes for this color (5-bit precise).
         /// </summary>
         /// <returns>An array of 2 bytes.</returns>
         public byte[] GetBytes()
         {
-            // Encode the red, green and blue components into the 2 bytes (5 bit)
+            // Encode the red, green and blue components into 2 bytes (5 bits)
             byte red = ConvertTo5BitColor(this.red);
             byte green = ConvertTo5BitColor(this.green);
             byte blue = ConvertTo5BitColor(this.blue);
@@ -125,7 +125,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a new 5 bit precise RomColor object from the color of this object.
+        /// Creates a new 5-bit precise RomColor object from the color of this object.
         /// </summary>
         /// <returns>The created RomColor object.</returns>
         public RomColor To5Bit()
@@ -134,7 +134,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a new 5 bit precise RomColor object from the rgb channel values.
+        /// Creates a new 5-bit precise RomColor object from the rgb channel values.
         /// </summary>
         /// <param name="red">Red channel (0-31).</param>
         /// <param name="green">Green channel (0-31).</param>
@@ -146,7 +146,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a new 8 bit precise RomColor object from the rgb channel values.
+        /// Creates a new 8-bit precise RomColor object from the rgb channel values.
         /// </summary>
         /// <param name="red">Red channel (0-255).</param>
         /// <param name="green">Green channel (0-255).</param>
@@ -168,7 +168,7 @@ namespace EpicEdit.Rom
         /// <returns>The created RomColor object.</returns>
         public static RomColor FromColor(Color color)
         {
-            // Extract the bytes into red, green and blue components (8 bit).
+            // Extract the bytes into red, green and blue components (8 bits).
             RomColor rc = new RomColor();
             rc.red = color.R;
             rc.green = color.G;
@@ -177,7 +177,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a RomColor object from 5 bit encoded byte array (2 bytes).
+        /// Creates a RomColor object from 5-bit encoded byte array (2 bytes).
         /// </summary>
         /// <param name="data">The bytes to decode.</param>
         /// <returns>The created RomColor object.</returns>
@@ -187,7 +187,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Creates a RomColor object from 5 bit encoded byte array (2 bytes).
+        /// Creates a RomColor object from 5-bit encoded byte array (2 bytes).
         /// </summary>
         /// <param name="data">The bytes to decode.</param>
         /// <param name="index">The index at which to start the decoding.</param>
@@ -204,7 +204,7 @@ namespace EpicEdit.Rom
                 throw new ArgumentOutOfRangeException("Invalid color byte data or index value.");
             }
 
-            // Decode the bytes into red, green and blue components (8 bit)
+            // Decode the bytes into red, green and blue components (8 bits)
             RomColor rc = new RomColor();
             byte lobyte = data[index];
             byte hibyte = data[index + 1];
@@ -215,12 +215,12 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Simply multiplying the 5 bit color from the ROM by 8 is not a totally correct conversion to an 8 bit color.
-        /// A "white" in 5 bit color is 31,31,31 whereas in 8 bit it is 255,255,255. 31 * 8 = 248.
+        /// Simply multiplying the 5-bit color from the ROM by 8 is not a totally correct conversion to an 8-bit color.
+        /// A "white" in 5-bit color is 31,31,31 whereas in 8-bit it is 255,255,255. 31 * 8 = 248.
         /// This calculation corrects this so that 0 = 0 and 31 = 255.
         /// </summary>
-        /// <param name="value5bit">The 5 bit int color value (0-31).</param>
-        /// <returns>The color value in 8 bit precision.</returns>
+        /// <param name="value5bit">The 5-bit int color value (0-31).</param>
+        /// <returns>The color value in 8-bit precision.</returns>
         private static byte ConvertTo8BitColor(byte value5bit)
         {
             return (byte)(value5bit * 8.25);
@@ -229,8 +229,8 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Takes care of finding nearest color.
         /// </summary>
-        /// <param name="value8bit">The 8 bit int color value (0-255).</param>
-        /// <returns>The color value in 5 bit precision.</returns>
+        /// <param name="value8bit">The 8-bit int color value (0-255).</param>
+        /// <returns>The color value in 5-bit precision.</returns>
         private static byte ConvertTo5BitColor(byte value8bit)
         {
             return (byte)Math.Round((double)value8bit / (255d / 31d), 0, MidpointRounding.ToEven);
