@@ -717,11 +717,11 @@ namespace EpicEdit.UI.ThemeEdition
 
             float multiplier = 255f / (float)max;
 
-            float red = color.Red * multiplier;
-            float green = color.Green * multiplier;
-            float blue = color.Blue * multiplier;
+            color.Red = (byte)(color.Red * multiplier);
+            color.Green = (byte)(color.Green * multiplier);
+            color.Blue = (byte)(color.Blue * multiplier);
 
-            return RomColor.From8BitRgb((byte)red, (byte)green, (byte)blue).To5Bit();
+            return color.To5Bit();
         }
 
         private int FindColorIndex(RomColor color)
