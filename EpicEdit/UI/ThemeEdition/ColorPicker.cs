@@ -413,14 +413,16 @@ namespace EpicEdit.UI.ThemeEdition
             int width = this.shadesSize.Width;
             int height = this.shadesSize.Height;
             int index, index2;
+            int size = width / 2; // Unscaled image size
+            int halfSize = size / 2;
 
-            using (Bitmap tempBitmap = new Bitmap(width / 2, height / 2, PixelFormat.Format32bppPArgb))
+            using (Bitmap tempBitmap = new Bitmap(size, size, PixelFormat.Format32bppPArgb))
             {
                 FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
 
                 // Generate the grays from black to white, these are at the bottom of the square, left to right
-                RomColor[] grays = new RomColor[64];
-                IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 64);
+                RomColor[] grays = new RomColor[size];
+                IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), size);
                 index = 0;
                 while (graysIte.MoveNext())
                 {
@@ -429,11 +431,11 @@ namespace EpicEdit.UI.ThemeEdition
                 }
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
-                IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, 32);
+                IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, halfSize);
                 index = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index], 64);
+                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index], size);
                     index2 = 0;
                     // Draw the vertical colors that goes from our shade (our color to black) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
@@ -447,17 +449,17 @@ namespace EpicEdit.UI.ThemeEdition
                 }
 
                 // Draw from white (top right) to our selected color (in the middle at the top)
-                colorsIte = this.selectedBasicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), 32);
+                colorsIte = this.selectedBasicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), halfSize);
                 index = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index + 32], 64);
+                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index + halfSize], size);
                     index2 = 0;
                     // Draw the vertical colors that goes from our shade (our color to white) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
                         RomColor color = toGrayIte.Current.To5Bit();
-                        fTempBitmap.SetPixel(index + 32, index2, color);
+                        fTempBitmap.SetPixel(index + halfSize, index2, color);
                         index2++;
                     }
 
