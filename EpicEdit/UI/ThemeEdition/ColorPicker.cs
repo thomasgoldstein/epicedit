@@ -360,10 +360,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
 
             FastBitmap fShadesBitmap = new FastBitmap(this.shadesBitmap);
-            
-            for (int x = 0; x < this.shadesSize.Width; x++)
+
+            // The shades image is scaled by a factor of 2, so skip every other pixel
+            for (int x = 0; x < this.shadesSize.Width; x += 2)
             {
-                for (int y = 0; y < this.shadesSize.Height; y++)
+                for (int y = 0; y < this.shadesSize.Height; y += 2)
                 {
                     RomColor selectedColor = (RomColor)fShadesBitmap.GetPixel(x, y);
                     if (selectedColor == color)
