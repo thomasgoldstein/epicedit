@@ -412,9 +412,9 @@ namespace EpicEdit.UI.ThemeEdition
         {
             int width = this.shadesSize.Width;
             int height = this.shadesSize.Height;
-            int index, index2;
             int size = width / 2; // Unscaled image size
             int halfSize = size / 2;
+            int index, index2;
 
             // Generate the grays from black to white, these are at the bottom of the square, left to right
             RomColor[] grays = new RomColor[size];
