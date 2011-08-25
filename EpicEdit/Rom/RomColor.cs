@@ -194,14 +194,14 @@ namespace EpicEdit.Rom
         /// <returns>The created RomColor object.</returns>
         public static RomColor FromBytes(byte[] data, int index)
         {
-            if (data == null || data.Length - index < 2)
+            if (data == null)
             {
-                throw new ArgumentException("Invalid color byte data.");
+                throw new ArgumentNullException("data", "Color byte data cannot be null.");
             }
 
-            if (index > data.Length - 2)
+            if (data.Length - index < 2)
             {
-                throw new ArgumentException("Invalid position.");
+                throw new ArgumentOutOfRangeException("Invalid color byte data or index value.");
             }
 
             // Decode the bytes into red, green and blue components (8 bit)
