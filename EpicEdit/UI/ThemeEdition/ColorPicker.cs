@@ -372,7 +372,7 @@ namespace EpicEdit.UI.ThemeEdition
                         fShadesBitmap.Release();
                         this.selectedShadeLocation = new Point(x, y);
                         using (Graphics g = Graphics.FromImage(this.shadesBitmap))
-                        using (Pen pen = new Pen(GetPenColor(x, y)))
+                        using (Pen pen = new Pen(this.GetPenColor(x, y)))
                         {
                             g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
                         }
