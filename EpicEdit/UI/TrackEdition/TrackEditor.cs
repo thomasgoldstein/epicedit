@@ -481,20 +481,20 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarUndoRequested(object sender, EventArgs e)
         {
-            TileChanges changes = this.undoRedoBuffer.NextUndo;
+            TileChange change = this.undoRedoBuffer.NextUndo;
             this.undoRedoBuffer.Undo();
             this.menuBar.RedoEnabled = true;
             this.EnableDisableUndo();
-            this.EndUndoRedo(changes);
+            this.EndUndoRedo(change);
         }
 
         private void MenuBarRedoRequested(object sender, EventArgs e)
         {
-            TileChanges changes = this.undoRedoBuffer.NextRedo;
+            TileChange change = this.undoRedoBuffer.NextRedo;
             this.undoRedoBuffer.Redo();
             this.menuBar.UndoEnabled = true;
             this.EnableDisableRedo();
-            this.EndUndoRedo(changes);
+            this.EndUndoRedo(change);
         }
 
         private void EnableDisableUndo()
@@ -538,10 +538,10 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.RedoEnabled = false;
         }
 
-        private void EndUndoRedo(TileChanges changes)
+        private void EndUndoRedo(TileChange change)
         {
             this.trackTreeView.MarkTrackAsChanged();
-            this.trackDrawer.ReloadTrackPart(changes);
+            this.trackDrawer.ReloadTrackPart(change);
             this.trackDisplay.Invalidate();
         }
 
