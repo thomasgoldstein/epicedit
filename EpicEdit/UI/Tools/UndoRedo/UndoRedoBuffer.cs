@@ -28,14 +28,25 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         private const int Limit = 10;
 
+        /// <summary>
+        /// The maximum number of changes before consolidating changes.
+        /// </summary>
+        private const int ChangeLimit = 10;
+
+        /// <summary>
+        /// The bound track.
+        /// </summary>
+        private Track track;
+
         // Using LinkedLists rather than Stacks so as to be able to enforce a size limit.
         private LinkedList<TileChanges> undoBuffer;
         private LinkedList<TileChanges> redoBuffer;
 
         private TileChanges buffer;
 
-        public UndoRedoBuffer()
+        public UndoRedoBuffer(Track track)
         {
+            this.track = track;
             this.undoBuffer = new LinkedList<TileChanges>();
             this.redoBuffer = new LinkedList<TileChanges>();
         }
@@ -61,7 +72,79 @@ namespace EpicEdit.UI.Tools.UndoRedo
             else
             {
                 this.buffer.Push(change);
+                if (this.buffer.Count == ChangeLimit)
+                {
+                    this.ConsolidateChanges();
+                }
             }
+        }
+
+        /// <summary>
+        /// Consolidates changes, uniting them all into a single one, so as to improve performances.
+        /// </summary>
+        private void ConsolidateChanges()
+        {
+            int xStart = TrackMap.Size;
+            int yStart = TrackMap.Size;
+            int xEnd = 0;
+            int yEnd = 0;
+
+            foreach (TileChange change in this.buffer)
+            {
+                if (xStart > change.X)
+                {
+                    xStart = change.X;
+                }
+
+                int right = change.X + change.Width;
+                if (xEnd < right)
+                {
+                    xEnd = right;
+                }
+
+                if (yStart > change.Y)
+                {
+                    yStart = change.Y;
+                }
+
+                int bottom = change.Y + change.Height;
+                if (yEnd < bottom)
+                {
+                    yEnd = bottom;
+                }
+            }
+
+            int width = xEnd - xStart;
+            int height = yEnd - yStart;
+
+            TrackMap map = this.track.Map;
+            byte[][] data = new byte[height][];
+            for (int y = 0; y < height; y++)
+            {
+                data[y] = new byte[width];
+                for (int x = 0; x < width; x++)
+                {
+                    data[y][x] = map[xStart + x, yStart + y];
+                }
+            }
+
+            foreach (TileChange change in this.buffer)
+            {
+                int offsetY = change.Y - yStart;
+                int offsetX = change.X - xStart;
+                for (int y = 0; y < change.Height; y++)
+                {
+                    for (int x = 0; x < change.Width; x++)
+                    {
+                        data[offsetY + y][offsetX + x] = change[x, y];
+                    }
+                }
+            }
+
+            TileChange tileChange = new TileChange(xStart, yStart, data);
+
+            this.buffer.Clear();
+            this.buffer.Push(tileChange);
         }
 
         /// <summary>
@@ -84,36 +167,36 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.undoBuffer.AddLast(changes);
         }
 
-        public void Undo(Track track)
+        public void Undo()
         {
             TileChanges undoChanges = this.undoBuffer.Last.Value;
-            TileChanges redoChanges = UndoRedoBuffer.UndoRedoCommon(track, undoChanges);
+            TileChanges redoChanges = this.UndoRedoCommon(undoChanges);
             this.undoBuffer.RemoveLast();
             this.redoBuffer.AddFirst(redoChanges);
         }
 
-        public void Redo(Track track)
+        public void Redo()
         {
             TileChanges redoChanges = this.redoBuffer.First.Value;
-            TileChanges undoChanges = UndoRedoBuffer.UndoRedoCommon(track, redoChanges);
+            TileChanges undoChanges = this.UndoRedoCommon(redoChanges);
             this.redoBuffer.RemoveFirst();
             this.undoBuffer.AddLast(undoChanges);
         }
 
-        private static TileChanges UndoRedoCommon(Track track, TileChanges changes)
+        private TileChanges UndoRedoCommon(TileChanges changes)
         {
             TileChanges previousChanges = new TileChanges();
 
             foreach (TileChange change in changes)
             {
-                TileChange previousChange = UndoRedoBuffer.UndoRedoCommon(track, change);
+                TileChange previousChange = this.UndoRedoCommon(change);
                 previousChanges.Push(previousChange);
             }
 
             return previousChanges;
         }
 
-        private static TileChange UndoRedoCommon(Track track, TileChange change)
+        private TileChange UndoRedoCommon(TileChange change)
         {
             byte[][] previousData = new byte[change.Height][];
 
@@ -123,8 +206,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
                 for (int x = 0; x < change.Width; x++)
                 {
-                    previousData[y][x] = track.Map[change.X + x, change.Y + y];
-                    track.Map[change.X + x, change.Y + y] = change[x, y];
+                    previousData[y][x] = this.track.Map[change.X + x, change.Y + y];
+                    this.track.Map[change.X + x, change.Y + y] = change[x, y];
                 }
             }
 

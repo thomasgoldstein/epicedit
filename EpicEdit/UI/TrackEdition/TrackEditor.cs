@@ -482,7 +482,7 @@ namespace EpicEdit.UI.TrackEdition
         private void MenuBarUndoRequested(object sender, EventArgs e)
         {
             TileChanges changes = this.undoRedoBuffer.NextUndo;
-            this.undoRedoBuffer.Undo(this.track);
+            this.undoRedoBuffer.Undo();
             this.menuBar.RedoEnabled = true;
             this.EnableDisableUndo();
             this.EndUndoRedo(changes);
@@ -491,7 +491,7 @@ namespace EpicEdit.UI.TrackEdition
         private void MenuBarRedoRequested(object sender, EventArgs e)
         {
             TileChanges changes = this.undoRedoBuffer.NextRedo;
-            this.undoRedoBuffer.Redo(this.track);
+            this.undoRedoBuffer.Redo();
             this.menuBar.UndoEnabled = true;
             this.EnableDisableRedo();
             this.EndUndoRedo(changes);
@@ -533,7 +533,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitUndoRedo()
         {
-            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer());
+            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer(this.track));
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
         }
