@@ -29,7 +29,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
         private const int Limit = 10;
 
         /// <summary>
-        /// The maximum number of changes before consolidating them.
+        /// The maximum number of changes accumulated in the buffer before consolidating them.
         /// </summary>
         private const int ChangeLimit = 50;
 
