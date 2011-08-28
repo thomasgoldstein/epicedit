@@ -31,7 +31,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <summary>
         /// The maximum number of changes before consolidating them.
         /// </summary>
-        private const int ChangeLimit = 10;
+        private const int ChangeLimit = 50;
 
         /// <summary>
         /// The bound track.
