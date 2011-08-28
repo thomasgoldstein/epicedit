@@ -24,12 +24,12 @@ namespace EpicEdit.UI.Tools.UndoRedo
     public class UndoRedoBuffer
     {
         /// <summary>
-        /// Undo size limit.
+        /// The maximum number of undos, beyond which the oldest undos are deleted.
         /// </summary>
         private const int Limit = 10;
 
         /// <summary>
-        /// The maximum number of changes before consolidating changes.
+        /// The maximum number of changes before consolidating them.
         /// </summary>
         private const int ChangeLimit = 10;
 
