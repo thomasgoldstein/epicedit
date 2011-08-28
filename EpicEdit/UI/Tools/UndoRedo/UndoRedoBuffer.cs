@@ -39,16 +39,16 @@ namespace EpicEdit.UI.Tools.UndoRedo
         private Track track;
 
         // Using LinkedLists rather than Stacks so as to be able to enforce a size limit.
-        private LinkedList<TileChanges> undoBuffer;
-        private LinkedList<TileChanges> redoBuffer;
+        private LinkedList<TileChange> undoBuffer;
+        private LinkedList<TileChange> redoBuffer;
 
-        private TileChanges buffer;
+        private Stack<TileChange> buffer;
 
         public UndoRedoBuffer(Track track)
         {
             this.track = track;
-            this.undoBuffer = new LinkedList<TileChanges>();
-            this.redoBuffer = new LinkedList<TileChanges>();
+            this.undoBuffer = new LinkedList<TileChange>();
+            this.redoBuffer = new LinkedList<TileChange>();
         }
 
         /// <summary>
@@ -58,14 +58,14 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void BeginAdd()
         {
-            this.buffer = new TileChanges();
+            this.buffer = new Stack<TileChange>();
         }
 
         public void Add(TileChange change)
         {
             if (this.buffer == null)
             {
-                TileChanges changes = new TileChanges();
+                var changes = new Stack<TileChange>();
                 changes.Push(change);
                 this.Add(changes);
             }
@@ -74,7 +74,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 this.buffer.Push(change);
                 if (this.buffer.Count == ChangeLimit)
                 {
-                    this.ConsolidateChanges();
+                    TileChange tileChange = this.ConsolidateChanges(this.buffer);
+                    this.buffer.Clear();
+                    this.buffer.Push(tileChange);
                 }
             }
         }
@@ -82,14 +84,14 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <summary>
         /// Consolidates changes, uniting them all into a single one, so as to improve performances.
         /// </summary>
-        private void ConsolidateChanges()
+        private TileChange ConsolidateChanges(IEnumerable<TileChange> changes)
         {
             int xStart = TrackMap.Size;
             int yStart = TrackMap.Size;
             int xEnd = 0;
             int yEnd = 0;
 
-            foreach (TileChange change in this.buffer)
+            foreach (TileChange change in changes)
             {
                 if (xStart > change.X)
                 {
@@ -128,7 +130,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 }
             }
 
-            foreach (TileChange change in this.buffer)
+            foreach (TileChange change in changes)
             {
                 int offsetY = change.Y - yStart;
                 int offsetX = change.X - xStart;
@@ -141,10 +143,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 }
             }
 
-            TileChange tileChange = new TileChange(xStart, yStart, data);
-
-            this.buffer.Clear();
-            this.buffer.Push(tileChange);
+            return new TileChange(xStart, yStart, data);
         }
 
         /// <summary>
@@ -156,7 +155,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.buffer = null;
         }
 
-        public void Add(TileChanges changes)
+        public void Add(IEnumerable<TileChange> changes)
         {
             if (this.undoBuffer.Count == Limit)
             {
@@ -164,36 +163,25 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
 
             this.redoBuffer.Clear();
-            this.undoBuffer.AddLast(changes);
+
+            TileChange change = this.ConsolidateChanges(changes);
+            this.undoBuffer.AddLast(change);
         }
 
         public void Undo()
         {
-            TileChanges undoChanges = this.undoBuffer.Last.Value;
-            TileChanges redoChanges = this.UndoRedoCommon(undoChanges);
+            TileChange undoChange = this.undoBuffer.Last.Value;
+            TileChange redoChange = this.UndoRedoCommon(undoChange);
             this.undoBuffer.RemoveLast();
-            this.redoBuffer.AddFirst(redoChanges);
+            this.redoBuffer.AddFirst(redoChange);
         }
 
         public void Redo()
         {
-            TileChanges redoChanges = this.redoBuffer.First.Value;
-            TileChanges undoChanges = this.UndoRedoCommon(redoChanges);
+            TileChange redoChange = this.redoBuffer.First.Value;
+            TileChange undoChange = this.UndoRedoCommon(redoChange);
             this.redoBuffer.RemoveFirst();
-            this.undoBuffer.AddLast(undoChanges);
-        }
-
-        private TileChanges UndoRedoCommon(TileChanges changes)
-        {
-            TileChanges previousChanges = new TileChanges();
-
-            foreach (TileChange change in changes)
-            {
-                TileChange previousChange = this.UndoRedoCommon(change);
-                previousChanges.Push(previousChange);
-            }
-
-            return previousChanges;
+            this.undoBuffer.AddLast(undoChange);
         }
 
         private TileChange UndoRedoCommon(TileChange change)
@@ -236,7 +224,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
         }
 
-        public TileChanges NextUndo
+        public TileChange NextUndo
         {
             get
             {
@@ -244,7 +232,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
         }
 
-        public TileChanges NextRedo
+        public TileChange NextRedo
         {
             get
             {

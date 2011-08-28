@@ -274,33 +274,30 @@ namespace EpicEdit.UI.Gfx
             this.NotifyFullRepaintNeed();
         }
 
-        public void ReloadTrackPart(TileChanges changes)
+        public void ReloadTrackPart(TileChange change)
         {
             Tile[] tileset = this.track.GetRoadTileset();
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
-                foreach (TileChange change in changes)
+                for (int x = 0; x < change.Width; x++)
                 {
-                    for (int x = 0; x < change.Width; x++)
+                    for (int y = 0; y < change.Height; y++)
                     {
-                        for (int y = 0; y < change.Height; y++)
-                        {
-                            Tile tile = tileset[change[x, y]];
-                            g.DrawImage(tile.Bitmap,
-                                        (change.X + x) * Tile.Size,
-                                        (change.Y + y) * Tile.Size);
-                        }
+                        Tile tile = tileset[change[x, y]];
+                        g.DrawImage(tile.Bitmap,
+                                    (change.X + x) * Tile.Size,
+                                    (change.Y + y) * Tile.Size);
                     }
+                }
 
-                    if (!this.fullRepaintNeeded)
-                    {
-                        Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
-                                                                 change.Y * Tile.Size,
-                                                                 change.Width * Tile.Size,
-                                                                 change.Height * Tile.Size);
-                        this.dirtyRegion.Union(dirtyRectangle);
-                    }
+                if (!this.fullRepaintNeeded)
+                {
+                    Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
+                                                             change.Y * Tile.Size,
+                                                             change.Width * Tile.Size,
+                                                             change.Height * Tile.Size);
+                    this.dirtyRegion.Union(dirtyRectangle);
                 }
             }
         }

@@ -187,7 +187,6 @@
     <Compile Include="UI\Tools\EventArgs.cs" />
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
-    <Compile Include="UI\Tools\UndoRedo\TileChanges.cs" />
     <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />
     <Compile Include="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
