@@ -1274,18 +1274,27 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MouseWheelScroll(MouseEventArgs e)
         {
+            int delta = e.Delta / 64;
+            if (delta == 0)
+            {
+                // Ensure some scrolling happens even if the Delta value was low
+                // (Makes tablet and stylus scrolling work more nicely,
+                // as well as other special settings or hardware)
+                delta = e.Delta > 0 ? 1 : -1;
+            }
+
             int before;
             int after;
             if (Control.ModifierKeys != Keys.Shift)
             {
-                int y = this.scrollPosition.Y - (e.Delta / 64);
+                int y = this.scrollPosition.Y - delta;
                 before = this.scrollPosition.Y;
                 this.SetVerticalScrollingValue(y);
                 after = this.scrollPosition.Y;
             }
             else
             {
-                int x = this.scrollPosition.X - (e.Delta / 64);
+                int x = this.scrollPosition.X - delta;
                 before = this.scrollPosition.X;
                 this.SetHorizontalScrollingValue(x);
                 after = this.scrollPosition.X;
