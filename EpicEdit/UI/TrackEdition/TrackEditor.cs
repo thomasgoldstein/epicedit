@@ -657,6 +657,12 @@ namespace EpicEdit.UI.TrackEdition
                 this.ZoomOutSub();
             }
 
+            // Ensure the user will still be hovering the same tile after zooming
+            Point cursor = this.TilePosition;
+            Point center = this.CenterTileLocation;
+            Point diff = new Point(center.X - cursor.X, center.Y - cursor.Y);
+            hoveredTilePosition.Offset(diff);
+
             this.CenterTrackDisplayOn(hoveredTilePosition);
 
             this.InitEditionModeAction(true);
