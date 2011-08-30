@@ -140,6 +140,19 @@ namespace EpicEdit.UI.TrackEdition
         private Point scrollPosition;
 
         /// <summary>
+        /// The position of the tile displayed in the center of the track panel
+        /// (doesn't take scrolling position in consideration).
+        /// </summary>
+        private Point CenterTileLocation
+        {
+            get
+            {
+                return new Point(this.GetOnScreenTileCount(this.trackDisplay.Width) / 2,
+                                 this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
+            }
+        }
+
+        /// <summary>
         /// Where copied tiles are stored.
         /// </summary>
         private List<byte> tileClipboard;
@@ -596,8 +609,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private Point GetCenterTileLocation()
         {
-            return new Point(this.scrollPosition.X + this.GetOnScreenTileCount(this.trackDisplay.Width) / 2,
-                             this.scrollPosition.Y + this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
+            Point point = this.CenterTileLocation;
+            point.Offset(this.scrollPosition);
+            return point;
         }
 
         private void EndZoom()
@@ -643,9 +657,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void CenterTrackDisplayOn(Point location)
         {
-            int x = location.X - (this.GetOnScreenTileCount(this.trackDisplay.Width) / 2);
-            int y = location.Y - (this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
-
+            Point point = this.CenterTileLocation;
+            int x = location.X - point.X;
+            int y = location.Y - point.Y;
             this.SetHorizontalScrollingValue(x);
             this.SetVerticalScrollingValue(y);
         }
