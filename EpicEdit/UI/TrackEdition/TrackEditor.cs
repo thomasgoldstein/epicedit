@@ -153,6 +153,20 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
+        /// The position of the tile displayed in the center of the track panel
+        /// (takes scrolling position in consideration).
+        /// </summary>
+        private Point AbsoluteCenterTileLocation
+        {
+            get
+            {
+                Point point = this.CenterTileLocation;
+                point.Offset(this.scrollPosition);
+                return point;
+            }
+        }
+
+        /// <summary>
         /// Where copied tiles are stored.
         /// </summary>
         private List<byte> tileClipboard;
@@ -565,7 +579,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = this.GetCenterTileLocation();
+            Point location = this.AbsoluteCenterTileLocation;
 
             this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
             this.trackDrawer.SetZoom(this.Zoom);
@@ -586,7 +600,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = this.GetCenterTileLocation();
+            Point location = this.AbsoluteCenterTileLocation;
             this.ZoomInSub();
             this.CenterTrackDisplayOn(location);
 
@@ -600,18 +614,11 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = this.GetCenterTileLocation();
+            Point location = this.AbsoluteCenterTileLocation;
             this.ZoomOutSub();
             this.CenterTrackDisplayOn(location);
 
             this.EndZoom();
-        }
-
-        private Point GetCenterTileLocation()
-        {
-            Point point = this.CenterTileLocation;
-            point.Offset(this.scrollPosition);
-            return point;
         }
 
         private void EndZoom()
@@ -2453,7 +2460,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AIControlAddRequested(object sender, EventArgs e)
         {
-            this.AddAIElement(this.GetCenterTileLocation());
+            this.AddAIElement(this.AbsoluteCenterTileLocation);
         }
 
         private void AIControlDeleteAllRequested(object sender, EventArgs e)
