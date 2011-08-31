@@ -197,7 +197,7 @@ namespace EpicEdit.UI
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Properties.Resources));
 
-            if (this.fullScreenToolStripButton.ToolTipText.Equals("Full Screen", StringComparison.OrdinalIgnoreCase))
+            if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
                 this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("ExitFullScreenButton")));
