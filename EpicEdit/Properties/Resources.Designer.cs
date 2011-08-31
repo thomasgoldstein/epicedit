@@ -74,6 +74,20 @@ namespace EpicEdit.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ExitFullScreenButton {
+            get {
+                object obj = ResourceManager.GetObject("ExitFullScreenButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FullScreenButton {
+            get {
+                object obj = ResourceManager.GetObject("FullScreenButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap NukeButton {
             get {
                 object obj = ResourceManager.GetObject("NukeButton", resourceCulture);
