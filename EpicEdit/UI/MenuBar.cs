@@ -195,17 +195,17 @@ namespace EpicEdit.UI
 
         private void UpdateFullScreenButton()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(MenuBar));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(Properties.Resources));
 
             if (this.fullScreenToolStripButton.ToolTipText.Equals("Full Screen", StringComparison.OrdinalIgnoreCase))
             {
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton2.Image")));
+                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("ExitFullScreenButton")));
             }
             else
             {
                 this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("fullScreenToolStripButton.Image")));
+                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("FullScreenButton")));
             }
         }
         #endregion Full Screen

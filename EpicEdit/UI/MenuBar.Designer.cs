@@ -206,7 +206,7 @@ namespace EpicEdit.UI
             // fullScreenToolStripButton
             // 
             this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fullScreenToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("fullScreenToolStripButton.Image")));
+            this.fullScreenToolStripButton.Image = global::EpicEdit.Properties.Resources.FullScreenButton;
             this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fullScreenToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
