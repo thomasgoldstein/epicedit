@@ -28,6 +28,7 @@ namespace EpicEdit.UI
     /// </summary>
     public partial class MenuBar : UserControl
     {
+        #region Events
         [Browsable(true)]
         public event EventHandler<EventArgs> OpenRomDialogRequested;
 
@@ -57,11 +58,14 @@ namespace EpicEdit.UI
 
         [Browsable(true)]
         public event EventHandler<EventArgs> ToggleScreenModeRequested;
+        #endregion Events
 
+        #region Constructor
         public MenuBar()
         {
             this.InitializeComponent();
         }
+        #endregion Constructor
 
         #region Open ROM
         private void OpenRomToolStripButtonClick(object sender, EventArgs e)
