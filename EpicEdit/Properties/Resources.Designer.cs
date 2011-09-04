@@ -74,6 +74,13 @@ namespace EpicEdit.Properties {
             }
         }
         
+        internal static System.Drawing.Icon EpicEditIcon {
+            get {
+                object obj = ResourceManager.GetObject("EpicEditIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ExitFullScreenButton {
             get {
                 object obj = ResourceManager.GetObject("ExitFullScreenButton", resourceCulture);

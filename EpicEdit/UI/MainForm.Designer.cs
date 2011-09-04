@@ -49,7 +49,6 @@ namespace EpicEdit.UI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.trackTabPage = new System.Windows.Forms.TabPage();
             this.trackEditor = new EpicEdit.UI.TrackEdition.TrackEditor();
@@ -108,6 +107,7 @@ namespace EpicEdit.UI
             // themeEditor
             // 
             this.themeEditor.AllowDrop = true;
+            this.themeEditor.AutoScroll = true;
             this.themeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.themeEditor.Enabled = false;
             this.themeEditor.Location = new System.Drawing.Point(0, 0);
@@ -119,7 +119,7 @@ namespace EpicEdit.UI
             // 
             this.ClientSize = new System.Drawing.Size(854, 661);
             this.Controls.Add(this.tabControl);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.tabControl.ResumeLayout(false);
