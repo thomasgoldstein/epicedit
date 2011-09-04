@@ -208,7 +208,7 @@ namespace EpicEdit.UI
         }
 
         /// <summary>
-        /// Call the dialog to save the ROM.
+        /// Calls the dialog to save the ROM.
         /// </summary>
         private void SaveRomDialog()
         {
