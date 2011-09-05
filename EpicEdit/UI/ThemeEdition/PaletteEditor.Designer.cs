@@ -45,16 +45,14 @@ namespace EpicEdit.Rom.ThemeEdition
             this.setColorButton = new System.Windows.Forms.Button();
             this.resetButton = new System.Windows.Forms.Button();
             this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
-            this.paletteGroupBox = new System.Windows.Forms.GroupBox();
-            this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.paletteGroupBox.SuspendLayout();
+            this.themeComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // setColorButton
             // 
-            this.setColorButton.Location = new System.Drawing.Point(344, 213);
+            this.setColorButton.Location = new System.Drawing.Point(339, 204);
             this.setColorButton.Name = "setColorButton";
             this.setColorButton.Size = new System.Drawing.Size(75, 23);
             this.setColorButton.TabIndex = 3;
@@ -64,7 +62,7 @@ namespace EpicEdit.Rom.ThemeEdition
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(11, 213);
+            this.resetButton.Location = new System.Drawing.Point(6, 204);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 4;
@@ -74,38 +72,14 @@ namespace EpicEdit.Rom.ThemeEdition
             // 
             // colorPicker
             // 
-            this.colorPicker.Location = new System.Drawing.Point(174, 54);
+            this.colorPicker.Location = new System.Drawing.Point(169, 40);
             this.colorPicker.Name = "colorPicker";
             this.colorPicker.Size = new System.Drawing.Size(249, 153);
             this.colorPicker.TabIndex = 2;
             // 
-            // paletteGroupBox
-            // 
-            this.paletteGroupBox.Controls.Add(this.paletteNumericUpDown);
-            this.paletteGroupBox.Controls.Add(this.themeComboBox);
-            this.paletteGroupBox.Controls.Add(this.resetButton);
-            this.paletteGroupBox.Controls.Add(this.colorPicker);
-            this.paletteGroupBox.Controls.Add(this.setColorButton);
-            this.paletteGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.paletteGroupBox.Name = "paletteGroupBox";
-            this.paletteGroupBox.Size = new System.Drawing.Size(430, 250);
-            this.paletteGroupBox.TabIndex = 3;
-            this.paletteGroupBox.TabStop = false;
-            this.paletteGroupBox.Text = "Color palettes";
-            // 
-            // themeComboBox
-            // 
-            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.themeComboBox.FormattingEnabled = true;
-            this.themeComboBox.Location = new System.Drawing.Point(11, 20);
-            this.themeComboBox.Name = "themeComboBox";
-            this.themeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.themeComboBox.TabIndex = 0;
-            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
-            // 
             // paletteNumericUpDown
             // 
-            this.paletteNumericUpDown.Location = new System.Drawing.Point(139, 20);
+            this.paletteNumericUpDown.Location = new System.Drawing.Point(134, 6);
             this.paletteNumericUpDown.Maximum = new decimal(new int[] {
                                     15,
                                     0,
@@ -116,18 +90,30 @@ namespace EpicEdit.Rom.ThemeEdition
             this.paletteNumericUpDown.TabIndex = 1;
             this.paletteNumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
+            // themeComboBox
+            // 
+            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.themeComboBox.FormattingEnabled = true;
+            this.themeComboBox.Location = new System.Drawing.Point(6, 6);
+            this.themeComboBox.Name = "themeComboBox";
+            this.themeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.themeComboBox.TabIndex = 0;
+            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
+            // 
             // PaletteEditor
             // 
-            this.Controls.Add(this.paletteGroupBox);
+            this.Controls.Add(this.paletteNumericUpDown);
+            this.Controls.Add(this.themeComboBox);
+            this.Controls.Add(this.setColorButton);
+            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.colorPicker);
             this.Name = "PaletteEditor";
-            this.Size = new System.Drawing.Size(430, 250);
-            this.paletteGroupBox.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(420, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
         private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.ComboBox themeComboBox;
-        private System.Windows.Forms.GroupBox paletteGroupBox;
 
         #endregion
 

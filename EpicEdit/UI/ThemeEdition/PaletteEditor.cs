@@ -104,7 +104,7 @@ namespace EpicEdit.Rom.ThemeEdition
                         Tag = i
                     };
                     this.panels[i].Click += new EventHandler(this.PaletteEditorClick);
-                    this.paletteGroupBox.Controls.Add(panels[i]);
+                    this.Controls.Add(panels[i]);
 
                     this.toolTips[i] = new ToolTip()
                     {
