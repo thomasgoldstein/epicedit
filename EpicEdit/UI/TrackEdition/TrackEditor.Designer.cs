@@ -38,6 +38,11 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.trackDrawer.Dispose();
                 }
+
+                if (this.paletteForm != null)
+                {
+                    this.paletteForm.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
@@ -282,8 +287,10 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
+            this.menuBar.RedoEnabled = false;
             this.menuBar.Size = new System.Drawing.Size(691, 25);
             this.menuBar.TabIndex = 4;
+            this.menuBar.UndoEnabled = false;
             this.menuBar.ZoomInEnabled = false;
             this.menuBar.ZoomOutEnabled = false;
             this.menuBar.TrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportDialogRequested);
@@ -293,6 +300,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);
             this.menuBar.ZoomOutRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomOutRequested);
             this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
+            this.menuBar.PaletteEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarPaletteEditorRequested);
             // 
             // TrackEditor
             // 

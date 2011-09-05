@@ -86,9 +86,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Private members
 
-        public ColorPicker() : this(new RomColor()) { }
-
-        public ColorPicker(RomColor color)
+        public ColorPicker()
         {
             this.InitializeComponent();
 
@@ -103,8 +101,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InitBasicColorsBitmapCache();
 
-            // Convert the input color to an SNES (5-bit) color
-            color = color.To5Bit();
+            RomColor color = new RomColor();
             this.UpdateOldColor(color);
 
             this.selectedBasicColor = this.DrawBasicColorsBitmap(0);

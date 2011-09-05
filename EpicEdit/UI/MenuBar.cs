@@ -19,6 +19,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
+using EpicEdit.UI.ThemeEdition;
 using EpicEdit.UI.Tools.UndoRedo;
 
 namespace EpicEdit.UI
@@ -58,6 +59,9 @@ namespace EpicEdit.UI
 
         [Browsable(true)]
         public event EventHandler<EventArgs> ToggleScreenModeRequested;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> PaletteEditorRequested;
         #endregion Events
 
         #region Constructor
@@ -80,6 +84,7 @@ namespace EpicEdit.UI
             this.exportTrackToolStripButton.Enabled = true;
             this.zoomOutToolStripButton.Enabled = true;
             this.zoomInToolStripButton.Enabled = true;
+            this.paletteToolStripButton.Enabled = true;
 
             // Enable hidden key shortcuts
             this.saveRomToolStripMenuItem.Enabled = true;
@@ -213,6 +218,13 @@ namespace EpicEdit.UI
             }
         }
         #endregion Full Screen
+
+        #region Palette editor
+        private void PaletteToolStripButtonClick(object sender, EventArgs e)
+        {
+            this.PaletteEditorRequested(this, EventArgs.Empty);
+        }
+        #endregion Palette editor
 
         #region About
         private void AboutToolStripLabelClick(object sender, EventArgs e)

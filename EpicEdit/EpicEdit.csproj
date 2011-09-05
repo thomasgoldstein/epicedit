@@ -172,6 +172,10 @@
     <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\PaletteEditorForm.cs" />
+    <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
+      <DependentUpon>PaletteEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ThemeEdition\ThemeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\PaletteEditorForm.resx">
+      <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\ThemeEditor.resx">
       <DependentUpon>ThemeEditor.cs</DependentUpon>
