@@ -28,12 +28,14 @@ namespace EpicEdit.Rom.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged;
 
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
             get { return this.themeComboBox.SelectedItem as Theme; }
             set { this.themeComboBox.SelectedItem = value; }
         }
 
+        [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
             get { return this.palette; }

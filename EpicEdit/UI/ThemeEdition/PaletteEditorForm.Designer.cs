@@ -51,7 +51,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.paletteEditor.Name = "paletteEditor";
             this.paletteEditor.Size = new System.Drawing.Size(420, 230);
             this.paletteEditor.TabIndex = 0;
-            this.paletteEditor.Theme = null;
             // 
             // PaletteEditorForm
             // 
