@@ -27,10 +27,9 @@ namespace EpicEdit.UI.Tools
         }
 
         private T value;
-
         public T Value
         {
-            get { return value; }
+            get { return this.value; }
         }
     }
 }
