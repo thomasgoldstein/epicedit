@@ -764,6 +764,7 @@ namespace EpicEdit.UI.TrackEdition
                 int yStart = this.tileClipboardTopLeft.Y;
                 this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
                 this.tilesetControl.UpdateTileset();
+                this.overlayControl.SetTileset(this.track.GetRoadTileset());
                 this.trackDisplay.Invalidate();
             }
             else
