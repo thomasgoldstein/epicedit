@@ -33,12 +33,14 @@ namespace EpicEdit.UI.ThemeEdition
             remove { this.paletteEditor.ColorChanged -= value; }
         }
 
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
             get { return this.paletteEditor.Theme; }
             set { this.paletteEditor.Theme = value; }
         }
 
+        [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
             get { return this.paletteEditor.Palette; }
