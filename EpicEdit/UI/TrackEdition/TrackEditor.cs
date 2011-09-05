@@ -16,12 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
@@ -728,7 +728,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.paletteForm.Show();
-            this.paletteForm.SelectTheme(this.track.Theme);
+            this.paletteForm.Theme = this.track.Theme;
         }
 
         private void InitPaletteEditorForm()
@@ -749,16 +749,20 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
-        /// If the user changed the color palettes, the tiles need to be updated to reflect this.
+        /// If the user changed a color palette, the tiles need to be updated to reflect this.
         /// </summary>
         private void UpdateTiles()
         {
-            if (this.track.Theme.TilesNeedUpdating)
-            {
-                // The updated color belongs to the theme of the current track
-                this.track.Theme.UpdateTiles();
+            Theme theme = this.paletteForm.Theme;
+            Palette palette = this.paletteForm.Palette;
 
-                // Reset current track cache
+            theme.UpdateTiles(palette);
+
+            if (this.track.Theme == theme)
+            {
+                // The updated color belongs to the theme of the current track,
+                // so caches need to be updated
+
                 this.trackDrawer.LoadTrack(this.track);
                 int xStart = this.tileClipboardTopLeft.X;
                 int yStart = this.tileClipboardTopLeft.Y;
@@ -766,15 +770,6 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetControl.UpdateTileset();
                 this.overlayControl.SetTileset(this.track.GetRoadTileset());
                 this.trackDisplay.Invalidate();
-            }
-            else
-            {
-                // The updated color doesn't belong to the theme of the current track,
-                // so iterate through all themes to update the ones that needs it
-                foreach (Theme theme in Context.Game.Themes)
-                {
-                    theme.UpdateTiles();
-                }
             }
         }
         #endregion MenuBar

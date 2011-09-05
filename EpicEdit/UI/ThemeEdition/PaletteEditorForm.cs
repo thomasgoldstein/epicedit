@@ -14,9 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.ThemeEdition
@@ -31,6 +31,17 @@ namespace EpicEdit.UI.ThemeEdition
         {
             add { this.paletteEditor.ColorChanged += value; }
             remove { this.paletteEditor.ColorChanged -= value; }
+        }
+
+        public Theme Theme
+        {
+            get { return this.paletteEditor.Theme; }
+            set { this.paletteEditor.Theme = value; }
+        }
+
+        public Palette Palette
+        {
+            get { return this.paletteEditor.Palette; }
         }
 
         public PaletteEditorForm()
@@ -51,11 +62,6 @@ namespace EpicEdit.UI.ThemeEdition
         public void Init()
         {
             this.paletteEditor.Init();
-        }
-
-        public void SelectTheme(Theme theme)
-        {
-            this.paletteEditor.SelectTheme(theme);
         }
     }
 }
