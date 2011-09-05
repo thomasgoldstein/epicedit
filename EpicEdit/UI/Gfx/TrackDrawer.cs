@@ -274,6 +274,28 @@ namespace EpicEdit.UI.Gfx
             this.NotifyFullRepaintNeed();
         }
 
+        public void ReloadPalette(Palette palette)
+        {
+            Tile[] tileset = this.track.GetRoadTileset();
+
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                for (int x = 0; x < this.track.Map.Width; x++)
+                {
+                    for (int y = 0; y < this.track.Map.Height; y++)
+                    {
+                        Tile tile = tileset[this.track.Map[x, y]];
+                        if (tile.Palette == palette)
+                        {
+                            g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                        }
+                    }
+                }
+            }
+
+            this.NotifyFullRepaintNeed();
+        }
+
         public void ReloadTrackPart(TileChange change)
         {
             Tile[] tileset = this.track.GetRoadTileset();

@@ -763,7 +763,7 @@ namespace EpicEdit.UI.TrackEdition
                 // The updated color belongs to the theme of the current track,
                 // so caches need to be updated
 
-                this.trackDrawer.LoadTrack(this.track);
+                this.trackDrawer.ReloadPalette(palette);
                 int xStart = this.tileClipboardTopLeft.X;
                 int yStart = this.tileClipboardTopLeft.Y;
                 this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
