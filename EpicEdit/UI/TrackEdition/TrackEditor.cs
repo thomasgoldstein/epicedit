@@ -27,6 +27,7 @@ using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
+using EpicEdit.UI.ThemeEdition;
 using EpicEdit.UI.Tools;
 using EpicEdit.UI.Tools.UndoRedo;
 
@@ -261,6 +262,10 @@ namespace EpicEdit.UI.TrackEdition
                 return this.undoRedoBuffers[this.track];
             }
         }
+
+        private bool paletteFormInitialized;
+
+        private PaletteEditorForm paletteForm;
         #endregion Private members
 
         #region Events
@@ -318,32 +323,6 @@ namespace EpicEdit.UI.TrackEdition
         }
         #endregion Constructor
 
-        #region Public methods
-        /// <summary>
-        /// If the user changed the color palettes, the tiles need to be updated to reflect this.
-        /// </summary>
-        public void UpdateTiles()
-        {
-            bool update = this.track.Theme.TilesNeedUpdating;
-
-            foreach (Theme theme in Context.Game.Themes)
-            {
-                // Update all theme tiles
-                theme.UpdateTiles();
-            }
-
-            if (update)
-            {
-                // Reset current track cache
-                this.trackDrawer.LoadTrack(this.track);
-                int xStart = this.tileClipboardTopLeft.X;
-                int yStart = this.tileClipboardTopLeft.Y;
-                this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
-                this.tilesetControl.UpdateTileset();
-            }
-        }
-        #endregion Public methods
-
         #region MenuBar
         public void InitOnFirstRomLoad()
         {
@@ -372,6 +351,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
+            this.paletteFormInitialized = false;
             this.tilesetControl.InitOnRomLoad();
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
@@ -724,10 +704,76 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RemoveFocus()
         {
-            if (Form.ActiveForm != null) // If the application is focused
+            if (this.MainFormFocused)
             {
                 // Steal the focus from the panel to disable mouse-wheel scrolling
                 this.menuBar.Focus();
+            }
+        }
+
+        private bool MainFormFocused
+        {
+            get
+            {
+                return Form.ActiveForm != null && // Application focused
+                    (this.paletteForm == null || !this.paletteForm.Visible); // Palette editor not displayed
+            }
+        }
+
+        private void MenuBarPaletteEditorRequested(object sender, EventArgs e)
+        {
+            if (!this.paletteFormInitialized)
+            {
+                this.InitPaletteEditorForm();
+            }
+
+            this.paletteForm.Show();
+            this.paletteForm.SelectTheme(this.track.Theme);
+        }
+
+        private void InitPaletteEditorForm()
+        {
+            if (this.paletteForm == null)
+            {
+                this.paletteForm = new PaletteEditorForm();
+                this.paletteForm.Owner = this.ParentForm;
+                this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
+            }
+
+            this.paletteForm.Init();
+        }
+
+        private void PaletteEditorFormColorChanged(object sender, EventArgs e)
+        {
+            this.UpdateTiles();
+        }
+
+        /// <summary>
+        /// If the user changed the color palettes, the tiles need to be updated to reflect this.
+        /// </summary>
+        private void UpdateTiles()
+        {
+            if (this.track.Theme.TilesNeedUpdating)
+            {
+                // The updated color belongs to the theme of the current track
+                this.track.Theme.UpdateTiles();
+
+                // Reset current track cache
+                this.trackDrawer.LoadTrack(this.track);
+                int xStart = this.tileClipboardTopLeft.X;
+                int yStart = this.tileClipboardTopLeft.Y;
+                this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+                this.tilesetControl.UpdateTileset();
+                this.trackDisplay.Invalidate();
+            }
+            else
+            {
+                // The updated color doesn't belong to the theme of the current track,
+                // so iterate through all themes to update the ones that needs it
+                foreach (Theme theme in Context.Game.Themes)
+                {
+                    theme.UpdateTiles();
+                }
             }
         }
         #endregion MenuBar
@@ -773,7 +819,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayVScrollBarMouseMove(object sender, MouseEventArgs e)
         {
-            if (Form.ActiveForm != null) // If the application is focused
+            if (this.MainFormFocused)
             {
                 this.trackDisplayVScrollBar.Focus(); // Lets you use the mouse wheel to scroll
             }
@@ -888,7 +934,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseMove(object sender, MouseEventArgs e)
         {
-            if (Form.ActiveForm != null) // If the application is focused
+            if (this.MainFormFocused)
             {
                 this.trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
             }

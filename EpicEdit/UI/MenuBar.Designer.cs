@@ -29,9 +29,9 @@ namespace EpicEdit.UI
         {
             if (disposing)
             {
-                if (components != null)
+                if (this.components != null)
                 {
-                    components.Dispose();
+                    this.components.Dispose();
                 }
             }
             base.Dispose(disposing);
@@ -57,8 +57,10 @@ namespace EpicEdit.UI
             this.zoomInToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.coordinatesToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.hiddenMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,8 +95,10 @@ namespace EpicEdit.UI
                                     this.zoomInToolStripButton,
                                     this.fullScreenToolStripButton,
                                     this.toolStripSeparator2,
-                                    this.aboutToolStripLabel,
+                                    this.paletteToolStripButton,
                                     this.toolStripSeparator3,
+                                    this.aboutToolStripLabel,
+                                    this.toolStripSeparator4,
                                     this.coordinatesToolStripLabel});
             this.menuToolStrip.Location = new System.Drawing.Point(0, 0);
             this.menuToolStrip.Name = "menuToolStrip";
@@ -220,6 +224,24 @@ namespace EpicEdit.UI
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // paletteToolStripButton
+            // 
+            this.paletteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.paletteToolStripButton.Enabled = false;
+            this.paletteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("paletteToolStripButton.Image")));
+            this.paletteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.paletteToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.paletteToolStripButton.Name = "paletteToolStripButton";
+            this.paletteToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.paletteToolStripButton.Text = "Zoom In";
+            this.paletteToolStripButton.Click += new System.EventHandler(this.PaletteToolStripButtonClick);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // aboutToolStripLabel
             // 
             this.aboutToolStripLabel.Margin = new System.Windows.Forms.Padding(10, 3, 4, 4);
@@ -229,10 +251,10 @@ namespace EpicEdit.UI
             this.aboutToolStripLabel.ToolTipText = "About Epic Edit";
             this.aboutToolStripLabel.Click += new System.EventHandler(this.AboutToolStripLabelClick);
             // 
-            // toolStripSeparator3
+            // toolStripSeparator4
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // coordinatesToolStripLabel
             // 
@@ -387,6 +409,18 @@ namespace EpicEdit.UI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStrip menuToolStrip;
+        private System.Windows.Forms.ToolStripButton paletteToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton openRomToolStripButton;
+        private System.Windows.Forms.ToolStripButton saveRomToolStripButton;
+        private System.Windows.Forms.ToolStripButton importTrackToolStripButton;
+        private System.Windows.Forms.ToolStripButton exportTrackToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton zoomOutToolStripButton;
+        private System.Windows.Forms.ToolStripButton zoomInToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
@@ -394,7 +428,6 @@ namespace EpicEdit.UI
         private System.Windows.Forms.ToolStripButton undoToolStripButton;
         private System.Windows.Forms.ToolStripButton fullScreenToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel coordinatesToolStripLabel;
         private System.Windows.Forms.ToolStripMenuItem resetZoomNumToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
@@ -407,14 +440,5 @@ namespace EpicEdit.UI
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.MenuStrip hiddenMenuStrip;
         private System.Windows.Forms.ToolStripLabel aboutToolStripLabel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton zoomInToolStripButton;
-        private System.Windows.Forms.ToolStripButton zoomOutToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton exportTrackToolStripButton;
-        private System.Windows.Forms.ToolStripButton importTrackToolStripButton;
-        private System.Windows.Forms.ToolStripButton saveRomToolStripButton;
-        private System.Windows.Forms.ToolStripButton openRomToolStripButton;
-        private System.Windows.Forms.ToolStrip menuToolStrip;
     }
 }

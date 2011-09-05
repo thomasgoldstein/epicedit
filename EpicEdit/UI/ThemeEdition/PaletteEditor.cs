@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -24,6 +25,9 @@ namespace EpicEdit.Rom.ThemeEdition
 {
     public partial class PaletteEditor : UserControl
     {
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ColorChanged;
+
         /// <summary>
         /// The 16 boxes where the colors of the palette are drawn
         /// </summary>
@@ -35,32 +39,27 @@ namespace EpicEdit.Rom.ThemeEdition
         private ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
 
         /// <summary>
-        /// Index of the selected color from the palette
+        /// Index of the selected color from the palette.
         /// </summary>
         private int selectedColor = 0;
 
         /// <summary>
-        /// The palette object passed into the constructor
+        /// The current color palette.
         /// </summary>
         private Palette palette;
 
         /// <summary>
-        /// Constructs the editor using the default palette (all black).
+        /// Constructs the editor.
         /// </summary>
-        public PaletteEditor() : this(new Palette()) { }
-
-        /// <summary>
-        /// Constructs the editor using the passed in palette.
-        /// </summary>
-        /// <param name="palette">The palette object coming from the ROM.</param>
-        public PaletteEditor(Palette palette)
+        public PaletteEditor()
         {
             this.InitializeComponent();
-
-            this.SetPalette(palette);
         }
 
-        public void InitOnRomLoad()
+        /// <summary>
+        /// Loads the game themes.
+        /// </summary>
+        public void Init()
         {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
@@ -70,6 +69,11 @@ namespace EpicEdit.Rom.ThemeEdition
             }
             this.themeComboBox.EndUpdate();
             this.themeComboBox.SelectedIndex = 0;
+        }
+
+        public void SelectTheme(Theme theme)
+        {
+            this.themeComboBox.SelectedItem = theme;
         }
 
         /// <summary>
@@ -124,7 +128,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private void SetToolTip(int paletteIndex)
         {
             this.toolTips[paletteIndex].RemoveAll();
-            this.toolTips[paletteIndex].SetToolTip(this.panels[paletteIndex], String.Format("#{0}\r\n{1}", paletteIndex.ToString(), palette[paletteIndex].ToString()));
+            this.toolTips[paletteIndex].SetToolTip(this.panels[paletteIndex], string.Format("#{0}\r\n{1}", paletteIndex.ToString(), this.palette[paletteIndex].ToString()));
         }
 
         /// <summary>
@@ -181,6 +185,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.SetToolTip(this.selectedColor);
 
             this.palette.Modified = true;
+            this.ColorChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -192,6 +197,8 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.palette.Reset();
             this.SetPalette(this.palette);
+
+            this.ColorChanged(this, EventArgs.Empty);
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)

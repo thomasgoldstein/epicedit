@@ -166,7 +166,6 @@ namespace EpicEdit.UI
                 Context.Game = new Game(filePath);
                 this.trackEditor.InitOnFirstRomLoad();
                 this.themeEditor.InitOnFirstRomLoad();
-                this.tabControl.SelectedIndexChanged += this.TabControlSelectedIndexChanged;
             }
             else
             {
@@ -275,14 +274,6 @@ namespace EpicEdit.UI
                 // Go back to windowed mode
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = this.previousWindowState;
-            }
-        }
-        
-        private void TabControlSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.tabControl.SelectedIndex == 0) // Switch to Track editor tab
-            {
-                this.trackEditor.UpdateTiles();
             }
         }
     }
