@@ -95,43 +95,17 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public void UpdateTiles()
+        public void UpdateTiles(Palette palette)
         {
-            if (!this.TilesNeedUpdating)
-            {
-                return;
-            }
-
             foreach (Tile tile in this.roadTileset)
             {
-                if (tile.Palette.UpdateTiles)
+                if (tile.Palette == palette)
                 {
                     tile.UpdateBitmap();
                 }
             }
 
             // TODO: Update background tiles
-
-            foreach (Palette palette in this.Palettes)
-            {
-                palette.UpdateTiles = false;
-            }
-        }
-
-        public bool TilesNeedUpdating
-        {
-            get
-            {
-                foreach (Palette palette in this.Palettes)
-                {
-                    if (palette.UpdateTiles)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
         }
 
         public override string ToString()

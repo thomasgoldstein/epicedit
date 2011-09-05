@@ -34,41 +34,7 @@ namespace EpicEdit.Rom
 
         private byte[] backupData;
 
-        private bool modified;
-
-        public bool Modified
-        {
-            get
-            {
-                return this.modified;
-            }
-            set
-            {
-                this.modified = value;
-
-                if (value)
-                {
-                    this.updateTiles = value;
-                }
-            }
-        }
-
-        private bool updateTiles;
-
-        /// <summary>
-        /// Specifies whether the tiles need to be updated.
-        /// </summary>
-        public bool UpdateTiles
-        {
-            get
-            {
-                return this.updateTiles;
-            }
-            set
-            {
-                this.updateTiles = value;
-            }
-        }
+        public bool Modified { get; set; }
 
         private RomColor[] colors;
 
@@ -117,8 +83,7 @@ namespace EpicEdit.Rom
         {
             this.Load(this.backupData);
 
-            this.modified = false;
-            this.updateTiles = true;
+            this.Modified = false;
         }
 
         public RomColor this[int index]

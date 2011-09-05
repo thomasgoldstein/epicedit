@@ -28,6 +28,17 @@ namespace EpicEdit.Rom.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged;
 
+        public Theme Theme
+        {
+            get { return this.themeComboBox.SelectedItem as Theme; }
+            set { this.themeComboBox.SelectedItem = value; }
+        }
+
+        public Palette Palette
+        {
+            get { return this.palette; }
+        }
+
         /// <summary>
         /// The 16 boxes where the colors of the palette are drawn
         /// </summary>
@@ -69,11 +80,6 @@ namespace EpicEdit.Rom.ThemeEdition
             }
             this.themeComboBox.EndUpdate();
             this.themeComboBox.SelectedIndex = 0;
-        }
-
-        public void SelectTheme(Theme theme)
-        {
-            this.themeComboBox.SelectedItem = theme;
         }
 
         /// <summary>
