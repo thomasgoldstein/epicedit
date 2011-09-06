@@ -233,7 +233,7 @@ namespace EpicEdit.UI
             this.paletteToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.paletteToolStripButton.Name = "paletteToolStripButton";
             this.paletteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.paletteToolStripButton.Text = "Zoom In";
+            this.paletteToolStripButton.Text = "Color palette editor";
             this.paletteToolStripButton.Click += new System.EventHandler(this.PaletteToolStripButtonClick);
             // 
             // toolStripSeparator3
