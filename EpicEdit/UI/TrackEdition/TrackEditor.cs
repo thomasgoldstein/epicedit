@@ -755,16 +755,23 @@ namespace EpicEdit.UI.TrackEdition
         {
             Theme theme = this.paletteForm.Theme;
             Palette palette = this.paletteForm.Palette;
+            bool isSpritePalette = theme.Palettes.IndexOf(palette) >= Palettes.SpritePaletteStart;
 
-            theme.UpdateTiles(palette);
-
-            if (this.track.Theme == theme)
+            if (this.track.Theme != theme)
             {
-                if (theme.Palettes.IndexOf(palette) < Palettes.SpritePaletteStart)
+                if (!isSpritePalette)
+                {
+                    theme.UpdateTiles(palette);
+                }
+            }
+            else
+            {
+                if (!isSpritePalette)
                 {
                     // The updated color belongs to the theme of the current track,
                     // and is not a sprite color palette, so caches need to be updated
 
+                    theme.UpdateTiles(palette);
                     this.trackDrawer.ReloadPalette(palette);
                     int xStart = this.tileClipboardTopLeft.X;
                     int yStart = this.tileClipboardTopLeft.Y;
