@@ -195,7 +195,7 @@ namespace EpicEdit.UI
         }
         #endregion Zoom in / out
 
-        #region Full Screen
+        #region Full screen
         private void FullScreenToolStripButtonClick(object sender, EventArgs e)
         {
             this.ToggleScreenModeRequested(this, e);
@@ -217,7 +217,7 @@ namespace EpicEdit.UI
                 this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("FullScreenButton")));
             }
         }
-        #endregion Full Screen
+        #endregion Full screen
 
         #region Palette editor
         private void PaletteToolStripButtonClick(object sender, EventArgs e)
