@@ -138,7 +138,7 @@ namespace EpicEdit.UI
             this.importTrackToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.importTrackToolStripButton.Name = "importTrackToolStripButton";
             this.importTrackToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.importTrackToolStripButton.Text = "Import Track";
+            this.importTrackToolStripButton.Text = "Import track";
             this.importTrackToolStripButton.Click += new System.EventHandler(this.ImportTrackToolStripButtonClick);
             // 
             // exportTrackToolStripButton
@@ -150,7 +150,7 @@ namespace EpicEdit.UI
             this.exportTrackToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.exportTrackToolStripButton.Name = "exportTrackToolStripButton";
             this.exportTrackToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.exportTrackToolStripButton.Text = "Export Track";
+            this.exportTrackToolStripButton.Text = "Export track";
             this.exportTrackToolStripButton.Click += new System.EventHandler(this.ExportTrackToolStripButtonClick);
             // 
             // toolStripSeparator1
@@ -192,7 +192,7 @@ namespace EpicEdit.UI
             this.zoomOutToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.zoomOutToolStripButton.Name = "zoomOutToolStripButton";
             this.zoomOutToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomOutToolStripButton.Text = "Zoom Out";
+            this.zoomOutToolStripButton.Text = "Zoom out";
             this.zoomOutToolStripButton.Click += new System.EventHandler(this.ZoomOutToolStripButtonClick);
             // 
             // zoomInToolStripButton
@@ -204,7 +204,7 @@ namespace EpicEdit.UI
             this.zoomInToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.zoomInToolStripButton.Name = "zoomInToolStripButton";
             this.zoomInToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomInToolStripButton.Text = "Zoom In";
+            this.zoomInToolStripButton.Text = "Zoom in";
             this.zoomInToolStripButton.Click += new System.EventHandler(this.ZoomInToolStripButtonClick);
             // 
             // fullScreenToolStripButton
@@ -215,7 +215,7 @@ namespace EpicEdit.UI
             this.fullScreenToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
             this.fullScreenToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.fullScreenToolStripButton.Text = "Full Screen";
+            this.fullScreenToolStripButton.Text = "Full screen";
             this.fullScreenToolStripButton.Click += new System.EventHandler(this.FullScreenToolStripButtonClick);
             // 
             // toolStripSeparator2
