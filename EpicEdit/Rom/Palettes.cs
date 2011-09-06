@@ -23,6 +23,12 @@ namespace EpicEdit.Rom
     /// </summary>
     public class Palettes : IEnumerable<Palette>
     {
+        /// <summary>
+        /// Position at which sprite palettes begin.
+        /// From 0 to 7: non-sprite palettes, from 8 to 15: sprite palettes.
+        /// </summary>
+        public const int SpritePaletteStart = 8;
+
         private Palette[] palettes;
 
         public Palettes(byte[] data)
@@ -56,6 +62,19 @@ namespace EpicEdit.Rom
             {
                 this.palettes[index] = value;
             }
+        }
+
+        public int IndexOf(Palette palette)
+        {
+            for (int i = 0; i < this.palettes.Length; i++)
+            {
+                if (palette == this.palettes[i])
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         public byte[] GetBytes()

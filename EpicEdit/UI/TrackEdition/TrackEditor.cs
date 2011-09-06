@@ -760,15 +760,19 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.track.Theme == theme)
             {
-                // The updated color belongs to the theme of the current track,
-                // so caches need to be updated
+                if (theme.Palettes.IndexOf(palette) < Palettes.SpritePaletteStart)
+                {
+                    // The updated color belongs to the theme of the current track,
+                    // and is not a sprite color palette, so caches need to be updated
 
-                this.trackDrawer.ReloadPalette(palette);
-                int xStart = this.tileClipboardTopLeft.X;
-                int yStart = this.tileClipboardTopLeft.Y;
-                this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
-                this.tilesetControl.UpdateTileset();
-                this.overlayControl.SetTileset(this.track.GetRoadTileset());
+                    this.trackDrawer.ReloadPalette(palette);
+                    int xStart = this.tileClipboardTopLeft.X;
+                    int yStart = this.tileClipboardTopLeft.Y;
+                    this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+                    this.tilesetControl.UpdateTileset();
+                    this.overlayControl.SetTileset(this.track.GetRoadTileset());
+                }
+
                 this.trackDisplay.Invalidate();
             }
         }
