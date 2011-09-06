@@ -170,7 +170,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.SelectedTileChanged(this, EventArgs.Empty);
             }
         }
-        
+
         private void ResetMapButtonClick(object sender, EventArgs e)
         {
             DialogResult result = UITools.ShowWarning("Do you really want to reset the map?");
