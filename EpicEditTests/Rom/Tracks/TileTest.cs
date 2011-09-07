@@ -29,7 +29,7 @@ namespace EpicEditTests.Rom.Tracks
 
         public TileTest()
         {
-            Bitmap image = new Bitmap(8, 8, PixelFormat.Format24bppRgb);
+            Bitmap image = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             this.tile = new StillTile(new Palette(), image, TileGenre.Road);
         }
 
