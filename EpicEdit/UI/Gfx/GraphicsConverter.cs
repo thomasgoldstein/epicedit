@@ -100,8 +100,8 @@ namespace EpicEdit.UI.Gfx
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    Color color1 = palette[(gfx[x + y * 4]) & 0x0F];
-                    Color color2 = palette[((gfx[x + y * 4]) & 0xF0) >> 4];
+                    Color color1 = palette[gfx[x + y * 4] & 0x0F];
+                    Color color2 = palette[(gfx[x + y * 4] & 0xF0) >> 4];
                     fBitmap.SetPixel(x * 2, y, color1);
                     fBitmap.SetPixel(x * 2 + 1, y, color2);
                 }
