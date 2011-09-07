@@ -87,5 +87,40 @@ namespace EpicEditTests.Rom.Tracks
             this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 82));
             Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
         }
+
+        [Test]
+        public void TestGetColorIndexAt()
+        {
+            byte[] palData =
+            {
+                0xBF, 0x4B, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0x7C,
+                0x1F, 0x00, 0xE0, 0x03, 0xFF, 0x03, 0x40, 0x03,
+                0xA0, 0x02, 0x00, 0x02, 0x60, 0x01, 0x5F, 0x02,
+                0xFF, 0x02, 0x54, 0x32, 0x96, 0x3A, 0x12, 0x2E
+            };
+
+            Palette palette = new Palette(palData);
+
+            byte[] gfx =
+            {
+                0x88, 0x78, 0x89, 0x88, 0x89, 0x88, 0x88, 0x88,
+                0x88, 0x98, 0x88, 0x87, 0x98, 0x88, 0x88, 0x98,
+                0x88, 0x87, 0x88, 0x88, 0x88, 0x98, 0x98, 0x88,
+                0x78, 0x88, 0x88, 0x88, 0x88, 0x89, 0x88, 0x79
+            };
+
+            this.tile = new StillTile(palette, gfx, TileGenre.Road);
+
+            for (int y = 0; y < Tile.Size; y++)
+            {
+                for (int x = 0; x < Tile.Size; x++)
+                {
+                    int colorIndex = this.tile.GetColorIndexAt(x, y);
+                    Color color1 = this.tile.Bitmap.GetPixel(x, y);
+                    Color color2 = palette[colorIndex];
+                    Assert.AreEqual(color1.ToArgb(), color2.ToArgb());
+                }
+            }
+        }
     }
 }
