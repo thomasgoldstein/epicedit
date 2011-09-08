@@ -17,7 +17,7 @@ using System;
 namespace EpicEdit.UI.Tools
 {
     /// <summary>
-    /// Generic EventArgs.
+    /// EventArgs that take one generic parameter.
     /// </summary>
     public class EventArgs<T> : EventArgs
     {
@@ -30,6 +30,30 @@ namespace EpicEdit.UI.Tools
         public T Value
         {
             get { return this.value; }
+        }
+    }
+
+    /// <summary>
+    /// EventArgs that take two generic parameters.
+    /// </summary>
+    public class EventArgs<T, U> : EventArgs
+    {
+        public EventArgs(T value1, U value2)
+        {
+            this.value1 = value1;
+            this.value2 = value2;
+        }
+
+        private T value1;
+        public T Value1
+        {
+            get { return this.value1; }
+        }
+
+        private U value2;
+        public U Value2
+        {
+            get { return this.value2; }
         }
     }
 }
