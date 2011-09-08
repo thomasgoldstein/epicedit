@@ -372,7 +372,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     Rectangle selectionRectangle;
 
-                    if (mouseButtons == MouseButtons.Middle)
+                    if (mouseButtons == MouseButtons.Middle || Context.ColorPickerMode)
                     {
                         selectionRectangle = Rectangle.Empty;
                     }

@@ -182,6 +182,7 @@
     <Compile Include="UI\ThemeEdition\ThemeEditor.Designer.cs">
       <DependentUpon>ThemeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\TilePanel.cs" />
     <Compile Include="UI\Tools\EpicPanel.cs">
       <SubType>Component</SubType>
     </Compile>

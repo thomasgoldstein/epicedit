@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Windows.Forms;
 using EpicEdit.Rom;
 
 namespace EpicEdit.UI
@@ -26,5 +27,18 @@ namespace EpicEdit.UI
         /// The Super Mario Kart Game.
         /// </summary>
         internal static Game Game;
+
+        /// <summary>
+        /// Gets or sets the control that, when visible, enables the color picker mode.
+        /// </summary>
+        internal static Control ColorPickerControl { get; set; }
+
+        /// <summary>
+        /// Gets value that determines if the color picker mode is currently enabled.
+        /// </summary>
+        internal static bool ColorPickerMode
+        {
+            get { return Context.ColorPickerControl != null && Context.ColorPickerControl.Visible; }
+        }
     }
 }

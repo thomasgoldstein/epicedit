@@ -74,6 +74,19 @@ namespace EpicEdit.UI.TrackEdition
         private int zoomLevelIndex;
 
         /// <summary>
+        /// Gets or sets the index to the current zoom level.
+        /// </summary>
+        private int ZoomLevelIndex
+        {
+            get { return this.zoomLevelIndex; }
+            set
+            {
+                this.zoomLevelIndex = value;
+                this.trackDisplay.Zoom = this.Zoom;
+            }
+        }
+
+        /// <summary>
         /// The index to the default zoom level (x1).
         /// </summary>
         private const int DefaultZoomLevelIndex = 2;
@@ -83,7 +96,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private float Zoom
         {
-            get { return this.zoomLevels[this.zoomLevelIndex]; }
+            get { return this.zoomLevels[this.ZoomLevelIndex]; }
         }
 
         /// <summary>
@@ -302,7 +315,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ResetPosition();
 
             this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4 };
-            this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
+            this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 
             this.tileClipboard = new List<byte>();
             this.tileClipboard.Add(this.tilesetControl.SelectedTile);
@@ -554,14 +567,14 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetZoom()
         {
-            if (this.zoomLevelIndex == TrackEditor.DefaultZoomLevelIndex)
+            if (this.ZoomLevelIndex == TrackEditor.DefaultZoomLevelIndex)
             {
                 return;
             }
 
             Point location = this.AbsoluteCenterTileLocation;
 
-            this.zoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
+            this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
             this.trackDrawer.SetZoom(this.Zoom);
             this.UpdateScrollBars();
 
@@ -659,7 +672,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ZoomInSub()
         {
-            this.zoomLevelIndex++;
+            this.ZoomLevelIndex++;
             this.trackDrawer.SetZoom(this.Zoom);
             this.UpdateScrollBars();
 
@@ -669,7 +682,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ZoomOutSub()
         {
-            this.zoomLevelIndex--;
+            this.ZoomLevelIndex--;
             this.trackDrawer.SetZoom(this.Zoom);
             this.UpdateScrollBars();
 
@@ -679,12 +692,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool CanZoomIn()
         {
-            return this.zoomLevelIndex < this.zoomLevels.Length - 1;
+            return this.ZoomLevelIndex < this.zoomLevels.Length - 1;
         }
 
         private bool CanZoomOut()
         {
-            return this.zoomLevelIndex > 0;
+            return this.ZoomLevelIndex > 0;
         }
 
         private void MenuBarZoomInRequested(object sender, EventArgs e)
@@ -704,19 +717,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RemoveFocus()
         {
-            if (this.MainFormFocused)
+            if (Form.ActiveForm != null) // Application focused
             {
                 // Steal the focus from the panel to disable mouse-wheel scrolling
                 this.menuBar.Focus();
-            }
-        }
-
-        private bool MainFormFocused
-        {
-            get
-            {
-                return Form.ActiveForm != null && // Application focused
-                    (this.paletteForm == null || !this.paletteForm.Visible); // Palette editor not displayed
             }
         }
 
@@ -738,6 +742,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.paletteForm = new PaletteEditorForm();
                 this.paletteForm.Owner = this.ParentForm;
                 this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
+                this.trackDisplay.ColorSelected += this.TileColorSelected;
+                this.tilesetControl.ColorSelected += this.TileColorSelected;
+                Context.ColorPickerControl = this.paletteForm;
             }
 
             this.paletteForm.Init();
@@ -746,6 +753,12 @@ namespace EpicEdit.UI.TrackEdition
         private void PaletteEditorFormColorChanged(object sender, EventArgs e)
         {
             this.UpdateTiles();
+        }
+
+        private void TileColorSelected(object sender, EventArgs<Palette, int> e)
+        {
+            this.paletteForm.Editor.SetPalette(e.Value1);
+            this.paletteForm.Editor.SetColorIndex(e.Value2);
         }
 
         /// <summary>
@@ -826,7 +839,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayVScrollBarMouseMove(object sender, MouseEventArgs e)
         {
-            if (this.MainFormFocused)
+            if (Form.ActiveForm != null) // Application focused
             {
                 this.trackDisplayVScrollBar.Focus(); // Lets you use the mouse wheel to scroll
             }
@@ -941,7 +954,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseMove(object sender, MouseEventArgs e)
         {
-            if (this.MainFormFocused)
+            if (Form.ActiveForm != null) // Application focused
             {
                 this.trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
             }
@@ -2531,5 +2544,28 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.ShowWarning();
         }
         #endregion EditionMode.AI
+
+        #region class TrackPanel
+        private class TrackPanel : TilePanel
+        {
+            protected override Tile GetTileAt(int x, int y)
+            {
+                var parent = this.Parent as TrackEditor;
+
+                Point scrollPosition = parent.scrollPosition;
+                x += scrollPosition.X;
+                y += scrollPosition.Y;
+
+                if (x > TrackMap.Limit || y > TrackMap.Limit)
+                {
+                    return null;
+                }
+
+                Track track = parent.track;
+                byte index = track.Map[x, y];
+                return track.GetRoadTile(index);
+            }
+        }
+        #endregion class TrackPanel
     }
 }
