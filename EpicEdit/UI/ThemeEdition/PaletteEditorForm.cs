@@ -29,21 +29,21 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged
         {
-            add { this.paletteEditor.ColorChanged += value; }
-            remove { this.paletteEditor.ColorChanged -= value; }
+            add { this.Editor.ColorChanged += value; }
+            remove { this.Editor.ColorChanged -= value; }
         }
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.paletteEditor.Theme; }
-            set { this.paletteEditor.Theme = value; }
+            get { return this.Editor.Theme; }
+            set { this.Editor.Theme = value; }
         }
 
         [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
-            get { return this.paletteEditor.Palette; }
+            get { return this.Editor.Palette; }
         }
 
         public PaletteEditorForm()
@@ -63,7 +63,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void Init()
         {
-            this.paletteEditor.Init();
+            this.Editor.Init();
         }
     }
 }

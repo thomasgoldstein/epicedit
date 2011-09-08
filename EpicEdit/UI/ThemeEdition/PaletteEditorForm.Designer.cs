@@ -42,26 +42,26 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.paletteEditor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
+            this.Editor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
             this.SuspendLayout();
             // 
-            // paletteEditor
+            // Editor
             // 
-            this.paletteEditor.Location = new System.Drawing.Point(0, 0);
-            this.paletteEditor.Name = "paletteEditor";
-            this.paletteEditor.Size = new System.Drawing.Size(420, 230);
-            this.paletteEditor.TabIndex = 0;
+            this.Editor.Location = new System.Drawing.Point(0, 0);
+            this.Editor.Name = "paletteEditor";
+            this.Editor.Size = new System.Drawing.Size(420, 230);
+            this.Editor.TabIndex = 0;
             // 
             // PaletteEditorForm
             // 
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(192, 166);
-            this.Controls.Add(this.paletteEditor);
+            this.Controls.Add(this.Editor);
             this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;
             this.Name = "PaletteEditorForm";
             this.Text = "Color palette editor";
             this.ResumeLayout(false);
         }
-        private EpicEdit.Rom.ThemeEdition.PaletteEditor paletteEditor;
+        public EpicEdit.Rom.ThemeEdition.PaletteEditor Editor;
     }
 }
