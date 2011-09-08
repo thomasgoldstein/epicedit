@@ -48,6 +48,12 @@ namespace EpicEdit.Rom.Tracks
 
         public int GetColorIndexAt(int x, int y)
         {
+            if (this.gfx == null)
+            {
+                // Empty tile, no data
+                return -1;
+            }
+
             int index;
             int xSub = x % 2;
             x /= 2;
