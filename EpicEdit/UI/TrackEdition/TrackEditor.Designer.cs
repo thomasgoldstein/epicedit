@@ -56,7 +56,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackEditor));
-            this.trackDisplay = new EpicEdit.UI.Tools.EpicPanel();
+            this.trackDisplay = new EpicEdit.UI.TrackEdition.TrackEditor.TrackPanel();
             this.trackDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
             this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
             this.modeTabControl = new System.Windows.Forms.TabControl();
@@ -340,6 +340,6 @@ namespace EpicEdit.UI.TrackEdition
         private EpicEdit.UI.TrackEdition.TrackTreeView trackTreeView;
         private System.Windows.Forms.VScrollBar trackDisplayVScrollBar;
         private System.Windows.Forms.HScrollBar trackDisplayHScrollBar;
-        private EpicEdit.UI.Tools.EpicPanel trackDisplay;
+        private EpicEdit.UI.TrackEdition.TrackEditor.TrackPanel trackDisplay;
     }
 }

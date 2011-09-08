@@ -29,9 +29,9 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (disposing)
             {
-                if (components != null)
+                if (this.components != null)
                 {
-                    components.Dispose();
+                    this.components.Dispose();
                 }
 
                 if (this.tilesetDrawer != null)
@@ -51,7 +51,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
-            this.tilesetPanel = new EpicEdit.UI.Tools.EpicPanel();
+            this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
@@ -96,7 +96,7 @@ namespace EpicEdit.UI.TrackEdition
         }
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button resetMapButton;
-        private EpicEdit.UI.Tools.EpicPanel tilesetPanel;
+        private EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel tilesetPanel;
         private System.Windows.Forms.ComboBox themeComboBox;
     }
 }

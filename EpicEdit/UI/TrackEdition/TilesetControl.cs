@@ -28,6 +28,7 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     public partial class TilesetControl : UserControl
     {
+        #region Events
         /// <summary>
         /// Raised when the theme of the current track has been modified.
         /// </summary>
@@ -53,6 +54,17 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> TrackMapChanged;
 
         /// <summary>
+        /// Raised when a pixel color has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<Palette, int>> ColorSelected
+        {
+            add { this.tilesetPanel.ColorSelected += value; }
+            remove { this.tilesetPanel.ColorSelected -= value; }
+        }
+        #endregion Events
+
+        /// <summary>
         /// Used to draw the tileset.
         /// </summary>
         private TilesetDrawer tilesetDrawer;
@@ -70,6 +82,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.track = value;
                 this.SelectTrackTheme();
+                this.tilesetPanel.SetTileset(this.track.GetRoadTileset());
             }
         }
 
@@ -92,6 +105,8 @@ namespace EpicEdit.UI.TrackEdition
         public TilesetControl()
         {
             this.InitializeComponent();
+
+            this.tilesetPanel.Zoom = TilesetDrawer.Zoom;
         }
 
         public void InitOnFirstRomLoad()
@@ -179,6 +194,27 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.track.Map.Clear(this.selectedTile);
                 this.TrackMapChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private class TilesetPanel : TilePanel
+        {
+            private Tile[] tileset;
+
+            public void SetTileset(Tile[] tileset)
+            {
+                this.tileset = tileset;
+            }
+
+            private int TilesPerRow
+            {
+                get { return (int)(this.Width / (Tile.Size * this.Zoom)); }
+            }
+
+            protected override Tile GetTileAt(int x, int y)
+            {
+                int index = y * this.TilesPerRow + x;
+                return this.tileset[index];
             }
         }
     }
