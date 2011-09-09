@@ -67,6 +67,7 @@ namespace EpicEdit.Rom.ThemeEdition
         public PaletteEditor()
         {
             this.InitializeComponent();
+            this.InitColorPanels();
         }
 
         /// <summary>
@@ -84,49 +85,46 @@ namespace EpicEdit.Rom.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Draws the colors of the 16 colors to the different panels and sets the tooltips.
-        /// </summary>
-        private void DrawPalette()
+        private void InitColorPanels()
         {
             for (int i = 0; i < this.panels.Length; i++)
             {
-                if (this.panels[i] == null)
+                // Calculate the location of the panel on the control
+                int x = 12 + ((i % 4) * 32) + ((i % 4) * 8);
+                int y = this.colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
+
+                this.panels[i] = new Panel
                 {
-                    // Calculate the location of the panel on the control
-                    int x = 12 + ((i % 4) * 32) + ((i % 4) * 8);
-                    int y = this.colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
+                    Size = new Size(32, 32),
+                    Location = new Point(x, y),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Tag = i
+                };
+                this.panels[i].Click += this.PaletteEditorClick;
+                this.Controls.Add(panels[i]);
 
-                    this.panels[i] = new Panel
-                    {
-                        Size = new Size(32, 32),
-                        Location = new Point(x, y),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        BackColor = palette[i],
-                        Tag = i
-                    };
-                    this.panels[i].Click += this.PaletteEditorClick;
-                    this.Controls.Add(panels[i]);
-
-                    this.toolTips[i] = new ToolTip()
-                    {
-                        ReshowDelay = 1,
-                        InitialDelay = 1
-                    };
-                    this.SetToolTip(i);
-
-                    UITools.FixToolTip(this.panels[i], this.toolTips[i]);
-                }
-                else
+                this.toolTips[i] = new ToolTip()
                 {
-                    this.panels[i].BorderStyle = BorderStyle.FixedSingle;
-                    this.panels[i].BackColor = this.palette[i];
+                    ReshowDelay = 1,
+                    InitialDelay = 1
+                };
 
-                    this.SetToolTip(i);
-                }
+                UITools.FixToolTip(this.panels[i], this.toolTips[i]);
             }
 
             this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
+        }
+
+        /// <summary>
+        /// Updates the 16 color panels.
+        /// </summary>
+        private void UpdatePalette()
+        {
+            for (int i = 0; i < this.panels.Length; i++)
+            {
+                this.panels[i].BackColor = this.palette[i];
+                this.SetToolTip(i);
+            }
         }
 
         /// <summary>
@@ -158,7 +156,7 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.palette = palette;
 
-            this.DrawPalette();
+            this.UpdatePalette();
 
             this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
             this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
