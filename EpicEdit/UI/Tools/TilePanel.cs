@@ -78,7 +78,8 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            this.Cursor = Cursors.Hand;
+            var resources = new ComponentResourceManager(typeof(Properties.Resources));
+            this.Cursor = resources.GetObject("ColorPickerCursor") as Cursor;
         }
 
         protected override void OnMouseLeave(EventArgs e)

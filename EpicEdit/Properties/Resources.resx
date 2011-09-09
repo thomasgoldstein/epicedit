@@ -667,4 +667,15 @@
         rEGAAaxBwAOsQeAHrEE=
 </value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ColorPickerCursor" type="System.Windows.Forms.Cursor, System.Windows.Forms" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAACAAEAICAAAAgAFwAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAACIAAAAtAAAALoAAABd
+        AAAALoAAABdQAAALqAAABcgAAAKEAAABAgAAAgEAAAGBAAAAUQAAACIAAAAcAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA////////////////////////////////////////////j////wf///8D
+        ////Af///4D////Af///4C////AH///4B////AP///4B///8AP///gD///+A////wf///+P/////////
+        //////////////////////////////////8=
+</value>
+  </data>
 </root>
