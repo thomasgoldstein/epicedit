@@ -105,7 +105,7 @@ namespace EpicEdit.Rom.ThemeEdition
                         BackColor = palette[i],
                         Tag = i
                     };
-                    this.panels[i].Click += new EventHandler(this.PaletteEditorClick);
+                    this.panels[i].Click += this.PaletteEditorClick;
                     this.Controls.Add(panels[i]);
 
                     this.toolTips[i] = new ToolTip()
@@ -146,23 +146,14 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < this.panels.Length; i++)
-            {
-                if (this.panels[i] != null && this.panels[i].BorderStyle != BorderStyle.FixedSingle)
-                {
-                    // Undo the selection, redraw the border
-                    this.panels[i].BorderStyle = BorderStyle.FixedSingle;
-                }
-            }
+            // Deselect previous panel
+            this.panels[this.selectedColor].BorderStyle = BorderStyle.FixedSingle;
 
-            if (sender is Panel)
-            {
-                // Select the panel
-                Panel panel = sender as Panel;
-                panel.BorderStyle = BorderStyle.Fixed3D;
-                this.colorPicker.SetColor(panel.BackColor);
-                this.selectedColor = (int)panel.Tag;
-            }
+            // Select new panel
+            Panel panel = sender as Panel;
+            panel.BorderStyle = BorderStyle.Fixed3D;
+            this.colorPicker.SetColor(panel.BackColor);
+            this.selectedColor = (int)panel.Tag;
         }
 
         /// <summary>
