@@ -732,7 +732,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.paletteForm.Show();
-            this.paletteForm.Theme = this.track.Theme;
+            this.paletteForm.Editor.Theme = this.track.Theme;
         }
 
         private void InitPaletteEditorForm()
@@ -767,8 +767,8 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void UpdateTiles()
         {
-            Theme theme = this.paletteForm.Theme;
-            Palette palette = this.paletteForm.Palette;
+            Theme theme = this.paletteForm.Editor.Theme;
+            Palette palette = this.paletteForm.Editor.Palette;
             bool isSpritePalette = theme.Palettes.IndexOf(palette) >= Palettes.SpritePaletteStart;
 
             if (this.track.Theme != theme)
