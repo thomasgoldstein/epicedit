@@ -38,6 +38,21 @@ namespace EpicEdit.UI.Tools
             set { this.zoom = value; }
         }
 
+        private static Cursor colorPickerCursor;
+        private static Cursor ColorPickerCursor
+        {
+            get
+            {
+                if (TilePanel.colorPickerCursor == null)
+                {
+                    var resources = new ComponentResourceManager(typeof(Properties.Resources));
+                    TilePanel.colorPickerCursor = resources.GetObject("ColorPickerCursor") as Cursor;
+                }
+
+                return TilePanel.colorPickerCursor;
+            }
+        }
+
         private void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
             x = (int)(x / this.Zoom);
@@ -78,8 +93,7 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            var resources = new ComponentResourceManager(typeof(Properties.Resources));
-            this.Cursor = resources.GetObject("ColorPickerCursor") as Cursor;
+            this.Cursor = TilePanel.ColorPickerCursor;
         }
 
         protected override void OnMouseLeave(EventArgs e)
