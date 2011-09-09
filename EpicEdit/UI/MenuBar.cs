@@ -204,7 +204,7 @@ namespace EpicEdit.UI
 
         private void UpdateFullScreenButton()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Properties.Resources));
+            var resources = new ComponentResourceManager(typeof(Properties.Resources));
 
             if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
