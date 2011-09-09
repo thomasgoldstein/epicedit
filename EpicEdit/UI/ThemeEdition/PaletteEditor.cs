@@ -39,6 +39,13 @@ namespace EpicEdit.Rom.ThemeEdition
         public Palette Palette
         {
             get { return this.palette; }
+            private set
+            {
+                this.palette = value;    
+                this.UpdatePalette();    
+                this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
+                this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
+            }
         }
 
         /// <summary>
@@ -154,13 +161,7 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="palette">The new palette object.</param>
         public void SetPalette(Palette palette)
         {
-            this.palette = palette;
-            this.paletteNumericUpDown.Value = this.Theme.Palettes.IndexOf(this.palette);
-
-            this.UpdatePalette();
-
-            this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
-            this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
+            this.paletteNumericUpDown.Value = this.Theme.Palettes.IndexOf(palette);
         }
 
         public void SetColorIndex(int index)
@@ -200,7 +201,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private void ResetButtonClick(object sender, EventArgs e)
         {
             this.palette.Reset();
-            this.SetPalette(this.palette);
+            this.Palette = this.palette;
 
             this.ColorChanged(this, EventArgs.Empty);
         }
@@ -217,7 +218,7 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void SetCurrentPalette()
         {
-            this.SetPalette(this.Theme.Palettes[(int)this.paletteNumericUpDown.Value]);
+            this.Palette = this.Theme.Palettes[(int)this.paletteNumericUpDown.Value];
         }
     }
 }
