@@ -50,9 +50,10 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.InitializeComponent();
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.ShowInTaskbar = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         protected override void OnClosing(CancelEventArgs e)
