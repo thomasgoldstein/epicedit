@@ -217,8 +217,7 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void SetCurrentPalette()
         {
-            Theme selectedTheme = this.themeComboBox.SelectedItem as Theme;
-            this.SetPalette(selectedTheme.Palettes[(int)this.paletteNumericUpDown.Value]);
+            this.SetPalette(this.Theme.Palettes[(int)this.paletteNumericUpDown.Value]);
         }
     }
 }
