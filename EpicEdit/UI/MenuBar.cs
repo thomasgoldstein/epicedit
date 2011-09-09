@@ -209,12 +209,12 @@ namespace EpicEdit.UI
             if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("ExitFullScreenButton")));
+                this.fullScreenToolStripButton.Image = resources.GetObject("ExitFullScreenButton") as Image;
             }
             else
             {
                 this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-                this.fullScreenToolStripButton.Image = ((Image)(resources.GetObject("FullScreenButton")));
+                this.fullScreenToolStripButton.Image = resources.GetObject("FullScreenButton") as Image;
             }
         }
         #endregion Full screen
