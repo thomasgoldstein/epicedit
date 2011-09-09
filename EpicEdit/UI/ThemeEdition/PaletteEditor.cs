@@ -155,6 +155,7 @@ namespace EpicEdit.Rom.ThemeEdition
         public void SetPalette(Palette palette)
         {
             this.palette = palette;
+            this.paletteNumericUpDown.Value = this.Theme.Palettes.IndexOf(this.palette);
 
             this.UpdatePalette();
 
