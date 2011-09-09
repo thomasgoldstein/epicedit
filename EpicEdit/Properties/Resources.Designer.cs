@@ -67,6 +67,13 @@ namespace EpicEdit.Properties {
             }
         }
         
+        internal static System.Windows.Forms.Cursor ColorPickerCursor {
+            get {
+                object obj = ResourceManager.GetObject("ColorPickerCursor", resourceCulture);
+                return ((System.Windows.Forms.Cursor)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DeleteButton {
             get {
                 object obj = ResourceManager.GetObject("DeleteButton", resourceCulture);
