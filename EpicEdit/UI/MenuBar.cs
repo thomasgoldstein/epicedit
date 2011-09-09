@@ -204,19 +204,27 @@ namespace EpicEdit.UI
 
         private void UpdateFullScreenButton()
         {
-            var resources = new ComponentResourceManager(typeof(Properties.Resources));
-
             if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
+                if (this.exitFullScreenButtonImage == null)
+                {
+                    var resources = new ComponentResourceManager(typeof(Properties.Resources));
+                    this.exitFullScreenButtonImage = resources.GetObject("ExitFullScreenButton") as Image;
+                    this.fullScreenButtonImage = this.fullScreenToolStripButton.Image;
+                }
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = resources.GetObject("ExitFullScreenButton") as Image;
+                this.fullScreenToolStripButton.Image = this.exitFullScreenButtonImage;
             }
             else
             {
                 this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-                this.fullScreenToolStripButton.Image = resources.GetObject("FullScreenButton") as Image;
+                this.fullScreenToolStripButton.Image = this.fullScreenButtonImage;
             }
         }
+
+        private Image fullScreenButtonImage;
+
+        private Image exitFullScreenButtonImage;
         #endregion Full screen
 
         #region Palette editor
