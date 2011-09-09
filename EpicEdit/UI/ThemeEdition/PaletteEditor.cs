@@ -146,14 +146,8 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            // Deselect previous panel
-            this.panels[this.selectedColor].BorderStyle = BorderStyle.FixedSingle;
-
-            // Select new panel
-            Panel panel = sender as Panel;
-            panel.BorderStyle = BorderStyle.Fixed3D;
-            this.colorPicker.SetColor(panel.BackColor);
-            this.selectedColor = (int)panel.Tag;
+            int index = (int)(sender as Control).Tag;
+            this.SetColorIndex(index);
         }
 
         /// <summary>
@@ -172,9 +166,13 @@ namespace EpicEdit.Rom.ThemeEdition
 
         public void SetColorIndex(int index)
         {
+            // Deselect previous panel
             this.panels[this.selectedColor].BorderStyle = BorderStyle.FixedSingle;
+
             this.selectedColor = index;
             this.colorPicker.SetColor(this.panels[index].BackColor);
+
+            // Select new panel
             this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
         }
 
