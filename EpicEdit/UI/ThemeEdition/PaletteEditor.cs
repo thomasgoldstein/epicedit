@@ -181,8 +181,10 @@ namespace EpicEdit.Rom.ThemeEdition
 
         public void SetColorIndex(int index)
         {
-            this.colorPicker.SetColor(this.panels[index].BackColor);
+            this.panels[this.selectedColor].BorderStyle = BorderStyle.FixedSingle;
             this.selectedColor = index;
+            this.colorPicker.SetColor(this.panels[index].BackColor);
+            this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
         }
 
         /// <summary>
