@@ -2022,7 +2022,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (Context.ColorPickerMode)
             {
-                this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
                 return false;
             }
 
