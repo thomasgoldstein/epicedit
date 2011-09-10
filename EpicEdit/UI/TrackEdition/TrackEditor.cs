@@ -1306,7 +1306,8 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.buttonsPressed = MouseButtons.None;
 
-                    if (this.editionMode == EditionMode.Tileset ||
+                    if (Context.ColorPickerMode ||
+                        this.editionMode == EditionMode.Tileset ||
                         this.track is BattleTrack && this.editionMode == EditionMode.Objects)
                     {
                         // For other modes, the cursor will be reset
@@ -1630,6 +1631,16 @@ namespace EpicEdit.UI.TrackEdition
         /// If false: only repaint if something has visually changed on the track.</param>
         private void InitEditionModeAction(bool forceRepaint)
         {
+            if (Context.ColorPickerMode)
+            {
+                if (forceRepaint)
+                {
+                    this.trackDisplay.Refresh();
+                }
+                this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
+                return;
+            }
+
             bool repaintNeeded;
 
             switch (this.editionMode)
@@ -2009,6 +2020,12 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Start
         private bool InitStartAction()
         {
+            if (Context.ColorPickerMode)
+            {
+                this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
+                return false;
+            }
+
             if (this.track is GPTrack)
             {
                 return this.InitGPStartAction();
