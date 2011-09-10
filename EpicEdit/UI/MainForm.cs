@@ -264,7 +264,7 @@ namespace EpicEdit.UI
                 this.WindowState = FormWindowState.Maximized;
 
                 // HACK: Toggle form visibility to make it cover the task bar.
-                // If the form was already maximized, the task bar wouldn't be covered.
+                // On Windows XP: if the form was already maximized, the task bar wouldn't be covered.
                 // If the form wasn't maximized, it would be covered but not repainted right away.
                 this.Visible = false;
                 this.Visible = true;
