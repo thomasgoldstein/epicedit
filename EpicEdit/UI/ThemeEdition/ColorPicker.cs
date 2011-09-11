@@ -181,6 +181,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.DrawShadesBitmap(color);
             this.shadesPictureBox.Refresh();
 
+            this.SetNewColorSub(color);
+        }
+
+        private void SetNewColorSub(RomColor color)
+        {
             this.UpdateNewColor(color);
             this.newColorPictureBox.Refresh();
 
@@ -597,20 +602,11 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InvalidateShadesSelection();
             // Redraw shades and new color
-            RomColor shadeColor = this.DrawShadesBitmap(x, y);
+            RomColor color = this.DrawShadesBitmap(x, y);
             this.InvalidateShadesSelection();
             this.shadesPictureBox.Update();
 
-            this.UpdateNewColor(shadeColor);
-            this.newColorPictureBox.Refresh();
-
-            this.performEvents = false;
-
-            this.redNumericUpDown.Value = shadeColor.Red5Bit;
-            this.greenNumericUpDown.Value = shadeColor.Green5Bit;
-            this.blueNumericUpDown.Value = shadeColor.Blue5Bit;
-
-            this.performEvents = true;
+            this.SetNewColorSub(color);
         }
 
         /// <summary>
