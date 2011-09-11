@@ -410,6 +410,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (y > 63)
             {
+                // Optimize contrast
                 y = 127 - y;
             }
 
