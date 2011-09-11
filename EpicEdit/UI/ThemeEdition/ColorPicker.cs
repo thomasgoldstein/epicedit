@@ -601,6 +601,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.InvalidateShadesSelection();
             this.shadesPictureBox.Update();
 
+            this.UpdateNewColor(shadeColor);
+            this.newColorPictureBox.Refresh();
+
             this.performEvents = false;
 
             this.redNumericUpDown.Value = shadeColor.Red5Bit;
@@ -608,9 +611,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Value = shadeColor.Blue5Bit;
 
             this.performEvents = true;
-
-            this.UpdateNewColor(shadeColor);
-            this.newColorPictureBox.Refresh();
         }
 
         /// <summary>
