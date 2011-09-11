@@ -221,19 +221,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The color at x.</returns>
         private RomColor DrawBasicColorsBitmap(int x)
         {
-            RomColor selectedColor = (RomColor)this.basicColorsCache.GetPixel(x, 0);
-
-            this.basicColorsBitmap.Dispose();
-            this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
-
-            using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
-            using (Pen pen = new Pen(selectedColor.Opposite()))
-            {
-                int y = this.basicColorsSize.Height / 2;
-                g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
-            }
-
-            return selectedColor;
+            RomColor color = (RomColor)this.basicColorsCache.GetPixel(x, 0);
+            this.DrawBasicColorsBitmap(color, x);
+            return color;
         }
 
         /// <summary>
@@ -243,10 +233,20 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The selected color.</returns>
         private void DrawBasicColorsBitmap(RomColor color)
         {
+            int x = this.FindColorIndex(color);
+            this.DrawBasicColorsBitmap(color, x);
+        }
+
+        /// <summary>
+        /// Draws the basic colors with the circle around a certain color.
+        /// </summary>
+        /// <param name="color">The color to select.</param>
+        /// <param name="x">The color location.</param>
+        /// <returns>The selected color.</returns>
+        private void DrawBasicColorsBitmap(RomColor color, int x)
+        {
             this.basicColorsBitmap.Dispose();
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
-
-            int x = this.FindColorIndex(color);
 
             using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
             using (Pen pen = new Pen(color.Opposite()))
