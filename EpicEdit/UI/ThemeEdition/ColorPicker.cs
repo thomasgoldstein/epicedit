@@ -156,12 +156,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             if (this.selectedBasicColor != basicColor)
             {
-                this.InvalidateBasicColorsSelection();
-                this.selectedBasicColor = basicColor;
-                this.DrawBasicColorsBitmap(basicColor);
-                this.InvalidateBasicColorsSelection();
-
-                this.InitShadesCache();
+                this.UpdateBasicColor(basicColor);
             }
 
             this.DrawShadesBitmap(color);
@@ -177,6 +172,28 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Value = color.Blue5Bit;
 
             this.performEvents = true;
+        }
+
+        private void UpdateBasicColor(RomColor color)
+        {
+            int x = this.FindColorIndex(color);
+            this.UpdateBasicColor(color, x);
+        }
+
+        private void UpdateBasicColor(int x)
+        {
+            RomColor color = this.basicColorsCache.GetPixel(x, 0);
+            this.UpdateBasicColor(color, x);
+        }
+
+        private void UpdateBasicColor(RomColor color, int x)
+        {
+            this.InvalidateBasicColorsSelection();
+            this.selectedBasicColor = color;
+            this.DrawBasicColorsBitmap(x);
+            this.InvalidateBasicColorsSelection();
+
+            this.InitShadesCache();
         }
 
         /// <summary>
@@ -540,13 +557,9 @@ namespace EpicEdit.UI.ThemeEdition
                 x = this.basicColorsSize.Width - 1;
             }
 
-            this.InvalidateBasicColorsSelection();
-            // Redraw all pieces, basic colors, shades and new color
-            this.selectedBasicColor = this.DrawBasicColorsBitmap(x);
-            this.InvalidateBasicColorsSelection();
+            this.UpdateBasicColor(x);
             this.basicColorsPictureBox.Update();
 
-            this.InitShadesCache();
             RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
             this.shadesPictureBox.Refresh();
 
