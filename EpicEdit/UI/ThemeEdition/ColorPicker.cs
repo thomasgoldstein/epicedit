@@ -103,19 +103,8 @@ namespace EpicEdit.UI.ThemeEdition
 
             RomColor color = new RomColor();
             this.UpdateOldColor(color);
-
-            this.selectedBasicColor = this.DrawBasicColorsBitmap(0);
-            this.InitShadesCache();
-            RomColor shadeColor = this.DrawShadesBitmap(63, 0);
-            this.UpdateNewColor(shadeColor);
-
-            this.performEvents = false;
-
-            this.redNumericUpDown.Value = shadeColor.Red5Bit;
-            this.greenNumericUpDown.Value = shadeColor.Green5Bit;
-            this.blueNumericUpDown.Value = shadeColor.Blue5Bit;
-
-            this.performEvents = true;
+            this.UpdateBasicColor(this.basicColorsCache.GetPixel(0, 0));
+            this.SetNewColor(color);
         }
 
         /// <summary>
