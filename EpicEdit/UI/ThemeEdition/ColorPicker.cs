@@ -230,7 +230,6 @@ namespace EpicEdit.UI.ThemeEdition
         /// Draws the basic colors with the circle around a certain color.
         /// </summary>
         /// <param name="color">The color to select.</param>
-        /// <returns>The selected color.</returns>
         private void DrawBasicColorsBitmap(RomColor color)
         {
             int x = this.FindColorIndex(color);
@@ -242,7 +241,6 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         /// <param name="color">The color to select.</param>
         /// <param name="x">The color location.</param>
-        /// <returns>The selected color.</returns>
         private void DrawBasicColorsBitmap(RomColor color, int x)
         {
             this.basicColorsBitmap.Dispose();
