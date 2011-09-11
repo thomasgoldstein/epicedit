@@ -411,7 +411,7 @@ namespace EpicEdit.UI.ThemeEdition
                 y = 127 - y;
             }
 
-            return ((RomColor)this.shadesBitmap.GetPixel(x, y)).Opposite();
+            return ((RomColor)this.shadesCache.GetPixel(x, y)).Opposite();
         }
 
         /// <summary>
