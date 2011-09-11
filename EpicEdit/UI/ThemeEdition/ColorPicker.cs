@@ -152,9 +152,15 @@ namespace EpicEdit.UI.ThemeEdition
             // This is possibly due to the fact that not every shade is displayed. FindBasicColor may possibly be flawed as well.
             color = color.To5Bit();
 
-            this.InvalidateBasicColorsSelection();
-            this.selectedBasicColor = this.DrawBasicColorsBitmap(ColorPicker.FindBasicColor(color));
-            this.InvalidateBasicColorsSelection();
+            RomColor basicColor = ColorPicker.FindBasicColor(color);
+
+            if (this.selectedBasicColor != basicColor)
+            {
+                this.InvalidateBasicColorsSelection();
+                this.selectedBasicColor = basicColor;
+                this.DrawBasicColorsBitmap(basicColor);
+                this.InvalidateBasicColorsSelection();
+            }
 
             this.InitShadesCache();
             this.DrawShadesBitmap(color);
@@ -235,7 +241,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         /// <param name="color">The color to select.</param>
         /// <returns>The selected color.</returns>
-        private RomColor DrawBasicColorsBitmap(RomColor color)
+        private void DrawBasicColorsBitmap(RomColor color)
         {
             this.basicColorsBitmap.Dispose();
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
@@ -248,8 +254,6 @@ namespace EpicEdit.UI.ThemeEdition
                 int y = this.basicColorsSize.Height / 2;
                 g.DrawEllipse(pen, ColorPicker.GetSelectionBounds(x, y));
             }
-
-            return color;
         }
 
         /// <summary>
