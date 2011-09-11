@@ -47,7 +47,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// The selected color from basicColorsBitmap.
         /// </summary>
-        private RomColor selectedBasicColor = RomColor.From5BitRgb(31, 0, 0);
+        private RomColor selectedBasicColor = RomColor.From5BitRgb(31, 1, 0);
 
         /// <summary>
         /// The image where a selected color goes to black, white and gray.
@@ -101,10 +101,9 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InitBasicColorsBitmapCache();
 
-            RomColor color = new RomColor();
-            this.UpdateOldColor(color);
-            this.UpdateBasicColor(this.basicColorsCache.GetPixel(0, 0));
-            this.SetNewColor(color);
+            int x = 0;
+            RomColor basicColor = this.basicColorsCache.GetPixel(x, 0);
+            this.SetNewColor(x, basicColor, basicColor);
         }
 
         /// <summary>
@@ -132,27 +131,58 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         /// <summary>
+        /// Sets the new color.
+        /// </summary>
+        /// <param name="x">X position in the basic colors.</param>
+        private void SetNewColor(int x)
+        {
+            // Make sure we are not out of bounds
+            if (x < 0)
+            {
+                x = 0;
+            }
+            else if (x >= this.basicColorsSize.Width)
+            {
+                x = this.basicColorsSize.Width - 1;
+            }
+
+            RomColor color = this.basicColorsCache.GetPixel(x, 0);
+            this.SetNewColor(x, color, color);
+        }
+
+        /// <summary>
+        /// Sets the new color.
         /// Automatically detects where the color exists in the shades and basic colors.
         /// </summary>
         /// <param name="color">The color.</param>
         private void SetNewColor(RomColor color)
         {
+            color = color.To5Bit();
+            RomColor basicColor = ColorPicker.FindBasicColor(color);
+            int x = this.FindColorIndex(basicColor);
+            this.SetNewColor(x, basicColor, color);
+        }
+
+        private void SetNewColor(int x, RomColor basicColor, RomColor color)
+        {
             // TODO: The logic to find the location of the color in the basic and shades needs to be revamped, often colors are not found.
             // This is possibly due to the fact that not every shade is displayed. FindBasicColor may possibly be flawed as well.
-            color = color.To5Bit();
-
-            RomColor basicColor = ColorPicker.FindBasicColor(color);
 
             if (this.selectedBasicColor != basicColor)
             {
-                this.UpdateBasicColor(basicColor);
+                this.InvalidateBasicColorsSelection();
+                this.selectedBasicColor = basicColor;
+                this.DrawBasicColorsBitmap(x);
+                this.InvalidateBasicColorsSelection();
+    
+                this.InitShadesCache();
             }
 
             this.DrawShadesBitmap(color);
-            this.shadesPictureBox.Invalidate();
+            this.shadesPictureBox.Refresh();
 
             this.UpdateNewColor(color);
-            this.newColorPictureBox.Invalidate();
+            this.newColorPictureBox.Refresh();
 
             this.performEvents = false;
 
@@ -161,28 +191,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Value = color.Blue5Bit;
 
             this.performEvents = true;
-        }
-
-        private void UpdateBasicColor(RomColor color)
-        {
-            int x = this.FindColorIndex(color);
-            this.UpdateBasicColor(color, x);
-        }
-
-        private void UpdateBasicColor(int x)
-        {
-            RomColor color = this.basicColorsCache.GetPixel(x, 0);
-            this.UpdateBasicColor(color, x);
-        }
-
-        private void UpdateBasicColor(RomColor color, int x)
-        {
-            this.InvalidateBasicColorsSelection();
-            this.selectedBasicColor = color;
-            this.DrawBasicColorsBitmap(x);
-            this.InvalidateBasicColorsSelection();
-
-            this.InitShadesCache();
         }
 
         /// <summary>
@@ -536,32 +544,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="x">Location of the click.</param>
         private void BasicColorsClicked(int x)
         {
-            // Make sure we are not out of bounds
-            if (x < 0)
-            {
-                x = 0;
-            }
-            else if (x >= this.basicColorsSize.Width)
-            {
-                x = this.basicColorsSize.Width - 1;
-            }
-
-            this.UpdateBasicColor(x);
-            this.basicColorsPictureBox.Update();
-
-            RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
-            this.shadesPictureBox.Refresh();
-
-            this.performEvents = false;
-
-            this.redNumericUpDown.Value = shadeColor.Red5Bit;
-            this.greenNumericUpDown.Value = shadeColor.Green5Bit;
-            this.blueNumericUpDown.Value = shadeColor.Blue5Bit;
-
-            this.performEvents = true;
-
-            this.UpdateNewColor(shadeColor);
-            this.newColorPictureBox.Refresh();
+            this.SetNewColor(x);
         }
 
         /// <summary>
