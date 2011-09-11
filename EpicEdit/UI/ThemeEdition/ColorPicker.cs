@@ -388,16 +388,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The color.</returns>
         private RomColor GetPenColor(int x, int y)
         {
-            RomColor color;
             if (y > 63)
             {
-                color = ((RomColor)this.shadesBitmap.GetPixel(x, 127 - y)).Opposite();
+                y = 127 - y;
             }
-            else
-            {
-                color = ((RomColor)this.shadesBitmap.GetPixel(x, y)).Opposite();
-            }
-            return color;
+
+            return ((RomColor)this.shadesBitmap.GetPixel(x, y)).Opposite();
         }
 
         /// <summary>
