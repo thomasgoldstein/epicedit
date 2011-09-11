@@ -241,10 +241,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsBitmap = this.basicColorsCache.Clone() as Bitmap;
 
             int x = this.FindColorIndex(color);
-            if (x == -1)
-            {
-                return new RomColor();
-            }
 
             using (Graphics g = Graphics.FromImage(this.basicColorsBitmap))
             using (Pen pen = new Pen(color.Opposite()))
@@ -735,7 +731,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             fBasicColors.Release();
-            return -1;
+            throw new Exception("Invalid basic color.");
         }
 
         #endregion Find colors
