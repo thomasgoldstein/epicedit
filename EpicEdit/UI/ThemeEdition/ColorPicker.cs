@@ -160,9 +160,10 @@ namespace EpicEdit.UI.ThemeEdition
                 this.selectedBasicColor = basicColor;
                 this.DrawBasicColorsBitmap(basicColor);
                 this.InvalidateBasicColorsSelection();
+
+                this.InitShadesCache();
             }
 
-            this.InitShadesCache();
             this.DrawShadesBitmap(color);
             this.shadesPictureBox.Invalidate();
 
