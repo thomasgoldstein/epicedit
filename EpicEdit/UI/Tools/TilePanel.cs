@@ -126,5 +126,19 @@ namespace EpicEdit.UI.Tools
                 this.ColorSelected(this, pea);
             }
         }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            if (!Context.ColorPickerMode ||
+                e.Button == MouseButtons.Middle)
+            {
+                base.OnMouseUp(e);
+
+                if (Context.ColorPickerMode)
+                {
+                    this.Cursor = TilePanel.ColorPickerCursor;
+                }
+            }
+        }
     }
 }

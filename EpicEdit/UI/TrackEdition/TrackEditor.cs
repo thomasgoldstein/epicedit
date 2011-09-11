@@ -1053,7 +1053,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            this.trackDisplay.Cursor = Cursors.Default;
 
             if (this.buttonsPressed == MouseButtons.Right)
             {
@@ -1085,7 +1085,7 @@ namespace EpicEdit.UI.TrackEdition
             if (e.Button == MouseButtons.Middle)
             {
                 this.buttonsPressed = MouseButtons.Middle;
-                this.Cursor = Cursors.SizeAll;
+                this.trackDisplay.Cursor = Cursors.SizeAll;
                 this.anchorPoint = this.AbsoluteTilePosition;
                 this.trackDisplay.Invalidate();
             }
@@ -1164,7 +1164,7 @@ namespace EpicEdit.UI.TrackEdition
                             this.overlayControl.SelectedPattern = this.hoveredOverlayTile.Pattern;
                             this.SetSelectedOverlayPatternLocation();
                             this.hoveredOverlayTile = null;
-                            this.Cursor = Cursors.Default;
+                            this.trackDisplay.Cursor = Cursors.Default;
                         }
                         break;
                 }
@@ -1306,13 +1306,12 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.buttonsPressed = MouseButtons.None;
 
-                    if (Context.ColorPickerMode ||
-                        this.editionMode == EditionMode.Tileset ||
+                    if (this.editionMode == EditionMode.Tileset ||
                         this.track is BattleTrack && this.editionMode == EditionMode.Objects)
                     {
                         // For other modes, the cursor will be reset
                         // by the call to the InitEditionModeAction method below.
-                        this.Cursor = Cursors.Default;
+                        this.trackDisplay.Cursor = Cursors.Default;
                     }
 
                     this.InitEditionModeAction();
@@ -1906,7 +1905,7 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     if (overlayTile.IntersectsWith(hoveredTilePosition))
                     {
-                        this.Cursor = Cursors.Hand;
+                        this.trackDisplay.Cursor = Cursors.Hand;
 
                         if (this.hoveredOverlayTile == overlayTile)
                         {
@@ -1918,7 +1917,7 @@ namespace EpicEdit.UI.TrackEdition
                     }
                 }
 
-                this.Cursor = Cursors.Default;
+                this.trackDisplay.Cursor = Cursors.Default;
 
                 if (this.hoveredOverlayTile == null)
                 {
@@ -1930,7 +1929,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             // Move selected tile pattern
-            this.Cursor = Cursors.Default;
+            this.trackDisplay.Cursor = Cursors.Default;
             Point originalPatternLocation = this.selectedOverlayPatternLocation;
             this.SetSelectedOverlayPatternLocation();
             // Return whether the location has changed
@@ -2137,24 +2136,24 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
                         StartAction.DragAll : StartAction.DragLapLine;
-                    this.Cursor = Cursors.SizeAll;
+                    this.trackDisplay.Cursor = Cursors.SizeAll;
                 }
                 else
                 {
                     this.startAction = StartAction.ResizeLapLine;
-                    this.Cursor = Cursors.SizeWE;
+                    this.trackDisplay.Cursor = Cursors.SizeWE;
                 }
             }
             else if (gpTrack.StartPosition.IntersectsWith(absPixelPos))
             {
                 this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
                     StartAction.DragAll : StartAction.DragStartPosition;
-                this.Cursor = Cursors.SizeAll;
+                this.trackDisplay.Cursor = Cursors.SizeAll;
             }
             else
             {
                 this.startAction = StartAction.None;
-                this.Cursor = Cursors.Default;
+                this.trackDisplay.Cursor = Cursors.Default;
             }
 
             return false;
@@ -2177,17 +2176,17 @@ namespace EpicEdit.UI.TrackEdition
             if (bTrack.StartPositionP1.IntersectsWith(absPixelPos))
             {
                 this.startAction = StartAction.DragStartPosition;
-                this.Cursor = Cursors.Hand;
+                this.trackDisplay.Cursor = Cursors.Hand;
             }
             else if (bTrack.StartPositionP2.IntersectsWith(absPixelPos))
             {
                 this.startAction = StartAction.DragStartPosition2;
-                this.Cursor = Cursors.Hand;
+                this.trackDisplay.Cursor = Cursors.Hand;
             }
             else
             {
                 this.startAction = StartAction.None;
-                this.Cursor = Cursors.Default;
+                this.trackDisplay.Cursor = Cursors.Default;
             }
 
             return false;
@@ -2250,7 +2249,7 @@ namespace EpicEdit.UI.TrackEdition
             if (gpTrack.ObjectRoutine == ObjectType.Pillar)
             {
                 // Not supported yet
-                this.Cursor = Cursors.Default;
+                this.trackDisplay.Cursor = Cursors.Default;
                 return false;
             }
 
@@ -2260,12 +2259,12 @@ namespace EpicEdit.UI.TrackEdition
                     trackObject.Y == hoveredTilePosition.Y)
                 {
                     this.hoveredObject = trackObject;
-                    this.Cursor = Cursors.Hand;
+                    this.trackDisplay.Cursor = Cursors.Hand;
                     return true;
                 }
             }
 
-            this.Cursor = Cursors.Default;
+            this.trackDisplay.Cursor = Cursors.Default;
 
             if (this.hoveredObject != null)
             {
@@ -2375,7 +2374,7 @@ namespace EpicEdit.UI.TrackEdition
                     // Hover AI target
                     this.hoveredAIElem = trackAIElem;
                     this.aiAction = AIAction.DragTarget;
-                    this.Cursor = Cursors.Hand;
+                    this.trackDisplay.Cursor = Cursors.Hand;
                     return true;
                 }
             }
@@ -2406,7 +2405,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            this.Cursor = Cursors.Default;
+            this.trackDisplay.Cursor = Cursors.Default;
 
             if (this.hoveredAIElem == null)
             {
@@ -2427,7 +2426,7 @@ namespace EpicEdit.UI.TrackEdition
                 if (this.hoveredAIElem != this.aiControl.SelectedElement)
                 {
                     this.aiAction = AIAction.DragZone;
-                    this.Cursor = Cursors.SizeAll;
+                    this.trackDisplay.Cursor = Cursors.SizeAll;
                     this.SetAIElementAnchorPoint(hoveredTilePosition);
                 }
                 else
@@ -2437,7 +2436,7 @@ namespace EpicEdit.UI.TrackEdition
                     if (this.resizeHandle == ResizeHandle.None)
                     {
                         this.aiAction = AIAction.DragZone;
-                        this.Cursor = Cursors.SizeAll;
+                        this.trackDisplay.Cursor = Cursors.SizeAll;
                         this.SetAIElementAnchorPoint(hoveredTilePosition);
                     }
                     else
@@ -2447,35 +2446,35 @@ namespace EpicEdit.UI.TrackEdition
                         switch (this.resizeHandle)
                         {
                             case ResizeHandle.TopLeft:
-                                this.Cursor = Cursors.SizeNWSE;
+                                this.trackDisplay.Cursor = Cursors.SizeNWSE;
                                 break;
 
                             case ResizeHandle.Top:
-                                this.Cursor = Cursors.SizeNS;
+                                this.trackDisplay.Cursor = Cursors.SizeNS;
                                 break;
 
                             case ResizeHandle.TopRight:
-                                this.Cursor = Cursors.SizeNESW;
+                                this.trackDisplay.Cursor = Cursors.SizeNESW;
                                 break;
 
                             case ResizeHandle.Right:
-                                this.Cursor = Cursors.SizeWE;
+                                this.trackDisplay.Cursor = Cursors.SizeWE;
                                 break;
 
                             case ResizeHandle.BottomRight:
-                                this.Cursor = Cursors.SizeNWSE;
+                                this.trackDisplay.Cursor = Cursors.SizeNWSE;
                                 break;
 
                             case ResizeHandle.Bottom:
-                                this.Cursor = Cursors.SizeNS;
+                                this.trackDisplay.Cursor = Cursors.SizeNS;
                                 break;
 
                             case ResizeHandle.BottomLeft:
-                                this.Cursor = Cursors.SizeNESW;
+                                this.trackDisplay.Cursor = Cursors.SizeNESW;
                                 break;
 
                             case ResizeHandle.Left:
-                                this.Cursor = Cursors.SizeWE;
+                                this.trackDisplay.Cursor = Cursors.SizeWE;
                                 break;
                         }
                     }
