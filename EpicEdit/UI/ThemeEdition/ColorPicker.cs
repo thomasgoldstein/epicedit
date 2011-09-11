@@ -735,7 +735,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             fBasicColors.Release();
-            throw new Exception("Invalid basic color.");
+            throw new ArgumentException("Invalid basic color.", "color");
         }
 
         #endregion Find colors
