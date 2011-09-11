@@ -41,8 +41,8 @@ namespace EpicEdit.Rom.ThemeEdition
             get { return this.palette; }
             private set
             {
-                this.palette = value;    
-                this.UpdatePalette();    
+                this.palette = value;
+                this.UpdatePalette();
                 this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
                 this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
             }
@@ -210,7 +210,7 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.SetCurrentPalette();
         }
-        
+
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
             this.SetCurrentPalette();

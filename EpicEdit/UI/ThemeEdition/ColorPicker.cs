@@ -174,7 +174,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.selectedBasicColor = basicColor;
                 this.DrawBasicColorsBitmap(x);
                 this.InvalidateBasicColorsSelection();
-    
+
                 this.InitShadesCache();
             }
 
@@ -455,7 +455,7 @@ namespace EpicEdit.UI.ThemeEdition
                         fTempBitmap.SetPixel(index, index2, color);
                         index2++;
                     }
-    
+
                     index++;
                 }
 
