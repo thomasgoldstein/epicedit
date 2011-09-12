@@ -838,7 +838,7 @@ namespace EpicEdit.UI.Gfx
             {
                 for (int y = 0; y < overlayTilePattern.Height; y++)
                 {
-                    byte tileId = overlayTilePattern.Tiles[y][x];
+                    byte tileId = overlayTilePattern[x, y];
                     if (tileId == 0xFF)
                     {
                         continue;
