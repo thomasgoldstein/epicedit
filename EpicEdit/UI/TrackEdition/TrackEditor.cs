@@ -2579,6 +2579,35 @@ namespace EpicEdit.UI.TrackEdition
 
                 Track track = parent.track;
                 byte index = track.Map[x, y];
+
+                if (parent.editionMode == EditionMode.Overlay)
+                {
+                    Point location = new Point(x, y);
+
+                    // Get the pixel coordinates within the tile
+                    int pixelX = x % Tile.Size;
+                    int pixelY = y % Tile.Size;
+
+                    var overlay = track.OverlayTiles;
+                    for (int i = overlay.Count - 1; i >= 0; i--)
+                    {
+                        var overlayTile = overlay[i];
+                        if (overlayTile.IntersectsWith(location))
+                        {
+                            int relativeX = x - overlayTile.X;
+                            int relativeY = y - overlayTile.Y;
+                            byte tileId = overlayTile.Pattern[relativeX, relativeY];
+                            Tile tile = track.GetRoadTile(tileId);
+                            int colorIndex = tile.GetColorIndexAt(relativeX, relativeY);
+
+                            if (colorIndex != 0) // Ignore transparent color
+                            {
+                                return tile;
+                            }
+                        }
+                    }
+                }
+
                 return track.GetRoadTile(index);
             }
         }
