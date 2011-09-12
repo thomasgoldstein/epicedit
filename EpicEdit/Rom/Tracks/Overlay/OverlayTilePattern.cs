@@ -22,10 +22,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     public class OverlayTilePattern : IEquatable<OverlayTilePattern>
     {
-        /// <summary>
-        /// Tiles[y][x]
-        /// </summary>
-        public byte[][] Tiles { get; private set; }
+        private byte[][] tiles;
 
         public OverlayTileSize Size { get; private set; }
 
@@ -53,17 +50,30 @@ namespace EpicEdit.Rom.Tracks.Overlay
             this.Modified = false;
         }
 
+        public byte GetTile(int x, int y)
+        {
+            return this.tiles[y][x];
+        }
+
+        public byte this[int x, int y]
+        {
+            get
+            {
+                return this.GetTile(x, y);
+            }
+        }
+
         /// <summary>
         /// Convert data into a nice y/x byte[][] to facilitate reading.
         /// </summary>
         private void SetBytes(byte[] data)
         {
-            this.Tiles = new byte[this.Height][];
+            this.tiles = new byte[this.Height][];
 
             for (int y = 0; y < this.Height; y++)
             {
-                this.Tiles[y] = new byte[this.Width];
-                Buffer.BlockCopy(data, y * this.Width, this.Tiles[y], 0, this.Width);
+                this.tiles[y] = new byte[this.Width];
+                Buffer.BlockCopy(data, y * this.Width, this.tiles[y], 0, this.Width);
             }
         }
 
@@ -76,7 +86,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
             for (int y = 0; y < this.Height; y++)
             {
-                Buffer.BlockCopy(this.Tiles[y], 0, buffer, y * this.Width, this.Width);
+                Buffer.BlockCopy(this.tiles[y], 0, buffer, y * this.Width, this.Width);
             }
 
             return buffer;
@@ -104,7 +114,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             {
                 for (int x = 0; x < this.Width; x++)
                 {
-                    if (other.Tiles[y][x] != this.Tiles[y][x])
+                    if (other.tiles[y][x] != this.tiles[y][x])
                     {
                         return false;
                     }

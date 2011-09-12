@@ -90,7 +90,7 @@ namespace EpicEdit.UI.Gfx
                     {
                         for (int x = 0; x < pattern.Width; x++)
                         {
-                            int tileId = pattern.Tiles[y][x];
+                            int tileId = pattern[x, y];
 
                             if (tileId == 0xFF)
                             {
