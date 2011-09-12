@@ -218,7 +218,6 @@ namespace EpicEdit.UI.TrackEdition
             ResizeLapLine,
             DragStartPosition,
             DragStartPosition2,
-            //DragStartPosition2ndRow,
             DragAll
         }
 
