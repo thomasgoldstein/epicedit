@@ -89,7 +89,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The index to the default zoom level (x1).
         /// </summary>
-        private const int DefaultZoomLevelIndex = 2;
+        private const int DefaultZoomLevelIndex = 3;
 
         /// <summary>
         /// The current zoom level of the track display.
@@ -314,7 +314,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.ResetPosition();
 
-            this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4 };
+            this.zoomLevels = new float[] { .25f, .5f, .75f, 1, 2, 3, 4, 5, 6, 7, 8 };
             this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 
             this.tileClipboard = new List<byte>();
