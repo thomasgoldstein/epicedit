@@ -93,6 +93,8 @@ namespace EpicEditTests.Rom.Tracks
             Palette palette = new Palette(palData);
             this.tile = new StillTile(palette, gfx, TileGenre.Road);
 
+            byte[] gfxCopy = new byte[gfx.Length];
+
             for (int y = 0; y < Tile.Size; y++)
             {
                 for (int x = 0; x < Tile.Size; x++)
@@ -101,8 +103,17 @@ namespace EpicEditTests.Rom.Tracks
                     Color color1 = this.tile.Bitmap.GetPixel(x, y);
                     Color color2 = palette[colorIndex];
                     Assert.AreEqual(color1.ToArgb(), color2.ToArgb());
+
+                    int index = y * Tile.Size + x;
+                    if (index % 2 == 1)
+                    {
+                        colorIndex <<= 4;
+                    }
+                    gfxCopy[index / 2] |= (byte)colorIndex;
                 }
             }
+
+            Assert.AreEqual(gfx, gfxCopy);
         }
 
         [Test]
