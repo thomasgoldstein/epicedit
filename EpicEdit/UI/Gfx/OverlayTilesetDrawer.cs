@@ -155,7 +155,7 @@ namespace EpicEdit.UI.Gfx
 
         private void OutlinePattern(Graphics g, OverlayTilePattern pattern)
         {
-            if (pattern != null)
+            if (pattern != null && !Context.ColorPickerMode)
             {
                 Point location;
                 this.PatternList.TryGetValue(pattern, out location);
