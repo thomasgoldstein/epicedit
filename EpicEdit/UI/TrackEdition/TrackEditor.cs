@@ -2566,6 +2566,10 @@ namespace EpicEdit.UI.TrackEdition
         {
             protected override Tile GetTileAt(int x, int y)
             {
+                // Convert from pixel precision to tile precision
+                x /= Tile.Size;
+                y /= Tile.Size;
+
                 var parent = this.Parent as TrackEditor;
 
                 Point scrollPosition = parent.scrollPosition;

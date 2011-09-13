@@ -213,6 +213,10 @@ namespace EpicEdit.UI.TrackEdition
 
             protected override Tile GetTileAt(int x, int y)
             {
+                // Convert from pixel precision to tile precision
+                x /= Tile.Size;
+                y /= Tile.Size;
+
                 int index = y * this.TilesPerRow + x;
                 return this.tileset[index];
             }
