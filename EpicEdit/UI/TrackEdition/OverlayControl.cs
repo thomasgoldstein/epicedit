@@ -293,18 +293,23 @@ namespace EpicEdit.UI.TrackEdition
 
         private OverlayTilePattern GetPatternAt(Point point)
         {
-            point = new Point(point.X / OverlayTilesetDrawer.Zoom,
-                              point.Y / OverlayTilesetDrawer.Zoom);
+            return this.GetPatternAt(point.X, point.Y);
+        }
+
+        private OverlayTilePattern GetPatternAt(int x, int y)
+        {
+            x /= OverlayTilesetDrawer.Zoom;
+            y /= OverlayTilesetDrawer.Zoom;
 
             foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
             {
                 OverlayTilePattern pattern = kvp.Key;
                 Point location = kvp.Value;
 
-                if (point.X >= location.X &&
-                    point.X < location.X + pattern.Width * Tile.Size &&
-                    point.Y >= location.Y &&
-                    point.Y < location.Y + pattern.Height * Tile.Size)
+                if (x >= location.X &&
+                    x < location.X + pattern.Width * Tile.Size &&
+                    y >= location.Y &&
+                    y < location.Y + pattern.Height * Tile.Size)
                 {
                     return pattern;
                 }
