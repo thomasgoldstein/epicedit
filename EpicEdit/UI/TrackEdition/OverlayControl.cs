@@ -264,6 +264,11 @@ namespace EpicEdit.UI.TrackEdition
             this.Height += difference;
         }
 
+        public Tile[] GetTileset()
+        {
+            return this.overlayDrawer.GetTileset();
+        }
+
         public void SetTileset(Tile[] tileset)
         {
             this.overlayDrawer.SetTileset(tileset);
