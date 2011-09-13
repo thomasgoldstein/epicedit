@@ -52,7 +52,7 @@ namespace EpicEdit.UI.TrackEdition
             this.components = new System.ComponentModel.Container();
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.overlayTilesetPanel = new EpicEdit.UI.Tools.EpicPanel();
+            this.overlayTilesetPanel = new EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel();
             this.buttonPanel = new System.Windows.Forms.Panel();
             this.tileCountLabel = new System.Windows.Forms.Label();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -125,7 +125,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Label tileCountLabel;
         private System.Windows.Forms.Panel buttonPanel;
         private System.Windows.Forms.ToolTip buttonToolTip;
-        private EpicEdit.UI.Tools.EpicPanel overlayTilesetPanel;
+        private EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel overlayTilesetPanel;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button deleteAllButton;
     }
