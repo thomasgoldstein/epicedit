@@ -65,6 +65,11 @@ namespace EpicEdit.UI.Gfx
             this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
+        public Tile[] GetTileset()
+        {
+            return this.tileset;
+        }
+
         public void SetTileset(Tile[] tileset)
         {
             this.tileset = tileset;
