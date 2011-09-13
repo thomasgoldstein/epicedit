@@ -58,11 +58,7 @@ namespace EpicEdit.UI.Tools
             x = (int)(x / this.Zoom);
             y = (int)(y / this.Zoom);
 
-            // Convert from pixel precision to tile precision
-            int tileX = x / Tile.Size;
-            int tileY = y / Tile.Size;
-
-            Tile tile = this.GetTileAt(tileX, tileY);
+            Tile tile = this.GetTileAt(x, y);
 
             if (tile == null)
             {

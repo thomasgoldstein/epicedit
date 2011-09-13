@@ -379,8 +379,8 @@ namespace EpicEdit.UI.TrackEdition
             protected override Tile GetTileAt(int x, int y)
             {
                 var parent = this.Parent as OverlayControl;
-                int size = Tile.Size * OverlayTilesetDrawer.Zoom;
-                var pattern = parent.GetPatternAt(x * size, y * size);
+                int zoom = OverlayTilesetDrawer.Zoom;
+                var pattern = parent.GetPatternAt(x * zoom, y * zoom);
 
                 if (pattern == null)
                 {
@@ -388,11 +388,9 @@ namespace EpicEdit.UI.TrackEdition
                 }
 
                 Point location = parent.patternList[pattern];
-                x -= (location.X / Tile.Size);
-                y -= (location.Y / Tile.Size);
+                x = (x - location.X) / Tile.Size;
+                y = (y - location.Y) / Tile.Size;
 
-                // FIXME: May throw an exception if location.X % Tile.Size != 0,
-                // ie: when the pattern is not positioned following an 8x8 grid
                 byte tileId = pattern[x, y];
 
                 if (tileId == 0xFF) // Ignore empty tiles
