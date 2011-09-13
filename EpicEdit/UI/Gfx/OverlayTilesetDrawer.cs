@@ -70,6 +70,11 @@ namespace EpicEdit.UI.Gfx
             return this.tileset;
         }
 
+        public Tile GetTile(int index)
+        {
+            return this.tileset[index];
+        }
+
         public void SetTileset(Tile[] tileset)
         {
             this.tileset = tileset;
