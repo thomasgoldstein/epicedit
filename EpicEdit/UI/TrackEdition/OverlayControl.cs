@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Gfx;
@@ -30,6 +31,7 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     public partial class OverlayControl : UserControl
     {
+        #region Events
         [Browsable(true)]
         public event EventHandler<EventArgs> DeleteRequested;
 
@@ -38,6 +40,17 @@ namespace EpicEdit.UI.TrackEdition
 
         [Browsable(true)]
         public event EventHandler<EventArgs> RepaintRequested;
+
+        /// <summary>
+        /// Raised when a pixel color has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<Palette, int>> ColorSelected
+        {
+            add { this.overlayTilesetPanel.ColorSelected += value; }
+            remove { this.overlayTilesetPanel.ColorSelected -= value; }
+        }
+        #endregion Events
 
         private Dictionary<OverlayTilePattern, Point> patternList;
 
@@ -132,6 +145,8 @@ namespace EpicEdit.UI.TrackEdition
         public OverlayControl()
         {
             this.InitializeComponent();
+
+            this.overlayTilesetPanel.Zoom = OverlayTilesetDrawer.Zoom;
         }
 
         public void InitOnFirstRomLoad()
@@ -356,6 +371,36 @@ namespace EpicEdit.UI.TrackEdition
             if (result == DialogResult.Yes)
             {
                 this.DeleteAllRequested(this, EventArgs.Empty);
+            }
+        }
+
+        private class OverlayPanel : TilePanel
+        {
+            protected override Tile GetTileAt(int x, int y)
+            {
+                var parent = this.Parent as OverlayControl;
+                int size = Tile.Size * OverlayTilesetDrawer.Zoom;
+                var pattern = parent.GetPatternAt(x * size, y * size);
+
+                if (pattern == null)
+                {
+                    return null;
+                }
+
+                Point location = parent.patternList[pattern];
+                x -= (location.X / Tile.Size);
+                y -= (location.Y / Tile.Size);
+
+                // FIXME: May throw an exception if location.X % Tile.Size != 0,
+                // ie: when the pattern is not positioned following an 8x8 grid
+                byte tileId = pattern[x, y];
+
+                if (tileId == 0xFF) // Ignore empty tiles
+                {
+                    return null;
+                }
+
+                return parent.GetTile(tileId);
             }
         }
     }

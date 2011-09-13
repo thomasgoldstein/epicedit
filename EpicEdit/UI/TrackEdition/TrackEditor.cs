@@ -743,6 +743,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
                 this.trackDisplay.ColorSelected += this.TileColorSelected;
                 this.tilesetControl.ColorSelected += this.TileColorSelected;
+                this.overlayControl.ColorSelected += this.TileColorSelected;
                 Context.ColorPickerControl = this.paletteForm;
             }
 
