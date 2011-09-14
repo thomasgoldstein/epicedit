@@ -129,9 +129,18 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             for (int i = 0; i < this.panels.Length; i++)
             {
-                this.panels[i].BackColor = this.palette[i];
-                this.SetToolTip(i);
+                this.UpdateColor(i);
             }
+        }
+
+        /// <summary>
+        /// Updates the color panel at the given index.
+        /// </summary>
+        /// <param name="index">The color panel index.</param>
+        private void UpdateColor(int index)
+        {
+            this.panels[index].BackColor = this.palette[index];
+            this.SetToolTip(index);
         }
 
         /// <summary>
@@ -201,8 +210,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private void ResetSelectedButtonClick(object sender, EventArgs e)
         {
             this.palette.ResetColor(this.selectedColor);
-            this.panels[this.selectedColor].BackColor = this.palette[this.selectedColor];
-            this.SetToolTip(this.selectedColor);
+            this.UpdateColor(this.selectedColor);
             this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
 
             this.ColorChanged(this, EventArgs.Empty);
