@@ -43,10 +43,11 @@ namespace EpicEdit.Rom.ThemeEdition
         private void InitializeComponent()
         {
             this.setColorButton = new System.Windows.Forms.Button();
-            this.resetButton = new System.Windows.Forms.Button();
+            this.resetSelectedButton = new System.Windows.Forms.Button();
             this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
             this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
+            this.resetAllButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,15 +61,15 @@ namespace EpicEdit.Rom.ThemeEdition
             this.setColorButton.UseVisualStyleBackColor = true;
             this.setColorButton.Click += new System.EventHandler(this.SetColorButtonClick);
             // 
-            // resetButton
+            // resetSelectedButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(6, 204);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 23);
-            this.resetButton.TabIndex = 4;
-            this.resetButton.Text = "Reset";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.ResetButtonClick);
+            this.resetSelectedButton.Location = new System.Drawing.Point(6, 204);
+            this.resetSelectedButton.Name = "resetSelectedButton";
+            this.resetSelectedButton.Size = new System.Drawing.Size(100, 23);
+            this.resetSelectedButton.TabIndex = 4;
+            this.resetSelectedButton.Text = "Reset selected";
+            this.resetSelectedButton.UseVisualStyleBackColor = true;
+            this.resetSelectedButton.Click += new System.EventHandler(this.ResetSelectedButtonClick);
             // 
             // colorPicker
             // 
@@ -100,18 +101,30 @@ namespace EpicEdit.Rom.ThemeEdition
             this.themeComboBox.TabIndex = 0;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
+            // resetAllButton
+            // 
+            this.resetAllButton.Location = new System.Drawing.Point(112, 204);
+            this.resetAllButton.Name = "resetAllButton";
+            this.resetAllButton.Size = new System.Drawing.Size(75, 23);
+            this.resetAllButton.TabIndex = 5;
+            this.resetAllButton.Text = "Reset all";
+            this.resetAllButton.UseVisualStyleBackColor = true;
+            this.resetAllButton.Click += new System.EventHandler(this.ResetAllButtonClick);
+            // 
             // PaletteEditor
             // 
+            this.Controls.Add(this.resetAllButton);
             this.Controls.Add(this.paletteNumericUpDown);
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(this.setColorButton);
-            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.resetSelectedButton);
             this.Controls.Add(this.colorPicker);
             this.Name = "PaletteEditor";
             this.Size = new System.Drawing.Size(420, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button resetAllButton;
         private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.ComboBox themeComboBox;
 
@@ -119,6 +132,6 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private EpicEdit.UI.ThemeEdition.ColorPicker colorPicker;
         private System.Windows.Forms.Button setColorButton;
-        private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.Button resetSelectedButton;
     }
 }

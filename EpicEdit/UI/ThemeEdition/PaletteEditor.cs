@@ -194,11 +194,26 @@ namespace EpicEdit.Rom.ThemeEdition
         }
 
         /// <summary>
+        /// Resets the selected color.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetSelectedButtonClick(object sender, EventArgs e)
+        {
+            this.palette.ResetColor(this.selectedColor);
+            this.panels[this.selectedColor].BackColor = this.palette[this.selectedColor];
+            this.SetToolTip(this.selectedColor);
+            this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
+
+            this.ColorChanged(this, EventArgs.Empty);
+        }
+
+        /// <summary>
         /// Resets the palette.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ResetButtonClick(object sender, EventArgs e)
+        private void ResetAllButtonClick(object sender, EventArgs e)
         {
             this.palette.Reset();
             this.Palette = this.palette;
