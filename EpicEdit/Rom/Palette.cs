@@ -60,6 +60,7 @@ namespace EpicEdit.Rom
 
         public Palette(byte[] data)
         {
+            this.colors = new RomColor[Palette.ColorCount];
             this.backupData = data;
 
             this.Load(data);
@@ -72,7 +73,6 @@ namespace EpicEdit.Rom
                 throw new ArgumentException("The palette is not " + Palette.Size + "-byte long.", "data");
             }
 
-            this.colors = new RomColor[Palette.ColorCount];
             for (int i = 0; i < this.colors.Length; i++)
             {
                 this.LoadColor(data, i);
