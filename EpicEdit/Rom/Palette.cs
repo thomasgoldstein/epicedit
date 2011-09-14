@@ -79,6 +79,18 @@ namespace EpicEdit.Rom
             }
         }
 
+        /// <summary>
+        /// Resets the color at the given index.
+        /// </summary>
+        /// <param name="index">The color index.</param>
+        public void ResetColor(int index)
+        {
+            this.colors[index] = RomColor.FromBytes(this.backupData, index * RomColor.Size);
+        }
+
+        /// <summary>
+        /// Resets the palette, reloading the original data.
+        /// </summary>
         public void Reset()
         {
             this.Load(this.backupData);
