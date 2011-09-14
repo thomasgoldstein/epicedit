@@ -44,7 +44,6 @@ namespace EpicEdit.Rom.ThemeEdition
                 this.palette = value;
                 this.UpdatePalette();
                 this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
-                this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
             }
         }
 
