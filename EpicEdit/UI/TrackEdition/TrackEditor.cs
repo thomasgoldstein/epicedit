@@ -363,10 +363,21 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            this.paletteFormInitialized = false;
             this.tilesetControl.InitOnRomLoad();
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
+
+            if (!this.paletteForm.Visible)
+            {
+                // Reinit the palette editor next time it's shown
+                this.paletteFormInitialized = false;
+            }
+            else
+            {
+                // Reinit the palette editor now
+                this.paletteForm.Init();
+                this.paletteForm.Editor.Theme = this.track.Theme;
+            }
 
             foreach (var buffer in this.undoRedoBuffers.Values)
             {
