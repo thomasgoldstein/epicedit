@@ -75,8 +75,13 @@ namespace EpicEdit.Rom
             this.colors = new RomColor[Palette.ColorCount];
             for (int i = 0; i < this.colors.Length; i++)
             {
-                this.colors[i] = RomColor.FromBytes(data, i * RomColor.Size);
+                this.LoadColor(data, i);
             }
+        }
+
+        private void LoadColor(byte[] data, int index)
+        {
+            this.colors[index] = RomColor.FromBytes(data, index * RomColor.Size);
         }
 
         /// <summary>
@@ -85,7 +90,7 @@ namespace EpicEdit.Rom
         /// <param name="index">The color index.</param>
         public void ResetColor(int index)
         {
-            this.colors[index] = RomColor.FromBytes(this.backupData, index * RomColor.Size);
+            this.LoadColor(this.backupData, index);
         }
 
         /// <summary>
