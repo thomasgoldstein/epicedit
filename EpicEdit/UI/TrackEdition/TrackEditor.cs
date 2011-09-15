@@ -748,6 +748,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.paletteForm.Init();
+            this.paletteFormInitialized = true;
         }
 
         private void ReInitPaletteEditor()
