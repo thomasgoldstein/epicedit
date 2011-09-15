@@ -74,10 +74,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.redLabel = new System.Windows.Forms.Label();
             this.greenLabel = new System.Windows.Forms.Label();
             this.blueLabel = new System.Windows.Forms.Label();
-            this.newColorPictureBox = new System.Windows.Forms.PictureBox();
-            this.newColorLabel = new System.Windows.Forms.Label();
-            this.oldColorLabel = new System.Windows.Forms.Label();
-            this.oldColorPictureBox = new System.Windows.Forms.PictureBox();
             this.newColorToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.oldColorToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.basicColorsPictureBox)).BeginInit();
@@ -85,8 +81,6 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.newColorPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oldColorPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // basicColorsPictureBox
@@ -179,43 +173,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueLabel.TabIndex = 15;
             this.blueLabel.Text = "Blue";
             // 
-            // newColorPictureBox
-            // 
-            this.newColorPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.newColorPictureBox.Location = new System.Drawing.Point(196, 19);
-            this.newColorPictureBox.Name = "newColorPictureBox";
-            this.newColorPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.newColorPictureBox.TabIndex = 16;
-            this.newColorPictureBox.TabStop = false;
-            // 
-            // newColorLabel
-            // 
-            this.newColorLabel.AutoSize = true;
-            this.newColorLabel.Location = new System.Drawing.Point(192, 3);
-            this.newColorLabel.Name = "newColorLabel";
-            this.newColorLabel.Size = new System.Drawing.Size(55, 13);
-            this.newColorLabel.TabIndex = 17;
-            this.newColorLabel.Text = "New color";
-            // 
-            // oldColorLabel
-            // 
-            this.oldColorLabel.AutoSize = true;
-            this.oldColorLabel.Location = new System.Drawing.Point(193, 88);
-            this.oldColorLabel.Name = "oldColorLabel";
-            this.oldColorLabel.Size = new System.Drawing.Size(49, 13);
-            this.oldColorLabel.TabIndex = 19;
-            this.oldColorLabel.Text = "Old color";
-            // 
-            // oldColorPictureBox
-            // 
-            this.oldColorPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.oldColorPictureBox.Location = new System.Drawing.Point(196, 104);
-            this.oldColorPictureBox.Name = "oldColorPictureBox";
-            this.oldColorPictureBox.Size = new System.Drawing.Size(48, 48);
-            this.oldColorPictureBox.TabIndex = 18;
-            this.oldColorPictureBox.TabStop = false;
-            this.oldColorPictureBox.Click += new System.EventHandler(this.OldColorPictureBoxClick);
-            // 
             // newColorToolTip
             // 
             this.newColorToolTip.AutoPopDelay = 5000;
@@ -230,10 +187,6 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ColorPicker
             // 
-            this.Controls.Add(this.oldColorLabel);
-            this.Controls.Add(this.oldColorPictureBox);
-            this.Controls.Add(this.newColorLabel);
-            this.Controls.Add(this.newColorPictureBox);
             this.Controls.Add(this.blueLabel);
             this.Controls.Add(this.greenLabel);
             this.Controls.Add(this.redLabel);
@@ -243,14 +196,12 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.shadesPictureBox);
             this.Controls.Add(this.basicColorsPictureBox);
             this.Name = "ColorPicker";
-            this.Size = new System.Drawing.Size(249, 152);
+            this.Size = new System.Drawing.Size(189, 152);
             ((System.ComponentModel.ISupportInitialize)(this.basicColorsPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shadesPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.newColorPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oldColorPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -267,10 +218,6 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.Label redLabel;
         private System.Windows.Forms.Label greenLabel;
         private System.Windows.Forms.Label blueLabel;
-        private System.Windows.Forms.PictureBox newColorPictureBox;
-        private System.Windows.Forms.Label newColorLabel;
-        private System.Windows.Forms.Label oldColorLabel;
-        private System.Windows.Forms.PictureBox oldColorPictureBox;
 
     }
 }

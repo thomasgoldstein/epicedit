@@ -48,8 +48,8 @@ namespace EpicEdit.UI.ThemeEdition
             // Editor
             // 
             this.Editor.Location = new System.Drawing.Point(0, 0);
-            this.Editor.Name = "paletteEditor";
-            this.Editor.Size = new System.Drawing.Size(420, 230);
+            this.Editor.Name = "Editor";
+            this.Editor.Size = new System.Drawing.Size(360, 230);
             this.Editor.TabIndex = 0;
             // 
             // PaletteEditorForm

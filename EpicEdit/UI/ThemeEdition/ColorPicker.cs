@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -27,6 +28,9 @@ namespace EpicEdit.UI.ThemeEdition
 {
     public partial class ColorPicker : UserControl
     {
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ColorChanged;
+
         #region Private members
 
         /// <summary>
@@ -70,28 +74,21 @@ namespace EpicEdit.UI.ThemeEdition
         private Point selectedShadeLocation;
 
         /// <summary>
-        /// Unmodified color used as input, usually comes from the palette.
-        /// </summary>
-        private RomColor oldColor;
-
-        /// <summary>
-        /// The new color, not yet set in the palette.
-        /// </summary>
-        private RomColor newColor;
-
-        /// <summary>
         /// Used to prevent loops when certain clicks are performed in different UI controls.
         /// </summary>
         private bool performEvents = false;
 
         #endregion Private members
 
+        /// <summary>
+        /// Gets the user-selected color.
+        /// </summary>
+        /// <returns>The color.</returns>
+        public RomColor SelectedColor { get; private set; }
+
         public ColorPicker()
         {
             this.InitializeComponent();
-
-            UITools.FixToolTip(this.oldColorPictureBox, this.oldColorToolTip);
-            UITools.FixToolTip(this.newColorPictureBox, this.newColorToolTip);
 
             this.basicColorsSize = this.basicColorsPictureBox.ClientSize;
             this.shadesSize = this.shadesPictureBox.ClientSize;
@@ -113,21 +110,6 @@ namespace EpicEdit.UI.ThemeEdition
         public void SetColor(RomColor color)
         {
             this.SetNewColor(color);
-
-            this.UpdateOldColor(color);
-            this.oldColorPictureBox.Invalidate();
-        }
-
-        /// <summary>
-        /// Gets the user selected color (new color).
-        /// </summary>
-        /// <returns>The color.</returns>
-        public RomColor SelectedColor
-        {
-            get
-            {
-                return this.newColor;
-            }
         }
 
         /// <summary>
@@ -186,8 +168,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void SetNewColorSub(RomColor color)
         {
-            this.UpdateNewColor(color);
-            this.newColorPictureBox.Refresh();
+            this.SelectedColor = color;
 
             this.performEvents = false;
 
@@ -196,6 +177,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Value = color.Blue5Bit;
 
             this.performEvents = true;
+
+            if (this.ColorChanged != null)
+            {
+                this.ColorChanged(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>
@@ -491,28 +477,6 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        /// <summary>
-        /// Updates the old color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        private void UpdateOldColor(RomColor color)
-        {
-            this.oldColor = color;
-            this.oldColorPictureBox.BackColor = color;
-            ColorPicker.SetToolTip(this.oldColorToolTip, this.oldColorPictureBox, color);
-        }
-
-        /// <summary>
-        /// Updates the new color.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        private void UpdateNewColor(RomColor color)
-        {
-            this.newColor = color;
-            this.newColorPictureBox.BackColor = color;
-            ColorPicker.SetToolTip(this.newColorToolTip, this.newColorPictureBox, color);
-        }
-
         #endregion Bitmap drawing
 
         #region Events handlers
@@ -622,16 +586,6 @@ namespace EpicEdit.UI.ThemeEdition
                 RomColor color = RomColor.From5BitRgb((byte)redNumericUpDown.Value, (byte)greenNumericUpDown.Value, (byte)blueNumericUpDown.Value);
                 this.SetNewColor(color);
             }
-        }
-
-        /// <summary>
-        /// Redraws the old color.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OldColorPictureBoxClick(object sender, EventArgs e)
-        {
-            this.SetNewColor(this.oldColor);
         }
 
         #region Paint
