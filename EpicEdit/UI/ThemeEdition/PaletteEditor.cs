@@ -43,7 +43,7 @@ namespace EpicEdit.Rom.ThemeEdition
             {
                 this.palette = value;
                 this.UpdatePalette();
-                this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
+                this.colorPicker.SelectedColor = this.panels[this.selectedColor].BackColor;
             }
         }
 
@@ -181,7 +181,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.panels[this.selectedColor].BorderStyle = BorderStyle.FixedSingle;
 
             this.selectedColor = index;
-            this.colorPicker.SetColor(this.panels[index].BackColor);
+            this.colorPicker.SelectedColor = this.panels[index].BackColor;
 
             // Select new panel
             this.panels[this.selectedColor].BorderStyle = BorderStyle.Fixed3D;
@@ -196,7 +196,7 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.palette.ResetColor(this.selectedColor);
             this.UpdateColor(this.selectedColor);
-            this.colorPicker.SetColor(this.panels[this.selectedColor].BackColor);
+            this.colorPicker.SelectedColor = this.panels[this.selectedColor].BackColor;
 
             this.ColorChanged(this, EventArgs.Empty);
         }
