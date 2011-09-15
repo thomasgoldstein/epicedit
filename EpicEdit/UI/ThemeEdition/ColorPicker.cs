@@ -177,11 +177,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Value = color.Blue5Bit;
 
             this.performEvents = true;
-
-            if (this.ColorChanged != null)
-            {
-                this.ColorChanged(this, EventArgs.Empty);
-            }
         }
 
         /// <summary>
@@ -515,6 +510,8 @@ namespace EpicEdit.UI.ThemeEdition
         private void BasicColorsClicked(int x)
         {
             this.SetNewColor(x);
+
+            this.ColorChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -572,6 +569,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesPictureBox.Update();
 
             this.SetNewColorSub(color);
+
+            this.ColorChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
