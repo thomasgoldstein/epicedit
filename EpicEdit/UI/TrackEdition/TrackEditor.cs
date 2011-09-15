@@ -366,21 +366,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.InitOnRomLoad();
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
-
-            if (this.paletteFormInitialized)
-            {
-                if (!this.paletteForm.Visible)
-                {
-                    // Reinit the palette editor next time it's shown
-                    this.paletteFormInitialized = false;
-                }
-                else
-                {
-                    // Reinit the palette editor now
-                    this.paletteForm.Init();
-                    this.paletteForm.Editor.Theme = this.track.Theme;
-                }
-            }
+            this.ReInitPaletteEditor();
 
             foreach (var buffer in this.undoRedoBuffers.Values)
             {
@@ -762,6 +748,26 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.paletteForm.Init();
+        }
+
+        private void ReInitPaletteEditor()
+        {
+            if (!this.paletteFormInitialized)
+            {
+                return;
+            }
+
+            if (!this.paletteForm.Visible)
+            {
+                // Reinit the palette editor next time it's shown
+                this.paletteFormInitialized = false;
+            }
+            else
+            {
+                // Reinit the palette editor now
+                this.paletteForm.Init();
+                this.paletteForm.Editor.Theme = this.track.Theme;
+            }
         }
 
         private void PaletteEditorFormColorChanged(object sender, EventArgs e)
