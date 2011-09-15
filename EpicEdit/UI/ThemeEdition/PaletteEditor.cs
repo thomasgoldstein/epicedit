@@ -185,23 +185,6 @@ namespace EpicEdit.Rom.ThemeEdition
         }
 
         /// <summary>
-        /// Catches the user setting the color.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SetColorButtonClick(object sender, EventArgs e)
-        {
-            // Draw the appropriate color back to the panel and update the tooltip
-            RomColor color = this.colorPicker.SelectedColor;
-            this.palette[this.selectedColor] = color;
-            this.panels[this.selectedColor].BackColor = color;
-            this.SetToolTip(this.selectedColor);
-
-            this.palette.Modified = true;
-            this.ColorChanged(this, EventArgs.Empty);
-        }
-
-        /// <summary>
         /// Resets the selected color.
         /// </summary>
         /// <param name="sender"></param>
@@ -241,6 +224,18 @@ namespace EpicEdit.Rom.ThemeEdition
         private void SetCurrentPalette()
         {
             this.Palette = this.Theme.Palettes[(int)this.paletteNumericUpDown.Value];
+        }
+        
+        private void ColorPickerColorChanged(object sender, EventArgs e)
+        {
+            // Draw the appropriate color back to the panel and update the tooltip
+            RomColor color = this.colorPicker.SelectedColor;
+            this.palette[this.selectedColor] = color;
+            this.panels[this.selectedColor].BackColor = color;
+            this.SetToolTip(this.selectedColor);
+
+            this.palette.Modified = true;
+            this.ColorChanged(sender, e);
         }
     }
 }

@@ -42,7 +42,6 @@ namespace EpicEdit.Rom.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.setColorButton = new System.Windows.Forms.Button();
             this.resetSelectedButton = new System.Windows.Forms.Button();
             this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
             this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -50,16 +49,6 @@ namespace EpicEdit.Rom.ThemeEdition
             this.resetAllButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
-            // 
-            // setColorButton
-            // 
-            this.setColorButton.Location = new System.Drawing.Point(339, 204);
-            this.setColorButton.Name = "setColorButton";
-            this.setColorButton.Size = new System.Drawing.Size(75, 23);
-            this.setColorButton.TabIndex = 3;
-            this.setColorButton.Text = "Set Color";
-            this.setColorButton.UseVisualStyleBackColor = true;
-            this.setColorButton.Click += new System.EventHandler(this.SetColorButtonClick);
             // 
             // resetSelectedButton
             // 
@@ -75,8 +64,9 @@ namespace EpicEdit.Rom.ThemeEdition
             // 
             this.colorPicker.Location = new System.Drawing.Point(169, 40);
             this.colorPicker.Name = "colorPicker";
-            this.colorPicker.Size = new System.Drawing.Size(249, 153);
+            this.colorPicker.Size = new System.Drawing.Size(189, 153);
             this.colorPicker.TabIndex = 2;
+            this.colorPicker.ColorChanged += new System.EventHandler<System.EventArgs>(this.ColorPickerColorChanged);
             // 
             // paletteNumericUpDown
             // 
@@ -116,11 +106,10 @@ namespace EpicEdit.Rom.ThemeEdition
             this.Controls.Add(this.resetAllButton);
             this.Controls.Add(this.paletteNumericUpDown);
             this.Controls.Add(this.themeComboBox);
-            this.Controls.Add(this.setColorButton);
             this.Controls.Add(this.resetSelectedButton);
             this.Controls.Add(this.colorPicker);
             this.Name = "PaletteEditor";
-            this.Size = new System.Drawing.Size(420, 230);
+            this.Size = new System.Drawing.Size(360, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
@@ -131,7 +120,6 @@ namespace EpicEdit.Rom.ThemeEdition
         #endregion
 
         private EpicEdit.UI.ThemeEdition.ColorPicker colorPicker;
-        private System.Windows.Forms.Button setColorButton;
         private System.Windows.Forms.Button resetSelectedButton;
     }
 }
