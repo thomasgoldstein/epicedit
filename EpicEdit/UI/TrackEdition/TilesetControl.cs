@@ -154,7 +154,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             Tile[] tileset = this.track.GetRoadTileset();
             this.tilesetDrawer.SetTileset(tileset);
-            this.tilesetPanel.Invalidate();
+            this.tilesetPanel.Refresh();
         }
 
         private void SelectTrackTheme()

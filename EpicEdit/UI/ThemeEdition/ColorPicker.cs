@@ -129,7 +129,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.InvalidateBasicColorsSelection();
             this.selectedBasicColor = this.DrawBasicColorsBitmap(x);
             this.InvalidateBasicColorsSelection();
-            this.basicColorsPictureBox.Update();
+            this.basicColorsPictureBox.Refresh();
 
             this.InitShadesCache();
             RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
@@ -571,7 +571,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.InvalidateShadesSelection();
             RomColor color = this.DrawShadesBitmap(x, y);
             this.InvalidateShadesSelection();
-            this.shadesPictureBox.Update();
+            this.shadesPictureBox.Refresh();
 
             this.SetColorSub(color);
 
