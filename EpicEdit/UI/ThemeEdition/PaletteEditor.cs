@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private Panel[] panels = new Panel[Palette.ColorCount];
 
         /// <summary>
-        /// The tooltips associated with the above panels.
+        /// The tool tips associated with the above panels.
         /// </summary>
         private ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
 
@@ -143,7 +143,7 @@ namespace EpicEdit.Rom.ThemeEdition
         }
 
         /// <summary>
-        /// Sets the tooltip message for a color.
+        /// Sets the tool tip message for a color.
         /// </summary>
         /// <param name="paletteIndex">The index of the palette to reinitialize the message.</param>
         private void SetToolTip(int paletteIndex)
@@ -231,7 +231,7 @@ namespace EpicEdit.Rom.ThemeEdition
         
         private void ColorPickerColorChanged(object sender, EventArgs e)
         {
-            // Draw the appropriate color back to the panel and update the tooltip
+            // Draw the appropriate color back to the panel and update the tool tip
             RomColor color = this.colorPicker.SelectedColor;
             this.palette[this.selectedColor] = color;
             this.panels[this.selectedColor].BackColor = color;
