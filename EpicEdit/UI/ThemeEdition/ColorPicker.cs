@@ -569,7 +569,6 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             this.InvalidateShadesSelection();
-            // Redraw shades and new color
             RomColor color = this.DrawShadesBitmap(x, y);
             this.InvalidateShadesSelection();
             this.shadesPictureBox.Update();
