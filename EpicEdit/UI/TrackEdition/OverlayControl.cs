@@ -292,7 +292,13 @@ namespace EpicEdit.UI.TrackEdition
         public void SetTileset(Tile[] tileset)
         {
             this.overlayDrawer.SetTileset(tileset);
-            this.overlayTilesetPanel.Invalidate();
+            this.overlayTilesetPanel.Refresh();
+        }
+
+        public void UpdateTileset()
+        {
+            Tile[] tileset = this.overlayDrawer.GetTileset();
+            this.SetTileset(tileset);
         }
 
         public void UpdateTileCount(int count)

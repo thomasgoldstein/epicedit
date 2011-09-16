@@ -812,10 +812,10 @@ namespace EpicEdit.UI.TrackEdition
                     int yStart = this.tileClipboardTopLeft.Y;
                     this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
                     this.tilesetControl.UpdateTileset();
-                    this.overlayControl.SetTileset(this.track.GetRoadTileset());
+                    this.overlayControl.UpdateTileset();
                 }
 
-                this.trackDisplay.Invalidate();
+                this.trackDisplay.Refresh();
             }
         }
         #endregion MenuBar
