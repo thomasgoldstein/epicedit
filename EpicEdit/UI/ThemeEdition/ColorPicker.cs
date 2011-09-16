@@ -126,8 +126,16 @@ namespace EpicEdit.UI.ThemeEdition
                 x = this.basicColorsSize.Width - 1;
             }
 
-            RomColor color = this.basicColorsCache.GetPixel(x, 0);
-            this.SetColor(x, color, color);
+            this.InvalidateBasicColorsSelection();
+            this.selectedBasicColor = this.DrawBasicColorsBitmap(x);
+            this.InvalidateBasicColorsSelection();
+            this.basicColorsPictureBox.Update();
+
+            this.InitShadesCache();
+            RomColor shadeColor = this.DrawShadesBitmap(this.selectedShadeLocation.X, this.selectedShadeLocation.Y);
+            this.shadesPictureBox.Refresh();
+
+            this.SetColorSub(shadeColor);
         }
 
         /// <summary>
