@@ -1,4 +1,4 @@
-#region GPL statement
+﻿#region GPL statement
 /*Epic Edit is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, version 3 of the License.
@@ -13,29 +13,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace EpicEdit.UI.ThemeEdition
 {
     /// <summary>
-    /// A theme editor.
+    /// The Form that contains the <see cref="ItemProbaEditor">item probability editor</see>.
     /// </summary>
-    public partial class ThemeEditor : UserControl
+    public partial class ItemProbaEditorForm : Form
     {
-        public ThemeEditor()
+        public ItemProbaEditorForm()
         {
             this.InitializeComponent();
         }
 
-        public void InitOnFirstRomLoad()
+        protected override void OnClosing(CancelEventArgs e)
         {
-            this.InitOnRomLoad();
-            this.Enabled = true;
+            this.Hide();
+            e.Cancel = true;
         }
 
-        public void InitOnRomLoad()
+        public void Init()
         {
-            this.itemProbaEditor.InitOnRomLoad();
+            this.Editor.Init();
         }
     }
 }

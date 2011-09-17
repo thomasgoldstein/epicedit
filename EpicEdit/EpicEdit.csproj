@@ -168,6 +168,10 @@
     <Compile Include="UI\ThemeEdition\ItemProbaEditor.Designer.cs">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.cs" />
+    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.Designer.cs">
+      <DependentUpon>ItemProbaEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ThemeEdition\PaletteEditor.cs" />
     <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
@@ -175,12 +179,6 @@
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.cs" />
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ThemeEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ThemeEditor.Designer.cs">
-      <DependentUpon>ThemeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tools\TilePanel.cs" />
     <Compile Include="UI\Tools\EpicPanel.cs">
@@ -258,14 +256,14 @@
     <EmbeddedResource Include="UI\ThemeEdition\ItemProbaEditor.resx">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaEditorForm.resx">
+      <DependentUpon>ItemProbaEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditorForm.resx">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\ThemeEditor.resx">
-      <DependentUpon>ThemeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\AIControl.resx">
       <DependentUpon>AIControl.cs</DependentUpon>

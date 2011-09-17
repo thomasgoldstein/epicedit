@@ -269,15 +269,28 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private UndoRedoBuffer undoRedoBuffer
         {
-            get
-            {
-                return this.undoRedoBuffers[this.track];
-            }
+            get { return this.undoRedoBuffers[this.track]; }
         }
 
+        /// <summary>
+        /// Determines whether the palette editor form has been initialized.
+        /// </summary>
         private bool paletteFormInitialized;
 
+        /// <summary>
+        /// The color palette editor form.
+        /// </summary>
         private PaletteEditorForm paletteForm;
+
+        /// <summary>
+        /// Determines whether the item probability editor form has been initialized.
+        /// </summary>
+        private bool itemProbaFormInitialized;
+
+        /// <summary>
+        /// The item probability editor form.
+        /// </summary>
+        private ItemProbaEditorForm itemProbaForm;
         #endregion Private members
 
         #region Events
@@ -367,6 +380,7 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
             this.ReInitPaletteEditor();
+            this.ReInitItemProbaEditor();
 
             foreach (var buffer in this.undoRedoBuffers.Values)
             {
@@ -833,6 +847,47 @@ namespace EpicEdit.UI.TrackEdition
                 }
 
                 this.trackDisplay.Refresh();
+            }
+        }
+
+        private void MenuBarItemProbaEditorRequested(object sender, EventArgs e)
+        {
+            if (!this.itemProbaFormInitialized)
+            {
+                this.InitItemProbaEditorForm();
+            }
+
+            this.itemProbaForm.Show();
+        }
+
+        private void InitItemProbaEditorForm()
+        {
+            if (this.itemProbaForm == null)
+            {
+                this.itemProbaForm = new ItemProbaEditorForm();
+                this.itemProbaForm.Owner = this.ParentForm;
+            }
+
+            this.itemProbaForm.Init();
+            this.itemProbaFormInitialized = true;
+        }
+
+        private void ReInitItemProbaEditor()
+        {
+            if (!this.itemProbaFormInitialized)
+            {
+                return;
+            }
+
+            if (!this.itemProbaForm.Visible)
+            {
+                // Reinit the item proba editor next time it's shown
+                this.itemProbaFormInitialized = false;
+            }
+            else
+            {
+                // Reinit the item proba editor now
+                this.itemProbaForm.Init();
             }
         }
         #endregion MenuBar
