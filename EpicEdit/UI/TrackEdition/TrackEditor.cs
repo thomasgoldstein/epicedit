@@ -744,8 +744,12 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitPaletteEditorForm();
             }
 
-            this.paletteForm.Show();
-            this.paletteForm.Editor.Theme = this.track.Theme;
+            this.paletteForm.Visible = !this.paletteForm.Visible;
+
+            if (this.paletteForm.Visible)
+            {
+                this.paletteForm.Editor.Theme = this.track.Theme;
+            }
         }
 
         private void InitPaletteEditorForm()
@@ -857,7 +861,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitItemProbaEditorForm();
             }
 
-            this.itemProbaForm.Show();
+            this.itemProbaForm.Visible = !this.itemProbaForm.Visible;
         }
 
         private void InitItemProbaEditorForm()
