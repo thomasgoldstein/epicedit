@@ -33,6 +33,13 @@ namespace EpicEdit.UI.ThemeEdition
             remove { this.Editor.ColorChanged -= value; }
         }
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ColorsChanged
+        {
+            add { this.Editor.ColorsChanged += value; }
+            remove { this.Editor.ColorsChanged -= value; }
+        }
+
         public PaletteEditorForm()
         {
             this.InitializeComponent();

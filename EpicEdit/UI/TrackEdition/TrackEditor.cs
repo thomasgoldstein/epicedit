@@ -741,6 +741,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.paletteForm = new PaletteEditorForm();
                 this.paletteForm.Owner = this.ParentForm;
                 this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
+                this.paletteForm.ColorsChanged += this.PaletteEditorFormColorsChanged;
                 this.trackDisplay.ColorSelected += this.TileColorSelected;
                 this.tilesetControl.ColorSelected += this.TileColorSelected;
                 this.overlayControl.ColorSelected += this.TileColorSelected;
@@ -773,7 +774,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void PaletteEditorFormColorChanged(object sender, EventArgs e)
         {
-            this.UpdateTiles();
+            this.UpdateTiles(false);
+        }
+
+        private void PaletteEditorFormColorsChanged(object sender, EventArgs e)
+        {
+            this.UpdateTiles(true);
         }
 
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
@@ -786,7 +792,8 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// If the user changed a color palette, the tiles need to be updated to reflect this.
         /// </summary>
-        private void UpdateTiles()
+        /// <param name="wholePalette">Determines whether the whole palette has been updated, or only a single color.</param>
+        private void UpdateTiles(bool wholePalette)
         {
             Theme theme = this.paletteForm.Editor.Theme;
             Palette palette = this.paletteForm.Editor.Palette;
@@ -806,8 +813,18 @@ namespace EpicEdit.UI.TrackEdition
                     // The updated color belongs to the theme of the current track,
                     // and is not a sprite color palette, so caches need to be updated
 
-                    theme.UpdateTiles(palette);
-                    this.trackDrawer.ReloadPalette(palette);
+                    if (wholePalette)
+                    {
+                        theme.UpdateTiles(palette);
+                        this.trackDrawer.ReloadPalette(palette);
+                    }
+                    else // Optimized cache updates, for a single color change
+                    {
+                        int colorIndex = this.paletteForm.Editor.SelectedColorIndex;
+                        bool[] tileUpdates = theme.UpdateTiles(palette, colorIndex);
+                        this.trackDrawer.ReloadPalette(tileUpdates);
+                    }
+
                     int xStart = this.tileClipboardTopLeft.X;
                     int yStart = this.tileClipboardTopLeft.Y;
                     this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);

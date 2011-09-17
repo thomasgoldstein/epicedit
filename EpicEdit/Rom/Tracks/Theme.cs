@@ -108,6 +108,27 @@ namespace EpicEdit.Rom.Tracks
             // TODO: Update background tiles
         }
 
+        public bool[] UpdateTiles(Palette palette, int colorIndex)
+        {
+            bool[] tileUpdates = new bool[this.roadTileset.Length];
+            int index = 0;
+
+            foreach (Tile tile in this.roadTileset)
+            {
+                bool needsUpdating = tile.Palette == palette && tile.Contains(colorIndex);
+                tileUpdates[index++] = needsUpdating;
+
+                if (needsUpdating)
+                {
+                    tile.UpdateBitmap();
+                }
+            }
+
+            // TODO: Update background tiles
+
+            return tileUpdates;
+        }
+
         public override string ToString()
         {
             return this.Name;

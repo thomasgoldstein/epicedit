@@ -28,6 +28,9 @@ namespace EpicEdit.Rom.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged;
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ColorsChanged;
+
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
@@ -61,6 +64,14 @@ namespace EpicEdit.Rom.ThemeEdition
         /// Index of the selected color from the palette.
         /// </summary>
         private int selectedColor = 0;
+
+        /// <summary>
+        /// Gets the index of the selected color from the palette.
+        /// </summary>
+        public int SelectedColorIndex
+        {
+            get { return this.selectedColor; }
+        }
 
         /// <summary>
         /// The current color palette.
@@ -211,7 +222,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.palette.Reset();
             this.Palette = this.palette;
 
-            this.ColorChanged(this, EventArgs.Empty);
+            this.ColorsChanged(this, EventArgs.Empty);
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
