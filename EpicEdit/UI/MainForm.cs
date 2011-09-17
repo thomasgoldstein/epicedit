@@ -165,7 +165,6 @@ namespace EpicEdit.UI
             {
                 Context.Game = new Game(filePath);
                 this.trackEditor.InitOnFirstRomLoad();
-                this.themeEditor.InitOnFirstRomLoad();
             }
             else
             {
@@ -173,7 +172,6 @@ namespace EpicEdit.UI
                 Context.Game = null;
                 Context.Game = new Game(filePath);
                 this.trackEditor.InitOnRomLoad();
-                this.themeEditor.InitOnRomLoad();
             }
 
             this.UpdateApplicationTitle();

@@ -14,29 +14,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.ThemeEdition
 {
-    partial class ThemeEditor
+    partial class ItemProbaEditorForm
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
+        
         /// <summary>
-        /// Disposes resources used by the control.
+        /// Disposes resources used by the form.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (components != null)
-                {
+            if (disposing) {
+                if (components != null) {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
         }
-
+        
         /// <summary>
         /// This method is required for Windows Forms designer support.
         /// Do not change the method contents inside the source code editor. The Forms designer might
@@ -44,24 +42,30 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.itemProbaEditor = new EpicEdit.UI.ThemeEdition.ItemProbaEditor();
+            this.Editor = new EpicEdit.UI.ThemeEdition.ItemProbaEditor();
             this.SuspendLayout();
             // 
-            // itemProbaEditor
+            // Editor
             // 
-            this.itemProbaEditor.Location = new System.Drawing.Point(6, 6);
-            this.itemProbaEditor.Name = "itemProbaEditor";
-            this.itemProbaEditor.Size = new System.Drawing.Size(430, 270);
-            this.itemProbaEditor.TabIndex = 0;
+            this.Editor.Location = new System.Drawing.Point(0, 0);
+            this.Editor.Name = "Editor";
+            this.Editor.Size = new System.Drawing.Size(420, 250);
+            this.Editor.TabIndex = 0;
             // 
-            // ThemeEditor
+            // ItemProbaEditorForm
             // 
-            this.AutoScroll = true;
-            this.Controls.Add(this.itemProbaEditor);
-            this.Name = "ThemeEditor";
-            this.Size = new System.Drawing.Size(596, 554);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(192, 166);
+            this.Controls.Add(this.Editor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "ItemProbaEditorForm";
+            this.ShowInTaskbar = false;
+            this.Text = "Item probability editor";
             this.ResumeLayout(false);
         }
-        private EpicEdit.UI.ThemeEdition.ItemProbaEditor itemProbaEditor;
+        public EpicEdit.UI.ThemeEdition.ItemProbaEditor Editor;
     }
 }

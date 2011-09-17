@@ -58,6 +58,7 @@ namespace EpicEdit.UI
             this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.itemProbaToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -96,6 +97,7 @@ namespace EpicEdit.UI
                                     this.fullScreenToolStripButton,
                                     this.toolStripSeparator2,
                                     this.paletteToolStripButton,
+                                    this.itemProbaToolStripButton,
                                     this.toolStripSeparator3,
                                     this.aboutToolStripLabel,
                                     this.toolStripSeparator4,
@@ -235,6 +237,18 @@ namespace EpicEdit.UI
             this.paletteToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.paletteToolStripButton.Text = "Color palette editor";
             this.paletteToolStripButton.Click += new System.EventHandler(this.PaletteToolStripButtonClick);
+            // 
+            // itemProbaToolStripButton
+            // 
+            this.itemProbaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.itemProbaToolStripButton.Enabled = false;
+            this.itemProbaToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("itemProbaToolStripButton.Image")));
+            this.itemProbaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.itemProbaToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.itemProbaToolStripButton.Name = "itemProbaToolStripButton";
+            this.itemProbaToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.itemProbaToolStripButton.Text = "Item probability editor";
+            this.itemProbaToolStripButton.Click += new System.EventHandler(this.ItemProbaToolStripButtonClick);
             // 
             // toolStripSeparator3
             // 
@@ -409,6 +423,7 @@ namespace EpicEdit.UI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripButton itemProbaToolStripButton;
         private System.Windows.Forms.ToolStrip menuToolStrip;
         private System.Windows.Forms.ToolStripButton paletteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

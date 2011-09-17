@@ -44,7 +44,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.modeComboBox = new System.Windows.Forms.ComboBox();
-            this.itemGroupBox = new System.Windows.Forms.GroupBox();
             this.totalPctLabel = new System.Windows.Forms.Label();
             this.lightningPctLabel = new System.Windows.Forms.Label();
             this.coinsPctLabel = new System.Windows.Forms.Label();
@@ -88,7 +87,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherLabel = new System.Windows.Forms.Label();
             this.mushroomLabel = new System.Windows.Forms.Label();
             this.lapRankComboBox = new System.Windows.Forms.ComboBox();
-            this.itemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lightningPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coinsPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostPictureBox)).BeginInit();
@@ -112,7 +110,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.themeComboBox.FormattingEnabled = true;
-            this.themeComboBox.Location = new System.Drawing.Point(124, 20);
+            this.themeComboBox.Location = new System.Drawing.Point(119, 6);
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(182, 21);
             this.themeComboBox.TabIndex = 1;
@@ -122,69 +120,15 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.modeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.modeComboBox.FormattingEnabled = true;
-            this.modeComboBox.Location = new System.Drawing.Point(11, 20);
+            this.modeComboBox.Location = new System.Drawing.Point(6, 6);
             this.modeComboBox.Name = "modeComboBox";
             this.modeComboBox.Size = new System.Drawing.Size(107, 21);
             this.modeComboBox.TabIndex = 0;
             this.modeComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeComboBoxSelectedIndexChanged);
             // 
-            // itemGroupBox
-            // 
-            this.itemGroupBox.Controls.Add(this.totalPctLabel);
-            this.itemGroupBox.Controls.Add(this.lightningPctLabel);
-            this.itemGroupBox.Controls.Add(this.coinsPctLabel);
-            this.itemGroupBox.Controls.Add(this.ghostPctLabel);
-            this.itemGroupBox.Controls.Add(this.redPctLabel);
-            this.itemGroupBox.Controls.Add(this.greenPctLabel);
-            this.itemGroupBox.Controls.Add(this.bananaPctLabel);
-            this.itemGroupBox.Controls.Add(this.starPctLabel);
-            this.itemGroupBox.Controls.Add(this.featherPctLabel);
-            this.itemGroupBox.Controls.Add(this.mushroomPctLabel);
-            this.itemGroupBox.Controls.Add(this.lightningPictureBox);
-            this.itemGroupBox.Controls.Add(this.coinsPictureBox);
-            this.itemGroupBox.Controls.Add(this.ghostPictureBox);
-            this.itemGroupBox.Controls.Add(this.redPictureBox);
-            this.itemGroupBox.Controls.Add(this.greenPictureBox);
-            this.itemGroupBox.Controls.Add(this.bananaPictureBox);
-            this.itemGroupBox.Controls.Add(this.starPictureBox);
-            this.itemGroupBox.Controls.Add(this.featherPictureBox);
-            this.itemGroupBox.Controls.Add(this.mushroomPictureBox);
-            this.itemGroupBox.Controls.Add(this.resetButton);
-            this.itemGroupBox.Controls.Add(this.itemBoxDisplayOptionLabel);
-            this.itemGroupBox.Controls.Add(this.modeComboBox);
-            this.itemGroupBox.Controls.Add(this.itemBoxDisplayOption);
-            this.itemGroupBox.Controls.Add(this.totalValue);
-            this.itemGroupBox.Controls.Add(this.lightningValue);
-            this.itemGroupBox.Controls.Add(this.totalLabel);
-            this.itemGroupBox.Controls.Add(this.coinsNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.ghostNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.redNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.greenNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.starNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.bananaNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.featherNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.mushroomNumericUpDown);
-            this.itemGroupBox.Controls.Add(this.lightningLabel);
-            this.itemGroupBox.Controls.Add(this.coinsLabel);
-            this.itemGroupBox.Controls.Add(this.ghostLabel);
-            this.itemGroupBox.Controls.Add(this.redLabel);
-            this.itemGroupBox.Controls.Add(this.greenLabel);
-            this.itemGroupBox.Controls.Add(this.bananaLabel);
-            this.itemGroupBox.Controls.Add(this.starLabel);
-            this.itemGroupBox.Controls.Add(this.featherLabel);
-            this.itemGroupBox.Controls.Add(this.mushroomLabel);
-            this.itemGroupBox.Controls.Add(this.lapRankComboBox);
-            this.itemGroupBox.Controls.Add(this.themeComboBox);
-            this.itemGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.itemGroupBox.Name = "itemGroupBox";
-            this.itemGroupBox.Size = new System.Drawing.Size(430, 270);
-            this.itemGroupBox.TabIndex = 3;
-            this.itemGroupBox.TabStop = false;
-            this.itemGroupBox.Text = "Item probabilities";
-            // 
             // totalPctLabel
             // 
-            this.totalPctLabel.Location = new System.Drawing.Point(373, 166);
+            this.totalPctLabel.Location = new System.Drawing.Point(368, 152);
             this.totalPctLabel.Name = "totalPctLabel";
             this.totalPctLabel.Size = new System.Drawing.Size(50, 13);
             this.totalPctLabel.TabIndex = 59;
@@ -192,7 +136,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // lightningPctLabel
             // 
-            this.lightningPctLabel.Location = new System.Drawing.Point(373, 140);
+            this.lightningPctLabel.Location = new System.Drawing.Point(368, 126);
             this.lightningPctLabel.Name = "lightningPctLabel";
             this.lightningPctLabel.Size = new System.Drawing.Size(50, 13);
             this.lightningPctLabel.TabIndex = 58;
@@ -200,7 +144,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // coinsPctLabel
             // 
-            this.coinsPctLabel.Location = new System.Drawing.Point(373, 114);
+            this.coinsPctLabel.Location = new System.Drawing.Point(368, 100);
             this.coinsPctLabel.Name = "coinsPctLabel";
             this.coinsPctLabel.Size = new System.Drawing.Size(50, 13);
             this.coinsPctLabel.TabIndex = 57;
@@ -208,7 +152,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ghostPctLabel
             // 
-            this.ghostPctLabel.Location = new System.Drawing.Point(373, 88);
+            this.ghostPctLabel.Location = new System.Drawing.Point(368, 74);
             this.ghostPctLabel.Name = "ghostPctLabel";
             this.ghostPctLabel.Size = new System.Drawing.Size(50, 13);
             this.ghostPctLabel.TabIndex = 56;
@@ -216,7 +160,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // redPctLabel
             // 
-            this.redPctLabel.Location = new System.Drawing.Point(373, 62);
+            this.redPctLabel.Location = new System.Drawing.Point(368, 48);
             this.redPctLabel.Name = "redPctLabel";
             this.redPctLabel.Size = new System.Drawing.Size(50, 13);
             this.redPctLabel.TabIndex = 55;
@@ -224,7 +168,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // greenPctLabel
             // 
-            this.greenPctLabel.Location = new System.Drawing.Point(154, 166);
+            this.greenPctLabel.Location = new System.Drawing.Point(149, 152);
             this.greenPctLabel.Name = "greenPctLabel";
             this.greenPctLabel.Size = new System.Drawing.Size(50, 13);
             this.greenPctLabel.TabIndex = 54;
@@ -232,7 +176,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // bananaPctLabel
             // 
-            this.bananaPctLabel.Location = new System.Drawing.Point(154, 140);
+            this.bananaPctLabel.Location = new System.Drawing.Point(149, 126);
             this.bananaPctLabel.Name = "bananaPctLabel";
             this.bananaPctLabel.Size = new System.Drawing.Size(50, 13);
             this.bananaPctLabel.TabIndex = 53;
@@ -240,7 +184,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // starPctLabel
             // 
-            this.starPctLabel.Location = new System.Drawing.Point(154, 114);
+            this.starPctLabel.Location = new System.Drawing.Point(149, 100);
             this.starPctLabel.Name = "starPctLabel";
             this.starPctLabel.Size = new System.Drawing.Size(50, 13);
             this.starPctLabel.TabIndex = 52;
@@ -248,7 +192,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // featherPctLabel
             // 
-            this.featherPctLabel.Location = new System.Drawing.Point(154, 88);
+            this.featherPctLabel.Location = new System.Drawing.Point(149, 74);
             this.featherPctLabel.Name = "featherPctLabel";
             this.featherPctLabel.Size = new System.Drawing.Size(50, 13);
             this.featherPctLabel.TabIndex = 51;
@@ -256,7 +200,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // mushroomPctLabel
             // 
-            this.mushroomPctLabel.Location = new System.Drawing.Point(154, 62);
+            this.mushroomPctLabel.Location = new System.Drawing.Point(149, 48);
             this.mushroomPctLabel.Name = "mushroomPctLabel";
             this.mushroomPctLabel.Size = new System.Drawing.Size(50, 13);
             this.mushroomPctLabel.TabIndex = 50;
@@ -266,7 +210,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.lightningPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.lightningPictureBox.Image = null;
-            this.lightningPictureBox.Location = new System.Drawing.Point(302, 140);
+            this.lightningPictureBox.Location = new System.Drawing.Point(297, 126);
             this.lightningPictureBox.Name = "lightningPictureBox";
             this.lightningPictureBox.Size = new System.Drawing.Size(16, 16);
             this.lightningPictureBox.TabIndex = 49;
@@ -276,7 +220,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.coinsPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.coinsPictureBox.Image = null;
-            this.coinsPictureBox.Location = new System.Drawing.Point(302, 114);
+            this.coinsPictureBox.Location = new System.Drawing.Point(297, 100);
             this.coinsPictureBox.Name = "coinsPictureBox";
             this.coinsPictureBox.Size = new System.Drawing.Size(16, 16);
             this.coinsPictureBox.TabIndex = 48;
@@ -286,7 +230,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.ghostPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.ghostPictureBox.Image = null;
-            this.ghostPictureBox.Location = new System.Drawing.Point(302, 88);
+            this.ghostPictureBox.Location = new System.Drawing.Point(297, 74);
             this.ghostPictureBox.Name = "ghostPictureBox";
             this.ghostPictureBox.Size = new System.Drawing.Size(16, 16);
             this.ghostPictureBox.TabIndex = 47;
@@ -296,7 +240,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.redPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.redPictureBox.Image = null;
-            this.redPictureBox.Location = new System.Drawing.Point(302, 62);
+            this.redPictureBox.Location = new System.Drawing.Point(297, 48);
             this.redPictureBox.Name = "redPictureBox";
             this.redPictureBox.Size = new System.Drawing.Size(16, 16);
             this.redPictureBox.TabIndex = 46;
@@ -306,7 +250,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.greenPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.greenPictureBox.Image = null;
-            this.greenPictureBox.Location = new System.Drawing.Point(83, 166);
+            this.greenPictureBox.Location = new System.Drawing.Point(78, 152);
             this.greenPictureBox.Name = "greenPictureBox";
             this.greenPictureBox.Size = new System.Drawing.Size(16, 16);
             this.greenPictureBox.TabIndex = 45;
@@ -316,7 +260,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.bananaPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.bananaPictureBox.Image = null;
-            this.bananaPictureBox.Location = new System.Drawing.Point(83, 140);
+            this.bananaPictureBox.Location = new System.Drawing.Point(78, 126);
             this.bananaPictureBox.Name = "bananaPictureBox";
             this.bananaPictureBox.Size = new System.Drawing.Size(16, 16);
             this.bananaPictureBox.TabIndex = 44;
@@ -326,7 +270,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.starPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.starPictureBox.Image = null;
-            this.starPictureBox.Location = new System.Drawing.Point(83, 114);
+            this.starPictureBox.Location = new System.Drawing.Point(78, 100);
             this.starPictureBox.Name = "starPictureBox";
             this.starPictureBox.Size = new System.Drawing.Size(16, 16);
             this.starPictureBox.TabIndex = 43;
@@ -336,7 +280,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.featherPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.featherPictureBox.Image = null;
-            this.featherPictureBox.Location = new System.Drawing.Point(83, 88);
+            this.featherPictureBox.Location = new System.Drawing.Point(78, 74);
             this.featherPictureBox.Name = "featherPictureBox";
             this.featherPictureBox.Size = new System.Drawing.Size(16, 16);
             this.featherPictureBox.TabIndex = 42;
@@ -346,7 +290,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.mushroomPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.mushroomPictureBox.Image = null;
-            this.mushroomPictureBox.Location = new System.Drawing.Point(83, 62);
+            this.mushroomPictureBox.Location = new System.Drawing.Point(78, 48);
             this.mushroomPictureBox.Name = "mushroomPictureBox";
             this.mushroomPictureBox.Size = new System.Drawing.Size(16, 16);
             this.mushroomPictureBox.TabIndex = 41;
@@ -354,7 +298,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(11, 234);
+            this.resetButton.Location = new System.Drawing.Point(6, 220);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 40;
@@ -365,7 +309,7 @@ namespace EpicEdit.UI.ThemeEdition
             // itemBoxDisplayOptionLabel
             // 
             this.itemBoxDisplayOptionLabel.AutoSize = true;
-            this.itemBoxDisplayOptionLabel.Location = new System.Drawing.Point(59, 205);
+            this.itemBoxDisplayOptionLabel.Location = new System.Drawing.Point(54, 191);
             this.itemBoxDisplayOptionLabel.Name = "itemBoxDisplayOptionLabel";
             this.itemBoxDisplayOptionLabel.Size = new System.Drawing.Size(114, 13);
             this.itemBoxDisplayOptionLabel.TabIndex = 39;
@@ -375,7 +319,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.itemBoxDisplayOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemBoxDisplayOption.FormattingEnabled = true;
-            this.itemBoxDisplayOption.Location = new System.Drawing.Point(199, 202);
+            this.itemBoxDisplayOption.Location = new System.Drawing.Point(194, 188);
             this.itemBoxDisplayOption.Name = "itemBoxDisplayOption";
             this.itemBoxDisplayOption.Size = new System.Drawing.Size(130, 21);
             this.itemBoxDisplayOption.TabIndex = 38;
@@ -385,7 +329,7 @@ namespace EpicEdit.UI.ThemeEdition
             // totalValue
             // 
             this.totalValue.AutoSize = true;
-            this.totalValue.Location = new System.Drawing.Point(335, 166);
+            this.totalValue.Location = new System.Drawing.Point(330, 152);
             this.totalValue.Name = "totalValue";
             this.totalValue.Size = new System.Drawing.Size(0, 13);
             this.totalValue.TabIndex = 37;
@@ -393,7 +337,7 @@ namespace EpicEdit.UI.ThemeEdition
             // lightningValue
             // 
             this.lightningValue.AutoSize = true;
-            this.lightningValue.Location = new System.Drawing.Point(335, 140);
+            this.lightningValue.Location = new System.Drawing.Point(330, 126);
             this.lightningValue.Name = "lightningValue";
             this.lightningValue.Size = new System.Drawing.Size(0, 13);
             this.lightningValue.TabIndex = 36;
@@ -401,7 +345,7 @@ namespace EpicEdit.UI.ThemeEdition
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(235, 166);
+            this.totalLabel.Location = new System.Drawing.Point(230, 152);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(31, 13);
             this.totalLabel.TabIndex = 35;
@@ -409,7 +353,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // coinsNumericUpDown
             // 
-            this.coinsNumericUpDown.Location = new System.Drawing.Point(327, 112);
+            this.coinsNumericUpDown.Location = new System.Drawing.Point(322, 98);
             this.coinsNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -423,7 +367,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ghostNumericUpDown
             // 
-            this.ghostNumericUpDown.Location = new System.Drawing.Point(327, 86);
+            this.ghostNumericUpDown.Location = new System.Drawing.Point(322, 72);
             this.ghostNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -437,7 +381,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // redNumericUpDown
             // 
-            this.redNumericUpDown.Location = new System.Drawing.Point(327, 60);
+            this.redNumericUpDown.Location = new System.Drawing.Point(322, 46);
             this.redNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -451,7 +395,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // greenNumericUpDown
             // 
-            this.greenNumericUpDown.Location = new System.Drawing.Point(108, 164);
+            this.greenNumericUpDown.Location = new System.Drawing.Point(103, 150);
             this.greenNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -465,7 +409,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // starNumericUpDown
             // 
-            this.starNumericUpDown.Location = new System.Drawing.Point(108, 112);
+            this.starNumericUpDown.Location = new System.Drawing.Point(103, 98);
             this.starNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -479,7 +423,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // bananaNumericUpDown
             // 
-            this.bananaNumericUpDown.Location = new System.Drawing.Point(108, 138);
+            this.bananaNumericUpDown.Location = new System.Drawing.Point(103, 124);
             this.bananaNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -493,7 +437,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // featherNumericUpDown
             // 
-            this.featherNumericUpDown.Location = new System.Drawing.Point(108, 86);
+            this.featherNumericUpDown.Location = new System.Drawing.Point(103, 72);
             this.featherNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -507,7 +451,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // mushroomNumericUpDown
             // 
-            this.mushroomNumericUpDown.Location = new System.Drawing.Point(108, 60);
+            this.mushroomNumericUpDown.Location = new System.Drawing.Point(103, 46);
             this.mushroomNumericUpDown.Maximum = new decimal(new int[] {
                                     32,
                                     0,
@@ -522,7 +466,7 @@ namespace EpicEdit.UI.ThemeEdition
             // lightningLabel
             // 
             this.lightningLabel.AutoSize = true;
-            this.lightningLabel.Location = new System.Drawing.Point(235, 140);
+            this.lightningLabel.Location = new System.Drawing.Point(230, 126);
             this.lightningLabel.Name = "lightningLabel";
             this.lightningLabel.Size = new System.Drawing.Size(50, 13);
             this.lightningLabel.TabIndex = 26;
@@ -531,7 +475,7 @@ namespace EpicEdit.UI.ThemeEdition
             // coinsLabel
             // 
             this.coinsLabel.AutoSize = true;
-            this.coinsLabel.Location = new System.Drawing.Point(235, 114);
+            this.coinsLabel.Location = new System.Drawing.Point(230, 100);
             this.coinsLabel.Name = "coinsLabel";
             this.coinsLabel.Size = new System.Drawing.Size(33, 13);
             this.coinsLabel.TabIndex = 25;
@@ -540,7 +484,7 @@ namespace EpicEdit.UI.ThemeEdition
             // ghostLabel
             // 
             this.ghostLabel.AutoSize = true;
-            this.ghostLabel.Location = new System.Drawing.Point(235, 88);
+            this.ghostLabel.Location = new System.Drawing.Point(230, 74);
             this.ghostLabel.Name = "ghostLabel";
             this.ghostLabel.Size = new System.Drawing.Size(35, 13);
             this.ghostLabel.TabIndex = 24;
@@ -549,7 +493,7 @@ namespace EpicEdit.UI.ThemeEdition
             // redLabel
             // 
             this.redLabel.AutoSize = true;
-            this.redLabel.Location = new System.Drawing.Point(235, 62);
+            this.redLabel.Location = new System.Drawing.Point(230, 48);
             this.redLabel.Name = "redLabel";
             this.redLabel.Size = new System.Drawing.Size(51, 13);
             this.redLabel.TabIndex = 23;
@@ -558,7 +502,7 @@ namespace EpicEdit.UI.ThemeEdition
             // greenLabel
             // 
             this.greenLabel.AutoSize = true;
-            this.greenLabel.Location = new System.Drawing.Point(11, 166);
+            this.greenLabel.Location = new System.Drawing.Point(6, 152);
             this.greenLabel.Name = "greenLabel";
             this.greenLabel.Size = new System.Drawing.Size(60, 13);
             this.greenLabel.TabIndex = 22;
@@ -567,7 +511,7 @@ namespace EpicEdit.UI.ThemeEdition
             // bananaLabel
             // 
             this.bananaLabel.AutoSize = true;
-            this.bananaLabel.Location = new System.Drawing.Point(11, 140);
+            this.bananaLabel.Location = new System.Drawing.Point(6, 126);
             this.bananaLabel.Name = "bananaLabel";
             this.bananaLabel.Size = new System.Drawing.Size(44, 13);
             this.bananaLabel.TabIndex = 21;
@@ -576,7 +520,7 @@ namespace EpicEdit.UI.ThemeEdition
             // starLabel
             // 
             this.starLabel.AutoSize = true;
-            this.starLabel.Location = new System.Drawing.Point(11, 114);
+            this.starLabel.Location = new System.Drawing.Point(6, 100);
             this.starLabel.Name = "starLabel";
             this.starLabel.Size = new System.Drawing.Size(26, 13);
             this.starLabel.TabIndex = 20;
@@ -585,7 +529,7 @@ namespace EpicEdit.UI.ThemeEdition
             // featherLabel
             // 
             this.featherLabel.AutoSize = true;
-            this.featherLabel.Location = new System.Drawing.Point(11, 88);
+            this.featherLabel.Location = new System.Drawing.Point(6, 74);
             this.featherLabel.Name = "featherLabel";
             this.featherLabel.Size = new System.Drawing.Size(43, 13);
             this.featherLabel.TabIndex = 19;
@@ -594,7 +538,7 @@ namespace EpicEdit.UI.ThemeEdition
             // mushroomLabel
             // 
             this.mushroomLabel.AutoSize = true;
-            this.mushroomLabel.Location = new System.Drawing.Point(11, 62);
+            this.mushroomLabel.Location = new System.Drawing.Point(6, 48);
             this.mushroomLabel.Name = "mushroomLabel";
             this.mushroomLabel.Size = new System.Drawing.Size(56, 13);
             this.mushroomLabel.TabIndex = 18;
@@ -604,7 +548,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.lapRankComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.lapRankComboBox.FormattingEnabled = true;
-            this.lapRankComboBox.Location = new System.Drawing.Point(312, 20);
+            this.lapRankComboBox.Location = new System.Drawing.Point(307, 6);
             this.lapRankComboBox.Name = "lapRankComboBox";
             this.lapRankComboBox.Size = new System.Drawing.Size(107, 21);
             this.lapRankComboBox.TabIndex = 2;
@@ -613,11 +557,53 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ItemProbaEditor
             // 
-            this.Controls.Add(this.itemGroupBox);
+            this.Controls.Add(this.totalPctLabel);
+            this.Controls.Add(this.lightningPctLabel);
+            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.coinsPctLabel);
+            this.Controls.Add(this.themeComboBox);
+            this.Controls.Add(this.ghostPctLabel);
+            this.Controls.Add(this.lapRankComboBox);
+            this.Controls.Add(this.redPctLabel);
+            this.Controls.Add(this.mushroomLabel);
+            this.Controls.Add(this.greenPctLabel);
+            this.Controls.Add(this.featherLabel);
+            this.Controls.Add(this.bananaPctLabel);
+            this.Controls.Add(this.starLabel);
+            this.Controls.Add(this.starPctLabel);
+            this.Controls.Add(this.bananaLabel);
+            this.Controls.Add(this.featherPctLabel);
+            this.Controls.Add(this.greenLabel);
+            this.Controls.Add(this.mushroomPctLabel);
+            this.Controls.Add(this.redLabel);
+            this.Controls.Add(this.lightningPictureBox);
+            this.Controls.Add(this.ghostLabel);
+            this.Controls.Add(this.coinsPictureBox);
+            this.Controls.Add(this.coinsLabel);
+            this.Controls.Add(this.ghostPictureBox);
+            this.Controls.Add(this.lightningLabel);
+            this.Controls.Add(this.redPictureBox);
+            this.Controls.Add(this.mushroomNumericUpDown);
+            this.Controls.Add(this.greenPictureBox);
+            this.Controls.Add(this.featherNumericUpDown);
+            this.Controls.Add(this.bananaPictureBox);
+            this.Controls.Add(this.bananaNumericUpDown);
+            this.Controls.Add(this.starPictureBox);
+            this.Controls.Add(this.starNumericUpDown);
+            this.Controls.Add(this.featherPictureBox);
+            this.Controls.Add(this.greenNumericUpDown);
+            this.Controls.Add(this.mushroomPictureBox);
+            this.Controls.Add(this.redNumericUpDown);
+            this.Controls.Add(this.ghostNumericUpDown);
+            this.Controls.Add(this.itemBoxDisplayOptionLabel);
+            this.Controls.Add(this.coinsNumericUpDown);
+            this.Controls.Add(this.modeComboBox);
+            this.Controls.Add(this.totalLabel);
+            this.Controls.Add(this.itemBoxDisplayOption);
+            this.Controls.Add(this.lightningValue);
+            this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
-            this.Size = new System.Drawing.Size(430, 270);
-            this.itemGroupBox.ResumeLayout(false);
-            this.itemGroupBox.PerformLayout();
+            this.Size = new System.Drawing.Size(420, 250);
             ((System.ComponentModel.ISupportInitialize)(this.lightningPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coinsPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostPictureBox)).EndInit();
@@ -636,6 +622,7 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.featherNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
         private System.Windows.Forms.Label mushroomPctLabel;
         private System.Windows.Forms.Label featherPctLabel;
@@ -657,7 +644,6 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.Tools.EpicPictureBox lightningPictureBox;
         private EpicEdit.UI.Tools.EpicPictureBox mushroomPictureBox;
         private System.Windows.Forms.ComboBox lapRankComboBox;
-        private System.Windows.Forms.GroupBox itemGroupBox;
         private System.Windows.Forms.ComboBox modeComboBox;
         private System.Windows.Forms.ComboBox themeComboBox;
         private System.Windows.Forms.Label totalLabel;
