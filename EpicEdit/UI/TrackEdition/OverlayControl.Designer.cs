@@ -113,8 +113,6 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // OverlayControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonPanel);
             this.Controls.Add(this.overlayTilesetPanel);
             this.Name = "OverlayControl";
