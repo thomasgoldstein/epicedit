@@ -43,11 +43,6 @@ namespace EpicEdit.UI.ThemeEdition
         public PaletteEditorForm()
         {
             this.InitializeComponent();
-
-            this.ShowInTaskbar = false;
-            this.MinimizeBox = false;
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -57,8 +57,12 @@ namespace EpicEdit.UI.ThemeEdition
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(192, 166);
             this.Controls.Add(this.Editor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PaletteEditorForm";
+            this.ShowInTaskbar = false;
             this.Text = "Color palette editor";
             this.ResumeLayout(false);
         }
