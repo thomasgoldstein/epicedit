@@ -70,6 +70,22 @@ namespace EpicEdit.Rom.Tracks
 
             return index;
         }
+
+        public bool Contains(int colorIndex)
+        {
+            for (int y = 0; y < Tile.Size; y++)
+            {
+                for (int x = 0; x < Tile.Size; x++)
+                {
+                    if (this.GetColorIndexAt(x, y) == colorIndex)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 
     /// <summary>
