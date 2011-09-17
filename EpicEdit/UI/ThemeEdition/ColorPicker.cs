@@ -589,6 +589,8 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 RomColor color = RomColor.From5BitRgb((byte)redNumericUpDown.Value, (byte)greenNumericUpDown.Value, (byte)blueNumericUpDown.Value);
                 this.SetColor(color);
+
+                this.ColorChanged(this, EventArgs.Empty);
             }
         }
 
