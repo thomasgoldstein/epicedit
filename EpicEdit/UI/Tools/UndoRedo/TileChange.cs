@@ -30,18 +30,12 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         public int Height
         {
-            get
-            {
-                return this.data.Length;
-            }
+            get { return this.data.Length; }
         }
 
         public int Width
         {
-            get
-            {
-                return this.data[0].Length;
-            }
+            get { return this.data[0].Length; }
         }
 
         public TileChange(int x, int y, byte[][] data)

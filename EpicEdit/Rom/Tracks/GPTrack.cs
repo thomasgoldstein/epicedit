@@ -51,10 +51,7 @@ namespace EpicEdit.Rom.Tracks
         private byte[] objectPaletteIndexes;
         public byte[] ObjectPaletteIndexes
         {
-            get
-            {
-                return this.objectPaletteIndexes;
-            }
+            get { return this.objectPaletteIndexes; }
         }
 
         public Palette ObjectPalette

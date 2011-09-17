@@ -147,7 +147,7 @@ namespace EpicEdit.Rom
         #endregion Read byte blocks
 
         #region Bytes <-> Offset conversion
-        
+
         public static int BytesToOffset(byte[] data)
         {
             return Utilities.BytesToOffset(data[0], data[1], data[2]);

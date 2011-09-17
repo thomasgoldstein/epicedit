@@ -210,34 +210,22 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         public bool HasUndo
         {
-            get
-            {
-                return this.undoBuffer.Count > 0;
-            }
+            get { return this.undoBuffer.Count > 0; }
         }
 
         public bool HasRedo
         {
-            get
-            {
-                return this.redoBuffer.Count > 0;
-            }
+            get { return this.redoBuffer.Count > 0; }
         }
 
         public TileChange NextUndo
         {
-            get
-            {
-                return this.undoBuffer.Last.Value;
-            }
+            get { return this.undoBuffer.Last.Value; }
         }
 
         public TileChange NextRedo
         {
-            get
-            {
-                return this.redoBuffer.First.Value;
-            }
+            get { return this.redoBuffer.First.Value; }
         }
     }
 }

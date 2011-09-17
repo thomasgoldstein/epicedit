@@ -27,10 +27,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         private Point location;
         public Point Location
         {
-            get
-            {
-                return this.location;
-            }
+            get { return this.location; }
             set
             {
                 int x = value.X;

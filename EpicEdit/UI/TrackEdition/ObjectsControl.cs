@@ -32,7 +32,7 @@ namespace EpicEdit.UI.TrackEdition
 
         [Browsable(true)]
         public event EventHandler<EventArgs> DataChangedNoRepaint;
-        
+
         [Browsable(true)]
         public event EventHandler<EventArgs> ViewChanged;
 
@@ -61,10 +61,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public GPTrack Track
         {
-            get
-            {
-                return this.frontObjectZonesControl.Track;
-            }
+            get { return this.frontObjectZonesControl.Track; }
             set
             {
                 this.frontObjectZonesControl.Track = value;
@@ -101,16 +98,13 @@ namespace EpicEdit.UI.TrackEdition
                 this.ToggleAlternatePalettes();
             }
         }
-        
+
         /// <summary>
         /// Gets a value indicating whether the current view is the front-zones one.
         /// </summary>
         public bool FrontZonesView
         {
-            get
-            {
-                return this.frontZonesRadioButton.Checked;
-            }
+            get { return this.frontZonesRadioButton.Checked; }
         }
 
         private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
@@ -130,19 +124,19 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.DataChanged(this, EventArgs.Empty);
         }
-        
+
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.ObjectTileset = (ObjectType)this.tilesetComboBox.SelectedItem;
             this.DataChanged(this, EventArgs.Empty);
         }
-        
+
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.ObjectInteraction = (ObjectType)this.interactComboBox.SelectedItem;
             this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
-        
+
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.ObjectRoutine = (ObjectType)this.routineComboBox.SelectedItem;
@@ -154,7 +148,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.zoneGroupBox.Enabled = this.Track.ObjectRoutine != ObjectType.Pillar;
         }
-        
+
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
             NumericUpDown control = sender as NumericUpDown;
@@ -180,7 +174,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.DataChangedNoRepaint(this, EventArgs.Empty);
             }
         }
-        
+
         private void FlashingCheckBoxCheckedChanged(object sender, EventArgs e)
         {
             this.Track.ObjectFlashing = this.flashingCheckBox.Checked;

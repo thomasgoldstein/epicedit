@@ -91,10 +91,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
         {
-            get
-            {
-                return this.selectedTile;
-            }
+            get { return this.selectedTile; }
             set
             {
                 this.selectedTile = value;

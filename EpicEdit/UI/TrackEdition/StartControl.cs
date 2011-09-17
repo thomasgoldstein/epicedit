@@ -41,10 +41,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get
-            {
-                return this.track;
-            }
+            get { return this.track; }
             set
             {
                 this.track = value;
@@ -92,10 +89,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public bool LapLineAndDriverPositionsBound
         {
-            get
-            {
-                return this.startBindCheckBox.Checked;
-            }
+            get { return this.startBindCheckBox.Checked; }
         }
 
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
@@ -106,7 +100,7 @@ namespace EpicEdit.UI.TrackEdition
             int step = this.Precision;
             gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / step) * step;
             int valueAfter = gpTrack.StartPosition.SecondRowOffset;
-            
+
             if (valueBefore != valueAfter)
             {
                 this.DataChanged(this, EventArgs.Empty);

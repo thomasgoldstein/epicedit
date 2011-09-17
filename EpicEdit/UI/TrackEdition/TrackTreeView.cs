@@ -139,10 +139,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public Track SelectedTrack
         {
-            get
-            {
-                return this.selectedTrack;
-            }
+            get { return this.selectedTrack; }
         }
 
         public string SelectedTrackFileName

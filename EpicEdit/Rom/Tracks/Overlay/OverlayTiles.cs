@@ -24,8 +24,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     public class OverlayTiles : IEnumerable<OverlayTile>
     {
-    	public const int Size = 128;
-    	public const int MaxTileCount = 42;
+        public const int Size = 128;
+        public const int MaxTileCount = 42;
 
         private OverlayTileSizes sizes;
         private OverlayTilePatterns patterns;

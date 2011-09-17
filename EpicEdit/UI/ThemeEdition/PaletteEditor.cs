@@ -239,7 +239,7 @@ namespace EpicEdit.Rom.ThemeEdition
         {
             this.Palette = this.Theme.Palettes[(int)this.paletteNumericUpDown.Value];
         }
-        
+
         private void ColorPickerColorChanged(object sender, EventArgs e)
         {
             // Draw the appropriate color back to the panel and update the tool tip
