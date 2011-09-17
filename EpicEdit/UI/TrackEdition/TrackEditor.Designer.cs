@@ -43,6 +43,11 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.paletteForm.Dispose();
                 }
+
+                if (this.itemProbaForm != null)
+                {
+                    this.itemProbaForm.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
