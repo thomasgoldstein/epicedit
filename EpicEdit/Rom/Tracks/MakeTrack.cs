@@ -35,26 +35,14 @@ namespace EpicEdit.Rom
 
         public TrackMap Map
         {
-            get
-            {
-                return new TrackMap(this.MAP);
-            }
-            set
-            {
-                this.MAP = value.GetBytes();
-            }
+            get { return new TrackMap(this.MAP); }
+            set { this.MAP = value.GetBytes(); }
         }
 
         public Theme Theme
         {
-            get
-            {
-                return this.game.Themes[this.SP_REGION[1] >> 1];
-            }
-            set
-            {
-                this.SP_REGION = new byte[] {0, this.game.Themes.GetThemeId(value)};
-            }
+            get { return this.game.Themes[this.SP_REGION[1] >> 1]; }
+            set { this.SP_REGION = new byte[] { 0, this.game.Themes.GetThemeId(value) }; }
         }
 
         public OverlayTiles OverlayTiles
@@ -65,10 +53,7 @@ namespace EpicEdit.Rom
                                         this.game.OverlayTileSizes,
                                         this.game.OverlayTilePatterns);
             }
-            set
-            {
-                this.GPEX = value.GetBytes();
-            }
+            set { this.GPEX = value.GetBytes(); }
         }
 
         public GPStartPosition StartPosition
@@ -127,26 +112,14 @@ namespace EpicEdit.Rom
 
         public BattleStartPosition StartPositionP1
         {
-            get
-            {
-                return new BattleStartPosition(this.EE_BATTLESTART1);
-            }
-            set
-            {
-                this.EE_BATTLESTART1 = value.GetBytes();
-            }
+            get { return new BattleStartPosition(this.EE_BATTLESTART1); }
+            set { this.EE_BATTLESTART1 = value.GetBytes(); }
         }
 
         public BattleStartPosition StartPositionP2
         {
-            get
-            {
-                return new BattleStartPosition(this.EE_BATTLESTART2);
-            }
-            set
-            {
-                this.EE_BATTLESTART2 = value.GetBytes();
-            }
+            get { return new BattleStartPosition(this.EE_BATTLESTART2); }
+            set { this.EE_BATTLESTART2 = value.GetBytes(); }
         }
 
         public TrackObjects Objects
@@ -167,74 +140,38 @@ namespace EpicEdit.Rom
 
         public TrackObjectZones ObjectZones
         {
-            get
-            {
-                return new TrackObjectZones(this.AREA_BORDER, this.track as GPTrack);
-            }
-            set
-            {
-                this.AREA_BORDER = value.GetBytes();
-            }
+            get { return new TrackObjectZones(this.AREA_BORDER, this.track as GPTrack); }
+            set { this.AREA_BORDER = value.GetBytes(); }
         }
 
         public ObjectType ObjectTileset
         {
-            get
-            {
-                return (ObjectType)this.EE_OBJTILESET[1];
-            }
-            set
-            {
-                this.EE_OBJTILESET = new byte[] {0, (byte)value };
-            }
+            get { return (ObjectType)this.EE_OBJTILESET[1]; }
+            set { this.EE_OBJTILESET = new byte[] { 0, (byte)value }; }
         }
 
         public ObjectType ObjectInteraction
         {
-            get
-            {
-                return (ObjectType)this.EE_OBJINTERACT[1];
-            }
-            set
-            {
-                this.EE_OBJINTERACT = new byte[] {0, (byte)value };
-            }
+            get { return (ObjectType)this.EE_OBJINTERACT[1]; }
+            set { this.EE_OBJINTERACT = new byte[] { 0, (byte)value }; }
         }
 
         public ObjectType ObjectRoutine
         {
-            get
-            {
-                return (ObjectType)this.EE_OBJROUTINE[1];
-            }
-            set
-            {
-                this.EE_OBJROUTINE = new byte[] {0, (byte)value };
-            }
+            get { return (ObjectType)this.EE_OBJROUTINE[1]; }
+            set { this.EE_OBJROUTINE = new byte[] { 0, (byte)value }; }
         }
 
         public byte[] ObjectPaletteIndexes
         {
-            get
-            {
-                return this.EE_OBJPALETTES;
-            }
-            set
-            {
-                this.EE_OBJPALETTES = value;
-            }
+            get { return this.EE_OBJPALETTES; }
+            set { this.EE_OBJPALETTES = value; }
         }
 
         public bool ObjectFlashing
         {
-            get
-            {
-                return this.EE_OBJFLASHING[1] != 0;
-            }
-            set
-            {
-                this.EE_OBJFLASHING[1] = value ? (byte)1 : (byte)0;
-            }
+            get { return this.EE_OBJFLASHING[1] != 0; }
+            set { this.EE_OBJFLASHING[1] = value ? (byte)1 : (byte)0; }
         }
 
         public TrackAI AI
@@ -245,10 +182,7 @@ namespace EpicEdit.Rom
                 this.GetAIData(out targetData, out zoneData);
                 return new TrackAI(zoneData, targetData, this.track);
             }
-            set
-            {
-                this.SetAIData(value);
-            }
+            set { this.SetAIData(value); }
         }
 
         /// <summary>

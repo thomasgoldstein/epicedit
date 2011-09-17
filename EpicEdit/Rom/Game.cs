@@ -909,7 +909,7 @@ namespace EpicEdit.Rom
         private static byte[] GetObjectPaletteIndexes(int themeId, int trackIndex)
         {
             byte[] paletteIndexes = new byte[4];
-            
+
             if (trackIndex == 19) // Donut Plains 1
             {
                 // This track is an exception
@@ -945,10 +945,10 @@ namespace EpicEdit.Rom
                     default: throw new InvalidDataException();
                 }
             }
-            
+
             return paletteIndexes;
         }
-        
+
         private bool GetObjectFlashing(int trackIndex)
         {
             int offset = this.offsets[Offset.TrackObjectFlashing] + trackIndex;
@@ -1010,10 +1010,7 @@ namespace EpicEdit.Rom
 
         private bool ObjectZonesRelocated
         {
-            get
-            {
-                return this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7;
-            }
+            get { return this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7; }
         }
 
         #endregion Object Zones
@@ -1350,7 +1347,7 @@ namespace EpicEdit.Rom
             // Some values differ depending on the ROM region
             byte diff;
 
-            switch(this.region)
+            switch (this.region)
             {
                 case Region.Jap:
                     diff = 0x14;
@@ -1551,7 +1548,7 @@ namespace EpicEdit.Rom
                 0x48, 0x4A, 0x18, 0x63, 0x01, 0x83, 0x01, 0x68,
                 0xC2, 0x30, 0x29, 0xFF, 0x00, 0xAA, 0xBF
             };
-            
+
             byte[] hack2;
 
             switch (region)
@@ -1693,7 +1690,7 @@ namespace EpicEdit.Rom
 
             saveBuffer.Add(objectZonesData);
         }
-        
+
         private static void AddObjectCodeChunk2(SaveBuffer saveBuffer)
         {
             byte[] hack =

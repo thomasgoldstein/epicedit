@@ -57,10 +57,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public byte this[int x, int y]
         {
-            get
-            {
-                return this.GetTile(x, y);
-            }
+            get { return this.GetTile(x, y); }
         }
 
         /// <summary>

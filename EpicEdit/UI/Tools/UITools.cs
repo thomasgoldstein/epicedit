@@ -61,7 +61,7 @@ namespace EpicEdit.UI.Tools
                 // https://bugzilla.novell.com/show_bug.cgi?id=620326
                 return;
             }
-            
+
             bool foundDescription = false;
             Enum en = (Enum)e.Value;
             Type type = en.GetType();

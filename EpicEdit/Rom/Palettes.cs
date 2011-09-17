@@ -46,22 +46,13 @@ namespace EpicEdit.Rom
 
         public int Count
         {
-            get
-            {
-                return this.palettes.Length;
-            }
+            get { return this.palettes.Length; }
         }
 
         public Palette this[int index]
         {
-            get
-            {
-                return this.palettes[index];
-            }
-            set
-            {
-                this.palettes[index] = value;
-            }
+            get { return this.palettes[index]; }
+            set { this.palettes[index] = value; }
         }
 
         public int IndexOf(Palette palette)

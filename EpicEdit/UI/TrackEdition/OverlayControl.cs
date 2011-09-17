@@ -95,7 +95,7 @@ namespace EpicEdit.UI.TrackEdition
                         }
                     }
                 }
-                
+
                 this.SelectedPatternInternal = value;
             }
         }
@@ -131,10 +131,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(OverlayTile), "")]
         public OverlayTile SelectedTile
         {
-            get
-            {
-                return this.selectedTile;
-            }
+            get { return this.selectedTile; }
             set
             {
                 this.selectedTile = value;
@@ -310,7 +307,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.overlayDrawer.DrawOverlayTileset(e.Graphics);
         }
-        
+
         private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
         {
             this.hoveredPattern = this.GetPatternAt(e.Location);
@@ -348,7 +345,7 @@ namespace EpicEdit.UI.TrackEdition
 
             return null;
         }
-        
+
         private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
         {
             this.overlayDrawer.HoveredPattern = null;

@@ -27,10 +27,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSize this[int index]
         {
-            get
-            {
-                return this.sizes[index];
-            }
+            get { return this.sizes[index]; }
         }
 
         public int Count

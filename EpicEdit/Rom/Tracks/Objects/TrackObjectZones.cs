@@ -23,16 +23,16 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     public class TrackObjectZones
     {
-    	/// <summary>
-    	/// The object zone grid size (horizontally and vertically).
-    	/// </summary>
-    	public const int GridSize = TrackMap.Size / TrackAIElement.Precision;
-    	
-    	/// <summary>
-    	/// The maximum value (horizontally and vertically) within the object zone grid.
-    	/// </summary>
-    	private const int GridLimit = GridSize - 1;
-    	
+        /// <summary>
+        /// The object zone grid size (horizontally and vertically).
+        /// </summary>
+        public const int GridSize = TrackMap.Size / TrackAIElement.Precision;
+
+        /// <summary>
+        /// The maximum value (horizontally and vertically) within the object zone grid.
+        /// </summary>
+        private const int GridLimit = GridSize - 1;
+
         private GPTrack track;
 
         private byte[] frontZones;
@@ -111,7 +111,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 {
                     zones[y] = new byte[GridSize];
                 }
-                
+
                 return zones;
             }
 
@@ -121,7 +121,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             return zones;
         }
-        
+
         private static sbyte[][] InitZones()
         {
             sbyte[][] zones = new sbyte[GridSize][];
@@ -140,7 +140,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 Buffer.BlockCopy(zones[0], 0, zones[y], 0, zones[y].Length);
             }
-            
+
             return zones;
         }
 

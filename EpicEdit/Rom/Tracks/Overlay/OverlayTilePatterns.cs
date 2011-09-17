@@ -126,7 +126,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // Maybe the size of each pattern should be saved in the epic zone when we start supporting updating the patterns.
             int[] sizeIndexes = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
             OverlayTileSize[] sizeArray = new OverlayTileSize[this.Count];
-            for(int i = 0; i < this.Count; i++)
+            for (int i = 0; i < this.Count; i++)
             {
                 sizeArray[i] = sizes[sizeIndexes[i]];
             }
@@ -202,7 +202,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             throw new NotImplementedException();
         }
-        
+
         #endregion ICollection
     }
 }

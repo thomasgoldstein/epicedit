@@ -57,10 +57,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(TrackAIElement), "")]
         public TrackAIElement SelectedElement
         {
-            get
-            {
-                return this.selectedElement;
-            }
+            get { return this.selectedElement; }
             set
             {
                 this.selectedElement = value;
@@ -131,7 +128,7 @@ namespace EpicEdit.UI.TrackEdition
             int oldIndex = this.trackAI.GetElementIndex(this.selectedElement);
             int newIndex = (int)this.indexNumericUpDown.Value;
             this.trackAI.ChangeElementIndex(oldIndex, newIndex);
-            
+
             this.DataChanged(this, EventArgs.Empty);
         }
 
