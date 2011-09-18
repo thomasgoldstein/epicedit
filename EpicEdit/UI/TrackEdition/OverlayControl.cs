@@ -396,7 +396,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 byte tileId = pattern[x, y];
 
-                if (tileId == 0xFF) // Ignore empty tiles
+                if (tileId == OverlayTile.None)
                 {
                     return null;
                 }

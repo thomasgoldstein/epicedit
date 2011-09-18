@@ -24,6 +24,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     public class OverlayTile
     {
+    	public const byte None = 0xFF;
+
         private Point location;
         public Point Location
         {

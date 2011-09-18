@@ -2695,7 +2695,7 @@ namespace EpicEdit.UI.TrackEdition
                             int relativeY = y - overlayTile.Y;
                             byte tileId = overlayTile.Pattern[relativeX, relativeY];
 
-                            if (tileId != 0xFF) // Ignore empty tiles
+                            if (tileId != OverlayTile.None)
                             {
                                 index = tileId;
                                 break;
