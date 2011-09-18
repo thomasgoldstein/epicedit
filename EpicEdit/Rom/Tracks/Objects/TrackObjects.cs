@@ -23,27 +23,33 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     public class TrackObjects : IEnumerable<TrackObject>
     {
+        private const int RegularObjectCount = 16;
+        private const int MatchRaceObjectCount = 6;
+        private const int ObjectCount = RegularObjectCount + MatchRaceObjectCount;
+        private const int BytesPerObject = 2;
+        private const int TotalBytes = ObjectCount * BytesPerObject;
+        
         private TrackObject[] objects;
 
         public TrackObjects(byte[] data)
         {
-            if (data.Length != 44)
+            if (data.Length != TotalBytes)
             {
                 throw new ArgumentOutOfRangeException("data");
             }
 
-            this.objects = new TrackObject[data.Length / 2];
+            this.objects = new TrackObject[data.Length / BytesPerObject];
             // Object coordinates are defined on 2 bytes
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < RegularObjectCount; i++)
             {
-                TrackObject trackObject = new TrackObject(data, i * 2);
+                TrackObject trackObject = new TrackObject(data, i * BytesPerObject);
                 this.objects[i] = trackObject;
             }
 
-            for (int i = 16; i < 22; i++)
+            for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
-                TrackObjectMatchRace trackObject = new TrackObjectMatchRace(data, i * 2);
+                TrackObjectMatchRace trackObject = new TrackObjectMatchRace(data, i * BytesPerObject);
                 this.objects[i] = trackObject;
             }
         }
@@ -77,11 +83,11 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns>The TrackObjects bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[this.objects.Length * 2];
+            byte[] data = new byte[this.objects.Length * BytesPerObject];
 
             for (int i = 0; i < this.objects.Length; i++)
             {
-                this.objects[i].GetBytes(data, i * 2);
+                this.objects[i].GetBytes(data, i * BytesPerObject);
             }
 
             return data;
