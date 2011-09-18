@@ -27,8 +27,6 @@ namespace EpicEdit.Rom
         public Palette Palette { get; protected set; }
         protected byte[] graphics;
 
-        protected Tile() { }
-
         public abstract Bitmap Bitmap { get; }
 
         public abstract void UpdateBitmap();
