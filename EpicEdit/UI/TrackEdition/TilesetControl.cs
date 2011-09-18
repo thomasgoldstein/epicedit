@@ -143,15 +143,21 @@ namespace EpicEdit.UI.TrackEdition
                 this.TrackThemeChanged(this, EventArgs.Empty);
             }
 
-            this.UpdateTileset();
+            this.ResetTileset();
+            this.tilesetPanel.Invalidate();
             this.SelectedThemeChanged(this, EventArgs.Empty);
         }
 
         public void UpdateTileset()
         {
+            this.ResetTileset();
+            this.tilesetPanel.Refresh();
+        }
+
+        private void ResetTileset()
+        {
             Tile[] tileset = this.track.GetRoadTileset();
             this.tilesetDrawer.SetTileset(tileset);
-            this.tilesetPanel.Refresh();
         }
 
         private void SelectTrackTheme()
