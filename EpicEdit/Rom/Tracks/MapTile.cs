@@ -108,6 +108,31 @@ namespace EpicEdit.Rom.Tracks
             return buffer;
         }
 
+        public override int GetColorIndexAt(int x, int y)
+        {
+            if (this.graphics == null)
+            {
+                // Empty tile, no data
+                return -1;
+            }
+
+            int index;
+            int xSub = x % 2;
+            x /= 2;
+            byte px = this.graphics[y * 4 + x];
+
+            if (xSub == 0)
+            {
+                index = px & 0x0F;
+            }
+            else
+            {
+                index = (px & 0xF0) >> 4;
+            }
+
+            return index;
+        }
+
         public override void Dispose()
         {
             this.image.Dispose();
