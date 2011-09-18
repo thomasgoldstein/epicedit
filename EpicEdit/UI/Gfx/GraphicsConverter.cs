@@ -56,6 +56,11 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
+        public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
+        {
+            return GraphicsConverter.GetBitmapFrom4bppPlanarComposite(gfx, 0, palette);
+        }
+
         public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, int gfxIndex, Palette palette)
         {
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
