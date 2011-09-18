@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks
 
         private TileGenre genre = TileGenre.Road;
         public Palette Palette { get; protected set; }
-        protected byte[] gfx;
+        protected byte[] graphics;
 
         public TileGenre Genre
         {
@@ -48,7 +48,7 @@ namespace EpicEdit.Rom.Tracks
 
         public int GetColorIndexAt(int x, int y)
         {
-            if (this.gfx == null)
+            if (this.graphics == null)
             {
                 // Empty tile, no data
                 return -1;
@@ -57,7 +57,7 @@ namespace EpicEdit.Rom.Tracks
             int index;
             int xSub = x % 2;
             x /= 2;
-            byte px = this.gfx[y * 4 + x];
+            byte px = this.graphics[y * 4 + x];
 
             if (xSub == 0)
             {
@@ -103,7 +103,7 @@ namespace EpicEdit.Rom.Tracks
         public StillTile(Palette palette, byte[] gfx, TileGenre genre)
         {
             this.Palette = palette;
-            this.gfx = gfx;
+            this.graphics = gfx;
             this.Genre = genre;
             this.GenerateBitmap();
         }
@@ -117,7 +117,7 @@ namespace EpicEdit.Rom.Tracks
 
         public override void UpdateBitmap()
         {
-            if (this.gfx == null)
+            if (this.graphics == null)
             {
                 // This is an empty tile, contains no data
                 return;
@@ -129,7 +129,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void GenerateBitmap()
         {
-            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.gfx, this.Palette);
+            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.graphics, this.Palette);
         }
 
         public ushort[] ToSnesBitmap()
