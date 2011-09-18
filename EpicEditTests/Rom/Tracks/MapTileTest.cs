@@ -46,48 +46,6 @@ namespace EpicEditTests.Rom.Tracks
             Assert.AreEqual(this.tile.Genre, TileGenre.Road);
         }
 
-        [Test]
-        public void TestTileSnesColorBlack()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(0, 0, 0));
-            Assert.AreEqual(0x0000, this.tile.ToSnesBitmap()[0]);
-        }
-
-        [Test]
-        public void TestTileSnesColorWhite()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(255, 255, 255));
-            Assert.AreEqual(0xFF7F, this.tile.ToSnesBitmap()[0]);
-        }
-
-        [Test]
-        public void TestTileSnesColorGray()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 80));
-            Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
-        }
-
-        [Test]
-        public void TestTileSnesColorAverageHigh()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 88));
-            Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
-        }
-
-        [Test]
-        public void TestTileSnesColorAverageMid()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 86));
-            Assert.AreEqual(0x4B29, this.tile.ToSnesBitmap()[0]);
-        }
-
-        [Test]
-        public void TestTileSnesColorAverageLow()
-        {
-            this.tile.Bitmap.SetPixel(0, 0, Color.FromArgb(80, 80, 82));
-            Assert.AreEqual(0x4A29, this.tile.ToSnesBitmap()[0]);
-        }
-
         private void TestGetColorIndexAt(byte[] palData, byte[] gfx)
         {
             Palette palette = new Palette(palData);
