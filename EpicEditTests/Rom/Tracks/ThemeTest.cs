@@ -41,10 +41,10 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestRoadTileset()
         {
-            Tile[] tiles = new StillTile[this.count];
+            Tile[] tiles = new MapTile[this.count];
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new MapTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
             }
             this.theme.SetRoadTileset(tiles);
             Assert.AreEqual(this.theme.GetRoadTile(0), tiles[0]);
@@ -54,11 +54,11 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestRoadTiles()
         {
-            Tile[] tiles = new StillTile[this.count];
+            Tile[] tiles = new MapTile[this.count];
             this.theme.ClearRoadTileset();
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new MapTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
                 this.theme.SetRoadTile(i, tiles[i]);
             }
 
@@ -71,10 +71,10 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestBackgroundTileset()
         {
-            Tile[] tiles = new StillTile[this.count];
+            Tile[] tiles = new MapTile[this.count];
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new MapTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
             }
             this.theme.SetBackgroundTileset(tiles);
 
@@ -87,11 +87,11 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestBackgroundTiles()
         {
-            Tile[] tiles = new StillTile[this.count];
+            Tile[] tiles = new MapTile[this.count];
             this.theme.ClearBackgroundTileset();
             for (int i = 0; i < this.count; i++)
             {
-                tiles[i] = new StillTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
+                tiles[i] = new MapTile(new Palette(), new Bitmap(1, 1), TileGenre.Road);
                 this.theme.SetBackgroundTile(i, tiles[i]);
             }
 
