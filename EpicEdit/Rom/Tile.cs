@@ -35,30 +35,7 @@ namespace EpicEdit.Rom
 
         public abstract void Dispose();
 
-        public int GetColorIndexAt(int x, int y)
-        {
-            if (this.graphics == null)
-            {
-                // Empty tile, no data
-                return -1;
-            }
-
-            int index;
-            int xSub = x % 2;
-            x /= 2;
-            byte px = this.graphics[y * 4 + x];
-
-            if (xSub == 0)
-            {
-                index = px & 0x0F;
-            }
-            else
-            {
-                index = (px & 0xF0) >> 4;
-            }
-
-            return index;
-        }
+        public abstract int GetColorIndexAt(int x, int y);
 
         public bool Contains(int colorIndex)
         {
