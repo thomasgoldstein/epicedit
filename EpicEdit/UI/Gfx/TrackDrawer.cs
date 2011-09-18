@@ -1004,8 +1004,8 @@ namespace EpicEdit.UI.Gfx
 
                     TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
                     using (Bitmap objectImage = objectGraphics.GetObjectImage(gpTrack))
-                    using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme))
-                    using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetStillMatchRaceObjectImage(gpTrack.Theme))
+                    using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, true))
+                    using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, false))
                     {
                         this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
                     }
