@@ -654,9 +654,9 @@ namespace EpicEdit.Rom
 
         #endregion Load data
 
-        #region Get / Set, Load / Save specific data
+        #region Get / set, load / save specific data
 
-        #region Track Overlay Tiles
+        #region Track overlay tiles
 
         private byte[] GetOverlayTileData(int trackIndex)
         {
@@ -677,9 +677,9 @@ namespace EpicEdit.Rom
             return this.offsets[Offset.TrackOverlayItems] + trackIndex * OverlayTiles.Size;
         }
 
-        #endregion Track Overlay Tiles
+        #endregion Track overlay tiles
 
-        #region GP Start Positions
+        #region GP start positions
 
         private byte[] GetGPStartPositionData(int trackIndex)
         {
@@ -703,9 +703,9 @@ namespace EpicEdit.Rom
             return this.offsets[Offset.GPTrackStartPositions] + reorder[trackIndex] * 8;
         }
 
-        #endregion GP Start Positions
+        #endregion GP start positions
 
-        #region Lap Line
+        #region Lap line
 
         private byte[] GetLapLineData(int trackIndex)
         {
@@ -715,9 +715,9 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        #endregion Lap Line
+        #endregion Lap line
 
-        #region Battle Start Positions
+        #region Battle start positions
 
         private byte[] GetBattleStartPositionData(int trackIndex)
         {
@@ -797,7 +797,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        #endregion Battle Start Positions
+        #endregion Battle start positions
 
         #region Objects
 
@@ -957,7 +957,7 @@ namespace EpicEdit.Rom
 
         #endregion Objects
 
-        #region Object Zones
+        #region Object zones
 
         private byte[] GetObjectZoneData(int trackIndex)
         {
@@ -1013,7 +1013,7 @@ namespace EpicEdit.Rom
             get { return this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7; }
         }
 
-        #endregion Object Zones
+        #endregion Object zones
 
         #region AI
 
@@ -1031,16 +1031,16 @@ namespace EpicEdit.Rom
 
         #endregion AI
 
-        #region Item Probabilities
+        #region Item probabilities
 
         private void LoadItemProbabilities()
         {
             this.itemProbabilities = new ItemProbabilities(this.romBuffer, this.offsets[Offset.ItemProbabilities]);
         }
 
-        #endregion Item Probabilities
+        #endregion Item probabilities
 
-        #region Item Icons
+        #region Item icons
 
         private void LoadItemIcons()
         {
@@ -1067,9 +1067,9 @@ namespace EpicEdit.Rom
             this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemGfx, tileIndex * 16, palette, subPalIndex, 16, 16);
         }
 
-        #endregion Item Icons
+        #endregion Item icons
 
-        #endregion Get / Set, Load / Save specific data
+        #endregion Get / set, load / save specific data
 
         #region Track reodering
         public void ReorderTracks(int sourceTrackGroupId, int sourceTrackId, int destinationTrackGroupId, int destinationTrackId)
