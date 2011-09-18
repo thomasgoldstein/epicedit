@@ -26,64 +26,85 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     public class TrackObjectGraphics
     {
-        private byte[][] graphics;
+        private Tile[][] tiles;
 
         public TrackObjectGraphics(byte[] romBuffer, Offsets offsets)
         {
             int typeCount = Enum.GetValues(typeof(ObjectType)).Length;
             int count = typeCount + 2; // + 2 for moving Match Race object and items
-            this.graphics = new byte[count][];
+            this.tiles = new TrackObjectTile[count][];
+            byte[] tilesetGfx;
+            int[] tileIndexes;
 
             for (int i = 0; i < typeCount; i++)
             {
-                int offset = TrackObjectGraphics.GetObjectGraphicsOffset((ObjectType)i, romBuffer, offsets);
-                this.graphics[i] = Codec.Decompress(romBuffer, offset);
+                ObjectType type = (ObjectType)i;
+                int offset = TrackObjectGraphics.GetObjectGraphicsOffset(type, romBuffer, offsets);
+                tilesetGfx = Codec.Decompress(romBuffer, offset);
+                tileIndexes = TrackObjectGraphics.GetObjectTileIndexes(type);
+                this.tiles[i] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
             }
 
-            this.graphics[this.graphics.Length - 2] = Codec.Decompress(romBuffer, offsets[Offset.MatchRaceObjectGraphics]);
-            this.graphics[this.graphics.Length - 1] = Codec.Decompress(romBuffer, offsets[Offset.ItemGraphics]);
+            tileIndexes = TrackObjectGraphics.GetMatchRaceObjectTileIndexes();
+
+            tilesetGfx = Codec.Decompress(romBuffer, offsets[Offset.MatchRaceObjectGraphics]);
+            this.tiles[this.tiles.Length - 2] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
+
+            tilesetGfx = Codec.Decompress(romBuffer, offsets[Offset.ItemGraphics]);
+            this.tiles[this.tiles.Length - 1] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
         }
 
-        private byte[] GetObjectGraphics(ObjectType tileset)
+        private static Tile[] GetTiles(byte[] tilesetGfx, int[] tileIndexes)
         {
-            return this.graphics[(int)tileset];
+            Tile[] tiles = new TrackObjectTile[tileIndexes.Length];
+
+            for (int i = 0; i < tileIndexes.Length; i++)
+            {
+                byte[] gfx = new byte[32];
+                Buffer.BlockCopy(tilesetGfx, tileIndexes[i], gfx, 0, 32);
+                tiles[i] = new TrackObjectTile(gfx);
+            }
+
+            return tiles;
         }
 
-        private byte[] GetMatchRaceObjectGraphics()
+        private Tile[] GetObjectTiles(ObjectType tileset)
         {
-            return this.graphics[this.graphics.Length - 2];
+            return this.tiles[(int)tileset];
         }
 
-        private byte[] GetItemGraphics()
+        private Tile[] GetMatchRaceObjectTiles()
         {
-            return this.graphics[this.graphics.Length - 1];
+            return this.tiles[this.tiles.Length - 2];
+        }
+
+        private Tile[] GetStillMatchRaceObjectTiles()
+        {
+            return this.tiles[this.tiles.Length - 1];
         }
 
         public Bitmap GetObjectImage(GPTrack track)
         {
-            byte[] gfx = this.GetObjectGraphics(track.ObjectTileset);
+            Tile[] tiles = this.GetObjectTiles(track.ObjectTileset);
             Palette palette = track.ObjectPalette;
-            int[] tileIndexes = TrackObjectGraphics.GetObjectTileIndexes(track.ObjectTileset);
 
-            return TrackObjectGraphics.GetObjectImage(gfx, tileIndexes, palette);
+            return TrackObjectGraphics.GetObjectImage(tiles, palette);
         }
 
         public Bitmap GetMatchRaceObjectImage(Theme theme)
         {
-            byte[] gfx = this.GetMatchRaceObjectGraphics();
+            Tile[] tiles = this.GetMatchRaceObjectTiles();
             Palette palette = theme.Palettes[12];
-            int[] tileIndexes = { 0, 32, 64, 96 };
 
-            return TrackObjectGraphics.GetObjectImage(gfx, tileIndexes, palette);
+            return TrackObjectGraphics.GetObjectImage(tiles, palette);
         }
 
         public Bitmap GetStillMatchRaceObjectImage(Theme theme)
         {
-            byte[] gfx = this.GetItemGraphics();
+            Tile[] tiles = this.GetStillMatchRaceObjectTiles();
             Palette palette = theme.Palettes[14];
-            int[] tileIndexes = { 0, 32, 64, 96 };
 
-            return TrackObjectGraphics.GetObjectImage(gfx, tileIndexes, palette);
+            return TrackObjectGraphics.GetObjectImage(tiles, palette);
         }
 
         private static int[] GetObjectTileIndexes(ObjectType type)
@@ -96,15 +117,29 @@ namespace EpicEdit.Rom.Tracks.Objects
             return new int[] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
         }
 
-        private static Bitmap GetObjectImage(byte[] gfx, int[] tileIndexes, Palette palette)
+        private static int[] GetMatchRaceObjectTileIndexes()
         {
+            return new int[] { 0, 32, 64, 96 };
+        }
+
+        private static Bitmap GetObjectImage(Tile[] tiles, Palette palette)
+        {
+            if (tiles[0].Palette != palette) // Assuming all tiles use the same palette
+            {
+                foreach (Tile tile in tiles)
+                {
+                    tile.Palette = palette;
+                    tile.UpdateBitmap();
+                }
+            }
+
             Bitmap bitmap = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[0], palette, 0, 0);
-                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[1], palette, 8, 0);
-                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[2], palette, 0, 8);
-                GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, tileIndexes[3], palette, 8, 8);
+                g.DrawImage(tiles[0].Bitmap, 0, 0);
+                g.DrawImage(tiles[1].Bitmap, 8, 0);
+                g.DrawImage(tiles[2].Bitmap, 0, 8);
+                g.DrawImage(tiles[3].Bitmap, 8, 8);
             }
 
             return bitmap;

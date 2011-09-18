@@ -122,6 +122,7 @@
     <Compile Include="Rom\Tracks\GPTrack.cs" />
     <Compile Include="Rom\Tracks\MakeTrack.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTypes.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
