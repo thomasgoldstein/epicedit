@@ -24,7 +24,7 @@ namespace EpicEdit.Rom
     {
     	public const int Size = 8;
 
-        public Palette Palette { get; protected set; }
+        public Palette Palette { get; set; }
         protected byte[] graphics;
 
         public abstract Bitmap Bitmap { get; }
