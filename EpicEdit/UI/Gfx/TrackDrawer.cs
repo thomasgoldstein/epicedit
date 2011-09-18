@@ -1002,9 +1002,10 @@ namespace EpicEdit.UI.Gfx
                 {
                     this.DrawObjectZones(g, frontZonesView);
 
-                    using (Bitmap objectImage = Context.Game.GetObjectImage(gpTrack))
-                    using (Bitmap matchRaceObjectImage = Context.Game.GetMatchRaceObjectImage(gpTrack.Theme))
-                    using (Bitmap stillMatchRaceObjectImage = Context.Game.GetStillMatchRaceObjectImage(gpTrack.Theme))
+                    TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
+                    using (Bitmap objectImage = objectGraphics.GetObjectImage(gpTrack))
+                    using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme))
+                    using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetStillMatchRaceObjectImage(gpTrack.Theme))
                     {
                         this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
                     }
