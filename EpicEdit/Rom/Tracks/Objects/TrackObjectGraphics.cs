@@ -73,16 +73,6 @@ namespace EpicEdit.Rom.Tracks.Objects
             return this.tiles[(int)tileset];
         }
 
-        private Tile[] GetMatchRaceObjectTiles()
-        {
-            return this.tiles[this.tiles.Length - 2];
-        }
-
-        private Tile[] GetStillMatchRaceObjectTiles()
-        {
-            return this.tiles[this.tiles.Length - 1];
-        }
-
         public Bitmap GetObjectImage(GPTrack track)
         {
             Tile[] tiles = this.GetObjectTiles(track.ObjectTileset);
@@ -91,18 +81,17 @@ namespace EpicEdit.Rom.Tracks.Objects
             return TrackObjectGraphics.GetObjectImage(tiles, palette);
         }
 
-        public Bitmap GetMatchRaceObjectImage(Theme theme)
+        /// <summary>
+        /// Gets the Match Race object image.
+        /// </summary>
+        /// <param name="theme">The track theme.</param>
+        /// <param name="moving">True for moving Match Race object, false for still Match Race object.</param>
+        /// <returns></returns>
+        public Bitmap GetMatchRaceObjectImage(Theme theme, bool moving)
         {
-            Tile[] tiles = this.GetMatchRaceObjectTiles();
-            Palette palette = theme.Palettes[12];
-
-            return TrackObjectGraphics.GetObjectImage(tiles, palette);
-        }
-
-        public Bitmap GetStillMatchRaceObjectImage(Theme theme)
-        {
-            Tile[] tiles = this.GetStillMatchRaceObjectTiles();
-            Palette palette = theme.Palettes[14];
+            int tileIndex = moving ? this.tiles.Length - 2 : this.tiles.Length - 1;
+            Tile[] tiles = this.tiles[tileIndex];
+            Palette palette = moving ? theme.Palettes[12] : theme.Palettes[14];
 
             return TrackObjectGraphics.GetObjectImage(tiles, palette);
         }
