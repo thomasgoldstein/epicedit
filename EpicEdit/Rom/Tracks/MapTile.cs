@@ -116,19 +116,11 @@ namespace EpicEdit.Rom.Tracks
                 return -1;
             }
 
-            int index;
             int xSub = x % 2;
             x /= 2;
             byte px = this.graphics[y * 4 + x];
-
-            if (xSub == 0)
-            {
-                index = px & 0x0F;
-            }
-            else
-            {
-                index = (px & 0xF0) >> 4;
-            }
+            int index = xSub == 0 ?
+                px & 0x0F : (px & 0xF0) >> 4;
 
             return index;
         }
