@@ -115,13 +115,13 @@ namespace EpicEdit.Rom.Tracks
 
             foreach (Tile tile in this.roadTileset)
             {
-                bool needsUpdating = tile.Palette == palette && tile.Contains(colorIndex);
-                tileUpdates[index++] = needsUpdating;
-
-                if (needsUpdating)
+                if (tile.Palette == palette && tile.Contains(colorIndex))
                 {
+                    tileUpdates[index] = true;
                     tile.UpdateBitmap();
                 }
+
+                index++;
             }
 
             // TODO: Update background tiles
