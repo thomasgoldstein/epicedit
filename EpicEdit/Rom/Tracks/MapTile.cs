@@ -72,42 +72,6 @@ namespace EpicEdit.Rom.Tracks
             this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.graphics, this.Palette);
         }
 
-        public ushort[] ToSnesBitmap()
-        {
-            ushort[] buffer = new ushort[Tile.Size * Tile.Size];
-            ushort tempo;
-            byte r, g, b;
-
-            for (int x = 0; x < Tile.Size; x++)
-            {
-                for (int y = 0; y < Tile.Size; y++)
-                {
-                    r = this.image.GetPixel(x, y).R;
-                    if (((r & 0x07) >= 4) && (r < 251))
-                    {
-                        r += 8;
-                    }
-
-                    g = this.image.GetPixel(x, y).G;
-                    if (((g & 0x07) >= 4) && (g < 251))
-                    {
-                        g += 8;
-                    }
-
-                    b = this.image.GetPixel(x, y).B;
-                    if (((b & 0x07) >= 4) && (b < 251))
-                    {
-                        b += 8;
-                    }
-
-                    tempo = (ushort)(((r >> 3) << 10) + ((g >> 3) << 5) + (b >> 3));
-                    tempo = (ushort)((tempo / 256) + ((tempo & 0x00FF) * 256));
-                    buffer[x + y * Tile.Size] = tempo;
-                }
-            }
-            return buffer;
-        }
-
         public override int GetColorIndexAt(int x, int y)
         {
             if (this.graphics == null)
