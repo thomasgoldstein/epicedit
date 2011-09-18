@@ -22,85 +22,25 @@ namespace EpicEdit.Rom.Tracks
     public enum TileGenre { Road };
 
     /// <summary>
-    /// Represents a track map tile.
+    /// Represents a non-animated track map tile.
     /// </summary>
-    public abstract class Tile : IDisposable
+    public class MapTile : Tile
     {
-    	public const int Size = 8;
+        private Bitmap image;
 
         private TileGenre genre = TileGenre.Road;
-        public Palette Palette { get; protected set; }
-        protected byte[] graphics;
-
         public TileGenre Genre
         {
             get { return this.genre; }
             protected set { this.genre = value; }
         }
 
-        protected Tile() { }
-
-        public abstract Bitmap Bitmap { get; }
-
-        public abstract void UpdateBitmap();
-
-        public abstract void Dispose();
-
-        public int GetColorIndexAt(int x, int y)
-        {
-            if (this.graphics == null)
-            {
-                // Empty tile, no data
-                return -1;
-            }
-
-            int index;
-            int xSub = x % 2;
-            x /= 2;
-            byte px = this.graphics[y * 4 + x];
-
-            if (xSub == 0)
-            {
-                index = px & 0x0F;
-            }
-            else
-            {
-                index = (px & 0xF0) >> 4;
-            }
-
-            return index;
-        }
-
-        public bool Contains(int colorIndex)
-        {
-            for (int y = 0; y < Tile.Size; y++)
-            {
-                for (int x = 0; x < Tile.Size; x++)
-                {
-                    if (this.GetColorIndexAt(x, y) == colorIndex)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Represents a non-animated track map tile.
-    /// </summary>
-    public class StillTile : Tile
-    {
-        private Bitmap image;
-
         public override Bitmap Bitmap
         {
             get { return this.image; }
         }
 
-        public StillTile(Palette palette, byte[] gfx, TileGenre genre)
+        public MapTile(Palette palette, byte[] gfx, TileGenre genre)
         {
             this.Palette = palette;
             this.graphics = gfx;
@@ -108,7 +48,7 @@ namespace EpicEdit.Rom.Tracks
             this.GenerateBitmap();
         }
 
-        public StillTile(Palette palette, Bitmap image, TileGenre genre)
+        public MapTile(Palette palette, Bitmap image, TileGenre genre)
         {
             this.Palette = palette;
             this.image = image;

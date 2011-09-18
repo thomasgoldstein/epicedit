@@ -23,14 +23,14 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class TileTest
+    public class MapTileTest
     {
-        private StillTile tile;
+        private MapTile tile;
 
-        public TileTest()
+        public MapTileTest()
         {
             Bitmap image = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            this.tile = new StillTile(new Palette(), image, TileGenre.Road);
+            this.tile = new MapTile(new Palette(), image, TileGenre.Road);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace EpicEditTests.Rom.Tracks
         private void TestGetColorIndexAt(byte[] palData, byte[] gfx)
         {
             Palette palette = new Palette(palData);
-            this.tile = new StillTile(palette, gfx, TileGenre.Road);
+            this.tile = new MapTile(palette, gfx, TileGenre.Road);
 
             byte[] gfxCopy = new byte[gfx.Length];
 
