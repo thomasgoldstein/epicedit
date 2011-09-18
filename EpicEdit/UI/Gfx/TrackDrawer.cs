@@ -709,11 +709,13 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
+        /// <summary>
+        /// Gets the rectangle that includes the whole AI element (zone + target).
+        /// </summary>
+        /// <param name="aiElement">The AI element.</param>
+        /// <returns>The rectangle that includes the whole AI element (zone + target).</returns>
         private Rectangle GetAIClipRectangle(TrackAIElement aiElement)
         {
-            // Get the rectangle that includes the whole AI element (zone + target).
-            // NOTE: Returning a GraphicsPath would be more precise.
-
             int x;
             int y;
             int width;
