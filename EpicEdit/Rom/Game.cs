@@ -147,20 +147,10 @@ namespace EpicEdit.Rom
             return this.itemIcons[(int)type];
         }
 
-        public Bitmap GetObjectImage(GPTrack track)
-        {
-            return this.objectGraphics.GetObjectImage(track);
-        }
-
-        public Bitmap GetMatchRaceObjectImage(Theme theme)
-        {
-            return this.objectGraphics.GetMatchRaceObjectImage(theme);
-        }
-
-        public Bitmap GetStillMatchRaceObjectImage(Theme theme)
-        {
-            return this.objectGraphics.GetStillMatchRaceObjectImage(theme);
-        }
+        /// <summary>
+        /// Gets the track object graphics.
+        /// </summary>
+        public TrackObjectGraphics ObjectGraphics { get; private set; }
 
         #endregion Public members and methods
 
@@ -220,11 +210,6 @@ namespace EpicEdit.Rom
         /// The item icons.
         /// </summary>
         private Bitmap[] itemIcons;
-
-        /// <summary>
-        /// The track object graphics.
-        /// </summary>
-        private TrackObjectGraphics objectGraphics;
 
         private bool modified;
 
@@ -1002,7 +987,7 @@ namespace EpicEdit.Rom
 
         private void LoadTrackObjectGraphics()
         {
-            this.objectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
+            this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
         }
 
         #endregion Track object graphics
