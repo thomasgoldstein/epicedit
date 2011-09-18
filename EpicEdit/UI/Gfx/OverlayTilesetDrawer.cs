@@ -102,7 +102,7 @@ namespace EpicEdit.UI.Gfx
                         {
                             int tileId = pattern[x, y];
 
-                            if (tileId == 0xFF)
+                            if (tileId == OverlayTile.None)
                             {
                                 continue;
                             }
