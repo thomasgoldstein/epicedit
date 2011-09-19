@@ -25,31 +25,10 @@ namespace EpicEditTests.Rom.Tracks
     [TestFixture]
     public class MapTileTest
     {
-        private MapTile tile;
-
-        public MapTileTest()
-        {
-            Bitmap image = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            this.tile = new MapTile(new Palette(), image, TileGenre.Road);
-        }
-
-        [Test]
-        public void TestTileBitmap()
-        {
-            Assert.IsInstanceOf(typeof(Bitmap), this.tile.Bitmap);
-            Assert.AreEqual(8, Tile.Size);
-        }
-
-        [Test]
-        public void TestTileGenre()
-        {
-            Assert.AreEqual(this.tile.Genre, TileGenre.Road);
-        }
-
         private void TestGetColorIndexAt(byte[] palData, byte[] gfx)
         {
             Palette palette = new Palette(palData);
-            this.tile = new MapTile(palette, gfx, TileGenre.Road);
+            MapTile tile = new MapTile(palette, gfx, TileGenre.Road);
 
             byte[] gfxCopy = new byte[gfx.Length];
 
@@ -57,8 +36,8 @@ namespace EpicEditTests.Rom.Tracks
             {
                 for (int x = 0; x < Tile.Size; x++)
                 {
-                    int colorIndex = this.tile.GetColorIndexAt(x, y);
-                    Color color1 = this.tile.Bitmap.GetPixel(x, y);
+                    int colorIndex = tile.GetColorIndexAt(x, y);
+                    Color color1 = tile.Bitmap.GetPixel(x, y);
                     Color color2 = palette[colorIndex];
                     Assert.AreEqual(color1.ToArgb(), color2.ToArgb());
 
