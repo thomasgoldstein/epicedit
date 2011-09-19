@@ -53,7 +53,7 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        private void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
+        protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
             x = (int)(x / this.Zoom);
             y = (int)(y / this.Zoom);
