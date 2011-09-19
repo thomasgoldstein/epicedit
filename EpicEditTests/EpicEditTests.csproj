@@ -81,6 +81,7 @@
     <Compile Include="Rom\Compression\OptimalCompressorRateTest.cs" />
     <Compile Include="Rom\GameTest.cs" />
     <Compile Include="Rom\PalettesTest.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
     <Compile Include="Rom\UtilitiesTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
