@@ -22,9 +22,24 @@ namespace EpicEdit.Rom
     /// </summary>
     public abstract class Tile : IDisposable
     {
-    	public const int Size = 8;
+        public const int Size = 8;
 
-        public Palette Palette { get; set; }
+        private Palette palette;
+        public Palette Palette
+        {
+            get { return this.palette; }
+            set
+            {
+                if (this.palette == value)
+                {
+                    return;
+                }
+
+                this.palette = value;
+                this.UpdateBitmap();
+            }
+        }
+
         protected byte[] graphics;
 
         public abstract Bitmap Bitmap { get; }
