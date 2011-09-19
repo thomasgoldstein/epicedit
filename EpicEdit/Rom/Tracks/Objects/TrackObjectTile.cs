@@ -37,9 +37,8 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectTile(Palette palette, byte[] gfx)
         {
-            this.Palette = palette;
             this.graphics = gfx;
-            this.GenerateBitmap();
+            this.Palette = palette;
         }
 
         public override void UpdateBitmap()
