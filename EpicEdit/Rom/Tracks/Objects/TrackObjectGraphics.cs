@@ -118,7 +118,6 @@ namespace EpicEdit.Rom.Tracks.Objects
                 foreach (Tile tile in tiles)
                 {
                     tile.Palette = palette;
-                    tile.UpdateBitmap();
                 }
             }
 
