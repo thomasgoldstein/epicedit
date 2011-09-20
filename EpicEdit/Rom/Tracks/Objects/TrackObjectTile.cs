@@ -61,7 +61,17 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public override int GetColorIndexAt(int x, int y)
         {
-            throw new NotImplementedException();
+            x = (Tile.Size - 1) - x;
+            int val1 = this.graphics[y * 2];
+            int val2 = this.graphics[y * 2 + 1];
+            int val3 = this.graphics[y * 2 + 16];
+            int val4 = this.graphics[y * 2 + 17];
+            int mask = 1 << x;
+            int val1b = ((val1 & mask) >> x);
+            int val2b = (((val2 & mask) << 1) >> x);
+            int val3b = (((val3 & mask) << 2) >> x);
+            int val4b = (((val4 & mask) << 3) >> x);
+            return val1b + val2b + val3b + val4b;
         }
 
         public override void Dispose()
