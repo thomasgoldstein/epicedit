@@ -89,11 +89,15 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns></returns>
         public Bitmap GetMatchRaceObjectImage(Theme theme, bool moving)
         {
-            int tileIndex = moving ? this.tiles.Length - 2 : this.tiles.Length - 1;
-            Tile[] tiles = this.tiles[tileIndex];
+            Tile[] tiles = this.tiles[this.GetMatchRaceTileIndex(moving)];
             Palette palette = moving ? theme.Palettes[12] : theme.Palettes[14];
 
             return TrackObjectGraphics.GetObjectImage(tiles, palette);
+        }
+
+        private int GetMatchRaceTileIndex(bool moving)
+        {
+            return moving ? this.tiles.Length - 2 : this.tiles.Length - 1;
         }
 
         private static int[] GetObjectTileIndexes(ObjectType type)
@@ -131,6 +135,26 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
 
             return bitmap;
+        }
+
+        public Tile GetObjectTile(GPTrack track, TrackObject trackObject, int x, int y)
+        {
+            int index;
+
+            if (trackObject is TrackObjectMatchRace)
+            {
+                var matchRaceObject = trackObject as TrackObjectMatchRace;
+                bool moving = matchRaceObject.Direction != Direction.None;
+                index = this.GetMatchRaceTileIndex(moving);
+            }
+            else
+            {
+                index = (int)track.ObjectTileset;
+            }
+
+            Tile[] tiles = this.tiles[index];
+            int subIndex = (y * 2) + x;
+            return tiles[subIndex];
         }
 
         private static int GetObjectGraphicsOffset(ObjectType tileset, byte[] romBuffer, Offsets offsets)
