@@ -819,7 +819,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (isSpritePalette)
             {
-                Context.Game.ObjectGraphics.UpdateTiles();
+                Context.Game.ObjectGraphics.UpdateTiles(palette);
             }
 
             if (this.track.Theme != theme)
