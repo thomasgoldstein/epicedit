@@ -157,13 +157,13 @@ namespace EpicEdit.Rom.Tracks.Objects
             return tiles[subIndex];
         }
 
-        public void UpdateTiles()
+        public void UpdateTiles(Palette palette)
         {
             foreach (Tile[] tiles in this.tiles)
             {
                 foreach (Tile tile in tiles)
                 {
-                    if (tile.Palette != null)
+                    if (tile.Palette == palette)
                     {
                         tile.UpdateBitmap();
                     }
