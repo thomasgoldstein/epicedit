@@ -817,6 +817,11 @@ namespace EpicEdit.UI.TrackEdition
             Palette palette = this.paletteForm.Editor.Palette;
             bool isSpritePalette = theme.Palettes.IndexOf(palette) >= Palettes.SpritePaletteStart;
 
+            if (isSpritePalette)
+            {
+                Context.Game.ObjectGraphics.UpdateTiles();
+            }
+
             if (this.track.Theme != theme)
             {
                 if (!isSpritePalette)

@@ -157,6 +157,20 @@ namespace EpicEdit.Rom.Tracks.Objects
             return tiles[subIndex];
         }
 
+        public void UpdateTiles()
+        {
+            foreach (Tile[] tiles in this.tiles)
+            {
+                foreach (Tile tile in tiles)
+                {
+                    if (tile.Palette != null)
+                    {
+                        tile.UpdateBitmap();
+                    }
+                }
+            }
+        }
+
         private static int GetObjectGraphicsOffset(ObjectType tileset, byte[] romBuffer, Offsets offsets)
         {
             int offsetLocation = offsets[Offset.TrackObjectGraphics];
