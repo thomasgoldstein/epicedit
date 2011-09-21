@@ -2661,29 +2661,94 @@ namespace EpicEdit.UI.TrackEdition
         #region class TrackPanel
         private class TrackPanel : TilePanel
         {
+            protected override void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
+            {
+                var parent = this.Parent as TrackEditor;
+                Track track = parent.track;
+
+                if (parent.editionMode == EditionMode.Objects && track is GPTrack)
+                {
+                    GPTrack gpTrack = track as GPTrack;
+
+                    if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+                    {
+                        // Shift the X value, to account for the fact that track objects,
+                        // which are rendered on 2x2 tiles (16x16 pixels) are spread across 3 tiles
+                        // horizontally, as they are centered (4px + 8px + 4px).
+                        // So, shifting the X value makes it easier for us, as that lets us treat
+                        // them as being on 2 tiles rather than 3.
+                        int halfTile = (int)((Tile.Size / 2) * this.Zoom);
+                        x += halfTile;
+                    }
+                }
+
+                base.GetColorAt(x, y, out palette, out colorIndex);
+            }
+
             protected override Tile GetTileAt(int x, int y)
             {
                 // Convert from pixel precision to tile precision
-                x /= Tile.Size;
-                y /= Tile.Size;
+                int tileX = x / Tile.Size;
+                int tileY = y / Tile.Size;
 
                 var parent = this.Parent as TrackEditor;
 
                 Point scrollPosition = parent.scrollPosition;
-                x += scrollPosition.X;
-                y += scrollPosition.Y;
+                tileX += scrollPosition.X;
+                tileY += scrollPosition.Y;
 
-                if (x > TrackMap.Limit || y > TrackMap.Limit)
+                if (tileX > TrackMap.Size || tileY > TrackMap.Limit)
                 {
+                    // Allow tileX value to be over the TrackMap.Limit for EditionMode.Objects,
+                    // due to the fact we shifted the X value in the GetColorAt method override.
                     return null;
                 }
 
                 Track track = parent.track;
-                byte index = track.Map[x, y];
+
+                if (parent.editionMode == EditionMode.Objects && track is GPTrack)
+                {
+                    GPTrack gpTrack = track as GPTrack;
+
+                    if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+                    {
+                        TrackObjects objects = gpTrack.Objects;
+
+                        foreach (TrackObject obj in objects)
+                        {
+                            // Since objects are rendered on 2x2 tiles,
+                            // add or substract 1 to account for this.
+                            if ((tileX == obj.X || tileX == obj.X + 1) &&
+                                (tileY == obj.Y - 1 || tileY == obj.Y))
+                            {
+                                int relativeX = tileX - obj.X;
+                                int relativeY = tileY - obj.Y + 1;
+
+                                Tile tile = Context.Game.ObjectGraphics.GetObjectTile(gpTrack, obj, relativeX, relativeY);
+
+                                int pixelX = x % Tile.Size;
+                                int pixelY = y % Tile.Size;
+
+                                if (tile.GetColorIndexAt(pixelX, pixelY) != 0)
+                                {
+                                    // If the hovered pixel is not transparent, return the hovered tile
+                                    return tile;
+                                }
+                            }
+                        }
+
+                        return null;
+                    }
+                }
+
+                if (tileX > TrackMap.Limit)
+                {
+                    return null;
+                }
 
                 if (parent.editionMode == EditionMode.Overlay)
                 {
-                    Point location = new Point(x, y);
+                    Point location = new Point(tileX, tileY);
 
                     var overlay = track.OverlayTiles;
                     for (int i = overlay.Count - 1; i >= 0; i--)
@@ -2691,18 +2756,19 @@ namespace EpicEdit.UI.TrackEdition
                         var overlayTile = overlay[i];
                         if (overlayTile.IntersectsWith(location))
                         {
-                            int relativeX = x - overlayTile.X;
-                            int relativeY = y - overlayTile.Y;
+                            int relativeX = tileX - overlayTile.X;
+                            int relativeY = tileY - overlayTile.Y;
                             byte tileId = overlayTile.Pattern[relativeX, relativeY];
 
                             if (tileId != OverlayTile.None)
                             {
-                                index = tileId;
-                                break;
+                                return track.GetRoadTile(tileId);
                             }
                         }
                     }
                 }
+
+                byte index = track.Map[tileX, tileY];
 
                 return track.GetRoadTile(index);
             }
