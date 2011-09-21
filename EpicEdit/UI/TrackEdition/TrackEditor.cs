@@ -2699,7 +2699,8 @@ namespace EpicEdit.UI.TrackEdition
 
                 if (tileX > TrackMap.Size || tileY > TrackMap.Limit)
                 {
-                    // Allow tileX value to be over the TrackMap.Limit for EditionMode.Objects,
+                    // Allow tileX value to be over the TrackMap.Limit for
+                    // EditionMode.Objects + GP track + object type different from pillar,
                     // due to the fact we shifted the X value in the GetColorAt method override.
                     return null;
                 }
@@ -2712,65 +2713,84 @@ namespace EpicEdit.UI.TrackEdition
 
                     if (gpTrack.ObjectRoutine != ObjectType.Pillar)
                     {
-                        TrackObjects objects = gpTrack.Objects;
-
-                        foreach (TrackObject obj in objects)
-                        {
-                            // Since objects are rendered on 2x2 tiles,
-                            // add or substract 1 to account for this.
-                            if ((tileX == obj.X || tileX == obj.X + 1) &&
-                                (tileY == obj.Y - 1 || tileY == obj.Y))
-                            {
-                                int relativeX = tileX - obj.X;
-                                int relativeY = tileY - obj.Y + 1;
-
-                                Tile tile = Context.Game.ObjectGraphics.GetObjectTile(gpTrack, obj, relativeX, relativeY);
-
-                                int pixelX = x % Tile.Size;
-                                int pixelY = y % Tile.Size;
-
-                                if (tile.GetColorIndexAt(pixelX, pixelY) != 0)
-                                {
-                                    // If the hovered pixel is not transparent, return the hovered tile
-                                    return tile;
-                                }
-                            }
-                        }
-
-                        return null;
+                        return TrackPanel.GetObjectTile(gpTrack, x, y, tileX, tileY);
                     }
                 }
 
-                if (tileX > TrackMap.Limit)
+                if (tileX == TrackMap.Size)
                 {
+                    // Not EditionMode.Objects + GP track + object type different from pillar,
+                    // so check that tileX is not over TrackMap.Limit (ie: equal to TrackMap.Size)
                     return null;
                 }
 
                 if (parent.editionMode == EditionMode.Overlay)
                 {
-                    Point location = new Point(tileX, tileY);
+                    Tile tile = TrackPanel.GetOverlayTile(track, tileX, tileY);
 
-                    var overlay = track.OverlayTiles;
-                    for (int i = overlay.Count - 1; i >= 0; i--)
+                    if (tile != null)
                     {
-                        var overlayTile = overlay[i];
-                        if (overlayTile.IntersectsWith(location))
-                        {
-                            int relativeX = tileX - overlayTile.X;
-                            int relativeY = tileY - overlayTile.Y;
-                            byte tileId = overlayTile.Pattern[relativeX, relativeY];
-
-                            if (tileId != OverlayTile.None)
-                            {
-                                return track.GetRoadTile(tileId);
-                            }
-                        }
+                        return tile;
                     }
                 }
 
                 byte index = track.Map[tileX, tileY];
 
                 return track.GetRoadTile(index);
+            }
+
+            private static Tile GetObjectTile(GPTrack track, int x, int y, int tileX, int tileY)
+            {
+                TrackObjects objects = track.Objects;
+
+                foreach (TrackObject obj in objects)
+                {
+                    // Since objects are rendered on 2x2 tiles,
+                    // add or substract 1 to account for this.
+                    if ((tileX == obj.X || tileX == obj.X + 1) &&
+                        (tileY == obj.Y - 1 || tileY == obj.Y))
+                    {
+                        int relativeX = tileX - obj.X;
+                        int relativeY = tileY - obj.Y + 1;
+
+                        Tile tile = Context.Game.ObjectGraphics.GetObjectTile(track, obj, relativeX, relativeY);
+
+                        int pixelX = x % Tile.Size;
+                        int pixelY = y % Tile.Size;
+
+                        if (tile.GetColorIndexAt(pixelX, pixelY) != 0)
+                        {
+                            // If the hovered pixel is not transparent, return the hovered tile
+                            return tile;
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+            private static Tile GetOverlayTile(Track track, int tileX, int tileY)
+            {
+                Point location = new Point(tileX, tileY);
+
+                var overlay = track.OverlayTiles;
+                for (int i = overlay.Count - 1; i >= 0; i--)
+                {
+                    var overlayTile = overlay[i];
+                    if (overlayTile.IntersectsWith(location))
+                    {
+                        int relativeX = tileX - overlayTile.X;
+                        int relativeY = tileY - overlayTile.Y;
+                        byte tileId = overlayTile.Pattern[relativeX, relativeY];
+
+                        if (tileId != OverlayTile.None)
+                        {
+                            return track.GetRoadTile(tileId);
+                        }
+                    }
+                }
+
+                return null;
             }
         }
         #endregion class TrackPanel
