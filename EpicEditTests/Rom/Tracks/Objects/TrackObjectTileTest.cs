@@ -35,7 +35,7 @@ namespace EpicEditTests.Rom.Tracks.Objects
                     int colorIndex = tile.GetColorIndexAt(x, y);
                     Color color1 = tile.Bitmap.GetPixel(x, y);
 
-                    if (color1 == Color.Transparent)
+                    if (color1.A == 0) // Transparent pixel
                     {
                         Assert.AreEqual(0, colorIndex);
                     }
