@@ -28,24 +28,7 @@ namespace EpicEditTests.Rom.Tracks.Objects
             Palette palette = new Palette(palData);
             TrackObjectTile tile = new TrackObjectTile(palette, gfx);
 
-            for (int y = 0; y < Tile.Size; y++)
-            {
-                for (int x = 0; x < Tile.Size; x++)
-                {
-                    int colorIndex = tile.GetColorIndexAt(x, y);
-                    Color color1 = tile.Bitmap.GetPixel(x, y);
-
-                    if (color1.A == 0) // Transparent pixel
-                    {
-                        Assert.AreEqual(0, colorIndex);
-                    }
-                    else
-                    {
-                        Color color2 = palette[colorIndex];
-                        Assert.AreEqual(color1.ToArgb(), color2.ToArgb());
-                    }
-                }
-            }
+            TileTest.TestGetColorIndexAt(tile, palette, true);
         }
 
         [Test]

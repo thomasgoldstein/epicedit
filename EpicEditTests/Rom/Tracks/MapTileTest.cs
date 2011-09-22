@@ -30,6 +30,13 @@ namespace EpicEditTests.Rom.Tracks
             Palette palette = new Palette(palData);
             MapTile tile = new MapTile(palette, gfx, TileGenre.Road);
 
+            this.TestGetColorIndexAt(tile, palette, gfx);
+        }
+
+        private void TestGetColorIndexAt(MapTile tile, Palette palette, byte[] gfx)
+        {
+            TileTest.TestGetColorIndexAt(tile, palette, false);
+
             byte[] gfxCopy = new byte[gfx.Length];
 
             for (int y = 0; y < Tile.Size; y++)
@@ -37,15 +44,13 @@ namespace EpicEditTests.Rom.Tracks
                 for (int x = 0; x < Tile.Size; x++)
                 {
                     int colorIndex = tile.GetColorIndexAt(x, y);
-                    Color color1 = tile.Bitmap.GetPixel(x, y);
-                    Color color2 = palette[colorIndex];
-                    Assert.AreEqual(color1.ToArgb(), color2.ToArgb());
 
                     int index = y * Tile.Size + x;
                     if (index % 2 == 1)
                     {
                         colorIndex <<= 4;
                     }
+
                     gfxCopy[index / 2] |= (byte)colorIndex;
                 }
             }
