@@ -185,15 +185,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.performEvents = true;
         }
 
-        /// <summary>
-        /// Gives a new tool tip object to a control.
-        /// </summary>
-        private static void SetToolTip(ToolTip toolTip, Control control, RomColor color)
-        {
-            toolTip.RemoveAll();
-            toolTip.SetToolTip(control, color.ToString());
-        }
-
         #region Bitmap drawing
 
         /// <summary>
@@ -231,16 +222,6 @@ namespace EpicEdit.UI.ThemeEdition
             RomColor color = (RomColor)this.basicColorsCache.GetPixel(x, 0);
             this.DrawBasicColorsBitmap(color, x);
             return color;
-        }
-
-        /// <summary>
-        /// Draws the basic colors with the circle around a certain color.
-        /// </summary>
-        /// <param name="color">The color to select.</param>
-        private void DrawBasicColorsBitmap(RomColor color)
-        {
-            int x = this.FindColorIndex(color);
-            this.DrawBasicColorsBitmap(color, x);
         }
 
         /// <summary>
