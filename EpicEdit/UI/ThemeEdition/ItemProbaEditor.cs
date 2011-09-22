@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
-using EpicEdit.Rom.Tracks.ItemProba;
+using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition

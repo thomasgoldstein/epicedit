@@ -102,8 +102,8 @@
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Tile.cs" />
     <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
-    <Compile Include="Rom\Tracks\ItemProba\ItemProbabilities.cs" />
-    <Compile Include="Rom\Tracks\ItemProba\ItemProbability.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rom\Compression\ByteDictionary.cs" />
