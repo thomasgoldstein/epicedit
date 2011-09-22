@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace EpicEdit.Rom.Tracks.ItemProba
+namespace EpicEdit.Rom.Tracks.Items
 {
     #region Enumerations
 

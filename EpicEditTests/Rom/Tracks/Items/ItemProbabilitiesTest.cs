@@ -13,10 +13,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using EpicEdit.Rom.Tracks.ItemProba;
+using EpicEdit.Rom.Tracks.Items;
 using NUnit.Framework;
 
-namespace EpicEditTests.Rom.Tracks.ItemProba
+namespace EpicEditTests.Rom.Tracks.Items
 {
     [TestFixture]
     public class ItemProbabilitiesTest

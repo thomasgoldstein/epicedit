@@ -88,7 +88,7 @@
     <Compile Include="Rom\Tracks\BattleStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\BattleTrackTest.cs" />
     <Compile Include="Rom\Tracks\GPTrackTest.cs" />
-    <Compile Include="Rom\Tracks\ItemProba\ItemProbabilitiesTest.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTest.cs" />
     <Compile Include="Rom\Tracks\LapLineTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZonesTest.cs" />
@@ -132,7 +132,7 @@
     <Folder Include="Rom\Compression" />
     <Folder Include="Rom\Tracks" />
     <Folder Include="Rom\Tracks\AI" />
-    <Folder Include="Rom\Tracks\ItemProba" />
+    <Folder Include="Rom\Tracks\Items" />
     <Folder Include="Rom\Tracks\Overlay" />
     <Folder Include="Rom\Tracks\Objects" />
   </ItemGroup>
