@@ -102,6 +102,7 @@
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Tile.cs" />
     <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemIconTile.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
     <Compile Include="Platform.cs" />
