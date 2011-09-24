@@ -38,26 +38,6 @@ namespace EpicEdit.Rom
 
         private RomColor[] colors;
 
-        public Palette()
-        {
-            // This is used to initialize a default palette, all black
-            this.colors = new RomColor[Palette.ColorCount];
-            for (int x = 0; x < this.colors.Length; x++)
-            {
-                this.colors[x] = new RomColor();
-            }
-        }
-
-        public Palette(RomColor[] palette)
-        {
-            if (palette.Length != Palette.ColorCount)
-            {
-                throw new ArgumentException("The palette doesn't contain " + Palette.ColorCount + " colors.", "palette");
-            }
-
-            this.colors = palette;
-        }
-
         public Palette(byte[] data)
         {
             this.colors = new RomColor[Palette.ColorCount];
