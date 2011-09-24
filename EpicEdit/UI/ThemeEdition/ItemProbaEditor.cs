@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
@@ -189,27 +190,27 @@ namespace EpicEdit.UI.ThemeEdition
             this.ignoreChange = true;
 
             this.coinsLabel.Enabled =
-                this.coinsPictureBox.Enabled =
+                this.coinsPanel.Enabled =
                 this.coinsNumericUpDown.Enabled =
                 this.coinsPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
 
             this.featherLabel.Enabled =
-                this.featherPictureBox.Enabled =
+                this.featherPanel.Enabled =
                 this.featherNumericUpDown.Enabled =
                 this.featherPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoFeathers &&
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
             this.ghostLabel.Enabled =
-                this.ghostPictureBox.Enabled =
+                this.ghostPanel.Enabled =
                 this.ghostNumericUpDown.Enabled =
                 this.ghostPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
             this.lightningLabel.Enabled =
-                this.lightningPictureBox.Enabled =
+                this.lightningPanel.Enabled =
                 this.lightningValue.Enabled =
                 this.lightningPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
@@ -249,15 +250,15 @@ namespace EpicEdit.UI.ThemeEdition
         {
             var g = Context.Game.ItemIconGraphics;
             Palettes palettes = Context.Game.Themes[0].Palettes;
-            this.mushroomPictureBox.Image = g.GetImage(ItemType.Mushroom, palettes);
-            this.featherPictureBox.Image = g.GetImage(ItemType.Feather, palettes);
-            this.starPictureBox.Image = g.GetImage(ItemType.Star, palettes);
-            this.bananaPictureBox.Image = g.GetImage(ItemType.Banana, palettes);
-            this.greenPictureBox.Image = g.GetImage(ItemType.GreenShell, palettes);
-            this.redPictureBox.Image = g.GetImage(ItemType.RedShell, palettes);
-            this.ghostPictureBox.Image = g.GetImage(ItemType.Ghost, palettes);
-            this.coinsPictureBox.Image = g.GetImage(ItemType.Coin, palettes);
-            this.lightningPictureBox.Image = g.GetImage(ItemType.Lightning, palettes);
+            this.mushroomPanel.Image = g.GetImage(ItemType.Mushroom, palettes);
+            this.featherPanel.Image = g.GetImage(ItemType.Feather, palettes);
+            this.starPanel.Image = g.GetImage(ItemType.Star, palettes);
+            this.bananaPanel.Image = g.GetImage(ItemType.Banana, palettes);
+            this.greenPanel.Image = g.GetImage(ItemType.GreenShell, palettes);
+            this.redPanel.Image = g.GetImage(ItemType.RedShell, palettes);
+            this.ghostPanel.Image = g.GetImage(ItemType.Ghost, palettes);
+            this.coinsPanel.Image = g.GetImage(ItemType.Coin, palettes);
+            this.lightningPanel.Image = g.GetImage(ItemType.Lightning, palettes);
         }
 
         #endregion Fields initialization and display
@@ -404,5 +405,68 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         #endregion Events handlers
+
+        #region class ItemIconPanel
+        private sealed class ItemIconPanel : TilePanel
+        {
+            private Image image;
+            private Image disabledImage;
+
+            public Image Image
+            {
+                get { return this.image; }
+                set
+                {
+                    this.image = value;
+
+                    if (this.disabledImage != null)
+                    {
+                        this.disabledImage.Dispose();
+                        this.disabledImage = null;
+                    }
+                }
+            }
+
+            protected override void OnPaint(PaintEventArgs e)
+            {
+                if (this.Enabled)
+                {
+                    e.Graphics.DrawImage(this.image, 0, 0);
+                }
+                else if (this.image != null)
+                {
+                    if (this.disabledImage == null)
+                    {
+                        this.disabledImage = ToolStripRenderer.CreateDisabledImage(this.image);
+                    }
+                    e.Graphics.DrawImage(this.disabledImage, 0, 0);
+                }
+            }
+
+            protected override Tile GetTileAt(int x, int y)
+            {
+                // Convert from pixel precision to tile precision
+                x /= Tile.Size;
+                y /= Tile.Size;
+
+                return null; // TODO
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                if (this.image != null)
+                {
+                    this.image.Dispose();
+                }
+
+                if (this.disabledImage != null)
+                {
+                    this.disabledImage.Dispose();
+                }
+
+                base.Dispose(disposing);
+            }
+        }
+        #endregion class ItemIconPanel
     }
 }
