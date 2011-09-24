@@ -24,6 +24,7 @@ namespace EpicEdit.Rom.Tracks.Items
     public class ItemIconTile : Tile
     {
         private int paletteIndex;
+        private int subPaletteIndex;
         private Bitmap image;
 
         public override Bitmap Bitmap
@@ -31,11 +32,11 @@ namespace EpicEdit.Rom.Tracks.Items
             get { return this.image; }
         }
 
-        public ItemIconTile(Palette palette, int paletteIndex, byte[] gfx)
+        public ItemIconTile(int paletteIndex, int subPaletteIndex, byte[] gfx)
         {
             this.graphics = gfx;
             this.paletteIndex = paletteIndex;
-            this.Palette = palette;
+            this.subPaletteIndex = subPaletteIndex;
         }
 
         public override void UpdateBitmap()
@@ -53,7 +54,12 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 throw new InvalidOperationException("Cannot generate Bitmap as the Palette has not been set.");
             }
-            this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.graphics, this.Palette, this.paletteIndex);
+            this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.graphics, this.Palette, this.subPaletteIndex);
+        }
+
+        public void SetPalette(Palettes palettes)
+        {
+            this.Palette = palettes[this.paletteIndex];
         }
 
         public override int GetColorIndexAt(int x, int y)
@@ -63,7 +69,7 @@ namespace EpicEdit.Rom.Tracks.Items
             byte val2 = this.graphics[(y * 2) + 1];
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-            return this.paletteIndex + colIndex;
+            return this.subPaletteIndex + colIndex;
         }
 
         public override void Dispose()
