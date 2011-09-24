@@ -39,13 +39,13 @@ namespace EpicEdit.Rom.Tracks.Objects
             for (int i = 0; i < typeCount; i++)
             {
                 ObjectType type = (ObjectType)i;
-                int offset = TrackObjectGraphics.GetObjectGraphicsOffset(type, romBuffer, offsets);
+                int offset = TrackObjectGraphics.GetGraphicsOffset(type, romBuffer, offsets);
                 tilesetGfx = Codec.Decompress(romBuffer, offset);
-                tileIndexes = TrackObjectGraphics.GetObjectTileIndexes(type);
+                tileIndexes = TrackObjectGraphics.GetTileIndexes(type);
                 this.tiles[i] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
             }
 
-            tileIndexes = TrackObjectGraphics.GetMatchRaceObjectTileIndexes();
+            tileIndexes = TrackObjectGraphics.GetMatchRaceTileIndexes();
 
             tilesetGfx = Codec.Decompress(romBuffer, offsets[Offset.MatchRaceObjectGraphics]);
             this.tiles[this.tiles.Length - 2] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
@@ -68,17 +68,17 @@ namespace EpicEdit.Rom.Tracks.Objects
             return tiles;
         }
 
-        private Tile[] GetObjectTiles(ObjectType tileset)
+        private Tile[] GetTiles(ObjectType tileset)
         {
             return this.tiles[(int)tileset];
         }
 
-        public Bitmap GetObjectImage(GPTrack track)
+        public Bitmap GetImage(GPTrack track)
         {
-            Tile[] tiles = this.GetObjectTiles(track.ObjectTileset);
+            Tile[] tiles = this.GetTiles(track.ObjectTileset);
             Palette palette = track.ObjectPalette;
 
-            return TrackObjectGraphics.GetObjectImage(tiles, palette);
+            return TrackObjectGraphics.GetImage(tiles, palette);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             Tile[] tiles = this.tiles[this.GetMatchRaceTileIndex(moving)];
             Palette palette = moving ? theme.Palettes[12] : theme.Palettes[14];
 
-            return TrackObjectGraphics.GetObjectImage(tiles, palette);
+            return TrackObjectGraphics.GetImage(tiles, palette);
         }
 
         private int GetMatchRaceTileIndex(bool moving)
@@ -100,7 +100,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return moving ? this.tiles.Length - 2 : this.tiles.Length - 1;
         }
 
-        private static int[] GetObjectTileIndexes(ObjectType type)
+        private static int[] GetTileIndexes(ObjectType type)
         {
             if (type == ObjectType.Plant || type == ObjectType.Fish)
             {
@@ -110,12 +110,12 @@ namespace EpicEdit.Rom.Tracks.Objects
             return new int[] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
         }
 
-        private static int[] GetMatchRaceObjectTileIndexes()
+        private static int[] GetMatchRaceTileIndexes()
         {
             return new int[] { 0, 32, 64, 96 };
         }
 
-        private static Bitmap GetObjectImage(Tile[] tiles, Palette palette)
+        private static Bitmap GetImage(Tile[] tiles, Palette palette)
         {
             if (tiles[0].Palette != palette) // Assuming all tiles use the same palette
             {
@@ -137,7 +137,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return bitmap;
         }
 
-        public Tile GetObjectTile(GPTrack track, TrackObject trackObject, int x, int y)
+        public Tile GetTile(GPTrack track, TrackObject trackObject, int x, int y)
         {
             int index;
 
@@ -171,7 +171,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private static int GetObjectGraphicsOffset(ObjectType tileset, byte[] romBuffer, Offsets offsets)
+        private static int GetGraphicsOffset(ObjectType tileset, byte[] romBuffer, Offsets offsets)
         {
             int offsetLocation = offsets[Offset.TrackObjectGraphics];
 
