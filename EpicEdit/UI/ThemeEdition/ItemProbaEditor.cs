@@ -69,7 +69,6 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InitializeProbability();
             this.DisplayProbability();
-            this.DisplayItemIcons();
 
             this.performEvents = true;
         }
@@ -246,21 +245,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.ignoreChange = false;
         }
 
-        private void DisplayItemIcons()
-        {
-            var g = Context.Game.ItemIconGraphics;
-            Palettes palettes = Context.Game.Themes[0].Palettes;
-            this.mushroomPanel.Image = g.GetImage(ItemType.Mushroom, palettes);
-            this.featherPanel.Image = g.GetImage(ItemType.Feather, palettes);
-            this.starPanel.Image = g.GetImage(ItemType.Star, palettes);
-            this.bananaPanel.Image = g.GetImage(ItemType.Banana, palettes);
-            this.greenPanel.Image = g.GetImage(ItemType.GreenShell, palettes);
-            this.redPanel.Image = g.GetImage(ItemType.RedShell, palettes);
-            this.ghostPanel.Image = g.GetImage(ItemType.Ghost, palettes);
-            this.coinsPanel.Image = g.GetImage(ItemType.Coin, palettes);
-            this.lightningPanel.Image = g.GetImage(ItemType.Lightning, palettes);
-        }
-
         #endregion Fields initialization and display
 
         #region Getters / converters for the ComboBoxes
@@ -417,7 +401,7 @@ namespace EpicEdit.UI.ThemeEdition
             private Image image;
             private Image disabledImage;
 
-            public Image Image
+            private Image Image
             {
                 get { return this.image; }
                 set
@@ -437,6 +421,19 @@ namespace EpicEdit.UI.ThemeEdition
                     }
 
                     this.SetCurrentImage();
+                }
+            }
+
+            private ItemType itemType;
+            public ItemType ItemType
+            {
+                get { return this.itemType; }
+                set
+                {
+                    this.itemType = value;
+
+                    Palettes palettes = Context.Game.Themes[0].Palettes;
+                    this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
                 }
             }
 

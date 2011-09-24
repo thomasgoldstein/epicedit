@@ -87,6 +87,14 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherLabel = new System.Windows.Forms.Label();
             this.mushroomLabel = new System.Windows.Forms.Label();
             this.lapRankComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.starNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bananaNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.featherNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // themeComboBox
@@ -191,75 +199,84 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // lightningPanel
             // 
+            this.lightningPanel.ItemType = EpicEdit.Rom.ItemType.Lightning;
             this.lightningPanel.Location = new System.Drawing.Point(297, 126);
             this.lightningPanel.Name = "lightningPanel";
             this.lightningPanel.Size = new System.Drawing.Size(16, 16);
             this.lightningPanel.TabIndex = 49;
-            this.lightningPanel.TabStop = false;
+            this.lightningPanel.Zoom = 1F;
             // 
             // coinsPanel
             // 
+            this.coinsPanel.ItemType = EpicEdit.Rom.ItemType.Coin;
             this.coinsPanel.Location = new System.Drawing.Point(297, 100);
             this.coinsPanel.Name = "coinsPanel";
             this.coinsPanel.Size = new System.Drawing.Size(16, 16);
             this.coinsPanel.TabIndex = 48;
-            this.coinsPanel.TabStop = false;
+            this.coinsPanel.Zoom = 1F;
             // 
             // ghostPanel
             // 
+            this.ghostPanel.ItemType = EpicEdit.Rom.ItemType.Ghost;
             this.ghostPanel.Location = new System.Drawing.Point(297, 74);
             this.ghostPanel.Name = "ghostPanel";
             this.ghostPanel.Size = new System.Drawing.Size(16, 16);
             this.ghostPanel.TabIndex = 47;
-            this.ghostPanel.TabStop = false;
+            this.ghostPanel.Zoom = 1F;
             // 
             // redPanel
             // 
+            this.redPanel.ItemType = EpicEdit.Rom.ItemType.RedShell;
             this.redPanel.Location = new System.Drawing.Point(297, 48);
             this.redPanel.Name = "redPanel";
             this.redPanel.Size = new System.Drawing.Size(16, 16);
             this.redPanel.TabIndex = 46;
-            this.redPanel.TabStop = false;
+            this.redPanel.Zoom = 1F;
             // 
             // greenPanel
             // 
+            this.greenPanel.ItemType = EpicEdit.Rom.ItemType.GreenShell;
             this.greenPanel.Location = new System.Drawing.Point(78, 152);
             this.greenPanel.Name = "greenPanel";
             this.greenPanel.Size = new System.Drawing.Size(16, 16);
             this.greenPanel.TabIndex = 45;
-            this.greenPanel.TabStop = false;
+            this.greenPanel.Zoom = 1F;
             // 
             // bananaPanel
             // 
+            this.bananaPanel.ItemType = EpicEdit.Rom.ItemType.Banana;
             this.bananaPanel.Location = new System.Drawing.Point(78, 126);
             this.bananaPanel.Name = "bananaPanel";
             this.bananaPanel.Size = new System.Drawing.Size(16, 16);
             this.bananaPanel.TabIndex = 44;
-            this.bananaPanel.TabStop = false;
+            this.bananaPanel.Zoom = 1F;
             // 
             // starPanel
             // 
+            this.starPanel.ItemType = EpicEdit.Rom.ItemType.Star;
             this.starPanel.Location = new System.Drawing.Point(78, 100);
             this.starPanel.Name = "starPanel";
             this.starPanel.Size = new System.Drawing.Size(16, 16);
             this.starPanel.TabIndex = 43;
-            this.starPanel.TabStop = false;
+            this.starPanel.Zoom = 1F;
             // 
             // featherPanel
             // 
+            this.featherPanel.ItemType = EpicEdit.Rom.ItemType.Feather;
             this.featherPanel.Location = new System.Drawing.Point(78, 74);
             this.featherPanel.Name = "featherPanel";
             this.featherPanel.Size = new System.Drawing.Size(16, 16);
             this.featherPanel.TabIndex = 42;
-            this.featherPanel.TabStop = false;
+            this.featherPanel.Zoom = 1F;
             // 
             // mushroomPanel
             // 
+            this.mushroomPanel.ItemType = EpicEdit.Rom.ItemType.Mushroom;
             this.mushroomPanel.Location = new System.Drawing.Point(78, 48);
             this.mushroomPanel.Name = "mushroomPanel";
             this.mushroomPanel.Size = new System.Drawing.Size(16, 16);
             this.mushroomPanel.TabIndex = 41;
-            this.mushroomPanel.TabStop = false;
+            this.mushroomPanel.Zoom = 1F;
             // 
             // resetButton
             // 
@@ -569,6 +586,14 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
             this.Size = new System.Drawing.Size(420, 250);
+            ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.starNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bananaNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.featherNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
