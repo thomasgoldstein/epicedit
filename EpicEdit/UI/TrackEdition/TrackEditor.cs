@@ -802,7 +802,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
         {
-            this.paletteForm.Editor.Theme = this.track.Theme;
             this.paletteForm.Editor.SetPalette(e.Value1);
             this.paletteForm.Editor.SetColorIndex(e.Value2);
         }
