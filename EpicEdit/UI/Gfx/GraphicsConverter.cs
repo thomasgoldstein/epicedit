@@ -22,7 +22,7 @@ using EpicEdit.Rom.Tracks;
 namespace EpicEdit.UI.Gfx
 {
     /// <summary>
-    /// Class that can be used to convert images from one type to another.
+    /// Converts various SNES graphics types to Bitmaps.
     /// </summary>
     public static class GraphicsConverter
     {
