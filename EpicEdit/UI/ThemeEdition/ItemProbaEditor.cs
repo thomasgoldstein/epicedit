@@ -440,13 +440,9 @@ namespace EpicEdit.UI.ThemeEdition
                 }
             }
 
-            public ItemIconPanel()
+            protected override void OnEnabledChanged(EventArgs e)
             {
-                this.EnabledChanged += this.ItemIconPanel_EnabledChanged;
-            }
-
-            private void ItemIconPanel_EnabledChanged(object sender, EventArgs e)
-            {
+                base.OnEnabledChanged(e);
                 this.SetCurrentImage();
             }
 
