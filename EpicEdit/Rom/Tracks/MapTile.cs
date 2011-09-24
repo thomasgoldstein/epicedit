@@ -40,7 +40,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.image; }
         }
 
-        public MapTile(Palette palette, byte[] gfx, TileGenre genre)
+        public MapTile(byte[] gfx, Palette palette, TileGenre genre)
         {
             this.Palette = palette;
             this.graphics = gfx;
@@ -48,7 +48,7 @@ namespace EpicEdit.Rom.Tracks
             this.GenerateBitmap();
         }
 
-        public MapTile(Palette palette, Bitmap image, TileGenre genre)
+        public MapTile(Bitmap image, Palette palette, TileGenre genre)
         {
             this.Palette = palette;
             this.image = image;

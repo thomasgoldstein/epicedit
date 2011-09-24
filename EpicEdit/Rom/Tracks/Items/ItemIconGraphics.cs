@@ -55,7 +55,7 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 byte[] gfx = new byte[bytesPerTile];
                 Buffer.BlockCopy(itemGfx, (tileIndex + i) * bytesPerTile, gfx, 0, bytesPerTile);
-                tiles[i] = new ItemIconTile(palIndex, subPalIndex, gfx);
+                tiles[i] = new ItemIconTile(gfx, palIndex, subPalIndex);
             }
 
             return tiles;
