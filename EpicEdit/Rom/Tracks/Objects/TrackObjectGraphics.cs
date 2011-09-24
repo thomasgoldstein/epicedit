@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// Track object graphics manager.
     /// </summary>
-    public class TrackObjectGraphics
+    public sealed class TrackObjectGraphics : IDisposable
     {
         private Tile[][] tiles;
 
@@ -205,6 +205,19 @@ namespace EpicEdit.Rom.Tracks.Objects
             return Utilities.BytesToOffset(romBuffer[offsetLocation],
                                            romBuffer[offsetLocation + 1],
                                            romBuffer[offsetLocation + 2]);
+        }
+
+        public void Dispose()
+        {
+            foreach (Tile[] tiles in this.tiles)
+            {
+                foreach (Tile tile in tiles)
+                {
+                    tile.Dispose();
+                }
+            }
+
+            GC.SuppressFinalize(this);
         }
     }
 }
