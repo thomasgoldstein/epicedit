@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using EpicEdit.Rom.Tracks;
+
 namespace EpicEdit.Rom
 {
     /// <summary>
@@ -28,6 +30,11 @@ namespace EpicEdit.Rom
         /// From 0 to 7: non-sprite palettes, from 8 to 15: sprite palettes.
         /// </summary>
         public const int SpritePaletteStart = 8;
+
+        /// <summary>
+        /// The theme the palettes belong to.
+        /// </summary>
+        public Theme Theme { get; internal set; }
 
         private Palette[] palettes;
 

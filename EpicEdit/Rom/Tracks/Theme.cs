@@ -35,6 +35,7 @@ namespace EpicEdit.Rom.Tracks
         {
             this.Name = name;
             this.Palettes = palettes;
+            this.Palettes.Theme = this;
             this.roadTileset = roadTileset;
             this.backgroundTileset = backgroundTileset;
         }
