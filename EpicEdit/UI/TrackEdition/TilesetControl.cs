@@ -200,7 +200,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private class TilesetPanel : TilePanel
+        private sealed class TilesetPanel : TilePanel
         {
             private Tile[] tileset;
 

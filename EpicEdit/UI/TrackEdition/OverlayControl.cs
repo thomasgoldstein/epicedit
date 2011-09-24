@@ -377,7 +377,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private class OverlayPanel : TilePanel
+        private sealed class OverlayPanel : TilePanel
         {
             protected override Tile GetTileAt(int x, int y)
             {
