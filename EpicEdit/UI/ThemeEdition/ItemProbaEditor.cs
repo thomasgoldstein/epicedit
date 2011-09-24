@@ -409,6 +409,11 @@ namespace EpicEdit.UI.ThemeEdition
         #region class ItemIconPanel
         private sealed class ItemIconPanel : TilePanel
         {
+            /// <summary>
+            /// Reference to the current image (enabled or disabled).
+            /// </summary>
+            private Image currentImage;
+
             private Image image;
             private Image disabledImage;
 
@@ -424,14 +429,26 @@ namespace EpicEdit.UI.ThemeEdition
                         this.disabledImage.Dispose();
                         this.disabledImage = null;
                     }
+
+                    this.SetCurrentImage();
                 }
             }
 
-            protected override void OnPaint(PaintEventArgs e)
+            public ItemIconPanel()
+            {
+                this.EnabledChanged += this.ItemIconPanel_EnabledChanged;
+            }
+
+            private void ItemIconPanel_EnabledChanged(object sender, EventArgs e)
+            {
+                this.SetCurrentImage();
+            }
+
+            private void SetCurrentImage()
             {
                 if (this.Enabled)
                 {
-                    e.Graphics.DrawImage(this.image, 0, 0);
+                    this.currentImage = this.image;
                 }
                 else if (this.image != null)
                 {
@@ -439,8 +456,15 @@ namespace EpicEdit.UI.ThemeEdition
                     {
                         this.disabledImage = ToolStripRenderer.CreateDisabledImage(this.image);
                     }
-                    e.Graphics.DrawImage(this.disabledImage, 0, 0);
+                    this.currentImage = this.disabledImage;
                 }
+
+                this.Invalidate();
+            }
+
+            protected override void OnPaint(PaintEventArgs e)
+            {
+                e.Graphics.DrawImage(this.currentImage, 0, 0);
             }
 
             protected override Tile GetTileAt(int x, int y)
