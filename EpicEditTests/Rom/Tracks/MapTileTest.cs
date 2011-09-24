@@ -27,7 +27,7 @@ namespace EpicEditTests.Rom.Tracks
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
-            Palette palette = new Palette(palData);
+            Palette palette = new Palette(null, palData);
             MapTile tile = new MapTile(gfx, palette, TileGenre.Road);
 
             this.TestGetColorIndexAt(gfx, palette, tile);

@@ -32,14 +32,21 @@ namespace EpicEdit.Rom
         /// </summary>
         public const int ColorCount = Palette.Size / RomColor.Size;
 
+        /// <summary>
+        /// The collection the palette belongs to.
+        /// </summary>
+        public Palettes Collection { get; private set; }
+
         private byte[] backupData;
 
         public bool Modified { get; set; }
 
         private RomColor[] colors;
 
-        public Palette(byte[] data)
+        public Palette(Palettes collection, byte[] data)
         {
+            this.Collection = collection;
+
             this.colors = new RomColor[Palette.ColorCount];
             this.backupData = data;
 

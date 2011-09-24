@@ -28,7 +28,7 @@ namespace EpicEditTests.Rom.Tracks.Items
             ItemIconTile tile = new ItemIconTile(gfx, 0, subPaletteIndex);
             tile.SetPalette(palettes);
 
-            Palette palette = new Palette(palData);
+            Palette palette = new Palette(null, palData);
             TileTest.TestGetColorIndexAt(tile, palette, false);
         }
 
