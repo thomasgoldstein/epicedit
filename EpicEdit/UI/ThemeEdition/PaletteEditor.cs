@@ -178,11 +178,12 @@ namespace EpicEdit.Rom.ThemeEdition
         }
 
         /// <summary>
-        /// Sets the palette after the palette editor has been initialized.
+        /// Sets the theme and palette.
         /// </summary>
-        /// <param name="palette">The new palette object.</param>
+        /// <param name="palette">The new palette.</param>
         public void SetPalette(Palette palette)
         {
+            this.Theme = palette.Theme;
             this.paletteNumericUpDown.Value = palette.Index;
         }
 
