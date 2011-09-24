@@ -37,6 +37,22 @@ namespace EpicEdit.Rom
         /// </summary>
         public Palettes Collection { get; private set; }
 
+        public int Index
+        {
+            get
+            {
+                for (int i = 0; i < this.Collection.Count; i++)
+                {
+                    if (this.Collection[i] == this)
+                    {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        }
+
         private byte[] backupData;
 
         public bool Modified { get; set; }

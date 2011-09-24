@@ -183,7 +183,7 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="palette">The new palette object.</param>
         public void SetPalette(Palette palette)
         {
-            this.paletteNumericUpDown.Value = this.Theme.Palettes.IndexOf(palette);
+            this.paletteNumericUpDown.Value = palette.Index;
         }
 
         public void SetColorIndex(int index)

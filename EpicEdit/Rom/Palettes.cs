@@ -55,19 +55,6 @@ namespace EpicEdit.Rom
             set { this.palettes[index] = value; }
         }
 
-        public int IndexOf(Palette palette)
-        {
-            for (int i = 0; i < this.palettes.Length; i++)
-            {
-                if (palette == this.palettes[i])
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
         public byte[] GetBytes()
         {
             byte[] data = new byte[this.palettes.Length * Palette.Size];
