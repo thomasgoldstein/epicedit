@@ -28,32 +28,21 @@ namespace EpicEdit.UI.Gfx
     {
         public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palette palette, int subPaletteIndex)
         {
-            return GraphicsConverter.GetBitmapFrom2bppPlanar(gfx, 0, palette, subPaletteIndex, Tile.Size, Tile.Size);
-        }
-
-        public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, int gfxIndex, Palette palette, int subPaletteIndex, int width, int height)
-        {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
-            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
-            for (int tileY = 0; tileY < height; tileY += Tile.Size)
+            for (int y = 0; y < Tile.Size; y++)
             {
-                for (int tileX = 0; tileX < width; tileX += Tile.Size)
+                byte val1 = gfx[(y * 2)];
+                byte val2 = gfx[(y * 2) + 1];
+                for (int x = 0; x < Tile.Size; x++)
                 {
-                    for (int y = 0; y < Tile.Size; y++)
-                    {
-                        byte val1 = gfx[gfxIndex++];
-                        byte val2 = gfx[gfxIndex++];
-                        for (int x = 0; x < Tile.Size; x++)
-                        {
-                            int mask = 1 << x;
-                            int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-                            Color color = palette[subPaletteIndex + colIndex];
-                            fBitmap.SetPixel(tileX + (Tile.Size - 1) - x, tileY + y, color);
-                        }
-                    }
+                    int mask = 1 << x;
+                    int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+                    Color color = palette[subPaletteIndex + colIndex];
+                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
                 }
             }
 
@@ -63,29 +52,19 @@ namespace EpicEdit.UI.Gfx
 
         public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
         {
-            return GraphicsConverter.GetBitmapFrom4bppPlanarComposite(gfx, 0, palette);
-        }
-
-        public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, int gfxIndex, Palette palette)
-        {
-            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            GraphicsConverter.SetBitmapFrom4bppPlanarComposite(bitmap, gfx, gfxIndex, palette, 0, 0);
-            return bitmap;
-        }
-
-        internal static void SetBitmapFrom4bppPlanarComposite(Bitmap bitmap, byte[] gfx, int gfxIndex, Palette palette, int startX, int startY)
-        {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
             // NOTE: We use a Bitmap rather than a FastBitmap, because FastBitmap does not support transparency
 
-            for (int y = 0; y < 8; y++)
-            {
-                int val1 = gfx[gfxIndex + y * 2];
-                int val2 = gfx[gfxIndex + y * 2 + 1];
-                int val3 = gfx[gfxIndex + y * 2 + 16];
-                int val4 = gfx[gfxIndex + y * 2 + 17];
+            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
 
-                for (int x = 0; x < 8; x++)
+            for (int y = 0; y < Tile.Size; y++)
+            {
+                int val1 = gfx[y * 2];
+                int val2 = gfx[y * 2 + 1];
+                int val3 = gfx[y * 2 + 16];
+                int val4 = gfx[y * 2 + 17];
+
+                for (int x = 0; x < Tile.Size; x++)
                 {
                     int mask = 1 << x;
                     int val1b = ((val1 & mask) >> x);
@@ -94,9 +73,11 @@ namespace EpicEdit.UI.Gfx
                     int val4b = (((val4 & mask) << 3) >> x);
                     int colIndex = val1b + val2b + val3b + val4b;
                     Color color = colIndex == 0 ? Color.Transparent : palette[colIndex].Color;
-                    bitmap.SetPixel(startX + (Tile.Size - 1) - x, startY + y, color);
+                    bitmap.SetPixel((Tile.Size - 1) - x, y, color);
                 }
             }
+
+            return bitmap;
         }
 
         public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
