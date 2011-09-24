@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Drawing;
+using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.Rom
 {
@@ -51,6 +52,11 @@ namespace EpicEdit.Rom
 
                 return -1;
             }
+        }
+
+        public Theme Theme
+        {
+            get { return this.Collection.Theme; }
         }
 
         private byte[] backupData;
