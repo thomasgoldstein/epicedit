@@ -2108,6 +2108,8 @@ namespace EpicEdit.Rom
         {
             this.themes.Dispose();
 
+            this.ObjectGraphics.Dispose();
+
             foreach (Bitmap icon in this.itemIcons)
             {
                 icon.Dispose();
