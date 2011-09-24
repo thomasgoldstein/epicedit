@@ -815,7 +815,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             Theme theme = this.paletteForm.Editor.Theme;
             Palette palette = this.paletteForm.Editor.Palette;
-            bool isSpritePalette = theme.Palettes.IndexOf(palette) >= Palettes.SpritePaletteStart;
+            bool isSpritePalette = palette.Index >= Palettes.SpritePaletteStart;
 
             if (isSpritePalette)
             {
