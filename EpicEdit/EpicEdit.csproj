@@ -189,9 +189,6 @@
     <Compile Include="UI\Tools\EpicPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\EpicPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Tools\EventArgs.cs" />
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />

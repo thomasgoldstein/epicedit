@@ -54,15 +54,15 @@ namespace EpicEdit.UI.ThemeEdition
             this.starPctLabel = new System.Windows.Forms.Label();
             this.featherPctLabel = new System.Windows.Forms.Label();
             this.mushroomPctLabel = new System.Windows.Forms.Label();
-            this.lightningPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.coinsPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.ghostPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.redPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.greenPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.bananaPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.starPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.featherPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
-            this.mushroomPictureBox = new EpicEdit.UI.Tools.EpicPictureBox();
+            this.lightningPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.coinsPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.ghostPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.redPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.greenPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.bananaPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.starPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.featherPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
+            this.mushroomPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
             this.resetButton = new System.Windows.Forms.Button();
             this.itemBoxDisplayOptionLabel = new System.Windows.Forms.Label();
             this.itemBoxDisplayOption = new System.Windows.Forms.ComboBox();
@@ -87,23 +87,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherLabel = new System.Windows.Forms.Label();
             this.mushroomLabel = new System.Windows.Forms.Label();
             this.lapRankComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.lightningPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coinsPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ghostPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bananaPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.starPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.featherPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mushroomPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.starNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bananaNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.featherNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // themeComboBox
@@ -206,95 +189,77 @@ namespace EpicEdit.UI.ThemeEdition
             this.mushroomPctLabel.TabIndex = 50;
             this.mushroomPctLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lightningPictureBox
+            // lightningPanel
             // 
-            this.lightningPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.lightningPictureBox.Image = null;
-            this.lightningPictureBox.Location = new System.Drawing.Point(297, 126);
-            this.lightningPictureBox.Name = "lightningPictureBox";
-            this.lightningPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.lightningPictureBox.TabIndex = 49;
-            this.lightningPictureBox.TabStop = false;
+            this.lightningPanel.Location = new System.Drawing.Point(297, 126);
+            this.lightningPanel.Name = "lightningPanel";
+            this.lightningPanel.Size = new System.Drawing.Size(16, 16);
+            this.lightningPanel.TabIndex = 49;
+            this.lightningPanel.TabStop = false;
             // 
-            // coinsPictureBox
+            // coinsPanel
             // 
-            this.coinsPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.coinsPictureBox.Image = null;
-            this.coinsPictureBox.Location = new System.Drawing.Point(297, 100);
-            this.coinsPictureBox.Name = "coinsPictureBox";
-            this.coinsPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.coinsPictureBox.TabIndex = 48;
-            this.coinsPictureBox.TabStop = false;
+            this.coinsPanel.Location = new System.Drawing.Point(297, 100);
+            this.coinsPanel.Name = "coinsPanel";
+            this.coinsPanel.Size = new System.Drawing.Size(16, 16);
+            this.coinsPanel.TabIndex = 48;
+            this.coinsPanel.TabStop = false;
             // 
-            // ghostPictureBox
+            // ghostPanel
             // 
-            this.ghostPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ghostPictureBox.Image = null;
-            this.ghostPictureBox.Location = new System.Drawing.Point(297, 74);
-            this.ghostPictureBox.Name = "ghostPictureBox";
-            this.ghostPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.ghostPictureBox.TabIndex = 47;
-            this.ghostPictureBox.TabStop = false;
+            this.ghostPanel.Location = new System.Drawing.Point(297, 74);
+            this.ghostPanel.Name = "ghostPanel";
+            this.ghostPanel.Size = new System.Drawing.Size(16, 16);
+            this.ghostPanel.TabIndex = 47;
+            this.ghostPanel.TabStop = false;
             // 
-            // redPictureBox
+            // redPanel
             // 
-            this.redPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.redPictureBox.Image = null;
-            this.redPictureBox.Location = new System.Drawing.Point(297, 48);
-            this.redPictureBox.Name = "redPictureBox";
-            this.redPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.redPictureBox.TabIndex = 46;
-            this.redPictureBox.TabStop = false;
+            this.redPanel.Location = new System.Drawing.Point(297, 48);
+            this.redPanel.Name = "redPanel";
+            this.redPanel.Size = new System.Drawing.Size(16, 16);
+            this.redPanel.TabIndex = 46;
+            this.redPanel.TabStop = false;
             // 
-            // greenPictureBox
+            // greenPanel
             // 
-            this.greenPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.greenPictureBox.Image = null;
-            this.greenPictureBox.Location = new System.Drawing.Point(78, 152);
-            this.greenPictureBox.Name = "greenPictureBox";
-            this.greenPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.greenPictureBox.TabIndex = 45;
-            this.greenPictureBox.TabStop = false;
+            this.greenPanel.Location = new System.Drawing.Point(78, 152);
+            this.greenPanel.Name = "greenPanel";
+            this.greenPanel.Size = new System.Drawing.Size(16, 16);
+            this.greenPanel.TabIndex = 45;
+            this.greenPanel.TabStop = false;
             // 
-            // bananaPictureBox
+            // bananaPanel
             // 
-            this.bananaPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.bananaPictureBox.Image = null;
-            this.bananaPictureBox.Location = new System.Drawing.Point(78, 126);
-            this.bananaPictureBox.Name = "bananaPictureBox";
-            this.bananaPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.bananaPictureBox.TabIndex = 44;
-            this.bananaPictureBox.TabStop = false;
+            this.bananaPanel.Location = new System.Drawing.Point(78, 126);
+            this.bananaPanel.Name = "bananaPanel";
+            this.bananaPanel.Size = new System.Drawing.Size(16, 16);
+            this.bananaPanel.TabIndex = 44;
+            this.bananaPanel.TabStop = false;
             // 
-            // starPictureBox
+            // starPanel
             // 
-            this.starPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.starPictureBox.Image = null;
-            this.starPictureBox.Location = new System.Drawing.Point(78, 100);
-            this.starPictureBox.Name = "starPictureBox";
-            this.starPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.starPictureBox.TabIndex = 43;
-            this.starPictureBox.TabStop = false;
+            this.starPanel.Location = new System.Drawing.Point(78, 100);
+            this.starPanel.Name = "starPanel";
+            this.starPanel.Size = new System.Drawing.Size(16, 16);
+            this.starPanel.TabIndex = 43;
+            this.starPanel.TabStop = false;
             // 
-            // featherPictureBox
+            // featherPanel
             // 
-            this.featherPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.featherPictureBox.Image = null;
-            this.featherPictureBox.Location = new System.Drawing.Point(78, 74);
-            this.featherPictureBox.Name = "featherPictureBox";
-            this.featherPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.featherPictureBox.TabIndex = 42;
-            this.featherPictureBox.TabStop = false;
+            this.featherPanel.Location = new System.Drawing.Point(78, 74);
+            this.featherPanel.Name = "featherPanel";
+            this.featherPanel.Size = new System.Drawing.Size(16, 16);
+            this.featherPanel.TabIndex = 42;
+            this.featherPanel.TabStop = false;
             // 
-            // mushroomPictureBox
+            // mushroomPanel
             // 
-            this.mushroomPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.mushroomPictureBox.Image = null;
-            this.mushroomPictureBox.Location = new System.Drawing.Point(78, 48);
-            this.mushroomPictureBox.Name = "mushroomPictureBox";
-            this.mushroomPictureBox.Size = new System.Drawing.Size(16, 16);
-            this.mushroomPictureBox.TabIndex = 41;
-            this.mushroomPictureBox.TabStop = false;
+            this.mushroomPanel.Location = new System.Drawing.Point(78, 48);
+            this.mushroomPanel.Name = "mushroomPanel";
+            this.mushroomPanel.Size = new System.Drawing.Size(16, 16);
+            this.mushroomPanel.TabIndex = 41;
+            this.mushroomPanel.TabStop = false;
             // 
             // resetButton
             // 
@@ -576,23 +541,23 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.greenLabel);
             this.Controls.Add(this.mushroomPctLabel);
             this.Controls.Add(this.redLabel);
-            this.Controls.Add(this.lightningPictureBox);
+            this.Controls.Add(this.lightningPanel);
             this.Controls.Add(this.ghostLabel);
-            this.Controls.Add(this.coinsPictureBox);
+            this.Controls.Add(this.coinsPanel);
             this.Controls.Add(this.coinsLabel);
-            this.Controls.Add(this.ghostPictureBox);
+            this.Controls.Add(this.ghostPanel);
             this.Controls.Add(this.lightningLabel);
-            this.Controls.Add(this.redPictureBox);
+            this.Controls.Add(this.redPanel);
             this.Controls.Add(this.mushroomNumericUpDown);
-            this.Controls.Add(this.greenPictureBox);
+            this.Controls.Add(this.greenPanel);
             this.Controls.Add(this.featherNumericUpDown);
-            this.Controls.Add(this.bananaPictureBox);
+            this.Controls.Add(this.bananaPanel);
             this.Controls.Add(this.bananaNumericUpDown);
-            this.Controls.Add(this.starPictureBox);
+            this.Controls.Add(this.starPanel);
             this.Controls.Add(this.starNumericUpDown);
-            this.Controls.Add(this.featherPictureBox);
+            this.Controls.Add(this.featherPanel);
             this.Controls.Add(this.greenNumericUpDown);
-            this.Controls.Add(this.mushroomPictureBox);
+            this.Controls.Add(this.mushroomPanel);
             this.Controls.Add(this.redNumericUpDown);
             this.Controls.Add(this.ghostNumericUpDown);
             this.Controls.Add(this.itemBoxDisplayOptionLabel);
@@ -604,23 +569,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
             this.Size = new System.Drawing.Size(420, 250);
-            ((System.ComponentModel.ISupportInitialize)(this.lightningPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coinsPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ghostPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bananaPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.starPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.featherPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mushroomPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.starNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bananaNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.featherNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -634,15 +582,15 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.Label coinsPctLabel;
         private System.Windows.Forms.Label lightningPctLabel;
         private System.Windows.Forms.Label totalPctLabel;
-        private EpicEdit.UI.Tools.EpicPictureBox featherPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox starPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox bananaPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox greenPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox redPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox ghostPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox coinsPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox lightningPictureBox;
-        private EpicEdit.UI.Tools.EpicPictureBox mushroomPictureBox;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel featherPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel starPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel bananaPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel greenPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel redPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel ghostPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel coinsPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel lightningPanel;
+        private EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel mushroomPanel;
         private System.Windows.Forms.ComboBox lapRankComboBox;
         private System.Windows.Forms.ComboBox modeComboBox;
         private System.Windows.Forms.ComboBox themeComboBox;
