@@ -92,6 +92,13 @@ namespace EpicEdit.Rom.Tracks.Items
             return bitmap;
         }
 
+        public Tile GetTile(ItemType type, int x, int y)
+        {
+            Tile[] tiles = this.tiles[(int)type];
+            int subIndex = (y * 2) + x;
+            return tiles[subIndex];
+        }
+
         public void Dispose()
         {
             foreach (Tile[] tiles in this.tiles)
