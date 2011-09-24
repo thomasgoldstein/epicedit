@@ -22,11 +22,13 @@ namespace EpicEditTests.Rom.Tracks.Items
     [TestFixture]
     public class ItemIconTileTest
     {
-        private void TestGetColorIndexAt(byte[] palData, int paletteIndex, byte[] gfx)
+        private void TestGetColorIndexAt(byte[] palData, int subPaletteIndex, byte[] gfx)
         {
-            Palette palette = new Palette(palData);
-            ItemIconTile tile = new ItemIconTile(palette, paletteIndex, gfx);
+            Palettes palettes = new Palettes(palData);
+            ItemIconTile tile = new ItemIconTile(0, subPaletteIndex, gfx);
+            tile.SetPalette(palettes);
 
+            Palette palette = new Palette(palData);
             TileTest.TestGetColorIndexAt(tile, palette, false);
         }
 

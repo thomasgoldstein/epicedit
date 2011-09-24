@@ -142,15 +142,15 @@ namespace EpicEdit.Rom
             get { return this.itemProbabilities; }
         }
 
-        public Bitmap GetItemIcon(ItemType type)
-        {
-            return this.itemIcons[(int)type];
-        }
-
         /// <summary>
         /// Gets the track object graphics.
         /// </summary>
         public TrackObjectGraphics ObjectGraphics { get; private set; }
+
+        /// <summary>
+        /// Gets the item icon graphics.
+        /// </summary>
+        public ItemIconGraphics ItemIconGraphics { get; private set; }
 
         #endregion Public members and methods
 
@@ -205,11 +205,6 @@ namespace EpicEdit.Rom
         /// The different overlay tile patterns.
         /// </summary>
         private OverlayTilePatterns overlayTilePatterns;
-
-        /// <summary>
-        /// The item icons.
-        /// </summary>
-        private Bitmap[] itemIcons;
 
         private bool modified;
 
@@ -471,8 +466,8 @@ namespace EpicEdit.Rom
             }
 
             this.LoadItemProbabilities();
-            this.LoadItemIcons();
-            this.LoadTrackObjectGraphics();
+            this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
+            this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
         }
 
         private void SetRegion()
@@ -953,44 +948,6 @@ namespace EpicEdit.Rom
         }
 
         #endregion Item probabilities
-
-        #region Item icons
-
-        private void LoadItemIcons()
-        {
-            byte[] itemGfx = Codec.Decompress(this.romBuffer, this.offsets[Offset.ItemIconGraphics]);
-            int itemCount = Enum.GetValues(typeof(ItemType)).Length;
-            this.itemIcons = new Bitmap[itemCount];
-
-            for (int i = 0; i < this.itemIcons.Length; i++)
-            {
-                this.LoadItemIcon(itemGfx, i);
-            }
-        }
-
-        private void LoadItemIcon(byte[] itemGfx, int index)
-        {
-            int iconPaletteOffset = this.offsets[Offset.ItemIconTilesPalettes] + index * 2;
-
-            int tileIndex = this.romBuffer[iconPaletteOffset] & 0x7F;
-            byte globalPalIndex = this.romBuffer[iconPaletteOffset + 1];
-            int palIndex = globalPalIndex / 16;
-            Palette palette = this.themes[0].Palettes[palIndex];
-            int subPalIndex = globalPalIndex % 16;
-
-            this.itemIcons[index] = GraphicsConverter.GetBitmapFrom2bppPlanar(itemGfx, tileIndex * 16, palette, subPalIndex, 16, 16);
-        }
-
-        #endregion Item icons
-
-        #region Track object graphics
-
-        private void LoadTrackObjectGraphics()
-        {
-            this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
-        }
-
-        #endregion Track object graphics
 
         #endregion Get / set, load / save specific data
 
@@ -2107,13 +2064,8 @@ namespace EpicEdit.Rom
         public void Dispose()
         {
             this.themes.Dispose();
-
             this.ObjectGraphics.Dispose();
-
-            foreach (Bitmap icon in this.itemIcons)
-            {
-                icon.Dispose();
-            }
+            this.ItemIconGraphics.Dispose();
 
             GC.SuppressFinalize(this);
         }
