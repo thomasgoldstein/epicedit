@@ -802,8 +802,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
         {
-            this.paletteForm.Editor.SetPalette(e.Value1);
-            this.paletteForm.Editor.SetColorIndex(e.Value2);
+            this.paletteForm.Editor.Palette = e.Value1;
+            this.paletteForm.Editor.ColorIndex = e.Value2;
         }
 
         /// <summary>
@@ -842,7 +842,7 @@ namespace EpicEdit.UI.TrackEdition
                     }
                     else // Optimized cache updates, for a single color change
                     {
-                        int colorIndex = this.paletteForm.Editor.SelectedColorIndex;
+                        int colorIndex = this.paletteForm.Editor.ColorIndex;
                         bool[] tileUpdates = theme.UpdateTiles(palette, colorIndex);
                         this.trackDrawer.ReloadPalette(tileUpdates);
                     }
