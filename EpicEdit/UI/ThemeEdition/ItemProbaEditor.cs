@@ -247,16 +247,17 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void DisplayItemIcons()
         {
+            var g = Context.Game.ItemIconGraphics;
             Palettes palettes = Context.Game.Themes[0].Palettes;
-            this.mushroomPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Mushroom, palettes);
-            this.featherPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Feather, palettes);
-            this.starPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Star, palettes);
-            this.bananaPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Banana, palettes);
-            this.greenPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.GreenShell, palettes);
-            this.redPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.RedShell, palettes);
-            this.ghostPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Ghost, palettes);
-            this.coinsPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Coin, palettes);
-            this.lightningPictureBox.Image = Context.Game.ItemIconGraphics.GetImage(ItemType.Lightning, palettes);
+            this.mushroomPictureBox.Image = g.GetImage(ItemType.Mushroom, palettes);
+            this.featherPictureBox.Image = g.GetImage(ItemType.Feather, palettes);
+            this.starPictureBox.Image = g.GetImage(ItemType.Star, palettes);
+            this.bananaPictureBox.Image = g.GetImage(ItemType.Banana, palettes);
+            this.greenPictureBox.Image = g.GetImage(ItemType.GreenShell, palettes);
+            this.redPictureBox.Image = g.GetImage(ItemType.RedShell, palettes);
+            this.ghostPictureBox.Image = g.GetImage(ItemType.Ghost, palettes);
+            this.coinsPictureBox.Image = g.GetImage(ItemType.Coin, palettes);
+            this.lightningPictureBox.Image = g.GetImage(ItemType.Lightning, palettes);
         }
 
         #endregion Fields initialization and display
