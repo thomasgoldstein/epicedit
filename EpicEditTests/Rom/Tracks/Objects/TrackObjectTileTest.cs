@@ -25,7 +25,7 @@ namespace EpicEditTests.Rom.Tracks.Objects
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
-            Palette palette = new Palette(palData);
+            Palette palette = new Palette(null, palData);
             TrackObjectTile tile = new TrackObjectTile(gfx);
             tile.Palette = palette;
 

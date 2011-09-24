@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
             {
                 byte[] paletteData = new byte[Palette.Size];
                 Buffer.BlockCopy(data, i * Palette.Size, paletteData, 0, Palette.Size);
-                this.palettes[i] = new Palette(paletteData);
+                this.palettes[i] = new Palette(this, paletteData);
             }
         }
 
