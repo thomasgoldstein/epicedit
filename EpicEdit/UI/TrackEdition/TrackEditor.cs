@@ -2664,7 +2664,7 @@ namespace EpicEdit.UI.TrackEdition
         #endregion EditionMode.AI
 
         #region class TrackPanel
-        private class TrackPanel : TilePanel
+        private sealed class TrackPanel : TilePanel
         {
             protected override void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
             {
