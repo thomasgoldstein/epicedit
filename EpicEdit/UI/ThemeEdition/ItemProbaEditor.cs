@@ -422,6 +422,12 @@ namespace EpicEdit.UI.ThemeEdition
                 get { return this.image; }
                 set
                 {
+                    if (this.image != null)
+                    {
+                        this.image.Dispose();
+                        this.image = null;
+                    }
+
                     this.image = value;
 
                     if (this.disabledImage != null)
