@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks.Items
             get { return this.image; }
         }
 
-        public ItemIconTile(int paletteIndex, int subPaletteIndex, byte[] gfx)
+        public ItemIconTile(byte[] gfx, int paletteIndex, int subPaletteIndex)
         {
             this.graphics = gfx;
             this.paletteIndex = paletteIndex;

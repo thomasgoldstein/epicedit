@@ -25,15 +25,15 @@ namespace EpicEditTests.Rom.Tracks
     [TestFixture]
     public class MapTileTest
     {
-        private void TestGetColorIndexAt(byte[] palData, byte[] gfx)
+        private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
             Palette palette = new Palette(palData);
-            MapTile tile = new MapTile(palette, gfx, TileGenre.Road);
+            MapTile tile = new MapTile(gfx, palette, TileGenre.Road);
 
-            this.TestGetColorIndexAt(tile, palette, gfx);
+            this.TestGetColorIndexAt(gfx, palette, tile);
         }
 
-        private void TestGetColorIndexAt(MapTile tile, Palette palette, byte[] gfx)
+        private void TestGetColorIndexAt(byte[] gfx, Palette palette, MapTile tile)
         {
             TileTest.TestGetColorIndexAt(tile, palette, false);
 
@@ -61,14 +61,6 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestGetColorIndexAt1()
         {
-            byte[] palData =
-            {
-                0xBF, 0x4B, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0x7C,
-                0x1F, 0x00, 0xE0, 0x03, 0xFF, 0x03, 0x40, 0x03,
-                0xA0, 0x02, 0x00, 0x02, 0x60, 0x01, 0x5F, 0x02,
-                0xFF, 0x02, 0x54, 0x32, 0x96, 0x3A, 0x12, 0x2E
-            };
-
             byte[] gfx =
             {
                 0x88, 0x78, 0x89, 0x88, 0x89, 0x88, 0x88, 0x88,
@@ -77,12 +69,28 @@ namespace EpicEditTests.Rom.Tracks
                 0x78, 0x88, 0x88, 0x88, 0x88, 0x89, 0x88, 0x79
             };
 
-            this.TestGetColorIndexAt(palData, gfx);
+            byte[] palData =
+            {
+                0xBF, 0x4B, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0x7C,
+                0x1F, 0x00, 0xE0, 0x03, 0xFF, 0x03, 0x40, 0x03,
+                0xA0, 0x02, 0x00, 0x02, 0x60, 0x01, 0x5F, 0x02,
+                0xFF, 0x02, 0x54, 0x32, 0x96, 0x3A, 0x12, 0x2E
+            };
+
+            this.TestGetColorIndexAt(gfx, palData);
         }
 
         [Test]
         public void TestGetColorIndexAt2()
         {
+            byte[] gfx =
+            {
+                0x88, 0x78, 0x89, 0x88, 0x89, 0x88, 0x88, 0x88,
+                0x88, 0x98, 0x88, 0x87, 0x98, 0x88, 0x88, 0x98,
+                0x88, 0x87, 0x88, 0x88, 0x88, 0x98, 0x98, 0x88,
+                0x78, 0x88, 0x88, 0x88, 0x88, 0x89, 0x88, 0x79
+            };
+
             byte[] palData =
             {
                 // Give the same value to all colors, to check
@@ -93,15 +101,7 @@ namespace EpicEditTests.Rom.Tracks
                 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
             };
 
-            byte[] gfx =
-            {
-                0x88, 0x78, 0x89, 0x88, 0x89, 0x88, 0x88, 0x88,
-                0x88, 0x98, 0x88, 0x87, 0x98, 0x88, 0x88, 0x98,
-                0x88, 0x87, 0x88, 0x88, 0x88, 0x98, 0x98, 0x88,
-                0x78, 0x88, 0x88, 0x88, 0x88, 0x89, 0x88, 0x79
-            };
-
-            this.TestGetColorIndexAt(palData, gfx);
+            this.TestGetColorIndexAt(gfx, palData);
         }
     }
 }

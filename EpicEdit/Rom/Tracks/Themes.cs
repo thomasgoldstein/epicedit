@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.Tracks
             for (int i = 0; i < tilesetGfx.Length; i++)
             {
                 Palette palette = colorPalettes[tilesetPaletteIndexes[i]];
-                tiles[tileIndex + i] = new MapTile(palette, tilesetGfx[i], TileGenre.Road);
+                tiles[tileIndex + i] = new MapTile(tilesetGfx[i], palette, TileGenre.Road);
             }
             
             if (tilesetGfx.Length < tileCount) // The tileset isn't full, there are missing tiles
@@ -130,7 +130,7 @@ namespace EpicEdit.Rom.Tracks
                 {
                     // Fill in the rest of the tileset with empty (black) tiles
                     Bitmap image = emptyTile.Clone(tileRectangle, emptyTile.PixelFormat);
-                    tiles[tileIndex + i] = new MapTile(palette, image, TileGenre.Road);
+                    tiles[tileIndex + i] = new MapTile(image, palette, TileGenre.Road);
                 }
             }
         }

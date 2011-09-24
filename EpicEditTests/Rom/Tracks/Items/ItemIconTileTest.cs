@@ -22,10 +22,10 @@ namespace EpicEditTests.Rom.Tracks.Items
     [TestFixture]
     public class ItemIconTileTest
     {
-        private void TestGetColorIndexAt(byte[] palData, int subPaletteIndex, byte[] gfx)
+        private void TestGetColorIndexAt(byte[] gfx, byte[] palData, int subPaletteIndex)
         {
             Palettes palettes = new Palettes(palData);
-            ItemIconTile tile = new ItemIconTile(0, subPaletteIndex, gfx);
+            ItemIconTile tile = new ItemIconTile(gfx, 0, subPaletteIndex);
             tile.SetPalette(palettes);
 
             Palette palette = new Palette(palData);
@@ -35,6 +35,12 @@ namespace EpicEditTests.Rom.Tracks.Items
         [Test]
         public void TestGetColorIndexAt1()
         {
+            byte[] gfx =
+            {
+                0xFF, 0xFF, 0xFF, 0xFC, 0xFF, 0xF0, 0xFE, 0xE1,
+                0xFC, 0xE3, 0xC1, 0xFE, 0xD9, 0xE6, 0xFC, 0xC3
+            };
+
             byte[] palData =
             {
                 0x00, 0x00, 0xFF, 0x7F, 0x40, 0x03, 0x00, 0x00,
@@ -43,13 +49,7 @@ namespace EpicEditTests.Rom.Tracks.Items
                 0x00, 0x00, 0xFF, 0x7F, 0x4A, 0x7F, 0x00, 0x00
             };
 
-            byte[] gfx =
-            {
-                0xFF, 0xFF, 0xFF, 0xFC, 0xFF, 0xF0, 0xFE, 0xE1,
-                0xFC, 0xE3, 0xC1, 0xFE, 0xD9, 0xE6, 0xFC, 0xC3
-            };
-
-            this.TestGetColorIndexAt(palData, 4, gfx);
+            this.TestGetColorIndexAt(gfx, palData, 4);
         }
     }
 }
