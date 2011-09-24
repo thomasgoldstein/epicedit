@@ -2758,7 +2758,7 @@ namespace EpicEdit.UI.TrackEdition
                         int relativeX = tileX - obj.X;
                         int relativeY = tileY - obj.Y + 1;
 
-                        Tile tile = Context.Game.ObjectGraphics.GetObjectTile(track, obj, relativeX, relativeY);
+                        Tile tile = Context.Game.ObjectGraphics.GetTile(track, obj, relativeX, relativeY);
 
                         int pixelX = x % Tile.Size;
                         int pixelY = y % Tile.Size;
