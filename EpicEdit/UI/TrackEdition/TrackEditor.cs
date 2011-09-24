@@ -875,6 +875,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.itemProbaForm = new ItemProbaEditorForm();
                 this.itemProbaForm.Owner = this.ParentForm;
+                this.itemProbaForm.ColorSelected += this.TileColorSelected;
             }
 
             this.itemProbaForm.Init();

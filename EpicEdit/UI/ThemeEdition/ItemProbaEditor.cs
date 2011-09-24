@@ -39,6 +39,38 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private bool performEvents = true;
 
+        /// <summary>
+        /// Raised when a pixel color has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<Palette, int>> ColorSelected
+        {
+            add
+            {
+                this.mushroomPanel.ColorSelected += value;
+                this.featherPanel.ColorSelected += value;
+                this.starPanel.ColorSelected += value;
+                this.bananaPanel.ColorSelected += value;
+                this.greenPanel.ColorSelected += value;
+                this.redPanel.ColorSelected += value;
+                this.ghostPanel.ColorSelected += value;
+                this.coinsPanel.ColorSelected += value;
+                this.lightningPanel.ColorSelected += value;
+            }
+            remove
+            {
+                this.mushroomPanel.ColorSelected -= value;
+                this.featherPanel.ColorSelected -= value;
+                this.starPanel.ColorSelected -= value;
+                this.bananaPanel.ColorSelected -= value;
+                this.greenPanel.ColorSelected -= value;
+                this.redPanel.ColorSelected -= value;
+                this.ghostPanel.ColorSelected -= value;
+                this.coinsPanel.ColorSelected -= value;
+                this.lightningPanel.ColorSelected -= value;
+            }
+        }
+
         public ItemProbaEditor()
         {
             this.InitializeComponent();
@@ -409,7 +441,6 @@ namespace EpicEdit.UI.ThemeEdition
                     if (this.image != null)
                     {
                         this.image.Dispose();
-                        this.image = null;
                     }
 
                     this.image = value;
@@ -445,11 +476,16 @@ namespace EpicEdit.UI.ThemeEdition
 
             private void SetCurrentImage()
             {
+                if (this.image == null)
+                {
+                    return;
+                }
+
                 if (this.Enabled)
                 {
                     this.currentImage = this.image;
                 }
-                else if (this.image != null)
+                else
                 {
                     if (this.disabledImage == null)
                     {
@@ -472,7 +508,7 @@ namespace EpicEdit.UI.ThemeEdition
                 x /= Tile.Size;
                 y /= Tile.Size;
 
-                return null; // TODO
+                return Context.Game.ItemIconGraphics.GetTile(this.itemType, x, y);
             }
 
             protected override void Dispose(bool disposing)
