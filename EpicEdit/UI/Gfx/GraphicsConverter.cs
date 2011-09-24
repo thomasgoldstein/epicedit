@@ -87,9 +87,9 @@ namespace EpicEdit.UI.Gfx
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
-            for (int x = 0; x < 4; x++)
+            for (int x = 0; x < (Tile.Size / 2); x++)
             {
-                for (int y = 0; y < 8; y++)
+                for (int y = 0; y < Tile.Size; y++)
                 {
                     Color color1 = palette[gfx[x + y * 4] & 0x0F];
                     Color color2 = palette[(gfx[x + y * 4] & 0xF0) >> 4];
