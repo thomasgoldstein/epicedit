@@ -61,7 +61,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             for (int i = 0; i < tileIndexes.Length; i++)
             {
                 byte[] gfx = new byte[32];
-                Buffer.BlockCopy(tilesetGfx, tileIndexes[i], gfx, 0, 32);
+                Buffer.BlockCopy(tilesetGfx, tileIndexes[i], gfx, 0, gfx.Length);
                 tiles[i] = new TrackObjectTile(gfx);
             }
 
