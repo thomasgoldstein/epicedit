@@ -107,6 +107,7 @@ namespace EpicEdit.UI
             this.menuToolStrip.Size = new System.Drawing.Size(668, 25);
             this.menuToolStrip.Stretch = true;
             this.menuToolStrip.TabIndex = 5;
+            this.menuToolStrip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MenuToolStripMouseMove);
             // 
             // openRomToolStripButton
             // 
