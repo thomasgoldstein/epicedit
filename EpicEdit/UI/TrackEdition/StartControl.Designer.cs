@@ -44,6 +44,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label secondRowLabel;
             this.precisionGroupBox = new System.Windows.Forms.GroupBox();
             this.step1pxRadioButton = new System.Windows.Forms.RadioButton();
             this.step8pxRadioButton = new System.Windows.Forms.RadioButton();
@@ -51,8 +52,8 @@ namespace EpicEdit.UI.TrackEdition
             this.gpTrackGroupBox = new System.Windows.Forms.GroupBox();
             this.startBindCheckBox = new System.Windows.Forms.CheckBox();
             this.secondRowValueLabel = new System.Windows.Forms.Label();
-            this.secondRowLabel = new System.Windows.Forms.Label();
             this.secondRowTrackBar = new System.Windows.Forms.TrackBar();
+            secondRowLabel = new System.Windows.Forms.Label();
             this.precisionGroupBox.SuspendLayout();
             this.gpTrackGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).BeginInit();
@@ -109,7 +110,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.gpTrackGroupBox.Controls.Add(this.startBindCheckBox);
             this.gpTrackGroupBox.Controls.Add(this.secondRowValueLabel);
-            this.gpTrackGroupBox.Controls.Add(this.secondRowLabel);
+            this.gpTrackGroupBox.Controls.Add(secondRowLabel);
             this.gpTrackGroupBox.Controls.Add(this.secondRowTrackBar);
             this.gpTrackGroupBox.Location = new System.Drawing.Point(2, 137);
             this.gpTrackGroupBox.Name = "gpTrackGroupBox";
@@ -141,12 +142,12 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // secondRowLabel
             // 
-            this.secondRowLabel.Location = new System.Drawing.Point(2, 66);
-            this.secondRowLabel.Name = "secondRowLabel";
-            this.secondRowLabel.Size = new System.Drawing.Size(120, 16);
-            this.secondRowLabel.TabIndex = 14;
-            this.secondRowLabel.Text = "2nd row offset";
-            this.secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            secondRowLabel.Location = new System.Drawing.Point(2, 66);
+            secondRowLabel.Name = "secondRowLabel";
+            secondRowLabel.Size = new System.Drawing.Size(120, 16);
+            secondRowLabel.TabIndex = 14;
+            secondRowLabel.Text = "2nd row offset";
+            secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // secondRowTrackBar
             // 
@@ -158,8 +159,8 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
             this.secondRowTrackBar.TabIndex = 13;
             this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.secondRowTrackBar.ValueChanged += new System.EventHandler(this.SecondRowTrackBarValueChanged);
             this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
+            this.secondRowTrackBar.ValueChanged += new System.EventHandler(this.SecondRowTrackBarValueChanged);
             // 
             // StartControl
             // 
@@ -179,7 +180,6 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.GroupBox precisionGroupBox;
         private System.Windows.Forms.CheckBox startBindCheckBox;
         private System.Windows.Forms.TrackBar secondRowTrackBar;
-        private System.Windows.Forms.Label secondRowLabel;
         private System.Windows.Forms.Label secondRowValueLabel;
     }
 }

@@ -42,6 +42,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label totalLabel;
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.modeComboBox = new System.Windows.Forms.ComboBox();
             this.totalPctLabel = new System.Windows.Forms.Label();
@@ -68,7 +69,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOption = new System.Windows.Forms.ComboBox();
             this.totalValue = new System.Windows.Forms.Label();
             this.lightningValue = new System.Windows.Forms.Label();
-            this.totalLabel = new System.Windows.Forms.Label();
             this.coinsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ghostNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.redNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -87,6 +87,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherLabel = new System.Windows.Forms.Label();
             this.mushroomLabel = new System.Windows.Forms.Label();
             this.lapRankComboBox = new System.Windows.Forms.ComboBox();
+            totalLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
@@ -317,12 +318,12 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // totalLabel
             // 
-            this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(230, 152);
-            this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(31, 13);
-            this.totalLabel.TabIndex = 35;
-            this.totalLabel.Text = "Total";
+            totalLabel.AutoSize = true;
+            totalLabel.Location = new System.Drawing.Point(230, 152);
+            totalLabel.Name = "totalLabel";
+            totalLabel.Size = new System.Drawing.Size(31, 13);
+            totalLabel.TabIndex = 35;
+            totalLabel.Text = "Total";
             // 
             // coinsNumericUpDown
             // 
@@ -571,7 +572,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.itemBoxDisplayOptionLabel);
             this.Controls.Add(this.coinsNumericUpDown);
             this.Controls.Add(this.modeComboBox);
-            this.Controls.Add(this.totalLabel);
+            this.Controls.Add(totalLabel);
             this.Controls.Add(this.itemBoxDisplayOption);
             this.Controls.Add(this.lightningValue);
             this.Controls.Add(this.totalValue);
@@ -610,7 +611,6 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.ComboBox lapRankComboBox;
         private System.Windows.Forms.ComboBox modeComboBox;
         private System.Windows.Forms.ComboBox themeComboBox;
-        private System.Windows.Forms.Label totalLabel;
         private System.Windows.Forms.NumericUpDown coinsNumericUpDown;
         private System.Windows.Forms.NumericUpDown ghostNumericUpDown;
         private System.Windows.Forms.NumericUpDown redNumericUpDown;

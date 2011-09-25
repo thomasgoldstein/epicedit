@@ -61,6 +61,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackEditor));
+            System.Windows.Forms.Label tabFocusRemover;
             this.trackDisplay = new EpicEdit.UI.TrackEdition.TrackEditor.TrackPanel();
             this.trackDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
             this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
@@ -77,8 +78,8 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl = new EpicEdit.UI.TrackEdition.AIControl();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.trackTreeView = new EpicEdit.UI.TrackEdition.TrackTreeView();
-            this.tabFocusRemover = new System.Windows.Forms.Label();
             this.menuBar = new EpicEdit.UI.MenuBar();
+            tabFocusRemover = new System.Windows.Forms.Label();
             this.trackDisplay.SuspendLayout();
             this.modeTabControl.SuspendLayout();
             this.tilesetTabPage.SuspendLayout();
@@ -281,11 +282,11 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // tabFocusRemover
             // 
-            this.tabFocusRemover.BackColor = System.Drawing.Color.Transparent;
-            this.tabFocusRemover.Location = new System.Drawing.Point(0, 25);
-            this.tabFocusRemover.Name = "tabFocusRemover";
-            this.tabFocusRemover.Size = new System.Drawing.Size(1, 1);
-            this.tabFocusRemover.TabIndex = 2;
+            tabFocusRemover.BackColor = System.Drawing.Color.Transparent;
+            tabFocusRemover.Location = new System.Drawing.Point(0, 25);
+            tabFocusRemover.Name = "tabFocusRemover";
+            tabFocusRemover.Size = new System.Drawing.Size(1, 1);
+            tabFocusRemover.TabIndex = 2;
             // 
             // menuBar
             // 
@@ -311,7 +312,7 @@ namespace EpicEdit.UI.TrackEdition
             // TrackEditor
             // 
             this.AllowDrop = true;
-            this.Controls.Add(this.tabFocusRemover);
+            this.Controls.Add(tabFocusRemover);
             this.Controls.Add(this.trackDisplay);
             this.Controls.Add(this.modeTabControl);
             this.Controls.Add(this.trackTreeView);
@@ -342,7 +343,6 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.TabPage objectsTabPage;
         private System.Windows.Forms.TabPage tilesetTabPage;
         private EpicEdit.UI.MenuBar menuBar;
-        private System.Windows.Forms.Label tabFocusRemover;
         private EpicEdit.UI.TrackEdition.TrackTreeView trackTreeView;
         private System.Windows.Forms.VScrollBar trackDisplayVScrollBar;
         private System.Windows.Forms.HScrollBar trackDisplayHScrollBar;
