@@ -95,12 +95,12 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.itemProbabilities = Context.Game.ItemProbabilities;
 
-            this.InitializeModeList();
-            this.InitializeThemeList();
-            this.InitializeLapRankList();
-            this.InitializeItemBoxDisplayOptionList();
+            this.InitModeList();
+            this.InitThemeList();
+            this.InitLapRankList();
+            this.InitItemBoxDisplayOptionList();
 
-            this.InitializeProbability();
+            this.InitProbability();
             this.DisplayProbability();
 
             this.InitImages();
@@ -108,7 +108,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.performEvents = true;
         }
 
-        private void InitializeModeList()
+        private void InitModeList()
         {
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.SelectedIndex = 0;
         }
 
-        private void InitializeThemeList()
+        private void InitThemeList()
         {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
@@ -139,7 +139,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        private void InitializeLapRankList()
+        private void InitLapRankList()
         {
             this.lapRankComboBox.BeginUpdate();
             this.lapRankComboBox.Items.Clear();
@@ -164,7 +164,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.EndUpdate();
         }
 
-        private void InitializeItemBoxDisplayOptionList()
+        private void InitItemBoxDisplayOptionList()
         {
             this.itemBoxDisplayOption.BeginUpdate();
             this.itemBoxDisplayOption.Items.Clear();
@@ -192,7 +192,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOption.EndUpdate();
         }
 
-        private void InitializeProbability()
+        private void InitProbability()
         {
             switch (this.modeComboBox.SelectedIndex)
             {
@@ -396,8 +396,8 @@ namespace EpicEdit.UI.ThemeEdition
             // Disable events so they don't get fired multiple times by other controls being updated
             this.performEvents = false;
 
-            this.InitializeLapRankList();
-            this.InitializeItemBoxDisplayOptionList();
+            this.InitLapRankList();
+            this.InitItemBoxDisplayOptionList();
             this.lapRankComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
             this.themeComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
             if (this.modeComboBox.SelectedIndex == 2)
@@ -412,7 +412,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOption.Enabled = this.modeComboBox.SelectedIndex != 2;
             this.itemBoxDisplayOptionLabel.Enabled = this.modeComboBox.SelectedIndex != 2;
 
-            this.InitializeProbability();
+            this.InitProbability();
             this.DisplayProbability();
 
             this.performEvents = true;
@@ -422,7 +422,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (this.performEvents)
             {
-                this.InitializeProbability();
+                this.InitProbability();
                 this.DisplayProbability();
             }
         }
@@ -431,7 +431,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (this.performEvents)
             {
-                this.InitializeProbability();
+                this.InitProbability();
                 this.DisplayProbability();
             }
         }
