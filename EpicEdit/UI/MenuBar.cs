@@ -74,6 +74,8 @@ namespace EpicEdit.UI
         }
         #endregion Constructor
 
+        #region Menu items
+
         #region Open ROM
         private void OpenRomToolStripButtonClick(object sender, EventArgs e)
         {
@@ -277,6 +279,8 @@ namespace EpicEdit.UI
             this.coordinatesToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
         }
         #endregion Cursor coordinate Label
+
+        #endregion Menu items
 
         #region Menu shortcut keys
         private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
