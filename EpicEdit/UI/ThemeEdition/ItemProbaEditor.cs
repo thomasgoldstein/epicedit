@@ -77,20 +77,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.InitializeComponent();
         }
 
-        public void UpdateImages(Palette palette)
-        {
-            Context.Game.ItemIconGraphics.UpdateTiles(palette);
-            this.mushroomPanel.UpdateImage();
-            this.featherPanel.UpdateImage();
-            this.starPanel.UpdateImage();
-            this.bananaPanel.UpdateImage();
-            this.greenPanel.UpdateImage();
-            this.redPanel.UpdateImage();
-            this.ghostPanel.UpdateImage();
-            this.coinsPanel.UpdateImage();
-            this.lightningPanel.UpdateImage();
-        }
-
         /// <summary>
         /// Sets the Value of the Control using the Description of the underlying Enum item.
         /// </summary>
@@ -116,6 +102,8 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.InitializeProbability();
             this.DisplayProbability();
+
+            this.InitImages();
 
             this.performEvents = true;
         }
@@ -290,6 +278,25 @@ namespace EpicEdit.UI.ThemeEdition
             this.totalPctLabel.Text = 1.ToString("P1", ic);
 
             this.ignoreChange = false;
+        }
+
+        private void InitImages()
+        {
+            this.mushroomPanel.UpdateImage();
+            this.featherPanel.UpdateImage();
+            this.starPanel.UpdateImage();
+            this.bananaPanel.UpdateImage();
+            this.greenPanel.UpdateImage();
+            this.redPanel.UpdateImage();
+            this.ghostPanel.UpdateImage();
+            this.coinsPanel.UpdateImage();
+            this.lightningPanel.UpdateImage();
+        }
+
+        public void UpdateImages(Palette palette)
+        {
+            Context.Game.ItemIconGraphics.UpdateTiles(palette);
+            this.InitImages();
         }
 
         #endregion Fields initialization and display
@@ -490,11 +497,7 @@ namespace EpicEdit.UI.ThemeEdition
             public ItemType ItemType
             {
                 get { return this.itemType; }
-                set
-                {
-                    this.itemType = value;
-                    this.CreateImage();
-                }
+                set { this.itemType = value; }
             }
 
             private void CreateImage()
