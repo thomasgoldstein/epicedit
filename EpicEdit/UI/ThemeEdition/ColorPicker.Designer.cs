@@ -66,16 +66,19 @@ namespace EpicEdit.UI.ThemeEdition
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label redLabel;
+            System.Windows.Forms.Label greenLabel;
+            System.Windows.Forms.Label blueLabel;
             this.basicColorsPictureBox = new System.Windows.Forms.PictureBox();
             this.shadesPictureBox = new System.Windows.Forms.PictureBox();
             this.redNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.greenNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.blueNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.redLabel = new System.Windows.Forms.Label();
-            this.greenLabel = new System.Windows.Forms.Label();
-            this.blueLabel = new System.Windows.Forms.Label();
             this.newColorToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.oldColorToolTip = new System.Windows.Forms.ToolTip(this.components);
+            redLabel = new System.Windows.Forms.Label();
+            greenLabel = new System.Windows.Forms.Label();
+            blueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.basicColorsPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shadesPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
@@ -148,30 +151,30 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // redLabel
             // 
-            this.redLabel.AutoSize = true;
-            this.redLabel.Location = new System.Drawing.Point(133, 22);
-            this.redLabel.Name = "redLabel";
-            this.redLabel.Size = new System.Drawing.Size(27, 13);
-            this.redLabel.TabIndex = 5;
-            this.redLabel.Text = "Red";
+            redLabel.AutoSize = true;
+            redLabel.Location = new System.Drawing.Point(133, 22);
+            redLabel.Name = "redLabel";
+            redLabel.Size = new System.Drawing.Size(27, 13);
+            redLabel.TabIndex = 5;
+            redLabel.Text = "Red";
             // 
             // greenLabel
             // 
-            this.greenLabel.AutoSize = true;
-            this.greenLabel.Location = new System.Drawing.Point(133, 69);
-            this.greenLabel.Name = "greenLabel";
-            this.greenLabel.Size = new System.Drawing.Size(36, 13);
-            this.greenLabel.TabIndex = 14;
-            this.greenLabel.Text = "Green";
+            greenLabel.AutoSize = true;
+            greenLabel.Location = new System.Drawing.Point(133, 69);
+            greenLabel.Name = "greenLabel";
+            greenLabel.Size = new System.Drawing.Size(36, 13);
+            greenLabel.TabIndex = 14;
+            greenLabel.Text = "Green";
             // 
             // blueLabel
             // 
-            this.blueLabel.AutoSize = true;
-            this.blueLabel.Location = new System.Drawing.Point(133, 116);
-            this.blueLabel.Name = "blueLabel";
-            this.blueLabel.Size = new System.Drawing.Size(28, 13);
-            this.blueLabel.TabIndex = 15;
-            this.blueLabel.Text = "Blue";
+            blueLabel.AutoSize = true;
+            blueLabel.Location = new System.Drawing.Point(133, 116);
+            blueLabel.Name = "blueLabel";
+            blueLabel.Size = new System.Drawing.Size(28, 13);
+            blueLabel.TabIndex = 15;
+            blueLabel.Text = "Blue";
             // 
             // newColorToolTip
             // 
@@ -187,9 +190,9 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ColorPicker
             // 
-            this.Controls.Add(this.blueLabel);
-            this.Controls.Add(this.greenLabel);
-            this.Controls.Add(this.redLabel);
+            this.Controls.Add(blueLabel);
+            this.Controls.Add(greenLabel);
+            this.Controls.Add(redLabel);
             this.Controls.Add(this.blueNumericUpDown);
             this.Controls.Add(this.greenNumericUpDown);
             this.Controls.Add(this.redNumericUpDown);
@@ -215,9 +218,6 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.NumericUpDown redNumericUpDown;
         private System.Windows.Forms.NumericUpDown greenNumericUpDown;
         private System.Windows.Forms.NumericUpDown blueNumericUpDown;
-        private System.Windows.Forms.Label redLabel;
-        private System.Windows.Forms.Label greenLabel;
-        private System.Windows.Forms.Label blueLabel;
 
     }
 }
