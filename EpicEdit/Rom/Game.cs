@@ -379,7 +379,7 @@ namespace EpicEdit.Rom
             string[] names = this.GetCupAndThemeNames();
 
             this.themes = new Themes(this.romBuffer, this.offsets, names);
-            this.overlayTileSizes = new OverlayTileSizes(this.romBuffer, this.offsets);
+            this.overlayTileSizes = new OverlayTileSizes(this.romBuffer, this.offsets[Offset.TrackOverlaySizes]);
             this.overlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.overlayTileSizes);
 
             byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackThemes], Track.Count);
