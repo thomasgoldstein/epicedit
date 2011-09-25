@@ -88,9 +88,9 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayTilesetPanel.Name = "overlayTilesetPanel";
             this.overlayTilesetPanel.Size = new System.Drawing.Size(128, 512);
             this.overlayTilesetPanel.TabIndex = 2;
+            this.overlayTilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseDown);
             this.overlayTilesetPanel.MouseLeave += new System.EventHandler(this.OverlayTilesetPanelMouseLeave);
             this.overlayTilesetPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseMove);
-            this.overlayTilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseDown);
             // 
             // buttonPanel
             // 
