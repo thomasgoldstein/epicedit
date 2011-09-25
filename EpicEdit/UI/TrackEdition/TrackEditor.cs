@@ -821,6 +821,8 @@ namespace EpicEdit.UI.TrackEdition
                 Context.Game.ObjectGraphics.UpdateTiles(palette);
             }
 
+            this.itemProbaForm.Editor.UpdateImages(palette);
+
             if (this.track.Theme != theme)
             {
                 if (!isSpritePalette)

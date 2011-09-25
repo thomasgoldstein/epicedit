@@ -76,6 +76,20 @@ namespace EpicEdit.UI.ThemeEdition
             this.InitializeComponent();
         }
 
+        public void UpdateImages(Palette palette)
+        {
+            Context.Game.ItemIconGraphics.UpdateTiles(palette);
+            this.mushroomPanel.UpdateImage();
+            this.featherPanel.UpdateImage();
+            this.starPanel.UpdateImage();
+            this.bananaPanel.UpdateImage();
+            this.greenPanel.UpdateImage();
+            this.redPanel.UpdateImage();
+            this.ghostPanel.UpdateImage();
+            this.coinsPanel.UpdateImage();
+            this.lightningPanel.UpdateImage();
+        }
+
         /// <summary>
         /// Sets the Value of the Control using the Description of the underlying Enum item.
         /// </summary>
@@ -462,10 +476,20 @@ namespace EpicEdit.UI.ThemeEdition
                 set
                 {
                     this.itemType = value;
-
-                    Palettes palettes = Context.Game.Themes[0].Palettes;
-                    this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
+                    this.CreateImage();
                 }
+            }
+
+            private void CreateImage()
+            {
+                Palettes palettes = Context.Game.Themes[0].Palettes;
+                this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
+            }
+
+            public void UpdateImage()
+            {
+                this.CreateImage();
+                this.Refresh();
             }
 
             protected override void OnEnabledChanged(EventArgs e)
