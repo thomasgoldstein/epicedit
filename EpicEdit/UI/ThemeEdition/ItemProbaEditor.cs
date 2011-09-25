@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
@@ -235,27 +236,27 @@ namespace EpicEdit.UI.ThemeEdition
             this.ignoreChange = true;
 
             this.coinsLabel.Enabled =
-                this.coinsPanel.Enabled =
+                this.coinsPanel.LooksEnabled =
                 this.coinsNumericUpDown.Enabled =
                 this.coinsPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
 
             this.featherLabel.Enabled =
-                this.featherPanel.Enabled =
+                this.featherPanel.LooksEnabled =
                 this.featherNumericUpDown.Enabled =
                 this.featherPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoFeathers &&
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
             this.ghostLabel.Enabled =
-                this.ghostPanel.Enabled =
+                this.ghostPanel.LooksEnabled =
                 this.ghostNumericUpDown.Enabled =
                 this.ghostPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
             this.lightningLabel.Enabled =
-                this.lightningPanel.Enabled =
+                this.lightningPanel.LooksEnabled =
                 this.lightningValue.Enabled =
                 this.lightningPctLabel.Enabled =
                 this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
@@ -469,6 +470,22 @@ namespace EpicEdit.UI.ThemeEdition
                 }
             }
 
+            private bool looksEnabled = true;
+
+            /// <summary>
+            /// Gets or sets value that specifies whether the control looks enabled or not.
+            /// This enables mouse events (color picking) even if the control looks disabled.
+            /// </summary>
+            public bool LooksEnabled
+            {
+                get { return this.looksEnabled; }
+                set
+                {
+                    this.looksEnabled = value;
+                    this.SetCurrentImage();
+                }
+            }
+
             private ItemType itemType;
             public ItemType ItemType
             {
@@ -492,12 +509,6 @@ namespace EpicEdit.UI.ThemeEdition
                 this.Refresh();
             }
 
-            protected override void OnEnabledChanged(EventArgs e)
-            {
-                base.OnEnabledChanged(e);
-                this.SetCurrentImage();
-            }
-
             private void SetCurrentImage()
             {
                 if (this.image == null)
@@ -505,7 +516,7 @@ namespace EpicEdit.UI.ThemeEdition
                     return;
                 }
 
-                if (this.Enabled)
+                if (this.looksEnabled)
                 {
                     this.currentImage = this.image;
                 }
@@ -513,7 +524,13 @@ namespace EpicEdit.UI.ThemeEdition
                 {
                     if (this.disabledImage == null)
                     {
-                        this.disabledImage = ToolStripRenderer.CreateDisabledImage(this.image);
+                        this.disabledImage = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
+                        using (Graphics g = Graphics.FromImage(this.disabledImage))
+                        using (Image image = ToolStripRenderer.CreateDisabledImage(this.image))
+                        {
+                            g.Clear(SystemColors.Control);
+                            g.DrawImage(image, 0, 0);
+                        }
                     }
                     this.currentImage = this.disabledImage;
                 }
