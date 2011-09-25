@@ -58,9 +58,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
             this.patterns = new OverlayTilePattern[patternCount];
 
             // Get the addresses where the individual pattern data is
-            int[] dataAddresses = LoadPatternDataAddresses(romBuffer, offsets);
+            int addressOffset = offsets[Offset.TrackOverlayPatterns];
+            int[] dataAddresses = LoadPatternDataAddresses(romBuffer, addressOffset);
+
             // Get the data lengths of all the patterns
-            int[] dataLengths = LoadPatternDataLengths(offsets, dataAddresses);
+            int sizeOffset = offsets[Offset.TrackOverlaySizes];
+            int[] dataLengths = LoadPatternDataLengths(dataAddresses, sizeOffset);
+
             // Get the widths and heights of all the patterns
             OverlayTileSize[] overlayTilesizes = LoadPatternSizes(sizes);
 
@@ -77,18 +81,18 @@ namespace EpicEdit.Rom.Tracks.Overlay
             return 56;
         }
 
-        private int[] LoadPatternDataAddresses(byte[] romBuffer, Offsets offsets)
+        private int[] LoadPatternDataAddresses(byte[] romBuffer, int offset)
         {
             int[] addresses = new int[this.Count];
-            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TrackOverlayPatterns], 2, this.Count);
-            for (int x = 0; x < data.Length; x++)
+            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offset, 2, this.Count);
+            for (int i = 0; i < data.Length; i++)
             {
-                addresses[x] = (data[x][1] << 8) + data[x][0] + 0x40000;
+                addresses[i] = (data[i][1] << 8) + data[i][0] + 0x40000;
             }
             return addresses;
         }
 
-        private int[] LoadPatternDataLengths(Offsets offsets, int[] dataAddresses)
+        private int[] LoadPatternDataLengths(int[] dataAddresses, int offset)
         {
             // TODO: This data must be somewhere in the ROM, but for now, let's just do a substraction between the addresses, they are ordered in the rom anyways.
             // This also assumes the entire data area is used, which is why this code should be changed eventually when we start modifying these patterns.
@@ -110,7 +114,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 if (diff == 0)
                 {
                     // A bit of a hack, the overlay tile sizes follow the pattern data in the rom
-                    diff = offsets[Offset.TrackOverlaySizes] - dataAddresses[i];
+                    diff = offset - dataAddresses[i];
                 }
                 lengths[i] = diff;
             }
@@ -124,7 +128,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // It is unlikely that this information is available anywhere in the ROM since
             // each overlay tile indicates which size to use when displayed at runtime.
             // Maybe the size of each pattern should be saved in the epic zone when we start supporting updating the patterns.
-            int[] sizeIndexes = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
+            byte[] sizeIndexes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
             OverlayTileSize[] sizeArray = new OverlayTileSize[this.Count];
             for (int i = 0; i < this.Count; i++)
             {

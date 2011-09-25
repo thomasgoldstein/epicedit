@@ -33,13 +33,14 @@ namespace EpicEdit.Rom.Tracks.Objects
             int typeCount = Enum.GetValues(typeof(ObjectType)).Length;
             int count = typeCount + 2; // + 2 for moving Match Race object and items
             this.tiles = new TrackObjectTile[count][];
+            int offsetLocation = offsets[Offset.TrackObjectGraphics];
             byte[] tilesetGfx;
             int[] tileIndexes;
 
             for (int i = 0; i < typeCount; i++)
             {
                 ObjectType type = (ObjectType)i;
-                int offset = TrackObjectGraphics.GetGraphicsOffset(type, romBuffer, offsets);
+                int offset = TrackObjectGraphics.GetGraphicsOffset(type, romBuffer, offsetLocation);
                 tilesetGfx = Codec.Decompress(romBuffer, offset);
                 tileIndexes = TrackObjectGraphics.GetTileIndexes(type);
                 this.tiles[i] = TrackObjectGraphics.GetTiles(tilesetGfx, tileIndexes);
@@ -171,10 +172,8 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private static int GetGraphicsOffset(ObjectType tileset, byte[] romBuffer, Offsets offsets)
+        private static int GetGraphicsOffset(ObjectType tileset, byte[] romBuffer, int offsetLocation)
         {
-            int offsetLocation = offsets[Offset.TrackObjectGraphics];
-
             switch (tileset)
             {
                 case ObjectType.Pipe:

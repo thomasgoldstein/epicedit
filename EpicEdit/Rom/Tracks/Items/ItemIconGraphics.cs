@@ -31,20 +31,20 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             byte[] itemGfx = Codec.Decompress(romBuffer, offsets[Offset.ItemIconGraphics]);
             int itemCount = Enum.GetValues(typeof(ItemType)).Length;
+            int paletteOffsetStart = offsets[Offset.ItemIconTilesPalettes];
             this.tiles = new ItemIconTile[itemCount][];
 
             for (int i = 0; i < itemCount; i++)
             {
-                this.tiles[i] = ItemIconGraphics.GetTiles(romBuffer, offsets, itemGfx, i);
+                int paletteOffset = paletteOffsetStart + i * 2;
+                this.tiles[i] = ItemIconGraphics.GetTiles(romBuffer, paletteOffset, itemGfx);
             }
         }
 
-        private static Tile[] GetTiles(byte[] romBuffer, Offsets offsets, byte[] itemGfx, int index)
+        private static Tile[] GetTiles(byte[] romBuffer, int paletteOffset, byte[] itemGfx)
         {
-            int iconPaletteOffset = offsets[Offset.ItemIconTilesPalettes] + index * 2;
-
-            int tileIndex = romBuffer[iconPaletteOffset] & 0x7F;
-            byte globalPalIndex = romBuffer[iconPaletteOffset + 1];
+            int tileIndex = romBuffer[paletteOffset] & 0x7F;
+            byte globalPalIndex = romBuffer[paletteOffset + 1];
             int palIndex = globalPalIndex / 16;
             int subPalIndex = globalPalIndex % 16;
 
