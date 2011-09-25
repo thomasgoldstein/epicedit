@@ -433,6 +433,7 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.InitProbability();
                 this.DisplayProbability();
+                this.InitImages();
             }
         }
 
@@ -526,7 +527,13 @@ namespace EpicEdit.UI.ThemeEdition
 
             private void CreateImage()
             {
-                Palettes palettes = Context.Game.Themes[0].Palettes;
+                int index = (this.Parent as ItemProbaEditor).themeComboBox.SelectedIndex;
+                if (index == -1)
+                {
+                    // No theme selected, default to first theme
+                    index = 0;
+                }
+                Palettes palettes = Context.Game.Themes[index].Palettes;
                 this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
             }
 
