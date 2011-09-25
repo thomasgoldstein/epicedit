@@ -204,7 +204,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.lightningPanel.Name = "lightningPanel";
             this.lightningPanel.Size = new System.Drawing.Size(16, 16);
             this.lightningPanel.TabIndex = 49;
-            this.lightningPanel.Zoom = 1F;
             // 
             // coinsPanel
             // 
@@ -213,7 +212,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.coinsPanel.Name = "coinsPanel";
             this.coinsPanel.Size = new System.Drawing.Size(16, 16);
             this.coinsPanel.TabIndex = 48;
-            this.coinsPanel.Zoom = 1F;
             // 
             // ghostPanel
             // 
@@ -222,7 +220,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.ghostPanel.Name = "ghostPanel";
             this.ghostPanel.Size = new System.Drawing.Size(16, 16);
             this.ghostPanel.TabIndex = 47;
-            this.ghostPanel.Zoom = 1F;
             // 
             // redPanel
             // 
@@ -231,7 +228,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.redPanel.Name = "redPanel";
             this.redPanel.Size = new System.Drawing.Size(16, 16);
             this.redPanel.TabIndex = 46;
-            this.redPanel.Zoom = 1F;
             // 
             // greenPanel
             // 
@@ -240,7 +236,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.greenPanel.Name = "greenPanel";
             this.greenPanel.Size = new System.Drawing.Size(16, 16);
             this.greenPanel.TabIndex = 45;
-            this.greenPanel.Zoom = 1F;
             // 
             // bananaPanel
             // 
@@ -249,7 +244,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.bananaPanel.Name = "bananaPanel";
             this.bananaPanel.Size = new System.Drawing.Size(16, 16);
             this.bananaPanel.TabIndex = 44;
-            this.bananaPanel.Zoom = 1F;
             // 
             // starPanel
             // 
@@ -258,7 +252,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.starPanel.Name = "starPanel";
             this.starPanel.Size = new System.Drawing.Size(16, 16);
             this.starPanel.TabIndex = 43;
-            this.starPanel.Zoom = 1F;
             // 
             // featherPanel
             // 
@@ -267,7 +260,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherPanel.Name = "featherPanel";
             this.featherPanel.Size = new System.Drawing.Size(16, 16);
             this.featherPanel.TabIndex = 42;
-            this.featherPanel.Zoom = 1F;
             // 
             // mushroomPanel
             // 
@@ -276,7 +268,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.mushroomPanel.Name = "mushroomPanel";
             this.mushroomPanel.Size = new System.Drawing.Size(16, 16);
             this.mushroomPanel.TabIndex = 41;
-            this.mushroomPanel.Zoom = 1F;
             // 
             // resetButton
             // 

@@ -99,7 +99,6 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Name = "trackDisplay";
             this.trackDisplay.Size = new System.Drawing.Size(403, 451);
             this.trackDisplay.TabIndex = 1;
-            this.trackDisplay.Zoom = 1F;
             this.trackDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayKeyDown);
             this.trackDisplay.GotFocus += new System.EventHandler(this.TrackDisplayGotFocus);
             this.trackDisplay.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDoubleClick);
