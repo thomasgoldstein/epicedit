@@ -447,6 +447,29 @@ namespace EpicEdit.UI.ThemeEdition
         #region class ItemIconPanel
         private sealed class ItemIconPanel : TilePanel
         {
+            public ItemIconPanel()
+            {
+                if (this.DesignMode)
+                {
+                    // Avoid exceptions in design mode
+                    this.image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+                    this.currentImage = this.image;
+                }
+            }
+
+            private new bool DesignMode
+            {
+                get
+                {
+                    if (base.DesignMode)
+                    {
+                        return true;
+                    }
+
+                    return LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+                }
+            }
+
             /// <summary>
             /// Reference to the current image (enabled or disabled).
             /// </summary>
