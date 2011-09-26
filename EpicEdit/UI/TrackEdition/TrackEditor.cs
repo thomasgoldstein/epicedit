@@ -358,6 +358,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.SetTrack();
             this.trackDrawer.LoadTrack(this.track);
+            this.InitUndoRedo();
 
             // Adding these event handlers here rather than in the Designer.cs
             // saves us a null check on this.drawer in each of the corresponding functions,
@@ -370,8 +371,6 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Enabled = true;
             this.modeTabControl.Enabled = true;
             this.menuBar.EnableControls();
-
-            this.InitUndoRedo();
         }
 
         public void InitOnRomLoad()
