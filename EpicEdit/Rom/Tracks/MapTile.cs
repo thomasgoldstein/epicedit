@@ -89,11 +89,12 @@ namespace EpicEdit.Rom.Tracks
             return index;
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            this.image.Dispose();
-
-            GC.SuppressFinalize(this);
+            if (disposing)
+            {
+                this.image.Dispose();
+            }
         }
     }
 }

@@ -72,14 +72,15 @@ namespace EpicEdit.Rom.Tracks.Items
             return this.subPaletteIndex + colIndex;
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (this.image != null)
+            if (disposing)
             {
-                this.image.Dispose();
+                if (this.image != null)
+                {
+                    this.image.Dispose();
+                }
             }
-
-            GC.SuppressFinalize(this);
         }
     }
 }
