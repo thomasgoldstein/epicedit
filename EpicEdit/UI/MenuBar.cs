@@ -19,6 +19,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
+using EpicEdit.Properties;
 using EpicEdit.UI.ThemeEdition;
 using EpicEdit.UI.Tools.UndoRedo;
 
@@ -223,7 +224,7 @@ namespace EpicEdit.UI
             {
                 if (this.exitFullScreenButtonImage == null)
                 {
-                    this.exitFullScreenButtonImage = Properties.Resources.ExitFullScreenButton;
+                    this.exitFullScreenButtonImage = Resources.ExitFullScreenButton;
                     this.fullScreenButtonImage = this.fullScreenToolStripButton.Image;
                 }
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
