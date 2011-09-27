@@ -15,6 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+
+using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
@@ -47,7 +49,7 @@ namespace EpicEdit.UI.Tools
             {
                 if (TilePanel.colorPickerCursor == null)
                 {
-                    TilePanel.colorPickerCursor = Properties.Resources.ColorPickerCursor;
+                    TilePanel.colorPickerCursor = Resources.ColorPickerCursor;
                 }
 
                 return TilePanel.colorPickerCursor;
