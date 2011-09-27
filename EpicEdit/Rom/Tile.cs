@@ -46,14 +46,6 @@ namespace EpicEdit.Rom
 
         public abstract void UpdateBitmap();
 
-        protected abstract void Dispose(bool disposing);
-
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public abstract int GetColorIndexAt(int x, int y);
 
         public bool Contains(int colorIndex)
@@ -70,6 +62,14 @@ namespace EpicEdit.Rom
             }
 
             return false;
+        }
+
+        protected abstract void Dispose(bool disposing);
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
