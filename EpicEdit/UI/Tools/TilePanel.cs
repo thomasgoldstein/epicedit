@@ -47,7 +47,7 @@ namespace EpicEdit.UI.Tools
             {
                 if (TilePanel.colorPickerCursor == null)
                 {
-                    var resources = new ComponentResourceManager(typeof(Properties.Resources));
+                    var resources = Properties.Resources.ResourceManager;
                     TilePanel.colorPickerCursor = resources.GetObject("ColorPickerCursor") as Cursor;
                 }
 

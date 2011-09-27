@@ -223,7 +223,7 @@ namespace EpicEdit.UI
             {
                 if (this.exitFullScreenButtonImage == null)
                 {
-                    var resources = new ComponentResourceManager(typeof(Properties.Resources));
+                    var resources = Properties.Resources.ResourceManager;
                     this.exitFullScreenButtonImage = resources.GetObject("ExitFullScreenButton") as Image;
                     this.fullScreenButtonImage = this.fullScreenToolStripButton.Image;
                 }
