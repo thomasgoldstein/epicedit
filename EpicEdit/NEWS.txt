@@ -9,6 +9,7 @@ v2.3 (???)
 - Added undo/redo feature (for track tile changes only)
 - Removed the Theme editor tab, and moved the Item probability editor
   to the menu bar
+- Minor tweaks and fixes
 
 
 v2.2 (July 23rd 2011)
