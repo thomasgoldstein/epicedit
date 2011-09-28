@@ -40,6 +40,11 @@ namespace EpicEdit.UI.TrackEdition
     {
         #region Private members
         /// <summary>
+        /// If a Point is equal to OutOfBounds, then it's not within the track map.
+        /// </summary>
+        public static readonly Point OutOfBounds = new Point(int.MinValue, int.MinValue);
+
+        /// <summary>
         /// Used to draw the track.
         /// </summary>
         private TrackDrawer trackDrawer;
@@ -125,7 +130,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                if (this.pixelPosition.X == -1)
+                if (this.pixelPosition == TrackEditor.OutOfBounds)
                 {
                     // The mouse cursor isn't over the track
                     return this.pixelPosition;
@@ -628,7 +633,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void EndZoom()
         {
-            if (this.pixelPosition.X == -1)
+            if (this.pixelPosition == TrackEditor.OutOfBounds)
             {
                 // The cursor isn't over the track
                 this.trackDisplay.Invalidate();
@@ -1173,7 +1178,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.ResetPosition();
             this.hoveredOverlayTile = null;
-            this.selectedOverlayPatternLocation = new Point(-1, -1);
+            this.selectedOverlayPatternLocation = TrackEditor.OutOfBounds;
             this.hoveredObject = null;
             this.hoveredAIElem = null;
 
@@ -1527,7 +1532,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetPosition()
         {
-            this.pixelPosition = new Point(-1, -1);
+            this.pixelPosition = TrackEditor.OutOfBounds;
             this.menuBar.ResetCoordinates();
         }
 
@@ -2088,7 +2093,7 @@ namespace EpicEdit.UI.TrackEdition
             OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
 
             Point tilePosition = this.TilePosition;
-            if (tilePosition.X == -1)
+            if (tilePosition == TrackEditor.OutOfBounds)
             {
                 // The mouse cursor isn't over the track map
                 this.selectedOverlayPatternLocation = tilePosition;

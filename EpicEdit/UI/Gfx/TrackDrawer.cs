@@ -25,6 +25,7 @@ using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.UI.Tools.UndoRedo;
+using EpicEdit.UI.TrackEdition;
 using Region = System.Drawing.Region;
 
 namespace EpicEdit.UI.Gfx
@@ -432,7 +433,7 @@ namespace EpicEdit.UI.Gfx
             {
                 using (Graphics backBuffer = Graphics.FromImage(image))
                 {
-                    if (selectedPatternLocation.X == -1)
+                    if (selectedPatternLocation == TrackEditor.OutOfBounds)
                     {
                         // The selected overlay tile pattern is out of the screen,
                         // act as if there isn't one
@@ -569,7 +570,7 @@ namespace EpicEdit.UI.Gfx
                 selectionRectangle = new Rectangle((selectionStart.X * Tile.Size) - 1, (selectionStart.Y * Tile.Size) - 1,
                                                    selectionSize.Width * Tile.Size + 1, selectionSize.Height * Tile.Size + 1);
             }
-            else if (cursorPosition.X != -1) // The user is simply hovering tiles
+            else if (cursorPosition != TrackEditor.OutOfBounds) // The user is simply hovering tiles
             {
                 selectionRectangle = new Rectangle((cursorPosition.X * Tile.Size) - 1, (cursorPosition.Y * Tile.Size) - 1,
                                                    selectionSize.Width * Tile.Size + 1, selectionSize.Height * Tile.Size + 1);
