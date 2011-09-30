@@ -120,14 +120,14 @@ namespace EpicEdit.Rom
 
         public byte[] GetBytes()
         {
-            byte[] bytes = new byte[Palette.Size];
+            byte[] data = new byte[Palette.Size];
 
             for (int i = 0; i < this.colors.Length; i++)
             {
-                Buffer.BlockCopy(this.colors[i].GetBytes(), 0, bytes, i * RomColor.Size, RomColor.Size);
+                Buffer.BlockCopy(this.colors[i].GetBytes(), 0, data, i * RomColor.Size, RomColor.Size);
             }
 
-            return bytes;
+            return data;
         }
     }
 }
