@@ -50,6 +50,13 @@ namespace EpicEdit.UI.Tools
                 if (TilePanel.colorPickerCursor == null)
                 {
                     TilePanel.colorPickerCursor = Resources.ColorPickerCursor;
+
+                    if (TilePanel.colorPickerCursor.Size.IsEmpty)
+                    {
+                        // HACK: Mitigate the effects of Mono bug #749
+                        // http://bugzilla.xamarin.com/show_bug.cgi?id=749
+                        TilePanel.colorPickerCursor = Cursors.Hand;
+                    }
                 }
 
                 return TilePanel.colorPickerCursor;
