@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.3 (???)
+v2.3 (September 30th 2011)
 
 - Added color palette editor (by teknix1)
 - Added undo/redo feature (for track tile changes only)
