@@ -369,6 +369,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             romBuffer[offset + 8] = (byte)this.displayedItems;
 
+            // Update the backup data, so that resetting the data will reload the last saved data
             Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
 
             this.Modified = false;
