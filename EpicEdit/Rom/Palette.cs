@@ -127,6 +127,9 @@ namespace EpicEdit.Rom
                 Buffer.BlockCopy(this.colors[i].GetBytes(), 0, data, i * RomColor.Size, RomColor.Size);
             }
 
+            // Update the backup data, so that resetting the data will reload the last saved data
+            this.backupData = data;
+
             return data;
         }
     }
