@@ -1745,7 +1745,8 @@ namespace EpicEdit.UI.TrackEdition
             {
                 if (forceRepaint)
                 {
-                    this.trackDisplay.Refresh();
+                    this.trackDisplay.Invalidate();
+                    this.trackDisplay.Update();
                 }
                 this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
                 return;
@@ -1782,7 +1783,8 @@ namespace EpicEdit.UI.TrackEdition
 
             if (repaintNeeded || forceRepaint)
             {
-                this.trackDisplay.Refresh();
+                this.trackDisplay.Invalidate();
+                this.trackDisplay.Update();
             }
 
             this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
