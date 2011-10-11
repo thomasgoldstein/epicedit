@@ -1741,44 +1741,40 @@ namespace EpicEdit.UI.TrackEdition
         /// If false: only repaint if something has visually changed on the track.</param>
         private void InitEditionModeAction(bool forceRepaint)
         {
-            if (Context.ColorPickerMode)
-            {
-                if (forceRepaint)
-                {
-                    this.trackDisplay.Invalidate();
-                    this.trackDisplay.Update();
-                }
-                this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
-                return;
-            }
-
             bool repaintNeeded;
 
-            switch (this.editionMode)
+            if (Context.ColorPickerMode)
             {
-                case EditionMode.Tileset:
-                    repaintNeeded = this.InitTilesetAction();
-                    break;
-
-                case EditionMode.Overlay:
-                    repaintNeeded = this.InitOverlayAction();
-                    break;
-
-                case EditionMode.Start:
-                    repaintNeeded = this.InitStartAction();
-                    break;
-
-                case EditionMode.Objects:
-                    repaintNeeded = this.InitObjectAction();
-                    break;
-
-                case EditionMode.AI:
-                    repaintNeeded = this.InitAIAction();
-                    break;
-
-                default:
-                    repaintNeeded = false;
-                    break;
+                repaintNeeded = false;
+            }
+            else
+            {
+                switch (this.editionMode)
+                {
+                    case EditionMode.Tileset:
+                        repaintNeeded = this.InitTilesetAction();
+                        break;
+    
+                    case EditionMode.Overlay:
+                        repaintNeeded = this.InitOverlayAction();
+                        break;
+    
+                    case EditionMode.Start:
+                        repaintNeeded = this.InitStartAction();
+                        break;
+    
+                    case EditionMode.Objects:
+                        repaintNeeded = this.InitObjectAction();
+                        break;
+    
+                    case EditionMode.AI:
+                        repaintNeeded = this.InitAIAction();
+                        break;
+    
+                    default:
+                        repaintNeeded = false;
+                        break;
+                }
             }
 
             if (repaintNeeded || forceRepaint)
