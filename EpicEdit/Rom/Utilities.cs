@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Globalization;
+using System.Text;
 
 namespace EpicEdit.Rom
 {
@@ -468,7 +469,7 @@ namespace EpicEdit.Rom
 
                 // Japanese text formatting
                 // (needed to connect the ten-ten and maru characters to the preceding character)
-                text = text.Normalize(System.Text.NormalizationForm.FormC);
+                text = text.Normalize(NormalizationForm.FormC);
             }
             else
             {
