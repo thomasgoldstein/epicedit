@@ -863,7 +863,8 @@ namespace EpicEdit.UI.TrackEdition
                     this.overlayControl.UpdateTileset();
                 }
 
-                this.trackDisplay.Refresh();
+                this.trackDisplay.Invalidate();
+                this.trackDisplay.Update();
             }
         }
 
