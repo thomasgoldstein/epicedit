@@ -59,14 +59,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
             // Get the addresses where the individual pattern data is
             int addressOffset = offsets[Offset.TrackOverlayPatterns];
-            int[] dataAddresses = LoadPatternDataAddresses(romBuffer, addressOffset);
+            int[] dataAddresses = this.LoadPatternDataAddresses(romBuffer, addressOffset);
 
             // Get the data lengths of all the patterns
             int sizeOffset = offsets[Offset.TrackOverlaySizes];
-            int[] dataLengths = LoadPatternDataLengths(dataAddresses, sizeOffset);
+            int[] dataLengths = this.LoadPatternDataLengths(dataAddresses, sizeOffset);
 
             // Get the widths and heights of all the patterns
-            OverlayTileSize[] overlayTilesizes = LoadPatternSizes(sizes);
+            OverlayTileSize[] overlayTilesizes = this.LoadPatternSizes(sizes);
 
             for (int i = 0; i < patternCount; i++)
             {
@@ -167,7 +167,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public int Count
         {
-            get { return patterns.Length; }
+            get { return this.patterns.Length; }
         }
 
         public bool IsReadOnly
@@ -187,7 +187,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public bool Contains(OverlayTilePattern item)
         {
-            foreach (OverlayTilePattern pattern in patterns)
+            foreach (OverlayTilePattern pattern in this.patterns)
             {
                 if (pattern.Equals(item))
                 {
@@ -199,7 +199,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void CopyTo(OverlayTilePattern[] array, int arrayIndex)
         {
-            Array.Copy(patterns, 0, array, arrayIndex, this.Count);
+            Array.Copy(this.patterns, 0, array, arrayIndex, this.Count);
         }
 
         public bool Remove(OverlayTilePattern item)
