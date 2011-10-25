@@ -59,9 +59,9 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     public class ItemProbabilities
     {
-        // 7 different track types * 3 lap/rank = 21
-        // 21 * 2 modes (GP and match race) = 42
-        // 42 + 1 (battle mode) = 43
+        // 7 different themes * 3 lap/rank = 21
+        // 21 * 2 modes (GP and Match Race) = 42
+        // 42 + 1 (Battle Mode) = 43
         private const int ProbabilityCount = 43;
 
         private ItemProbability[] itemProbabilities;
