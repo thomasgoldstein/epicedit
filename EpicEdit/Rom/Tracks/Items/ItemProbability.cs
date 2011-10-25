@@ -38,7 +38,10 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     public class ItemProbability
     {
-        public const int ProbabilityByteSize = 9;
+        /// <summary>
+        /// The amount of bytes a probability takes up.
+        /// </summary>
+        public const int ProbabilitySize = 9;
 
         /// <summary>
         /// The total number of item probability items.
@@ -270,8 +273,8 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability(byte[] romBuffer, int offset)
         {
-            this.backupData = new byte[ItemProbability.ProbabilityByteSize];
-            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
+            this.backupData = new byte[ItemProbability.ProbabilitySize];
+            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilitySize);
 
             this.Load(romBuffer, offset);
         }
@@ -370,7 +373,7 @@ namespace EpicEdit.Rom.Tracks.Items
             romBuffer[offset + 8] = (byte)this.displayedItems;
 
             // Update the backup data, so that resetting the data will reload the last saved data
-            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilityByteSize);
+            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.ProbabilitySize);
 
             this.Modified = false;
         }

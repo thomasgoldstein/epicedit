@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
             {
-                int address = offset + (i * ItemProbability.ProbabilityByteSize);
+                int address = offset + (i * ItemProbability.ProbabilitySize);
                 this.itemProbabilities[i] = new ItemProbability(romBuffer, address);
             }
         }
@@ -81,7 +81,7 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
             {
-                int address = offset + (i * ItemProbability.ProbabilityByteSize);
+                int address = offset + (i * ItemProbability.ProbabilitySize);
                 this.itemProbabilities[i].Save(romBuffer, address);
             }
         }
