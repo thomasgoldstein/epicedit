@@ -70,19 +70,19 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             this.itemProbabilities = new ItemProbability[ItemProbabilities.ProbabilityCount];
 
-            for (int itemProbabilityCount = 0; itemProbabilityCount < ItemProbabilities.ProbabilityCount; itemProbabilityCount++)
+            for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
             {
-                int address = offset + (itemProbabilityCount * ItemProbability.ProbabilityByteSize);
-                this.itemProbabilities[itemProbabilityCount] = new ItemProbability(romBuffer, address);
+                int address = offset + (i * ItemProbability.ProbabilityByteSize);
+                this.itemProbabilities[i] = new ItemProbability(romBuffer, address);
             }
         }
 
         public void Save(byte[] romBuffer, int offset)
         {
-            for (int itemProbabilityCount = 0; itemProbabilityCount < ItemProbabilities.ProbabilityCount; itemProbabilityCount++)
+            for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
             {
-                int address = offset + (itemProbabilityCount * ItemProbability.ProbabilityByteSize);
-                this.itemProbabilities[itemProbabilityCount].Save(romBuffer, address);
+                int address = offset + (i * ItemProbability.ProbabilityByteSize);
+                this.itemProbabilities[i].Save(romBuffer, address);
             }
         }
 
