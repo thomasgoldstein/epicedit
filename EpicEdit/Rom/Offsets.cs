@@ -268,7 +268,17 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The object color flashing setting.
         /// </summary>
-        TrackObjectFlashing
+        TrackObjectFlashing,
+
+        /// <summary>
+        /// The tile types for each theme tileset.
+        /// </summary>
+        TileGenres,
+
+        /// <summary>
+        /// The tile type indexes for each theme tileset.
+        /// </summary>
+        TileGenreIndexes
     }
 
     public class Offsets
@@ -340,6 +350,7 @@ namespace EpicEdit.Rom
                     break;
             }
 
+            this[Offset.TileGenres] = 0x7FDBA;
             this[Offset.ItemIconGraphics] = 0x112F8;
             this[Offset.TrackObjects] = 0x5C800;
             this[Offset.TrackObjectZones] = 0x4DB93;
@@ -366,6 +377,7 @@ namespace EpicEdit.Rom
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTilesPalettes] + 0x1C3;
 
+            this[Offset.TileGenreIndexes] = this[Offset.TrackMaps] - Theme.Count * 2;
             this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
             this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Theme.Count * 3;
             this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Theme.Count * 3;
