@@ -60,6 +60,10 @@ namespace EpicEdit.Rom.Tracks
             byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);
             byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, 0x100, -1, 32);
 
+            byte[] roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
+            byte[][] toadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
+            TileGenre[] roadCommonTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, 64);
+
             for (int i = 0; i < this.themes.Length; i++)
             {
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
@@ -70,9 +74,12 @@ namespace EpicEdit.Rom.Tracks
                 byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
                 byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, 0x100, -1, 32);
 
+                int roadTileGenreIndex = (toadTileGenreIndexes[i][0]) + (toadTileGenreIndexes[i][1] << 8);
+                TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTilesetGfx.Length);
+
                 Tile[] roadTileset = Themes.GetRoadTileset(colorPalettes,
-                                                           roadTilesetPaletteIndexes, roadTilesetGfx,
-                                                           roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
+                                                           roadTileGenres, roadTilesetPaletteIndexes, roadTilesetGfx,
+                                                           roadCommonTileGenres, roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
 
                 // TODO: Add support for background tilesets
                 //byte[] backgroundTilesetData = Codec.Decompress(romBuffer, backgroundTilesetGfxOffsets[i]);
@@ -80,6 +87,18 @@ namespace EpicEdit.Rom.Tracks
 
                 this.themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset, backgroundTileset);
             }
+        }
+
+        private static TileGenre[] GetTileGenres(byte[] data, int start, int size)
+        {
+            TileGenre[] tileGenres = new TileGenre[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                tileGenres[i] = (TileGenre)data[start + i];
+            }
+
+            return tileGenres;
         }
 
         private static byte[] GetPaletteIndexes(byte[] tilesetData)
@@ -94,27 +113,28 @@ namespace EpicEdit.Rom.Tracks
             return paletteIndexes;
         }
 
-        private static Tile[] GetRoadTileset(Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
+        private static Tile[] GetRoadTileset(Palettes colorPalettes, TileGenre[] tileGenres, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx,
+                                                                     TileGenre[] commonTileGenres, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
         {
             Tile[] tiles = new Tile[256];
 
             // Get the tiles that are specific to this tileset
-            Themes.SetRoadTileset(tiles, colorPalettes, tilesetPaletteIndexes, tilesetGfx, 0, 192);
+            Themes.SetRoadTileset(tiles, colorPalettes, tileGenres, tilesetPaletteIndexes, tilesetGfx, 0, 192);
 
             // Get the tiles that are common to all tilesets
-            Themes.SetRoadTileset(tiles, colorPalettes, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
+            Themes.SetRoadTileset(tiles, colorPalettes, commonTileGenres, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
 
             return tiles;
         }
 
-        private static void SetRoadTileset(Tile[] tiles, Palettes colorPalettes, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, int tileIndex, int tileCount)
+        private static void SetRoadTileset(Tile[] tiles, Palettes colorPalettes, TileGenre[] tileGenres, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx, int tileIndex, int tileCount)
         {
             for (int i = 0; i < tilesetGfx.Length; i++)
             {
                 Palette palette = colorPalettes[tilesetPaletteIndexes[i]];
-                tiles[tileIndex + i] = new MapTile(tilesetGfx[i], palette, TileGenre.Road);
+                tiles[tileIndex + i] = new MapTile(tilesetGfx[i], palette, tileGenres[i]);
             }
-            
+
             if (tilesetGfx.Length < tileCount) // The tileset isn't full, there are missing tiles
             {
                 Palette palette = colorPalettes[0];

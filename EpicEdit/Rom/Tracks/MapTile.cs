@@ -19,7 +19,153 @@ using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks
 {
-    public enum TileGenre { Road };
+    public enum TileGenre : byte
+    {
+        /// <summary>
+        /// Jump bar.
+        /// </summary>
+        JumpBar = 0x10,
+
+        /// <summary>
+        /// Choco Island jump bar.
+        /// </summary>
+        JumpBar2 = 0x12,
+
+        /// <summary>
+        /// Part of unused "?" block.
+        /// </summary>
+        PartOfUnusedQuestionBlock = 0x14,
+
+        /// <summary>
+        /// Zipper.
+        /// </summary>
+        Zipper = 0x16,
+
+        /// <summary>
+        /// Oil slick.
+        /// </summary>
+        OilSlick = 0x18,
+
+        /// <summary>
+        /// Coin.
+        /// </summary>
+        Coin = 0x1A,
+
+        /// <summary>
+        /// Choco Island jump bar #2 (less severe speed impact seemingly).
+        /// </summary>
+        JumpBar3 = 0x1C,
+
+        /// <summary>
+        /// Ghost Valley bumpy planks of wood where drivers line up.
+        /// </summary>
+        WoodPlank = 0x1E,
+
+        /// <summary>
+        /// Ghost Valley tiles that you fall through, Lakitu grabs you.
+        /// </summary>
+        Empty = 0x20,
+
+        /// <summary>
+        /// Deep water.
+        /// </summary>
+        Water = 0x22,
+
+        /// <summary>
+        /// Bowser Castle lava.
+        /// </summary>
+        Lava = 0x24,
+
+        /// <summary>
+        /// Lakitu will pick you up if you touch the tile.
+        /// </summary>
+        OutOfBounds = 0x26,
+
+        /// <summary>
+        /// Mario Circuit road (also used for other "good handling" surfaces).
+        /// </summary>
+        Road = 0x40,
+
+        /// <summary>
+        /// Ghost Valley road.
+        /// </summary>
+        Road2 = 0x42,
+
+        /// <summary>
+        /// Bowser Castle road.
+        /// </summary>
+        Road3 = 0x43,
+
+        /// <summary>
+        /// Ghost Valley slippery "polished" road.
+        /// </summary>
+        Road4 = 0x46,
+
+        /// <summary>
+        /// Koopa Beach road.
+        /// </summary>
+        Road5 = 0x4A,
+
+        /// <summary>
+        /// Choco Island road.
+        /// </summary>
+        Road6 = 0x4C,
+
+        /// <summary>
+        /// Vanilla Lake road.
+        /// </summary>
+        Road7 = 0x4E,
+
+        /// <summary>
+        /// Donut Plains bridge.
+        /// </summary>
+        Bridge = 0x50,
+
+        /// <summary>
+        /// "Slippery" sections of track.
+        /// </summary>
+        Slippery = 0x52,
+
+        /// <summary>
+        /// Mario Circuit sand.
+        /// </summary>
+        Sand = 0x54,
+
+        /// <summary>
+        /// Choco Island offroad.
+        /// </summary>
+        OffRoad = 0x56,
+
+        /// <summary>
+        /// Vanilla Lake snow / Choco Island 'sand'?
+        /// </summary>
+        Snow = 0x58,
+
+        /// <summary>
+        /// Drivable grass.
+        /// </summary>
+        Grass = 0x5A,
+
+        /// <summary>
+        /// Koopa Beach shallow water / Choco Island mud.
+        /// </summary>
+        ShallowWater = 0x5C,
+
+        /// <summary>
+        /// Solid block (like colored bricks).
+        /// </summary>
+        SolidBlock = 0x80,
+
+        /// <summary>
+        /// Ghost Valley boundary block that disappears when hit.
+        /// </summary>
+        BreakableBlock = 0x82,
+
+        /// <summary>
+        /// Vanilla Lake breakable ice block.
+        /// </summary>
+        IceBlock = 0x84
+    };
 
     /// <summary>
     /// Represents a non-animated track map tile.
