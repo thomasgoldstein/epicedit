@@ -29,7 +29,7 @@ namespace EpicEditTests.Rom.Tracks
         public ThemeTest()
         {
             this.count = 64;
-            this.theme = new Theme("Stifu's & Midwife theme", new Palettes(new byte[0]), new Tile[this.count], new Tile[this.count]);
+            this.theme = new Theme("Stifu's & Midwife theme", new Palettes(new byte[0]), new MapTile[this.count], new Tile[this.count]);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestRoadTileset()
         {
-            Tile[] tiles = new MapTile[this.count];
+            MapTile[] tiles = new MapTile[this.count];
             for (int i = 0; i < this.count; i++)
             {
                 tiles[i] = new MapTile(new Bitmap(1, 1), null, TileGenre.Road);
@@ -54,7 +54,7 @@ namespace EpicEditTests.Rom.Tracks
         [Test]
         public void TestRoadTiles()
         {
-            Tile[] tiles = new MapTile[this.count];
+            MapTile[] tiles = new MapTile[this.count];
             this.theme.ClearRoadTileset();
             for (int i = 0; i < this.count; i++)
             {
