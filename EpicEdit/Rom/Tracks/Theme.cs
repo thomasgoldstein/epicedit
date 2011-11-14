@@ -28,10 +28,10 @@ namespace EpicEdit.Rom.Tracks
 
         public string Name { get; private set; }
         public Palettes Palettes { get; private set; }
-        private Tile[] roadTileset;
+        private MapTile[] roadTileset;
         private Tile[] backgroundTileset;
 
-        public Theme(string name, Palettes palettes, Tile[] roadTileset, Tile[] backgroundTileset)
+        public Theme(string name, Palettes palettes, MapTile[] roadTileset, Tile[] backgroundTileset)
         {
             this.Name = name;
             this.Palettes = palettes;
@@ -40,12 +40,12 @@ namespace EpicEdit.Rom.Tracks
             this.backgroundTileset = backgroundTileset;
         }
 
-        public void SetRoadTileset(Tile[] tiles)
+        public void SetRoadTileset(MapTile[] tiles)
         {
             this.roadTileset = tiles;
         }
 
-        public void SetRoadTile(int index, Tile tile)
+        public void SetRoadTile(int index, MapTile tile)
         {
             this.roadTileset[index] = tile;
         }
@@ -60,12 +60,12 @@ namespace EpicEdit.Rom.Tracks
             this.backgroundTileset[index] = tile;
         }
 
-        public Tile[] GetRoadTileset()
+        public MapTile[] GetRoadTileset()
         {
             return this.roadTileset;
         }
 
-        public Tile GetRoadTile(int index)
+        public MapTile GetRoadTile(int index)
         {
             return this.roadTileset[index];
         }

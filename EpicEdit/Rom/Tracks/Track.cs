@@ -69,12 +69,12 @@ namespace EpicEdit.Rom.Tracks
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
         }
 
-        public Tile[] GetRoadTileset()
+        public MapTile[] GetRoadTileset()
         {
             return this.Theme.GetRoadTileset();
         }
 
-        public Tile GetRoadTile(int index)
+        public MapTile GetRoadTile(int index)
         {
             return this.Theme.GetRoadTile(index);
         }
