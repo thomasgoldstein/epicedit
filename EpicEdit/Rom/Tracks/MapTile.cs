@@ -32,9 +32,9 @@ namespace EpicEdit.Rom.Tracks
         JumpBar2 = 0x12,
 
         /// <summary>
-        /// Part of unused "?" block.
+        /// Part of "?" block.
         /// </summary>
-        PartOfUnusedQuestionBlock = 0x14,
+        QuestionBlock = 0x14,
 
         /// <summary>
         /// Zipper.
@@ -94,10 +94,10 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Bowser Castle road.
         /// </summary>
-        Road3 = 0x43,
+        Road3 = 0x44,
 
         /// <summary>
-        /// Ghost Valley slippery "polished" road.
+        /// Donut Plains road.
         /// </summary>
         Road4 = 0x46,
 
@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.Tracks
         Road6 = 0x4C,
 
         /// <summary>
-        /// Vanilla Lake road.
+        /// Vanilla Lake road / Ghost Valley road / Bowser Castle road / Rainbow Road road.
         /// </summary>
         Road7 = 0x4E,
 
