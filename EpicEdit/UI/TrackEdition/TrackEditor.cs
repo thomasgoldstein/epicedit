@@ -1222,13 +1222,14 @@ namespace EpicEdit.UI.TrackEdition
                         {
                             this.buttonsPressed = MouseButtons.Right;
 
-                            if (this.tileClipboard[0] != hoveredTile)
+                            byte tile = hoveredTile.Value;
+                            if (this.tileClipboard[0] != tile)
                             {
-                                this.tilesetControl.SelectedTile = (byte)hoveredTile;
+                                this.tilesetControl.SelectedTile = tile;
                             }
 
                             this.tileClipboard.Clear();
-                            this.tileClipboard.Add((byte)hoveredTile);
+                            this.tileClipboard.Add(tile);
 
                             this.anchorPoint = this.tileClipboardTopLeft = this.AbsoluteTilePosition;
 
