@@ -193,7 +193,15 @@ namespace EpicEdit.Rom.Tracks
         public TileGenre Genre
         {
             get { return this.genre; }
-            protected set { this.genre = value; }
+            protected set
+            {
+                if (!Enum.IsDefined(typeof(TileGenre), value))
+                {
+                    throw new ArgumentException("Invalid tile type value: " + value + ".", "value");
+                }
+
+                this.genre = value;
+            }
         }
 
         public override Bitmap Bitmap
