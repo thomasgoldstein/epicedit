@@ -193,7 +193,7 @@ namespace EpicEdit.Rom.Tracks
         public TileGenre Genre
         {
             get { return this.genre; }
-            protected set
+            set
             {
                 if (!Enum.IsDefined(typeof(TileGenre), value))
                 {
