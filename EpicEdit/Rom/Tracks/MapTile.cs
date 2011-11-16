@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Part of "?" block.
         /// </summary>
-        QuestionBlock = 0x14,
+        ItemBlock = 0x14,
 
         /// <summary>
         /// Zipper.
