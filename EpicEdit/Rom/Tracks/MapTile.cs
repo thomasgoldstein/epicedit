@@ -197,7 +197,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 if (!Enum.IsDefined(typeof(TileGenre), value))
                 {
-                    throw new ArgumentException("Invalid tile type value: " + value + ".", "value");
+                    throw new ArgumentException("Invalid tile type value: " + value.ToString("X") + ".", "value");
                 }
 
                 this.genre = value;
