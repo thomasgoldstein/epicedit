@@ -82,6 +82,11 @@ namespace EpicEdit.Rom.Tracks
         OutOfBounds = 0x26,
 
         /// <summary>
+        /// Unknown Rainbow Road tile type.
+        /// </summary>
+        Unknown1 = 0x28,
+
+        /// <summary>
         /// Mario Circuit road (also used for other "good handling" surfaces).
         /// </summary>
         Road = 0x40,
@@ -100,6 +105,11 @@ namespace EpicEdit.Rom.Tracks
         /// Donut Plains road.
         /// </summary>
         Road4 = 0x46,
+
+        /// <summary>
+        /// Unknown Koopa Beach tile type.
+        /// </summary>
+        Unknown2 = 0x48,
 
         /// <summary>
         /// Koopa Beach road.
@@ -150,6 +160,11 @@ namespace EpicEdit.Rom.Tracks
         /// Koopa Beach shallow water / Choco Island mud.
         /// </summary>
         ShallowWater = 0x5C,
+
+        /// <summary>
+        /// Unknown Choco Island tile type.
+        /// </summary>
+        Unknown3 = 0x5E,
 
         /// <summary>
         /// Solid block (like colored bricks).
