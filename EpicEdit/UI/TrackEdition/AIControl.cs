@@ -120,7 +120,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
-            UITools.SetValueFromEnumDescription(e);
+            e.Value = UITools.GetDescription(e.Value);
         }
 
         private void IndexNumericUpDownValueChanged(object sender, EventArgs e)

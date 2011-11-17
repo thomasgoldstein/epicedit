@@ -84,7 +84,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void SetValueFromDescription(object sender, ListControlConvertEventArgs e)
         {
-            UITools.SetValueFromEnumDescription(e);
+            e.Value = UITools.GetDescription(e.Value);
         }
 
         #region Fields initialization and display

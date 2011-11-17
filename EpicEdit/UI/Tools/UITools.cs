@@ -49,37 +49,30 @@ namespace EpicEdit.UI.Tools
         }
 
         /// <summary>
-        /// Sets the Value of the passed EventArgs using the Description of the underlying Enum item.
+        /// Gets the passed object description attribute value.
         /// </summary>
-        /// <param name="e"></param>
-        public static void SetValueFromEnumDescription(ConvertEventArgs e)
+        /// <param name="item">Object instance.</param>
+        public static string GetDescription(object item)
         {
-            if (!(e.Value is Enum))
-            {
-                // HACK: Do nothing in order to avoid an exception.
-                // Workaround for Mono bug #620326
-                // https://bugzilla.novell.com/show_bug.cgi?id=620326
-                return;
-            }
+            string desc = null;
 
-            bool foundDescription = false;
-            Enum en = (Enum)e.Value;
-            Type type = en.GetType();
-            MemberInfo[] memInfo = type.GetMember(en.ToString());
+            Type type = item.GetType();
+            MemberInfo[] memInfo = type.GetMember(item.ToString());
             if (memInfo != null && memInfo.Length > 0)
             {
                 object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
                 if (attrs != null && attrs.Length > 0)
                 {
-                    foundDescription = true;
-                    e.Value = ((DescriptionAttribute)attrs[0]).Description;
+                    desc = (attrs[0] as DescriptionAttribute).Description;
                 }
             }
 
-            if (!foundDescription)
+            if (desc == null) // Description not found
             {
-                e.Value = en.ToString();
+                desc = item.ToString();
             }
+
+            return desc;
         }
 
         /// <summary>
