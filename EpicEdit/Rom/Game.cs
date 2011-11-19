@@ -2003,12 +2003,9 @@ namespace EpicEdit.Rom
 
             foreach (Theme theme in this.themes)
             {
-                foreach (Palette palette in theme.Palettes)
+                if (theme.Modified)
                 {
-                    if (palette.Modified)
-                    {
-                        palette.Modified = false;
-                    }
+                    theme.Modified = false;
                 }
             }
         }
@@ -2048,12 +2045,9 @@ namespace EpicEdit.Rom
 
             foreach (Theme theme in this.themes)
             {
-                foreach (Palette palette in theme.Palettes)
+                if (theme.Modified)
                 {
-                    if (palette.Modified)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
