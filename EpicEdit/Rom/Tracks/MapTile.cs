@@ -29,10 +29,10 @@ namespace EpicEdit.Rom.Tracks
         JumpBar = 0x10,
 
         /// <summary>
-        /// Choco Island jump bar.
+        /// Edge of Choco Island jump bar.
         /// </summary>
-        [Description("Jump bar 2")]
-        JumpBar2 = 0x12,
+        [Description("Soft jump bar edge")]
+        SoftJumpBarEdge = 0x12,
 
         /// <summary>
         /// Part of "?" block.
@@ -41,7 +41,7 @@ namespace EpicEdit.Rom.Tracks
         ItemBlock = 0x14,
 
         /// <summary>
-        /// Zipper.
+        /// Acceleration boost tile.
         /// </summary>
         [Description("Zipper")]
         Zipper = 0x16,
@@ -59,10 +59,10 @@ namespace EpicEdit.Rom.Tracks
         Coin = 0x1A,
 
         /// <summary>
-        /// Choco Island jump bar #2 (less severe speed impact seemingly).
+        /// Choco Island jump bar.
         /// </summary>
-        [Description("Jump bar 3")]
-        JumpBar3 = 0x1C,
+        [Description("Soft jump bar")]
+        SoftJumpBar = 0x1C,
 
         /// <summary>
         /// Ghost Valley bumpy planks of wood where drivers line up.
@@ -107,22 +107,22 @@ namespace EpicEdit.Rom.Tracks
         Road = 0x40,
 
         /// <summary>
-        /// Ghost Valley road.
+        /// Ghost Valley plank intersection.
         /// </summary>
-        [Description("Road 2")]
-        Road2 = 0x42,
+        [Description("Plank junction")]
+        PlankJunction = 0x42,
 
         /// <summary>
         /// Bowser Castle road.
         /// </summary>
-        [Description("Road 3")]
-        Road3 = 0x44,
+        [Description("Brick road")]
+        BrickRoad = 0x44,
 
         /// <summary>
         /// Donut Plains road.
         /// </summary>
-        [Description("Road 4")]
-        Road4 = 0x46,
+        [Description("Clay")]
+        Clay = 0x46,
 
         /// <summary>
         /// Koopa Beach wet sand.
@@ -131,22 +131,22 @@ namespace EpicEdit.Rom.Tracks
         WetSand = 0x48,
 
         /// <summary>
-        /// Koopa Beach road.
+        /// Koopa Beach sand.
         /// </summary>
-        [Description("Road 5")]
-        Road5 = 0x4A,
+        [Description("Soft sand")]
+        SoftSand = 0x4A,
 
         /// <summary>
         /// Choco Island road.
         /// </summary>
-        [Description("Road 6")]
-        Road6 = 0x4C,
+        [Description("Rough clay")]
+        RoughClay = 0x4C,
 
         /// <summary>
-        /// Vanilla Lake road / Ghost Valley road / Bowser Castle road / Rainbow Road road.
+        /// Flat surface (found on Vanilla Lake, Ghost Valley and Bowser Castle).
         /// </summary>
-        [Description("Road 7")]
-        Road7 = 0x4E,
+        [Description("Flat surface")]
+        FlatSurface = 0x4E,
 
         /// <summary>
         /// Donut Plains bridge.
@@ -155,15 +155,15 @@ namespace EpicEdit.Rom.Tracks
         Bridge = 0x50,
 
         /// <summary>
-        /// "Slippery" sections of track.
+        /// Slippery section of road.
         /// </summary>
-        [Description("Slippery")]
-        Slippery = 0x52,
+        [Description("Slippery road")]
+        SlipperyRoad = 0x52,
 
         /// <summary>
         /// Mario Circuit sand.
         /// </summary>
-        [Description("Sand")]
+        [Description("Sharp sand")]
         Sand = 0x54,
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace EpicEdit.Rom.Tracks
         OffRoad = 0x56,
 
         /// <summary>
-        /// Vanilla Lake snow / Choco Island sand.
+        /// Vanilla Lake snow (also Choco Island sand, unused in original tracks).
         /// </summary>
         [Description("Snow")]
         Snow = 0x58,
