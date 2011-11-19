@@ -71,6 +71,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private Track track = null;
 
+        /// <summary>
+        /// Specifies whether a new track is being loaded.
+        /// </summary>
+        private bool trackChanging = false;
+
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
@@ -80,8 +85,10 @@ namespace EpicEdit.UI.TrackEdition
             }
             set
             {
+                this.trackChanging = true;
                 this.track = value;
                 this.SelectTrackTheme();
+                this.trackChanging = false;
             }
         }
 
@@ -165,7 +172,12 @@ namespace EpicEdit.UI.TrackEdition
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
-            this.track.Theme.Modified = true;
+
+            if (!trackChanging)
+            {
+                // Ensure this event was fired by a user action
+                this.track.Theme.Modified = true;
+            }
         }
 
         public void UpdateTileset()
