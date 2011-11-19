@@ -58,7 +58,7 @@ namespace EpicEdit.UI
             this.trackEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackEditor.Location = new System.Drawing.Point(0, 0);
             this.trackEditor.Name = "trackEditor";
-            this.trackEditor.Size = new System.Drawing.Size(854, 661);
+            this.trackEditor.Size = new System.Drawing.Size(854, 716);
             this.trackEditor.TabIndex = 0;
             this.trackEditor.FileDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorFileDragged);
             this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
@@ -67,7 +67,7 @@ namespace EpicEdit.UI
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(854, 661);
+            this.ClientSize = new System.Drawing.Size(854, 716);
             this.Controls.Add(this.trackEditor);
             this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;
             this.Name = "MainForm";
