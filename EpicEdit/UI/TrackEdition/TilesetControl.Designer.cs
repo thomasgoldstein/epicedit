@@ -51,14 +51,35 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox selectedTileGroupBox;
+            this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
             selectedTileGroupBox = new System.Windows.Forms.GroupBox();
             selectedTileGroupBox.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // selectedTileGroupBox
+            // 
+            selectedTileGroupBox.Controls.Add(this.tileGenreComboBox);
+            selectedTileGroupBox.Location = new System.Drawing.Point(2, 30);
+            selectedTileGroupBox.Name = "selectedTileGroupBox";
+            selectedTileGroupBox.Size = new System.Drawing.Size(124, 50);
+            selectedTileGroupBox.TabIndex = 8;
+            selectedTileGroupBox.TabStop = false;
+            selectedTileGroupBox.Text = "Selected tile";
+            // 
+            // tileGenreComboBox
+            // 
+            this.tileGenreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tileGenreComboBox.FormattingEnabled = true;
+            this.tileGenreComboBox.Location = new System.Drawing.Point(6, 19);
+            this.tileGenreComboBox.Name = "tileGenreComboBox";
+            this.tileGenreComboBox.Size = new System.Drawing.Size(112, 21);
+            this.tileGenreComboBox.TabIndex = 0;
+            this.tileGenreComboBox.SelectedIndexChanged += new System.EventHandler(this.TileGenreComboBoxSelectedIndexChanged);
+            this.tileGenreComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.TileGenreComboBoxFormat);
             // 
             // themeComboBox
             // 
@@ -88,27 +109,6 @@ namespace EpicEdit.UI.TrackEdition
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
-            // 
-            // tileGenreComboBox
-            // 
-            this.tileGenreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tileGenreComboBox.FormattingEnabled = true;
-            this.tileGenreComboBox.Location = new System.Drawing.Point(6, 19);
-            this.tileGenreComboBox.Name = "tileGenreComboBox";
-            this.tileGenreComboBox.Size = new System.Drawing.Size(116, 21);
-            this.tileGenreComboBox.TabIndex = 0;
-            this.tileGenreComboBox.SelectedIndexChanged += new System.EventHandler(this.TileGenreComboBoxSelectedIndexChanged);
-            this.tileGenreComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.TileGenreComboBoxFormat);
-            // 
-            // selectedTileGroupBox
-            // 
-            selectedTileGroupBox.Controls.Add(this.tileGenreComboBox);
-            selectedTileGroupBox.Location = new System.Drawing.Point(0, 30);
-            selectedTileGroupBox.Name = "selectedTileGroupBox";
-            selectedTileGroupBox.Size = new System.Drawing.Size(128, 50);
-            selectedTileGroupBox.TabIndex = 8;
-            selectedTileGroupBox.TabStop = false;
-            selectedTileGroupBox.Text = "Selected tile";
             // 
             // TilesetControl
             // 
