@@ -31,6 +31,43 @@ namespace EpicEdit.Rom.Tracks
         private MapTile[] roadTileset;
         private Tile[] backgroundTileset;
 
+        private bool modified;
+        public bool Modified
+        {
+            get
+            {
+                if (this.modified)
+                {
+                    return true;
+                }
+
+                foreach (Palette palette in this.Palettes)
+                {
+                    if (palette.Modified)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            set
+            {
+                this.modified = value;
+
+                if (!value)
+                {
+                    foreach (Palette palette in this.Palettes)
+                    {
+                        if (palette.Modified)
+                        {
+                            palette.Modified = false;
+                        }
+                    }
+                }
+            }
+        }
+
         public Theme(string name, Palettes palettes, MapTile[] roadTileset, Tile[] backgroundTileset)
         {
             this.Name = name;
