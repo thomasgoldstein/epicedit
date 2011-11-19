@@ -50,10 +50,14 @@ namespace EpicEdit.UI.TrackEdition
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.GroupBox selectedTileGroupBox;
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
+            selectedTileGroupBox = new System.Windows.Forms.GroupBox();
+            selectedTileGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // themeComboBox
@@ -68,7 +72,7 @@ namespace EpicEdit.UI.TrackEdition
             // tilesetPanel
             // 
             this.tilesetPanel.BackColor = System.Drawing.Color.Black;
-            this.tilesetPanel.Location = new System.Drawing.Point(0, 30);
+            this.tilesetPanel.Location = new System.Drawing.Point(0, 90);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
             this.tilesetPanel.TabIndex = 5;
@@ -77,7 +81,7 @@ namespace EpicEdit.UI.TrackEdition
             // resetMapButton
             // 
             this.resetMapButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.resetMapButton.Location = new System.Drawing.Point(103, 549);
+            this.resetMapButton.Location = new System.Drawing.Point(103, 609);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
             this.resetMapButton.TabIndex = 7;
@@ -85,15 +89,39 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
             // 
+            // tileGenreComboBox
+            // 
+            this.tileGenreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tileGenreComboBox.FormattingEnabled = true;
+            this.tileGenreComboBox.Location = new System.Drawing.Point(6, 19);
+            this.tileGenreComboBox.Name = "tileGenreComboBox";
+            this.tileGenreComboBox.Size = new System.Drawing.Size(116, 21);
+            this.tileGenreComboBox.TabIndex = 0;
+            this.tileGenreComboBox.SelectedIndexChanged += new System.EventHandler(this.TileGenreComboBoxSelectedIndexChanged);
+            this.tileGenreComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.TileGenreComboBoxFormat);
+            // 
+            // selectedTileGroupBox
+            // 
+            selectedTileGroupBox.Controls.Add(this.tileGenreComboBox);
+            selectedTileGroupBox.Location = new System.Drawing.Point(0, 30);
+            selectedTileGroupBox.Name = "selectedTileGroupBox";
+            selectedTileGroupBox.Size = new System.Drawing.Size(128, 50);
+            selectedTileGroupBox.TabIndex = 8;
+            selectedTileGroupBox.TabStop = false;
+            selectedTileGroupBox.Text = "Selected tile";
+            // 
             // TilesetControl
             // 
-            this.Controls.Add(this.resetMapButton);
+            this.Controls.Add(selectedTileGroupBox);
             this.Controls.Add(this.themeComboBox);
+            this.Controls.Add(this.resetMapButton);
             this.Controls.Add(this.tilesetPanel);
             this.Name = "TilesetControl";
-            this.Size = new System.Drawing.Size(130, 580);
+            this.Size = new System.Drawing.Size(130, 640);
+            selectedTileGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button resetMapButton;
         private EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel tilesetPanel;

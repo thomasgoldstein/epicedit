@@ -60,8 +60,8 @@ namespace EpicEdit.UI.TrackEdition
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackEditor));
             System.Windows.Forms.Label tabFocusRemover;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackEditor));
             this.trackDisplay = new EpicEdit.UI.TrackEdition.TrackEditor.TrackPanel();
             this.trackDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
             this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
@@ -88,6 +88,14 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsTabPage.SuspendLayout();
             this.aiTabPage.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // tabFocusRemover
+            // 
+            tabFocusRemover.BackColor = System.Drawing.Color.Transparent;
+            tabFocusRemover.Location = new System.Drawing.Point(0, 25);
+            tabFocusRemover.Name = "tabFocusRemover";
+            tabFocusRemover.Size = new System.Drawing.Size(1, 1);
+            tabFocusRemover.TabIndex = 2;
             // 
             // trackDisplay
             // 
@@ -171,7 +179,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.tilesetControl.Location = new System.Drawing.Point(3, 3);
             this.tilesetControl.Name = "tilesetControl";
-            this.tilesetControl.Size = new System.Drawing.Size(130, 580);
+            this.tilesetControl.Size = new System.Drawing.Size(130, 640);
             this.tilesetControl.TabIndex = 0;
             this.tilesetControl.TrackThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackThemeChanged);
             this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
@@ -279,14 +287,6 @@ namespace EpicEdit.UI.TrackEdition
             this.trackTreeView.Size = new System.Drawing.Size(144, 451);
             this.trackTreeView.TabIndex = 0;
             this.trackTreeView.SelectedTrackChanged += new System.EventHandler<System.EventArgs>(this.TrackTreeViewSelectedTrackChanged);
-            // 
-            // tabFocusRemover
-            // 
-            tabFocusRemover.BackColor = System.Drawing.Color.Transparent;
-            tabFocusRemover.Location = new System.Drawing.Point(0, 25);
-            tabFocusRemover.Name = "tabFocusRemover";
-            tabFocusRemover.Size = new System.Drawing.Size(1, 1);
-            tabFocusRemover.TabIndex = 2;
             // 
             // menuBar
             // 

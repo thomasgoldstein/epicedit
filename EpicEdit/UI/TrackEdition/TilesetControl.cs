@@ -82,7 +82,6 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.track = value;
                 this.SelectTrackTheme();
-                this.tilesetPanel.SetTileset(this.track.GetRoadTileset());
             }
         }
 
@@ -96,6 +95,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.selectedTile = value;
                 this.tilesetPanel.Invalidate();
+                this.SelectTileGenre();
             }
         }
 
@@ -125,6 +125,12 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
+            this.InitThemeComboBox();
+            this.InitTileGenreComboBox();
+        }
+
+        private void InitThemeComboBox()
+        {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
             foreach (Theme theme in Context.Game.Themes)
@@ -132,6 +138,14 @@ namespace EpicEdit.UI.TrackEdition
                 this.themeComboBox.Items.Add(theme);
             }
             this.themeComboBox.EndUpdate();
+        }
+
+        private void InitTileGenreComboBox()
+        {
+            if (this.tileGenreComboBox.Items.Count == 0)
+            {
+                this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
+            }
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -148,6 +162,12 @@ namespace EpicEdit.UI.TrackEdition
             this.SelectedThemeChanged(this, EventArgs.Empty);
         }
 
+        private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
+            this.track.Theme.Modified = true;
+        }
+
         public void UpdateTileset()
         {
             this.ResetTileset();
@@ -162,7 +182,18 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTrackTheme()
         {
-            this.themeComboBox.SelectedItem = this.track.Theme;
+            Theme theme = this.track.Theme;
+            if (this.themeComboBox.SelectedItem != theme)
+            {
+                this.themeComboBox.SelectedItem = theme;
+                this.tilesetPanel.SetTileset(theme.GetRoadTileset());
+                this.SelectTileGenre();
+            }
+        }
+
+        private void SelectTileGenre()
+        {
+            this.tileGenreComboBox.SelectedItem = this.track.GetRoadTile(this.selectedTile).Genre;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
@@ -183,10 +214,15 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.selectedTile != newSelectedTile)
             {
-                this.selectedTile = newSelectedTile;
-                this.tilesetPanel.Invalidate();
+                this.SelectedTile = newSelectedTile;
                 this.SelectedTileChanged(this, EventArgs.Empty);
             }
+        }
+
+        private void TileGenreComboBoxFormat(object sender, ListControlConvertEventArgs e)
+        {
+            object val = e.Value;
+            e.Value = ((byte)val).ToString("X") + "- " + UITools.GetDescription(val);
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)
