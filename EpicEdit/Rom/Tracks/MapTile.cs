@@ -29,10 +29,10 @@ namespace EpicEdit.Rom.Tracks
         JumpBar = 0x10,
 
         /// <summary>
-        /// Edge of Choco Island jump bar.
+        /// Edge of Choco Island road bump.
         /// </summary>
-        [Description("Soft jump bar edge")]
-        SoftJumpBarEdge = 0x12,
+        [Description("Bump edge")]
+        BumpEdge = 0x12,
 
         /// <summary>
         /// Part of "?" block.
@@ -59,10 +59,10 @@ namespace EpicEdit.Rom.Tracks
         Coin = 0x1A,
 
         /// <summary>
-        /// Choco Island jump bar.
+        /// Choco Island road bump.
         /// </summary>
-        [Description("Soft jump bar")]
-        SoftJumpBar = 0x1C,
+        [Description("Bump")]
+        Bump = 0x1C,
 
         /// <summary>
         /// Ghost Valley bumpy planks of wood where drivers line up.
@@ -205,8 +205,8 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Ghost Valley boundary block that disappears when hit.
         /// </summary>
-        [Description("Breakable block")]
-        BreakableBlock = 0x82,
+        [Description("Frail block")]
+        FrailBlock = 0x82,
 
         /// <summary>
         /// Vanilla Lake breakable ice block.
