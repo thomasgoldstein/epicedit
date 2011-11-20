@@ -165,8 +165,11 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.SelectTileGenre();
+
+            this.tilesetPanel.SetTileset(theme.GetRoadTileset());
             this.ResetTileset();
             this.tilesetPanel.Invalidate();
+
             this.SelectedThemeChanged(this, EventArgs.Empty);
         }
 
@@ -194,12 +197,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTrackTheme()
         {
-            Theme theme = this.track.Theme;
-            if (this.themeComboBox.SelectedItem != theme)
-            {
-                this.themeComboBox.SelectedItem = theme;
-                this.tilesetPanel.SetTileset(theme.GetRoadTileset());
-            }
+            this.themeComboBox.SelectedItem = this.track.Theme;
         }
 
         private void SelectTileGenre()
