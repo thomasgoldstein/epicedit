@@ -72,9 +72,9 @@ namespace EpicEdit.UI.TrackEdition
         private Track track = null;
 
         /// <summary>
-        /// Specifies whether a new track is being loaded.
+        /// Flag to differentiate user actions and automatic actions.
         /// </summary>
-        private bool trackChanging = false;
+        private bool userAction = false;
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
@@ -85,10 +85,10 @@ namespace EpicEdit.UI.TrackEdition
             }
             set
             {
-                this.trackChanging = true;
+                this.userAction = false;
                 this.track = value;
                 this.SelectTrackTheme();
-                this.trackChanging = false;
+                this.userAction = true;
             }
         }
 
@@ -173,9 +173,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
 
-            if (!trackChanging)
+            if (this.userAction)
             {
-                // Ensure this event was fired by a user action
                 this.track.Theme.Modified = true;
             }
         }
@@ -226,7 +225,10 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.selectedTile != newSelectedTile)
             {
+                this.userAction = false;
                 this.SelectedTile = newSelectedTile;
+                this.userAction = true;
+
                 this.SelectedTileChanged(this, EventArgs.Empty);
             }
         }
