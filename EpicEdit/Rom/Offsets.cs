@@ -278,7 +278,17 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The tile type indexes for each theme tileset.
         /// </summary>
-        TileGenreIndexes
+        TileGenreIndexes,
+
+        /// <summary>
+        /// Jump bar check address index.
+        /// </summary>
+        JumpBarCheck,
+
+        /// <summary>
+        /// Tile genre loading routine address index.
+        /// </summary>
+        TileGenreLoad
     }
 
     public class Offsets
@@ -310,6 +320,8 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack3] = 0x19E8E;
                     this[Offset.TrackObjectHack4] = 0x1E996;
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
+                    this[Offset.JumpBarCheck] = 0xB795;
+                    this[Offset.TileGenreLoad] = 0x1EB15;
                     break;
 
                 case Region.US:
@@ -328,6 +340,8 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack3] = 0x19E2B;
                     this[Offset.TrackObjectHack4] = 0x1E992;
                     this[Offset.TrackObjectPalHack1] = 0xBD0E;
+                    this[Offset.JumpBarCheck] = 0xB79E;
+                    this[Offset.TileGenreLoad] = 0x1EB11;
                     //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
@@ -347,6 +361,8 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack3] = 0x19E68;
                     this[Offset.TrackObjectHack4] = 0x1E981;
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
+                    this[Offset.JumpBarCheck] = 0xB7A3;
+                    this[Offset.TileGenreLoad] = 0x1EB00;
                     break;
             }
 

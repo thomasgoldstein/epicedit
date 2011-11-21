@@ -1122,6 +1122,7 @@ namespace EpicEdit.Rom
             SaveBuffer saveBuffer = new SaveBuffer(this.romBuffer);
             this.SaveBattleStartPositions(saveBuffer);
             this.SaveObjectData(saveBuffer);
+            this.SaveTileGenres(saveBuffer);
             this.SaveAIs(saveBuffer);
             this.SaveTracks(saveBuffer);
             this.SaveThemes(saveBuffer);
@@ -1801,6 +1802,66 @@ namespace EpicEdit.Rom
             saveBuffer.Add(hack2);
             saveBuffer.Add(hack3);
             saveBuffer.Add(hack4);
+        }
+
+        private void SaveTileGenres(SaveBuffer saveBuffer)
+        {
+            // Saves data from 0x85EF4 to 0x86728
+
+            // Apply a hack that gives a full 256-byte behavior table for each theme
+            // in uncompressed form. It helps the load times a little bit,
+            // and allows theme-specific tile genre values for shared tiles.
+            // Also reimplement the theme-specific behavior of the Browser Castle jump bars
+            // that slows you down, to make it reusable.
+
+            /*
+                LoadBehavior: c85ef4
+                JumpBarCheck: c85f0f
+                behavior tables: c85f21
+                jump bar table: c86721
+            */
+
+            // JumpBarCheck offset (make it point to 85F0F)
+            int offset = this.offsets[Offset.JumpBarCheck];
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0x0F;
+            this.romBuffer[offset++] = 0x5F;
+            this.romBuffer[offset] = 0xC8;
+
+            // LoadBehavior offset (make it point to 85EF4)
+            offset = this.offsets[Offset.TileGenreLoad];
+            this.romBuffer[offset++] = 0x5C;
+            this.romBuffer[offset++] = 0xF4;
+            this.romBuffer[offset++] = 0x5E;
+            this.romBuffer[offset] = 0xC8;
+
+            Region r = this.region;
+            byte val1 = r == Region.Jap ? (byte)0x4E : r == Region.Euro ? (byte)0x39 : (byte)0x4A;
+            byte val2 = r == Region.Jap ? (byte)0x9B : r == Region.Euro ? (byte)0xA9 : (byte)0xA4;
+            byte[] data =
+            {
+                0xC2, 0x20, 0xAD, 0x26, 0x01, 0x4A, 0xEB, 0x18,
+                0x69, 0x21, 0x5F, 0xAA, 0xA0, 0x00, 0x0B, 0xA9,
+                0xFF, 0x00, 0x8B, 0x54, 0x7E, 0xC8, 0xAB, 0x5C,
+                val1, 0xEB, 0xC1, 0xDA, 0xAD, 0x26, 0x01, 0x4A,
+                0xAA, 0xBF, 0x21, 0x67, 0xC8, 0xFA, 0x29, 0xFF,
+                0x00, 0x5C, val2, 0xB7, 0xC0
+            };
+
+            saveBuffer.Add(data);
+
+            // "behavior tables" is 256 byte behavior tables for each theme.
+            foreach (Theme theme in this.themes)
+            {
+                saveBuffer.Add(theme.GetTileGenreBytes());
+            }
+
+            // "jump bar table" has 1 byte per theme.
+            // If it is zero, then jump bars will slow you down.
+            // If it is not zero, they act like they do outside of BC tracks.
+            data = new byte[] { 1, 1, 1, 1, 1, 1, 0, 1 };
+
+            saveBuffer.Add(data);
         }
 
         private void SaveAIs(SaveBuffer saveBuffer)
