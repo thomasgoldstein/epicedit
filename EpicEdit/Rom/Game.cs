@@ -1191,6 +1191,7 @@ namespace EpicEdit.Rom
 
         private void SaveBattleStartPositions(SaveBuffer saveBuffer)
         {
+            // Saves data from 0x80000 to 0x80061
             byte[] trackOrder = this.GetTrackOrder();
 
             Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
