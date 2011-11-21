@@ -167,6 +167,19 @@ namespace EpicEdit.Rom.Tracks
             return tileUpdates;
         }
 
+        public byte[] GetTileGenreBytes()
+        {
+            byte[] data = new byte[this.roadTileset.Length];
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                MapTile tile = this.roadTileset[i];
+                data[i] = (byte)tile.Genre;
+            }
+
+            return data;
+        }
+
         public override string ToString()
         {
             return this.Name;
