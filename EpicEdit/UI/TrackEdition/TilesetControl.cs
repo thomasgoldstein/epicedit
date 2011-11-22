@@ -100,9 +100,11 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.selectedTile; }
             set
             {
+                this.userAction = false;
                 this.selectedTile = value;
                 this.tilesetPanel.Invalidate();
                 this.SelectTileGenre();
+                this.userAction = true;
             }
         }
 
