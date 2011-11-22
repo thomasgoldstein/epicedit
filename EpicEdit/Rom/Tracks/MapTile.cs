@@ -244,28 +244,17 @@ namespace EpicEdit.Rom.Tracks
 
         public MapTile(byte[] gfx, Palette palette, TileGenre genre)
         {
-            this.Palette = palette;
             this.graphics = gfx;
-            this.Genre = genre;
-            this.GenerateBitmap();
-        }
-
-        public MapTile(Bitmap image, Palette palette, TileGenre genre)
-        {
             this.Palette = palette;
-            this.image = image;
             this.Genre = genre;
         }
 
         public override void UpdateBitmap()
         {
-            if (this.graphics == null)
+            if (this.image != null)
             {
-                // This is an empty tile, contains no data
-                return;
+                this.image.Dispose();
             }
-
-            this.image.Dispose();
             this.GenerateBitmap();
         }
 
@@ -276,12 +265,6 @@ namespace EpicEdit.Rom.Tracks
 
         public override int GetColorIndexAt(int x, int y)
         {
-            if (this.graphics == null)
-            {
-                // Empty tile, no data
-                return -1;
-            }
-
             int xSub = x % 2;
             x /= 2;
             byte px = this.graphics[y * 4 + x];
