@@ -14,7 +14,7 @@ v2.3 (September 30th 2011)
 
 v2.2 (July 23rd 2011)
 
-- Added support for editing object properties, thanks to hacks by SMK Dan
+- Added support for editing object properties, thanks to hacks by smkdan
   (and extended the .smkc format to include this data)
 - Made the object zones of Koopa Beach 1 editable
   (KB1 and KB2 used to share the same zones)
@@ -22,7 +22,7 @@ v2.2 (July 23rd 2011)
 - Show track objects that are out of their zone as grayed out, to hint that
   they most likely won't (fully) appear when playing the game
 - Fixed Euro and Jap ROM corruption caused by the battle starting position
-  hack, which only worked with US ROMs (thanks to SMK Dan again)
+  hack, which only worked with US ROMs (thanks to smkdan again)
 - Make block selection of tiles appear over the track, semi transparently
 - Minor tweaks and fixes
 
@@ -30,7 +30,7 @@ v2.2 (July 23rd 2011)
 v2.1 (February 28th 2011)
 
 - Added support for driver starting position editing on battle tracks,
-  with SMK Dan's help (and extended the .smkc format to include this data)
+  with smkdan's help (and extended the .smkc format to include this data)
 - Object zones now visually cover the whole track, not just the AI path(s)
 - More accurate color conversions, making colors brighter (by teknix1)
 - Added a full-screen mode, accessible through a menu button or F11
