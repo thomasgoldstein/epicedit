@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Tracks
                 byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
                 byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, Theme.TileCount, -1, 32);
 
-                int roadTileGenreIndex = (toadTileGenreIndexes[i][0]) + (toadTileGenreIndexes[i][1] << 8);
+                int roadTileGenreIndex = toadTileGenreIndexes[i][0] + (toadTileGenreIndexes[i][1] << 8);
                 TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTilesetGfx.Length);
 
                 MapTile[] roadTileset = Themes.GetRoadTileset(colorPalettes,
