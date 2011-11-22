@@ -26,6 +26,21 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public const int Count = 8;
 
+        /// <summary>
+        /// Number of theme-specific tiles in the tileset.
+        /// </summary>
+        public const int ThemeTileCount = 192;
+
+        /// <summary>
+        /// Number of shared tiles in the tileset.
+        /// </summary>
+        public const int CommonTileCount = 64;
+
+        /// <summary>
+        /// Total number of tiles in the tileset.
+        /// </summary>
+        public const int TileCount = ThemeTileCount + CommonTileCount;
+
         public string Name { get; private set; }
         public Palettes Palettes { get; private set; }
         private MapTile[] roadTileset;
