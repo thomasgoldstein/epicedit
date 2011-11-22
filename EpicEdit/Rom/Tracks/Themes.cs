@@ -58,11 +58,11 @@ namespace EpicEdit.Rom.Tracks
 
             byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
             byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);
-            byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, 0x100, -1, 32);
+            byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, Theme.TileCount, -1, 32);
 
             byte[] roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
             byte[][] toadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
-            TileGenre[] roadCommonTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, 64);
+            TileGenre[] roadCommonTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, Theme.CommonTileCount);
 
             for (int i = 0; i < this.themes.Length; i++)
             {
@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Tracks
 
                 byte[] roadTilesetData = Codec.Decompress(romBuffer, roadTilesetGfxOffsets[i]);
                 byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
-                byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, 0x100, -1, 32);
+                byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, Theme.TileCount, -1, 32);
 
                 int roadTileGenreIndex = (toadTileGenreIndexes[i][0]) + (toadTileGenreIndexes[i][1] << 8);
                 TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTilesetGfx.Length);
@@ -103,7 +103,7 @@ namespace EpicEdit.Rom.Tracks
 
         private static byte[] GetPaletteIndexes(byte[] tilesetData)
         {
-            byte[] paletteIndexes = new byte[0x100];
+            byte[] paletteIndexes = new byte[Theme.TileCount];
             Buffer.BlockCopy(tilesetData, 0, paletteIndexes, 0, paletteIndexes.Length);
             for (int i = 0; i < paletteIndexes.Length; i++)
             {
@@ -116,13 +116,13 @@ namespace EpicEdit.Rom.Tracks
         private static MapTile[] GetRoadTileset(Palettes colorPalettes, TileGenre[] tileGenres, byte[] tilesetPaletteIndexes, byte[][] tilesetGfx,
                                                                         TileGenre[] commonTileGenres, byte[] commonTilesetPaletteIndexes, byte[][] commonTilesetGfx)
         {
-            MapTile[] tiles = new MapTile[256];
+            MapTile[] tiles = new MapTile[Theme.TileCount];
 
             // Get the tiles that are specific to this tileset
-            Themes.SetRoadTileset(tiles, colorPalettes, tileGenres, tilesetPaletteIndexes, tilesetGfx, 0, 192);
+            Themes.SetRoadTileset(tiles, colorPalettes, tileGenres, tilesetPaletteIndexes, tilesetGfx, 0, Theme.ThemeTileCount);
 
             // Get the tiles that are common to all tilesets
-            Themes.SetRoadTileset(tiles, colorPalettes, commonTileGenres, commonTilesetPaletteIndexes, commonTilesetGfx, 192, 64);
+            Themes.SetRoadTileset(tiles, colorPalettes, commonTileGenres, commonTilesetPaletteIndexes, commonTilesetGfx, Theme.ThemeTileCount, Theme.CommonTileCount);
 
             return tiles;
         }
