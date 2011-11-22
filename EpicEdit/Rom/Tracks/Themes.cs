@@ -56,13 +56,13 @@ namespace EpicEdit.Rom.Tracks
             int[] roadTilesetGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
             //int[] backgroundTilesetGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
 
-            byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
-            byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData, Theme.CommonTileCount);
-            byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, Theme.TileCount, -1, 32);
+            byte[] commonRoadTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
+            byte[] commonRoadTilesetPaletteIndexes = Themes.GetPaletteIndexes(commonRoadTilesetData, Theme.CommonTileCount);
+            byte[][] commonRoadTilesetGfx = Utilities.ReadBlockGroupUntil(commonRoadTilesetData, Theme.TileCount, -1, 32);
 
             byte[] roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
             byte[][] roadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
-            TileGenre[] roadCommonTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, Theme.CommonTileCount);
+            TileGenre[] commonRoadTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, Theme.CommonTileCount);
 
             for (int i = 0; i < this.themes.Length; i++)
             {
@@ -79,7 +79,7 @@ namespace EpicEdit.Rom.Tracks
 
                 MapTile[] roadTileset = Themes.GetRoadTileset(colorPalettes,
                                                               roadTileGenres, roadTilesetPaletteIndexes, roadTilesetGfx,
-                                                              roadCommonTileGenres, roadCommonTilesetPaletteIndexes, roadCommonTilesetGfx);
+                                                              commonRoadTileGenres, commonRoadTilesetPaletteIndexes, commonRoadTilesetGfx);
 
                 // TODO: Add support for background tilesets
                 //byte[] backgroundTilesetData = Codec.Decompress(romBuffer, backgroundTilesetGfxOffsets[i]);
