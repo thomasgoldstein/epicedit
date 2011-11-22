@@ -57,7 +57,7 @@ namespace EpicEdit.Rom.Tracks
             //int[] backgroundTilesetGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
 
             byte[] roadCommonTilesetData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
-            byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData);
+            byte[] roadCommonTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadCommonTilesetData, Theme.CommonTileCount);
             byte[][] roadCommonTilesetGfx = Utilities.ReadBlockGroupUntil(roadCommonTilesetData, Theme.TileCount, -1, 32);
 
             byte[] roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom.Tracks
                 Palettes colorPalettes = new Palettes(colorPaletteData);
 
                 byte[] roadTilesetData = Codec.Decompress(romBuffer, roadTilesetGfxOffsets[i]);
-                byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData);
+                byte[] roadTilesetPaletteIndexes = Themes.GetPaletteIndexes(roadTilesetData, Theme.ThemeTileCount);
                 byte[][] roadTilesetGfx = Utilities.ReadBlockGroupUntil(roadTilesetData, Theme.TileCount, -1, 32);
 
                 int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
@@ -101,11 +101,11 @@ namespace EpicEdit.Rom.Tracks
             return tileGenres;
         }
 
-        private static byte[] GetPaletteIndexes(byte[] tilesetData)
+        private static byte[] GetPaletteIndexes(byte[] tilesetData, int count)
         {
-            byte[] paletteIndexes = new byte[Theme.TileCount];
-            Buffer.BlockCopy(tilesetData, 0, paletteIndexes, 0, paletteIndexes.Length);
-            for (int i = 0; i < paletteIndexes.Length; i++)
+            byte[] paletteIndexes = new byte[count];
+            Buffer.BlockCopy(tilesetData, 0, paletteIndexes, 0, count);
+            for (int i = 0; i < count; i++)
             {
                 paletteIndexes[i] = (byte)(paletteIndexes[i] >> 4);
             }
