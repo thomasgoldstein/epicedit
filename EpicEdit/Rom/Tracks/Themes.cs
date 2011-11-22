@@ -17,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 using EpicEdit.Rom.Compression;
 using EpicEdit.UI.Gfx;
@@ -60,9 +61,23 @@ namespace EpicEdit.Rom.Tracks
             byte[] commonRoadTilePaletteIndexes = Themes.GetPaletteIndexes(commonRoadTileData, Theme.CommonTileCount);
             byte[][] commonRoadTileGfx = Utilities.ReadBlockGroupUntil(commonRoadTileData, Theme.TileCount, -1, 32);
 
-            byte[] roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
-            byte[][] roadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
-            TileGenre[] commonRoadTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, Theme.CommonTileCount);
+            bool tileGenresRelocated = Themes.AreTileGenresRelocated(romBuffer, offsets[Offset.TileGenreLoad]);
+            byte[] roadTileGenreData;
+            byte[][] roadTileGenreIndexes;
+            TileGenre[] commonRoadTileGenres;
+
+            if (tileGenresRelocated)
+            {
+                roadTileGenreData = null;
+                roadTileGenreIndexes = null;
+                commonRoadTileGenres = null;
+            }
+            else
+            {
+                roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
+                roadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
+                commonRoadTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, Theme.CommonTileCount);
+            }
 
             for (int i = 0; i < this.themes.Length; i++)
             {
@@ -88,16 +103,26 @@ namespace EpicEdit.Rom.Tracks
                     allRoadTileGfx[j] = new byte[32];
                 }
 
-                int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
-                TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
-                TileGenre[] allRoadTileGenres = new TileGenre[Theme.TileCount];
-                Array.Copy(roadTileGenres, 0, allRoadTileGenres, 0, roadTileGenres.Length);
-                Array.Copy(commonRoadTileGenres, 0, allRoadTileGenres, Theme.ThemeTileCount, commonRoadTileGenres.Length);
+                TileGenre[] allRoadTileGenres;
 
-                // Set empty tile default genre value
-                for (int j = roadTileGfx.Length; j < Theme.ThemeTileCount; j++)
+                if (!tileGenresRelocated)
                 {
-                    allRoadTileGenres[j] = TileGenre.Road;
+                    int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
+                    TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
+                    allRoadTileGenres = new TileGenre[Theme.TileCount];
+                    Array.Copy(roadTileGenres, 0, allRoadTileGenres, 0, roadTileGenres.Length);
+                    Array.Copy(commonRoadTileGenres, 0, allRoadTileGenres, Theme.ThemeTileCount, commonRoadTileGenres.Length);
+
+                    // Set empty tile default genre value
+                    for (int j = roadTileGfx.Length; j < Theme.ThemeTileCount; j++)
+                    {
+                        allRoadTileGenres[j] = TileGenre.Road;
+                    }
+                }
+                else
+                {
+                    int tileGenreOffset = offsets[Offset.TileGenres2] + i * Theme.TileCount;
+                    allRoadTileGenres = GetTileGenres(romBuffer, tileGenreOffset, Theme.TileCount);
                 }
 
                 MapTile[] roadTileset = Themes.GetRoadTileset(colorPalettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
@@ -108,6 +133,27 @@ namespace EpicEdit.Rom.Tracks
 
                 this.themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset, backgroundTileset);
             }
+        }
+
+        private static bool AreTileGenresRelocated(byte[] romBuffer, int offset)
+        {
+            if (romBuffer[offset] == 0x5C &&
+                romBuffer[offset + 1] == 0xF4 &&
+                romBuffer[offset + 2] == 0x5E &&
+                romBuffer[offset + 3] == 0xC8)
+            {
+                return true;
+            }
+
+            if (romBuffer[offset] == 0xA0 &&
+                romBuffer[offset + 1] == 0xBA &&
+                romBuffer[offset + 2] == 0xFD &&
+                romBuffer[offset + 3] == 0xA9)
+            {
+                return false;
+            }
+
+            throw new InvalidDataException("Error when loading tile types.");
         }
 
         private static TileGenre[] GetTileGenres(byte[] data, int start, int size)
