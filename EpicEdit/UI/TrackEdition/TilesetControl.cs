@@ -129,13 +129,14 @@ namespace EpicEdit.UI.TrackEdition
             // selecting the current theme in the theme ComboBox.
             this.themeComboBox.SelectedIndexChanged += this.ThemeComboBoxSelectedIndexChanged;
 
+            this.InitTileGenreComboBox();
+
             this.InitOnRomLoad();
         }
 
         public void InitOnRomLoad()
         {
             this.InitThemeComboBox();
-            this.InitTileGenreComboBox();
         }
 
         private void InitThemeComboBox()
@@ -151,10 +152,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void InitTileGenreComboBox()
         {
-            if (this.tileGenreComboBox.Items.Count == 0)
-            {
-                this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
-            }
+            this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
