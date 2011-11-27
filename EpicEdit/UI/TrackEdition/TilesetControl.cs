@@ -79,10 +79,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get
-            {
-                return this.track;
-            }
+            get { return this.track; }
             set
             {
                 this.userAction = false;
