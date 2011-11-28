@@ -15,12 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
-using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks
 {
