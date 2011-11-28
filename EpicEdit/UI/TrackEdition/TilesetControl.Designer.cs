@@ -78,7 +78,6 @@ namespace EpicEdit.UI.TrackEdition
             this.tileGenreComboBox.Name = "tileGenreComboBox";
             this.tileGenreComboBox.Size = new System.Drawing.Size(112, 21);
             this.tileGenreComboBox.TabIndex = 0;
-            this.tileGenreComboBox.SelectedIndexChanged += new System.EventHandler(this.TileGenreComboBoxSelectedIndexChanged);
             this.tileGenreComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.TileGenreComboBoxFormat);
             // 
             // themeComboBox
