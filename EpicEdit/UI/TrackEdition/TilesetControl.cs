@@ -83,12 +83,6 @@ namespace EpicEdit.UI.TrackEdition
             set
             {
                 this.userAction = false;
-
-                if (this.track == null)
-                {
-                    this.tileGenreComboBox.SelectedIndexChanged += TileGenreComboBoxSelectedIndexChanged;
-                }
-
                 this.track = value;
                 this.SelectTrackTheme();
                 this.userAction = true;
@@ -156,6 +150,7 @@ namespace EpicEdit.UI.TrackEdition
         private void InitTileGenreComboBox()
         {
             this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
+            this.tileGenreComboBox.SelectedIndexChanged += TileGenreComboBoxSelectedIndexChanged;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
