@@ -83,6 +83,12 @@ namespace EpicEdit.UI.TrackEdition
             set
             {
                 this.userAction = false;
+
+                if (this.track == null)
+                {
+                    this.tileGenreComboBox.SelectedIndexChanged += TileGenreComboBoxSelectedIndexChanged;
+                }
+
                 this.track = value;
                 this.SelectTrackTheme();
                 this.userAction = true;
@@ -172,13 +178,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.track == null)
-            {
-                // HACK: Avoid crash with Mono, which seems to fire
-                // the SelectedIndexChanged event earlier than .NET does.
-                return;
-            }
-
             this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
 
             if (this.userAction)
