@@ -59,6 +59,15 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.secondRowTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
+            // secondRowLabel
+            // 
+            secondRowLabel.Location = new System.Drawing.Point(2, 66);
+            secondRowLabel.Name = "secondRowLabel";
+            secondRowLabel.Size = new System.Drawing.Size(120, 16);
+            secondRowLabel.TabIndex = 14;
+            secondRowLabel.Text = "2nd row offset";
+            secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // precisionGroupBox
             // 
             this.precisionGroupBox.Controls.Add(this.step1pxRadioButton);
@@ -139,15 +148,6 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowValueLabel.Size = new System.Drawing.Size(35, 25);
             this.secondRowValueLabel.TabIndex = 15;
             this.secondRowValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // secondRowLabel
-            // 
-            secondRowLabel.Location = new System.Drawing.Point(2, 66);
-            secondRowLabel.Name = "secondRowLabel";
-            secondRowLabel.Size = new System.Drawing.Size(120, 16);
-            secondRowLabel.TabIndex = 14;
-            secondRowLabel.Text = "2nd row offset";
-            secondRowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // secondRowTrackBar
             // 
