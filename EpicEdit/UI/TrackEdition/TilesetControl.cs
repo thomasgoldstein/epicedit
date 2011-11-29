@@ -150,7 +150,7 @@ namespace EpicEdit.UI.TrackEdition
         private void InitTileGenreComboBox()
         {
             this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
-            this.tileGenreComboBox.SelectedIndexChanged += TileGenreComboBoxSelectedIndexChanged;
+            this.tileGenreComboBox.SelectedIndexChanged += this.TileGenreComboBoxSelectedIndexChanged;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
