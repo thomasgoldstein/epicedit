@@ -156,7 +156,7 @@ namespace EpicEdit.UI.TrackEdition
             int index;
             for (index = 0; index < this.palettePickers.Length; index++)
             {
-                if (control == palettePickers[index])
+                if (control == this.palettePickers[index])
                 {
                     break;
                 }
