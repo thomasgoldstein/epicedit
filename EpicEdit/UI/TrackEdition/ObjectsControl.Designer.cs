@@ -42,10 +42,11 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label paletteLabel;
             System.Windows.Forms.Label routineLabel;
             System.Windows.Forms.Label interactLabel;
             System.Windows.Forms.Label tilesetLabel;
+            System.Windows.Forms.Label paletteLabel;
+            this.palettesLabel = new System.Windows.Forms.Label();
             this.rearObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
             this.frontObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
@@ -54,17 +55,16 @@ namespace EpicEdit.UI.TrackEdition
             this.palette4NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.palette3NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.palette2NumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.palettesLabel = new System.Windows.Forms.Label();
             this.flashingCheckBox = new System.Windows.Forms.CheckBox();
             this.palette1NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.interactComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
             this.zoneGroupBox = new System.Windows.Forms.GroupBox();
-            paletteLabel = new System.Windows.Forms.Label();
             routineLabel = new System.Windows.Forms.Label();
             interactLabel = new System.Windows.Forms.Label();
             tilesetLabel = new System.Windows.Forms.Label();
+            paletteLabel = new System.Windows.Forms.Label();
             this.propertiesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.palette4NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.palette3NumericUpDown)).BeginInit();
@@ -72,6 +72,46 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).BeginInit();
             this.zoneGroupBox.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // routineLabel
+            // 
+            routineLabel.Location = new System.Drawing.Point(6, 16);
+            routineLabel.Name = "routineLabel";
+            routineLabel.Size = new System.Drawing.Size(100, 23);
+            routineLabel.TabIndex = 0;
+            routineLabel.Text = "Routine";
+            // 
+            // interactLabel
+            // 
+            interactLabel.Location = new System.Drawing.Point(6, 66);
+            interactLabel.Name = "interactLabel";
+            interactLabel.Size = new System.Drawing.Size(100, 23);
+            interactLabel.TabIndex = 2;
+            interactLabel.Text = "Interaction";
+            // 
+            // tilesetLabel
+            // 
+            tilesetLabel.Location = new System.Drawing.Point(6, 116);
+            tilesetLabel.Name = "tilesetLabel";
+            tilesetLabel.Size = new System.Drawing.Size(100, 23);
+            tilesetLabel.TabIndex = 4;
+            tilesetLabel.Text = "Tileset";
+            // 
+            // palettesLabel
+            // 
+            this.palettesLabel.Location = new System.Drawing.Point(10, 227);
+            this.palettesLabel.Name = "palettesLabel";
+            this.palettesLabel.Size = new System.Drawing.Size(61, 30);
+            this.palettesLabel.TabIndex = 9;
+            this.palettesLabel.Text = "Flashing palettes";
+            // 
+            // paletteLabel
+            // 
+            paletteLabel.Location = new System.Drawing.Point(6, 168);
+            paletteLabel.Name = "paletteLabel";
+            paletteLabel.Size = new System.Drawing.Size(100, 23);
+            paletteLabel.TabIndex = 6;
+            paletteLabel.Text = "Color palette";
             // 
             // rearObjectZonesControl
             // 
@@ -208,14 +248,6 @@ namespace EpicEdit.UI.TrackEdition
                                     0,
                                     0});
             // 
-            // palettesLabel
-            // 
-            this.palettesLabel.Location = new System.Drawing.Point(10, 227);
-            this.palettesLabel.Name = "palettesLabel";
-            this.palettesLabel.Size = new System.Drawing.Size(61, 30);
-            this.palettesLabel.TabIndex = 9;
-            this.palettesLabel.Text = "Flashing palettes";
-            // 
             // flashingCheckBox
             // 
             this.flashingCheckBox.Location = new System.Drawing.Point(10, 192);
@@ -247,14 +279,6 @@ namespace EpicEdit.UI.TrackEdition
                                     0,
                                     0});
             // 
-            // paletteLabel
-            // 
-            paletteLabel.Location = new System.Drawing.Point(6, 168);
-            paletteLabel.Name = "paletteLabel";
-            paletteLabel.Size = new System.Drawing.Size(100, 23);
-            paletteLabel.TabIndex = 6;
-            paletteLabel.Text = "Color palette";
-            // 
             // routineComboBox
             // 
             this.routineComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -263,14 +287,6 @@ namespace EpicEdit.UI.TrackEdition
             this.routineComboBox.Name = "routineComboBox";
             this.routineComboBox.Size = new System.Drawing.Size(104, 21);
             this.routineComboBox.TabIndex = 1;
-            // 
-            // routineLabel
-            // 
-            routineLabel.Location = new System.Drawing.Point(6, 16);
-            routineLabel.Name = "routineLabel";
-            routineLabel.Size = new System.Drawing.Size(100, 23);
-            routineLabel.TabIndex = 0;
-            routineLabel.Text = "Routine";
             // 
             // interactComboBox
             // 
@@ -281,14 +297,6 @@ namespace EpicEdit.UI.TrackEdition
             this.interactComboBox.Size = new System.Drawing.Size(104, 21);
             this.interactComboBox.TabIndex = 3;
             // 
-            // interactLabel
-            // 
-            interactLabel.Location = new System.Drawing.Point(6, 66);
-            interactLabel.Name = "interactLabel";
-            interactLabel.Size = new System.Drawing.Size(100, 23);
-            interactLabel.TabIndex = 2;
-            interactLabel.Text = "Interaction";
-            // 
             // tilesetComboBox
             // 
             this.tilesetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -297,14 +305,6 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox.Name = "tilesetComboBox";
             this.tilesetComboBox.Size = new System.Drawing.Size(104, 21);
             this.tilesetComboBox.TabIndex = 5;
-            // 
-            // tilesetLabel
-            // 
-            tilesetLabel.Location = new System.Drawing.Point(6, 116);
-            tilesetLabel.Name = "tilesetLabel";
-            tilesetLabel.Size = new System.Drawing.Size(100, 23);
-            tilesetLabel.TabIndex = 4;
-            tilesetLabel.Text = "Tileset";
             // 
             // zoneGroupBox
             // 
@@ -333,11 +333,11 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Label palettesLabel;
         private System.Windows.Forms.NumericUpDown palette1NumericUpDown;
         private System.Windows.Forms.NumericUpDown palette4NumericUpDown;
         private System.Windows.Forms.NumericUpDown palette3NumericUpDown;
         private System.Windows.Forms.NumericUpDown palette2NumericUpDown;
-        private System.Windows.Forms.Label palettesLabel;
         private System.Windows.Forms.CheckBox flashingCheckBox;
         private System.Windows.Forms.GroupBox zoneGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
