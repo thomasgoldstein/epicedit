@@ -173,12 +173,13 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
-
-            if (this.userAction)
+            if (!this.userAction)
             {
-                this.track.Theme.Modified = true;
+                return;
             }
+
+            this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
+            this.track.Theme.Modified = true;
         }
 
         public void UpdateTileset()
