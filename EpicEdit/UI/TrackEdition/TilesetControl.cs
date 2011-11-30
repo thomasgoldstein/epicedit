@@ -105,6 +105,11 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
+        private MapTile SelectedMapTile
+        {
+            get { return this.track.GetRoadTile(this.selectedTile); }
+        }
+
         public TilesetControl()
         {
             this.InitializeComponent();
@@ -178,7 +183,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.track.GetRoadTile(this.selectedTile).Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
+            this.SelectedMapTile.Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
             this.track.Theme.Modified = true;
         }
 
@@ -201,7 +206,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTileGenre()
         {
-            this.tileGenreComboBox.SelectedItem = this.track.GetRoadTile(this.selectedTile).Genre;
+            this.tileGenreComboBox.SelectedItem = this.SelectedMapTile.Genre;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
