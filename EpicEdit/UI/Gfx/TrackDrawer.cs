@@ -274,7 +274,7 @@ namespace EpicEdit.UI.Gfx
             this.NotifyFullRepaintNeed();
         }
 
-        public void ReloadPalette(Palette palette)
+        public void UpdateCache(Palette palette)
         {
             Tile[] tileset = this.track.GetRoadTileset();
 
@@ -296,7 +296,28 @@ namespace EpicEdit.UI.Gfx
             this.NotifyFullRepaintNeed();
         }
 
-        public void ReloadPalette(bool[] tileUpdates)
+        public void UpdateCache(byte tileId)
+        {
+            Tile tile = this.track.GetRoadTile(tileId);
+
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                for (int x = 0; x < this.track.Map.Width; x++)
+                {
+                    for (int y = 0; y < this.track.Map.Height; y++)
+                    {
+                        if (this.track.Map[x, y] == tileId)
+                        {
+                            g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                        }
+                    }
+                }
+            }
+
+            this.NotifyFullRepaintNeed();
+        }
+
+        public void UpdateCache(bool[] tileUpdates)
         {
             Tile[] tileset = this.track.GetRoadTileset();
 

@@ -54,6 +54,12 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> TrackMapChanged;
 
         /// <summary>
+        /// Raised when tile graphics have been changed.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<byte>> TileChanged;
+
+        /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
         [Browsable(true)]
@@ -101,6 +107,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.selectedTile = value;
                 this.tilesetPanel.Invalidate();
                 this.SelectTileGenre();
+                this.SelectTilePalette();
                 this.userAction = true;
             }
         }
@@ -187,6 +194,25 @@ namespace EpicEdit.UI.TrackEdition
             this.track.Theme.Modified = true;
         }
 
+        private void TilePaletteNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            if (!this.userAction)
+            {
+                return;
+            }
+
+            int palIndex = (int)this.tilePaletteNumericUpDown.Value - 1;
+            this.SelectedMapTile.Palette = this.track.Theme.Palettes[palIndex];
+            this.track.Theme.Modified = true;
+
+            // Could be optimized by not updating the whole cache,
+            // and not repainting the whole panel (but it's already fast enough)
+            this.tilesetDrawer.UpdateCache();
+            this.tilesetPanel.Refresh();
+
+            this.TileChanged(this, new EventArgs<byte>(this.selectedTile));
+        }
+
         public void UpdateTileset()
         {
             this.ResetTileset();
@@ -207,6 +233,11 @@ namespace EpicEdit.UI.TrackEdition
         private void SelectTileGenre()
         {
             this.tileGenreComboBox.SelectedItem = this.SelectedMapTile.Genre;
+        }
+
+        private void SelectTilePalette()
+        {
+            this.tilePaletteNumericUpDown.Value = this.SelectedMapTile.Palette.Index + 1;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
