@@ -71,7 +71,7 @@ namespace EpicEdit.UI.TrackEdition
             selectedTileGroupBox.Controls.Add(this.tileGenreComboBox);
             selectedTileGroupBox.Location = new System.Drawing.Point(2, 30);
             selectedTileGroupBox.Name = "selectedTileGroupBox";
-            selectedTileGroupBox.Size = new System.Drawing.Size(124, 74);
+            selectedTileGroupBox.Size = new System.Drawing.Size(124, 76);
             selectedTileGroupBox.TabIndex = 8;
             selectedTileGroupBox.TabStop = false;
             selectedTileGroupBox.Text = "Selected tile";
@@ -129,7 +129,7 @@ namespace EpicEdit.UI.TrackEdition
             // tilesetPanel
             // 
             this.tilesetPanel.BackColor = System.Drawing.Color.Black;
-            this.tilesetPanel.Location = new System.Drawing.Point(0, 110);
+            this.tilesetPanel.Location = new System.Drawing.Point(0, 112);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
             this.tilesetPanel.TabIndex = 5;
@@ -138,7 +138,7 @@ namespace EpicEdit.UI.TrackEdition
             // resetMapButton
             // 
             this.resetMapButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.resetMapButton.Location = new System.Drawing.Point(103, 629);
+            this.resetMapButton.Location = new System.Drawing.Point(103, 631);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
             this.resetMapButton.TabIndex = 7;
