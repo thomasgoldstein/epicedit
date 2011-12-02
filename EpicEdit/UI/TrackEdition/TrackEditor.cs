@@ -847,18 +847,16 @@ namespace EpicEdit.UI.TrackEdition
                     if (wholePalette)
                     {
                         theme.UpdateTiles(palette);
-                        this.trackDrawer.ReloadPalette(palette);
+                        this.trackDrawer.UpdateCache(palette);
                     }
                     else // Optimized cache updates, for a single color change
                     {
                         int colorIndex = this.paletteForm.Editor.ColorIndex;
                         bool[] tileUpdates = theme.UpdateTiles(palette, colorIndex);
-                        this.trackDrawer.ReloadPalette(tileUpdates);
+                        this.trackDrawer.UpdateCache(tileUpdates);
                     }
 
-                    int xStart = this.tileClipboardTopLeft.X;
-                    int yStart = this.tileClipboardTopLeft.Y;
-                    this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+                    this.UpdateTileClipboard();
                     this.tilesetControl.UpdateTileset();
                     this.overlayControl.UpdateTileset();
                 }
@@ -1677,6 +1675,13 @@ namespace EpicEdit.UI.TrackEdition
                 // See: http://msdn.microsoft.com/en-us/library/system.windows.forms.scrollbar.maximum.aspx
             }
         }
+
+        private void UpdateTileClipboard()
+        {
+            int xStart = this.tileClipboardTopLeft.X;
+            int yStart = this.tileClipboardTopLeft.Y;
+            this.trackDrawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+        }
         #endregion TrackDisplay methods
 
         #region TrackTreeView
@@ -1991,6 +1996,16 @@ namespace EpicEdit.UI.TrackEdition
 
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();
+        }
+
+        private void TilesetControlTileChanged(object sender, EventArgs<byte> e)
+        {
+            this.trackDrawer.UpdateCache(e.Value);
+            this.UpdateTileClipboard();
+            this.tilesetControl.UpdateTileset();
+            this.overlayControl.UpdateTileset();
+            this.trackDisplay.Invalidate();
+            this.trackDisplay.Update();
         }
         #endregion EditionMode.Tileset
 

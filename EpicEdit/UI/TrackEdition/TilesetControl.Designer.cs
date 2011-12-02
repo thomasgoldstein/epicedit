@@ -51,24 +51,61 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox selectedTileGroupBox;
+            System.Windows.Forms.Label paletteLabel;
+            this.tilePaletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             selectedTileGroupBox = new System.Windows.Forms.GroupBox();
+            paletteLabel = new System.Windows.Forms.Label();
             selectedTileGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tilePaletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // selectedTileGroupBox
             // 
+            selectedTileGroupBox.Controls.Add(this.tilePaletteNumericUpDown);
+            selectedTileGroupBox.Controls.Add(paletteLabel);
             selectedTileGroupBox.Controls.Add(this.tileGenreComboBox);
             selectedTileGroupBox.Location = new System.Drawing.Point(2, 30);
             selectedTileGroupBox.Name = "selectedTileGroupBox";
-            selectedTileGroupBox.Size = new System.Drawing.Size(124, 50);
+            selectedTileGroupBox.Size = new System.Drawing.Size(124, 74);
             selectedTileGroupBox.TabIndex = 8;
             selectedTileGroupBox.TabStop = false;
             selectedTileGroupBox.Text = "Selected tile";
+            // 
+            // tilePaletteNumericUpDown
+            // 
+            this.tilePaletteNumericUpDown.Location = new System.Drawing.Point(81, 46);
+            this.tilePaletteNumericUpDown.Maximum = new decimal(new int[] {
+                                    8,
+                                    0,
+                                    0,
+                                    0});
+            this.tilePaletteNumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.tilePaletteNumericUpDown.Name = "tilePaletteNumericUpDown";
+            this.tilePaletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.tilePaletteNumericUpDown.TabIndex = 2;
+            this.tilePaletteNumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.tilePaletteNumericUpDown.ValueChanged += new System.EventHandler(this.TilePaletteNumericUpDownValueChanged);
+            // 
+            // paletteLabel
+            // 
+            paletteLabel.Location = new System.Drawing.Point(6, 48);
+            paletteLabel.Name = "paletteLabel";
+            paletteLabel.Size = new System.Drawing.Size(100, 23);
+            paletteLabel.TabIndex = 1;
+            paletteLabel.Text = "Color palette";
             // 
             // tileGenreComboBox
             // 
@@ -92,7 +129,7 @@ namespace EpicEdit.UI.TrackEdition
             // tilesetPanel
             // 
             this.tilesetPanel.BackColor = System.Drawing.Color.Black;
-            this.tilesetPanel.Location = new System.Drawing.Point(0, 90);
+            this.tilesetPanel.Location = new System.Drawing.Point(0, 110);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
             this.tilesetPanel.TabIndex = 5;
@@ -101,7 +138,7 @@ namespace EpicEdit.UI.TrackEdition
             // resetMapButton
             // 
             this.resetMapButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.resetMapButton.Location = new System.Drawing.Point(103, 609);
+            this.resetMapButton.Location = new System.Drawing.Point(103, 629);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
             this.resetMapButton.TabIndex = 7;
@@ -116,10 +153,12 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.resetMapButton);
             this.Controls.Add(this.tilesetPanel);
             this.Name = "TilesetControl";
-            this.Size = new System.Drawing.Size(130, 640);
+            this.Size = new System.Drawing.Size(130, 660);
             selectedTileGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tilePaletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.NumericUpDown tilePaletteNumericUpDown;
         private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button resetMapButton;
