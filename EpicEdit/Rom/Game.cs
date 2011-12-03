@@ -2008,11 +2008,8 @@ namespace EpicEdit.Rom
         private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
             // Update track offset
-            byte[] trackOffset = Utilities.OffsetToBytes(saveBuffer.Index);
             int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            Buffer.BlockCopy(trackOffset, 0, this.romBuffer, trackOffsetIndex, 3);
-
-            saveBuffer.Add(compressedTrack);
+            saveBuffer.Add(compressedTrack, trackOffsetIndex);
         }
 
         private void SaveThemes(SaveBuffer saveBuffer)
@@ -2024,9 +2021,7 @@ namespace EpicEdit.Rom
                 if (theme.RoadTileset.Modified)
                 {
                     // Save road tileset palette associations and graphics
-                    byte[] roadTileGfxOffset = Utilities.OffsetToBytes(saveBuffer.Index);
                     int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + i * 3;
-                    Buffer.BlockCopy(roadTileGfxOffset, 0, this.romBuffer, roadTileGfxIndex, 3);
                     byte[] roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.ThemeTileCount * 32)];
 
                     for (int j = 0; j < RoadTileset.ThemeTileCount; j++)
@@ -2036,17 +2031,15 @@ namespace EpicEdit.Rom
                         Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                     }
 
-                    saveBuffer.Add(Codec.Compress(roadTileGfxData));
+                    saveBuffer.Add(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
                 }
 
                 if (theme.Palettes.Modified)
                 {
                     // Save color palettes
-                    byte[] paletteOffset = Utilities.OffsetToBytes(saveBuffer.Index);
                     int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
-                    Buffer.BlockCopy(paletteOffset, 0, this.romBuffer, paletteOffsetIndex, 3);
                     byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
-                    saveBuffer.Add(paletteData);
+                    saveBuffer.Add(paletteData, paletteOffsetIndex);
                 }
             }
         }

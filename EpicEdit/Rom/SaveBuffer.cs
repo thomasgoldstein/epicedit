@@ -42,10 +42,26 @@ namespace EpicEdit.Rom
             this.Index = this.zone.Start;
         }
 
+        /// <summary>
+        /// Adds the data to the buffer.
+        /// </summary>
+        /// <param name="data">The data.</param>
         public void Add(byte[] data)
         {
             this.savedData.Enqueue(data);
             this.Index += data.Length;
+        }
+
+        /// <summary>
+        /// Adds the data to the buffer, and updates the relevant offset to point to the relocated data.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="offsetIndex">The address of the 3-byte offset to the data in the ROM.</param>
+        public void Add(byte[] data, int offsetIndex)
+        {
+            byte[] offset = Utilities.OffsetToBytes(this.Index);
+            Buffer.BlockCopy(offset, 0, this.romBuffer, offsetIndex, 3);
+            this.Add(data);
         }
 
         public bool Includes(int offset)
