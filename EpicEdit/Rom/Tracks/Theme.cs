@@ -69,26 +69,6 @@ namespace EpicEdit.Rom.Tracks
             this.backgroundTileset = backgroundTileset;
         }
 
-        public void SetRoadTileset(MapTile[] tiles)
-        {
-            this.roadTileset = tiles;
-        }
-
-        public void SetRoadTile(int index, MapTile tile)
-        {
-            this.roadTileset[index] = tile;
-        }
-
-        public void SetBackgroundTileset(Tile[] tiles)
-        {
-            this.backgroundTileset = tiles;
-        }
-
-        public void SetBackgroundTile(int index, Tile tile)
-        {
-            this.backgroundTileset[index] = tile;
-        }
-
         public MapTile[] GetRoadTileset()
         {
             return this.roadTileset;
@@ -107,22 +87,6 @@ namespace EpicEdit.Rom.Tracks
         public Tile GetBackgroundTile(int index)
         {
             return this.backgroundTileset[index];
-        }
-
-        public void ClearRoadTileset()
-        {
-            for (int i = 0; i < this.roadTileset.Length; i++)
-            {
-                this.roadTileset[i] = null;
-            }
-        }
-
-        public void ClearBackgroundTileset()
-        {
-            for (int i = 0; i < this.backgroundTileset.Length; i++)
-            {
-                this.backgroundTileset[i] = null;
-            }
         }
 
         public void UpdateTiles(Palette palette)
