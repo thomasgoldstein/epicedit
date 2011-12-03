@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks
         public RoadTileset RoadTileset { get; private set; }
         // TODO: Add support for background tilesets
 
-        public Theme(string name, Palettes palettes, MapTile[] roadTileset)
+        public Theme(string name, Palettes palettes, RoadTile[] roadTileset)
         {
             this.Name = name;
             this.Palettes = palettes;
@@ -39,12 +39,12 @@ namespace EpicEdit.Rom.Tracks
             this.RoadTileset = new RoadTileset(roadTileset);
         }
 
-        public MapTile[] GetRoadTileset()
+        public RoadTile[] GetRoadTileset()
         {
             return this.RoadTileset.GetTileset();
         }
 
-        public MapTile GetRoadTile(int index)
+        public RoadTile GetRoadTile(int index)
         {
             return this.RoadTileset[index];
         }

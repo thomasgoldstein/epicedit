@@ -141,7 +141,7 @@
     <Compile Include="Rom\Tracks\RoadTileset.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />
-    <Compile Include="Rom\Tracks\MapTile.cs" />
+    <Compile Include="Rom\Tracks\RoadTile.cs" />
     <Compile Include="Rom\Tracks\Track.cs" />
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
     <Compile Include="Rom\Tracks\TrackMap.cs" />

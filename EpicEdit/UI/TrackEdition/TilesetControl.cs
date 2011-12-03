@@ -112,7 +112,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private MapTile SelectedMapTile
+        private RoadTile SelectedRoadTile
         {
             get { return this.track.GetRoadTile(this.selectedTile); }
         }
@@ -190,7 +190,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.SelectedMapTile.Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
+            this.SelectedRoadTile.Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
             this.track.Theme.RoadTileset.Modified = true;
         }
 
@@ -202,7 +202,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             int palIndex = (int)this.tilePaletteNumericUpDown.Value - 1;
-            this.SelectedMapTile.Palette = this.track.Theme.Palettes[palIndex];
+            this.SelectedRoadTile.Palette = this.track.Theme.Palettes[palIndex];
             this.track.Theme.RoadTileset.Modified = true;
 
             // Could be optimized by not updating the whole cache,
@@ -232,12 +232,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTileGenre()
         {
-            this.tileGenreComboBox.SelectedItem = this.SelectedMapTile.Genre;
+            this.tileGenreComboBox.SelectedItem = this.SelectedRoadTile.Genre;
         }
 
         private void SelectTilePalette()
         {
-            this.tilePaletteNumericUpDown.Value = this.SelectedMapTile.Palette.Index + 1;
+            this.tilePaletteNumericUpDown.Value = this.SelectedRoadTile.Palette.Index + 1;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
