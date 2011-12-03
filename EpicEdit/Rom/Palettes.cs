@@ -62,6 +62,36 @@ namespace EpicEdit.Rom
             set { this.palettes[index] = value; }
         }
 
+        public bool Modified
+        {
+            get
+            {
+                foreach (Palette palette in this.palettes)
+                {
+                    if (palette.Modified)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            set
+            {
+                if (!value)
+                {
+                    // Reset modified flags
+                    foreach (Palette palette in this.palettes)
+                    {
+                        if (palette.Modified)
+                        {
+                            palette.Modified = value;
+                        }
+                    }
+                }
+            }
+        }
+
         public byte[] GetBytes()
         {
             byte[] data = new byte[this.palettes.Length * Palette.Size];
