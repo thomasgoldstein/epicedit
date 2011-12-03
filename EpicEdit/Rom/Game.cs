@@ -2021,6 +2021,24 @@ namespace EpicEdit.Rom
             {
                 Theme theme = this.themes[i];
 
+                if (theme.RoadTileset.Modified)
+                {
+                    // Save road tileset palette associations and graphics
+                    byte[] roadTileGfxOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+                    int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + i * 3;
+                    Buffer.BlockCopy(roadTileGfxOffset, 0, this.romBuffer, roadTileGfxIndex, 3);
+                    byte[] roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.ThemeTileCount * 32)];
+
+                    for (int j = 0; j < RoadTileset.ThemeTileCount; j++)
+                    {
+                        RoadTile tile = theme.GetRoadTile(j);
+                        roadTileGfxData[j] = (byte)(tile.Palette.Index << 4);
+                        Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
+                    }
+
+                    saveBuffer.Add(Codec.Compress(roadTileGfxData));
+                }
+
                 if (theme.Palettes.Modified)
                 {
                     // Save color palettes
