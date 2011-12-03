@@ -51,35 +51,12 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                if (this.modified)
-                {
-                    return true;
-                }
-
-                foreach (Palette palette in this.Palettes)
-                {
-                    if (palette.Modified)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.modified || this.Palettes.Modified;
             }
             set
             {
                 this.modified = value;
-
-                if (!value)
-                {
-                    foreach (Palette palette in this.Palettes)
-                    {
-                        if (palette.Modified)
-                        {
-                            palette.Modified = false;
-                        }
-                    }
-                }
+                this.Palettes.Modified = value;
             }
         }
 
