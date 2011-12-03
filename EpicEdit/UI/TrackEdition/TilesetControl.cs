@@ -105,9 +105,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.userAction = false;
                 this.selectedTile = value;
-                this.tilesetPanel.Invalidate();
-                this.SelectTileGenre();
-                this.SelectTilePalette();
+                this.SetCurrentTile();
                 this.userAction = true;
             }
         }
@@ -174,13 +172,18 @@ namespace EpicEdit.UI.TrackEdition
                 this.TrackThemeChanged(this, EventArgs.Empty);
             }
 
-            this.SelectTileGenre();
-
             this.tilesetPanel.SetTileset(theme.GetRoadTileset());
             this.ResetTileset();
-            this.tilesetPanel.Invalidate();
+            this.SetCurrentTile();
 
             this.SelectedThemeChanged(this, EventArgs.Empty);
+        }
+
+        private void SetCurrentTile()
+        {
+            this.SelectTileGenre();
+            this.SelectTilePalette();
+            this.tilesetPanel.Invalidate();
         }
 
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
