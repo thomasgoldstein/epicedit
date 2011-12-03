@@ -2021,12 +2021,15 @@ namespace EpicEdit.Rom
             {
                 Theme theme = this.themes[i];
 
-                // Save color palettes
-                byte[] paletteOffset = Utilities.OffsetToBytes(saveBuffer.Index);
-                int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
-                Buffer.BlockCopy(paletteOffset, 0, this.romBuffer, paletteOffsetIndex, 3);
-                byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
-                saveBuffer.Add(paletteData);
+                if (theme.Palettes.Modified)
+                {
+                    // Save color palettes
+                    byte[] paletteOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+                    int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
+                    Buffer.BlockCopy(paletteOffset, 0, this.romBuffer, paletteOffsetIndex, 3);
+                    byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
+                    saveBuffer.Add(paletteData);
+                }
             }
         }
 
