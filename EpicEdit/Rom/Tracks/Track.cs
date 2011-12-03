@@ -79,16 +79,6 @@ namespace EpicEdit.Rom.Tracks
             return this.Theme.GetRoadTile(index);
         }
 
-        public Tile[] GetBackgroundTileset()
-        {
-            return this.Theme.GetBackgroundTileset();
-        }
-
-        public Tile GetBackgroundTile(int index)
-        {
-            return this.Theme.GetBackgroundTile(index);
-        }
-
         public void Import(string filePath, Game game)
         {
             if (filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))

@@ -191,7 +191,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.SelectedMapTile.Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
-            this.track.Theme.Modified = true;
+            this.track.Theme.RoadTileset.Modified = true;
         }
 
         private void TilePaletteNumericUpDownValueChanged(object sender, EventArgs e)
@@ -203,7 +203,7 @@ namespace EpicEdit.UI.TrackEdition
 
             int palIndex = (int)this.tilePaletteNumericUpDown.Value - 1;
             this.SelectedMapTile.Palette = this.track.Theme.Palettes[palIndex];
-            this.track.Theme.Modified = true;
+            this.track.Theme.RoadTileset.Modified = true;
 
             // Could be optimized by not updating the whole cache,
             // and not repainting the whole panel (but it's already fast enough)

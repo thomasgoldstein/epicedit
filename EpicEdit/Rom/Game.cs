@@ -1853,7 +1853,7 @@ namespace EpicEdit.Rom
             // "behavior tables" is 256 byte behavior tables for each theme.
             foreach (Theme theme in this.themes)
             {
-                saveBuffer.Add(theme.GetTileGenreBytes());
+                saveBuffer.Add(theme.RoadTileset.GetTileGenreBytes());
             }
 
             // "jump bar table" has 1 byte per theme.
@@ -2059,19 +2059,14 @@ namespace EpicEdit.Rom
             {
                 foreach (Track track in trackGroup)
                 {
-                    if (track.Modified)
-                    {
-                        track.Modified = false;
-                    }
+                    track.Modified = false;
                 }
             }
 
             foreach (Theme theme in this.themes)
             {
-                if (theme.Modified)
-                {
-                    theme.Modified = false;
-                }
+                theme.RoadTileset.Modified = false;
+                theme.Palettes.Modified = false;
             }
         }
 
@@ -2110,7 +2105,8 @@ namespace EpicEdit.Rom
 
             foreach (Theme theme in this.themes)
             {
-                if (theme.Modified)
+                if (theme.RoadTileset.Modified ||
+                    theme.Palettes.Modified)
                 {
                     return true;
                 }

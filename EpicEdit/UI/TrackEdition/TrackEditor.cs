@@ -834,7 +834,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 if (!isSpritePalette)
                 {
-                    theme.UpdateTiles(palette);
+                    theme.RoadTileset.UpdateTiles(palette);
                 }
             }
             else
@@ -846,13 +846,13 @@ namespace EpicEdit.UI.TrackEdition
 
                     if (wholePalette)
                     {
-                        theme.UpdateTiles(palette);
+                        theme.RoadTileset.UpdateTiles(palette);
                         this.trackDrawer.UpdateCache(palette);
                     }
                     else // Optimized cache updates, for a single color change
                     {
                         int colorIndex = this.paletteForm.Editor.ColorIndex;
-                        bool[] tileUpdates = theme.UpdateTiles(palette, colorIndex);
+                        bool[] tileUpdates = theme.RoadTileset.UpdateTiles(palette, colorIndex);
                         this.trackDrawer.UpdateCache(tileUpdates);
                     }
 
