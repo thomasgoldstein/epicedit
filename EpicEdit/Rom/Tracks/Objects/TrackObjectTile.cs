@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectTile(byte[] gfx)
         {
-            this.graphics = gfx;
+            this.Graphics = gfx;
         }
 
         public override void UpdateBitmap()
@@ -50,16 +50,16 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 throw new InvalidOperationException("Cannot generate Bitmap as the Palette has not been set.");
             }
-            this.image = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(this.graphics, this.Palette);
+            this.image = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(this.Graphics, this.Palette);
         }
 
         public override int GetColorIndexAt(int x, int y)
         {
             x = (Tile.Size - 1) - x;
-            int val1 = this.graphics[y * 2];
-            int val2 = this.graphics[y * 2 + 1];
-            int val3 = this.graphics[y * 2 + 16];
-            int val4 = this.graphics[y * 2 + 17];
+            int val1 = this.Graphics[y * 2];
+            int val2 = this.Graphics[y * 2 + 1];
+            int val3 = this.Graphics[y * 2 + 16];
+            int val4 = this.Graphics[y * 2 + 17];
             int mask = 1 << x;
             int val1b = ((val1 & mask) >> x);
             int val2b = (((val2 & mask) << 1) >> x);

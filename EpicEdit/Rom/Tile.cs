@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        protected byte[] graphics;
+        public byte[] Graphics { get; protected set; }
 
         public abstract Bitmap Bitmap { get; }
 

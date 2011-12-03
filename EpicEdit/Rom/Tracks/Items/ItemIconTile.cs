@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemIconTile(byte[] gfx, int paletteIndex, int subPaletteIndex)
         {
-            this.graphics = gfx;
+            this.Graphics = gfx;
             this.paletteIndex = paletteIndex;
             this.subPaletteIndex = subPaletteIndex;
         }
@@ -54,7 +54,7 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 throw new InvalidOperationException("Cannot generate Bitmap as the Palette has not been set.");
             }
-            this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.graphics, this.Palette, this.subPaletteIndex);
+            this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palette, this.subPaletteIndex);
         }
 
         public void SetPalette(Palettes palettes)
@@ -65,8 +65,8 @@ namespace EpicEdit.Rom.Tracks.Items
         public override int GetColorIndexAt(int x, int y)
         {
             x = (Tile.Size - 1) - x;
-            byte val1 = this.graphics[(y * 2)];
-            byte val2 = this.graphics[(y * 2) + 1];
+            byte val1 = this.Graphics[(y * 2)];
+            byte val2 = this.Graphics[(y * 2) + 1];
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
             return this.subPaletteIndex + colIndex;
