@@ -244,7 +244,7 @@ namespace EpicEdit.Rom.Tracks
 
         public RoadTile(byte[] gfx, Palette palette, TileGenre genre)
         {
-            this.graphics = gfx;
+            this.Graphics = gfx;
             this.Palette = palette;
             this.Genre = genre;
         }
@@ -260,14 +260,14 @@ namespace EpicEdit.Rom.Tracks
 
         private void GenerateBitmap()
         {
-            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.graphics, this.Palette);
+            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
         }
 
         public override int GetColorIndexAt(int x, int y)
         {
             int xSub = x % 2;
             x /= 2;
-            byte px = this.graphics[y * 4 + x];
+            byte px = this.Graphics[y * 4 + x];
             int index = xSub == 0 ?
                 px & 0x0F : (px & 0xF0) >> 4;
 
