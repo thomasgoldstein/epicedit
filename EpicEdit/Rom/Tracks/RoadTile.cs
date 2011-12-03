@@ -216,9 +216,9 @@ namespace EpicEdit.Rom.Tracks
     };
 
     /// <summary>
-    /// Represents a non-animated track map tile.
+    /// Represents a non-animated track road tile.
     /// </summary>
-    public class MapTile : Tile
+    public class RoadTile : Tile
     {
         private Bitmap image;
 
@@ -242,7 +242,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.image; }
         }
 
-        public MapTile(byte[] gfx, Palette palette, TileGenre genre)
+        public RoadTile(byte[] gfx, Palette palette, TileGenre genre)
         {
             this.graphics = gfx;
             this.Palette = palette;

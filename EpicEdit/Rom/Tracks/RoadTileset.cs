@@ -36,26 +36,26 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public const int TileCount = ThemeTileCount + CommonTileCount;
 
-        private MapTile[] tileset;
+        private RoadTile[] tileset;
 
         public bool Modified { get; set; }
 
-        public RoadTileset(MapTile[] tileset)
+        public RoadTileset(RoadTile[] tileset)
         {
             this.tileset = tileset;
         }
 
-        public MapTile[] GetTileset()
+        public RoadTile[] GetTileset()
         {
             return this.tileset;
         }
 
-        public MapTile GetTile(int index)
+        public RoadTile GetTile(int index)
         {
             return this.tileset[index];
         }
 
-        public MapTile this[int index]
+        public RoadTile this[int index]
         {
             get { return this.GetTile(index); }
         }
@@ -96,7 +96,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < data.Length; i++)
             {
-                MapTile tile = this.tileset[i];
+                RoadTile tile = this.tileset[i];
                 data[i] = (byte)tile.Genre;
             }
 
