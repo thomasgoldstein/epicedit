@@ -83,10 +83,7 @@ namespace EpicEdit.Rom
                     // Reset modified flags
                     foreach (Palette palette in this.palettes)
                     {
-                        if (palette.Modified)
-                        {
-                            palette.Modified = value;
-                        }
+                        palette.Modified = value;
                     }
                 }
             }
