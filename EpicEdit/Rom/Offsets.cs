@@ -162,9 +162,14 @@ namespace EpicEdit.Rom
         ThemeColorPalettes,
 
         /// <summary>
-        /// Common tileset graphics.
+        /// Common road tileset graphics address index (upper 8 bits).
         /// </summary>
-        CommonTilesetGraphics,
+        CommonTilesetGraphicsUpperByte,
+
+        /// <summary>
+        /// Common road tileset graphics address index (lower 16 bytes).
+        /// </summary>
+        CommonTilesetGraphicsLowerBytes,
 
         /// <summary>
         /// Item probabilities.
@@ -326,7 +331,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack4] = 0x1E996;
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
                     this[Offset.JumpBarCheck] = 0xB795;
-                    this[Offset.TileGenreLoad] = 0x1EB15;
+                    this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6C1;
                     break;
 
                 case Region.US:
@@ -346,7 +351,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack4] = 0x1E992;
                     this[Offset.TrackObjectPalHack1] = 0xBD0E;
                     this[Offset.JumpBarCheck] = 0xB79E;
-                    this[Offset.TileGenreLoad] = 0x1EB11;
+                    this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6BD;
                     //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
@@ -367,7 +372,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectHack4] = 0x1E981;
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
                     this[Offset.JumpBarCheck] = 0xB7A3;
-                    this[Offset.TileGenreLoad] = 0x1EB00;
+                    this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6AC;
                     break;
             }
 
@@ -378,7 +383,6 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectZones] = 0x4DB93;
             this[Offset.TrackOverlayItems] = 0x5D000;
             this[Offset.TrackLapLines] = 0x180D4;
-            this[Offset.CommonTilesetGraphics] = 0x40000;
             this[Offset.MatchRaceObjectGraphics] = 0x60000;
             this[Offset.ItemGraphics] = 0x40594;
             this[Offset.TrackObjectHack5] = 0x4DABC;
@@ -389,6 +393,8 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectZonesRelocated] = 0x80216;
             this[Offset.TrackObjectPaletteIndexes] = 0x85D3B;
             this[Offset.TrackObjectFlashing] = this[Offset.TrackObjectPaletteIndexes] + Track.Count * 4;
+            this[Offset.CommonTilesetGraphicsLowerBytes] = this[Offset.CommonTilesetGraphicsUpperByte] + 3;
+            this[Offset.TileGenreLoad] = this[Offset.CommonTilesetGraphicsUpperByte] + 0x454;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;

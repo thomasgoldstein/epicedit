@@ -54,7 +54,14 @@ namespace EpicEdit.Rom.Tracks
             int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
             //int[] backgroundTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
 
-            byte[] commonRoadTileData = Codec.Decompress(romBuffer, offsets[Offset.CommonTilesetGraphics]);
+            int commonRoadTileUpperByte = offsets[Offset.CommonTilesetGraphicsUpperByte];
+            int commonRoadTileLowerBytes = offsets[Offset.CommonTilesetGraphicsLowerBytes];
+            int commonRoadTileOffset = Utilities.BytesToOffset(
+                romBuffer[commonRoadTileLowerBytes],
+                romBuffer[commonRoadTileLowerBytes + 1],
+                romBuffer[commonRoadTileUpperByte]
+               );
+            byte[] commonRoadTileData = Codec.Decompress(romBuffer, commonRoadTileOffset);
             byte[] commonRoadTilePaletteIndexes = Themes.GetPaletteIndexes(commonRoadTileData, RoadTileset.CommonTileCount);
             byte[][] commonRoadTileGfx = Utilities.ReadBlockGroupUntil(commonRoadTileData, RoadTileset.TileCount, -1, 32);
 
