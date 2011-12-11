@@ -298,7 +298,31 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The tile types for each theme tileset (after relocation).
         /// </summary>
-        TileGenres2
+        TileGenres2,
+
+        /// <summary>
+        /// Offset for hack to make it so each road tileset
+        /// has 256 unique tiles, and no more shared tiles.
+        /// </summary>
+        RoadTilesetHack1,
+
+        /// <summary>
+        /// Offset for hack to make it so each road tileset
+        /// has 256 unique tiles, and no more shared tiles.
+        /// </summary>
+        RoadTilesetHack2,
+
+        /// <summary>
+        /// Offset for hack to make it so each road tileset
+        /// has 256 unique tiles, and no more shared tiles.
+        /// </summary>
+        RoadTilesetHack3,
+
+        /// <summary>
+        /// Offset for hack to make it so each road tileset
+        /// has 256 unique tiles, and no more shared tiles.
+        /// </summary>
+        RoadTilesetHack4
     }
 
     public class Offsets
@@ -332,6 +356,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
                     this[Offset.JumpBarCheck] = 0xB795;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6C1;
+                    this[Offset.RoadTilesetHack1] = 0x1E695;
                     break;
 
                 case Region.US:
@@ -352,6 +377,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectPalHack1] = 0xBD0E;
                     this[Offset.JumpBarCheck] = 0xB79E;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6BD;
+                    this[Offset.RoadTilesetHack1] = 0x1E691;
                     //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
@@ -373,6 +399,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackObjectPalHack1] = 0xBD33;
                     this[Offset.JumpBarCheck] = 0xB7A3;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6AC;
+                    this[Offset.RoadTilesetHack1] = 0x1E680;
                     break;
             }
 
@@ -395,6 +422,9 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectFlashing] = this[Offset.TrackObjectPaletteIndexes] + Track.Count * 4;
             this[Offset.CommonTilesetGraphicsLowerBytes] = this[Offset.CommonTilesetGraphicsUpperByte] + 3;
             this[Offset.TileGenreLoad] = this[Offset.CommonTilesetGraphicsUpperByte] + 0x454;
+            this[Offset.RoadTilesetHack2] = this[Offset.RoadTilesetHack1] + 0x28;
+            this[Offset.RoadTilesetHack3] = this[Offset.RoadTilesetHack2] + 0x38;
+            this[Offset.RoadTilesetHack4] = this[Offset.RoadTilesetHack3] + 0x92;
 
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;

@@ -2014,25 +2014,44 @@ namespace EpicEdit.Rom
 
         private void SaveThemes(SaveBuffer saveBuffer)
         {
+            // In the original game, a road tileset is composed of 192 theme-specific tiles,
+            // followed by 64 tiles that are shared across all themes.
+            // Modify the game so that each theme has 256 unique tiles. Nothing is shared anymore.
+            this.romBuffer[this.offsets[Offset.RoadTilesetHack1]] = 0x60;
+            this.romBuffer[this.offsets[Offset.RoadTilesetHack2]] = 0x60;
+            this.romBuffer[this.offsets[Offset.RoadTilesetHack3]] = 0x00;
+            this.romBuffer[this.offsets[Offset.RoadTilesetHack4]] = 0x40;
+
             for (int i = 0; i < this.themes.Count; i++)
             {
                 Theme theme = this.themes[i];
 
-                if (theme.RoadTileset.Modified)
-                {
-                    // Save road tileset palette associations and graphics
-                    int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + i * 3;
-                    byte[] roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.ThemeTileCount * 32)];
+                int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + i * 3;
+                byte[] roadTileGfxData;
 
-                    for (int j = 0; j < RoadTileset.ThemeTileCount; j++)
+                // Save road tileset palette associations and graphics
+                if (!theme.RoadTileset.Modified && saveBuffer.Includes(roadTileGfxIndex))
+                {
+                    // Do not recompress road tileset data (perf optimization),
+                    // simply copy the existing compressed data
+                    int compressedDataLength = Codec.GetLength(this.romBuffer, roadTileGfxIndex);
+                    roadTileGfxData = new byte[compressedDataLength];
+                    Buffer.BlockCopy(this.romBuffer, roadTileGfxIndex, roadTileGfxData, 0, compressedDataLength);
+                }
+                else
+                {
+                    // Recompress road tileset data
+                    roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.TileCount * 32)];
+
+                    for (int j = 0; j < RoadTileset.TileCount; j++)
                     {
                         RoadTile tile = theme.GetRoadTile(j);
                         roadTileGfxData[j] = (byte)(tile.Palette.Index << 4);
                         Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                     }
-
-                    saveBuffer.Add(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
                 }
+
+                saveBuffer.Add(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
 
                 if (theme.Palettes.Modified)
                 {
