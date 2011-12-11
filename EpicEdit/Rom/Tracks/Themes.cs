@@ -109,7 +109,12 @@ namespace EpicEdit.Rom.Tracks
 
                 TileGenre[] allRoadTileGenres;
 
-                if (!tileGenresRelocated)
+                if (tileGenresRelocated)
+                {
+                    int tileGenreOffset = offsets[Offset.TileGenres2] + i * RoadTileset.TileCount;
+                    allRoadTileGenres = GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
+                }
+                else
                 {
                     int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
                     TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
@@ -122,11 +127,6 @@ namespace EpicEdit.Rom.Tracks
                     {
                         allRoadTileGenres[j] = TileGenre.Road;
                     }
-                }
-                else
-                {
-                    int tileGenreOffset = offsets[Offset.TileGenres2] + i * RoadTileset.TileCount;
-                    allRoadTileGenres = GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
                 }
 
                 RoadTile[] roadTileset = Themes.GetRoadTileset(colorPalettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
