@@ -54,16 +54,28 @@ namespace EpicEdit.Rom.Tracks
             int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
             //int[] backgroundTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
 
-            int commonRoadTileUpperByte = offsets[Offset.CommonTilesetGraphicsUpperByte];
-            int commonRoadTileLowerBytes = offsets[Offset.CommonTilesetGraphicsLowerBytes];
-            int commonRoadTileOffset = Utilities.BytesToOffset(
-                romBuffer[commonRoadTileLowerBytes],
-                romBuffer[commonRoadTileLowerBytes + 1],
-                romBuffer[commonRoadTileUpperByte]
-               );
-            byte[] commonRoadTileData = Codec.Decompress(romBuffer, commonRoadTileOffset);
-            byte[] commonRoadTilePaletteIndexes = Themes.GetPaletteIndexes(commonRoadTileData, RoadTileset.CommonTileCount);
-            byte[][] commonRoadTileGfx = Utilities.ReadBlockGroupUntil(commonRoadTileData, RoadTileset.TileCount, -1, 32);
+            bool roadTilesetHackApplied = Themes.IsRoadTilesetHackApplied(romBuffer, offsets);
+            byte[] commonRoadTilePaletteIndexes;
+            byte[][] commonRoadTileGfx;
+
+            if (roadTilesetHackApplied)
+            {
+                commonRoadTilePaletteIndexes = null;
+                commonRoadTileGfx = null;
+            }
+            else
+            {
+                int commonRoadTileUpperByte = offsets[Offset.CommonTilesetGraphicsUpperByte];
+                int commonRoadTileLowerBytes = offsets[Offset.CommonTilesetGraphicsLowerBytes];
+                int commonRoadTileOffset = Utilities.BytesToOffset(
+                    romBuffer[commonRoadTileLowerBytes],
+                    romBuffer[commonRoadTileLowerBytes + 1],
+                    romBuffer[commonRoadTileUpperByte]
+                   );
+                byte[] commonRoadTileData = Codec.Decompress(romBuffer, commonRoadTileOffset);
+                commonRoadTilePaletteIndexes = Themes.GetPaletteIndexes(commonRoadTileData, RoadTileset.CommonTileCount);
+                commonRoadTileGfx = Utilities.ReadBlockGroupUntil(commonRoadTileData, RoadTileset.TileCount, -1, 32);
+            }
 
             bool tileGenresRelocated = Themes.AreTileGenresRelocated(romBuffer, offsets[Offset.TileGenreLoad]);
             byte[] roadTileGenreData;
@@ -90,21 +102,31 @@ namespace EpicEdit.Rom.Tracks
                 Palettes colorPalettes = new Palettes(colorPaletteData);
 
                 byte[] roadTileData = Codec.Decompress(romBuffer, roadTileGfxOffsets[i]);
-
-                byte[] roadTilePaletteIndexes = Themes.GetPaletteIndexes(roadTileData, RoadTileset.ThemeTileCount);
-                byte[] allRoadTilePaletteIndexes = new byte[RoadTileset.TileCount];
-                Buffer.BlockCopy(roadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, 0, RoadTileset.ThemeTileCount);
-                Buffer.BlockCopy(commonRoadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, RoadTileset.ThemeTileCount, RoadTileset.CommonTileCount);
-
                 byte[][] roadTileGfx = Utilities.ReadBlockGroupUntil(roadTileData, RoadTileset.TileCount, -1, 32);
-                byte[][] allRoadTileGfx = new byte[RoadTileset.TileCount][];
-                Array.Copy(roadTileGfx, 0, allRoadTileGfx, 0, roadTileGfx.Length);
-                Array.Copy(commonRoadTileGfx, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfx.Length);
+                byte[] allRoadTilePaletteIndexes;
+                byte[][] allRoadTileGfx;
 
-                // Set empty tile default graphics value
-                for (int j = roadTileGfx.Length; j < RoadTileset.ThemeTileCount; j++)
+                if (roadTilesetHackApplied)
                 {
-                    allRoadTileGfx[j] = new byte[32];
+                    allRoadTilePaletteIndexes = Themes.GetPaletteIndexes(roadTileData, RoadTileset.TileCount);
+                    allRoadTileGfx = roadTileGfx;
+                }
+                else
+                {
+                    byte[] roadTilePaletteIndexes = Themes.GetPaletteIndexes(roadTileData, RoadTileset.ThemeTileCount);
+                    allRoadTilePaletteIndexes = new byte[RoadTileset.TileCount];
+                    Buffer.BlockCopy(roadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, 0, RoadTileset.ThemeTileCount);
+                    Buffer.BlockCopy(commonRoadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, RoadTileset.ThemeTileCount, RoadTileset.CommonTileCount);
+    
+                    allRoadTileGfx = new byte[RoadTileset.TileCount][];
+                    Array.Copy(roadTileGfx, 0, allRoadTileGfx, 0, roadTileGfx.Length);
+                    Array.Copy(commonRoadTileGfx, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfx.Length);
+    
+                    // Set empty tile default graphics value
+                    for (int j = roadTileGfx.Length; j < RoadTileset.ThemeTileCount; j++)
+                    {
+                        allRoadTileGfx[j] = new byte[32];
+                    }
                 }
 
                 TileGenre[] allRoadTileGenres;
@@ -156,7 +178,28 @@ namespace EpicEdit.Rom.Tracks
                 return false;
             }
 
-            throw new InvalidDataException("Error when loading tile types.");
+            throw new InvalidDataException("Error when loading road tile types.");
+        }
+
+        private static bool IsRoadTilesetHackApplied(byte[] romBuffer, Offsets offsets)
+        {
+            if (romBuffer[offsets[Offset.RoadTilesetHack1]] == 0x60 &&
+                romBuffer[offsets[Offset.RoadTilesetHack2]] == 0x60 &&
+                romBuffer[offsets[Offset.RoadTilesetHack3]] == 0x00 &&
+                romBuffer[offsets[Offset.RoadTilesetHack4]] == 0x40)
+            {
+                return true;
+            }
+
+            if (romBuffer[offsets[Offset.RoadTilesetHack1]] == 0xA9 &&
+                romBuffer[offsets[Offset.RoadTilesetHack2]] == 0xA0 &&
+                romBuffer[offsets[Offset.RoadTilesetHack3]] == 0xC0 &&
+                romBuffer[offsets[Offset.RoadTilesetHack4]] == 0x30)
+            {
+                return false;
+            }
+
+            throw new InvalidDataException("Error when loading road tileset data.");
         }
 
         private static TileGenre[] GetTileGenres(byte[] data, int start, int size)
