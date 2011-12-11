@@ -5,7 +5,10 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 v2.4 (???)
 
-- Added support for tile type editing (with improvement hacks by smkdan)
+- Added support for tile type and palette editing
+- Made it so that common road tiles are no longer shared across themes,
+  letting you have 256 unique tiles for each theme tileset,
+  rather than 192 theme-specific tiles and 64 common ones (hacks by smkdan)
 - Minor tweaks and fixes
 
 
