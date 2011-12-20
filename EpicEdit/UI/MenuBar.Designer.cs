@@ -45,10 +45,10 @@ namespace EpicEdit.UI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuBar));
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuToolStrip = new System.Windows.Forms.ToolStrip();
             this.openRomToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveRomToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -77,13 +77,32 @@ namespace EpicEdit.UI
             this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetZoomNumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuToolStrip.SuspendLayout();
             this.hiddenMenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // menuToolStrip
             // 
@@ -93,18 +112,18 @@ namespace EpicEdit.UI
                                     this.saveRomToolStripButton,
                                     this.importTrackToolStripButton,
                                     this.exportTrackToolStripButton,
-                                    toolStripSeparator1,
+                                    this.toolStripSeparator1,
                                     this.undoToolStripButton,
                                     this.redoToolStripButton,
                                     this.zoomOutToolStripButton,
                                     this.zoomInToolStripButton,
                                     this.fullScreenToolStripButton,
-                                    toolStripSeparator2,
+                                    this.toolStripSeparator2,
                                     this.paletteToolStripButton,
                                     this.itemProbaToolStripButton,
-                                    toolStripSeparator3,
+                                    this.toolStripSeparator3,
                                     this.aboutToolStripLabel,
-                                    toolStripSeparator4,
+                                    this.toolStripSeparator4,
                                     this.coordinatesToolStripLabel});
             this.menuToolStrip.Location = new System.Drawing.Point(0, 0);
             this.menuToolStrip.Name = "menuToolStrip";
@@ -140,7 +159,7 @@ namespace EpicEdit.UI
             // 
             this.importTrackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.importTrackToolStripButton.Enabled = false;
-            this.importTrackToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("importTrackToolStripButton.Image")));
+            this.importTrackToolStripButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
             this.importTrackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importTrackToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.importTrackToolStripButton.Name = "importTrackToolStripButton";
@@ -152,19 +171,13 @@ namespace EpicEdit.UI
             // 
             this.exportTrackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.exportTrackToolStripButton.Enabled = false;
-            this.exportTrackToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("exportTrackToolStripButton.Image")));
+            this.exportTrackToolStripButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
             this.exportTrackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportTrackToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.exportTrackToolStripButton.Name = "exportTrackToolStripButton";
             this.exportTrackToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.exportTrackToolStripButton.Text = "Export track";
             this.exportTrackToolStripButton.Click += new System.EventHandler(this.ExportTrackToolStripButtonClick);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // undoToolStripButton
             // 
@@ -225,12 +238,6 @@ namespace EpicEdit.UI
             this.fullScreenToolStripButton.Text = "Full screen";
             this.fullScreenToolStripButton.Click += new System.EventHandler(this.FullScreenToolStripButtonClick);
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // paletteToolStripButton
             // 
             this.paletteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -255,12 +262,6 @@ namespace EpicEdit.UI
             this.itemProbaToolStripButton.Text = "Item probability editor";
             this.itemProbaToolStripButton.Click += new System.EventHandler(this.ItemProbaToolStripButtonClick);
             // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
             // aboutToolStripLabel
             // 
             this.aboutToolStripLabel.Margin = new System.Windows.Forms.Padding(10, 3, 4, 4);
@@ -269,11 +270,6 @@ namespace EpicEdit.UI
             this.aboutToolStripLabel.Text = "?";
             this.aboutToolStripLabel.ToolTipText = "About Epic Edit";
             this.aboutToolStripLabel.Click += new System.EventHandler(this.AboutToolStripLabelClick);
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // coordinatesToolStripLabel
             // 
@@ -428,6 +424,10 @@ namespace EpicEdit.UI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton itemProbaToolStripButton;
         private System.Windows.Forms.ToolStrip menuToolStrip;
         private System.Windows.Forms.ToolStripButton paletteToolStripButton;
