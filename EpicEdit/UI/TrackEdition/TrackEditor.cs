@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -485,11 +484,7 @@ namespace EpicEdit.UI.TrackEdition
                     "All files (*.*)|*.*";
 
                 string fileName = this.trackTreeView.SelectedTrackFileName;
-
-                // Remove invalid filename characters
-                string invalidChars = new string(Path.GetInvalidFileNameChars());
-                invalidChars = "[" + Regex.Escape(invalidChars) + "]*";
-                fileName = Regex.Replace(fileName, invalidChars, string.Empty);
+                fileName = UITools.SanitizeFileName(fileName);
 
                 sfd.FileName = fileName;
 

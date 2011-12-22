@@ -14,7 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
@@ -73,6 +75,19 @@ namespace EpicEdit.UI.Tools
             }
 
             return desc;
+        }
+
+        /// <summary>
+        /// Removes invalid file name characters.
+        /// </summary>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Sanitized file name.</returns>
+        public static string SanitizeFileName(string fileName)
+        {
+            string invalidChars = new string(Path.GetInvalidFileNameChars());
+            invalidChars = "[" + Regex.Escape(invalidChars) + "]*";
+            fileName = Regex.Replace(fileName, invalidChars, string.Empty);
+            return fileName;
         }
 
         /// <summary>
