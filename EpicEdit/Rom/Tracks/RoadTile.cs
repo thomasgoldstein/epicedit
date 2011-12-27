@@ -247,6 +247,11 @@ namespace EpicEdit.Rom.Tracks
             this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
         }
 
+        protected override void GenerateGraphics()
+        {
+            throw new NotImplementedException();
+        }
+
         public override int GetColorIndexAt(int x, int y)
         {
             int xSub = x % 2;

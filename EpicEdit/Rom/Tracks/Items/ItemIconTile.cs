@@ -42,6 +42,11 @@ namespace EpicEdit.Rom.Tracks.Items
             this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palette, this.subPaletteIndex);
         }
 
+        protected override void GenerateGraphics()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetPalette(Palettes palettes)
         {
             this.Palette = palettes[this.paletteIndex];
