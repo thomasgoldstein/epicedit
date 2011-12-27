@@ -25,12 +25,6 @@ namespace EpicEdit.Rom.Tracks.Items
     {
         private int paletteIndex;
         private int subPaletteIndex;
-        private Bitmap image;
-
-        public override Bitmap Bitmap
-        {
-            get { return this.image; }
-        }
 
         public ItemIconTile(byte[] gfx, int paletteIndex, int subPaletteIndex)
         {
@@ -39,16 +33,7 @@ namespace EpicEdit.Rom.Tracks.Items
             this.subPaletteIndex = subPaletteIndex;
         }
 
-        public override void UpdateBitmap()
-        {
-            if (this.image != null)
-            {
-                this.image.Dispose();
-            }
-            this.GenerateBitmap();
-        }
-
-        private void GenerateBitmap()
+        protected override void GenerateBitmap()
         {
             if (this.Palette == null)
             {
@@ -70,17 +55,6 @@ namespace EpicEdit.Rom.Tracks.Items
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
             return this.subPaletteIndex + colIndex;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (this.image != null)
-                {
-                    this.image.Dispose();
-                }
-            }
         }
     }
 }

@@ -42,9 +42,22 @@ namespace EpicEdit.Rom
 
         public byte[] Graphics { get; protected set; }
 
-        public abstract Bitmap Bitmap { get; }
+        protected Bitmap image;
+        public Bitmap Bitmap
+        {
+            get { return this.image; }
+        }
 
-        public abstract void UpdateBitmap();
+        public void UpdateBitmap()
+        {
+            if (this.Bitmap != null)
+            {
+                this.Bitmap.Dispose();
+            }
+            this.GenerateBitmap();
+        }
+
+        protected abstract void GenerateBitmap();
 
         public abstract int GetColorIndexAt(int x, int y);
 
@@ -64,7 +77,16 @@ namespace EpicEdit.Rom
             return false;
         }
 
-        protected abstract void Dispose(bool disposing);
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.image != null)
+                {
+                    this.image.Dispose();
+                }
+            }
+        }
 
         public void Dispose()
         {
