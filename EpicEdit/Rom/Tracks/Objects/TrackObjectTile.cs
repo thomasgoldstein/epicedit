@@ -23,28 +23,12 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     public class TrackObjectTile : Tile
     {
-        private Bitmap image;
-
-        public override Bitmap Bitmap
-        {
-            get { return this.image; }
-        }
-
         public TrackObjectTile(byte[] gfx)
         {
             this.Graphics = gfx;
         }
 
-        public override void UpdateBitmap()
-        {
-            if (this.image != null)
-            {
-                this.image.Dispose();
-            }
-            this.GenerateBitmap();
-        }
-
-        private void GenerateBitmap()
+        protected override void GenerateBitmap()
         {
             if (this.Palette == null)
             {
@@ -66,17 +50,6 @@ namespace EpicEdit.Rom.Tracks.Objects
             int val3b = (((val3 & mask) << 2) >> x);
             int val4b = (((val4 & mask) << 3) >> x);
             return val1b + val2b + val3b + val4b;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (this.image != null)
-                {
-                    this.image.Dispose();
-                }
-            }
         }
     }
 }

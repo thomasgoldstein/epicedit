@@ -220,8 +220,6 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     public class RoadTile : Tile
     {
-        private Bitmap image;
-
         private TileGenre genre = TileGenre.Road;
         public TileGenre Genre
         {
@@ -237,11 +235,6 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public override Bitmap Bitmap
-        {
-            get { return this.image; }
-        }
-
         public RoadTile(byte[] gfx, Palette palette, TileGenre genre)
         {
             this.Graphics = gfx;
@@ -249,16 +242,7 @@ namespace EpicEdit.Rom.Tracks
             this.Genre = genre;
         }
 
-        public override void UpdateBitmap()
-        {
-            if (this.image != null)
-            {
-                this.image.Dispose();
-            }
-            this.GenerateBitmap();
-        }
-
-        private void GenerateBitmap()
+        protected override void GenerateBitmap()
         {
             this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
         }
@@ -272,14 +256,6 @@ namespace EpicEdit.Rom.Tracks
                 px & 0x0F : (px & 0xF0) >> 4;
 
             return index;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                this.image.Dispose();
-            }
         }
     }
 }
