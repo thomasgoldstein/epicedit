@@ -37,6 +37,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.image = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(this.Graphics, this.Palette);
         }
 
+        protected override void GenerateGraphics()
+        {
+            throw new NotImplementedException();
+        }
+
         public override int GetColorIndexAt(int x, int y)
         {
             x = (Tile.Size - 1) - x;

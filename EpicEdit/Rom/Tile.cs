@@ -46,6 +46,11 @@ namespace EpicEdit.Rom
         public Bitmap Bitmap
         {
             get { return this.image; }
+            set
+            {
+                this.image = value;
+                this.GenerateGraphics();
+            }
         }
 
         public void UpdateBitmap()
@@ -58,6 +63,8 @@ namespace EpicEdit.Rom
         }
 
         protected abstract void GenerateBitmap();
+
+        protected abstract void GenerateGraphics();
 
         public abstract int GetColorIndexAt(int x, int y);
 
