@@ -262,6 +262,10 @@ namespace EpicEdit.Rom.Tracks
                     this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
             }
+
+            // Regenerate the bitmap, in case the new image contained colors
+            // not present in the palettes
+            this.GenerateBitmap();
         }
 
         private int GetColorIndex(RomColor color)
