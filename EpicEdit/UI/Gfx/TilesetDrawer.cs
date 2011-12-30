@@ -37,6 +37,8 @@ namespace EpicEdit.UI.Gfx
         private Bitmap tilesetCache;
         private Pen tilesetPen;
 
+        public Bitmap Image { get { return this.tilesetCache; } }
+
         public TilesetDrawer(Control control)
         {
             this.control = control;
