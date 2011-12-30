@@ -249,7 +249,42 @@ namespace EpicEdit.Rom.Tracks
 
         protected override void GenerateGraphics()
         {
-            throw new NotImplementedException();
+            int pixelIndex = 0;
+            for (int y = 0; y < Tile.Size; y++)
+            {
+                for (int x = 0; x < Tile.Size / 2; x++)
+                {
+                    RomColor color1 = (RomColor)this.image.GetPixel(x * 2, y);
+                    RomColor color2 = (RomColor)this.image.GetPixel(x * 2 + 1, y);
+                    int colorIndex1 = this.GetColorIndex(color1);
+                    int colorIndex2 = this.GetColorIndex(color2);
+
+                    this.Graphics[pixelIndex++] =
+                        (byte)((colorIndex1 & 0x0F) + ((colorIndex2 << 4) & 0xF0));
+                }
+            }
+        }
+
+        private int GetColorIndex(RomColor color)
+        {
+            int colorIndex = -1;
+
+            for (int i = 0; i < Palette.ColorCount; i++)
+            {
+                if (this.Palette[i].Equals(color))
+                {
+                    colorIndex = i;
+                    break;
+                }
+            }
+
+            if (colorIndex == -1)
+            {
+                // TODO: When the color is not found in the palette, look for closest color
+                colorIndex = 0;
+            }
+
+            return colorIndex;
         }
 
         public override int GetColorIndexAt(int x, int y)
