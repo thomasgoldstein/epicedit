@@ -14,6 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -58,6 +61,12 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         [Browsable(true)]
         public event EventHandler<EventArgs<byte>> TileChanged;
+
+        /// <summary>
+        /// Raised when the theme tileset has been changed.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs> TilesetChanged;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
@@ -273,6 +282,110 @@ namespace EpicEdit.UI.TrackEdition
         {
             object val = e.Value;
             e.Value = ((byte)val).ToString("X") + "- " + UITools.GetDescription(val);
+        }
+
+        private void ImportGraphicsButtonClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "PNG (*.png)|*.png|" +
+                    "BMP (*.bmp)|*.bmp";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    this.ImportGraphics(ofd.FileName);
+                }
+            }
+        }
+
+        private void ImportGraphics(string filePath)
+        {
+            try
+            {
+                using (Bitmap tilesetImage = new Bitmap(filePath))
+                {
+                    int width = tilesetImage.Width;
+                    int height = tilesetImage.Height;
+
+                    if (width % Tile.Size != 0 ||
+                        height % Tile.Size != 0 ||
+                        (width * height) != (RoadTileset.TileCount * Tile.Size * Tile.Size))
+                    {
+                        throw new InvalidDataException("Invalid tileset size.");
+                    }
+
+                    int yTileCount = height / Tile.Size;
+                    int xTileCount = width / Tile.Size;
+
+                    for (int y = 0; y < yTileCount; y++)
+                    {
+                        for (int x = 0; x < xTileCount; x++)
+                        {
+                            Bitmap tileImage = tilesetImage.Clone(
+                                new Rectangle(x * Tile.Size,
+                                              y * Tile.Size,
+                                              Tile.Size,
+                                              Tile.Size),
+                                PixelFormat.Format32bppPArgb);
+
+                            RoadTile tile = this.track.GetRoadTile(y * xTileCount + x);
+                            tile.Bitmap = tileImage;
+                        }
+                    }
+
+                    this.tilesetDrawer.UpdateCache();
+                    this.tilesetPanel.Refresh();
+                    this.track.Theme.RoadTileset.Modified = true;
+                    this.TilesetChanged(this, EventArgs.Empty);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+        }
+
+        private void ExportGraphicsButtonClick(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter =
+                    "PNG (*.png)|*.png|" +
+                    "BMP (*.bmp)|*.bmp";
+
+                string fileName = this.track.Theme.Name;
+                fileName = UITools.SanitizeFileName(fileName);
+
+                sfd.FileName = fileName;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ImageFormat format;
+
+                    switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
+                    {
+                        default:
+                        case ".PNG":
+                            format = ImageFormat.Png;
+                            break;
+
+                        case ".BMP":
+                            format = ImageFormat.Bmp;
+                            break;
+                    }
+
+                    this.tilesetDrawer.Image.Save(sfd.FileName, format);
+                }
+            }
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)

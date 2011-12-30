@@ -58,6 +58,8 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.importGraphicsButton = new System.Windows.Forms.Button();
+            this.exportGraphicsButton = new System.Windows.Forms.Button();
             selectedTileGroupBox = new System.Windows.Forms.GroupBox();
             paletteLabel = new System.Windows.Forms.Label();
             selectedTileGroupBox.SuspendLayout();
@@ -72,7 +74,7 @@ namespace EpicEdit.UI.TrackEdition
             selectedTileGroupBox.Location = new System.Drawing.Point(2, 30);
             selectedTileGroupBox.Name = "selectedTileGroupBox";
             selectedTileGroupBox.Size = new System.Drawing.Size(124, 76);
-            selectedTileGroupBox.TabIndex = 8;
+            selectedTileGroupBox.TabIndex = 7;
             selectedTileGroupBox.TabStop = false;
             selectedTileGroupBox.Text = "Selected tile";
             // 
@@ -104,7 +106,7 @@ namespace EpicEdit.UI.TrackEdition
             paletteLabel.Location = new System.Drawing.Point(6, 48);
             paletteLabel.Name = "paletteLabel";
             paletteLabel.Size = new System.Drawing.Size(100, 23);
-            paletteLabel.TabIndex = 1;
+            paletteLabel.TabIndex = 2;
             paletteLabel.Text = "Color palette";
             // 
             // tileGenreComboBox
@@ -124,7 +126,7 @@ namespace EpicEdit.UI.TrackEdition
             this.themeComboBox.Location = new System.Drawing.Point(3, 3);
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.themeComboBox.TabIndex = 6;
+            this.themeComboBox.TabIndex = 1;
             // 
             // tilesetPanel
             // 
@@ -132,7 +134,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel.Location = new System.Drawing.Point(0, 112);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
-            this.tilesetPanel.TabIndex = 5;
+            this.tilesetPanel.TabIndex = 3;
             this.tilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseDown);
             // 
             // resetMapButton
@@ -141,13 +143,37 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton.Location = new System.Drawing.Point(103, 631);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
-            this.resetMapButton.TabIndex = 7;
+            this.resetMapButton.TabIndex = 6;
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
             // 
+            // importGraphicsButton
+            // 
+            this.importGraphicsButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importGraphicsButton.Location = new System.Drawing.Point(3, 631);
+            this.importGraphicsButton.Name = "importGraphicsButton";
+            this.importGraphicsButton.Size = new System.Drawing.Size(24, 24);
+            this.importGraphicsButton.TabIndex = 4;
+            this.buttonToolTip.SetToolTip(this.importGraphicsButton, "Import graphics");
+            this.importGraphicsButton.UseVisualStyleBackColor = true;
+            this.importGraphicsButton.Click += new System.EventHandler(this.ImportGraphicsButtonClick);
+            // 
+            // exportGraphicsButton
+            // 
+            this.exportGraphicsButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportGraphicsButton.Location = new System.Drawing.Point(33, 631);
+            this.exportGraphicsButton.Name = "exportGraphicsButton";
+            this.exportGraphicsButton.Size = new System.Drawing.Size(24, 24);
+            this.exportGraphicsButton.TabIndex = 5;
+            this.buttonToolTip.SetToolTip(this.exportGraphicsButton, "Export graphics");
+            this.exportGraphicsButton.UseVisualStyleBackColor = true;
+            this.exportGraphicsButton.Click += new System.EventHandler(this.ExportGraphicsButtonClick);
+            // 
             // TilesetControl
             // 
+            this.Controls.Add(this.exportGraphicsButton);
+            this.Controls.Add(this.importGraphicsButton);
             this.Controls.Add(selectedTileGroupBox);
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(this.resetMapButton);
@@ -158,6 +184,8 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.tilePaletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button exportGraphicsButton;
+        private System.Windows.Forms.Button importGraphicsButton;
         private System.Windows.Forms.NumericUpDown tilePaletteNumericUpDown;
         private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;

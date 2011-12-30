@@ -2002,6 +2002,11 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Invalidate();
             this.trackDisplay.Update();
         }
+
+        private void TilesetControlTilesetChanged(object sender, EventArgs e)
+        {
+            this.DisplayNewTrack();
+        }
         #endregion EditionMode.Tileset
 
         #region EditionMode.Overlay
