@@ -84,6 +84,7 @@
     <Compile Include="Rom\TileTest.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconTileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
+    <Compile Include="Rom\Tracks\RoadTileTest.cs" />
     <Compile Include="Rom\UtilitiesTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
