@@ -259,8 +259,7 @@ namespace EpicEdit.Rom.Tracks
                     int colorIndex1 = this.GetColorIndex(color1);
                     int colorIndex2 = this.GetColorIndex(color2);
 
-                    this.Graphics[pixelIndex++] =
-                        (byte)((colorIndex1 & 0x0F) + ((colorIndex2 << 4) & 0xF0));
+                    this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
             }
         }
