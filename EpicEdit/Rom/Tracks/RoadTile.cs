@@ -278,7 +278,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < Palette.ColorCount; i++)
             {
-                if (this.Palette[i].Equals(color))
+                if (this.Palette[i] == color)
                 {
                     colorIndex = i;
                     break;
