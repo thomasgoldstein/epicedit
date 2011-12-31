@@ -249,19 +249,23 @@ namespace EpicEdit.Rom.Tracks
 
         protected override void GenerateGraphics()
         {
+            FastBitmap fBitmap = new FastBitmap(this.image);
+
             int pixelIndex = 0;
             for (int y = 0; y < Tile.Size; y++)
             {
                 for (int x = 0; x < Tile.Size / 2; x++)
                 {
-                    RomColor color1 = (RomColor)this.image.GetPixel(x * 2, y);
-                    RomColor color2 = (RomColor)this.image.GetPixel(x * 2 + 1, y);
+                    RomColor color1 = (RomColor)fBitmap.GetPixel(x * 2, y);
+                    RomColor color2 = (RomColor)fBitmap.GetPixel(x * 2 + 1, y);
                     int colorIndex1 = this.GetColorIndex(color1);
                     int colorIndex2 = this.GetColorIndex(color2);
 
                     this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
             }
+
+            fBitmap.Release();
 
             // Regenerate the bitmap, in case the new image contained colors
             // not present in the palettes
