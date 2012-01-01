@@ -363,7 +363,7 @@ namespace EpicEdit.UI.TrackEdition
                     "BMP (*.bmp)|*.bmp";
 
                 string fileName = this.track.Theme.Name;
-                fileName = UITools.SanitizeFileName(fileName);
+                fileName = UITools.SanitizeFileName(fileName) + "road";
 
                 sfd.FileName = fileName;
 
