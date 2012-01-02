@@ -287,8 +287,7 @@ namespace EpicEdit.Rom.Tracks
 
             if (colorIndex == -1)
             {
-                // TODO: When the color is not found in the palette, look for closest color
-                colorIndex = 0;
+                colorIndex = Utilities.GetClosestColorIndex(color, this.Palette);
             }
 
             return colorIndex;
