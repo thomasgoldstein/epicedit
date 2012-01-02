@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 
@@ -487,5 +488,40 @@ namespace EpicEdit.Rom
         }
 
         #endregion Decrypt ROM text
+
+        #region Color handling
+        public static int GetClosestColorIndex(Color color, Palette palette)
+        {
+            float value = Utilities.GetColorHslValue(color);
+            float diff = float.MaxValue;
+            int match = -1;
+
+            for (int i = 0; i < Palette.ColorCount; i++)
+            {
+                Color col = palette[i];
+                float value2 = Utilities.GetColorHslValue(col);
+                float diff2 = Math.Abs(value - value2);
+
+                if (diff2 < diff)
+                {
+                    diff = diff2;
+                    match = i;
+                }
+            }
+
+            return match;
+        }
+
+        private static float GetColorHslValue(Color color)
+        {
+            const float HueWeight = 0.8f;
+            const float SaturationWeight = 0.1f;
+            const float BrightnessWeight = 0.1f;
+
+            return (color.GetHue() / 360.0f) * HueWeight +
+                color.GetSaturation() * SaturationWeight +
+                color.GetBrightness() * BrightnessWeight;
+        }
+        #endregion Color handling
     }
 }
