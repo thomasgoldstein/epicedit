@@ -53,6 +53,11 @@ namespace EpicEdit.Rom.Tracks
         public OverlayTiles OverlayTiles { get; private set; }
         public TrackAI AI { get; private set; }
 
+        public RoadTileset RoadTileset
+        {
+            get { return this.Theme.RoadTileset; }
+        }
+
         // NOTE: Maybe do not expose this, and change it in property setters
         public bool Modified { get; set; }
 
@@ -67,16 +72,6 @@ namespace EpicEdit.Rom.Tracks
             this.Theme = theme;
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
-        }
-
-        public RoadTile[] GetRoadTileset()
-        {
-            return this.Theme.GetRoadTileset();
-        }
-
-        public RoadTile GetRoadTile(int index)
-        {
-            return this.Theme.GetRoadTile(index);
         }
 
         public void Import(string filePath, Game game)

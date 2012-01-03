@@ -34,7 +34,7 @@ namespace EpicEdit.UI.Gfx
 
         private Control control;
         public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
-        private Tile[] tileset;
+        private RoadTileset tileset;
         private Size imageSize;
 
         public OverlayTilePattern HoveredPattern { get; set; }
@@ -66,20 +66,14 @@ namespace EpicEdit.UI.Gfx
             this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
-        public Tile[] GetTileset()
+        public RoadTileset Tileset
         {
-            return this.tileset;
-        }
-
-        public Tile GetTile(int index)
-        {
-            return this.tileset[index];
-        }
-
-        public void SetTileset(Tile[] tileset)
-        {
-            this.tileset = tileset;
-            this.UpdateCache();
+            get { return this.tileset; }
+            set
+            {
+                this.tileset = value;
+                this.UpdateCache();
+            }
         }
 
         private void UpdateCache()

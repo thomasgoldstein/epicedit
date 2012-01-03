@@ -121,7 +121,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private RoadTile SelectedRoadTile
         {
-            get { return this.track.GetRoadTile(this.selectedTile); }
+            get { return this.track.RoadTileset[this.selectedTile]; }
         }
 
         public TilesetControl()
@@ -181,7 +181,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.TrackThemeChanged(this, EventArgs.Empty);
             }
 
-            this.tilesetPanel.SetTileset(theme.GetRoadTileset());
+            this.tilesetPanel.Tileset = theme.RoadTileset;
             this.ResetTileset();
             this.SetCurrentTile();
 
@@ -233,8 +233,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetTileset()
         {
-            Tile[] tileset = this.track.GetRoadTileset();
-            this.tilesetDrawer.SetTileset(tileset);
+            this.tilesetDrawer.Tileset = this.track.RoadTileset;
         }
 
         private void SelectTrackTheme()
@@ -303,6 +302,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             try
             {
+                RoadTileset tileset = this.track.RoadTileset;
+
                 using (Bitmap tilesetImage = new Bitmap(filePath))
                 {
                     int width = tilesetImage.Width;
@@ -329,7 +330,7 @@ namespace EpicEdit.UI.TrackEdition
                                               Tile.Size),
                                 PixelFormat.Format32bppPArgb);
 
-                            RoadTile tile = this.track.GetRoadTile(y * xTileCount + x);
+                            RoadTile tile = tileset[y * xTileCount + x];
                             tile.Bitmap = tileImage;
                         }
                     }
@@ -401,12 +402,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private sealed class TilesetPanel : TilePanel
         {
-            private Tile[] tileset;
-
-            public void SetTileset(Tile[] tileset)
-            {
-                this.tileset = tileset;
-            }
+            public RoadTileset Tileset { get; set; }
 
             private int TilesPerRow
             {
@@ -420,7 +416,7 @@ namespace EpicEdit.UI.TrackEdition
                 y /= Tile.Size;
 
                 int index = y * this.TilesPerRow + x;
-                return this.tileset[index];
+                return this.Tileset[index];
             }
         }
     }
