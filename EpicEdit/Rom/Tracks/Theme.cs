@@ -39,16 +39,6 @@ namespace EpicEdit.Rom.Tracks
             this.RoadTileset = new RoadTileset(roadTileset);
         }
 
-        public RoadTile[] GetRoadTileset()
-        {
-            return this.RoadTileset.GetTileset();
-        }
-
-        public RoadTile GetRoadTile(int index)
-        {
-            return this.RoadTileset[index];
-        }
-
         public override string ToString()
         {
             return this.Name;

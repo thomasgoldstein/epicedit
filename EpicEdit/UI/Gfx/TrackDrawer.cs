@@ -253,7 +253,7 @@ namespace EpicEdit.UI.Gfx
             this.trackCache.Dispose();
 
             this.track = track;
-            Tile[] tileset = this.track.GetRoadTileset();
+            RoadTileset tileset = this.track.RoadTileset;
 
             this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
                                          this.track.Map.Height * Tile.Size,
@@ -276,7 +276,7 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateCache(Palette palette)
         {
-            Tile[] tileset = this.track.GetRoadTileset();
+            RoadTileset tileset = this.track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
@@ -298,7 +298,7 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateCache(byte tileId)
         {
-            Tile tile = this.track.GetRoadTile(tileId);
+            Tile tile = this.track.RoadTileset[tileId];
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
@@ -319,7 +319,7 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateCache(bool[] tileUpdates)
         {
-            Tile[] tileset = this.track.GetRoadTileset();
+            RoadTileset tileset = this.track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
@@ -342,7 +342,7 @@ namespace EpicEdit.UI.Gfx
 
         public void ReloadTrackPart(TileChange change)
         {
-            Tile[] tileset = this.track.GetRoadTileset();
+            RoadTileset tileset = this.track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
@@ -836,11 +836,11 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
         {
-            Tile[] tiles = this.track.GetRoadTileset();
+            RoadTileset tileset = this.track.RoadTileset;
 
             foreach (OverlayTile overlayTile in this.track.OverlayTiles)
             {
-                this.DrawOverlayTile(g, overlayTile, tiles);
+                this.DrawOverlayTile(g, overlayTile, tileset);
             }
 
             if (hoveredOverlayTile != null)
@@ -864,21 +864,21 @@ namespace EpicEdit.UI.Gfx
 
             if (selectedPattern != null)
             {
-                this.DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tiles);
+                this.DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tileset);
             }
         }
 
-        private void DrawOverlayTile(Graphics g, OverlayTile overlayTile, Tile[] tiles)
+        private void DrawOverlayTile(Graphics g, OverlayTile overlayTile, RoadTileset tileset)
         {
-            this.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tiles);
+            this.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tileset);
         }
 
-        private void DrawOverlayPattern(Graphics g, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+        private void DrawOverlayPattern(Graphics g, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
         {
-            this.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tiles);
+            this.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tileset);
         }
 
-        private void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, Tile[] tiles)
+        private void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
         {
             for (int x = 0; x < overlayTilePattern.Width; x++)
             {
@@ -890,7 +890,7 @@ namespace EpicEdit.UI.Gfx
                         continue;
                     }
 
-                    Tile tile = tiles[tileId];
+                    Tile tile = tileset[tileId];
 
                     g.DrawImage(tile.Bitmap,
                                 new Rectangle((location.X + x - this.scrollPosition.X) * Tile.Size,
@@ -1628,7 +1628,7 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardOnThemeChange(IList<byte> tiles, Size clipboardSize, Tile[] tileset)
+        public void UpdateTileClipboardOnThemeChange(IList<byte> tiles, Size clipboardSize, RoadTileset tileset)
         {
             this.tileClipboardCache.Dispose();
 

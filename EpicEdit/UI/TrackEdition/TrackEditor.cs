@@ -1968,8 +1968,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.trackDrawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, this.track.GetRoadTileset());
-            this.overlayControl.SetTileset(this.track.GetRoadTileset());
+            RoadTileset tileset = this.track.RoadTileset;
+            this.trackDrawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, tileset);
+            this.overlayControl.Tileset = tileset;
         }
 
         private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
@@ -1978,7 +1979,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tileClipboard.Clear();
             this.tileClipboard.Add(selectedTile);
             this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
-            this.trackDrawer.UpdateTileClipboard(this.track.GetRoadTile(selectedTile));
+            this.trackDrawer.UpdateTileClipboard(this.track.RoadTileset[selectedTile]);
         }
 
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
@@ -2765,7 +2766,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 byte index = track.Map[tileX, tileY];
 
-                return track.GetRoadTile(index);
+                return track.RoadTileset[index];
             }
 
             private static Tile GetObjectTile(GPTrack track, int x, int y, int tileX, int tileY)
@@ -2800,6 +2801,7 @@ namespace EpicEdit.UI.TrackEdition
 
             private static Tile GetOverlayTile(Track track, int tileX, int tileY)
             {
+                RoadTileset tileset = track.RoadTileset;
                 Point location = new Point(tileX, tileY);
 
                 var overlay = track.OverlayTiles;
@@ -2814,7 +2816,7 @@ namespace EpicEdit.UI.TrackEdition
 
                         if (tileId != OverlayTile.None)
                         {
-                            return track.GetRoadTile(tileId);
+                            return tileset[tileId];
                         }
                     }
                 }

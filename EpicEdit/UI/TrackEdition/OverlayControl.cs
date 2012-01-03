@@ -276,26 +276,19 @@ namespace EpicEdit.UI.TrackEdition
             this.Height += difference;
         }
 
-        public Tile[] GetTileset()
+        public RoadTileset Tileset
         {
-            return this.overlayDrawer.GetTileset();
-        }
-
-        public Tile GetTile(int index)
-        {
-            return this.overlayDrawer.GetTile(index);
-        }
-
-        public void SetTileset(Tile[] tileset)
-        {
-            this.overlayDrawer.SetTileset(tileset);
-            this.overlayTilesetPanel.Refresh();
+            get { return this.overlayDrawer.Tileset; }
+            set
+            {
+                this.overlayDrawer.Tileset = value;
+                this.overlayTilesetPanel.Refresh();
+            }
         }
 
         public void UpdateTileset()
         {
-            Tile[] tileset = this.overlayDrawer.GetTileset();
-            this.SetTileset(tileset);
+            this.Tileset = this.overlayDrawer.Tileset;
         }
 
         public void UpdateTileCount(int count)
@@ -401,7 +394,7 @@ namespace EpicEdit.UI.TrackEdition
                     return null;
                 }
 
-                return parent.GetTile(tileId);
+                return parent.Tileset[tileId];
             }
         }
     }
