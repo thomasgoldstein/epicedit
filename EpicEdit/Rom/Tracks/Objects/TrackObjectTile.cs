@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// Represents a track object tile.
     /// </summary>
-    public class TrackObjectTile : Tile
+    public sealed class TrackObjectTile : Tile
     {
         public TrackObjectTile(byte[] gfx)
         {
