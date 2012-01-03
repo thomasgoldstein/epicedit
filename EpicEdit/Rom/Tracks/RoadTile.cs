@@ -218,7 +218,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents a non-animated track road tile.
     /// </summary>
-    public class RoadTile : Tile
+    public sealed class RoadTile : Tile
     {
         private TileGenre genre = TileGenre.Road;
         public TileGenre Genre
