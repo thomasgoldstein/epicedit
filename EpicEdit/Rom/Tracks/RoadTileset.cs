@@ -103,13 +103,20 @@ namespace EpicEdit.Rom.Tracks
             return data;
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (Tile tile in this.tileset)
+                {
+                    tile.Dispose();
+                }
+            }
+        }
+
         public void Dispose()
         {
-            foreach (Tile tile in this.tileset)
-            {
-                tile.Dispose();
-            }
-
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
     }
