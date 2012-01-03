@@ -481,7 +481,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             private Image Image
             {
-                get { return this.image; }
+                //get { return this.image; }
                 set
                 {
                     if (this.image != null)
@@ -510,7 +510,7 @@ namespace EpicEdit.UI.ThemeEdition
             [Browsable(true), DefaultValue(typeof(bool), "true")]
             public bool LooksEnabled
             {
-                get { return this.looksEnabled; }
+                //get { return this.looksEnabled; }
                 set
                 {
                     this.looksEnabled = value;
@@ -521,7 +521,7 @@ namespace EpicEdit.UI.ThemeEdition
             private ItemType itemType;
             public ItemType ItemType
             {
-                get { return this.itemType; }
+                //get { return this.itemType; }
                 set { this.itemType = value; }
             }
 
