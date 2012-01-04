@@ -2355,7 +2355,9 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Objects
         private bool InitObjectAction()
         {
-            if (!(this.track is GPTrack))
+            GPTrack gpTrack = this.track as GPTrack;
+
+            if (gpTrack == null)
             {
                 return false;
             }
@@ -2371,8 +2373,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             // Try to hover object
-            GPTrack gpTrack = this.track as GPTrack;
-
             if (gpTrack.ObjectRoutine == ObjectType.Pillar)
             {
                 // Not supported yet
@@ -2404,9 +2404,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetTrackObjectZones()
         {
-            if (this.track is GPTrack)
+            GPTrack gpTrack = this.track as GPTrack;
+
+            if (gpTrack != null)
             {
-                GPTrack gpTrack = this.track as GPTrack;
                 this.objectsTabPage.Enabled = true;
                 this.objectsControl.Track = gpTrack;
             }
@@ -2696,11 +2697,11 @@ namespace EpicEdit.UI.TrackEdition
                 var parent = this.Parent as TrackEditor;
                 Track track = parent.track;
 
-                if (parent.editionMode == EditionMode.Objects && track is GPTrack)
+                if (parent.editionMode == EditionMode.Objects)
                 {
                     GPTrack gpTrack = track as GPTrack;
 
-                    if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+                    if (gpTrack != null && gpTrack.ObjectRoutine != ObjectType.Pillar)
                     {
                         // Shift the X value, to account for the fact that track objects,
                         // which are rendered on 2x2 tiles (16x16 pixels) are spread across 3 tiles
@@ -2737,11 +2738,11 @@ namespace EpicEdit.UI.TrackEdition
 
                 Track track = parent.track;
 
-                if (parent.editionMode == EditionMode.Objects && track is GPTrack)
+                if (parent.editionMode == EditionMode.Objects)
                 {
                     GPTrack gpTrack = track as GPTrack;
 
-                    if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+                    if (gpTrack != null && gpTrack.ObjectRoutine != ObjectType.Pillar)
                     {
                         return TrackPanel.GetObjectTile(gpTrack, x, y, tileX, tileY);
                     }

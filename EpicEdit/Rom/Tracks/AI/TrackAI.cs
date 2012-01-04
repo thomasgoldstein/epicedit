@@ -218,8 +218,9 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             List<TrackAIElement> crossedAIElements = new List<TrackAIElement>();
 
-            if (!(this.track is GPTrack) ||
-                (this.track as GPTrack).ObjectRoutine == ObjectType.Pillar)
+            GPTrack gpTrack = this.track as GPTrack;
+
+            if (gpTrack == null || gpTrack.ObjectRoutine == ObjectType.Pillar)
             {
                 return crossedAIElements;
             }

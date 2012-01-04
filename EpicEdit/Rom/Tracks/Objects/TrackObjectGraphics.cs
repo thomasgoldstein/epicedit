@@ -141,10 +141,10 @@ namespace EpicEdit.Rom.Tracks.Objects
         public Tile GetTile(GPTrack track, TrackObject trackObject, int x, int y)
         {
             int index;
+            TrackObjectMatchRace matchRaceObject = trackObject as TrackObjectMatchRace;
 
-            if (trackObject is TrackObjectMatchRace)
+            if (matchRaceObject != null)
             {
-                var matchRaceObject = trackObject as TrackObjectMatchRace;
                 bool moving = matchRaceObject.Direction != Direction.None;
                 index = this.GetMatchRaceTileIndex(moving);
             }
