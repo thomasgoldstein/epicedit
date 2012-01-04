@@ -1016,21 +1016,23 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawObjectData(Graphics g, bool frontZonesView, TrackObject hoveredObject)
         {
-            if (this.track is GPTrack)
+            GPTrack gpTrack = this.track as GPTrack;
+
+            if (gpTrack == null)
             {
-                GPTrack gpTrack = this.track as GPTrack;
+                return;
+            }
 
-                if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+            if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+            {
+                this.DrawObjectZones(g, frontZonesView);
+
+                TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
+                using (Bitmap objectImage = objectGraphics.GetImage(gpTrack))
+                using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, true))
+                using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, false))
                 {
-                    this.DrawObjectZones(g, frontZonesView);
-
-                    TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
-                    using (Bitmap objectImage = objectGraphics.GetImage(gpTrack))
-                    using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, true))
-                    using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, false))
-                    {
-                        this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
-                    }
+                    this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
                 }
             }
         }
@@ -1179,14 +1181,16 @@ namespace EpicEdit.UI.Gfx
                 Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
                 g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
 
-                if (!(hoveredObject is TrackObjectMatchRace))
+                TrackObjectMatchRace matchRaceObject = hoveredObject as TrackObjectMatchRace;
+
+                if (matchRaceObject == null)
                 {
                     g.FillEllipse(this.objectBrushes[hoveredObjectIndex / 4], trackObjectRect);
                     g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }
                 else
                 {
-                    Bitmap image = (hoveredObject as TrackObjectMatchRace).Direction == Direction.None ?
+                    Bitmap image = matchRaceObject.Direction == Direction.None ?
                         stillMatchRaceObjectImage : matchRaceObjectImage;
                     g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }
