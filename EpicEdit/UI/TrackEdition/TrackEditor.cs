@@ -2694,7 +2694,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             protected override void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
             {
-                var parent = this.Parent as TrackEditor;
+                TrackEditor parent = this.Parent as TrackEditor;
                 Track track = parent.track;
 
                 if (parent.editionMode == EditionMode.Objects)
@@ -2722,7 +2722,7 @@ namespace EpicEdit.UI.TrackEdition
                 int tileX = x / Tile.Size;
                 int tileY = y / Tile.Size;
 
-                var parent = this.Parent as TrackEditor;
+                TrackEditor parent = this.Parent as TrackEditor;
 
                 Point scrollPosition = parent.scrollPosition;
                 tileX += scrollPosition.X;
@@ -2805,10 +2805,10 @@ namespace EpicEdit.UI.TrackEdition
                 RoadTileset tileset = track.RoadTileset;
                 Point location = new Point(tileX, tileY);
 
-                var overlay = track.OverlayTiles;
+                OverlayTiles overlay = track.OverlayTiles;
                 for (int i = overlay.Count - 1; i >= 0; i--)
                 {
-                    var overlayTile = overlay[i];
+                    OverlayTile overlayTile = overlay[i];
                     if (overlayTile.IntersectsWith(location))
                     {
                         int relativeX = tileX - overlayTile.X;

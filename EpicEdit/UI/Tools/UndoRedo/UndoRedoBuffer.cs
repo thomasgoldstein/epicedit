@@ -65,7 +65,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
         {
             if (this.buffer == null)
             {
-                var changes = new Stack<TileChange>();
+                Stack<TileChange> changes = new Stack<TileChange>();
                 changes.Push(change);
                 this.Add(changes);
             }
