@@ -128,7 +128,7 @@ namespace EpicEdit.UI.Tools
 
             if (colorIndex != -1) // Not an empty tile
             {
-                var pea = new EventArgs<Palette, int>(palette, colorIndex);
+                EventArgs<Palette, int> pea = new EventArgs<Palette, int>(palette, colorIndex);
                 this.ColorSelected(this, pea);
             }
         }
