@@ -1288,10 +1288,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.buttonsPressed = MouseButtons.Left;
                 Point absPixelPos = this.AbsolutePixelPosition;
 
-                if (this.track is GPTrack)
+                GPTrack gpTrack = this.track as GPTrack;
+                if (gpTrack != null)
                 {
-                    GPTrack gpTrack = this.track as GPTrack;
-
                     if (this.startAction == StartAction.DragStartPosition)
                     {
                         this.anchorPoint = new Point(absPixelPos.X - gpTrack.StartPosition.X,
