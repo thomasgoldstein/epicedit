@@ -490,9 +490,9 @@ namespace EpicEdit.UI.Gfx
             {
                 using (Graphics backBuffer = Graphics.FromImage(image))
                 {
-                    if (this.track is GPTrack)
+                    GPTrack gpTrack = this.track as GPTrack;
+                    if (gpTrack != null)
                     {
-                        GPTrack gpTrack = this.track as GPTrack;
                         this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition);
                     }
                     else
