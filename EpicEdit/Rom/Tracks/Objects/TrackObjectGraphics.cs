@@ -143,14 +143,14 @@ namespace EpicEdit.Rom.Tracks.Objects
             int index;
             TrackObjectMatchRace matchRaceObject = trackObject as TrackObjectMatchRace;
 
-            if (matchRaceObject != null)
+            if (matchRaceObject == null)
             {
-                bool moving = matchRaceObject.Direction != Direction.None;
-                index = this.GetMatchRaceTileIndex(moving);
+                index = (int)track.ObjectTileset;
             }
             else
             {
-                index = (int)track.ObjectTileset;
+                bool moving = matchRaceObject.Direction != Direction.None;
+                index = this.GetMatchRaceTileIndex(moving);
             }
 
             Tile[] tiles = this.tiles[index];
