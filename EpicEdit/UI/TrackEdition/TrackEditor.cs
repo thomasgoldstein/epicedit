@@ -385,7 +385,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ReInitPaletteEditor();
             this.ReInitItemProbaEditor();
 
-            foreach (var buffer in this.undoRedoBuffers.Values)
+            foreach (UndoRedoBuffer buffer in this.undoRedoBuffers.Values)
             {
                 buffer.Clear();
             }
