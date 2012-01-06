@@ -20,7 +20,7 @@ namespace EpicEditTests
     /// <summary>
     /// File manipulation class used for unit testing.
     /// </summary>
-    public sealed class File
+    internal sealed class File
     {
         public readonly static string RelativePath =
             ".." + Path.DirectorySeparatorChar +

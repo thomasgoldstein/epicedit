@@ -25,7 +25,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Represents a collection of controls to edit <see cref="TrackObjects"/>.
     /// </summary>
-    public partial class ObjectsControl : UserControl
+    internal partial class ObjectsControl : UserControl
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> DataChanged;

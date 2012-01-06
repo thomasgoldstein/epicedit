@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class GPStartPositionTest
+    internal class GPStartPositionTest
     {
         private byte[] allData;
 

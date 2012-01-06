@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.Objects
 {
     [TestFixture]
-    public class TrackObjectTest
+    internal class TrackObjectTest
     {
         [Test]
         public void TestGetBytes1()

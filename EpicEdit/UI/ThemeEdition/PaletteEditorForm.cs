@@ -24,7 +24,7 @@ namespace EpicEdit.UI.ThemeEdition
     /// <summary>
     /// The Form that contains the <see cref="PaletteEditor">palette editor</see>.
     /// </summary>
-    public partial class PaletteEditorForm : Form
+    internal partial class PaletteEditorForm : Form
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged

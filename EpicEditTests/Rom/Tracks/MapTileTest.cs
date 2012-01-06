@@ -23,7 +23,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class MapTileTest
+    internal class MapTileTest
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {

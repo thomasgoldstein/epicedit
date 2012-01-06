@@ -25,7 +25,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Represents a collection of controls to edit <see cref="LapLine"/> and <see cref="StartPosition"/> objects.
     /// </summary>
-    public partial class StartControl : UserControl
+    internal partial class StartControl : UserControl
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> DataChanged;

@@ -19,7 +19,7 @@ namespace EpicEdit
     /// <summary>
     /// Returns information about the OS and the framework run by the user.
     /// </summary>
-    public static class Platform
+    internal static class Platform
     {
         /// <summary>
         /// Checks whether the framework used is Mono.

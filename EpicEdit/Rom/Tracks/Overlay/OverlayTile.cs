@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// Represents an element located over the track map. E.g.: a coin, an item block...
     /// </summary>
-    public class OverlayTile
+    internal class OverlayTile
     {
     	public const byte None = 0xFF;
 

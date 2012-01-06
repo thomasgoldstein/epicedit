@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class RoadTileTest
+    internal class RoadTileTest
     {
         [Test]
         public void TestGraphicsUpdate()

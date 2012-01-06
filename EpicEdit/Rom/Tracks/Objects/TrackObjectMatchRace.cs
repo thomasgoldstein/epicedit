@@ -16,7 +16,7 @@ using System;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    public enum Direction
+    internal enum Direction
     {
         None,
         Horizontal,
@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// A type of track object that only appears in Match Race mode.
     /// </summary>
-    public class TrackObjectMatchRace : TrackObject
+    internal class TrackObjectMatchRace : TrackObject
     {
         /// <summary>
         /// Get the object direction.

@@ -29,7 +29,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Represents a collection of controls to edit <see cref="OverlayTiles"/>.
     /// </summary>
-    public partial class OverlayControl : UserControl
+    internal partial class OverlayControl : UserControl
     {
         #region Events
         [Browsable(true)]

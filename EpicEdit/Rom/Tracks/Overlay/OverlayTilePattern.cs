@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// Describes a single overlay pattern, including its dimensions.
     /// </summary>
-    public class OverlayTilePattern : IEquatable<OverlayTilePattern>
+    internal class OverlayTilePattern : IEquatable<OverlayTilePattern>
     {
         private byte[][] tiles;
 

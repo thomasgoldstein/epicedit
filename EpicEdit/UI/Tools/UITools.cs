@@ -24,7 +24,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// Represents a UI helper class.
     /// </summary>
-    public static class UITools
+    internal static class UITools
     {
         public static DialogResult ShowWarning(string message, MessageBoxButtons buttons)
         {

@@ -30,7 +30,7 @@ namespace EpicEdit.UI.ThemeEdition
     /// <summary>
     /// Represents a collection of controls used to edit the probabilities for players to get each item.
     /// </summary>
-    public partial class ItemProbaEditor : UserControl
+    internal partial class ItemProbaEditor : UserControl
     {
         private ItemProbabilities itemProbabilities;
         private ItemProbability itemProbability;

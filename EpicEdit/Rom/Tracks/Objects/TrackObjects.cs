@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// A collection of 16 <see cref="TrackObject"/> objects, and 6 <see cref="TrackObjectMatchRace"/> objects.
     /// </summary>
-    public class TrackObjects : IEnumerable<TrackObject>
+    internal class TrackObjects : IEnumerable<TrackObject>
     {
         private const int RegularObjectCount = 16;
         private const int MatchRaceObjectCount = 6;

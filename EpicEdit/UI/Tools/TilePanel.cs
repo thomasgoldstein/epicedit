@@ -25,7 +25,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// An EpicPanel with the ability to retrieve a tile pixel color when the Context.ColorPickerMode is on.
     /// </summary>
-    public class TilePanel : EpicPanel
+    internal class TilePanel : EpicPanel
     {
         /// <summary>
         /// Raised when a pixel color has been selected.

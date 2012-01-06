@@ -19,7 +19,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// EventArgs that take one generic parameter.
     /// </summary>
-    public class EventArgs<T> : EventArgs
+    internal class EventArgs<T> : EventArgs
     {
         public EventArgs(T value)
         {
@@ -36,7 +36,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// EventArgs that take two generic parameters.
     /// </summary>
-    public class EventArgs<T, U> : EventArgs
+    internal class EventArgs<T, U> : EventArgs
     {
         public EventArgs(T value1, U value2)
         {

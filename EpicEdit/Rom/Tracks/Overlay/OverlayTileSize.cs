@@ -19,7 +19,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// Represents the dimensions of an overlay tile.
     /// </summary>
-    public class OverlayTileSize
+    internal class OverlayTileSize
     {
         private int width;
         public int Width

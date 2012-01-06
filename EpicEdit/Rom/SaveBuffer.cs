@@ -20,7 +20,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Buffer which contains all the changes that need to be saved back into the ROM.
     /// </summary>
-    public class SaveBuffer
+    internal class SaveBuffer
     {
         private byte[] romBuffer;
         private Queue<byte[]> savedData;

@@ -20,7 +20,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// This is simply a Panel with OnPaintBackground disabled. Not all that Epic.
     /// </summary>
-    public class EpicPanel : Panel
+    internal class EpicPanel : Panel
     {
         protected override void OnPaintBackground(PaintEventArgs e)
         {

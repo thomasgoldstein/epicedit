@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom
 {
     [TestFixture]
-    public class PalettesTest
+    internal class PalettesTest
     {
         private void TestGetBytes(byte[] data)
         {

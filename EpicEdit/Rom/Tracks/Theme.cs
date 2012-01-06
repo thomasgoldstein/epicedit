@@ -19,7 +19,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the graphics set and music of a track.
     /// </summary>
-    public sealed class Theme : IDisposable
+    internal sealed class Theme : IDisposable
     {
         /// <summary>
         /// Number of themes.

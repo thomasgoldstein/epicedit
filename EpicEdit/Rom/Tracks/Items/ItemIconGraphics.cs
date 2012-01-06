@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Item icon graphics manager.
     /// </summary>
-    public sealed class ItemIconGraphics : IDisposable
+    internal sealed class ItemIconGraphics : IDisposable
     {
         private Tile[][] tiles;
 

@@ -19,7 +19,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents a collection of road tiles.
     /// </summary>
-    public class RoadTileset : IDisposable
+    internal class RoadTileset : IDisposable
     {
         /// <summary>
         /// Number of theme-specific tiles in the tileset.

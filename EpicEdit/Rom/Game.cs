@@ -29,14 +29,14 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace EpicEdit.Rom
 {
-    public enum Region
+    internal enum Region
     {
         Jap,
         US,
         Euro
     }
 
-    public enum ItemType
+    internal enum ItemType
     {
         Mushroom,
         Feather,
@@ -52,7 +52,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// The Super Mario Kart Game class, which contains all of the game data.
     /// </summary>
-    public sealed class Game : IDisposable
+    internal sealed class Game : IDisposable
     {
         #region Public members and methods
 

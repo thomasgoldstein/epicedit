@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// The starting position of the drivers on a GP track.
     /// </summary>
-    public class GPStartPosition
+    internal class GPStartPosition
     {
         public const int Height = 168;
         private const int SecondRowMin = -256;

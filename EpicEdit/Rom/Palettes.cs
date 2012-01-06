@@ -23,7 +23,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represents a collection of <see cref="Palette">palettes</see>.
     /// </summary>
-    public class Palettes : IEnumerable<Palette>
+    internal class Palettes : IEnumerable<Palette>
     {
         /// <summary>
         /// Position at which sprite palettes begin.

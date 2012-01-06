@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.Objects
 {
     [TestFixture]
-    public class TrackObjectTileTest
+    internal class TrackObjectTileTest
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {

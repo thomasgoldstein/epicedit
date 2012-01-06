@@ -28,7 +28,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represents the data found in a MAKE exported track file.
     /// </summary>
-    public class MakeTrack
+    internal class MakeTrack
     {
         private Track track;
         private Game game;

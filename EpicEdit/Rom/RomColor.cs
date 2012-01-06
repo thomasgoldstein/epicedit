@@ -22,7 +22,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represent a color originating from the SMK ROM.
     /// </summary>
-    public struct RomColor
+    internal struct RomColor
     {
         /// <summary>
         /// The number of bytes that compose a palette.

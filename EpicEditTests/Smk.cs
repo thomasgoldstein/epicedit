@@ -18,7 +18,7 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEditTests
 {
-    public class Smk
+    internal class Smk
     {
         public byte[] RomBuffer { get; private set; }
         public Offsets Offsets { get; private set; }

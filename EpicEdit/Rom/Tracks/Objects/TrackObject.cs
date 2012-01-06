@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// A track object. E.g.: a pipe, a Cheep-Cheep, a Thwomp...
     /// </summary>
-    public class TrackObject
+    internal class TrackObject
     {
         public Point Location { get; set; }
 

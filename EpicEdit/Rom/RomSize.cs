@@ -19,7 +19,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// The possible SNES ROM sizes.
     /// </summary>
-    public static class RomSize
+    internal static class RomSize
     {
         /// <summary>
         /// The smallest SNES ROM size possible: 256 KiB (2 megabits), and the step value between each possible ROM sizes.

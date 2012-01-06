@@ -21,7 +21,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
     /// <summary>
     /// A change done on a rectangle of tiles.
     /// </summary>
-    public class TileChange
+    internal class TileChange
     {
         public int X { get; private set; }
         public int Y { get; private set; }

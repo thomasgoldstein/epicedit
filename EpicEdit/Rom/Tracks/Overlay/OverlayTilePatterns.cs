@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// Collection of all the overlay tile patterns in the game.
     /// </summary>
-    public class OverlayTilePatterns : ICollection<OverlayTilePattern>
+    internal class OverlayTilePatterns : ICollection<OverlayTilePattern>
     {
         private OverlayTilePattern[] patterns;
 

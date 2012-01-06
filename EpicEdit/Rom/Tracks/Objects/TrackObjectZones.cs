@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// A collection of <see cref="TrackObject"/> zones.
     /// A track object only appears in a track if it is located within its designated zone.
     /// </summary>
-    public class TrackObjectZones
+    internal class TrackObjectZones
     {
         /// <summary>
         /// The object zone grid size (horizontally and vertically).

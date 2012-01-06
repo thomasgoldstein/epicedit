@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// The starting position of the drivers on a battle track.
     /// </summary>
-    public class BattleStartPosition
+    internal class BattleStartPosition
     {
         private Point location;
         public Point Location

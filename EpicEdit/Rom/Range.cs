@@ -19,7 +19,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represents an interval defined by a <see cref="Start"/> and <see cref="End"/> value.
     /// </summary>
-    public struct Range
+    internal struct Range
     {
         public static readonly Range Empty;
 

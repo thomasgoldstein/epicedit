@@ -21,7 +21,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
     /// <summary>
     /// Undo/redo buffer for tile changes.
     /// </summary>
-    public class UndoRedoBuffer
+    internal class UndoRedoBuffer
     {
         /// <summary>
         /// The maximum number of undos, beyond which the oldest undos are deleted.

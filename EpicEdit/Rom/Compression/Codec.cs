@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Compression
     /// <summary>
     /// Provides methods to handle data compression and decompression.
     /// </summary>
-    public static class Codec
+    internal static class Codec
     {
         /// <summary>
         /// The size of the buffer to handle data compression and decompression.

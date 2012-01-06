@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.Items
 {
     [TestFixture]
-    public class ItemProbabilitiesTest
+    internal class ItemProbabilitiesTest
     {
         [Test]
         public void TestSave()

@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// A Grand Prix track.
     /// </summary>
-    public class GPTrack : Track
+    internal class GPTrack : Track
     {
         /// <summary>
         /// Number of GP tracks.

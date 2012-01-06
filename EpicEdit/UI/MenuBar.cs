@@ -28,7 +28,7 @@ namespace EpicEdit.UI
     /// <summary>
     /// Represents the application menu bar.
     /// </summary>
-    public partial class MenuBar : UserControl
+    internal partial class MenuBar : UserControl
     {
         #region Events
         [Browsable(true)]

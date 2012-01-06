@@ -21,7 +21,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represents a palette composed of 16 colors.
     /// </summary>
-    public class Palette
+    internal class Palette
     {
         /// <summary>
         /// The number of bytes that compose a palette.

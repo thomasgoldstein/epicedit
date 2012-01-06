@@ -24,7 +24,7 @@ namespace EpicEdit.UI.ThemeEdition
     /// <summary>
     /// The Form that contains the <see cref="ItemProbaEditor">item probability editor</see>.
     /// </summary>
-    public partial class ItemProbaEditorForm : Form
+    internal partial class ItemProbaEditorForm : Form
     {
         /// <summary>
         /// Raised when a pixel color has been selected.
