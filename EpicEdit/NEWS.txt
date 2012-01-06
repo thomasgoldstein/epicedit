@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.4 (???)
+v2.4 (January 6th 2012)
 
 - Added support for tile type, palette and graphics editing
 - Made it so that common road tiles are no longer shared across themes,
