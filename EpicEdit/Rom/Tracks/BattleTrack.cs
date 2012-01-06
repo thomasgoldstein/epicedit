@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// A Battle track (Battle Mode).
     /// </summary>
-    public class BattleTrack : Track
+    internal class BattleTrack : Track
     {
         /// <summary>
         /// Number of battle tracks.

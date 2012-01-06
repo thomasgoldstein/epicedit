@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.Items
 {
     [TestFixture]
-    public class ItemIconTileTest
+    internal class ItemIconTileTest
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData, int subPaletteIndex)
         {

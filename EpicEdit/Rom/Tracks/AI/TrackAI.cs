@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Tracks.AI
     /// <summary>
     /// The Artificial Intelligence attached to a track. Basically a path that the computer follows.
     /// </summary>
-    public class TrackAI : IEnumerable<TrackAIElement>
+    internal class TrackAI : IEnumerable<TrackAIElement>
     {
     	public const int MaxElementCount = 128;
     	

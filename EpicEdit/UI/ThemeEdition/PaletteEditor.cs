@@ -23,7 +23,7 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.Rom.ThemeEdition
 {
-    public partial class PaletteEditor : UserControl
+    internal partial class PaletteEditor : UserControl
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged;

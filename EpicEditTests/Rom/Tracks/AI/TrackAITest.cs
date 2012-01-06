@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.AI
 {
     [TestFixture]
-    public class TrackAITest
+    internal class TrackAITest
     {
         private void TestGetBytes(byte[] zoneData, byte[] targetData)
         {

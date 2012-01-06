@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// A group of tracks.
     /// </summary>
-    public class TrackGroup : IEnumerable<Track>
+    internal class TrackGroup : IEnumerable<Track>
     {
         private string name;
         private Track[] tracks;

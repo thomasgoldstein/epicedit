@@ -19,7 +19,7 @@ namespace EpicEditTests
     /// <summary>
     /// Description of MainTest.
     /// </summary>
-    public class MainTest
+    internal class MainTest
     {
         public static void Main()
         {

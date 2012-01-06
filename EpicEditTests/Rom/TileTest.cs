@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom
 {
     //[TestFixture]
-    public static class TileTest
+    internal static class TileTest
     {
         public static void TestGetColorIndexAt(Tile tile, Palette palette, bool transparency)
         {

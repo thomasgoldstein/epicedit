@@ -19,7 +19,7 @@ using System.Text;
 
 namespace EpicEdit.Rom.Tracks.Items
 {
-    public enum ItemBoxDisplay : byte
+    internal enum ItemBoxDisplay : byte
     {
         [Description("All items")]
         AllItems = 0x80,
@@ -36,7 +36,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Represents the probability for players to get each item.
     /// </summary>
-    public class ItemProbability
+    internal class ItemProbability
     {
         /// <summary>
         /// The amount of bytes a probability takes up.

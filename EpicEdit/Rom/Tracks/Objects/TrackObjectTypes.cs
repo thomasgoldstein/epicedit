@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    public enum ObjectType : byte
+    internal enum ObjectType : byte
     {
         Pipe = 0,
         Pillar = 1,
@@ -25,7 +25,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         RThwomp = 6
     }
 
-    public enum ObjectLoading : byte
+    internal enum ObjectLoading : byte
     {
         Regular = 0,
         Fish = 1,

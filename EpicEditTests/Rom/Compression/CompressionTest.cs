@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Compression
 {
     [TestFixture]
-    public class CompressionTest
+    internal class CompressionTest
     {
         private byte[] smkRomBuffer;
         private Game smkGame;

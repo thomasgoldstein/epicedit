@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// The lap line of a track.
     /// </summary>
-    public class LapLine
+    internal class LapLine
     {
         /// <summary>
         /// The precision X for the lap line (16 pixels).

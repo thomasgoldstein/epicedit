@@ -24,7 +24,7 @@ namespace EpicEditTests.Rom.Compression
     /// Non-regression tests for the compression rate of the FastCompressor.
     /// </summary>
     [TestFixture]
-    public class FastCompressorRateTest
+    internal class FastCompressorRateTest
     {
         private FastCompressor compressor = new FastCompressor();
         private Game smkGame;

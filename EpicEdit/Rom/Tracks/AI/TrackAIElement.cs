@@ -18,7 +18,7 @@ using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks.AI
 {
-    public enum Shape
+    internal enum Shape
     {
         [Description("Rectangle")]
         Rectangle = 0,
@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks.AI
     /// <summary>
     /// Represents an element of the <see cref="TrackAI"/>.
     /// </summary>
-    public class TrackAIElement
+    internal class TrackAIElement
     {
         /// <summary>
         /// The precision for AI elements: 2 tiles (16 pixels).

@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Represents an item icon tile (shown in the item roulette).
     /// </summary>
-    public sealed class ItemIconTile : Tile
+    internal sealed class ItemIconTile : Tile
     {
         private int paletteIndex;
         private int subPaletteIndex;

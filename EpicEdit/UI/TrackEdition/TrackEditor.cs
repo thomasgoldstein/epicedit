@@ -35,7 +35,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// A track editor.
     /// </summary>
-    public partial class TrackEditor : UserControl
+    internal partial class TrackEditor : UserControl
     {
         #region Private members
         /// <summary>

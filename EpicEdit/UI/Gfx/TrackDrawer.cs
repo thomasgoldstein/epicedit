@@ -33,7 +33,7 @@ namespace EpicEdit.UI.Gfx
     /// <summary>
     /// Provides the ability to paint the graphics of a track.
     /// </summary>
-    public sealed class TrackDrawer : IDisposable
+    internal sealed class TrackDrawer : IDisposable
     {
         private Control control;
         private Track track;

@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// The map layout of a track.
     /// </summary>
-    public class TrackMap
+    internal class TrackMap
     {
     	public const int Size = 128;
     	public const int Limit = TrackMap.Size - 1;

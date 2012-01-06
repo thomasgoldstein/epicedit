@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Items
 {
     #region Enumerations
 
-    public enum ItemProbaTheme
+    internal enum ItemProbaTheme
     {
         MarioCircuit = 0,
         GhostValley = 1,
@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks.Items
         VanillaLake = 6
     }
 
-    public enum GrandprixCondition
+    internal enum GrandprixCondition
     {
         [Description("Lap 1 or 1st")]
         Lap1_1st = 1,
@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Tracks.Items
         Lap2To5_5thTo8th = 2
     }
 
-    public enum MatchRaceCondition
+    internal enum MatchRaceCondition
     {
         [Description("Lap 1")]
         Lap1 = 0,
@@ -57,7 +57,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Collection of <see cref="ItemProbability"/> objects.
     /// </summary>
-    public class ItemProbabilities
+    internal class ItemProbabilities
     {
         // 7 different themes * 3 lap/rank = 21
         // 21 * 2 modes (GP and Match Race) = 42

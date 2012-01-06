@@ -26,7 +26,7 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
-    public partial class ColorPicker : UserControl
+    internal partial class ColorPicker : UserControl
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorChanged;

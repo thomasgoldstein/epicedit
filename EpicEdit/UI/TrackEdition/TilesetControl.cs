@@ -29,7 +29,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Represents a list of <see cref="Theme"/> objects, and the tileset of the selected theme.
     /// </summary>
-    public partial class TilesetControl : UserControl
+    internal partial class TilesetControl : UserControl
     {
         #region Events
         /// <summary>

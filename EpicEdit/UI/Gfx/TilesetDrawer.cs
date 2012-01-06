@@ -26,7 +26,7 @@ namespace EpicEdit.UI.Gfx
     /// <summary>
     /// Provides the ability to paint the graphics of a tileset.
     /// </summary>
-    public sealed class TilesetDrawer : IDisposable
+    internal sealed class TilesetDrawer : IDisposable
     {
         public const int Zoom = 2;
 

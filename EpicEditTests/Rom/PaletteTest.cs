@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom
 {
     [TestFixture]
-    public class PaletteTest
+    internal class PaletteTest
     {
         [Test]
         public void TestBlack()

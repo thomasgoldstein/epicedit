@@ -20,7 +20,7 @@ using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks
 {
-    public enum TileGenre : byte
+    internal enum TileGenre : byte
     {
         /// <summary>
         /// Jump bar.
@@ -218,7 +218,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents a non-animated track road tile.
     /// </summary>
-    public sealed class RoadTile : Tile
+    internal sealed class RoadTile : Tile
     {
         private TileGenre genre = TileGenre.Road;
         public TileGenre Genre

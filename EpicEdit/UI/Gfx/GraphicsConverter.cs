@@ -24,7 +24,7 @@ namespace EpicEdit.UI.Gfx
     /// <summary>
     /// Converts various SNES graphics types to Bitmaps.
     /// </summary>
-    public static class GraphicsConverter
+    internal static class GraphicsConverter
     {
         public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palette palette, int subPaletteIndex)
         {

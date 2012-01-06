@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class TrackTest
+    internal class TrackTest
     {
         private Game game;
 

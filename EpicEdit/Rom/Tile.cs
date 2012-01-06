@@ -20,7 +20,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// An 8x8 graphic tile.
     /// </summary>
-    public abstract class Tile : IDisposable
+    internal abstract class Tile : IDisposable
     {
         public const int Size = 8;
 

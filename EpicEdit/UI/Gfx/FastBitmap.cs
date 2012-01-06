@@ -18,7 +18,7 @@ using System.Drawing.Imaging;
 
 namespace EpicEdit.UI.Gfx
 {
-    public unsafe class FastBitmap
+    internal unsafe class FastBitmap
     {
         private struct PixelData
         {

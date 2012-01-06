@@ -19,7 +19,7 @@ namespace EpicEdit.Rom.Compression
     /// <summary>
     /// Interface for compressors.
     /// </summary>
-    public interface ICompressor
+    internal interface ICompressor
     {
         byte[] Compress(byte[] buffer, bool quirksMode);
     }

@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// A collection of up to 42 <see cref="OverlayTile"/> objects.
     /// </summary>
-    public class OverlayTiles : IEnumerable<OverlayTile>
+    internal class OverlayTiles : IEnumerable<OverlayTile>
     {
         public const int Size = 128;
         public const int MaxTileCount = 42;

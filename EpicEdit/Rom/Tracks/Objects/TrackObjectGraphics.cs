@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// Track object graphics manager.
     /// </summary>
-    public sealed class TrackObjectGraphics : IDisposable
+    internal sealed class TrackObjectGraphics : IDisposable
     {
         private Tile[][] tiles;
 

@@ -17,7 +17,7 @@ using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.Rom
 {
-    public enum Offset
+    internal enum Offset
     {
         /// <summary>
         /// Offset to the names of the modes on the title screen.
@@ -325,7 +325,7 @@ namespace EpicEdit.Rom
         RoadTilesetHack4
     }
 
-    public class Offsets
+    internal class Offsets
     {
         private int[] offsets;
 

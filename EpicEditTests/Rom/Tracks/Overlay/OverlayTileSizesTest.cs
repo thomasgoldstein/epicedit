@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks.Overlay
 {
     [TestFixture]
-    public class OverlayTileSizesTest
+    internal class OverlayTileSizesTest
     {
         private Smk smk;
 

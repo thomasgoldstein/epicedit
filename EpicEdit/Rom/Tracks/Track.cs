@@ -19,7 +19,7 @@ using EpicEdit.Rom.Tracks.Overlay;
 
 namespace EpicEdit.Rom.Tracks
 {
-    public enum ResizeHandle
+    internal enum ResizeHandle
     {
         None,
         TopLeft,
@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the common base between a <see cref="GPTrack"/> and a <see cref="BattleTrack"/>.
     /// </summary>
-    public abstract class Track
+    internal abstract class Track
     {
         /// <summary>
         /// Total number of tracks (GP tracks + battle tracks).

@@ -21,7 +21,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// <summary>
     /// Collection of all the overlay tile sizes in the game.
     /// </summary>
-    public class OverlayTileSizes : IEnumerable<OverlayTileSize>
+    internal class OverlayTileSizes : IEnumerable<OverlayTileSize>
     {
         private OverlayTileSize[] sizes;
 

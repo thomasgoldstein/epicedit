@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Tracks
 {
     [TestFixture]
-    public class LapLineTest
+    internal class LapLineTest
     {
         private void TestGetBytes(byte[] data)
         {

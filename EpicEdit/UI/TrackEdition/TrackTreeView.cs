@@ -24,7 +24,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Displays a hierarchical collection of tracks.
     /// </summary>
-    public partial class TrackTreeView : UserControl
+    internal partial class TrackTreeView : UserControl
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> SelectedTrackChanged;
