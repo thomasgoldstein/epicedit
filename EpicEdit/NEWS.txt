@@ -3,6 +3,10 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.4.1 (January nth 2012)
+- Fixed track map corruption issue with US ROMs
+
+
 v2.4 (January 6th 2012)
 
 - Added support for tile type, palette and graphics editing
