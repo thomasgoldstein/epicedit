@@ -2008,23 +2008,9 @@ namespace EpicEdit.Rom
 
         private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
-            if (this.region == Region.US)
-            {
-                // The US ROM doesn't support track maps that span from an (n)xxxx offset
-                // to an (n+1)xxxx one. Ie: the leading byte must be the same from start to end,
-                // or the track map gets corrupt. Add blank bytes when necessary to avoid issues.
-                int start = saveBuffer.Index;
-                int end = start + compressedTrack.Length;
-                if ((start & 0xF0000) < (end & 0xF0000))
-                {
-                    int blankSize = 0x10000 - (start & 0xFFFF);
-                    saveBuffer.Add(new byte[blankSize]);
-                }
-            }
-            
             // Update track offset
             int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            saveBuffer.Add(compressedTrack, trackOffsetIndex);
+            saveBuffer.AddCompressed(compressedTrack, trackOffsetIndex);
         }
 
         private void SaveThemes(SaveBuffer saveBuffer)
@@ -2066,14 +2052,14 @@ namespace EpicEdit.Rom
                     }
                 }
 
-                saveBuffer.Add(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
+                saveBuffer.AddCompressed(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
 
                 if (theme.Palettes.Modified)
                 {
                     // Save color palettes
                     int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
                     byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
-                    saveBuffer.Add(paletteData, paletteOffsetIndex);
+                    saveBuffer.AddCompressed(paletteData, paletteOffsetIndex);
                 }
             }
         }

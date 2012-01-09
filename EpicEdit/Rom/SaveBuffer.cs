@@ -25,6 +25,7 @@ namespace EpicEdit.Rom
         private byte[] romBuffer;
         private Queue<byte[]> savedData;
         private Range zone;
+        private Region region;
 
         /// <summary>
         /// Gets the current index value.
@@ -35,11 +36,19 @@ namespace EpicEdit.Rom
         {
             this.romBuffer = romBuffer;
             this.savedData = new Queue<byte[]>();
+            this.SetRegion();
 
             int zoneStart = RomSize.Size512;
             int zoneEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
             this.zone = new Range(zoneStart, zoneEnd);
             this.Index = this.zone.Start;
+        }
+
+        private void SetRegion()
+        {
+            int regionOffset = 0xFFD9;
+            int region = this.romBuffer[regionOffset];
+            this.region = (Region)region;
         }
 
         /// <summary>
@@ -62,6 +71,31 @@ namespace EpicEdit.Rom
             byte[] offset = Utilities.OffsetToBytes(this.Index);
             Buffer.BlockCopy(offset, 0, this.romBuffer, offsetIndex, 3);
             this.Add(data);
+        }
+
+        /// <summary>
+        /// Adds the compressed data to the buffer, and updates the relevant offset to point to the relocated data.
+        /// </summary>
+        /// <param name="data">The compressed data.</param>
+        /// <param name="offsetIndex">The address of the 3-byte offset to the data in the ROM.</param>
+        public void AddCompressed(byte[] data, int offsetIndex)
+        {
+            if (this.region == Region.US)
+            {
+                // The US ROM doesn't support compressed data that spans from an (n)xxxx offset
+                // to an (n+1)xxxx one. Ie: the leading byte must be the same from start to end,
+                // or the data cannot be decompressed properly.
+                // Add blank bytes when necessary to avoid issues.
+                int start = this.Index;
+                int end = start + data.Length;
+                if ((start & 0xF0000) < (end & 0xF0000))
+                {
+                    int blankSize = 0x10000 - (start & 0xFFFF);
+                    this.Add(new byte[blankSize]);
+                }
+            }
+
+            this.Add(data, offsetIndex);
         }
 
         public bool Includes(int offset)
