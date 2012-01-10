@@ -3,8 +3,9 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.4.1 (January nth 2012)
-- Fixed compressed data corruption issue with US ROMs
+v2.4.1 (January 10th 2012)
+- Fixed compressed data saving issue with US ROMs, preventing some data
+  from being properly decompressed when running the game
 
 
 v2.4 (January 6th 2012)
