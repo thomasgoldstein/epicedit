@@ -164,7 +164,9 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ColorPicker.cs" />
+    <Compile Include="UI\ThemeEdition\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </Compile>
@@ -174,19 +176,27 @@
     <Compile Include="UI\ThemeEdition\ItemProbaEditor.Designer.cs">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.cs" />
+    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.Designer.cs">
       <DependentUpon>ItemProbaEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditor.cs" />
+    <Compile Include="UI\ThemeEdition\PaletteEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditorForm.cs" />
+    <Compile Include="UI\ThemeEdition\PaletteEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\TilePanel.cs" />
+    <Compile Include="UI\Tools\TilePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Tools\EpicPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -292,6 +302,7 @@
     <EmbeddedResource Include="UI\TrackEdition\TrackTreeView.resx">
       <DependentUpon>TrackTreeView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="NEWS.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -313,7 +324,5 @@
       <Visible>False</Visible>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Tools\UndoRedo" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
