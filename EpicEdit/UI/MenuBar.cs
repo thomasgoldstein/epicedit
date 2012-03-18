@@ -267,6 +267,7 @@ namespace EpicEdit.UI
 
             MessageBox.Show(Application.ProductName + " - Super Mario Kart track editor" + Environment.NewLine +
                             "Version: " + versionText + " (2007-2012)" + Environment.NewLine +
+                            "Site: http://epicedit.stifu.fr/" + Environment.NewLine + Environment.NewLine +
                             "By Stifu" + Environment.NewLine +
                             "Assistant coders: Midwife and teknix1" + Environment.NewLine + Environment.NewLine +
                             "Special thanks to:" + Environment.NewLine +
