@@ -31,12 +31,12 @@ namespace EpicEdit.Rom.Tracks
         public RoadTileset RoadTileset { get; private set; }
         // TODO: Add support for background tilesets
 
-        public Theme(string name, Palettes palettes, RoadTile[] roadTileset)
+        public Theme(string name, Palettes palettes, RoadTileset roadTileset)
         {
             this.Name = name;
             this.Palettes = palettes;
             this.Palettes.Theme = this;
-            this.RoadTileset = new RoadTileset(roadTileset);
+            this.RoadTileset = roadTileset;
         }
 
         public override string ToString()
