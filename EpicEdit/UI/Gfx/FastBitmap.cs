@@ -72,6 +72,11 @@ namespace EpicEdit.UI.Gfx
             return Color.FromArgb((int)p->red, (int)p->green, (int)p->blue);
         }
 
+        private PixelData* PixelAt(int x, int y)
+        {
+            return (PixelData*)(this.pBase + y * this.subjectWidth + x * sizeof(PixelData));
+        }
+
         private void LockBitmap()
         {
             GraphicsUnit unit = GraphicsUnit.Pixel;
@@ -89,11 +94,6 @@ namespace EpicEdit.UI.Gfx
 
             this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             this.pBase = (Byte*)this.bitmapData.Scan0.ToPointer();
-        }
-
-        private PixelData* PixelAt(int x, int y)
-        {
-            return (PixelData*)(this.pBase + y * this.subjectWidth + x * sizeof(PixelData));
         }
 
         private void UnlockBitmap()
