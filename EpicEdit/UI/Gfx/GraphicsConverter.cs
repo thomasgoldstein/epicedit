@@ -53,9 +53,9 @@ namespace EpicEdit.UI.Gfx
         public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
-            // NOTE: We use a Bitmap rather than a FastBitmap, because FastBitmap does not support transparency
 
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            FastBitmap fBitmap = new FastBitmap(bitmap);
 
             for (int y = 0; y < Tile.Size; y++)
             {
@@ -73,10 +73,11 @@ namespace EpicEdit.UI.Gfx
                     int val4b = (((val4 & mask) << 3) >> x);
                     int colIndex = val1b + val2b + val3b + val4b;
                     Color color = colIndex == 0 ? Color.Transparent : palette[colIndex].Color;
-                    bitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
                 }
             }
 
+            fBitmap.Release();
             return bitmap;
         }
 
