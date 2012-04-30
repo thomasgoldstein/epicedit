@@ -79,14 +79,9 @@ namespace EpicEdit.UI.Gfx
 
         private void LockBitmap()
         {
-            GraphicsUnit unit = GraphicsUnit.Pixel;
-            RectangleF boundsF = this.subject.GetBounds(ref unit);
-            Rectangle bounds = new Rectangle((int)boundsF.X,
-                (int)boundsF.Y,
-                (int)boundsF.Width,
-                (int)boundsF.Height);
+            Rectangle bounds = new Rectangle(Point.Empty, this.subject.Size);
 
-            this.subjectWidth = (int)boundsF.Width * sizeof(PixelData);
+            this.subjectWidth = bounds.Width * sizeof(PixelData);
             if (this.subjectWidth % 4 != 0)
             {
                 this.subjectWidth = 4 * (this.subjectWidth / 4 + 1);
