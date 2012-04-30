@@ -25,6 +25,7 @@ namespace EpicEdit.UI.Gfx
             public byte blue;
             public byte green;
             public byte red;
+            public byte alpha;
         }
 
         private Bitmap subject;
@@ -61,6 +62,7 @@ namespace EpicEdit.UI.Gfx
         public void SetPixel(int x, int y, Color color)
         {
             PixelData* p = this.PixelAt(x, y);
+            p->alpha = color.A;
             p->red = color.R;
             p->green = color.G;
             p->blue = color.B;
@@ -69,7 +71,7 @@ namespace EpicEdit.UI.Gfx
         public Color GetPixel(int x, int y)
         {
             PixelData* p = this.PixelAt(x, y);
-            return Color.FromArgb((int)p->red, (int)p->green, (int)p->blue);
+            return Color.FromArgb(p->alpha, p->red, p->green, p->blue);
         }
 
         private PixelData* PixelAt(int x, int y)
@@ -87,7 +89,7 @@ namespace EpicEdit.UI.Gfx
                 this.subjectWidth = 4 * (this.subjectWidth / 4 + 1);
             }
 
-            this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format32bppPArgb);
             this.pBase = (Byte*)this.bitmapData.Scan0.ToPointer();
         }
 
