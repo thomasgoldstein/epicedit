@@ -92,7 +92,7 @@ namespace EpicEdit.Rom.Tracks
         public bool IntersectsWith(Point point)
         {
             return point.X >= this.X - Tile.Size &&
-            	point.X <= this.X + (Tile.Size - 1) &&
+                point.X <= this.X + (Tile.Size - 1) &&
                 point.Y >= this.Y - Tile.Size &&
                 point.Y <= this.Y + (Tile.Size - 1);
         }

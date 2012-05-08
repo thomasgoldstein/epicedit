@@ -25,20 +25,20 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// The precision X for the lap line (16 pixels).
         /// </summary>
-    	private const int PrecisionX = 16;
+        private const int PrecisionX = 16;
 
-    	/// <summary>
-    	/// The precision (X, width and height) used for the zone rectangle around the lap line.
-    	/// 2 tiles (or 16 pixels).
-    	/// </summary>
-    	private const int ZonePrecision = LapLine.PrecisionX / Tile.Size;
+        /// <summary>
+        /// The precision (X, width and height) used for the zone rectangle around the lap line.
+        /// 2 tiles (or 16 pixels).
+        /// </summary>
+        private const int ZonePrecision = LapLine.PrecisionX / Tile.Size;
 
-    	/// <summary>
-    	/// The precision (Y) used for the zone rectangle around the lap line.
-    	/// 8 tiles (or 64 pixels).
-    	/// </summary>
-    	private const int ZonePrecisionY = 8;
-    	
+        /// <summary>
+        /// The precision (Y) used for the zone rectangle around the lap line.
+        /// 8 tiles (or 64 pixels).
+        /// </summary>
+        private const int ZonePrecisionY = 8;
+
         private Point location;
         public Point Location
         {
