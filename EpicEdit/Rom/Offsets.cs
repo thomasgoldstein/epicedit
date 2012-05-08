@@ -159,7 +159,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Theme color palette address index.
         /// </summary>
-        ThemeColorPalettes,
+        ThemePalettes,
 
         /// <summary>
         /// Common road tileset graphics address index (upper 8 bits).
@@ -437,8 +437,8 @@ namespace EpicEdit.Rom
 
             this[Offset.TileGenreIndexes] = this[Offset.TrackMaps] - Theme.Count * 2;
             this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
-            this[Offset.ThemeColorPalettes] = this[Offset.ThemeRoadGraphics] + Theme.Count * 3;
-            this[Offset.TrackObjectGraphics] = this[Offset.ThemeColorPalettes] + Theme.Count * 3;
+            this[Offset.ThemePalettes] = this[Offset.ThemeRoadGraphics] + Theme.Count * 3;
+            this[Offset.TrackObjectGraphics] = this[Offset.ThemePalettes] + Theme.Count * 3;
             this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Theme.Count * 3;
             this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Theme.Count * 3;
             this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Theme.Count * 3;
