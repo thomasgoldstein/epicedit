@@ -24,7 +24,7 @@ using EpicEdit.Rom.Tracks;
 namespace EpicEdit.UI.Gfx
 {
     /// <summary>
-    /// Provides the ability to paint the graphics of a tileset.
+    /// Provides the ability to paint the graphics of a road tileset.
     /// </summary>
     internal sealed class TilesetDrawer : IDisposable
     {
