@@ -26,8 +26,8 @@ namespace EpicEdit.Rom.Tracks.AI
     /// </summary>
     internal class TrackAI : IEnumerable<TrackAIElement>
     {
-    	public const int MaxElementCount = 128;
-    	
+        public const int MaxElementCount = 128;
+
         private Track track;
         private List<TrackAIElement> aiElements;
 

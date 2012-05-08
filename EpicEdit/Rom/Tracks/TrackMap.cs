@@ -23,9 +23,9 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal class TrackMap
     {
-    	public const int Size = 128;
-    	public const int Limit = TrackMap.Size - 1;
-    	public const int SquareSize = TrackMap.Size * TrackMap.Size;
+        public const int Size = 128;
+        public const int Limit = TrackMap.Size - 1;
+        public const int SquareSize = TrackMap.Size * TrackMap.Size;
 
         private byte[][] map;
 
