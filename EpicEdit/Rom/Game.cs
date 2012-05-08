@@ -2057,7 +2057,7 @@ namespace EpicEdit.Rom
                 if (theme.Palettes.Modified)
                 {
                     // Save color palettes
-                    int paletteOffsetIndex = this.offsets[Offset.ThemeColorPalettes] + i * 3;
+                    int paletteOffsetIndex = this.offsets[Offset.ThemePalettes] + i * 3;
                     byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
                     saveBuffer.AddCompressed(paletteData, paletteOffsetIndex);
                 }

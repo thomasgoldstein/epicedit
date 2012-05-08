@@ -50,9 +50,9 @@ namespace EpicEdit.Rom.Tracks
             // TODO: Retrieve order dynamically from the ROM
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
 
-            int[] colorPaletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeColorPalettes], this.themes.Length);
+            int[] paletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemePalettes], this.themes.Length);
             int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
-            //int[] backgroundTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
+            //int[] bgTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
 
             bool roadTilesetHackApplied = Themes.IsRoadTilesetHackApplied(romBuffer, offsets);
             byte[] commonRoadTilePaletteIndexes;
@@ -97,9 +97,11 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < this.themes.Length; i++)
             {
+                string name = names[reorder[i]];
+
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
-                byte[] colorPaletteData = Codec.Decompress(romBuffer, colorPaletteOffsets[i], 512);
-                Palettes colorPalettes = new Palettes(colorPaletteData);
+                byte[] paletteData = Codec.Decompress(romBuffer, paletteOffsets[i], 512);
+                Palettes palettes = new Palettes(paletteData);
 
                 byte[] roadTileData = Codec.Decompress(romBuffer, roadTileGfxOffsets[i]);
                 byte[][] roadTileGfx = Utilities.ReadBlockGroupUntil(roadTileData, RoadTileset.TileCount, -1, 32);
@@ -151,12 +153,12 @@ namespace EpicEdit.Rom.Tracks
                     }
                 }
 
-                RoadTileset roadTileset = Themes.GetRoadTileset(colorPalettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
+                RoadTileset roadTileset = Themes.GetRoadTileset(palettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
 
                 // TODO: Add support for background tilesets
-                //byte[] backgroundTileData = Codec.Decompress(romBuffer, backgroundTileGfxOffsets[i]);
+                //byte[] bgTileData = Codec.Decompress(romBuffer, bgTileGfxOffsets[i]);
 
-                this.themes[i] = new Theme(names[reorder[i]], colorPalettes, roadTileset);
+                this.themes[i] = new Theme(name, palettes, roadTileset);
             }
         }
 
@@ -226,13 +228,13 @@ namespace EpicEdit.Rom.Tracks
             return paletteIndexes;
         }
 
-        private static RoadTileset GetRoadTileset(Palettes colorPalettes, byte[] tilePaletteIndexes, byte[][] tileGfx, TileGenre[] tileGenres)
+        private static RoadTileset GetRoadTileset(Palettes palettes, byte[] tilePaletteIndexes, byte[][] tileGfx, TileGenre[] tileGenres)
         {
             RoadTile[] tiles = new RoadTile[RoadTileset.TileCount];
 
             for (int i = 0; i < tileGfx.Length; i++)
             {
-                Palette palette = colorPalettes[tilePaletteIndexes[i]];
+                Palette palette = palettes[tilePaletteIndexes[i]];
                 tiles[i] = new RoadTile(tileGfx[i], palette, tileGenres[i]);
             }
 
