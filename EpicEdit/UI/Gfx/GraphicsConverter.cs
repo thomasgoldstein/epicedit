@@ -28,6 +28,11 @@ namespace EpicEdit.UI.Gfx
     {
         public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palette palette, int subPaletteIndex)
         {
+            return GraphicsConverter.GetBitmapFrom2bppPlanar(gfx, palette, subPaletteIndex, false);
+        }
+
+        public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palette palette, int subPaletteIndex, bool transparency)
+        {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
@@ -41,8 +46,12 @@ namespace EpicEdit.UI.Gfx
                 {
                     int mask = 1 << x;
                     int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-                    Color color = palette[subPaletteIndex + colIndex];
-                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+
+                    if (!transparency || colIndex > 0)
+                    {
+                        Color color = palette[subPaletteIndex + colIndex];
+                        fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                    }
                 }
             }
 
