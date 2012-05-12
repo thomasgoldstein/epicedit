@@ -72,8 +72,12 @@ namespace EpicEdit.UI.Gfx
                     int val3b = (((val3 & mask) << 2) >> x);
                     int val4b = (((val4 & mask) << 3) >> x);
                     int colIndex = val1b + val2b + val3b + val4b;
-                    Color color = colIndex == 0 ? Color.Transparent : palette[colIndex].Color;
-                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+
+                    if (colIndex > 0)
+                    {
+                        Color color = palette[colIndex].Color;
+                        fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                    }
                 }
             }
 
