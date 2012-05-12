@@ -29,10 +29,18 @@ namespace EpicEditTests.Rom.Tracks.Overlay
             this.smk = new Smk();
         }
 
+        private void TestGetBytes(byte[] data)
+        {
+            OverlayTiles overlayTiles = new OverlayTiles(data, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
+            byte[] dataAfter = overlayTiles.GetBytes();
+
+            Assert.AreEqual(data, dataAfter);
+        }
+
         [Test]
         public void TestGetBytes1()
         {
-            byte[] dataBefore =
+            byte[] data =
             {
                 0x00, 0x76, 0x0C, 0x00, 0x79, 0x0B, 0x00, 0xF5,
                 0x0A, 0x00, 0x75, 0x0E, 0x00, 0x78, 0x0D, 0x00,
@@ -52,16 +60,13 @@ namespace EpicEditTests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-            byte[] dataAfter = overlayTiles.GetBytes();
-
-            Assert.AreEqual(dataBefore, dataAfter);
+            this.TestGetBytes(data);
         }
 
         [Test]
         public void TestGetBytes2()
         {
-            byte[] dataBefore =
+            byte[] data =
             {
                 0x02, 0xD6, 0x04, 0x02, 0xCB, 0x05, 0x02, 0x52,
                 0x04, 0x02, 0x62, 0x08, 0x02, 0xD8, 0x06, 0x02,
@@ -81,16 +86,13 @@ namespace EpicEditTests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-            byte[] dataAfter = overlayTiles.GetBytes();
-
-            Assert.AreEqual(dataBefore, dataAfter);
+            this.TestGetBytes(data);
         }
 
         [Test]
         public void TestGetBytes3()
         {
-            byte[] dataBefore =
+            byte[] data =
             {
                 0x03, 0x1A, 0x06, 0x03, 0x97, 0x04, 0x03, 0xE3,
                 0x0B, 0x03, 0xE7, 0x0D, 0xEC, 0x71, 0x1B, 0xEC,
@@ -110,10 +112,7 @@ namespace EpicEditTests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            OverlayTiles overlayTiles = new OverlayTiles(dataBefore, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
-            byte[] dataAfter = overlayTiles.GetBytes();
-
-            Assert.AreEqual(dataBefore, dataAfter);
+            this.TestGetBytes(data);
         }
     }
 }
