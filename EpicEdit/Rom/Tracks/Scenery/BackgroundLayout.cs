@@ -21,6 +21,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class BackgroundLayout
     {
+
+        /// <summary>
+        /// The number of visible tile rows that compose a background layer.
+        /// </summary>
+        public const int RowCount = ActualRowCount - YStart;
+
         /// <summary>
         /// The number of tiles that compose the front layer row.
         /// </summary>
@@ -34,7 +40,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// The number of tile rows that compose a background layer.
         /// </summary>
-        public const int RowCount = 4;
+        private const int ActualRowCount = 4;
+
+        /// <summary>
+        /// Vertical index for the first visible tile row (ie: the top tile row is not visible in the game).
+        /// </summary>
+        private const int YStart = 1;
 
         /// <summary>
         /// How many bytes a background tile takes up.
@@ -49,7 +60,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// The size of a group of 4 byte blocks, one for each layer row.
         /// </summary>
-        private const int BlockGroupSize = BlockSize * RowCount;
+        private const int BlockGroupSize = BlockSize * ActualRowCount;
 
         /// <summary>
         /// How many bytes the front layer takes up.
@@ -59,7 +70,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// How many bytes a row of the front layer takes up.
         /// </summary>
-        private const int FrontLayerRowSize = FrontLayerSize / RowCount;
+        private const int FrontLayerRowSize = FrontLayerSize / ActualRowCount;
 
         /// <summary>
         /// How many bytes the back layer takes up.
@@ -69,7 +80,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// How many bytes a row of the back layer takes up.
         /// </summary>
-        private const int BackLayerRowSize = BackLayerSize / RowCount;
+        private const int BackLayerRowSize = BackLayerSize / ActualRowCount;
 
         /// <summary>
         /// How many bytes a whole background layout takes up.
@@ -93,9 +104,9 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         private static byte[][] GetLayer(byte[] data, int start, int rowSize)
         {
-            byte[][] layer = new byte[RowCount][];
+            byte[][] layer = new byte[ActualRowCount][];
 
-            for (int y = 0; y < RowCount; y++)
+            for (int y = 0; y < ActualRowCount; y++)
             {
                 layer[y] = new byte[rowSize];
                 int src = start + (y * BlockSize);
@@ -113,8 +124,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
         public void GetTileData(bool front, int x, int y, out byte tileId, out byte properties)
         {
             byte[][] layer = front ? this.frontLayer : this.backLayer;
-            tileId = layer[y][x * 2];
-            properties = layer[y][x * 2 + 1];
+            tileId = layer[YStart + y][x * 2];
+            properties = layer[YStart + y][x * 2 + 1];
         }
 
         public byte[] GetBytes()
@@ -129,7 +140,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             int rowSize = layer[0].Length;
 
-            for (int y = 0; y < RowCount; y++)
+            for (int y = 0; y < ActualRowCount; y++)
             {
                 int dest = start + (y * BlockSize);
                 for (int x = 0; x < rowSize; x += BlockSize)
