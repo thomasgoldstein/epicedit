@@ -50,17 +50,17 @@ namespace EpicEdit.UI.ThemeEdition
             this.backgroundPreviewer.LoadBackground(this.Theme.Background);
         }
         
-        private void PlayStopButtonClick(object sender, EventArgs e)
+        private void PlayPauseButtonClick(object sender, EventArgs e)
         {
             if (this.backgroundPreviewer.Paused)
             {
                 this.backgroundPreviewer.Play();
-                this.playStopButton.Text = "Stop";
+                this.playPauseButton.Text = "Pause";
             }
             else
             {                
-                this.backgroundPreviewer.Stop();
-                this.playStopButton.Text = "Play";
+                this.backgroundPreviewer.Pause();
+                this.playPauseButton.Text = "Play";
             }
         }
     }

@@ -44,7 +44,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
-            this.playStopButton = new System.Windows.Forms.Button();
+            this.playPauseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // backgroundPreviewer
@@ -64,26 +64,26 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.TabIndex = 1;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
-            // playStopButton
+            // playPauseButton
             // 
-            this.playStopButton.Location = new System.Drawing.Point(131, 3);
-            this.playStopButton.Name = "playStopButton";
-            this.playStopButton.Size = new System.Drawing.Size(75, 23);
-            this.playStopButton.TabIndex = 2;
-            this.playStopButton.Text = "Play";
-            this.playStopButton.UseVisualStyleBackColor = true;
-            this.playStopButton.Click += new System.EventHandler(this.PlayStopButtonClick);
+            this.playPauseButton.Location = new System.Drawing.Point(131, 3);
+            this.playPauseButton.Name = "playStopButton";
+            this.playPauseButton.Size = new System.Drawing.Size(75, 23);
+            this.playPauseButton.TabIndex = 2;
+            this.playPauseButton.Text = "Play";
+            this.playPauseButton.UseVisualStyleBackColor = true;
+            this.playPauseButton.Click += new System.EventHandler(this.PlayPauseButtonClick);
             // 
             // BackgroundEditor
             // 
-            this.Controls.Add(this.playStopButton);
+            this.Controls.Add(this.playPauseButton);
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(this.backgroundPreviewer);
             this.Name = "BackgroundEditor";
             this.Size = new System.Drawing.Size(520, 100);
             this.ResumeLayout(false);
         }
-        private System.Windows.Forms.Button playStopButton;
+        private System.Windows.Forms.Button playPauseButton;
         private System.Windows.Forms.ComboBox themeComboBox;
         private EpicEdit.UI.ThemeEdition.BackgroundPreviewer backgroundPreviewer;
     }
