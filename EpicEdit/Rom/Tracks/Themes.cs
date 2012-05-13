@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
+using EpicEdit.Rom.Tracks.Scenery;
 
 namespace EpicEdit.Rom.Tracks
 {
@@ -52,7 +53,8 @@ namespace EpicEdit.Rom.Tracks
 
             int[] paletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemePalettes], this.themes.Length);
             int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
-            //int[] bgTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
+            int[] bgTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundGraphics], this.themes.Length);
+            int[] bgLayoutOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.TrackBackgroundLayouts], this.themes.Length);
 
             bool roadTilesetHackApplied = Themes.IsRoadTilesetHackApplied(romBuffer, offsets);
             byte[] commonRoadTilePaletteIndexes;
@@ -155,10 +157,16 @@ namespace EpicEdit.Rom.Tracks
 
                 RoadTileset roadTileset = Themes.GetRoadTileset(palettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
 
-                // TODO: Add support for background tilesets
-                //byte[] bgTileData = Codec.Decompress(romBuffer, bgTileGfxOffsets[i]);
+                byte[] bgTileData = Codec.Decompress(romBuffer, bgTileGfxOffsets[i]);
+                byte[][] bgTileGfx = Utilities.ReadBlockGroupUntil(bgTileData, 0, -1, 16);
+                BackgroundTileset bgTileset = Themes.GetBackgroundTileset(palettes, bgTileGfx);
 
-                this.themes[i] = new Theme(name, palettes, roadTileset);
+                byte[] bgLayoutData = Codec.Decompress(romBuffer, bgLayoutOffsets[i]);
+                BackgroundLayout bgLayout = new BackgroundLayout(bgLayoutData);
+
+                Background background = new Background(bgTileset, bgLayout);
+
+                this.themes[i] = new Theme(name, palettes, roadTileset, background);
             }
         }
 
@@ -239,6 +247,18 @@ namespace EpicEdit.Rom.Tracks
             }
 
             return new RoadTileset(tiles);
+        }
+
+        private static BackgroundTileset GetBackgroundTileset(Palettes palettes, byte[][] tileGfx)
+        {
+            BackgroundTile[] tiles = new BackgroundTile[tileGfx.Length];
+
+            for (int i = 0; i < tileGfx.Length; i++)
+            {
+                tiles[i] = new BackgroundTile(tileGfx[i], palettes);
+            }
+
+            return new BackgroundTileset(tiles);
         }
 
         public byte GetThemeId(Theme theme)
