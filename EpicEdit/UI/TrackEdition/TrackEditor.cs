@@ -287,6 +287,16 @@ namespace EpicEdit.UI.TrackEdition
         private PaletteEditorForm paletteForm;
 
         /// <summary>
+        /// Determines whether the background editor form has been initialized.
+        /// </summary>
+        private bool backgroundFormInitialized;
+
+        /// <summary>
+        /// The background editor form.
+        /// </summary>
+        private BackgroundEditorForm backgroundForm;
+
+        /// <summary>
         /// Determines whether the item probability editor form has been initialized.
         /// </summary>
         private bool itemProbaFormInitialized;
@@ -383,6 +393,7 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.InitOnRomLoad();
             this.trackTreeView.InitOnRomLoad();
             this.ReInitPaletteEditor();
+            this.ReInitBackgroundEditor();
             this.ReInitItemProbaEditor();
 
             foreach (UndoRedoBuffer buffer in this.undoRedoBuffers.Values)
@@ -820,6 +831,8 @@ namespace EpicEdit.UI.TrackEdition
                 Context.Game.ObjectGraphics.UpdateTiles(palette);
             }
 
+            // TODO: Update background colors
+
             if (this.itemProbaFormInitialized)
             {
                 this.itemProbaForm.Editor.UpdateImages(palette);
@@ -858,6 +871,47 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.trackDisplay.Invalidate();
                 this.trackDisplay.Update();
+            }
+        }
+
+        private void MenuBarBackgroundEditorRequested(object sender, EventArgs e)
+        {
+            if (!this.backgroundFormInitialized)
+            {
+                this.InitBackgroundEditorForm();
+            }
+
+            this.backgroundForm.Visible = !this.backgroundForm.Visible;
+        }
+
+        private void InitBackgroundEditorForm()
+        {
+            if (this.backgroundForm == null)
+            {
+                this.backgroundForm = new BackgroundEditorForm();
+                this.backgroundForm.Owner = this.ParentForm;
+            }
+
+            this.backgroundForm.Init();
+            this.backgroundFormInitialized = true;
+        }
+
+        private void ReInitBackgroundEditor()
+        {
+            if (!this.backgroundFormInitialized)
+            {
+                return;
+            }
+
+            if (!this.backgroundForm.Visible)
+            {
+                // Reinit the background editor next time it's shown
+                this.backgroundFormInitialized = false;
+            }
+            else
+            {
+                // Reinit the background proba editor now
+                this.itemProbaForm.Init();
             }
         }
 

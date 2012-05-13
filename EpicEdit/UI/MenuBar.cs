@@ -65,6 +65,9 @@ namespace EpicEdit.UI
         public event EventHandler<EventArgs> PaletteEditorRequested;
 
         [Browsable(true)]
+        public event EventHandler<EventArgs> BackgroundEditorRequested;
+
+        [Browsable(true)]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
         #endregion Events
 
@@ -100,6 +103,7 @@ namespace EpicEdit.UI
             this.zoomOutToolStripButton.Enabled = true;
             this.zoomInToolStripButton.Enabled = true;
             this.paletteToolStripButton.Enabled = true;
+            this.backgroundToolStripButton.Enabled = true;
             this.itemProbaToolStripButton.Enabled = true;
 
             // Enable hidden key shortcuts
@@ -248,6 +252,13 @@ namespace EpicEdit.UI
             this.PaletteEditorRequested(this, EventArgs.Empty);
         }
         #endregion Palette editor
+
+        #region Background editor
+        private void BackgroundToolStripButtonClick(object sender, EventArgs e)
+        {
+            this.BackgroundEditorRequested(this, EventArgs.Empty);
+        }
+        #endregion Background editor
 
         #region Item probability editor
         private void ItemProbaToolStripButtonClick(object sender, EventArgs e)

@@ -185,8 +185,8 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
             this.tilesetControl.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedTileChanged);
             this.tilesetControl.TrackMapChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackMapChanged);
-            this.tilesetControl.TilesetChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTilesetChanged);
             this.tilesetControl.TileChanged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<byte>>(this.TilesetControlTileChanged);
+            this.tilesetControl.TilesetChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTilesetChanged);
             // 
             // overlayTabPage
             // 
@@ -309,6 +309,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.ZoomOutRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomOutRequested);
             this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
             this.menuBar.PaletteEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarPaletteEditorRequested);
+            this.menuBar.BackgroundEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarBackgroundEditorRequested);
             this.menuBar.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarItemProbaEditorRequested);
             // 
             // TrackEditor
