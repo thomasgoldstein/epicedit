@@ -23,6 +23,9 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.Rom.ThemeEdition
 {
+    /// <summary>
+    /// Represents a collection of controls used to edit color palettes.
+    /// </summary>
     internal partial class PaletteEditor : UserControl
     {
         [Browsable(true)]
