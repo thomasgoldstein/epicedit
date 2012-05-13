@@ -45,7 +45,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -54,7 +53,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>false</DebugSymbols>
     <DebugType>None</DebugType>
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -73,12 +71,14 @@
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
@@ -138,6 +138,10 @@
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
     <Compile Include="Rom\Tracks\GPStartPosition.cs" />
     <Compile Include="Rom\Tracks\RoadTileset.cs" />
+    <Compile Include="Rom\Tracks\Scenery\Background.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />
     <Compile Include="Rom\Tracks\RoadTile.cs" />
@@ -323,5 +327,4 @@
       <Visible>False</Visible>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
 </Project>

@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Tracks.Scenery;
 
 namespace EpicEdit.Rom.Tracks
 {
@@ -29,14 +30,15 @@ namespace EpicEdit.Rom.Tracks
         public string Name { get; private set; }
         public Palettes Palettes { get; private set; }
         public RoadTileset RoadTileset { get; private set; }
-        // TODO: Add support for background tilesets
+        public Background Background  { get; private set; }
 
-        public Theme(string name, Palettes palettes, RoadTileset roadTileset)
+        public Theme(string name, Palettes palettes, RoadTileset roadTileset, Background background)
         {
             this.Name = name;
             this.Palettes = palettes;
             this.Palettes.Theme = this;
             this.RoadTileset = roadTileset;
+            this.Background = background;
         }
 
         public override string ToString()
@@ -47,6 +49,7 @@ namespace EpicEdit.Rom.Tracks
         public void Dispose()
         {
             this.RoadTileset.Dispose();
+            this.Background.Dispose();
 
             GC.SuppressFinalize(this);
         }
