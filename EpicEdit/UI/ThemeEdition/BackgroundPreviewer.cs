@@ -56,7 +56,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.repaintTimer.Start();
         }
 
-        public void Stop()
+        public void Pause()
         {
             this.repaintTimer.Stop();
         }
