@@ -43,7 +43,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -52,7 +51,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>false</DebugSymbols>
     <DebugType>None</DebugType>
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -84,6 +82,7 @@
     <Compile Include="Rom\Tracks\Items\ItemIconTileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
     <Compile Include="Rom\Tracks\RoadTileTest.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTest.cs" />
     <Compile Include="Rom\UtilitiesTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
@@ -106,11 +105,13 @@
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -129,11 +130,5 @@
       <Project>{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}</Project>
       <Name>EpicEdit</Name>
     </ProjectReference>
-    <Folder Include="Rom\Compression" />
-    <Folder Include="Rom\Tracks" />
-    <Folder Include="Rom\Tracks\AI" />
-    <Folder Include="Rom\Tracks\Items" />
-    <Folder Include="Rom\Tracks\Overlay" />
-    <Folder Include="Rom\Tracks\Objects" />
   </ItemGroup>
 </Project>
