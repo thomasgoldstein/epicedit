@@ -831,7 +831,10 @@ namespace EpicEdit.UI.TrackEdition
                 Context.Game.ObjectGraphics.UpdateTiles(palette);
             }
 
-            // TODO: Update background colors
+            if (this.backgroundFormInitialized)
+            {
+                this.backgroundForm.Editor.UpdateBackground(theme);
+            }
 
             if (this.itemProbaFormInitialized)
             {
