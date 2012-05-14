@@ -58,9 +58,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.repaintTimer.Stop();
         }
 
-        public void Reset()
+        public void Rewind()
         {
-            this.Pause();
             this.drawer.Rewind();
         }
 
