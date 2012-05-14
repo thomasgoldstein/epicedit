@@ -33,26 +33,21 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public Bitmap GetFrontTileBitmap(int x, int y)
         {
-            return this.GetTileBitmap(true, x, y, false);
-        }
-
-        public Bitmap GetFrontTileBitmap(int x, int y, bool transparency)
-        {
-            return this.GetTileBitmap(true, x, y, transparency);
+            return this.GetTileBitmap(true, x, y);
         }
 
         public Bitmap GetBackTileBitmap(int x, int y)
         {
-            return this.GetTileBitmap(false, x, y, false);
+            return this.GetTileBitmap(false, x, y);
         }
 
-        private Bitmap GetTileBitmap(bool front, int x, int y, bool transparency)
+        private Bitmap GetTileBitmap(bool front, int x, int y)
         {
             byte tileId;
             byte properties;
             this.layout.GetTileData(front, x, y, out tileId, out properties);
             BackgroundTile tile = this.tileset[tileId];
-            return tile.GetBitmap(properties, front, transparency);
+            return tile.GetBitmap(properties, front);
         }
 
         public void Dispose()

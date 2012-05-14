@@ -13,11 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
-
-using EpicEdit.Rom.Tracks.Scenery;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.UI.ThemeEdition
@@ -61,9 +58,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.repaintTimer.Stop();
         }
 
-        public void LoadBackground(Background background)
+        public void LoadTheme(Theme theme)
         {
-            this.drawer.LoadBackground(background);
+            this.drawer.LoadTheme(theme);
             this.Invalidate();
         }
 
