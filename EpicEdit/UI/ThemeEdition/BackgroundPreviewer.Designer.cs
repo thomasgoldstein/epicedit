@@ -33,8 +33,9 @@ namespace EpicEdit.UI.ThemeEdition
                 {
                     components.Dispose();
                 }
-                
+
                 this.drawer.Dispose();
+                this.repaintTimer.Dispose();
             }
             base.Dispose(disposing);
         }
