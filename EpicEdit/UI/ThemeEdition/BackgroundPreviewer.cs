@@ -60,6 +60,12 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void LoadTheme(Theme theme)
         {
+            this.drawer.Rewind();
+            this.UpdateBackground(theme);
+        }
+
+        public void UpdateBackground(Theme theme)
+        {
             this.drawer.LoadTheme(theme);
             this.Invalidate();
         }

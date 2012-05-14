@@ -56,9 +56,13 @@ namespace EpicEdit.UI.Gfx
         public void LoadTheme(Theme theme)
         {
             this.theme = theme;
-            this.x = 0;
             this.InitFrontLayer();
             this.InitBackLayer();
+        }
+
+        public void Rewind()
+        {            
+            this.x = 0;
         }
 
         private void InitFrontLayer()
