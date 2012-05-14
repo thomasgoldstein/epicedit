@@ -52,16 +52,16 @@ namespace EpicEdit.Rom.Tracks.Scenery
             throw new NotImplementedException();
         }
 
-        private Bitmap GetBitmap(Palette palette, int subPaletteIndex, bool transparency)
+        private Bitmap GetBitmap(Palette palette, int subPaletteIndex)
         {
             if (palette == null)
             {
                 throw new InvalidOperationException("Cannot generate Bitmap as the Palette has not been set.");
             }
-            return GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, palette, subPaletteIndex, transparency);
+            return GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, palette, subPaletteIndex, true);
         }
 
-        public Bitmap GetBitmap(byte properties, bool front, bool transparency)
+        public Bitmap GetBitmap(byte properties, bool front)
         {
             byte paletteData = (byte)(properties & 0x3F);
             int start = front ? FrontPaletteStart : BackPaletteStart;
@@ -70,7 +70,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             int subPaletteIndex = subPalIndex;
             Palette palette = this.palettes[start + palIndex];
 
-            Bitmap bitmap = this.GetBitmap(palette, subPaletteIndex, transparency);
+            Bitmap bitmap = this.GetBitmap(palette, subPaletteIndex);
 
             Flip flip = (Flip)(properties & (byte)(Flip.XY));
             switch (flip)

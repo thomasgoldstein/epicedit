@@ -47,7 +47,7 @@ namespace EpicEdit.UI.ThemeEdition
         
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.backgroundPreviewer.LoadBackground(this.Theme.Background);
+            this.backgroundPreviewer.LoadTheme(this.Theme);
         }
         
         private void PlayPauseButtonClick(object sender, EventArgs e)

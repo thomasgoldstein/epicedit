@@ -39,7 +39,7 @@ namespace EpicEdit.UI.Gfx
             get { return BackgroundLayout.RowCount * Tile.Size; }
         }
 
-        private Background background;
+        private Theme theme;
         private Bitmap frontLayer;
         private Bitmap backLayer;
 
@@ -47,17 +47,15 @@ namespace EpicEdit.UI.Gfx
 
         public BackgroundPreviewDrawer()
         {
-            this.background = Context.Game.Themes[0].Background;
-
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
             this.frontLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
             this.backLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
-        public void LoadBackground(Background background)
+        public void LoadTheme(Theme theme)
         {
-            this.background = background;
+            this.theme = theme;
             this.x = 0;
             this.InitFrontLayer();
             this.InitBackLayer();
@@ -68,13 +66,15 @@ namespace EpicEdit.UI.Gfx
             this.frontLayer.Dispose();
 
             this.frontLayer = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppPArgb);
+            Background background = this.theme.Background;
+
             using (Graphics g = Graphics.FromImage( this.frontLayer))
             {
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
                 {
                     for (int x = 0; x < BackgroundLayout.FrontLayerWidth; x++)
                     {
-                        Bitmap tileBitmap = this.background.GetFrontTileBitmap(x, y, true);
+                        Bitmap tileBitmap = background.GetFrontTileBitmap(x, y);
                         g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
@@ -86,13 +86,17 @@ namespace EpicEdit.UI.Gfx
             this.backLayer.Dispose();
 
             this.backLayer = new Bitmap(BackgroundLayout.BackLayerWidth * Tile.Size, this.Height, PixelFormat.Format32bppPArgb);
+            Background background = this.theme.Background;
+
             using (Graphics g = Graphics.FromImage(this.backLayer))
             {
+                g.Clear(this.theme.Palettes[0][0]);
+
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
                 {
                     for (int x = 0; x < BackgroundLayout.BackLayerWidth; x++)
                     {
-                        Bitmap tileBitmap = this.background.GetBackTileBitmap(x, y);
+                        Bitmap tileBitmap = background.GetBackTileBitmap(x, y);
                         g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
