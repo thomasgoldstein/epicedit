@@ -26,7 +26,7 @@ namespace EpicEdit.UI.Gfx
     /// <summary>
     /// Provides the ability to preview a track background.
     /// </summary>
-    internal class BackgroundPreviewDrawer
+    internal sealed class BackgroundPreviewDrawer : IDisposable
     {
         private const int Zoom = 2;
         private int Width
@@ -124,6 +124,14 @@ namespace EpicEdit.UI.Gfx
             {
                 this.x = 0;
             }
+        }
+
+        public void Dispose()
+        {
+            this.frontLayer.Dispose();
+            this.backLayer.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }
