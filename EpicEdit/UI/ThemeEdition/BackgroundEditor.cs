@@ -45,6 +45,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
+        public void Reset()
+        {
+            this.backgroundPreviewer.Reset();
+        }
+
         public void UpdateBackground(Theme theme)
         {
             if (theme == this.Theme)
