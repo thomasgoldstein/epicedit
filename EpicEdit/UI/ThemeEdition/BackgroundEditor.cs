@@ -45,9 +45,22 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        public void Reset()
+        public void ResetPreview()
         {
-            this.backgroundPreviewer.Reset();
+            this.PausePreview();
+            this.backgroundPreviewer.Rewind();
+        }
+
+        private void PlayPreview()
+        {
+            this.backgroundPreviewer.Play();
+            this.playPauseButton.Text = "Pause";
+        }
+
+        private void PausePreview()
+        {
+            this.backgroundPreviewer.Pause();
+            this.playPauseButton.Text = "Play";
         }
 
         public void UpdateBackground(Theme theme)
@@ -67,13 +80,11 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (this.backgroundPreviewer.Paused)
             {
-                this.backgroundPreviewer.Play();
-                this.playPauseButton.Text = "Pause";
+                this.PlayPreview();
             }
             else
-            {                
-                this.backgroundPreviewer.Pause();
-                this.playPauseButton.Text = "Play";
+            {
+                this.PausePreview();
             }
         }
     }

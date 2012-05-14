@@ -33,7 +33,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Hide();
             e.Cancel = true;
 
-            this.Editor.Reset();
+            this.Editor.ResetPreview();
         }
 
         public void Init()
