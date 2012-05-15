@@ -66,7 +66,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.mushroomPanel = new EpicEdit.UI.ThemeEdition.ItemProbaEditor.ItemIconPanel();
             this.resetButton = new System.Windows.Forms.Button();
             this.itemBoxDisplayOptionLabel = new System.Windows.Forms.Label();
-            this.itemBoxDisplayOption = new System.Windows.Forms.ComboBox();
+            this.itemBoxDisplayOptions = new System.Windows.Forms.ComboBox();
             this.totalValue = new System.Windows.Forms.Label();
             this.lightningValue = new System.Windows.Forms.Label();
             this.coinsNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -289,16 +289,16 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOptionLabel.TabIndex = 39;
             this.itemBoxDisplayOptionLabel.Text = "Item box display option";
             // 
-            // itemBoxDisplayOption
+            // itemBoxDisplayOptions
             // 
-            this.itemBoxDisplayOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.itemBoxDisplayOption.FormattingEnabled = true;
-            this.itemBoxDisplayOption.Location = new System.Drawing.Point(194, 188);
-            this.itemBoxDisplayOption.Name = "itemBoxDisplayOption";
-            this.itemBoxDisplayOption.Size = new System.Drawing.Size(130, 21);
-            this.itemBoxDisplayOption.TabIndex = 38;
-            this.itemBoxDisplayOption.SelectedIndexChanged += new System.EventHandler(this.ValueChanged);
-            this.itemBoxDisplayOption.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
+            this.itemBoxDisplayOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.itemBoxDisplayOptions.FormattingEnabled = true;
+            this.itemBoxDisplayOptions.Location = new System.Drawing.Point(194, 188);
+            this.itemBoxDisplayOptions.Name = "itemBoxDisplayOption";
+            this.itemBoxDisplayOptions.Size = new System.Drawing.Size(130, 21);
+            this.itemBoxDisplayOptions.TabIndex = 38;
+            this.itemBoxDisplayOptions.SelectedIndexChanged += new System.EventHandler(this.ValueChanged);
+            this.itemBoxDisplayOptions.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
             // 
             // totalValue
             // 
@@ -573,7 +573,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.coinsNumericUpDown);
             this.Controls.Add(this.modeComboBox);
             this.Controls.Add(totalLabel);
-            this.Controls.Add(this.itemBoxDisplayOption);
+            this.Controls.Add(this.itemBoxDisplayOptions);
             this.Controls.Add(this.lightningValue);
             this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
@@ -631,7 +631,7 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.Label lightningValue;
         private System.Windows.Forms.Label totalValue;
         private System.Windows.Forms.Label itemBoxDisplayOptionLabel;
-        private System.Windows.Forms.ComboBox itemBoxDisplayOption;
+        private System.Windows.Forms.ComboBox itemBoxDisplayOptions;
         private System.Windows.Forms.Button resetButton;
     }
 }
