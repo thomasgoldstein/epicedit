@@ -106,6 +106,11 @@ namespace EpicEdit.Rom.ThemeEdition
         /// </summary>
         public void Init()
         {
+            this.InitThemeComboBox();
+        }
+
+        private void InitThemeComboBox()
+        {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
             foreach (Theme theme in Context.Game.Themes)

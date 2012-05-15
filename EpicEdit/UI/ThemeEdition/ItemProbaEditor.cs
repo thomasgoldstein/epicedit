@@ -95,10 +95,10 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.itemProbabilities = Context.Game.ItemProbabilities;
 
-            this.InitModeList();
-            this.InitThemeList();
-            this.InitLapRankList();
-            this.InitItemBoxDisplayOptionList();
+            this.InitModeComboBox();
+            this.InitThemeComboBox();
+            this.InitLapRankComboBox();
+            this.InitItemBoxDisplayOptionComboBox();
 
             this.InitProbability();
             this.DisplayProbability();
@@ -108,7 +108,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.performEvents = true;
         }
 
-        private void InitModeList()
+        private void InitModeComboBox()
         {
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.SelectedIndex = 0;
         }
 
-        private void InitThemeList()
+        private void InitThemeComboBox()
         {
             this.themeComboBox.BeginUpdate();
             this.themeComboBox.Items.Clear();
@@ -139,7 +139,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        private void InitLapRankList()
+        private void InitLapRankComboBox()
         {
             this.lapRankComboBox.BeginUpdate();
             this.lapRankComboBox.Items.Clear();
@@ -164,32 +164,32 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.EndUpdate();
         }
 
-        private void InitItemBoxDisplayOptionList()
+        private void InitItemBoxDisplayOptionComboBox()
         {
-            this.itemBoxDisplayOption.BeginUpdate();
-            this.itemBoxDisplayOption.Items.Clear();
+            this.itemBoxDisplayOptions.BeginUpdate();
+            this.itemBoxDisplayOptions.Items.Clear();
 
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0:
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoGhosts);
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
                     break;
 
                 case 1:
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.AllItems);
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoFeathers);
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoGhosts);
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.AllItems);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoFeathers);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
                     break;
 
                 case 2:
-                    this.itemBoxDisplayOption.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
+                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
                     break;
             }
 
-            this.itemBoxDisplayOption.EndUpdate();
+            this.itemBoxDisplayOptions.EndUpdate();
         }
 
         private void InitProbability()
@@ -264,7 +264,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.coinsNumericUpDown.Value = this.itemProbability.Coins;
             this.lightningValue.Text = this.itemProbability.Lightning.ToString(ic);
             this.totalValue.Text = total.ToString(ic);
-            this.itemBoxDisplayOption.SelectedItem = this.itemProbability.DisplayedItems;
+            this.itemBoxDisplayOptions.SelectedItem = this.itemProbability.DisplayedItems;
 
             this.mushroomPctLabel.Text = ((float)this.itemProbability.Mushroom / total).ToString("P1", ic);
             this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ic);
@@ -380,7 +380,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.itemProbability.Ghost = this.itemProbability.Lightning;
             }
 
-            this.itemProbability.DisplayedItems = (ItemBoxDisplay)this.itemBoxDisplayOption.SelectedItem;
+            this.itemProbability.DisplayedItems = (ItemBoxDisplay)this.itemBoxDisplayOptions.SelectedItem;
 
             // Then redisplay them as validation occurs within the object
             this.DisplayProbability();
@@ -396,8 +396,8 @@ namespace EpicEdit.UI.ThemeEdition
             // Disable events so they don't get fired multiple times by other controls being updated
             this.performEvents = false;
 
-            this.InitLapRankList();
-            this.InitItemBoxDisplayOptionList();
+            this.InitLapRankComboBox();
+            this.InitItemBoxDisplayOptionComboBox();
             this.lapRankComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
             this.themeComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
             if (this.modeComboBox.SelectedIndex == 2)
@@ -409,7 +409,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.themeComboBox.SelectedIndex = 0;
             }
 
-            this.itemBoxDisplayOption.Enabled = this.modeComboBox.SelectedIndex != 2;
+            this.itemBoxDisplayOptions.Enabled = this.modeComboBox.SelectedIndex != 2;
             this.itemBoxDisplayOptionLabel.Enabled = this.modeComboBox.SelectedIndex != 2;
 
             this.InitProbability();
