@@ -3,6 +3,13 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.? (??? 2012)
+- Fixed the object extension hack introduced in v2.2 to work with ROMs
+  that have a modified Luigi head sprite
+- Added a config file to enable running the program with .NET 4.0
+- Minor tweaks and fixes
+
+
 v2.4.1 (January 10th 2012)
 - Fixed compressed data saving issue with US ROMs, preventing some data
   from being properly decompressed when running the game
