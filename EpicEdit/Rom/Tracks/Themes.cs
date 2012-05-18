@@ -173,7 +173,7 @@ namespace EpicEdit.Rom.Tracks
         private static bool AreTileGenresRelocated(byte[] romBuffer, int offset)
         {
             if (romBuffer[offset] == 0x5C &&
-                romBuffer[offset + 1] == 0xF4 &&
+                romBuffer[offset + 1] == 0xFD &&
                 romBuffer[offset + 2] == 0x5E &&
                 romBuffer[offset + 3] == 0xC8)
             {
