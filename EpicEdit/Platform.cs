@@ -24,7 +24,7 @@ namespace EpicEdit
         /// <summary>
         /// Checks whether the framework used is Mono.
         /// </summary>
-        /// <returns>True (using Mono) or false (not using Mono).</returns>
+        /// <returns>True (Mono) or false (not Mono).</returns>
         public static bool IsMono
         {
             get { return Type.GetType("Mono.Runtime") != null; }
