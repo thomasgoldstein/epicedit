@@ -298,7 +298,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The tile types for each theme tileset (after relocation).
         /// </summary>
-        TileGenres2,
+        TileGenresRelocated,
 
         /// <summary>
         /// Offset for hack to make it so each road tileset
@@ -404,7 +404,7 @@ namespace EpicEdit.Rom
             }
 
             this[Offset.TileGenres] = 0x7FDBA;
-            this[Offset.TileGenres2] = 0x85F2A;
+            this[Offset.TileGenresRelocated] = 0x85F2A;
             this[Offset.ItemIconGraphics] = 0x112F8;
             this[Offset.TrackObjects] = 0x5C800;
             this[Offset.TrackObjectZones] = 0x4DB93;
