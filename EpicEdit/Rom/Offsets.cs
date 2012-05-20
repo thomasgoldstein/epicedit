@@ -404,7 +404,7 @@ namespace EpicEdit.Rom
             }
 
             this[Offset.TileGenres] = 0x7FDBA;
-            this[Offset.TileGenresRelocated] = 0x85F2A;
+            this[Offset.TileGenresRelocated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.JumpBarCheck] + 1, 3)) + 0x12;
             this[Offset.ItemIconGraphics] = 0x112F8;
             this[Offset.TrackObjects] = 0x5C800;
             this[Offset.TrackObjectZones] = 0x4DB93;
