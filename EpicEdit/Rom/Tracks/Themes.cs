@@ -172,23 +172,10 @@ namespace EpicEdit.Rom.Tracks
 
         private static bool AreTileGenresRelocated(byte[] romBuffer, int offset)
         {
-            if (romBuffer[offset] == 0x5C &&
-                romBuffer[offset + 1] == 0xFD &&
-                romBuffer[offset + 2] == 0x5E &&
-                romBuffer[offset + 3] == 0xC8)
-            {
-                return true;
-            }
-
-            if (romBuffer[offset] == 0xA0 &&
-                romBuffer[offset + 1] == 0xBA &&
-                romBuffer[offset + 2] == 0xFD &&
-                romBuffer[offset + 3] == 0xA9)
-            {
-                return false;
-            }
-
-            throw new InvalidDataException("Error when loading road tile types.");
+            return !(romBuffer[offset++] == 0xA0 &&
+                     romBuffer[offset++] == 0xBA &&
+                     romBuffer[offset++] == 0xFD &&
+                     romBuffer[offset] == 0xA9);
         }
 
         private static bool IsRoadTilesetHackApplied(byte[] romBuffer, Offsets offsets)
