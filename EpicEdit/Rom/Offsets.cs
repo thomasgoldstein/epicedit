@@ -418,7 +418,7 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectHack8] = 0x4DCC2;
             this[Offset.TrackObjectProperties] = 0x80062;
             this[Offset.TrackObjectZonesRelocated] = 0x80219;
-            this[Offset.TrackObjectPaletteIndexes] = 0x85D44;
+            this[Offset.TrackObjectPaletteIndexes] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.TrackObjectHack3] + 1, 3)) + 0x13;
             this[Offset.TrackObjectFlashing] = this[Offset.TrackObjectPaletteIndexes] + Track.Count * 4;
             this[Offset.CommonTilesetGraphicsLowerBytes] = this[Offset.CommonTilesetGraphicsUpperByte] + 3;
             this[Offset.TileGenreLoad] = this[Offset.CommonTilesetGraphicsUpperByte] + 0x454;
