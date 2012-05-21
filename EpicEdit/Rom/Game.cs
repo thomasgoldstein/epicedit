@@ -1144,7 +1144,8 @@ namespace EpicEdit.Rom
                     isExactSize = true;
                     break;
                 }
-                else if (this.romBuffer.Length < romSizes[sizeIndex])
+
+                if (this.romBuffer.Length < romSizes[sizeIndex])
                 {
                     break;
                 }
