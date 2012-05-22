@@ -24,9 +24,9 @@ using EpicEdit.Rom.Tracks.Scenery;
 namespace EpicEdit.UI.Gfx
 {
     /// <summary>
-    /// Provides the ability to preview a track background.
+    /// Provides the ability to paint the graphics of a track background.
     /// </summary>
-    internal sealed class BackgroundPreviewDrawer : IDisposable
+    internal sealed class BackgroundDrawer : IDisposable
     {
         private const int Zoom = 2;
         private int Width
@@ -45,7 +45,7 @@ namespace EpicEdit.UI.Gfx
 
         private int x;
 
-        public BackgroundPreviewDrawer()
+        public BackgroundDrawer()
         {
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
@@ -60,7 +60,7 @@ namespace EpicEdit.UI.Gfx
             this.InitBackLayer();
         }
 
-        public void Rewind()
+        public void RewindPreview()
         {            
             this.x = 0;
         }
@@ -107,7 +107,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void DrawBackground(Graphics g)
+        public void DrawBackgroundPreview(Graphics g)
         {
             using (Bitmap image = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
@@ -124,7 +124,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void IncrementFrame()
+        public void IncrementPreviewFrame()
         {
             this.x--;
 
