@@ -24,13 +24,13 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class BackgroundPreviewer : UserControl
     {
-        private BackgroundPreviewDrawer drawer;
+        private BackgroundDrawer drawer;
         private Timer repaintTimer;
 
         public BackgroundPreviewer()
         {
             this.InitializeComponent();
-            this.drawer = new BackgroundPreviewDrawer();
+            this.drawer = new BackgroundDrawer();
 
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
@@ -39,7 +39,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.repaintTimer.Tick += delegate
             {
                 this.Invalidate();
-                this.drawer.IncrementFrame();
+                this.drawer.IncrementPreviewFrame();
             };
         }
 
@@ -60,12 +60,12 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void Rewind()
         {
-            this.drawer.Rewind();
+            this.drawer.RewindPreview();
         }
 
         public void LoadTheme(Theme theme)
         {
-            this.drawer.Rewind();
+            this.drawer.RewindPreview();
             this.UpdateBackground(theme);
         }
 
@@ -78,7 +78,7 @@ namespace EpicEdit.UI.ThemeEdition
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            this.drawer.DrawBackground(e.Graphics);
+            this.drawer.DrawBackgroundPreview(e.Graphics);
         }
     }
 }
