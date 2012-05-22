@@ -419,7 +419,7 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectProperties] = 0x80062;
             this[Offset.TrackObjectZonesRelocated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.TrackObjectHack5] + 1, 3)) + 0x6E;
 
-            if (romBuffer[this[Offset.TrackObjectHack3] + 1] == 0x28)
+            if (romBuffer[this[Offset.TrackObjectHack3] + 1] == 0x28 && romBuffer[this[Offset.TrackObjectPalHack1] + 1] == 0xB3)
             {
                 // HACK: The ROM has been resaved with Epic Edit 2.2, 2.3, 2.4 or 2.4.1.
                 this[Offset.TrackObjectZonesRelocated] -= 0x03;
