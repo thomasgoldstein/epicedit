@@ -16,13 +16,14 @@ using System;
 using System.Windows.Forms;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
+using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
     /// <summary>
     /// Represents a background previewer.
     /// </summary>
-    internal partial class BackgroundPreviewer : UserControl
+    internal partial class BackgroundPreviewer : EpicPanel
     {
         private BackgroundDrawer drawer;
         private Timer repaintTimer;
@@ -31,8 +32,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.InitializeComponent();
             this.drawer = new BackgroundDrawer();
-
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
             this.repaintTimer = new Timer();
             this.repaintTimer.Interval = 30;
