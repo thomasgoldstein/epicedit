@@ -40,10 +40,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public IEnumerator<OverlayTile> GetEnumerator()
         {
-            foreach (OverlayTile tObject in this.overlayTiles)
-            {
-                yield return tObject;
-            }
+            return this.overlayTiles.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -57,10 +57,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public IEnumerator<TrackAIElement> GetEnumerator()
         {
-            foreach (TrackAIElement aiElement in this.aiElements)
-            {
-                yield return aiElement;
-            }
+            return this.aiElements.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
