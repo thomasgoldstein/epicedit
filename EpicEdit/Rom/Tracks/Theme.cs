@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks
         public RoadTileset RoadTileset { get; private set; }
         public Background Background  { get; private set; }
 
-        public RomColor TransparentColor
+        public RomColor BackColor
         {
             get { return this.Palettes[0][0]; }
         }
