@@ -132,6 +132,12 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        private void RewindButtonClick(object sender, EventArgs e)
+        {
+            this.drawer.RewindPreview();
+            this.backgroundPreviewer.Invalidate();
+        }
+
         private sealed class BackgroundPanel : TilePanel
         {
             public bool Front { get; set; }
