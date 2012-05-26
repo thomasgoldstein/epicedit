@@ -100,7 +100,7 @@ namespace EpicEdit.UI.Gfx
 
             using (Graphics g = Graphics.FromImage(this.backLayer))
             {
-                g.Clear(this.theme.TransparentColor);
+                g.Clear(this.theme.BackColor);
 
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
                 {
@@ -140,7 +140,7 @@ namespace EpicEdit.UI.Gfx
             using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                backBuffer.Clear(this.theme.TransparentColor);
+                backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
                 this.DrawImage(g, image, this.FrontWidth);
             }
