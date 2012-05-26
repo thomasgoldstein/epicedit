@@ -49,7 +49,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.Editor.Location = new System.Drawing.Point(0, 0);
             this.Editor.Name = "Editor";
-            this.Editor.Size = new System.Drawing.Size(520, 100);
+            this.Editor.Size = new System.Drawing.Size(532, 340);
             this.Editor.TabIndex = 0;
             // 
             // BackgroundEditorForm

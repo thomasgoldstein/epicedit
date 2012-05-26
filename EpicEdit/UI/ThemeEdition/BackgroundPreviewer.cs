@@ -26,20 +26,28 @@ namespace EpicEdit.UI.ThemeEdition
     internal partial class BackgroundPreviewer : EpicPanel
     {
         private BackgroundDrawer drawer;
+        public BackgroundDrawer Drawer
+        {
+            get { return this.drawer; }
+            set
+            {
+                this.drawer = value;
+
+                this.repaintTimer = new Timer();
+                this.repaintTimer.Interval = 30;
+                this.repaintTimer.Tick += delegate
+                {
+                    this.Invalidate();
+                    this.drawer.IncrementPreviewFrame();
+                };
+            }
+        }
+
         private Timer repaintTimer;
 
         public BackgroundPreviewer()
         {
             this.InitializeComponent();
-            this.drawer = new BackgroundDrawer();
-
-            this.repaintTimer = new Timer();
-            this.repaintTimer.Interval = 30;
-            this.repaintTimer.Tick += delegate
-            {
-                this.Invalidate();
-                this.drawer.IncrementPreviewFrame();
-            };
         }
 
         public bool Paused
@@ -57,25 +65,13 @@ namespace EpicEdit.UI.ThemeEdition
             this.repaintTimer.Stop();
         }
 
-        public void Rewind()
-        {
-            this.drawer.RewindPreview();
-        }
-
-        public void LoadTheme(Theme theme)
-        {
-            this.drawer.RewindPreview();
-            this.UpdateBackground(theme);
-        }
-
-        public void UpdateBackground(Theme theme)
-        {
-            this.drawer.LoadTheme(theme);
-            this.Invalidate();
-        }
-
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (this.Drawer == null)
+            {
+                return;
+            }
+
             base.OnPaint(e);
             this.drawer.DrawBackgroundPreview(e.Graphics);
         }

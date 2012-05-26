@@ -13,8 +13,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+
 using EpicEdit.Rom.Tracks;
+using EpicEdit.UI.Gfx;
+using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
@@ -23,6 +27,8 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class BackgroundEditor : UserControl
     {
+        private BackgroundDrawer drawer;
+
         private Theme Theme
         {
             get { return this.themeComboBox.SelectedItem as Theme; }
@@ -31,6 +37,30 @@ namespace EpicEdit.UI.ThemeEdition
         public BackgroundEditor()
         {
             this.InitializeComponent();
+
+            this.drawer = new BackgroundDrawer();
+
+            this.frontLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
+            this.frontLayerPanel.Zoom = BackgroundDrawer.Zoom;
+            this.frontLayerPanel.Paint += this.BackgrondLayerPanelPaint;
+
+            this.backLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
+            this.backLayerPanel.Zoom = BackgroundDrawer.Zoom;
+            this.backLayerPanel.Paint += this.BackgrondLayerPanelPaint;
+
+            this.backgroundPreviewer.Drawer = this.drawer;
+        }
+
+        private void BackgrondLayerPanelPaint(object sender, PaintEventArgs e)
+        {
+            BackgroundPanel panel = sender as BackgroundPanel;
+            int x = (int)(panel.AutoScrollPosition.X / panel.Zoom);
+            this.drawer.DrawBackgroundLayer(e.Graphics, x, panel.Front);
+        }
+
+        private void BackgroundLayerPanelScroll(object sender, ScrollEventArgs e)
+        {
+            (sender as Control).Invalidate();
         }
 
         public void Init()
@@ -50,10 +80,12 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        public void ResetPreview()
+        public void ResetSettings()
         {
             this.PausePreview();
-            this.backgroundPreviewer.Rewind();
+            this.drawer.RewindPreview();
+            this.frontLayerPanel.AutoScrollPosition = Point.Empty;
+            this.backLayerPanel.AutoScrollPosition = Point.Empty;
         }
 
         private void PlayPreview()
@@ -72,13 +104,20 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (theme == this.Theme)
             {
-                this.backgroundPreviewer.UpdateBackground(this.Theme);
+                this.LoadTheme();
             }
         }
-        
+
+        private void LoadTheme()
+        {
+            this.drawer.LoadTheme(this.Theme);
+            this.Invalidate(true);
+        }
+
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.backgroundPreviewer.LoadTheme(this.Theme);
+            this.LoadTheme();
+            this.ResetSettings();
         }
         
         private void PlayPauseButtonClick(object sender, EventArgs e)
@@ -91,6 +130,11 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.PausePreview();
             }
+        }
+
+        private sealed class BackgroundPanel : TilePanel
+        {
+            public bool Front { get; set; }
         }
     }
 }

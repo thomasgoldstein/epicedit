@@ -28,10 +28,16 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal sealed class BackgroundDrawer : IDisposable
     {
-        private const int Zoom = 2;
-        private int Width
+        public const int Zoom = 2;
+
+        private int FrontWidth
         {
             get { return BackgroundLayout.FrontLayerWidth * Tile.Size; }
+        }
+
+        private int BackWidth
+        {
+            get { return BackgroundLayout.BackLayerWidth * Tile.Size; }
         }
 
         private int Height
@@ -69,7 +75,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.frontLayer.Dispose();
 
-            this.frontLayer = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppPArgb);
+            this.frontLayer = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb);
             Background background = this.theme.Background;
 
             using (Graphics g = Graphics.FromImage( this.frontLayer))
@@ -94,7 +100,7 @@ namespace EpicEdit.UI.Gfx
 
             using (Graphics g = Graphics.FromImage(this.backLayer))
             {
-                g.Clear(this.theme.Palettes[0][0]);
+                g.Clear(this.theme.TransparentColor);
 
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
                 {
@@ -107,21 +113,59 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void DrawBackgroundPreview(Graphics g)
+        public void DrawBackgroundLayer(Graphics g, int x, bool front)
         {
-            using (Bitmap image = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppPArgb))
+            if (front)
+            {
+                this.DrawFrontBackgroundLayer(g, x);
+            }
+            else
+            {
+                this.DrawBackBackgroundLayer(g, x);
+            }
+        }
+
+        private void DrawBackBackgroundLayer(Graphics g, int x)
+        {
+            using (Bitmap image = new Bitmap(this.BackWidth, this.Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                backBuffer.DrawImage(this.backLayer, new Point(this.x, 0));
-                backBuffer.DrawImage(this.backLayer, new Point(this.x + BackgroundLayout.BackLayerWidth * Tile.Size, 0));
-
-                backBuffer.DrawImage(this.frontLayer, new Point(this.x * 2, 0));
-                backBuffer.DrawImage(this.frontLayer, new Point(this.x * 2 + this.Width, 0));
-
-                g.PixelOffsetMode = PixelOffsetMode.Half;
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.DrawImage(image, 0, 0, this.Width * Zoom, this.Height * Zoom);
+                backBuffer.DrawImage(this.backLayer, x, 0);
+                this.DrawImage(g, image, this.BackWidth);
             }
+        }
+
+        private void DrawFrontBackgroundLayer(Graphics g, int x)
+        {
+            using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
+            using (Graphics backBuffer = Graphics.FromImage(image))
+            {
+                backBuffer.Clear(this.theme.TransparentColor);
+                backBuffer.DrawImage(this.frontLayer, x, 0);
+                this.DrawImage(g, image, this.FrontWidth);
+            }
+        }
+
+        public void DrawBackgroundPreview(Graphics g)
+        {
+            using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
+            using (Graphics backBuffer = Graphics.FromImage(image))
+            {
+                backBuffer.DrawImage(this.backLayer, x, 0);
+                backBuffer.DrawImage(this.backLayer, x + BackgroundLayout.BackLayerWidth * Tile.Size, 0);
+
+                backBuffer.DrawImage(this.frontLayer, x * 2, 0);
+                backBuffer.DrawImage(this.frontLayer, x * 2 + this.FrontWidth, 0);
+
+                this.DrawImage(g, image, this.FrontWidth);
+            }
+        }
+
+        private void DrawImage(Graphics g, Bitmap image, int width)
+        {
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+            g.InterpolationMode = InterpolationMode.NearestNeighbor;
+            g.DrawImage(image, 0, 0, width * Zoom, this.Height * Zoom);
         }
 
         public void IncrementPreviewFrame()
