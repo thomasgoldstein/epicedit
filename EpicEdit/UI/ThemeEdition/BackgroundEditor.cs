@@ -116,8 +116,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.LoadTheme();
             this.ResetSettings();
+            this.LoadTheme();
         }
         
         private void PlayPauseButtonClick(object sender, EventArgs e)
