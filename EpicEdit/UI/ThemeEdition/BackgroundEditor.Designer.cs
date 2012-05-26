@@ -54,6 +54,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel();
+            this.rewindButton = new System.Windows.Forms.Button();
             this.previewGroupBox.SuspendLayout();
             this.frontLayerGroupBox.SuspendLayout();
             this.backLayerGroupBox.SuspendLayout();
@@ -89,6 +90,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // previewGroupBox
             // 
+            this.previewGroupBox.Controls.Add(this.rewindButton);
             this.previewGroupBox.Controls.Add(this.playPauseButton);
             this.previewGroupBox.Controls.Add(this.backgroundPreviewer);
             this.previewGroupBox.Location = new System.Drawing.Point(3, 228);
@@ -140,6 +142,16 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TabIndex = 4;
             this.backLayerPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.BackgroundLayerPanelScroll);
             // 
+            // rewindButton
+            // 
+            this.rewindButton.Location = new System.Drawing.Point(88, 19);
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(75, 23);
+            this.rewindButton.TabIndex = 3;
+            this.rewindButton.Text = "Rewind";
+            this.rewindButton.UseVisualStyleBackColor = true;
+            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
+            // 
             // BackgroundEditor
             // 
             this.Controls.Add(this.backLayerGroupBox);
@@ -153,6 +165,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button rewindButton;
         private EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel backLayerPanel;
         private System.Windows.Forms.GroupBox backLayerGroupBox;
         private System.Windows.Forms.GroupBox frontLayerGroupBox;
