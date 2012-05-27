@@ -27,8 +27,10 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
-                if (components != null) {
+            if (disposing)
+            {
+                if (components != null)
+                {
                     components.Dispose();
                 }
             }
@@ -49,7 +51,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.Editor.Location = new System.Drawing.Point(0, 0);
             this.Editor.Name = "Editor";
-            this.Editor.Size = new System.Drawing.Size(532, 340);
+            this.Editor.Size = new System.Drawing.Size(535, 350);
             this.Editor.TabIndex = 0;
             // 
             // BackgroundEditorForm

@@ -50,11 +50,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.playPauseButton = new System.Windows.Forms.Button();
             this.previewGroupBox = new System.Windows.Forms.GroupBox();
+            this.rewindButton = new System.Windows.Forms.Button();
             this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel();
             this.frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel();
-            this.rewindButton = new System.Windows.Forms.Button();
             this.previewGroupBox.SuspendLayout();
             this.frontLayerGroupBox.SuspendLayout();
             this.backLayerGroupBox.SuspendLayout();
@@ -66,16 +66,16 @@ namespace EpicEdit.UI.ThemeEdition
             this.backgroundPreviewer.Location = new System.Drawing.Point(7, 46);
             this.backgroundPreviewer.Name = "backgroundPreviewer";
             this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
-            this.backgroundPreviewer.TabIndex = 0;
+            this.backgroundPreviewer.TabIndex = 8;
             // 
             // themeComboBox
             // 
             this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.themeComboBox.FormattingEnabled = true;
-            this.themeComboBox.Location = new System.Drawing.Point(3, 3);
+            this.themeComboBox.Location = new System.Drawing.Point(6, 6);
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.themeComboBox.TabIndex = 1;
+            this.themeComboBox.TabIndex = 0;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
             // playPauseButton
@@ -83,7 +83,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.playPauseButton.Location = new System.Drawing.Point(7, 19);
             this.playPauseButton.Name = "playPauseButton";
             this.playPauseButton.Size = new System.Drawing.Size(75, 23);
-            this.playPauseButton.TabIndex = 2;
+            this.playPauseButton.TabIndex = 6;
             this.playPauseButton.Text = "Play";
             this.playPauseButton.UseVisualStyleBackColor = true;
             this.playPauseButton.Click += new System.EventHandler(this.PlayPauseButtonClick);
@@ -93,12 +93,22 @@ namespace EpicEdit.UI.ThemeEdition
             this.previewGroupBox.Controls.Add(this.rewindButton);
             this.previewGroupBox.Controls.Add(this.playPauseButton);
             this.previewGroupBox.Controls.Add(this.backgroundPreviewer);
-            this.previewGroupBox.Location = new System.Drawing.Point(3, 228);
+            this.previewGroupBox.Location = new System.Drawing.Point(6, 238);
             this.previewGroupBox.Name = "previewGroupBox";
             this.previewGroupBox.Size = new System.Drawing.Size(526, 107);
-            this.previewGroupBox.TabIndex = 3;
+            this.previewGroupBox.TabIndex = 5;
             this.previewGroupBox.TabStop = false;
             this.previewGroupBox.Text = "Preview";
+            // 
+            // rewindButton
+            // 
+            this.rewindButton.Location = new System.Drawing.Point(88, 19);
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(75, 23);
+            this.rewindButton.TabIndex = 7;
+            this.rewindButton.Text = "Rewind";
+            this.rewindButton.UseVisualStyleBackColor = true;
+            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
             // 
             // frontLayerPanel
             // 
@@ -108,26 +118,26 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel.Location = new System.Drawing.Point(7, 19);
             this.frontLayerPanel.Name = "frontLayerPanel";
             this.frontLayerPanel.Size = new System.Drawing.Size(512, 48);
-            this.frontLayerPanel.TabIndex = 4;
+            this.frontLayerPanel.TabIndex = 2;
             this.frontLayerPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.BackgroundLayerPanelScroll);
             // 
             // frontLayerGroupBox
             // 
             this.frontLayerGroupBox.Controls.Add(this.frontLayerPanel);
-            this.frontLayerGroupBox.Location = new System.Drawing.Point(3, 30);
+            this.frontLayerGroupBox.Location = new System.Drawing.Point(6, 40);
             this.frontLayerGroupBox.Name = "frontLayerGroupBox";
             this.frontLayerGroupBox.Size = new System.Drawing.Size(526, 93);
-            this.frontLayerGroupBox.TabIndex = 5;
+            this.frontLayerGroupBox.TabIndex = 1;
             this.frontLayerGroupBox.TabStop = false;
             this.frontLayerGroupBox.Text = "Front layer";
             // 
             // backLayerGroupBox
             // 
             this.backLayerGroupBox.Controls.Add(this.backLayerPanel);
-            this.backLayerGroupBox.Location = new System.Drawing.Point(3, 129);
+            this.backLayerGroupBox.Location = new System.Drawing.Point(6, 139);
             this.backLayerGroupBox.Name = "backLayerGroupBox";
             this.backLayerGroupBox.Size = new System.Drawing.Size(526, 93);
-            this.backLayerGroupBox.TabIndex = 6;
+            this.backLayerGroupBox.TabIndex = 3;
             this.backLayerGroupBox.TabStop = false;
             this.backLayerGroupBox.Text = "Back layer";
             // 
@@ -142,16 +152,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TabIndex = 4;
             this.backLayerPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.BackgroundLayerPanelScroll);
             // 
-            // rewindButton
-            // 
-            this.rewindButton.Location = new System.Drawing.Point(88, 19);
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(75, 23);
-            this.rewindButton.TabIndex = 3;
-            this.rewindButton.Text = "Rewind";
-            this.rewindButton.UseVisualStyleBackColor = true;
-            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
-            // 
             // BackgroundEditor
             // 
             this.Controls.Add(this.backLayerGroupBox);
@@ -159,7 +159,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(this.previewGroupBox);
             this.Name = "BackgroundEditor";
-            this.Size = new System.Drawing.Size(532, 340);
+            this.Size = new System.Drawing.Size(535, 350);
             this.previewGroupBox.ResumeLayout(false);
             this.frontLayerGroupBox.ResumeLayout(false);
             this.backLayerGroupBox.ResumeLayout(false);
