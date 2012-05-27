@@ -1597,8 +1597,8 @@ namespace EpicEdit.Rom
         {
             // TODO: Load and save GV pillar data
 
-            // GV checkpoint table: c80328 (20 * 128 bytes)
-            // GV position data: c80d28 (20 * 1024 bytes)
+            // GV checkpoint table: c80331 (20 * 128 bytes)
+            // GV position data: c80d31 (20 * 1024 bytes)
 
             byte[] data = new byte[GPTrack.Count * (128 + 1024)];
 
