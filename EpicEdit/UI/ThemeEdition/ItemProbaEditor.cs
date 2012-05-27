@@ -521,7 +521,7 @@ namespace EpicEdit.UI.ThemeEdition
             private ItemType itemType;
             public ItemType ItemType
             {
-                //get { return this.itemType; }
+                get { return this.itemType; } // Needed for the IDE designer
                 set { this.itemType = value; }
             }
 
