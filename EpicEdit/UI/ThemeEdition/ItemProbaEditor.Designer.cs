@@ -200,7 +200,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // lightningPanel
             // 
-            this.lightningPanel.ItemType = EpicEdit.Rom.ItemType.Lightning;
+            this.lightningPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Lightning;
             this.lightningPanel.Location = new System.Drawing.Point(297, 126);
             this.lightningPanel.Name = "lightningPanel";
             this.lightningPanel.Size = new System.Drawing.Size(16, 16);
@@ -208,7 +208,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // coinsPanel
             // 
-            this.coinsPanel.ItemType = EpicEdit.Rom.ItemType.Coin;
+            this.coinsPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Coin;
             this.coinsPanel.Location = new System.Drawing.Point(297, 100);
             this.coinsPanel.Name = "coinsPanel";
             this.coinsPanel.Size = new System.Drawing.Size(16, 16);
@@ -216,7 +216,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // ghostPanel
             // 
-            this.ghostPanel.ItemType = EpicEdit.Rom.ItemType.Ghost;
+            this.ghostPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Ghost;
             this.ghostPanel.Location = new System.Drawing.Point(297, 74);
             this.ghostPanel.Name = "ghostPanel";
             this.ghostPanel.Size = new System.Drawing.Size(16, 16);
@@ -224,7 +224,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // redPanel
             // 
-            this.redPanel.ItemType = EpicEdit.Rom.ItemType.RedShell;
+            this.redPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.RedShell;
             this.redPanel.Location = new System.Drawing.Point(297, 48);
             this.redPanel.Name = "redPanel";
             this.redPanel.Size = new System.Drawing.Size(16, 16);
@@ -232,7 +232,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // greenPanel
             // 
-            this.greenPanel.ItemType = EpicEdit.Rom.ItemType.GreenShell;
+            this.greenPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.GreenShell;
             this.greenPanel.Location = new System.Drawing.Point(78, 152);
             this.greenPanel.Name = "greenPanel";
             this.greenPanel.Size = new System.Drawing.Size(16, 16);
@@ -240,7 +240,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // bananaPanel
             // 
-            this.bananaPanel.ItemType = EpicEdit.Rom.ItemType.Banana;
+            this.bananaPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Banana;
             this.bananaPanel.Location = new System.Drawing.Point(78, 126);
             this.bananaPanel.Name = "bananaPanel";
             this.bananaPanel.Size = new System.Drawing.Size(16, 16);
@@ -248,7 +248,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // starPanel
             // 
-            this.starPanel.ItemType = EpicEdit.Rom.ItemType.Star;
+            this.starPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Star;
             this.starPanel.Location = new System.Drawing.Point(78, 100);
             this.starPanel.Name = "starPanel";
             this.starPanel.Size = new System.Drawing.Size(16, 16);
@@ -256,7 +256,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // featherPanel
             // 
-            this.featherPanel.ItemType = EpicEdit.Rom.ItemType.Feather;
+            this.featherPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Feather;
             this.featherPanel.Location = new System.Drawing.Point(78, 74);
             this.featherPanel.Name = "featherPanel";
             this.featherPanel.Size = new System.Drawing.Size(16, 16);
@@ -264,7 +264,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // mushroomPanel
             // 
-            this.mushroomPanel.ItemType = EpicEdit.Rom.ItemType.Mushroom;
+            this.mushroomPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Mushroom;
             this.mushroomPanel.Location = new System.Drawing.Point(78, 48);
             this.mushroomPanel.Name = "mushroomPanel";
             this.mushroomPanel.Size = new System.Drawing.Size(16, 16);

@@ -36,19 +36,6 @@ namespace EpicEdit.Rom
         Euro
     }
 
-    internal enum ItemType
-    {
-        Mushroom,
-        Feather,
-        Star,
-        Banana,
-        GreenShell,
-        RedShell,
-        Ghost,
-        Coin,
-        Lightning,
-    }
-
     /// <summary>
     /// The Super Mario Kart Game class, which contains all of the game data.
     /// </summary>
