@@ -36,15 +36,11 @@ namespace EpicEdit.UI.Gfx
     {
         public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palettes palettes, Tile2bppProperties properties)
         {
-            Bitmap bitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(gfx, palettes[properties.PaletteIndex], properties.SubPaletteIndex);
-            GraphicsConverter.FlipBitmap(bitmap, properties.Flip);
-            return bitmap;
-        }
-
-        private static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palette palette, int subPaletteIndex)
-        {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
+            Palette palette = palettes[properties.PaletteIndex];
+            int subPalIndex = properties.SubPaletteIndex;
+            Flip flip = properties.Flip;
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
@@ -59,8 +55,15 @@ namespace EpicEdit.UI.Gfx
 
                     if (colIndex > 0)
                     {
-                        Color color = palette[subPaletteIndex + colIndex];
-                        fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                        int xPos = (flip & Flip.X) != 0 ?
+                            x : (Tile.Size - 1) - x;
+
+                        int yPos = (flip & Flip.Y) == 0 ?
+                            y : (Tile.Size - 1) - y;
+
+                        Color color = palette[subPalIndex + colIndex];
+
+                        fBitmap.SetPixel(xPos, yPos, color);
                     }
                 }
             }
@@ -124,24 +127,6 @@ namespace EpicEdit.UI.Gfx
 
             fBitmap.Release();
             return bitmap;
-        }
-
-        private static void FlipBitmap(Bitmap bitmap, Flip flip)
-        {
-            switch (flip)
-            {
-                case Flip.X:
-                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                    break;
-
-                case Flip.Y:
-                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                    break;
-
-                case Flip.X | Flip.Y:
-                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipXY);
-                    break;
-            }
         }
     }
 }
