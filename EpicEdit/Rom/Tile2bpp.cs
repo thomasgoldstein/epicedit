@@ -54,17 +54,36 @@ namespace EpicEdit.Rom
     /// </summary>
     internal sealed class Tile2bpp : Tile
     {
+        public override Palette Palette
+        {
+            get { return this.palettes[this.properties.PaletteIndex]; }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                this.properties.PaletteIndex = value.Index;
+            }
+        }
+
         private Palettes palettes;
         public Palettes Palettes
         {
             get { return this.palettes; }
             set
             {
+                if (this.palettes == value)
+                {
+                    return;
+                }
+
                 this.palettes = value;
 
                 if (value != null)
                 {
-                    this.Palette = this.palettes[this.properties.PaletteIndex];
+                    this.UpdateBitmap();
                 }
             }
         }
@@ -82,6 +101,11 @@ namespace EpicEdit.Rom
         public Tile2bpp(byte[] gfx, Palettes palettes, byte properties) : this(gfx, palettes)
         {
             this.properties = new Tile2bppProperties(properties);
+        }
+
+        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties, int paletteStart) : this(gfx, palettes, properties)
+        {
+            this.properties.PaletteIndex += paletteStart;
         }
 
         protected override void GenerateBitmap()

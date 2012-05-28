@@ -16,6 +16,9 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
+using EpicEdit.UI.Tools;
+
 namespace EpicEdit.UI.ThemeEdition
 {
     /// <summary>
@@ -23,6 +26,16 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class BackgroundEditorForm : Form
     {
+        /// <summary>
+        /// Raised when a pixel color has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<Palette, int>> ColorSelected
+        {
+            add { this.Editor.ColorSelected += value; }
+            remove { this.Editor.ColorSelected -= value; }
+        }
+
         public BackgroundEditorForm()
         {
             this.InitializeComponent();

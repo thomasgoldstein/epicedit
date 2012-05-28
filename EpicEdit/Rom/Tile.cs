@@ -25,7 +25,7 @@ namespace EpicEdit.Rom
         public const int Size = 8;
 
         private Palette palette;
-        public Palette Palette
+        public virtual Palette Palette
         {
             get { return this.palette; }
             set

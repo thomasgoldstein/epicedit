@@ -23,8 +23,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class Background : IDisposable
     {
-        private const int FrontPaletteStart = 4;
-        private const int BackPaletteStart = 6;
+        public const int FrontPaletteStart = 4;
+        public const int BackPaletteStart = 6;
 
         public BackgroundTileset Tileset { get; private set; }
         public BackgroundLayout Layout { get; private set; }

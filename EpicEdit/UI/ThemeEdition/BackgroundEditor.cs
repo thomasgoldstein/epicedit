@@ -13,11 +13,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
@@ -28,6 +30,25 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class BackgroundEditor : UserControl
     {
+        
+        /// <summary>
+        /// Raised when a pixel color has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<Palette, int>> ColorSelected
+        {
+            add
+            {
+                this.frontLayerPanel.ColorSelected += value;
+                this.backLayerPanel.ColorSelected += value;
+            }
+            remove
+            {
+                this.frontLayerPanel.ColorSelected -= value;
+                this.backLayerPanel.ColorSelected -= value;
+            }
+        }
+
         private BackgroundDrawer drawer;
 
         private Theme Theme
@@ -111,7 +132,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void LoadTheme()
         {
-            this.drawer.LoadTheme(this.Theme);
+            Theme theme = this.Theme;
+            this.drawer.LoadTheme(theme);
+            this.frontLayerPanel.Background = this.backLayerPanel.Background = theme.Background;
             this.Invalidate(true);
         }
 
@@ -141,7 +164,24 @@ namespace EpicEdit.UI.ThemeEdition
 
         private sealed class BackgroundPanel : TilePanel
         {
+            public Background Background { get; set; }
             public bool Front { get; set; }
+
+            protected override Tile GetTileAt(int x, int y)
+            {
+                // Convert from pixel precision to tile precision
+                x /= Tile.Size;
+                y /= Tile.Size;
+
+                byte tileId;
+                byte properties;
+                this.Background.Layout.GetTileData(x, y, this.Front, out tileId, out properties);
+
+                Tile2bpp tile = this.Background.Tileset[tileId];
+                int paletteStart = this.Front ? Background.FrontPaletteStart : Background.BackPaletteStart;
+                Tile2bpp clone = new Tile2bpp(tile.Graphics, tile.Palettes, properties, paletteStart);
+                return clone; // NOTE: We're leaking a bit of memory here, as the clone is not explicitly disposed
+            }
         }
     }
 }
