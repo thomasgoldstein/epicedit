@@ -135,7 +135,10 @@ namespace EpicEdit.UI.ThemeEdition
             Theme theme = this.Theme;
             this.drawer.LoadTheme(theme);
             this.frontLayerPanel.Background = this.backLayerPanel.Background = theme.Background;
-            this.Invalidate(true);
+
+            this.frontLayerPanel.Refresh();
+            this.backLayerPanel.Refresh();
+            this.backgroundPreviewer.Refresh();
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
