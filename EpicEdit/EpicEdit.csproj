@@ -100,9 +100,9 @@
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Tile.cs" />
+    <Compile Include="Rom\Tile2bpp.cs" />
     <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemIconTile.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
     <Compile Include="Platform.cs" />
@@ -141,7 +141,6 @@
     <Compile Include="Rom\Tracks\RoadTileset.cs" />
     <Compile Include="Rom\Tracks\Scenery\Background.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />

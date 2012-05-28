@@ -14,19 +14,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks.Items;
 using NUnit.Framework;
 
 namespace EpicEditTests.Rom.Tracks.Items
 {
     [TestFixture]
-    internal class ItemIconTileTest
+    internal class Tile2bppTest
     {
-        private void TestGetColorIndexAt(byte[] gfx, byte[] palData, int subPaletteIndex)
+        private void TestGetColorIndexAt(byte[] gfx, byte[] palData, byte properties)
         {
             Palettes palettes = new Palettes(palData);
-            ItemIconTile tile = new ItemIconTile(gfx, 0, subPaletteIndex);
-            tile.SetPalette(palettes);
+            Tile2bpp tile = new Tile2bpp(gfx, palettes, properties);
 
             Palette palette = new Palette(null, palData);
             TileTest.TestGetColorIndexAt(tile, palette, false);
@@ -49,7 +47,7 @@ namespace EpicEditTests.Rom.Tracks.Items
                 0x00, 0x00, 0xFF, 0x7F, 0x4A, 0x7F, 0x00, 0x00
             };
 
-            this.TestGetColorIndexAt(gfx, palData, 4);
+            this.TestGetColorIndexAt(gfx, palData, 0);
         }
     }
 }

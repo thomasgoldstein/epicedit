@@ -31,8 +31,8 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             byte[] itemGfx = Codec.Decompress(romBuffer, offsets[Offset.ItemIconGraphics]);
             int itemCount = Enum.GetValues(typeof(ItemType)).Length;
-            int startOffset = offsets[Offset.ItemIconTilesPalettes];
-            this.tiles = new ItemIconTile[itemCount][];
+            int startOffset = offsets[Offset.ItemIconTileLayout];
+            this.tiles = new Tile2bpp[itemCount][];
 
             for (int i = 0; i < itemCount; i++)
             {
@@ -44,18 +44,16 @@ namespace EpicEdit.Rom.Tracks.Items
         private static Tile[] GetTiles(byte[] romBuffer, int offset, byte[] itemGfx)
         {
             int tileIndex = romBuffer[offset] & 0x7F;
-            byte globalPalIndex = romBuffer[offset + 1];
-            int palIndex = globalPalIndex / 16;
-            int subPalIndex = globalPalIndex % 16;
+            byte properties = romBuffer[offset + 1];
 
-            Tile[] tiles = new ItemIconTile[4];
+            Tile[] tiles = new Tile2bpp[4];
             int bytesPerTile = 16;
 
             for (int i = 0; i < tiles.Length; i++)
             {
                 byte[] gfx = new byte[bytesPerTile];
                 Buffer.BlockCopy(itemGfx, (tileIndex + i) * bytesPerTile, gfx, 0, bytesPerTile);
-                tiles[i] = new ItemIconTile(gfx, palIndex, subPalIndex);
+                tiles[i] = new Tile2bpp(gfx, properties);
             }
 
             return tiles;
@@ -75,9 +73,9 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private static Bitmap GetImage(Tile[] tiles, Palettes palettes)
         {
-            foreach (ItemIconTile tile in tiles)
+            foreach (Tile2bpp tile in tiles)
             {
-                tile.SetPalette(palettes);
+                tile.Palettes = palettes;
             }
 
             Bitmap bitmap = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);

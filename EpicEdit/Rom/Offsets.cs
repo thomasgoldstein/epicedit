@@ -187,9 +187,9 @@ namespace EpicEdit.Rom
         ItemGraphics,
 
         /// <summary>
-        /// Item icon color tile and palette indexes.
+        /// Item icon tile indexes and properties (color palette and flip flag).
         /// </summary>
-        ItemIconTilesPalettes,
+        ItemIconTileLayout,
 
         /// <summary>
         /// Offset for hack to extend the object engine.
@@ -347,7 +347,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackAIZones] = 0x1FF8C;
                     this[Offset.BattleTrackStartPositions] = 0x18B5F;
                     this[Offset.TrackPreviewLapLines] = 0x1C886;
-                    this[Offset.ItemIconTilesPalettes] = 0x1B1DC;
+                    this[Offset.ItemIconTileLayout] = 0x1B1DC;
                     this[Offset.TrackOverlayPatterns] = 0x4F0B5;
                     this[Offset.TrackObjectHack1] = 0x18EF3;
                     this[Offset.TrackObjectHack2] = 0x19155;
@@ -368,7 +368,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackAIZones] = 0x1FF9B;
                     this[Offset.BattleTrackStartPositions] = 0x18B4B;
                     this[Offset.TrackPreviewLapLines] = 0x1C915;
-                    this[Offset.ItemIconTilesPalettes] = 0x1B320;
+                    this[Offset.ItemIconTileLayout] = 0x1B320;
                     this[Offset.TrackOverlayPatterns] = 0x4F23D;
                     this[Offset.TrackObjectHack1] = 0x18EDF;
                     this[Offset.TrackObjectHack2] = 0x19141;
@@ -390,7 +390,7 @@ namespace EpicEdit.Rom
                     this[Offset.TrackAIZones] = 0x1FF6D;
                     this[Offset.BattleTrackStartPositions] = 0x18B64;
                     this[Offset.TrackPreviewLapLines] = 0x1C7B1;
-                    this[Offset.ItemIconTilesPalettes] = 0x1B1BC;
+                    this[Offset.ItemIconTileLayout] = 0x1B1BC;
                     this[Offset.TrackOverlayPatterns] = 0x4F159;
                     this[Offset.TrackObjectHack1] = 0x18EF8;
                     this[Offset.TrackObjectHack2] = 0x1915A;
@@ -440,7 +440,7 @@ namespace EpicEdit.Rom
             this[Offset.GPTrackNames] = this[Offset.BattleTrackNames] + 0x32;
             this[Offset.NameStrings] = this[Offset.GPTrackNames] + 0xC1;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
-            this[Offset.ItemProbabilities] = this[Offset.ItemIconTilesPalettes] + 0x1C3;
+            this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
 
             this[Offset.TileGenreIndexes] = this[Offset.TrackMaps] - Theme.Count * 2;
             this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
