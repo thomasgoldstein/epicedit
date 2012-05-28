@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Drawing;
+using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks.Scenery
 {
@@ -22,6 +23,9 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class Background : IDisposable
     {
+        private const int FrontPaletteStart = 4;
+        private const int BackPaletteStart = 6;
+
         private BackgroundTileset tileset;
         private BackgroundLayout layout;
 
@@ -46,8 +50,17 @@ namespace EpicEdit.Rom.Tracks.Scenery
             byte tileId;
             byte properties;
             this.layout.GetTileData(front, x, y, out tileId, out properties);
-            BackgroundTile tile = this.tileset[tileId];
-            return tile.GetBitmap(properties, front);
+            Tile2bpp tile = this.tileset[tileId];
+            return Background.GetTileBitmap(tile, properties, front);
+        }
+
+        private static Bitmap GetTileBitmap(Tile2bpp tile, byte properties, bool front)
+        {
+            Tile2bppProperties props = new Tile2bppProperties(properties);
+            int start = front ? FrontPaletteStart : BackPaletteStart;
+            props.PaletteIndex += front ? FrontPaletteStart : BackPaletteStart;
+
+            return GraphicsConverter.GetBitmapFrom2bppPlanar(tile.Graphics, tile.Palettes, props);
         }
 
         public void Dispose()

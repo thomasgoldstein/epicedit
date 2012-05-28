@@ -1,0 +1,120 @@
+﻿#region GPL statement
+/*Epic Edit is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
+#endregion
+
+using System;
+using EpicEdit.UI.Gfx;
+
+namespace EpicEdit.Rom
+{
+    internal struct Tile2bppProperties
+    {
+        private int paletteIndex;
+        public int PaletteIndex
+        {
+            get { return this.paletteIndex; }
+            set { this.paletteIndex = value; }
+        }
+
+        private int subPaletteIndex;
+        public int SubPaletteIndex
+        {
+            get { return this.subPaletteIndex; }
+            set { this.subPaletteIndex = value; }
+        }
+
+        private Flip flip;
+        public Flip Flip
+        {
+            get { return this.flip; }
+            set { this.flip = value; }
+        }
+
+        public Tile2bppProperties(byte properties)
+        {
+            byte paletteData = (byte)(properties & 0x3F);
+            this.paletteIndex = paletteData / 16;
+            this.subPaletteIndex = paletteData % 16;
+            this.flip = (Flip)(properties & (byte)(Flip.X | Flip.Y));
+        }
+    }
+    
+    /// <summary>
+    /// A 2-bit per pixel tile.
+    /// </summary>
+    internal sealed class Tile2bpp : Tile
+    {
+        private Palettes palettes;
+        public Palettes Palettes
+        {
+            get { return this.palettes; }
+            set
+            {
+                this.palettes = value;
+
+                if (value != null)
+                {
+                    this.Palette = this.palettes[this.properties.PaletteIndex];
+                }
+            }
+        }
+
+        private Tile2bppProperties properties;
+
+        public Tile2bpp(byte[] gfx, Palettes palettes)
+        {
+            this.Graphics = gfx;
+            this.Palettes = palettes;
+        }
+
+        public Tile2bpp(byte[] gfx, byte properties) : this(gfx, null, properties) { }
+
+        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties) : this(gfx, palettes)
+        {
+            this.properties = new Tile2bppProperties(properties);
+        }
+
+        protected override void GenerateBitmap()
+        {
+            if (this.Palettes == null)
+            {
+                throw new InvalidOperationException("Cannot generate Bitmap as the Palettes have not been set.");
+            }
+            this.image = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palettes, this.properties);
+        }
+
+        protected override void GenerateGraphics()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetColorIndexAt(int x, int y)
+        {
+            if ((this.properties.Flip & Flip.X) == 0)
+            {
+                x = (Tile.Size - 1) - x;
+            }
+
+            if ((this.properties.Flip & Flip.Y) != 0)
+            {
+                y = (Tile.Size - 1) - y;
+            }
+
+            byte val1 = this.Graphics[(y * 2)];
+            byte val2 = this.Graphics[(y * 2) + 1];
+            int mask = 1 << x;
+            int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+            return this.properties.SubPaletteIndex + colIndex;
+        }
+    }
+}

@@ -16,6 +16,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
