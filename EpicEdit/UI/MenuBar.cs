@@ -83,7 +83,7 @@ namespace EpicEdit.UI
         #region Auto-focus
         private void MenuToolStripMouseMove(object sender, MouseEventArgs e)
         {
-            // Force focus, so that when another form is focused (palette editor or item proba form),
+            // Force focus, so that when another form is focused,
             // it doesn't take 2 clicks to call a menu item
             this.menuToolStrip.Focus();
         }
