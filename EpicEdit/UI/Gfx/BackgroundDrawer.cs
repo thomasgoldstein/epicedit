@@ -102,8 +102,10 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int x = 0; x < layerWidth; x++)
                     {
-                        Bitmap tileBitmap = background.GetTileBitmap(front, x, y);
-                        g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
+                        using (Bitmap tileBitmap = background.GetTileBitmap(front, x, y))
+                        {
+                            g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
+                        }
                     }
                 }
             }
