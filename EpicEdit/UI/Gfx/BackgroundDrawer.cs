@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -91,6 +92,8 @@ namespace EpicEdit.UI.Gfx
             Bitmap bitmap = new Bitmap(imageWidth, this.Height, PixelFormat.Format32bppPArgb);
             Background background = this.theme.Background;
 
+            Dictionary<int, Bitmap> tileCache = new Dictionary<int, Bitmap>();
+
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 if (!front)
@@ -102,12 +105,25 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int x = 0; x < layerWidth; x++)
                     {
-                        using (Bitmap tileBitmap = background.GetTileBitmap(front, x, y))
+                        byte tileId;
+                        byte properties;
+                        this.theme.Background.Layout.GetTileData(x, y, front, out tileId, out properties);
+                        int key = (tileId << 8) + properties;
+   
+                        if (!tileCache.ContainsKey(key))
                         {
-                            g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
+                            Tile2bpp tile = this.theme.Background.Tileset[tileId];
+                            tileCache.Add(key, Background.GetTileBitmap(tile, properties, front));
                         }
+
+                        g.DrawImage(tileCache[key], x * Tile.Size, y * Tile.Size);
                     }
                 }
+            }
+
+            foreach (Bitmap cacheItem in tileCache.Values)
+            {
+                cacheItem.Dispose();
             }
 
             return bitmap;

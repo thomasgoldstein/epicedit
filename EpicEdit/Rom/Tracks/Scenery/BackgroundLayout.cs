@@ -121,7 +121,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             return layer;
         }
 
-        public void GetTileData(bool front, int x, int y, out byte tileId, out byte properties)
+        public void GetTileData(int x, int y, bool front, out byte tileId, out byte properties)
         {
             byte[][] layer = front ? this.frontLayer : this.backLayer;
             tileId = layer[YStart + y][x * 2];
