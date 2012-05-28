@@ -893,6 +893,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.backgroundForm = new BackgroundEditorForm();
                 this.backgroundForm.Owner = this.ParentForm;
+                this.backgroundForm.ColorSelected += this.TileColorSelected;
             }
 
             this.backgroundForm.Init();
