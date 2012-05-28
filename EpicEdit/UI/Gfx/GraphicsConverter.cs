@@ -130,16 +130,16 @@ namespace EpicEdit.UI.Gfx
         {
             switch (flip)
             {
-                case Flip.X | Flip.Y:
-                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipXY);
-                    break;
-
                 case Flip.X:
                     bitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
                     break;
 
                 case Flip.Y:
                     bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                    break;
+
+                case Flip.X | Flip.Y:
+                    bitmap.RotateFlip(RotateFlipType.RotateNoneFlipXY);
                     break;
             }
         }
