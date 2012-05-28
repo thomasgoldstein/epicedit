@@ -26,25 +26,16 @@ namespace EpicEdit.Rom.Tracks.Scenery
         private const int FrontPaletteStart = 4;
         private const int BackPaletteStart = 6;
 
-        private BackgroundTileset tileset;
-        private BackgroundLayout layout;
+        public BackgroundTileset Tileset { get; private set; }
+        public BackgroundLayout Layout { get; private set; }
 
         public Background(BackgroundTileset tileset, BackgroundLayout layout)
         {
-            this.tileset = tileset;
-            this.layout = layout;
+            this.Tileset = tileset;
+            this.Layout = layout;
         }
 
-        public Bitmap GetTileBitmap(bool front, int x, int y)
-        {
-            byte tileId;
-            byte properties;
-            this.layout.GetTileData(front, x, y, out tileId, out properties);
-            Tile2bpp tile = this.tileset[tileId];
-            return Background.GetTileBitmap(tile, properties, front);
-        }
-
-        private static Bitmap GetTileBitmap(Tile2bpp tile, byte properties, bool front)
+        public static Bitmap GetTileBitmap(Tile2bpp tile, byte properties, bool front)
         {
             Tile2bppProperties props = new Tile2bppProperties(properties);
             int start = front ? FrontPaletteStart : BackPaletteStart;
@@ -55,7 +46,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public void Dispose()
         {
-            this.tileset.Dispose();
+            this.Tileset.Dispose();
 
             GC.SuppressFinalize(this);
         }
