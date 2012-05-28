@@ -74,43 +74,41 @@ namespace EpicEdit.UI.Gfx
         private void InitFrontLayer()
         {
             this.frontLayer.Dispose();
-
-            this.frontLayer = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb);
-            Background background = this.theme.Background;
-
-            using (Graphics g = Graphics.FromImage( this.frontLayer))
-            {
-                for (int y = 0; y < BackgroundLayout.RowCount; y++)
-                {
-                    for (int x = 0; x < BackgroundLayout.FrontLayerWidth; x++)
-                    {
-                        Bitmap tileBitmap = background.GetFrontTileBitmap(x, y);
-                        g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
-                    }
-                }
-            }
+            this.frontLayer = this.CreateLayer(true);
         }
 
         private void InitBackLayer()
         {
             this.backLayer.Dispose();
+            this.backLayer = this.CreateLayer(false);
+        }
 
-            this.backLayer = new Bitmap(BackgroundLayout.BackLayerWidth * Tile.Size, this.Height, PixelFormat.Format32bppPArgb);
+        private Bitmap CreateLayer(bool front)
+        {
+            int layerWidth = front ? BackgroundLayout.FrontLayerWidth : BackgroundLayout.BackLayerWidth;
+            int imageWidth = layerWidth * Tile.Size;
+
+            Bitmap bitmap = new Bitmap(imageWidth, this.Height, PixelFormat.Format32bppPArgb);
             Background background = this.theme.Background;
 
-            using (Graphics g = Graphics.FromImage(this.backLayer))
+            using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.Clear(this.theme.BackColor);
+                if (!front)
+                {
+                    g.Clear(this.theme.BackColor);
+                }
 
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
                 {
-                    for (int x = 0; x < BackgroundLayout.BackLayerWidth; x++)
+                    for (int x = 0; x < layerWidth; x++)
                     {
-                        Bitmap tileBitmap = background.GetBackTileBitmap(x, y);
+                        Bitmap tileBitmap = background.GetTileBitmap(front, x, y);
                         g.DrawImage(tileBitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
             }
+
+            return bitmap;
         }
 
         public void DrawBackgroundLayer(Graphics g, int x, bool front)
