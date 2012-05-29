@@ -168,7 +168,7 @@ namespace EpicEdit.UI.Gfx
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
-                backBuffer.DrawImage(this.backLayer, x + BackgroundLayout.BackLayerWidth * Tile.Size, 0);
+                backBuffer.DrawImage(this.backLayer, x + this.BackWidth, 0);
 
                 backBuffer.DrawImage(this.frontLayer, x * 2, 0);
                 backBuffer.DrawImage(this.frontLayer, x * 2 + this.FrontWidth, 0);
