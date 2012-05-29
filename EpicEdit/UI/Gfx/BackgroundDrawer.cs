@@ -188,7 +188,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.x--;
 
-            if (this.x < 512 - (BackgroundLayout.FrontLayerWidth * Tile.Size))
+            if (this.x < -this.BackWidth)
             {
                 this.x = 0;
             }
