@@ -40,12 +40,12 @@ namespace EpicEdit.Rom
             set { this.flip = value; }
         }
 
-        public Tile2bppProperties(byte properties)
+        public Tile2bppProperties(byte data)
         {
-            byte paletteData = (byte)(properties & 0x3F);
+            byte paletteData = (byte)(data & 0x3F);
             this.paletteIndex = paletteData / 16;
             this.subPaletteIndex = paletteData % 16;
-            this.flip = (Flip)(properties & (byte)(Flip.X | Flip.Y));
+            this.flip = (Flip)(data & (byte)(Flip.X | Flip.Y));
         }
     }
     
