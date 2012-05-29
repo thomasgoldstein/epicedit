@@ -48,7 +48,7 @@ namespace EpicEdit.Rom
             this.flip = (Flip)(data & (byte)(Flip.X | Flip.Y));
         }
     }
-    
+
     /// <summary>
     /// A 2-bit per pixel tile.
     /// </summary>
