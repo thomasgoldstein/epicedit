@@ -42,10 +42,11 @@ namespace EpicEdit.Rom
 
         public Tile2bppProperties(byte data)
         {
-            byte paletteData = (byte)(data & 0x3F);
+            byte flipMask = (byte)(Flip.X | Flip.Y);
+            byte paletteData = (byte)(data &~ flipMask);
             this.paletteIndex = paletteData / 16;
             this.subPaletteIndex = paletteData % 16;
-            this.flip = (Flip)(data & (byte)(Flip.X | Flip.Y));
+            this.flip = (Flip)(data & flipMask);
         }
     }
 
