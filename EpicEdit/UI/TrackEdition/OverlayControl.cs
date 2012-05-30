@@ -375,8 +375,7 @@ namespace EpicEdit.UI.TrackEdition
             protected override Tile GetTileAt(int x, int y)
             {
                 OverlayControl parent = this.Parent as OverlayControl;
-                int zoom = OverlayTilesetDrawer.Zoom;
-                OverlayTilePattern pattern = parent.GetPatternAt(x * zoom, y * zoom);
+                OverlayTilePattern pattern = parent.GetPatternAt((int)(x * this.Zoom), (int)(y * this.Zoom));
 
                 if (pattern == null)
                 {
