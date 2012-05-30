@@ -119,7 +119,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel.Name = "frontLayerPanel";
             this.frontLayerPanel.Size = new System.Drawing.Size(512, 48);
             this.frontLayerPanel.TabIndex = 2;
-            this.frontLayerPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.BackgroundLayerPanelScroll);
             // 
             // frontLayerGroupBox
             // 
@@ -150,7 +149,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.Name = "backLayerPanel";
             this.backLayerPanel.Size = new System.Drawing.Size(512, 48);
             this.backLayerPanel.TabIndex = 4;
-            this.backLayerPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.BackgroundLayerPanelScroll);
             // 
             // BackgroundEditor
             // 
