@@ -63,25 +63,13 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.frontLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
             this.frontLayerPanel.Zoom = BackgroundDrawer.Zoom;
-            this.frontLayerPanel.Paint += this.BackgroundLayerPanelPaint;
+            this.frontLayerPanel.Drawer = this.drawer;
 
             this.backLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
             this.backLayerPanel.Zoom = BackgroundDrawer.Zoom;
-            this.backLayerPanel.Paint += this.BackgroundLayerPanelPaint;
+            this.backLayerPanel.Drawer = this.drawer;
 
             this.backgroundPreviewer.Drawer = this.drawer;
-        }
-
-        private void BackgroundLayerPanelPaint(object sender, PaintEventArgs e)
-        {
-            BackgroundPanel panel = sender as BackgroundPanel;
-            int x = (int)(panel.AutoScrollPosition.X / panel.Zoom);
-            this.drawer.DrawBackgroundLayer(e.Graphics, x, panel.Front);
-        }
-
-        private void BackgroundLayerPanelScroll(object sender, ScrollEventArgs e)
-        {
-            (sender as Control).Invalidate();
         }
 
         public void Init()

@@ -13,16 +13,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Windows.Forms;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
+using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
     internal sealed class BackgroundPanel : TilePanel
     {
+        public BackgroundDrawer Drawer { get; set; }
         public Background Background { get; set; }
         public bool Front { get; set; }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (this.Drawer == null)
+            {
+                return;
+            }
+
+            base.OnPaint(e);
+            int x = (int)(this.AutoScrollPosition.X / this.Zoom);
+            this.Drawer.DrawBackgroundLayer(e.Graphics, x, this.Front);
+        }
+
+        protected override void OnScroll(ScrollEventArgs se)
+        {
+            base.OnScroll(se);
+
+            this.Invalidate();
+        }
 
         protected override Tile GetTileAt(int x, int y)
         {
