@@ -176,6 +176,7 @@
     <Compile Include="UI\ThemeEdition\BackgroundEditorForm.Designer.cs">
       <DependentUpon>BackgroundEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\BackgroundPanel.cs" />
     <Compile Include="UI\ThemeEdition\BackgroundPreviewer.cs" />
     <Compile Include="UI\ThemeEdition\BackgroundPreviewer.Designer.cs">
       <DependentUpon>BackgroundPreviewer.cs</DependentUpon>

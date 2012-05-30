@@ -19,7 +19,6 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
-using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
@@ -163,28 +162,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.drawer.RewindPreview();
             this.backgroundPreviewer.Invalidate();
-        }
-
-        private sealed class BackgroundPanel : TilePanel
-        {
-            public Background Background { get; set; }
-            public bool Front { get; set; }
-
-            protected override Tile GetTileAt(int x, int y)
-            {
-                // Convert from pixel precision to tile precision
-                x /= Tile.Size;
-                y /= Tile.Size;
-
-                byte tileId;
-                byte properties;
-                this.Background.Layout.GetTileData(x, y, this.Front, out tileId, out properties);
-
-                Tile2bpp tile = this.Background.Tileset[tileId];
-                int paletteStart = this.Front ? Background.FrontPaletteStart : Background.BackPaletteStart;
-                Tile2bpp clone = new Tile2bpp(tile.Graphics, tile.Palettes, properties, paletteStart);
-                return clone; // NOTE: We're leaking a bit of memory here, as the clone is not explicitly disposed
-            }
         }
     }
 }

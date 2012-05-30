@@ -51,10 +51,10 @@ namespace EpicEdit.UI.ThemeEdition
             this.playPauseButton = new System.Windows.Forms.Button();
             this.previewGroupBox = new System.Windows.Forms.GroupBox();
             this.rewindButton = new System.Windows.Forms.Button();
-            this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel();
+            this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerGroupBox = new System.Windows.Forms.GroupBox();
-            this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel();
+            this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.previewGroupBox.SuspendLayout();
             this.frontLayerGroupBox.SuspendLayout();
             this.backLayerGroupBox.SuspendLayout();
@@ -166,10 +166,10 @@ namespace EpicEdit.UI.ThemeEdition
             this.ResumeLayout(false);
         }
         private System.Windows.Forms.Button rewindButton;
-        private EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel backLayerPanel;
+        private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;
         private System.Windows.Forms.GroupBox backLayerGroupBox;
         private System.Windows.Forms.GroupBox frontLayerGroupBox;
-        private EpicEdit.UI.ThemeEdition.BackgroundEditor.BackgroundPanel frontLayerPanel;
+        private EpicEdit.UI.ThemeEdition.BackgroundPanel frontLayerPanel;
         private System.Windows.Forms.GroupBox previewGroupBox;
         private System.Windows.Forms.Button playPauseButton;
         private System.Windows.Forms.ComboBox themeComboBox;
