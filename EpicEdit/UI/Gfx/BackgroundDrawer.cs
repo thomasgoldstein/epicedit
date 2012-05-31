@@ -21,6 +21,7 @@ using System.Drawing.Imaging;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Scenery;
+using EpicEdit.UI.TrackEdition;
 
 namespace EpicEdit.UI.Gfx
 {
@@ -52,8 +53,15 @@ namespace EpicEdit.UI.Gfx
 
         private int x;
 
+        /// <summary>
+        /// Used to draw the rectangle when highlighting tiles.
+        /// </summary>
+        private Pen tileHighlightPen;
+
         public BackgroundDrawer()
         {
+            this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
+
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
             this.frontLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
@@ -129,36 +137,49 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public void DrawBackgroundLayer(Graphics g, int x, bool front)
+        public void DrawBackgroundLayer(Graphics g, Point cursorPosition, int x, bool front)
         {
             if (front)
             {
-                this.DrawFrontBackgroundLayer(g, x);
+                this.DrawFrontBackgroundLayer(g, cursorPosition, x);
             }
             else
             {
-                this.DrawBackBackgroundLayer(g, x);
+                this.DrawBackBackgroundLayer(g, cursorPosition, x);
             }
         }
 
-        private void DrawBackBackgroundLayer(Graphics g, int x)
+        private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x)
         {
             using (Bitmap image = new Bitmap(this.BackWidth, this.Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
+                this.DrawTileSelection(backBuffer, cursorPosition, x);
                 this.DrawImage(g, image, this.BackWidth);
             }
         }
 
-        private void DrawFrontBackgroundLayer(Graphics g, int x)
+        private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x)
         {
             using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
+                this.DrawTileSelection(backBuffer, cursorPosition, x);
                 this.DrawImage(g, image, this.FrontWidth);
+            }
+        }
+
+        private void DrawTileSelection(Graphics g, Point cursorPosition, int x)
+        {
+            if (cursorPosition != TrackEditor.OutOfBounds)
+            {
+                g.DrawRectangle(this.tileHighlightPen,
+                                new Rectangle(cursorPosition.X * Tile.Size - 1 + (x % Tile.Size),
+                                              cursorPosition.Y * Tile.Size - 1,
+                                              Tile.Size + 1, Tile.Size + 1));
             }
         }
 
@@ -184,6 +205,35 @@ namespace EpicEdit.UI.Gfx
             g.DrawImage(image, 0, 0, width * Zoom, this.Height * Zoom);
         }
 
+        public void UpdateTile(int x, int y, bool front, byte tileId, byte properties)
+        {
+            if (!Platform.IsWindows)
+            {
+                // HACK: Work around Mono bug #492299 (slower)
+                // https://bugzilla.novell.com/show_bug.cgi?id=492299
+                if (front)
+                {
+                    this.InitFrontLayer();
+                }
+                else
+                {
+                    this.InitBackLayer();
+                }
+                return;
+            }
+
+            Rectangle rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
+            Tile2bpp tile = this.theme.Background.Tileset[tileId];
+
+            using (Graphics g = Graphics.FromImage(front ? this.frontLayer : this.backLayer))
+            using (Bitmap image = Background.GetTileBitmap(tile, properties, front))
+            {
+                g.SetClip(rec);
+                g.Clear(front ? Color.Transparent : this.theme.BackColor.Color);
+                g.DrawImage(image, rec.X, rec.Y);
+            }
+        }
+
         public void IncrementPreviewFrame()
         {
             this.x--;
@@ -198,6 +248,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.frontLayer.Dispose();
             this.backLayer.Dispose();
+            this.tileHighlightPen.Dispose();
 
             GC.SuppressFinalize(this);
         }

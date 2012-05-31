@@ -151,5 +151,10 @@ namespace EpicEdit.UI.ThemeEdition
             this.drawer.RewindPreview();
             this.backgroundPreviewer.Invalidate();
         }
+
+        private void BackgroundLayerPanelTileChanged(object sender, EventArgs e)
+        {
+            this.backgroundPreviewer.Invalidate();
+        }
     }
 }

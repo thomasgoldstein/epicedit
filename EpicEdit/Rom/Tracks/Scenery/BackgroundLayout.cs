@@ -89,6 +89,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
         private byte[][] frontLayer;
         private byte[][] backLayer;
 
+        public bool Modified { get; set; }
+
         public BackgroundLayout(byte[] data)
         {
             if (data.Length != TotalSize)
@@ -127,11 +129,21 @@ namespace EpicEdit.Rom.Tracks.Scenery
             properties = layer[YStart + y][x * 2 + 1];
         }
 
+        public void SetTileData(int x, int y, bool front, byte tileId, byte properties)
+        {
+            byte[][] layer = front ? this.frontLayer : this.backLayer;
+            layer[YStart + y][x * 2] = tileId;
+            layer[YStart + y][x * 2 + 1] = properties;
+
+            this.Modified = true;
+        }
+
         public byte[] GetBytes()
         {
             byte[] data = new byte[TotalSize];
             SetBytes(data, this.frontLayer, 0);
             SetBytes(data, this.backLayer, FrontLayerSize);
+
             return data;
         }
 
