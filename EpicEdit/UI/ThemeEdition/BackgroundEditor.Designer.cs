@@ -62,7 +62,6 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // backgroundPreviewer
             // 
-            this.backgroundPreviewer.Drawer = null;
             this.backgroundPreviewer.Location = new System.Drawing.Point(7, 46);
             this.backgroundPreviewer.Name = "backgroundPreviewer";
             this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
