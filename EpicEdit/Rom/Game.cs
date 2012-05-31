@@ -2024,6 +2024,14 @@ namespace EpicEdit.Rom
                     byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
                     saveBuffer.AddCompressed(paletteData, paletteOffsetIndex);
                 }
+
+                if (theme.Background.Layout.Modified)
+                {
+                    // Save background layout
+                    int bgLayoutOffsetIndex = this.offsets[Offset.TrackBackgroundLayouts] + i * 3;
+                    byte[] bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
+                    saveBuffer.AddCompressed(bgLayoutData, bgLayoutOffsetIndex);
+                }
             }
         }
 
@@ -2061,6 +2069,7 @@ namespace EpicEdit.Rom
             {
                 theme.RoadTileset.Modified = false;
                 theme.Palettes.Modified = false;
+                theme.Background.Layout.Modified = false;
             }
         }
 
@@ -2100,7 +2109,8 @@ namespace EpicEdit.Rom
             foreach (Theme theme in this.themes)
             {
                 if (theme.RoadTileset.Modified ||
-                    theme.Palettes.Modified)
+                    theme.Palettes.Modified ||
+                    theme.Background.Layout.Modified)
                 {
                     return true;
                 }
