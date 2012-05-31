@@ -16,7 +16,7 @@ using System;
 using EpicEdit.Rom;
 using NUnit.Framework;
 
-namespace EpicEditTests.Rom.Tracks.Items
+namespace EpicEditTests.Rom
 {
     [TestFixture]
     internal class Tile2bppTest
