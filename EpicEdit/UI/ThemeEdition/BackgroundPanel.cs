@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
@@ -23,8 +24,12 @@ namespace EpicEdit.UI.ThemeEdition
 {
     internal sealed class BackgroundPanel : TilePanel
     {
+        [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer { get; set; }
+        
+        [Browsable(false), DefaultValue(typeof(Background), "")]
         public Background Background { get; set; }
+
         public bool Front { get; set; }
 
         protected override void OnPaint(PaintEventArgs e)

@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
@@ -26,6 +27,8 @@ namespace EpicEdit.UI.ThemeEdition
     internal partial class BackgroundPreviewer : EpicPanel
     {
         private BackgroundDrawer drawer;
+
+        [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer
         {
             get { return this.drawer; }
