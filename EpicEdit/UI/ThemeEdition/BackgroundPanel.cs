@@ -14,23 +14,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
+using EpicEdit.UI.TrackEdition;
 
 namespace EpicEdit.UI.ThemeEdition
 {
     internal sealed class BackgroundPanel : TilePanel
     {
+        /// <summary>
+        /// Raised when a tile has been modified.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs> TileChanged;
+
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer { get; set; }
-        
+
         [Browsable(false), DefaultValue(typeof(Background), "")]
         public Background Background { get; set; }
 
         public bool Front { get; set; }
+
+        public Point TilePosition { get; private set; }
+
+        public int ScrollPixelPositionX
+        {
+            get { return (int)(this.AutoScrollPosition.X / this.Zoom); }
+        }
+
+        public int ScrollTilePositionX
+        {
+            get { return this.ScrollPixelPositionX / Tile.Size; }
+        }
+
+        public Point AbsoluteTilePosition
+        {
+            get
+            {
+                if (this.TilePosition == TrackEditor.OutOfBounds)
+                {
+                    return this.TilePosition;
+                }
+
+                return new Point(this.TilePosition.X - this.ScrollTilePositionX, this.TilePosition.Y);
+            }
+        }
+
+        public BackgroundPanel()
+        {
+            this.TilePosition = TrackEditor.OutOfBounds;
+            this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -40,8 +80,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             base.OnPaint(e);
-            int x = (int)(this.AutoScrollPosition.X / this.Zoom);
-            this.Drawer.DrawBackgroundLayer(e.Graphics, x, this.Front);
+            this.Drawer.DrawBackgroundLayer(e.Graphics, this.TilePosition, this.ScrollPixelPositionX, this.Front);
         }
 
         protected override void OnScroll(ScrollEventArgs se)
@@ -49,6 +88,84 @@ namespace EpicEdit.UI.ThemeEdition
             base.OnScroll(se);
 
             this.Invalidate();
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            Point tilePositionBefore = this.TilePosition;
+            this.SetPosition(e.Location);
+
+            if (tilePositionBefore != this.TilePosition)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    this.LayTile();
+                }
+
+                this.Invalidate();
+            }
+        }
+
+        private void SetPosition(Point location)
+        {
+            int zoomedTileSize = (int)(Tile.Size * this.Zoom);
+            int x = (location.X - (this.AutoScrollPosition.X % zoomedTileSize)) / zoomedTileSize;
+            int y = location.Y / zoomedTileSize;
+
+            // We check that the new position isn't out of the track limits, if it is,
+            // we set it to the lowest or highest (depending on case) possible coordinate
+            if (x < 0)
+            {
+                x = 0;
+            }
+            else if (x >= this.Width / zoomedTileSize)
+            {
+                x = this.Width / zoomedTileSize - 1;
+            }
+
+            if (y < 0)
+            {
+                y = 0;
+            }
+            else if (y >= this.AutoScrollMinSize.Height / zoomedTileSize)
+            {
+                // Using AutoScrollMinSize.Height rather than Height,
+                // because Height includes the horizontal scroll bar height
+                y = this.AutoScrollMinSize.Height / zoomedTileSize - 1;
+            }
+
+            this.TilePosition = new Point(x, y);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+
+            this.TilePosition = TrackEditor.OutOfBounds;
+
+            this.Invalidate();
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+
+            if (e.Button == MouseButtons.Left)
+            {
+                this.LayTile();
+                this.Invalidate();
+            }
+        }
+
+        private void LayTile()
+        {
+            Point position = this.AbsoluteTilePosition;
+            this.Background.Layout.SetTileData(position.X, position.Y, this.Front, 0, 0);
+            this.Drawer.UpdateTile(position.X, position.Y, this.Front, 0, 0);
+
+            this.TileChanged(this, EventArgs.Empty);
         }
 
         protected override Tile GetTileAt(int x, int y)
