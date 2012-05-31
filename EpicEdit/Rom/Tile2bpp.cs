@@ -44,8 +44,8 @@ namespace EpicEdit.Rom
         {
             byte flipMask = (byte)(Flip.X | Flip.Y);
             byte paletteData = (byte)(data &~ flipMask);
-            this.paletteIndex = paletteData / 16;
-            this.subPaletteIndex = paletteData % 16;
+            this.paletteIndex = (paletteData & 0x30) >> 4;
+            this.subPaletteIndex = (paletteData & 0xF);
             this.flip = (Flip)(data & flipMask);
         }
     }
