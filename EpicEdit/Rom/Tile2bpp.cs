@@ -48,6 +48,11 @@ namespace EpicEdit.Rom
             this.subPaletteIndex = (paletteData & 0xF);
             this.flip = (Flip)(data & flipMask);
         }
+
+        public byte GetByte()
+        {
+            return (byte)((byte)this.flip | (this.paletteIndex * 16) | this.subPaletteIndex);
+        }
     }
 
     /// <summary>
