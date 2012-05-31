@@ -49,5 +49,15 @@ namespace EpicEditTests.Rom
 
             this.TestGetColorIndexAt(gfx, palData, 0);
         }
+
+        [Test]
+        public void TestPropertiesGetByte()
+        {
+            for (int i = 0; i <= 0xFF; i++)
+            {
+                Tile2bppProperties properties = new Tile2bppProperties((byte)i);
+                Assert.AreEqual(i, properties.GetByte());
+            }
+        }
     }
 }
