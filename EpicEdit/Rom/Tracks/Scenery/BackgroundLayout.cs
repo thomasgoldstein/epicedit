@@ -21,7 +21,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class BackgroundLayout
     {
-
         /// <summary>
         /// The number of visible tile rows that compose a background layer.
         /// </summary>
