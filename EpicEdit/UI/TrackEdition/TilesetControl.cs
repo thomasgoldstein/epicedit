@@ -82,7 +82,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to draw the tileset.
         /// </summary>
-        private TilesetDrawer tilesetDrawer;
+        private TilesetDrawer drawer;
 
         private Track track = null;
 
@@ -133,7 +133,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            this.tilesetDrawer = new TilesetDrawer(this.tilesetPanel);
+            this.drawer = new TilesetDrawer(this.tilesetPanel);
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
@@ -219,7 +219,7 @@ namespace EpicEdit.UI.TrackEdition
 
             // Could be optimized by not updating the whole cache,
             // and not repainting the whole panel (but it's already fast enough)
-            this.tilesetDrawer.UpdateCache();
+            this.drawer.UpdateCache();
             this.tilesetPanel.Refresh();
 
             this.TileChanged(this, new EventArgs<byte>(this.selectedTile));
@@ -233,7 +233,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetTileset()
         {
-            this.tilesetDrawer.Tileset = this.track.RoadTileset;
+            this.drawer.Tileset = this.track.RoadTileset;
         }
 
         private void SelectTrackTheme()
@@ -253,7 +253,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
         {
-            this.tilesetDrawer.DrawTileset(e.Graphics, this.selectedTile);
+            this.drawer.DrawTileset(e.Graphics, this.selectedTile);
         }
 
         private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
@@ -335,7 +335,7 @@ namespace EpicEdit.UI.TrackEdition
                         }
                     }
 
-                    this.tilesetDrawer.UpdateCache();
+                    this.drawer.UpdateCache();
                     this.tilesetPanel.Refresh();
                     this.track.Theme.RoadTileset.Modified = true;
                     this.TilesetChanged(this, EventArgs.Empty);
@@ -384,7 +384,7 @@ namespace EpicEdit.UI.TrackEdition
                             break;
                     }
 
-                    this.tilesetDrawer.Image.Save(sfd.FileName, format);
+                    this.drawer.Image.Save(sfd.FileName, format);
                 }
             }
         }
