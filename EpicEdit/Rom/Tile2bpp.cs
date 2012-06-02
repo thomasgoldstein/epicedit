@@ -71,6 +71,28 @@ namespace EpicEdit.Rom
             this.flip = (Flip)(data & flipMask);
         }
 
+        public void FlipX()
+        {
+            this.FlipXY(Flip.X);
+        }
+
+        public void FlipY()
+        {
+            this.FlipXY(Flip.Y);
+        }
+
+        private void FlipXY(Flip value)
+        {
+            if ((this.flip & value) != 0)
+            {
+                this.flip ^= value;
+            }
+            else
+            {
+                this.flip |= value;
+            }
+        }
+
         public byte GetByte()
         {
             return (byte)((byte)this.flip | (this.paletteIndex << 4) | this.subPaletteIndex);
