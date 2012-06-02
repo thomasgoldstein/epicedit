@@ -55,7 +55,7 @@ namespace EpicEdit.Rom
 
             if ((paletteData & 0x03) != 0)
             {
-                throw new ArgumentOutOfRangeException("data", "Invalid tile 2bpp property data. The 2 lower bits should be 0.");
+                throw new ArgumentOutOfRangeException("data", "Invalid 2bpp tile property data. The 2 lower bits should be 0.");
             }
 
             this.paletteIndex = (paletteData & 0x30) >> 4;
