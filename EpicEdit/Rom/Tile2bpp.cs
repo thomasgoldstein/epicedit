@@ -30,7 +30,15 @@ namespace EpicEdit.Rom
         public int SubPaletteIndex
         {
             get { return this.subPaletteIndex; }
-            set { this.subPaletteIndex = value; }
+            set
+            {
+                if ((value & 0xC) != 0)
+                {
+                    throw new ArgumentOutOfRangeException("value", "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
+                }
+                
+                this.subPaletteIndex = value;
+            }
         }
 
         private Flip flip;
@@ -44,8 +52,14 @@ namespace EpicEdit.Rom
         {
             byte flipMask = (byte)(Flip.X | Flip.Y);
             byte paletteData = (byte)(data &~ flipMask);
+
+            if ((paletteData & 0x03) != 0)
+            {
+                throw new ArgumentOutOfRangeException("data", "Invalid tile 2bpp property data. The 2 lower bits should be 0.");
+            }
+
             this.paletteIndex = (paletteData & 0x30) >> 4;
-            this.subPaletteIndex = (paletteData & 0xF);
+            this.subPaletteIndex = (paletteData & 0xC);
             this.flip = (Flip)(data & flipMask);
         }
 
