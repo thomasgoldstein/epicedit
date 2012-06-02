@@ -23,7 +23,15 @@ namespace EpicEdit.Rom
         public int PaletteIndex
         {
             get { return this.paletteIndex; }
-            set { this.paletteIndex = value; }
+            set
+            {
+                if (value < 0 || value > 15)
+                {
+                    throw new ArgumentOutOfRangeException("value", "The palette index value should be between 0 and 15.");
+                }
+
+                this.paletteIndex = value;
+            }
         }
 
         private int subPaletteIndex;
@@ -32,7 +40,7 @@ namespace EpicEdit.Rom
             get { return this.subPaletteIndex; }
             set
             {
-                if ((value & 0xF3) != 0)
+                if (value != 0 && value != 4 && value != 8 && value != 12)
                 {
                     throw new ArgumentOutOfRangeException("value", "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
                 }
