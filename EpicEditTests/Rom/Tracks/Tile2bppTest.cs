@@ -55,8 +55,16 @@ namespace EpicEditTests.Rom
         {
             for (int i = 0; i <= 0xFF; i++)
             {
-                Tile2bppProperties properties = new Tile2bppProperties((byte)i);
-                Assert.AreEqual(i, properties.GetByte());
+                byte value = (byte)i;
+                if ((value & 0x3) != 0)
+                {
+                    Assert.Throws(typeof(ArgumentOutOfRangeException), delegate { new Tile2bppProperties(value); });
+                }
+                else
+                {
+                    Tile2bppProperties properties = new Tile2bppProperties(value);
+                    Assert.AreEqual(i, properties.GetByte());
+                }
             }
         }
     }
