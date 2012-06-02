@@ -65,7 +65,7 @@ namespace EpicEdit.Rom
 
         public byte GetByte()
         {
-            return (byte)((byte)this.flip | (this.paletteIndex * 16) | this.subPaletteIndex);
+            return (byte)((byte)this.flip | (this.paletteIndex << 4) | this.subPaletteIndex);
         }
     }
 
