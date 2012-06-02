@@ -23,9 +23,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class Background : IDisposable
     {
-        public const int FrontPaletteStart = 4;
-        public const int BackPaletteStart = 6;
-
         public BackgroundTileset Tileset { get; private set; }
         public BackgroundLayout Layout { get; private set; }
 
@@ -38,8 +35,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
         public static Bitmap GetTileBitmap(Tile2bpp tile, byte properties, bool front)
         {
             Tile2bppProperties props = new Tile2bppProperties(properties);
-            int start = front ? FrontPaletteStart : BackPaletteStart;
-            props.PaletteIndex += front ? FrontPaletteStart : BackPaletteStart;
+            int start = front ? Palettes.FrontBackgroundPaletteStart : Palettes.BackBackgroundPaletteStart;
+            props.PaletteIndex += start;
 
             return GraphicsConverter.GetBitmapFrom2bppPlanar(tile.Graphics, tile.Palettes, props);
         }
