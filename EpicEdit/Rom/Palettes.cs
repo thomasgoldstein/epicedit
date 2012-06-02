@@ -32,6 +32,16 @@ namespace EpicEdit.Rom
         public const int SpritePaletteStart = 8;
 
         /// <summary>
+        /// Position at which front background layer palettes begin. From 4 to 7.
+        /// </summary>
+        public const int FrontBackgroundPaletteStart = 4;
+
+        /// <summary>
+        /// Position at which back background layer palettes begin. From 6 to 9.
+        /// </summary>
+        public const int BackBackgroundPaletteStart = 6;
+
+        /// <summary>
         /// The theme the palettes belong to.
         /// </summary>
         public Theme Theme { get; internal set; }

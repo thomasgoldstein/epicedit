@@ -179,7 +179,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Background.Layout.GetTileData(x, y, this.Front, out tileId, out properties);
 
             Tile2bpp tile = this.Background.Tileset[tileId];
-            int paletteStart = this.Front ? Background.FrontPaletteStart : Background.BackPaletteStart;
+            int paletteStart = this.Front ? Palettes.FrontBackgroundPaletteStart : Palettes.BackBackgroundPaletteStart;
             Tile2bpp clone = new Tile2bpp(tile.Graphics, tile.Palettes, properties, paletteStart);
             return clone; // NOTE: We're leaking a bit of memory here, as the clone is not explicitly disposed
         }
