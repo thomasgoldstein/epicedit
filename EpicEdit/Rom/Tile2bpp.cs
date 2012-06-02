@@ -32,7 +32,7 @@ namespace EpicEdit.Rom
             get { return this.subPaletteIndex; }
             set
             {
-                if ((value & 0xC) != 0)
+                if ((value & 0xF3) != 0)
                 {
                     throw new ArgumentOutOfRangeException("value", "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
                 }
