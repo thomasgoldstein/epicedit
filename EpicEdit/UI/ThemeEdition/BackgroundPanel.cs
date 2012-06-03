@@ -77,6 +77,11 @@ namespace EpicEdit.UI.ThemeEdition
 
         private byte tileProperties;
 
+        /// <summary>
+        /// Specifies whether the user is selecting a tile.
+        /// </summary>
+        private bool tileSelection;
+
         public Tile2bppProperties TileProperties
         {
             get { return new Tile2bppProperties(this.tileProperties); }
@@ -97,7 +102,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             base.OnPaint(e);
-            this.Drawer.DrawBackgroundLayer(e.Graphics, this.TilePosition, this.ScrollPixelPositionX, this.Front);
+            this.Drawer.DrawBackgroundLayer(e.Graphics, this.TilePosition, this.ScrollPixelPositionX, this.Front, this.tileSelection);
         }
 
         protected override void OnScroll(ScrollEventArgs se)
@@ -121,11 +126,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             if (tilePositionBefore != this.TilePosition)
             {
-                if (e.Button == MouseButtons.Left)
-                {
-                    this.LayTile();
-                }
-
+                this.InitAction(e.Button);
                 this.Invalidate();
             }
         }
@@ -179,13 +180,20 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            if (e.Button == MouseButtons.Left)
+            this.InitAction(e.Button);
+        }
+
+        private void InitAction(MouseButtons mouseButton)
+        {
+            if (mouseButton == MouseButtons.Left)
             {
                 this.LayTile();
                 this.Invalidate();
             }
-            else if (e.Button == MouseButtons.Right)
+            else if (mouseButton == MouseButtons.Right)
             {
+                this.tileSelection = true;
+
                 Point position = this.AbsoluteTilePosition;
                 byte tileId;
                 byte properties;
@@ -193,6 +201,18 @@ namespace EpicEdit.UI.ThemeEdition
 
                 EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
                 this.TileSelected(this, ea);
+                this.Invalidate();
+            }
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+
+            if (this.tileSelection)
+            {
+                this.tileSelection = false;
+                this.Invalidate();
             }
         }
 
