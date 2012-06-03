@@ -111,6 +111,11 @@ namespace EpicEdit.UI.ThemeEdition
         {
             base.OnMouseMove(e);
 
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             Point tilePositionBefore = this.TilePosition;
             this.SetPosition(e.Location);
 
