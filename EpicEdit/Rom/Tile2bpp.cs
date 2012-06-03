@@ -142,20 +142,30 @@ namespace EpicEdit.Rom
 
         public Tile2bpp(byte[] gfx, Palettes palettes)
         {
+            this.Init(gfx, palettes, 0, 0);
+        }
+
+        public Tile2bpp(byte[] gfx, byte properties)
+        {
+            this.Init(gfx, null, properties, 0);
+        }
+
+        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties)
+        {
+            this.Init(gfx, palettes, properties, 0);
+        }
+
+        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties, int paletteStart)
+        {
+            this.Init(gfx, palettes, properties, paletteStart);
+        }
+
+        private void Init(byte[] gfx, Palettes palettes, byte properties, int paletteStart)
+        {
             this.Graphics = gfx;
-            this.Palettes = palettes;
-        }
-
-        public Tile2bpp(byte[] gfx, byte properties) : this(gfx, null, properties) { }
-
-        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties) : this(gfx, palettes)
-        {
             this.properties = new Tile2bppProperties(properties);
-        }
-
-        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties, int paletteStart) : this(gfx, palettes, properties)
-        {
             this.properties.PaletteIndex += paletteStart;
+            this.Palettes = palettes;
         }
 
         protected override void GenerateBitmap()
