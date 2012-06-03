@@ -66,6 +66,17 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        [Browsable(false), DefaultValue(typeof(byte), "0")]
+        public byte TileId { get; set; }
+
+        private byte tileProperties;
+
+        public Tile2bppProperties TileProperties
+        {
+            get { return new Tile2bppProperties(this.tileProperties); }
+            set { this.tileProperties = value.GetByte(); }
+        }
+
         public BackgroundPanel()
         {
             this.TilePosition = TrackEditor.OutOfBounds;
@@ -162,8 +173,8 @@ namespace EpicEdit.UI.ThemeEdition
         private void LayTile()
         {
             Point position = this.AbsoluteTilePosition;
-            this.Background.Layout.SetTileData(position.X, position.Y, this.Front, 0, 0);
-            this.Drawer.UpdateTile(position.X, position.Y, this.Front, 0, 0);
+            this.Background.Layout.SetTileData(position.X, position.Y, this.Front, this.TileId, this.tileProperties);
+            this.Drawer.UpdateTile(position.X, position.Y, this.Front, this.TileId, this.tileProperties);
 
             this.TileChanged(this, EventArgs.Empty);
         }
