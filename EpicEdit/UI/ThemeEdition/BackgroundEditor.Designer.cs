@@ -217,7 +217,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.paletteNumericUpDown.Location = new System.Drawing.Point(77, 14);
             this.paletteNumericUpDown.Maximum = new decimal(new int[] {
-                                    16,
+                                    8,
                                     0,
                                     0,
                                     0});
