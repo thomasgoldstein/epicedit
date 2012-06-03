@@ -584,7 +584,7 @@ namespace EpicEdit.UI.Gfx
         private Rectangle GetTileSelectionRectangle(Point cursorPosition, Size selectionSize, Point selectionStart, MouseButtons mouseButtons)
         {
             Rectangle selectionRectangle;
-            if (mouseButtons == MouseButtons.Right) // A multiple tile selection is happening now
+            if (mouseButtons == MouseButtons.Right) // A tile selection is happening now
             {
                 selectionStart.X -= this.scrollPosition.X;
                 selectionStart.Y -= this.scrollPosition.Y;
@@ -816,7 +816,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawTileSelection(Graphics g, Rectangle selectionRectangle, MouseButtons mouseButtons)
         {
-            if (mouseButtons == MouseButtons.Right) // A multiple tile selection is happening now
+            if (mouseButtons == MouseButtons.Right) // A tile selection is happening now
             {
                 g.FillRectangle(this.tileSelectBrush, selectionRectangle);
                 g.DrawRectangle(this.tileSelectPen, selectionRectangle);
