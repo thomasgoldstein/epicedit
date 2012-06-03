@@ -33,6 +33,12 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> TileChanged;
 
+        /// <summary>
+        /// Raised when a tile has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs<byte, Tile2bppProperties>> TileSelected;
+
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer { get; set; }
 
@@ -167,6 +173,16 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.LayTile();
                 this.Invalidate();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Point position = this.AbsoluteTilePosition;
+                byte tileId;
+                byte properties;
+                this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out tileId, out properties);
+
+                EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
+                this.TileSelected(this, ea);
             }
         }
 
