@@ -32,15 +32,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
             this.Layout = layout;
         }
 
-        public static Bitmap GetTileBitmap(Tile2bpp tile, byte properties, bool front)
-        {
-            Tile2bppProperties props = new Tile2bppProperties(properties);
-            int start = front ? Palettes.FrontBackgroundPaletteStart : Palettes.BackBackgroundPaletteStart;
-            props.PaletteIndex += start;
-
-            return GraphicsConverter.GetBitmapFrom2bppPlanar(tile.Graphics, tile.Palettes, props);
-        }
-
         public void Dispose()
         {
             this.Tileset.Dispose();
