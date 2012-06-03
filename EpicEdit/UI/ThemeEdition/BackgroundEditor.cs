@@ -57,6 +57,16 @@ namespace EpicEdit.UI.ThemeEdition
             get { return this.themeComboBox.SelectedItem as Theme; }
         }
 
+        private byte TileId
+        {
+            get { return this.frontLayerPanel.TileId; }
+            set
+            {
+                this.frontLayerPanel.TileId = value;
+                this.backLayerPanel.TileId = value;
+            }
+        }
+
         private Tile2bppProperties TileProperties
         {
             get { return this.frontLayerPanel.TileProperties; }
@@ -64,7 +74,6 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.frontLayerPanel.TileProperties = value;
                 this.backLayerPanel.TileProperties = value;
-                this.UpdateTilePictureBoxes();
             }
         }
 
@@ -77,10 +86,12 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
             this.frontLayerPanel.Zoom = BackgroundDrawer.Zoom;
             this.frontLayerPanel.Drawer = this.drawer;
+            this.frontLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
 
             this.backLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
             this.backLayerPanel.Zoom = BackgroundDrawer.Zoom;
             this.backLayerPanel.Drawer = this.drawer;
+            this.backLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
 
             this.backgroundPreviewer.Drawer = this.drawer;
 
@@ -184,6 +195,7 @@ namespace EpicEdit.UI.ThemeEdition
             properties.SubPaletteIndex = (value & 0x3) * 4;
 
             this.TileProperties = properties;
+            this.UpdateTilePictureBoxes();
         }
 
         private void FlipXButtonClick(object sender, EventArgs e)
@@ -192,6 +204,7 @@ namespace EpicEdit.UI.ThemeEdition
             properties.FlipX();
 
             this.TileProperties = properties;
+            this.UpdateTilePictureBoxes();
         }
 
         private void FlipYButtonClick(object sender, EventArgs e)
@@ -200,6 +213,7 @@ namespace EpicEdit.UI.ThemeEdition
             properties.FlipY();
 
             this.TileProperties = properties;
+            this.UpdateTilePictureBoxes();
         }
 
         private void UpdateTilePictureBoxes()
@@ -218,7 +232,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             Bitmap zoomedBitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
 
-            using (Bitmap bitmap = Background.GetTileBitmap(theme.Background.Tileset[0], this.TileProperties.GetByte(), front))
+            using (Bitmap bitmap = Background.GetTileBitmap(theme.Background.Tileset[this.TileId], this.TileProperties.GetByte(), front))
             using (Graphics g = Graphics.FromImage(zoomedBitmap))
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
@@ -228,6 +242,18 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             box.Image = zoomedBitmap;
+        }
+
+        private void BackgroundLayerPanelTileSelected(object sender, EventArgs<byte, Tile2bppProperties> e)
+        {
+            this.TileId = e.Value1;
+            this.TileProperties = e.Value2;
+
+            this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+            this.paletteNumericUpDown.Value = (this.TileProperties.GetByte() &~ (byte)(Flip.X | Flip.Y)) + 1;
+            this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+
+            this.UpdateTilePictureBoxes();
         }
     }
 }
