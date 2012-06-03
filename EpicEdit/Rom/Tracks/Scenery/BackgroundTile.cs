@@ -22,12 +22,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
     internal sealed class BackgroundTile : Tile2bpp
     {
         /// <summary>
-        /// Position at which front background layer palettes begin. From 4 to 7.
+        /// Position at which front background layer palettes begin.
         /// </summary>
         private const int FrontBackgroundPaletteStart = 4;
 
         /// <summary>
-        /// Position at which back background layer palettes begin. From 6 to 9.
+        /// Position at which back background layer palettes begin.
         /// </summary>
         private const int BackBackgroundPaletteStart = 6;
 
