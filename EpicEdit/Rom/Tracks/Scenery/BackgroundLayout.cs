@@ -126,7 +126,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             byte[][] layer = front ? this.frontLayer : this.backLayer;
             tileId = layer[YStart + y][x * 2];
-            properties = layer[YStart + y][x * 2 + 1];
+            properties = (byte)(layer[YStart + y][x * 2 + 1] & 0xDF);
         }
 
         public void SetTileData(int x, int y, bool front, byte tileId, byte properties)
