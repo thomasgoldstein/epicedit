@@ -191,7 +191,7 @@ namespace EpicEdit.UI.ThemeEdition
             Tile2bppProperties properties = this.TileProperties;
 
             int value = (int)this.paletteNumericUpDown.Value - 1;
-            properties.PaletteIndex = (value & 0xC);
+            properties.PaletteIndex = value / 4;
             properties.SubPaletteIndex = (value & 0x3) * 4;
 
             this.TileProperties = properties;
