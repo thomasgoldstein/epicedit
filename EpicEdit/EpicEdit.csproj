@@ -181,6 +181,7 @@
     <Compile Include="UI\ThemeEdition\BackgroundPreviewer.Designer.cs">
       <DependentUpon>BackgroundPreviewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\BackgroundTilePanel.cs" />
     <Compile Include="UI\ThemeEdition\ColorPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
