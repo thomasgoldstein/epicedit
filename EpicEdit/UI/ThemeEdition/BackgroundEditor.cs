@@ -250,7 +250,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.TileProperties = e.Value2;
 
             this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.paletteNumericUpDown.Value = (this.TileProperties.GetByte() &~ (byte)(Flip.X | Flip.Y)) + 1;
+            this.paletteNumericUpDown.Value = 1 + (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
             this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
 
             this.UpdateTilePictureBoxes();
