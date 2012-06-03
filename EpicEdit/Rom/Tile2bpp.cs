@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom
@@ -102,7 +103,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// A 2-bit per pixel tile.
     /// </summary>
-    internal sealed class Tile2bpp : Tile
+    internal class Tile2bpp : Tile
     {
         public override Palette Palette
         {
@@ -138,33 +139,27 @@ namespace EpicEdit.Rom
             }
         }
 
-        private Tile2bppProperties properties;
+        protected Tile2bppProperties properties;
 
         public Tile2bpp(byte[] gfx, Palettes palettes)
         {
-            this.Init(gfx, palettes, 0, 0);
+            this.Init(gfx, palettes, 0);
         }
 
         public Tile2bpp(byte[] gfx, byte properties)
         {
-            this.Init(gfx, null, properties, 0);
+            this.Init(gfx, null, properties);
         }
 
         public Tile2bpp(byte[] gfx, Palettes palettes, byte properties)
         {
-            this.Init(gfx, palettes, properties, 0);
+            this.Init(gfx, palettes, properties);
         }
 
-        public Tile2bpp(byte[] gfx, Palettes palettes, byte properties, int paletteStart)
-        {
-            this.Init(gfx, palettes, properties, paletteStart);
-        }
-
-        private void Init(byte[] gfx, Palettes palettes, byte properties, int paletteStart)
+        private void Init(byte[] gfx, Palettes palettes, byte properties)
         {
             this.Graphics = gfx;
             this.properties = new Tile2bppProperties(properties);
-            this.properties.PaletteIndex += paletteStart;
             this.Palettes = palettes;
         }
 

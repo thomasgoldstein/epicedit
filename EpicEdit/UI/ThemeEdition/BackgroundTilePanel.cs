@@ -29,23 +29,22 @@ namespace EpicEdit.UI.ThemeEdition
     {
         public bool Front { get; set; }
 
-        private Tile2bpp tile;
+        private BackgroundTile tile;
         private Image image;
 
         public BackgroundTilePanel()
         {
             // Initializing to avoid null checks before disposing
             Tile2bpp tile = Context.Game.Themes[0].Background.Tileset[0];
-            this.tile = new Tile2bpp(tile.Graphics, null);
+            this.tile = new BackgroundTile(tile.Graphics, null);
             this.image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public void UpdateTile(Theme theme, byte tileId, byte properties)
         {
             Tile2bpp tileModel = theme.Background.Tileset[tileId];
-            int paletteStart = this.Front ? Palettes.FrontBackgroundPaletteStart : Palettes.BackBackgroundPaletteStart;
             this.tile.Dispose();
-            this.tile = new Tile2bpp(tileModel.Graphics, tileModel.Palettes, properties, paletteStart);
+            this.tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, this.Front);
 
             int width = this.Width;
             int height = this.Height;

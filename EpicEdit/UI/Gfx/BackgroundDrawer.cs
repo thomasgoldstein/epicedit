@@ -112,7 +112,7 @@ namespace EpicEdit.UI.Gfx
             Bitmap bitmap = new Bitmap(imageWidth, this.Height, PixelFormat.Format32bppPArgb);
             Background background = this.theme.Background;
 
-            Dictionary<int, Bitmap> tileCache = new Dictionary<int, Bitmap>();
+            Dictionary<int, BackgroundTile> tileCache = new Dictionary<int, BackgroundTile>();
 
             using (Graphics g = Graphics.FromImage(bitmap))
             {
@@ -132,18 +132,19 @@ namespace EpicEdit.UI.Gfx
    
                         if (!tileCache.ContainsKey(key))
                         {
-                            Tile2bpp tile = this.theme.Background.Tileset[tileId];
-                            tileCache.Add(key, Background.GetTileBitmap(tile, properties, front));
+                            BackgroundTile tile = this.theme.Background.Tileset[tileId];
+                            BackgroundTile clone = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
+                            tileCache.Add(key, clone);
                         }
 
-                        g.DrawImage(tileCache[key], x * Tile.Size, y * Tile.Size);
+                        g.DrawImage(tileCache[key].Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
             }
 
-            foreach (Bitmap cacheItem in tileCache.Values)
+            foreach (BackgroundTile tile in tileCache.Values)
             {
-                cacheItem.Dispose();
+                tile.Dispose();
             }
 
             return bitmap;
@@ -246,14 +247,14 @@ namespace EpicEdit.UI.Gfx
             }
 
             Rectangle rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
-            Tile2bpp tile = this.theme.Background.Tileset[tileId];
+            BackgroundTile tileModel = this.theme.Background.Tileset[tileId];
 
             using (Graphics g = Graphics.FromImage(front ? this.frontLayer : this.backLayer))
-            using (Bitmap image = Background.GetTileBitmap(tile, properties, front))
+            using (BackgroundTile tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, front))
             {
                 g.SetClip(rec);
                 g.Clear(front ? Color.Transparent : this.theme.BackColor.Color);
-                g.DrawImage(image, rec.X, rec.Y);
+                g.DrawImage(tile.Bitmap, rec.X, rec.Y);
             }
         }
 

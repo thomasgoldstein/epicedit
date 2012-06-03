@@ -21,19 +21,19 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class BackgroundTileset : IDisposable
     {
-        private Tile2bpp[] tileset;
+        private BackgroundTile[] tileset;
 
-        public BackgroundTileset(Tile2bpp[] tileset)
+        public BackgroundTileset(BackgroundTile[] tileset)
         {
             this.tileset = tileset;
         }
 
-        public Tile2bpp GetTile(int index)
+        public BackgroundTile GetTile(int index)
         {
             return this.tileset[index];
         }
 
-        public Tile2bpp this[int index]
+        public BackgroundTile this[int index]
         {
             get { return this.GetTile(index); }
         }

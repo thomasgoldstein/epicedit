@@ -66,7 +66,7 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
+    <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -141,6 +141,7 @@
     <Compile Include="Rom\Tracks\RoadTileset.cs" />
     <Compile Include="Rom\Tracks\Scenery\Background.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />
