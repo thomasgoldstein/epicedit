@@ -192,15 +192,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
             else if (mouseButton == MouseButtons.Right)
             {
-                this.tileSelection = true;
-
-                Point position = this.AbsoluteTilePosition;
-                byte tileId;
-                byte properties;
-                this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out tileId, out properties);
-
-                EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
-                this.TileSelected(this, ea);
+                this.SelectTile();
                 this.Invalidate();
             }
         }
@@ -223,6 +215,19 @@ namespace EpicEdit.UI.ThemeEdition
             this.Drawer.UpdateTile(position.X, position.Y, this.Front, this.TileId, this.tileProperties);
 
             this.TileChanged(this, EventArgs.Empty);
+        }
+
+        private void SelectTile()
+        {
+            this.tileSelection = true;
+
+            Point position = this.AbsoluteTilePosition;
+            byte tileId;
+            byte properties;
+            this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out tileId, out properties);
+
+            EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
+            this.TileSelected(this, ea);
         }
 
         protected override Tile GetTileAt(int x, int y)
