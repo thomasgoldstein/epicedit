@@ -46,36 +46,61 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
-            this.themeComboBox = new System.Windows.Forms.ComboBox();
-            this.playPauseButton = new System.Windows.Forms.Button();
-            this.previewGroupBox = new System.Windows.Forms.GroupBox();
+            System.Windows.Forms.GroupBox previewGroupBox;
+            System.Windows.Forms.GroupBox frontLayerGroupBox;
+            System.Windows.Forms.GroupBox backLayerGroupBox;
+            System.Windows.Forms.GroupBox tileGroupBox;
+            System.Windows.Forms.Label backTileLabel;
+            System.Windows.Forms.Label frontTileLabel;
+            System.Windows.Forms.Label paletteLabel;
             this.rewindButton = new System.Windows.Forms.Button();
+            this.playPauseButton = new System.Windows.Forms.Button();
+            this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
             this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
-            this.frontLayerGroupBox = new System.Windows.Forms.GroupBox();
-            this.backLayerGroupBox = new System.Windows.Forms.GroupBox();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
-            this.previewGroupBox.SuspendLayout();
-            this.frontLayerGroupBox.SuspendLayout();
-            this.backLayerGroupBox.SuspendLayout();
+            this.flipYButton = new System.Windows.Forms.Button();
+            this.backTilePictureBox = new System.Windows.Forms.PictureBox();
+            this.flipXButton = new System.Windows.Forms.Button();
+            this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.frontTilePictureBox = new System.Windows.Forms.PictureBox();
+            this.themeComboBox = new System.Windows.Forms.ComboBox();
+            previewGroupBox = new System.Windows.Forms.GroupBox();
+            frontLayerGroupBox = new System.Windows.Forms.GroupBox();
+            backLayerGroupBox = new System.Windows.Forms.GroupBox();
+            tileGroupBox = new System.Windows.Forms.GroupBox();
+            backTileLabel = new System.Windows.Forms.Label();
+            frontTileLabel = new System.Windows.Forms.Label();
+            paletteLabel = new System.Windows.Forms.Label();
+            previewGroupBox.SuspendLayout();
+            frontLayerGroupBox.SuspendLayout();
+            backLayerGroupBox.SuspendLayout();
+            tileGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backTilePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frontTilePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // backgroundPreviewer
+            // previewGroupBox
             // 
-            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 46);
-            this.backgroundPreviewer.Name = "backgroundPreviewer";
-            this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
-            this.backgroundPreviewer.TabIndex = 8;
+            previewGroupBox.Controls.Add(this.rewindButton);
+            previewGroupBox.Controls.Add(this.playPauseButton);
+            previewGroupBox.Controls.Add(this.backgroundPreviewer);
+            previewGroupBox.Location = new System.Drawing.Point(6, 238);
+            previewGroupBox.Name = "previewGroupBox";
+            previewGroupBox.Size = new System.Drawing.Size(526, 107);
+            previewGroupBox.TabIndex = 5;
+            previewGroupBox.TabStop = false;
+            previewGroupBox.Text = "Preview";
             // 
-            // themeComboBox
+            // rewindButton
             // 
-            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.themeComboBox.FormattingEnabled = true;
-            this.themeComboBox.Location = new System.Drawing.Point(6, 6);
-            this.themeComboBox.Name = "themeComboBox";
-            this.themeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.themeComboBox.TabIndex = 0;
-            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
+            this.rewindButton.Location = new System.Drawing.Point(88, 19);
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(75, 23);
+            this.rewindButton.TabIndex = 7;
+            this.rewindButton.Text = "Rewind";
+            this.rewindButton.UseVisualStyleBackColor = true;
+            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
             // 
             // playPauseButton
             // 
@@ -87,27 +112,22 @@ namespace EpicEdit.UI.ThemeEdition
             this.playPauseButton.UseVisualStyleBackColor = true;
             this.playPauseButton.Click += new System.EventHandler(this.PlayPauseButtonClick);
             // 
-            // previewGroupBox
+            // backgroundPreviewer
             // 
-            this.previewGroupBox.Controls.Add(this.rewindButton);
-            this.previewGroupBox.Controls.Add(this.playPauseButton);
-            this.previewGroupBox.Controls.Add(this.backgroundPreviewer);
-            this.previewGroupBox.Location = new System.Drawing.Point(6, 238);
-            this.previewGroupBox.Name = "previewGroupBox";
-            this.previewGroupBox.Size = new System.Drawing.Size(526, 107);
-            this.previewGroupBox.TabIndex = 5;
-            this.previewGroupBox.TabStop = false;
-            this.previewGroupBox.Text = "Preview";
+            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 46);
+            this.backgroundPreviewer.Name = "backgroundPreviewer";
+            this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
+            this.backgroundPreviewer.TabIndex = 8;
             // 
-            // rewindButton
+            // frontLayerGroupBox
             // 
-            this.rewindButton.Location = new System.Drawing.Point(88, 19);
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(75, 23);
-            this.rewindButton.TabIndex = 7;
-            this.rewindButton.Text = "Rewind";
-            this.rewindButton.UseVisualStyleBackColor = true;
-            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
+            frontLayerGroupBox.Controls.Add(this.frontLayerPanel);
+            frontLayerGroupBox.Location = new System.Drawing.Point(6, 40);
+            frontLayerGroupBox.Name = "frontLayerGroupBox";
+            frontLayerGroupBox.Size = new System.Drawing.Size(526, 93);
+            frontLayerGroupBox.TabIndex = 1;
+            frontLayerGroupBox.TabStop = false;
+            frontLayerGroupBox.Text = "Front layer";
             // 
             // frontLayerPanel
             // 
@@ -120,25 +140,15 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel.TabIndex = 2;
             this.frontLayerPanel.TileChanged += new System.EventHandler<System.EventArgs>(this.BackgroundLayerPanelTileChanged);
             // 
-            // frontLayerGroupBox
-            // 
-            this.frontLayerGroupBox.Controls.Add(this.frontLayerPanel);
-            this.frontLayerGroupBox.Location = new System.Drawing.Point(6, 40);
-            this.frontLayerGroupBox.Name = "frontLayerGroupBox";
-            this.frontLayerGroupBox.Size = new System.Drawing.Size(526, 93);
-            this.frontLayerGroupBox.TabIndex = 1;
-            this.frontLayerGroupBox.TabStop = false;
-            this.frontLayerGroupBox.Text = "Front layer";
-            // 
             // backLayerGroupBox
             // 
-            this.backLayerGroupBox.Controls.Add(this.backLayerPanel);
-            this.backLayerGroupBox.Location = new System.Drawing.Point(6, 139);
-            this.backLayerGroupBox.Name = "backLayerGroupBox";
-            this.backLayerGroupBox.Size = new System.Drawing.Size(526, 93);
-            this.backLayerGroupBox.TabIndex = 3;
-            this.backLayerGroupBox.TabStop = false;
-            this.backLayerGroupBox.Text = "Back layer";
+            backLayerGroupBox.Controls.Add(this.backLayerPanel);
+            backLayerGroupBox.Location = new System.Drawing.Point(6, 139);
+            backLayerGroupBox.Name = "backLayerGroupBox";
+            backLayerGroupBox.Size = new System.Drawing.Size(526, 93);
+            backLayerGroupBox.TabIndex = 3;
+            backLayerGroupBox.TabStop = false;
+            backLayerGroupBox.Text = "Back layer";
             // 
             // backLayerPanel
             // 
@@ -151,25 +161,142 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TabIndex = 4;
             this.backLayerPanel.TileChanged += new System.EventHandler<System.EventArgs>(this.BackgroundLayerPanelTileChanged);
             // 
+            // tileGroupBox
+            // 
+            tileGroupBox.Controls.Add(backTileLabel);
+            tileGroupBox.Controls.Add(this.flipYButton);
+            tileGroupBox.Controls.Add(this.backTilePictureBox);
+            tileGroupBox.Controls.Add(this.flipXButton);
+            tileGroupBox.Controls.Add(this.paletteNumericUpDown);
+            tileGroupBox.Controls.Add(frontTileLabel);
+            tileGroupBox.Controls.Add(paletteLabel);
+            tileGroupBox.Controls.Add(this.frontTilePictureBox);
+            tileGroupBox.Location = new System.Drawing.Point(538, 7);
+            tileGroupBox.Name = "tileGroupBox";
+            tileGroupBox.Size = new System.Drawing.Size(140, 100);
+            tileGroupBox.TabIndex = 9;
+            tileGroupBox.TabStop = false;
+            tileGroupBox.Text = "Tile clipboard";
+            // 
+            // backTileLabel
+            // 
+            backTileLabel.Location = new System.Drawing.Point(47, 75);
+            backTileLabel.Name = "backTileLabel";
+            backTileLabel.Size = new System.Drawing.Size(32, 23);
+            backTileLabel.TabIndex = 13;
+            backTileLabel.Text = "Back";
+            // 
+            // flipYButton
+            // 
+            this.flipYButton.Location = new System.Drawing.Point(84, 69);
+            this.flipYButton.Name = "flipYButton";
+            this.flipYButton.Size = new System.Drawing.Size(50, 23);
+            this.flipYButton.TabIndex = 15;
+            this.flipYButton.Text = "Flip Y";
+            this.flipYButton.UseVisualStyleBackColor = true;
+            this.flipYButton.Click += new System.EventHandler(this.FlipYButtonClick);
+            // 
+            // backTilePictureBox
+            // 
+            this.backTilePictureBox.Location = new System.Drawing.Point(47, 40);
+            this.backTilePictureBox.Name = "backTilePictureBox";
+            this.backTilePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.backTilePictureBox.TabIndex = 15;
+            this.backTilePictureBox.TabStop = false;
+            // 
+            // flipXButton
+            // 
+            this.flipXButton.Location = new System.Drawing.Point(84, 40);
+            this.flipXButton.Name = "flipXButton";
+            this.flipXButton.Size = new System.Drawing.Size(50, 23);
+            this.flipXButton.TabIndex = 14;
+            this.flipXButton.Text = "Flip X";
+            this.flipXButton.UseVisualStyleBackColor = true;
+            this.flipXButton.Click += new System.EventHandler(this.FlipXButtonClick);
+            // 
+            // paletteNumericUpDown
+            // 
+            this.paletteNumericUpDown.Location = new System.Drawing.Point(77, 14);
+            this.paletteNumericUpDown.Maximum = new decimal(new int[] {
+                                    16,
+                                    0,
+                                    0,
+                                    0});
+            this.paletteNumericUpDown.Minimum = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.paletteNumericUpDown.Name = "paletteNumericUpDown";
+            this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
+            this.paletteNumericUpDown.TabIndex = 11;
+            this.paletteNumericUpDown.Value = new decimal(new int[] {
+                                    1,
+                                    0,
+                                    0,
+                                    0});
+            this.paletteNumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
+            // 
+            // frontTileLabel
+            // 
+            frontTileLabel.Location = new System.Drawing.Point(9, 75);
+            frontTileLabel.Name = "frontTileLabel";
+            frontTileLabel.Size = new System.Drawing.Size(32, 23);
+            frontTileLabel.TabIndex = 12;
+            frontTileLabel.Text = "Front";
+            // 
+            // paletteLabel
+            // 
+            paletteLabel.Location = new System.Drawing.Point(6, 16);
+            paletteLabel.Name = "paletteLabel";
+            paletteLabel.Size = new System.Drawing.Size(100, 23);
+            paletteLabel.TabIndex = 10;
+            paletteLabel.Text = "Color palette";
+            // 
+            // frontTilePictureBox
+            // 
+            this.frontTilePictureBox.Location = new System.Drawing.Point(9, 40);
+            this.frontTilePictureBox.Name = "frontTilePictureBox";
+            this.frontTilePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.frontTilePictureBox.TabIndex = 14;
+            this.frontTilePictureBox.TabStop = false;
+            // 
+            // themeComboBox
+            // 
+            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.themeComboBox.FormattingEnabled = true;
+            this.themeComboBox.Location = new System.Drawing.Point(6, 6);
+            this.themeComboBox.Name = "themeComboBox";
+            this.themeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.themeComboBox.TabIndex = 0;
+            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
+            // 
             // BackgroundEditor
             // 
-            this.Controls.Add(this.backLayerGroupBox);
-            this.Controls.Add(this.frontLayerGroupBox);
+            this.Controls.Add(tileGroupBox);
+            this.Controls.Add(backLayerGroupBox);
+            this.Controls.Add(frontLayerGroupBox);
             this.Controls.Add(this.themeComboBox);
-            this.Controls.Add(this.previewGroupBox);
+            this.Controls.Add(previewGroupBox);
             this.Name = "BackgroundEditor";
-            this.Size = new System.Drawing.Size(535, 350);
-            this.previewGroupBox.ResumeLayout(false);
-            this.frontLayerGroupBox.ResumeLayout(false);
-            this.backLayerGroupBox.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(685, 350);
+            previewGroupBox.ResumeLayout(false);
+            frontLayerGroupBox.ResumeLayout(false);
+            backLayerGroupBox.ResumeLayout(false);
+            tileGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.backTilePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frontTilePictureBox)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.PictureBox backTilePictureBox;
+        private System.Windows.Forms.PictureBox frontTilePictureBox;
+        private System.Windows.Forms.Button flipXButton;
+        private System.Windows.Forms.Button flipYButton;
+        private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.Button rewindButton;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;
-        private System.Windows.Forms.GroupBox backLayerGroupBox;
-        private System.Windows.Forms.GroupBox frontLayerGroupBox;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel frontLayerPanel;
-        private System.Windows.Forms.GroupBox previewGroupBox;
         private System.Windows.Forms.Button playPauseButton;
         private System.Windows.Forms.ComboBox themeComboBox;
         private EpicEdit.UI.ThemeEdition.BackgroundPreviewer backgroundPreviewer;
