@@ -35,24 +35,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundTile(byte[] gfx, Palettes palettes, byte properties, bool front) : base(gfx, null, properties)
         {
-            this.properties.PaletteIndex += BackgroundTile.GetPaletteStart(this.properties.PaletteIndex, front);
+            this.properties.PaletteIndex += front ? FrontBackgroundPaletteStart : BackBackgroundPaletteStart;
             this.Palettes = palettes;
-        }
-
-        private static int GetPaletteStart(int paletteIndex, bool front)
-        {
-            int start;
-
-            if (front)
-            {
-                start = FrontBackgroundPaletteStart;
-            }
-            else
-            {
-                start = BackBackgroundPaletteStart;
-            }
-
-            return start;
         }
     }
 }
