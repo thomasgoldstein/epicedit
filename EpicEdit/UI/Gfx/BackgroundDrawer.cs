@@ -174,7 +174,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawTileSelection(Graphics g, Point cursorPosition, int x)
         {
-            if (cursorPosition != TrackEditor.OutOfBounds)
+            if (cursorPosition != TrackEditor.OutOfBounds && !Context.ColorPickerMode)
             {
                 g.DrawRectangle(this.tileHighlightPen,
                                 new Rectangle(cursorPosition.X * Tile.Size - 1 + (x % Tile.Size),
