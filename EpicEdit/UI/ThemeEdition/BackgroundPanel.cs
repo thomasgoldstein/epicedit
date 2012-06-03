@@ -169,6 +169,11 @@ namespace EpicEdit.UI.ThemeEdition
         {
             base.OnMouseDown(e);
 
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 this.LayTile();
