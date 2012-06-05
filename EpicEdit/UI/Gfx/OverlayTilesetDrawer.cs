@@ -40,7 +40,7 @@ namespace EpicEdit.UI.Gfx
         public OverlayTilePattern HoveredPattern { get; set; }
         public OverlayTilePattern SelectedPattern { get; set; }
 
-        private Bitmap overlayCache;
+        private Bitmap tilesetCache;
         private HatchBrush transparentBrush;
 
         private Pen delimitPen;
@@ -63,7 +63,7 @@ namespace EpicEdit.UI.Gfx
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            this.overlayCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            this.tilesetCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public RoadTileset Tileset
@@ -78,10 +78,10 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache()
         {
-            this.overlayCache.Dispose();
+            this.tilesetCache.Dispose();
 
-            this.overlayCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(this.overlayCache))
+            this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            using (Graphics g = Graphics.FromImage(this.tilesetCache))
             {
                 g.FillRegion(this.transparentBrush, g.Clip);
 
@@ -129,7 +129,7 @@ namespace EpicEdit.UI.Gfx
                     g.InterpolationMode = InterpolationMode.NearestNeighbor;
                     g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
 
-                    backBuffer.DrawImage(this.overlayCache, 0, 0,
+                    backBuffer.DrawImage(this.tilesetCache, 0, 0,
                                   this.imageSize.Width,
                                   this.imageSize.Height);
 
@@ -176,7 +176,7 @@ namespace EpicEdit.UI.Gfx
 
         public void Dispose()
         {
-            this.overlayCache.Dispose();
+            this.tilesetCache.Dispose();
             this.transparentBrush.Dispose();
 
             this.delimitPen.Dispose();
