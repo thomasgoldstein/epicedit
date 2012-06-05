@@ -120,7 +120,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void DrawOverlayTileset(Graphics g)
+        public void DrawTileset(Graphics g)
         {
             using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
             {
