@@ -298,7 +298,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void OverlayTilesetPanelPaint(object sender, PaintEventArgs e)
         {
-            this.overlayDrawer.DrawOverlayTileset(e.Graphics);
+            this.overlayDrawer.DrawTileset(e.Graphics);
         }
 
         private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
