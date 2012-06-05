@@ -30,7 +30,6 @@ namespace EpicEdit.UI.Gfx
     {
         public const int Zoom = 2;
 
-        private Control control;
         private RoadTileset tileset;
         private Size imageSize;
 
@@ -41,7 +40,9 @@ namespace EpicEdit.UI.Gfx
 
         public TilesetDrawer(Control control)
         {
-            this.control = control;
+            int imageWidth = control.Width / Zoom;
+            int imageHeight = (RoadTileset.TileCount / (imageWidth / Tile.Size)) * Tile.Size;
+            this.imageSize = new Size(imageWidth, imageHeight);
 
             this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 
@@ -63,10 +64,6 @@ namespace EpicEdit.UI.Gfx
         public void UpdateCache()
         {
             this.tilesetCache.Dispose();
-
-            int imageWidth = this.control.Width / Zoom;
-            int imageHeight = (RoadTileset.TileCount / (imageWidth / Tile.Size)) * Tile.Size;
-            this.imageSize = new Size(imageWidth, imageHeight);
 
             int tileCountX = this.imageSize.Width / Tile.Size;
             int tileCountY = this.imageSize.Height / Tile.Size;

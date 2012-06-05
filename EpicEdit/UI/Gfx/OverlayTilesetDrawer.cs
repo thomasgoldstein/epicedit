@@ -32,7 +32,6 @@ namespace EpicEdit.UI.Gfx
     {
         public const int Zoom = 2;
 
-        private Control control;
         public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
         private RoadTileset tileset;
         private Size imageSize;
@@ -49,10 +48,8 @@ namespace EpicEdit.UI.Gfx
 
         public OverlayTilesetDrawer(Control control)
         {
-            this.control = control;
-
-            int imageWidth = (int)this.control.Width / Zoom;
-            int imageHeight = (int)this.control.Height / Zoom;
+            int imageWidth = (int)control.Width / Zoom;
+            int imageHeight = (int)control.Height / Zoom;
             this.imageSize = new Size(imageWidth, imageHeight);
 
             this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
