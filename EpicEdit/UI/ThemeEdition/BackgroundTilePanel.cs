@@ -82,7 +82,11 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void Dispose(bool disposing)
         {
-            this.tile.Dispose();
+            if (this.tile != null)
+            {
+                this.tile.Dispose();
+            }
+
             this.image.Dispose();
             base.Dispose(disposing);
         }
