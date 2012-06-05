@@ -34,9 +34,14 @@ namespace EpicEdit.UI.ThemeEdition
 
         public BackgroundTilePanel()
         {
-            // Initializing to avoid null checks before disposing
-            Tile2bpp tile = Context.Game.Themes[0].Background.Tileset[0];
-            this.tile = new BackgroundTile(tile.Graphics, null);
+            // Initializing fields to avoid null checks before disposing
+
+            if (Context.Game != null) // Avoid designer issues
+            {
+                Tile2bpp tile = Context.Game.Themes[0].Background.Tileset[0];
+                this.tile = new BackgroundTile(tile.Graphics, null);
+            }
+
             this.image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
