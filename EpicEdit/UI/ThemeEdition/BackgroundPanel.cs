@@ -236,13 +236,8 @@ namespace EpicEdit.UI.ThemeEdition
             x /= Tile.Size;
             y /= Tile.Size;
 
-            byte tileId;
-            byte properties;
-            this.Background.Layout.GetTileData(x, y, this.Front, out tileId, out properties);
-
-            BackgroundTile tile = this.Background.Tileset[tileId];
-            BackgroundTile clone = new BackgroundTile(tile.Graphics, tile.Palettes, properties, this.Front);
-            return clone; // NOTE: We're leaking a bit of memory here, as the clone is not explicitly disposed
+            // NOTE: We're leaking a bit of memory here, as the instance is not explicitly disposed
+            return this.Background.GetTileInstance(x, y, this.Front);
         }
     }
 }
