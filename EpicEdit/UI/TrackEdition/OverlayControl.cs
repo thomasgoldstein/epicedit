@@ -57,7 +57,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to draw the overlay tileset.
         /// </summary>
-        private OverlayTilesetDrawer overlayDrawer;
+        private OverlayTilesetDrawer drawer;
 
         /// <summary>
         /// The hovered overlay tile pattern.
@@ -114,7 +114,7 @@ namespace EpicEdit.UI.TrackEdition
                 if (this.selectedPattern != value)
                 {
                     this.selectedPattern = value;
-                    this.overlayDrawer.SelectedPattern = value;
+                    this.drawer.SelectedPattern = value;
                     this.overlayTilesetPanel.Invalidate();
                 }
             }
@@ -151,8 +151,8 @@ namespace EpicEdit.UI.TrackEdition
             int tilesetHeight = this.LoadPatternDictionary();
             this.SetTilesetHeight(tilesetHeight);
 
-            this.overlayDrawer = new OverlayTilesetDrawer(this.overlayTilesetPanel);
-            this.overlayDrawer.PatternList = this.patternList;
+            this.drawer = new OverlayTilesetDrawer(this.overlayTilesetPanel);
+            this.drawer.PatternList = this.patternList;
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
@@ -165,7 +165,7 @@ namespace EpicEdit.UI.TrackEdition
             int tilesetHeight = this.LoadPatternDictionary();
             this.SetTilesetHeight(tilesetHeight);
 
-            this.overlayDrawer.PatternList = this.patternList;
+            this.drawer.PatternList = this.patternList;
         }
 
         /// <summary>
@@ -278,17 +278,17 @@ namespace EpicEdit.UI.TrackEdition
 
         public RoadTileset Tileset
         {
-            get { return this.overlayDrawer.Tileset; }
+            get { return this.drawer.Tileset; }
             set
             {
-                this.overlayDrawer.Tileset = value;
+                this.drawer.Tileset = value;
                 this.overlayTilesetPanel.Refresh();
             }
         }
 
         public void UpdateTileset()
         {
-            this.Tileset = this.overlayDrawer.Tileset;
+            this.Tileset = this.drawer.Tileset;
         }
 
         public void UpdateTileCount(int count)
@@ -298,16 +298,16 @@ namespace EpicEdit.UI.TrackEdition
 
         private void OverlayTilesetPanelPaint(object sender, PaintEventArgs e)
         {
-            this.overlayDrawer.DrawTileset(e.Graphics);
+            this.drawer.DrawTileset(e.Graphics);
         }
 
         private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
         {
             this.hoveredPattern = this.GetPatternAt(e.Location);
 
-            if (this.overlayDrawer.HoveredPattern != this.hoveredPattern)
+            if (this.drawer.HoveredPattern != this.hoveredPattern)
             {
-                this.overlayDrawer.HoveredPattern = this.hoveredPattern;
+                this.drawer.HoveredPattern = this.hoveredPattern;
                 this.overlayTilesetPanel.Invalidate();
             }
         }
@@ -341,7 +341,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
         {
-            this.overlayDrawer.HoveredPattern = null;
+            this.drawer.HoveredPattern = null;
             this.overlayTilesetPanel.Invalidate();
         }
 
