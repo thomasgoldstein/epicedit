@@ -148,11 +148,8 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            int tilesetHeight = this.LoadPatternDictionary();
-            this.SetTilesetHeight(tilesetHeight);
-
             this.drawer = new OverlayTilesetDrawer(this.overlayTilesetPanel);
-            this.drawer.PatternList = this.patternList;
+            this.InitOnRomLoad();
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
