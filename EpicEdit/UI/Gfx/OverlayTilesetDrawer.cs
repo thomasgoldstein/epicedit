@@ -140,8 +140,8 @@ namespace EpicEdit.UI.Gfx
                     this.HighlightPattern(backBuffer, this.SelectedPattern);
                 }
                 g.DrawImage(image, 0, 0,
-                            image.Width * Zoom,
-                            image.Height * Zoom);
+                            this.imageSize.Width * Zoom,
+                            this.imageSize.Height * Zoom);
             }
         }
 
