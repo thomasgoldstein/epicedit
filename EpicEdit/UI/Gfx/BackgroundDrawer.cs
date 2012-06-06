@@ -133,8 +133,8 @@ namespace EpicEdit.UI.Gfx
                         if (!tileCache.ContainsKey(key))
                         {
                             BackgroundTile tile = this.theme.Background.Tileset[tileId];
-                            BackgroundTile clone = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
-                            tileCache.Add(key, clone);
+                            BackgroundTile instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
+                            tileCache.Add(key, instance);
                         }
 
                         g.DrawImage(tileCache[key].Bitmap, x * Tile.Size, y * Tile.Size);
