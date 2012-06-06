@@ -106,8 +106,8 @@ namespace EpicEdit.UI.Gfx
                                              Tile.Size - 1);
                 }
                 g.DrawImage(image, 0, 0,
-                            image.Width * Zoom,
-                            image.Height * Zoom);
+                            this.imageSize.Width * Zoom,
+                            this.imageSize.Height * Zoom);
             }
         }
 
