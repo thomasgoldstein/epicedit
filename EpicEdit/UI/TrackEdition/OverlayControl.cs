@@ -148,7 +148,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new OverlayTilesetDrawer(this.tilesetPanel);
+            this.drawer = new OverlayTilesetDrawer(this.tilesetPanel.Size);
             this.InitOnRomLoad();
 
             // The following event handler is added here rather than in the Designer.cs

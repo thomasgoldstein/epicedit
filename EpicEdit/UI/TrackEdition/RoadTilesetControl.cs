@@ -133,7 +133,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new RoadTilesetDrawer(this.tilesetPanel);
+            this.drawer = new RoadTilesetDrawer(this.tilesetPanel.Size);
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,

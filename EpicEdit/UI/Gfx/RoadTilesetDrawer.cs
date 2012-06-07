@@ -16,7 +16,6 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
@@ -38,11 +37,9 @@ namespace EpicEdit.UI.Gfx
 
         public Bitmap Image { get { return this.tilesetCache; } }
 
-        public RoadTilesetDrawer(Control control)
+        public RoadTilesetDrawer(Size size)
         {
-            int imageWidth = control.Width / Zoom;
-            int imageHeight = (RoadTileset.TileCount / (imageWidth / Tile.Size)) * Tile.Size;
-            this.imageSize = new Size(imageWidth, imageHeight);
+            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 

@@ -14,7 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
@@ -41,7 +44,13 @@ namespace EpicEdit.UI.ThemeEdition
         public BackgroundTilesetPanel()
         {
             this.Zoom = BackgroundTilesetDrawer.Zoom;
-            this.drawer = new BackgroundTilesetDrawer();
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            this.drawer = new BackgroundTilesetDrawer(this.Size);
         }
 
         public void LoadTheme(Theme theme)
