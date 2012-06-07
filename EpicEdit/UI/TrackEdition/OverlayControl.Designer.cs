@@ -52,7 +52,7 @@ namespace EpicEdit.UI.TrackEdition
             this.components = new System.ComponentModel.Container();
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.overlayTilesetPanel = new EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel();
+            this.tilesetPanel = new EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel();
             this.buttonPanel = new System.Windows.Forms.Panel();
             this.tileCountLabel = new System.Windows.Forms.Label();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -82,15 +82,15 @@ namespace EpicEdit.UI.TrackEdition
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
-            // overlayTilesetPanel
+            // tilesetPanel
             // 
-            this.overlayTilesetPanel.Location = new System.Drawing.Point(0, 0);
-            this.overlayTilesetPanel.Name = "overlayTilesetPanel";
-            this.overlayTilesetPanel.Size = new System.Drawing.Size(128, 512);
-            this.overlayTilesetPanel.TabIndex = 2;
-            this.overlayTilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseDown);
-            this.overlayTilesetPanel.MouseLeave += new System.EventHandler(this.OverlayTilesetPanelMouseLeave);
-            this.overlayTilesetPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OverlayTilesetPanelMouseMove);
+            this.tilesetPanel.Location = new System.Drawing.Point(0, 0);
+            this.tilesetPanel.Name = "tilesetPanel";
+            this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
+            this.tilesetPanel.TabIndex = 2;
+            this.tilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseDown);
+            this.tilesetPanel.MouseLeave += new System.EventHandler(this.TilesetPanelMouseLeave);
+            this.tilesetPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseMove);
             // 
             // buttonPanel
             // 
@@ -114,7 +114,7 @@ namespace EpicEdit.UI.TrackEdition
             // OverlayControl
             // 
             this.Controls.Add(this.buttonPanel);
-            this.Controls.Add(this.overlayTilesetPanel);
+            this.Controls.Add(this.tilesetPanel);
             this.Name = "OverlayControl";
             this.Size = new System.Drawing.Size(130, 548);
             this.buttonPanel.ResumeLayout(false);
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Label tileCountLabel;
         private System.Windows.Forms.Panel buttonPanel;
         private System.Windows.Forms.ToolTip buttonToolTip;
-        private EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel overlayTilesetPanel;
+        private EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel tilesetPanel;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button deleteAllButton;
     }
