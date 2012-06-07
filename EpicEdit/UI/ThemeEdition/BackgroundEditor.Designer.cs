@@ -58,6 +58,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
             this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
+            this.tilesetPanel = new EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel();
             this.flipYButton = new System.Windows.Forms.Button();
             this.backTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
             this.flipXButton = new System.Windows.Forms.Button();
@@ -161,6 +162,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // tileGroupBox
             // 
+            tileGroupBox.Controls.Add(this.tilesetPanel);
             tileGroupBox.Controls.Add(backTileLabel);
             tileGroupBox.Controls.Add(this.flipYButton);
             tileGroupBox.Controls.Add(this.backTilePanel);
@@ -171,10 +173,18 @@ namespace EpicEdit.UI.ThemeEdition
             tileGroupBox.Controls.Add(this.frontTilePanel);
             tileGroupBox.Location = new System.Drawing.Point(538, 7);
             tileGroupBox.Name = "tileGroupBox";
-            tileGroupBox.Size = new System.Drawing.Size(140, 100);
+            tileGroupBox.Size = new System.Drawing.Size(143, 338);
             tileGroupBox.TabIndex = 9;
             tileGroupBox.TabStop = false;
             tileGroupBox.Text = "Tile clipboard";
+            // 
+            // tilesetPanel
+            // 
+            this.tilesetPanel.Location = new System.Drawing.Point(9, 101);
+            this.tilesetPanel.Name = "tilesetPanel";
+            this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
+            this.tilesetPanel.TabIndex = 16;
+            this.tilesetPanel.Zoom = 2F;
             // 
             // backTileLabel
             // 
@@ -186,7 +196,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // flipYButton
             // 
-            this.flipYButton.Location = new System.Drawing.Point(84, 69);
+            this.flipYButton.Location = new System.Drawing.Point(87, 69);
             this.flipYButton.Name = "flipYButton";
             this.flipYButton.Size = new System.Drawing.Size(50, 23);
             this.flipYButton.TabIndex = 15;
@@ -205,7 +215,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // flipXButton
             // 
-            this.flipXButton.Location = new System.Drawing.Point(84, 40);
+            this.flipXButton.Location = new System.Drawing.Point(87, 40);
             this.flipXButton.Name = "flipXButton";
             this.flipXButton.Size = new System.Drawing.Size(50, 23);
             this.flipXButton.TabIndex = 14;
@@ -279,7 +289,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(previewGroupBox);
             this.Name = "BackgroundEditor";
-            this.Size = new System.Drawing.Size(685, 350);
+            this.Size = new System.Drawing.Size(690, 350);
             previewGroupBox.ResumeLayout(false);
             frontLayerGroupBox.ResumeLayout(false);
             backLayerGroupBox.ResumeLayout(false);
@@ -287,6 +297,7 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel tilesetPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel backTilePanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel frontTilePanel;
         private System.Windows.Forms.Button flipXButton;

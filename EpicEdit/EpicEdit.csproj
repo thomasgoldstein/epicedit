@@ -152,6 +152,7 @@
     <Compile Include="Rom\Utilities.cs" />
     <Compile Include="UI\Context.cs" />
     <Compile Include="UI\Gfx\BackgroundDrawer.cs" />
+    <Compile Include="UI\Gfx\BackgroundTilesetDrawer.cs" />
     <Compile Include="UI\Gfx\FastBitmap.cs" />
     <Compile Include="UI\Gfx\GraphicsConverter.cs" />
     <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
@@ -183,6 +184,7 @@
       <DependentUpon>BackgroundPreviewer.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ThemeEdition\BackgroundTilePanel.cs" />
+    <Compile Include="UI\ThemeEdition\BackgroundTilesetPanel.cs" />
     <Compile Include="UI\ThemeEdition\ColorPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
