@@ -28,6 +28,11 @@ namespace EpicEdit.Rom.Tracks.Scenery
             this.tileset = tileset;
         }
 
+        public int TileCount
+        {
+            get { return this.tileset.Length; }
+        }
+
         public BackgroundTile GetTile(int index)
         {
             return this.tileset[index];

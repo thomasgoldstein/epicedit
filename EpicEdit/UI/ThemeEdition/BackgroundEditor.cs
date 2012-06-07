@@ -148,6 +148,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.drawer.LoadTheme(theme);
             this.frontLayerPanel.Background = this.backLayerPanel.Background = theme.Background;
             this.UpdateTilePanels();
+            this.tilesetPanel.LoadTheme(theme);
 
             this.frontLayerPanel.Refresh();
             this.backLayerPanel.Refresh();
@@ -233,6 +234,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
 
             this.UpdateTilePanels();
+            this.tilesetPanel.SelectedTile = this.TileId;
         }
     }
 }
