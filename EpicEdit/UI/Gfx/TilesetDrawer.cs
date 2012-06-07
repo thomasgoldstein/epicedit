@@ -95,8 +95,9 @@ namespace EpicEdit.UI.Gfx
                                          this.imageSize.Width,
                                          this.imageSize.Height);
 
-                    int tilePosX = selectedTile % Tile.Size;
-                    int tilePosY = selectedTile / Tile.Size;
+                    int xTileCount = this.imageSize.Width / Tile.Size;
+                    int tilePosX = selectedTile % xTileCount;
+                    int tilePosY = selectedTile / xTileCount;
                     Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
                     backBuffer.DrawRectangle(this.tilesetPen,
