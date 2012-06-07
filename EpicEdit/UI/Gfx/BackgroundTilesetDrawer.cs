@@ -33,9 +33,9 @@ namespace EpicEdit.UI.Gfx
         private Bitmap tilesetCache;
         private Pen tilesetPen;
 
-        public BackgroundTilesetDrawer()
+        public BackgroundTilesetDrawer(Size size)
         {
-            this.imageSize = new Size(Tile.Size * 4, Tile.Size * 12);
+            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 

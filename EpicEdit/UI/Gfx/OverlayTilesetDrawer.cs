@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
@@ -46,11 +45,9 @@ namespace EpicEdit.UI.Gfx
         private Pen highlightPen;
         private SolidBrush selectBrush;
 
-        public OverlayTilesetDrawer(Control control)
+        public OverlayTilesetDrawer(Size size)
         {
-            int imageWidth = (int)control.Width / Zoom;
-            int imageHeight = (int)control.Height / Zoom;
-            this.imageSize = new Size(imageWidth, imageHeight);
+            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
