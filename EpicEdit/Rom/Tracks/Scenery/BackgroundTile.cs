@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         private const int BackBackgroundPaletteStart = 6;
 
-        public BackgroundTile(byte[] gfx, Palettes palettes) : base(gfx, palettes) { }
+        public BackgroundTile(byte[] gfx, Palettes palettes) : this(gfx, palettes, 0, true) { }
 
         public BackgroundTile(byte[] gfx, Palettes palettes, byte properties, bool front) : base(gfx, null, properties)
         {
