@@ -47,8 +47,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true)]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.overlayTilesetPanel.ColorSelected += value; }
-            remove { this.overlayTilesetPanel.ColorSelected -= value; }
+            add { this.tilesetPanel.ColorSelected += value; }
+            remove { this.tilesetPanel.ColorSelected -= value; }
         }
         #endregion Events
 
@@ -115,7 +115,7 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.selectedPattern = value;
                     this.drawer.SelectedPattern = value;
-                    this.overlayTilesetPanel.Invalidate();
+                    this.tilesetPanel.Invalidate();
                 }
             }
         }
@@ -143,18 +143,18 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.InitializeComponent();
 
-            this.overlayTilesetPanel.Zoom = OverlayTilesetDrawer.Zoom;
+            this.tilesetPanel.Zoom = OverlayTilesetDrawer.Zoom;
         }
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new OverlayTilesetDrawer(this.overlayTilesetPanel);
+            this.drawer = new OverlayTilesetDrawer(this.tilesetPanel);
             this.InitOnRomLoad();
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
             // because the drawer doesn't exist yet before a ROM is loaded.
-            this.overlayTilesetPanel.Paint += this.OverlayTilesetPanelPaint;
+            this.tilesetPanel.Paint += this.TilesetPanelPaint;
         }
 
         public void InitOnRomLoad()
@@ -178,7 +178,7 @@ namespace EpicEdit.UI.TrackEdition
             int tilesetY = 0; // Current vertical drawing position in the tileset
             int tallestPattern = 0; // The tallest tile pattern in a given row
 
-            int panelWidth = this.overlayTilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+            int panelWidth = this.tilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
             int patternId = 0;
             int patternCountInRow = -1;
 
@@ -268,8 +268,8 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void SetTilesetHeight(int tilesetHeight)
         {
-            int difference = tilesetHeight - this.overlayTilesetPanel.Height;
-            this.overlayTilesetPanel.Height = tilesetHeight;
+            int difference = tilesetHeight - this.tilesetPanel.Height;
+            this.tilesetPanel.Height = tilesetHeight;
             this.Height += difference;
         }
 
@@ -279,7 +279,7 @@ namespace EpicEdit.UI.TrackEdition
             set
             {
                 this.drawer.Tileset = value;
-                this.overlayTilesetPanel.Refresh();
+                this.tilesetPanel.Refresh();
             }
         }
 
@@ -293,19 +293,19 @@ namespace EpicEdit.UI.TrackEdition
             this.tileCountLabel.Text = count + " / " + OverlayTiles.MaxTileCount;
         }
 
-        private void OverlayTilesetPanelPaint(object sender, PaintEventArgs e)
+        private void TilesetPanelPaint(object sender, PaintEventArgs e)
         {
             this.drawer.DrawTileset(e.Graphics);
         }
 
-        private void OverlayTilesetPanelMouseMove(object sender, MouseEventArgs e)
+        private void TilesetPanelMouseMove(object sender, MouseEventArgs e)
         {
             this.hoveredPattern = this.GetPatternAt(e.Location);
 
             if (this.drawer.HoveredPattern != this.hoveredPattern)
             {
                 this.drawer.HoveredPattern = this.hoveredPattern;
-                this.overlayTilesetPanel.Invalidate();
+                this.tilesetPanel.Invalidate();
             }
         }
 
@@ -336,10 +336,10 @@ namespace EpicEdit.UI.TrackEdition
             return null;
         }
 
-        private void OverlayTilesetPanelMouseLeave(object sender, EventArgs e)
+        private void TilesetPanelMouseLeave(object sender, EventArgs e)
         {
             this.drawer.HoveredPattern = null;
-            this.overlayTilesetPanel.Invalidate();
+            this.tilesetPanel.Invalidate();
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)
@@ -347,7 +347,7 @@ namespace EpicEdit.UI.TrackEdition
             this.DeleteRequested(this, EventArgs.Empty);
         }
 
-        private void OverlayTilesetPanelMouseDown(object sender, MouseEventArgs e)
+        private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
             {
