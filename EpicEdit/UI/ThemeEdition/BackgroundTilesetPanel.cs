@@ -65,5 +65,17 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.drawer.DrawTileset(e.Graphics, this.selectedTile);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.drawer != null)
+                {
+                    this.drawer.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
     }
 }
