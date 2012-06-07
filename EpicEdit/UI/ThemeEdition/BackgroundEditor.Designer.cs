@@ -49,7 +49,6 @@ namespace EpicEdit.UI.ThemeEdition
             System.Windows.Forms.GroupBox previewGroupBox;
             System.Windows.Forms.GroupBox frontLayerGroupBox;
             System.Windows.Forms.GroupBox backLayerGroupBox;
-            System.Windows.Forms.GroupBox tileGroupBox;
             System.Windows.Forms.Label backTileLabel;
             System.Windows.Forms.Label frontTileLabel;
             System.Windows.Forms.Label paletteLabel;
@@ -68,14 +67,12 @@ namespace EpicEdit.UI.ThemeEdition
             previewGroupBox = new System.Windows.Forms.GroupBox();
             frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             backLayerGroupBox = new System.Windows.Forms.GroupBox();
-            tileGroupBox = new System.Windows.Forms.GroupBox();
             backTileLabel = new System.Windows.Forms.Label();
             frontTileLabel = new System.Windows.Forms.Label();
             paletteLabel = new System.Windows.Forms.Label();
             previewGroupBox.SuspendLayout();
             frontLayerGroupBox.SuspendLayout();
             backLayerGroupBox.SuspendLayout();
-            tileGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,43 +157,41 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TabIndex = 4;
             this.backLayerPanel.TileChanged += new System.EventHandler<System.EventArgs>(this.BackgroundLayerPanelTileChanged);
             // 
-            // tileGroupBox
-            // 
-            tileGroupBox.Controls.Add(this.tilesetPanel);
-            tileGroupBox.Controls.Add(backTileLabel);
-            tileGroupBox.Controls.Add(this.flipYButton);
-            tileGroupBox.Controls.Add(this.backTilePanel);
-            tileGroupBox.Controls.Add(this.flipXButton);
-            tileGroupBox.Controls.Add(this.paletteNumericUpDown);
-            tileGroupBox.Controls.Add(frontTileLabel);
-            tileGroupBox.Controls.Add(paletteLabel);
-            tileGroupBox.Controls.Add(this.frontTilePanel);
-            tileGroupBox.Location = new System.Drawing.Point(538, 7);
-            tileGroupBox.Name = "tileGroupBox";
-            tileGroupBox.Size = new System.Drawing.Size(143, 338);
-            tileGroupBox.TabIndex = 9;
-            tileGroupBox.TabStop = false;
-            tileGroupBox.Text = "Tile clipboard";
-            // 
-            // tilesetPanel
-            // 
-            this.tilesetPanel.Location = new System.Drawing.Point(9, 101);
-            this.tilesetPanel.Name = "tilesetPanel";
-            this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
-            this.tilesetPanel.TabIndex = 16;
-            this.tilesetPanel.Zoom = 2F;
-            // 
             // backTileLabel
             // 
-            backTileLabel.Location = new System.Drawing.Point(47, 75);
+            backTileLabel.Location = new System.Drawing.Point(575, 40);
             backTileLabel.Name = "backTileLabel";
             backTileLabel.Size = new System.Drawing.Size(32, 23);
             backTileLabel.TabIndex = 13;
             backTileLabel.Text = "Back";
             // 
+            // frontTileLabel
+            // 
+            frontTileLabel.Location = new System.Drawing.Point(534, 40);
+            frontTileLabel.Name = "frontTileLabel";
+            frontTileLabel.Size = new System.Drawing.Size(32, 23);
+            frontTileLabel.TabIndex = 12;
+            frontTileLabel.Text = "Front";
+            // 
+            // paletteLabel
+            // 
+            paletteLabel.Location = new System.Drawing.Point(296, 15);
+            paletteLabel.Name = "paletteLabel";
+            paletteLabel.Size = new System.Drawing.Size(100, 23);
+            paletteLabel.TabIndex = 10;
+            paletteLabel.Text = "Color palette";
+            // 
+            // tilesetPanel
+            // 
+            this.tilesetPanel.Location = new System.Drawing.Point(538, 66);
+            this.tilesetPanel.Name = "tilesetPanel";
+            this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
+            this.tilesetPanel.TabIndex = 16;
+            this.tilesetPanel.Zoom = 2F;
+            // 
             // flipYButton
             // 
-            this.flipYButton.Location = new System.Drawing.Point(87, 69);
+            this.flipYButton.Location = new System.Drawing.Point(475, 11);
             this.flipYButton.Name = "flipYButton";
             this.flipYButton.Size = new System.Drawing.Size(50, 23);
             this.flipYButton.TabIndex = 15;
@@ -207,15 +202,15 @@ namespace EpicEdit.UI.ThemeEdition
             // backTilePanel
             // 
             this.backTilePanel.Front = false;
-            this.backTilePanel.Location = new System.Drawing.Point(47, 40);
+            this.backTilePanel.Location = new System.Drawing.Point(578, 11);
             this.backTilePanel.Name = "backTilePanel";
-            this.backTilePanel.Size = new System.Drawing.Size(32, 32);
+            this.backTilePanel.Size = new System.Drawing.Size(24, 24);
             this.backTilePanel.TabIndex = 15;
-            this.backTilePanel.Zoom = 4F;
+            this.backTilePanel.Zoom = 3F;
             // 
             // flipXButton
             // 
-            this.flipXButton.Location = new System.Drawing.Point(87, 40);
+            this.flipXButton.Location = new System.Drawing.Point(419, 11);
             this.flipXButton.Name = "flipXButton";
             this.flipXButton.Size = new System.Drawing.Size(50, 23);
             this.flipXButton.TabIndex = 14;
@@ -225,7 +220,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // paletteNumericUpDown
             // 
-            this.paletteNumericUpDown.Location = new System.Drawing.Point(77, 14);
+            this.paletteNumericUpDown.Location = new System.Drawing.Point(367, 13);
             this.paletteNumericUpDown.Maximum = new decimal(new int[] {
                                     8,
                                     0,
@@ -246,30 +241,14 @@ namespace EpicEdit.UI.ThemeEdition
                                     0});
             this.paletteNumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
-            // frontTileLabel
-            // 
-            frontTileLabel.Location = new System.Drawing.Point(9, 75);
-            frontTileLabel.Name = "frontTileLabel";
-            frontTileLabel.Size = new System.Drawing.Size(32, 23);
-            frontTileLabel.TabIndex = 12;
-            frontTileLabel.Text = "Front";
-            // 
-            // paletteLabel
-            // 
-            paletteLabel.Location = new System.Drawing.Point(6, 16);
-            paletteLabel.Name = "paletteLabel";
-            paletteLabel.Size = new System.Drawing.Size(100, 23);
-            paletteLabel.TabIndex = 10;
-            paletteLabel.Text = "Color palette";
-            // 
             // frontTilePanel
             // 
             this.frontTilePanel.Front = true;
-            this.frontTilePanel.Location = new System.Drawing.Point(9, 40);
+            this.frontTilePanel.Location = new System.Drawing.Point(538, 11);
             this.frontTilePanel.Name = "frontTilePanel";
-            this.frontTilePanel.Size = new System.Drawing.Size(32, 32);
+            this.frontTilePanel.Size = new System.Drawing.Size(24, 24);
             this.frontTilePanel.TabIndex = 14;
-            this.frontTilePanel.Zoom = 4F;
+            this.frontTilePanel.Zoom = 3F;
             // 
             // themeComboBox
             // 
@@ -283,17 +262,24 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // BackgroundEditor
             // 
-            this.Controls.Add(tileGroupBox);
+            this.Controls.Add(this.tilesetPanel);
+            this.Controls.Add(backTileLabel);
             this.Controls.Add(backLayerGroupBox);
+            this.Controls.Add(this.backTilePanel);
+            this.Controls.Add(this.flipYButton);
+            this.Controls.Add(frontTileLabel);
             this.Controls.Add(frontLayerGroupBox);
+            this.Controls.Add(this.frontTilePanel);
             this.Controls.Add(this.themeComboBox);
+            this.Controls.Add(this.flipXButton);
             this.Controls.Add(previewGroupBox);
+            this.Controls.Add(this.paletteNumericUpDown);
+            this.Controls.Add(paletteLabel);
             this.Name = "BackgroundEditor";
-            this.Size = new System.Drawing.Size(690, 350);
+            this.Size = new System.Drawing.Size(610, 350);
             previewGroupBox.ResumeLayout(false);
             frontLayerGroupBox.ResumeLayout(false);
             backLayerGroupBox.ResumeLayout(false);
-            tileGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
