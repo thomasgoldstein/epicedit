@@ -67,7 +67,7 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
             this.modeTabControl = new System.Windows.Forms.TabControl();
             this.tilesetTabPage = new System.Windows.Forms.TabPage();
-            this.tilesetControl = new EpicEdit.UI.TrackEdition.TilesetControl();
+            this.tilesetControl = new EpicEdit.UI.TrackEdition.RoadTilesetControl();
             this.overlayTabPage = new System.Windows.Forms.TabPage();
             this.overlayControl = new EpicEdit.UI.TrackEdition.OverlayControl();
             this.startTabPage = new System.Windows.Forms.TabPage();
@@ -334,7 +334,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ResumeLayout(false);
         }
         private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
-        private EpicEdit.UI.TrackEdition.TilesetControl tilesetControl;
+        private EpicEdit.UI.TrackEdition.RoadTilesetControl tilesetControl;
         private EpicEdit.UI.TrackEdition.StartControl startControl;
         private EpicEdit.UI.TrackEdition.ObjectsControl objectsControl;
         private EpicEdit.UI.TrackEdition.AIControl aiControl;
