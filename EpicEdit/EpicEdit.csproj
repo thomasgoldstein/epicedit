@@ -156,7 +156,7 @@
     <Compile Include="UI\Gfx\FastBitmap.cs" />
     <Compile Include="UI\Gfx\GraphicsConverter.cs" />
     <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
-    <Compile Include="UI\Gfx\TilesetDrawer.cs" />
+    <Compile Include="UI\Gfx\RoadTilesetDrawer.cs" />
     <Compile Include="UI\Gfx\TrackDrawer.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
@@ -255,11 +255,11 @@
     <Compile Include="UI\TrackEdition\StartControl.Designer.cs">
       <DependentUpon>StartControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\TilesetControl.cs">
+    <Compile Include="UI\TrackEdition\RoadTilesetControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\TilesetControl.Designer.cs">
-      <DependentUpon>TilesetControl.cs</DependentUpon>
+    <Compile Include="UI\TrackEdition\RoadTilesetControl.Designer.cs">
+      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TrackEdition\TrackEditor.cs">
       <SubType>UserControl</SubType>
@@ -323,8 +323,8 @@
     <EmbeddedResource Include="UI\TrackEdition\StartControl.resx">
       <DependentUpon>StartControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\TilesetControl.resx">
-      <DependentUpon>TilesetControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetControl.resx">
+      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\TrackEditor.resx">
       <DependentUpon>TrackEditor.cs</DependentUpon>

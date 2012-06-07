@@ -26,7 +26,7 @@ namespace EpicEdit.UI.Gfx
     /// <summary>
     /// Provides the ability to paint the graphics of a road tileset.
     /// </summary>
-    internal sealed class TilesetDrawer : IDisposable
+    internal sealed class RoadTilesetDrawer : IDisposable
     {
         public const int Zoom = 2;
 
@@ -38,7 +38,7 @@ namespace EpicEdit.UI.Gfx
 
         public Bitmap Image { get { return this.tilesetCache; } }
 
-        public TilesetDrawer(Control control)
+        public RoadTilesetDrawer(Control control)
         {
             int imageWidth = control.Width / Zoom;
             int imageHeight = (RoadTileset.TileCount / (imageWidth / Tile.Size)) * Tile.Size;

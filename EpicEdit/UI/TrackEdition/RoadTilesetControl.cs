@@ -29,7 +29,7 @@ namespace EpicEdit.UI.TrackEdition
     /// <summary>
     /// Represents a list of <see cref="Theme"/> objects, and the tileset of the selected theme.
     /// </summary>
-    internal partial class TilesetControl : UserControl
+    internal partial class RoadTilesetControl : UserControl
     {
         #region Events
         /// <summary>
@@ -82,7 +82,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to draw the tileset.
         /// </summary>
-        private TilesetDrawer drawer;
+        private RoadTilesetDrawer drawer;
 
         private Track track = null;
 
@@ -124,16 +124,16 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track.RoadTileset[this.selectedTile]; }
         }
 
-        public TilesetControl()
+        public RoadTilesetControl()
         {
             this.InitializeComponent();
 
-            this.tilesetPanel.Zoom = TilesetDrawer.Zoom;
+            this.tilesetPanel.Zoom = RoadTilesetDrawer.Zoom;
         }
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new TilesetDrawer(this.tilesetPanel);
+            this.drawer = new RoadTilesetDrawer(this.tilesetPanel);
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
@@ -263,7 +263,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            int zoom = TilesetDrawer.Zoom;
+            int zoom = RoadTilesetDrawer.Zoom;
             int rowTileCount = this.tilesetPanel.Width / (Tile.Size * zoom);
             byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 

@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.TrackEdition
 {
-    partial class TilesetControl
+    partial class RoadTilesetControl
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
@@ -55,7 +55,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilePaletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
-            this.tilesetPanel = new EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel();
+            this.tilesetPanel = new EpicEdit.UI.TrackEdition.RoadTilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.importGraphicsButton = new System.Windows.Forms.Button();
@@ -190,7 +190,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button resetMapButton;
-        private EpicEdit.UI.TrackEdition.TilesetControl.TilesetPanel tilesetPanel;
+        private EpicEdit.UI.TrackEdition.RoadTilesetControl.TilesetPanel tilesetPanel;
         private System.Windows.Forms.ComboBox themeComboBox;
     }
 }
