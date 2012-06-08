@@ -72,7 +72,10 @@ namespace EpicEdit.UI.Gfx
                     for (int y = 0; y < tileCountY; y++)
                     {
                         int tileId = x + (y * tileCountX);
-                        if (tileId >= tileset.TileCount) break;
+                        if (tileId >= tileset.TileCount)
+                        {
+                            break;
+                        }
                         g.DrawImage(tileset[tileId].Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
