@@ -58,12 +58,12 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.tilesetPanel = new EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel();
-            this.flipYButton = new System.Windows.Forms.Button();
             this.backTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
-            this.flipXButton = new System.Windows.Forms.Button();
             this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.frontTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
+            this.flipXButton = new System.Windows.Forms.CheckBox();
+            this.flipYButton = new System.Windows.Forms.CheckBox();
             previewGroupBox = new System.Windows.Forms.GroupBox();
             frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             backLayerGroupBox = new System.Windows.Forms.GroupBox();
@@ -162,7 +162,7 @@ namespace EpicEdit.UI.ThemeEdition
             backTileLabel.Location = new System.Drawing.Point(575, 40);
             backTileLabel.Name = "backTileLabel";
             backTileLabel.Size = new System.Drawing.Size(32, 23);
-            backTileLabel.TabIndex = 13;
+            backTileLabel.TabIndex = 16;
             backTileLabel.Text = "Back";
             // 
             // frontTileLabel
@@ -170,7 +170,7 @@ namespace EpicEdit.UI.ThemeEdition
             frontTileLabel.Location = new System.Drawing.Point(534, 40);
             frontTileLabel.Name = "frontTileLabel";
             frontTileLabel.Size = new System.Drawing.Size(32, 23);
-            frontTileLabel.TabIndex = 12;
+            frontTileLabel.TabIndex = 14;
             frontTileLabel.Text = "Front";
             // 
             // paletteLabel
@@ -178,7 +178,7 @@ namespace EpicEdit.UI.ThemeEdition
             paletteLabel.Location = new System.Drawing.Point(296, 15);
             paletteLabel.Name = "paletteLabel";
             paletteLabel.Size = new System.Drawing.Size(100, 23);
-            paletteLabel.TabIndex = 10;
+            paletteLabel.TabIndex = 9;
             paletteLabel.Text = "Color palette";
             // 
             // tilesetPanel
@@ -186,19 +186,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.tilesetPanel.Location = new System.Drawing.Point(538, 66);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
-            this.tilesetPanel.TabIndex = 16;
+            this.tilesetPanel.TabIndex = 17;
             this.tilesetPanel.Zoom = 2F;
             this.tilesetPanel.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetPanelSelectedTileChanged);
-            // 
-            // flipYButton
-            // 
-            this.flipYButton.Location = new System.Drawing.Point(475, 11);
-            this.flipYButton.Name = "flipYButton";
-            this.flipYButton.Size = new System.Drawing.Size(50, 23);
-            this.flipYButton.TabIndex = 15;
-            this.flipYButton.Text = "Flip Y";
-            this.flipYButton.UseVisualStyleBackColor = true;
-            this.flipYButton.Click += new System.EventHandler(this.FlipYButtonClick);
             // 
             // backTilePanel
             // 
@@ -208,16 +198,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.backTilePanel.Size = new System.Drawing.Size(24, 24);
             this.backTilePanel.TabIndex = 15;
             this.backTilePanel.Zoom = 3F;
-            // 
-            // flipXButton
-            // 
-            this.flipXButton.Location = new System.Drawing.Point(419, 11);
-            this.flipXButton.Name = "flipXButton";
-            this.flipXButton.Size = new System.Drawing.Size(50, 23);
-            this.flipXButton.TabIndex = 14;
-            this.flipXButton.Text = "Flip X";
-            this.flipXButton.UseVisualStyleBackColor = true;
-            this.flipXButton.Click += new System.EventHandler(this.FlipXButtonClick);
             // 
             // paletteNumericUpDown
             // 
@@ -234,7 +214,7 @@ namespace EpicEdit.UI.ThemeEdition
                                     0});
             this.paletteNumericUpDown.Name = "paletteNumericUpDown";
             this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
-            this.paletteNumericUpDown.TabIndex = 11;
+            this.paletteNumericUpDown.TabIndex = 10;
             this.paletteNumericUpDown.Value = new decimal(new int[] {
                                     1,
                                     0,
@@ -248,7 +228,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontTilePanel.Location = new System.Drawing.Point(538, 11);
             this.frontTilePanel.Name = "frontTilePanel";
             this.frontTilePanel.Size = new System.Drawing.Size(24, 24);
-            this.frontTilePanel.TabIndex = 14;
+            this.frontTilePanel.TabIndex = 13;
             this.frontTilePanel.Zoom = 3F;
             // 
             // themeComboBox
@@ -261,18 +241,42 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.TabIndex = 0;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
+            // flipXButton
+            // 
+            this.flipXButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.flipXButton.Location = new System.Drawing.Point(419, 11);
+            this.flipXButton.Name = "flipXButton";
+            this.flipXButton.Size = new System.Drawing.Size(50, 23);
+            this.flipXButton.TabIndex = 11;
+            this.flipXButton.Text = "Flip X";
+            this.flipXButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flipXButton.UseVisualStyleBackColor = true;
+            this.flipXButton.CheckedChanged += new System.EventHandler(this.FlipXButtonCheckedChanged);
+            // 
+            // flipYButton
+            // 
+            this.flipYButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.flipYButton.Location = new System.Drawing.Point(475, 11);
+            this.flipYButton.Name = "flipYButton";
+            this.flipYButton.Size = new System.Drawing.Size(50, 23);
+            this.flipYButton.TabIndex = 12;
+            this.flipYButton.Text = "Flip Y";
+            this.flipYButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flipYButton.UseVisualStyleBackColor = true;
+            this.flipYButton.CheckedChanged += new System.EventHandler(this.FlipYButtonCheckedChanged);
+            // 
             // BackgroundEditor
             // 
+            this.Controls.Add(this.flipYButton);
+            this.Controls.Add(this.flipXButton);
             this.Controls.Add(this.tilesetPanel);
             this.Controls.Add(backTileLabel);
             this.Controls.Add(backLayerGroupBox);
             this.Controls.Add(this.backTilePanel);
-            this.Controls.Add(this.flipYButton);
             this.Controls.Add(frontTileLabel);
             this.Controls.Add(frontLayerGroupBox);
             this.Controls.Add(this.frontTilePanel);
             this.Controls.Add(this.themeComboBox);
-            this.Controls.Add(this.flipXButton);
             this.Controls.Add(previewGroupBox);
             this.Controls.Add(this.paletteNumericUpDown);
             this.Controls.Add(paletteLabel);
@@ -284,11 +288,11 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.CheckBox flipYButton;
+        private System.Windows.Forms.CheckBox flipXButton;
         private EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel tilesetPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel backTilePanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel frontTilePanel;
-        private System.Windows.Forms.Button flipXButton;
-        private System.Windows.Forms.Button flipYButton;
         private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.Button rewindButton;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;

@@ -196,7 +196,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.UpdateTilePanels();
         }
 
-        private void FlipXButtonClick(object sender, EventArgs e)
+        private void FlipXButtonCheckedChanged(object sender, EventArgs e)
         {
             Tile2bppProperties properties = this.TileProperties;
             properties.FlipX();
@@ -205,7 +205,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.UpdateTilePanels();
         }
 
-        private void FlipYButtonClick(object sender, EventArgs e)
+        private void FlipYButtonCheckedChanged(object sender, EventArgs e)
         {
             Tile2bppProperties properties = this.TileProperties;
             properties.FlipY();
@@ -232,6 +232,22 @@ namespace EpicEdit.UI.ThemeEdition
             this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
             this.paletteNumericUpDown.Value = 1 + (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
             this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+
+            bool flipX = (this.TileProperties.Flip & Flip.X) != 0;
+            if (this.flipXButton.Checked != flipX)
+            {
+                this.flipXButton.CheckedChanged -= this.FlipXButtonCheckedChanged;
+                this.flipXButton.Checked = flipX;
+                this.flipXButton.CheckedChanged += this.FlipXButtonCheckedChanged;
+            }
+
+            bool flipY = (this.TileProperties.Flip & Flip.Y) != 0;
+            if (this.flipYButton.Checked != flipY)
+            {
+                this.flipYButton.CheckedChanged -= this.FlipYButtonCheckedChanged;
+                this.flipYButton.Checked = flipY;
+                this.flipYButton.CheckedChanged += this.FlipYButtonCheckedChanged;
+            }
 
             this.UpdateTilePanels();
             this.tilesetPanel.SelectedTile = this.TileId;
