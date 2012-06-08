@@ -160,14 +160,16 @@ namespace EpicEdit.UI.ThemeEdition
         protected override void OnMouseLeave(EventArgs e)
         {
             this.TilePosition = TrackEditor.OutOfBounds;
-
             this.Invalidate();
+
+            base.OnMouseLeave(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (Context.ColorPickerMode)
             {
+                base.OnMouseDown(e);
                 return;
             }
 
@@ -195,6 +197,8 @@ namespace EpicEdit.UI.ThemeEdition
                 this.tileSelection = false;
                 this.Invalidate();
             }
+
+            base.OnMouseUp(e);
         }
 
         private void LayTile()
