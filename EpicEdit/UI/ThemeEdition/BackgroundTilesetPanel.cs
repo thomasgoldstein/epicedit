@@ -47,6 +47,16 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        public Theme Theme
+        {
+            get { return this.drawer.Theme; }
+            set
+            {
+                this.drawer.Theme = value;
+                this.Refresh();
+            }
+        }
+
         public BackgroundTilesetPanel()
         {
             this.Zoom = BackgroundTilesetDrawer.Zoom;
@@ -55,12 +65,6 @@ namespace EpicEdit.UI.ThemeEdition
         protected override void OnSizeChanged(EventArgs e)
         {
             this.drawer = new BackgroundTilesetDrawer(this.Size);
-        }
-
-        public void LoadTheme(Theme theme)
-        {
-            this.drawer.LoadTheme(theme);
-            this.Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e)

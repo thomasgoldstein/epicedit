@@ -55,7 +55,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         private Theme Theme
         {
-            get { return this.themeComboBox.SelectedItem as Theme; }
+            get { return this.drawer.Theme; }
+            set { this.drawer.Theme = value; }
         }
 
         private byte TileId
@@ -144,11 +145,10 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void LoadTheme()
         {
-            Theme theme = this.Theme;
-            this.drawer.LoadTheme(theme);
-            this.frontLayerPanel.Background = this.backLayerPanel.Background = theme.Background;
+            this.Theme = this.themeComboBox.SelectedItem as Theme;
+            this.frontLayerPanel.Background = this.backLayerPanel.Background = this.Theme.Background;
             this.UpdateTilePanels();
-            this.tilesetPanel.LoadTheme(theme);
+            this.tilesetPanel.Theme = this.Theme;
 
             this.frontLayerPanel.Refresh();
             this.backLayerPanel.Refresh();
@@ -216,12 +216,11 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void UpdateTilePanels()
         {
-            Theme theme = this.Theme;
             byte tileId = this.TileId;
             byte properties = this.TileProperties.GetByte();
 
-            this.frontTilePanel.UpdateTile(theme, tileId, properties);
-            this.backTilePanel.UpdateTile(theme, tileId, properties);
+            this.frontTilePanel.UpdateTile(this.Theme, tileId, properties);
+            this.backTilePanel.UpdateTile(this.Theme, tileId, properties);
         }
 
         private void BackgroundLayerPanelTileSelected(object sender, EventArgs<byte, Tile2bppProperties> e)

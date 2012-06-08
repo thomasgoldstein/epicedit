@@ -28,6 +28,16 @@ namespace EpicEdit.UI.Gfx
         public const int Zoom = 2;
 
         private Theme theme;
+        public Theme Theme
+        {
+            get { return this.theme; }
+            set
+            {
+                this.theme = value;
+                this.UpdateCache();
+            }
+        }
+
         private Size imageSize;
 
         private Bitmap tilesetCache;
@@ -42,12 +52,6 @@ namespace EpicEdit.UI.Gfx
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
             this.tilesetCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-        }
-
-        public void LoadTheme(Theme theme)
-        {
-            this.theme = theme;
-            this.UpdateCache();
         }
 
         private void UpdateCache()
