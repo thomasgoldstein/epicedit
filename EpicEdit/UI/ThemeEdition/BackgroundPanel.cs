@@ -101,21 +101,16 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            base.OnPaint(e);
             this.Drawer.DrawBackgroundLayer(e.Graphics, this.TilePosition, this.ScrollPixelPositionX, this.Front, this.tileSelection);
         }
 
         protected override void OnScroll(ScrollEventArgs se)
         {
-            base.OnScroll(se);
-
             this.Invalidate();
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            base.OnMouseMove(e);
-
             if (Context.ColorPickerMode)
             {
                 return;
@@ -164,8 +159,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            base.OnMouseLeave(e);
-
             this.TilePosition = TrackEditor.OutOfBounds;
 
             this.Invalidate();
@@ -173,8 +166,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            base.OnMouseDown(e);
-
             if (Context.ColorPickerMode)
             {
                 return;
@@ -199,8 +190,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            base.OnMouseUp(e);
-
             if (this.tileSelection)
             {
                 this.tileSelection = false;

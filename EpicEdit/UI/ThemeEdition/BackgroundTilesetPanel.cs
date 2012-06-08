@@ -48,8 +48,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnSizeChanged(EventArgs e)
         {
-            base.OnSizeChanged(e);
-
             this.drawer = new BackgroundTilesetDrawer(this.Size);
         }
 
@@ -61,8 +59,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
-
             this.drawer.DrawTileset(e.Graphics, this.selectedTile);
         }
 
