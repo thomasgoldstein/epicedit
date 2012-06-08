@@ -75,7 +75,6 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            base.OnPaint(e);
             this.drawer.DrawBackgroundPreview(e.Graphics);
         }
     }
