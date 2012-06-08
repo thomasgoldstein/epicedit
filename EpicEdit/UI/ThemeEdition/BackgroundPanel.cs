@@ -92,6 +92,10 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.TilePosition = TrackEditor.OutOfBounds;
             this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
+            this.MouseMove += this.BackgroundPanel_MouseMove;
+            this.MouseLeave += this.BackgroundPanel_MouseLeave;
+            this.MouseDown += this.BackgroundPanel_MouseDown;
+            this.MouseUp += this.BackgroundPanel_MouseUp;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -109,19 +113,34 @@ namespace EpicEdit.UI.ThemeEdition
             this.Invalidate();
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        private void BackgroundPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (Context.ColorPickerMode)
-            {
-                return;
-            }
-
             Point tilePositionBefore = this.TilePosition;
             this.SetPosition(e.Location);
 
             if (tilePositionBefore != this.TilePosition)
             {
                 this.InitAction(e.Button);
+                this.Invalidate();
+            }
+        }
+
+        private void BackgroundPanel_MouseLeave(object sender, EventArgs e)
+        {
+            this.TilePosition = TrackEditor.OutOfBounds;
+            this.Invalidate();
+        }
+
+        private void BackgroundPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.InitAction(e.Button);
+        }
+
+        private void BackgroundPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.tileSelection)
+            {
+                this.tileSelection = false;
                 this.Invalidate();
             }
         }
@@ -157,25 +176,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.TilePosition = new Point(x, y);
         }
 
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            this.TilePosition = TrackEditor.OutOfBounds;
-            this.Invalidate();
-
-            base.OnMouseLeave(e);
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (Context.ColorPickerMode)
-            {
-                base.OnMouseDown(e);
-                return;
-            }
-
-            this.InitAction(e.Button);
-        }
-
         private void InitAction(MouseButtons mouseButton)
         {
             if (mouseButton == MouseButtons.Left)
@@ -188,17 +188,6 @@ namespace EpicEdit.UI.ThemeEdition
                 this.SelectTile();
                 this.Invalidate();
             }
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            if (this.tileSelection)
-            {
-                this.tileSelection = false;
-                this.Invalidate();
-            }
-
-            base.OnMouseUp(e);
         }
 
         private void LayTile()
