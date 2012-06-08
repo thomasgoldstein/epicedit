@@ -61,6 +61,7 @@ namespace EpicEdit.UI.ThemeEdition
         public BackgroundTilesetPanel()
         {
             this.Zoom = BackgroundTilesetDrawer.Zoom;
+            this.MouseDown += this.BackgroundTilesetPanel_MouseDown;
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -73,7 +74,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.drawer.DrawTileset(e.Graphics, this.selectedTile);
         }
 
-        protected override void OnMouseDown(MouseEventArgs e)
+        private void BackgroundTilesetPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
             {
@@ -89,6 +90,16 @@ namespace EpicEdit.UI.ThemeEdition
                 this.SelectedTile = newSelectedTile;
                 this.SelectedTileChanged(this, EventArgs.Empty);
             }
+        }
+
+        protected override Tile GetTileAt(int x, int y)
+        {
+            // Convert from pixel precision to tile precision
+            x /= Tile.Size;
+            y /= Tile.Size;
+
+            int tileCountX = this.Width / (Tile.Size * BackgroundTilesetDrawer.Zoom);
+            return this.Theme.Background.Tileset[x + (y * tileCountX)];
         }
 
         protected override void Dispose(bool disposing)
