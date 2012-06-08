@@ -236,5 +236,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.UpdateTilePanels();
             this.tilesetPanel.SelectedTile = this.TileId;
         }
+        
+        private void TilesetPanelSelectedTileChanged(object sender, EventArgs e)
+        {
+            this.TileId = this.tilesetPanel.SelectedTile;
+            this.UpdateTilePanels();
+        }
     }
 }
