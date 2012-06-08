@@ -48,6 +48,18 @@ namespace EpicEdit.UI.Gfx
         }
 
         private Theme theme;
+
+        public Theme Theme
+        {
+            get { return this.theme; }
+            set
+            {
+                this.theme = value;
+                this.InitFrontLayer();
+                this.InitBackLayer();
+            }
+        }
+
         private Bitmap frontLayer;
         private Bitmap backLayer;
 
@@ -78,13 +90,6 @@ namespace EpicEdit.UI.Gfx
             // in each function without having to check if they're null beforehand
             this.frontLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
             this.backLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-        }
-
-        public void LoadTheme(Theme theme)
-        {
-            this.theme = theme;
-            this.InitFrontLayer();
-            this.InitBackLayer();
         }
 
         public void RewindPreview()
