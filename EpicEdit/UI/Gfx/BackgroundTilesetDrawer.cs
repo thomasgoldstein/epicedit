@@ -76,6 +76,7 @@ namespace EpicEdit.UI.Gfx
                         {
                             break;
                         }
+                        tileset[tileId].UpdateBitmap();
                         g.DrawImage(tileset[tileId].Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
