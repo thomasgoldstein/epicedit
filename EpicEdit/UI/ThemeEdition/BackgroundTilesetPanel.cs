@@ -26,6 +26,12 @@ namespace EpicEdit.UI.ThemeEdition
 {
     internal class BackgroundTilesetPanel : TilePanel
     {
+        /// <summary>
+        /// Raised when a new tile has been selected.
+        /// </summary>
+        [Browsable(true)]
+        public event EventHandler<EventArgs> SelectedTileChanged;
+
         private BackgroundTilesetDrawer drawer;
 
         private byte selectedTile = 0;
@@ -60,6 +66,24 @@ namespace EpicEdit.UI.ThemeEdition
         protected override void OnPaint(PaintEventArgs e)
         {
             this.drawer.DrawTileset(e.Graphics, this.selectedTile);
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+
+            int zoom = BackgroundTilesetDrawer.Zoom;
+            int rowTileCount = this.Width / (Tile.Size * zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
+
+            if (this.selectedTile != newSelectedTile)
+            {
+                this.SelectedTile = newSelectedTile;
+                this.SelectedTileChanged(this, EventArgs.Empty);
+            }
         }
 
         protected override void Dispose(bool disposing)

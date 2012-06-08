@@ -188,6 +188,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
             this.tilesetPanel.TabIndex = 16;
             this.tilesetPanel.Zoom = 2F;
+            this.tilesetPanel.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetPanelSelectedTileChanged);
             // 
             // flipYButton
             // 
