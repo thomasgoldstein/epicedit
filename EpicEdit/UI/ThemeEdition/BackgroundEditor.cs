@@ -41,6 +41,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.backLayerPanel.ColorSelected += value;
                 this.frontTilePanel.ColorSelected += value;
                 this.backTilePanel.ColorSelected += value;
+                this.tilesetPanel.ColorSelected += value;
             }
             remove
             {
@@ -48,6 +49,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.backLayerPanel.ColorSelected -= value;
                 this.frontTilePanel.ColorSelected -= value;
                 this.backTilePanel.ColorSelected -= value;
+                this.tilesetPanel.ColorSelected -= value;
             }
         }
 
