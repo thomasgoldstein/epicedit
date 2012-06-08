@@ -47,6 +47,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
             get { return this.drawer.Theme; }
