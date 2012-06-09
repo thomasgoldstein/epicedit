@@ -138,6 +138,7 @@
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
     <Compile Include="Rom\Tracks\GPStartPosition.cs" />
+    <Compile Include="Rom\Tracks\RoadTileGenre.cs" />
     <Compile Include="Rom\Tracks\RoadTileset.cs" />
     <Compile Include="Rom\Tracks\Scenery\Background.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />

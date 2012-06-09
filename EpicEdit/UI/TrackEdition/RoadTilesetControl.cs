@@ -168,7 +168,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void InitTileGenreComboBox()
         {
-            this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(TileGenre));
+            this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(RoadTileGenre));
             this.tileGenreComboBox.SelectedIndexChanged += this.TileGenreComboBoxSelectedIndexChanged;
         }
 
@@ -202,7 +202,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.SelectedRoadTile.Genre = (TileGenre)this.tileGenreComboBox.SelectedItem;
+            this.SelectedRoadTile.Genre = (RoadTileGenre)this.tileGenreComboBox.SelectedItem;
             this.track.Theme.RoadTileset.Modified = true;
         }
 

@@ -82,7 +82,7 @@ namespace EpicEdit.Rom.Tracks
             bool tileGenresRelocated = Themes.AreTileGenresRelocated(romBuffer, offsets[Offset.TileGenreLoad]);
             byte[] roadTileGenreData;
             byte[][] roadTileGenreIndexes;
-            TileGenre[] commonRoadTileGenres;
+            RoadTileGenre[] commonRoadTileGenres;
 
             if (tileGenresRelocated)
             {
@@ -133,7 +133,7 @@ namespace EpicEdit.Rom.Tracks
                     }
                 }
 
-                TileGenre[] allRoadTileGenres;
+                RoadTileGenre[] allRoadTileGenres;
 
                 if (tileGenresRelocated)
                 {
@@ -143,15 +143,15 @@ namespace EpicEdit.Rom.Tracks
                 else
                 {
                     int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
-                    TileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
-                    allRoadTileGenres = new TileGenre[RoadTileset.TileCount];
+                    RoadTileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
+                    allRoadTileGenres = new RoadTileGenre[RoadTileset.TileCount];
                     Array.Copy(roadTileGenres, 0, allRoadTileGenres, 0, roadTileGenres.Length);
                     Array.Copy(commonRoadTileGenres, 0, allRoadTileGenres, RoadTileset.ThemeTileCount, commonRoadTileGenres.Length);
 
                     // Set empty tile default genre value
                     for (int j = roadTileGfx.Length; j < RoadTileset.ThemeTileCount; j++)
                     {
-                        allRoadTileGenres[j] = TileGenre.Road;
+                        allRoadTileGenres[j] = RoadTileGenre.Road;
                     }
                 }
 
@@ -199,13 +199,13 @@ namespace EpicEdit.Rom.Tracks
             throw new InvalidDataException("Error when loading road tileset data.");
         }
 
-        private static TileGenre[] GetTileGenres(byte[] data, int start, int size)
+        private static RoadTileGenre[] GetTileGenres(byte[] data, int start, int size)
         {
-            TileGenre[] tileGenres = new TileGenre[size];
+            RoadTileGenre[] tileGenres = new RoadTileGenre[size];
 
             for (int i = 0; i < size; i++)
             {
-                tileGenres[i] = (TileGenre)data[start + i];
+                tileGenres[i] = (RoadTileGenre)data[start + i];
             }
 
             return tileGenres;
@@ -223,7 +223,7 @@ namespace EpicEdit.Rom.Tracks
             return paletteIndexes;
         }
 
-        private static RoadTileset GetRoadTileset(Palettes palettes, byte[] tilePaletteIndexes, byte[][] tileGfx, TileGenre[] tileGenres)
+        private static RoadTileset GetRoadTileset(Palettes palettes, byte[] tilePaletteIndexes, byte[][] tileGfx, RoadTileGenre[] tileGenres)
         {
             RoadTile[] tiles = new RoadTile[RoadTileset.TileCount];
 
