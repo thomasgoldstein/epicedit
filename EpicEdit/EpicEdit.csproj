@@ -268,6 +268,7 @@
     <Compile Include="UI\TrackEdition\TrackEditor.Designer.cs">
       <DependentUpon>TrackEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TrackEdition\TrackPanel.cs" />
     <Compile Include="UI\TrackEdition\TrackTreeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
