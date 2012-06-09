@@ -80,7 +80,6 @@
     <Compile Include="Rom\PalettesTest.cs" />
     <Compile Include="Rom\TileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
-    <Compile Include="Rom\Tracks\RoadTileTest.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTest.cs" />
     <Compile Include="Rom\Tracks\Tile2bppTest.cs" />
     <Compile Include="Rom\UtilitiesTest.cs" />
@@ -96,7 +95,7 @@
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTest.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilesTest.cs" />
     <Compile Include="Rom\Tracks\GPStartPositionTest.cs" />
-    <Compile Include="Rom\Tracks\MapTileTest.cs" />
+    <Compile Include="Rom\Tracks\RoadTileTest.cs" />
     <Compile Include="Rom\Tracks\TrackTest.cs" />
     <Compile Include="Smk.cs" />
   </ItemGroup>
