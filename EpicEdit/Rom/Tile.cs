@@ -42,13 +42,13 @@ namespace EpicEdit.Rom
 
         public byte[] Graphics { get; protected set; }
 
-        protected Bitmap image;
+        protected Bitmap bitmap;
         public Bitmap Bitmap
         {
-            get { return this.image; }
+            get { return this.bitmap; }
             set
             {
-                this.image = value;
+                this.bitmap = value;
                 this.GenerateGraphics();
             }
         }
@@ -88,9 +88,9 @@ namespace EpicEdit.Rom
         {
             if (disposing)
             {
-                if (this.image != null)
+                if (this.bitmap != null)
                 {
-                    this.image.Dispose();
+                    this.bitmap.Dispose();
                 }
             }
         }
