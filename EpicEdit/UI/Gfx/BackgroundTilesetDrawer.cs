@@ -38,6 +38,29 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
+        private Tile2bppProperties tileProperties;
+        public Tile2bppProperties TileProperties
+        {
+            get { return this.tileProperties; }
+            set
+            {
+                value.Flip = Flip.None;
+                this.tileProperties = value;
+                this.UpdateCache();
+            }
+        }
+
+        private bool front = true;
+        public bool Front
+        {
+            get { return this.front; }
+            set
+            {
+                this.front = value;
+                this.UpdateCache();
+            }
+        }
+
         private Size imageSize;
 
         private Bitmap tilesetCache;
@@ -61,6 +84,7 @@ namespace EpicEdit.UI.Gfx
             int tileCountX = this.imageSize.Width / Tile.Size;
             int tileCountY = this.imageSize.Height / Tile.Size;
             BackgroundTileset tileset = this.theme.Background.Tileset;
+            byte properties = this.TileProperties.GetByte();
 
             this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
@@ -76,8 +100,11 @@ namespace EpicEdit.UI.Gfx
                         {
                             break;
                         }
-                        tileset[tileId].UpdateBitmap();
-                        g.DrawImage(tileset[tileId].Bitmap, x * Tile.Size, y * Tile.Size);
+
+                        using (Tile tile = this.theme.Background.GetTileInstance(tileId, properties, this.Front))
+                        {
+                            g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                        }
                     }
                 }
             }
