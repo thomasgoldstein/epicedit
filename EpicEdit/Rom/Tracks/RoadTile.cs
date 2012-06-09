@@ -244,12 +244,12 @@ namespace EpicEdit.Rom.Tracks
 
         protected override void GenerateBitmap()
         {
-            this.image = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
+            this.bitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
         }
 
         protected override void GenerateGraphics()
         {
-            FastBitmap fBitmap = new FastBitmap(this.image);
+            FastBitmap fBitmap = new FastBitmap(this.bitmap);
 
             int pixelIndex = 0;
             for (int y = 0; y < Tile.Size; y++)
