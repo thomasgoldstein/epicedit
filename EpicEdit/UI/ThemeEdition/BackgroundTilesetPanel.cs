@@ -58,6 +58,32 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        public Tile2bppProperties TileProperties
+        {
+            get { return this.drawer.TileProperties; }
+            set
+            {
+                this.drawer.TileProperties = value;
+                this.Refresh();
+            }
+        }
+
+        [Browsable(true), DefaultValue(typeof(bool), "True")]
+        public bool Front
+        {
+            get { return this.drawer.Front; }
+            set
+            {
+                if (this.drawer.Front == value)
+                {
+                    return;
+                }
+
+                this.drawer.Front = value;
+                this.Refresh();
+            }
+        }
+
         public BackgroundTilesetPanel()
         {
             this.Zoom = BackgroundTilesetDrawer.Zoom;

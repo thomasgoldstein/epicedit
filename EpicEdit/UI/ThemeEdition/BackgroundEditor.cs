@@ -78,6 +78,7 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.frontLayerPanel.TileProperties = value;
                 this.backLayerPanel.TileProperties = value;
+                this.tilesetPanel.TileProperties = value;
             }
         }
 
@@ -253,11 +254,17 @@ namespace EpicEdit.UI.ThemeEdition
             this.UpdateTilePanels();
             this.tilesetPanel.SelectedTile = this.TileId;
         }
-        
+
         private void TilesetPanelSelectedTileChanged(object sender, EventArgs e)
         {
             this.TileId = this.tilesetPanel.SelectedTile;
             this.UpdateTilePanels();
+        }
+
+        private void BackgroundLayerPanelMouseDown(object sender, MouseEventArgs e)
+        {
+            bool front = (sender as BackgroundPanel).Front;
+            this.tilesetPanel.Front = front;
         }
     }
 }

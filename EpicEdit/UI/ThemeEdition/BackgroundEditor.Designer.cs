@@ -135,6 +135,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontLayerPanel.Size = new System.Drawing.Size(512, 48);
             this.frontLayerPanel.TabIndex = 2;
             this.frontLayerPanel.TileChanged += new System.EventHandler<System.EventArgs>(this.BackgroundLayerPanelTileChanged);
+            this.frontLayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BackgroundLayerPanelMouseDown);
             // 
             // backLayerGroupBox
             // 
@@ -156,6 +157,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.Size = new System.Drawing.Size(512, 48);
             this.backLayerPanel.TabIndex = 4;
             this.backLayerPanel.TileChanged += new System.EventHandler<System.EventArgs>(this.BackgroundLayerPanelTileChanged);
+            this.backLayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BackgroundLayerPanelMouseDown);
             // 
             // backTileLabel
             // 
