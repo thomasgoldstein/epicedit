@@ -192,6 +192,7 @@
     <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThemeEdition\ItemIconPanel.cs" />
     <Compile Include="UI\ThemeEdition\ItemProbaEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
