@@ -178,6 +178,11 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void InitAction(MouseButtons mouseButton)
         {
+            if (this.AbsoluteTilePosition == TrackEditor.OutOfBounds)
+            {
+                return;
+            }
+
             if (mouseButton == MouseButtons.Left)
             {
                 this.LayTile();
