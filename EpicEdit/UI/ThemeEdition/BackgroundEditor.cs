@@ -99,6 +99,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
 
             this.backgroundPreviewer.Drawer = this.drawer;
+            this.SelectTilePanel(this.frontTilePanel);
         }
 
         public void Init()
@@ -264,7 +265,54 @@ namespace EpicEdit.UI.ThemeEdition
         private void BackgroundLayerPanelMouseDown(object sender, MouseEventArgs e)
         {
             bool front = (sender as BackgroundPanel).Front;
-            this.tilesetPanel.Front = front;
+            this.ToggleTilesetFrontMode(front);
+        }
+
+        private void ToggleTilesetFrontMode(bool front)
+        {
+            if (this.tilesetPanel.Front != front)
+            {
+                this.tilesetPanel.Front = front;
+                this.SelectTilePanel(front);
+            }
+        }
+
+        private void SelectTilePanel(bool front)
+        {
+            if (front)
+            {
+                this.UnSelectTilePanel(this.backTilePanel);
+                this.SelectTilePanel(this.frontTilePanel);
+            }
+            else
+            {
+                this.UnSelectTilePanel(this.frontTilePanel);
+                this.SelectTilePanel(this.backTilePanel);
+            }
+        }
+
+        private void UnSelectTilePanel(BackgroundTilePanel panel)
+        {
+            panel.SuspendLayout();
+            panel.BorderStyle = BorderStyle.None;
+            panel.Size = new Size(panel.Width - 4, panel.Height - 4);
+            panel.Location = new Point(panel.Location.X + 2, panel.Location.Y + 2);
+            panel.ResumeLayout();
+        }
+
+        private void SelectTilePanel(BackgroundTilePanel panel)
+        {
+            panel.SuspendLayout();
+            panel.Location = new Point(panel.Location.X - 2, panel.Location.Y - 2);
+            panel.Size = new Size(panel.Width + 4, panel.Height + 4);
+            panel.BorderStyle = BorderStyle.Fixed3D;
+            panel.ResumeLayout();
+        }
+
+        private void BackgroundTilePanelMouseDown(object sender, MouseEventArgs e)
+        {
+            bool front = (sender as BackgroundTilePanel).Front;
+            this.ToggleTilesetFrontMode(front);
         }
     }
 }

@@ -74,11 +74,6 @@ namespace EpicEdit.UI.ThemeEdition
             get { return this.drawer.Front; }
             set
             {
-                if (this.drawer.Front == value)
-                {
-                    return;
-                }
-
                 this.drawer.Front = value;
                 this.Refresh();
             }

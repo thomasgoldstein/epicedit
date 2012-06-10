@@ -200,6 +200,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backTilePanel.Size = new System.Drawing.Size(24, 24);
             this.backTilePanel.TabIndex = 15;
             this.backTilePanel.Zoom = 3F;
+            this.backTilePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BackgroundTilePanelMouseDown);
             // 
             // paletteNumericUpDown
             // 
@@ -232,6 +233,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.frontTilePanel.Size = new System.Drawing.Size(24, 24);
             this.frontTilePanel.TabIndex = 13;
             this.frontTilePanel.Zoom = 3F;
+            this.frontTilePanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BackgroundTilePanelMouseDown);
             // 
             // themeComboBox
             // 
