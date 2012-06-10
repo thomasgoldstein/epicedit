@@ -85,6 +85,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.MouseDown += this.BackgroundTilesetPanel_MouseDown;
         }
 
+        public void ExportImage()
+        {
+            UITools.ExportImage(this.drawer.Image, this.Theme.Name + "bg");
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
             this.drawer = new BackgroundTilesetDrawer(this.Size);
