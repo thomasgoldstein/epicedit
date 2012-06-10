@@ -314,5 +314,15 @@ namespace EpicEdit.UI.ThemeEdition
             bool front = (sender as BackgroundTilePanel).Front;
             this.ToggleTilesetFrontMode(front);
         }
+        
+        private void ImportGraphicsButtonClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private void ExportGraphicsButtonClick(object sender, EventArgs e)
+        {
+            this.tilesetPanel.ExportImage();
+        }
     }
 }

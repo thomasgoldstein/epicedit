@@ -46,6 +46,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox previewGroupBox;
             System.Windows.Forms.GroupBox frontLayerGroupBox;
             System.Windows.Forms.GroupBox backLayerGroupBox;
@@ -64,6 +65,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.flipXButton = new System.Windows.Forms.CheckBox();
             this.flipYButton = new System.Windows.Forms.CheckBox();
+            this.importGraphicsButton = new System.Windows.Forms.Button();
+            this.exportGraphicsButton = new System.Windows.Forms.Button();
+            this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             previewGroupBox = new System.Windows.Forms.GroupBox();
             frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             backLayerGroupBox = new System.Windows.Forms.GroupBox();
@@ -269,8 +273,32 @@ namespace EpicEdit.UI.ThemeEdition
             this.flipYButton.UseVisualStyleBackColor = true;
             this.flipYButton.CheckedChanged += new System.EventHandler(this.FlipYButtonCheckedChanged);
             // 
+            // importGraphicsButton
+            // 
+            this.importGraphicsButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importGraphicsButton.Location = new System.Drawing.Point(548, 264);
+            this.importGraphicsButton.Name = "importGraphicsButton";
+            this.importGraphicsButton.Size = new System.Drawing.Size(24, 24);
+            this.importGraphicsButton.TabIndex = 18;
+            this.buttonToolTip.SetToolTip(this.importGraphicsButton, "Import graphics");
+            this.importGraphicsButton.UseVisualStyleBackColor = true;
+            this.importGraphicsButton.Click += new System.EventHandler(this.ImportGraphicsButtonClick);
+            // 
+            // exportGraphicsButton
+            // 
+            this.exportGraphicsButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportGraphicsButton.Location = new System.Drawing.Point(578, 264);
+            this.exportGraphicsButton.Name = "exportGraphicsButton";
+            this.exportGraphicsButton.Size = new System.Drawing.Size(24, 24);
+            this.exportGraphicsButton.TabIndex = 19;
+            this.buttonToolTip.SetToolTip(this.exportGraphicsButton, "Export graphics");
+            this.exportGraphicsButton.UseVisualStyleBackColor = true;
+            this.exportGraphicsButton.Click += new System.EventHandler(this.ExportGraphicsButtonClick);
+            // 
             // BackgroundEditor
             // 
+            this.Controls.Add(this.exportGraphicsButton);
+            this.Controls.Add(this.importGraphicsButton);
             this.Controls.Add(this.flipYButton);
             this.Controls.Add(this.flipXButton);
             this.Controls.Add(this.tilesetPanel);
@@ -292,6 +320,9 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ToolTip buttonToolTip;
+        private System.Windows.Forms.Button exportGraphicsButton;
+        private System.Windows.Forms.Button importGraphicsButton;
         private System.Windows.Forms.CheckBox flipYButton;
         private System.Windows.Forms.CheckBox flipXButton;
         private EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel tilesetPanel;
