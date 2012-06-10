@@ -337,7 +337,7 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.drawer.UpdateCache();
                     this.tilesetPanel.Refresh();
-                    this.track.Theme.RoadTileset.Modified = true;
+                    tileset.Modified = true;
                     this.TilesetChanged(this, EventArgs.Empty);
                 }
             }
