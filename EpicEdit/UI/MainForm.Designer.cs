@@ -38,6 +38,8 @@ namespace EpicEdit.UI
                 {
                     Context.Game.Dispose();
                 }
+
+                EpicEdit.UI.Gfx.TilesetHelper.Instance.Dispose();
             }
             base.Dispose(disposing);
         }

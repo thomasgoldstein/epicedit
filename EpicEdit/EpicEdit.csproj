@@ -158,6 +158,7 @@
     <Compile Include="UI\Gfx\GraphicsConverter.cs" />
     <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
     <Compile Include="UI\Gfx\RoadTilesetDrawer.cs" />
+    <Compile Include="UI\Gfx\TilesetHelper.cs" />
     <Compile Include="UI\Gfx\TrackDrawer.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
