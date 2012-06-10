@@ -178,7 +178,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void InitAction(MouseButtons mouseButton)
         {
-            if (this.AbsoluteTilePosition == TrackEditor.OutOfBounds)
+            if (this.TilePosition == TrackEditor.OutOfBounds)
             {
                 return;
             }
