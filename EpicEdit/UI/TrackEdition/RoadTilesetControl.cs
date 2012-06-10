@@ -357,36 +357,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter =
-                    "PNG (*.png)|*.png|" +
-                    "BMP (*.bmp)|*.bmp";
-
-                string fileName = this.track.Theme.Name;
-                fileName = UITools.SanitizeFileName(fileName) + "road";
-
-                sfd.FileName = fileName;
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    ImageFormat format;
-
-                    switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
-                    {
-                        default:
-                        case ".PNG":
-                            format = ImageFormat.Png;
-                            break;
-
-                        case ".BMP":
-                            format = ImageFormat.Bmp;
-                            break;
-                    }
-
-                    this.drawer.Image.Save(sfd.FileName, format);
-                }
-            }
+            UITools.ExportImage(this.drawer.Image, this.track.Theme.Name + "road");
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)

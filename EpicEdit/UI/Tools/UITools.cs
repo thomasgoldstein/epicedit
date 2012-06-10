@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -99,6 +101,37 @@ namespace EpicEdit.UI.Tools
             // HACK: See method summary. For more details, see:
             // http://stackoverflow.com/questions/559707/winforms-tooltip-will-not-re-appear-after-first-use
             control.MouseEnter += (s, ea) => { toolTip.Active = false; toolTip.Active = true; };
+        }
+
+        public static void ExportImage(Image image, string fileName)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter =
+                    "PNG (*.png)|*.png|" +
+                    "BMP (*.bmp)|*.bmp";
+
+                sfd.FileName = UITools.SanitizeFileName(fileName);
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ImageFormat format;
+
+                    switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
+                    {
+                        default:
+                        case ".PNG":
+                            format = ImageFormat.Png;
+                            break;
+
+                        case ".BMP":
+                            format = ImageFormat.Bmp;
+                            break;
+                    }
+
+                    image.Save(sfd.FileName, format);
+                }
+            }
         }
     }
 }
