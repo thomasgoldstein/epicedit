@@ -64,15 +64,12 @@ namespace EpicEdit.UI.Gfx
         private Size imageSize;
 
         private Bitmap tilesetCache;
-        private Pen tilesetPen;
 
         public Bitmap Image { get { return this.tilesetCache; } }
 
         public BackgroundTilesetDrawer(Size size)
         {
             this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
-
-            this.tilesetPen = new Pen(Color.FromArgb(150, 255, 0, 0));
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
@@ -114,38 +111,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
-            {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    backBuffer.DrawImage(this.tilesetCache, 0, 0,
-                                         this.imageSize.Width,
-                                         this.imageSize.Height);
-
-                    int xTileCount = this.imageSize.Width / Tile.Size;
-                    int tilePosX = selectedTile % xTileCount;
-                    int tilePosY = selectedTile / xTileCount;
-                    Point selectedTilePosition = new Point(tilePosX, tilePosY);
-
-                    backBuffer.DrawRectangle(this.tilesetPen,
-                                             selectedTilePosition.X * Tile.Size,
-                                             selectedTilePosition.Y * Tile.Size,
-                                             Tile.Size - 1,
-                                             Tile.Size - 1);
-                }
-                g.DrawImage(image, 0, 0,
-                            this.imageSize.Width * Zoom,
-                            this.imageSize.Height * Zoom);
-            }
+            TilesetHelper.Instance.DrawTileset(g, this.tilesetCache, this.imageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
             this.tilesetCache.Dispose();
-            this.tilesetPen.Dispose();
 
             GC.SuppressFinalize(this);
         }
