@@ -21,7 +21,7 @@ using EpicEdit.Rom;
 
 namespace EpicEdit.UI.Gfx
 {
-    internal class TilesetHelper : IDisposable
+    internal sealed class TilesetHelper : IDisposable
     {
         public static TilesetHelper Instance = new TilesetHelper();
 
