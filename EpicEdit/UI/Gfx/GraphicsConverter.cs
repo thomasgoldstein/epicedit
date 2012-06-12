@@ -46,8 +46,8 @@ namespace EpicEdit.UI.Gfx
 
             for (int y = 0; y < Tile.Size; y++)
             {
-                byte val1 = gfx[(y * 2)];
-                byte val2 = gfx[(y * 2) + 1];
+                byte val1 = gfx[y * 2];
+                byte val2 = gfx[y * 2 + 1];
                 for (int x = 0; x < Tile.Size; x++)
                 {
                     int mask = 1 << x;
@@ -114,7 +114,7 @@ namespace EpicEdit.UI.Gfx
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
-            for (int x = 0; x < (Tile.Size / 2); x++)
+            for (int x = 0; x < Tile.Size / 2; x++)
             {
                 for (int y = 0; y < Tile.Size; y++)
                 {
