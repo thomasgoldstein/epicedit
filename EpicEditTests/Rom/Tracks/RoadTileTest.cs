@@ -103,7 +103,7 @@ namespace EpicEditTests.Rom.Tracks
         }
 
         [Test]
-        public void TestGraphicsUpdate()
+        public void TestGenerateGraphics()
         {
             byte[] palData =
             {
