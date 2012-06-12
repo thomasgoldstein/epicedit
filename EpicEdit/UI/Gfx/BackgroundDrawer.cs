@@ -236,21 +236,6 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateTile(int x, int y, bool front, byte tileId, byte properties)
         {
-            if (!Platform.IsWindows)
-            {
-                // HACK: Work around Mono bug #492299 (slower)
-                // https://bugzilla.novell.com/show_bug.cgi?id=492299
-                if (front)
-                {
-                    this.InitFrontLayer();
-                }
-                else
-                {
-                    this.InitBackLayer();
-                }
-                return;
-            }
-
             Rectangle rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
             BackgroundTile tileModel = this.theme.Background.Tileset[tileId];
 
