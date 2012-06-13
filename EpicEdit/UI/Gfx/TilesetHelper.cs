@@ -23,7 +23,7 @@ namespace EpicEdit.UI.Gfx
 {
     internal sealed class TilesetHelper : IDisposable
     {
-        public static TilesetHelper Instance = new TilesetHelper();
+        public static readonly TilesetHelper Instance = new TilesetHelper();
 
         private Pen selectionPen;
 
