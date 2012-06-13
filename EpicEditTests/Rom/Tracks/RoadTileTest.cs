@@ -31,6 +31,20 @@ namespace EpicEditTests.Rom.Tracks
             this.TestGetColorIndexAt(gfx, palette, tile);
         }
 
+        private void TestGenerateGraphics(byte[] palData, byte[] gfx)
+        {
+            Palette pal = new Palette(null, palData);
+
+            byte[] gfxCopy = gfx.Clone() as byte[];
+
+            RoadTile tile = new RoadTile(gfx, pal, RoadTileGenre.Road);
+
+            Bitmap bitmap = tile.Bitmap;
+            tile.Bitmap = bitmap; // Trigger graphics update
+
+            Assert.AreEqual(gfxCopy, tile.Graphics);
+        }
+
         private void TestGetColorIndexAt(byte[] gfx, Palette palette, RoadTile tile)
         {
             TileTest.TestGetColorIndexAt(tile, palette, false);
@@ -103,7 +117,7 @@ namespace EpicEditTests.Rom.Tracks
         }
 
         [Test]
-        public void TestGenerateGraphics()
+        public void TestGenerateGraphics1()
         {
             byte[] palData =
             {
@@ -113,8 +127,6 @@ namespace EpicEditTests.Rom.Tracks
                 0xFF, 0x02, 0x54, 0x32, 0x96, 0x3A, 0x12, 0x2E
             };
 
-            Palette pal = new Palette(null, palData);
-
             byte[] gfx =
             {
                 0x56, 0x55, 0x55, 0x25, 0x45, 0x43, 0x34, 0x24,
@@ -122,14 +134,8 @@ namespace EpicEditTests.Rom.Tracks
                 0x45, 0x33, 0x33, 0x24, 0x45, 0x43, 0x34, 0x24,
                 0x35, 0x44, 0x44, 0x23, 0x35, 0x34, 0x43, 0x23
             };
-            byte[] gfxCopy = gfx.Clone() as byte[];
 
-            RoadTile tile = new RoadTile(gfx, pal, RoadTileGenre.Road);
-
-            Bitmap bitmap = tile.Bitmap;
-            tile.Bitmap = bitmap; // Trigger graphics update
-
-            Assert.AreEqual(gfxCopy, tile.Graphics);
+            this.TestGenerateGraphics(palData, gfx);
         }
     }
 }
