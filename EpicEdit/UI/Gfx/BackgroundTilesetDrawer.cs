@@ -100,6 +100,7 @@ namespace EpicEdit.UI.Gfx
                         }
 
                         BackgroundTile tile = tileset[tileId];
+                        tile.Front = this.front;
                         tile.Properties = this.TileProperties;
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }

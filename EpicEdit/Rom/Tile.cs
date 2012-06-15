@@ -55,6 +55,11 @@ namespace EpicEdit.Rom
 
         public void UpdateBitmap()
         {
+            if (this.Palette == null)
+            {
+                return;
+            }
+
             if (this.Bitmap != null)
             {
                 this.Bitmap.Dispose();
