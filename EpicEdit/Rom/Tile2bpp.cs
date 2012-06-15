@@ -266,8 +266,8 @@ namespace EpicEdit.Rom
                 y = (Tile.Size - 1) - y;
             }
 
-            byte val1 = this.Graphics[(y * 2)];
-            byte val2 = this.Graphics[(y * 2) + 1];
+            byte val1 = this.Graphics[y * 2];
+            byte val2 = this.Graphics[y * 2 + 1];
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
             return this.Properties.SubPaletteIndex + colIndex;
