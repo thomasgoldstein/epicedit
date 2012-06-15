@@ -139,6 +139,15 @@ namespace EpicEdit.Rom
         }
 
         protected Tile2bppProperties properties;
+        public virtual Tile2bppProperties Properties
+        {
+            get { return this.properties; }
+            set
+            {
+                this.properties = value;
+                this.UpdateBitmap();
+            }
+        }
 
         private RomColor[] GetSubPalette()
         {
