@@ -126,7 +126,15 @@ namespace EpicEdit.Rom
     {
         public override Palette Palette
         {
-            get { return this.palettes[this.properties.PaletteIndex]; }
+            get
+            {
+                if (this.palettes == null)
+                {
+                    return null;
+                }
+
+                return this.palettes[this.Properties.PaletteIndex];
+            }
             set
             {
                 if (value == null)
@@ -134,7 +142,12 @@ namespace EpicEdit.Rom
                     return;
                 }
 
-                this.properties.PaletteIndex = value.Index;
+                this.Properties = new Tile2bppProperties
+                {
+                    PaletteIndex = value.Index,
+                    SubPaletteIndex = this.Properties.SubPaletteIndex,
+                    Flip = this.Properties.Flip
+                };
             }
         }
 
@@ -158,7 +171,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        protected Tile2bppProperties properties;
+        private Tile2bppProperties properties;
         public virtual Tile2bppProperties Properties
         {
             get { return this.properties; }
@@ -174,7 +187,7 @@ namespace EpicEdit.Rom
 
         private RomColor[] GetSubPalette()
         {
-            int subPalIndex = this.properties.SubPaletteIndex;
+            int subPalIndex = this.Properties.SubPaletteIndex;
 
             return new RomColor[]
             {
@@ -203,7 +216,7 @@ namespace EpicEdit.Rom
         private void Init(byte[] gfx, Palettes palettes, byte properties)
         {
             this.Graphics = gfx;
-            this.properties = new Tile2bppProperties(properties);
+            this.Properties = new Tile2bppProperties(properties);
             this.Palettes = palettes;
         }
 
@@ -213,7 +226,7 @@ namespace EpicEdit.Rom
             {
                 throw new InvalidOperationException("Cannot generate Bitmap as the Palettes have not been set.");
             }
-            this.bitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palettes, this.properties);
+            this.bitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palettes, this.Properties);
         }
 
         protected override void GenerateGraphics()
@@ -247,12 +260,12 @@ namespace EpicEdit.Rom
 
         public override int GetColorIndexAt(int x, int y)
         {
-            if ((this.properties.Flip & Flip.X) == 0)
+            if ((this.Properties.Flip & Flip.X) == 0)
             {
                 x = (Tile.Size - 1) - x;
             }
 
-            if ((this.properties.Flip & Flip.Y) != 0)
+            if ((this.Properties.Flip & Flip.Y) != 0)
             {
                 y = (Tile.Size - 1) - y;
             }
@@ -261,7 +274,7 @@ namespace EpicEdit.Rom
             byte val2 = this.Graphics[(y * 2) + 1];
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-            return this.properties.SubPaletteIndex + colIndex;
+            return this.Properties.SubPaletteIndex + colIndex;
         }
     }
 }
