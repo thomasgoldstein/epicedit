@@ -24,18 +24,18 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// Position at which front background layer palettes begin.
         /// </summary>
-        private const int FrontBackgroundPaletteStart = 4;
+        private const int FrontPaletteStart = 4;
 
         /// <summary>
         /// Position at which back background layer palettes begin.
         /// </summary>
-        private const int BackBackgroundPaletteStart = 6;
+        private const int BackPaletteStart = 6;
 
         public BackgroundTile(byte[] gfx, Palettes palettes) : this(gfx, palettes, 0, true) { }
 
         public BackgroundTile(byte[] gfx, Palettes palettes, byte properties, bool front) : base(gfx, null, properties)
         {
-            this.properties.PaletteIndex += front ? FrontBackgroundPaletteStart : BackBackgroundPaletteStart;
+            this.properties.PaletteIndex += front ? FrontPaletteStart : BackPaletteStart;
             this.Palettes = palettes;
         }
     }
