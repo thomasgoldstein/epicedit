@@ -100,8 +100,18 @@ namespace EpicEdit.UI.Gfx
                         }
 
                         BackgroundTile tile = tileset[tileId];
+
+                        Bitmap temp = tile.Bitmap;
                         tile.Front = this.front;
                         tile.Properties = this.TileProperties;
+
+                        if (temp == tile.Bitmap)
+                        {
+                            // HACK: The image was not updated by setting the properties above,
+                            // Force the update manually as it may be needed (like when changing colors)
+                            tile.UpdateBitmap();
+                        }
+
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
