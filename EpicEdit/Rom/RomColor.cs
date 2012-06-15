@@ -317,10 +317,8 @@ namespace EpicEdit.Rom
                 RomColor color = (RomColor)obj;
                 return color == this;
             }
-            else
-            {
-                return base.Equals(obj);
-            }
+
+            return base.Equals(obj);
         }
     }
 }
