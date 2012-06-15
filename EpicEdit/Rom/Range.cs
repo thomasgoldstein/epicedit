@@ -67,8 +67,7 @@ namespace EpicEdit.Rom
 
         public static bool operator !=(Range left, Range right)
         {
-            return left.start != right.start ||
-                left.end != right.end;
+            return !(left == right);
         }
 
         public override bool Equals(object obj)
