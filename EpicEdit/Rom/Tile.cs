@@ -66,6 +66,7 @@ namespace EpicEdit.Rom
             {
                 this.Bitmap.Dispose();
             }
+
             this.GenerateBitmap();
         }
 
