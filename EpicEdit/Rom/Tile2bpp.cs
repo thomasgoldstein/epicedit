@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom
@@ -141,6 +140,19 @@ namespace EpicEdit.Rom
 
         protected Tile2bppProperties properties;
 
+        private RomColor[] GetSubPalette()
+        {
+            int subPalIndex = this.properties.SubPaletteIndex;
+
+            return new RomColor[]
+            {
+                this.Palette[subPalIndex],
+                this.Palette[subPalIndex + 1],
+                this.Palette[subPalIndex + 2],
+                this.Palette[subPalIndex + 3]
+            };
+        }
+
         public Tile2bpp(byte[] gfx, Palettes palettes)
         {
             this.Init(gfx, palettes, 0);
@@ -174,7 +186,31 @@ namespace EpicEdit.Rom
 
         protected override void GenerateGraphics()
         {
-            throw new NotImplementedException();
+            FastBitmap fBitmap = new FastBitmap(this.bitmap);
+            RomColor[] palette = this.GetSubPalette();
+
+            for (int y = 0; y < Tile.Size; y++)
+            {
+                byte val1 = 0;
+                byte val2 = 0;
+                for (int x = 0; x < Tile.Size; x++)
+                {
+                    int xPos = (Tile.Size - 1) - x;
+                    RomColor color = (RomColor)fBitmap.GetPixel(xPos, y);
+                    int colorIndex = Utilities.GetColorIndex(color, palette);
+                    val1 |= (byte)((colorIndex & 0x01) << x);
+                    val2 |= (byte)(((colorIndex & 0x02) << x) >> 1);
+                }
+
+                this.Graphics[y * 2] = val1;
+                this.Graphics[y * 2 + 1] = val2;
+            }
+
+            fBitmap.Release();
+
+            // Regenerate the bitmap, in case the new image contained colors
+            // not present in the palettes
+            this.GenerateBitmap();
         }
 
         public override int GetColorIndexAt(int x, int y)
