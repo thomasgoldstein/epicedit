@@ -83,7 +83,6 @@ namespace EpicEdit.UI.Gfx
             int tileCountX = this.imageSize.Width / Tile.Size;
             int tileCountY = this.imageSize.Height / Tile.Size;
             BackgroundTileset tileset = this.theme.Background.Tileset;
-            byte properties = this.TileProperties.GetByte();
 
             this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
@@ -100,10 +99,9 @@ namespace EpicEdit.UI.Gfx
                             break;
                         }
 
-                        using (Tile tile = this.theme.Background.GetTileInstance(tileId, properties, this.Front))
-                        {
-                            g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
-                        }
+                        BackgroundTile tile = tileset[tileId];
+                        tile.Properties = this.TileProperties;
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
             }

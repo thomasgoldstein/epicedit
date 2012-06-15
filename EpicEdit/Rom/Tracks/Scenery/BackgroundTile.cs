@@ -31,12 +31,25 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         private const int BackPaletteStart = 6;
 
+        private int paletteStart;
+
         public BackgroundTile(byte[] gfx, Palettes palettes) : this(gfx, palettes, 0, true) { }
 
         public BackgroundTile(byte[] gfx, Palettes palettes, byte properties, bool front) : base(gfx, null, properties)
         {
-            this.properties.PaletteIndex += front ? FrontPaletteStart : BackPaletteStart;
+            this.paletteStart = front ? FrontPaletteStart : BackPaletteStart;
+            this.properties.PaletteIndex += this.paletteStart;
             this.Palettes = palettes;
+        }
+
+        public override Tile2bppProperties Properties
+        {
+            get { return this.properties; }
+            set
+            {
+                value.PaletteIndex += this.paletteStart;
+                base.Properties = value;
+            }
         }
     }
 }
