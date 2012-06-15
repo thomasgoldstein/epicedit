@@ -490,15 +490,48 @@ namespace EpicEdit.Rom
         #endregion Decrypt ROM text
 
         #region Color handling
-        public static int GetClosestColorIndex(Color color, Palette palette)
+        public static int GetColorIndex(Color color, Palette palette)
+        {
+            RomColor[] colors = new RomColor[Palette.ColorCount];
+
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = palette[i];
+            }
+
+            return Utilities.GetColorIndex(color, colors);
+        }
+
+        public static int GetColorIndex(RomColor color, RomColor[] colors)
+        {
+            int colorIndex = -1;
+
+            for (int i = 0; i < colors.Length; i++)
+            {
+                if (colors[i] == color)
+                {
+                    colorIndex = i;
+                    break;
+                }
+            }
+
+            if (colorIndex == -1)
+            {
+                colorIndex = Utilities.GetClosestColorIndex(color, colors);
+            }
+
+            return colorIndex;
+        }
+
+        public static int GetClosestColorIndex(Color color, RomColor[] colors)
         {
             float value = Utilities.GetColorHslValue(color);
             float diff = float.MaxValue;
             int match = -1;
 
-            for (int i = 0; i < Palette.ColorCount; i++)
+            for (int i = 0; i < colors.Length; i++)
             {
-                Color col = palette[i];
+                Color col = colors[i];
                 float value2 = Utilities.GetColorHslValue(col);
                 float diff2 = Math.Abs(value - value2);
 

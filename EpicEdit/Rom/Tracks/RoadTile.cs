@@ -60,8 +60,8 @@ namespace EpicEdit.Rom.Tracks
                 {
                     RomColor color1 = (RomColor)fBitmap.GetPixel(x * 2, y);
                     RomColor color2 = (RomColor)fBitmap.GetPixel(x * 2 + 1, y);
-                    int colorIndex1 = this.GetColorIndex(color1);
-                    int colorIndex2 = this.GetColorIndex(color2);
+                    int colorIndex1 = Utilities.GetColorIndex(color1, this.Palette);
+                    int colorIndex2 = Utilities.GetColorIndex(color2, this.Palette);
 
                     this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
@@ -72,27 +72,6 @@ namespace EpicEdit.Rom.Tracks
             // Regenerate the bitmap, in case the new image contained colors
             // not present in the palettes
             this.GenerateBitmap();
-        }
-
-        private int GetColorIndex(RomColor color)
-        {
-            int colorIndex = -1;
-
-            for (int i = 0; i < Palette.ColorCount; i++)
-            {
-                if (this.Palette[i] == color)
-                {
-                    colorIndex = i;
-                    break;
-                }
-            }
-
-            if (colorIndex == -1)
-            {
-                colorIndex = Utilities.GetClosestColorIndex(color, this.Palette);
-            }
-
-            return colorIndex;
         }
 
         public override int GetColorIndexAt(int x, int y)
