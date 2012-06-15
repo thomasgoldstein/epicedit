@@ -159,6 +159,7 @@ namespace EpicEdit.UI.Gfx
         public TrackDrawer(Control control, float zoom)
         {
             this.control = control;
+            this.fullRepaintNeeded = true;
 
             #region Pens and Brushes initialization
 
