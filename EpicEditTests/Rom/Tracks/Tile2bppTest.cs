@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Drawing;
 using EpicEdit.Rom;
 using NUnit.Framework;
 
@@ -28,6 +29,23 @@ namespace EpicEditTests.Rom
 
             Palette palette = new Palette(null, palData);
             TileTest.TestGetColorIndexAt(tile, palette, false);
+        }
+
+        private void TestGenerateGraphics(byte[] palData, byte[] gfx)
+        {
+            byte[] palsData = new byte[512];
+            Buffer.BlockCopy(palData, 0, palsData, 0, palData.Length);
+
+            Palettes pals = new Palettes(palsData);
+
+            byte[] gfxCopy = gfx.Clone() as byte[];
+
+            Tile2bpp tile = new Tile2bpp(gfx, pals);
+
+            Bitmap bitmap = tile.Bitmap;
+            tile.Bitmap = bitmap; // Trigger graphics update
+
+            Assert.AreEqual(gfxCopy, tile.Graphics);
         }
 
         [Test]
@@ -66,6 +84,46 @@ namespace EpicEditTests.Rom
                     Assert.AreEqual(i, properties.GetByte());
                 }
             }
+        }
+
+        [Test]
+        public void TestGenerateGraphics1()
+        {
+            byte[] palData =
+            {
+                0x00, 0x00, 0xFF, 0x7F, 0x55, 0x62, 0xB0, 0x49,
+                0x00, 0x00, 0x5A, 0x73, 0xB0, 0x49, 0x2C, 0x39,
+                0x00, 0x00, 0xD3, 0x7E, 0x20, 0x78, 0x00, 0x3C,
+                0x00, 0x00, 0xDE, 0x3F, 0x9E, 0x02, 0x1B, 0x00
+            };
+
+            byte[] gfx =
+            {
+                0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
+                0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00
+            };
+
+            this.TestGenerateGraphics(palData, gfx);
+        }
+
+        [Test]
+        public void TestGenerateGraphics2()
+        {
+            byte[] palData =
+            {
+                0x00, 0x00, 0xFF, 0x7F, 0x55, 0x62, 0xB0, 0x49,
+                0x00, 0x00, 0x5A, 0x73, 0xB0, 0x49, 0x2C, 0x39,
+                0x00, 0x00, 0xD3, 0x7E, 0x20, 0x78, 0x00, 0x3C,
+                0x00, 0x00, 0xDE, 0x3F, 0x9E, 0x02, 0x1B, 0x00
+            };
+
+            byte[] gfx =
+            {
+                0x00, 0x00, 0x00, 0x07, 0x07, 0x18, 0x0F, 0x30,
+                0x0B, 0x20, 0x0B, 0x60, 0x0B, 0x60, 0x3F, 0x40
+            };
+
+            this.TestGenerateGraphics(palData, gfx);
         }
     }
 }
