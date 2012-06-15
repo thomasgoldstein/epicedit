@@ -53,6 +53,8 @@ namespace EpicEdit.Rom
             }
         }
 
+        // NOTE: Might be better if this method was private, and we'd internally figure out
+        // when to update the bitmap as events are raised when color palettes have been changed, etc.
         public void UpdateBitmap()
         {
             if (this.Palette == null)
