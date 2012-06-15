@@ -108,6 +108,11 @@ namespace EpicEdit.Rom
             return obj is Tile2bppProperties && this == (Tile2bppProperties)obj;
         }
 
+        public override int GetHashCode()
+        {
+            return this.GetByte();
+        }
+
         public byte GetByte()
         {
             return (byte)((byte)this.flip | (this.paletteIndex << 4) | this.subPaletteIndex);
