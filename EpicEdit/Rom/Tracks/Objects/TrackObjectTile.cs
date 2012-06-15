@@ -30,10 +30,6 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         protected override void GenerateBitmap()
         {
-            if (this.Palette == null)
-            {
-                throw new InvalidOperationException("Cannot generate Bitmap as the Palette has not been set.");
-            }
             this.bitmap = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(this.Graphics, this.Palette);
         }
 
