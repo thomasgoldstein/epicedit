@@ -41,11 +41,11 @@ namespace EpicEditTests.Rom
             byte[] gfxCopy = gfx.Clone() as byte[];
 
             Tile2bpp tile = new Tile2bpp(gfx, pals);
+            Tile2bpp tile2 = new Tile2bpp(new byte[gfx.Length], pals);
 
-            Bitmap bitmap = tile.Bitmap;
-            tile.Bitmap = bitmap; // Trigger graphics update
+            tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
-            Assert.AreEqual(gfxCopy, tile.Graphics);
+            Assert.AreEqual(gfxCopy, tile2.Graphics);
         }
 
         [Test]
