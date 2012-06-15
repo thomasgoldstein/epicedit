@@ -255,7 +255,7 @@ namespace EpicEdit.Rom
 
             // Regenerate the bitmap, in case the new image contained colors
             // not present in the palettes
-            this.GenerateBitmap();
+            this.UpdateBitmap();
         }
 
         public override int GetColorIndexAt(int x, int y)
