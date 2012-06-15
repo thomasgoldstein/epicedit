@@ -93,6 +93,21 @@ namespace EpicEdit.Rom
             }
         }
 
+        public static bool operator ==(Tile2bppProperties left, Tile2bppProperties right)
+        {
+            return left.GetByte() == right.GetByte();
+        }
+
+        public static bool operator !=(Tile2bppProperties left, Tile2bppProperties right)
+        {
+            return !(left == right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Tile2bppProperties && this == (Tile2bppProperties)obj;
+        }
+
         public byte GetByte()
         {
             return (byte)((byte)this.flip | (this.paletteIndex << 4) | this.subPaletteIndex);
@@ -144,8 +159,11 @@ namespace EpicEdit.Rom
             get { return this.properties; }
             set
             {
-                this.properties = value;
-                this.UpdateBitmap();
+                if (this.properties != value)
+                {
+                    this.properties = value;
+                    this.UpdateBitmap();
+                }
             }
         }
 
