@@ -222,10 +222,6 @@ namespace EpicEdit.Rom
 
         protected override void GenerateBitmap()
         {
-            if (this.Palettes == null)
-            {
-                throw new InvalidOperationException("Cannot generate Bitmap as the Palettes have not been set.");
-            }
             this.bitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palettes, this.Properties);
         }
 
