@@ -55,7 +55,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void UpdateCache()
+        private void UpdateCache()
         {
             this.tilesetCache.Dispose();
 
