@@ -124,7 +124,17 @@ namespace EpicEdit.Rom.Tracks
     
                     allRoadTileGfx = new byte[RoadTileset.TileCount][];
                     Array.Copy(roadTileGfx, 0, allRoadTileGfx, 0, roadTileGfx.Length);
-                    Array.Copy(commonRoadTileGfx, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfx.Length);
+
+                    // Clone the commonRoadTileGfx jagged array,
+                    // because we don't want theme-specific tile graphics update to affect other themes
+                    byte[][] commonRoadTileGfxClone = new byte[commonRoadTileGfx.Length][];
+                    for (int j = 0; j < commonRoadTileGfxClone.Length; j++)
+                    {
+                        commonRoadTileGfxClone[j] = new byte[commonRoadTileGfx[j].Length];
+                        Buffer.BlockCopy(commonRoadTileGfx[j], 0, commonRoadTileGfxClone[j], 0, commonRoadTileGfx[j].Length);
+                    }
+
+                    Array.Copy(commonRoadTileGfxClone, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfxClone.Length);
     
                     // Set empty tile default graphics value
                     for (int j = roadTileGfx.Length; j < RoadTileset.ThemeTileCount; j++)
