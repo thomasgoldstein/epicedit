@@ -2068,6 +2068,8 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetControlTilesetChanged(object sender, EventArgs e)
         {
             this.DisplayNewTrack();
+            this.UpdateTileClipboard();
+            this.overlayControl.UpdateTileset();
         }
         #endregion EditionMode.Tileset
 
