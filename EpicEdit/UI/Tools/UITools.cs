@@ -21,6 +21,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
+
 namespace EpicEdit.UI.Tools
 {
     /// <summary>
@@ -101,6 +103,77 @@ namespace EpicEdit.UI.Tools
             // HACK: See method summary. For more details, see:
             // http://stackoverflow.com/questions/559707/winforms-tooltip-will-not-re-appear-after-first-use
             control.MouseEnter += (s, ea) => { toolTip.Active = false; toolTip.Active = true; };
+        }
+
+        public static bool ImportImage(Tile[] tileset)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "PNG (*.png)|*.png|" +
+                    "BMP (*.bmp)|*.bmp";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    return UITools.ImportGraphics(ofd.FileName, tileset);
+                }
+
+                return false;
+            }
+        }
+
+        private static bool ImportGraphics(string filePath, Tile[] tileset)
+        {
+            try
+            {
+                using (Bitmap tilesetImage = new Bitmap(filePath))
+                {
+                    int width = tilesetImage.Width;
+                    int height = tilesetImage.Height;
+
+                    if (width % Tile.Size != 0 ||
+                        height % Tile.Size != 0 ||
+                        (width * height) != (tileset.Length * Tile.Size * Tile.Size))
+                    {
+                        throw new InvalidDataException("Invalid tileset size.");
+                    }
+
+                    int yTileCount = height / Tile.Size;
+                    int xTileCount = width / Tile.Size;
+
+                    for (int y = 0; y < yTileCount; y++)
+                    {
+                        for (int x = 0; x < xTileCount; x++)
+                        {
+                            Bitmap tileImage = tilesetImage.Clone(
+                                new Rectangle(x * Tile.Size,
+                                              y * Tile.Size,
+                                              Tile.Size,
+                                              Tile.Size),
+                                PixelFormat.Format32bppPArgb);
+
+                            Tile tile = tileset[y * xTileCount + x];
+                            tile.Bitmap = tileImage;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+
+            return false;
         }
 
         public static void ExportImage(Image image, string fileName)
