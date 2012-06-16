@@ -75,14 +75,14 @@ namespace EpicEdit.Rom
         MatchRaceObjectGraphics,
 
         /// <summary>
-        /// Track background graphics address index.
+        /// Theme background graphics address index.
         /// </summary>
-        TrackBackgroundGraphics,
+        ThemeBackgroundGraphics,
 
         /// <summary>
-        /// Track background layout address index.
+        /// Theme background layout address index.
         /// </summary>
-        TrackBackgroundLayouts,
+        ThemeBackgroundLayouts,
 
         /// <summary>
         /// The leading byte that composes AI-related addresses.
@@ -446,9 +446,9 @@ namespace EpicEdit.Rom
             this[Offset.ThemeRoadGraphics] = this[Offset.TrackMaps] + Track.Count * 3;
             this[Offset.ThemePalettes] = this[Offset.ThemeRoadGraphics] + Theme.Count * 3;
             this[Offset.TrackObjectGraphics] = this[Offset.ThemePalettes] + Theme.Count * 3;
-            this[Offset.TrackBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Theme.Count * 3;
-            this[Offset.TrackBackgroundLayouts] = this[Offset.TrackBackgroundGraphics] + Theme.Count * 3;
-            this[Offset.GPTrackOrder] = this[Offset.TrackBackgroundLayouts] + Theme.Count * 3;
+            this[Offset.ThemeBackgroundGraphics] = this[Offset.TrackObjectGraphics] + Theme.Count * 3;
+            this[Offset.ThemeBackgroundLayouts] = this[Offset.ThemeBackgroundGraphics] + Theme.Count * 3;
+            this[Offset.GPTrackOrder] = this[Offset.ThemeBackgroundLayouts] + Theme.Count * 3;
             this[Offset.TrackThemes] = this[Offset.GPTrackOrder] + GPTrack.Count;
 
             this[Offset.TrackObjectPalHack2] = this[Offset.TrackObjectPalHack1] + 0x0E;
