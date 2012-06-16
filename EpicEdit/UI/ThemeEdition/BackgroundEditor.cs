@@ -15,10 +15,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
@@ -317,7 +320,72 @@ namespace EpicEdit.UI.ThemeEdition
         
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "PNG (*.png)|*.png|" +
+                    "BMP (*.bmp)|*.bmp";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    this.ImportGraphics(ofd.FileName);
+                }
+            }
+        }
+
+        private void ImportGraphics(string filePath)
+        {
+            try
+            {
+                BackgroundTileset tileset = this.Theme.Background.Tileset;
+
+                using (Bitmap tilesetImage = new Bitmap(filePath))
+                {
+                    int width = tilesetImage.Width;
+                    int height = tilesetImage.Height;
+
+                    if (width % Tile.Size != 0 ||
+                        height % Tile.Size != 0 ||
+                        (width * height) != (BackgroundTileset.MaxTileCount * Tile.Size * Tile.Size))
+                    {
+                        throw new InvalidDataException("Invalid tileset size.");
+                    }
+
+                    int yTileCount = height / Tile.Size;
+                    int xTileCount = width / Tile.Size;
+
+                    for (int y = 0; y < yTileCount; y++)
+                    {
+                        for (int x = 0; x < xTileCount; x++)
+                        {
+                            Bitmap tileImage = tilesetImage.Clone(
+                                new Rectangle(x * Tile.Size,
+                                              y * Tile.Size,
+                                              Tile.Size,
+                                              Tile.Size),
+                                PixelFormat.Format32bppPArgb);
+
+                            BackgroundTile tile = tileset[y * xTileCount + x];
+                            tile.Bitmap = tileImage;
+                        }
+                    }
+
+                    this.LoadTheme();
+                    tileset.Modified = true;
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
         }
         
         private void ExportGraphicsButtonClick(object sender, EventArgs e)

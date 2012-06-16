@@ -21,6 +21,13 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal class BackgroundTileset : IDisposable
     {
+        /// <summary>
+        /// Total number of tiles in the tileset.
+        /// </summary>
+        public const int MaxTileCount = 48;
+
+        public bool Modified { get; set; }
+
         private BackgroundTile[] tileset;
 
         public BackgroundTileset(BackgroundTile[] tileset)
