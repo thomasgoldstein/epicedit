@@ -45,10 +45,8 @@ namespace EpicEdit.UI.Gfx
         private Pen highlightPen;
         private SolidBrush selectBrush;
 
-        public OverlayTilesetDrawer(Size size)
+        public OverlayTilesetDrawer()
         {
-            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
-
             this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
             this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
@@ -68,6 +66,11 @@ namespace EpicEdit.UI.Gfx
                 this.tileset = value;
                 this.UpdateCache();
             }
+        }
+
+        public void SetImageSize(Size size)
+        {
+            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
         }
 
         private void UpdateCache()
