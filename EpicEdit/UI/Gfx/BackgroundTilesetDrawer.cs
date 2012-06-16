@@ -94,11 +94,6 @@ namespace EpicEdit.UI.Gfx
                     for (int y = 0; y < tileCountY; y++)
                     {
                         int tileId = x + (y * tileCountX);
-                        if (tileId >= tileset.TileCount)
-                        {
-                            break;
-                        }
-
                         BackgroundTile tile = tileset[tileId];
 
                         Bitmap temp = tile.Bitmap;
