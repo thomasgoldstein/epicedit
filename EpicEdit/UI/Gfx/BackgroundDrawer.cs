@@ -132,12 +132,12 @@ namespace EpicEdit.UI.Gfx
                     {
                         byte tileId;
                         byte properties;
-                        this.theme.Background.Layout.GetTileData(x, y, front, out tileId, out properties);
+                        background.Layout.GetTileData(x, y, front, out tileId, out properties);
                         int key = (tileId << 8) + properties;
    
                         if (!tileCache.ContainsKey(key))
                         {
-                            BackgroundTile tile = this.theme.Background.Tileset[tileId];
+                            BackgroundTile tile = background.Tileset[tileId];
                             BackgroundTile instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
                             tileCache.Add(key, instance);
                         }
