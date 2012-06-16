@@ -216,8 +216,7 @@ namespace EpicEdit.UI.TrackEdition
 
             // Could be optimized by not updating the whole cache,
             // and not repainting the whole panel (but it's already fast enough)
-            this.drawer.UpdateCache();
-            this.tilesetPanel.Refresh();
+            this.UpdateTileset();
 
             this.TileChanged(this, new EventArgs<byte>(this.selectedTile));
         }
@@ -285,8 +284,7 @@ namespace EpicEdit.UI.TrackEdition
             RoadTileset tileset = this.track.RoadTileset;
             if (UITools.ImportImage(tileset.GetTiles()))
             {
-                this.drawer.UpdateCache();
-                this.tilesetPanel.Refresh();
+                this.UpdateTileset();
                 this.track.RoadTileset.Modified = true;
                 this.TilesetChanged(this, EventArgs.Empty);
             }
