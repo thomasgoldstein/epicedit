@@ -38,14 +38,12 @@ namespace EpicEditTests.Rom
 
             Palettes pals = new Palettes(palsData);
 
-            byte[] gfxCopy = gfx.Clone() as byte[];
-
             Tile2bpp tile = new Tile2bpp(gfx, pals);
             Tile2bpp tile2 = new Tile2bpp(new byte[gfx.Length], pals);
 
             tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
-            Assert.AreEqual(gfxCopy, tile2.Graphics);
+            Assert.AreEqual(gfx, tile2.Graphics);
         }
 
         [Test]

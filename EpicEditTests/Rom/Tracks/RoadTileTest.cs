@@ -35,14 +35,12 @@ namespace EpicEditTests.Rom.Tracks
         {
             Palette pal = new Palette(null, palData);
 
-            byte[] gfxCopy = gfx.Clone() as byte[];
-
             RoadTile tile = new RoadTile(gfx, pal, RoadTileGenre.Road);
             RoadTile tile2 = new RoadTile(new byte[gfx.Length], pal, RoadTileGenre.Road);
 
             tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
-            Assert.AreEqual(gfxCopy, tile2.Graphics);
+            Assert.AreEqual(gfx, tile2.Graphics);
         }
 
         private void TestGetColorIndexAt(byte[] gfx, Palette palette, RoadTile tile)
