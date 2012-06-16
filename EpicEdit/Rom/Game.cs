@@ -23,6 +23,7 @@ using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.UI.Gfx;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
@@ -2035,6 +2036,38 @@ namespace EpicEdit.Rom
                     byte[] bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
                     saveBuffer.AddCompressed(bgLayoutData, bgLayoutOffsetIndex);
                 }
+
+                int bgTileGfxIndex = this.offsets[Offset.ThemeBackgroundGraphics] + i * 3;
+                int bgTileGfxOffset = Utilities.BytesToOffset(this.romBuffer, bgTileGfxIndex);
+                byte[] bgTileGfxData;
+
+                if (theme.Background.Tileset.Modified || saveBuffer.Includes(bgTileGfxOffset))
+                {
+                    // Save background tileset graphics
+                    if (!theme.Background.Tileset.Modified)
+                    {
+                        // Do not recompress background tileset graphics (perf optimization),
+                        // simply copy the existing compressed data
+                        int compressedDataLength = Codec.GetLength(this.romBuffer, bgTileGfxOffset);
+                        bgTileGfxData = new byte[compressedDataLength];
+                        Buffer.BlockCopy(this.romBuffer, bgTileGfxOffset, bgTileGfxData, 0, compressedDataLength);
+                    }
+                    else
+                    {
+                        // Recompress background tileset graphics
+                        bgTileGfxData = new byte[BackgroundTileset.TileCount * 16];
+
+                        for (int j = 0; j < BackgroundTileset.TileCount; j++)
+                        {
+                            BackgroundTile tile = theme.Background.Tileset[j];
+                            Buffer.BlockCopy(tile.Graphics, 0, bgTileGfxData, j * 16, tile.Graphics.Length);
+                        }
+
+                        bgTileGfxData = Codec.Compress(bgTileGfxData);
+                    }
+
+                    saveBuffer.AddCompressed(bgTileGfxData, bgTileGfxIndex);
+                }
             }
         }
 
@@ -2073,6 +2106,7 @@ namespace EpicEdit.Rom
                 theme.RoadTileset.Modified = false;
                 theme.Palettes.Modified = false;
                 theme.Background.Layout.Modified = false;
+                theme.Background.Tileset.Modified = false;
             }
         }
 
@@ -2113,7 +2147,8 @@ namespace EpicEdit.Rom
             {
                 if (theme.RoadTileset.Modified ||
                     theme.Palettes.Modified ||
-                    theme.Background.Layout.Modified)
+                    theme.Background.Layout.Modified ||
+                    theme.Background.Tileset.Modified)
                 {
                     return true;
                 }
