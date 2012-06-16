@@ -148,7 +148,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new OverlayTilesetDrawer(this.tilesetPanel.Size);
+            this.drawer = new OverlayTilesetDrawer();
             this.InitOnRomLoad();
 
             // The following event handler is added here rather than in the Designer.cs
@@ -271,6 +271,7 @@ namespace EpicEdit.UI.TrackEdition
             int difference = tilesetHeight - this.tilesetPanel.Height;
             this.tilesetPanel.Height = tilesetHeight;
             this.Height += difference;
+            this.drawer.SetImageSize(this.tilesetPanel.Size);
         }
 
         public RoadTileset Tileset
