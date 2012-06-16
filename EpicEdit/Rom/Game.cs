@@ -2028,7 +2028,7 @@ namespace EpicEdit.Rom
                 if (theme.Background.Layout.Modified)
                 {
                     // Save background layout
-                    int bgLayoutOffsetIndex = this.offsets[Offset.TrackBackgroundLayouts] + i * 3;
+                    int bgLayoutOffsetIndex = this.offsets[Offset.ThemeBackgroundLayouts] + i * 3;
                     byte[] bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
                     saveBuffer.AddCompressed(bgLayoutData, bgLayoutOffsetIndex);
                 }
