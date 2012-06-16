@@ -128,8 +128,8 @@ namespace EpicEdit.UI
 
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter = "SNES ROM file (*.bin, *.fig, *.sfc, *.smc, *.swc, *.zip)|" +
-                             "*.bin; *.fig; *.sfc; *.smc; *.swc; *.zip|" +
+                ofd.Filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc, *.zip)|" +
+                             "*.sfc; *.bin; *.fig; *.smc; *.swc; *.zip|" +
                              "All files (*.*)|*.*";
 
                 if (ofd.ShowDialog() == DialogResult.OK)
@@ -213,8 +213,8 @@ namespace EpicEdit.UI
             {
                 string fileName = Context.Game.FileName;
                 string ext = Path.GetExtension(fileName);
-                sfd.Filter = "SNES ROM file (*.bin, *.fig, *.sfc, *.smc, *.swc)|" +
-                             "*" + ext + "; *.bin; *.fig; *.sfc; *.smc; *.swc|" +
+                sfd.Filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
+                             "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
                              "All files (*.*)|*.*";
                 sfd.FileName = Path.GetFileNameWithoutExtension(fileName);
 
