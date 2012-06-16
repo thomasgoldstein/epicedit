@@ -45,6 +45,11 @@ namespace EpicEdit.Rom.Tracks
             this.tileset = tileset;
         }
 
+        public RoadTile[] GetTiles()
+        {
+            return this.tileset;
+        }
+
         public RoadTile GetTile(int index)
         {
             return this.tileset[index];
