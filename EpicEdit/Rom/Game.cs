@@ -1991,16 +1991,17 @@ namespace EpicEdit.Rom
                 Theme theme = this.themes[i];
 
                 int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + i * 3;
+                int roadTileGfxOffset = Utilities.BytesToOffset(this.romBuffer, roadTileGfxIndex);
                 byte[] roadTileGfxData;
 
                 // Save road tileset palette associations and graphics
-                if (!theme.RoadTileset.Modified && saveBuffer.Includes(roadTileGfxIndex))
+                if (!theme.RoadTileset.Modified && saveBuffer.Includes(roadTileGfxOffset))
                 {
                     // Do not recompress road tileset data (perf optimization),
                     // simply copy the existing compressed data
-                    int compressedDataLength = Codec.GetLength(this.romBuffer, roadTileGfxIndex);
+                    int compressedDataLength = Codec.GetLength(this.romBuffer, roadTileGfxOffset);
                     roadTileGfxData = new byte[compressedDataLength];
-                    Buffer.BlockCopy(this.romBuffer, roadTileGfxIndex, roadTileGfxData, 0, compressedDataLength);
+                    Buffer.BlockCopy(this.romBuffer, roadTileGfxOffset, roadTileGfxData, 0, compressedDataLength);
                 }
                 else
                 {
@@ -2013,9 +2014,11 @@ namespace EpicEdit.Rom
                         roadTileGfxData[j] = (byte)(tile.Palette.Index << 4);
                         Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                     }
+
+                    roadTileGfxData = Codec.Compress(roadTileGfxData);
                 }
 
-                saveBuffer.AddCompressed(Codec.Compress(roadTileGfxData), roadTileGfxIndex);
+                saveBuffer.AddCompressed(roadTileGfxData, roadTileGfxIndex);
 
                 if (theme.Palettes.Modified)
                 {
