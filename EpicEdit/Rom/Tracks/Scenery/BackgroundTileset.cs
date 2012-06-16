@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// Total number of tiles in the tileset.
         /// </summary>
-        public const int MaxTileCount = 48;
+        public const int TileCount = 48;
 
         public bool Modified { get; set; }
 
@@ -33,11 +33,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
         public BackgroundTileset(BackgroundTile[] tileset)
         {
             this.tileset = tileset;
-        }
-
-        public int TileCount
-        {
-            get { return this.tileset.Length; }
         }
 
         public BackgroundTile[] GetTiles()

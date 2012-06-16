@@ -238,11 +238,17 @@ namespace EpicEdit.Rom.Tracks
 
         private static BackgroundTileset GetBackgroundTileset(Palettes palettes, byte[][] tileGfx)
         {
-            BackgroundTile[] tiles = new BackgroundTile[tileGfx.Length];
+            BackgroundTile[] tiles = new BackgroundTile[BackgroundTileset.TileCount];
 
-            for (int i = 0; i < tileGfx.Length; i++)
+            for (int i = 0; i < Math.Min(tileGfx.Length, tiles.Length); i++)
             {
                 tiles[i] = new BackgroundTile(tileGfx[i], palettes);
+            }
+
+            // If the tileset isn't full, fill in the rest of the tileset with empty tiles
+            for (int i = tileGfx.Length; i < BackgroundTileset.TileCount; i++)
+            {
+                tiles[i] = new BackgroundTile(new byte[16], palettes);
             }
 
             return new BackgroundTileset(tiles);
