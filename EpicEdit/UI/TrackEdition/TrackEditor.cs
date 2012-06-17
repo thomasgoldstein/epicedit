@@ -618,9 +618,7 @@ namespace EpicEdit.UI.TrackEdition
 
             Point location = this.AbsoluteCenterTileLocation;
             this.ZoomInSub();
-            this.CenterTrackDisplayOn(location);
-
-            this.EndZoom();
+            this.EndZoom(location);
         }
 
         private void ZoomOut()
@@ -632,13 +630,13 @@ namespace EpicEdit.UI.TrackEdition
 
             Point location = this.AbsoluteCenterTileLocation;
             this.ZoomOutSub();
-            this.CenterTrackDisplayOn(location);
-
-            this.EndZoom();
+            this.EndZoom(location);
         }
 
-        private void EndZoom()
+        private void EndZoom(Point location)
         {
+            this.CenterTrackDisplayOn(location);
+
             if (this.pixelPosition == TrackEditor.OutOfBounds)
             {
                 // The cursor isn't over the track
@@ -680,10 +678,7 @@ namespace EpicEdit.UI.TrackEdition
             Point diff = new Point(center.X - cursor.X, center.Y - cursor.Y);
             hoveredTilePosition.Offset(diff);
 
-            this.CenterTrackDisplayOn(hoveredTilePosition);
-
-            this.drawer.NotifyFullRepaintNeed();
-            this.InitEditionModeAction(true);
+            this.EndZoom(hoveredTilePosition);
         }
 
         private void CenterTrackDisplayOn(Point location)
