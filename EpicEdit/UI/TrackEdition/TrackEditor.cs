@@ -646,6 +646,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
+                this.drawer.NotifyFullRepaintNeed();
                 this.InitEditionModeAction(true);
             }
         }
@@ -681,6 +682,7 @@ namespace EpicEdit.UI.TrackEdition
 
             this.CenterTrackDisplayOn(hoveredTilePosition);
 
+            this.drawer.NotifyFullRepaintNeed();
             this.InitEditionModeAction(true);
         }
 
