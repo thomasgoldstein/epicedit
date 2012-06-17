@@ -134,7 +134,7 @@ namespace EpicEdit.UI.Gfx
                         byte properties;
                         background.Layout.GetTileData(x, y, front, out tileId, out properties);
                         int key = (tileId << 8) + properties;
-   
+
                         if (!tileCache.ContainsKey(key))
                         {
                             BackgroundTile tile = background.Tileset[tileId];

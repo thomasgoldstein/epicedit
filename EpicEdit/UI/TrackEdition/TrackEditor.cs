@@ -1816,23 +1816,23 @@ namespace EpicEdit.UI.TrackEdition
                     case EditionMode.Tileset:
                         repaintNeeded = this.InitTilesetAction();
                         break;
-    
+
                     case EditionMode.Overlay:
                         repaintNeeded = this.InitOverlayAction();
                         break;
-    
+
                     case EditionMode.Start:
                         repaintNeeded = this.InitStartAction();
                         break;
-    
+
                     case EditionMode.Objects:
                         repaintNeeded = this.InitObjectAction();
                         break;
-    
+
                     case EditionMode.AI:
                         repaintNeeded = this.InitAIAction();
                         break;
-    
+
                     default:
                         repaintNeeded = false;
                         break;
