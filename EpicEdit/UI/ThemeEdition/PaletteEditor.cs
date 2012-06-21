@@ -180,9 +180,7 @@ namespace EpicEdit.Rom.ThemeEdition
         /// <param name="paletteIndex">The index of the palette to reinitialize the message.</param>
         private void SetToolTip(int paletteIndex)
         {
-            string toolTipText = string.Format("#{0}" + Environment.NewLine + "{1}",
-                                               paletteIndex, this.Palette[paletteIndex]);
-
+            string toolTipText = "#" + paletteIndex + Environment.NewLine + this.Palette[paletteIndex];
             this.toolTips[paletteIndex].RemoveAll();
             this.toolTips[paletteIndex].SetToolTip(this.panels[paletteIndex], toolTipText);
         }
