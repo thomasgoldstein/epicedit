@@ -198,22 +198,11 @@ namespace EpicEdit.Rom
             };
         }
 
-        public Tile2bpp(byte[] gfx, Palettes palettes)
-        {
-            this.Init(gfx, palettes, 0);
-        }
+        public Tile2bpp(byte[] gfx, Palettes palettes) : this(gfx, palettes, 0) { }
 
-        public Tile2bpp(byte[] gfx, byte properties)
-        {
-            this.Init(gfx, null, properties);
-        }
+        public Tile2bpp(byte[] gfx, byte properties) : this(gfx, null, properties) { }
 
         public Tile2bpp(byte[] gfx, Palettes palettes, byte properties)
-        {
-            this.Init(gfx, palettes, properties);
-        }
-
-        private void Init(byte[] gfx, Palettes palettes, byte properties)
         {
             this.Graphics = gfx;
             this.Properties = new Tile2bppProperties(properties);
