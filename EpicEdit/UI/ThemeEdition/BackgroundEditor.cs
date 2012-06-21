@@ -100,7 +100,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
 
             this.backgroundPreviewer.Drawer = this.drawer;
-            this.SelectTilePanel(this.frontTilePanel);
+            BackgroundEditor.SelectTilePanel(this.frontTilePanel);
         }
 
         public void Init()
@@ -282,17 +282,17 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (front)
             {
-                this.UnSelectTilePanel(this.backTilePanel);
-                this.SelectTilePanel(this.frontTilePanel);
+                BackgroundEditor.UnSelectTilePanel(this.backTilePanel);
+                BackgroundEditor.SelectTilePanel(this.frontTilePanel);
             }
             else
             {
-                this.UnSelectTilePanel(this.frontTilePanel);
-                this.SelectTilePanel(this.backTilePanel);
+                BackgroundEditor.UnSelectTilePanel(this.frontTilePanel);
+                BackgroundEditor.SelectTilePanel(this.backTilePanel);
             }
         }
 
-        private void UnSelectTilePanel(BackgroundTilePanel panel)
+        private static void UnSelectTilePanel(BackgroundTilePanel panel)
         {
             panel.SuspendLayout();
             panel.BorderStyle = BorderStyle.None;
@@ -301,7 +301,7 @@ namespace EpicEdit.UI.ThemeEdition
             panel.ResumeLayout();
         }
 
-        private void SelectTilePanel(BackgroundTilePanel panel)
+        private static void SelectTilePanel(BackgroundTilePanel panel)
         {
             panel.SuspendLayout();
             panel.Location = new Point(panel.Location.X - 2, panel.Location.Y - 2);
