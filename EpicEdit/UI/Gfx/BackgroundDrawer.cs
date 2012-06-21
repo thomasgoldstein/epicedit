@@ -162,7 +162,7 @@ namespace EpicEdit.UI.Gfx
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
-                this.DrawImage(g, image, BackWidth);
+                BackgroundDrawer.DrawImage(g, image, BackWidth);
             }
         }
 
@@ -174,7 +174,7 @@ namespace EpicEdit.UI.Gfx
                 backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
-                this.DrawImage(g, image, FrontWidth);
+                BackgroundDrawer.DrawImage(g, image, FrontWidth);
             }
         }
 
@@ -211,11 +211,11 @@ namespace EpicEdit.UI.Gfx
                 backBuffer.DrawImage(this.frontLayer, x * 2, 0);
                 backBuffer.DrawImage(this.frontLayer, x * 2 + FrontWidth, 0);
 
-                this.DrawImage(g, image, FrontWidth);
+                BackgroundDrawer.DrawImage(g, image, FrontWidth);
             }
         }
 
-        private void DrawImage(Graphics g, Bitmap image, int width)
+        private static void DrawImage(Graphics g, Bitmap image, int width)
         {
             g.PixelOffsetMode = PixelOffsetMode.Half;
             g.InterpolationMode = InterpolationMode.NearestNeighbor;
