@@ -31,21 +31,9 @@ namespace EpicEdit.UI.Gfx
     internal sealed class BackgroundDrawer : IDisposable
     {
         public const int Zoom = 2;
-
-        private int FrontWidth
-        {
-            get { return BackgroundLayout.FrontLayerWidth * Tile.Size; }
-        }
-
-        private int BackWidth
-        {
-            get { return BackgroundLayout.BackLayerWidth * Tile.Size; }
-        }
-
-        private int Height
-        {
-            get { return BackgroundLayout.RowCount * Tile.Size; }
-        }
+        private const int FrontWidth = BackgroundLayout.FrontLayerWidth * Tile.Size;
+        private const int BackWidth = BackgroundLayout.BackLayerWidth * Tile.Size;
+        private const int Height = BackgroundLayout.RowCount * Tile.Size;
 
         private Theme theme;
 
@@ -114,7 +102,7 @@ namespace EpicEdit.UI.Gfx
             int layerWidth = front ? BackgroundLayout.FrontLayerWidth : BackgroundLayout.BackLayerWidth;
             int imageWidth = layerWidth * Tile.Size;
 
-            Bitmap bitmap = new Bitmap(imageWidth, this.Height, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new Bitmap(imageWidth, Height, PixelFormat.Format32bppPArgb);
             Background background = this.theme.Background;
 
             Dictionary<int, BackgroundTile> tileCache = new Dictionary<int, BackgroundTile>();
@@ -169,24 +157,24 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x, bool tileSelection)
         {
-            using (Bitmap image = new Bitmap(this.BackWidth, this.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(BackWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
-                this.DrawImage(g, image, this.BackWidth);
+                this.DrawImage(g, image, BackWidth);
             }
         }
 
         private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x,  bool tileSelection)
         {
-            using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
-                this.DrawImage(g, image, this.FrontWidth);
+                this.DrawImage(g, image, FrontWidth);
             }
         }
 
@@ -214,16 +202,16 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawBackgroundPreview(Graphics g)
         {
-            using (Bitmap image = new Bitmap(this.FrontWidth, this.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
-                backBuffer.DrawImage(this.backLayer, x + this.BackWidth, 0);
+                backBuffer.DrawImage(this.backLayer, x + BackWidth, 0);
 
                 backBuffer.DrawImage(this.frontLayer, x * 2, 0);
-                backBuffer.DrawImage(this.frontLayer, x * 2 + this.FrontWidth, 0);
+                backBuffer.DrawImage(this.frontLayer, x * 2 + FrontWidth, 0);
 
-                this.DrawImage(g, image, this.FrontWidth);
+                this.DrawImage(g, image, FrontWidth);
             }
         }
 
@@ -231,7 +219,7 @@ namespace EpicEdit.UI.Gfx
         {
             g.PixelOffsetMode = PixelOffsetMode.Half;
             g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            g.DrawImage(image, 0, 0, width * Zoom, this.Height * Zoom);
+            g.DrawImage(image, 0, 0, width * Zoom, Height * Zoom);
         }
 
         public void UpdateTile(int x, int y, bool front, byte tileId, byte properties)
@@ -252,7 +240,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.x--;
 
-            if (this.x < -this.BackWidth)
+            if (this.x < -BackWidth)
             {
                 this.x = 0;
             }
