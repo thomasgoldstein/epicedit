@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -276,7 +277,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TileGenreComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
             object val = e.Value;
-            e.Value = ((byte)val).ToString("X") + "- " + UITools.GetDescription(val);
+            e.Value = ((byte)val).ToString("X", CultureInfo.InvariantCulture) + "- " + UITools.GetDescription(val);
         }
 
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
