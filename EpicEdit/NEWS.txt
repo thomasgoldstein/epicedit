@@ -3,6 +3,11 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.5.1 (June 25th 2012)
+- Fix possible ROM corruption issues when resaving color palettes
+  (regression from 2.4) and background layouts
+
+
 v2.5 (June 23rd 2012)
 - Added support for background editing (layout and graphics)
 - Fixed the object extension hack introduced in v2.2 to work with ROMs
