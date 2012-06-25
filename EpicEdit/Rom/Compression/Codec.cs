@@ -334,6 +334,14 @@ namespace EpicEdit.Rom.Compression
             return length;
         }
 
+        public static byte[] GetCompressedChunk(byte[] buffer, int offset)
+        {
+            int compressedChunkLength = Codec.GetLength(buffer, offset);
+            byte[] compressedChunk = new byte[compressedChunkLength];
+            Buffer.BlockCopy(buffer, offset, compressedChunk, 0, compressedChunkLength);
+            return compressedChunk;
+        }
+
         /// <summary>
         /// Compresses the data of the passed buffer.
         /// </summary>
