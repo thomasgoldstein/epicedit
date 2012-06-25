@@ -67,7 +67,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.image.Dispose();
             this.image = zoomedBitmap;
 
-            this.Invalidate();
+            this.Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e)
