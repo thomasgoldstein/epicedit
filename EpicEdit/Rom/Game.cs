@@ -2021,29 +2021,67 @@ namespace EpicEdit.Rom
 
                 saveBuffer.AddCompressed(roadTileGfxData, roadTileGfxIndex);
 
-                if (theme.Palettes.Modified)
+                int palettesIndex = this.offsets[Offset.ThemePalettes] + i * 3;
+                int palettesOffset = Utilities.BytesToOffset(this.romBuffer, palettesIndex);
+
+                if (theme.Palettes.Modified || saveBuffer.Includes(palettesOffset))
                 {
                     // Save color palettes
-                    int paletteOffsetIndex = this.offsets[Offset.ThemePalettes] + i * 3;
-                    byte[] paletteData = Codec.Compress(theme.Palettes.GetBytes());
-                    saveBuffer.AddCompressed(paletteData, paletteOffsetIndex);
+
+                    byte[] palettesData;
+
+                    if (!theme.Palettes.Modified)
+                    {
+                        // Do not recompress palettes (perf optimization),
+                        // simply copy the existing compressed data
+                        int compressedDataLength = Codec.GetLength(this.romBuffer, palettesOffset);
+                        palettesData = new byte[compressedDataLength];
+                        Buffer.BlockCopy(this.romBuffer, palettesOffset, palettesData, 0, compressedDataLength);
+                    }
+                    else
+                    {
+                        // Recompress palettes
+                        palettesData = Codec.Compress(theme.Palettes.GetBytes());
+                    }
+
+                    saveBuffer.AddCompressed(palettesData, palettesIndex);
                 }
 
-                if (theme.Background.Layout.Modified)
+                int bgLayoutIndex = this.offsets[Offset.ThemeBackgroundLayouts] + i * 3;
+                int bgLayoutOffset = Utilities.BytesToOffset(this.romBuffer, bgLayoutIndex);
+
+                if (theme.Background.Layout.Modified || saveBuffer.Includes(bgLayoutOffset))
                 {
                     // Save background layout
-                    int bgLayoutOffsetIndex = this.offsets[Offset.ThemeBackgroundLayouts] + i * 3;
-                    byte[] bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
-                    saveBuffer.AddCompressed(bgLayoutData, bgLayoutOffsetIndex);
+
+                    byte[] bgLayoutData;
+
+                    if (!theme.Background.Layout.Modified)
+                    {
+                        // Do not recompress background layout (perf optimization),
+                        // simply copy the existing compressed data
+                        int compressedDataLength = Codec.GetLength(this.romBuffer, bgLayoutOffset);
+                        bgLayoutData = new byte[compressedDataLength];
+                        Buffer.BlockCopy(this.romBuffer, bgLayoutOffset, bgLayoutData, 0, compressedDataLength);
+                    }
+                    else
+                    {
+                        // Recompress background layout
+                        bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
+                    }
+                    
+                    saveBuffer.AddCompressed(bgLayoutData, bgLayoutIndex);
                 }
 
                 int bgTileGfxIndex = this.offsets[Offset.ThemeBackgroundGraphics] + i * 3;
                 int bgTileGfxOffset = Utilities.BytesToOffset(this.romBuffer, bgTileGfxIndex);
-                byte[] bgTileGfxData;
 
                 if (theme.Background.Tileset.Modified || saveBuffer.Includes(bgTileGfxOffset))
                 {
                     // Save background tileset graphics
+
+                    byte[] bgTileGfxData;
+
                     if (!theme.Background.Tileset.Modified)
                     {
                         // Do not recompress background tileset graphics (perf optimization),
