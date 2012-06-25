@@ -1963,10 +1963,7 @@ namespace EpicEdit.Rom
 
         private void MoveTrackMap(int trackIndex, int trackOffset, SaveBuffer saveBuffer)
         {
-            int compressedTrackLength = Codec.GetLength(this.romBuffer, trackOffset);
-            byte[] compressedTrack = new byte[compressedTrackLength];
-            Buffer.BlockCopy(this.romBuffer, trackOffset, compressedTrack, 0, compressedTrackLength);
-
+            byte[] compressedTrack = Codec.GetCompressedChunk(this.romBuffer, trackOffset);
             this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
         }
 
@@ -2000,9 +1997,7 @@ namespace EpicEdit.Rom
                 {
                     // Do not recompress road tileset data (perf optimization),
                     // simply copy the existing compressed data
-                    int compressedDataLength = Codec.GetLength(this.romBuffer, roadTileGfxOffset);
-                    roadTileGfxData = new byte[compressedDataLength];
-                    Buffer.BlockCopy(this.romBuffer, roadTileGfxOffset, roadTileGfxData, 0, compressedDataLength);
+                    roadTileGfxData = Codec.GetCompressedChunk(this.romBuffer, roadTileGfxOffset);
                 }
                 else
                 {
@@ -2034,9 +2029,7 @@ namespace EpicEdit.Rom
                     {
                         // Do not recompress palettes (perf optimization),
                         // simply copy the existing compressed data
-                        int compressedDataLength = Codec.GetLength(this.romBuffer, palettesOffset);
-                        palettesData = new byte[compressedDataLength];
-                        Buffer.BlockCopy(this.romBuffer, palettesOffset, palettesData, 0, compressedDataLength);
+                        palettesData = Codec.GetCompressedChunk(this.romBuffer, palettesOffset);
                     }
                     else
                     {
@@ -2060,9 +2053,7 @@ namespace EpicEdit.Rom
                     {
                         // Do not recompress background layout (perf optimization),
                         // simply copy the existing compressed data
-                        int compressedDataLength = Codec.GetLength(this.romBuffer, bgLayoutOffset);
-                        bgLayoutData = new byte[compressedDataLength];
-                        Buffer.BlockCopy(this.romBuffer, bgLayoutOffset, bgLayoutData, 0, compressedDataLength);
+                        bgLayoutData = Codec.GetCompressedChunk(this.romBuffer, bgLayoutOffset);
                     }
                     else
                     {
@@ -2086,9 +2077,7 @@ namespace EpicEdit.Rom
                     {
                         // Do not recompress background tileset graphics (perf optimization),
                         // simply copy the existing compressed data
-                        int compressedDataLength = Codec.GetLength(this.romBuffer, bgTileGfxOffset);
-                        bgTileGfxData = new byte[compressedDataLength];
-                        Buffer.BlockCopy(this.romBuffer, bgTileGfxOffset, bgTileGfxData, 0, compressedDataLength);
+                        bgTileGfxData = Codec.GetCompressedChunk(this.romBuffer, bgTileGfxOffset);
                     }
                     else
                     {
