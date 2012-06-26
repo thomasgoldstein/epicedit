@@ -191,7 +191,7 @@ namespace EpicEdit.Rom
 
             return new RomColor[]
             {
-                this.Palette[subPalIndex],
+                this.Palettes.Theme.BackColor,
                 this.Palette[subPalIndex + 1],
                 this.Palette[subPalIndex + 2],
                 this.Palette[subPalIndex + 3]
