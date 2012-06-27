@@ -187,14 +187,15 @@ namespace EpicEdit.Rom
 
         private RomColor[] GetSubPalette()
         {
+            Palette palette = this.Palette;
             int subPalIndex = this.Properties.SubPaletteIndex;
 
             return new RomColor[]
             {
                 this.Palettes.BackColor,
-                this.Palette[subPalIndex + 1],
-                this.Palette[subPalIndex + 2],
-                this.Palette[subPalIndex + 3]
+                palette[subPalIndex + 1],
+                palette[subPalIndex + 2],
+                palette[subPalIndex + 3]
             };
         }
 
