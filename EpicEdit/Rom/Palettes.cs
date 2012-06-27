@@ -62,6 +62,11 @@ namespace EpicEdit.Rom
             set { this.palettes[index] = value; }
         }
 
+        public RomColor BackColor
+        {
+            get { return this.palettes[0][0]; }
+        }
+
         public bool Modified
         {
             get
