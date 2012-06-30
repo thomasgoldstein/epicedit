@@ -190,5 +190,19 @@ namespace EpicEditTests.Rom.Tracks
         {
             this.TestGetBytes(19);
         }
+
+        [Test]
+        public void TestGetBytes21()
+        {
+            byte[] data = { 0xC8, 0x03, 0x08, 0x02, 0xE4, 0xFF };
+            this.TestGetBytes(data);
+        }
+
+        [Test]
+        public void TestGetBytes22()
+        {
+            byte[] data = { 0x90, 0x03, 0x74, 0x02, 0xE4, 0xFF };
+            this.TestGetBytes(data);
+        }
     }
 }

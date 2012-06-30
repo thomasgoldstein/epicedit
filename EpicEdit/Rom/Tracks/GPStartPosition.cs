@@ -139,14 +139,16 @@ namespace EpicEdit.Rom.Tracks
             int y = (data[3] << 8) + data[2];
             this.location = new Point(x, y);
 
-            this.SecondRowOffset = data[4];
+            int rowOffset = data[4];
             if (data[5] != 0x00)
             {
                 // All original tracks have either has 0x00 or 0xFF for the 6th byte,
                 // but we would need something more flexible to match the game behavior
                 // if the value is neither 0x00 nor 0xFF (something which shouldn't happen).
-                this.SecondRowOffset -= 256;
+                rowOffset -= 256;
             }
+
+            this.SecondRowOffset = rowOffset;
         }
 
         /// <summary>
