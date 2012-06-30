@@ -5,7 +5,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 v2.5.1 (June 25th 2012)
 - Fix possible ROM corruption issues when resaving color palettes
-  (regression from 2.4) and background layouts
+  (regressed in 2.4) and background layouts
 
 
 v2.5 (June 23rd 2012)
@@ -132,7 +132,7 @@ v1.5 (January 5th 2010)
   and will wipe out anything else that might be in that range
 - Added x0.5 and x0.75 zoom levels (and Ctrl+0 to switch back to zoom x1)
 - Added the ability to scroll through the map by holding the middle click
-- Fixed track map import bug (regression from 1.0)
+- Fixed track map import bug (regressed in 1.0)
 - On track export, remove invalid characters from the proposed file name
 - Added zipped ROM support (by teknix1)
 - Added ROM checksum recalculation,
