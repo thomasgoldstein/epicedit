@@ -1364,6 +1364,14 @@ namespace EpicEdit.UI.Gfx
                     g.DrawLines(this.aiElementHighlightPen, points);
                 }
             }
+
+            using (Brush brush = new LinearGradientBrush(new Point(0, zone.Top),
+                                                         new Point(0, zone.Bottom),
+                                                         this.aiZoneBrushes[aiElem.Speed][0].Color,
+                                                         Color.Transparent))
+            {
+                this.HighlightAIElement(g, brush, aiElem, zone);
+            }
         }
 
         private void HighlightSelectedAIElement(Graphics g, TrackAIElement aiElem)
@@ -1374,20 +1382,23 @@ namespace EpicEdit.UI.Gfx
             }
 
             Rectangle zone = this.GetAIZoneRectangle(aiElem);
-
             this.DrawAITargetLines(g, aiElem, zone, this.aiElementSelectPen);
+            this.HighlightAIElement(g, this.aiZoneBrushes[aiElem.Speed][0], aiElem, zone);
+        }
 
+        private void HighlightAIElement(Graphics g, Brush brush, TrackAIElement aiElem, Rectangle zone)
+        {
             if (aiElem.ZoneShape == Shape.Rectangle)
             {
                 g.DrawRectangle(this.aiElementSelectPen, zone);
-                g.FillRectangle(this.aiZoneBrushes[aiElem.Speed][0], zone);
+                g.FillRectangle(brush, zone);
             }
             else
             {
                 Point[] points = this.GetAIZoneTriangle(aiElem);
 
                 g.DrawPolygon(this.aiElementSelectPen, points);
-                g.FillPolygon(this.aiZoneBrushes[aiElem.Speed][0], points);
+                g.FillPolygon(brush, points);
             }
         }
 
