@@ -89,7 +89,7 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        #region Get Single Item Probability
+        #region Get single item probability
 
         public ItemProbability GetGrandprixProbability(ItemProbaTheme theme, GrandprixCondition condition)
         {
@@ -108,7 +108,7 @@ namespace EpicEdit.Rom.Tracks.Items
             return this.itemProbabilities[ItemProbabilities.ProbabilityCount - 1];
         }
 
-        #endregion Get Single Item Probability
+        #endregion Get single item probability
 
         public bool Modified
         {
