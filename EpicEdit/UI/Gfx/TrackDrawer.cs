@@ -174,39 +174,52 @@ namespace EpicEdit.UI.Gfx
             this.arrowPen = new Pen(Color.Gray, 1);
 
             this.objectOutlinePen = new Pen(Color.White, 2);
-            this.objectBrushes = new SolidBrush[4];
-            this.objectBrushes[0] = new SolidBrush(Color.FromArgb(255, 204, 51, 51)); // Zone 1 object color
-            this.objectBrushes[1] = new SolidBrush(Color.FromArgb(255, 21, 94, 177)); // Zone 2 object color
-            this.objectBrushes[2] = new SolidBrush(Color.FromArgb(255, 230, 186, 64)); // Zone 3 object color
-            this.objectBrushes[3] = new SolidBrush(Color.FromArgb(255, 16, 150, 24)); // Zone 4 object color
+            this.objectBrushes = new SolidBrush[]
+            {
+                new SolidBrush(Color.FromArgb(255, 204, 51, 51)), // Zone 1 object color
+                new SolidBrush(Color.FromArgb(255, 21, 94, 177)), // Zone 2 object color
+                new SolidBrush(Color.FromArgb(255, 230, 186, 64)), // Zone 3 object color
+                new SolidBrush(Color.FromArgb(255, 16, 150, 24)) // Zone 4 object color
+            };
 
-            this.aiZoneBrushes = new SolidBrush[4][];
+            this.aiZoneBrushes = new SolidBrush[][]
+            {
+                new SolidBrush[]
+                {
+                    new SolidBrush(Color.FromArgb(60, 165, 204, 244)), // Top
+                    new SolidBrush(Color.FromArgb(60, 125, 168, 255)), // Left / right
+                    new SolidBrush(Color.FromArgb(60, 87, 126, 205)) // Bottom
+                },
 
-            this.aiZoneBrushes[0] = new SolidBrush[3];
-            this.aiZoneBrushes[0][0] = new SolidBrush(Color.FromArgb(60, 165, 204, 244)); // Top
-            this.aiZoneBrushes[0][1] = new SolidBrush(Color.FromArgb(60, 125, 168, 255)); // Left / right
-            this.aiZoneBrushes[0][2] = new SolidBrush(Color.FromArgb(60, 87, 126, 205)); // Bottom
+                new SolidBrush[]
+                {
+                    new SolidBrush(Color.FromArgb(60, 179, 244, 150)), // Top
+                    new SolidBrush(Color.FromArgb(60, 141, 233, 109)), // Left / right
+                    new SolidBrush(Color.FromArgb(60, 101, 185, 72))
+                },
 
-            this.aiZoneBrushes[1] = new SolidBrush[3];
-            this.aiZoneBrushes[1][0] = new SolidBrush(Color.FromArgb(60, 179, 244, 150)); // Top
-            this.aiZoneBrushes[1][1] = new SolidBrush(Color.FromArgb(60, 141, 233, 109)); // Left / right
-            this.aiZoneBrushes[1][2] = new SolidBrush(Color.FromArgb(60, 101, 185, 72));
+                new SolidBrush[]
+                {
+                    new SolidBrush(Color.FromArgb(60, 244, 231, 124)), // Top
+                    new SolidBrush(Color.FromArgb(60, 228, 198, 80)), // Left / right
+                    new SolidBrush(Color.FromArgb(60, 180, 153, 46)), // Bottom
+                },
 
-            this.aiZoneBrushes[2] = new SolidBrush[3];
-            this.aiZoneBrushes[2][0] = new SolidBrush(Color.FromArgb(60, 244, 231, 124)); // Top
-            this.aiZoneBrushes[2][1] = new SolidBrush(Color.FromArgb(60, 228, 198, 80)); // Left / right
-            this.aiZoneBrushes[2][2] = new SolidBrush(Color.FromArgb(60, 180, 153, 46)); // Bottom
+                new SolidBrush[]
+                {
+                    new SolidBrush(Color.FromArgb(60, 244, 172, 133)), // Top
+                    new SolidBrush(Color.FromArgb(60, 222, 133, 90)), // Left / right
+                    new SolidBrush(Color.FromArgb(60, 175, 94, 55)) // Bottom
+                }
+            };
 
-            this.aiZoneBrushes[3] = new SolidBrush[3];
-            this.aiZoneBrushes[3][0] = new SolidBrush(Color.FromArgb(60, 244, 172, 133)); // Top
-            this.aiZoneBrushes[3][1] = new SolidBrush(Color.FromArgb(60, 222, 133, 90)); // Left / right
-            this.aiZoneBrushes[3][2] = new SolidBrush(Color.FromArgb(60, 175, 94, 55)); // Bottom
-
-            this.aiZonePens = new Pen[4];
-            this.aiZonePens[0] = new Pen(Color.FromArgb(255, 165, 204, 244), 1);
-            this.aiZonePens[1] = new Pen(Color.FromArgb(255, 179, 244, 150), 1);
-            this.aiZonePens[2] = new Pen(Color.FromArgb(255, 244, 231, 124), 1);
-            this.aiZonePens[3] = new Pen(Color.FromArgb(255, 244, 172, 133), 1);
+            this.aiZonePens = new Pen[]
+            {
+                new Pen(Color.FromArgb(255, 165, 204, 244), 1),
+                new Pen(Color.FromArgb(255, 179, 244, 150), 1),
+                new Pen(Color.FromArgb(255, 244, 231, 124), 1),
+                new Pen(Color.FromArgb(255, 244, 172, 133), 1)
+            };
 
             this.aiElementHighlightPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
             this.aiElementSelectPen = new Pen(Color.White, 1);
