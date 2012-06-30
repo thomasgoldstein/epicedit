@@ -207,7 +207,7 @@ namespace EpicEdit.Rom
             this.LoadData();
         }
 
-        #region Read ROM & Validate
+        #region Read ROM & validate
 
         /// <summary>
         /// Loads all of the ROM content in a buffer.
@@ -351,7 +351,7 @@ namespace EpicEdit.Rom
             return true;
         }
 
-        #endregion Read ROM & Validate
+        #endregion Read ROM & validate
 
         #region Load data
 
