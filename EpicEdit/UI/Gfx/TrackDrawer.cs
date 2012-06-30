@@ -1199,7 +1199,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
         {
-            this.DrawAllAIElements(g);
+            this.DrawAIElements(g);
 
             if (hoveredAIElem != selectedAIElem)
             {
@@ -1208,66 +1208,71 @@ namespace EpicEdit.UI.Gfx
             this.HighlightSelectedAIElement(g, selectedAIElem);
         }
 
-        private void DrawAllAIElements(Graphics g)
+        private void DrawAIElements(Graphics g)
+        {
+            foreach (TrackAIElement aiElem in this.track.AI)
+            {
+                this.DrawAIElement(g, aiElem);
+            }
+        }
+
+        private void DrawAIElement(Graphics g, TrackAIElement aiElem)
         {
             int halfTileSize = Tile.Size / 2;
 
-            foreach (TrackAIElement aiElem in this.track.AI)
+            int pointX = (aiElem.Target.X - this.scrollPosition.X) * Tile.Size;
+            int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * Tile.Size;
+            g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
+
+            Rectangle zone = this.GetAIZoneRectangle(aiElem);
+            Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
+            int speed = aiElem.Speed;
+
+            if (aiElem.ZoneShape == Shape.Rectangle)
             {
-                int pointX = (aiElem.Target.X - this.scrollPosition.X) * Tile.Size;
-                int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * Tile.Size;
-                g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
+                TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
+                TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
+                TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
 
-                Rectangle zone = this.GetAIZoneRectangle(aiElem);
-                Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
-                int speed = aiElem.Speed;
+                g.DrawRectangle(this.aiZonePens[speed], zone);
+            }
+            else
+            {
+                Point[] points = this.GetAIZoneTriangle(aiElem);
 
-                if (aiElem.ZoneShape == Shape.Rectangle)
+                g.DrawPolygon(this.aiZonePens[speed], points);
+
+                switch (aiElem.ZoneShape)
                 {
-                    this.PaintTopSide(g, zone, target, speed);
-                    this.PaintRightSide(g, zone, target, speed);
-                    this.PaintBottomSide(g, zone, target, speed);
-                    this.PaintLeftSide(g, zone, target, speed);
+                    case Shape.TriangleTopLeft:
+                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
+                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
+                        break;
 
-                    g.DrawRectangle(this.aiZonePens[speed], zone);
-                }
-                else
-                {
-                    Point[] points = this.GetAIZoneTriangle(aiElem);
+                    case Shape.TriangleTopRight:
+                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
+                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
+                        break;
 
-                    g.DrawPolygon(this.aiZonePens[speed], points);
+                    case Shape.TriangleBottomRight:
+                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
+                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
+                        break;
 
-                    switch (aiElem.ZoneShape)
-                    {
-                        case Shape.TriangleTopLeft:
-                            this.PaintTopSide(g, zone, target, speed);
-                            this.PaintLeftSide(g, zone, target, speed);
-                            TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][2]);
-                            break;
-
-                        case Shape.TriangleTopRight:
-                            this.PaintTopSide(g, zone, target, speed);
-                            this.PaintRightSide(g, zone, target, speed);
-                            TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][2]);
-                            break;
-
-                        case Shape.TriangleBottomRight:
-                            this.PaintBottomSide(g, zone, target, speed);
-                            this.PaintRightSide(g, zone, target, speed);
-                            TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][0]);
-                            break;
-
-                        case Shape.TriangleBottomLeft:
-                            this.PaintBottomSide(g, zone, target, speed);
-                            this.PaintLeftSide(g, zone, target, speed);
-                            TrackDrawer.PaintTriangleDiagonalSide(g, points, target, this.aiZoneBrushes[speed][0]);
-                            break;
-                    }
+                    case Shape.TriangleBottomLeft:
+                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
+                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
+                        break;
                 }
             }
         }
 
-        private void PaintTopSide(Graphics g, Rectangle zone, Point target, int speed)
+        private static void PaintTopSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
         {
             if (target.Y > zone.Top)
             {
@@ -1278,11 +1283,11 @@ namespace EpicEdit.UI.Gfx
                     target
                 };
 
-                g.FillPolygon(this.aiZoneBrushes[speed][0], side);
+                g.FillPolygon(brush, side);
             }
         }
 
-        private void PaintRightSide(Graphics g, Rectangle zone, Point target, int speed)
+        private static void PaintRightSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
         {
             if (target.X < zone.Right)
             {
@@ -1293,11 +1298,11 @@ namespace EpicEdit.UI.Gfx
                     target
                 };
 
-                g.FillPolygon(this.aiZoneBrushes[speed][1], side);
+                g.FillPolygon(brush, side);
             }
         }
 
-        private void PaintBottomSide(Graphics g, Rectangle zone, Point target, int speed)
+        private static void PaintBottomSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
         {
             if (target.Y < zone.Bottom)
             {
@@ -1308,11 +1313,11 @@ namespace EpicEdit.UI.Gfx
                     target
                 };
 
-                g.FillPolygon(this.aiZoneBrushes[speed][2], side);
+                g.FillPolygon(brush, side);
             }
         }
 
-        private void PaintLeftSide(Graphics g, Rectangle zone, Point target, int speed)
+        private static void PaintLeftSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
         {
             if (target.X > zone.Left)
             {
@@ -1323,11 +1328,11 @@ namespace EpicEdit.UI.Gfx
                     target
                 };
 
-                g.FillPolygon(this.aiZoneBrushes[speed][1], side);
+                g.FillPolygon(brush, side);
             }
         }
 
-        private static void PaintTriangleDiagonalSide(Graphics g, Point[] points, Point target, SolidBrush brush)
+        private static void PaintTriangleDiagonalSide(Graphics g, Brush brush, Point[] points, Point target)
         {
             points[points.Length - 2] = target;
             g.FillPolygon(brush, points);
