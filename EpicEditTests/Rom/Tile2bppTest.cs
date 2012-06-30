@@ -33,13 +33,19 @@ namespace EpicEditTests.Rom
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
         {
+            this.TestGenerateGraphics(palData, gfx, new Tile2bppProperties());
+        }
+
+        private void TestGenerateGraphics(byte[] palData, byte[] gfx, Tile2bppProperties properties)
+        {
             byte[] palsData = new byte[512];
             Buffer.BlockCopy(palData, 0, palsData, 0, palData.Length);
 
             Palettes pals = new Palettes(palsData);
 
-            Tile2bpp tile = new Tile2bpp(gfx, pals);
-            Tile2bpp tile2 = new Tile2bpp(new byte[gfx.Length], pals);
+            byte props = properties.GetByte();
+            Tile2bpp tile = new Tile2bpp(gfx, pals, props);
+            Tile2bpp tile2 = new Tile2bpp(new byte[gfx.Length], pals, props);
 
             tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
@@ -122,6 +128,32 @@ namespace EpicEditTests.Rom
             };
 
             this.TestGenerateGraphics(palData, gfx);
+        }
+
+        [Test]
+        public void TestGenerateGraphics3()
+        {
+            // Ensure that when a sub-palette (4-color palette) doesn't have a first color
+            // that matches the theme BackColor (ie: the first color of the first palette),
+            // then the graphics generation still works as expected, using the theme BackColor
+            // rather than the first sub-palette color.
+            byte[] palData =
+            {
+                0x00, 0x00, 0xFF, 0x7F, 0x55, 0x62, 0xB0, 0x49,
+                0xF0, 0xF0, 0x5A, 0x73, 0xB0, 0x49, 0x2C, 0x39, // Sub-palette used
+                0x00, 0x00, 0xD3, 0x7E, 0x20, 0x78, 0x00, 0x3C,
+                0x00, 0x00, 0xDE, 0x3F, 0x9E, 0x02, 0x1B, 0x00
+            };
+
+            byte[] gfx =
+            {
+                0x00, 0x00, 0x00, 0x07, 0x07, 0x18, 0x0F, 0x30,
+                0x0B, 0x20, 0x0B, 0x60, 0x0B, 0x60, 0x3F, 0x40
+            };
+
+            Tile2bppProperties properties = new Tile2bppProperties { SubPaletteIndex = 4 };
+
+            this.TestGenerateGraphics(palData, gfx, properties);
         }
     }
 }
