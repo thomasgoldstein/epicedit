@@ -1887,9 +1887,8 @@ namespace EpicEdit.Rom
                     else
                     {
                         int mapOffset = mapOffsets[trackIndex];
-                        bool isInZone = saveBuffer.Includes(mapOffset);
 
-                        if (isInZone)
+                        if (saveBuffer.Includes(mapOffset))
                         {
                             this.MoveTrackMap(trackIndex, mapOffset, saveBuffer);
                         }
