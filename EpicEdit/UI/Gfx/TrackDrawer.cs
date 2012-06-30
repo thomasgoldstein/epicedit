@@ -1235,7 +1235,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     Point[] points = this.GetAIZoneTriangle(aiElem);
 
-                    g.DrawPolygon(this.aiZonePens[aiElem.Speed], points);
+                    g.DrawPolygon(this.aiZonePens[speed], points);
 
                     switch (aiElem.ZoneShape)
                     {
