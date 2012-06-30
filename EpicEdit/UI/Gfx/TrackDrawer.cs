@@ -1338,56 +1338,56 @@ namespace EpicEdit.UI.Gfx
             g.FillPolygon(brush, points);
         }
 
-        private void HighlightHoveredAIElement(Graphics g, TrackAIElement hoveredAIElem, bool isAITargetHovered)
+        private void HighlightHoveredAIElement(Graphics g, TrackAIElement aiElem, bool isAITargetHovered)
         {
-            if (hoveredAIElem == null)
+            if (aiElem == null)
             {
                 return;
             }
 
-            Rectangle zone = this.GetAIZoneRectangle(hoveredAIElem);
+            Rectangle zone = this.GetAIZoneRectangle(aiElem);
 
             if (isAITargetHovered)
             {
-                this.DrawAITargetLines(g, hoveredAIElem, zone, this.aiElementHighlightPen);
+                this.DrawAITargetLines(g, aiElem, zone, this.aiElementHighlightPen);
             }
             else
             {
-                if (hoveredAIElem.ZoneShape == Shape.Rectangle)
+                if (aiElem.ZoneShape == Shape.Rectangle)
                 {
                     g.DrawRectangle(this.aiElementHighlightPen, zone);
                 }
                 else
                 {
-                    Point[] points = this.GetAIZoneTriangle(hoveredAIElem);
+                    Point[] points = this.GetAIZoneTriangle(aiElem);
 
                     g.DrawLines(this.aiElementHighlightPen, points);
                 }
             }
         }
 
-        private void HighlightSelectedAIElement(Graphics g, TrackAIElement selectedAIElem)
+        private void HighlightSelectedAIElement(Graphics g, TrackAIElement aiElem)
         {
-            if (selectedAIElem == null)
+            if (aiElem == null)
             {
                 return;
             }
 
-            Rectangle zone = this.GetAIZoneRectangle(selectedAIElem);
+            Rectangle zone = this.GetAIZoneRectangle(aiElem);
 
-            this.DrawAITargetLines(g, selectedAIElem, zone, this.aiElementSelectPen);
+            this.DrawAITargetLines(g, aiElem, zone, this.aiElementSelectPen);
 
-            if (selectedAIElem.ZoneShape == Shape.Rectangle)
+            if (aiElem.ZoneShape == Shape.Rectangle)
             {
                 g.DrawRectangle(this.aiElementSelectPen, zone);
-                g.FillRectangle(this.aiZoneBrushes[selectedAIElem.Speed][0], zone);
+                g.FillRectangle(this.aiZoneBrushes[aiElem.Speed][0], zone);
             }
             else
             {
-                Point[] points = this.GetAIZoneTriangle(selectedAIElem);
+                Point[] points = this.GetAIZoneTriangle(aiElem);
 
                 g.DrawPolygon(this.aiElementSelectPen, points);
-                g.FillPolygon(this.aiZoneBrushes[selectedAIElem.Speed][0], points);
+                g.FillPolygon(this.aiZoneBrushes[aiElem.Speed][0], points);
             }
         }
 
