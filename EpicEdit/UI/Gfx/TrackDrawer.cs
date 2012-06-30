@@ -1210,15 +1210,17 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawAllAIElements(Graphics g)
         {
+            int halfTileSize = Tile.Size / 2;
+
             foreach (TrackAIElement aiElem in this.track.AI)
             {
                 int pointX = (aiElem.Target.X - this.scrollPosition.X) * Tile.Size;
                 int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * Tile.Size;
-                g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, 5, 5);
+                g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
 
                 Rectangle zone = this.GetAIZoneRectangle(aiElem);
 
-                Point target = new Point(pointX + 4, pointY + 4);
+                Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
 
                 int speed = aiElem.Speed;
 
