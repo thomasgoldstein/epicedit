@@ -81,8 +81,11 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
             {
-                int address = offset + (i * ItemProbability.ProbabilitySize);
-                this.itemProbabilities[i].Save(romBuffer, address);
+                if (this.itemProbabilities[i].Modified)
+                {
+                    int address = offset + (i * ItemProbability.ProbabilitySize);
+                    this.itemProbabilities[i].Save(romBuffer, address);
+                }
             }
         }
 
