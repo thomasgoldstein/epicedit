@@ -1219,9 +1219,7 @@ namespace EpicEdit.UI.Gfx
                 g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
 
                 Rectangle zone = this.GetAIZoneRectangle(aiElem);
-
                 Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
-
                 int speed = aiElem.Speed;
 
                 if (aiElem.ZoneShape == Shape.Rectangle)
