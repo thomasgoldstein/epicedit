@@ -2148,22 +2148,10 @@ namespace EpicEdit.Rom
 
         public bool HasPendingChanges()
         {
-            if (this.modified)
-            {
-                return true;
-            }
-
-            if (this.itemProbabilities.Modified)
-            {
-                return true;
-            }
-
-            if (this.overlayTileSizes.Modified)
-            {
-                return true;
-            }
-
-            if (this.overlayTilePatterns.Modified)
+            if (this.modified ||
+                this.itemProbabilities.Modified ||
+                this.overlayTileSizes.Modified ||
+                this.overlayTilePatterns.Modified)
             {
                 return true;
             }
