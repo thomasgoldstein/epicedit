@@ -52,18 +52,23 @@ namespace EpicEditTests.Rom.Tracks
 
         private void TestGetBytes(int id)
         {
-            byte[] dataBefore = new byte[6];
+            byte[] data = new byte[6];
 
             int index = id * 8 + 2;
-            for (int i = 0; i < dataBefore.Length; i++)
+            for (int i = 0; i < data.Length; i++)
             {
-                dataBefore[i] = this.allData[index + i];
+                data[i] = this.allData[index + i];
             }
 
-            GPStartPosition startPosition = new GPStartPosition(dataBefore);
+            this.TestGetBytes(data);
+        }
+
+        private void TestGetBytes(byte[] data)
+        {
+            GPStartPosition startPosition = new GPStartPosition(data);
             byte[] dataAfter = startPosition.GetBytes();
 
-            Assert.AreEqual(dataBefore, dataAfter);
+            Assert.AreEqual(data, dataAfter);
         }
 
         [Test]
