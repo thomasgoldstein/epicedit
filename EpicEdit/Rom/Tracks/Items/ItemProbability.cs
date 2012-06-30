@@ -50,7 +50,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private byte[] backupData;
 
-        #region Item Box Display
+        #region Item box display
 
         private ItemBoxDisplay displayedItems;
         public ItemBoxDisplay DisplayedItems
@@ -92,7 +92,7 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        #endregion Item Box Display
+        #endregion Item box display
 
         #region Items
 
@@ -284,7 +284,7 @@ namespace EpicEdit.Rom.Tracks.Items
             this.Load(this.backupData, 0);
         }
 
-        #region Reading and Writing Byte Data
+        #region Reading and writing byte data
 
         public void Save(byte[] romBuffer, int offset)
         {
@@ -440,6 +440,6 @@ namespace EpicEdit.Rom.Tracks.Items
             this.Modified = false;
         }
 
-        #endregion Reading and Writing Byte Data
+        #endregion Reading and writing byte data
     }
 }
