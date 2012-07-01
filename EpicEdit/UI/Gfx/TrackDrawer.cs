@@ -1378,9 +1378,10 @@ namespace EpicEdit.UI.Gfx
                 }
             }
 
+            Color color = this.aiZoneBrushes[aiElem.Speed][0].Color;
             using (Brush brush = new LinearGradientBrush(new Point(0, zone.Top),
                                                          new Point(0, zone.Bottom),
-                                                         this.aiZoneBrushes[aiElem.Speed][0].Color,
+                                                         Color.FromArgb(color.A / 2, color),
                                                          Color.Transparent))
             {
                 this.HighlightAIElement(g, brush, aiElem, zone);
