@@ -4,6 +4,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.x (???)
+- Added ability to import and export color palettes
 - Fixed possible GP starting position second row offset loading issue
   (regressed in 2.1)
 - Fixed background tileset graphics importing logic when the first of the
