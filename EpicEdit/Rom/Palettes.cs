@@ -25,6 +25,9 @@ namespace EpicEdit.Rom
     /// </summary>
     internal class Palettes : IEnumerable<Palette>
     {
+        private const int PaletteCount = 16;
+        private const int Size = PaletteCount * Palette.Size;
+        
         /// <summary>
         /// Position at which sprite palettes begin.
         /// From 0 to 7: non-sprite palettes, from 8 to 15: sprite palettes.
@@ -40,15 +43,43 @@ namespace EpicEdit.Rom
 
         public Palettes(byte[] data)
         {
+            this.Init(data);
+        }
+
+        private void Init(byte[] data)
+        {
             int count = data.Length / Palette.Size;
             this.palettes = new Palette[count];
 
             for (int i = 0; i < count; i++)
             {
-                byte[] paletteData = new byte[Palette.Size];
-                Buffer.BlockCopy(data, i * Palette.Size, paletteData, 0, Palette.Size);
+                byte[] paletteData = Palettes.GetPaletteData(data, i);
                 this.palettes[i] = new Palette(this, paletteData);
             }
+        }
+
+        public void Load(byte[] data)
+        {
+            if (data.Length != Size)
+            {
+                throw new ArgumentOutOfRangeException("data", "Palettes data should have a size of " + Size + " bytes. Actual: " + data.Length + " bytes.");
+            }
+
+            int count = data.Length / Palette.Size;
+
+            for (int i = 0; i < count; i++)
+            {
+                byte[] paletteData = Palettes.GetPaletteData(data, i);
+                this.palettes[i].Load(paletteData);
+                this.palettes[i].Modified = true;
+            }
+        }
+
+        private static byte[] GetPaletteData(byte[] data, int index)
+        {
+            byte[] paletteData = new byte[Palette.Size];
+            Buffer.BlockCopy(data, index * Palette.Size, paletteData, 0, Palette.Size);
+            return paletteData;
         }
 
         public int Count

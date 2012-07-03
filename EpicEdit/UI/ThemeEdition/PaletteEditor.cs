@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
@@ -244,6 +245,42 @@ namespace EpicEdit.Rom.ThemeEdition
 
             this.Palette.Modified = true;
             this.ColorChanged(sender, e);
+        }
+        
+        private void ImportPalettesButtonClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "Color palettes (*.pal)|*.pal|" +
+                    "All files (*.*)|*.*";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    byte[] data = File.ReadAllBytes(ofd.FileName);
+                    this.Theme.Palettes.Load(data);
+                    this.UpdatePalette();
+                    this.ColorsChanged(sender, e);
+                }
+            }
+        }
+        
+        private void ExportPalettesButtonClick(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter =
+                    "Color palettes (*.pal)|*.pal|" +
+                    "All files (*.*)|*.*";
+
+                Theme theme = this.Theme;
+                sfd.FileName = UITools.SanitizeFileName(theme.Name).Trim();
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllBytes(sfd.FileName, theme.Palettes.GetBytes());
+                }
+            }
         }
     }
 }

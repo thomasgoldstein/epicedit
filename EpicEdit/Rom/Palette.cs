@@ -75,7 +75,7 @@ namespace EpicEdit.Rom
             this.Load(data);
         }
 
-        private void Load(byte[] data)
+        public void Load(byte[] data)
         {
             if (data.Length != Palette.Size)
             {

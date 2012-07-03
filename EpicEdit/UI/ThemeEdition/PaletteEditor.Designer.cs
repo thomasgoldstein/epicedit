@@ -42,11 +42,15 @@ namespace EpicEdit.Rom.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.resetSelectedButton = new System.Windows.Forms.Button();
             this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
             this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.resetAllButton = new System.Windows.Forms.Button();
+            this.exportPalettesButton = new System.Windows.Forms.Button();
+            this.importPalettesButton = new System.Windows.Forms.Button();
+            this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,8 +105,32 @@ namespace EpicEdit.Rom.ThemeEdition
             this.resetAllButton.UseVisualStyleBackColor = true;
             this.resetAllButton.Click += new System.EventHandler(this.ResetAllButtonClick);
             // 
+            // exportPalettesButton
+            // 
+            this.exportPalettesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportPalettesButton.Location = new System.Drawing.Point(335, 203);
+            this.exportPalettesButton.Name = "exportPalettesButton";
+            this.exportPalettesButton.Size = new System.Drawing.Size(24, 24);
+            this.exportPalettesButton.TabIndex = 7;
+            this.buttonToolTip.SetToolTip(this.exportPalettesButton, "Export palettes");
+            this.exportPalettesButton.UseVisualStyleBackColor = true;
+            this.exportPalettesButton.Click += new System.EventHandler(this.ExportPalettesButtonClick);
+            // 
+            // importPalettesButton
+            // 
+            this.importPalettesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importPalettesButton.Location = new System.Drawing.Point(305, 203);
+            this.importPalettesButton.Name = "importPalettesButton";
+            this.importPalettesButton.Size = new System.Drawing.Size(24, 24);
+            this.importPalettesButton.TabIndex = 6;
+            this.buttonToolTip.SetToolTip(this.importPalettesButton, "Import palettes");
+            this.importPalettesButton.UseVisualStyleBackColor = true;
+            this.importPalettesButton.Click += new System.EventHandler(this.ImportPalettesButtonClick);
+            // 
             // PaletteEditor
             // 
+            this.Controls.Add(this.exportPalettesButton);
+            this.Controls.Add(this.importPalettesButton);
             this.Controls.Add(this.resetAllButton);
             this.Controls.Add(this.paletteNumericUpDown);
             this.Controls.Add(this.themeComboBox);
@@ -113,6 +141,9 @@ namespace EpicEdit.Rom.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ToolTip buttonToolTip;
+        private System.Windows.Forms.Button importPalettesButton;
+        private System.Windows.Forms.Button exportPalettesButton;
         private System.Windows.Forms.Button resetAllButton;
         private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.ComboBox themeComboBox;
