@@ -40,6 +40,13 @@ namespace EpicEdit.UI.ThemeEdition
             remove { this.Editor.ColorsChanged -= value; }
         }
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> PalettesChanged
+        {
+            add { this.Editor.PalettesChanged += value; }
+            remove { this.Editor.PalettesChanged -= value; }
+        }
+
         public PaletteEditorForm()
         {
             this.InitializeComponent();
