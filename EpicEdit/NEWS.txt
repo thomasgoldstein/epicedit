@@ -4,9 +4,9 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.x (???)
-- Fix possible GP starting position second row offset loading issue
+- Fixed possible GP starting position second row offset loading issue
   (regressed in 2.1)
-- Fix background tileset graphics importing logic when the first of the
+- Fixed background tileset graphics importing logic when the first of the
   4 colors does not match the 1st color of the 1st palette
   (never the case in the original game)
 
