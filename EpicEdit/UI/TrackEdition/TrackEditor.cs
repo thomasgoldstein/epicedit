@@ -767,6 +767,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.paletteForm.Owner = this.ParentForm;
                 this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
                 this.paletteForm.ColorsChanged += this.PaletteEditorFormColorsChanged;
+                this.paletteForm.PalettesChanged += this.PaletteEditorFormPalettesChanged;
                 this.trackDisplay.ColorSelected += this.TileColorSelected;
                 this.tilesetControl.ColorSelected += this.TileColorSelected;
                 this.overlayControl.ColorSelected += this.TileColorSelected;
@@ -807,6 +808,14 @@ namespace EpicEdit.UI.TrackEdition
             this.UpdateTiles(true);
         }
 
+        private void PaletteEditorFormPalettesChanged(object sender, EventArgs e)
+        {
+            foreach (Palette palette in this.paletteForm.Editor.Palette.Collection)
+            {
+                this.UpdateTiles(palette, true);
+            }
+        }
+
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
         {
             this.paletteForm.Editor.Palette = e.Value1;
@@ -819,8 +828,13 @@ namespace EpicEdit.UI.TrackEdition
         /// <param name="wholePalette">Determines whether the whole palette has been updated, or only a single color.</param>
         private void UpdateTiles(bool wholePalette)
         {
-            Theme theme = this.paletteForm.Editor.Theme;
             Palette palette = this.paletteForm.Editor.Palette;
+            this.UpdateTiles(palette, wholePalette);
+        }
+
+        private void UpdateTiles(Palette palette, bool wholePalette)
+        {
+            Theme theme = this.paletteForm.Editor.Theme;
             bool isSpritePalette = palette.Index >= Palettes.SpritePaletteStart;
 
             if (isSpritePalette)

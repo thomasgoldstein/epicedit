@@ -35,6 +35,9 @@ namespace EpicEdit.Rom.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> ColorsChanged;
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> PalettesChanged;
+
         /// <summary>
         /// Gets or sets the theme.
         /// </summary>
@@ -260,7 +263,7 @@ namespace EpicEdit.Rom.ThemeEdition
                     byte[] data = File.ReadAllBytes(ofd.FileName);
                     this.Theme.Palettes.Load(data);
                     this.UpdatePalette();
-                    this.ColorsChanged(sender, e);
+                    this.PalettesChanged(sender, e);
                 }
             }
         }
