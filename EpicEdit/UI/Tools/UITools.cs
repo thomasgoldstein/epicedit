@@ -202,7 +202,18 @@ namespace EpicEdit.UI.Tools
                             break;
                     }
 
-                    image.Save(sfd.FileName, format);
+                    try
+                    {
+                        image.Save(sfd.FileName, format);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                    catch (IOException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
                 }
             }
         }
