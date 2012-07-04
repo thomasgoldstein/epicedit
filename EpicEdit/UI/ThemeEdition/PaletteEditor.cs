@@ -296,13 +296,28 @@ namespace EpicEdit.Rom.ThemeEdition
                     "Color palettes (*.pal)|*.pal|" +
                     "All files (*.*)|*.*";
 
-                Theme theme = this.Theme;
-                sfd.FileName = UITools.SanitizeFileName(theme.Name).Trim();
+                sfd.FileName = UITools.SanitizeFileName(this.Theme.Name).Trim();
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllBytes(sfd.FileName, theme.Palettes.GetBytes());
+                    this.ExportPalettes(sfd.FileName);
                 }
+            }
+        }
+
+        private void ExportPalettes(string filePath)
+        {
+            try
+            {
+                File.WriteAllBytes(filePath, this.Theme.Palettes.GetBytes());
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
             }
         }
     }
