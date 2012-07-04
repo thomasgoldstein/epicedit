@@ -220,23 +220,28 @@ namespace EpicEdit.UI
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    try
-                    {
-                        this.SaveRom(sfd.FileName);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
+                    this.TryToSaveRom(sfd.FileName);
                 }
+            }
+        }
+
+        private void TryToSaveRom(string filePath)
+        {
+            try
+            {
+                this.SaveRom(filePath);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                UITools.ShowError(ex.Message);
             }
         }
 
