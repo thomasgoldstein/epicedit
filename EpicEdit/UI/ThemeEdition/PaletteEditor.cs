@@ -249,7 +249,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.Palette.Modified = true;
             this.ColorChanged(sender, e);
         }
-        
+
         private void ImportPalettesButtonClick(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -260,11 +260,31 @@ namespace EpicEdit.Rom.ThemeEdition
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    byte[] data = File.ReadAllBytes(ofd.FileName);
-                    this.Theme.Palettes.Load(data);
-                    this.UpdatePalette();
-                    this.PalettesChanged(sender, e);
+                    this.ImportPalettes(ofd.FileName);
                 }
+            }
+        }
+
+        private void ImportPalettes(string filePath)
+        {
+            try
+            {
+                byte[] data = File.ReadAllBytes(filePath);
+                this.Theme.Palettes.Load(data);
+                this.UpdatePalette();
+                this.PalettesChanged(this, EventArgs.Empty);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                UITools.ShowError(ex.Message);
             }
         }
         
