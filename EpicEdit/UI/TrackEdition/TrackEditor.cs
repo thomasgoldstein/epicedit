@@ -469,6 +469,10 @@ namespace EpicEdit.UI.TrackEdition
             {
                 UITools.ShowError(ex.Message);
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
             catch (InvalidDataException ex)
             {
                 UITools.ShowError(ex.Message);
