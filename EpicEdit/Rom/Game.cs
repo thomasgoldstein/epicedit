@@ -558,7 +558,7 @@ namespace EpicEdit.Rom
             return Utilities.ReadBlock(this.romBuffer, offset, OverlayTiles.Size);
         }
 
-        private void SaveOverlayTileData(int trackIndex, byte[] data)
+        private void SaveOverlayTileData(byte[] data, int trackIndex)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
             Buffer.BlockCopy(data, 0, this.romBuffer, offset, OverlayTiles.Size);
@@ -1901,7 +1901,7 @@ namespace EpicEdit.Rom
 
             // Update overlay tiles
             byte[] overlayTileData = track.OverlayTiles.GetBytes();
-            this.SaveOverlayTileData(trackIndex, overlayTileData);
+            this.SaveOverlayTileData(overlayTileData, trackIndex);
 
             GPTrack gpTrack = track as GPTrack;
 
