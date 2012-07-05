@@ -42,6 +42,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label totalLabel;
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.modeComboBox = new System.Windows.Forms.ComboBox();
@@ -87,6 +88,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.featherLabel = new System.Windows.Forms.Label();
             this.mushroomLabel = new System.Windows.Forms.Label();
             this.lapRankComboBox = new System.Windows.Forms.ComboBox();
+            this.exportProbabilitiesButton = new System.Windows.Forms.Button();
+            this.importProbabilitiesButton = new System.Windows.Forms.Button();
+            this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             totalLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).BeginInit();
@@ -529,8 +533,32 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
             this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
             // 
+            // exportProbabilitiesButton
+            // 
+            this.exportProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportProbabilitiesButton.Location = new System.Drawing.Point(391, 219);
+            this.exportProbabilitiesButton.Name = "exportProbabilitiesButton";
+            this.exportProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
+            this.exportProbabilitiesButton.TabIndex = 61;
+            this.buttonToolTip.SetToolTip(this.exportProbabilitiesButton, "Export item probabilities");
+            this.exportProbabilitiesButton.UseVisualStyleBackColor = true;
+            this.exportProbabilitiesButton.Click += new System.EventHandler(this.ExportProbabilitiesButtonClick);
+            // 
+            // importProbabilitiesButton
+            // 
+            this.importProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importProbabilitiesButton.Location = new System.Drawing.Point(361, 219);
+            this.importProbabilitiesButton.Name = "importProbabilitiesButton";
+            this.importProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
+            this.importProbabilitiesButton.TabIndex = 60;
+            this.buttonToolTip.SetToolTip(this.importProbabilitiesButton, "Import item probabilities");
+            this.importProbabilitiesButton.UseVisualStyleBackColor = true;
+            this.importProbabilitiesButton.Click += new System.EventHandler(this.ImportProbabilitiesButtonClick);
+            // 
             // ItemProbaEditor
             // 
+            this.Controls.Add(this.exportProbabilitiesButton);
+            this.Controls.Add(this.importProbabilitiesButton);
             this.Controls.Add(this.totalPctLabel);
             this.Controls.Add(this.lightningPctLabel);
             this.Controls.Add(this.resetButton);
@@ -589,6 +617,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolTip buttonToolTip;
+        private System.Windows.Forms.Button importProbabilitiesButton;
+        private System.Windows.Forms.Button exportProbabilitiesButton;
         private System.Windows.Forms.Label mushroomPctLabel;
         private System.Windows.Forms.Label featherPctLabel;
         private System.Windows.Forms.Label starPctLabel;

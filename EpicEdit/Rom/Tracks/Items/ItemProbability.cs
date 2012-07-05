@@ -273,16 +273,18 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             this.backupData = data;
             this.Load(data);
+            this.Modified = false;
         }
 
         public void Reset()
         {
             this.Load(this.backupData);
+            this.Modified = false;
         }
 
         #region Reading and writing byte data
 
-        private void Load(byte[] data)
+        public void Load(byte[] data)
         {
             // Init everything back to default, this will help when calling reset
             this.mushroom = 0;
@@ -343,7 +345,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             this.SetProbsBasedOnDisplayedItems();
 
-            this.Modified = false;
+            this.Modified = true;
         }
 
         public byte[] GetBytes()

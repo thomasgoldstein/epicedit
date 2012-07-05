@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -452,6 +453,76 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.itemProbability.Reset();
             this.DisplayProbability();
+        }
+
+        private void ImportProbabilitiesButtonClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "Raw binary file (*.bin)|*.bin|" +
+                    "All files (*.*)|*.*";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    this.ImportProbabilities(ofd.FileName);
+                }
+            }
+        }
+
+        private void ImportProbabilities(string filePath)
+        {
+            try
+            {
+                byte[] data = File.ReadAllBytes(filePath);
+                this.itemProbabilities.Load(data);
+                this.Init();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+        }
+
+        private void ExportProbabilitiesButtonClick(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter =
+                    "Raw binary file (*.bin)|*.bin|" +
+                    "All files (*.*)|*.*";
+
+                sfd.FileName = UITools.SanitizeFileName(Context.Game.Themes[this.themeComboBox.SelectedIndex] + "proba");
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    this.ExportProbabilities(sfd.FileName);
+                }
+            }
+        }
+
+        private void ExportProbabilities(string filePath)
+        {
+            try
+            {
+                File.WriteAllBytes(filePath, this.itemProbabilities.GetBytes());
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
         }
 
         #endregion Events handlers
