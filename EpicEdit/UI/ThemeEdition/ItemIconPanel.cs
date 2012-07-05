@@ -27,6 +27,8 @@ namespace EpicEdit.UI.ThemeEdition
     internal sealed class ItemIconPanel : TilePanel
     {
         private int themeIndex;
+
+        [Browsable(false), DefaultValue(typeof(int), "0")]
         public int ThemeIndex
         {
             get { return this.themeIndex; }
