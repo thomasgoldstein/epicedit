@@ -23,16 +23,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     internal class OverlayTileSizes : IEnumerable<OverlayTileSize>
     {
+        public const int Count = 4;
+        public const int Size = Count * OverlayTileSize.Size;
+
         private OverlayTileSize[] sizes;
 
         public OverlayTileSize this[int index]
         {
             get { return this.sizes[index]; }
-        }
-
-        public int Count
-        {
-            get { return this.sizes.Length; }
         }
 
         public bool Modified
@@ -51,28 +49,31 @@ namespace EpicEdit.Rom.Tracks.Overlay
             }
         }
 
-        public OverlayTileSizes(byte[] romBuffer, int offset)
+        public OverlayTileSizes(byte[] data)
         {
-            this.LoadSizes(romBuffer, offset);
+            this.Load(data);
         }
 
-        private void LoadSizes(byte[] romBuffer, int offset)
+        private void Load(byte[] data)
         {
-            // There are only ever 4 sizes in the game
-            this.sizes = new OverlayTileSize[4];
-            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offset, 2, 4);
-            for (int i = 0; i < data.Length; i++)
+            this.sizes = new OverlayTileSize[OverlayTileSizes.Count];
+            byte[][] mData = Utilities.ReadBlockGroup(data, 0, OverlayTileSize.Size, OverlayTileSizes.Count);
+            for (int i = 0; i < mData.Length; i++)
             {
-                this.sizes[i] = new OverlayTileSize(data[i]);
+                this.sizes[i] = new OverlayTileSize(mData[i]);
             }
         }
 
-        public void Save(byte[] romBuffer, int offset)
+        public byte[] GetBytes()
         {
+            byte[] data = new byte[this.sizes.Length * OverlayTileSize.Size];
+
             for (int i = 0; i < this.sizes.Length; i++)
             {
-                this.sizes[i].Save(romBuffer, offset, i);
+                this.sizes[i].GetBytes(data, i * OverlayTileSize.Size);
             }
+
+            return data;
         }
 
         public IEnumerator<OverlayTileSize> GetEnumerator()
