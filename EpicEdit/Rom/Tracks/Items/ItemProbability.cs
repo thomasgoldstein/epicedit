@@ -13,9 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace EpicEdit.Rom.Tracks.Items
 {
@@ -431,7 +429,9 @@ namespace EpicEdit.Rom.Tracks.Items
             }
 
             if (romBuffer[offset + 7] != 0)
+            {
                 this.Coins = romBuffer[offset + 7] - total;
+            }
 
             this.displayedItems = (ItemBoxDisplay)romBuffer[offset + 8];
 
