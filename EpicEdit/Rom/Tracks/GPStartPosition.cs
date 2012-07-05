@@ -22,6 +22,7 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal class GPStartPosition
     {
+        public const int Size = 6;
         public const int Height = 168;
         private const int SecondRowMin = -256;
         private const int SecondRowMax = 255;
@@ -157,7 +158,7 @@ namespace EpicEdit.Rom.Tracks
         /// <returns>The GPStartPosition bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[6];
+            byte[] data = new byte[GPStartPosition.Size];
             data[0] = (byte)(this.X & 0xFF);
             data[1] = (byte)((this.X & 0xFF00) >> 8);
             data[2] = (byte)(this.Y & 0xFF);
