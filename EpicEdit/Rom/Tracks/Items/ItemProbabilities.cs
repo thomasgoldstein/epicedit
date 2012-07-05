@@ -66,15 +66,15 @@ namespace EpicEdit.Rom.Tracks.Items
         // The number of modes (GP and Match Race).
         private const int ModeCount = 2;
 
-        private const int ProbabilityCount = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
+        private const int Count = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
 
         private ItemProbability[] itemProbabilities;
 
         public ItemProbabilities(byte[] romBuffer, int offset)
         {
-            this.itemProbabilities = new ItemProbability[ItemProbabilities.ProbabilityCount];
+            this.itemProbabilities = new ItemProbability[ItemProbabilities.Count];
 
-            for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
+            for (int i = 0; i < ItemProbabilities.Count; i++)
             {
                 int address = offset + (i * ItemProbability.Size);
                 this.itemProbabilities[i] = new ItemProbability(romBuffer, address);
@@ -83,7 +83,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public void Save(byte[] romBuffer, int offset)
         {
-            for (int i = 0; i < ItemProbabilities.ProbabilityCount; i++)
+            for (int i = 0; i < ItemProbabilities.Count; i++)
             {
                 if (this.itemProbabilities[i].Modified)
                 {
@@ -109,7 +109,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability GetBattleModeProbability()
         {
-            return this.itemProbabilities[ItemProbabilities.ProbabilityCount - 1];
+            return this.itemProbabilities[ItemProbabilities.Count - 1];
         }
 
         #endregion Get single item probability
