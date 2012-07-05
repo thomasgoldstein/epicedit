@@ -115,8 +115,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < modeNames.Length; i++)
             {
                 int length = this.romBuffer[lengthOffset] * 2;
-                byte[] hexText = new byte[length];
-                Buffer.BlockCopy(this.romBuffer, nameOffset, hexText, 0, length);
+                byte[] hexText = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
                 modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
                 nameOffset += length;
                 lengthOffset += 2;
@@ -307,11 +306,8 @@ namespace EpicEdit.Rom
 
             if (romHeaderSize == 512)
             {
-                this.romHeader = new byte[512];
-                Buffer.BlockCopy(this.romBuffer, 0, this.romHeader, 0, this.romHeader.Length);
-
-                byte[] romBufferWithoutHeader = new byte[this.romBuffer.Length - this.romHeader.Length];
-                Buffer.BlockCopy(this.romBuffer, this.romHeader.Length, romBufferWithoutHeader, 0, romBufferWithoutHeader.Length);
+                this.romHeader = Utilities.ReadBlock(this.romBuffer, 0, romHeaderSize);
+                byte[] romBufferWithoutHeader = Utilities.ReadBlock(this.romBuffer, romHeaderSize, this.romBuffer.Length - romHeaderSize);
                 this.romBuffer = romBufferWithoutHeader;
             }
             else if (romHeaderSize != 0)
@@ -559,9 +555,7 @@ namespace EpicEdit.Rom
         private byte[] GetOverlayTileData(int trackIndex)
         {
             int offset = this.GetOverlayTileDataOffset(trackIndex);
-            byte[] data = new byte[OverlayTiles.Size];
-            Buffer.BlockCopy(this.romBuffer, offset, data, 0, data.Length);
-            return data;
+            return Utilities.ReadBlock(this.romBuffer, offset, OverlayTiles.Size);
         }
 
         private void SaveOverlayTileData(int trackIndex, byte[] data)
@@ -582,9 +576,7 @@ namespace EpicEdit.Rom
         private byte[] GetGPStartPositionData(int trackIndex)
         {
             int offset = this.GetGPStartPositionDataOffset(trackIndex);
-            byte[] data = new byte[6];
-            Buffer.BlockCopy(this.romBuffer, offset, data, 0, data.Length);
-            return data;
+            return Utilities.ReadBlock(this.romBuffer, offset, GPStartPosition.Size);
         }
 
         private void SaveGPStartPositionData(GPTrack track, int trackIndex)
@@ -607,10 +599,8 @@ namespace EpicEdit.Rom
 
         private byte[] GetLapLineData(int trackIndex)
         {
-            byte[] data = new byte[6];
-            int lapLineDataOffset = this.offsets[Offset.TrackLapLines] + trackIndex * data.Length;
-            Buffer.BlockCopy(this.romBuffer, lapLineDataOffset, data, 0, data.Length);
-            return data;
+            int offset = this.offsets[Offset.TrackLapLines] + trackIndex * LapLine.Size;
+            return Utilities.ReadBlock(this.romBuffer, offset, LapLine.Size);
         }
 
         #endregion Lap line
@@ -933,8 +923,7 @@ namespace EpicEdit.Rom
 
         private void LoadItemProbabilities()
         {
-            byte[] data = new byte[ItemProbabilities.Size];
-            Buffer.BlockCopy(this.romBuffer, this.offsets[Offset.ItemProbabilities], data, 0, ItemProbabilities.Size);
+            byte[] data = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
             this.itemProbabilities = new ItemProbabilities(data);
         }
 
