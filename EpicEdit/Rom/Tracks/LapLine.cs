@@ -22,6 +22,8 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal class LapLine
     {
+        public const int Size = 6;
+
         /// <summary>
         /// The precision X for the lap line (16 pixels).
         /// </summary>
@@ -181,7 +183,7 @@ namespace EpicEdit.Rom.Tracks
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[6];
+            byte[] data = new byte[LapLine.Size];
 
             int y = this.Y;
             data[0] = (byte)(y & 0xFF);
