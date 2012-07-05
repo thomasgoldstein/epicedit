@@ -57,10 +57,16 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal class ItemProbabilities
     {
-        // 7 different themes * 3 lap/rank = 21
-        // 21 * 2 modes (GP and Match Race) = 42
-        // 42 + 1 (Battle Mode) = 43
-        private const int ProbabilityCount = 43;
+        // The number of themes (Bowser Castle and Rainbow Road being mixed).
+        private const int ThemeCount = 7;
+
+        // The number of lap / rank combinations.
+        private const int LapRankCount = 3;
+
+        // The number of modes (GP and Match Race).
+        private const int ModeCount = 2;
+
+        private const int ProbabilityCount = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
 
         private ItemProbability[] itemProbabilities;
 
@@ -91,13 +97,13 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability GetGrandprixProbability(ItemProbaTheme theme, GrandprixCondition condition)
         {
-            int offset = (int)theme * 3 + (int)condition + (3 * 7);
+            int offset = (int)theme * LapRankCount + (int)condition + (LapRankCount * ThemeCount);
             return this.itemProbabilities[offset];
         }
 
         public ItemProbability GetMatchRaceProbability(ItemProbaTheme theme, MatchRaceCondition condition)
         {
-            int offset = (int)theme * 3 + (int)condition;
+            int offset = (int)theme * LapRankCount + (int)condition;
             return this.itemProbabilities[offset];
         }
 
