@@ -21,6 +21,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     internal class OverlayTileSize
     {
+        public const int Size = 2;
+
         private int width;
         public int Width
         {
@@ -45,7 +47,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSize(byte[] data)
         {
-            if (data.Length != 2)
+            if (data.Length != OverlayTileSize.Size)
             {
                 throw new ArgumentOutOfRangeException("data");
             }
@@ -76,10 +78,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
             this.Modified = false;
         }
 
-        public void Save(byte[] romBuffer, int offset, int index)
+        public void GetBytes(byte[] data, int index)
         {
-            romBuffer[index * 2 + offset] = (byte)this.width;
-            romBuffer[index * 2 + offset + 1] = (byte)this.height;
+            data[index] = (byte)this.width;
+            data[index + 1] = (byte)this.height;
         }
     }
 }
