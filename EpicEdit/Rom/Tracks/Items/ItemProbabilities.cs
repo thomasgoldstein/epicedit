@@ -68,29 +68,40 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private const int Count = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
 
+        public const int Size = Count * ItemProbability.Size;
+
         private ItemProbability[] itemProbabilities;
 
-        public ItemProbabilities(byte[] romBuffer, int offset)
+        public ItemProbabilities(byte[] data)
         {
             this.itemProbabilities = new ItemProbability[ItemProbabilities.Count];
 
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
-                int address = offset + (i * ItemProbability.Size);
-                this.itemProbabilities[i] = new ItemProbability(romBuffer, address);
+                int offset = i * ItemProbability.Size;
+                byte[] itemData = new byte[ItemProbability.Size];
+                Buffer.BlockCopy(data, offset, itemData, 0, ItemProbability.Size);
+                this.itemProbabilities[i] = new ItemProbability(itemData);
             }
         }
 
-        public void Save(byte[] romBuffer, int offset)
+        public byte[] GetBytes()
         {
+            return this.GetBytes(false);
+        }
+
+        public byte[] GetBytes(bool saving)
+        {
+            byte[] data = new byte[ItemProbabilities.Size];
+
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
-                if (this.itemProbabilities[i].Modified)
-                {
-                    int address = offset + (i * ItemProbability.Size);
-                    this.itemProbabilities[i].Save(romBuffer, address);
-                }
+                int offset = i * ItemProbability.Size;
+                byte[] itemData = this.itemProbabilities[i].GetBytes(saving);
+                Buffer.BlockCopy(itemData, 0, data, offset, ItemProbability.Size);
             }
+
+            return data;
         }
 
         #region Get single item probability

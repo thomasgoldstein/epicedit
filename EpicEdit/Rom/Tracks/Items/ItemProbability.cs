@@ -269,114 +269,20 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public bool Modified { get; private set; }
 
-        public ItemProbability(byte[] romBuffer, int offset)
+        public ItemProbability(byte[] data)
         {
-            this.backupData = new byte[ItemProbability.Size];
-            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.Size);
-
-            this.Load(romBuffer, offset);
+            this.backupData = data;
+            this.Load(data);
         }
 
         public void Reset()
         {
-            this.Load(this.backupData, 0);
+            this.Load(this.backupData);
         }
 
         #region Reading and writing byte data
 
-        public void Save(byte[] romBuffer, int offset)
-        {
-            int total = 0;
-
-            if (this.mushroom == 0)
-            {
-                romBuffer[offset] = 0;
-            }
-            else
-            {
-                total += this.mushroom;
-                romBuffer[offset] = (byte)total;
-            }
-
-            if (this.feather == 0)
-            {
-                romBuffer[offset + 1] = 0;
-            }
-            else
-            {
-                total += this.feather;
-                romBuffer[offset + 1] = (byte)total;
-            }
-
-            if (this.star == 0)
-            {
-                romBuffer[offset + 2] = 0;
-            }
-            else
-            {
-                total += this.star;
-                romBuffer[offset + 2] = (byte)total;
-            }
-
-            if (this.banana == 0)
-            {
-                romBuffer[offset + 3] = 0;
-            }
-            else
-            {
-                total += this.banana;
-                romBuffer[offset + 3] = (byte)total;
-            }
-
-            if (this.green == 0)
-            {
-                romBuffer[offset + 4] = 0;
-            }
-            else
-            {
-                total += this.green;
-                romBuffer[offset + 4] = (byte)total;
-            }
-
-            if (this.red == 0)
-            {
-                romBuffer[offset + 5] = 0;
-            }
-            else
-            {
-                total += this.red;
-                romBuffer[offset + 5] = (byte)total;
-            }
-
-            if (this.ghost == 0)
-            {
-                romBuffer[offset + 6] = 0;
-            }
-            else
-            {
-                total += this.ghost;
-                romBuffer[offset + 6] = (byte)total;
-            }
-
-            if (this.coins == 0)
-            {
-                romBuffer[offset + 7] = 0;
-            }
-            else
-            {
-                total += this.coins;
-                romBuffer[offset + 7] = (byte)total;
-            }
-
-            romBuffer[offset + 8] = (byte)this.displayedItems;
-
-            // Update the backup data, so that resetting the data will reload the last saved data
-            Buffer.BlockCopy(romBuffer, offset, this.backupData, 0, ItemProbability.Size);
-
-            this.Modified = false;
-        }
-
-        private void Load(byte[] romBuffer, int offset)
+        private void Load(byte[] data)
         {
             // Init everything back to default, this will help when calling reset
             this.mushroom = 0;
@@ -389,55 +295,158 @@ namespace EpicEdit.Rom.Tracks.Items
             this.coins = 0;
             this.displayedItems = ItemBoxDisplay.AllItems;
 
-            this.Mushroom = romBuffer[offset];
+            this.Mushroom = data[0];
             int total = this.mushroom;
 
-            if (romBuffer[offset + 1] != 0)
+            if (data[1] != 0)
             {
-                this.Feather = romBuffer[offset + 1] - total;
+                this.Feather = data[1] - total;
                 total += this.feather;
             }
 
-            if (romBuffer[offset + 2] != 0)
+            if (data[2] != 0)
             {
-                this.Star = romBuffer[offset + 2] - total;
+                this.Star = data[2] - total;
                 total += this.star;
             }
 
-            if (romBuffer[offset + 3] != 0)
+            if (data[3] != 0)
             {
-                this.Banana = romBuffer[offset + 3] - total;
+                this.Banana = data[3] - total;
                 total += this.banana;
             }
 
-            if (romBuffer[offset + 4] != 0)
+            if (data[4] != 0)
             {
-                this.Green = romBuffer[offset + 4] - total;
+                this.Green = data[4] - total;
                 total += this.green;
             }
 
-            if (romBuffer[offset + 5] != 0)
+            if (data[5] != 0)
             {
-                this.Red = romBuffer[offset + 5] - total;
+                this.Red = data[5] - total;
                 total += this.red;
             }
 
-            if (romBuffer[offset + 6] != 0)
+            if (data[6] != 0)
             {
-                this.Ghost = romBuffer[offset + 6] - total;
+                this.Ghost = data[6] - total;
                 total += this.ghost;
             }
 
-            if (romBuffer[offset + 7] != 0)
+            if (data[7] != 0)
             {
-                this.Coins = romBuffer[offset + 7] - total;
+                this.Coins = data[7] - total;
             }
 
-            this.displayedItems = (ItemBoxDisplay)romBuffer[offset + 8];
+            this.displayedItems = (ItemBoxDisplay)data[8];
 
             this.SetProbsBasedOnDisplayedItems();
 
             this.Modified = false;
+        }
+
+        public byte[] GetBytes()
+        {
+            return this.GetBytes(false);
+        }
+
+        public byte[] GetBytes(bool saving)
+        {
+            byte[] data = new byte[ItemProbability.Size];
+            int total = 0;
+
+            if (this.mushroom == 0)
+            {
+                data[0] = 0;
+            }
+            else
+            {
+                total += this.mushroom;
+                data[0] = (byte)total;
+            }
+
+            if (this.feather == 0)
+            {
+                data[1] = 0;
+            }
+            else
+            {
+                total += this.feather;
+                data[1] = (byte)total;
+            }
+
+            if (this.star == 0)
+            {
+                data[2] = 0;
+            }
+            else
+            {
+                total += this.star;
+                data[2] = (byte)total;
+            }
+
+            if (this.banana == 0)
+            {
+                data[3] = 0;
+            }
+            else
+            {
+                total += this.banana;
+                data[3] = (byte)total;
+            }
+
+            if (this.green == 0)
+            {
+                data[4] = 0;
+            }
+            else
+            {
+                total += this.green;
+                data[4] = (byte)total;
+            }
+
+            if (this.red == 0)
+            {
+                data[5] = 0;
+            }
+            else
+            {
+                total += this.red;
+                data[5] = (byte)total;
+            }
+
+            if (this.ghost == 0)
+            {
+                data[6] = 0;
+            }
+            else
+            {
+                total += this.ghost;
+                data[6] = (byte)total;
+            }
+
+            if (this.coins == 0)
+            {
+                data[7] = 0;
+            }
+            else
+            {
+                total += this.coins;
+                data[7] = (byte)total;
+            }
+
+            data[8] = (byte)this.displayedItems;
+
+            if (saving)
+            {
+                // Update the backup data, so that resetting the data will reload the last saved data
+                this.backupData = data;
+
+                this.Modified = false;
+            }
+
+            return data;
         }
 
         #endregion Reading and writing byte data

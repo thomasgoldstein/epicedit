@@ -932,7 +932,9 @@ namespace EpicEdit.Rom
 
         private void LoadItemProbabilities()
         {
-            this.itemProbabilities = new ItemProbabilities(this.romBuffer, this.offsets[Offset.ItemProbabilities]);
+            byte[] data = new byte[ItemProbabilities.Size];
+            Buffer.BlockCopy(this.romBuffer, this.offsets[Offset.ItemProbabilities], data, 0, ItemProbabilities.Size);
+            this.itemProbabilities = new ItemProbabilities(data);
         }
 
         #endregion Item probabilities
@@ -2108,7 +2110,8 @@ namespace EpicEdit.Rom
 
         private void SaveItemProbabilities()
         {
-            this.itemProbabilities.Save(this.romBuffer, offsets[Offset.ItemProbabilities]);
+            byte[] data = this.itemProbabilities.GetBytes(true);
+            Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
         }
 
         private void SaveFile()
