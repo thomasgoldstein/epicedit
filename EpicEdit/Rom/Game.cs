@@ -2041,7 +2041,7 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress palettes
-                    palettesData = Codec.Compress(theme.Palettes.GetBytes());
+                    palettesData = Codec.Compress(theme.Palettes.GetBytes(true));
                 }
 
                 saveBuffer.AddCompressed(palettesData, palettesIndex);
