@@ -287,7 +287,7 @@ namespace EpicEdit.Rom.ThemeEdition
                 UITools.ShowError(ex.Message);
             }
         }
-        
+
         private void ExportPalettesButtonClick(object sender, EventArgs e)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
