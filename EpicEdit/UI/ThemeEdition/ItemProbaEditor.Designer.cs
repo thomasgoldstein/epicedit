@@ -98,6 +98,15 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.mushroomNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
+            // totalLabel
+            // 
+            totalLabel.AutoSize = true;
+            totalLabel.Location = new System.Drawing.Point(230, 152);
+            totalLabel.Name = "totalLabel";
+            totalLabel.Size = new System.Drawing.Size(31, 13);
+            totalLabel.TabIndex = 35;
+            totalLabel.Text = "Total";
+            // 
             // themeComboBox
             // 
             this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -294,7 +303,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemBoxDisplayOptions.FormattingEnabled = true;
             this.itemBoxDisplayOptions.Location = new System.Drawing.Point(194, 188);
-            this.itemBoxDisplayOptions.Name = "itemBoxDisplayOption";
+            this.itemBoxDisplayOptions.Name = "itemBoxDisplayOptions";
             this.itemBoxDisplayOptions.Size = new System.Drawing.Size(130, 21);
             this.itemBoxDisplayOptions.TabIndex = 38;
             this.itemBoxDisplayOptions.SelectedIndexChanged += new System.EventHandler(this.ValueChanged);
@@ -315,15 +324,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.lightningValue.Name = "lightningValue";
             this.lightningValue.Size = new System.Drawing.Size(0, 13);
             this.lightningValue.TabIndex = 36;
-            // 
-            // totalLabel
-            // 
-            totalLabel.AutoSize = true;
-            totalLabel.Location = new System.Drawing.Point(230, 152);
-            totalLabel.Name = "totalLabel";
-            totalLabel.Size = new System.Drawing.Size(31, 13);
-            totalLabel.TabIndex = 35;
-            totalLabel.Text = "Total";
             // 
             // coinsNumericUpDown
             // 
