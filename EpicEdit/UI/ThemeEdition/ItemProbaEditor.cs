@@ -195,7 +195,7 @@ namespace EpicEdit.UI.ThemeEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0: // GP
-                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.GetTheme(), (GrandprixCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.Theme, (GrandprixCondition)this.lapRankComboBox.SelectedItem);
                     if (this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                         this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
                     {
@@ -204,7 +204,7 @@ namespace EpicEdit.UI.ThemeEdition
                     break;
 
                 case 1: // Match Race
-                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.GetTheme(), (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.Theme, (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
                     break;
 
                 case 2: // Battle Mode
@@ -301,43 +301,46 @@ namespace EpicEdit.UI.ThemeEdition
 
         #region Getters / converters for the ComboBoxes
 
-        private ItemProbaTheme GetTheme()
+        private ItemProbaTheme Theme
         {
-            ItemProbaTheme ret;
-
-            switch (this.themeComboBox.SelectedIndex)
+            get
             {
-                case 0:
-                    ret = ItemProbaTheme.GhostValley;
-                    break;
+                ItemProbaTheme theme;
 
-                default:
-                case 1:
-                    ret = ItemProbaTheme.MarioCircuit;
-                    break;
+                switch (this.themeComboBox.SelectedIndex)
+                {
+                    case 0:
+                        theme = ItemProbaTheme.GhostValley;
+                        break;
 
-                case 2:
-                    ret = ItemProbaTheme.DonutPlains;
-                    break;
+                    default:
+                    case 1:
+                        theme = ItemProbaTheme.MarioCircuit;
+                        break;
 
-                case 3:
-                    ret = ItemProbaTheme.ChocoIsland;
-                    break;
+                    case 2:
+                        theme = ItemProbaTheme.DonutPlains;
+                        break;
 
-                case 4:
-                    ret = ItemProbaTheme.VanillaLake;
-                    break;
+                    case 3:
+                        theme = ItemProbaTheme.ChocoIsland;
+                        break;
 
-                case 5:
-                    ret = ItemProbaTheme.KoopaBeach;
-                    break;
+                    case 4:
+                        theme = ItemProbaTheme.VanillaLake;
+                        break;
 
-                case 6:
-                    ret = ItemProbaTheme.BowserCastleAndRainbowRoad;
-                    break;
+                    case 5:
+                        theme = ItemProbaTheme.KoopaBeach;
+                        break;
+
+                    case 6:
+                        theme = ItemProbaTheme.BowserCastleAndRainbowRoad;
+                        break;
+                }
+
+                return theme;
             }
-
-            return ret;
         }
 
         #endregion Getters / converters for the ComboBoxes
