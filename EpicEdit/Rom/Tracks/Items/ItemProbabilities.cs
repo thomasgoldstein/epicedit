@@ -78,11 +78,25 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
-                int offset = i * ItemProbability.Size;
-                byte[] itemData = new byte[ItemProbability.Size];
-                Buffer.BlockCopy(data, offset, itemData, 0, ItemProbability.Size);
+                byte[] itemData = ItemProbabilities.GetItemData(data, i);
                 this.itemProbabilities[i] = new ItemProbability(itemData);
             }
+        }
+
+        public void Load(byte[] data)
+        {
+            for (int i = 0; i < ItemProbabilities.Count; i++)
+            {
+                byte[] itemData = ItemProbabilities.GetItemData(data, i);
+                this.itemProbabilities[i].Load(itemData);
+            }
+        }
+
+        private static byte[] GetItemData(byte[] data, int i)
+        {
+            int offset = i * ItemProbability.Size;
+            byte[] itemData = new byte[ItemProbability.Size];
+            return Utilities.ReadBlock(data, offset, ItemProbability.Size);
         }
 
         public byte[] GetBytes()
