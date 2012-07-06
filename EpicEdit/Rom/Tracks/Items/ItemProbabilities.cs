@@ -115,9 +115,8 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
-                int offset = i * ItemProbability.Size;
-                byte[] itemData = this.itemProbabilities[i].GetBytes(saving);
-                Buffer.BlockCopy(itemData, 0, data, offset, ItemProbability.Size);
+                int index = i * ItemProbability.Size;
+                this.itemProbabilities[i].GetBytes(data, index, saving);
             }
 
             return data;
