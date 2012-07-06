@@ -51,8 +51,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < tiles.Length; i++)
             {
-                byte[] gfx = new byte[bytesPerTile];
-                Buffer.BlockCopy(itemGfx, (tileIndex + i) * bytesPerTile, gfx, 0, bytesPerTile);
+                byte[] gfx = Utilities.ReadBlock(itemGfx, (tileIndex + i) * bytesPerTile, bytesPerTile);
                 tiles[i] = new Tile2bpp(gfx, properties);
             }
 

@@ -69,8 +69,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
             for (int y = 0; y < this.Height; y++)
             {
-                this.tiles[y] = new byte[this.Width];
-                Buffer.BlockCopy(data, y * this.Width, this.tiles[y], 0, this.Width);
+                this.tiles[y] = Utilities.ReadBlock(data, y * this.Width, this.Width);
             }
         }
 

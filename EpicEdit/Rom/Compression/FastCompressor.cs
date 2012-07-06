@@ -251,10 +251,7 @@ namespace EpicEdit.Rom.Compression
 
             compBuffer[j++] = 0xFF;
 
-            byte[] compData = new byte[j];
-            Buffer.BlockCopy(compBuffer, 0, compData, 0, j);
-
-            return compData;
+            return Utilities.ReadBlock(compBuffer, 0, j);
         }
 
         private static void CallCommand4Or6(byte[] compBuffer, ref int i, ref int j, Range range)
