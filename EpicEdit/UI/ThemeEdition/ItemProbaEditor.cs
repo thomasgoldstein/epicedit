@@ -503,7 +503,7 @@ namespace EpicEdit.UI.ThemeEdition
                     "Raw binary file (*.bin)|*.bin|" +
                     "All files (*.*)|*.*";
 
-                sfd.FileName = UITools.SanitizeFileName(Context.Game.Themes[this.themeComboBox.SelectedIndex] + "proba");
+                sfd.FileName = "Item probabilities";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
