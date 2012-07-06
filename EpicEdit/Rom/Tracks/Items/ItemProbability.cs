@@ -348,97 +348,96 @@ namespace EpicEdit.Rom.Tracks.Items
             this.Modified = true;
         }
 
-        public byte[] GetBytes()
+        public void GetBytes(byte[] data, int index)
         {
-            return this.GetBytes(false);
+            this.GetBytes(data, index, false);
         }
 
-        public byte[] GetBytes(bool saving)
+        public void GetBytes(byte[] data, int index, bool saving)
         {
-            byte[] data = new byte[ItemProbability.Size];
             int total = 0;
 
             if (this.mushroom == 0)
             {
-                data[0] = 0;
+                data[index] = 0;
             }
             else
             {
                 total += this.mushroom;
-                data[0] = (byte)total;
+                data[index] = (byte)total;
             }
 
             if (this.feather == 0)
             {
-                data[1] = 0;
+                data[index + 1] = 0;
             }
             else
             {
                 total += this.feather;
-                data[1] = (byte)total;
+                data[index + 1] = (byte)total;
             }
 
             if (this.star == 0)
             {
-                data[2] = 0;
+                data[index + 2] = 0;
             }
             else
             {
                 total += this.star;
-                data[2] = (byte)total;
+                data[index + 2] = (byte)total;
             }
 
             if (this.banana == 0)
             {
-                data[3] = 0;
+                data[index + 3] = 0;
             }
             else
             {
                 total += this.banana;
-                data[3] = (byte)total;
+                data[index + 3] = (byte)total;
             }
 
             if (this.green == 0)
             {
-                data[4] = 0;
+                data[index + 4] = 0;
             }
             else
             {
                 total += this.green;
-                data[4] = (byte)total;
+                data[index + 4] = (byte)total;
             }
 
             if (this.red == 0)
             {
-                data[5] = 0;
+                data[index + 5] = 0;
             }
             else
             {
                 total += this.red;
-                data[5] = (byte)total;
+                data[index + 5] = (byte)total;
             }
 
             if (this.ghost == 0)
             {
-                data[6] = 0;
+                data[index + 6] = 0;
             }
             else
             {
                 total += this.ghost;
-                data[6] = (byte)total;
+                data[index + 6] = (byte)total;
             }
 
             if (this.coins == 0)
             {
-                data[7] = 0;
+                data[index + 7] = 0;
             }
             else
             {
                 total += this.coins;
-                data[7] = (byte)total;
+                data[index + 7] = (byte)total;
             }
 
-            data[8] = (byte)this.displayedItems;
+            data[index + 8] = (byte)this.displayedItems;
 
             if (saving)
             {
@@ -447,8 +446,6 @@ namespace EpicEdit.Rom.Tracks.Items
 
                 this.Modified = false;
             }
-
-            return data;
         }
 
         #endregion Reading and writing byte data
