@@ -126,7 +126,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                byte[] data = Utilities.ReadBlock(this.OBJ, 0, 44);
+                byte[] data = Utilities.ReadBlock(this.OBJ, 0, TrackObjects.Size);
                 return new TrackObjects(data);
             }
             set
