@@ -27,13 +27,13 @@ namespace EpicEdit.Rom.Tracks.Objects
         private const int MatchRaceObjectCount = 6;
         private const int ObjectCount = RegularObjectCount + MatchRaceObjectCount;
         private const int BytesPerObject = 2;
-        private const int TotalBytes = ObjectCount * BytesPerObject;
+        public const int Size = ObjectCount * BytesPerObject;
         
         private TrackObject[] objects;
 
         public TrackObjects(byte[] data)
         {
-            if (data.Length != TotalBytes)
+            if (data.Length != Size)
             {
                 throw new ArgumentOutOfRangeException("data");
             }
