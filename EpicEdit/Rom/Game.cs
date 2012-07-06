@@ -692,11 +692,7 @@ namespace EpicEdit.Rom
         private byte[] GetObjectData(int trackIndex)
         {
             int objectOffset = this.offsets[Offset.TrackObjects] + (trackIndex * 64);
-            byte[] data = Utilities.ReadBlock(this.romBuffer, objectOffset, 44);
-            // 16 objects * 2 coordinate bytes = 32 bytes
-            // + 6 Match Race objects (Chain Chomps) * 2 coordinate bytes = 12 bytes
-            // Total = 44 bytes
-            return data;
+            return Utilities.ReadBlock(this.romBuffer, objectOffset, TrackObjects.Size);
         }
 
         private void SetObjectProperties(GPTrack track, int trackIndex, int themeId)
