@@ -130,8 +130,7 @@ namespace EpicEdit.Rom.Tracks
                     byte[][] commonRoadTileGfxClone = new byte[commonRoadTileGfx.Length][];
                     for (int j = 0; j < commonRoadTileGfxClone.Length; j++)
                     {
-                        commonRoadTileGfxClone[j] = new byte[commonRoadTileGfx[j].Length];
-                        Buffer.BlockCopy(commonRoadTileGfx[j], 0, commonRoadTileGfxClone[j], 0, commonRoadTileGfx[j].Length);
+                        commonRoadTileGfxClone[j] = Utilities.ReadBlock(commonRoadTileGfx[j], 0, commonRoadTileGfx[j].Length);
                     }
 
                     Array.Copy(commonRoadTileGfxClone, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfxClone.Length);
@@ -223,8 +222,8 @@ namespace EpicEdit.Rom.Tracks
 
         private static byte[] GetPaletteIndexes(byte[] tileData, int count)
         {
-            byte[] paletteIndexes = new byte[count];
-            Buffer.BlockCopy(tileData, 0, paletteIndexes, 0, count);
+            byte[] paletteIndexes = Utilities.ReadBlock(tileData, 0, count);
+
             for (int i = 0; i < count; i++)
             {
                 paletteIndexes[i] = (byte)(paletteIndexes[i] >> 4);

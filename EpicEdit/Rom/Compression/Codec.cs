@@ -164,10 +164,7 @@ namespace EpicEdit.Rom.Compression
                 destPosition--; // Buffer limit reached
             }
 
-            byte[] returnBuffer = new byte[destPosition];
-            Buffer.BlockCopy(decBuffer, 0, returnBuffer, 0, destPosition);
-
-            return returnBuffer;
+            return Utilities.ReadBlock(decBuffer, 0, destPosition);
         }
 
         /// <summary>
@@ -330,16 +327,13 @@ namespace EpicEdit.Rom.Compression
                 }
             }
 
-            int length = offset - startingOffset;
-            return length;
+            return offset - startingOffset;
         }
 
         public static byte[] GetCompressedChunk(byte[] buffer, int offset)
         {
             int compressedChunkLength = Codec.GetLength(buffer, offset);
-            byte[] compressedChunk = new byte[compressedChunkLength];
-            Buffer.BlockCopy(buffer, offset, compressedChunk, 0, compressedChunkLength);
-            return compressedChunk;
+            return Utilities.ReadBlock(buffer, offset, compressedChunkLength);
         }
 
         /// <summary>

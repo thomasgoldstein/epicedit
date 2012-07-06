@@ -126,8 +126,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                byte[] data = new byte[44];
-                Buffer.BlockCopy(this.OBJ, 0, data, 0, data.Length);
+                byte[] data = Utilities.ReadBlock(this.OBJ, 0, 44);
                 return new TrackObjects(data);
             }
             set
@@ -633,8 +632,7 @@ namespace EpicEdit.Rom
 
             for (int y = 0; y < data.Length / lineLength; y++)
             {
-                byte[] lineBytes = new byte[lineLength];
-                Buffer.BlockCopy(data, y * lineLength, lineBytes, 0, lineLength);
+                byte[] lineBytes = Utilities.ReadBlock(data, y * lineLength, lineLength);
                 sb.AppendLine("#" + Utilities.BytesToHexString(lineBytes));
             }
         }

@@ -44,8 +44,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int y = 0; y < dimension; y++)
             {
-                this.map[y] = new byte[dimension];
-                Buffer.BlockCopy(data, y * dimension, this.map[y], 0, dimension);
+                this.map[y] = Utilities.ReadBlock(data, y * dimension, dimension);
             }
         }
 

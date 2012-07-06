@@ -77,9 +77,7 @@ namespace EpicEdit.Rom
 
         private static byte[] GetPaletteData(byte[] data, int index)
         {
-            byte[] paletteData = new byte[Palette.Size];
-            Buffer.BlockCopy(data, index * Palette.Size, paletteData, 0, Palette.Size);
-            return paletteData;
+            return Utilities.ReadBlock(data, index * Palette.Size, Palette.Size);
         }
 
         public int Count
