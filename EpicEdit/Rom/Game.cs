@@ -583,7 +583,7 @@ namespace EpicEdit.Rom
         {
             byte[] data = track.StartPosition.GetBytes();
             int offset = this.GetGPStartPositionDataOffset(trackIndex);
-            Buffer.BlockCopy(data, 0, this.romBuffer, offset, 6);
+            Buffer.BlockCopy(data, 0, this.romBuffer, offset, GPStartPosition.Size);
         }
 
         private int GetGPStartPositionDataOffset(int trackIndex)
