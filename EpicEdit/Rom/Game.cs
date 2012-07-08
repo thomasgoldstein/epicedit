@@ -1521,7 +1521,7 @@ namespace EpicEdit.Rom
         private void SaveObjectLocationsAndZones(SaveBuffer saveBuffer)
         {
             byte[] trackOrder = this.GetTrackOrder();
-            byte[] objectZonesData = new byte[GPTrack.Count * 10];
+            byte[] objectZonesData = new byte[GPTrack.Count * TrackObjectZones.Size];
 
             for (int i = 0; i < this.trackGroups.Length - 1; i++)
             {

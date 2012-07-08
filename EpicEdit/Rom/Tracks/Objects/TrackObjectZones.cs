@@ -23,6 +23,8 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObjectZones
     {
+        public const int Size = 10;
+
         /// <summary>
         /// The object zone grid size (horizontally and vertically).
         /// </summary>
