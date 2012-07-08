@@ -71,7 +71,6 @@ namespace EpicEdit.Rom
             {
                 byte[] paletteData = Palettes.GetPaletteData(data, i);
                 this.palettes[i].Load(paletteData);
-                this.palettes[i].Modified = true;
             }
         }
 
@@ -109,17 +108,6 @@ namespace EpicEdit.Rom
                 }
 
                 return false;
-            }
-            set
-            {
-                if (!value)
-                {
-                    // Reset modified flags
-                    foreach (Palette palette in this.palettes)
-                    {
-                        palette.Modified = value;
-                    }
-                }
             }
         }
 
