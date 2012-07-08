@@ -89,7 +89,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         private byte[][] frontLayer;
         private byte[][] backLayer;
 
-        public bool Modified { get; set; }
+        public bool Modified { get; private set; }
 
         public BackgroundLayout(byte[] data)
         {
@@ -140,9 +140,19 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public byte[] GetBytes()
         {
+            return this.GetBytes(false);
+        }
+
+        public byte[] GetBytes(bool saving)
+        {
             byte[] data = new byte[TotalSize];
             SetBytes(data, this.frontLayer, 0);
             SetBytes(data, this.backLayer, FrontLayerSize);
+
+            if (saving)
+            {
+                this.Modified = false;
+            }
 
             return data;
         }

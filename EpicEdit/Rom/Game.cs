@@ -2128,7 +2128,6 @@ namespace EpicEdit.Rom
             foreach (Theme theme in this.themes)
             {
                 theme.RoadTileset.Modified = false;
-                theme.Background.Layout.Modified = false;
                 theme.Background.Tileset.Modified = false;
             }
         }
