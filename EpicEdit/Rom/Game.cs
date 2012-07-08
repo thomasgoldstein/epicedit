@@ -2054,9 +2054,9 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress background layout
-                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
+                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes(true));
                 }
-                
+
                 saveBuffer.AddCompressed(bgLayoutData, bgLayoutIndex);
             }
         }
@@ -2128,7 +2128,6 @@ namespace EpicEdit.Rom
             foreach (Theme theme in this.themes)
             {
                 theme.RoadTileset.Modified = false;
-                theme.Palettes.Modified = false;
                 theme.Background.Layout.Modified = false;
                 theme.Background.Tileset.Modified = false;
             }

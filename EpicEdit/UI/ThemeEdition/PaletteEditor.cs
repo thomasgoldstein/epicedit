@@ -246,7 +246,6 @@ namespace EpicEdit.Rom.ThemeEdition
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
 
-            this.Palette.Modified = true;
             this.ColorChanged(sender, e);
         }
 

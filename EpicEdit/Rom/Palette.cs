@@ -61,7 +61,7 @@ namespace EpicEdit.Rom
 
         private byte[] backupData;
 
-        public bool Modified { get; set; }
+        public bool Modified { get; private set; }
 
         private RomColor[] colors;
 
@@ -73,6 +73,7 @@ namespace EpicEdit.Rom
             this.backupData = data;
 
             this.Load(data);
+            this.Modified = false;
         }
 
         public void Load(byte[] data)
@@ -86,6 +87,8 @@ namespace EpicEdit.Rom
             {
                 this.LoadColor(data, i);
             }
+
+            this.Modified = true;
         }
 
         private void LoadColor(byte[] data, int index)
@@ -108,14 +111,17 @@ namespace EpicEdit.Rom
         public void Reset()
         {
             this.Load(this.backupData);
-
             this.Modified = false;
         }
 
         public RomColor this[int index]
         {
             get { return this.colors[index]; }
-            set { this.colors[index] = value; }
+            set
+            {
+                this.colors[index] = value;
+                this.Modified = true;
+            }
         }
 
         public byte[] GetBytes(bool saving)
@@ -131,6 +137,7 @@ namespace EpicEdit.Rom
             {
                 // Update the backup data, so that resetting the data will reload the last saved data
                 this.backupData = data;
+                this.Modified = false;
             }
 
             return data;
