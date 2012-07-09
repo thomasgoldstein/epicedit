@@ -443,7 +443,6 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 // Update the backup data, so that resetting the data will reload the last saved data
                 this.backupData = data;
-
                 this.Modified = false;
             }
         }
