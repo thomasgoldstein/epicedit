@@ -140,21 +140,15 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public byte[] GetBytes()
         {
-            return this.GetBytes(false);
-        }
-
-        public byte[] GetBytes(bool saving)
-        {
             byte[] data = new byte[TotalSize];
             SetBytes(data, this.frontLayer, 0);
             SetBytes(data, this.backLayer, FrontLayerSize);
-
-            if (saving)
-            {
-                this.Modified = false;
-            }
-
             return data;
+        }
+
+        public void ResetModifiedFlag()
+        {
+            this.Modified = false;
         }
 
         private static void SetBytes(byte[] data, byte[][] layer, int start)

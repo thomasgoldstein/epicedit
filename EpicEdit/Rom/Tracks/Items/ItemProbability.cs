@@ -348,12 +348,14 @@ namespace EpicEdit.Rom.Tracks.Items
             this.Modified = true;
         }
 
-        public void GetBytes(byte[] data, int index)
+        private byte[] GetBytes()
         {
-            this.GetBytes(data, index, false);
+            byte[] data = new byte[ItemProbability.Size];
+            this.GetBytes(data, 0);
+            return data;
         }
 
-        public void GetBytes(byte[] data, int index, bool saving)
+        public void GetBytes(byte[] data, int index)
         {
             int total = 0;
 
@@ -438,13 +440,13 @@ namespace EpicEdit.Rom.Tracks.Items
             }
 
             data[index + 8] = (byte)this.displayedItems;
+        }
 
-            if (saving)
-            {
-                // Update the backup data, so that resetting the data will reload the last saved data
-                this.backupData = data;
-                this.Modified = false;
-            }
+        public void ResetModifiedFlag()
+        {
+            // Update the backup data, so that resetting the data will reload the last saved data
+            this.backupData = this.GetBytes();
+            this.Modified = false;
         }
 
         #endregion Reading and writing byte data

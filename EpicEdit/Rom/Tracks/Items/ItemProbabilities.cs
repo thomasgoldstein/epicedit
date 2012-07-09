@@ -106,17 +106,12 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public byte[] GetBytes()
         {
-            return this.GetBytes(false);
-        }
-
-        public byte[] GetBytes(bool saving)
-        {
             byte[] data = new byte[ItemProbabilities.Size];
 
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
                 int index = i * ItemProbability.Size;
-                this.itemProbabilities[i].GetBytes(data, index, saving);
+                this.itemProbabilities[i].GetBytes(data, index);
             }
 
             return data;
@@ -156,6 +151,14 @@ namespace EpicEdit.Rom.Tracks.Items
                 }
 
                 return false;
+            }
+        }
+
+        public void ResetModifiedFlag()
+        {
+            foreach (ItemProbability itemProba in this.itemProbabilities)
+            {
+                itemProba.ResetModifiedFlag();
             }
         }
     }
