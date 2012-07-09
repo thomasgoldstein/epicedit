@@ -124,7 +124,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        public byte[] GetBytes(bool saving)
+        public byte[] GetBytes()
         {
             byte[] data = new byte[Palette.Size];
 
@@ -133,14 +133,14 @@ namespace EpicEdit.Rom
                 Buffer.BlockCopy(this.colors[i].GetBytes(), 0, data, i * RomColor.Size, RomColor.Size);
             }
 
-            if (saving)
-            {
-                // Update the backup data, so that resetting the data will reload the last saved data
-                this.backupData = data;
-                this.Modified = false;
-            }
-
             return data;
+        }
+
+        public void ResetModifiedFlag()
+        {
+            // Update the backup data, so that resetting the data will reload the last saved data
+            this.backupData = this.GetBytes();
+            this.Modified = false;
         }
     }
 }

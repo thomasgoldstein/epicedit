@@ -2029,7 +2029,7 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress palettes
-                    palettesData = Codec.Compress(theme.Palettes.GetBytes(true));
+                    palettesData = Codec.Compress(theme.Palettes.GetBytes());
                 }
 
                 saveBuffer.AddCompressed(palettesData, palettesIndex);
@@ -2054,7 +2054,7 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress background layout
-                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes(true));
+                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
                 }
 
                 saveBuffer.AddCompressed(bgLayoutData, bgLayoutIndex);
@@ -2096,7 +2096,7 @@ namespace EpicEdit.Rom
 
         private void SaveItemProbabilities()
         {
-            byte[] data = this.itemProbabilities.GetBytes(true);
+            byte[] data = this.itemProbabilities.GetBytes();
             Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
         }
 
@@ -2116,6 +2116,7 @@ namespace EpicEdit.Rom
         private void ResetModifiedFlags()
         {
             this.modified = false;
+            this.itemProbabilities.ResetModifiedFlag();
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
@@ -2127,7 +2128,9 @@ namespace EpicEdit.Rom
 
             foreach (Theme theme in this.themes)
             {
+                theme.Palettes.ResetModifiedFlag();
                 theme.RoadTileset.Modified = false;
+                theme.Background.Layout.ResetModifiedFlag();
                 theme.Background.Tileset.Modified = false;
             }
         }
@@ -2155,8 +2158,8 @@ namespace EpicEdit.Rom
 
             foreach (Theme theme in this.themes)
             {
-                if (theme.RoadTileset.Modified ||
-                    theme.Palettes.Modified ||
+                if (theme.Palettes.Modified ||
+                    theme.RoadTileset.Modified ||
                     theme.Background.Layout.Modified ||
                     theme.Background.Tileset.Modified)
                 {
