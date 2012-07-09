@@ -38,6 +38,7 @@ namespace EpicEdit.Rom.Tracks
 
         private RoadTile[] tileset;
 
+        // TODO: Make setter private
         public bool Modified { get; set; }
 
         public RoadTileset(RoadTile[] tileset)
