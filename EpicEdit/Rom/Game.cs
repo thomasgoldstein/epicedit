@@ -2129,9 +2129,9 @@ namespace EpicEdit.Rom
             foreach (Theme theme in this.themes)
             {
                 theme.Palettes.ResetModifiedFlag();
-                theme.RoadTileset.Modified = false;
+                theme.RoadTileset.ResetModifiedFlag();
                 theme.Background.Layout.ResetModifiedFlag();
-                theme.Background.Tileset.Modified = false;
+                theme.Background.Tileset.ResetModifiedFlag();
             }
         }
 

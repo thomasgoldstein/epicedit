@@ -50,6 +50,11 @@ namespace EpicEdit.Rom.Tracks.Scenery
             get { return this.GetTile(index); }
         }
 
+        public void ResetModifiedFlag()
+        {
+            this.Modified = false;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

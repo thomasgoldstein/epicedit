@@ -103,6 +103,11 @@ namespace EpicEdit.Rom.Tracks
             return data;
         }
 
+        public void ResetModifiedFlag()
+        {
+            this.Modified = false;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
