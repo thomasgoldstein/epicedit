@@ -26,6 +26,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         public const int TileCount = 48;
 
+        // TODO: Make setter private
         public bool Modified { get; set; }
 
         private BackgroundTile[] tileset;

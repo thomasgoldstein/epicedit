@@ -58,7 +58,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.Theme.RoadTileset; }
         }
 
-        // NOTE: Maybe do not expose this, and change it in property setters
+        // TODO: Make setter private
         public bool Modified { get; set; }
 
         protected Track(string name, Theme theme,
