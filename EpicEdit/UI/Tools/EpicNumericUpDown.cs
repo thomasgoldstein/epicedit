@@ -18,7 +18,7 @@ using System.Windows.Forms;
 namespace EpicEdit.UI.Tools
 {
     /// <summary>
-    /// A NumericUpDown control that adds 1 to the displayed value, so values start at 1 rather than 0.
+    /// A NumericUpDown control that adds 1 to the displayed value, so values show up as starting at 1 rather than 0.
     /// </summary>
     internal class EpicNumericUpDown : NumericUpDown
     {
