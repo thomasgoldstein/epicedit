@@ -45,13 +45,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.Editor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
             this.SuspendLayout();
             // 
-            // Editor
-            // 
-            this.Editor.Location = new System.Drawing.Point(0, 0);
-            this.Editor.Name = "Editor";
-            this.Editor.Size = new System.Drawing.Size(360, 230);
-            this.Editor.TabIndex = 0;
-            // 
             // PaletteEditorForm
             // 
             this.AutoSize = true;
