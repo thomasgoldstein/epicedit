@@ -26,7 +26,7 @@ namespace EpicEdit.UI.Tools
         {
             this.Text = (this.Value + 1).ToString();
         }
-        
+
         protected override void OnTextBoxTextChanged(object source, EventArgs e)
         {
             // Do nothing, we don't want the UpdateEditText logic to cause the Value to be updated again,
