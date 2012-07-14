@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
@@ -24,9 +25,16 @@ namespace EpicEdit.UI.TrackEdition
 {
     internal sealed class TrackPanel : TilePanel
     {
+        [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track { get; set; }
+
+        [Browsable(false), DefaultValue(typeof(EditionMode), "Tileset")]
         public EditionMode EditionMode { get; set; }
+
+        [Browsable(false), DefaultValue(typeof(int), "0")]
         public int ScrollPositionX { get; set; }
+
+        [Browsable(false), DefaultValue(typeof(int), "0")]
         public int ScrollPositionY { get; set; }
 
         protected override void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
