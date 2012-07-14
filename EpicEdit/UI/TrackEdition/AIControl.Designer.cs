@@ -47,7 +47,7 @@ namespace EpicEdit.UI.TrackEdition
             System.Windows.Forms.Label shapeLabel;
             System.Windows.Forms.Label speedLabel;
             this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
-            this.indexNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.indexNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.deleteButton = new System.Windows.Forms.Button();
             this.shapeComboBox = new System.Windows.Forms.ComboBox();
             this.speedNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
@@ -115,11 +115,6 @@ namespace EpicEdit.UI.TrackEdition
             this.indexNumericUpDown.Size = new System.Drawing.Size(45, 20);
             this.indexNumericUpDown.TabIndex = 1;
             this.indexNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.indexNumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             this.indexNumericUpDown.ValueChanged += new System.EventHandler(this.IndexNumericUpDownValueChanged);
             // 
             // deleteButton
@@ -206,7 +201,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button deleteAllButton;
-        private System.Windows.Forms.NumericUpDown indexNumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown indexNumericUpDown;
         private System.Windows.Forms.ComboBox shapeComboBox;
         private System.Windows.Forms.Button deleteButton;
         private EpicEdit.UI.Tools.EpicNumericUpDown speedNumericUpDown;
