@@ -309,6 +309,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private sealed class TilesetPanel : TilePanel
         {
+            [Browsable(false), DefaultValue(typeof(RoadTileset), "")]
             public RoadTileset Tileset { get; set; }
 
             private int TilesPerRow
