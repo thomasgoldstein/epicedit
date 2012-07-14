@@ -218,6 +218,7 @@
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
     </Compile>

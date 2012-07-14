@@ -52,11 +52,11 @@ namespace EpicEdit.UI.TrackEdition
             this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
-            this.palette4NumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.palette3NumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.palette2NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palette4NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.palette3NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.palette2NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.flashingCheckBox = new System.Windows.Forms.CheckBox();
-            this.palette1NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.palette1NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.interactComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
@@ -97,14 +97,6 @@ namespace EpicEdit.UI.TrackEdition
             tilesetLabel.TabIndex = 4;
             tilesetLabel.Text = "Tileset";
             // 
-            // palettesLabel
-            // 
-            this.palettesLabel.Location = new System.Drawing.Point(10, 227);
-            this.palettesLabel.Name = "palettesLabel";
-            this.palettesLabel.Size = new System.Drawing.Size(61, 30);
-            this.palettesLabel.TabIndex = 9;
-            this.palettesLabel.Text = "Flashing palettes";
-            // 
             // paletteLabel
             // 
             paletteLabel.Location = new System.Drawing.Point(6, 168);
@@ -112,6 +104,14 @@ namespace EpicEdit.UI.TrackEdition
             paletteLabel.Size = new System.Drawing.Size(100, 23);
             paletteLabel.TabIndex = 6;
             paletteLabel.Text = "Color palette";
+            // 
+            // palettesLabel
+            // 
+            this.palettesLabel.Location = new System.Drawing.Point(10, 227);
+            this.palettesLabel.Name = "palettesLabel";
+            this.palettesLabel.Size = new System.Drawing.Size(61, 30);
+            this.palettesLabel.TabIndex = 9;
+            this.palettesLabel.Text = "Flashing palettes";
             // 
             // rearObjectZonesControl
             // 
@@ -186,67 +186,37 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.palette4NumericUpDown.Location = new System.Drawing.Point(77, 257);
             this.palette4NumericUpDown.Maximum = new decimal(new int[] {
-                                    8,
-                                    0,
-                                    0,
-                                    0});
-            this.palette4NumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    7,
                                     0,
                                     0,
                                     0});
             this.palette4NumericUpDown.Name = "palette4NumericUpDown";
             this.palette4NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette4NumericUpDown.TabIndex = 12;
-            this.palette4NumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             // 
             // palette3NumericUpDown
             // 
             this.palette3NumericUpDown.Location = new System.Drawing.Point(77, 237);
             this.palette3NumericUpDown.Maximum = new decimal(new int[] {
-                                    8,
-                                    0,
-                                    0,
-                                    0});
-            this.palette3NumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    7,
                                     0,
                                     0,
                                     0});
             this.palette3NumericUpDown.Name = "palette3NumericUpDown";
             this.palette3NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette3NumericUpDown.TabIndex = 11;
-            this.palette3NumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             // 
             // palette2NumericUpDown
             // 
             this.palette2NumericUpDown.Location = new System.Drawing.Point(77, 217);
             this.palette2NumericUpDown.Maximum = new decimal(new int[] {
-                                    8,
-                                    0,
-                                    0,
-                                    0});
-            this.palette2NumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    7,
                                     0,
                                     0,
                                     0});
             this.palette2NumericUpDown.Name = "palette2NumericUpDown";
             this.palette2NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette2NumericUpDown.TabIndex = 10;
-            this.palette2NumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             // 
             // flashingCheckBox
             // 
@@ -261,23 +231,13 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.palette1NumericUpDown.Location = new System.Drawing.Point(77, 166);
             this.palette1NumericUpDown.Maximum = new decimal(new int[] {
-                                    8,
-                                    0,
-                                    0,
-                                    0});
-            this.palette1NumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    7,
                                     0,
                                     0,
                                     0});
             this.palette1NumericUpDown.Name = "palette1NumericUpDown";
             this.palette1NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette1NumericUpDown.TabIndex = 7;
-            this.palette1NumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             // 
             // routineComboBox
             // 
@@ -334,10 +294,10 @@ namespace EpicEdit.UI.TrackEdition
             this.ResumeLayout(false);
         }
         private System.Windows.Forms.Label palettesLabel;
-        private System.Windows.Forms.NumericUpDown palette1NumericUpDown;
-        private System.Windows.Forms.NumericUpDown palette4NumericUpDown;
-        private System.Windows.Forms.NumericUpDown palette3NumericUpDown;
-        private System.Windows.Forms.NumericUpDown palette2NumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown palette1NumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown palette4NumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown palette3NumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown palette2NumericUpDown;
         private System.Windows.Forms.CheckBox flashingCheckBox;
         private System.Windows.Forms.GroupBox zoneGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
