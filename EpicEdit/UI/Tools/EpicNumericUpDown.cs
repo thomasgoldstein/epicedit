@@ -22,6 +22,13 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class EpicNumericUpDown : NumericUpDown
     {
+        public EpicNumericUpDown()
+        {
+            // Because the ParseEditText method cannot be overridden, we cannot have a custom logic
+            // when the user types text in the text box (to substract 1 from the Value). So just disable text editing.
+            this.ReadOnly = true;
+        }
+
         protected override void UpdateEditText()
         {
             this.Text = (this.Value + 1).ToString();
