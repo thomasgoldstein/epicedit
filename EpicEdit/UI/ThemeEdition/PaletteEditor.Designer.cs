@@ -45,7 +45,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.components = new System.ComponentModel.Container();
             this.resetSelectedButton = new System.Windows.Forms.Button();
             this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
-            this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.paletteNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.resetAllButton = new System.Windows.Forms.Button();
             this.exportPalettesButton = new System.Windows.Forms.Button();
@@ -145,7 +145,7 @@ namespace EpicEdit.Rom.ThemeEdition
         private System.Windows.Forms.Button importPalettesButton;
         private System.Windows.Forms.Button exportPalettesButton;
         private System.Windows.Forms.Button resetAllButton;
-        private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.ComboBox themeComboBox;
 
         #endregion
