@@ -86,6 +86,33 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.blueNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
+            // redLabel
+            // 
+            redLabel.AutoSize = true;
+            redLabel.Location = new System.Drawing.Point(133, 22);
+            redLabel.Name = "redLabel";
+            redLabel.Size = new System.Drawing.Size(27, 13);
+            redLabel.TabIndex = 5;
+            redLabel.Text = "Red";
+            // 
+            // greenLabel
+            // 
+            greenLabel.AutoSize = true;
+            greenLabel.Location = new System.Drawing.Point(133, 69);
+            greenLabel.Name = "greenLabel";
+            greenLabel.Size = new System.Drawing.Size(36, 13);
+            greenLabel.TabIndex = 14;
+            greenLabel.Text = "Green";
+            // 
+            // blueLabel
+            // 
+            blueLabel.AutoSize = true;
+            blueLabel.Location = new System.Drawing.Point(133, 116);
+            blueLabel.Name = "blueLabel";
+            blueLabel.Size = new System.Drawing.Size(28, 13);
+            blueLabel.TabIndex = 15;
+            blueLabel.Text = "Blue";
+            // 
             // basicColorsPictureBox
             // 
             this.basicColorsPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -148,33 +175,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.blueNumericUpDown.Size = new System.Drawing.Size(53, 20);
             this.blueNumericUpDown.TabIndex = 12;
             this.blueNumericUpDown.ValueChanged += new System.EventHandler(this.RgbValueChanged);
-            // 
-            // redLabel
-            // 
-            redLabel.AutoSize = true;
-            redLabel.Location = new System.Drawing.Point(133, 22);
-            redLabel.Name = "redLabel";
-            redLabel.Size = new System.Drawing.Size(27, 13);
-            redLabel.TabIndex = 5;
-            redLabel.Text = "Red";
-            // 
-            // greenLabel
-            // 
-            greenLabel.AutoSize = true;
-            greenLabel.Location = new System.Drawing.Point(133, 69);
-            greenLabel.Name = "greenLabel";
-            greenLabel.Size = new System.Drawing.Size(36, 13);
-            greenLabel.TabIndex = 14;
-            greenLabel.Text = "Green";
-            // 
-            // blueLabel
-            // 
-            blueLabel.AutoSize = true;
-            blueLabel.Location = new System.Drawing.Point(133, 116);
-            blueLabel.Name = "blueLabel";
-            blueLabel.Size = new System.Drawing.Size(28, 13);
-            blueLabel.TabIndex = 15;
-            blueLabel.Text = "Blue";
             // 
             // newColorToolTip
             // 
