@@ -75,7 +75,7 @@ namespace EpicEdit.UI.TrackEdition
                     this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
 
                     this.speedNumericUpDown.ValueChanged -= this.SpeedNumericUpDownValueChanged;
-                    this.speedNumericUpDown.Value = this.selectedElement.Speed + 1;
+                    this.speedNumericUpDown.Value = this.selectedElement.Speed;
                     this.speedNumericUpDown.ValueChanged += this.SpeedNumericUpDownValueChanged;
 
                     this.shapeComboBox.SelectedIndexChanged -= this.ShapeComboBoxSelectedIndexChanged;
@@ -134,7 +134,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            this.selectedElement.Speed = (byte)(this.speedNumericUpDown.Value - 1);
+            this.selectedElement.Speed = (byte)this.speedNumericUpDown.Value;
 
             this.DataChanged(this, EventArgs.Empty);
         }

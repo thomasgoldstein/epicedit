@@ -211,7 +211,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            int palIndex = (int)this.tilePaletteNumericUpDown.Value - 1;
+            int palIndex = (int)this.tilePaletteNumericUpDown.Value;
             this.SelectedRoadTile.Palette = this.track.Theme.Palettes[palIndex];
             this.track.Theme.RoadTileset.Modified = true;
 
@@ -245,7 +245,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTilePalette()
         {
-            this.tilePaletteNumericUpDown.Value = this.SelectedRoadTile.Palette.Index + 1;
+            this.tilePaletteNumericUpDown.Value = this.SelectedRoadTile.Palette.Index;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)

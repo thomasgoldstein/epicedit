@@ -193,7 +193,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             Tile2bppProperties properties = this.TileProperties;
 
-            int value = (int)this.paletteNumericUpDown.Value - 1;
+            int value = (int)this.paletteNumericUpDown.Value;
             properties.PaletteIndex = value / 4;
             properties.SubPaletteIndex = (value & 0x3) * 4;
 
@@ -234,7 +234,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.TileProperties = e.Value2;
 
             this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.paletteNumericUpDown.Value = 1 + (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
+            this.paletteNumericUpDown.Value = (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
             this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
 
             bool flipX = (this.TileProperties.Flip & Flip.X) != 0;

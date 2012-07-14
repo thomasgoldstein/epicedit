@@ -79,10 +79,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilesetComboBox.SelectedItem = value.ObjectTileset;
                 this.interactComboBox.SelectedItem = value.ObjectInteraction;
                 this.routineComboBox.SelectedItem = value.ObjectRoutine;
-                this.palette1NumericUpDown.Value = value.ObjectPaletteIndexes[0] + 1;
-                this.palette2NumericUpDown.Value = value.ObjectPaletteIndexes[1] + 1;
-                this.palette3NumericUpDown.Value = value.ObjectPaletteIndexes[2] + 1;
-                this.palette4NumericUpDown.Value = value.ObjectPaletteIndexes[3] + 1;
+                this.palette1NumericUpDown.Value = value.ObjectPaletteIndexes[0];
+                this.palette2NumericUpDown.Value = value.ObjectPaletteIndexes[1];
+                this.palette3NumericUpDown.Value = value.ObjectPaletteIndexes[2];
+                this.palette4NumericUpDown.Value = value.ObjectPaletteIndexes[3];
                 this.flashingCheckBox.Checked = value.ObjectFlashing;
 
                 this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
@@ -162,7 +162,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            this.Track.ObjectPaletteIndexes[index] = (byte)(control.Value - 1);
+            this.Track.ObjectPaletteIndexes[index] = (byte)control.Value;
 
             if (index == 0)
             {

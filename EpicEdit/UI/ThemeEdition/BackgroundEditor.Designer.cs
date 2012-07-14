@@ -60,7 +60,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.tilesetPanel = new EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel();
             this.backTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
-            this.paletteNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.paletteNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.frontTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
             this.themeComboBox = new System.Windows.Forms.ComboBox();
             this.flipXButton = new System.Windows.Forms.CheckBox();
@@ -210,23 +210,13 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.paletteNumericUpDown.Location = new System.Drawing.Point(367, 13);
             this.paletteNumericUpDown.Maximum = new decimal(new int[] {
-                                    8,
-                                    0,
-                                    0,
-                                    0});
-            this.paletteNumericUpDown.Minimum = new decimal(new int[] {
-                                    1,
+                                    7,
                                     0,
                                     0,
                                     0});
             this.paletteNumericUpDown.Name = "paletteNumericUpDown";
             this.paletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.paletteNumericUpDown.TabIndex = 10;
-            this.paletteNumericUpDown.Value = new decimal(new int[] {
-                                    1,
-                                    0,
-                                    0,
-                                    0});
             this.paletteNumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // frontTilePanel
@@ -328,7 +318,7 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel tilesetPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel backTilePanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel frontTilePanel;
-        private System.Windows.Forms.NumericUpDown paletteNumericUpDown;
+        private EpicEdit.UI.Tools.EpicNumericUpDown paletteNumericUpDown;
         private System.Windows.Forms.Button rewindButton;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel frontLayerPanel;
