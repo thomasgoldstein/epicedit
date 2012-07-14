@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.exportPalettesButton.Name = "exportPalettesButton";
             this.exportPalettesButton.Size = new System.Drawing.Size(24, 24);
             this.exportPalettesButton.TabIndex = 7;
-            this.buttonToolTip.SetToolTip(this.exportPalettesButton, "Export all theme 16 palettes");
+            this.buttonToolTip.SetToolTip(this.exportPalettesButton, "Export all 16 theme palettes");
             this.exportPalettesButton.UseVisualStyleBackColor = true;
             this.exportPalettesButton.Click += new System.EventHandler(this.ExportPalettesButtonClick);
             // 
