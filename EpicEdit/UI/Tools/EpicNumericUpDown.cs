@@ -25,43 +25,37 @@ namespace EpicEdit.UI.Tools
         private const int StartValue = 1;
 
         /// <summary>
-        /// Specifices whether the text is being changed (during control initialization, or by the user).
+        /// Disables the text validation.
         /// </summary>
-        private bool changingText = false;
+        private bool suppressValidation = false;
 
         private decimal DisplayedValue
         {
             get { return this.Value + StartValue; }
         }
 
-        protected override void OnTextBoxTextChanged(object source, EventArgs e)
+        protected override void UpdateEditText()
         {
-            if (this.Text == this.DisplayedValue.ToString())
+            this.suppressValidation = true;
+            this.Text = this.DisplayedValue.ToString();
+            this.suppressValidation = false;
+        }
+
+        protected override void ValidateEditText()
+        {
+            if (this.suppressValidation)
             {
-                // Do not call the base OnTextBoxTextChanged, otherwise the UpdateEditText logic
-                // will cause the Value to be updated again, causing the Text to be updated again, and so on.
+                // Avoid infinite recursion between UpdateEditText and this method.
                 return;
             }
 
-            this.changingText = true;
-            base.OnTextBoxTextChanged(source, e);
-        }
-
-        protected override void UpdateEditText()
-        {
-            if (this.changingText)
-            {
-                this.ParseEditText();
-            }
-
-            this.Text = this.DisplayedValue.ToString();
+            this.ParseEditText();
+            this.UpdateEditText();
         }
 
         private new void ParseEditText()
         {
             // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
-
-            this.changingText = false;
 
             decimal value;
             if (decimal.TryParse(this.Text, out value))
