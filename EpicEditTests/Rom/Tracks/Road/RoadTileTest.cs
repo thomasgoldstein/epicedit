@@ -16,9 +16,10 @@ using System;
 using System.Drawing;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Road;
 using NUnit.Framework;
 
-namespace EpicEditTests.Rom.Tracks
+namespace EpicEditTests.Rom.Tracks.Road
 {
     [TestFixture]
     internal class RoadTileTest

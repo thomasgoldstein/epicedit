@@ -24,6 +24,8 @@ using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.UI.Tools.UndoRedo;
 using EpicEdit.UI.TrackEdition;
 using Region = System.Drawing.Region;

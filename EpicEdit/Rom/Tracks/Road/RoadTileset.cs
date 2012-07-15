@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 
-namespace EpicEdit.Rom.Tracks
+namespace EpicEdit.Rom.Tracks.Road
 {
     /// <summary>
     /// Represents a collection of road tiles.

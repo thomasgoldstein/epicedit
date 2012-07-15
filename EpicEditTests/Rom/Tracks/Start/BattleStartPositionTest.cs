@@ -14,9 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Start;
 using NUnit.Framework;
 
-namespace EpicEditTests.Rom.Tracks
+namespace EpicEditTests.Rom.Tracks.Start
 {
     [TestFixture]
     internal class BattleStartPositionTest

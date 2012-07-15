@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.Rom.Tracks
 {

@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using EpicEdit.UI.Gfx;
 
-namespace EpicEdit.Rom.Tracks
+namespace EpicEdit.Rom.Tracks.Road
 {
     /// <summary>
     /// Represents a non-animated track road tile.
