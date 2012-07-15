@@ -27,7 +27,7 @@ namespace EpicEdit.UI.Tools
         /// <summary>
         /// Specifices whether the text is being changed (during control initialization, or by the user).
         /// </summary>
-        private bool textChanging = false;
+        private bool changingText = false;
 
         private decimal DisplayedValue
         {
@@ -43,13 +43,13 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            this.textChanging = true;
+            this.changingText = true;
             base.OnTextBoxTextChanged(source, e);
         }
 
         protected override void UpdateEditText()
         {
-            if (this.textChanging)
+            if (this.changingText)
             {
                 this.ParseEditText();
             }
@@ -61,7 +61,7 @@ namespace EpicEdit.UI.Tools
         {
             // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
 
-            this.textChanging = false;
+            this.changingText = false;
 
             decimal value;
             if (decimal.TryParse(this.Text, out value))
