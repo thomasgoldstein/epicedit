@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Drawing;
 
-namespace EpicEdit.Rom.Tracks
+namespace EpicEdit.Rom.Tracks.Start
 {
     /// <summary>
     /// The lap line of a track.

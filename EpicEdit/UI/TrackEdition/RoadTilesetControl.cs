@@ -19,6 +19,7 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 

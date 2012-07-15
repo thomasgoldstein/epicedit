@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 
-namespace EpicEdit.Rom.Tracks
+namespace EpicEdit.Rom.Tracks.Road
 {
     internal enum RoadTileGenre : byte
     {

@@ -15,10 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition

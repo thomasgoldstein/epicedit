@@ -101,7 +101,6 @@
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Tile.cs" />
     <Compile Include="Rom\Tile2bpp.cs" />
-    <Compile Include="Rom\Tracks\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
@@ -134,19 +133,20 @@
     <Compile Include="Rom\Tracks\Objects\TrackObject.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectMatchRace.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjects.cs" />
-    <Compile Include="Rom\Tracks\LapLine.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
-    <Compile Include="Rom\Tracks\GPStartPosition.cs" />
-    <Compile Include="Rom\Tracks\RoadTileGenre.cs" />
-    <Compile Include="Rom\Tracks\RoadTileset.cs" />
+    <Compile Include="Rom\Tracks\Road\RoadTile.cs" />
+    <Compile Include="Rom\Tracks\Road\RoadTileGenre.cs" />
+    <Compile Include="Rom\Tracks\Road\RoadTileset.cs" />
     <Compile Include="Rom\Tracks\Scenery\Background.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
+    <Compile Include="Rom\Tracks\Start\BattleStartPosition.cs" />
+    <Compile Include="Rom\Tracks\Start\GPStartPosition.cs" />
+    <Compile Include="Rom\Tracks\Start\LapLine.cs" />
     <Compile Include="Rom\Tracks\Theme.cs" />
     <Compile Include="Rom\Tracks\Themes.cs" />
-    <Compile Include="Rom\Tracks\RoadTile.cs" />
     <Compile Include="Rom\Tracks\Track.cs" />
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
     <Compile Include="Rom\Tracks\TrackMap.cs" />
@@ -358,5 +358,9 @@
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rom\Tracks\Road" />
+    <Folder Include="Rom\Tracks\Start" />
   </ItemGroup>
 </Project>

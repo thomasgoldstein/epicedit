@@ -81,21 +81,21 @@
     <Compile Include="Rom\Tile2bppTest.cs" />
     <Compile Include="Rom\TileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
+    <Compile Include="Rom\Tracks\Road\RoadTileTest.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTest.cs" />
+    <Compile Include="Rom\Tracks\Start\BattleStartPositionTest.cs" />
+    <Compile Include="Rom\Tracks\Start\GPStartPositionTest.cs" />
+    <Compile Include="Rom\Tracks\Start\LapLineTest.cs" />
     <Compile Include="Rom\UtilitiesTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
-    <Compile Include="Rom\Tracks\BattleStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\BattleTrackTest.cs" />
     <Compile Include="Rom\Tracks\GPTrackTest.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTest.cs" />
-    <Compile Include="Rom\Tracks\LapLineTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZonesTest.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTest.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilesTest.cs" />
-    <Compile Include="Rom\Tracks\GPStartPositionTest.cs" />
-    <Compile Include="Rom\Tracks\RoadTileTest.cs" />
     <Compile Include="Rom\Tracks\TrackTest.cs" />
     <Compile Include="Smk.cs" />
   </ItemGroup>
@@ -129,5 +129,9 @@
       <Project>{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}</Project>
       <Name>EpicEdit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rom\Tracks\Road" />
+    <Folder Include="Rom\Tracks\Start" />
   </ItemGroup>
 </Project>

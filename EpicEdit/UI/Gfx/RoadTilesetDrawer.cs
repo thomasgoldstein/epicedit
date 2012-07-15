@@ -19,6 +19,7 @@ using System.Drawing.Imaging;
 
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.UI.Gfx
 {
