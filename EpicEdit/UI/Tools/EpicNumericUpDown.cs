@@ -22,22 +22,65 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class EpicNumericUpDown : NumericUpDown
     {
-        public EpicNumericUpDown()
-        {
-            // Because the ParseEditText method cannot be overridden, we cannot have a custom logic
-            // when the user types text in the text box (to substract 1 from the Value). So just disable text editing.
-            this.ReadOnly = true;
-        }
+        private const int StartValue = 1;
 
-        protected override void UpdateEditText()
+        /// <summary>
+        /// Specifices whether the text is being changed (during control initialization, or by the user).
+        /// </summary>
+        private bool textChanging = false;
+
+        private decimal DisplayedValue
         {
-            this.Text = (this.Value + 1).ToString();
+            get { return this.Value + StartValue; }
         }
 
         protected override void OnTextBoxTextChanged(object source, EventArgs e)
         {
-            // Do nothing, we don't want the UpdateEditText logic to cause the Value to be updated again,
-            // causing the Text to be updated again, and so on.
+            if (this.Text == this.DisplayedValue.ToString())
+            {
+                // Do not call the base OnTextBoxTextChanged, otherwise the UpdateEditText logic
+                // will cause the Value to be updated again, causing the Text to be updated again, and so on.
+                return;
+            }
+
+            this.textChanging = true;
+            base.OnTextBoxTextChanged(source, e);
+        }
+
+        protected override void UpdateEditText()
+        {
+            if (this.textChanging)
+            {
+                this.ParseEditText();
+            }
+            else
+            {
+                this.Text = this.DisplayedValue.ToString();
+            }
+        }
+
+        private new void ParseEditText()
+        {
+            // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
+
+            this.textChanging = false;
+
+            decimal value;
+            if (decimal.TryParse(this.Text, out value))
+            {
+                value -= StartValue;
+
+                if (value < this.Minimum)
+                {
+                    value = this.Minimum;
+                }
+                else if (value > this.Maximum)
+                {
+                    value = this.Maximum;
+                }
+
+                this.Value = value;
+            }
         }
     }
 }
