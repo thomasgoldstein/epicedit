@@ -53,10 +53,8 @@ namespace EpicEdit.UI.Tools
             {
                 this.ParseEditText();
             }
-            else
-            {
-                this.Text = this.DisplayedValue.ToString();
-            }
+
+            this.Text = this.DisplayedValue.ToString();
         }
 
         private new void ParseEditText()
