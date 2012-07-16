@@ -284,7 +284,7 @@ namespace EpicEdit.UI.TrackEdition
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
         {
             RoadTileset tileset = this.track.RoadTileset;
-            if (UITools.ImportImage(tileset.GetTiles()))
+            if (UITools.ImportTilesetGraphics(tileset.GetTiles()))
             {
                 this.UpdateTileset();
                 this.track.RoadTileset.Modified = true;
@@ -294,7 +294,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
-            UITools.ExportImage(this.drawer.Image, this.track.Theme.Name + "road");
+            UITools.ExportTilesetGraphics(this.drawer.Image, this.track.Theme.RoadTileset.GetTiles(), this.track.Theme.Name + "road");
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)

@@ -105,60 +105,45 @@ namespace EpicEdit.UI.Tools
             control.MouseEnter += (s, ea) => { toolTip.Active = false; toolTip.Active = true; };
         }
 
-        public static bool ImportImage(Tile[] tileset)
+        public static bool ImportTilesetGraphics(Tile[] tileset)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter =
                     "PNG (*.png)|*.png|" +
-                    "BMP (*.bmp)|*.bmp";
+                    "BMP (*.bmp)|*.bmp|" +
+                    "Raw binary file (*.bin)|*.bin";
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    return UITools.ImportGraphics(ofd.FileName, tileset);
+                    return UITools.ImportTilesetGraphics(ofd.FileName, tileset);
                 }
 
                 return false;
             }
         }
 
-        private static bool ImportGraphics(string filePath, Tile[] tileset)
+        private static bool ImportTilesetGraphics(string filePath, Tile[] tileset)
         {
             try
             {
-                using (Bitmap tilesetImage = new Bitmap(filePath))
+                if (filePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                    filePath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
                 {
-                    int width = tilesetImage.Width;
-                    int height = tilesetImage.Height;
-
-                    if (width % Tile.Size != 0 ||
-                        height % Tile.Size != 0 ||
-                        (width * height) != (tileset.Length * Tile.Size * Tile.Size))
+                    // Import image
+                    using (Bitmap image = new Bitmap(filePath))
                     {
-                        throw new InvalidDataException("Invalid tileset size.");
+                        UITools.ImportTilesetGraphics(image, tileset);
                     }
-
-                    int yTileCount = height / Tile.Size;
-                    int xTileCount = width / Tile.Size;
-
-                    for (int y = 0; y < yTileCount; y++)
-                    {
-                        for (int x = 0; x < xTileCount; x++)
-                        {
-                            Bitmap tileImage = tilesetImage.Clone(
-                                new Rectangle(x * Tile.Size,
-                                              y * Tile.Size,
-                                              Tile.Size,
-                                              Tile.Size),
-                                PixelFormat.Format32bppPArgb);
-
-                            Tile tile = tileset[y * xTileCount + x];
-                            tile.Bitmap = tileImage;
-                        }
-                    }
-
-                    return true;
                 }
+                else
+                {
+                    // Import raw binary graphics
+                    byte[] data = File.ReadAllBytes(filePath);
+                    UITools.ImportTilesetGraphics(data, tileset);
+                }
+
+                return true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -168,7 +153,7 @@ namespace EpicEdit.UI.Tools
             {
                 UITools.ShowError(ex.Message);
             }
-            catch (InvalidDataException ex)
+            catch (ArgumentOutOfRangeException ex)
             {
                 UITools.ShowError(ex.Message);
             }
@@ -176,35 +161,87 @@ namespace EpicEdit.UI.Tools
             return false;
         }
 
-        public static void ExportImage(Image image, string fileName)
+        private static void ImportTilesetGraphics(Bitmap image, Tile[] tileset)
+        {
+            int width = image.Width;
+            int height = image.Height;
+
+            if (width % Tile.Size != 0 ||
+                height % Tile.Size != 0 ||
+                (width * height) != (tileset.Length * Tile.Size * Tile.Size))
+            {
+                throw new ArgumentOutOfRangeException("image", "Invalid tileset size.");
+            }
+
+            int yTileCount = height / Tile.Size;
+            int xTileCount = width / Tile.Size;
+
+            for (int y = 0; y < yTileCount; y++)
+            {
+                for (int x = 0; x < xTileCount; x++)
+                {
+                    Bitmap tileImage = image.Clone(
+                        new Rectangle(x * Tile.Size,
+                                      y * Tile.Size,
+                                      Tile.Size,
+                                      Tile.Size),
+                        PixelFormat.Format32bppPArgb);
+
+                    Tile tile = tileset[y * xTileCount + x];
+                    tile.Bitmap = tileImage;
+                }
+            }
+        }
+
+        private static void ImportTilesetGraphics(byte[] data, Tile[] tileset)
+        {
+            int tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
+            int tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+
+            if (data.Length != tileset.Length * tileLength)
+            {
+                throw new ArgumentOutOfRangeException("data", "Invalid tileset size.");
+            }
+
+            byte[][] tileData = Utilities.ReadBlockGroup(data, 0, tileLength, tileset.Length);
+
+            for (int i = 0; i < tileset.Length; i++)
+            {
+                Tile tile = tileset[i];
+                tile.Graphics = tileData[i];
+            }
+        }
+
+        public static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter =
                     "PNG (*.png)|*.png|" +
-                    "BMP (*.bmp)|*.bmp";
+                    "BMP (*.bmp)|*.bmp|" +
+                    "Raw binary file (*.bin)|*.bin";
 
                 sfd.FileName = UITools.SanitizeFileName(fileName);
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    ImageFormat format;
-
-                    switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
-                    {
-                        default:
-                        case ".PNG":
-                            format = ImageFormat.Png;
-                            break;
-
-                        case ".BMP":
-                            format = ImageFormat.Bmp;
-                            break;
-                    }
-
                     try
                     {
-                        image.Save(sfd.FileName, format);
+                        switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
+                        {
+                            case ".PNG":
+                                image.Save(sfd.FileName, ImageFormat.Png);
+                                break;
+
+                            case ".BMP":
+                                image.Save(sfd.FileName, ImageFormat.Bmp);
+                                break;
+
+                            default:
+                            case ".BIN":
+                                File.WriteAllBytes(sfd.FileName, UITools.GetTilesetBytes(tileset));
+                                break;
+                        }
                     }
                     catch (UnauthorizedAccessException ex)
                     {
@@ -216,6 +253,22 @@ namespace EpicEdit.UI.Tools
                     }
                 }
             }
+        }
+
+        private static byte[] GetTilesetBytes(Tile[] tileset)
+        {
+            int tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
+            int tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+
+            byte[] data = new byte[tileset.Length * tileLength];
+
+            for (int i = 0; i < tileset.Length; i++)
+            {
+                Tile tile = tileset[i];
+                Buffer.BlockCopy(tile.Graphics, 0, data, i * tileLength, tile.Graphics.Length);
+            }
+
+            return data;
         }
     }
 }
