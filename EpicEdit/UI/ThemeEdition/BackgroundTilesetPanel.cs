@@ -87,7 +87,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void ExportImage()
         {
-            UITools.ExportImage(this.drawer.Image, this.Theme.Name + "bg");
+            UITools.ExportTilesetGraphics(this.drawer.Image, this.Theme.Background.Tileset.GetTiles(), this.Theme.Name + "bg");
         }
 
         protected override void OnSizeChanged(EventArgs e)
