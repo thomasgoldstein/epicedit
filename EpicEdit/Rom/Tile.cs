@@ -40,7 +40,20 @@ namespace EpicEdit.Rom
             }
         }
 
-        public byte[] Graphics { get; protected set; }
+        private byte[] graphics;
+        public byte[] Graphics
+        {
+            get { return this.graphics; }
+            set
+            {
+                this.graphics = value;
+
+                if (this.bitmap != null)
+                {
+                    this.UpdateBitmap();
+                }
+            }
+        }
 
         protected Bitmap bitmap;
         public Bitmap Bitmap
