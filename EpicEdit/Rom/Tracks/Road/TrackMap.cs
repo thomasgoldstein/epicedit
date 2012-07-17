@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace EpicEdit.Rom.Tracks
+namespace EpicEdit.Rom.Tracks.Road
 {
     /// <summary>
     /// The map layout of a track.

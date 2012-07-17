@@ -16,6 +16,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 
+using EpicEdit.Rom.Tracks.Road;
+
 namespace EpicEdit.Rom.Tracks.AI
 {
     internal enum Shape
