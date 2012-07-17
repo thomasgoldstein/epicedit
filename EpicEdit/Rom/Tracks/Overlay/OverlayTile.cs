@@ -13,9 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
+using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {

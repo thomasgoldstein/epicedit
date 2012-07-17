@@ -22,6 +22,7 @@ using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
 
 namespace EpicEdit.Rom

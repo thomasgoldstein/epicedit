@@ -138,6 +138,7 @@
     <Compile Include="Rom\Tracks\Road\RoadTile.cs" />
     <Compile Include="Rom\Tracks\Road\RoadTileGenre.cs" />
     <Compile Include="Rom\Tracks\Road\RoadTileset.cs" />
+    <Compile Include="Rom\Tracks\Road\TrackMap.cs" />
     <Compile Include="Rom\Tracks\Scenery\Background.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Rom\Tracks\Themes.cs" />
     <Compile Include="Rom\Tracks\Track.cs" />
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
-    <Compile Include="Rom\Tracks\TrackMap.cs" />
     <Compile Include="Rom\Utilities.cs" />
     <Compile Include="UI\Context.cs" />
     <Compile Include="UI\Gfx\BackgroundDrawer.cs" />
