@@ -47,11 +47,7 @@ namespace EpicEdit.Rom
             set
             {
                 this.graphics = value;
-
-                if (this.bitmap != null)
-                {
-                    this.UpdateBitmap();
-                }
+                this.UpdateBitmap();
             }
         }
 
