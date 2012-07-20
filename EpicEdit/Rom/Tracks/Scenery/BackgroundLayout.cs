@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// <summary>
         /// How many bytes a whole background layout takes up.
         /// </summary>
-        private const int TotalSize = FrontLayerSize + BackLayerSize;
+        public const int Size = FrontLayerSize + BackLayerSize;
 
         private byte[][] frontLayer;
         private byte[][] backLayer;
@@ -93,10 +93,15 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundLayout(byte[] data)
         {
-            if (data.Length != TotalSize)
+            this.Load(data);
+        }
+
+        public void Load(byte[] data)
+        {
+            if (data.Length != Size)
             {
                 throw new ArgumentOutOfRangeException("data",
-                    "The background layout must have a length of " + TotalSize + ".");
+                    "The background layout must have a length of " + Size + ".");
             }
 
             this.frontLayer = GetLayer(data, 0, FrontLayerRowSize);
@@ -140,7 +145,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[TotalSize];
+            byte[] data = new byte[Size];
             SetBytes(data, this.frontLayer, 0);
             SetBytes(data, this.backLayer, FrontLayerSize);
             return data;
