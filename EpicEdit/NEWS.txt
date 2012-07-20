@@ -4,7 +4,8 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.x (???)
-- Added ability to import and export color palettes and item probabilities
+- Added ability to import and export color palettes, background layouts
+  and item probabilities
 - Added ability to import and export road and background tilesets as binary
 - Fixed possible GP starting position second row offset loading issue
   (regressed in 2.1)
