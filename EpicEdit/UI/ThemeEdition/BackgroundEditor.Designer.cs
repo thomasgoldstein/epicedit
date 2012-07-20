@@ -68,6 +68,10 @@ namespace EpicEdit.UI.ThemeEdition
             this.importGraphicsButton = new System.Windows.Forms.Button();
             this.exportGraphicsButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.exportLayoutButton = new System.Windows.Forms.Button();
+            this.importLayoutButton = new System.Windows.Forms.Button();
+            this.graphicsGroupBox = new System.Windows.Forms.GroupBox();
+            this.layoutGroupBox = new System.Windows.Forms.GroupBox();
             previewGroupBox = new System.Windows.Forms.GroupBox();
             frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             backLayerGroupBox = new System.Windows.Forms.GroupBox();
@@ -78,6 +82,8 @@ namespace EpicEdit.UI.ThemeEdition
             frontLayerGroupBox.SuspendLayout();
             backLayerGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
+            this.graphicsGroupBox.SuspendLayout();
+            this.layoutGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // previewGroupBox
@@ -189,7 +195,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // tilesetPanel
             // 
-            this.tilesetPanel.Location = new System.Drawing.Point(538, 66);
+            this.tilesetPanel.Location = new System.Drawing.Point(538, 59);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(64, 192);
             this.tilesetPanel.TabIndex = 17;
@@ -266,10 +272,10 @@ namespace EpicEdit.UI.ThemeEdition
             // importGraphicsButton
             // 
             this.importGraphicsButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importGraphicsButton.Location = new System.Drawing.Point(548, 264);
+            this.importGraphicsButton.Location = new System.Drawing.Point(6, 14);
             this.importGraphicsButton.Name = "importGraphicsButton";
             this.importGraphicsButton.Size = new System.Drawing.Size(24, 24);
-            this.importGraphicsButton.TabIndex = 18;
+            this.importGraphicsButton.TabIndex = 19;
             this.buttonToolTip.SetToolTip(this.importGraphicsButton, "Import graphics");
             this.importGraphicsButton.UseVisualStyleBackColor = true;
             this.importGraphicsButton.Click += new System.EventHandler(this.ImportGraphicsButtonClick);
@@ -277,18 +283,62 @@ namespace EpicEdit.UI.ThemeEdition
             // exportGraphicsButton
             // 
             this.exportGraphicsButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportGraphicsButton.Location = new System.Drawing.Point(578, 264);
+            this.exportGraphicsButton.Location = new System.Drawing.Point(34, 14);
             this.exportGraphicsButton.Name = "exportGraphicsButton";
             this.exportGraphicsButton.Size = new System.Drawing.Size(24, 24);
-            this.exportGraphicsButton.TabIndex = 19;
+            this.exportGraphicsButton.TabIndex = 20;
             this.buttonToolTip.SetToolTip(this.exportGraphicsButton, "Export graphics");
             this.exportGraphicsButton.UseVisualStyleBackColor = true;
             this.exportGraphicsButton.Click += new System.EventHandler(this.ExportGraphicsButtonClick);
             // 
+            // exportLayoutButton
+            // 
+            this.exportLayoutButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportLayoutButton.Location = new System.Drawing.Point(34, 14);
+            this.exportLayoutButton.Name = "exportLayoutButton";
+            this.exportLayoutButton.Size = new System.Drawing.Size(24, 24);
+            this.exportLayoutButton.TabIndex = 23;
+            this.buttonToolTip.SetToolTip(this.exportLayoutButton, "Export layout");
+            this.exportLayoutButton.UseVisualStyleBackColor = true;
+            this.exportLayoutButton.Click += new System.EventHandler(this.ExportLayoutButtonClick);
+            // 
+            // importLayoutButton
+            // 
+            this.importLayoutButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importLayoutButton.Location = new System.Drawing.Point(6, 14);
+            this.importLayoutButton.Name = "importLayoutButton";
+            this.importLayoutButton.Size = new System.Drawing.Size(24, 24);
+            this.importLayoutButton.TabIndex = 22;
+            this.buttonToolTip.SetToolTip(this.importLayoutButton, "Import layout");
+            this.importLayoutButton.UseVisualStyleBackColor = true;
+            this.importLayoutButton.Click += new System.EventHandler(this.ImportLayoutButtonClick);
+            // 
+            // graphicsGroupBox
+            // 
+            this.graphicsGroupBox.Controls.Add(this.importGraphicsButton);
+            this.graphicsGroupBox.Controls.Add(this.exportGraphicsButton);
+            this.graphicsGroupBox.Location = new System.Drawing.Point(538, 257);
+            this.graphicsGroupBox.Name = "graphicsGroupBox";
+            this.graphicsGroupBox.Size = new System.Drawing.Size(64, 44);
+            this.graphicsGroupBox.TabIndex = 18;
+            this.graphicsGroupBox.TabStop = false;
+            this.graphicsGroupBox.Text = "Graphics";
+            // 
+            // layoutGroupBox
+            // 
+            this.layoutGroupBox.Controls.Add(this.importLayoutButton);
+            this.layoutGroupBox.Controls.Add(this.exportLayoutButton);
+            this.layoutGroupBox.Location = new System.Drawing.Point(538, 301);
+            this.layoutGroupBox.Name = "layoutGroupBox";
+            this.layoutGroupBox.Size = new System.Drawing.Size(64, 44);
+            this.layoutGroupBox.TabIndex = 21;
+            this.layoutGroupBox.TabStop = false;
+            this.layoutGroupBox.Text = "Layout";
+            // 
             // BackgroundEditor
             // 
-            this.Controls.Add(this.exportGraphicsButton);
-            this.Controls.Add(this.importGraphicsButton);
+            this.Controls.Add(this.layoutGroupBox);
+            this.Controls.Add(this.graphicsGroupBox);
             this.Controls.Add(this.flipYButton);
             this.Controls.Add(this.flipXButton);
             this.Controls.Add(this.tilesetPanel);
@@ -308,8 +358,14 @@ namespace EpicEdit.UI.ThemeEdition
             frontLayerGroupBox.ResumeLayout(false);
             backLayerGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
+            this.graphicsGroupBox.ResumeLayout(false);
+            this.layoutGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.GroupBox layoutGroupBox;
+        private System.Windows.Forms.GroupBox graphicsGroupBox;
+        private System.Windows.Forms.Button importLayoutButton;
+        private System.Windows.Forms.Button exportLayoutButton;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button exportGraphicsButton;
         private System.Windows.Forms.Button importGraphicsButton;

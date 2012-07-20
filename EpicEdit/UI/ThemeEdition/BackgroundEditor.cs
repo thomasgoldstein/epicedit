@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -329,6 +330,88 @@ namespace EpicEdit.UI.ThemeEdition
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
             this.tilesetPanel.ExportImage();
+        }
+
+        private void ImportLayoutButtonClick(object sender, EventArgs e)
+        {
+            BackgroundTileset tileset = this.Theme.Background.Tileset;
+            if (this.ImportBackgroundLayout())
+            {
+                this.LoadTheme();
+                tileset.Modified = true;
+            }
+        }
+
+        private bool ImportBackgroundLayout()
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Raw binary file (*.bin)|*.bin";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    return this.ImportBackgroundLayout(ofd.FileName);
+                }
+
+                return false;
+            }
+        }
+
+        private bool ImportBackgroundLayout(string filePath)
+        {
+            try
+            {
+                byte[] data = File.ReadAllBytes(filePath);
+                this.Theme.Background.Layout.Load(data);
+                return true;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+
+            return false;
+        }
+
+        private void ExportLayoutButtonClick(object sender, EventArgs e)
+        {
+            this.ExportBackgroundLayout();
+        }
+
+        private void ExportBackgroundLayout()
+        {
+            Theme theme = this.Theme;
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Raw binary file (*.bin)|*.bin";
+
+                sfd.FileName = UITools.SanitizeFileName(theme.Name + "bg map");
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.WriteAllBytes(sfd.FileName, theme.Background.Layout.GetBytes());
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                    catch (IOException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                }
+            }
         }
     }
 }
