@@ -478,7 +478,7 @@ namespace EpicEdit.UI.ThemeEdition
             try
             {
                 byte[] data = File.ReadAllBytes(filePath);
-                this.itemProbabilities.Load(data);
+                this.itemProbabilities.SetBytes(data);
                 this.Init();
             }
             catch (UnauthorizedAccessException ex)

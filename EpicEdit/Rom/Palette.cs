@@ -72,11 +72,11 @@ namespace EpicEdit.Rom
             this.colors = new RomColor[Palette.ColorCount];
             this.backupData = data;
 
-            this.Load(data);
+            this.SetBytes(data);
             this.Modified = false;
         }
 
-        public void Load(byte[] data)
+        public void SetBytes(byte[] data)
         {
             if (data.Length != Palette.Size)
             {
@@ -110,7 +110,7 @@ namespace EpicEdit.Rom
         /// </summary>
         public void Reset()
         {
-            this.Load(this.backupData);
+            this.SetBytes(this.backupData);
             this.Modified = false;
         }
 

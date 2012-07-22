@@ -362,7 +362,7 @@ namespace EpicEdit.UI.ThemeEdition
             try
             {
                 byte[] data = File.ReadAllBytes(filePath);
-                this.Theme.Background.Layout.Load(data);
+                this.Theme.Background.Layout.SetBytes(data);
                 return true;
             }
             catch (UnauthorizedAccessException ex)

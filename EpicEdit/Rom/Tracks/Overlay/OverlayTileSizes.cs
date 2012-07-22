@@ -51,10 +51,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSizes(byte[] data)
         {
-            this.Load(data);
+            this.SetBytes(data);
         }
 
-        private void Load(byte[] data)
+        private void SetBytes(byte[] data)
         {
             this.sizes = new OverlayTileSize[OverlayTileSizes.Count];
             byte[][] mData = Utilities.ReadBlockGroup(data, 0, OverlayTileSize.Size, OverlayTileSizes.Count);
