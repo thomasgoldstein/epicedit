@@ -269,7 +269,7 @@ namespace EpicEdit.Rom.ThemeEdition
             try
             {
                 byte[] data = File.ReadAllBytes(filePath);
-                this.Theme.Palettes.Load(data);
+                this.Theme.Palettes.SetBytes(data);
                 this.UpdatePalette();
                 this.PalettesChanged(this, EventArgs.Empty);
             }

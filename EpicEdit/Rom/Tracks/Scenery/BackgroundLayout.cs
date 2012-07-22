@@ -93,10 +93,10 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundLayout(byte[] data)
         {
-            this.Load(data);
+            this.SetBytes(data);
         }
 
-        public void Load(byte[] data)
+        public void SetBytes(byte[] data)
         {
             if (data.Length != Size)
             {

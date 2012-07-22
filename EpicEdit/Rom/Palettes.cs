@@ -58,7 +58,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        public void Load(byte[] data)
+        public void SetBytes(byte[] data)
         {
             if (data.Length != Size)
             {
@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < count; i++)
             {
                 byte[] paletteData = Palettes.GetPaletteData(data, i);
-                this.palettes[i].Load(paletteData);
+                this.palettes[i].SetBytes(paletteData);
             }
         }
 

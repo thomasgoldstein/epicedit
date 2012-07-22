@@ -83,7 +83,7 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        public void Load(byte[] data)
+        public void SetBytes(byte[] data)
         {
             if (data.Length != ItemProbabilities.Size)
             {
@@ -93,7 +93,7 @@ namespace EpicEdit.Rom.Tracks.Items
             for (int i = 0; i < ItemProbabilities.Count; i++)
             {
                 byte[] itemData = ItemProbabilities.GetItemData(data, i);
-                this.itemProbabilities[i].Load(itemData);
+                this.itemProbabilities[i].SetBytes(itemData);
             }
         }
 
