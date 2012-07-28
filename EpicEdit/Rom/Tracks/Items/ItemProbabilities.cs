@@ -57,13 +57,19 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal class ItemProbabilities
     {
-        // The number of themes (Bowser Castle and Rainbow Road being mixed).
+        /// <summary>
+        /// The number of themes (Bowser Castle and Rainbow Road being mixed).
+        /// </summary>
         private const int ThemeCount = 7;
 
-        // The number of lap / rank combinations.
+        /// <summary>
+        /// The number of lap / rank combinations.
+        /// </summary>
         private const int LapRankCount = 3;
 
-        // The number of modes (GP and Match Race).
+        /// <summary>
+        /// The number of modes (GP and Match Race).
+        /// </summary>
         private const int ModeCount = 2;
 
         private const int Count = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
