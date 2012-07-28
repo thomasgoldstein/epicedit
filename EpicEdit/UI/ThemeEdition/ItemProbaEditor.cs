@@ -94,7 +94,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemProbabilities = Context.Game.ItemProbabilities;
 
             this.InitModeComboBox();
-            this.InitThemeComboBox();
+            this.InitSetComboBox();
             this.InitLapRankComboBox();
             this.InitItemBoxDisplayOptionComboBox();
 
@@ -121,20 +121,18 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.SelectedIndex = 0;
         }
 
-        private void InitThemeComboBox()
+        private void InitSetComboBox()
         {
-            this.themeComboBox.BeginUpdate();
-            this.themeComboBox.Items.Clear();
+            this.setComboBox.BeginUpdate();
+            this.setComboBox.Items.Clear();
 
-            Themes themes = Context.Game.Themes;
-            for (int i = 0; i < themes.Count - 2; i++)
+            for (int i = 0; i < ItemProbabilities.SetCount; i++)
             {
-                this.themeComboBox.Items.Add(themes[i].Name);
+                this.setComboBox.Items.Add("Probability set " + (i + 1));
             }
 
-            this.themeComboBox.Items.Add(themes[themes.Count - 2].Name + "/ " + themes[themes.Count - 1].Name);
-            this.themeComboBox.EndUpdate();
-            this.themeComboBox.SelectedIndex = 0;
+            this.setComboBox.EndUpdate();
+            this.setComboBox.SelectedIndex = 0;
         }
 
         private void InitLapRankComboBox()
@@ -195,7 +193,7 @@ namespace EpicEdit.UI.ThemeEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0: // GP
-                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.Theme, (GrandprixCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.setComboBox.SelectedIndex, (GrandprixCondition)this.lapRankComboBox.SelectedItem);
                     if (this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                         this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
                     {
@@ -204,7 +202,7 @@ namespace EpicEdit.UI.ThemeEdition
                     break;
 
                 case 1: // Match Race
-                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.Theme, (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.setComboBox.SelectedIndex, (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
                     break;
 
                 case 2: // Battle Mode
@@ -299,52 +297,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         #endregion Fields initialization and display
 
-        #region Getters / converters for the ComboBoxes
-
-        private ItemProbaTheme Theme
-        {
-            get
-            {
-                ItemProbaTheme theme;
-
-                switch (this.themeComboBox.SelectedIndex)
-                {
-                    case 0:
-                        theme = ItemProbaTheme.GhostValley;
-                        break;
-
-                    default:
-                    case 1:
-                        theme = ItemProbaTheme.MarioCircuit;
-                        break;
-
-                    case 2:
-                        theme = ItemProbaTheme.DonutPlains;
-                        break;
-
-                    case 3:
-                        theme = ItemProbaTheme.ChocoIsland;
-                        break;
-
-                    case 4:
-                        theme = ItemProbaTheme.VanillaLake;
-                        break;
-
-                    case 5:
-                        theme = ItemProbaTheme.KoopaBeach;
-                        break;
-
-                    case 6:
-                        theme = ItemProbaTheme.BowserCastleAndRainbowRoad;
-                        break;
-                }
-
-                return theme;
-            }
-        }
-
-        #endregion Getters / converters for the ComboBoxes
-
         #region Events handlers
 
         private void ValueChanged(object sender, EventArgs e)
@@ -400,14 +352,14 @@ namespace EpicEdit.UI.ThemeEdition
             this.InitLapRankComboBox();
             this.InitItemBoxDisplayOptionComboBox();
             this.lapRankComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
-            this.themeComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
+            this.setComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
             if (this.modeComboBox.SelectedIndex == 2)
             {
-                this.themeComboBox.SelectedItem = null;
+                this.setComboBox.SelectedItem = null;
             }
-            else if (this.themeComboBox.SelectedItem == null)
+            else if (this.setComboBox.SelectedItem == null)
             {
-                this.themeComboBox.SelectedIndex = 0;
+                this.setComboBox.SelectedIndex = 0;
             }
 
             this.itemBoxDisplayOptions.Enabled = this.modeComboBox.SelectedIndex != 2;
@@ -428,7 +380,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.performEvents)
             {
@@ -440,7 +392,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void UpdateIconThemes()
         {
-            int index = this.themeComboBox.SelectedIndex;
+            // FIXME: Do not update icons based on the selected probability set. Maybe use the current track theme instead.
+            int index = this.setComboBox.SelectedIndex;
             this.mushroomPanel.ThemeIndex = index;
             this.featherPanel.ThemeIndex = index;
             this.starPanel.ThemeIndex = index;

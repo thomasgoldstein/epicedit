@@ -44,7 +44,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label totalLabel;
-            this.themeComboBox = new System.Windows.Forms.ComboBox();
+            this.setComboBox = new System.Windows.Forms.ComboBox();
             this.modeComboBox = new System.Windows.Forms.ComboBox();
             this.totalPctLabel = new System.Windows.Forms.Label();
             this.lightningPctLabel = new System.Windows.Forms.Label();
@@ -111,15 +111,15 @@ namespace EpicEdit.UI.ThemeEdition
             totalLabel.TabIndex = 35;
             totalLabel.Text = "Total";
             // 
-            // themeComboBox
+            // setComboBox
             // 
-            this.themeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.themeComboBox.FormattingEnabled = true;
-            this.themeComboBox.Location = new System.Drawing.Point(119, 6);
-            this.themeComboBox.Name = "themeComboBox";
-            this.themeComboBox.Size = new System.Drawing.Size(182, 21);
-            this.themeComboBox.TabIndex = 1;
-            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
+            this.setComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.setComboBox.FormattingEnabled = true;
+            this.setComboBox.Location = new System.Drawing.Point(128, 6);
+            this.setComboBox.Name = "setComboBox";
+            this.setComboBox.Size = new System.Drawing.Size(116, 21);
+            this.setComboBox.TabIndex = 1;
+            this.setComboBox.SelectedIndexChanged += new System.EventHandler(this.SetComboBoxSelectedIndexChanged);
             // 
             // modeComboBox
             // 
@@ -127,7 +127,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.modeComboBox.FormattingEnabled = true;
             this.modeComboBox.Location = new System.Drawing.Point(6, 6);
             this.modeComboBox.Name = "modeComboBox";
-            this.modeComboBox.Size = new System.Drawing.Size(107, 21);
+            this.modeComboBox.Size = new System.Drawing.Size(116, 21);
             this.modeComboBox.TabIndex = 0;
             this.modeComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeComboBoxSelectedIndexChanged);
             // 
@@ -526,9 +526,9 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.lapRankComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.lapRankComboBox.FormattingEnabled = true;
-            this.lapRankComboBox.Location = new System.Drawing.Point(307, 6);
+            this.lapRankComboBox.Location = new System.Drawing.Point(250, 6);
             this.lapRankComboBox.Name = "lapRankComboBox";
-            this.lapRankComboBox.Size = new System.Drawing.Size(107, 21);
+            this.lapRankComboBox.Size = new System.Drawing.Size(116, 21);
             this.lapRankComboBox.TabIndex = 2;
             this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
             this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
@@ -536,7 +536,7 @@ namespace EpicEdit.UI.ThemeEdition
             // exportProbabilitiesButton
             // 
             this.exportProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportProbabilitiesButton.Location = new System.Drawing.Point(391, 219);
+            this.exportProbabilitiesButton.Location = new System.Drawing.Point(342, 220);
             this.exportProbabilitiesButton.Name = "exportProbabilitiesButton";
             this.exportProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
             this.exportProbabilitiesButton.TabIndex = 61;
@@ -547,7 +547,7 @@ namespace EpicEdit.UI.ThemeEdition
             // importProbabilitiesButton
             // 
             this.importProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importProbabilitiesButton.Location = new System.Drawing.Point(361, 219);
+            this.importProbabilitiesButton.Location = new System.Drawing.Point(312, 220);
             this.importProbabilitiesButton.Name = "importProbabilitiesButton";
             this.importProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
             this.importProbabilitiesButton.TabIndex = 60;
@@ -563,7 +563,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.lightningPctLabel);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.coinsPctLabel);
-            this.Controls.Add(this.themeComboBox);
+            this.Controls.Add(this.setComboBox);
             this.Controls.Add(this.ghostPctLabel);
             this.Controls.Add(this.lapRankComboBox);
             this.Controls.Add(this.redPctLabel);
@@ -605,7 +605,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.lightningValue);
             this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
-            this.Size = new System.Drawing.Size(420, 250);
+            this.Size = new System.Drawing.Size(370, 250);
             ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
@@ -641,7 +641,7 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.ThemeEdition.ItemIconPanel mushroomPanel;
         private System.Windows.Forms.ComboBox lapRankComboBox;
         private System.Windows.Forms.ComboBox modeComboBox;
-        private System.Windows.Forms.ComboBox themeComboBox;
+        private System.Windows.Forms.ComboBox setComboBox;
         private System.Windows.Forms.NumericUpDown coinsNumericUpDown;
         private System.Windows.Forms.NumericUpDown ghostNumericUpDown;
         private System.Windows.Forms.NumericUpDown redNumericUpDown;

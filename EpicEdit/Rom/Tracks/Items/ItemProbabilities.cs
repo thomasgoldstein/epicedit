@@ -19,17 +19,6 @@ namespace EpicEdit.Rom.Tracks.Items
 {
     #region Enumerations
 
-    internal enum ItemProbaTheme
-    {
-        MarioCircuit = 0,
-        GhostValley = 1,
-        DonutPlains = 2,
-        BowserCastleAndRainbowRoad = 3,
-        ChocoIsland = 4,
-        KoopaBeach = 5,
-        VanillaLake = 6
-    }
-
     internal enum GrandprixCondition
     {
         [Description("Lap 1 or 1st")]
@@ -58,9 +47,9 @@ namespace EpicEdit.Rom.Tracks.Items
     internal class ItemProbabilities
     {
         /// <summary>
-        /// The number of themes (Bowser Castle and Rainbow Road being mixed).
+        /// The number of probability sets.
         /// </summary>
-        private const int ThemeCount = 7;
+        public const int SetCount = 7;
 
         /// <summary>
         /// The number of lap / rank combinations.
@@ -72,7 +61,7 @@ namespace EpicEdit.Rom.Tracks.Items
         /// </summary>
         private const int ModeCount = 2;
 
-        private const int Count = ThemeCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
+        private const int Count = SetCount * LapRankCount * ModeCount + 1; // + 1 for Battle Mode
 
         public const int Size = Count * ItemProbability.Size;
 
@@ -125,15 +114,15 @@ namespace EpicEdit.Rom.Tracks.Items
 
         #region Get single item probability
 
-        public ItemProbability GetGrandprixProbability(ItemProbaTheme theme, GrandprixCondition condition)
+        public ItemProbability GetGrandprixProbability(int setIndex, GrandprixCondition condition)
         {
-            int offset = (int)theme * LapRankCount + (int)condition + (LapRankCount * ThemeCount);
+            int offset = setIndex * LapRankCount + (int)condition + (LapRankCount * SetCount);
             return this.itemProbabilities[offset];
         }
 
-        public ItemProbability GetMatchRaceProbability(ItemProbaTheme theme, MatchRaceCondition condition)
+        public ItemProbability GetMatchRaceProbability(int setIndex, MatchRaceCondition condition)
         {
-            int offset = (int)theme * LapRankCount + (int)condition;
+            int offset = setIndex * LapRankCount + (int)condition;
             return this.itemProbabilities[offset];
         }
 
