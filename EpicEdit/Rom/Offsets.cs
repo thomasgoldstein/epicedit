@@ -172,6 +172,11 @@ namespace EpicEdit.Rom
         CommonTilesetGraphicsLowerBytes,
 
         /// <summary>
+        /// The associations between tracks and item probabilities.
+        /// </summary>
+        TrackItemProbabilityIndexes,
+
+        /// <summary>
         /// Item probabilities.
         /// </summary>
         ItemProbabilities,
@@ -433,6 +438,7 @@ namespace EpicEdit.Rom
             this[Offset.RoadTilesetHack3] = this[Offset.RoadTilesetHack2] + 0x38;
             this[Offset.RoadTilesetHack4] = this[Offset.RoadTilesetHack3] + 0x92;
 
+            this[Offset.TrackItemProbabilityIndexes] = this[Offset.BattleTrackStartPositions] + 0x28;
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
             this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
