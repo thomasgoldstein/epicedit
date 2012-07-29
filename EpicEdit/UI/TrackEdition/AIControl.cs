@@ -87,9 +87,9 @@ namespace EpicEdit.UI.TrackEdition
                     this.shapeComboBox.SelectedIndexChanged += this.ShapeComboBoxSelectedIndexChanged;
                 }
 
-                // Force controls to refresh so that the new data shows up instantly
-                // NOTE: we could do this.selectedAIElementGroupBox.Refresh(); instead
-                // but that would cause some minor flickering
+                // Force controls to refresh so that the new data shows up instantly.
+                // NOTE: We could call this.selectedAIElementGroupBox.Refresh(); instead
+                // but that would cause some minor flickering.
                 this.indexNumericUpDown.Refresh();
                 this.speedNumericUpDown.Refresh();
                 this.shapeComboBox.Refresh();
@@ -99,10 +99,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get
-            {
-                return this.track;
-            }
+            get { return this.track; }
             set
             {
                 this.track = value;
