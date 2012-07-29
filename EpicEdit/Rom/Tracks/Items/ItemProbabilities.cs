@@ -116,14 +116,23 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability GetGrandprixProbability(int setIndex, GrandprixCondition condition)
         {
+            setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition + (LapRankCount * SetCount);
             return this.itemProbabilities[offset];
         }
 
         public ItemProbability GetMatchRaceProbability(int setIndex, MatchRaceCondition condition)
         {
+            setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition;
             return this.itemProbabilities[offset];
+        }
+
+        private static int ConvertSetIndex(int value)
+        {
+            // Item probability indexes need to be converted to retrieve the correct data.
+            int[] reorder = { 1, 0, 2, 4, 6, 5, 3 };
+            return reorder[value];
         }
 
         public ItemProbability GetBattleModeProbability()
