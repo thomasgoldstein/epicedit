@@ -1786,7 +1786,7 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.SelectedTile = null;
             this.UpdateOverlayTileCount();
             this.startControl.Track = this.track;
-            this.aiControl.TrackAI = this.track.AI;
+            this.aiControl.Track = this.track;
             this.hoveredAIElem = null;
 
             if (this.editionMode == EditionMode.Objects)
@@ -2739,6 +2739,11 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();
+        }
+
+        private void AIControlDataChangedNoRepaint(object sender, EventArgs e)
+        {
+            this.trackTreeView.MarkTrackAsChanged();
         }
 
         private void AIControlDeleteRequested(object sender, EventArgs e)
