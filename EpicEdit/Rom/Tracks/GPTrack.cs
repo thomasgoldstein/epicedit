@@ -95,13 +95,16 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
+        public int ItemProbabilityIndex { get; set; }
+
         public GPTrack(string name, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,
                        byte[] objectData, byte[] objectZoneData,
                        OverlayTileSizes overlayTileSizes,
-                       OverlayTilePatterns overlayTilePatterns) :
+                       OverlayTilePatterns overlayTilePatterns,
+                       int itemProbaIndex) :
             base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.StartPosition = new GPStartPosition(startPositionData);
@@ -109,6 +112,7 @@ namespace EpicEdit.Rom.Tracks
             this.Objects = new TrackObjects(objectData);
             this.ObjectZones = new TrackObjectZones(objectZoneData, this);
             this.objectPaletteIndexes = new byte[4];
+            this.ItemProbabilityIndex = itemProbaIndex;
         }
 
         /// <summary>
