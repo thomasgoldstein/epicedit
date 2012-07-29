@@ -423,7 +423,7 @@ namespace EpicEdit.Rom
                         byte[] lapLineData = this.GetLapLineData(trackIndex);
                         byte[] objectData = this.GetObjectData(trackIndex);
                         byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
-                        int itemProbaIndex = this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] << 1;
+                        int itemProbaIndex = this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] >> 1;
 
                         GPTrack gpTrack = new GPTrack(trackName, trackTheme,
                                                       trackMap, overlayTileData,
@@ -1923,7 +1923,7 @@ namespace EpicEdit.Rom
                 this.romBuffer[previewLapLineOffset + 1] = (byte)previewLapLineLocation.Y;
 
                 // Update item probability index
-                this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] = (byte)(gpTrack.ItemProbabilityIndex >> 1);
+                this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] = (byte)(gpTrack.ItemProbabilityIndex << 1);
             }
 
             this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
