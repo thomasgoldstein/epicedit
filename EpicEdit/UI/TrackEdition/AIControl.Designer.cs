@@ -55,12 +55,15 @@ namespace EpicEdit.UI.TrackEdition
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.addButton = new System.Windows.Forms.Button();
             this.warningLabel = new System.Windows.Forms.Label();
+            this.itemProbaGroupBox = new System.Windows.Forms.GroupBox();
+            this.setComboBox = new System.Windows.Forms.ComboBox();
             aiIndexLabel = new System.Windows.Forms.Label();
             shapeLabel = new System.Windows.Forms.Label();
             speedLabel = new System.Windows.Forms.Label();
             this.selectedAIElementGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).BeginInit();
+            this.itemProbaGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // aiIndexLabel
@@ -96,7 +99,7 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
             this.selectedAIElementGroupBox.Controls.Add(speedLabel);
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
-            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 4);
+            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 60);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
             this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
             this.selectedAIElementGroupBox.TabIndex = 1;
@@ -157,7 +160,7 @@ namespace EpicEdit.UI.TrackEdition
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.deleteAllButton.Location = new System.Drawing.Point(102, 219);
+            this.deleteAllButton.Location = new System.Drawing.Point(102, 275);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
             this.deleteAllButton.TabIndex = 2;
@@ -168,7 +171,7 @@ namespace EpicEdit.UI.TrackEdition
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
-            this.addButton.Location = new System.Drawing.Point(73, 219);
+            this.addButton.Location = new System.Drawing.Point(73, 275);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
             this.addButton.TabIndex = 4;
@@ -178,25 +181,48 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 252);
+            this.warningLabel.Location = new System.Drawing.Point(4, 308);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 3;
             this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
             // 
+            // itemProbaGroupBox
+            // 
+            this.itemProbaGroupBox.Controls.Add(this.setComboBox);
+            this.itemProbaGroupBox.Location = new System.Drawing.Point(2, 4);
+            this.itemProbaGroupBox.Name = "itemProbaGroupBox";
+            this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 50);
+            this.itemProbaGroupBox.TabIndex = 8;
+            this.itemProbaGroupBox.TabStop = false;
+            this.itemProbaGroupBox.Text = "Item probabilities";
+            // 
+            // setComboBox
+            // 
+            this.setComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.setComboBox.FormattingEnabled = true;
+            this.setComboBox.Location = new System.Drawing.Point(10, 19);
+            this.setComboBox.Name = "setComboBox";
+            this.setComboBox.Size = new System.Drawing.Size(104, 21);
+            this.setComboBox.TabIndex = 7;
+            // 
             // AIControl
             // 
+            this.Controls.Add(this.itemProbaGroupBox);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.warningLabel);
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 300);
+            this.Size = new System.Drawing.Size(130, 360);
             this.selectedAIElementGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
+            this.itemProbaGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ComboBox setComboBox;
+        private System.Windows.Forms.GroupBox itemProbaGroupBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.ToolTip buttonToolTip;

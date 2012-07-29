@@ -20,6 +20,7 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
+using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
@@ -33,6 +34,9 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> DataChanged;
 
         [Browsable(true)]
+        public event EventHandler<EventArgs> DataChangedNoRepaint;
+
+        [Browsable(true)]
         public event EventHandler<EventArgs> DeleteRequested;
 
         [Browsable(true)]
@@ -42,9 +46,9 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> DeleteAllRequested;
 
         /// <summary>
-        /// The AI of the current track.
+        /// The current track.
         /// </summary>
-        private TrackAI trackAI = null;
+        private Track track = null;
 
         /// <summary>
         /// The selected AI element.
@@ -71,7 +75,7 @@ namespace EpicEdit.UI.TrackEdition
                     this.selectedAIElementGroupBox.Enabled = true;
 
                     this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
-                    this.indexNumericUpDown.Value = this.trackAI.GetElementIndex(this.selectedElement);
+                    this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
                     this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
 
                     this.speedNumericUpDown.ValueChanged -= this.SpeedNumericUpDownValueChanged;
@@ -92,30 +96,55 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        [Browsable(false), DefaultValue(typeof(TrackAI), "")]
-        public TrackAI TrackAI
+        [Browsable(false), DefaultValue(typeof(Track), "")]
+        public Track Track
         {
             get
             {
-                return this.trackAI;
+                return this.track;
             }
             set
             {
-                this.trackAI = value;
+                this.track = value;
 
+                this.LoadItemProbabilitySet();
                 this.SelectedElement = null;
                 this.SetMaximumAIElementIndex();
-
-                this.warningLabel.Visible = this.trackAI.ElementCount == 0;
+                this.warningLabel.Visible = this.track.AI.ElementCount == 0;
             }
         }
 
         public AIControl()
         {
             this.InitializeComponent();
+            this.Init();
+        }
 
+        private void Init()
+        {
+            this.InitSetComboBox();
             this.shapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
-            this.shapeComboBox.SelectedIndexChanged += this.ShapeComboBoxSelectedIndexChanged;
+        }
+
+        private void InitSetComboBox()
+        {
+            this.setComboBox.BeginUpdate();
+
+            for (int i = 0; i < ItemProbabilities.SetCount; i++)
+            {
+                this.setComboBox.Items.Add("Probability set " + (i + 1));
+            }
+
+            this.setComboBox.EndUpdate();
+            this.setComboBox.SelectedIndex = 0;
+        }
+
+        private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            GPTrack gpTrack = this.track as GPTrack;
+            gpTrack.ItemProbabilityIndex = this.setComboBox.SelectedIndex;
+
+            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
 
         private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
@@ -125,9 +154,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            int oldIndex = this.trackAI.GetElementIndex(this.selectedElement);
+            int oldIndex = this.track.AI.GetElementIndex(this.selectedElement);
             int newIndex = (int)this.indexNumericUpDown.Value;
-            this.trackAI.ChangeElementIndex(oldIndex, newIndex);
+            this.track.AI.ChangeElementIndex(oldIndex, newIndex);
 
             this.DataChanged(this, EventArgs.Empty);
         }
@@ -152,10 +181,28 @@ namespace EpicEdit.UI.TrackEdition
             this.DeleteRequested(this, EventArgs.Empty);
         }
 
+        private void LoadItemProbabilitySet()
+        {
+            this.setComboBox.SelectedIndexChanged -= this.SetComboBoxSelectedIndexChanged;
+
+            GPTrack gpTrack = this.track as GPTrack;
+            if (gpTrack != null)
+            {
+                this.setComboBox.Enabled = true;
+                this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
+            }
+            else
+            {
+                this.setComboBox.Enabled = false;
+            }
+
+            this.setComboBox.SelectedIndexChanged += this.SetComboBoxSelectedIndexChanged;
+        }
+
         public void SetMaximumAIElementIndex()
         {
             this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
-            this.indexNumericUpDown.Maximum = this.trackAI.ElementCount - 1;
+            this.indexNumericUpDown.Maximum = this.track.AI.ElementCount - 1;
             this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
         }
 
