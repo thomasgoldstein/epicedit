@@ -557,20 +557,19 @@ namespace EpicEdit.Rom
                     {
                         int index = line.IndexOf(' ');
                         string fieldName = index == -1 ? line : line.Substring(0, index + 1);
+                        fieldName = fieldName.Substring(1); // Remove leading #
 
-                        foreach (KeyValuePair<string, byte[]> field in this.fields)
+                        if (this.fields.ContainsKey(fieldName))
                         {
-                            if (fieldName.Equals("#" + field.Key, StringComparison.OrdinalIgnoreCase))
+                            byte[] data = this.fields[fieldName];
+
+                            if (MakeTrack.IsSingleLineField(fieldName))
                             {
-                                if (MakeTrack.IsSingleLineField(fieldName))
-                                {
-                                    MakeTrack.LoadLineData(field.Value, line);
-                                }
-                                else
-                                {
-                                    MakeTrack.LoadBlockData(field.Value, reader);
-                                }
-                                break;
+                                MakeTrack.LoadLineData(data, line);
+                            }
+                            else
+                            {
+                                MakeTrack.LoadBlockData(data, reader);
                             }
                         }
                     }
