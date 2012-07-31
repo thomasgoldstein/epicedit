@@ -4,6 +4,10 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.x (???)
+- Added support for defining the item probability set for each GP track
+  (under the AI tab), which fixes the previous incorrect assumption
+  that item probabilities depend on the track theme
+  (and extended the .smkc format to include this data)
 - Added ability to import and export color palettes, background layouts
   and item probabilities
 - Added ability to import and export road and background tilesets as binary
@@ -12,6 +16,7 @@ v2.x (???)
 - Fixed background tileset graphics importing logic when the first of the
   4 colors does not match the 1st color of the 1st palette
   (never the case in the original game)
+- Minor tweaks and fixes
 
 
 v2.5.1 (June 25th 2012)
