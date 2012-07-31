@@ -555,11 +555,11 @@ namespace EpicEdit.Rom
                 {
                     if (line != string.Empty && line[0] != ';') // If not empty or a comment
                     {
+                        int index = line.IndexOf(' ');
+                        string fieldName = index == -1 ? line : line.Substring(0, index + 1);
+
                         foreach (KeyValuePair<string, byte[]> field in this.fields)
                         {
-                            int index = line.IndexOf(' ');
-                            string fieldName = index == -1 ? line : line.Substring(0, index + 1);
-
                             if (fieldName.Equals("#" + field.Key, StringComparison.OrdinalIgnoreCase))
                             {
                                 if (MakeTrack.IsSingleLineField(fieldName))
