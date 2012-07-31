@@ -391,6 +391,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private Theme theme;
 
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
             get { return this.theme; }
