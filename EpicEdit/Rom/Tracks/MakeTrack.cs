@@ -134,8 +134,9 @@ namespace EpicEdit.Rom
             set
             {
                 int size = this.OBJ.Length;
-                this.OBJ = value.GetBytes();
-                Array.Resize<byte>(ref this.OBJ, size);
+                byte[] data = value.GetBytes();
+                Array.Resize<byte>(ref data, size);
+                this.OBJ = data;
             }
         }
 
@@ -192,122 +193,226 @@ namespace EpicEdit.Rom
             set { this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) }; }
         }
 
+        private Dictionary<string, byte[]> fields;
+
+        public byte[] this[string name]
+        {
+            get { return this.fields[name]; }
+            set
+            {
+                if (!this.fields.ContainsKey(name))
+                {
+                    this.fields.Add(name, null);
+                }
+
+                this.fields[name] = value;
+            }
+        }
+
         /// <summary>
         /// GP Start Position X.
         /// </summary>
-        private byte[] SP_STX;
+        private byte[] SP_STX
+        {
+            get { return this["SP_STX "]; }
+            set { this["SP_STX "] = value; }
+        }
 
         /// <summary>
         /// GP Start Position Y.
         /// </summary>
-        private byte[] SP_STY;
+        private byte[] SP_STY
+        {
+            get { return this["SP_STY "]; }
+            set { this["SP_STY "] = value; }
+        }
 
         /// <summary>
         /// GP Start Position Width (2nd Row Offset).
         /// </summary>
-        private byte[] SP_STW;
+        private byte[] SP_STW
+        {
+            get { return this["SP_STW "]; }
+            set { this["SP_STW "] = value; }
+        }
 
         /// <summary>
         /// Lap Line Area X.
         /// </summary>
-        private byte[] SP_LSPX;
+        private byte[] SP_LSPX
+        {
+            get { return this["SP_LSPX "]; }
+            set { this["SP_LSPX "] = value; }
+        }
 
         /// <summary>
         /// Lap Line Area Y.
         /// </summary>
-        private byte[] SP_LSPY;
+        private byte[] SP_LSPY
+        {
+            get { return this["SP_LSPY "]; }
+            set { this["SP_LSPY "] = value; }
+        }
 
         /// <summary>
         /// Lap Line Area Width.
         /// </summary>
-        private byte[] SP_LSPW;
+        private byte[] SP_LSPW
+        {
+            get { return this["SP_LSPW "]; }
+            set { this["SP_LSPW "] = value; }
+        }
 
         /// <summary>
         /// Lap Line Area Height.
         /// </summary>
-        private byte[] SP_LSPH;
+        private byte[] SP_LSPH
+        {
+            get { return this["SP_LSPH "]; }
+            set { this["SP_LSPH "] = value; }
+        }
 
         /// <summary>
         /// Lap Line Y.
         /// </summary>
-        private byte[] SP_LSLY;
+        private byte[] SP_LSLY
+        {
+            get { return this["SP_LSLY "]; }
+            set { this["SP_LSLY "] = value; }
+        }
 
         /// <summary>
         /// Theme.
         /// </summary>
-        private byte[] SP_REGION;
-
-        /*/// <summary>
-        /// Object Behavior.
-        /// </summary>
-        private byte[] SP_OPN;*/
-
-        /// <summary>
-        /// Tile Map.
-        /// </summary>
-        private byte[] MAP;
-
-        //private byte[] MAPMASK;
-
-        /// <summary>
-        /// Overlay Tiles.
-        /// </summary>
-        private byte[] GPEX;
-
-        /// <summary>
-        /// AI.
-        /// </summary>
-        private byte[] AREA;
-
-        /// <summary>
-        /// Objects.
-        /// </summary>
-        private byte[] OBJ;
-
-        /// <summary>
-        /// Object View Zones.
-        /// </summary>
-        private byte[] AREA_BORDER;
+        private byte[] SP_REGION
+        {
+            get { return this["SP_REGION "]; }
+            set { this["SP_REGION "] = value; }
+        }
 
         /// <summary>
         /// Battle Starting Position for Player 1.
         /// </summary>
-        private byte[] EE_BATTLESTART1;
+        private byte[] EE_BATTLESTART1
+        {
+            get { return this["EE_BATTLESTART1 "]; }
+            set { this["EE_BATTLESTART1 "] = value; }
+        }
 
         /// <summary>
         /// Battle Starting Position for Player 2.
         /// </summary>
-        private byte[] EE_BATTLESTART2;
+        private byte[] EE_BATTLESTART2
+        {
+            get { return this["EE_BATTLESTART2 "]; }
+            set { this["EE_BATTLESTART2 "] = value; }
+        }
 
         /// <summary>
         /// Object Tileset.
         /// </summary>
-        private byte[] EE_OBJTILESET;
+        private byte[] EE_OBJTILESET
+        {
+            get { return this["EE_OBJTILESET "]; }
+            set { this["EE_OBJTILESET "] = value; }
+        }
 
         /// <summary>
         /// Object Interaction.
         /// </summary>
-        private byte[] EE_OBJINTERACT;
+        private byte[] EE_OBJINTERACT
+        {
+            get { return this["EE_OBJINTERACT "]; }
+            set { this["EE_OBJINTERACT "] = value; }
+        }
 
         /// <summary>
         /// Object Routine.
         /// </summary>
-        private byte[] EE_OBJROUTINE;
+        private byte[] EE_OBJROUTINE
+        {
+            get { return this["EE_OBJROUTINE "]; }
+            set { this["EE_OBJROUTINE "] = value; }
+        }
 
         /// <summary>
         /// Object Palettes.
         /// </summary>
-        private byte[] EE_OBJPALETTES;
+        private byte[] EE_OBJPALETTES
+        {
+            get { return this["EE_OBJPALETTES "]; }
+            set { this["EE_OBJPALETTES "] = value; }
+        }
 
         /// <summary>
         /// Object Flashing.
         /// </summary>
-        private byte[] EE_OBJFLASHING;
+        private byte[] EE_OBJFLASHING
+        {
+            get { return this["EE_OBJFLASHING "]; }
+            set { this["EE_OBJFLASHING "] = value; }
+        }
 
         /// <summary>
         /// Item probability set index.
         /// </summary>
-        private byte[] EE_ITEMPROBA;
+        private byte[] EE_ITEMPROBA
+        {
+            get { return this["EE_ITEMPROBA "]; }
+            set { this["EE_ITEMPROBA "] = value; }
+        }
+
+        // Object Behavior.
+        // NOTE: Data ignored by Epic Edit, supported differently.
+        // private byte[] SP_OPN;
+
+        /// <summary>
+        /// Tile Map.
+        /// </summary>
+        private byte[] MAP
+        {
+            get { return this["MAP"]; }
+            set { this["MAP"] = value; }
+        }
+
+        // NOTE: Data ignored by Epic Edit, supported differently.
+        // private byte[] MAPMASK;
+
+        /// <summary>
+        /// Overlay Tiles.
+        /// </summary>
+        private byte[] GPEX
+        {
+            get { return this["GPEX"]; }
+            set { this["GPEX"] = value; }
+        }
+
+        /// <summary>
+        /// AI.
+        /// </summary>
+        private byte[] AREA
+        {
+            get { return this["AREA"]; }
+            set { this["AREA"] = value; }
+        }
+
+        /// <summary>
+        /// Objects.
+        /// </summary>
+        private byte[] OBJ
+        {
+            get { return this["OBJ"]; }
+            set { this["OBJ"] = value; }
+        }
+
+        /// <summary>
+        /// Object View Zones.
+        /// </summary>
+        private byte[] AREA_BORDER
+        {
+            get { return this["AREA_BORDER"]; }
+            set { this["AREA_BORDER"] = value; }
+        }
 
         public MakeTrack(Track track, Game game)
         {
@@ -317,10 +422,12 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Set fields to default values (in case the imported file or the loaded data is incomplete).
+        /// Initializes fields, and sets default values (in case the imported file or the loaded data is incomplete).
         /// </summary>
         private void InitFields()
         {
+            this.fields = new Dictionary<string, byte[]>();
+
             this.SP_STX = new byte[2];
             this.SP_STY = new byte[2];
             this.SP_STW = new byte[2];
@@ -331,38 +438,39 @@ namespace EpicEdit.Rom
             this.SP_LSLY = new byte[2];
             this.SP_REGION = new byte[] { 0, 2 };
 
-            this.MAP = new byte[TrackMap.SquareSize];
-
-            this.GPEX = new byte[OverlayTiles.Size];
-            for (int i = 0; i < this.GPEX.Length; i++)
-            {
-                this.GPEX[i] = 0xFF;
-            }
-
-            this.AREA = new byte[4064];
-            for (int i = 0; i < this.AREA.Length; i++)
-            {
-                this.AREA[i] = 0xFF;
-            }
-
-            this.OBJ = new byte[64];
-
-            this.AREA_BORDER = new byte[TrackObjectZones.Size];
-            for (int i = 0; i < this.AREA_BORDER.Length; i++)
-            {
-                this.AREA_BORDER[i] = 0xFF;
-            }
-
             this.EE_BATTLESTART1 = new byte[] { 0x00, 0x02, 0x78, 0x02 };
             this.EE_BATTLESTART2 = new byte[] { 0x00, 0x02, 0x88, 0x01 };
-
             this.EE_OBJTILESET = new byte[2];
             this.EE_OBJINTERACT = new byte[2];
             this.EE_OBJROUTINE = new byte[2];
             this.EE_OBJPALETTES = new byte[4];
             this.EE_OBJFLASHING = new byte[2];
-
             this.EE_ITEMPROBA = new byte[2];
+
+            this.MAP = new byte[TrackMap.SquareSize];
+
+            byte[] gpex = new byte[OverlayTiles.Size];
+            for (int i = 0; i < gpex.Length; i++)
+            {
+                gpex[i] = 0xFF;
+            }
+            this.GPEX = gpex;
+
+            byte[] area = new byte[4064];
+            for (int i = 0; i < area.Length; i++)
+            {
+                area[i] = 0xFF;
+            }
+            this.AREA = area;
+
+            this.OBJ = new byte[64];
+
+            byte[] areaBorder = new byte[TrackObjectZones.Size];
+            for (int i = 0; i < areaBorder.Length; i++)
+            {
+                areaBorder[i] = 0xFF;
+            }
+            this.AREA_BORDER = areaBorder;
         }
 
         /// <summary>
@@ -429,6 +537,11 @@ namespace EpicEdit.Rom
             }
         }
 
+        private static bool IsSingleLineField(string fieldName)
+        {
+            return fieldName[fieldName.Length - 1] == ' ';
+        }
+
         /// <summary>
         /// Loads the MAKE track file data.
         /// </summary>
@@ -440,101 +553,26 @@ namespace EpicEdit.Rom
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-                    if (line.StartsWith("#SP_STX ", StringComparison.Ordinal))
+                    if (line != string.Empty && line[0] != ';') // If not empty or a comment
                     {
-                        MakeTrack.LoadLineData(this.SP_STX, line);
-                    }
-                    else if (line.StartsWith("#SP_STY ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_STY, line);
-                    }
-                    else if (line.StartsWith("#SP_STW ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_STW, line);
-                    }
-                    else if (line.StartsWith("#SP_LSPX ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_LSPX, line);
-                    }
-                    else if (line.StartsWith("#SP_LSPY ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_LSPY, line);
-                    }
-                    else if (line.StartsWith("#SP_LSPW ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_LSPW, line);
-                    }
-                    else if (line.StartsWith("#SP_LSPH ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_LSPH, line);
-                    }
-                    else if (line.StartsWith("#SP_LSLY ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_LSLY, line);
-                    }
-                    else if (line.StartsWith("#SP_REGION ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.SP_REGION, line);
-                    }
-                    /*else if (line.StartsWith("#SP_OPN ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadData(this.SP_OPN, line);
-                    }*/
-                    else if (line.Equals("#MAP", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.MAP, reader);
-                    }
-                    /*else if (line.Equals("#MAPMASK", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.MAPMASK, reader);
-                    }*/
-                    else if (line.Equals("#GPEX", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.GPEX, reader);
-                    }
-                    else if (line.Equals("#AREA", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.AREA, reader);
-                    }
-                    else if (line.Equals("#OBJ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.OBJ, reader);
-                    }
-                    else if (line.Equals("#AREA_BORDER", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadBlockData(this.AREA_BORDER, reader);
-                    }
-                    else if (line.StartsWith("#EE_BATTLESTART1 ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_BATTLESTART1, line);
-                    }
-                    else if (line.StartsWith("#EE_BATTLESTART2 ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_BATTLESTART2, line);
-                    }
-                    else if (line.StartsWith("#EE_OBJTILESET ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_OBJTILESET, line);
-                    }
-                    else if (line.StartsWith("#EE_OBJINTERACT ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_OBJINTERACT, line);
-                    }
-                    else if (line.StartsWith("#EE_OBJROUTINE ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_OBJROUTINE, line);
-                    }
-                    else if (line.StartsWith("#EE_OBJPALETTES ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_OBJPALETTES, line);
-                    }
-                    else if (line.StartsWith("#EE_OBJFLASHING ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_OBJFLASHING, line);
-                    }
-                    else if (line.StartsWith("#EE_ITEMPROBA ", StringComparison.Ordinal))
-                    {
-                        MakeTrack.LoadLineData(this.EE_ITEMPROBA, line);
+                        foreach (KeyValuePair<string, byte[]> field in this.fields)
+                        {
+                            int index = line.IndexOf(' ');
+                            string fieldName = index == -1 ? line : line.Substring(0, index + 1);
+
+                            if (fieldName.Equals("#" + field.Key, StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (MakeTrack.IsSingleLineField(fieldName))
+                                {
+                                    MakeTrack.LoadLineData(field.Value, line);
+                                }
+                                else
+                                {
+                                    MakeTrack.LoadBlockData(field.Value, reader);
+                                }
+                                break;
+                            }
+                        }
                     }
 
                     line = reader.ReadLine();
@@ -591,60 +629,19 @@ namespace EpicEdit.Rom
 
             sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
 
-            sb.AppendLine("#SP_STX " + Utilities.BytesToHexString(this.SP_STX));
-            sb.AppendLine("#SP_STY " + Utilities.BytesToHexString(this.SP_STY));
-            sb.AppendLine("#SP_STW " + Utilities.BytesToHexString(this.SP_STW));
-            sb.AppendLine("#SP_LSPX " + Utilities.BytesToHexString(this.SP_LSPX));
-            sb.AppendLine("#SP_LSPY " + Utilities.BytesToHexString(this.SP_LSPY));
-            sb.AppendLine("#SP_LSPW " + Utilities.BytesToHexString(this.SP_LSPW));
-            sb.AppendLine("#SP_LSPH " + Utilities.BytesToHexString(this.SP_LSPH));
-            sb.AppendLine("#SP_LSLY " + Utilities.BytesToHexString(this.SP_LSLY));
-            sb.AppendLine("#SP_REGION " + Utilities.BytesToHexString(this.SP_REGION));
-            // SP_OPN not supported, do not write SP_OPN data
-
-            sb.AppendLine();
-
-            sb.AppendLine("#MAP");
-            MakeTrack.AppendBlockData(sb, this.MAP);
-
-            sb.AppendLine();
-            // MAP_MASK not supported, do not write MAP_MASK data
-
-            sb.AppendLine("#GPEX");
-            MakeTrack.AppendBlockData(sb, this.GPEX);
-
-            sb.AppendLine();
-
-            sb.AppendLine("#AREA");
-            MakeTrack.AppendBlockData(sb, this.AREA);
-
-            sb.AppendLine();
-
-            sb.AppendLine("#OBJ");
-            MakeTrack.AppendBlockData(sb, this.OBJ);
-
-            sb.AppendLine();
-
-            sb.AppendLine("#AREA_BORDER");
-            sb.AppendLine("#" + Utilities.BytesToHexString(this.AREA_BORDER));
-
-            sb.AppendLine();
-
-            // Epic Edit only fields:
-            sb.AppendLine("#EE_BATTLESTART1 " + Utilities.BytesToHexString(this.EE_BATTLESTART1));
-            sb.AppendLine("#EE_BATTLESTART2 " + Utilities.BytesToHexString(this.EE_BATTLESTART2));
-
-            sb.AppendLine();
-
-            sb.AppendLine("#EE_OBJTILESET " + Utilities.BytesToHexString(this.EE_OBJTILESET));
-            sb.AppendLine("#EE_OBJINTERACT " + Utilities.BytesToHexString(this.EE_OBJINTERACT));
-            sb.AppendLine("#EE_OBJROUTINE " + Utilities.BytesToHexString(this.EE_OBJROUTINE));
-            sb.AppendLine("#EE_OBJPALETTES " + Utilities.BytesToHexString(this.EE_OBJPALETTES));
-            sb.AppendLine("#EE_OBJFLASHING " + Utilities.BytesToHexString(this.EE_OBJFLASHING));
-
-            sb.AppendLine();
-
-            sb.AppendLine("#EE_ITEMPROBA " + Utilities.BytesToHexString(this.EE_ITEMPROBA));
+            foreach (KeyValuePair<string, byte[]> field in this.fields)
+            {
+                if (MakeTrack.IsSingleLineField(field.Key))
+                {
+                    sb.AppendLine("#" + field.Key + Utilities.BytesToHexString(field.Value));
+                }
+                else
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("#" + field.Key);
+                    MakeTrack.AppendBlockData(sb, field.Value);
+                }
+            }
 
             File.WriteAllText(filePath, sb.ToString());
         }
@@ -652,8 +649,15 @@ namespace EpicEdit.Rom
         private static void AppendBlockData(StringBuilder sb, byte[] data)
         {
             int lineLength = 32; // Byte count per line
+            int lineCount = data.Length / lineLength;
 
-            for (int y = 0; y < data.Length / lineLength; y++)
+            if (lineCount == 0)
+            {
+                lineCount = 1;
+                lineLength = data.Length;
+            }
+
+            for (int y = 0; y < lineCount; y++)
             {
                 byte[] lineBytes = Utilities.ReadBlock(data, y * lineLength, lineLength);
                 sb.AppendLine("#" + Utilities.BytesToHexString(lineBytes));
