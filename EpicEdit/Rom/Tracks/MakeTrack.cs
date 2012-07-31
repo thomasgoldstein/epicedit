@@ -186,6 +186,12 @@ namespace EpicEdit.Rom
             set { this.SetAIData(value); }
         }
 
+        public int ItemProbabilityIndex
+        {
+            get { return this.EE_ITEMPROBA[1] >> 1; }
+            set { this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) }; }
+        }
+
         /// <summary>
         /// GP Start Position X.
         /// </summary>
@@ -298,6 +304,11 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJFLASHING;
 
+        /// <summary>
+        /// Item probability set index.
+        /// </summary>
+        private byte[] EE_ITEMPROBA;
+
         public MakeTrack(Track track, Game game)
         {
             this.track = track;
@@ -350,6 +361,8 @@ namespace EpicEdit.Rom
             this.EE_OBJROUTINE = new byte[2];
             this.EE_OBJPALETTES = new byte[4];
             this.EE_OBJFLASHING = new byte[2];
+
+            this.EE_ITEMPROBA = new byte[2];
         }
 
         /// <summary>
@@ -519,6 +532,10 @@ namespace EpicEdit.Rom
                     {
                         MakeTrack.LoadLineData(this.EE_OBJFLASHING, line);
                     }
+                    else if (line.StartsWith("#EE_ITEMPROBA ", StringComparison.Ordinal))
+                    {
+                        MakeTrack.LoadLineData(this.EE_ITEMPROBA, line);
+                    }
 
                     line = reader.ReadLine();
                 }
@@ -624,6 +641,10 @@ namespace EpicEdit.Rom
             sb.AppendLine("#EE_OBJROUTINE " + Utilities.BytesToHexString(this.EE_OBJROUTINE));
             sb.AppendLine("#EE_OBJPALETTES " + Utilities.BytesToHexString(this.EE_OBJPALETTES));
             sb.AppendLine("#EE_OBJFLASHING " + Utilities.BytesToHexString(this.EE_OBJFLASHING));
+
+            sb.AppendLine();
+
+            sb.AppendLine("#EE_ITEMPROBA " + Utilities.BytesToHexString(this.EE_ITEMPROBA));
 
             File.WriteAllText(filePath, sb.ToString());
         }

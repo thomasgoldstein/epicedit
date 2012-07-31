@@ -134,6 +134,7 @@ namespace EpicEdit.Rom.Tracks
             this.ObjectPaletteIndexes[2] = track.ObjectPaletteIndexes[2];
             this.ObjectPaletteIndexes[3] = track.ObjectPaletteIndexes[3];
             this.ObjectFlashing = track.ObjectFlashing;
+            this.ItemProbabilityIndex = track.ItemProbabilityIndex;
         }
 
         /// <summary>
@@ -155,6 +156,7 @@ namespace EpicEdit.Rom.Tracks
             track.ObjectPaletteIndexes[2] = this.ObjectPaletteIndexes[2];
             track.ObjectPaletteIndexes[3] = this.ObjectPaletteIndexes[3];
             track.ObjectFlashing = this.ObjectFlashing;
+            track.ItemProbabilityIndex = this.ItemProbabilityIndex;
         }
     }
 }
