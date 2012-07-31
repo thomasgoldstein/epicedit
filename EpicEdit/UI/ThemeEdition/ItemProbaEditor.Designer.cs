@@ -536,7 +536,7 @@ namespace EpicEdit.UI.ThemeEdition
             // exportProbabilitiesButton
             // 
             this.exportProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportProbabilitiesButton.Location = new System.Drawing.Point(342, 220);
+            this.exportProbabilitiesButton.Location = new System.Drawing.Point(393, 220);
             this.exportProbabilitiesButton.Name = "exportProbabilitiesButton";
             this.exportProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
             this.exportProbabilitiesButton.TabIndex = 61;
@@ -547,7 +547,7 @@ namespace EpicEdit.UI.ThemeEdition
             // importProbabilitiesButton
             // 
             this.importProbabilitiesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importProbabilitiesButton.Location = new System.Drawing.Point(312, 220);
+            this.importProbabilitiesButton.Location = new System.Drawing.Point(363, 220);
             this.importProbabilitiesButton.Name = "importProbabilitiesButton";
             this.importProbabilitiesButton.Size = new System.Drawing.Size(24, 24);
             this.importProbabilitiesButton.TabIndex = 60;
@@ -605,7 +605,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Controls.Add(this.lightningValue);
             this.Controls.Add(this.totalValue);
             this.Name = "ItemProbaEditor";
-            this.Size = new System.Drawing.Size(370, 250);
+            this.Size = new System.Drawing.Size(420, 250);
             ((System.ComponentModel.ISupportInitialize)(this.coinsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ghostNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
