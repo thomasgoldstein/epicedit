@@ -347,7 +347,7 @@ namespace EpicEdit.Rom
 
             this.OBJ = new byte[64];
 
-            this.AREA_BORDER = new byte[10];
+            this.AREA_BORDER = new byte[TrackObjectZones.Size];
             for (int i = 0; i < this.AREA_BORDER.Length; i++)
             {
                 this.AREA_BORDER[i] = 0xFF;
