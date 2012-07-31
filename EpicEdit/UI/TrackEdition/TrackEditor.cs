@@ -953,6 +953,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.itemProbaForm = new ItemProbaEditorForm();
                 this.itemProbaForm.Owner = this.ParentForm;
                 this.itemProbaForm.ColorSelected += this.TileColorSelected;
+                this.itemProbaForm.Editor.Theme = this.track.Theme;
             }
 
             this.itemProbaForm.Init();
@@ -2041,6 +2042,11 @@ namespace EpicEdit.UI.TrackEdition
             RoadTileset tileset = this.track.RoadTileset;
             this.drawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, tileset);
             this.overlayControl.Tileset = tileset;
+
+            if (this.itemProbaFormInitialized)
+            {
+                this.itemProbaForm.Editor.Theme = this.track.Theme;
+            }
         }
 
         private void TilesetControlSelectedTileChanged(object sender, EventArgs e)

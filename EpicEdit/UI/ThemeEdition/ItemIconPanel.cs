@@ -19,6 +19,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
 
@@ -26,15 +27,15 @@ namespace EpicEdit.UI.ThemeEdition
 {
     internal sealed class ItemIconPanel : TilePanel
     {
-        private int themeIndex;
+        private Theme theme;
 
-        [Browsable(false), DefaultValue(typeof(int), "0")]
-        public int ThemeIndex
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
+        public Theme Theme
         {
-            get { return this.themeIndex; }
+            get { return this.theme; }
             set
             {
-                this.themeIndex = value;
+                this.theme = value;
                 this.UpdateImage();
             }
         }
@@ -118,7 +119,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void CreateImage()
         {
-            Palettes palettes = Context.Game.Themes[this.ThemeIndex].Palettes;
+            Palettes palettes = this.Theme.Palettes;
             this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
         }
 

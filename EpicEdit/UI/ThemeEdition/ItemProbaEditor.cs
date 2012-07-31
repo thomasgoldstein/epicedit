@@ -386,23 +386,37 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.InitProbability();
                 this.DisplayProbability();
-                this.UpdateIconThemes();
             }
         }
 
-        private void UpdateIconThemes()
+        private Theme theme;
+
+        public Theme Theme
         {
-            // FIXME: Do not update icons based on the selected probability set. Maybe use the current track theme instead.
-            int index = this.setComboBox.SelectedIndex;
-            this.mushroomPanel.ThemeIndex = index;
-            this.featherPanel.ThemeIndex = index;
-            this.starPanel.ThemeIndex = index;
-            this.bananaPanel.ThemeIndex = index;
-            this.greenPanel.ThemeIndex = index;
-            this.redPanel.ThemeIndex = index;
-            this.ghostPanel.ThemeIndex = index;
-            this.coinsPanel.ThemeIndex = index;
-            this.lightningPanel.ThemeIndex = index;
+            get { return this.theme; }
+            set
+            {
+                if (this.theme == value)
+                {
+                    return;
+                }
+
+                this.theme = value;
+                this.UpdateIcons(this.theme);
+            }
+        }
+
+        private void UpdateIcons(Theme theme)
+        {
+            this.mushroomPanel.Theme = theme;
+            this.featherPanel.Theme = theme;
+            this.starPanel.Theme = theme;
+            this.bananaPanel.Theme = theme;
+            this.greenPanel.Theme = theme;
+            this.redPanel.Theme = theme;
+            this.ghostPanel.Theme = theme;
+            this.coinsPanel.Theme = theme;
+            this.lightningPanel.Theme = theme;
         }
 
         private void ResetButtonClick(object sender, EventArgs e)
