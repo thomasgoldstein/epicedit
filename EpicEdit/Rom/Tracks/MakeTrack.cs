@@ -580,20 +580,20 @@ namespace EpicEdit.Rom
             }
         }
 
-        private static void LoadLineData(byte[] field, string line)
+        private static void LoadLineData(byte[] data, string line)
         {
             int space = line.IndexOf(' ');
             line = line.Substring(space).Trim();
-            if (line.Length != field.Length * 2)
+            if (line.Length != data.Length * 2)
             {
                 // Data length is higher or lower than expected
-                throw new ArgumentOutOfRangeException("field", "Invalid data length. Import aborted.");
+                throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
             }
 
-            Utilities.LoadBytesFromHexString(field, line);
+            Utilities.LoadBytesFromHexString(data, line);
         }
 
-        private static void LoadBlockData(byte[] field, TextReader reader)
+        private static void LoadBlockData(byte[] data, TextReader reader)
         {
             int index = 0;
             string line = reader.ReadLine();
@@ -602,21 +602,21 @@ namespace EpicEdit.Rom
                 byte[] lineBytes = Utilities.HexStringToBytes(line.Substring(1));
                 int lineBytesLength = lineBytes.Length;
 
-                if (index + lineBytesLength > field.Length)
+                if (index + lineBytesLength > data.Length)
                 {
                     // Data length is higher than expected
-                    throw new ArgumentOutOfRangeException("field", "Invalid data length. Import aborted.");
+                    throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
                 }
 
-                Buffer.BlockCopy(lineBytes, 0, field, index, lineBytesLength);
+                Buffer.BlockCopy(lineBytes, 0, data, index, lineBytesLength);
                 line = reader.ReadLine();
                 index += lineBytesLength;
             }
 
-            if (index != field.Length)
+            if (index != data.Length)
             {
                 // Data length is lower than expected
-                throw new ArgumentOutOfRangeException("field", "Invalid data length. Import aborted.");
+                throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
             }
         }
 
