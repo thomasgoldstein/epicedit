@@ -553,7 +553,7 @@ namespace EpicEdit.Rom
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-                    if (line != string.Empty && line[0] != ';') // If not empty or a comment
+                    if (line != string.Empty && line[0] == '#')
                     {
                         int index = line.IndexOf(' ');
                         string fieldName = index == -1 ? line : line.Substring(0, index + 1);
