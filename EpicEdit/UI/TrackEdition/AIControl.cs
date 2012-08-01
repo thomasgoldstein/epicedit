@@ -128,6 +128,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void InitSetComboBox()
         {
+            this.AddSetComboBoxItems();
+            this.setComboBox.SelectedIndex = 0;
+        }
+
+        private void AddSetComboBoxItems()
+        {
             this.setComboBox.BeginUpdate();
 
             for (int i = 0; i < ItemProbabilities.SetCount; i++)
@@ -136,7 +142,22 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.setComboBox.EndUpdate();
+        }
+
+        private void ResetSetComboBoxGP()
+        {
+            this.setComboBox.Items.Clear();
+            this.AddSetComboBoxItems();
+            this.setComboBox.Enabled = true;
+        }
+
+        private void ResetSetComboBoxBattle()
+        {
+            this.setComboBox.Items.Clear();
+            string[] modeNames = Context.Game.GetModeNames();
+            this.setComboBox.Items.Add(modeNames[modeNames.Length - 1]);
             this.setComboBox.SelectedIndex = 0;
+            this.setComboBox.Enabled = false;
         }
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -188,12 +209,19 @@ namespace EpicEdit.UI.TrackEdition
             GPTrack gpTrack = this.track as GPTrack;
             if (gpTrack != null)
             {
-                this.setComboBox.Enabled = true;
+                if (!this.setComboBox.Enabled)
+                {
+                    this.ResetSetComboBoxGP();
+                }
+
                 this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
             }
             else
             {
-                this.setComboBox.Enabled = false;
+                if (this.setComboBox.Enabled)
+                {
+                    this.ResetSetComboBoxBattle();
+                }
             }
 
             this.setComboBox.SelectedIndexChanged += this.SetComboBoxSelectedIndexChanged;
