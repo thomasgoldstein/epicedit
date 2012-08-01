@@ -938,12 +938,25 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarItemProbaEditorRequested(object sender, EventArgs e)
         {
+            this.ShowItemProbaEditor();
+        }
+
+        private void ShowItemProbaEditor()
+        {
             if (!this.itemProbaFormInitialized)
             {
                 this.InitItemProbaEditorForm();
             }
 
-            this.itemProbaForm.Visible = !this.itemProbaForm.Visible;
+            if (!this.itemProbaForm.Visible)
+            {
+                this.itemProbaForm.Editor.ShowTrackData(this.track);
+                this.itemProbaForm.Visible = true;
+            }
+            else
+            {
+                this.itemProbaForm.Visible = false;
+            }
         }
 
         private void InitItemProbaEditorForm()
@@ -2769,6 +2782,11 @@ namespace EpicEdit.UI.TrackEdition
             this.trackTreeView.MarkTrackAsChanged();
             this.trackDisplay.Invalidate();
             this.aiControl.ShowWarning();
+        }
+
+        private void AIControlItemProbaEditorRequested(object sender, EventArgs e)
+        {
+            this.ShowItemProbaEditor();
         }
         #endregion EditionMode.AI
     }
