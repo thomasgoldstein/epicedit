@@ -106,24 +106,29 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.filePath); }
         }
 
+        private string[] modeNames;
+
         public string[] GetModeNames()
         {
-            string[] modeNames = new string[3];
-
-            int offset = this.offsets[Offset.ModeStrings];
-            int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
-            int lengthOffset = offset + 6;
-
-            for (int i = 0; i < modeNames.Length; i++)
+            if (this.modeNames == null)
             {
-                int length = this.romBuffer[lengthOffset] * 2;
-                byte[] hexText = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
-                modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
-                nameOffset += length;
-                lengthOffset += 2;
+                this.modeNames = new string[3];
+
+                int offset = this.offsets[Offset.ModeStrings];
+                int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
+                int lengthOffset = offset + 6;
+
+                for (int i = 0; i < this.modeNames.Length; i++)
+                {
+                    int length = this.romBuffer[lengthOffset] * 2;
+                    byte[] hexText = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
+                    this.modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
+                    nameOffset += length;
+                    lengthOffset += 2;
+                }
             }
 
-            return modeNames;
+            return this.modeNames;
         }
 
         public ItemProbabilities ItemProbabilities
