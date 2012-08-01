@@ -268,7 +268,7 @@ namespace EpicEdit.UI
             // 
             this.itemProbaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.itemProbaToolStripButton.Enabled = false;
-            this.itemProbaToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("itemProbaToolStripButton.Image")));
+            this.itemProbaToolStripButton.Image = global::EpicEdit.Properties.Resources.ItemProbaButton;
             this.itemProbaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.itemProbaToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.itemProbaToolStripButton.Name = "itemProbaToolStripButton";
