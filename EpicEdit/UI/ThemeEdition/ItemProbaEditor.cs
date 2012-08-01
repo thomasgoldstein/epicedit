@@ -407,6 +407,22 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        public void ShowTrackData(Track track)
+        {
+            GPTrack gpTrack = track as GPTrack;
+
+            if (gpTrack != null)
+            {
+                this.modeComboBox.SelectedIndex = 0;
+                this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
+                this.lapRankComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                this.modeComboBox.SelectedIndex = 2;
+            }
+        }
+
         private void UpdateIcons(Theme theme)
         {
             this.mushroomPanel.Theme = theme;

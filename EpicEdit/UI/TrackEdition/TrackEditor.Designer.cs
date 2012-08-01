@@ -264,13 +264,14 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.aiControl.Location = new System.Drawing.Point(3, 3);
             this.aiControl.Name = "aiControl";
-            this.aiControl.Size = new System.Drawing.Size(130, 360);
+            this.aiControl.Size = new System.Drawing.Size(130, 390);
             this.aiControl.TabIndex = 0;
             this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
             this.aiControl.DataChangedNoRepaint += new System.EventHandler<System.EventArgs>(this.AIControlDataChangedNoRepaint);
             this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
             this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
             this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
+            this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.AIControlItemProbaEditorRequested);
             // 
             // tabImageList
             // 

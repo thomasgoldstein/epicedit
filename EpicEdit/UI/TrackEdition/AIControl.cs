@@ -45,6 +45,9 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> DeleteAllRequested;
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ItemProbaEditorRequested;
+
         /// <summary>
         /// The current track.
         /// </summary>
@@ -194,6 +197,11 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.setComboBox.SelectedIndexChanged += this.SetComboBoxSelectedIndexChanged;
+        }
+
+        private void ProbaEditorButtonClick(object sender, EventArgs e)
+        {
+            this.ItemProbaEditorRequested(this, EventArgs.Empty);
         }
 
         public void SetMaximumAIElementIndex()

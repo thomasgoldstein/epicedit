@@ -54,6 +54,7 @@ namespace EpicEdit.UI.TrackEdition
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.addButton = new System.Windows.Forms.Button();
+            this.probaEditorButton = new System.Windows.Forms.Button();
             this.warningLabel = new System.Windows.Forms.Label();
             this.itemProbaGroupBox = new System.Windows.Forms.GroupBox();
             this.setComboBox = new System.Windows.Forms.ComboBox();
@@ -99,7 +100,7 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
             this.selectedAIElementGroupBox.Controls.Add(speedLabel);
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
-            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 60);
+            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 90);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
             this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
             this.selectedAIElementGroupBox.TabIndex = 1;
@@ -160,7 +161,7 @@ namespace EpicEdit.UI.TrackEdition
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.deleteAllButton.Location = new System.Drawing.Point(102, 275);
+            this.deleteAllButton.Location = new System.Drawing.Point(102, 305);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
             this.deleteAllButton.TabIndex = 2;
@@ -171,7 +172,7 @@ namespace EpicEdit.UI.TrackEdition
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
-            this.addButton.Location = new System.Drawing.Point(73, 275);
+            this.addButton.Location = new System.Drawing.Point(73, 305);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
             this.addButton.TabIndex = 4;
@@ -179,9 +180,22 @@ namespace EpicEdit.UI.TrackEdition
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
+            // probaEditorButton
+            // 
+            this.probaEditorButton.Image = global::EpicEdit.Properties.Resources.ItemProbaButton;
+            this.probaEditorButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.probaEditorButton.Location = new System.Drawing.Point(29, 46);
+            this.probaEditorButton.Name = "probaEditorButton";
+            this.probaEditorButton.Size = new System.Drawing.Size(66, 24);
+            this.probaEditorButton.TabIndex = 9;
+            this.probaEditorButton.Text = "View";
+            this.probaEditorButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.probaEditorButton.UseVisualStyleBackColor = true;
+            this.probaEditorButton.Click += new System.EventHandler(this.ProbaEditorButtonClick);
+            // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 308);
+            this.warningLabel.Location = new System.Drawing.Point(4, 338);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 3;
@@ -189,10 +203,11 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // itemProbaGroupBox
             // 
+            this.itemProbaGroupBox.Controls.Add(this.probaEditorButton);
             this.itemProbaGroupBox.Controls.Add(this.setComboBox);
             this.itemProbaGroupBox.Location = new System.Drawing.Point(2, 4);
             this.itemProbaGroupBox.Name = "itemProbaGroupBox";
-            this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 50);
+            this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 80);
             this.itemProbaGroupBox.TabIndex = 8;
             this.itemProbaGroupBox.TabStop = false;
             this.itemProbaGroupBox.Text = "Item probabilities";
@@ -214,13 +229,14 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 360);
+            this.Size = new System.Drawing.Size(130, 390);
             this.selectedAIElementGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
             this.itemProbaGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button probaEditorButton;
         private System.Windows.Forms.ComboBox setComboBox;
         private System.Windows.Forms.GroupBox itemProbaGroupBox;
         private System.Windows.Forms.Button addButton;
