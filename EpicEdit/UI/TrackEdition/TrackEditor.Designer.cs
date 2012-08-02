@@ -264,7 +264,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.aiControl.Location = new System.Drawing.Point(3, 3);
             this.aiControl.Name = "aiControl";
-            this.aiControl.Size = new System.Drawing.Size(130, 390);
+            this.aiControl.Size = new System.Drawing.Size(130, 420);
             this.aiControl.TabIndex = 0;
             this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
             this.aiControl.DataChangedNoRepaint += new System.EventHandler<System.EventArgs>(this.AIControlDataChangedNoRepaint);

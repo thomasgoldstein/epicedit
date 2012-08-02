@@ -100,7 +100,7 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(shapeLabel);
             this.selectedAIElementGroupBox.Controls.Add(speedLabel);
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
-            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 90);
+            this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 120);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
             this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
             this.selectedAIElementGroupBox.TabIndex = 1;
@@ -161,7 +161,7 @@ namespace EpicEdit.UI.TrackEdition
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.deleteAllButton.Location = new System.Drawing.Point(102, 305);
+            this.deleteAllButton.Location = new System.Drawing.Point(102, 335);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
             this.deleteAllButton.TabIndex = 2;
@@ -172,7 +172,7 @@ namespace EpicEdit.UI.TrackEdition
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
-            this.addButton.Location = new System.Drawing.Point(73, 305);
+            this.addButton.Location = new System.Drawing.Point(73, 335);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
             this.addButton.TabIndex = 4;
@@ -184,7 +184,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.probaEditorButton.Image = global::EpicEdit.Properties.Resources.ItemProbaButton;
             this.probaEditorButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.probaEditorButton.Location = new System.Drawing.Point(29, 46);
+            this.probaEditorButton.Location = new System.Drawing.Point(29, 68);
             this.probaEditorButton.Name = "probaEditorButton";
             this.probaEditorButton.Size = new System.Drawing.Size(66, 24);
             this.probaEditorButton.TabIndex = 9;
@@ -195,7 +195,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 338);
+            this.warningLabel.Location = new System.Drawing.Point(4, 368);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 3;
@@ -207,7 +207,7 @@ namespace EpicEdit.UI.TrackEdition
             this.itemProbaGroupBox.Controls.Add(this.setComboBox);
             this.itemProbaGroupBox.Location = new System.Drawing.Point(2, 4);
             this.itemProbaGroupBox.Name = "itemProbaGroupBox";
-            this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 80);
+            this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 110);
             this.itemProbaGroupBox.TabIndex = 8;
             this.itemProbaGroupBox.TabStop = false;
             this.itemProbaGroupBox.Text = "Item probabilities";
@@ -216,7 +216,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.setComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.setComboBox.FormattingEnabled = true;
-            this.setComboBox.Location = new System.Drawing.Point(10, 19);
+            this.setComboBox.Location = new System.Drawing.Point(10, 30);
             this.setComboBox.Name = "setComboBox";
             this.setComboBox.Size = new System.Drawing.Size(104, 21);
             this.setComboBox.TabIndex = 7;
@@ -229,7 +229,7 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 390);
+            this.Size = new System.Drawing.Size(130, 420);
             this.selectedAIElementGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
