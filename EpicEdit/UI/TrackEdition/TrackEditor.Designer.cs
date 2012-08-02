@@ -271,7 +271,7 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
             this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
             this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
-            this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.AIControlItemProbaEditorRequested);
+            this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarItemProbaEditorRequested);
             // 
             // tabImageList
             // 
