@@ -82,6 +82,7 @@
     <Compile Include="Rom\TileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
     <Compile Include="Rom\Tracks\Road\RoadTileTest.cs" />
+    <Compile Include="Rom\Tracks\Road\TrackMapTest.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTest.cs" />
     <Compile Include="Rom\Tracks\Start\BattleStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\Start\GPStartPositionTest.cs" />
