@@ -14,7 +14,7 @@ v2.x (???)
 - Fixed possible GP starting position second row offset loading issue
   (regressed in 2.1)
 - Fixed background tileset graphics importing logic when the first of the
-  4 colors does not match the 1st color of the 1st palette
+  4 colors does not match the first color of the first palette
   (never the case in the original game)
 - Minor tweaks and fixes
 
