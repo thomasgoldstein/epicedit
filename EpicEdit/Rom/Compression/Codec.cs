@@ -37,7 +37,35 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         internal const int SuperCommandMax = 1024;
 
+        /// <summary>
+        /// Gets or sets value that specifies whether the compression rate should be optimal (slower).
+        /// </summary>
+        public static bool Optimal { get; set; }
+
         private static ICompressor compressor;
+
+        private static ICompressor Compressor
+        {
+            get
+            {
+                if (Codec.Optimal)
+                {
+                    if (!(Codec.compressor is OptimalCompressor))
+                    {
+                        Codec.compressor = new OptimalCompressor();
+                    }
+                }
+                else
+                {
+                    if (!(Codec.compressor is FastCompressor))
+                    {
+                        Codec.compressor = new FastCompressor();
+                    }
+                }
+
+                return Codec.compressor;
+            }
+        }
 
         /// <summary>
         /// Decompresses data until a stop (0xFF) command is found.
@@ -355,12 +383,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer, bool quirksMode)
         {
-            if (Codec.compressor == null)
-            {
-                Codec.compressor = new FastCompressor();
-            }
-
-            return Codec.compressor.Compress(buffer, quirksMode);
+            return Codec.Compressor.Compress(buffer, quirksMode);
         }
 
         /// <summary>
