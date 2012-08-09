@@ -36,11 +36,19 @@ namespace EpicEditTests.Rom.Compression
 
         private void TestGraphics(int offset, int expectedSize)
         {
+            this.TestGraphics(offset, expectedSize, false);
+            this.TestGraphics(offset, expectedSize, true);
+        }
+
+        private void TestGraphics(int offset, int expectedSize, bool optimal)
+        {
+            Codec.Optimal = optimal;
+
             byte[] bufferA = Codec.Decompress(File.ReadBlock(this.smkRomBuffer, offset, expectedSize));
             byte[] bufferB = Codec.Decompress(Codec.Compress(bufferA));
 
             Assert.AreEqual(expectedSize, Codec.GetLength(this.smkRomBuffer, offset));
-            Assert.AreEqual(bufferA, bufferB);
+            Assert.AreEqual(bufferA, bufferB, "(Optimal: " + optimal + ")");
         }
 
         [Test]
