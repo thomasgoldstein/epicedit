@@ -309,21 +309,15 @@ namespace EpicEdit.Rom.Compression
         }
 
         /// <summary>
-        /// Checks whether it is safe to call Command 4, if in quirks mode.
+        /// Checks whether it is safe to call Command 4.
         /// </summary>
         /// <param name="distance">Distance between the current buffer iterator value, and the range start.</param>
         /// <param name="range">Range within already compressed data.</param>
         /// <param name="quirksMode">Whether quirks mode is enabled.</param>
-        /// <returns>Whether it is safe to call Command 4, if in quirks mode.</returns>
+        /// <returns>Whether it is safe to call Command 4.</returns>
         private static bool IsQuirksCompatible(int distance, Range range, bool quirksMode)
         {
-            if (!quirksMode)
-            {
-                return true;
-            }
-
-            return distance <= 0xFF ||
-                range.Length >= 12 || range.Length < 4;
+            return !quirksMode || distance <= 0xFF;
         }
     }
 }
