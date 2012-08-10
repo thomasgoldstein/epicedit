@@ -115,16 +115,19 @@ namespace EpicEdit.Rom.Compression
 
             ChunkNode node;
 
-            OptimalCompressor.CallCommand4(out chunk, out byteCount, out chunkS, out byteCountS, ranges[0], ranges[1]);
-            if (chunk != null && !quirksMode)
+            if (!quirksMode)
             {
-                node = new ChunkNode(parentNode, chunk);
-                nodeCollection.Add(i + byteCount, node);
-            }
-            if (chunkS != null && !quirksMode)
-            {
-                node = new ChunkNode(parentNode, chunkS);
-                nodeCollection.Add(i + byteCountS, node);
+                OptimalCompressor.CallCommand4(out chunk, out byteCount, out chunkS, out byteCountS, ranges[0], ranges[1]);
+                if (chunk != null)
+                {
+                    node = new ChunkNode(parentNode, chunk);
+                    nodeCollection.Add(i + byteCount, node);
+                }
+                if (chunkS != null)
+                {
+                    node = new ChunkNode(parentNode, chunkS);
+                    nodeCollection.Add(i + byteCountS, node);
+                }
             }
 
             OptimalCompressor.CallCommand6(i, out chunk, out byteCount, out chunkS, out byteCountS, ranges[2], ranges[3]);
