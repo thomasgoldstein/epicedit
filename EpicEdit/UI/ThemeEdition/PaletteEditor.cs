@@ -48,16 +48,19 @@ namespace EpicEdit.Rom.ThemeEdition
             set { this.themeComboBox.SelectedItem = value; }
         }
 
+        private int paletteIndex;
+
         /// <summary>
         /// Gets or sets the palette.
         /// </summary>
         [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
-            get { return this.Theme.Palettes[(int)this.paletteNumericUpDown.Value]; }
+            get { return this.Theme.Palettes[this.paletteIndex]; }
             set
             {
                 this.Theme = value.Theme;
+                this.paletteIndex = value.Index;
                 this.paletteNumericUpDown.Value = value.Index;
             }
         }
