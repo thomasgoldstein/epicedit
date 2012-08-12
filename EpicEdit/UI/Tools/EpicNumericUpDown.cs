@@ -24,11 +24,6 @@ namespace EpicEdit.UI.Tools
     {
         private const int StartValue = 1;
 
-        /// <summary>
-        /// Disables the text validation.
-        /// </summary>
-        private bool suppressValidation = false;
-
         private decimal DisplayedValue
         {
             get { return this.Value + StartValue; }
@@ -36,19 +31,11 @@ namespace EpicEdit.UI.Tools
 
         protected override void UpdateEditText()
         {
-            this.suppressValidation = true;
             this.Text = this.DisplayedValue.ToString();
-            this.suppressValidation = false;
         }
 
         protected override void ValidateEditText()
         {
-            if (this.suppressValidation)
-            {
-                // Avoid infinite recursion between UpdateEditText and this method.
-                return;
-            }
-
             this.ParseEditText();
             this.UpdateEditText();
         }
@@ -56,22 +43,28 @@ namespace EpicEdit.UI.Tools
         private new void ParseEditText()
         {
             // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
-
-            decimal value;
-            if (decimal.TryParse(this.Text, out value))
+            try
             {
-                value -= StartValue;
-
-                if (value < this.Minimum)
+                decimal value;
+                if (decimal.TryParse(this.Text, out value))
                 {
-                    value = this.Minimum;
-                }
-                else if (value > this.Maximum)
-                {
-                    value = this.Maximum;
-                }
+                    value -= StartValue;
 
-                this.Value = value;
+                    if (value < this.Minimum)
+                    {
+                        value = this.Minimum;
+                    }
+                    else if (value > this.Maximum)
+                    {
+                        value = this.Maximum;
+                    }
+
+                    this.Value = value;
+                }
+            }
+            finally
+            {
+                this.UserEdit = false;
             }
         }
     }
