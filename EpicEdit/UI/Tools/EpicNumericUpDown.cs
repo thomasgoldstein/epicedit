@@ -41,13 +41,6 @@ namespace EpicEdit.UI.Tools
             this.suppressValidation = false;
         }
 
-        protected override void OnValueChanged(EventArgs e)
-        {
-            this.suppressValidation = true;
-            base.OnValueChanged(e);
-            this.suppressValidation = false;
-        }
-
         protected override void ValidateEditText()
         {
             if (this.suppressValidation)
