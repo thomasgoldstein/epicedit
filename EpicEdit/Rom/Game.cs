@@ -106,8 +106,6 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.filePath); }
         }
 
-        private string[] modeNames;
-
         public string[] GetModeNames()
         {
             if (this.modeNames == null)
@@ -199,6 +197,8 @@ namespace EpicEdit.Rom
         /// The different overlay tile patterns.
         /// </summary>
         private OverlayTilePatterns overlayTilePatterns;
+
+        private string[] modeNames;
 
         private bool modified;
 
