@@ -183,6 +183,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private Themes themes;
 
+        private string[] modeNames;
+
         /// <summary>
         /// The item probabilities for all the tracks and race types.
         /// </summary>
@@ -197,8 +199,6 @@ namespace EpicEdit.Rom
         /// The different overlay tile patterns.
         /// </summary>
         private OverlayTilePatterns overlayTilePatterns;
-
-        private string[] modeNames;
 
         private bool modified;
 
