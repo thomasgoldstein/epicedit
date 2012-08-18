@@ -44,7 +44,7 @@ namespace EpicEdit.Rom
     /// </summary>
     internal sealed class Game : IDisposable
     {
-        #region Public members and methods
+        #region Public properties and methods
 
         /// <summary>
         /// Returns the main track groups.
@@ -144,7 +144,7 @@ namespace EpicEdit.Rom
         /// </summary>
         public ItemIconGraphics ItemIconGraphics { get; private set; }
 
-        #endregion Public members and methods
+        #endregion Public properties and methods
 
         #region Private members
 
