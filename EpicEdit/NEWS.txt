@@ -4,6 +4,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.x (???)
+- Added codec tool to compress and decompress data (advanced users)
 - Added support for defining the item probability set for each GP track
   (under the AI tab), which fixes the previous incorrect assumption
   that item probabilities depend on the track theme
