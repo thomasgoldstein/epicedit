@@ -50,7 +50,8 @@ namespace EpicEdit.UI.Tools
 
             if (this.compressRadioButton.Checked)
             {
-                CodecControl.Compress(offset, twice);
+                int limit = (int)this.offsetNumericUpDown.Maximum;
+                CodecControl.Compress(offset, twice, limit);
             }
             else
             {
@@ -58,7 +59,7 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        private static void Compress(int offset, bool twice)
+        private static void Compress(int offset, bool twice, int limit)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -107,7 +108,12 @@ namespace EpicEdit.UI.Tools
 
                     info = oldInfo + Environment.NewLine + info;
 
-                    if (UITools.ShowInfo(info, MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    if (offset + compData.Length > limit)
+                    {
+                        info += Environment.NewLine + "Not enough room to fit the new data. Operation cancelled.";
+                        UITools.ShowError(info);
+                    }
+                    else if (UITools.ShowInfo(info, MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
                         Context.Game.InsertData(compData, offset);
                     }
