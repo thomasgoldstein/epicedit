@@ -307,6 +307,16 @@ namespace EpicEdit.UI.TrackEdition
         /// The item probability editor form.
         /// </summary>
         private ItemProbaEditorForm itemProbaForm;
+
+        /// <summary>
+        /// Determines whether the codec form has been initialized.
+        /// </summary>
+        private bool codecFormInitialized;
+
+        /// <summary>
+        /// The codec form.
+        /// </summary>
+        private CodecForm codecForm;
         #endregion Private members
 
         #region Events
@@ -397,6 +407,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ReInitPaletteEditor();
             this.ReInitBackgroundEditor();
             this.ReInitItemProbaEditor();
+            this.ReInitCodecForm();
 
             foreach (UndoRedoBuffer buffer in this.undoRedoBuffers.Values)
             {
@@ -898,13 +909,13 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (!this.backgroundFormInitialized)
             {
-                this.InitBackgroundEditorForm();
+                this.InitBackgroundEditor();
             }
 
             this.backgroundForm.Visible = !this.backgroundForm.Visible;
         }
 
-        private void InitBackgroundEditorForm()
+        private void InitBackgroundEditor()
         {
             if (this.backgroundForm == null)
             {
@@ -940,7 +951,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (!this.itemProbaFormInitialized)
             {
-                this.InitItemProbaEditorForm();
+                this.InitItemProbaEditor();
             }
 
             if (!this.itemProbaForm.Visible)
@@ -954,7 +965,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void InitItemProbaEditorForm()
+        private void InitItemProbaEditor()
         {
             if (this.itemProbaForm == null)
             {
@@ -984,6 +995,47 @@ namespace EpicEdit.UI.TrackEdition
             {
                 // Reinit the item proba editor now
                 this.itemProbaForm.Init();
+            }
+        }
+
+        private void MenuBarCodecRequested(object sender, EventArgs e)
+        {
+            if (!this.codecFormInitialized)
+            {
+                this.InitCodecForm();
+            }
+
+            this.codecForm.Visible = !this.codecForm.Visible;
+        }
+
+        private void InitCodecForm()
+        {
+            if (this.codecForm == null)
+            {
+                this.codecForm = new CodecForm();
+                this.codecForm.Owner = this.ParentForm;
+            }
+
+            this.codecForm.Init();
+            this.codecFormInitialized = true;
+        }
+
+        private void ReInitCodecForm()
+        {
+            if (!this.codecFormInitialized)
+            {
+                return;
+            }
+
+            if (!this.codecForm.Visible)
+            {
+                // Reinit the codec form next time it's shown
+                this.codecFormInitialized = false;
+            }
+            else
+            {
+                // Reinit the codec form now
+                this.codecForm.Init();
             }
         }
         #endregion MenuBar
