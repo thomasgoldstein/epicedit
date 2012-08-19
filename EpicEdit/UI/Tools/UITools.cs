@@ -45,6 +45,16 @@ namespace EpicEdit.UI.Tools
             return UITools.ShowWarning(message, MessageBoxButtons.YesNo);
         }
 
+        public static DialogResult ShowInfo(string message, MessageBoxButtons buttons)
+        {
+            return
+                MessageBox.Show(
+                    message,
+                    Application.ProductName,
+                    buttons,
+                    MessageBoxIcon.Information);
+        }
+
         public static void ShowError(string message)
         {
             MessageBox.Show(

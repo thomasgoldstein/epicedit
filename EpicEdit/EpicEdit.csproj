@@ -218,6 +218,14 @@
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\CodecControl.cs" />
+    <Compile Include="UI\Tools\CodecControl.Designer.cs">
+      <DependentUpon>CodecControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Tools\CodecForm.cs" />
+    <Compile Include="UI\Tools\CodecForm.Designer.cs">
+      <DependentUpon>CodecForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
@@ -312,6 +320,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditorForm.resx">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Tools\CodecControl.resx">
+      <DependentUpon>CodecControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Tools\CodecForm.resx">
+      <DependentUpon>CodecForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\AIControl.resx">
       <DependentUpon>AIControl.cs</DependentUpon>

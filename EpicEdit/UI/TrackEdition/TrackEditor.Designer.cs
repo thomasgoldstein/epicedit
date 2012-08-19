@@ -313,6 +313,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.PaletteEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarPaletteEditorRequested);
             this.menuBar.BackgroundEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarBackgroundEditorRequested);
             this.menuBar.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarItemProbaEditorRequested);
+            this.menuBar.CodecRequested += new System.EventHandler<System.EventArgs>(this.MenuBarCodecRequested);
             // 
             // TrackEditor
             // 

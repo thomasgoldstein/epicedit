@@ -69,6 +69,9 @@ namespace EpicEdit.UI
 
         [Browsable(true)]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> CodecRequested;
         #endregion Events
 
         #region Constructor
@@ -105,6 +108,7 @@ namespace EpicEdit.UI
             this.paletteToolStripButton.Enabled = true;
             this.backgroundToolStripButton.Enabled = true;
             this.itemProbaToolStripButton.Enabled = true;
+            this.codecToolStripButton.Enabled = true;
 
             // Enable hidden key shortcuts
             this.saveRomToolStripMenuItem.Enabled = true;
@@ -266,6 +270,15 @@ namespace EpicEdit.UI
             this.ItemProbaEditorRequested(this, EventArgs.Empty);
         }
         #endregion Item probability editor
+
+        #region Codec
+
+        private void CodecToolStripButtonClick(object sender, EventArgs e)
+        {
+            this.CodecRequested(this, EventArgs.Empty);
+        }
+
+        #endregion Codec
 
         #region About
         private void AboutToolStripLabelClick(object sender, EventArgs e)

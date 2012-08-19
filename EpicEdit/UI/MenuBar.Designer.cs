@@ -62,6 +62,7 @@ namespace EpicEdit.UI
             this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.backgroundToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.itemProbaToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.codecToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.coordinatesToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.hiddenMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -123,6 +124,7 @@ namespace EpicEdit.UI
                                     this.paletteToolStripButton,
                                     this.backgroundToolStripButton,
                                     this.itemProbaToolStripButton,
+                                    this.codecToolStripButton,
                                     this.toolStripSeparator3,
                                     this.aboutToolStripLabel,
                                     this.toolStripSeparator4,
@@ -275,6 +277,18 @@ namespace EpicEdit.UI
             this.itemProbaToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.itemProbaToolStripButton.Text = "Item probability editor";
             this.itemProbaToolStripButton.Click += new System.EventHandler(this.ItemProbaToolStripButtonClick);
+            // 
+            // codecToolStripButton
+            // 
+            this.codecToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.codecToolStripButton.Enabled = false;
+            this.codecToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("codecToolStripButton.Image")));
+            this.codecToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.codecToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.codecToolStripButton.Name = "codecToolStripButton";
+            this.codecToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.codecToolStripButton.Text = "Codec (advanced users)";
+            this.codecToolStripButton.Click += new System.EventHandler(this.CodecToolStripButtonClick);
             // 
             // aboutToolStripLabel
             // 
@@ -438,6 +452,7 @@ namespace EpicEdit.UI
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripButton codecToolStripButton;
         private System.Windows.Forms.ToolStripButton backgroundToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;

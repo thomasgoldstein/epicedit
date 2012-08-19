@@ -144,6 +144,61 @@ namespace EpicEdit.Rom
         /// </summary>
         public ItemIconGraphics ItemIconGraphics { get; private set; }
 
+        public byte[] Compress(byte[] data, bool twice)
+        {
+            Codec.Optimal = true;
+
+            bool quirksMode = this.region != Region.US;
+            data = Codec.Compress(data, quirksMode);
+
+            if (twice)
+            {
+                data = Codec.Compress(data);
+            }
+
+            Codec.Optimal = false;
+
+            return data;
+        }
+
+        public void InsertData(byte[] data, int offset)
+        {
+            offset -= this.romHeader.Length;
+            Buffer.BlockCopy(data, 0, this.romBuffer, offset, data.Length);
+            this.modified = true;
+        }
+
+        public byte[] Decompress(int offset, bool twice)
+        {
+            offset -= this.romHeader.Length;
+
+            byte[] data = Codec.Decompress(this.romBuffer, offset);
+
+            if (twice)
+            {
+                data = Codec.Decompress(this.romBuffer);
+            }
+
+            return data;
+        }
+
+        public int GetCompressedChunkLength(int offset, bool doubleCompressed)
+        {
+            offset -= this.romHeader.Length;
+
+            if (!doubleCompressed)
+            {
+                return Codec.GetLength(this.romBuffer, offset);
+            }
+
+            byte[] data = Codec.Decompress(this.romBuffer, offset);
+            return Codec.GetLength(data);
+        }
+
+        public int HeaderSize
+        {
+            get { return this.romHeader.Length; }
+        }
         #endregion Public properties and methods
 
         #region Private members
@@ -311,13 +366,17 @@ namespace EpicEdit.Rom
         {
             int romHeaderSize = this.romBuffer.Length % RomSize.Size256;
 
-            if (romHeaderSize == 512)
+            if (romHeaderSize == 0)
+            {
+                this.romHeader = new byte[0];
+            }
+            else if (romHeaderSize == 512)
             {
                 this.romHeader = Utilities.ReadBlock(this.romBuffer, 0, romHeaderSize);
                 byte[] romBufferWithoutHeader = Utilities.ReadBlock(this.romBuffer, romHeaderSize, this.romBuffer.Length - romHeaderSize);
                 this.romBuffer = romBufferWithoutHeader;
             }
-            else if (romHeaderSize != 0)
+            else
             {
                 // Wrong header size
                 return false;
@@ -352,6 +411,11 @@ namespace EpicEdit.Rom
             }
 
             return true;
+        }
+
+        public int Size
+        {
+            get { return this.romBuffer.Length; }
         }
 
         #endregion Read ROM & validate
@@ -471,10 +535,7 @@ namespace EpicEdit.Rom
 
             if (!Enum.IsDefined(typeof(Region), region))
             {
-                if (this.romHeader != null)
-                {
-                    regionOffset += this.romHeader.Length;
-                }
+                regionOffset += this.romHeader.Length;
 
                 throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
                                                              "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
@@ -2117,10 +2178,7 @@ namespace EpicEdit.Rom
             using (FileStream fs = new FileStream(this.filePath, FileMode.Create, FileAccess.Write))
             using (BinaryWriter bw = new BinaryWriter(fs))
             {
-                if (this.romHeader != null)
-                {
-                    bw.Write(this.romHeader);
-                }
+                bw.Write(this.romHeader);
                 bw.Write(this.romBuffer);
             }
         }
