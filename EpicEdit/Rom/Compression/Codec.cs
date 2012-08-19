@@ -311,6 +311,16 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Computes the length of a compressed data block.
         /// </summary>
+        /// <param name="buffer">The compressed data block.</param>
+        /// <returns>The length of the compressed block.</returns>
+        public static int GetLength(byte[] buffer)
+        {
+            return Codec.GetLength(buffer, 0);
+        }
+
+        /// <summary>
+        /// Computes the length of a compressed data block.
+        /// </summary>
         /// <param name="buffer">The buffer to decompress data from.</param>
         /// <param name="offset">The buffer position to start from.</param>
         /// <returns>The length of the compressed block.</returns>
