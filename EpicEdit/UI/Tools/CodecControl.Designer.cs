@@ -98,7 +98,7 @@ namespace EpicEdit.UI.Tools
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(47, 63);
+            this.browseButton.Location = new System.Drawing.Point(49, 63);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(75, 23);
             this.browseButton.TabIndex = 5;
