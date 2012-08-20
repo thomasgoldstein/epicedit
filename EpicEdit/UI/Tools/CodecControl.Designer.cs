@@ -90,7 +90,7 @@ namespace EpicEdit.UI.Tools
             // 
             // offsetLabel
             // 
-            this.offsetLabel.Location = new System.Drawing.Point(74, 35);
+            this.offsetLabel.Location = new System.Drawing.Point(74, 37);
             this.offsetLabel.Name = "offsetLabel";
             this.offsetLabel.Size = new System.Drawing.Size(23, 23);
             this.offsetLabel.TabIndex = 3;
