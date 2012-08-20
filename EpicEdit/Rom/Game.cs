@@ -176,7 +176,7 @@ namespace EpicEdit.Rom
 
             if (twice)
             {
-                data = Codec.Decompress(this.romBuffer);
+                data = Codec.Decompress(data);
             }
 
             return data;
