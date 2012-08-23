@@ -1245,10 +1245,10 @@ namespace EpicEdit.UI.Gfx
 
             if (aiElem.ZoneShape == Shape.Rectangle)
             {
-                TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
-                TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
-                TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
-                TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
+                TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
+                TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
+                TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
 
                 g.DrawRectangle(this.aiZonePens[speed], zone);
             }
@@ -1261,33 +1261,33 @@ namespace EpicEdit.UI.Gfx
                 switch (aiElem.ZoneShape)
                 {
                     case Shape.TriangleTopLeft:
-                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
-                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
+                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
                         break;
 
                     case Shape.TriangleTopRight:
-                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target, speed);
-                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
+                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
                         break;
 
                     case Shape.TriangleBottomRight:
-                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
-                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
+                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
                         break;
 
                     case Shape.TriangleBottomLeft:
-                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target, speed);
-                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target, speed);
+                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
+                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
                         break;
                 }
             }
         }
 
-        private static void PaintTopSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
+        private static void PaintTopSide(Graphics g, Brush brush, Rectangle zone, Point target)
         {
             if (target.Y > zone.Top)
             {
@@ -1302,7 +1302,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintRightSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
+        private static void PaintRightSide(Graphics g, Brush brush, Rectangle zone, Point target)
         {
             if (target.X < zone.Right)
             {
@@ -1317,7 +1317,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintBottomSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
+        private static void PaintBottomSide(Graphics g, Brush brush, Rectangle zone, Point target)
         {
             if (target.Y < zone.Bottom)
             {
@@ -1332,7 +1332,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintLeftSide(Graphics g, Brush brush, Rectangle zone, Point target, int speed)
+        private static void PaintLeftSide(Graphics g, Brush brush, Rectangle zone, Point target)
         {
             if (target.X > zone.Left)
             {
