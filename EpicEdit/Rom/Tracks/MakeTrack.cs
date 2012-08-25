@@ -545,31 +545,31 @@ namespace EpicEdit.Rom
             using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
             using (TextReader reader = new StreamReader(fs))
             {
-                string line = reader.ReadLine();
-                while (line != null)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    if (line.Length != 0 && line[0] == '#')
+                    if (line.Length == 0 || line[0] != '#')
                     {
-                        int index = line.IndexOf(' ');
-                        string fieldName = index == -1 ? line : line.Substring(0, index);
-                        fieldName = fieldName.Substring(1); // Remove leading #
-
-                        if (this.fields.ContainsKey(fieldName))
-                        {
-                            byte[] data = this.fields[fieldName];
-
-                            if (data.Length <= 4)
-                            {
-                                MakeTrack.LoadLineData(data, line);
-                            }
-                            else
-                            {
-                                MakeTrack.LoadBlockData(data, reader);
-                            }
-                        }
+                        continue;
                     }
 
-                    line = reader.ReadLine();
+                    int index = line.IndexOf(' ');
+                    string fieldName = index == -1 ? line : line.Substring(0, index);
+                    fieldName = fieldName.Substring(1); // Remove leading #
+
+                    if (this.fields.ContainsKey(fieldName))
+                    {
+                        byte[] data = this.fields[fieldName];
+
+                        if (data.Length <= 4)
+                        {
+                            MakeTrack.LoadLineData(data, line);
+                        }
+                        else
+                        {
+                            MakeTrack.LoadBlockData(data, reader);
+                        }
+                    }
                 }
             }
         }
