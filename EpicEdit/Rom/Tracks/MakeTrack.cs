@@ -548,7 +548,7 @@ namespace EpicEdit.Rom
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-                    if (line != string.Empty && line[0] == '#')
+                    if (line.Length != 0 && line[0] == '#')
                     {
                         int index = line.IndexOf(' ');
                         string fieldName = index == -1 ? line : line.Substring(0, index);
