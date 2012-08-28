@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
@@ -103,7 +104,7 @@ namespace EpicEdit.UI.Tools
                     }
                     catch
                     {
-                        oldInfo = "Cannot decompress data at " + offset.ToString("X") + "." + Environment.NewLine;
+                        oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.InvariantCulture) + "." + Environment.NewLine;
                     }
 
                     info = oldInfo + Environment.NewLine + info;
@@ -123,14 +124,15 @@ namespace EpicEdit.UI.Tools
 
         private static string FormatCompressedChunkInfo(string label, int offset, int compSize, int uncompSize)
         {
-            return string.Format("{0}: from {1} to {2}" + Environment.NewLine +
+            return string.Format(CultureInfo.InvariantCulture,
+                                 "{0}: from {1} to {2}" + Environment.NewLine +
                                  "Compressed size: {3}" + Environment.NewLine +
                                  "Uncompressed size: {4}" + Environment.NewLine,
                                  label,
-                                 offset.ToString("X"),
-                                 (offset + compSize).ToString("X"),
-                                 compSize.ToString("X"),
-                                 uncompSize.ToString("X"));
+                                 offset.ToString("X", CultureInfo.InvariantCulture),
+                                 (offset + compSize).ToString("X", CultureInfo.InvariantCulture),
+                                 compSize.ToString("X", CultureInfo.InvariantCulture),
+                                 uncompSize.ToString("X", CultureInfo.InvariantCulture));
         }
 
         private static void Decompress(int offset, bool twice)

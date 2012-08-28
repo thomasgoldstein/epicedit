@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
@@ -31,7 +32,7 @@ namespace EpicEdit.UI.Tools
 
         protected override void UpdateEditText()
         {
-            this.Text = this.DisplayedValue.ToString();
+            this.Text = this.DisplayedValue.ToString(CultureInfo.InvariantCulture);
         }
 
         protected override void ValidateEditText()
