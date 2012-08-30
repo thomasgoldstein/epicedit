@@ -102,7 +102,7 @@ namespace EpicEdit.UI.Tools
                         int oldUncompSize = Context.Game.Decompress(offset, twice).Length;
                         oldInfo = CodecControl.FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
                     }
-                    catch
+                    catch (InvalidDataException)
                     {
                         oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.InvariantCulture) + "." + Environment.NewLine;
                     }
