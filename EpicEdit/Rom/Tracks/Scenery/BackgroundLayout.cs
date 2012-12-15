@@ -93,10 +93,10 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundLayout(byte[] data)
         {
-            this.SetBytes(data);
+            this.SetBytesInternal(data);
         }
 
-        public void SetBytes(byte[] data)
+        private void SetBytesInternal(byte[] data)
         {
             if (data.Length != Size)
             {
@@ -106,6 +106,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
             this.frontLayer = GetLayer(data, 0, FrontLayerRowSize);
             this.backLayer = GetLayer(data, FrontLayerSize, BackLayerRowSize);
+        }
+
+        public void SetBytes(byte[] data)
+        {
+            this.SetBytesInternal(data);
+            this.Modified = true;
         }
 
         private static byte[][] GetLayer(byte[] data, int start, int rowSize)

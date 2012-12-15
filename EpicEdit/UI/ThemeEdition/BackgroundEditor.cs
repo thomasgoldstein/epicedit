@@ -336,11 +336,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
         {
-            BackgroundTileset tileset = this.Theme.Background.Tileset;
             if (this.ImportBackgroundLayout())
             {
                 this.LoadTheme();
-                tileset.Modified = true;
             }
         }
 
