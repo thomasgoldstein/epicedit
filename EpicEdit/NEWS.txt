@@ -3,6 +3,11 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.6.1 (December 15th 2012)
+- Fixed the fact that importing a background layout would not mark the
+  layout as having been modified, preventing it from being resaved
+
+
 v2.6 (October 21st 2012)
 - Added codec tool to compress and decompress data (advanced users)
 - Added support for defining the item probability set for each GP track
