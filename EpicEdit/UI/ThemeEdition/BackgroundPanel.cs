@@ -95,10 +95,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.TilePosition = TrackEditor.OutOfBounds;
             this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
-            this.MouseMove += this.BackgroundPanel_MouseMove;
-            this.MouseLeave += this.BackgroundPanel_MouseLeave;
-            this.MouseDown += this.BackgroundPanel_MouseDown;
-            this.MouseUp += this.BackgroundPanel_MouseUp;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -116,8 +112,15 @@ namespace EpicEdit.UI.ThemeEdition
             this.Invalidate();
         }
 
-        private void BackgroundPanel_MouseMove(object sender, MouseEventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
+            base.OnMouseMove(e);
+
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             Point tilePositionBefore = this.TilePosition;
             this.SetPosition(e.Location);
 
@@ -128,19 +131,40 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private void BackgroundPanel_MouseLeave(object sender, EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
+            base.OnMouseLeave(e);
+
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             this.TilePosition = TrackEditor.OutOfBounds;
             this.Invalidate();
         }
 
-        private void BackgroundPanel_MouseDown(object sender, MouseEventArgs e)
+        protected override void OnMouseDown(MouseEventArgs e)
         {
+            base.OnMouseDown(e);
+
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             this.InitAction(e.Button);
         }
 
-        private void BackgroundPanel_MouseUp(object sender, MouseEventArgs e)
+        protected override void OnMouseUp(MouseEventArgs e)
         {
+            base.OnMouseUp(e);
+
+            if (Context.ColorPickerMode)
+            {
+                return;
+            }
+
             if (this.tileSelection)
             {
                 this.tileSelection = false;
