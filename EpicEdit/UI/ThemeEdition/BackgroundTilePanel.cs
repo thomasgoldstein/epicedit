@@ -25,6 +25,9 @@ using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
+    /// <summary>
+    /// Panel that displays a background tile (typically the selected one).
+    /// </summary>
     internal class BackgroundTilePanel : TilePanel
     {
         public bool Front { get; set; }

@@ -25,6 +25,9 @@ using EpicEdit.UI.TrackEdition;
 
 namespace EpicEdit.UI.ThemeEdition
 {
+    /// <summary>
+    /// Panel that displays a track background.
+    /// </summary>
     internal sealed class BackgroundPanel : TilePanel
     {
         /// <summary>
