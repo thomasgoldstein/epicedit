@@ -246,6 +246,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override Tile GetTileAt(int x, int y)
         {
+            // Take horizontal scrolling position in consideration
+            x -= (int)(this.AutoScrollPosition.X / this.Zoom);
+
             // Convert from pixel precision to tile precision
             x /= Tile.Size;
             y /= Tile.Size;
