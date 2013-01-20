@@ -3,6 +3,11 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.6.2 (January 20th 2013)
+- Fixed the fact background color picking would lay tiles
+- Fixed the fact background color picking ignored the scrolling position
+
+
 v2.6.1 (December 15th 2012)
 - Fixed the fact that importing a background layout would not mark the
   layout as having been modified, preventing it from being resaved
