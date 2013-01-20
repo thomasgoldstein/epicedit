@@ -65,6 +65,10 @@ namespace EpicEdit.UI.Tools
 
         protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
+            // Take scrolling position in consideration
+            x -= this.AutoScrollPosition.X;
+            y -= this.AutoScrollPosition.Y;
+
             x = (int)(x / this.Zoom);
             y = (int)(y / this.Zoom);
 
