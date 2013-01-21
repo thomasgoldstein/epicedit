@@ -89,9 +89,10 @@ namespace EpicEdit.UI.Tools
 
             colorIndex = tile.GetColorIndexAt(x, y);
 
-            if (tile is Tile2bpp && colorIndex == 0)
+            if (tile is Tile2bpp && (colorIndex % 4) == 0)
             {
-                // The back color was selected, which is in the first palette
+                // The back color was selected, which is the first color of the first palette
+                colorIndex = 0;
                 palette = tile.Palette.Theme.Palettes[0];
             }
         }
