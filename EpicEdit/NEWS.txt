@@ -4,7 +4,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.6.3 (???)
-- Fixed 2bpp tile transparent color picking issues
+- Fixed 2bpp tile back color picking issues
 
 
 v2.6.2 (January 20th 2013)
