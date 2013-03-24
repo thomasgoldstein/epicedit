@@ -57,6 +57,12 @@ namespace EpicEdit.UI.ThemeEdition
             int width = this.Width;
             int height = this.Height;
 
+            if (this.BorderStyle == BorderStyle.Fixed3D)
+            {
+                width -= SystemInformation.Border3DSize.Width * 2;
+                height -= SystemInformation.Border3DSize.Height * 2;
+            }
+
             Bitmap zoomedBitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
 
             using (Graphics g = Graphics.FromImage(zoomedBitmap))
