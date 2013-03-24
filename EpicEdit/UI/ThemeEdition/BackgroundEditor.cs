@@ -306,9 +306,10 @@ namespace EpicEdit.UI.ThemeEdition
 
         private static void SelectTilePanel(BackgroundTilePanel panel)
         {
+            Size borderSize = SystemInformation.Border3DSize;
             panel.SuspendLayout();
-            panel.Location = new Point(panel.Location.X - 2, panel.Location.Y - 2);
-            panel.Size = new Size(panel.Width + 4, panel.Height + 4);
+            panel.Location = new Point(panel.Location.X - borderSize.Width, panel.Location.Y - borderSize.Height);
+            panel.Size = new Size(panel.Width + borderSize.Width * 2, panel.Height + borderSize.Height * 2);
             panel.BorderStyle = BorderStyle.Fixed3D;
             panel.ResumeLayout();
         }
