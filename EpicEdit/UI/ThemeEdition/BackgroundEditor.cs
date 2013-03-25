@@ -285,17 +285,17 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (front)
             {
-                BackgroundEditor.UnSelectTilePanel(this.backTilePanel);
+                BackgroundEditor.DeselectTilePanel(this.backTilePanel);
                 BackgroundEditor.SelectTilePanel(this.frontTilePanel);
             }
             else
             {
-                BackgroundEditor.UnSelectTilePanel(this.frontTilePanel);
+                BackgroundEditor.DeselectTilePanel(this.frontTilePanel);
                 BackgroundEditor.SelectTilePanel(this.backTilePanel);
             }
         }
 
-        private static void UnSelectTilePanel(BackgroundTilePanel panel)
+        private static void DeselectTilePanel(BackgroundTilePanel panel)
         {
             Size borderSize = SystemInformation.Border3DSize;
             panel.SuspendLayout();
