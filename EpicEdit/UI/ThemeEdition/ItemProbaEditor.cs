@@ -80,7 +80,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SetValueFromDescription(object sender, ListControlConvertEventArgs e)
+        private void ItemComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
             e.Value = UITools.GetDescription(e.Value);
         }

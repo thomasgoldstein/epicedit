@@ -311,7 +311,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.itemBoxDisplayOptions.Size = new System.Drawing.Size(130, 21);
             this.itemBoxDisplayOptions.TabIndex = 38;
             this.itemBoxDisplayOptions.SelectedIndexChanged += new System.EventHandler(this.ValueChanged);
-            this.itemBoxDisplayOptions.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
+            this.itemBoxDisplayOptions.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ItemComboBoxFormat);
             // 
             // totalValue
             // 
@@ -531,7 +531,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.lapRankComboBox.Size = new System.Drawing.Size(116, 21);
             this.lapRankComboBox.TabIndex = 2;
             this.lapRankComboBox.SelectedIndexChanged += new System.EventHandler(this.LapRankComboBoxSelectedIndexChanged);
-            this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.SetValueFromDescription);
+            this.lapRankComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ItemComboBoxFormat);
             // 
             // exportProbabilitiesButton
             // 
