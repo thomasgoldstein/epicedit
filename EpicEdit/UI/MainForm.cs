@@ -161,16 +161,20 @@ namespace EpicEdit.UI
 
         private void OpenRom(string filePath)
         {
+            // Do not directly set the Context.Game property,
+            // in case the ROM is invalid (ie: Exception thrown in the Game constructor).
+            Game game = new Game(filePath);
+
             if (Context.Game == null) // First ROM loading
             {
-                Context.Game = new Game(filePath);
+                Context.Game = game;
                 this.trackEditor.InitOnFirstRomLoad();
             }
             else
             {
                 Context.Game.Dispose();
                 Context.Game = null;
-                Context.Game = new Game(filePath);
+                Context.Game = game;
                 this.trackEditor.InitOnRomLoad();
             }
 
