@@ -57,10 +57,14 @@ namespace EpicEdit.UI.ThemeEdition
 
         private BackgroundDrawer drawer;
 
-        private Theme Theme
+        /// <summary>
+        /// Gets or sets the theme.
+        /// </summary>
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
+        public Theme Theme
         {
-            get { return this.drawer.Theme; }
-            set { this.drawer.Theme = value; }
+            get { return this.themeComboBox.SelectedItem as Theme; }
+            set { this.themeComboBox.SelectedItem = value; }
         }
 
         private byte TileId
@@ -153,7 +157,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void LoadTheme()
         {
-            this.Theme = this.themeComboBox.SelectedItem as Theme;
+            this.drawer.Theme = this.Theme;
             this.frontLayerPanel.Background = this.backLayerPanel.Background = this.Theme.Background;
             this.UpdateTilePanels();
             this.tilesetPanel.Theme = this.Theme;

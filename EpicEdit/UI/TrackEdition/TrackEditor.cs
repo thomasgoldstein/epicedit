@@ -913,6 +913,11 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.backgroundForm.Visible = !this.backgroundForm.Visible;
+
+            if (this.backgroundForm.Visible)
+            {
+                this.backgroundForm.Editor.Theme = this.track.Theme;
+            }
         }
 
         private void InitBackgroundEditor()
