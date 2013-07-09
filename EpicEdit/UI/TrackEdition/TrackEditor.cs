@@ -1359,10 +1359,7 @@ namespace EpicEdit.UI.TrackEdition
                             this.buttonsPressed = MouseButtons.Right;
 
                             byte tile = hoveredTile.Value;
-                            if (this.tileClipboard[0] != tile)
-                            {
-                                this.tilesetControl.SelectedTile = tile;
-                            }
+                            this.tilesetControl.SelectedTile = tile;
 
                             this.tileClipboard.Clear();
                             this.tileClipboard.Add(tile);
@@ -2084,14 +2081,10 @@ namespace EpicEdit.UI.TrackEdition
             }
             this.drawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
 
-            if (this.tileClipboard[0] != this.tileClipboard[1])
-            {
-                // The condition is to avoid triggering an unneeded redraw
-                this.tilesetControl.SelectedTile = this.tileClipboard[1];
-            }
-
             // We remove the first tile, which was added in TrackDisplayMouseDown
             this.tileClipboard.RemoveAt(0);
+
+            this.tilesetControl.SelectedTile = this.tileClipboard[0];
 
             this.trackDisplay.Invalidate();
         }

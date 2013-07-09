@@ -111,6 +111,11 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.selectedTile; }
             set
             {
+                if (this.selectedTile == value)
+                {
+                    return;
+                }
+
                 this.userAction = false;
                 this.selectedTile = value;
                 this.SetCurrentTile();
