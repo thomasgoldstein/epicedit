@@ -274,9 +274,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.selectedTile != newSelectedTile)
             {
-                this.userAction = false;
                 this.SelectedTile = newSelectedTile;
-                this.userAction = true;
 
                 this.SelectedTileChanged(this, EventArgs.Empty);
             }
