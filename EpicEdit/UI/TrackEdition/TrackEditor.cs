@@ -1358,14 +1358,7 @@ namespace EpicEdit.UI.TrackEdition
                         {
                             this.buttonsPressed = MouseButtons.Right;
 
-                            byte tile = hoveredTile.Value;
-                            this.tilesetControl.SelectedTile = tile;
-
-                            this.tileClipboard.Clear();
-                            this.tileClipboard.Add(tile);
-
                             this.anchorPoint = this.tileClipboardTopLeft = this.AbsoluteTilePosition;
-
                             this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
 
                             this.trackDisplay.Invalidate();
@@ -2068,6 +2061,8 @@ namespace EpicEdit.UI.TrackEdition
         private void OnRightMouseButtonRelease()
         {
             // Fill the clipboard with the selected tiles
+            this.tileClipboard.Clear();
+
             int xStart = this.tileClipboardTopLeft.X;
             int yStart = this.tileClipboardTopLeft.Y;
             int xLimit = xStart + this.tileClipboardSize.Width;
@@ -2080,9 +2075,6 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
             this.drawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
-
-            // We remove the first tile, which was added in TrackDisplayMouseDown
-            this.tileClipboard.RemoveAt(0);
 
             this.tilesetControl.SelectedTile = this.tileClipboard[0];
 
