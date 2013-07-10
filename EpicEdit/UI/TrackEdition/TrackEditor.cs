@@ -1784,6 +1784,13 @@ namespace EpicEdit.UI.TrackEdition
             {
                 scrollBar.Visible = true;
 
+                if (scrollBar.Value > offScreenTileCount)
+                {
+                    // Reposition the track content properly (avoiding to show off-track black)
+                    // when resizing the window and the panel is scrolled to the bottom and/or right limit.
+                    scrollBar.Value = offScreenTileCount;
+                }
+
                 int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
                 scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
                 scrollBar.LargeChange = onScreenTileCount;
