@@ -400,14 +400,9 @@ namespace EpicEdit.UI.Gfx
             // Solves a GDI+ bug which crops scaled images
             g.PixelOffsetMode = PixelOffsetMode.Half;
 
-            if (this.zoom >= 1)
-            {
-                g.InterpolationMode = InterpolationMode.NearestNeighbor;
-            }
-            else
-            {
-                g.InterpolationMode = InterpolationMode.Bilinear;
-            }
+            g.InterpolationMode = this.zoom >= 1 ?
+                InterpolationMode.NearestNeighbor :
+                InterpolationMode.Bilinear;
         }
 
         private Bitmap CloneTrackImage()
