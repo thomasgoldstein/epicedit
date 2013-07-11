@@ -197,14 +197,14 @@ namespace EpicEdit.UI.Gfx
                 {
                     new SolidBrush(Color.FromArgb(60, 179, 244, 150)), // Top
                     new SolidBrush(Color.FromArgb(60, 141, 233, 109)), // Left / right
-                    new SolidBrush(Color.FromArgb(60, 101, 185, 72))
+                    new SolidBrush(Color.FromArgb(60, 101, 185, 72)) // Bottom
                 },
 
                 new SolidBrush[]
                 {
                     new SolidBrush(Color.FromArgb(60, 244, 231, 124)), // Top
                     new SolidBrush(Color.FromArgb(60, 228, 198, 80)), // Left / right
-                    new SolidBrush(Color.FromArgb(60, 180, 153, 46)), // Bottom
+                    new SolidBrush(Color.FromArgb(60, 180, 153, 46)) // Bottom
                 },
 
                 new SolidBrush[]
