@@ -1826,17 +1826,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetScrollingPosition()
         {
-            int xBefore = this.scrollPosition.X;
-            int yBefore = this.scrollPosition.Y;
-
             this.trackDisplayHScrollBar.Value = 0;
             this.trackDisplayVScrollBar.Value = 0;
-
-            if (xBefore != this.scrollPosition.X ||
-                yBefore != this.scrollPosition.Y)
-            {
-                this.drawer.NotifyFullRepaintNeed();
-            }
         }
 
         private void SetTrack()
