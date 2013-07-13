@@ -393,16 +393,6 @@ namespace EpicEdit.UI.Gfx
             this.NotifyFullRepaintNeed();
         }
 
-        private void SetGraphics(Graphics g)
-        {
-            // Solves a GDI+ bug which crops scaled images
-            g.PixelOffsetMode = PixelOffsetMode.Half;
-
-            g.InterpolationMode = this.zoom >= 1 ?
-                InterpolationMode.NearestNeighbor :
-                InterpolationMode.Bilinear;
-        }
-
         private Bitmap CloneTrackImage()
         {
             return this.trackCache.Clone(
@@ -413,9 +403,20 @@ namespace EpicEdit.UI.Gfx
                 this.trackCache.PixelFormat);
         }
 
+        private void DrawImage(Graphics g, Bitmap image)
+        {
+            // Solves a GDI+ bug which crops scaled images
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+
+            g.InterpolationMode = this.zoom >= 1 ?
+                InterpolationMode.NearestNeighbor :
+                InterpolationMode.Bilinear;
+
+            g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+        }
+
         public void DrawTrackTileset(Graphics g, Point cursorPosition, MouseButtons mouseButtons, Size selectionSize, Point selectionStart)
         {
-            this.SetGraphics(g);
             Region clipRegion = new Region(Rectangle.Empty);
 
             using (Bitmap image = this.CloneTrackImage())
@@ -443,7 +444,7 @@ namespace EpicEdit.UI.Gfx
 
                     this.DrawTileSelection(backBuffer, selectionRectangle, mouseButtons);
                 }
-                g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+                this.DrawImage(g, image);
             }
 
             this.PaintTrackOutbounds(g);
@@ -455,7 +456,6 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTrackOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
         {
-            this.SetGraphics(g);
             Region clipRegion = new Region(Rectangle.Empty);
 
             using (Bitmap image = this.CloneTrackImage())
@@ -479,7 +479,7 @@ namespace EpicEdit.UI.Gfx
 
                     this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
                 }
-                g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+                this.DrawImage(g, image);
             }
 
             this.PaintTrackOutbounds(g);
@@ -491,7 +491,6 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTrackStart(Graphics g)
         {
-            this.SetGraphics(g);
             Region clipRegion = new Region(Rectangle.Empty);
 
             using (Bitmap image = this.CloneTrackImage())
@@ -518,7 +517,7 @@ namespace EpicEdit.UI.Gfx
 
                     this.DrawStartData(backBuffer);
                 }
-                g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+                this.DrawImage(g, image);
             }
 
             this.PaintTrackOutbounds(g);
@@ -530,7 +529,6 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTrackObjects(Graphics g, TrackObject hoveredObject, bool frontZonesView)
         {
-            this.SetGraphics(g);
             Region clipRegion = new Region(Rectangle.Empty);
 
             using (Bitmap image = this.CloneTrackImage())
@@ -549,7 +547,7 @@ namespace EpicEdit.UI.Gfx
 
                     this.DrawObjectData(backBuffer, frontZonesView, hoveredObject);
                 }
-                g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+                this.DrawImage(g, image);
             }
 
             this.PaintTrackOutbounds(g);
@@ -561,7 +559,6 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTrackAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
         {
-            this.SetGraphics(g);
             Region clipRegion = new Region(Rectangle.Empty);
 
             using (Bitmap image = this.CloneTrackImage())
@@ -579,7 +576,7 @@ namespace EpicEdit.UI.Gfx
 
                     this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
                 }
-                g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+                this.DrawImage(g, image);
             }
 
             this.PaintTrackOutbounds(g);
