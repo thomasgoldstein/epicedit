@@ -250,13 +250,13 @@ namespace EpicEdit.UI.Gfx
             });
             this.grayScaleImageAttr.SetColorMatrix(matrix);
 
+            this.zoomMatrix = new Matrix();
+            this.SetZoom(zoom);
+
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
             this.trackCache = this.tileClipboardCache = this.objectZonesCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
             this.dirtyRegion = new Region();
-            this.zoomMatrix = new Matrix();
-
-            this.SetZoom(zoom);
         }
 
         /// <summary>
@@ -386,9 +386,7 @@ namespace EpicEdit.UI.Gfx
         public void SetZoom(float zoom)
         {
             this.zoom = zoom;
-
-            this.zoomMatrix.Dispose();
-            this.zoomMatrix = new Matrix();
+            this.zoomMatrix.Reset();
             this.zoomMatrix.Scale(this.zoom, this.zoom);
 
             this.SetImageSize();
