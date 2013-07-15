@@ -172,7 +172,7 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private ImageAttributes grayScaleImageAttr;
 
-        public TrackDrawer(Control control, float zoom)
+        public TrackDrawer(Control control)
         {
             this.control = control;
 
@@ -265,7 +265,7 @@ namespace EpicEdit.UI.Gfx
             this.grayScaleImageAttr.SetColorMatrix(matrix);
 
             this.zoomMatrix = new Matrix();
-            this.Zoom = zoom;
+            this.Zoom = 1;
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand

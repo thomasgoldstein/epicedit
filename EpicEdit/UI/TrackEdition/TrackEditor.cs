@@ -377,7 +377,7 @@ namespace EpicEdit.UI.TrackEdition
         #region MenuBar
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new TrackDrawer(this.trackDisplay, this.Zoom);
+            this.drawer = new TrackDrawer(this.trackDisplay);
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
             this.trackTreeView.InitOnFirstRomLoad();
