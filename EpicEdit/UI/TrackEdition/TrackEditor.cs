@@ -1058,7 +1058,7 @@ namespace EpicEdit.UI.TrackEdition
             switch (this.editionMode)
             {
                 case EditionMode.Tileset:
-                    this.drawer.DrawTrackTileset(g, this.TilePosition, this.buttonsPressed, this.tileClipboardSize, this.tileClipboardTopLeft);
+                    this.drawer.DrawTrackTileset(g, this.TilePosition, this.tileClipboardTopLeft, this.tileClipboardSize, this.buttonsPressed);
                     break;
 
                 case EditionMode.Overlay:

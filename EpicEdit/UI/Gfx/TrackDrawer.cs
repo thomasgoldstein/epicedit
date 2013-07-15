@@ -415,7 +415,7 @@ namespace EpicEdit.UI.Gfx
             g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
         }
 
-        public void DrawTrackTileset(Graphics g, Point cursorPosition, MouseButtons mouseButtons, Size selectionSize, Point selectionStart)
+        public void DrawTrackTileset(Graphics g, Point cursorPosition, Point selectionStart, Size selectionSize, MouseButtons mouseButtons)
         {
             Region clipRegion = new Region(Rectangle.Empty);
 
@@ -431,7 +431,7 @@ namespace EpicEdit.UI.Gfx
                     }
                     else
                     {
-                        selectionRectangle = this.GetTileSelectionRectangle(cursorPosition, selectionSize, selectionStart, mouseButtons);
+                        selectionRectangle = this.GetTileSelectionRectangle(cursorPosition, selectionStart, selectionSize, mouseButtons);
                         TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
                     }
 
@@ -586,7 +586,7 @@ namespace EpicEdit.UI.Gfx
             this.fullRepaintNeeded = false;
         }
 
-        private Rectangle GetTileSelectionRectangle(Point cursorPosition, Size selectionSize, Point selectionStart, MouseButtons mouseButtons)
+        private Rectangle GetTileSelectionRectangle(Point cursorPosition, Point selectionStart, Size selectionSize, MouseButtons mouseButtons)
         {
             Rectangle selectionRectangle;
             if (mouseButtons == MouseButtons.Right) // A tile selection is happening now
