@@ -51,7 +51,21 @@ namespace EpicEdit.UI.Gfx
                 this.SetImageSize();
             }
         }
+
         private float zoom;
+        public float Zoom
+        {
+            get { return this.zoom; }
+            set
+            {
+                this.zoom = value;
+                this.zoomMatrix.Reset();
+                this.zoomMatrix.Scale(this.zoom, this.zoom);
+
+                this.SetImageSize();
+                this.NotifyFullRepaintNeed();
+            }
+        }
 
         private Bitmap trackCache;
         private Bitmap tileClipboardCache;
@@ -251,7 +265,7 @@ namespace EpicEdit.UI.Gfx
             this.grayScaleImageAttr.SetColorMatrix(matrix);
 
             this.zoomMatrix = new Matrix();
-            this.SetZoom(zoom);
+            this.Zoom = zoom;
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
@@ -381,16 +395,6 @@ namespace EpicEdit.UI.Gfx
                     this.dirtyRegion.Union(dirtyRectangle);
                 }
             }
-        }
-
-        public void SetZoom(float zoom)
-        {
-            this.zoom = zoom;
-            this.zoomMatrix.Reset();
-            this.zoomMatrix.Scale(this.zoom, this.zoom);
-
-            this.SetImageSize();
-            this.NotifyFullRepaintNeed();
         }
 
         private Bitmap CloneTrackImage()

@@ -615,7 +615,7 @@ namespace EpicEdit.UI.TrackEdition
             Point location = this.AbsoluteCenterTileLocation;
 
             this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
-            this.drawer.SetZoom(this.Zoom);
+            this.drawer.Zoom = this.Zoom;
             this.UpdateScrollBars();
 
             this.menuBar.ZoomInEnabled = true;
@@ -710,7 +710,7 @@ namespace EpicEdit.UI.TrackEdition
         private void ZoomInSub()
         {
             this.ZoomLevelIndex++;
-            this.drawer.SetZoom(this.Zoom);
+            this.drawer.Zoom = this.Zoom;
             this.UpdateScrollBars();
 
             this.menuBar.ZoomInEnabled = this.CanZoomIn();
@@ -720,7 +720,7 @@ namespace EpicEdit.UI.TrackEdition
         private void ZoomOutSub()
         {
             this.ZoomLevelIndex--;
-            this.drawer.SetZoom(this.Zoom);
+            this.drawer.Zoom = this.Zoom;
             this.UpdateScrollBars();
 
             this.menuBar.ZoomInEnabled = true;
