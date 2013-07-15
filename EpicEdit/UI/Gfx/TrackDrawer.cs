@@ -826,7 +826,7 @@ namespace EpicEdit.UI.Gfx
                 g.FillRectangle(this.tileSelectBrush, selectionRectangle);
                 g.DrawRectangle(this.tileSelectPen, selectionRectangle);
             }
-            else if (selectionRectangle != Rectangle.Empty) // The user is simply hovering tiles
+            else if (!selectionRectangle.IsEmpty) // The user is simply hovering tiles
             {
                 g.DrawImage(this.tileClipboardCache,
                             new Rectangle(selectionRectangle.X + 1,
