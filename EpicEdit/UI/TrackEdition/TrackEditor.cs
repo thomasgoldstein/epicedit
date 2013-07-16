@@ -1101,7 +1101,16 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InvalidateWholeTrackDisplay()
         {
-            this.dirtyRegion.MakeInfinite();
+            if (Platform.IsWindows)
+            {
+                this.dirtyRegion.MakeInfinite();
+            }
+            else
+            {
+                // HACK: Work around the fact Mono does not support Region.MakeInfinite()
+                this.dirtyRegion.Union(this.trackDisplay.DisplayRectangle);
+            }
+
             this.InvalidateTrackDisplay();
         }
 
