@@ -78,13 +78,13 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache()
         {
-            this.tilesetCache.Dispose();
-
             int tileCountX = this.imageSize.Width / Tile.Size;
             int tileCountY = this.imageSize.Height / Tile.Size;
             BackgroundTileset tileset = this.theme.Background.Tileset;
 
+            this.tilesetCache.Dispose();
             this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
             {
                 g.Clear(this.theme.BackColor);
