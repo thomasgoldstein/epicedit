@@ -4,6 +4,8 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.6.3 (???)
+- Improved graphics renderer, faster and more reliable.
+  Fixes occasional display issues.
 - Fixed 2bpp tile back color picking issues
 - Fixed selected background tile image size
 - Fixed invalid ROM loading, by keeping the previous ROM loaded
