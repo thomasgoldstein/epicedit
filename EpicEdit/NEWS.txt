@@ -39,7 +39,7 @@ v2.6 (October 21st 2012)
 
 
 v2.5.1 (June 25th 2012)
-- Fix possible ROM corruption issues when resaving color palettes
+- Fixed possible ROM corruption issues when resaving color palettes
   (regressed in 2.4) and background layouts
 
 
