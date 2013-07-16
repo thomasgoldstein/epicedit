@@ -49,7 +49,7 @@ namespace EpicEdit.UI.Gfx
         private float zoom;
         public float Zoom
         {
-            get { return this.zoom; }
+            //get { return this.zoom; }
             set
             {
                 this.zoom = value;
