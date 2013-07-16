@@ -444,7 +444,7 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                Rectangle visibleSelection = this.GetVisibleTileSelectionRectangle(tileSelection);
+                Rectangle visibleSelection = TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
 
                 int inflate = this.zoom >= 1 ?
                     1 : // Enlarge rectangle by 1px to account for the 1px border of the selection
@@ -655,7 +655,7 @@ namespace EpicEdit.UI.Gfx
             this.PaintTrackOutbounds(e);
         }
 
-        private Rectangle GetVisibleTileSelectionRectangle(Rectangle tileSelection)
+        private static Rectangle GetVisibleTileSelectionRectangle(Rectangle tileSelection)
         {
             return tileSelection.IsEmpty ? tileSelection :
                 new Rectangle(tileSelection.X * Tile.Size - 1,
@@ -784,7 +784,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawTileSelection(Graphics g, Rectangle tileSelection, bool selectingTiles)
         {
-            Rectangle visibleSelection = this.GetVisibleTileSelectionRectangle(tileSelection);
+            Rectangle visibleSelection = TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
 
             if (selectingTiles) // A tile selection is happening now
             {
