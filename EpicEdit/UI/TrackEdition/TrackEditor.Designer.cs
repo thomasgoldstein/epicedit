@@ -38,6 +38,11 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.drawer.Dispose();
                 }
+  
+                if (this.dirtyRegion != null)
+                {
+                    this.dirtyRegion.Dispose();
+                }
 
                 if (this.paletteForm != null)
                 {
