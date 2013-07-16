@@ -1573,7 +1573,7 @@ namespace EpicEdit.UI.Gfx
         public void UpdateTileClipboard(Tile tile)
         {
             this.tileClipboardCache.Dispose();
-            this.tileClipboardCache = (Bitmap)tile.Bitmap.Clone();
+            this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
         }
 
         public void UpdateTileClipboard(int x, int y, Size size)
