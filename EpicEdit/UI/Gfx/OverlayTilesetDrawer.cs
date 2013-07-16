@@ -77,8 +77,8 @@ namespace EpicEdit.UI.Gfx
         private void UpdateCache()
         {
             this.tilesetCache.Dispose();
-
             this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+
             using (Graphics g = Graphics.FromImage(this.tilesetCache))
             {
                 g.FillRegion(this.transparentBrush, g.Clip);
