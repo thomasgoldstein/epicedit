@@ -205,6 +205,7 @@ namespace EpicEdit.UI.Gfx
             using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
+                // Drawing the back and front layers twice, so that the background loops horizontally
                 backBuffer.DrawImage(this.backLayer, x, 0);
                 backBuffer.DrawImage(this.backLayer, x + BackWidth, 0);
 
