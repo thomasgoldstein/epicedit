@@ -37,19 +37,13 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal sealed class TrackDrawer : IDisposable
     {
-        private Control control;
         private Track track;
-        private Size imageSize;
 
         private Point scrollPosition;
         public Point ScrollPosition
         {
             get { return this.scrollPosition; }
-            set
-            {
-                this.scrollPosition = value;
-                this.SetImageSize();
-            }
+            set { this.scrollPosition = value; }
         }
 
         private float zoom;
@@ -61,9 +55,6 @@ namespace EpicEdit.UI.Gfx
                 this.zoom = value;
                 this.zoomMatrix.Reset();
                 this.zoomMatrix.Scale(this.zoom, this.zoom);
-
-                this.SetImageSize();
-                this.NotifyFullRepaintNeed();
             }
         }
 
@@ -76,16 +67,6 @@ namespace EpicEdit.UI.Gfx
         /// They're cached in order to figure out when to update the objectZonesCache.
         /// </summary>
         private byte[][] zones;
-
-        /// <summary>
-        /// Determines whether a full repaint is needed or not.
-        /// </summary>
-        private bool fullRepaintNeeded;
-
-        /// <summary>
-        /// Region which needs to be repainted.
-        /// </summary>
-        private Region dirtyRegion;
 
         /// <summary>
         /// Used to resize the dirty region depending on the zoom level.
@@ -172,10 +153,8 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private ImageAttributes grayScaleImageAttr;
 
-        public TrackDrawer(Control control)
+        public TrackDrawer()
         {
-            this.control = control;
-
             #region Pens and Brushes initialization
 
             this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
@@ -270,11 +249,10 @@ namespace EpicEdit.UI.Gfx
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
             this.trackCache = this.tileClipboardCache = this.objectZonesCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-            this.dirtyRegion = new Region();
         }
 
         /// <summary>
-        /// Loads a track and generate the track image cache.
+        /// Loads a track and generates the track image cache.
         /// </summary>
         /// <param name="track">The track.</param>
         public void LoadTrack(Track track)
@@ -299,8 +277,21 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
             }
+        }
 
-            this.NotifyFullRepaintNeed();
+        private Region GetZoomedRegion(Rectangle rectangle)
+        {
+            return this.GetZoomedRegion(new Region(rectangle));
+        }
+
+        private Region GetZoomedRegion(Region region)
+        {
+            if (this.zoom != 1)
+            {
+                region.Transform(this.zoomMatrix);
+            }
+
+            return region;
         }
 
         public void UpdateCache(Palette palette)
@@ -321,8 +312,6 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
             }
-
-            this.NotifyFullRepaintNeed();
         }
 
         public void UpdateCache(byte tileId)
@@ -342,8 +331,6 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
             }
-
-            this.NotifyFullRepaintNeed();
         }
 
         public void UpdateCache(bool[] tileUpdates)
@@ -365,11 +352,9 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
             }
-
-            this.NotifyFullRepaintNeed();
         }
 
-        public void ReloadTrackPart(TileChange change)
+        public Region ReloadTrackPart(TileChange change)
         {
             RoadTileset tileset = this.track.RoadTileset;
 
@@ -386,259 +371,297 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
 
-                if (!this.fullRepaintNeeded)
-                {
-                    Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
-                                                             change.Y * Tile.Size,
-                                                             change.Width * Tile.Size,
-                                                             change.Height * Tile.Size);
-                    this.dirtyRegion.Union(dirtyRectangle);
-                }
+                Rectangle dirtyRectangle = new Rectangle((change.X - this.scrollPosition.X) * Tile.Size,
+                                                         (change.Y - this.scrollPosition.Y) * Tile.Size,
+                                                         change.Width * Tile.Size,
+                                                         change.Height * Tile.Size);
+
+                return this.GetZoomedRegion(dirtyRectangle);
             }
         }
 
-        private Bitmap CloneTrackImage()
+        private Rectangle GetTrackClip(Rectangle bounds)
         {
-            return this.trackCache.Clone(
-                new Rectangle(this.scrollPosition.X * Tile.Size,
-                              this.scrollPosition.Y * Tile.Size,
-                              this.imageSize.Width,
-                              this.imageSize.Height),
-                this.trackCache.PixelFormat);
+            bounds.X = (int)(bounds.X / this.zoom) + this.scrollPosition.X * Tile.Size;
+            bounds.Y = (int)(bounds.Y / this.zoom) + this.scrollPosition.Y * Tile.Size;
+            bounds.Width = (int)Math.Ceiling(bounds.Width / this.zoom);
+            bounds.Height = (int)Math.Ceiling(bounds.Height / this.zoom);
+
+            if (bounds.Right > this.track.Map.Width * Tile.Size)
+            {
+                bounds.Width = this.track.Map.Width * Tile.Size - bounds.X;
+            }
+
+            if (bounds.Bottom > this.track.Map.Height * Tile.Size)
+            {
+                bounds.Height = this.track.Map.Height * Tile.Size - bounds.Y;
+            }
+
+            return bounds;
         }
 
-        private void DrawImage(Graphics g, Bitmap image)
+        private Bitmap CreateClippedTrackImage(Rectangle clip)
+        {
+            return this.trackCache.Clone(clip, this.trackCache.PixelFormat);
+        }
+
+        private Graphics CreateBackBuffer(PaintEventArgs e, Image image)
+        {
+            Graphics backBuffer = Graphics.FromImage(image);
+
+            int offsetX = -(int)(e.ClipRectangle.X / this.zoom);
+            int offsetY = -(int)(e.ClipRectangle.Y / this.zoom);
+            Matrix matrix = new Matrix();
+            matrix.Translate(offsetX, offsetY);
+            backBuffer.Transform = matrix;
+
+            return backBuffer;
+        }
+
+        private void DrawImage(PaintEventArgs e, Bitmap image, Size imageSize)
         {
             // Solves a GDI+ bug which crops scaled images
-            g.PixelOffsetMode = PixelOffsetMode.Half;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
 
-            g.InterpolationMode = this.zoom >= 1 ?
+            e.Graphics.InterpolationMode = this.zoom >= 1 ?
                 InterpolationMode.NearestNeighbor :
                 InterpolationMode.Bilinear;
 
-            g.DrawImage(image, 0, 0, this.imageSize.Width * this.zoom, this.imageSize.Height * this.zoom);
+            e.Graphics.DrawImage(image,
+                                 e.ClipRectangle.X,
+                                 e.ClipRectangle.Y,
+                                 imageSize.Width * this.zoom,
+                                 imageSize.Height * this.zoom);
         }
 
-        public void DrawTrackTileset(Graphics g, Point cursorPosition, Point selectionStart, Size selectionSize, MouseButtons mouseButtons)
+        public Region GetTrackTilesetRegion(Rectangle tileSelection)
         {
-            Region clipRegion = new Region(Rectangle.Empty);
+            Region region;
 
-            using (Bitmap image = this.CloneTrackImage())
+            if (tileSelection.IsEmpty)
             {
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    Rectangle selectionRectangle;
+                region = new Region(tileSelection);
+            }
+            else
+            {
+                Rectangle visibleSelection = this.GetVisibleTileSelectionRectangle(tileSelection);
 
-                    if (mouseButtons == MouseButtons.Middle || Context.ColorPickerMode)
-                    {
-                        selectionRectangle = Rectangle.Empty;
-                    }
-                    else
-                    {
-                        selectionRectangle = this.GetTileSelectionRectangle(cursorPosition, selectionStart, selectionSize, mouseButtons);
-                        TrackDrawer.SetTileSelectionClipRegion(clipRegion, selectionRectangle);
-                    }
+                int inflate = this.zoom >= 1 ?
+                    1 : // Enlarge rectangle by 1px to account for the 1px border of the selection
+                    3; // Enlarge more to account for sub-1 zoom rounding issues, as well as anti-aliasing related issues
 
-                    if (!this.fullRepaintNeeded)
-                    {
-                        // If a full repaint isn't needed, we set the clipping regions
-                        // to only partially repaint the panel
-                        this.SetPaintRegions(g, backBuffer, clipRegion);
-                    }
+                visibleSelection.Inflate(inflate, inflate);
 
-                    this.DrawTileSelection(backBuffer, selectionRectangle, mouseButtons);
-                }
-                this.DrawImage(g, image);
+                region = this.GetZoomedRegion(visibleSelection);
             }
 
-            this.PaintTrackOutbounds(g);
-
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = clipRegion;
-            this.fullRepaintNeeded = false;
+            return region;
         }
 
-        public void DrawTrackOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
+        public Region GetTrackOverlayRegion(OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
         {
-            Region clipRegion = new Region(Rectangle.Empty);
+            Region region = new Region(Rectangle.Empty);
 
-            using (Bitmap image = this.CloneTrackImage())
-            {
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    if (selectedPatternLocation == TrackEditor.OutOfBounds)
-                    {
-                        // The selected overlay tile pattern is out of the screen,
-                        // act as if there isn't one
-                        selectedPattern = null;
-                    }
-                    this.SetOverlayClipRegion(clipRegion, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
-
-                    if (!this.fullRepaintNeeded)
-                    {
-                        // If a full repaint isn't needed, we set the clipping regions
-                        // to only partially repaint the panel
-                        this.SetPaintRegions(g, backBuffer, clipRegion);
-                    }
-
-                    this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
-                }
-                this.DrawImage(g, image);
-            }
-
-            this.PaintTrackOutbounds(g);
-
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = clipRegion;
-            this.fullRepaintNeeded = false;
-        }
-
-        public void DrawTrackStart(Graphics g)
-        {
-            Region clipRegion = new Region(Rectangle.Empty);
-
-            using (Bitmap image = this.CloneTrackImage())
-            {
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    GPTrack gpTrack = this.track as GPTrack;
-                    if (gpTrack != null)
-                    {
-                        this.SetGPStartClipRegion(clipRegion, gpTrack.LapLine, gpTrack.StartPosition);
-                    }
-                    else
-                    {
-                        BattleTrack bTrack = this.track as BattleTrack;
-                        this.SetBattleStartClipRegion(clipRegion, bTrack.StartPositionP1, bTrack.StartPositionP2);
-                    }
-
-                    if (!this.fullRepaintNeeded)
-                    {
-                        // If a full repaint isn't needed, we set the clipping regions
-                        // to only partially repaint the panel
-                        this.SetPaintRegions(g, backBuffer, clipRegion);
-                    }
-
-                    this.DrawStartData(backBuffer);
-                }
-                this.DrawImage(g, image);
-            }
-
-            this.PaintTrackOutbounds(g);
-
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = clipRegion;
-            this.fullRepaintNeeded = false;
-        }
-
-        public void DrawTrackObjects(Graphics g, TrackObject hoveredObject, bool frontZonesView)
-        {
-            Region clipRegion = new Region(Rectangle.Empty);
-
-            using (Bitmap image = this.CloneTrackImage())
-            {
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    backBuffer.PixelOffsetMode = PixelOffsetMode.Half;
-                    this.SetObjectClipRegion(clipRegion, hoveredObject);
-
-                    if (!this.fullRepaintNeeded)
-                    {
-                        // If a full repaint isn't needed, we set the clipping regions
-                        // to only partially repaint the panel
-                        this.SetPaintRegions(g, backBuffer, clipRegion);
-                    }
-
-                    this.DrawObjectData(backBuffer, frontZonesView, hoveredObject);
-                }
-                this.DrawImage(g, image);
-            }
-
-            this.PaintTrackOutbounds(g);
-
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = clipRegion;
-            this.fullRepaintNeeded = false;
-        }
-
-        public void DrawTrackAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
-        {
-            Region clipRegion = new Region(Rectangle.Empty);
-
-            using (Bitmap image = this.CloneTrackImage())
-            {
-                using (Graphics backBuffer = Graphics.FromImage(image))
-                {
-                    this.SetAIClipRegion(clipRegion, hoveredAIElem, selectedAIElem);
-
-                    if (!this.fullRepaintNeeded)
-                    {
-                        // If a full repaint isn't needed, we set the clipping regions
-                        // to only partially repaint the panel
-                        this.SetPaintRegions(g, backBuffer, clipRegion);
-                    }
-
-                    this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
-                }
-                this.DrawImage(g, image);
-            }
-
-            this.PaintTrackOutbounds(g);
-
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = clipRegion;
-            this.fullRepaintNeeded = false;
-        }
-
-        private Rectangle GetTileSelectionRectangle(Point cursorPosition, Point selectionStart, Size selectionSize, MouseButtons mouseButtons)
-        {
-            Rectangle selectionRectangle;
-            if (mouseButtons == MouseButtons.Right) // A tile selection is happening now
-            {
-                selectionStart.X -= this.scrollPosition.X;
-                selectionStart.Y -= this.scrollPosition.Y;
-                selectionRectangle = new Rectangle((selectionStart.X * Tile.Size) - 1, (selectionStart.Y * Tile.Size) - 1,
-                                                   selectionSize.Width * Tile.Size + 1, selectionSize.Height * Tile.Size + 1);
-            }
-            else if (cursorPosition != TrackEditor.OutOfBounds) // The user is simply hovering tiles
-            {
-                selectionRectangle = new Rectangle((cursorPosition.X * Tile.Size) - 1, (cursorPosition.Y * Tile.Size) - 1,
-                                                   selectionSize.Width * Tile.Size + 1, selectionSize.Height * Tile.Size + 1);
-            }
-            else // The cursor isn't on the track map
-            {
-                selectionRectangle = Rectangle.Empty;
-            }
-            return selectionRectangle;
-        }
-
-        private static void SetTileSelectionClipRegion(Region clipRegion, Rectangle rectangle)
-        {
-            // Enlarge rectangle by 1px to account for the 1px border of the selection
-            rectangle.Inflate(1, 1);
-            clipRegion.Union(rectangle);
-        }
-
-        private void SetOverlayClipRegion(Region clipRegion, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
-        {
             if (hoveredOverlayTile != null)
             {
                 Rectangle rec = this.GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
-                clipRegion.Union(rec);
+                region.Union(rec);
             }
 
             if (selectedOverlayTile != null &&
                 selectedOverlayTile != hoveredOverlayTile)
             {
                 Rectangle rec = this.GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
-                clipRegion.Union(rec);
+                region.Union(rec);
             }
 
-            if (selectedPattern != null)
+            if (selectedPattern != null &&
+                selectedPatternLocation != TrackEditor.OutOfBounds)
             {
                 Rectangle rec = this.GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
-                clipRegion.Union(rec);
+                region.Union(rec);
             }
+
+            region = this.GetZoomedRegion(region);
+
+            return region;
+        }
+
+        public Region GetTrackStartRegion()
+        {
+            Region region;
+
+            GPTrack gpTrack = this.track as GPTrack;
+            if (gpTrack != null)
+            {
+                region = this.GetGPStartClipRegion(gpTrack.LapLine, gpTrack.StartPosition);
+            }
+            else
+            {
+                BattleTrack bTrack = this.track as BattleTrack;
+                region = this.GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
+            }
+
+            region = this.GetZoomedRegion(region);
+
+            return region;
+        }
+
+        public Region GetTrackObjectsRegion(TrackObject hoveredObject)
+        {
+            Region region;
+
+            if (hoveredObject == null)
+            {
+                region = new Region(Rectangle.Empty);
+            }
+            else
+            {
+                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size - Tile.Size;
+                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size + Tile.Size / 2);
+                int width = 24;
+                int height = 24;
+
+                if (hoveredObject is TrackObjectMatchRace)
+                {
+                    x -= 6;
+                    y -= 6;
+                    width += 12;
+                    height += 12;
+                }
+
+                Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
+
+                region = this.GetZoomedRegion(hoveredObjectRectangle);
+            }
+
+            return region;
+        }
+
+        public Region GetTrackAIRegion(TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem)
+        {
+            Region region = new Region(Rectangle.Empty);
+
+            if (hoveredAIElem != null)
+            {
+                region.Union(this.GetAIClipRectangle(hoveredAIElem));
+            }
+
+            if (selectedAIElem != null &&
+                selectedAIElem != hoveredAIElem)
+            {
+                region.Union(this.GetAIClipRectangle(selectedAIElem));
+            }
+
+            region = this.GetZoomedRegion(region);
+
+            return region;
+        }
+
+        public void DrawTrackTileset(PaintEventArgs e, Rectangle tileSelection, bool selectingTiles)
+        {
+            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+
+            if (clip.Width > 0 && clip.Height > 0)
+            {
+                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                {
+                    if (!tileSelection.IsEmpty)
+                    {
+                        using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                        {
+                            this.DrawTileSelection(backBuffer, tileSelection, selectingTiles);
+                        }
+                    }
+
+                    this.DrawImage(e, image, clip.Size);
+                }
+            }
+
+            this.PaintTrackOutbounds(e);
+        }
+
+        public void DrawTrackOverlay(PaintEventArgs e, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
+        {
+            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+
+            if (clip.Width > 0 && clip.Height > 0)
+            {
+                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                {
+                    this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
+                    this.DrawImage(e, image, clip.Size);
+                }
+            }
+
+            this.PaintTrackOutbounds(e);
+        }
+
+        public void DrawTrackStart(PaintEventArgs e)
+        {
+            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+
+            if (clip.Width > 0 && clip.Height > 0)
+            {
+                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                {
+                    this.DrawStartData(backBuffer);
+                    this.DrawImage(e, image, clip.Size);
+                }
+            }
+
+            this.PaintTrackOutbounds(e);
+        }
+
+        public void DrawTrackObjects(PaintEventArgs e, TrackObject hoveredObject, bool frontZonesView)
+        {
+            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+
+            if (clip.Width > 0 && clip.Height > 0)
+            {
+                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                {
+                    if (this.track is GPTrack)
+                    {
+                        using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                        {
+                            this.DrawObjectData(backBuffer, hoveredObject, frontZonesView);
+                        }
+                    }
+
+                    this.DrawImage(e, image, clip.Size);
+                }
+            }
+
+            this.PaintTrackOutbounds(e);
+        }
+
+        public void DrawTrackAI(PaintEventArgs e, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
+        {
+            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+
+            if (clip.Width > 0 && clip.Height > 0)
+            {
+                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                {
+                    this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
+                    this.DrawImage(e, image, clip.Size);
+                }
+            }
+
+            this.PaintTrackOutbounds(e);
+        }
+
+        private Rectangle GetVisibleTileSelectionRectangle(Rectangle tileSelection)
+        {
+            return tileSelection.IsEmpty ? tileSelection :
+                new Rectangle(tileSelection.X * Tile.Size - 1,
+                              tileSelection.Y * Tile.Size - 1,
+                              tileSelection.Width * Tile.Size + 1,
+                              tileSelection.Height * Tile.Size + 1);
         }
 
         private Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
@@ -649,7 +672,7 @@ namespace EpicEdit.UI.Gfx
                                  overlayTilePattern.Height * Tile.Size);
         }
 
-        private void SetGPStartClipRegion(Region clipRegion, LapLine lapLine, GPStartPosition startPosition)
+        private Region GetGPStartClipRegion(LapLine lapLine, GPStartPosition startPosition)
         {
             Rectangle lapLineRectangle =
                 new Rectangle(lapLine.X - (this.scrollPosition.X * Tile.Size),
@@ -681,63 +704,26 @@ namespace EpicEdit.UI.Gfx
                 startRectangle2.Y--;
             }
 
-            clipRegion.Union(lapLineRectangle);
-            clipRegion.Union(startRectangle1);
-            clipRegion.Union(startRectangle2);
+            Region region = new Region(lapLineRectangle);
+            region.Union(startRectangle1);
+            region.Union(startRectangle2);
+
+            return region;
         }
 
-        private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
+        private Region GetBattleStartClipRegion(BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
         {
-            this.SetBattleStartClipRegion(clipRegion, startPositionP1);
-            this.SetBattleStartClipRegion(clipRegion, startPositionP2);
+            Region region = new Region(this.GetBattleStartClipRectangle(startPositionP1));
+            region.Union(this.GetBattleStartClipRectangle(startPositionP2));
+
+            return region;
         }
 
-        private void SetBattleStartClipRegion(Region clipRegion, BattleStartPosition startPosition)
+        private Rectangle GetBattleStartClipRectangle(BattleStartPosition startPosition)
         {
-            Rectangle startRectangle = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                     startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
-                                                     Tile.Size + 1, Tile.Size + 1);
-
-            clipRegion.Union(startRectangle);
-        }
-
-        private void SetObjectClipRegion(Region clipRegion, TrackObject hoveredObject)
-        {
-            if (hoveredObject != null)
-            {
-                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size - Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size + Tile.Size / 2);
-                int width = 24;
-                int height = 24;
-
-                if (hoveredObject is TrackObjectMatchRace)
-                {
-                    x -= 6;
-                    y -= 6;
-                    width += 12;
-                    height += 12;
-                }
-
-                Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
-
-                clipRegion.Union(hoveredObjectRectangle);
-            }
-        }
-
-        private void SetAIClipRegion(Region clipRegion, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem)
-        {
-            if (hoveredAIElem != null)
-            {
-                Rectangle clipRectangle = this.GetAIClipRectangle(hoveredAIElem);
-                clipRegion.Union(clipRectangle);
-            }
-
-            if (selectedAIElem != null &&
-                selectedAIElem != hoveredAIElem)
-            {
-                Rectangle clipRectangle = this.GetAIClipRectangle(selectedAIElem);
-                clipRegion.Union(clipRectangle);
-            }
+            return new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
+                                 startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
+                                 Tile.Size + 1, Tile.Size + 1);
         }
 
         /// <summary>
@@ -796,50 +782,25 @@ namespace EpicEdit.UI.Gfx
             return hoveredAIElemRectangle;
         }
 
-        private void SetPaintRegions(Graphics g, Graphics backBuffer, Region clipRegion)
+        private void DrawTileSelection(Graphics g, Rectangle tileSelection, bool selectingTiles)
         {
-            backBuffer.Clip = clipRegion;
-            backBuffer.SetClip(this.dirtyRegion, CombineMode.Union);
+            Rectangle visibleSelection = this.GetVisibleTileSelectionRectangle(tileSelection);
 
-            // This is for the front buffer,
-            // which needs to clip graphics depending on the zoom level
-            if (this.zoom == 1)
+            if (selectingTiles) // A tile selection is happening now
             {
-                g.Clip = backBuffer.Clip;
+                g.FillRectangle(this.tileSelectBrush, visibleSelection);
+                g.DrawRectangle(this.tileSelectPen, visibleSelection);
             }
-            else
-            {
-                Region zoomedClipRegion = backBuffer.Clip;
-                zoomedClipRegion.Transform(this.zoomMatrix);
-
-                if (this.zoom < 1)
-                {
-                    // HACK: Avoid clipping issues (rounding differences)
-                    // with the DrawTrackTileset method.
-                    zoomedClipRegion.Translate(0.5f, 0.5f);
-                }
-
-                g.Clip = zoomedClipRegion;
-            }
-        }
-
-        private void DrawTileSelection(Graphics g, Rectangle selectionRectangle, MouseButtons mouseButtons)
-        {
-            if (mouseButtons == MouseButtons.Right) // A tile selection is happening now
-            {
-                g.FillRectangle(this.tileSelectBrush, selectionRectangle);
-                g.DrawRectangle(this.tileSelectPen, selectionRectangle);
-            }
-            else if (!selectionRectangle.IsEmpty) // The user is simply hovering tiles
+            else // The user is simply hovering tiles
             {
                 g.DrawImage(this.tileClipboardCache,
-                            new Rectangle(selectionRectangle.X + 1,
-                                          selectionRectangle.Y + 1,
-                                          selectionRectangle.Width,
-                                          selectionRectangle.Height),
-                            0, 0, selectionRectangle.Width, selectionRectangle.Height,
+                            new Rectangle(visibleSelection.X + 1,
+                                          visibleSelection.Y + 1,
+                                          visibleSelection.Width,
+                                          visibleSelection.Height),
+                            0, 0, visibleSelection.Width, visibleSelection.Height,
                             GraphicsUnit.Pixel, this.translucidImageAttr);
-                g.DrawRectangle(this.tileHighlightPen, selectionRectangle);
+                g.DrawRectangle(this.tileHighlightPen, visibleSelection);
             }
         }
 
@@ -854,24 +815,16 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredOverlayTile != null)
             {
-                g.FillRectangle(this.overlayHighlightBrush,
-                                (hoveredOverlayTile.X - this.scrollPosition.X) * Tile.Size,
-                                (hoveredOverlayTile.Y - this.scrollPosition.Y) * Tile.Size,
-                                hoveredOverlayTile.Width * Tile.Size,
-                                hoveredOverlayTile.Height * Tile.Size);
+                this.DrawOverlaySelection(g, hoveredOverlayTile);
             }
 
             if (selectedOverlayTile != null &&
                 selectedOverlayTile != hoveredOverlayTile)
             {
-                g.FillRectangle(this.overlayHighlightBrush,
-                                (selectedOverlayTile.X - this.scrollPosition.X) * Tile.Size,
-                                (selectedOverlayTile.Y - this.scrollPosition.Y) * Tile.Size,
-                                selectedOverlayTile.Width * Tile.Size,
-                                selectedOverlayTile.Height * Tile.Size);
+                this.DrawOverlaySelection(g, selectedOverlayTile);
             }
 
-            if (selectedPattern != null)
+            if (selectedPattern != null && selectedPatternLocation != TrackEditor.OutOfBounds)
             {
                 this.DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tileset);
             }
@@ -909,6 +862,15 @@ namespace EpicEdit.UI.Gfx
                                 GraphicsUnit.Pixel, imageAttr);
                 }
             }
+        }
+
+        private void DrawOverlaySelection(Graphics g, OverlayTile overlayTile)
+        {
+            g.FillRectangle(this.overlayHighlightBrush,
+                            (overlayTile.X - this.scrollPosition.X) * Tile.Size,
+                            (overlayTile.Y - this.scrollPosition.Y) * Tile.Size,
+                            overlayTile.Width * Tile.Size,
+                            overlayTile.Height * Tile.Size);
         }
 
         private void DrawStartData(Graphics g)
@@ -1023,17 +985,14 @@ namespace EpicEdit.UI.Gfx
             g.DrawPolygon(this.arrowPen, arrow);
         }
 
-        private void DrawObjectData(Graphics g, bool frontZonesView, TrackObject hoveredObject)
+        private void DrawObjectData(Graphics g, TrackObject hoveredObject, bool frontZonesView)
         {
             GPTrack gpTrack = this.track as GPTrack;
 
-            if (gpTrack == null)
-            {
-                return;
-            }
-
             if (gpTrack.ObjectRoutine != ObjectType.Pillar)
             {
+                g.PixelOffsetMode = PixelOffsetMode.Half;
+
                 this.DrawObjectZones(g, frontZonesView);
 
                 TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
@@ -1455,26 +1414,11 @@ namespace EpicEdit.UI.Gfx
 
             for (int i = 0; i < points.Length; i++)
             {
-                int xCorrection;
-                int yCorrection;
+                int xCorrection = points[i].X == aiElem.Zone.Left ?
+                    0 : xCorrectionStep;
 
-                if (points[i].X == aiElem.Zone.Left)
-                {
-                    xCorrection = 0;
-                }
-                else
-                {
-                    xCorrection = xCorrectionStep;
-                }
-
-                if (points[i].Y == aiElem.Zone.Top)
-                {
-                    yCorrection = 0;
-                }
-                else
-                {
-                    yCorrection = yCorrectionStep;
-                }
+                int yCorrection = points[i].Y == aiElem.Zone.Top ?
+                    0 : yCorrectionStep;
 
                 points[i] =
                     new Point((points[i].X - this.scrollPosition.X) * Tile.Size - xCorrection,
@@ -1593,47 +1537,29 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void PaintTrackOutbounds(Graphics g)
+        private void PaintTrackOutbounds(PaintEventArgs e)
         {
-            Rectangle trackArea = new Rectangle(0, 0, (int)(this.imageSize.Width * this.zoom), (int)(this.imageSize.Height * this.zoom));
-            Rectangle[] outBounds = new Rectangle[]
+            int mapWidth = (int)((this.track.Map.Width - this.scrollPosition.X) * Tile.Size * this.zoom);
+            int mapHeight = (int)((this.track.Map.Height - this.scrollPosition.Y) * Tile.Size * this.zoom);
+
+            if (e.ClipRectangle.Right > mapWidth || e.ClipRectangle.Bottom > mapHeight)
             {
-                // Right outbounds
-                new Rectangle(trackArea.Right, 0, this.control.Width - trackArea.Width, trackArea.Height),
+                int x = Math.Max(mapWidth, e.ClipRectangle.Left);
+                int y = Math.Max(mapHeight, e.ClipRectangle.Top);
+                int width = e.ClipRectangle.Right - x;
+                int height = e.ClipRectangle.Bottom - y;
 
-                // Bottom outbounds
-                new Rectangle(0, trackArea.Bottom, this.control.Width, this.control.Height - trackArea.Height)
-            };
-            g.FillRectangles(Brushes.Black, outBounds);
-        }
+                Rectangle[] outbounds = new Rectangle[]
+                {
+                    // Right outbounds
+                    new Rectangle(x, e.ClipRectangle.Y, width, e.ClipRectangle.Height),
 
-        public void NotifyFullRepaintNeed()
-        {
-            this.fullRepaintNeeded = true;
-        }
+                    // Bottom outbounds
+                    new Rectangle(e.ClipRectangle.X, y, e.ClipRectangle.Width, height)
+                };
 
-        public void ResizeWindow()
-        {
-            this.SetImageSize();
-
-            if (this.imageSize.Width == 0 || this.imageSize.Height == 0)
-            {
-                // Ensure the image width and height are at least equal to 1,
-                // so that the Bitmap creation doesn't fail
-                this.imageSize.Width = 1;
-                this.imageSize.Height = 1;
+                e.Graphics.FillRectangles(Brushes.Black, outbounds);
             }
-            else
-            {
-                this.NotifyFullRepaintNeed();
-            }
-        }
-
-        private void SetImageSize()
-        {
-            int imageWidth = (int)Math.Min(this.control.Width / this.zoom, (TrackMap.Size - this.scrollPosition.X) * Tile.Size);
-            int imageHeight = (int)Math.Min(this.control.Height / this.zoom, (TrackMap.Size - this.scrollPosition.Y) * Tile.Size);
-            this.imageSize = new Size(imageWidth, imageHeight);
         }
 
         public void UpdateCacheAfterTileLaying(Point absolutePosition)
@@ -1682,7 +1608,6 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache.Dispose();
             this.objectZonesCache.Dispose();
 
-            this.dirtyRegion.Dispose();
             this.zoomMatrix.Dispose();
 
             this.tileHighlightPen.Dispose();
