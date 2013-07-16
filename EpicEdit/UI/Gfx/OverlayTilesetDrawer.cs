@@ -120,26 +120,20 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g)
         {
-            using (Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = this.tilesetCache.Clone() as Bitmap)
+            using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                using (Graphics backBuffer = Graphics.FromImage(image))
+                this.OutlinePattern(backBuffer, this.HoveredPattern);
+
+                if (this.HoveredPattern != this.SelectedPattern)
                 {
-                    g.InterpolationMode = InterpolationMode.NearestNeighbor;
-                    g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-
-                    backBuffer.DrawImage(this.tilesetCache, 0, 0,
-                                  this.imageSize.Width,
-                                  this.imageSize.Height);
-
-                    this.OutlinePattern(backBuffer, this.HoveredPattern);
-
-                    if (this.HoveredPattern != this.SelectedPattern)
-                    {
-                        this.OutlinePattern(backBuffer, this.SelectedPattern);
-                    }
-
-                    this.HighlightPattern(backBuffer, this.SelectedPattern);
+                    this.OutlinePattern(backBuffer, this.SelectedPattern);
                 }
+
+                this.HighlightPattern(backBuffer, this.SelectedPattern);
+
+                g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
                 g.DrawImage(image, 0, 0,
                             this.imageSize.Width * Zoom,
                             this.imageSize.Height * Zoom);

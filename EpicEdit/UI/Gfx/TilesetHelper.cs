@@ -34,28 +34,22 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, Image image, Size imageSize, int zoom, byte selectedTile)
         {
-            using (Bitmap imageCopy = new Bitmap(imageSize.Width, imageSize.Height, PixelFormat.Format32bppPArgb))
+            using (Image imageCopy = image.Clone() as Image)
+            using (Graphics backBuffer = Graphics.FromImage(imageCopy))
             {
+                int xTileCount = imageSize.Width / Tile.Size;
+                int tilePosX = selectedTile % xTileCount;
+                int tilePosY = selectedTile / xTileCount;
+                Point selectedTilePosition = new Point(tilePosX, tilePosY);
+
+                backBuffer.DrawRectangle(this.selectionPen,
+                                         selectedTilePosition.X * Tile.Size,
+                                         selectedTilePosition.Y * Tile.Size,
+                                         Tile.Size - 1,
+                                         Tile.Size - 1);
+
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;
                 g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
-
-                using (Graphics backBuffer = Graphics.FromImage(imageCopy))
-                {
-                    backBuffer.DrawImage(image, 0, 0,
-                                         imageSize.Width,
-                                         imageSize.Height);
-
-                    int xTileCount = imageSize.Width / Tile.Size;
-                    int tilePosX = selectedTile % xTileCount;
-                    int tilePosY = selectedTile / xTileCount;
-                    Point selectedTilePosition = new Point(tilePosX, tilePosY);
-
-                    backBuffer.DrawRectangle(this.selectionPen,
-                                             selectedTilePosition.X * Tile.Size,
-                                             selectedTilePosition.Y * Tile.Size,
-                                             Tile.Size - 1,
-                                             Tile.Size - 1);
-                }
                 g.DrawImage(imageCopy, 0, 0,
                             imageSize.Width * zoom,
                             imageSize.Height * zoom);
