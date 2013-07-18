@@ -110,17 +110,12 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private ItemType itemType;
-        public ItemType ItemType
-        {
-            get { return this.itemType; } // Needed for the IDE designer
-            set { this.itemType = value; }
-        }
+        public ItemType ItemType { get; set; }
 
         private void CreateImage()
         {
             Palettes palettes = this.Theme.Palettes;
-            this.Image = Context.Game.ItemIconGraphics.GetImage(this.itemType, palettes);
+            this.Image = Context.Game.ItemIconGraphics.GetImage(this.ItemType, palettes);
         }
 
         public void UpdateImage()
@@ -169,7 +164,7 @@ namespace EpicEdit.UI.ThemeEdition
             x /= Tile.Size;
             y /= Tile.Size;
 
-            return Context.Game.ItemIconGraphics.GetTile(this.itemType, x, y);
+            return Context.Game.ItemIconGraphics.GetTile(this.ItemType, x, y);
         }
 
         protected override void Dispose(bool disposing)
