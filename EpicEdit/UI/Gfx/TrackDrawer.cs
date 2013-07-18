@@ -411,9 +411,7 @@ namespace EpicEdit.UI.Gfx
 
             int offsetX = -(int)(e.ClipRectangle.X / this.zoom);
             int offsetY = -(int)(e.ClipRectangle.Y / this.zoom);
-            Matrix matrix = new Matrix();
-            matrix.Translate(offsetX, offsetY);
-            backBuffer.Transform = matrix;
+            backBuffer.TranslateTransform(offsetX, offsetY);
 
             return backBuffer;
         }
