@@ -382,10 +382,17 @@ namespace EpicEdit.UI.Gfx
 
         private Rectangle GetTrackClip(Rectangle bounds)
         {
+            bool xDiff = bounds.X > ((int)(bounds.X / this.zoom) * this.zoom);
+            bool yDiff = bounds.Y > ((int)(bounds.Y / this.zoom) * this.zoom);
+
             bounds.X = (int)(bounds.X / this.zoom) + this.scrollPosition.X * Tile.Size;
             bounds.Y = (int)(bounds.Y / this.zoom) + this.scrollPosition.Y * Tile.Size;
-            bounds.Width = (int)Math.Ceiling(bounds.Width / this.zoom);
-            bounds.Height = (int)Math.Ceiling(bounds.Height / this.zoom);
+
+            // Sometimes increase the width or height by 1px to make up for rounding differences.
+            // Happens when dividing then multiplying X or Y with the zoom value
+            // results in a smaller integer value (e.g: (int)(5 / 2) * 2 = 4).
+            bounds.Width = (int)Math.Ceiling(bounds.Width / this.zoom) + (xDiff ? 1 : 0);
+            bounds.Height = (int)Math.Ceiling(bounds.Height / this.zoom) + (yDiff ? 1 : 0);
 
             if (bounds.Right > this.track.Map.Width * Tile.Size)
             {
@@ -405,31 +412,31 @@ namespace EpicEdit.UI.Gfx
             return this.trackCache.Clone(clip, this.trackCache.PixelFormat);
         }
 
-        private Graphics CreateBackBuffer(PaintEventArgs e, Image image)
+        private Graphics CreateBackBuffer(Image image, Rectangle clip)
         {
             Graphics backBuffer = Graphics.FromImage(image);
 
-            int offsetX = -(int)(e.ClipRectangle.X / this.zoom);
-            int offsetY = -(int)(e.ClipRectangle.Y / this.zoom);
+            int offsetX = -(clip.X - this.scrollPosition.X * Tile.Size);
+            int offsetY = -(clip.Y - this.scrollPosition.Y * Tile.Size);
             backBuffer.TranslateTransform(offsetX, offsetY);
 
             return backBuffer;
         }
 
-        private void DrawImage(PaintEventArgs e, Bitmap image, Size imageSize)
+        private void DrawImage(Graphics g, Bitmap image, Rectangle clip)
         {
             // Solves a GDI+ bug which crops scaled images
-            e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+            g.PixelOffsetMode = PixelOffsetMode.Half;
 
-            e.Graphics.InterpolationMode = this.zoom >= 1 ?
+            g.InterpolationMode = this.zoom >= 1 ?
                 InterpolationMode.NearestNeighbor :
                 InterpolationMode.Bilinear;
 
-            e.Graphics.DrawImage(image,
-                                 e.ClipRectangle.X,
-                                 e.ClipRectangle.Y,
-                                 imageSize.Width * this.zoom,
-                                 imageSize.Height * this.zoom);
+            g.DrawImage(image,
+                        (clip.X - this.scrollPosition.X * Tile.Size) * this.zoom,
+                        (clip.Y - this.scrollPosition.Y * Tile.Size) * this.zoom,
+                        clip.Width * this.zoom,
+                        clip.Height * this.zoom);
         }
 
         public Region GetTrackTilesetRegion(Rectangle tileSelection)
@@ -566,13 +573,13 @@ namespace EpicEdit.UI.Gfx
                 {
                     if (!tileSelection.IsEmpty)
                     {
-                        using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                        using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
                         {
                             this.DrawTileSelection(backBuffer, tileSelection, selectingTiles);
                         }
                     }
 
-                    this.DrawImage(e, image, clip.Size);
+                    this.DrawImage(e.Graphics, image, clip);
                 }
             }
 
@@ -586,10 +593,10 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
                 {
                     this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
-                    this.DrawImage(e, image, clip.Size);
+                    this.DrawImage(e.Graphics, image, clip);
                 }
             }
 
@@ -603,10 +610,10 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
                 {
                     this.DrawStartData(backBuffer);
-                    this.DrawImage(e, image, clip.Size);
+                    this.DrawImage(e.Graphics, image, clip);
                 }
             }
 
@@ -623,13 +630,13 @@ namespace EpicEdit.UI.Gfx
                 {
                     if (this.track is GPTrack)
                     {
-                        using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                        using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
                         {
                             this.DrawObjectData(backBuffer, hoveredObject, frontZonesView);
                         }
                     }
 
-                    this.DrawImage(e, image, clip.Size);
+                    this.DrawImage(e.Graphics, image, clip);
                 }
             }
 
@@ -643,10 +650,10 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(e, image))
+                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
                 {
                     this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
-                    this.DrawImage(e, image, clip.Size);
+                    this.DrawImage(e.Graphics, image, clip);
                 }
             }
 
