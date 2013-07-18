@@ -41,12 +41,20 @@ namespace EpicEdit.UI.ThemeEdition
             this.InitializeComponent();
         }
 
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                this.Editor.ResetSettings();
+            }
+
+            base.OnVisibleChanged(e);
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             this.Hide();
             e.Cancel = true;
-
-            this.Editor.ResetSettings();
         }
 
         public void Init()
