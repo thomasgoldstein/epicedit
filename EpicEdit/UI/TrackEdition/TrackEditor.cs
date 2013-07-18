@@ -645,7 +645,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             Point location = this.AbsoluteCenterTileLocation;
-            this.ZoomCommon(TrackEditor.DefaultZoomLevelIndex, true, true);
+            this.ZoomCommon(TrackEditor.DefaultZoomLevelIndex);
             this.CenterTrackDisplayOn(location);
 
             this.InvalidateWholeTrackDisplay();
@@ -733,22 +733,22 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ZoomInSub()
         {
-            this.ZoomCommon(this.ZoomLevelIndex + 1, this.CanZoomIn(), true);
+            this.ZoomCommon(this.ZoomLevelIndex + 1);
         }
 
         private void ZoomOutSub()
         {
-            this.ZoomCommon(this.ZoomLevelIndex - 1, true, this.CanZoomOut());
+            this.ZoomCommon(this.ZoomLevelIndex - 1);
         }
 
-        private void ZoomCommon(int zoomLevelIndex, bool zoomInEnabled, bool zoomOutEnabled)
+        private void ZoomCommon(int zoomLevelIndex)
         {
             this.ZoomLevelIndex = zoomLevelIndex;
             this.drawer.Zoom = this.Zoom;
             this.UpdateScrollBars();
 
-            this.menuBar.ZoomInEnabled = zoomInEnabled;
-            this.menuBar.ZoomOutEnabled = zoomOutEnabled;
+            this.menuBar.ZoomInEnabled = this.CanZoomIn();
+            this.menuBar.ZoomOutEnabled = this.CanZoomOut();
         }
 
         private bool CanZoomIn()
