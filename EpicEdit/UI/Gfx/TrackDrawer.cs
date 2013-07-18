@@ -1551,10 +1551,10 @@ namespace EpicEdit.UI.Gfx
 
                 Rectangle[] outbounds = new Rectangle[]
                 {
-                    // Right outbounds
+                    // Right outbound
                     new Rectangle(x, e.ClipRectangle.Y, width, e.ClipRectangle.Height),
 
-                    // Bottom outbounds
+                    // Bottom outbound
                     new Rectangle(e.ClipRectangle.X, y, e.ClipRectangle.Width, height)
                 };
 
