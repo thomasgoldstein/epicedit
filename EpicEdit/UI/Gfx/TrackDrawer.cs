@@ -451,11 +451,8 @@ namespace EpicEdit.UI.Gfx
             {
                 Rectangle visibleSelection = TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
 
-                int inflate = this.zoom >= 1 ?
-                    1 : // Enlarge rectangle by 1px to account for the 1px border of the selection
-                    3; // Enlarge more to account for sub-1 zoom rounding issues, as well as anti-aliasing related issues
-
-                visibleSelection.Inflate(inflate, inflate);
+                // Enlarge rectangle by 1px to account for the 1px border of the selection
+                visibleSelection.Inflate(1, 1);
 
                 region = this.GetZoomedRegion(visibleSelection);
             }
@@ -683,12 +680,6 @@ namespace EpicEdit.UI.Gfx
                 new Rectangle(lapLine.X - (this.scrollPosition.X * Tile.Size),
                               lapLine.Y - (this.scrollPosition.Y * Tile.Size) - 1,
                               lapLine.Length, 3);
-
-            if (this.zoom < 1)
-            {
-                // HACK: Avoid clipping issues (rounding differences)
-                lapLineRectangle.Inflate(0, 1);
-            }
 
             Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
                                                       startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 5,
