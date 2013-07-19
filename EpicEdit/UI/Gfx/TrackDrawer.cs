@@ -691,6 +691,13 @@ namespace EpicEdit.UI.Gfx
                                                       startRectangle1.Width,
                                                       startRectangle1.Height);
 
+            if (this.zoom < 1)
+            {
+                // HACK: Avoid clipping issues (rounding differences)
+                startRectangle1.Inflate(1, 0);
+                startRectangle2.Inflate(1, 0);
+            }
+
             if (!Platform.IsWindows)
             {
                 // HACK: Workaround for differences with Mono out of Windows
