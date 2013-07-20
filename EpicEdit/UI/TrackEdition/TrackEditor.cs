@@ -1107,7 +1107,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                // HACK: Work around the fact Mono does not support Region.MakeInfinite()
+                // HACK: Work around the fact Mono does not properly support Region.MakeInfinite()
                 this.dirtyRegion.Union(this.trackDisplay.DisplayRectangle);
             }
 
