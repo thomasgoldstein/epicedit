@@ -22,7 +22,7 @@ namespace EpicEditTests.Rom.Tracks.Items
     internal class ItemProbabilitiesTest
     {
         [Test]
-        public void TestSave()
+        public void TestGetBytes()
         {
             byte[] dataBefore =
             {
