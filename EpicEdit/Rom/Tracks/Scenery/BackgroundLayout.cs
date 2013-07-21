@@ -157,7 +157,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             return data;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             this.Modified = false;
         }

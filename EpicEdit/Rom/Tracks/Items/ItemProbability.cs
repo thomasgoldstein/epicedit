@@ -442,7 +442,7 @@ namespace EpicEdit.Rom.Tracks.Items
             data[index + 8] = (byte)this.displayedItems;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             // Update the backup data, so that resetting the data will reload the last saved data
             this.backupData = this.GetBytes();

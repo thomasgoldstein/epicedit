@@ -51,10 +51,10 @@ namespace EpicEdit.Rom.Settings
             this.RankPoints = new RankPoints(rankPointsData);
         }
 
-        public void ResetModifiedFlags()
+        public void ResetModifiedState()
         {
-            this.ItemProbabilities.ResetModifiedFlag();
-            this.RankPoints.ResetModifiedFlag();
+            this.ItemProbabilities.ResetModifiedState();
+            this.RankPoints.ResetModifiedState();
         }
     }
 }

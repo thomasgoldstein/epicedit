@@ -125,11 +125,11 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             foreach (Palette palette in this.palettes)
             {
-                palette.ResetModifiedFlag();
+                palette.ResetModifiedState();
             }
         }
 

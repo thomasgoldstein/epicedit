@@ -158,11 +158,11 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             foreach (ItemProbability itemProba in this.itemProbabilities)
             {
-                itemProba.ResetModifiedFlag();
+                itemProba.ResetModifiedState();
             }
         }
     }
