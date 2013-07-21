@@ -383,7 +383,6 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB79E;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6BD;
                     this[Offset.RoadTilesetHack1] = 0x1E691;
-                    //this[Offsets.UnknownMakeRelated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E765, 3)); // TODO: Figure out what that offset is (MAKE-compatibility related)
                     break;
 
                 case Region.Euro:
