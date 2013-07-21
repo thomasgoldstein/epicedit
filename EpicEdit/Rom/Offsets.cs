@@ -327,7 +327,12 @@ namespace EpicEdit.Rom
         /// Offset for hack to make it so each road tileset
         /// has 256 unique tiles, and no more shared tiles.
         /// </summary>
-        RoadTilesetHack4
+        RoadTilesetHack4,
+
+        /// <summary>
+        /// How many points drivers get depending on their finishing position, from 1st to 8th.
+        /// </summary>
+        RankPoints
     }
 
     internal class Offsets
@@ -362,6 +367,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB795;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6C1;
                     this[Offset.RoadTilesetHack1] = 0x1E695;
+                    this[Offset.RankPoints] = 0x5BE52;
                     break;
 
                 case Region.US:
@@ -383,6 +389,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB79E;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6BD;
                     this[Offset.RoadTilesetHack1] = 0x1E691;
+                    this[Offset.RankPoints] = 0x5BEB4;
                     break;
 
                 case Region.Euro:
@@ -404,6 +411,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB7A3;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6AC;
                     this[Offset.RoadTilesetHack1] = 0x1E680;
+                    this[Offset.RankPoints] = 0x5BEBC;
                     break;
             }
 

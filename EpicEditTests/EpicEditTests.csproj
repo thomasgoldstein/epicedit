@@ -78,6 +78,7 @@
     <Compile Include="Rom\Compression\OptimalCompressorRateTest.cs" />
     <Compile Include="Rom\GameTest.cs" />
     <Compile Include="Rom\PalettesTest.cs" />
+    <Compile Include="Rom\Settings\RankPointsTest.cs" />
     <Compile Include="Rom\Tile2bppTest.cs" />
     <Compile Include="Rom\TileTest.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
@@ -132,6 +133,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Rom\Settings" />
     <Folder Include="Rom\Tracks\Road" />
     <Folder Include="Rom\Tracks\Start" />
   </ItemGroup>

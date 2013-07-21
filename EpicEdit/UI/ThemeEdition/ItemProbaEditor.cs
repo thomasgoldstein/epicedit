@@ -91,7 +91,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.performEvents = false;
 
-            this.itemProbabilities = Context.Game.ItemProbabilities;
+            this.itemProbabilities = Context.Game.Settings.ItemProbabilities;
 
             this.InitModeComboBox();
             this.InitSetComboBox();

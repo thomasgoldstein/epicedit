@@ -104,6 +104,7 @@
     <Compile Include="Rom\RomColor.cs" />
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
+    <Compile Include="Rom\Settings\RankPoints.cs" />
     <Compile Include="Rom\Tile.cs" />
     <Compile Include="Rom\Tile2bpp.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
+    <Compile Include="Rom\Settings\GameSettings.cs" />
     <Compile Include="Rom\Tracks\Start\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\Start\GPStartPosition.cs" />
     <Compile Include="Rom\Tracks\Start\LapLine.cs" />
@@ -380,6 +382,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Rom\Tracks\Road" />
+    <Folder Include="Rom\Settings" />
     <Folder Include="Rom\Tracks\Start" />
   </ItemGroup>
 </Project>
