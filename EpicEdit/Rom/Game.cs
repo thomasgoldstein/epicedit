@@ -18,6 +18,7 @@ using System.Globalization;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Items;
@@ -129,10 +130,10 @@ namespace EpicEdit.Rom
             return this.modeNames;
         }
 
-        public ItemProbabilities ItemProbabilities
-        {
-            get { return this.itemProbabilities; }
-        }
+        /// <summary>
+        /// Gets the game settings.
+        /// </summary>
+        public GameSettings Settings { get; private set; }
 
         /// <summary>
         /// Gets the track object graphics.
@@ -239,11 +240,6 @@ namespace EpicEdit.Rom
         private Themes themes;
 
         private string[] modeNames;
-
-        /// <summary>
-        /// The item probabilities for all the tracks and race types.
-        /// </summary>
-        private ItemProbabilities itemProbabilities;
 
         /// <summary>
         /// The different overlay tile sizes.
@@ -523,7 +519,7 @@ namespace EpicEdit.Rom
                 this.trackGroups[i] = new TrackGroup(trackGroupName, tracks);
             }
 
-            this.LoadItemProbabilities();
+            this.Settings = new GameSettings(this.romBuffer, this.offsets);
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
         }
@@ -985,16 +981,6 @@ namespace EpicEdit.Rom
 
         #endregion AI
 
-        #region Item probabilities
-
-        private void LoadItemProbabilities()
-        {
-            byte[] data = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
-            this.itemProbabilities = new ItemProbabilities(data);
-        }
-
-        #endregion Item probabilities
-
         #endregion Get / set, load / save specific data
 
         #region Track reodering
@@ -1174,7 +1160,7 @@ namespace EpicEdit.Rom
             this.SaveThemes(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
 
-            this.SaveItemProbabilities();
+            this.SaveSettings();
         }
 
         private void SetChecksum()
@@ -2167,10 +2153,28 @@ namespace EpicEdit.Rom
             }
         }
 
+        private void SaveSettings()
+        {
+            this.SaveItemProbabilities();
+            this.SaveRankPoints();
+        }
+
         private void SaveItemProbabilities()
         {
-            byte[] data = this.itemProbabilities.GetBytes();
-            Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
+            if (this.Settings.ItemProbabilities.Modified)
+            {
+                byte[] data = this.Settings.ItemProbabilities.GetBytes();
+                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
+            }
+        }
+
+        private void SaveRankPoints()
+        {
+            if (this.Settings.RankPoints.Modified)
+            {
+                byte[] data = this.Settings.RankPoints.GetBytes();
+                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.RankPoints], RankPoints.Size);
+            }
         }
 
         private void SaveFile()
@@ -2187,7 +2191,7 @@ namespace EpicEdit.Rom
         {
             this.modified = false;
             this.themes.ResetModifiedFlags();
-            this.itemProbabilities.ResetModifiedFlag();
+            this.Settings.ResetModifiedFlags();
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
@@ -2199,7 +2203,7 @@ namespace EpicEdit.Rom
         {
             if (this.modified ||
                 this.themes.Modified ||
-                this.itemProbabilities.Modified)
+                this.Settings.Modified)
             {
                 return true;
             }
