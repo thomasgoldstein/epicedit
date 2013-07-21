@@ -40,6 +40,22 @@ namespace EpicEdit.Rom.Tracks
             get { return this.themes.Length; }
         }
 
+        public bool Modified
+        {
+            get
+            {
+                foreach (Theme theme in this.themes)
+                {
+                    if (theme.Modified)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
         public Themes(byte[] romBuffer, Offsets offsets, string[] names)
         {
             this.LoadThemes(romBuffer, offsets, names);
@@ -275,6 +291,14 @@ namespace EpicEdit.Rom.Tracks
             }
 
             throw new MissingMemberException("Theme not found.");
+        }
+
+        public void ResetModifiedFlags()
+        {
+            foreach (Theme theme in this.themes)
+            {
+                theme.ResetModifiedFlags();
+            }
         }
 
         public IEnumerator<Theme> GetEnumerator()

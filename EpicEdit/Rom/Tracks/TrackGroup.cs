@@ -26,6 +26,22 @@ namespace EpicEdit.Rom.Tracks
         private string name;
         private Track[] tracks;
 
+        public bool Modified
+        {
+            get
+            {
+                foreach (Track track in this.tracks)
+                {
+                    if (track.Modified)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
         public TrackGroup(string name, Track[] tracks)
         {
             this.name = name;
@@ -40,6 +56,14 @@ namespace EpicEdit.Rom.Tracks
         public int Size()
         {
             return this.tracks.Length;
+        }
+
+        public void ResetModifiedFlags()
+        {
+            foreach (Track track in this.tracks)
+            {
+                track.Modified = false;
+            }
         }
 
         public IEnumerator<Track> GetEnumerator()
