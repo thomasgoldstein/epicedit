@@ -2186,28 +2186,19 @@ namespace EpicEdit.Rom
         private void ResetModifiedFlags()
         {
             this.modified = false;
+            this.themes.ResetModifiedFlags();
             this.itemProbabilities.ResetModifiedFlag();
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
-                foreach (Track track in trackGroup)
-                {
-                    track.Modified = false;
-                }
-            }
-
-            foreach (Theme theme in this.themes)
-            {
-                theme.Palettes.ResetModifiedFlag();
-                theme.RoadTileset.ResetModifiedFlag();
-                theme.Background.Layout.ResetModifiedFlag();
-                theme.Background.Tileset.ResetModifiedFlag();
+                trackGroup.ResetModifiedFlags();
             }
         }
 
         public bool HasPendingChanges()
         {
             if (this.modified ||
+                this.themes.Modified ||
                 this.itemProbabilities.Modified)
             {
                 return true;
@@ -2215,21 +2206,7 @@ namespace EpicEdit.Rom
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
-                foreach (Track track in trackGroup)
-                {
-                    if (track.Modified)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            foreach (Theme theme in this.themes)
-            {
-                if (theme.Palettes.Modified ||
-                    theme.RoadTileset.Modified ||
-                    theme.Background.Layout.Modified ||
-                    theme.Background.Tileset.Modified)
+                if (trackGroup.Modified)
                 {
                     return true;
                 }

@@ -38,6 +38,18 @@ namespace EpicEdit.Rom.Tracks
             get { return this.Palettes.BackColor; }
         }
 
+        public bool Modified
+        {
+            get
+            {
+                return
+                    this.Palettes.Modified ||
+                    this.RoadTileset.Modified ||
+                    this.Background.Layout.Modified ||
+                    this.Background.Tileset.Modified;
+            }
+        }
+
         public Theme(string name, Palettes palettes, RoadTileset roadTileset, Background background)
         {
             this.Name = name;
@@ -50,6 +62,14 @@ namespace EpicEdit.Rom.Tracks
         public override string ToString()
         {
             return this.Name;
+        }
+
+        public void ResetModifiedFlags()
+        {
+            this.Palettes.ResetModifiedFlag();
+            this.RoadTileset.ResetModifiedFlag();
+            this.Background.Layout.ResetModifiedFlag();
+            this.Background.Tileset.ResetModifiedFlag();
         }
 
         public void Dispose()
