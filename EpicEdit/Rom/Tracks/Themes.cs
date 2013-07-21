@@ -293,11 +293,11 @@ namespace EpicEdit.Rom.Tracks
             throw new MissingMemberException("Theme not found.");
         }
 
-        public void ResetModifiedFlags()
+        public void ResetModifiedState()
         {
             foreach (Theme theme in this.themes)
             {
-                theme.ResetModifiedFlags();
+                theme.ResetModifiedState();
             }
         }
 

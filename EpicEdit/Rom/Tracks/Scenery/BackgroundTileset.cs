@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             get { return this.GetTile(index); }
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             this.Modified = false;
         }

@@ -136,7 +136,7 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             // Update the backup data, so that resetting the data will reload the last saved data
             this.backupData = this.GetBytes();

@@ -1146,7 +1146,7 @@ namespace EpicEdit.Rom
             this.SaveDataToBuffer();
             this.SetChecksum();
             this.SaveFile();
-            this.ResetModifiedFlags();
+            this.ResetModifiedState();
         }
 
         private void SaveDataToBuffer()
@@ -2187,15 +2187,15 @@ namespace EpicEdit.Rom
             }
         }
 
-        private void ResetModifiedFlags()
+        private void ResetModifiedState()
         {
             this.modified = false;
-            this.themes.ResetModifiedFlags();
-            this.Settings.ResetModifiedFlags();
+            this.themes.ResetModifiedState();
+            this.Settings.ResetModifiedState();
 
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
-                trackGroup.ResetModifiedFlags();
+                trackGroup.ResetModifiedState();
             }
         }
 

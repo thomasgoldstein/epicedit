@@ -104,7 +104,7 @@ namespace EpicEdit.Rom.Tracks.Road
             return data;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             this.Modified = false;
         }

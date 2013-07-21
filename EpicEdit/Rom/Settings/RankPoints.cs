@@ -61,7 +61,7 @@ namespace EpicEdit.Rom.Settings
             return data;
         }
 
-        public void ResetModifiedFlag()
+        public void ResetModifiedState()
         {
             this.Modified = false;
         }

@@ -64,12 +64,12 @@ namespace EpicEdit.Rom.Tracks
             return this.Name;
         }
 
-        public void ResetModifiedFlags()
+        public void ResetModifiedState()
         {
-            this.Palettes.ResetModifiedFlag();
-            this.RoadTileset.ResetModifiedFlag();
-            this.Background.Layout.ResetModifiedFlag();
-            this.Background.Tileset.ResetModifiedFlag();
+            this.Palettes.ResetModifiedState();
+            this.RoadTileset.ResetModifiedState();
+            this.Background.Layout.ResetModifiedState();
+            this.Background.Tileset.ResetModifiedState();
         }
 
         public void Dispose()

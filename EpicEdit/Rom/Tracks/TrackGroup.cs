@@ -58,7 +58,7 @@ namespace EpicEdit.Rom.Tracks
             return this.tracks.Length;
         }
 
-        public void ResetModifiedFlags()
+        public void ResetModifiedState()
         {
             foreach (Track track in this.tracks)
             {
