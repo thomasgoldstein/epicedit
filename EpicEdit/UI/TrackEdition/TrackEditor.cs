@@ -451,14 +451,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackEditorDragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ?
+                DragDropEffects.Move :
+                DragDropEffects.None;
         }
 
         private void TrackEditorDragDrop(object sender, DragEventArgs e)
