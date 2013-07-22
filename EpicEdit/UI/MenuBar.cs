@@ -272,12 +272,10 @@ namespace EpicEdit.UI
         #endregion Item probability editor
 
         #region Codec
-
         private void CodecToolStripButtonClick(object sender, EventArgs e)
         {
             this.CodecRequested(this, EventArgs.Empty);
         }
-
         #endregion Codec
 
         #region About
