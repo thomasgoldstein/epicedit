@@ -971,7 +971,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                // Reinit the background proba editor now
+                // Reinit the background editor now
                 this.backgroundForm.Init();
             }
         }
