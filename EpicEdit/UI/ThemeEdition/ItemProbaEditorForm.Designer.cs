@@ -63,7 +63,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.MinimizeBox = false;
             this.Name = "ItemProbaEditorForm";
             this.ShowInTaskbar = false;
-            this.Text = "Item probability editor";
+            this.Text = "Item probabilities";
             this.ResumeLayout(false);
         }
         public EpicEdit.UI.ThemeEdition.ItemProbaEditor Editor;

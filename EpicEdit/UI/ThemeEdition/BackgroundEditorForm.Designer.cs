@@ -65,7 +65,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.MinimizeBox = false;
             this.Name = "BackgroundEditorForm";
             this.ShowInTaskbar = false;
-            this.Text = "Background editor";
+            this.Text = "Backgrounds";
             this.ResumeLayout(false);
         }
         public EpicEdit.UI.ThemeEdition.BackgroundEditor Editor;

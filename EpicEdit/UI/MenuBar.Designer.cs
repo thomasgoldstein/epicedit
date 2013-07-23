@@ -251,7 +251,7 @@ namespace EpicEdit.UI
             this.paletteToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.paletteToolStripButton.Name = "paletteToolStripButton";
             this.paletteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.paletteToolStripButton.Text = "Color palette editor";
+            this.paletteToolStripButton.Text = "Color palettes";
             this.paletteToolStripButton.Click += new System.EventHandler(this.PaletteToolStripButtonClick);
             // 
             // backgroundToolStripButton
@@ -263,7 +263,7 @@ namespace EpicEdit.UI
             this.backgroundToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.backgroundToolStripButton.Name = "backgroundToolStripButton";
             this.backgroundToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.backgroundToolStripButton.Text = "Background editor";
+            this.backgroundToolStripButton.Text = "Backgrounds";
             this.backgroundToolStripButton.Click += new System.EventHandler(this.BackgroundToolStripButtonClick);
             // 
             // itemProbaToolStripButton
@@ -275,7 +275,7 @@ namespace EpicEdit.UI
             this.itemProbaToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.itemProbaToolStripButton.Name = "itemProbaToolStripButton";
             this.itemProbaToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.itemProbaToolStripButton.Text = "Item probability editor";
+            this.itemProbaToolStripButton.Text = "Item probabilities";
             this.itemProbaToolStripButton.Click += new System.EventHandler(this.ItemProbaToolStripButtonClick);
             // 
             // codecToolStripButton
@@ -332,7 +332,7 @@ namespace EpicEdit.UI
                                     this.resetZoomNumToolStripMenuItem,
                                     this.fullScreenToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openRomToolStripMenuItem

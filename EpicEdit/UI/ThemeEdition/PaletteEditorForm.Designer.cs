@@ -56,7 +56,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.MinimizeBox = false;
             this.Name = "PaletteEditorForm";
             this.ShowInTaskbar = false;
-            this.Text = "Color palette editor";
+            this.Text = "Color palettes";
             this.ResumeLayout(false);
         }
         public EpicEdit.Rom.ThemeEdition.PaletteEditor Editor;
