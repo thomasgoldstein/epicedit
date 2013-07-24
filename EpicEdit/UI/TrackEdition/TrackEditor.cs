@@ -28,6 +28,7 @@ using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.UI.Gfx;
+using EpicEdit.UI.SettingEdition;
 using EpicEdit.UI.ThemeEdition;
 using EpicEdit.UI.Tools;
 using EpicEdit.UI.Tools.UndoRedo;
@@ -331,14 +332,14 @@ namespace EpicEdit.UI.TrackEdition
         private BackgroundEditorForm backgroundForm;
 
         /// <summary>
-        /// Determines whether the item probability editor form has been initialized.
+        /// Determines whether the setting editor form has been initialized.
         /// </summary>
-        private bool itemProbaFormInitialized;
+        private bool settingFormInitialized;
 
         /// <summary>
-        /// The item probability editor form.
+        /// The setting editor form.
         /// </summary>
-        private ItemProbaEditorForm itemProbaForm;
+        private SettingEditorForm settingForm;
 
         /// <summary>
         /// Determines whether the codec form has been initialized.
@@ -438,7 +439,7 @@ namespace EpicEdit.UI.TrackEdition
             this.trackTreeView.InitOnRomLoad();
             this.ReInitPaletteEditor();
             this.ReInitBackgroundEditor();
-            this.ReInitItemProbaEditor();
+            this.ReInitSettingEditor();
             this.ReInitCodecForm();
 
             foreach (UndoRedoBuffer buffer in this.undoRedoBuffers.Values)
@@ -451,9 +452,14 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackEditorDragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ?
-                DragDropEffects.Move :
-                DragDropEffects.None;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
 
         private void TrackEditorDragDrop(object sender, DragEventArgs e)
@@ -883,9 +889,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.backgroundForm.Editor.UpdateBackground(theme);
             }
 
-            if (this.itemProbaFormInitialized)
+            if (this.settingFormInitialized)
             {
-                this.itemProbaForm.Editor.UpdateImages(palette);
+                this.settingForm.UpdateItemIcons(palette);
             }
 
             if (this.track.Theme != theme)
@@ -966,59 +972,59 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                // Reinit the background editor now
+                // Reinit the background proba editor now
                 this.backgroundForm.Init();
             }
         }
 
-        private void MenuBarItemProbaEditorRequested(object sender, EventArgs e)
+        private void MenuBarSettingEditorRequested(object sender, EventArgs e)
         {
-            if (!this.itemProbaFormInitialized)
+            if (!this.settingFormInitialized)
             {
-                this.InitItemProbaEditor();
+                this.InitSettingEditor();
             }
 
-            if (!this.itemProbaForm.Visible)
+            if (!this.settingForm.Visible)
             {
-                this.itemProbaForm.Editor.ShowTrackData(this.track);
-                this.itemProbaForm.Visible = true;
+                this.settingForm.ShowTrackItemProbabilities(this.track);
+                this.settingForm.Visible = true;
             }
             else
             {
-                this.itemProbaForm.Visible = false;
+                this.settingForm.Visible = false;
             }
         }
 
-        private void InitItemProbaEditor()
+        private void InitSettingEditor()
         {
-            if (this.itemProbaForm == null)
+            if (this.settingForm == null)
             {
-                this.itemProbaForm = new ItemProbaEditorForm();
-                this.itemProbaForm.Owner = this.ParentForm;
-                this.itemProbaForm.ColorSelected += this.TileColorSelected;
-                this.itemProbaForm.Editor.Theme = this.track.Theme;
+                this.settingForm = new SettingEditorForm();
+                this.settingForm.Owner = this.ParentForm;
+                this.settingForm.ColorSelected += this.TileColorSelected;
+                this.settingForm.Theme = this.track.Theme;
             }
 
-            this.itemProbaForm.Init();
-            this.itemProbaFormInitialized = true;
+            this.settingForm.Init();
+            this.settingFormInitialized = true;
         }
 
-        private void ReInitItemProbaEditor()
+        private void ReInitSettingEditor()
         {
-            if (!this.itemProbaFormInitialized)
+            if (!this.settingFormInitialized)
             {
                 return;
             }
 
-            if (!this.itemProbaForm.Visible)
+            if (!this.settingForm.Visible)
             {
-                // Reinit the item proba editor next time it's shown
-                this.itemProbaFormInitialized = false;
+                // Reinit the setting editor next time it's shown
+                this.settingFormInitialized = false;
             }
             else
             {
-                // Reinit the item proba editor now
-                this.itemProbaForm.Init();
+                // Reinit the setting editor now
+                this.settingForm.Init();
             }
         }
 
@@ -2179,9 +2185,9 @@ namespace EpicEdit.UI.TrackEdition
             this.drawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, tileset);
             this.overlayControl.Tileset = tileset;
 
-            if (this.itemProbaFormInitialized)
+            if (this.settingFormInitialized)
             {
-                this.itemProbaForm.Editor.Theme = this.track.Theme;
+                this.settingForm.Theme = this.track.Theme;
             }
         }
 

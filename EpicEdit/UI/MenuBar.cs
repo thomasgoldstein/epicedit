@@ -68,7 +68,7 @@ namespace EpicEdit.UI
         public event EventHandler<EventArgs> BackgroundEditorRequested;
 
         [Browsable(true)]
-        public event EventHandler<EventArgs> ItemProbaEditorRequested;
+        public event EventHandler<EventArgs> SettingEditorRequested;
 
         [Browsable(true)]
         public event EventHandler<EventArgs> CodecRequested;
@@ -107,7 +107,7 @@ namespace EpicEdit.UI
             this.zoomInToolStripButton.Enabled = true;
             this.paletteToolStripButton.Enabled = true;
             this.backgroundToolStripButton.Enabled = true;
-            this.itemProbaToolStripButton.Enabled = true;
+            this.settingToolStripButton.Enabled = true;
             this.codecToolStripButton.Enabled = true;
 
             // Enable hidden key shortcuts
@@ -264,12 +264,12 @@ namespace EpicEdit.UI
         }
         #endregion Background editor
 
-        #region Item probability editor
-        private void ItemProbaToolStripButtonClick(object sender, EventArgs e)
+        #region Setting editor
+        private void SettingToolStripButtonClick(object sender, EventArgs e)
         {
-            this.ItemProbaEditorRequested(this, EventArgs.Empty);
+            this.SettingEditorRequested(this, EventArgs.Empty);
         }
-        #endregion Item probability editor
+        #endregion Setting editor
 
         #region Codec
         private void CodecToolStripButtonClick(object sender, EventArgs e)

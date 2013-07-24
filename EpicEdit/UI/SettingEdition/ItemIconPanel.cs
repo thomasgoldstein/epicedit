@@ -23,7 +23,7 @@ using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
 
-namespace EpicEdit.UI.ThemeEdition
+namespace EpicEdit.UI.SettingEdition
 {
     internal sealed class ItemIconPanel : TilePanel
     {

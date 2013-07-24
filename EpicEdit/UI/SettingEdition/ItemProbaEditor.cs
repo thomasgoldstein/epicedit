@@ -23,7 +23,7 @@ using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
 
-namespace EpicEdit.UI.ThemeEdition
+namespace EpicEdit.UI.SettingEdition
 {
     /// <summary>
     /// Represents a collection of controls used to edit the probabilities for players to get each item.

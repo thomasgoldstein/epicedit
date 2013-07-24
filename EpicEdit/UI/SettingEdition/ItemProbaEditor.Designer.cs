@@ -12,7 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-namespace EpicEdit.UI.ThemeEdition
+namespace EpicEdit.UI.SettingEdition
 {
     partial class ItemProbaEditor
     {
@@ -56,15 +56,15 @@ namespace EpicEdit.UI.ThemeEdition
             this.starPctLabel = new System.Windows.Forms.Label();
             this.featherPctLabel = new System.Windows.Forms.Label();
             this.mushroomPctLabel = new System.Windows.Forms.Label();
-            this.lightningPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.coinsPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.ghostPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.redPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.greenPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.bananaPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.starPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.featherPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
-            this.mushroomPanel = new EpicEdit.UI.ThemeEdition.ItemIconPanel();
+            this.lightningPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.coinsPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.ghostPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.redPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.greenPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.bananaPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.starPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.featherPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
+            this.mushroomPanel = new EpicEdit.UI.SettingEdition.ItemIconPanel();
             this.resetButton = new System.Windows.Forms.Button();
             this.itemBoxDisplayOptionLabel = new System.Windows.Forms.Label();
             this.itemBoxDisplayOptions = new System.Windows.Forms.ComboBox();
@@ -630,15 +630,15 @@ namespace EpicEdit.UI.ThemeEdition
         private System.Windows.Forms.Label coinsPctLabel;
         private System.Windows.Forms.Label lightningPctLabel;
         private System.Windows.Forms.Label totalPctLabel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel featherPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel starPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel bananaPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel greenPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel redPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel ghostPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel coinsPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel lightningPanel;
-        private EpicEdit.UI.ThemeEdition.ItemIconPanel mushroomPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel featherPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel starPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel bananaPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel greenPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel redPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel ghostPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel coinsPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel lightningPanel;
+        private EpicEdit.UI.SettingEdition.ItemIconPanel mushroomPanel;
         private System.Windows.Forms.ComboBox lapRankComboBox;
         private System.Windows.Forms.ComboBox modeComboBox;
         private System.Windows.Forms.ComboBox setComboBox;

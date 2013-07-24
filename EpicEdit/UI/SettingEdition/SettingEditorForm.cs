@@ -16,15 +16,14 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+using EpicEdit.Properties;
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Tools;
 
-namespace EpicEdit.UI.ThemeEdition
+namespace EpicEdit.UI.SettingEdition
 {
-    /// <summary>
-    /// The Form that contains the <see cref="ItemProbaEditor">item probability editor</see>.
-    /// </summary>
-    internal partial class ItemProbaEditorForm : Form
+    internal partial class SettingEditorForm : Form
     {
         /// <summary>
         /// Raised when a pixel color has been selected.
@@ -32,13 +31,14 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.Editor.ColorSelected += value; }
-            remove { this.Editor.ColorSelected -= value; }
+            add { this.itemProbaEditor.ColorSelected += value; }
+            remove { this.itemProbaEditor.ColorSelected -= value; }
         }
 
-        public ItemProbaEditorForm()
+        public SettingEditorForm()
         {
             this.InitializeComponent();
+            this.tabImageList.Images.Add("ItemProbaButton", Resources.ItemProbaButton);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -47,9 +47,26 @@ namespace EpicEdit.UI.ThemeEdition
             e.Cancel = true;
         }
 
+        public Theme Theme
+        {
+            get { return this.itemProbaEditor.Theme; }
+            set { this.itemProbaEditor.Theme = value; }
+        }
+
         public void Init()
         {
-            this.Editor.Init();
+            this.itemProbaEditor.Init();
+        }
+
+        public void UpdateItemIcons(Palette palette)
+        {
+            this.itemProbaEditor.UpdateImages(palette);
+        }
+
+        public void ShowTrackItemProbabilities(Track track)
+        {
+            this.itemProbaEditor.ShowTrackData(track);
+            this.tabControl.SelectedTab = this.itemProbaTabPage;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace EpicEdit.UI
             this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.backgroundToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.itemProbaToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.settingToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.codecToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.coordinatesToolStripLabel = new System.Windows.Forms.ToolStripLabel();
@@ -123,7 +123,7 @@ namespace EpicEdit.UI
                                     this.toolStripSeparator2,
                                     this.paletteToolStripButton,
                                     this.backgroundToolStripButton,
-                                    this.itemProbaToolStripButton,
+                                    this.settingToolStripButton,
                                     this.codecToolStripButton,
                                     this.toolStripSeparator3,
                                     this.aboutToolStripLabel,
@@ -266,17 +266,17 @@ namespace EpicEdit.UI
             this.backgroundToolStripButton.Text = "Backgrounds";
             this.backgroundToolStripButton.Click += new System.EventHandler(this.BackgroundToolStripButtonClick);
             // 
-            // itemProbaToolStripButton
+            // settingToolStripButton
             // 
-            this.itemProbaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.itemProbaToolStripButton.Enabled = false;
-            this.itemProbaToolStripButton.Image = global::EpicEdit.Properties.Resources.ItemProbaButton;
-            this.itemProbaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.itemProbaToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.itemProbaToolStripButton.Name = "itemProbaToolStripButton";
-            this.itemProbaToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.itemProbaToolStripButton.Text = "Item probabilities";
-            this.itemProbaToolStripButton.Click += new System.EventHandler(this.ItemProbaToolStripButtonClick);
+            this.settingToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.settingToolStripButton.Enabled = false;
+            this.settingToolStripButton.Image = global::EpicEdit.Properties.Resources.SettingsButton;
+            this.settingToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.settingToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.settingToolStripButton.Name = "settingToolStripButton";
+            this.settingToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.settingToolStripButton.Text = "Game settings";
+            this.settingToolStripButton.Click += new System.EventHandler(this.SettingToolStripButtonClick);
             // 
             // codecToolStripButton
             // 
@@ -458,7 +458,7 @@ namespace EpicEdit.UI
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton itemProbaToolStripButton;
+        private System.Windows.Forms.ToolStripButton settingToolStripButton;
         private System.Windows.Forms.ToolStrip menuToolStrip;
         private System.Windows.Forms.ToolStripButton paletteToolStripButton;
         private System.Windows.Forms.ToolStripButton openRomToolStripButton;

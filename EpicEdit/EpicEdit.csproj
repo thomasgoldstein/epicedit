@@ -179,6 +179,17 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingEdition\ItemIconPanel.cs" />
+    <Compile Include="UI\SettingEdition\ItemProbaEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SettingEdition\ItemProbaEditor.Designer.cs">
+      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SettingEdition\SettingEditorForm.cs" />
+    <Compile Include="UI\SettingEdition\SettingEditorForm.Designer.cs">
+      <DependentUpon>SettingEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ThemeEdition\BackgroundEditor.cs" />
     <Compile Include="UI\ThemeEdition\BackgroundEditor.Designer.cs">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>
@@ -199,19 +210,6 @@
     </Compile>
     <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
       <DependentUpon>ColorPicker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ItemIconPanel.cs" />
-    <Compile Include="UI\ThemeEdition\ItemProbaEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaEditor.Designer.cs">
-      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ThemeEdition\ItemProbaEditorForm.Designer.cs">
-      <DependentUpon>ItemProbaEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ThemeEdition\PaletteEditor.cs">
       <SubType>UserControl</SubType>
@@ -304,6 +302,12 @@
     <EmbeddedResource Include="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\ItemProbaEditor.resx">
+      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\SettingEditorForm.resx">
+      <DependentUpon>SettingEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\BackgroundEditor.resx">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -315,12 +319,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\ColorPicker.resx">
       <DependentUpon>ColorPicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaEditor.resx">
-      <DependentUpon>ItemProbaEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\ItemProbaEditorForm.resx">
-      <DependentUpon>ItemProbaEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
@@ -384,5 +382,6 @@
     <Folder Include="Rom\Tracks\Road" />
     <Folder Include="Rom\Settings" />
     <Folder Include="Rom\Tracks\Start" />
+    <Folder Include="UI\SettingEdition" />
   </ItemGroup>
 </Project>
