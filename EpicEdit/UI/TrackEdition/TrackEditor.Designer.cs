@@ -49,9 +49,9 @@ namespace EpicEdit.UI.TrackEdition
                     this.paletteForm.Dispose();
                 }
 
-                if (this.itemProbaForm != null)
+                if (this.settingForm != null)
                 {
-                    this.itemProbaForm.Dispose();
+                    this.settingForm.Dispose();
                 }
             }
             base.Dispose(disposing);
@@ -275,7 +275,7 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
             this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
             this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
-            this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarItemProbaEditorRequested);
+            this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarSettingEditorRequested);
             // 
             // tabImageList
             // 
@@ -316,7 +316,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.ZoomResetRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomResetRequested);
             this.menuBar.PaletteEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarPaletteEditorRequested);
             this.menuBar.BackgroundEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarBackgroundEditorRequested);
-            this.menuBar.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarItemProbaEditorRequested);
+            this.menuBar.SettingEditorRequested += new System.EventHandler<System.EventArgs>(this.MenuBarSettingEditorRequested);
             this.menuBar.CodecRequested += new System.EventHandler<System.EventArgs>(this.MenuBarCodecRequested);
             // 
             // TrackEditor
