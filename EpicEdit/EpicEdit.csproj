@@ -186,6 +186,10 @@
     <Compile Include="UI\SettingEdition\ItemProbaEditor.Designer.cs">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingEdition\ResultEditor.cs" />
+    <Compile Include="UI\SettingEdition\ResultEditor.Designer.cs">
+      <DependentUpon>ResultEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingEdition\SettingEditorForm.cs" />
     <Compile Include="UI\SettingEdition\SettingEditorForm.Designer.cs">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
@@ -304,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\ItemProbaEditor.resx">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\ResultEditor.resx">
+      <DependentUpon>ResultEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\SettingEditorForm.resx">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
