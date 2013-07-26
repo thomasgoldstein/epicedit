@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks.Road

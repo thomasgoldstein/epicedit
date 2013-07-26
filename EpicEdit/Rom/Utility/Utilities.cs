@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Text;
 
-namespace EpicEdit.Rom
+namespace EpicEdit.Rom.Utility
 {
     internal class Utilities
     {

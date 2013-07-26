@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.TrackEdition
 {

@@ -17,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom
 {

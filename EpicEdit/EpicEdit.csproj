@@ -157,7 +157,7 @@
     <Compile Include="Rom\Tracks\Themes.cs" />
     <Compile Include="Rom\Tracks\Track.cs" />
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
-    <Compile Include="Rom\Utilities.cs" />
+    <Compile Include="Rom\Utility\Utilities.cs" />
     <Compile Include="UI\Context.cs" />
     <Compile Include="UI\Gfx\BackgroundDrawer.cs" />
     <Compile Include="UI\Gfx\BackgroundTilesetDrawer.cs" />
@@ -386,6 +386,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Rom\Utility" />
     <Folder Include="Rom\Tracks\Road" />
     <Folder Include="Rom\Settings" />
     <Folder Include="Rom\Tracks\Start" />

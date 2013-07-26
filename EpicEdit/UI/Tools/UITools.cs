@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools
 {
