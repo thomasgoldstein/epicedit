@@ -16,6 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
+using EpicEdit.Rom.Utility;
+
 namespace EpicEdit.Rom.Tracks.Road
 {
     /// <summary>

@@ -20,6 +20,7 @@ using System.IO;
 using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Scenery;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks
 {

@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using EpicEdit.Rom.Utility;
+
 namespace EpicEdit.Rom.Tracks.Overlay
 {
     /// <summary>
