@@ -49,7 +49,9 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
+            this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.tabControl.SuspendLayout();
+            this.resultsTabPage.SuspendLayout();
             this.itemProbaTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +69,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // resultsTabPage
             // 
+            this.resultsTabPage.Controls.Add(this.resultEditor);
             this.resultsTabPage.ImageKey = "ResultsTab";
             this.resultsTabPage.Location = new System.Drawing.Point(4, 23);
             this.resultsTabPage.Name = "resultsTabPage";
@@ -102,6 +105,14 @@ namespace EpicEdit.UI.SettingEdition
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.tabImageList.Images.SetKeyName(0, "ResultsTab");
             // 
+            // resultEditor
+            // 
+            this.resultEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultEditor.Location = new System.Drawing.Point(3, 3);
+            this.resultEditor.Name = "resultEditor";
+            this.resultEditor.Size = new System.Drawing.Size(420, 249);
+            this.resultEditor.TabIndex = 0;
+            // 
             // SettingEditorForm
             // 
             this.ClientSize = new System.Drawing.Size(434, 282);
@@ -114,9 +125,11 @@ namespace EpicEdit.UI.SettingEdition
             this.ShowInTaskbar = false;
             this.Text = "Game settings";
             this.tabControl.ResumeLayout(false);
+            this.resultsTabPage.ResumeLayout(false);
             this.itemProbaTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private EpicEdit.UI.SettingEdition.ResultEditor resultEditor;
         private System.Windows.Forms.ImageList tabImageList;
 
         #endregion
