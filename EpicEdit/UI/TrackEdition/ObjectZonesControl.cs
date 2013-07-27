@@ -128,84 +128,57 @@ namespace EpicEdit.UI.TrackEdition
 
         private void Zone1TrackBarValueChanged(object sender, EventArgs e)
         {
-            if (this.zone2TrackBar.Value < this.zone1TrackBar.Value)
-            {
-                this.zone2TrackBar.Value = this.zone1TrackBar.Value;
-            }
-
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
-
-            this.track.ObjectZones.SetZoneValue(this.FrontViewZones, 0, (byte)this.zone1TrackBar.Value);
-
-            if (this.raiseValueChanged[0])
-            {
-                this.ValueChanged(this, EventArgs.Empty);
-                this.raiseValueChanged[0] = false;
-            }
+            this.ZoneTrackBarValueChanged(null,
+                                          this.zone1TrackBar, this.zone1Label,
+                                          this.zone2TrackBar, this.zone2Label);
         }
 
         private void Zone2TrackBarValueChanged(object sender, EventArgs e)
         {
-            if (this.zone3TrackBar.Value < this.zone2TrackBar.Value)
-            {
-                this.zone3TrackBar.Value = this.zone2TrackBar.Value;
-            }
-            else if (this.zone1TrackBar.Value > this.zone2TrackBar.Value)
-            {
-                this.zone1TrackBar.Value = this.zone2TrackBar.Value;
-            }
-
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
-
-            this.track.ObjectZones.SetZoneValue(this.FrontViewZones, 1, (byte)this.zone2TrackBar.Value);
-
-            if (this.raiseValueChanged[1])
-            {
-                this.ValueChanged(this, EventArgs.Empty);
-                this.raiseValueChanged[1] = false;
-            }
+            this.ZoneTrackBarValueChanged(this.zone1TrackBar,
+                                          this.zone2TrackBar, this.zone2Label,
+                                          this.zone3TrackBar, this.zone3Label);
         }
 
         private void Zone3TrackBarValueChanged(object sender, EventArgs e)
         {
-            if (this.zone4TrackBar.Value < this.zone3TrackBar.Value)
-            {
-                this.zone4TrackBar.Value = this.zone3TrackBar.Value;
-            }
-            else if (this.zone2TrackBar.Value > this.zone3TrackBar.Value)
-            {
-                this.zone2TrackBar.Value = this.zone3TrackBar.Value;
-            }
-
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
-
-            this.track.ObjectZones.SetZoneValue(this.FrontViewZones, 2, (byte)this.zone3TrackBar.Value);
-
-            if (this.raiseValueChanged[2])
-            {
-                this.ValueChanged(this, EventArgs.Empty);
-                this.raiseValueChanged[2] = false;
-            }
+            this.ZoneTrackBarValueChanged(this.zone2TrackBar,
+                                          this.zone3TrackBar, this.zone3Label,
+                                          this.zone4TrackBar, this.zone4Label);
         }
 
         private void Zone4TrackBarValueChanged(object sender, EventArgs e)
         {
-            if (this.zone3TrackBar.Value > this.zone4TrackBar.Value)
+            this.ZoneTrackBarValueChanged(this.zone3TrackBar,
+                                          this.zone4TrackBar, this.zone4Label,
+                                          null, null);
+        }
+
+        private void ZoneTrackBarValueChanged(TrackBar prevTrackBar, TrackBar trackBar, Label label, TrackBar nextTrackBar, Label nextLabel)
+        {
+            if (nextTrackBar != null && nextTrackBar.Value < trackBar.Value)
             {
-                this.zone3TrackBar.Value = this.zone4TrackBar.Value;
+                nextTrackBar.Value = trackBar.Value;
+            }
+            else if (prevTrackBar != null && prevTrackBar.Value > trackBar.Value)
+            {
+                prevTrackBar.Value = trackBar.Value;
             }
 
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(label, prevTrackBar == null ? 0 : prevTrackBar.Value, trackBar.Value);
 
-            this.track.ObjectZones.SetZoneValue(this.FrontViewZones, 3, (byte)this.zone4TrackBar.Value);
+            if (nextTrackBar != null)
+            {
+                ObjectZonesControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
+            }
 
-            if (this.raiseValueChanged[3])
+            int zoneIndex = Convert.ToInt32(trackBar.Tag);
+            this.track.ObjectZones.SetZoneValue(this.FrontViewZones, zoneIndex, (byte)trackBar.Value);
+
+            if (this.raiseValueChanged[zoneIndex])
             {
                 this.ValueChanged(this, EventArgs.Empty);
-                this.raiseValueChanged[3] = false;
+                this.raiseValueChanged[zoneIndex] = false;
             }
         }
 
