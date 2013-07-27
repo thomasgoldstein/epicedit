@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using EpicEdit.Rom;
+using EpicEdit.Rom.Utility;
 using NUnit.Framework;
 
 namespace EpicEditTests.Rom
