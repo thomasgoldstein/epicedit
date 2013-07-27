@@ -45,8 +45,8 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.track = value;
 
-                this.Maximum = TrackAI.MaxElementCount;
                 int max = this.track.AI.ElementCount;
+                this.Maximum = max;
 
                 byte zone1Value = this.track.ObjectZones.GetZoneValue(this.FrontViewZones, 0);
                 byte zone2Value = this.track.ObjectZones.GetZoneValue(this.FrontViewZones, 1);
@@ -67,8 +67,6 @@ namespace EpicEdit.UI.TrackEdition
                 this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
                 this.zone3TrackBar.ValueChanged += this.Zone3TrackBarValueChanged;
                 this.zone4TrackBar.ValueChanged += this.Zone4TrackBarValueChanged;
-
-                this.Maximum = max;
 
                 ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
                 ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
