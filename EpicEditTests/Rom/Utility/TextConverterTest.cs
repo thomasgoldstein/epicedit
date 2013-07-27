@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEditTests.Rom.Utility
 {
     [TestFixture]
-    public class TextConverterTest
+    internal class TextConverterTest
     {
         private void TestName(byte[] data, string text, Region region)
         {
