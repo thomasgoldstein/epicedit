@@ -295,5 +295,24 @@ namespace EpicEdit.Rom.Utility
 
             return text;
         }
+
+        public byte[] EncodeText(string text)
+        {
+            text = text.ToUpperInvariant();
+
+            if (this.region == Region.Jap)
+            {
+                text = text.Normalize(NormalizationForm.FormD);
+            }
+
+            byte[] data = new byte[text.Length];
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = this.dictionary.Reverse[text[i]];
+            }
+
+            return data;
+        }
     }
 }
