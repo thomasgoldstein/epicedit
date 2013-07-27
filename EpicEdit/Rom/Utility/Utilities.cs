@@ -453,7 +453,7 @@ namespace EpicEdit.Rom.Utility
             return DecryptRomText(hexText, 2, region);
         }
 
-        public static string DecryptRomText(byte[] hexText, int step, Region region)
+        private static string DecryptRomText(byte[] hexText, int step, Region region)
         {
             char[] textArray = new char[hexText.Length / step];
             string text;
