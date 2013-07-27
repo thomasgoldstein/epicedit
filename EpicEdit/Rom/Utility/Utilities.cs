@@ -489,6 +489,7 @@ namespace EpicEdit.Rom.Utility
         #endregion Decrypt ROM text
 
         #region Color handling
+
         public static int GetColorIndex(Color color, Palette palette)
         {
             RomColor[] colors = new RomColor[Palette.ColorCount];
@@ -554,6 +555,7 @@ namespace EpicEdit.Rom.Utility
                 color.GetSaturation() * SaturationWeight +
                 color.GetBrightness() * BrightnessWeight;
         }
+
         #endregion Color handling
     }
 }
