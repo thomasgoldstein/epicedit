@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 
@@ -283,7 +284,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TileGenreComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
             object val = e.Value;
-            e.Value = ((byte)val).ToString("X", CultureInfo.InvariantCulture) + "- " + UITools.GetDescription(val);
+            e.Value = Utilities.ByteToHexString((byte)val) + "- " + UITools.GetDescription(val);
         }
 
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
