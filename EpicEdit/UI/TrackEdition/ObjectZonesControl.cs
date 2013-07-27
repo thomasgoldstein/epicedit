@@ -58,10 +58,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.zone3TrackBar.ValueChanged -= this.Zone3TrackBarValueChanged;
                 this.zone4TrackBar.ValueChanged -= this.Zone4TrackBarValueChanged;
 
-                this.zone1TrackBar.Value = zone1Value > max ? max : zone1Value;
-                this.zone2TrackBar.Value = zone2Value > max ? max : zone2Value;
-                this.zone3TrackBar.Value = zone3Value > max ? max : zone3Value;
-                this.zone4TrackBar.Value = zone4Value > max ? max : zone4Value;
+                this.zone1TrackBar.Value = Math.Min(zone1Value, max);
+                this.zone2TrackBar.Value = Math.Min(zone2Value, max);
+                this.zone3TrackBar.Value = Math.Min(zone3Value, max);
+                this.zone4TrackBar.Value = Math.Min(zone4Value, max);
 
                 this.zone1TrackBar.ValueChanged += this.Zone1TrackBarValueChanged;
                 this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
