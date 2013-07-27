@@ -98,6 +98,7 @@
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTest.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilesTest.cs" />
     <Compile Include="Rom\Tracks\TrackTest.cs" />
+    <Compile Include="Rom\Utility\TextConverterTest.cs" />
     <Compile Include="Rom\Utility\UtilitiesTest.cs" />
     <Compile Include="Smk.cs" />
   </ItemGroup>
