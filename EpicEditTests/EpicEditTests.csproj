@@ -88,7 +88,6 @@
     <Compile Include="Rom\Tracks\Start\BattleStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\Start\GPStartPositionTest.cs" />
     <Compile Include="Rom\Tracks\Start\LapLineTest.cs" />
-    <Compile Include="Rom\UtilitiesTest.cs" />
     <Compile Include="Rom\PaletteTest.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
     <Compile Include="Rom\Tracks\BattleTrackTest.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTest.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilesTest.cs" />
     <Compile Include="Rom\Tracks\TrackTest.cs" />
+    <Compile Include="Rom\Utility\UtilitiesTest.cs" />
     <Compile Include="Smk.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -133,6 +133,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Rom\Utility" />
     <Folder Include="Rom\Settings" />
     <Folder Include="Rom\Tracks\Road" />
     <Folder Include="Rom\Tracks\Start" />
