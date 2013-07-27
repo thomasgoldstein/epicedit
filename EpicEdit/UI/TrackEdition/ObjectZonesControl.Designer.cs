@@ -127,7 +127,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone4TrackBar.TabIndex = 3;
             this.zone4TrackBar.Tag = "3";
             this.zone4TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone4TrackBar.Scroll += new System.EventHandler(this.Zone4TrackBarScroll);
+            this.zone4TrackBar.Scroll += new System.EventHandler(this.ZoneTrackBarScroll);
             // 
             // zone3TrackBar
             // 
@@ -141,7 +141,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone3TrackBar.TabIndex = 2;
             this.zone3TrackBar.Tag = "2";
             this.zone3TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone3TrackBar.Scroll += new System.EventHandler(this.Zone3TrackBarScroll);
+            this.zone3TrackBar.Scroll += new System.EventHandler(this.ZoneTrackBarScroll);
             // 
             // zone2TrackBar
             // 
@@ -155,7 +155,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone2TrackBar.TabIndex = 1;
             this.zone2TrackBar.Tag = "1";
             this.zone2TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone2TrackBar.Scroll += new System.EventHandler(this.Zone2TrackBarScroll);
+            this.zone2TrackBar.Scroll += new System.EventHandler(this.ZoneTrackBarScroll);
             // 
             // zone1TrackBar
             // 
@@ -169,7 +169,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone1TrackBar.TabIndex = 0;
             this.zone1TrackBar.Tag = "0";
             this.zone1TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone1TrackBar.Scroll += new System.EventHandler(this.Zone1TrackBarScroll);
+            this.zone1TrackBar.Scroll += new System.EventHandler(this.ZoneTrackBarScroll);
             // 
             // ObjectZonesControl
             // 
