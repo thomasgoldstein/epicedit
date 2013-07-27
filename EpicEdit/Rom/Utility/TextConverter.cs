@@ -236,12 +236,12 @@ namespace EpicEdit.Rom.Utility
         }
 
         /// <summary>
-        /// Decrypts a single character of text data, for the loaded game region.
+        /// Decodes a single character, from the ROM format to a char.
         /// This function assumes that the location of each character tile hasn't been changed (in the ROM font graphics), which may be wrong.
         /// </summary>
         /// <param name="charByte">The value that defines the location of the character among the font graphics.</param>
         /// <returns>The corresponding character.</returns>
-        public char DecryptRomText(byte charByte)
+        public char DecodeText(byte charByte)
         {
             if (!this.dictionary.Forward.ContainsKey(charByte))
             {
@@ -252,32 +252,32 @@ namespace EpicEdit.Rom.Utility
         }
 
         /// <summary>
-        /// Decrypts a string of text data.
+        /// Decodes text data, from the ROM format to a string.
         /// </summary>
         /// <param name="textBytes">Values that define the location of each character of a text string among the font graphics.</param>
         /// <returns>The corresponding text string.</returns>
-        public string DecryptRomText(byte[] textBytes)
+        public string DecodeText(byte[] textBytes)
         {
-            return this.DecryptRomText(textBytes, 1);
+            return this.DecodeText(textBytes, 1);
         }
 
         /// <summary>
-        /// Decrypts a string of text data, skipping every other byte.
+        /// Decodes text data, from the ROM format to a string.
         /// </summary>
         /// <param name="textBytes">Values that define the location of each character of a text string among the font graphics.</param>
         /// <returns>The corresponding text string.</returns>
-        public string DecryptRomTextOdd(byte[] textBytes)
+        public string DecodeTextOdd(byte[] textBytes)
         {
-            return this.DecryptRomText(textBytes, 2);
+            return this.DecodeText(textBytes, 2);
         }
 
-        private string DecryptRomText(byte[] textBytes, int step)
+        private string DecodeText(byte[] textBytes, int step)
         {
             char[] textArray = new char[textBytes.Length / step];
 
             for (int i = 0; i < textArray.Length; i++)
             {
-                textArray[i] = this.DecryptRomText(textBytes[i * step]);
+                textArray[i] = this.DecodeText(textBytes[i * step]);
             }
 
             string text = new string(textArray);
