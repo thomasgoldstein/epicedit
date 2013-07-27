@@ -440,7 +440,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding text string.</returns>
         public static string DecryptRomText(byte[] hexText, Region region)
         {
-            return DecryptRomText(hexText, 1, region);
+            return Utilities.DecryptRomText(hexText, 1, region);
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding text string.</returns>
         public static string DecryptRomTextOdd(byte[] hexText, Region region)
         {
-            return DecryptRomText(hexText, 2, region);
+            return Utilities.DecryptRomText(hexText, 2, region);
         }
 
         private static string DecryptRomText(byte[] hexText, int step, Region region)
@@ -475,7 +475,7 @@ namespace EpicEdit.Rom.Utility
             {
                 for (int i = 0; i < textArray.Length; i++)
                 {
-                    textArray[i] = DecryptRomTextOccidental(hexText[i * step]);
+                    textArray[i] = Utilities.DecryptRomTextOccidental(hexText[i * step]);
                 }
 
                 text = new string(textArray);
