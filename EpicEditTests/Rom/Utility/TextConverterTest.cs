@@ -25,14 +25,14 @@ namespace EpicEditTests.Rom.Utility
         private void TestName(byte[] data, string text, Region region)
         {
             TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecryptRomText(data);
+            string actualText = TextConverter.Instance.DecodeText(data);
             Assert.AreEqual(text, actualText);
         }
 
         private void TestNameOdd(byte[] data, string text, Region region)
         {
             TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecryptRomTextOdd(data);
+            string actualText = TextConverter.Instance.DecodeTextOdd(data);
             Assert.AreEqual(text, actualText);
         }
 
