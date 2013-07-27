@@ -106,24 +106,10 @@ namespace EpicEdit.UI.TrackEdition
             this.raiseValueChanged = new bool[4];
         }
 
-        private void Zone1TrackBarScroll(object sender, EventArgs e)
+        private void ZoneTrackBarScroll(object sender, EventArgs e)
         {
-            this.raiseValueChanged[0] = true;
-        }
-
-        private void Zone2TrackBarScroll(object sender, EventArgs e)
-        {
-            this.raiseValueChanged[1] = true;
-        }
-
-        private void Zone3TrackBarScroll(object sender, EventArgs e)
-        {
-            this.raiseValueChanged[2] = true;
-        }
-
-        private void Zone4TrackBarScroll(object sender, EventArgs e)
-        {
-            this.raiseValueChanged[3] = true;
+            int zoneIndex = Convert.ToInt32((sender as Control).Tag);
+            this.raiseValueChanged[zoneIndex] = true;
         }
 
         private void Zone1TrackBarValueChanged(object sender, EventArgs e)
