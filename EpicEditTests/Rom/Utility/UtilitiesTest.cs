@@ -17,7 +17,7 @@ using EpicEdit.Rom;
 using EpicEdit.Rom.Utility;
 using NUnit.Framework;
 
-namespace EpicEditTests.Rom
+namespace EpicEditTests.Rom.Utility
 {
     [TestFixture]
     internal class UtilitiesTest
