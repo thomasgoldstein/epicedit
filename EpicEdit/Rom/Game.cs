@@ -121,8 +121,8 @@ namespace EpicEdit.Rom
                 for (int i = 0; i < this.modeNames.Length; i++)
                 {
                     int length = this.romBuffer[lengthOffset] * 2;
-                    byte[] hexText = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
-                    this.modeNames[i] = Utilities.DecryptRomTextOdd(hexText, this.region);
+                    byte[] textBytes = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
+                    this.modeNames[i] = TextConverter.Instance.DecryptRomTextOdd(textBytes);
                     nameOffset += length;
                     lengthOffset += 2;
                 }
@@ -426,6 +426,7 @@ namespace EpicEdit.Rom
         {
             this.SetRegion();
             this.offsets = new Offsets(this.romBuffer, this.region);
+            TextConverter.Instance.LoadCharacterSet(this.region);
 
             this.trackGroups = new TrackGroup[Track.GroupCount];
             string[] names = this.GetCupAndThemeNames();
@@ -556,7 +557,8 @@ namespace EpicEdit.Rom
             for (int i = 0; i < names.Length; i++)
             {
                 offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
-                names[i] = Utilities.DecryptRomText(Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF), this.region);
+                byte[] textBytes = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
+                names[i] = TextConverter.Instance.DecryptRomText(textBytes);
             }
 
             return names;
