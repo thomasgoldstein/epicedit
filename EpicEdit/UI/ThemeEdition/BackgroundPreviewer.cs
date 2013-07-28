@@ -31,7 +31,7 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer
         {
-            get { return this.drawer; }
+            //get { return this.drawer; }
             set
             {
                 this.drawer = value;
@@ -70,7 +70,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.Drawer == null)
+            if (this.drawer == null)
             {
                 return;
             }
