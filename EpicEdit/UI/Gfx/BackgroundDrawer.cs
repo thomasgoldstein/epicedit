@@ -143,42 +143,42 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public void DrawBackgroundLayer(Graphics g, Point cursorPosition, int x, bool front, bool tileSelection)
+        public void DrawBackgroundLayer(Graphics g, Point cursorPosition, int x, bool front, bool selectingTile)
         {
             if (front)
             {
-                this.DrawFrontBackgroundLayer(g, cursorPosition, x, tileSelection);
+                this.DrawFrontBackgroundLayer(g, cursorPosition, x, selectingTile);
             }
             else
             {
-                this.DrawBackBackgroundLayer(g, cursorPosition, x, tileSelection);
+                this.DrawBackBackgroundLayer(g, cursorPosition, x, selectingTile);
             }
         }
 
-        private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x, bool tileSelection)
+        private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
             using (Bitmap image = new Bitmap(BackWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
-                this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
+                this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
                 BackgroundDrawer.DrawImage(g, image, BackWidth);
             }
         }
 
-        private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x,  bool tileSelection)
+        private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x,  bool selectingTile)
         {
             using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
-                this.DrawTileSelection(backBuffer, cursorPosition, x, tileSelection);
+                this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
                 BackgroundDrawer.DrawImage(g, image, FrontWidth);
             }
         }
 
-        private void DrawTileSelection(Graphics g, Point cursorPosition, int x, bool tileSelection)
+        private void DrawTileSelection(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
             if (cursorPosition == TrackEditor.OutOfBounds || Context.ColorPickerMode)
             {
@@ -189,7 +189,7 @@ namespace EpicEdit.UI.Gfx
                                           cursorPosition.Y * Tile.Size - 1,
                                           Tile.Size + 1, Tile.Size + 1);
 
-            if (tileSelection) // A tile selection is happening now
+            if (selectingTile) // A tile selection is happening now
             {
                 g.FillRectangle(this.tileSelectBrush, rec);
                 g.DrawRectangle(this.tileSelectPen, rec);
