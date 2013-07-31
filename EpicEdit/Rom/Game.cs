@@ -552,11 +552,10 @@ namespace EpicEdit.Rom
             int nameCount = this.trackGroups.Length + Theme.Count;
             string[] names = new string[nameCount];
             byte[][] nameIndex = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.NameStrings], 2, names.Length);
-            int offset;
 
             for (int i = 0; i < names.Length; i++)
             {
-                offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
+                int offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
                 byte[] textBytes = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
                 names[i] = TextConverter.Instance.DecodeText(textBytes);
             }
