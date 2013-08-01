@@ -452,14 +452,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackEditorDragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ?
+                DragDropEffects.Move :
+                DragDropEffects.None;
         }
 
         private void TrackEditorDragDrop(object sender, DragEventArgs e)
@@ -978,7 +973,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                // Reinit the background proba editor now
+                // Reinit the background editor now
                 this.backgroundForm.Init();
             }
         }
