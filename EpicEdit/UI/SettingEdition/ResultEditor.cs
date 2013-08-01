@@ -13,7 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Globalization;
 using System.Windows.Forms;
+
 using EpicEdit.Rom.Settings;
 
 namespace EpicEdit.UI.SettingEdition
@@ -58,7 +60,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void InitRankPoint(NumericUpDown control)
         {
-            int rank = Convert.ToInt32(control.Tag);
+            int rank = Convert.ToInt32(control.Tag, CultureInfo.InvariantCulture);
             control.Value = Math.Min(this.RankPoints[rank], control.Maximum);
         }
 
@@ -70,7 +72,7 @@ namespace EpicEdit.UI.SettingEdition
             }
 
             NumericUpDown control = sender as NumericUpDown;
-            int rank = Convert.ToInt32(control.Tag);
+            int rank = Convert.ToInt32(control.Tag, CultureInfo.InvariantCulture);
             int points = (int)control.Value;
             this.RankPoints[rank] = points;
         }
