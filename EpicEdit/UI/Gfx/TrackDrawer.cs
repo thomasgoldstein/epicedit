@@ -279,11 +279,6 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private Region GetZoomedRegion(Rectangle rectangle)
-        {
-            return this.GetZoomedRegion(new Region(rectangle));
-        }
-
         private Region GetZoomedRegion(Region region)
         {
             if (this.zoom != 1)
@@ -292,6 +287,17 @@ namespace EpicEdit.UI.Gfx
             }
 
             return region;
+        }
+
+        private Region GetTranslatedZoomedRegion(Rectangle rectangle)
+        {
+            return this.GetTranslatedZoomedRegion(new Region(rectangle));
+        }
+
+        private Region GetTranslatedZoomedRegion(Region region)
+        {
+            region.Translate(-this.scrollPosition.X * Tile.Size, -this.scrollPosition.Y * Tile.Size);
+            return this.GetZoomedRegion(region);
         }
 
         public void UpdateCache(Palette palette)
@@ -371,12 +377,12 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
 
-                Rectangle dirtyRectangle = new Rectangle((change.X - this.scrollPosition.X) * Tile.Size,
-                                                         (change.Y - this.scrollPosition.Y) * Tile.Size,
+                Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
+                                                         change.Y * Tile.Size,
                                                          change.Width * Tile.Size,
                                                          change.Height * Tile.Size);
 
-                return this.GetZoomedRegion(dirtyRectangle);
+                return this.GetTranslatedZoomedRegion(dirtyRectangle);
             }
         }
 
@@ -415,11 +421,7 @@ namespace EpicEdit.UI.Gfx
         private Graphics CreateBackBuffer(Image image, Rectangle clip)
         {
             Graphics backBuffer = Graphics.FromImage(image);
-
-            int offsetX = -(clip.X - this.scrollPosition.X * Tile.Size);
-            int offsetY = -(clip.Y - this.scrollPosition.Y * Tile.Size);
-            backBuffer.TranslateTransform(offsetX, offsetY);
-
+            backBuffer.TranslateTransform(-clip.X, -clip.Y);
             return backBuffer;
         }
 
@@ -454,7 +456,7 @@ namespace EpicEdit.UI.Gfx
                 // Enlarge rectangle by 1px to account for the 1px border of the selection
                 visibleSelection.Inflate(1, 1);
 
-                region = this.GetZoomedRegion(visibleSelection);
+                region = this.GetTranslatedZoomedRegion(visibleSelection);
             }
 
             return region;
@@ -484,7 +486,7 @@ namespace EpicEdit.UI.Gfx
                 region.Union(rec);
             }
 
-            region = this.GetZoomedRegion(region);
+            region = this.GetTranslatedZoomedRegion(region);
 
             return region;
         }
@@ -504,7 +506,7 @@ namespace EpicEdit.UI.Gfx
                 region = this.GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
             }
 
-            region = this.GetZoomedRegion(region);
+            region = this.GetTranslatedZoomedRegion(region);
 
             return region;
         }
@@ -519,8 +521,8 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size - Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size + Tile.Size / 2);
+                int x = hoveredObject.X * Tile.Size - Tile.Size;
+                int y = hoveredObject.Y * Tile.Size - (Tile.Size + Tile.Size / 2);
                 int width = 24;
                 int height = 24;
 
@@ -534,7 +536,7 @@ namespace EpicEdit.UI.Gfx
 
                 Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
 
-                region = this.GetZoomedRegion(hoveredObjectRectangle);
+                region = this.GetTranslatedZoomedRegion(hoveredObjectRectangle);
             }
 
             return region;
@@ -555,7 +557,7 @@ namespace EpicEdit.UI.Gfx
                 region.Union(this.GetAIClipRectangle(selectedAIElem));
             }
 
-            region = this.GetZoomedRegion(region);
+            region = this.GetTranslatedZoomedRegion(region);
 
             return region;
         }
@@ -668,8 +670,8 @@ namespace EpicEdit.UI.Gfx
 
         private Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
         {
-            return new Rectangle((location.X - this.scrollPosition.X) * Tile.Size,
-                                 (location.Y - this.scrollPosition.Y) * Tile.Size,
+            return new Rectangle(location.X * Tile.Size,
+                                 location.Y * Tile.Size,
                                  overlayTilePattern.Width * Tile.Size,
                                  overlayTilePattern.Height * Tile.Size);
         }
@@ -677,12 +679,12 @@ namespace EpicEdit.UI.Gfx
         private Region GetGPStartClipRegion(LapLine lapLine, GPStartPosition startPosition)
         {
             Rectangle lapLineRectangle =
-                new Rectangle(lapLine.X - (this.scrollPosition.X * Tile.Size),
-                              lapLine.Y - (this.scrollPosition.Y * Tile.Size) - 1,
+                new Rectangle(lapLine.X,
+                              lapLine.Y - 1,
                               lapLine.Length, 3);
 
-            Rectangle startRectangle1 = new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                                      startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 5,
+            Rectangle startRectangle1 = new Rectangle(startPosition.X - 4,
+                                                      startPosition.Y - 5,
                                                       Tile.Size + 1,
                                                       GPStartPosition.Height - 14);
 
@@ -724,8 +726,8 @@ namespace EpicEdit.UI.Gfx
 
         private Rectangle GetBattleStartClipRectangle(BattleStartPosition startPosition)
         {
-            return new Rectangle(startPosition.X - (this.scrollPosition.X * Tile.Size) - 4,
-                                 startPosition.Y - (this.scrollPosition.Y * Tile.Size) - 4,
+            return new Rectangle(startPosition.X - 4,
+                                 startPosition.Y - 4,
                                  Tile.Size + 1, Tile.Size + 1);
         }
 
@@ -777,8 +779,8 @@ namespace EpicEdit.UI.Gfx
                 height = aiElement.Zone.Bottom - aiElement.Target.Y;
             }
 
-            Rectangle hoveredAIElemRectangle = new Rectangle((x - this.scrollPosition.X) * Tile.Size,
-                                                             (y - this.scrollPosition.Y) * Tile.Size,
+            Rectangle hoveredAIElemRectangle = new Rectangle(x * Tile.Size,
+                                                             y * Tile.Size,
                                                              width * Tile.Size,
                                                              height * Tile.Size);
 
@@ -858,8 +860,8 @@ namespace EpicEdit.UI.Gfx
                     Tile tile = tileset[tileId];
 
                     g.DrawImage(tile.Bitmap,
-                                new Rectangle((location.X + x - this.scrollPosition.X) * Tile.Size,
-                                              (location.Y + y - this.scrollPosition.Y) * Tile.Size,
+                                new Rectangle((location.X + x) * Tile.Size,
+                                              (location.Y + y) * Tile.Size,
                                               Tile.Size, Tile.Size),
                                 0, 0, Tile.Size, Tile.Size,
                                 GraphicsUnit.Pixel, imageAttr);
@@ -870,8 +872,8 @@ namespace EpicEdit.UI.Gfx
         private void DrawOverlaySelection(Graphics g, OverlayTile overlayTile)
         {
             g.FillRectangle(this.overlayHighlightBrush,
-                            (overlayTile.X - this.scrollPosition.X) * Tile.Size,
-                            (overlayTile.Y - this.scrollPosition.Y) * Tile.Size,
+                            overlayTile.X * Tile.Size,
+                            overlayTile.Y * Tile.Size,
                             overlayTile.Width * Tile.Size,
                             overlayTile.Height * Tile.Size);
         }
@@ -893,8 +895,7 @@ namespace EpicEdit.UI.Gfx
         {
             GPTrack gpTrack = this.track as GPTrack;
 
-            Point location = new Point(gpTrack.LapLine.X - this.scrollPosition.X * Tile.Size,
-                                       gpTrack.LapLine.Y - this.scrollPosition.Y * Tile.Size);
+            Point location = new Point(gpTrack.LapLine.X, gpTrack.LapLine.Y);
 
             g.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
                        location.X + gpTrack.LapLine.Length, location.Y);
@@ -907,8 +908,8 @@ namespace EpicEdit.UI.Gfx
         {
             GPTrack gpTrack = this.track as GPTrack;
 
-            int x = gpTrack.StartPosition.X - this.scrollPosition.X * Tile.Size;
-            int y = gpTrack.StartPosition.Y - this.scrollPosition.Y * Tile.Size;
+            int x = gpTrack.StartPosition.X;
+            int y = gpTrack.StartPosition.Y;
             int secondRowOffset = gpTrack.StartPosition.SecondRowOffset;
 
             for (int pos = 0; pos <= 18; pos += 6)
@@ -925,18 +926,9 @@ namespace EpicEdit.UI.Gfx
         {
             BattleTrack bTrack = this.track as BattleTrack;
 
-            this.DrawBattleStartPosition(g, bTrack.StartPositionP2, this.DrawDownArrow);
-            this.DrawBattleStartPosition(g, bTrack.StartPositionP1, this.DrawUpArrow);
+            this.DrawDownArrow(g, bTrack.StartPositionP2.X, bTrack.StartPositionP2.Y);
+            this.DrawUpArrow(g, bTrack.StartPositionP1.X, bTrack.StartPositionP1.Y);
         }
-
-        private void DrawBattleStartPosition(Graphics g, Point location, ArrowDrawer arrowDrawer)
-        {
-            int x = location.X - this.scrollPosition.X * Tile.Size;
-            int y = location.Y - this.scrollPosition.Y * Tile.Size;
-            arrowDrawer(g, x, y);
-        }
-
-        private delegate void ArrowDrawer(Graphics g, int x, int y);
 
         private void DrawUpArrow(Graphics g, int x, int y)
         {
@@ -1013,8 +1005,7 @@ namespace EpicEdit.UI.Gfx
             this.InitObjectZonesBitmap(frontZonesView);
 
             g.DrawImage(this.objectZonesCache,
-                        new Rectangle(-this.scrollPosition.X * Tile.Size,
-                                      -this.scrollPosition.Y * Tile.Size,
+                        new Rectangle(0, 0,
                                       this.track.Map.Width * Tile.Size,
                                       this.track.Map.Height * Tile.Size),
                         0, 0, TrackObjectZones.GridSize, TrackObjectZones.GridSize,
@@ -1086,8 +1077,8 @@ namespace EpicEdit.UI.Gfx
             for (int i = gpTrack.Objects.Count - 1; i >= 16; i--)
             {
                 TrackObjectMatchRace trackObject = gpTrack.Objects[i] as TrackObjectMatchRace;
-                int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
+                int x = trackObject.X * Tile.Size;
+                int y = trackObject.Y * Tile.Size - (Tile.Size / 2);
 
                 if (trackObject == hoveredObject)
                 {
@@ -1116,8 +1107,8 @@ namespace EpicEdit.UI.Gfx
             for (int i = 15; i >= 0; i--)
             {
                 TrackObject trackObject = gpTrack.Objects[i];
-                int x = (trackObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (trackObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
+                int x = trackObject.X * Tile.Size;
+                int y = trackObject.Y * Tile.Size - (Tile.Size / 2);
 
                 if (trackObject == hoveredObject)
                 {
@@ -1147,8 +1138,8 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredObject != null)
             {
-                int x = (hoveredObject.X - this.scrollPosition.X) * Tile.Size;
-                int y = (hoveredObject.Y - this.scrollPosition.Y) * Tile.Size - (Tile.Size / 2);
+                int x = hoveredObject.X * Tile.Size;
+                int y = hoveredObject.Y * Tile.Size - (Tile.Size / 2);
                 Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
                 g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
 
@@ -1191,8 +1182,8 @@ namespace EpicEdit.UI.Gfx
         {
             int halfTileSize = Tile.Size / 2;
 
-            int pointX = (aiElem.Target.X - this.scrollPosition.X) * Tile.Size;
-            int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * Tile.Size;
+            int pointX = aiElem.Target.X * Tile.Size;
+            int pointY = aiElem.Target.Y * Tile.Size;
             g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
 
             Rectangle zone = this.GetAIZoneRectangle(aiElem);
@@ -1376,8 +1367,8 @@ namespace EpicEdit.UI.Gfx
 
         private Rectangle GetAIZoneRectangle(TrackAIElement aiElem)
         {
-            int zoneX = (aiElem.Zone.X - this.scrollPosition.X) * Tile.Size;
-            int zoneY = (aiElem.Zone.Y - this.scrollPosition.Y) * Tile.Size;
+            int zoneX = aiElem.Zone.X * Tile.Size;
+            int zoneY = aiElem.Zone.Y * Tile.Size;
             int zoneWidth = aiElem.Zone.Width * Tile.Size;
             int zoneHeight = aiElem.Zone.Height * Tile.Size;
 
@@ -1424,8 +1415,8 @@ namespace EpicEdit.UI.Gfx
                     0 : yCorrectionStep;
 
                 points[i] =
-                    new Point((points[i].X - this.scrollPosition.X) * Tile.Size - xCorrection,
-                              (points[i].Y - this.scrollPosition.Y) * Tile.Size - yCorrection);
+                    new Point(points[i].X * Tile.Size - xCorrection,
+                              points[i].Y * Tile.Size - yCorrection);
             }
 
             switch (aiElem.ZoneShape)
@@ -1454,8 +1445,8 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle zone, Pen pen)
         {
-            int pointX = (aiElem.Target.X - this.scrollPosition.X) * Tile.Size;
-            int pointY = (aiElem.Target.Y - this.scrollPosition.Y) * Tile.Size;
+            int pointX = aiElem.Target.X * Tile.Size;
+            int pointY = aiElem.Target.Y * Tile.Size;
 
             Point targetPoint = new Point(pointX + Tile.Size / 2, pointY + Tile.Size / 2);
 

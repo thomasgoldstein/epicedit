@@ -227,12 +227,12 @@ namespace EpicEdit.UI.TrackEdition
                 Point position;
                 if (this.buttonsPressed != MouseButtons.Right) // The user is simply hovering tiles
                 {
-                    position = this.TilePosition;
+                    position = new Point(this.TilePosition.X + this.scrollPosition.X,
+                                         this.TilePosition.Y + this.scrollPosition.Y);
                 }
                 else // A tile selection is happening now
                 {
-                    position = new Point(this.tileClipboardTopLeft.X - this.scrollPosition.X,
-                                         this.tileClipboardTopLeft.Y - this.scrollPosition.Y);
+                    position = this.tileClipboardTopLeft;
                 }
 
                 return new Rectangle(position, this.tileClipboardSize);
