@@ -106,7 +106,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ZoneTrackBarScroll(object sender, EventArgs e)
         {
-            int zoneIndex = Convert.ToInt32((sender as Control).Tag);
+            int zoneIndex = Convert.ToInt32((sender as Control).Tag, CultureInfo.InvariantCulture);
             this.raiseValueChanged[zoneIndex] = true;
         }
 
@@ -156,7 +156,7 @@ namespace EpicEdit.UI.TrackEdition
                 ObjectZonesControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
             }
 
-            int zoneIndex = Convert.ToInt32(trackBar.Tag);
+            int zoneIndex = Convert.ToInt32(trackBar.Tag, CultureInfo.InvariantCulture);
             this.track.ObjectZones.SetZoneValue(this.FrontViewZones, zoneIndex, (byte)trackBar.Value);
 
             if (this.raiseValueChanged[zoneIndex])
