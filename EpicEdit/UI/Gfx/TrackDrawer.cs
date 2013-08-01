@@ -418,7 +418,7 @@ namespace EpicEdit.UI.Gfx
             return this.trackCache.Clone(clip, this.trackCache.PixelFormat);
         }
 
-        private Graphics CreateBackBuffer(Image image, Rectangle clip)
+        private static Graphics CreateBackBuffer(Image image, Rectangle clip)
         {
             Graphics backBuffer = Graphics.FromImage(image);
             backBuffer.TranslateTransform(-clip.X, -clip.Y);
@@ -468,21 +468,21 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredOverlayTile != null)
             {
-                Rectangle rec = this.GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
+                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
                 region.Union(rec);
             }
 
             if (selectedOverlayTile != null &&
                 selectedOverlayTile != hoveredOverlayTile)
             {
-                Rectangle rec = this.GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
+                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
                 region.Union(rec);
             }
 
             if (selectedPattern != null &&
                 selectedPatternLocation != TrackEditor.OutOfBounds)
             {
-                Rectangle rec = this.GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
+                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
                 region.Union(rec);
             }
 
@@ -503,7 +503,7 @@ namespace EpicEdit.UI.Gfx
             else
             {
                 BattleTrack bTrack = this.track as BattleTrack;
-                region = this.GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
+                region = TrackDrawer.GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
             }
 
             region = this.GetTranslatedZoomedRegion(region);
@@ -548,13 +548,13 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredAIElem != null)
             {
-                region.Union(this.GetAIClipRectangle(hoveredAIElem));
+                region.Union(TrackDrawer.GetAIClipRectangle(hoveredAIElem));
             }
 
             if (selectedAIElem != null &&
                 selectedAIElem != hoveredAIElem)
             {
-                region.Union(this.GetAIClipRectangle(selectedAIElem));
+                region.Union(TrackDrawer.GetAIClipRectangle(selectedAIElem));
             }
 
             region = this.GetTranslatedZoomedRegion(region);
@@ -572,7 +572,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     if (!tileSelection.IsEmpty)
                     {
-                        using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
+                        using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                         {
                             this.DrawTileSelection(backBuffer, tileSelection, selectingTiles);
                         }
@@ -592,7 +592,7 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
+                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                 {
                     this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
                     this.DrawImage(e.Graphics, image, clip);
@@ -609,7 +609,7 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
+                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                 {
                     this.DrawStartData(backBuffer);
                     this.DrawImage(e.Graphics, image, clip);
@@ -629,7 +629,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     if (this.track is GPTrack)
                     {
-                        using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
+                        using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                         {
                             this.DrawObjectData(backBuffer, hoveredObject, frontZonesView);
                         }
@@ -649,7 +649,7 @@ namespace EpicEdit.UI.Gfx
             if (clip.Width > 0 && clip.Height > 0)
             {
                 using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = this.CreateBackBuffer(image, clip))
+                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                 {
                     this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
                     this.DrawImage(e.Graphics, image, clip);
@@ -668,7 +668,7 @@ namespace EpicEdit.UI.Gfx
                               tileSelection.Height * Tile.Size + 1);
         }
 
-        private Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
+        private static Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
         {
             return new Rectangle(location.X * Tile.Size,
                                  location.Y * Tile.Size,
@@ -716,15 +716,14 @@ namespace EpicEdit.UI.Gfx
             return region;
         }
 
-        private Region GetBattleStartClipRegion(BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
+        private static Region GetBattleStartClipRegion(BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
         {
-            Region region = new Region(this.GetBattleStartClipRectangle(startPositionP1));
-            region.Union(this.GetBattleStartClipRectangle(startPositionP2));
-
+            Region region = new Region(TrackDrawer.GetBattleStartClipRectangle(startPositionP1));
+            region.Union(TrackDrawer.GetBattleStartClipRectangle(startPositionP2));
             return region;
         }
 
-        private Rectangle GetBattleStartClipRectangle(BattleStartPosition startPosition)
+        private static Rectangle GetBattleStartClipRectangle(BattleStartPosition startPosition)
         {
             return new Rectangle(startPosition.X - 4,
                                  startPosition.Y - 4,
@@ -736,7 +735,7 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         /// <param name="aiElement">The AI element.</param>
         /// <returns>The rectangle that includes the whole AI element (zone + target).</returns>
-        private Rectangle GetAIClipRectangle(TrackAIElement aiElement)
+        private static Rectangle GetAIClipRectangle(TrackAIElement aiElement)
         {
             int x;
             int y;
@@ -815,7 +814,7 @@ namespace EpicEdit.UI.Gfx
 
             foreach (OverlayTile overlayTile in this.track.OverlayTiles)
             {
-                this.DrawOverlayTile(g, overlayTile, tileset);
+                TrackDrawer.DrawOverlayTile(g, overlayTile, tileset);
             }
 
             if (hoveredOverlayTile != null)
@@ -835,17 +834,17 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void DrawOverlayTile(Graphics g, OverlayTile overlayTile, RoadTileset tileset)
+        private static void DrawOverlayTile(Graphics g, OverlayTile overlayTile, RoadTileset tileset)
         {
-            this.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tileset);
+            TrackDrawer.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tileset);
         }
 
         private void DrawOverlayPattern(Graphics g, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
         {
-            this.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tileset);
+            TrackDrawer.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tileset);
         }
 
-        private void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
+        private static void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
         {
             for (int x = 0; x < overlayTilePattern.Width; x++)
             {
@@ -1186,7 +1185,7 @@ namespace EpicEdit.UI.Gfx
             int pointY = aiElem.Target.Y * Tile.Size;
             g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
 
-            Rectangle zone = this.GetAIZoneRectangle(aiElem);
+            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
             Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
             int speed = aiElem.Speed;
 
@@ -1201,7 +1200,7 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                Point[] points = this.GetAIZoneTriangle(aiElem);
+                Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
 
                 g.DrawPolygon(this.aiZonePens[speed], points);
 
@@ -1307,11 +1306,11 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle zone = this.GetAIZoneRectangle(aiElem);
+            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
 
             if (isAITargetHovered)
             {
-                this.DrawAITargetLines(g, aiElem, zone, this.aiElementHighlightPen);
+                TrackDrawer.DrawAITargetLines(g, aiElem, zone, this.aiElementHighlightPen);
             }
             else
             {
@@ -1321,7 +1320,7 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    Point[] points = this.GetAIZoneTriangle(aiElem);
+                    Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
 
                     g.DrawLines(this.aiElementHighlightPen, points);
                 }
@@ -1344,8 +1343,8 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle zone = this.GetAIZoneRectangle(aiElem);
-            this.DrawAITargetLines(g, aiElem, zone, this.aiElementSelectPen);
+            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
+            TrackDrawer.DrawAITargetLines(g, aiElem, zone, this.aiElementSelectPen);
             this.HighlightAIElement(g, this.aiZoneBrushes[aiElem.Speed][0], aiElem, zone);
         }
 
@@ -1358,14 +1357,14 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                Point[] points = this.GetAIZoneTriangle(aiElem);
+                Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
 
                 g.DrawPolygon(this.aiElementSelectPen, points);
                 g.FillPolygon(brush, points);
             }
         }
 
-        private Rectangle GetAIZoneRectangle(TrackAIElement aiElem)
+        private static Rectangle GetAIZoneRectangle(TrackAIElement aiElem)
         {
             int zoneX = aiElem.Zone.X * Tile.Size;
             int zoneY = aiElem.Zone.Y * Tile.Size;
@@ -1375,7 +1374,7 @@ namespace EpicEdit.UI.Gfx
             return new Rectangle(zoneX, zoneY, zoneWidth - 1, zoneHeight - 1);
         }
 
-        private Point[] GetAIZoneTriangle(TrackAIElement aiElem)
+        private static Point[] GetAIZoneTriangle(TrackAIElement aiElem)
         {
             Point[] points = aiElem.GetTriangle();
 
@@ -1443,7 +1442,7 @@ namespace EpicEdit.UI.Gfx
             return points;
         }
 
-        private void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle zone, Pen pen)
+        private static void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle zone, Pen pen)
         {
             int pointX = aiElem.Target.X * Tile.Size;
             int pointY = aiElem.Target.Y * Tile.Size;
