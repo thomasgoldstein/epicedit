@@ -255,20 +255,11 @@ namespace EpicEdit.Rom.Utility
         /// Decodes text data, from the ROM format to a string.
         /// </summary>
         /// <param name="textBytes">Values that define the location of each character of a text string among the font graphics.</param>
+        /// <param name="skipOddBytes">If true, skip every other byte. Necessary for text which contains the color palette association for each character.</param>
         /// <returns>The corresponding text string.</returns>
-        public string DecodeText(byte[] textBytes)
+        public string DecodeText(byte[] textBytes, bool skipOddBytes)
         {
-            return this.DecodeText(textBytes, 1);
-        }
-
-        /// <summary>
-        /// Decodes text data, from the ROM format to a string.
-        /// </summary>
-        /// <param name="textBytes">Values that define the location of each character of a text string among the font graphics.</param>
-        /// <returns>The corresponding text string.</returns>
-        public string DecodeTextOdd(byte[] textBytes)
-        {
-            return this.DecodeText(textBytes, 2);
+            return this.DecodeText(textBytes, !skipOddBytes ? 1 : 2);
         }
 
         private string DecodeText(byte[] textBytes, int step)
