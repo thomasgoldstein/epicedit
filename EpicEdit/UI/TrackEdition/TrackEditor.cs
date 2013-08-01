@@ -199,7 +199,7 @@ namespace EpicEdit.UI.TrackEdition
         private List<byte> tileClipboard;
 
         /// <summary>
-        /// Top-left position of the clipboard rectangle (doesn't take scrolling position in consideration).
+        /// Top-left position of the clipboard rectangle (takes scrolling position in consideration).
         /// </summary>
         private Point tileClipboardTopLeft;
 
