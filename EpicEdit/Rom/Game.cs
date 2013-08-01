@@ -122,7 +122,7 @@ namespace EpicEdit.Rom
                 {
                     int length = this.romBuffer[lengthOffset] * 2;
                     byte[] textBytes = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
-                    this.modeNames[i] = TextConverter.Instance.DecodeTextOdd(textBytes);
+                    this.modeNames[i] = TextConverter.Instance.DecodeText(textBytes, true);
                     nameOffset += length;
                     lengthOffset += 2;
                 }
@@ -557,7 +557,7 @@ namespace EpicEdit.Rom
             {
                 int offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
                 byte[] textBytes = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
-                names[i] = TextConverter.Instance.DecodeText(textBytes);
+                names[i] = TextConverter.Instance.DecodeText(textBytes, false);
             }
 
             return names;

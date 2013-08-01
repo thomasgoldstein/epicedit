@@ -25,7 +25,7 @@ namespace EpicEditTests.Rom.Utility
         private void TestName(byte[] data, string text, Region region)
         {
             TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecodeText(data);
+            string actualText = TextConverter.Instance.DecodeText(data, false);
             byte[] actualData = TextConverter.Instance.EncodeText(text);
             Assert.AreEqual(text, actualText);
             Assert.AreEqual(data, actualData);
@@ -34,7 +34,7 @@ namespace EpicEditTests.Rom.Utility
         private void TestNameOdd(byte[] data, string text, Region region)
         {
             TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecodeTextOdd(data);
+            string actualText = TextConverter.Instance.DecodeText(data, true);
             Assert.AreEqual(text, actualText);
         }
 
