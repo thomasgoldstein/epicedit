@@ -25,7 +25,7 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     public partial class ResultEditor : UserControl
     {
-        private RankPoints RankPoints
+        private static RankPoints RankPoints
         {
             get { return Context.Game.Settings.RankPoints; }
         }
@@ -61,7 +61,7 @@ namespace EpicEdit.UI.SettingEdition
         private void InitRankPoint(NumericUpDown control)
         {
             int rank = Convert.ToInt32(control.Tag, CultureInfo.InvariantCulture);
-            control.Value = Math.Min(this.RankPoints[rank], control.Maximum);
+            control.Value = Math.Min(ResultEditor.RankPoints[rank], control.Maximum);
         }
 
         private void NumericUpDownValueChanged(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace EpicEdit.UI.SettingEdition
             NumericUpDown control = sender as NumericUpDown;
             int rank = Convert.ToInt32(control.Tag, CultureInfo.InvariantCulture);
             int points = (int)control.Value;
-            this.RankPoints[rank] = points;
+            ResultEditor.RankPoints[rank] = points;
         }
     }
 }
