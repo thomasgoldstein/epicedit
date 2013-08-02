@@ -14,12 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Windows.Forms;
 
-using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
-using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.TrackEdition
@@ -101,12 +98,17 @@ namespace EpicEdit.UI.TrackEdition
         public ObjectZonesControl()
         {
             this.InitializeComponent();
+
             this.raiseValueChanged = new bool[4];
+            this.zone1TrackBar.Tag = 0;
+            this.zone2TrackBar.Tag = 1;
+            this.zone3TrackBar.Tag = 2;
+            this.zone4TrackBar.Tag = 3;
         }
 
         private void ZoneTrackBarScroll(object sender, EventArgs e)
         {
-            int zoneIndex = Convert.ToInt32((sender as Control).Tag, CultureInfo.InvariantCulture);
+            int zoneIndex = (int)(sender as Control).Tag;
             this.raiseValueChanged[zoneIndex] = true;
         }
 
@@ -156,7 +158,7 @@ namespace EpicEdit.UI.TrackEdition
                 ObjectZonesControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
             }
 
-            int zoneIndex = Convert.ToInt32(trackBar.Tag, CultureInfo.InvariantCulture);
+            int zoneIndex = (int)trackBar.Tag;
             this.track.ObjectZones.SetZoneValue(this.FrontViewZones, zoneIndex, (byte)trackBar.Value);
 
             if (this.raiseValueChanged[zoneIndex])
