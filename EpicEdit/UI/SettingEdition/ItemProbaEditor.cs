@@ -36,7 +36,7 @@ namespace EpicEdit.UI.SettingEdition
         /// <summary>
         /// Flag to prevent events being fired in sequence from one control to another.
         /// </summary>
-        private bool performEvents = true;
+        private bool performEvents;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
