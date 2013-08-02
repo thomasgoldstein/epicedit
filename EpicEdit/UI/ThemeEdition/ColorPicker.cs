@@ -79,7 +79,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Used to prevent loops when certain clicks are performed in different UI controls.
         /// </summary>
-        private bool performEvents = false;
+        private bool performEvents;
 
         #endregion Private members
 
