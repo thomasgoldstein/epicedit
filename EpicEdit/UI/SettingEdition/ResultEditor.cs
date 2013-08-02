@@ -54,19 +54,19 @@ namespace EpicEdit.UI.SettingEdition
         {
             this.performEvents = false;
 
-            this.InitRankPoint(this.numericUpDown1);
-            this.InitRankPoint(this.numericUpDown2);
-            this.InitRankPoint(this.numericUpDown3);
-            this.InitRankPoint(this.numericUpDown4);
-            this.InitRankPoint(this.numericUpDown5);
-            this.InitRankPoint(this.numericUpDown6);
-            this.InitRankPoint(this.numericUpDown7);
-            this.InitRankPoint(this.numericUpDown8);
+            ResultEditor.InitRankPoint(this.numericUpDown1);
+            ResultEditor.InitRankPoint(this.numericUpDown2);
+            ResultEditor.InitRankPoint(this.numericUpDown3);
+            ResultEditor.InitRankPoint(this.numericUpDown4);
+            ResultEditor.InitRankPoint(this.numericUpDown5);
+            ResultEditor.InitRankPoint(this.numericUpDown6);
+            ResultEditor.InitRankPoint(this.numericUpDown7);
+            ResultEditor.InitRankPoint(this.numericUpDown8);
 
             this.performEvents = true;
         }
 
-        private void InitRankPoint(NumericUpDown control)
+        private static void InitRankPoint(NumericUpDown control)
         {
             int rank = (int)control.Tag;
             control.Value = Math.Min(ResultEditor.RankPoints[rank], control.Maximum);
