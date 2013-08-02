@@ -115,7 +115,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown8.Name = "numericUpDown8";
             this.numericUpDown8.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown8.TabIndex = 15;
-            this.numericUpDown8.Tag = "7";
             this.numericUpDown8.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label8
@@ -138,7 +137,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown7.Name = "numericUpDown7";
             this.numericUpDown7.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown7.TabIndex = 13;
-            this.numericUpDown7.Tag = "6";
             this.numericUpDown7.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label7
@@ -161,7 +159,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown6.TabIndex = 11;
-            this.numericUpDown6.Tag = "5";
             this.numericUpDown6.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label6
@@ -184,7 +181,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown5.TabIndex = 9;
-            this.numericUpDown5.Tag = "4";
             this.numericUpDown5.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label5
@@ -207,7 +203,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown4.TabIndex = 7;
-            this.numericUpDown4.Tag = "3";
             this.numericUpDown4.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label4
@@ -230,7 +225,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown3.TabIndex = 5;
-            this.numericUpDown3.Tag = "2";
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label3
@@ -253,7 +247,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown2.TabIndex = 3;
-            this.numericUpDown2.Tag = "1";
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label2
@@ -276,7 +269,6 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown1.TabIndex = 1;
-            this.numericUpDown1.Tag = "0";
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.NumericUpDownValueChanged);
             // 
             // label1
