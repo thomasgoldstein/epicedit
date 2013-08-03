@@ -24,27 +24,27 @@ namespace EpicEditTests.Rom.Utility
     {
         private void TestName(byte[] data, string text, Region region)
         {
-            TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecodeText(data, false);
-            byte[] actualData = TextConverter.Instance.EncodeText(text);
-            Assert.AreEqual(text, actualText);
-            Assert.AreEqual(data, actualData);
+            this.TestName(data, text, region, null);
         }
 
-        private void TestNameOdd(byte[] data, string text, Region region)
+        private void TestName(byte[] data, string text, Region region, byte? paletteIndex)
         {
             TextConverter.Instance.LoadCharacterSet(region);
-            string actualText = TextConverter.Instance.DecodeText(data, true);
+            string actualText = TextConverter.Instance.DecodeText(data, paletteIndex != null);
+            byte[] actualData = TextConverter.Instance.EncodeText(text, paletteIndex);
             Assert.AreEqual(text, actualText);
+            Assert.AreEqual(data, actualData);
         }
 
         [Test]
         public void TestUSBattleCourse()
         {
+            // NOTE: The original game uses 0x2C for spaces here (and some other times other characters),
+            // but we just generate 0x2F every time (simpler, same result).
             byte[] data = new byte[]
             {
-                0x0B, 0x0A, 0x1D, 0x1D, 0x15, 0x0E, 0x2C, 0x0C,
-                0x18, 0x1E, 0x1B, 0x1C, 0x0E, 0x2C
+                0x0B, 0x0A, 0x1D, 0x1D, 0x15, 0x0E, 0x2F, 0x0C,
+                0x18, 0x1E, 0x1B, 0x1C, 0x0E, 0x2F
             };
 
             this.TestName(data, "Battle Course ", Region.US);
@@ -53,14 +53,16 @@ namespace EpicEditTests.Rom.Utility
         [Test]
         public void TestUSBattleMode()
         {
+            // NOTE: The original game leaves the palette index as 0 for spaces (0x2F),
+            // but we don't (simpler, same result).
             byte[] data = new byte[]
             {
                 0x0B, 0x0C, 0x0A, 0x0C, 0x1D, 0x0C, 0x1D, 0x0C,
-                0x15, 0x0C, 0x0E, 0x0C, 0x2F, 0x00, 0x16, 0x0C,
+                0x15, 0x0C, 0x0E, 0x0C, 0x2F, 0x0C, 0x16, 0x0C,
                 0x18, 0x0C, 0x0D, 0x0C, 0x0E, 0x0C
             };
 
-            this.TestNameOdd(data, "Battle Mode", Region.US);
+            this.TestName(data, "Battle Mode", Region.US, data[1]);
         }
 
         [Test]
@@ -68,8 +70,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x0B, 0x18, 0x20, 0x1C, 0x0E, 0x1B, 0x2C, 0x0C,
-                0x0A, 0x1C, 0x1D, 0x15, 0x0E, 0x2C
+                0x0B, 0x18, 0x20, 0x1C, 0x0E, 0x1B, 0x2F, 0x0C,
+                0x0A, 0x1C, 0x1D, 0x15, 0x0E, 0x2F
             };
 
             this.TestName(data, "Bowser Castle ", Region.US);
@@ -80,8 +82,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x0C, 0x11, 0x18, 0x0C, 0x18, 0x2C, 0x12, 0x1C,
-                0x15, 0x0A, 0x17, 0x0D, 0x2C
+                0x0C, 0x11, 0x18, 0x0C, 0x18, 0x2F, 0x12, 0x1C,
+                0x15, 0x0A, 0x17, 0x0D, 0x2F
             };
 
             this.TestName(data, "Choco Island ", Region.US);
@@ -92,8 +94,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x0D, 0x18, 0x17, 0x1E, 0x1D, 0x2C, 0x19, 0x15,
-                0x0A, 0x12, 0x17, 0x1C, 0x2C
+                0x0D, 0x18, 0x17, 0x1E, 0x1D, 0x2F, 0x19, 0x15,
+                0x0A, 0x12, 0x17, 0x1C, 0x2F
             };
 
             this.TestName(data, "Donut Plains ", Region.US);
@@ -104,7 +106,7 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x0F, 0x15, 0x18, 0x20, 0x0E, 0x1B, 0x2C, 0x0C,
+                0x0F, 0x15, 0x18, 0x20, 0x0E, 0x1B, 0x2F, 0x0C,
                 0x1E, 0x19
             };
 
@@ -116,8 +118,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x10, 0x11, 0x18, 0x1C, 0x1D, 0x2C, 0x1F, 0x0A,
-                0x15, 0x15, 0x0E, 0x22, 0x2C
+                0x10, 0x11, 0x18, 0x1C, 0x1D, 0x2F, 0x1F, 0x0A,
+                0x15, 0x15, 0x0E, 0x22, 0x2F
             };
 
             this.TestName(data, "Ghost Valley ", Region.US);
@@ -128,8 +130,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x14, 0x18, 0x18, 0x19, 0x0A, 0x2C, 0x0B, 0x0E,
-                0x0A, 0x0C, 0x11, 0x2C
+                0x14, 0x18, 0x18, 0x19, 0x0A, 0x2F, 0x0B, 0x0E,
+                0x0A, 0x0C, 0x11, 0x2F
             };
 
             this.TestName(data, "Koopa Beach ", Region.US);
@@ -140,8 +142,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x16, 0x0A, 0x1B, 0x12, 0x18, 0x2C, 0x0C, 0x12,
-                0x1B, 0x0C, 0x1E, 0x12, 0x1D, 0x2C
+                0x16, 0x0A, 0x1B, 0x12, 0x18, 0x2F, 0x0C, 0x12,
+                0x1B, 0x0C, 0x1E, 0x12, 0x1D, 0x2F
             };
 
             this.TestName(data, "Mario Circuit ", Region.US);
@@ -154,10 +156,10 @@ namespace EpicEditTests.Rom.Utility
             {
                 0x16, 0x08, 0x0A, 0x08, 0x1B, 0x08, 0x12, 0x08,
                 0x18, 0x08, 0x14, 0x08, 0x0A, 0x08, 0x1B, 0x08,
-                0x1D, 0x08, 0x2F, 0x00, 0x10, 0x08, 0x19, 0x08
+                0x1D, 0x08, 0x2F, 0x08, 0x10, 0x08, 0x19, 0x08
             };
 
-            this.TestNameOdd(data, "Mariokart Gp", Region.US);
+            this.TestName(data, "Mariokart Gp", Region.US, data[1]);
         }
 
         [Test]
@@ -166,11 +168,11 @@ namespace EpicEditTests.Rom.Utility
             byte[] data = new byte[]
             {
                 0x16, 0x0A, 0x0A, 0x0A, 0x1D, 0x0A, 0x0C, 0x0A,
-                0x11, 0x0A, 0x2F, 0x00, 0x1B, 0x0A, 0x0A, 0x0A,
+                0x11, 0x0A, 0x2F, 0x0A, 0x1B, 0x0A, 0x0A, 0x0A,
                 0x0C, 0x0A, 0x0E, 0x0A
             };
 
-            this.TestNameOdd(data, "Match Race", Region.US);
+            this.TestName(data, "Match Race", Region.US, data[1]);
         }
 
         [Test]
@@ -179,7 +181,7 @@ namespace EpicEditTests.Rom.Utility
             byte[] data = new byte[]
             {
                 0x16, 0x1E, 0x1C, 0x11, 0x1B, 0x18, 0x18, 0x16,
-                0x2C, 0x0C, 0x1E, 0x19
+                0x2F, 0x0C, 0x1E, 0x19
             };
 
             this.TestName(data, "Mushroom Cup", Region.US);
@@ -190,8 +192,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x1B, 0x0A, 0x12, 0x17, 0x0B, 0x18, 0x20, 0x2C,
-                0x1B, 0x18, 0x0A, 0x0D, 0x2C
+                0x1B, 0x0A, 0x12, 0x17, 0x0B, 0x18, 0x20, 0x2F,
+                0x1B, 0x18, 0x0A, 0x0D, 0x2F
             };
 
             this.TestName(data, "Rainbow Road ", Region.US);
@@ -202,7 +204,7 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x1C, 0x19, 0x0E, 0x0C, 0x12, 0x0A, 0x15, 0x2C,
+                0x1C, 0x19, 0x0E, 0x0C, 0x12, 0x0A, 0x15, 0x2F,
                 0x0C, 0x1E, 0x19
             };
 
@@ -214,7 +216,7 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x1C, 0x1D, 0x0A, 0x1B, 0x2C, 0x0C, 0x1E, 0x19
+                0x1C, 0x1D, 0x0A, 0x1B, 0x2F, 0x0C, 0x1E, 0x19
             };
 
             this.TestName(data, "Star Cup", Region.US);
@@ -225,8 +227,8 @@ namespace EpicEditTests.Rom.Utility
         {
             byte[] data = new byte[]
             {
-                0x1F, 0x0A, 0x17, 0x12, 0x15, 0x15, 0x0A, 0x2C,
-                0x15, 0x0A, 0x14, 0x0E, 0x2C
+                0x1F, 0x0A, 0x17, 0x12, 0x15, 0x15, 0x0A, 0x2F,
+                0x15, 0x0A, 0x14, 0x0E, 0x2F
             };
 
             this.TestName(data, "Vanilla Lake ", Region.US);
@@ -252,7 +254,7 @@ namespace EpicEditTests.Rom.Utility
                 0x68, 0x0C, 0x2E, 0x0C, 0x9C, 0x0C, 0x80, 0x0C
             };
 
-            this.TestNameOdd(data, "バトルゲーム", Region.Jap);
+            this.TestName(data, "バトルゲーム", Region.Jap, data[1]);
         }
 
         [Test]
@@ -348,7 +350,7 @@ namespace EpicEditTests.Rom.Utility
                 0x9C, 0x08, 0x73, 0x08, 0x20, 0x08, 0x21, 0x08
             };
 
-            this.TestNameOdd(data, "マリオカートGP", Region.Jap);
+            this.TestName(data, "マリオカートGP", Region.Jap, data[1]);
         }
 
         [Test]
@@ -360,7 +362,7 @@ namespace EpicEditTests.Rom.Utility
                 0x70, 0x0A, 0x89, 0x0A, 0x9C, 0x0A, 0x6C, 0x0A
             };
 
-            this.TestNameOdd(data, "VSマッチレース", Region.Jap);
+            this.TestName(data, "VSマッチレース", Region.Jap, data[1]);
         }
 
         [Test]
