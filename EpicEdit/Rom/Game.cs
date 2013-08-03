@@ -56,41 +56,29 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Gets the track themes.
         /// </summary>
-        public Themes Themes
-        {
-            get { return this.themes; }
-        }
+        public Themes Themes { get; private set; }
 
         /// <summary>
         /// Gets the overlay tile sizes.
         /// </summary>
-        public OverlayTileSizes OverlayTileSizes
-        {
-            get { return this.overlayTileSizes; }
-        }
+        public OverlayTileSizes OverlayTileSizes { get; private set; }
 
         /// <summary>
         /// Gets the overlay tile patterns.
         /// </summary>
-        public OverlayTilePatterns OverlayTilePatterns
-        {
-            get { return this.overlayTilePatterns; }
-        }
+        public OverlayTilePatterns OverlayTilePatterns { get; private set; }
 
         /// <summary>
-        /// Returns the file path of the loaded ROM.
+        /// Gets the path to the loaded ROM file.
         /// </summary>
-        public string FilePath
-        {
-            get { return this.filePath; }
-        }
+        public string FilePath { get; private set; }
 
         /// <summary>
-        /// Returns the file name of the loaded ROM.
+        /// Gets the file name of the loaded ROM.
         /// </summary>
         public string FileName
         {
-            get { return Path.GetFileName(this.filePath); }
+            get { return Path.GetFileName(this.FilePath); }
         }
 
         public string[] GetModeNames()
@@ -186,14 +174,10 @@ namespace EpicEdit.Rom
         {
             get { return this.romHeader.Length; }
         }
+
         #endregion Public properties and methods
 
         #region Private members
-
-        /// <summary>
-        /// The path to the loaded ROM file.
-        /// </summary>
-        private string filePath;
 
         /// <summary>
         /// Some ROMs have a 512-byte header.
@@ -215,22 +199,7 @@ namespace EpicEdit.Rom
         /// </summary>
         private Offsets offsets;
 
-        /// <summary>
-        /// All the available track themes.
-        /// </summary>
-        private Themes themes;
-
         private string[] modeNames;
-
-        /// <summary>
-        /// The different overlay tile sizes.
-        /// </summary>
-        private OverlayTileSizes overlayTileSizes;
-
-        /// <summary>
-        /// The different overlay tile patterns.
-        /// </summary>
-        private OverlayTilePatterns overlayTilePatterns;
 
         private bool modified;
 
@@ -239,7 +208,7 @@ namespace EpicEdit.Rom
         /// <param name="filePath">The path to the ROM file.</param>
         public Game(string filePath)
         {
-            this.filePath = filePath;
+            this.FilePath = filePath;
             this.LoadRom();
             this.ValidateRom();
             this.LoadData();
@@ -252,7 +221,7 @@ namespace EpicEdit.Rom
         /// </summary>
         private void LoadRom()
         {
-            if (!this.filePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+            if (!this.FilePath.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
             {
                 this.LoadUnzippedRom();
             }
@@ -264,14 +233,14 @@ namespace EpicEdit.Rom
 
         private void LoadUnzippedRom()
         {
-            this.romBuffer = File.ReadAllBytes(this.filePath);
+            this.romBuffer = File.ReadAllBytes(this.FilePath);
         }
 
         private void LoadZippedRom()
         {
             try
             {
-                using (FileStream fs = new FileStream(this.filePath, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read))
                 using (ZipInputStream zipInStream = new ZipInputStream(fs))
                 {
                     ZipEntry entry;
@@ -290,7 +259,7 @@ namespace EpicEdit.Rom
                             ".smc".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
                             ".swc".Equals(ext, StringComparison.OrdinalIgnoreCase))
                         {
-                            using (ZipFile zf = new ZipFile(this.filePath))
+                            using (ZipFile zf = new ZipFile(this.FilePath))
                             using (InflaterInputStream iis = (InflaterInputStream)zf.GetInputStream(entry))
                             {
                                 this.romBuffer = new byte[entry.Size];
@@ -298,8 +267,8 @@ namespace EpicEdit.Rom
 
                                 // Update the file path so that it includes the name of the ROM file
                                 // inside the zip, rather than the name of the zip archive itself
-                                this.filePath =
-                                    this.filePath.Substring(0, this.filePath.LastIndexOf(Path.DirectorySeparatorChar) + 1) + entry.Name;
+                                this.FilePath =
+                                    this.FilePath.Substring(0, this.FilePath.LastIndexOf(Path.DirectorySeparatorChar) + 1) + entry.Name;
 
                                 return;
                             }
@@ -411,10 +380,10 @@ namespace EpicEdit.Rom
             this.TrackGroups = new TrackGroups();
             string[] names = this.GetCupAndThemeNames();
 
-            this.themes = new Themes(this.romBuffer, this.offsets, names);
+            this.Themes = new Themes(this.romBuffer, this.offsets, names);
             byte[] overlayTileSizesData = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
-            this.overlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
-            this.overlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.overlayTileSizes);
+            this.OverlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
+            this.OverlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.OverlayTileSizes);
 
             byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackThemes], Track.Count);
             byte[] trackOrder = this.GetTrackOrder();
@@ -455,7 +424,7 @@ namespace EpicEdit.Rom
                     }
 
                     int themeId = trackThemes[trackIndex] >> 1;
-                    Theme trackTheme = this.themes[themeId];
+                    Theme trackTheme = this.Themes[themeId];
 
                     byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapOffsets[trackIndex]), 0, TrackMap.SquareSize);
 
@@ -477,8 +446,8 @@ namespace EpicEdit.Rom
                                                       aiZoneData, aiTargetData,
                                                       startPositionData, lapLineData,
                                                       objectData, objectZoneData,
-                                                      this.overlayTileSizes,
-                                                      this.overlayTilePatterns,
+                                                      this.OverlayTileSizes,
+                                                      this.OverlayTilePatterns,
                                                       itemProbaIndex);
 
                         this.SetObjectProperties(gpTrack, trackIndex, themeId);
@@ -493,8 +462,8 @@ namespace EpicEdit.Rom
                                                     trackMap, overlayTileData,
                                                     aiZoneData, aiTargetData,
                                                     startPositionData,
-                                                    this.overlayTileSizes,
-                                                    this.overlayTilePatterns);
+                                                    this.OverlayTileSizes,
+                                                    this.OverlayTilePatterns);
                     }
                 }
 
@@ -1123,7 +1092,7 @@ namespace EpicEdit.Rom
         #region Save data
         public void SaveRom(string filePath)
         {
-            this.filePath = filePath;
+            this.FilePath = filePath;
 
             this.SaveDataToBuffer();
             this.SetChecksum();
@@ -1841,7 +1810,7 @@ namespace EpicEdit.Rom
             saveBuffer.Add(data);
 
             // "behavior tables" is 256 byte behavior tables for each theme.
-            foreach (Theme theme in this.themes)
+            foreach (Theme theme in this.Themes)
             {
                 saveBuffer.Add(theme.RoadTileset.GetTileGenreBytes());
             }
@@ -1929,7 +1898,7 @@ namespace EpicEdit.Rom
             byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
 
             // Update track theme id
-            byte themeId = this.themes.GetThemeId(track.Theme);
+            byte themeId = this.Themes.GetThemeId(track.Theme);
             int themeIdOffset = this.offsets[Offset.TrackThemes] + trackIndex;
             this.romBuffer[themeIdOffset] = themeId;
 
@@ -2012,9 +1981,9 @@ namespace EpicEdit.Rom
             this.romBuffer[this.offsets[Offset.RoadTilesetHack3]] = 0x00;
             this.romBuffer[this.offsets[Offset.RoadTilesetHack4]] = 0x40;
 
-            for (int i = 0; i < this.themes.Count; i++)
+            for (int i = 0; i < this.Themes.Count; i++)
             {
-                Theme theme = this.themes[i];
+                Theme theme = this.Themes[i];
                 this.SaveRoadTiles(theme, i, saveBuffer);
                 this.SavePalettes(theme, i, saveBuffer);
                 this.SaveBackgroundLayout(theme, i, saveBuffer);
@@ -2161,7 +2130,7 @@ namespace EpicEdit.Rom
 
         private void SaveFile()
         {
-            using (FileStream fs = new FileStream(this.filePath, FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(this.FilePath, FileMode.Create, FileAccess.Write))
             using (BinaryWriter bw = new BinaryWriter(fs))
             {
                 bw.Write(this.romHeader);
@@ -2173,7 +2142,7 @@ namespace EpicEdit.Rom
         {
             this.modified = false;
             this.TrackGroups.ResetModifiedState();
-            this.themes.ResetModifiedState();
+            this.Themes.ResetModifiedState();
             this.Settings.ResetModifiedState();
         }
 
@@ -2181,14 +2150,14 @@ namespace EpicEdit.Rom
         {
             return this.modified ||
                 this.TrackGroups.Modified ||
-                this.themes.Modified ||
+                this.Themes.Modified ||
                 this.Settings.Modified;
         }
         #endregion Save data
 
         public void Dispose()
         {
-            this.themes.Dispose();
+            this.Themes.Dispose();
             this.ObjectGraphics.Dispose();
             this.ItemIconGraphics.Dispose();
 
