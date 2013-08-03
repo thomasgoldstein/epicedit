@@ -38,7 +38,7 @@ namespace EpicEditTests.Rom.Compression
 
         public void CheckTrackCompression(Game game, int trackGroupId, int trackId, int expectedSize)
         {
-            Track track = game.TrackGroups[trackGroupId].GetTracks()[trackId];
+            Track track = game.TrackGroups[trackGroupId][trackId];
             byte[] buffer = compressor.Compress(track.Map.GetBytes(), false);
             int compressedTrackSize = buffer.Length;
 

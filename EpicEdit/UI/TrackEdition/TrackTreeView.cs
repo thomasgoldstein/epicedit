@@ -91,13 +91,13 @@ namespace EpicEdit.UI.TrackEdition
 
             for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
             {
-                Track[] tracks = Context.Game.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = Context.Game.TrackGroups[i];
                 TreeNodeCollection trackNodes = this.treeView.Nodes[i].Nodes;
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
-                    trackNodes[j].Text = tracks[j].Name;
-                    if (tracks[j].Modified)
+                    trackNodes[j].Text = trackGroup[j].Name;
+                    if (trackGroup[j].Modified)
                     {
                         TrackTreeView.AddModifiedHint(trackNodes[j]);
                     }
