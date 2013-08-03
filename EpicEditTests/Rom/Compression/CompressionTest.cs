@@ -101,7 +101,7 @@ namespace EpicEditTests.Rom.Compression
 
         public void CheckTrackCompression(Game game, int trackGroupId, int trackId)
         {
-            Track track = game.GetTrack(trackGroupId, trackId);
+            Track track = game.TrackGroups[trackGroupId][trackId];
 
             byte[] bufferA = track.Map.GetBytes();
 
