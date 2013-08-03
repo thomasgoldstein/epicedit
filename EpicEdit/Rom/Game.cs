@@ -54,17 +54,6 @@ namespace EpicEdit.Rom
         public TrackGroups TrackGroups { get; private set; }
 
         /// <summary>
-        /// Returns a specific track.
-        /// </summary>
-        /// <param name="trackGroupId">The group id of the track.</param>
-        /// <param name="trackId">The id of the track.</param>
-        /// <returns>A track.</returns>
-        public Track GetTrack(int trackGroupId, int trackId)
-        {
-            return this.TrackGroups[trackGroupId][trackId];
-        }
-
-        /// <summary>
         /// Gets the track themes.
         /// </summary>
         public Themes Themes

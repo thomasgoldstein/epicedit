@@ -130,7 +130,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             int trackGroupId = this.treeView.SelectedNode.Parent.Index;
             int trackId = this.treeView.SelectedNode.Index;
-            this.selectedTrack = Context.Game.GetTrack(trackGroupId, trackId);
+            this.selectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
         }
 
         public Track SelectedTrack

@@ -31,8 +31,8 @@ namespace EpicEditTests.Rom.Tracks
 
         private void TestSmkcImportExport(int trackGroupId, int trackId)
         {
-            GPTrack track1 = this.game.GetTrack(trackGroupId, trackId) as GPTrack;
-            GPTrack track2 = this.game.GetTrack(0, 0) as GPTrack;
+            GPTrack track1 = this.game.TrackGroups[trackGroupId][trackId] as GPTrack;
+            GPTrack track2 = this.game.TrackGroups[0][0] as GPTrack;
 
             track1.Export("track.smkc", this.game);
             track2.Import("track.smkc", this.game);

@@ -31,8 +31,8 @@ namespace EpicEditTests.Rom.Tracks
 
         private void TestMktImportExport(int trackGroupId, int trackId)
         {
-            Track track1 = this.game.GetTrack(trackGroupId, trackId);
-            Track track2 = this.game.GetTrack(0, 0);
+            Track track1 = this.game.TrackGroups[trackGroupId][trackId];
+            Track track2 = this.game.TrackGroups[0][0];
 
             track1.Export("track.mkt", this.game);
             track2.Import("track.mkt", this.game);
