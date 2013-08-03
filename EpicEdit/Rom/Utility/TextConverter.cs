@@ -229,9 +229,10 @@ namespace EpicEdit.Rom.Utility
                 this.dictionary.Add(0x27, '!');
                 this.dictionary.Add(0x28, '\'');
                 this.dictionary.Add(0x29, '"');
-                this.dictionary.Add(0x2C, ' ');
                 this.dictionary.Add(0x2E, ':');
                 this.dictionary.Add(0x2F, ' ');
+                this.dictionary.Forward.Add(0x2C, ' ');
+                this.dictionary.Forward.Add(0xAF, ' ');
             }
         }
 
@@ -287,7 +288,26 @@ namespace EpicEdit.Rom.Utility
             return text;
         }
 
-        public byte[] EncodeText(string text)
+        public byte[] EncodeText(string text, byte? paletteIndex)
+        {
+            int step;
+            byte palIndex;
+
+            if (paletteIndex == null)
+            {
+                step = 1;
+                palIndex = 0;
+            }
+            else
+            {
+                step = 2;
+                palIndex = paletteIndex.Value;
+            }
+
+            return this.EncodeText(text, step, palIndex);
+        }
+
+        private byte[] EncodeText(string text, int step, byte paletteIndex)
         {
             text = text.ToUpperInvariant();
 
@@ -296,11 +316,16 @@ namespace EpicEdit.Rom.Utility
                 text = text.Normalize(NormalizationForm.FormD);
             }
 
-            byte[] data = new byte[text.Length];
+            byte[] data = new byte[text.Length * step];
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < text.Length; i++)
             {
-                data[i] = this.dictionary.Reverse[text[i]];
+                data[i * step] = this.dictionary.Reverse[text[i]];
+
+                if (step > 1)
+                {
+                    data[i * step + 1] = paletteIndex;
+                }
             }
 
             return data;

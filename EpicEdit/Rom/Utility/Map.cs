@@ -37,11 +37,7 @@ namespace EpicEdit.Rom.Utility
         public void Add(T1 t1, T2 t2)
         {
             this.forward.Add(t1, t2);
-
-            if (!this.reverse.ContainsKey(t2))
-            {
-                this.reverse.Add(t2, t1);
-            }
+            this.reverse.Add(t2, t1);
         }
 
         public void Clear()
@@ -68,6 +64,11 @@ namespace EpicEdit.Rom.Utility
             public bool ContainsKey(T3 key)
             {
                 return this.dictionary.ContainsKey(key);
+            }
+
+            public void Add(T3 key, T4 value)
+            {
+                this.dictionary.Add(key, value);
             }
         }
     }
