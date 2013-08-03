@@ -157,6 +157,7 @@
     <Compile Include="Rom\Tracks\Themes.cs" />
     <Compile Include="Rom\Tracks\Track.cs" />
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
+    <Compile Include="Rom\Tracks\TrackGroups.cs" />
     <Compile Include="Rom\Utility\Map.cs" />
     <Compile Include="Rom\Utility\TextConverter.cs" />
     <Compile Include="Rom\Utility\Utilities.cs" />
