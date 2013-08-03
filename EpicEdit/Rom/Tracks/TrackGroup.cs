@@ -79,14 +79,15 @@ namespace EpicEdit.Rom.Tracks
             return this.tracks.GetEnumerator();
         }
 
-        public Track[] GetTracks()
+        public int Count
         {
-            return this.tracks;
+            get { return this.tracks.Length; }
         }
 
         public Track this[int index]
         {
             get { return this.tracks[index]; }
+            set { this.tracks[index] = value; }
         }
     }
 }

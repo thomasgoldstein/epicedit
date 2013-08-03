@@ -947,14 +947,14 @@ namespace EpicEdit.Rom
             {
                 #region Global track array creation
                 // To make the treatment easier, we simply create an array with all the GP tracks
-                Track[] tracks = new Track[GPTrack.Count];
+                TrackGroup tempTrackGroup = new TrackGroup(null, new Track[GPTrack.Count]);
                 for (int i = 0; i < this.TrackGroups.Count - 1; i++)
                 {
-                    Track[] groupTracks = this.TrackGroups[i].GetTracks();
+                    TrackGroup trackGroup = this.TrackGroups[i];
 
-                    for (int j = 0; j < groupTracks.Length; j++)
+                    for (int j = 0; j < trackGroup.Count; j++)
                     {
-                        tracks[i * groupTracks.Length + j] = groupTracks[j];
+                        tempTrackGroup[i * trackGroup.Count + j] = trackGroup[j];
                     }
                 }
 
@@ -965,7 +965,7 @@ namespace EpicEdit.Rom
                 int trackOrderOffset = this.offsets[Offset.GPTrackOrder];
                 int trackNameOffset = this.offsets[Offset.GPTrackNames];
 
-                this.ReorderTracksSub(tracks, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
+                this.ReorderTracksSub(tempTrackGroup, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
 
                 #region GP track specific data update
                 // Update Time Trial lap line positions
@@ -1002,23 +1002,23 @@ namespace EpicEdit.Rom
                 #region Update track pointers in track groups
                 for (int i = 0; i < this.TrackGroups.Count - 1; i++)
                 {
-                    Track[] groupTracks = this.TrackGroups[i].GetTracks();
+                    TrackGroup trackGroup = this.TrackGroups[i];
 
-                    for (int j = 0; j < groupTracks.Length; j++)
+                    for (int j = 0; j < trackGroup.Count; j++)
                     {
-                        groupTracks[j] = tracks[i * groupTracks.Length + j];
+                        trackGroup[j] = tempTrackGroup[i * trackGroup.Count + j];
                     }
                 }
                 #endregion Update track pointers in track groups
             }
             else // Battle track reordering
             {
-                Track[] tracks = this.TrackGroups[sourceTrackGroupId].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[sourceTrackGroupId];
 
                 int trackOrderOffset = this.offsets[Offset.BattleTrackOrder];
                 int trackNameOffset = this.offsets[Offset.BattleTrackNames];
 
-                this.ReorderTracksSub(tracks, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
+                this.ReorderTracksSub(trackGroup, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
 
                 #region Battle track specific data update
                 // Update the track shown by default when entering the battle track selection
@@ -1036,9 +1036,9 @@ namespace EpicEdit.Rom
             this.modified = true;
         }
 
-        private void ReorderTracksSub(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void ReorderTracksSub(TrackGroup trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
         {
-            Track sourceTrack = tracks[sourceTrackId];
+            Track sourceTrack = trackGroup[sourceTrackId];
             byte sourceTrackOrder = this.romBuffer[trackOrderOffset + sourceTrackId];
 
             int sourceTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, sourceTrackId);
@@ -1052,18 +1052,18 @@ namespace EpicEdit.Rom
             {
                 for (int i = sourceTrackId; i < destinationTrackId; i++)
                 {
-                    this.RemapTrack(tracks, i + 1, i, trackOrderOffset, trackNameOffset);
+                    this.RemapTrack(trackGroup, i + 1, i, trackOrderOffset, trackNameOffset);
                 }
             }
             else
             {
                 for (int i = sourceTrackId; i > destinationTrackId; i--)
                 {
-                    this.RemapTrack(tracks, i - 1, i, trackOrderOffset, trackNameOffset);
+                    this.RemapTrack(trackGroup, i - 1, i, trackOrderOffset, trackNameOffset);
                 }
             }
 
-            tracks[destinationTrackId] = sourceTrack;
+            trackGroup[destinationTrackId] = sourceTrack;
             this.romBuffer[trackOrderOffset + destinationTrackId] = sourceTrackOrder;
 
             int destinationTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, destinationTrackId);
@@ -1071,9 +1071,9 @@ namespace EpicEdit.Rom
             this.romBuffer[destinationTrackNameOffset + 1] = sourceTrackName[1];
         }
 
-        private void RemapTrack(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void RemapTrack(TrackGroup trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
         {
-            tracks[destinationTrackId] = tracks[sourceTrackId];
+            trackGroup[destinationTrackId] = trackGroup[sourceTrackId];
             this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
 
             int destinationTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, destinationTrackId);
@@ -1179,15 +1179,15 @@ namespace EpicEdit.Rom
             // Saves data from 0x80000 to 0x80061
             byte[] trackOrder = this.GetTrackOrder();
 
-            Track[] tracks = this.TrackGroups[GPTrack.GroupCount].GetTracks();
+            TrackGroup trackGroup = this.TrackGroups[GPTrack.GroupCount];
 
-            for (int i = 0; i < tracks.Length; i++)
+            for (int i = 0; i < trackGroup.Count; i++)
             {
                 int iterator = GPTrack.Count + i;
                 int trackIndex = trackOrder[iterator];
                 int bTrackIndex = trackIndex - GPTrack.Count;
 
-                this.SaveBattleStartPositions(tracks[bTrackIndex] as BattleTrack, saveBuffer);
+                this.SaveBattleStartPositions(trackGroup[bTrackIndex] as BattleTrack, saveBuffer);
             }
 
             this.RelocateBattleStartPositions(saveBuffer);
@@ -1374,12 +1374,12 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[i];
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    GPTrack gpTrack = tracks[j] as GPTrack;
+                    GPTrack gpTrack = trackGroup[j] as GPTrack;
 
                     tilesetData[trackIndex] = (byte)gpTrack.ObjectTileset;
                     interactData[trackIndex] = (byte)gpTrack.ObjectInteraction;
@@ -1532,12 +1532,12 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[i];
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    GPTrack gpTrack = tracks[j] as GPTrack;
+                    GPTrack gpTrack = trackGroup[j] as GPTrack;
 
                     // Update object zones
                     byte[] data = gpTrack.ObjectZones.GetBytes();
@@ -1636,13 +1636,13 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[i];
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     int offset = trackIndex * 4;
-                    GPTrack gpTrack = tracks[j] as GPTrack;
+                    GPTrack gpTrack = trackGroup[j] as GPTrack;
 
                     objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[0] << 1);
                     objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[1] << 1);
@@ -1832,12 +1832,12 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.TrackGroups.Count; i++)
             {
-                Track[] tracks = this.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[i];
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    this.SaveAI(tracks[j], trackIndex, saveBuffer);
+                    this.SaveAI(trackGroup[j], trackIndex, saveBuffer);
                 }
             }
         }
@@ -1868,16 +1868,16 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.TrackGroups.Count; i++)
             {
-                Track[] tracks = this.TrackGroups[i].GetTracks();
+                TrackGroup trackGroup = this.TrackGroups[i];
 
-                for (int j = 0; j < tracks.Length; j++)
+                for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    if (tracks[j].Modified)
+                    if (trackGroup[j].Modified)
                     {
-                        this.SaveTrack(tracks[j], iterator, trackIndex, saveBuffer);
+                        this.SaveTrack(trackGroup[j], iterator, trackIndex, saveBuffer);
                     }
                     else
                     {
