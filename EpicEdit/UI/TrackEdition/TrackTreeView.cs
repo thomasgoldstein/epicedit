@@ -61,12 +61,10 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            TrackGroup[] trackGroups = Context.Game.GetTrackGroups();
-
             this.treeView.BeginUpdate();
             this.treeView.Nodes.Clear();
 
-            foreach (TrackGroup trackGroup in trackGroups)
+            foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
             {
                 TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
                 trackGroupNode.ForeColor = SystemColors.WindowText;
@@ -89,13 +87,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTrackListNames()
         {
-            TrackGroup[] trackGroups = Context.Game.GetTrackGroups();
-
             this.treeView.BeginUpdate();
 
-            for (int i = 0; i < trackGroups.Length; i++)
+            for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
             {
-                Track[] tracks = trackGroups[i].GetTracks();
+                Track[] tracks = Context.Game.TrackGroups[i].GetTracks();
                 TreeNodeCollection trackNodes = this.treeView.Nodes[i].Nodes;
 
                 for (int j = 0; j < tracks.Length; j++)

@@ -49,13 +49,9 @@ namespace EpicEdit.Rom
         #region Public properties and methods
 
         /// <summary>
-        /// Returns the main track groups.
+        /// Gets the track groups, each of which contains several tracks.
         /// </summary>
-        /// <returns>An array composed of the main track groups.</returns>
-        public TrackGroup[] GetTrackGroups()
-        {
-            return this.trackGroups;
-        }
+        public TrackGroups TrackGroups { get; private set; }
 
         /// <summary>
         /// Returns a specific track.
@@ -65,7 +61,7 @@ namespace EpicEdit.Rom
         /// <returns>A track.</returns>
         public Track GetTrack(int trackGroupId, int trackId)
         {
-            return this.trackGroups[trackGroupId][trackId];
+            return this.TrackGroups[trackGroupId][trackId];
         }
 
         /// <summary>
@@ -229,11 +225,6 @@ namespace EpicEdit.Rom
         /// The offsets to find the needed data in the ROM.
         /// </summary>
         private Offsets offsets;
-
-        /// <summary>
-        /// The track groups, each of which contains several tracks.
-        /// </summary>
-        private TrackGroup[] trackGroups;
 
         /// <summary>
         /// All the available track themes.
@@ -428,7 +419,7 @@ namespace EpicEdit.Rom
             this.offsets = new Offsets(this.romBuffer, this.region);
             TextConverter.Instance.LoadCharacterSet(this.region);
 
-            this.trackGroups = new TrackGroup[Track.GroupCount];
+            this.TrackGroups = new TrackGroups();
             string[] names = this.GetCupAndThemeNames();
 
             this.themes = new Themes(this.romBuffer, this.offsets, names);
@@ -446,11 +437,11 @@ namespace EpicEdit.Rom
             byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIZones], Track.Count * 2); // 2 offset bytes per track
             byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAITargets], Track.Count * 2); // 2 offset bytes per track
 
-            for (int i = 0; i < this.trackGroups.Length; i++)
+            for (int i = 0; i < this.TrackGroups.Count; i++)
             {
                 int trackCountInGroup;
                 string trackGroupName;
-                if (i != this.trackGroups.Length - 1) // GP track group
+                if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
                     trackGroupName = names[i];
@@ -518,7 +509,7 @@ namespace EpicEdit.Rom
                     }
                 }
 
-                this.trackGroups[i] = new TrackGroup(trackGroupName, tracks);
+                this.TrackGroups[i] = new TrackGroup(trackGroupName, tracks);
             }
 
             this.Settings = new GameSettings(this.romBuffer, this.offsets);
@@ -549,7 +540,7 @@ namespace EpicEdit.Rom
         /// <returns>The names of the cups and track themes.</returns>
         private string[] GetCupAndThemeNames()
         {
-            int nameCount = this.trackGroups.Length + Theme.Count;
+            int nameCount = this.TrackGroups.Count + Theme.Count;
             string[] names = new string[nameCount];
             byte[][] nameIndex = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.NameStrings], 2, names.Length);
 
@@ -999,9 +990,9 @@ namespace EpicEdit.Rom
                 #region Global track array creation
                 // To make the treatment easier, we simply create an array with all the GP tracks
                 Track[] tracks = new Track[GPTrack.Count];
-                for (int i = 0; i < this.trackGroups.Length - 1; i++)
+                for (int i = 0; i < this.TrackGroups.Count - 1; i++)
                 {
-                    Track[] groupTracks = this.trackGroups[i].GetTracks();
+                    Track[] groupTracks = this.TrackGroups[i].GetTracks();
 
                     for (int j = 0; j < groupTracks.Length; j++)
                     {
@@ -1051,9 +1042,9 @@ namespace EpicEdit.Rom
                 #endregion GP track specific data update
 
                 #region Update track pointers in track groups
-                for (int i = 0; i < this.trackGroups.Length - 1; i++)
+                for (int i = 0; i < this.TrackGroups.Count - 1; i++)
                 {
-                    Track[] groupTracks = this.trackGroups[i].GetTracks();
+                    Track[] groupTracks = this.TrackGroups[i].GetTracks();
 
                     for (int j = 0; j < groupTracks.Length; j++)
                     {
@@ -1064,7 +1055,7 @@ namespace EpicEdit.Rom
             }
             else // Battle track reordering
             {
-                Track[] tracks = this.trackGroups[sourceTrackGroupId].GetTracks();
+                Track[] tracks = this.TrackGroups[sourceTrackGroupId].GetTracks();
 
                 int trackOrderOffset = this.offsets[Offset.BattleTrackOrder];
                 int trackNameOffset = this.offsets[Offset.BattleTrackNames];
@@ -1230,7 +1221,7 @@ namespace EpicEdit.Rom
             // Saves data from 0x80000 to 0x80061
             byte[] trackOrder = this.GetTrackOrder();
 
-            Track[] tracks = this.trackGroups[GPTrack.GroupCount].GetTracks();
+            Track[] tracks = this.TrackGroups[GPTrack.GroupCount].GetTracks();
 
             for (int i = 0; i < tracks.Length; i++)
             {
@@ -1423,9 +1414,9 @@ namespace EpicEdit.Rom
             byte[] zData = new byte[Track.Count];
             byte[] loadingData = new byte[Track.Count];
 
-            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.trackGroups[i].GetTracks();
+                Track[] tracks = this.TrackGroups[i].GetTracks();
 
                 for (int j = 0; j < tracks.Length; j++)
                 {
@@ -1581,9 +1572,9 @@ namespace EpicEdit.Rom
             byte[] trackOrder = this.GetTrackOrder();
             byte[] objectZonesData = new byte[GPTrack.Count * TrackObjectZones.Size];
 
-            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.trackGroups[i].GetTracks();
+                Track[] tracks = this.TrackGroups[i].GetTracks();
 
                 for (int j = 0; j < tracks.Length; j++)
                 {
@@ -1685,9 +1676,9 @@ namespace EpicEdit.Rom
             byte[] objectPalData = new byte[Track.Count * 5];
             int flashingOffset = Track.Count * 4;
 
-            for (int i = 0; i < this.trackGroups.Length - 1; i++)
+            for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
-                Track[] tracks = this.trackGroups[i].GetTracks();
+                Track[] tracks = this.TrackGroups[i].GetTracks();
 
                 for (int j = 0; j < tracks.Length; j++)
                 {
@@ -1881,9 +1872,9 @@ namespace EpicEdit.Rom
 
             byte[] trackOrder = this.GetTrackOrder();
 
-            for (int i = 0; i < this.trackGroups.Length; i++)
+            for (int i = 0; i < this.TrackGroups.Count; i++)
             {
-                Track[] tracks = this.trackGroups[i].GetTracks();
+                Track[] tracks = this.TrackGroups[i].GetTracks();
 
                 for (int j = 0; j < tracks.Length; j++)
                 {
@@ -1917,9 +1908,9 @@ namespace EpicEdit.Rom
             byte[] trackOrder = this.GetTrackOrder();
             int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
 
-            for (int i = 0; i < this.trackGroups.Length; i++)
+            for (int i = 0; i < this.TrackGroups.Count; i++)
             {
-                Track[] tracks = this.trackGroups[i].GetTracks();
+                Track[] tracks = this.TrackGroups[i].GetTracks();
 
                 for (int j = 0; j < tracks.Length; j++)
                 {
@@ -2195,7 +2186,7 @@ namespace EpicEdit.Rom
             this.themes.ResetModifiedState();
             this.Settings.ResetModifiedState();
 
-            foreach (TrackGroup trackGroup in this.trackGroups)
+            foreach (TrackGroup trackGroup in this.TrackGroups)
             {
                 trackGroup.ResetModifiedState();
             }
@@ -2210,7 +2201,7 @@ namespace EpicEdit.Rom
                 return true;
             }
 
-            foreach (TrackGroup trackGroup in this.trackGroups)
+            foreach (TrackGroup trackGroup in this.TrackGroups)
             {
                 if (trackGroup.Modified)
                 {
