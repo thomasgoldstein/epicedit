@@ -30,6 +30,30 @@ namespace EpicEdit.Rom.Tracks
             this.trackGroups = new TrackGroup[Track.GroupCount];
         }
 
+        public bool Modified
+        {
+            get
+            {
+                foreach (TrackGroup trackGroup in this.trackGroups)
+                {
+                    if (trackGroup.Modified)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public void ResetModifiedState()
+        {
+            foreach (TrackGroup trackGroup in this.trackGroups)
+            {
+                trackGroup.ResetModifiedState();
+            }
+        }
+
         public IEnumerator<TrackGroup> GetEnumerator()
         {
             foreach (TrackGroup trackGroup in this.trackGroups)
