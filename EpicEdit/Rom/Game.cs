@@ -2183,33 +2183,17 @@ namespace EpicEdit.Rom
         private void ResetModifiedState()
         {
             this.modified = false;
+            this.TrackGroups.ResetModifiedState();
             this.themes.ResetModifiedState();
             this.Settings.ResetModifiedState();
-
-            foreach (TrackGroup trackGroup in this.TrackGroups)
-            {
-                trackGroup.ResetModifiedState();
-            }
         }
 
         public bool HasPendingChanges()
         {
-            if (this.modified ||
+            return this.modified ||
+                this.TrackGroups.Modified ||
                 this.themes.Modified ||
-                this.Settings.Modified)
-            {
-                return true;
-            }
-
-            foreach (TrackGroup trackGroup in this.TrackGroups)
-            {
-                if (trackGroup.Modified)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+                this.Settings.Modified;
         }
         #endregion Save data
 
