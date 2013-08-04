@@ -377,10 +377,10 @@ namespace EpicEdit.Rom
             this.offsets = new Offsets(this.romBuffer, this.region);
             TextConverter.Instance.LoadCharacterSet(this.region);
 
+            this.Settings = new GameSettings(this.romBuffer, this.offsets);
             this.TrackGroups = new TrackGroups();
-            string[] names = this.GetCupAndThemeNames();
 
-            this.Themes = new Themes(this.romBuffer, this.offsets, names);
+            this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CupAndThemeNames);
             byte[] overlayTileSizesData = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
             this.OverlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
             this.OverlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.OverlayTileSizes);
@@ -402,12 +402,12 @@ namespace EpicEdit.Rom
                 if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
-                    trackGroupName = names[i];
+                    trackGroupName = this.Settings.CupAndThemeNames[i];
                 }
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
-                    trackGroupName = names[trackNameIndex[GPTrack.Count][1]];
+                    trackGroupName = this.Settings.CupAndThemeNames[trackNameIndex[GPTrack.Count][1]];
                 }
 
                 Track[] tracks = new Track[trackCountInGroup];
@@ -417,7 +417,7 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    string trackName = names[trackNameIndex[iterator][1]];
+                    string trackName = this.Settings.CupAndThemeNames[trackNameIndex[iterator][1]];
                     if (trackNameIndex[iterator].Length > 2) // We check if there is a track number (eg: Rainbow Road doesn't have one)
                     {
                         trackName += trackNameIndex[iterator][2];
@@ -470,7 +470,6 @@ namespace EpicEdit.Rom
                 this.TrackGroups[i] = new TrackGroup(trackGroupName, tracks);
             }
 
-            this.Settings = new GameSettings(this.romBuffer, this.offsets);
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
         }
@@ -490,26 +489,6 @@ namespace EpicEdit.Rom
             }
 
             this.region = (Region)region;
-        }
-
-        /// <summary>
-        /// Gets the names of the cups and track themes.
-        /// </summary>
-        /// <returns>The names of the cups and track themes.</returns>
-        private string[] GetCupAndThemeNames()
-        {
-            int nameCount = this.TrackGroups.Count + Theme.Count;
-            string[] names = new string[nameCount];
-            byte[][] nameIndex = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.NameStrings], 2, names.Length);
-
-            for (int i = 0; i < names.Length; i++)
-            {
-                int offset = Utilities.BytesToOffset(nameIndex[i][0], nameIndex[i][1], 1); // Recreates offsets from the index table loaded above
-                byte[] textBytes = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
-                names[i] = TextConverter.Instance.DecodeText(textBytes, false);
-            }
-
-            return names;
         }
 
         /// <summary>
