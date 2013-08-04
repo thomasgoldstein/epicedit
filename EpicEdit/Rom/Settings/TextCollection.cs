@@ -40,6 +40,9 @@ namespace EpicEdit.Rom.Settings
         public bool Modified { get; private set; }
 
         public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool skipOddBytes)
+            : this(romBuffer, indexOffset, -1, count, totalSize, skipOddBytes) {}
+
+        public TextCollection(byte[] romBuffer, int indexOffset, int lengthOffset, int count, int totalSize, bool skipOddBytes)
         {
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
@@ -55,7 +58,27 @@ namespace EpicEdit.Rom.Settings
             for (int i = 0; i < this.texts.Length; i++)
             {
                 int offset = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte); // Recreates offsets from the index table loaded above
-                byte[] textBytes = Utilities.ReadBlockUntil(romBuffer, offset, 0xFF);
+                byte[] textBytes;
+
+                if (lengthOffset == -1)
+                {
+                    // Dynamic text length, ends at byte 0xFF
+                    textBytes = Utilities.ReadBlockUntil(romBuffer, offset, 0xFF);
+                }
+                else
+                {
+                    // Fixed text length, length determined in a separate table
+                    int length = romBuffer[lengthOffset];
+
+                    if (skipOddBytes)
+                    {
+                        length *= 2;
+                    }
+
+                    textBytes = Utilities.ReadBlock(romBuffer, offset, length);
+                    lengthOffset += 2;
+                }
+
                 this.texts[i] = TextConverter.Instance.DecodeText(textBytes, skipOddBytes);
 
                 if (skipOddBytes)
