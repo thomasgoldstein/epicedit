@@ -87,7 +87,7 @@ namespace EpicEdit.Rom
             {
                 this.modeNames = new string[3];
 
-                int offset = this.offsets[Offset.ModeStrings];
+                int offset = this.offsets[Offset.ModeNames];
                 int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
                 int lengthOffset = offset + 6;
 
