@@ -81,7 +81,7 @@ namespace EpicEdit.Rom.Settings
 
                 this.texts[i] = TextConverter.Instance.DecodeText(textBytes, skipOddBytes);
 
-                if (skipOddBytes)
+                if (skipOddBytes && textBytes.Length >= 2)
                 {
                     this.colorIndexes[i] = textBytes[1];
                 }
