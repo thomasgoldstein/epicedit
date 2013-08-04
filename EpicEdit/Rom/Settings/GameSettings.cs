@@ -52,7 +52,7 @@ namespace EpicEdit.Rom.Settings
 
         public GameSettings(byte[] romBuffer, Offsets offsets)
         {
-            this.CupAndThemeNames = new TextCollection(romBuffer, offsets[Offset.NameStrings], Track.GroupCount + Theme.Count, 173, false);
+            this.CupAndThemeNames = new TextCollection(romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count, 173, false);
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);

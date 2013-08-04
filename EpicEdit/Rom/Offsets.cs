@@ -21,14 +21,14 @@ namespace EpicEdit.Rom
     internal enum Offset
     {
         /// <summary>
-        /// Offset to the names of the modes on the title screen.
+        /// Offsets to the names of the modes on the title screen.
         /// </summary>
-        ModeStrings,
+        ModeNames,
 
         /// <summary>
-        /// Name texts (cups and themes).
+        /// Offsets to cup and theme names.
         /// </summary>
-        NameStrings,
+        CupAndThemeNames,
 
         /// <summary>
         /// Track map address index.
@@ -350,7 +350,7 @@ namespace EpicEdit.Rom
             switch (region)
             {
                 case Region.Jap:
-                    this[Offset.ModeStrings] = 0x58B19;
+                    this[Offset.ModeNames] = 0x58B19;
                     this[Offset.BattleTrackOrder] = 0x1C022;
                     this[Offset.FirstBattleTrack] = 0x1BF0A;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
@@ -372,7 +372,7 @@ namespace EpicEdit.Rom
                     break;
 
                 case Region.US:
-                    this[Offset.ModeStrings] = 0x58B00;
+                    this[Offset.ModeNames] = 0x58B00;
                     this[Offset.BattleTrackOrder] = 0x1C15C;
                     this[Offset.FirstBattleTrack] = 0x1C04C;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
@@ -394,7 +394,7 @@ namespace EpicEdit.Rom
                     break;
 
                 case Region.Euro:
-                    this[Offset.ModeStrings] = 0x58AF2;
+                    this[Offset.ModeNames] = 0x58AF2;
                     this[Offset.BattleTrackOrder] = 0x1BFF8;
                     this[Offset.FirstBattleTrack] = 0x1BEE8;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
@@ -452,7 +452,7 @@ namespace EpicEdit.Rom
             this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
             this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x2A;
             this[Offset.GPTrackNames] = this[Offset.BattleTrackNames] + 0x32;
-            this[Offset.NameStrings] = this[Offset.GPTrackNames] + 0xC1;
+            this[Offset.CupAndThemeNames] = this[Offset.GPTrackNames] + 0xC1;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
 
