@@ -83,7 +83,7 @@ namespace EpicEdit.Rom.Settings
 
                 if (skipOddBytes)
                 {
-                    this.colorIndexes[i] = TextCollection.GetColorIndex(textBytes);
+                    this.colorIndexes[i] = textBytes[1];
                 }
             }
 
@@ -98,25 +98,6 @@ namespace EpicEdit.Rom.Settings
                 this.texts[index] = value;
                 this.Modified = true;
             }
-        }
-
-        /// <summary>
-        /// Gets the first character color index that is different from 0.
-        /// </summary>
-        private static byte GetColorIndex(byte[] textBytes)
-        {
-            byte colorIndex = 0;
-
-            for (int i = 1; i < textBytes.Length; i += 2)
-            {
-                if (textBytes[i] != 0)
-                {
-                    colorIndex = textBytes[i];
-                    break;
-                }
-            }
-
-            return colorIndex;
         }
 
         public byte[] GetBytes()
