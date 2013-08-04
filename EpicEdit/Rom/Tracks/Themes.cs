@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Utility;
@@ -57,12 +58,12 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public Themes(byte[] romBuffer, Offsets offsets, string[] names)
+        public Themes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
             this.LoadThemes(romBuffer, offsets, names);
         }
 
-        private void LoadThemes(byte[] romBuffer, Offsets offsets, string[] names)
+        private void LoadThemes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
             this.themes = new Theme[Theme.Count];
 
