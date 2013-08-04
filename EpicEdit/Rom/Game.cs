@@ -81,29 +81,6 @@ namespace EpicEdit.Rom
             get { return Path.GetFileName(this.FilePath); }
         }
 
-        public string[] GetModeNames()
-        {
-            if (this.modeNames == null)
-            {
-                this.modeNames = new string[3];
-
-                int offset = this.offsets[Offset.ModeNames];
-                int nameOffset = Utilities.BytesToOffset(this.romBuffer[offset], this.romBuffer[offset + 1], 5);
-                int lengthOffset = offset + 6;
-
-                for (int i = 0; i < this.modeNames.Length; i++)
-                {
-                    int length = this.romBuffer[lengthOffset] * 2;
-                    byte[] textBytes = Utilities.ReadBlock(this.romBuffer, nameOffset, length);
-                    this.modeNames[i] = TextConverter.Instance.DecodeText(textBytes, true);
-                    nameOffset += length;
-                    lengthOffset += 2;
-                }
-            }
-
-            return this.modeNames;
-        }
-
         /// <summary>
         /// Gets the game settings.
         /// </summary>
@@ -198,8 +175,6 @@ namespace EpicEdit.Rom
         /// The offsets to find the needed data in the ROM.
         /// </summary>
         private Offsets offsets;
-
-        private string[] modeNames;
 
         private bool modified;
 

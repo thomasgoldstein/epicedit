@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Items;
@@ -154,8 +155,8 @@ namespace EpicEdit.UI.TrackEdition
         private void ResetSetComboBoxBattle()
         {
             this.setComboBox.Items.Clear();
-            string[] modeNames = Context.Game.GetModeNames();
-            this.setComboBox.Items.Add(modeNames[modeNames.Length - 1]);
+            TextCollection modeNames = Context.Game.Settings.ModeNames;
+            this.setComboBox.Items.Add(modeNames[modeNames.Count - 1]);
             this.setComboBox.SelectedIndex = 0;
             this.setComboBox.Enabled = false;
         }
