@@ -30,6 +30,11 @@ namespace EpicEdit.Rom.Settings
         public TextCollection CupAndThemeNames { get; private set; }
 
         /// <summary>
+        /// Gets the game mode names.
+        /// </summary>
+        public TextCollection ModeNames { get; private set; }
+
+        /// <summary>
         /// Gets the points awarded to drivers depending on their finishing position.
         /// </summary>
         public RankPoints RankPoints { get; private set; }
@@ -45,6 +50,7 @@ namespace EpicEdit.Rom.Settings
             {
                 return
                     this.CupAndThemeNames.Modified ||
+                    this.ModeNames.Modified ||
                     this.RankPoints.Modified ||
                     this.ItemProbabilities.Modified;
             }
@@ -53,6 +59,7 @@ namespace EpicEdit.Rom.Settings
         public GameSettings(byte[] romBuffer, Offsets offsets)
         {
             this.CupAndThemeNames = new TextCollection(romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count, 173, false);
+            this.ModeNames = new TextCollection(romBuffer, offsets[Offset.ModeNames], offsets[Offset.ModeNames] + 6, 3, 66, true);
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);
@@ -64,6 +71,7 @@ namespace EpicEdit.Rom.Settings
         public void ResetModifiedState()
         {
             this.CupAndThemeNames.ResetModifiedState();
+            this.ModeNames.ResetModifiedState();
             this.RankPoints.ResetModifiedState();
             this.ItemProbabilities.ResetModifiedState();
         }

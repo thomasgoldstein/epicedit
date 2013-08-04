@@ -111,8 +111,7 @@ namespace EpicEdit.UI.SettingEdition
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
 
-            string[] modeNames = Context.Game.GetModeNames();
-            foreach (string modeName in modeNames)
+            foreach (string modeName in Context.Game.Settings.ModeNames)
             {
                 this.modeComboBox.Items.Add(modeName);
             }
