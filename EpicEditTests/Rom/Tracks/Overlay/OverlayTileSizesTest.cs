@@ -32,7 +32,8 @@ namespace EpicEditTests.Rom.Tracks.Overlay
         [Test]
         public void TestGetBytes()
         {
-            byte[] dataBefore = File.ReadBlock(this.smk.RomBuffer, 0, OverlayTileSizes.Size);
+            int offset = this.smk.Offsets[Offset.TrackOverlaySizes];
+            byte[] dataBefore = File.ReadBlock(this.smk.RomBuffer, offset, OverlayTileSizes.Size);
             OverlayTileSizes sizes = new OverlayTileSizes(dataBefore);
             byte[] dataAfter = sizes.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
