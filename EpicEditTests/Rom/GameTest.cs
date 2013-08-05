@@ -26,7 +26,7 @@ namespace EpicEditTests.Rom
 
         public GameTest()
         {
-            this.game = new Game(File.RelativePath + "smk.smc");
+            this.game = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
         }
 
         [Test]

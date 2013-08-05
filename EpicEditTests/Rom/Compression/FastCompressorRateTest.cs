@@ -32,7 +32,7 @@ namespace EpicEditTests.Rom.Compression
 
         public FastCompressorRateTest()
         {
-            this.smkGame = new Game(File.RelativePath + "smk.smc");
+            this.smkGame = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
             this.eeGame = new Game(File.RelativePath + "epicr.smc");
         }
 

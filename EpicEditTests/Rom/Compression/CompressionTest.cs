@@ -29,8 +29,8 @@ namespace EpicEditTests.Rom.Compression
 
         public CompressionTest()
         {
-            this.smkRomBuffer = File.ReadFile("smk.smc");
-            this.smkGame = new Game(File.RelativePath + "smk.smc");
+            this.smkRomBuffer = File.ReadFile("Super Mario Kart (U) [!].smc");
+            this.smkGame = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
             this.eeGame = new Game(File.RelativePath + "epicr.smc");
         }
 
@@ -54,49 +54,49 @@ namespace EpicEditTests.Rom.Compression
         [Test]
         public void TestGfxGhostPillar()
         {
-            this.TestGraphics(0x200, 0x334);
+            this.TestGraphics(0, 0x334);
         }
 
         [Test]
         public void TestGfxMountyMole()
         {
-            this.TestGraphics(0x7D6, 0x32D);
+            this.TestGraphics(0x5D6, 0x32D);
         }
 
         [Test]
         public void TestGfxWinnerFlag()
         {
-            this.TestGraphics(0xDB7, 0x2DF);
+            this.TestGraphics(0xBB7, 0x2DF);
         }
 
         [Test]
         public void TestGfxThwomp()
         {
-            this.TestGraphics(0x1270, 0x429);
+            this.TestGraphics(0x1070, 0x429);
         }
 
         [Test]
         public void TestGfxLakitu()
         {
-            this.TestGraphics(0x10200, 0xAA5);
+            this.TestGraphics(0x10000, 0xAA5);
         }
 
         [Test]
         public void TestGfxPiranhaPlant()
         {
-            this.TestGraphics(0x10CA5, 0x4F6);
+            this.TestGraphics(0x10AA5, 0x4F6);
         }
 
         [Test]
         public void TestGfxPipe()
         {
-            this.TestGraphics(0x1119B, 0x35D);
+            this.TestGraphics(0x10F9B, 0x35D);
         }
 
         [Test]
         public void TestGfxChomp()
         {
-            this.TestGraphics(0x60200, 0x189);
+            this.TestGraphics(0x60000, 0x189);
         }
 
         public void CheckTrackCompression(Game game, int trackGroupId, int trackId)
