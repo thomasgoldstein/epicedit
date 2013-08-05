@@ -29,9 +29,9 @@ namespace EpicEditTests
 
         private File() { }
 
-        public static byte[] ReadFile(string filePath)
+        public static byte[] ReadFile(string fileName)
         {
-            return System.IO.File.ReadAllBytes(File.RelativePath + filePath);
+            return System.IO.File.ReadAllBytes(File.RelativePath + fileName);
         }
 
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)
