@@ -33,7 +33,7 @@ namespace EpicEditTests.Rom.Compression
         public OptimalCompressorRateTest()
         {
             this.smkGame = File.GetGame(Region.US);
-            this.eeGame = new Game(File.RelativePath + "epicr.smc");
+            this.eeGame = File.GetGame("epicr.smc");
         }
 
         public void CheckTrackCompression(Game game, int trackGroupId, int trackId, int expectedSize)

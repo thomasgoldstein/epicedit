@@ -21,14 +21,12 @@ namespace EpicEditTests
     /// <summary>
     /// File manipulation class used for unit testing.
     /// </summary>
-    internal sealed class File
+    internal static class File
     {
-        public readonly static string RelativePath =
+        private readonly static string RelativePath =
             ".." + Path.DirectorySeparatorChar +
             ".." + Path.DirectorySeparatorChar +
             "files" + Path.DirectorySeparatorChar;
-
-        private File() { }
 
         private static string GetRomFileName(Region region)
         {
@@ -48,7 +46,12 @@ namespace EpicEditTests
 
         public static Game GetGame(Region region)
         {
-            return new Game(File.RelativePath + File.GetRomFileName(region));
+            return File.GetGame(File.GetRomFileName(region));
+        }
+
+        public static Game GetGame(string fileName)
+        {
+            return new Game(File.RelativePath + fileName);
         }
 
         public static byte[] ReadRom(Region region)
