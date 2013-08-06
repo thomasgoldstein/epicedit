@@ -70,10 +70,5 @@ namespace EpicEditTests
             Buffer.BlockCopy(buffer, offset, bytes, 0, length);
             return bytes;
         }
-
-        public static void WriteFile(byte[] array, string fileName)
-        {
-            System.IO.File.WriteAllBytes(fileName, array);
-        }
     }
 }
