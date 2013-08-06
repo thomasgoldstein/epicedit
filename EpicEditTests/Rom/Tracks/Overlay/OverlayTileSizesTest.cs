@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Overlay;
 using NUnit.Framework;
 
@@ -22,18 +21,10 @@ namespace EpicEditTests.Rom.Tracks.Overlay
     [TestFixture]
     internal class OverlayTileSizesTest
     {
-        private Smk smk;
-
-        public OverlayTileSizesTest()
-        {
-            this.smk = new Smk();
-        }
-
         [Test]
         public void TestGetBytes()
         {
-            int offset = this.smk.Offsets[Offset.TrackOverlaySizes];
-            byte[] dataBefore = File.ReadBlock(this.smk.RomBuffer, offset, OverlayTileSizes.Size);
+            byte[] dataBefore = new byte[] { 0x02, 0x02, 0x03, 0x01, 0x01, 0x03, 0x05, 0x05 };
             OverlayTileSizes sizes = new OverlayTileSizes(dataBefore);
             byte[] dataAfter = sizes.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
