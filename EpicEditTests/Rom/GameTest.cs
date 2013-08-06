@@ -26,7 +26,7 @@ namespace EpicEditTests.Rom
 
         public GameTest()
         {
-            this.game = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
+            this.game = File.GetGame(Region.US);
         }
 
         [Test]

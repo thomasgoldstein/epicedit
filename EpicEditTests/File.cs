@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.IO;
+using EpicEdit.Rom;
 
 namespace EpicEditTests
 {
@@ -28,6 +29,32 @@ namespace EpicEditTests
             "files" + Path.DirectorySeparatorChar;
 
         private File() { }
+
+        private static string GetRomFileName(Region region)
+        {
+            switch (region)
+            {
+                case Region.Jap:
+                    return "Super Mario Kart (J) [!].smc";
+
+                default:
+                case Region.US:
+                    return "Super Mario Kart (U) [!].smc";
+
+                case Region.Euro:
+                    return "Super Mario Kart (E) [!].smc";
+            }
+        }
+
+        public static Game GetGame(Region region)
+        {
+            return new Game(File.RelativePath + File.GetRomFileName(region));
+        }
+
+        public static byte[] ReadRom(Region region)
+        {
+            return File.ReadFile(File.GetRomFileName(region));
+        }
 
         public static byte[] ReadFile(string fileName)
         {
