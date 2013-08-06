@@ -31,7 +31,7 @@ namespace EpicEditTests.Rom.Compression
         {
             this.smkRomBuffer = File.ReadRom(Region.US);
             this.smkGame = File.GetGame(Region.US);
-            this.eeGame = new Game(File.RelativePath + "epicr.smc");
+            this.eeGame = File.GetGame("epicr.smc");
         }
 
         private void TestGraphics(int offset, int expectedSize)
