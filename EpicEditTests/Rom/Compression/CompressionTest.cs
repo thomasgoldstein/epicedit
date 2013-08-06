@@ -29,8 +29,8 @@ namespace EpicEditTests.Rom.Compression
 
         public CompressionTest()
         {
-            this.smkRomBuffer = File.ReadFile("Super Mario Kart (U) [!].smc");
-            this.smkGame = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
+            this.smkRomBuffer = File.ReadRom(Region.US);
+            this.smkGame = File.GetGame(Region.US);
             this.eeGame = new Game(File.RelativePath + "epicr.smc");
         }
 

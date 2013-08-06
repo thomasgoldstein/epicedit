@@ -26,7 +26,7 @@ namespace EpicEditTests.Rom.Tracks
 
         public TrackTest()
         {
-            this.game = new Game(File.RelativePath + "Super Mario Kart (U) [!].smc");
+            this.game = File.GetGame(Region.US);
         }
 
         private void TestMktImportExport(int trackGroupId, int trackId)

@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom;
 using EpicEdit.Rom.Compression;
 using NUnit.Framework;
 
@@ -25,7 +26,7 @@ namespace EpicEditTests.Rom.Compression
 
         public DecompressionTest()
         {
-            this.romBuffer = File.ReadFile("Super Mario Kart (U) [!].smc");
+            this.romBuffer = File.ReadRom(Region.US);
         }
 
         [Test]

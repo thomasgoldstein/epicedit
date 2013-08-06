@@ -28,7 +28,7 @@ namespace EpicEditTests
 
         public Smk()
         {
-            this.RomBuffer = File.ReadFile("Super Mario Kart (U) [!].smc");
+            this.RomBuffer = File.ReadRom(Region.US);
             this.Offsets = new Offsets(this.RomBuffer, Region.US);
             byte[] overlayTileSizesData = Utilities.ReadBlock(this.RomBuffer, this.Offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
             this.OverlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
