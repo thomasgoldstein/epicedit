@@ -47,7 +47,7 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < chars.Length; i++)
             {
-                if (chars[i] != '\0') // Unicode null character
+                if (chars[i] != char.MinValue)
                 {
                     this.dictionary.Add((byte)(i + shiftValue), chars[i]);
                 }
