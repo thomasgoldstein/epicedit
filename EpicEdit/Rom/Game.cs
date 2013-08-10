@@ -46,6 +46,8 @@ namespace EpicEdit.Rom
     /// </summary>
     internal sealed class Game : IDisposable
     {
+        private const int RegionOffset = 0xFFD9; 
+
         #region Public properties and methods
 
         /// <summary>
@@ -350,9 +352,8 @@ namespace EpicEdit.Rom
         {
             this.SetRegion();
             this.offsets = new Offsets(this.romBuffer, this.region);
-            TextConverter.Instance.LoadCharacterSet(this.region);
 
-            this.Settings = new GameSettings(this.romBuffer, this.offsets);
+            this.Settings = new GameSettings(this.romBuffer, this.offsets, this.region);
             this.TrackGroups = new TrackGroups();
 
             this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CupAndThemeNames);
@@ -451,19 +452,21 @@ namespace EpicEdit.Rom
 
         private void SetRegion()
         {
-            int regionOffset = 0xFFD9;
-            int region = this.romBuffer[regionOffset];
+            int region = this.romBuffer[Game.RegionOffset];
 
             if (!Enum.IsDefined(typeof(Region), region))
             {
-                regionOffset += this.romHeader.Length;
-
                 throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
                                                              "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
-                                                             this.FileName, regionOffset, region));
+                                                             this.FileName, Game.RegionOffset + this.romHeader.Length, region));
             }
 
             this.region = (Region)region;
+        }
+
+        public static Region GetRegion(byte[] romBuffer)
+        {
+            return (Region)romBuffer[Game.RegionOffset];
         }
 
         /// <summary>

@@ -31,6 +31,21 @@ namespace EpicEdit.Rom
         CupAndThemeNames,
 
         /// <summary>
+        /// Offsets to driver names on the GP results screen.
+        /// </summary>
+        DriverNamesGPResults,
+
+        /// <summary>
+        /// Offsets to driver names on the GP podium screen.
+        /// </summary>
+        DriverNamesGPPodium,
+
+        /// <summary>
+        /// Offsets to driver names in Time Trial.
+        /// </summary>
+        DriverNamesTimeTrial,
+
+        /// <summary>
         /// Track map address index.
         /// </summary>
         TrackMaps,
@@ -351,6 +366,9 @@ namespace EpicEdit.Rom
             {
                 case Region.Jap:
                     this[Offset.ModeNames] = 0x58B19;
+                    this[Offset.DriverNamesGPResults] = 0x5C1EC;
+                    this[Offset.DriverNamesGPPodium] = 0x5A0E0;
+                    this[Offset.DriverNamesTimeTrial] = 0x1DDCA;
                     this[Offset.BattleTrackOrder] = 0x1C022;
                     this[Offset.FirstBattleTrack] = 0x1BF0A;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
@@ -373,6 +391,9 @@ namespace EpicEdit.Rom
 
                 case Region.US:
                     this[Offset.ModeNames] = 0x58B00;
+                    this[Offset.DriverNamesGPResults] = 0x5C25B;
+                    this[Offset.DriverNamesGPPodium] = 0x5A148;
+                    this[Offset.DriverNamesTimeTrial] = 0x1DDD3;
                     this[Offset.BattleTrackOrder] = 0x1C15C;
                     this[Offset.FirstBattleTrack] = 0x1C04C;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
@@ -395,6 +416,9 @@ namespace EpicEdit.Rom
 
                 case Region.Euro:
                     this[Offset.ModeNames] = 0x58AF2;
+                    this[Offset.DriverNamesGPResults] = 0x5C263;
+                    this[Offset.DriverNamesGPPodium] = 0x5A152;
+                    this[Offset.DriverNamesTimeTrial] = 0x1DC81;
                     this[Offset.BattleTrackOrder] = 0x1BFF8;
                     this[Offset.FirstBattleTrack] = 0x1BEE8;
                     this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));

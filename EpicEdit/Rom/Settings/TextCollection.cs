@@ -24,6 +24,7 @@ namespace EpicEdit.Rom.Settings
     /// </summary>
     internal class TextCollection : IEnumerable<string>
     {
+        private TextConverter textConverter;
         private string[] texts;
         private byte[] colorIndexes;
         private int totalSize;
@@ -39,11 +40,10 @@ namespace EpicEdit.Rom.Settings
 
         public bool Modified { get; private set; }
 
-        public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool skipOddBytes)
-            : this(romBuffer, indexOffset, -1, count, totalSize, skipOddBytes) {}
-
-        public TextCollection(byte[] romBuffer, int indexOffset, int lengthOffset, int count, int totalSize, bool skipOddBytes)
+        public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool skipOddBytes,
+                              bool fixedLength, byte shiftValue, byte[] keys, char[] values)
         {
+            this.textConverter = new TextConverter(Game.GetRegion(romBuffer), shiftValue);
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
             this.texts = new string[count];
@@ -53,14 +53,20 @@ namespace EpicEdit.Rom.Settings
                 this.colorIndexes = new byte[count];
             }
 
+            if (keys != null)
+            {
+                this.textConverter.ReplaceKeyValues(keys, values);
+            }
+
             byte leadingOffsetByte = (byte)((indexOffset & 0xF0000) >> 16);
 
             for (int i = 0; i < this.texts.Length; i++)
             {
-                int offset = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte); // Recreates offsets from the index table loaded above
+                // Recreates offsets from the index table loaded above
+                int offset = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte);
                 byte[] textBytes;
 
-                if (lengthOffset == -1)
+                if (!fixedLength)
                 {
                     // Dynamic text length, ends at byte 0xFF
                     textBytes = Utilities.ReadBlockUntil(romBuffer, offset, 0xFF);
@@ -68,6 +74,7 @@ namespace EpicEdit.Rom.Settings
                 else
                 {
                     // Fixed text length, length determined in a separate table
+                    int lengthOffset = indexOffset + (count + i) * 2; // 2 bytes per offset
                     int length = romBuffer[lengthOffset];
 
                     if (skipOddBytes)
@@ -76,10 +83,9 @@ namespace EpicEdit.Rom.Settings
                     }
 
                     textBytes = Utilities.ReadBlock(romBuffer, offset, length);
-                    lengthOffset += 2;
                 }
 
-                this.texts[i] = TextConverter.Instance.DecodeText(textBytes, skipOddBytes);
+                this.texts[i] = this.textConverter.DecodeText(textBytes, skipOddBytes);
 
                 if (skipOddBytes && textBytes.Length >= 2)
                 {
@@ -109,15 +115,14 @@ namespace EpicEdit.Rom.Settings
             for (int i = 0; i < this.texts.Length; i++)
             {
                 byte? paletteIndex = !hasPaletteData ? null as byte? : this.colorIndexes[i];
-                byte[] textBytes = TextConverter.Instance.EncodeText(this.texts[i], paletteIndex);
-
+                byte[] textBytes = this.textConverter.EncodeText(this.texts[i], paletteIndex);
                 Buffer.BlockCopy(textBytes, 0, data, index, textBytes.Length);
                 index += textBytes.Length;
-                textBytes[index++] = 0xFF;
+                data[index++] = 0xFF;
 
                 if (hasPaletteData)
                 {
-                    textBytes[index++] = 0xFF;
+                    data[index++] = 0xFF;
                 }
             }
 
