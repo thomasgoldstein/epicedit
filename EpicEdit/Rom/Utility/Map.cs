@@ -40,6 +40,12 @@ namespace EpicEdit.Rom.Utility
             this.reverse.Add(t2, t1);
         }
 
+        public void Remove(T1 t1)
+        {
+            this.reverse.Remove(this.forward[t1]);
+            this.forward.Remove(t1);
+        }
+
         public void Clear()
         {
             this.forward.Clear();
@@ -58,17 +64,12 @@ namespace EpicEdit.Rom.Utility
             public T4 this[T3 index]
             {
                 get { return this.dictionary[index]; }
-                set { this.dictionary[index] = value; }
+                private set { this.dictionary[index] = value; }
             }
 
             public bool ContainsKey(T3 key)
             {
                 return this.dictionary.ContainsKey(key);
-            }
-
-            public void Add(T3 key, T4 value)
-            {
-                this.dictionary.Add(key, value);
             }
         }
     }

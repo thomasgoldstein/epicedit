@@ -35,6 +35,21 @@ namespace EpicEdit.Rom.Settings
         public TextCollection ModeNames { get; private set; }
 
         /// <summary>
+        /// Driver names that appear on the GP result screen.
+        /// </summary>
+        public TextCollection DriverNamesGPResults { get; private set; }
+
+        /// <summary>
+        /// Driver names that appear on the GP podium screen.
+        /// </summary>
+        public TextCollection DriverNamesGPPodium { get; private set; }
+
+        /// <summary>
+        /// Driver names that appear in Time Trial.
+        /// </summary>
+        public TextCollection DriverNamesTimeTrial { get; private set; }
+
+        /// <summary>
         /// Gets the points awarded to drivers depending on their finishing position.
         /// </summary>
         public RankPoints RankPoints { get; private set; }
@@ -51,15 +66,42 @@ namespace EpicEdit.Rom.Settings
                 return
                     this.CupAndThemeNames.Modified ||
                     this.ModeNames.Modified ||
+                    this.DriverNamesGPResults.Modified ||
+                    this.DriverNamesGPPodium.Modified ||
+                    this.DriverNamesTimeTrial.Modified ||
                     this.RankPoints.Modified ||
                     this.ItemProbabilities.Modified;
             }
         }
 
-        public GameSettings(byte[] romBuffer, Offsets offsets)
+        public GameSettings(byte[] romBuffer, Offsets offsets, Region region)
         {
-            this.CupAndThemeNames = new TextCollection(romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count, 173, false);
-            this.ModeNames = new TextCollection(romBuffer, offsets[Offset.ModeNames], offsets[Offset.ModeNames] + 6, 3, 66, true);
+            bool isJap = region == Region.Jap;
+            int[] nameDataSizes = isJap ?
+                new int[] { 144, 48, 134, 96, 42 } :
+                new int[] { 173, 66, 134, 112, 52 };
+
+            this.CupAndThemeNames = new TextCollection(
+                romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count,
+                nameDataSizes[0], false, false, 0,
+                new byte[] { 0x2C }, new char[] { ' ' });
+
+            this.ModeNames = new TextCollection(
+                romBuffer, offsets[Offset.ModeNames], 3,
+                nameDataSizes[1], true, true, 0, null, null);
+
+            this.DriverNamesGPResults = new TextCollection(
+                romBuffer, offsets[Offset.DriverNamesGPResults], 8,
+                nameDataSizes[2], true, false, 0, null, null);
+
+            this.DriverNamesGPPodium = new TextCollection(
+                romBuffer, offsets[Offset.DriverNamesGPPodium], 8,
+                nameDataSizes[3], true, false, (isJap ? (byte)0x60 : (byte)0x80),
+                !isJap ? null : new byte[] { 0x8B, 0x8C }, !isJap ? null : new char[] { 'J', 'R' });
+
+            this.DriverNamesTimeTrial = new TextCollection(
+                romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
+                nameDataSizes[4], false, false, 0, null, null);
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);
@@ -72,6 +114,9 @@ namespace EpicEdit.Rom.Settings
         {
             this.CupAndThemeNames.ResetModifiedState();
             this.ModeNames.ResetModifiedState();
+            this.DriverNamesGPResults.ResetModifiedState();
+            this.DriverNamesGPPodium.ResetModifiedState();
+            this.DriverNamesTimeTrial.ResetModifiedState();
             this.RankPoints.ResetModifiedState();
             this.ItemProbabilities.ResetModifiedState();
         }

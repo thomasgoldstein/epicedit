@@ -37,19 +37,12 @@ namespace EpicEdit.Rom
         {
             this.romBuffer = romBuffer;
             this.savedData = new Queue<byte[]>();
-            this.SetRegion();
+            this.region = Game.GetRegion(romBuffer);
 
             int zoneStart = RomSize.Size512;
             int zoneEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
             this.zone = new Range(zoneStart, zoneEnd);
             this.Index = this.zone.Start;
-        }
-
-        private void SetRegion()
-        {
-            int regionOffset = 0xFFD9;
-            int region = this.romBuffer[regionOffset];
-            this.region = (Region)region;
         }
 
         /// <summary>
