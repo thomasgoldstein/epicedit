@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Utility
     {
         public static char[] Get()
         {
-            char nch = '\0'; // Unicode null character
+            char nch = char.MinValue;
             return new char[]
             {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', // 00-0F
