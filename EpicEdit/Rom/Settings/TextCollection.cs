@@ -43,6 +43,20 @@ namespace EpicEdit.Rom.Settings
 
         public bool Modified { get; private set; }
 
+        /// <summary>
+        /// Initializes a text collection.
+        /// </summary>
+        /// <param name="romBuffer">The ROM buffer.</param>
+        /// <param name="indexOffset">The location of the index table to each text offset.</param>
+        /// <param name="count">The number of texts in the collection.</param>
+        /// <param name="totalSize">The total size in bytes of the collection.</param>
+        /// <param name="hasPaletteData">True if the text data is mixed with color palette indexes.</param>
+        /// <param name="fixedLength">True if the length of each text is specified separately in a length table.
+        /// Otherwise each text item ends with 0xFF.</param>
+        /// <param name="japAltMode">True for Japanese texts with ten-ten and maru characters encoded separately.</param>
+        /// <param name="shiftValue">The value to be added to each byte value to get the correct character. Usually 0.</param>
+        /// <param name="keys">The byte values that need to be linked to specific characters.</param>
+        /// <param name="values">The characters linked to the key byte values.</param>
         public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool hasPaletteData,
                               bool fixedLength, bool japAltMode, byte shiftValue, byte[] keys, char[] values)
         {
