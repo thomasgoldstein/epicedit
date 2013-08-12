@@ -43,7 +43,7 @@ namespace EpicEdit.Rom.Settings
 
         public bool Modified { get; private set; }
 
-        public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool skipOddBytes,
+        public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool hasPaletteData,
                               bool fixedLength, bool japAltMode, byte shiftValue, byte[] keys, char[] values)
         {
             this.textConverter = new TextConverter(Game.GetRegion(romBuffer), shiftValue);
@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Settings
 
             this.texts = new string[count];
 
-            if (skipOddBytes)
+            if (hasPaletteData)
             {
                 this.colorIndexes = new byte[count];
             }
@@ -80,7 +80,7 @@ namespace EpicEdit.Rom.Settings
                     int lengthOffset = indexOffset + (count + i) * 2; // 2 bytes per offset
                     int length = romBuffer[lengthOffset];
 
-                    if (skipOddBytes)
+                    if (hasPaletteData)
                     {
                         length *= 2;
                     }
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom.Settings
                     textBytes = Utilities.ReadBlock(romBuffer, offset, length);
                 }
 
-                if (skipOddBytes && textBytes.Length >= 2)
+                if (hasPaletteData && textBytes.Length >= 2)
                 {
                     // Remember the color palette used by the text
                     // (assuming the same color palette is used by all letters, as in the original game)
@@ -102,7 +102,7 @@ namespace EpicEdit.Rom.Settings
                     int tenMaruOffset = Utilities.BytesToOffset(romBuffer[tenMaruIndexOffset], romBuffer[tenMaruIndexOffset + 1], leadingOffsetByte);
                     byte[] tenMaruBytes = Utilities.ReadBlockUntil(romBuffer, tenMaruOffset, 0xFF);
 
-                    int step = !skipOddBytes ? 1 : 2;
+                    int step = !hasPaletteData ? 1 : 2;
                     int tenMaruCount = 0;
 
                     for (int j = 0; j < tenMaruBytes.Length; j += step)
@@ -137,7 +137,7 @@ namespace EpicEdit.Rom.Settings
                     }
                 }
 
-                this.texts[i] = this.textConverter.DecodeText(textBytes, skipOddBytes);
+                this.texts[i] = this.textConverter.DecodeText(textBytes, hasPaletteData);
             }
 
             this.totalSize = totalSize;
