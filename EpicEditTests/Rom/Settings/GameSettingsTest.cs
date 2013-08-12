@@ -145,23 +145,9 @@ namespace EpicEditTests.Rom.Settings
         [Test]
         public void TestJapDriverNamesGPResults()
         {
-            // TODO: Make this test pass.
-            // This test fails because we do not load the ten-ten and maru characters.
-            // Unlike for other Japanese texts where these characters are located right after
-            // the character they should be connected to, here, they're defined in a separate place,
-            // away from the main text.
-            // e.g: the value for Luigi's name (4 characters) is:
-            //     88 20 61 20 9C 20 6B 20 FF FF,
-            // followed by the ten-ten data:
-            //     10 21 10 21 10 21 2E 20 FF FF,
-            // which specifies nothing should be added to the first 3 characters, but a ten-ten (2E)
-            // should be added to the 4th.
             this.TestTexts(
                 new string[]
                 {
-                    // Texts without ten-ten and maru:
-                    //"マリオ", "ルイーシ", "クッハ", "ヒーチ",
-                    //"トンキーコンクJR", "ノコノコ", "キノヒオ", "ヨッシー"
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
                 },
