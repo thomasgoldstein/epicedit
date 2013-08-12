@@ -165,7 +165,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
                 },
-                File.ReadBlock(this.romBufferJ, 0x5C216, 134),
+                File.ReadBlock(this.romBufferJ, 0x5C216, 136),
                 this.gameJ.Settings.DriverNamesGPResults);
         }
 
