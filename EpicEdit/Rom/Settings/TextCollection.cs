@@ -196,10 +196,11 @@ namespace EpicEdit.Rom.Settings
 
                 if (this.japAltMode)
                 {
+                    // Append ten-ten and maru data separately
+
                     int step = !hasPaletteData ? 1 : 2;
                     int lastTenMaruIndex = 0;
 
-                    // Append ten-ten and maru data separately
                     for (int j = 0; j < this.texts[i].Length; j++)
                     {
                         // Disconnect the ten-ten and maru characters from the character
