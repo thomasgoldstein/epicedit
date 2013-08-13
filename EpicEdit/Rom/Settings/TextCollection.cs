@@ -210,12 +210,12 @@ namespace EpicEdit.Rom.Settings
                         if (chr.Length == 1)
                         {
                             // Character has neither ten-ten nor maru
-                            textBytes[k] = (byte)0x10;
+                            textBytes[k] = 0x10;
 
                             if (hasPaletteData)
                             {
                                 // Default color palette index to match the original game
-                                textBytes[k + 1] = (byte)0x21;
+                                textBytes[k + 1] = 0x21;
                             }
                         }
                         else
