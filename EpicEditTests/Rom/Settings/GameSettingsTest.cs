@@ -36,7 +36,7 @@ namespace EpicEditTests.Rom.Settings
             this.romBufferJ = File.ReadRom(Region.Jap);
         }
 
-        private void TestTexts(string[] expectedTexts, byte[] expectedBytes, TextCollection textColl)
+        private void TestTexts(string[] expectedTexts, byte[] expectedIndexes, byte[] expectedBytes, TextCollection textColl)
         {
             Assert.AreEqual(expectedTexts.Length, textColl.Count);
 
@@ -47,7 +47,10 @@ namespace EpicEditTests.Rom.Settings
 
             if (expectedBytes != null)
             {
-                Assert.AreEqual(expectedBytes, textColl.GetBytes());
+                byte[] indexes;
+                byte[] textBytes = textColl.GetBytes(out indexes);
+                Assert.AreEqual(expectedIndexes, indexes);
+                Assert.AreEqual(expectedBytes, textBytes);
             }
         }
 
@@ -61,6 +64,7 @@ namespace EpicEditTests.Rom.Settings
                     "Mario Circuit ", "Ghost Valley ", "Donut Plains ", "Bowser Castle ",
                     "Vanilla Lake ", "Choco Island ", "Koopa Beach ", "Battle Course ", "Rainbow Road "
                 },
+                File.ReadBlock(this.romBuffer, 0x1CA32, 26),
                 File.ReadBlock(this.romBuffer, 0x1CA88, 173),
                 this.game.Settings.CupAndThemeNames);
         }
@@ -74,6 +78,7 @@ namespace EpicEditTests.Rom.Settings
                     "Mariokart Gp", "Match Race", "Battle Mode"
                 },
                 null, // Not testing expected bytes, data resaving not supported
+                null, // Not testing expected bytes, data resaving not supported
                 this.game.Settings.ModeNames);
         }
 
@@ -86,6 +91,7 @@ namespace EpicEditTests.Rom.Settings
                     "Mario", "Luigi", "Bowser", "Princess",
                     "Donkey Kong Jr", "Koopa Troopa", "Toad", "Yoshi"
                 },
+                File.ReadBlock(this.romBuffer, 0x5C25B, 16),
                 File.ReadBlock(this.romBuffer, 0x5C277, 134),
                 this.game.Settings.DriverNamesGPResults);
         }
@@ -99,6 +105,7 @@ namespace EpicEditTests.Rom.Settings
                     "Mario", "Luigi", "Bowser", "The Princess",
                     "Dk Jr.", "Koopa", "Toad", "Yoshi"
                 },
+                File.ReadBlock(this.romBuffer, 0x5A148, 16),
                 File.ReadBlock(this.romBuffer, 0x5A15C, 112),
                 this.game.Settings.DriverNamesGPPodium);
         }
@@ -112,6 +119,7 @@ namespace EpicEditTests.Rom.Settings
                     "Mario", "Luigi", "Bowser", "Princess",
                     "D.K.Jr", "Koopa", "Toad", "Yoshi"
                 },
+                File.ReadBlock(this.romBuffer, 0x1DDD3, 16),
                 File.ReadBlock(this.romBuffer, 0x1DC91, 52),
                 this.game.Settings.DriverNamesTimeTrial);
         }
@@ -126,6 +134,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオサーキット ", "おばけぬまコース ", "ドーナツへいやコース ", "クッパじょうコース ",
                     "バニラレイクコース ", "チョコレーとうコース ", "ノコノコビーチコース ", "バトルコース ", "レインボーロード"
                 },
+                File.ReadBlock(this.romBufferJ, 0x1C9A3, 26),
                 File.ReadBlock(this.romBufferJ, 0x1CA19, 144),
                 this.gameJ.Settings.CupAndThemeNames);
         }
@@ -139,6 +148,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオカートGP", "VSマッチレース", "バトルゲーム"
                 },
                 null, // Not testing expected bytes, data resaving not supported
+                null, // Not testing expected bytes, data resaving not supported
                 this.gameJ.Settings.ModeNames);
         }
 
@@ -151,6 +161,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
                 },
+                File.ReadBlock(this.romBufferJ, 0x5C1EC, 32),
                 File.ReadBlock(this.romBufferJ, 0x5C216, 136),
                 this.gameJ.Settings.DriverNamesGPResults);
         }
@@ -164,6 +175,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
                 },
+                File.ReadBlock(this.romBufferJ, 0x5A0E0, 16),
                 File.ReadBlock(this.romBufferJ, 0x5A0F0, 96),
                 this.gameJ.Settings.DriverNamesGPPodium);
         }
@@ -177,6 +189,7 @@ namespace EpicEditTests.Rom.Settings
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキー", "ノコノコ", "キノピオ", "ヨッシー"
                 },
+                File.ReadBlock(this.romBufferJ, 0x1DDCA, 16),
                 File.ReadBlock(this.romBufferJ, 0x1DC75, 42),
                 this.gameJ.Settings.DriverNamesTimeTrial);
         }

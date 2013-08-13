@@ -28,6 +28,7 @@ namespace EpicEdit.Rom.Settings
     {
         private TextConverter textConverter;
         private string[] texts;
+        private int textOffset;
         private byte[] colorIndexes;
         private int totalSize;
         private bool japAltMode;
@@ -64,6 +65,8 @@ namespace EpicEdit.Rom.Settings
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
             this.texts = new string[count];
+            this.totalSize = totalSize;
+            this.japAltMode = japAltMode;
 
             if (hasPaletteData)
             {
@@ -77,16 +80,23 @@ namespace EpicEdit.Rom.Settings
 
             byte leadingOffsetByte = (byte)((indexOffset & 0xF0000) >> 16);
 
-            for (int i = 0; i < this.texts.Length; i++)
+            int[] offsets = new int[count];
+            for (int i = 0; i < offsets.Length; i++)
             {
                 // Recreates offsets from the index table loaded above
-                int offset = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte);
+                offsets[i] = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte);
+            }
+
+            this.textOffset = offsets[0];
+
+            for (int i = 0; i < this.texts.Length; i++)
+            {
                 byte[] textBytes;
 
                 if (!fixedLength)
                 {
                     // Dynamic text length, ends at byte 0xFF
-                    textBytes = Utilities.ReadBlockUntil(romBuffer, offset, 0xFF);
+                    textBytes = Utilities.ReadBlockUntil(romBuffer, offsets[i], 0xFF);
                 }
                 else
                 {
@@ -99,7 +109,7 @@ namespace EpicEdit.Rom.Settings
                         length *= 2;
                     }
 
-                    textBytes = Utilities.ReadBlock(romBuffer, offset, length);
+                    textBytes = Utilities.ReadBlock(romBuffer, offsets[i], length);
                 }
 
                 if (hasPaletteData && textBytes.Length >= 2)
@@ -153,9 +163,6 @@ namespace EpicEdit.Rom.Settings
 
                 this.texts[i] = this.textConverter.DecodeText(textBytes, hasPaletteData);
             }
-
-            this.totalSize = totalSize;
-            this.japAltMode = japAltMode;
         }
 
         public string this[int index]
@@ -168,8 +175,9 @@ namespace EpicEdit.Rom.Settings
             }
         }
 
-        public byte[] GetBytes()
+        public byte[] GetBytes(out byte[] indexes)
         {
+            indexes = new byte[this.texts.Length * (!this.japAltMode ? 2 : 4)];
             byte[] data = new byte[this.totalSize];
             bool hasPaletteData = this.colorIndexes != null;
             int index = 0;
@@ -190,6 +198,10 @@ namespace EpicEdit.Rom.Settings
                         .Replace("\u3099", "") // Remove ten-ten
                         .Replace("\u309A", ""); // Remove maru
                 }
+
+                byte[] offset = Utilities.OffsetToBytes(this.textOffset + index);
+                indexes[i * 2] = offset[0];
+                indexes[i * 2 + 1] = offset[1];
 
                 byte[] textBytes = this.textConverter.EncodeText(text, paletteIndex);
                 TextCollection.SetBytes(data, textBytes, ref index, hasPaletteData);
@@ -226,6 +238,10 @@ namespace EpicEdit.Rom.Settings
                                 (byte)0x2F; // Maru
                         }
                     }
+
+                    offset = Utilities.OffsetToBytes(this.textOffset + index);
+                    indexes[(i + this.texts.Length) * 2] = offset[0];
+                    indexes[(i + this.texts.Length) * 2 + 1] = offset[1];
 
                     byte[] tenMaruBytes = new byte[lastTenMaruIndex];
                     Buffer.BlockCopy(textBytes, 0, tenMaruBytes, 0, tenMaruBytes.Length);
