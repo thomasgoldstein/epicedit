@@ -59,7 +59,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
         /// </summary>
-        public int TotalCharacterCount
+        public int MaxCharacterCount
         {
             get
             {
