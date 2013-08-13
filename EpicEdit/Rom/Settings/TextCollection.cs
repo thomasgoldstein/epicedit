@@ -26,13 +26,39 @@ namespace EpicEdit.Rom.Settings
     /// </summary>
     internal class TextCollection : IEnumerable<string>
     {
+        /// <summary>
+        /// The converter used to translate font graphics index values into .NET strings.
+        /// </summary>
         private TextConverter textConverter;
+
+        /// <summary>
+        /// The texts of the collection.
+        /// </summary>
         private string[] texts;
+
+        /// <summary>
+        /// The offset to the start of the text data.
+        /// </summary>
         private int textOffset;
+
+        /// <summary>
+        /// The color palette index used by each text (using the 1st character as reference).
+        /// </summary>
         private byte[] colorIndexes;
+
+        /// <summary>
+        /// The total size in bytes of the collection.
+        /// </summary>
         private int totalSize;
+
+        /// <summary>
+        /// A mode for certain Japanese text collections with ten-ten and maru characters encoded separately.
+        /// </summary>
         private bool japAltMode;
 
+        /// <summary>
+        /// Gets the maximum amount of characters available for the whole collection.
+        /// </summary>
         public int TotalCharacterCount
         {
             get
