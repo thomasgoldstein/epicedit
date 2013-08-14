@@ -37,6 +37,11 @@ namespace EpicEdit.Rom.Settings
         private string[] texts;
 
         /// <summary>
+        /// The offset to the indexes that define the address of each text.
+        /// </summary>
+        private int indexOffset;
+
+        /// <summary>
         /// The offset to the start of the text data.
         /// </summary>
         private int textOffset;
@@ -91,6 +96,7 @@ namespace EpicEdit.Rom.Settings
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
             this.texts = new string[count];
+            this.indexOffset = indexOffset;
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
 
@@ -287,6 +293,17 @@ namespace EpicEdit.Rom.Settings
             if (hasPaletteData)
             {
                 data[index++] = 0xFF;
+            }
+        }
+
+        public void Save(byte[] romBuffer)
+        {
+            if (this.Modified)
+            {
+                byte[] indexes;
+                byte[] data = this.GetBytes(out indexes);
+                Buffer.BlockCopy(indexes, 0, romBuffer, this.indexOffset, indexes.Length);
+                Buffer.BlockCopy(data, 0, romBuffer, this.textOffset, data.Length);
             }
         }
 

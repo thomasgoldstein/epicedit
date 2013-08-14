@@ -115,6 +115,10 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer)
         {
+            this.CupAndThemeNames.Save(romBuffer);
+            this.DriverNamesGPResults.Save(romBuffer);
+            this.DriverNamesGPPodium.Save(romBuffer);
+            this.DriverNamesTimeTrial.Save(romBuffer);
             this.SaveRankPoints(romBuffer);
             this.SaveItemProbabilities(romBuffer);
         }
