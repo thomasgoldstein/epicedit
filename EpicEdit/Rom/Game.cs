@@ -1068,7 +1068,7 @@ namespace EpicEdit.Rom
             this.SaveThemes(saveBuffer);
             this.romBuffer = saveBuffer.GetRomBuffer();
 
-            this.SaveSettings();
+            this.Settings.Save(this.romBuffer);
         }
 
         private void SetChecksum()
@@ -2058,30 +2058,6 @@ namespace EpicEdit.Rom
                 }
 
                 saveBuffer.AddCompressed(bgTileGfxData, bgTileGfxIndex);
-            }
-        }
-
-        private void SaveSettings()
-        {
-            this.SaveItemProbabilities();
-            this.SaveRankPoints();
-        }
-
-        private void SaveItemProbabilities()
-        {
-            if (this.Settings.ItemProbabilities.Modified)
-            {
-                byte[] data = this.Settings.ItemProbabilities.GetBytes();
-                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
-            }
-        }
-
-        private void SaveRankPoints()
-        {
-            if (this.Settings.RankPoints.Modified)
-            {
-                byte[] data = this.Settings.RankPoints.GetBytes();
-                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.RankPoints], RankPoints.Size);
             }
         }
 

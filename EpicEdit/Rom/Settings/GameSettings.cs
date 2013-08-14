@@ -24,6 +24,8 @@ namespace EpicEdit.Rom.Settings
     /// </summary>
     internal class GameSettings
     {
+        private Offsets offsets;
+
         /// <summary>
         /// Gets the cup and theme names.
         /// </summary>
@@ -76,6 +78,8 @@ namespace EpicEdit.Rom.Settings
 
         public GameSettings(byte[] romBuffer, Offsets offsets, Region region)
         {
+            this.offsets = offsets;
+
             bool isJap = region == Region.Jap;
             int[] nameDataSizes = isJap ?
                 new int[] { 144, 48, 136, 96, 42 } :
@@ -108,6 +112,30 @@ namespace EpicEdit.Rom.Settings
 
             byte[] itemProbaData = Utilities.ReadBlock(romBuffer, offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
             this.ItemProbabilities = new ItemProbabilities(itemProbaData);
+        }
+
+        public void Save(byte[] romBuffer)
+        {
+            this.SaveRankPoints(romBuffer);
+            this.SaveItemProbabilities(romBuffer);
+        }
+
+        private void SaveRankPoints(byte[] romBuffer)
+        {
+            if (this.RankPoints.Modified)
+            {
+                byte[] data = this.RankPoints.GetBytes();
+                Buffer.BlockCopy(data, 0, romBuffer, this.offsets[Offset.RankPoints], RankPoints.Size);
+            }
+        }
+
+        private void SaveItemProbabilities(byte[] romBuffer)
+        {
+            if (this.ItemProbabilities.Modified)
+            {
+                byte[] data = this.ItemProbabilities.GetBytes();
+                Buffer.BlockCopy(data, 0, romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
+            }
         }
 
         public void ResetModifiedState()
