@@ -67,7 +67,6 @@ namespace EpicEdit.Rom.Settings
             {
                 return
                     this.CupAndThemeNames.Modified ||
-                    this.ModeNames.Modified ||
                     this.DriverNamesGPResults.Modified ||
                     this.DriverNamesGPPodium.Modified ||
                     this.DriverNamesTimeTrial.Modified ||
@@ -141,7 +140,6 @@ namespace EpicEdit.Rom.Settings
         public void ResetModifiedState()
         {
             this.CupAndThemeNames.ResetModifiedState();
-            this.ModeNames.ResetModifiedState();
             this.DriverNamesGPResults.ResetModifiedState();
             this.DriverNamesGPPodium.ResetModifiedState();
             this.DriverNamesTimeTrial.ResetModifiedState();
