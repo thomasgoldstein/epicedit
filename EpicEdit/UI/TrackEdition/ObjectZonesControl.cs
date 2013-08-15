@@ -72,8 +72,8 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        [Category("Appearance")]
-        public string Title
+        [Browsable(true)]
+        public override string Text
         {
             get { return this.zoneGroupBox.Text; }
             set { this.zoneGroupBox.Text = value; }
