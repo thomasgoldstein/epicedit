@@ -53,11 +53,6 @@ namespace EpicEdit.Rom.Tracks
             get { return this.name; }
         }
 
-        public int Size()
-        {
-            return this.tracks.Length;
-        }
-
         public void ResetModifiedState()
         {
             foreach (Track track in this.tracks)
