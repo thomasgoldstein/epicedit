@@ -21,7 +21,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// The Form that contains the <see cref="CodecControl">codec control</see>.
     /// </summary>
-    public partial class CodecForm : Form
+    internal partial class CodecForm : Form
     {
         public CodecForm()
         {

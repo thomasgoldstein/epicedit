@@ -21,7 +21,7 @@ namespace EpicEdit.UI.SettingEdition
     /// <summary>
     /// Represents a collection of controls to edit <see cref="RankPoints"/>.
     /// </summary>
-    public partial class RankPointsControl : UserControl
+    internal partial class RankPointsControl : UserControl
     {
         private static RankPoints RankPoints
         {
