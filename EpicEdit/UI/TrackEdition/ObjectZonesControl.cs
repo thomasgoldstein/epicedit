@@ -75,8 +75,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true)]
         public override string Text
         {
-            get { return this.zoneGroupBox.Text; }
-            set { this.zoneGroupBox.Text = value; }
+            get { return this.groupBox.Text; }
+            set { this.groupBox.Text = value; }
         }
 
         private int Maximum

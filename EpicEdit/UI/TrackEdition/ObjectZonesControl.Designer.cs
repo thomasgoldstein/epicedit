@@ -42,7 +42,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.zoneGroupBox = new System.Windows.Forms.GroupBox();
+            this.groupBox = new System.Windows.Forms.GroupBox();
             this.zone4Label = new System.Windows.Forms.Label();
             this.zone3Label = new System.Windows.Forms.Label();
             this.zone2Label = new System.Windows.Forms.Label();
@@ -51,29 +51,29 @@ namespace EpicEdit.UI.TrackEdition
             this.zone3TrackBar = new System.Windows.Forms.TrackBar();
             this.zone2TrackBar = new System.Windows.Forms.TrackBar();
             this.zone1TrackBar = new System.Windows.Forms.TrackBar();
-            this.zoneGroupBox.SuspendLayout();
+            this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zone4TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone3TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone2TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone1TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
-            // zoneGroupBox
+            // groupBox
             // 
-            this.zoneGroupBox.Controls.Add(this.zone4Label);
-            this.zoneGroupBox.Controls.Add(this.zone3Label);
-            this.zoneGroupBox.Controls.Add(this.zone2Label);
-            this.zoneGroupBox.Controls.Add(this.zone1Label);
-            this.zoneGroupBox.Controls.Add(this.zone4TrackBar);
-            this.zoneGroupBox.Controls.Add(this.zone3TrackBar);
-            this.zoneGroupBox.Controls.Add(this.zone2TrackBar);
-            this.zoneGroupBox.Controls.Add(this.zone1TrackBar);
-            this.zoneGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoneGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.zoneGroupBox.Name = "zoneGroupBox";
-            this.zoneGroupBox.Size = new System.Drawing.Size(150, 150);
-            this.zoneGroupBox.TabIndex = 0;
-            this.zoneGroupBox.TabStop = false;
+            this.groupBox.Controls.Add(this.zone4Label);
+            this.groupBox.Controls.Add(this.zone3Label);
+            this.groupBox.Controls.Add(this.zone2Label);
+            this.groupBox.Controls.Add(this.zone1Label);
+            this.groupBox.Controls.Add(this.zone4TrackBar);
+            this.groupBox.Controls.Add(this.zone3TrackBar);
+            this.groupBox.Controls.Add(this.zone2TrackBar);
+            this.groupBox.Controls.Add(this.zone1TrackBar);
+            this.groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox.Location = new System.Drawing.Point(0, 0);
+            this.groupBox.Name = "groupBox";
+            this.groupBox.Size = new System.Drawing.Size(150, 150);
+            this.groupBox.TabIndex = 0;
+            this.groupBox.TabStop = false;
             // 
             // zone4Label
             // 
@@ -169,9 +169,9 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // ObjectZonesControl
             // 
-            this.Controls.Add(this.zoneGroupBox);
+            this.Controls.Add(this.groupBox);
             this.Name = "ObjectZonesControl";
-            this.zoneGroupBox.ResumeLayout(false);
+            this.groupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.zone4TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone3TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone2TrackBar)).EndInit();
@@ -182,7 +182,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Label zone3Label;
         private System.Windows.Forms.Label zone4Label;
         private System.Windows.Forms.Label zone1Label;
-        private System.Windows.Forms.GroupBox zoneGroupBox;
+        private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.TrackBar zone3TrackBar;
         private System.Windows.Forms.TrackBar zone4TrackBar;
         private System.Windows.Forms.TrackBar zone2TrackBar;
