@@ -20,7 +20,7 @@ namespace EpicEdit.UI.SettingEdition
     /// <summary>
     /// Represents a collection of controls used to edit race result-related settings.
     /// </summary>
-    public partial class ResultEditor : UserControl
+    internal partial class ResultEditor : UserControl
     {
         public ResultEditor()
         {

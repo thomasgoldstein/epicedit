@@ -24,7 +24,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// The UI to compress and decompress ROM data.
     /// </summary>
-    public partial class CodecControl : UserControl
+    internal partial class CodecControl : UserControl
     {
         public CodecControl()
         {
