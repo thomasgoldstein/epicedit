@@ -42,7 +42,7 @@ namespace EpicEdit.UI.SettingEdition
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.GroupBox pointsGroupBox;
+            System.Windows.Forms.GroupBox groupBox;
             System.Windows.Forms.Label label8;
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label label6;
@@ -59,7 +59,7 @@ namespace EpicEdit.UI.SettingEdition
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            pointsGroupBox = new System.Windows.Forms.GroupBox();
+            groupBox = new System.Windows.Forms.GroupBox();
             label8 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@ namespace EpicEdit.UI.SettingEdition
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            pointsGroupBox.SuspendLayout();
+            groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
@@ -79,30 +79,30 @@ namespace EpicEdit.UI.SettingEdition
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pointsGroupBox
+            // groupBox
             // 
-            pointsGroupBox.Controls.Add(this.numericUpDown8);
-            pointsGroupBox.Controls.Add(label8);
-            pointsGroupBox.Controls.Add(this.numericUpDown7);
-            pointsGroupBox.Controls.Add(label7);
-            pointsGroupBox.Controls.Add(this.numericUpDown6);
-            pointsGroupBox.Controls.Add(label6);
-            pointsGroupBox.Controls.Add(this.numericUpDown5);
-            pointsGroupBox.Controls.Add(label5);
-            pointsGroupBox.Controls.Add(this.numericUpDown4);
-            pointsGroupBox.Controls.Add(label4);
-            pointsGroupBox.Controls.Add(this.numericUpDown3);
-            pointsGroupBox.Controls.Add(label3);
-            pointsGroupBox.Controls.Add(this.numericUpDown2);
-            pointsGroupBox.Controls.Add(label2);
-            pointsGroupBox.Controls.Add(this.numericUpDown1);
-            pointsGroupBox.Controls.Add(label1);
-            pointsGroupBox.Location = new System.Drawing.Point(0, 0);
-            pointsGroupBox.Name = "pointsGroupBox";
-            pointsGroupBox.Size = new System.Drawing.Size(122, 244);
-            pointsGroupBox.TabIndex = 1;
-            pointsGroupBox.TabStop = false;
-            pointsGroupBox.Text = "Ranking points";
+            groupBox.Controls.Add(this.numericUpDown8);
+            groupBox.Controls.Add(label8);
+            groupBox.Controls.Add(this.numericUpDown7);
+            groupBox.Controls.Add(label7);
+            groupBox.Controls.Add(this.numericUpDown6);
+            groupBox.Controls.Add(label6);
+            groupBox.Controls.Add(this.numericUpDown5);
+            groupBox.Controls.Add(label5);
+            groupBox.Controls.Add(this.numericUpDown4);
+            groupBox.Controls.Add(label4);
+            groupBox.Controls.Add(this.numericUpDown3);
+            groupBox.Controls.Add(label3);
+            groupBox.Controls.Add(this.numericUpDown2);
+            groupBox.Controls.Add(label2);
+            groupBox.Controls.Add(this.numericUpDown1);
+            groupBox.Controls.Add(label1);
+            groupBox.Location = new System.Drawing.Point(0, 0);
+            groupBox.Name = "groupBox";
+            groupBox.Size = new System.Drawing.Size(122, 244);
+            groupBox.TabIndex = 1;
+            groupBox.TabStop = false;
+            groupBox.Text = "Ranking points";
             // 
             // numericUpDown8
             // 
@@ -284,11 +284,11 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(pointsGroupBox);
+            this.Controls.Add(groupBox);
             this.Name = "RankPointsControl";
             this.Size = new System.Drawing.Size(122, 244);
-            pointsGroupBox.ResumeLayout(false);
-            pointsGroupBox.PerformLayout();
+            groupBox.ResumeLayout(false);
+            groupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
