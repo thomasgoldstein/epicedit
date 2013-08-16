@@ -112,14 +112,18 @@ namespace EpicEdit.Rom.Settings
 
             byte leadingOffsetByte = (byte)((indexOffset & 0xF0000) >> 16);
 
+            this.textOffset = int.MaxValue;
             int[] offsets = new int[count];
             for (int i = 0; i < offsets.Length; i++)
             {
                 // Recreates offsets from the index table loaded above
                 offsets[i] = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte);
-            }
 
-            this.textOffset = offsets[0];
+                if (offsets[i] < this.textOffset)
+                {
+                    this.textOffset = offsets[i];
+                }
+            }
 
             for (int i = 0; i < this.texts.Length; i++)
             {
