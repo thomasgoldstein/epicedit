@@ -193,5 +193,34 @@ namespace EpicEditTests.Rom.Settings
                 File.ReadBlock(this.romBufferJ, 0x1DC75, 42),
                 this.gameJ.Settings.DriverNamesTimeTrial);
         }
+
+        [Test]
+        public void TestUnorderedIndexes()
+        {
+            // Testing TextCollection saving when text indexes were originally not in the right order
+            // (can happen if the ROM has been edited manually).
+
+            // Working on a clone to avoid changing the original buffer
+            byte[] romBuffer = this.romBuffer.Clone() as byte[];
+
+            // Switch the indexes for the first 2 names
+            romBuffer[0x1CA32] = this.romBuffer[0x1CA34];
+            romBuffer[0x1CA33] = this.romBuffer[0x1CA35];
+            romBuffer[0x1CA34] = this.romBuffer[0x1CA32];
+            romBuffer[0x1CA35] = this.romBuffer[0x1CA33];
+
+            GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
+
+            // Switch the texts for the first 2 names
+            string name1 = settings.CupAndThemeNames[0];
+            string name2 = settings.CupAndThemeNames[1];
+            settings.CupAndThemeNames[0] = name2;
+            settings.CupAndThemeNames[1] = name1;
+
+            // Resaving the data is supposed to sort the texts and the indexes
+            settings.CupAndThemeNames.Save(romBuffer);
+
+            Assert.AreEqual(this.romBuffer, romBuffer);
+        }
     }
 }
