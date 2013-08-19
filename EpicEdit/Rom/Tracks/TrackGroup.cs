@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal class TrackGroup : IEnumerable<Track>
     {
-        private string name;
+        public string Name { get; private set; }
         private Track[] tracks;
 
         public bool Modified
@@ -44,13 +44,8 @@ namespace EpicEdit.Rom.Tracks
 
         public TrackGroup(string name, Track[] tracks)
         {
-            this.name = name;
+            this.Name = name;
             this.tracks = tracks;
-        }
-
-        public string Name
-        {
-            get { return this.name; }
         }
 
         public void ResetModifiedState()
