@@ -4,7 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # SharpDevelop 4.3
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEdit", "EpicEdit\EpicEdit.csproj", "{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEditTests", "EpicEditTests\EpicEditTests.csproj", "{5C404E58-B6EA-466A-B1D5-D689F97CEC50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicEdit.Test", "EpicEdit.Test\EpicEdit.Test.csproj", "{5C404E58-B6EA-466A-B1D5-D689F97CEC50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
