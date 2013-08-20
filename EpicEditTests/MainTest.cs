@@ -17,7 +17,7 @@ using System;
 namespace EpicEditTests
 {
     /// <summary>
-    /// Description of MainTest.
+    /// Test assembly entry point.
     /// </summary>
     internal class MainTest
     {
