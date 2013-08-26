@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 using EpicEdit.Rom.Utility;
@@ -206,9 +207,16 @@ namespace EpicEdit.Rom.Settings
             get { return this.texts[index]; }
             set
             {
-                this.texts[index] = value;
+                this.texts[index] = this.textConverter.GetValidatedText(value);
                 this.Modified = true;
             }
+        }
+
+        public string GetFormattedText(int index)
+        {
+            return this.textConverter.Region == Region.Jap ?
+                    this.texts[index] :
+                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.texts[index].ToLowerInvariant());
         }
 
         public byte[] GetBytes(out byte[] indexes)

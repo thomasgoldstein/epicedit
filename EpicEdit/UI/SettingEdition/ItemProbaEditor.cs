@@ -19,6 +19,7 @@ using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.UI.Tools;
@@ -110,10 +111,11 @@ namespace EpicEdit.UI.SettingEdition
         {
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
+            TextCollection modeNames = Context.Game.Settings.ModeNames;
 
-            foreach (string modeName in Context.Game.Settings.ModeNames)
+            for (int i = 0; i < modeNames.Count; i++)
             {
-                this.modeComboBox.Items.Add(modeName);
+                this.modeComboBox.Items.Add(modeNames.GetFormattedText(i));
             }
 
             this.modeComboBox.EndUpdate();
