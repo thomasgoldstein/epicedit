@@ -118,7 +118,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < this.themes.Length; i++)
             {
-                string name = names[reorder[i]];
+                string name = names.GetFormattedText(reorder[i]);
 
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
                 byte[] paletteData = Codec.Decompress(romBuffer, paletteOffsets[i], 512);

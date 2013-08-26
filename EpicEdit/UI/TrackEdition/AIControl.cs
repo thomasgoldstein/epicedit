@@ -156,7 +156,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.setComboBox.Items.Clear();
             TextCollection modeNames = Context.Game.Settings.ModeNames;
-            this.setComboBox.Items.Add(modeNames[modeNames.Count - 1]);
+            this.setComboBox.Items.Add(modeNames.GetFormattedText(modeNames.Count - 1));
             this.setComboBox.SelectedIndex = 0;
             this.setComboBox.Enabled = false;
         }

@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Globalization;
 using System.Text;
 
 namespace EpicEdit.Rom.Utility
@@ -23,12 +22,12 @@ namespace EpicEdit.Rom.Utility
     /// </summary>
     internal class TextConverter
     {
-        private Region region;
+        public Region Region { get; private set; }
         private Map<byte, char> dictionary;
 
         public TextConverter(Region region, byte shiftValue)
         {
-            this.region = region;
+            this.Region = region;
             this.LoadCharacterSet(shiftValue);
         }
 
@@ -39,7 +38,7 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         private void LoadCharacterSet(byte shiftValue)
         {
-            char[] chars = this.region == Region.Jap ?
+            char[] chars = this.Region == Region.Jap ?
                 CharacterSetJap.Get() :
                 CharacterSetUS.Get();
 
@@ -106,15 +105,11 @@ namespace EpicEdit.Rom.Utility
 
             string text = new string(textArray);
 
-            if (this.region == Region.Jap)
+            if (this.Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to connect the ten-ten and maru characters to the preceding character)
                 text = text.Normalize(NormalizationForm.FormC);
-            }
-            else
-            {
-                text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text.ToLowerInvariant());
             }
 
             return text;
@@ -143,7 +138,7 @@ namespace EpicEdit.Rom.Utility
         {
             text = text.ToUpperInvariant();
 
-            if (this.region == Region.Jap)
+            if (this.Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to disconnect the ten-ten and maru characters from the preceding character)

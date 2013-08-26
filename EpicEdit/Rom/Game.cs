@@ -378,12 +378,12 @@ namespace EpicEdit.Rom
                 if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
-                    trackGroupName = this.Settings.CupAndThemeNames[i];
+                    trackGroupName = this.Settings.CupAndThemeNames.GetFormattedText(i);
                 }
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
-                    trackGroupName = this.Settings.CupAndThemeNames[trackNameIndex[GPTrack.Count][1]];
+                    trackGroupName = this.Settings.CupAndThemeNames.GetFormattedText(trackNameIndex[GPTrack.Count][1]);
                 }
 
                 Track[] tracks = new Track[trackCountInGroup];
@@ -393,7 +393,7 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    string trackName = this.Settings.CupAndThemeNames[trackNameIndex[iterator][1]];
+                    string trackName = this.Settings.CupAndThemeNames.GetFormattedText(trackNameIndex[iterator][1]);
                     if (trackNameIndex[iterator].Length > 2) // We check if there is a track number (eg: Rainbow Road doesn't have one)
                     {
                         trackName += trackNameIndex[iterator][2];
