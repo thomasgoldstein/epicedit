@@ -60,9 +60,9 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "Mushroom Cup", "Flower Cup", "Star Cup", "Special Cup",
-                    "Mario Circuit ", "Ghost Valley ", "Donut Plains ", "Bowser Castle ",
-                    "Vanilla Lake ", "Choco Island ", "Koopa Beach ", "Battle Course ", "Rainbow Road "
+                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
+                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
+                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
                 },
                 File.ReadBlock(this.romBuffer, 0x1CA32, 26),
                 File.ReadBlock(this.romBuffer, 0x1CA88, 173),
@@ -75,7 +75,7 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "Mariokart Gp", "Match Race", "Battle Mode"
+                    "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
                 },
                 null, // Not testing expected bytes, data resaving not supported
                 null, // Not testing expected bytes, data resaving not supported
@@ -88,8 +88,8 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "Mario", "Luigi", "Bowser", "Princess",
-                    "Donkey Kong Jr", "Koopa Troopa", "Toad", "Yoshi"
+                    "MARIO", "LUIGI", "BOWSER", "PRINCESS",
+                    "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
                 },
                 File.ReadBlock(this.romBuffer, 0x5C25B, 16),
                 File.ReadBlock(this.romBuffer, 0x5C277, 134),
@@ -102,8 +102,8 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "Mario", "Luigi", "Bowser", "The Princess",
-                    "Dk Jr.", "Koopa", "Toad", "Yoshi"
+                    "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
+                    "DK JR.", "KOOPA", "TOAD", "YOSHI"
                 },
                 File.ReadBlock(this.romBuffer, 0x5A148, 16),
                 File.ReadBlock(this.romBuffer, 0x5A15C, 112),
@@ -116,8 +116,8 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "Mario", "Luigi", "Bowser", "Princess",
-                    "D.K.Jr", "Koopa", "Toad", "Yoshi"
+                    "MARIO", "LUIGI", "BOWSER", "PRINCESS",
+                    "D.K.JR", "KOOPA", "TOAD", "YOSHI"
                 },
                 File.ReadBlock(this.romBuffer, 0x1DDD3, 16),
                 File.ReadBlock(this.romBuffer, 0x1DC91, 52),
