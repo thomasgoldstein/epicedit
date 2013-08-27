@@ -70,7 +70,7 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 int step = colorIndexes == null ? 1 : 2;
-                return (totalSize / step) - this.texts.Length * step;
+                return (this.totalSize / step) - this.texts.Length;
             }
         }
 
