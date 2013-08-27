@@ -100,8 +100,8 @@ namespace EpicEdit.UI.Tools
         public static string SanitizeFileName(string fileName)
         {
             string invalidChars = new string(Path.GetInvalidFileNameChars());
-            invalidChars = "[" + Regex.Escape(invalidChars) + "]*";
-            fileName = Regex.Replace(fileName, invalidChars, string.Empty);
+            string pattern = "[" + Regex.Escape(invalidChars) + "]*";
+            fileName = Regex.Replace(fileName, pattern, string.Empty);
             return fileName;
         }
 
