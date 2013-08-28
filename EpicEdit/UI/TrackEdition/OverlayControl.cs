@@ -306,7 +306,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void UpdateTileCount(int count)
         {
-            this.tileCountLabel.Text = count + " / " + OverlayTiles.MaxTileCount;
+            this.tileCountLabel.Text = string.Format("{0}/{1}", count, OverlayTiles.MaxTileCount);
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
