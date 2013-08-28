@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EpicEdit.Rom.Utility
 {
@@ -38,10 +39,7 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         private void LoadCharacterSet(byte shiftValue)
         {
-            char[] chars = this.Region == Region.Jap ?
-                CharacterSetJap.Get() :
-                CharacterSetUS.Get();
-
+            char[] chars = this.GetCharacterSet();
             this.dictionary = new Map<byte, char>();
 
             for (int i = 0; i < chars.Length; i++)
@@ -51,6 +49,13 @@ namespace EpicEdit.Rom.Utility
                     this.dictionary.Add((byte)(i + shiftValue), chars[i]);
                 }
             }
+        }
+
+        private char[] GetCharacterSet()
+        {
+            return this.Region == Region.Jap ?
+                CharacterSetJap.Get() :
+                CharacterSetUS.Get();
         }
 
         public void ReplaceKeyValues(byte[] keys, char[] values)
@@ -136,8 +141,6 @@ namespace EpicEdit.Rom.Utility
 
         private byte[] EncodeText(string text, int step, byte paletteIndex)
         {
-            text = text.ToUpperInvariant();
-
             if (this.Region == Region.Jap)
             {
                 // Japanese text formatting
@@ -158,6 +161,15 @@ namespace EpicEdit.Rom.Utility
             }
 
             return data;
+        }
+
+        public string GetValidatedText(string text)
+        {
+            text = text.ToUpperInvariant();
+            string validChars = new string(this.GetCharacterSet()).Replace(char.MinValue.ToString(), string.Empty);
+            string pattern = "[^" + Regex.Escape(validChars) + "]*";
+            text = Regex.Replace(text, pattern, string.Empty);
+            return text;
         }
     }
 }

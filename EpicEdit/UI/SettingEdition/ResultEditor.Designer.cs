@@ -43,24 +43,57 @@ namespace EpicEdit.UI.SettingEdition
         private void InitializeComponent()
         {
             this.rankPointsControl = new EpicEdit.UI.SettingEdition.RankPointsControl();
+            this.driverNamesControlResults = new EpicEdit.UI.SettingEdition.DriverNamesControl();
+            this.driverNamesControlPodium = new EpicEdit.UI.SettingEdition.DriverNamesControl();
+            this.driverNamesControlTimeTrial = new EpicEdit.UI.SettingEdition.DriverNamesControl();
             this.SuspendLayout();
             // 
             // rankPointsControl
             // 
             this.rankPointsControl.Location = new System.Drawing.Point(3, 3);
             this.rankPointsControl.Name = "rankPointsControl";
-            this.rankPointsControl.Size = new System.Drawing.Size(122, 244);
+            this.rankPointsControl.Size = new System.Drawing.Size(100, 244);
             this.rankPointsControl.TabIndex = 0;
+            // 
+            // driverNamesControlResults
+            // 
+            this.driverNamesControlResults.Location = new System.Drawing.Point(109, 3);
+            this.driverNamesControlResults.Name = "driverNamesControlResults";
+            this.driverNamesControlResults.Size = new System.Drawing.Size(130, 244);
+            this.driverNamesControlResults.TabIndex = 1;
+            this.driverNamesControlResults.Title = "Names / GP Results";
+            // 
+            // driverNamesControlPodium
+            // 
+            this.driverNamesControlPodium.Location = new System.Drawing.Point(245, 3);
+            this.driverNamesControlPodium.Name = "driverNamesControlPodium";
+            this.driverNamesControlPodium.Size = new System.Drawing.Size(130, 244);
+            this.driverNamesControlPodium.TabIndex = 2;
+            this.driverNamesControlPodium.Title = "Names / GP Podium";
+            // 
+            // driverNamesControlTimeTrial
+            // 
+            this.driverNamesControlTimeTrial.Location = new System.Drawing.Point(381, 3);
+            this.driverNamesControlTimeTrial.Name = "driverNamesControlTimeTrial";
+            this.driverNamesControlTimeTrial.Size = new System.Drawing.Size(130, 244);
+            this.driverNamesControlTimeTrial.TabIndex = 3;
+            this.driverNamesControlTimeTrial.Title = "Names / Time Trial";
             // 
             // ResultEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.driverNamesControlTimeTrial);
+            this.Controls.Add(this.driverNamesControlPodium);
+            this.Controls.Add(this.driverNamesControlResults);
             this.Controls.Add(this.rankPointsControl);
             this.Name = "ResultEditor";
-            this.Size = new System.Drawing.Size(420, 250);
+            this.Size = new System.Drawing.Size(514, 250);
             this.ResumeLayout(false);
         }
+        private EpicEdit.UI.SettingEdition.DriverNamesControl driverNamesControlTimeTrial;
+        private EpicEdit.UI.SettingEdition.DriverNamesControl driverNamesControlPodium;
+        private EpicEdit.UI.SettingEdition.DriverNamesControl driverNamesControlResults;
         private EpicEdit.UI.SettingEdition.RankPointsControl rankPointsControl;
     }
 }
