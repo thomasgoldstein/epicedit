@@ -5,6 +5,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 v2.6.3 (???)
 - Added support for driver ranking points allocation editing
+- Added support for driver names editing
 - Improved track graphics renderer, faster and more reliable.
   Fixes occasional display issues.
 - Fixed 2bpp tile back color picking issues
