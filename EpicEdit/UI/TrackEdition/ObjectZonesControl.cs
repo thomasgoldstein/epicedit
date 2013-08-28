@@ -72,8 +72,8 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        [Browsable(true)]
-        public override string Text
+        [Category("Appearance")]
+        public string Title
         {
             get { return this.groupBox.Text; }
             set { this.groupBox.Text = value; }
