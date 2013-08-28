@@ -99,14 +99,14 @@ namespace EpicEdit.UI.SettingEdition
             groupBox.Controls.Add(label1);
             groupBox.Location = new System.Drawing.Point(0, 0);
             groupBox.Name = "groupBox";
-            groupBox.Size = new System.Drawing.Size(122, 244);
+            groupBox.Size = new System.Drawing.Size(100, 244);
             groupBox.TabIndex = 1;
             groupBox.TabStop = false;
             groupBox.Text = "Ranking points";
             // 
             // numericUpDown8
             // 
-            this.numericUpDown8.Location = new System.Drawing.Point(50, 206);
+            this.numericUpDown8.Location = new System.Drawing.Point(39, 202);
             this.numericUpDown8.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -120,7 +120,7 @@ namespace EpicEdit.UI.SettingEdition
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(23, 208);
+            label8.Location = new System.Drawing.Point(12, 204);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(22, 13);
             label8.TabIndex = 14;
@@ -128,7 +128,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown7
             // 
-            this.numericUpDown7.Location = new System.Drawing.Point(50, 180);
+            this.numericUpDown7.Location = new System.Drawing.Point(39, 176);
             this.numericUpDown7.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -142,7 +142,7 @@ namespace EpicEdit.UI.SettingEdition
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(23, 182);
+            label7.Location = new System.Drawing.Point(12, 178);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(22, 13);
             label7.TabIndex = 12;
@@ -150,7 +150,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown6
             // 
-            this.numericUpDown6.Location = new System.Drawing.Point(50, 154);
+            this.numericUpDown6.Location = new System.Drawing.Point(39, 150);
             this.numericUpDown6.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -164,7 +164,7 @@ namespace EpicEdit.UI.SettingEdition
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(23, 156);
+            label6.Location = new System.Drawing.Point(12, 152);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(22, 13);
             label6.TabIndex = 10;
@@ -172,7 +172,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown5
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(50, 128);
+            this.numericUpDown5.Location = new System.Drawing.Point(39, 124);
             this.numericUpDown5.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -186,7 +186,7 @@ namespace EpicEdit.UI.SettingEdition
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(23, 130);
+            label5.Location = new System.Drawing.Point(12, 126);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(22, 13);
             label5.TabIndex = 8;
@@ -194,7 +194,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(50, 102);
+            this.numericUpDown4.Location = new System.Drawing.Point(39, 98);
             this.numericUpDown4.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -208,7 +208,7 @@ namespace EpicEdit.UI.SettingEdition
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(23, 104);
+            label4.Location = new System.Drawing.Point(12, 100);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(22, 13);
             label4.TabIndex = 6;
@@ -216,7 +216,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(50, 76);
+            this.numericUpDown3.Location = new System.Drawing.Point(39, 72);
             this.numericUpDown3.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -230,7 +230,7 @@ namespace EpicEdit.UI.SettingEdition
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(23, 78);
+            label3.Location = new System.Drawing.Point(12, 74);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(22, 13);
             label3.TabIndex = 4;
@@ -238,7 +238,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(50, 50);
+            this.numericUpDown2.Location = new System.Drawing.Point(39, 46);
             this.numericUpDown2.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -252,7 +252,7 @@ namespace EpicEdit.UI.SettingEdition
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(23, 52);
+            label2.Location = new System.Drawing.Point(12, 48);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(25, 13);
             label2.TabIndex = 2;
@@ -260,7 +260,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(50, 24);
+            this.numericUpDown1.Location = new System.Drawing.Point(39, 20);
             this.numericUpDown1.Maximum = new decimal(new int[] {
                                     9,
                                     0,
@@ -274,7 +274,7 @@ namespace EpicEdit.UI.SettingEdition
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(23, 26);
+            label1.Location = new System.Drawing.Point(12, 22);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(21, 13);
             label1.TabIndex = 0;
@@ -286,7 +286,7 @@ namespace EpicEdit.UI.SettingEdition
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(groupBox);
             this.Name = "RankPointsControl";
-            this.Size = new System.Drawing.Size(122, 244);
+            this.Size = new System.Drawing.Size(100, 244);
             groupBox.ResumeLayout(false);
             groupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();

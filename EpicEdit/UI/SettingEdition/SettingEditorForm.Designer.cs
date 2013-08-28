@@ -46,10 +46,10 @@ namespace EpicEdit.UI.SettingEdition
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingEditorForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
+            this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.tabControl.SuspendLayout();
             this.resultsTabPage.SuspendLayout();
             this.itemProbaTabPage.SuspendLayout();
@@ -64,7 +64,7 @@ namespace EpicEdit.UI.SettingEdition
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(434, 282);
+            this.tabControl.Size = new System.Drawing.Size(528, 282);
             this.tabControl.TabIndex = 0;
             // 
             // resultsTabPage
@@ -74,10 +74,18 @@ namespace EpicEdit.UI.SettingEdition
             this.resultsTabPage.Location = new System.Drawing.Point(4, 23);
             this.resultsTabPage.Name = "resultsTabPage";
             this.resultsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.resultsTabPage.Size = new System.Drawing.Size(426, 255);
+            this.resultsTabPage.Size = new System.Drawing.Size(520, 255);
             this.resultsTabPage.TabIndex = 1;
             this.resultsTabPage.Text = "Results";
             this.resultsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // resultEditor
+            // 
+            this.resultEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultEditor.Location = new System.Drawing.Point(3, 3);
+            this.resultEditor.Name = "resultEditor";
+            this.resultEditor.Size = new System.Drawing.Size(514, 249);
+            this.resultEditor.TabIndex = 0;
             // 
             // itemProbaTabPage
             // 
@@ -86,7 +94,7 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaTabPage.Location = new System.Drawing.Point(4, 23);
             this.itemProbaTabPage.Name = "itemProbaTabPage";
             this.itemProbaTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.itemProbaTabPage.Size = new System.Drawing.Size(426, 255);
+            this.itemProbaTabPage.Size = new System.Drawing.Size(520, 255);
             this.itemProbaTabPage.TabIndex = 0;
             this.itemProbaTabPage.Text = "Item probabilities";
             this.itemProbaTabPage.UseVisualStyleBackColor = true;
@@ -96,7 +104,7 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemProbaEditor.Location = new System.Drawing.Point(3, 3);
             this.itemProbaEditor.Name = "itemProbaEditor";
-            this.itemProbaEditor.Size = new System.Drawing.Size(420, 249);
+            this.itemProbaEditor.Size = new System.Drawing.Size(514, 249);
             this.itemProbaEditor.TabIndex = 0;
             // 
             // tabImageList
@@ -105,17 +113,9 @@ namespace EpicEdit.UI.SettingEdition
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.tabImageList.Images.SetKeyName(0, "ResultsTab");
             // 
-            // resultEditor
-            // 
-            this.resultEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultEditor.Location = new System.Drawing.Point(3, 3);
-            this.resultEditor.Name = "resultEditor";
-            this.resultEditor.Size = new System.Drawing.Size(420, 249);
-            this.resultEditor.TabIndex = 0;
-            // 
             // SettingEditorForm
             // 
-            this.ClientSize = new System.Drawing.Size(434, 282);
+            this.ClientSize = new System.Drawing.Size(528, 282);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::EpicEdit.Properties.Resources.EpicEditIcon;

@@ -32,6 +32,11 @@ namespace EpicEdit.Rom.Settings
         /// </summary>
         private TextConverter textConverter;
 
+        private Region Region
+        {
+            get { return this.textConverter.Region; }
+        }
+
         /// <summary>
         /// The texts of the collection.
         /// </summary>
@@ -71,6 +76,34 @@ namespace EpicEdit.Rom.Settings
             {
                 int step = colorIndexes == null ? 1 : 2;
                 return (this.totalSize / step) - this.texts.Length;
+            }
+        }
+
+        /// <summary>
+        /// Gets the total amount of characters used by the whole collection.
+        /// </summary>
+        public int TotalCharacterCount
+        {
+            get
+            {
+                int count = 0;
+                for (int i = 0; i < this.texts.Length; i++)
+                {
+                    string text = this.texts[i];
+
+                    if (this.Region == Region.Jap)
+                    {
+                        // Japanese text formatting
+                        // (needed to disconnect the ten-ten and maru characters from the preceding character)
+                        text = text.Normalize(NormalizationForm.FormD);
+
+                        // TODO: Handle japAltMode case
+                    }
+
+                    count += text.Length;
+                }
+
+                return count;
             }
         }
 
@@ -208,13 +241,22 @@ namespace EpicEdit.Rom.Settings
             set
             {
                 this.texts[index] = this.textConverter.GetValidatedText(value);
+
+                int diff = this.TotalCharacterCount - this.MaxCharacterCount;
+                if (diff > 0)
+                {
+                    string text = this.texts[index];
+                    text = text.Substring(0, text.Length - diff);
+                    this.texts[index] = text;
+                }
+
                 this.Modified = true;
             }
         }
 
         public string GetFormattedText(int index)
         {
-            return this.textConverter.Region == Region.Jap ?
+            return this.Region == Region.Jap ?
                     this.texts[index] :
                     CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.texts[index].ToLowerInvariant());
         }
