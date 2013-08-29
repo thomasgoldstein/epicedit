@@ -70,14 +70,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
         /// </summary>
-        public int MaxCharacterCount
-        {
-            get
-            {
-                int step = colorIndexes == null ? 1 : 2;
-                return (this.totalSize / step) - this.texts.Length;
-            }
-        }
+        public int MaxCharacterCount { get; private set; }
 
         /// <summary>
         /// Gets the total amount of characters used by the whole collection.
@@ -133,6 +126,9 @@ namespace EpicEdit.Rom.Settings
             this.indexOffset = indexOffset;
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
+
+            int step = !hasPaletteData ? 1 : 2;
+            this.MaxCharacterCount = (this.totalSize / step) - this.texts.Length;
 
             if (hasPaletteData)
             {
@@ -196,7 +192,6 @@ namespace EpicEdit.Rom.Settings
                     int tenMaruOffset = Utilities.BytesToOffset(romBuffer[tenMaruIndexOffset], romBuffer[tenMaruIndexOffset + 1], leadingOffsetByte);
                     byte[] tenMaruBytes = Utilities.ReadBlockUntil(romBuffer, tenMaruOffset, 0xFF);
 
-                    int step = !hasPaletteData ? 1 : 2;
                     int tenMaruCount = 0;
 
                     for (int j = 0; j < tenMaruBytes.Length; j += step)
