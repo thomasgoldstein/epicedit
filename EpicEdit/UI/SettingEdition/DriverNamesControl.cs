@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
@@ -67,7 +68,10 @@ namespace EpicEdit.UI.SettingEdition
 
         private void UpdateCount()
         {
-            this.countLabel.Text = string.Format("{0}/{1}", this.names.TotalCharacterCount, this.names.MaxCharacterCount);
+            int total = this.names.TotalCharacterCount;
+            int max = this.names.MaxCharacterCount;
+            this.countLabel.Text = string.Format("{0}/{1}", total, max);
+            this.countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 
         [Category("Appearance")]

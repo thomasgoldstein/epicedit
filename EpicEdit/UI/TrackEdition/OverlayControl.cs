@@ -307,6 +307,7 @@ namespace EpicEdit.UI.TrackEdition
         public void UpdateTileCount(int count)
         {
             this.tileCountLabel.Text = string.Format("{0}/{1}", count, OverlayTiles.MaxTileCount);
+            this.tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
