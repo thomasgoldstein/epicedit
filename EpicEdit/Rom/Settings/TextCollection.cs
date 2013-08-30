@@ -335,6 +335,16 @@ namespace EpicEdit.Rom.Settings
 
         private static void SetBytes(byte[] data, byte[] textBytes, ref int index, bool hasPaletteData)
         {
+            int length = index + textBytes.Length + (!hasPaletteData ? 1 : 2);
+            if (data.Length < length)
+            {
+                // The text data is too big to fit into the data array.
+                // This can only happen when the GetBytes method is called from TotalCharacterCount,
+                // because otherwise all text are guaranteed to fit within the collection.
+                index = length;
+                return;
+            }
+
             Buffer.BlockCopy(textBytes, 0, data, index, textBytes.Length);
             index += textBytes.Length;
             data[index++] = 0xFF;
