@@ -79,25 +79,26 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                int count = 0;
-                for (int i = 0; i < this.texts.Length; i++)
+                byte[] indexes;
+                byte[] data = this.GetBytes(out indexes);
+
+                // NOTE: GetBytes returns a fixed-sized array, regardless of the data size.
+                // Check where the data actually ends to figure out the actual data length.
+                int i = data.Length - 1;
+                while (i > 0 && data[i] == 0)
                 {
-                    string text = this.texts[i];
-
-                    if (this.Region == Region.Jap)
-                    {
-                        // Japanese text formatting
-                        // (needed to disconnect the ten-ten and maru characters from the preceding character)
-                        text = text.Normalize(NormalizationForm.FormD);
-
-                        // TODO: Handle japAltMode case
-                    }
-
-                    count += text.Length;
+                    i--;
                 }
 
-                return count;
+                int length = i + 1;
+                return this.GetCharacterCount(length);
             }
+        }
+
+        private int GetCharacterCount(int byteCount)
+        {
+            int step = this.colorIndexes == null ? 1 : 2;
+            return (byteCount / step) - this.texts.Length;
         }
 
         public bool Modified { get; private set; }
@@ -127,13 +128,12 @@ namespace EpicEdit.Rom.Settings
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
 
-            int step = !hasPaletteData ? 1 : 2;
-            this.MaxCharacterCount = (this.totalSize / step) - this.texts.Length;
-
             if (hasPaletteData)
             {
                 this.colorIndexes = new byte[count];
             }
+
+            this.MaxCharacterCount = this.GetCharacterCount(this.totalSize);
 
             if (keys != null)
             {
@@ -192,6 +192,7 @@ namespace EpicEdit.Rom.Settings
                     int tenMaruOffset = Utilities.BytesToOffset(romBuffer[tenMaruIndexOffset], romBuffer[tenMaruIndexOffset + 1], leadingOffsetByte);
                     byte[] tenMaruBytes = Utilities.ReadBlockUntil(romBuffer, tenMaruOffset, 0xFF);
 
+                    int step = !hasPaletteData ? 1 : 2;
                     int tenMaruCount = 0;
 
                     for (int j = 0; j < tenMaruBytes.Length; j += step)
