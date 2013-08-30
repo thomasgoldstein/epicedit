@@ -166,9 +166,25 @@ namespace EpicEdit.Rom.Utility
         public string GetValidatedText(string text)
         {
             text = text.ToUpperInvariant();
+
+            if (this.Region == Region.Jap)
+            {
+                // Japanese text formatting
+                // (needed to disconnect the ten-ten and maru characters from the preceding character)
+                text = text.Normalize(NormalizationForm.FormD);
+            }
+
             string validChars = new string(this.GetCharacterSet()).Replace(char.MinValue.ToString(), string.Empty);
             string pattern = "[^" + Regex.Escape(validChars) + "]*";
             text = Regex.Replace(text, pattern, string.Empty);
+
+            if (this.Region == Region.Jap)
+            {
+                // Japanese text formatting
+                // (needed to connect the ten-ten and maru characters to the preceding character)
+                text = text.Normalize(NormalizationForm.FormC);
+            }
+
             return text;
         }
     }
