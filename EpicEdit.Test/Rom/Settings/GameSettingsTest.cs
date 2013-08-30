@@ -51,6 +51,10 @@ namespace EpicEdit.Test.Rom.Settings
                 byte[] textBytes = textColl.GetBytes(out indexes);
                 Assert.AreEqual(expectedIndexes, indexes);
                 Assert.AreEqual(expectedBytes, textBytes);
+
+                // The original data is filled with text with no extra room,
+                // so the total character count should be equal to the max.
+                Assert.AreEqual(textColl.MaxCharacterCount, textColl.TotalCharacterCount);
             }
         }
 
