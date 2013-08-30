@@ -80,17 +80,8 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 byte[] indexes;
-                byte[] data = this.GetBytes(out indexes);
-
-                // NOTE: GetBytes returns a fixed-sized array, regardless of the data size.
-                // Check where the data actually ends to figure out the actual data length.
-                int i = data.Length - 1;
-                while (i > 0 && data[i] == 0)
-                {
-                    i--;
-                }
-
-                int length = i + 1;
+                int length;
+                this.GetBytes(out indexes, out length);
                 return this.GetCharacterCount(length);
             }
         }
@@ -259,6 +250,12 @@ namespace EpicEdit.Rom.Settings
 
         public byte[] GetBytes(out byte[] indexes)
         {
+            int length;
+            return this.GetBytes(out indexes, out length);
+        }
+
+        private byte[] GetBytes(out byte[] indexes, out int length)
+        {
             indexes = new byte[this.texts.Length * (!this.japAltMode ? 2 : 4)];
             byte[] data = new byte[this.totalSize];
             bool hasPaletteData = this.colorIndexes != null;
@@ -330,6 +327,8 @@ namespace EpicEdit.Rom.Settings
                     TextCollection.SetBytes(data, tenMaruBytes, ref index, hasPaletteData);
                 }
             }
+
+            length = index;
 
             return data;
         }
