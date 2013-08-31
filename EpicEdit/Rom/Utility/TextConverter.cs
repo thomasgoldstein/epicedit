@@ -85,7 +85,7 @@ namespace EpicEdit.Rom.Utility
         public char DecodeText(byte charByte)
         {
             return !this.dictionary.Forward.ContainsKey(charByte) ?
-                '?' : this.dictionary.Forward[charByte];
+                ' ' : this.dictionary.Forward[charByte];
         }
 
         /// <summary>
