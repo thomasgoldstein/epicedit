@@ -228,5 +228,20 @@ namespace EpicEdit.Test.Rom.Settings
 
             Assert.AreEqual(this.romBuffer, romBuffer);
         }
+
+        [Test]
+        public void TestSpaceBytes()
+        {
+            // Working on a clone to avoid changing the original buffer
+            byte[] romBuffer = this.romBuffer.Clone() as byte[];
+
+            // Both 0x2C and 0x2F are valid space characters in non-Jap ROMs. Check that they both result in a space.
+            // (NOTE: seems like 0x2F = big space, 0x2C = small space, at least sometimes, but we treat them the same)
+            romBuffer[0x1DC91 + 1] = 0x2C; // Replace Time Trial Mario's A with a 0x2C space
+            romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a 0x2F space
+            GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
+
+            Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0]);
+        }
     }
 }
