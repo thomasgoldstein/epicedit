@@ -79,7 +79,7 @@ namespace EpicEdit.UI.SettingEdition
             get { return this.groupBox.Text; }
             set { this.groupBox.Text = value; }
         }
-        
+
         private void TextBoxTextChanged(object sender, EventArgs e)
         {
             if (!this.fireEvents)
