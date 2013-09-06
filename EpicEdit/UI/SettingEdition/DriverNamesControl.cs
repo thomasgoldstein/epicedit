@@ -28,6 +28,7 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class DriverNamesControl : UserControl
     {
+        private TextCollection names;
         private bool fireEvents;
 
         public DriverNamesControl()
@@ -43,8 +44,6 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox7.Tag = 6;
             this.textBox8.Tag = 7;
         }
-
-        private TextCollection names;
 
         public void Init(TextCollection names)
         {
