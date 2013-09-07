@@ -184,6 +184,10 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingEdition\CupAndThemeNamesEditor.cs" />
+    <Compile Include="UI\SettingEdition\CupAndThemeNamesEditor.Designer.cs">
+      <DependentUpon>CupAndThemeNamesEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.cs" />
     <Compile Include="UI\SettingEdition\DriverNamesControl.Designer.cs">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
@@ -318,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\CupAndThemeNamesEditor.resx">
+      <DependentUpon>CupAndThemeNamesEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\DriverNamesControl.resx">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
