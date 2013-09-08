@@ -42,25 +42,44 @@ namespace EpicEdit.UI.SettingEdition
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.GroupBox cupNamesGroupBox;
+            System.Windows.Forms.GroupBox themeNamesGroupBox;
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.countLabel = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
-            this.countLabel = new System.Windows.Forms.Label();
+            cupNamesGroupBox = new System.Windows.Forms.GroupBox();
+            themeNamesGroupBox = new System.Windows.Forms.GroupBox();
+            cupNamesGroupBox.SuspendLayout();
+            themeNamesGroupBox.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // cupNamesGroupBox
+            // 
+            cupNamesGroupBox.Controls.Add(this.textBox1);
+            cupNamesGroupBox.Controls.Add(this.textBox2);
+            cupNamesGroupBox.Controls.Add(this.textBox3);
+            cupNamesGroupBox.Controls.Add(this.textBox4);
+            cupNamesGroupBox.Location = new System.Drawing.Point(64, 3);
+            cupNamesGroupBox.Name = "cupNamesGroupBox";
+            cupNamesGroupBox.Size = new System.Drawing.Size(130, 244);
+            cupNamesGroupBox.TabIndex = 15;
+            cupNamesGroupBox.TabStop = false;
+            cupNamesGroupBox.Text = "Cup names";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 54);
+            this.textBox1.Location = new System.Drawing.Point(10, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(108, 20);
             this.textBox1.TabIndex = 1;
@@ -68,7 +87,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(90, 80);
+            this.textBox2.Location = new System.Drawing.Point(10, 45);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(108, 20);
             this.textBox2.TabIndex = 2;
@@ -76,7 +95,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(90, 106);
+            this.textBox3.Location = new System.Drawing.Point(10, 71);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(108, 20);
             this.textBox3.TabIndex = 3;
@@ -84,71 +103,99 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(90, 132);
+            this.textBox4.Location = new System.Drawing.Point(10, 97);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(108, 20);
             this.textBox4.TabIndex = 4;
             this.textBox4.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
-            // textBox5
+            // themeNamesGroupBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(204, 132);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(108, 20);
-            this.textBox5.TabIndex = 8;
-            this.textBox5.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(204, 106);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(108, 20);
-            this.textBox6.TabIndex = 7;
-            this.textBox6.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(204, 80);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(108, 20);
-            this.textBox7.TabIndex = 6;
-            this.textBox7.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
+            themeNamesGroupBox.Controls.Add(this.textBox8);
+            themeNamesGroupBox.Controls.Add(this.textBox7);
+            themeNamesGroupBox.Controls.Add(this.countLabel);
+            themeNamesGroupBox.Controls.Add(this.textBox6);
+            themeNamesGroupBox.Controls.Add(this.textBox10);
+            themeNamesGroupBox.Controls.Add(this.textBox5);
+            themeNamesGroupBox.Controls.Add(this.textBox11);
+            themeNamesGroupBox.Controls.Add(this.textBox9);
+            themeNamesGroupBox.Controls.Add(this.textBox12);
+            themeNamesGroupBox.Controls.Add(this.textBox13);
+            themeNamesGroupBox.Location = new System.Drawing.Point(200, 3);
+            themeNamesGroupBox.Name = "themeNamesGroupBox";
+            themeNamesGroupBox.Size = new System.Drawing.Size(244, 244);
+            themeNamesGroupBox.TabIndex = 16;
+            themeNamesGroupBox.TabStop = false;
+            themeNamesGroupBox.Text = "Theme names&";
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(204, 54);
+            this.textBox8.Location = new System.Drawing.Point(10, 19);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(108, 20);
             this.textBox8.TabIndex = 5;
             this.textBox8.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
-            // textBox9
+            // textBox7
             // 
-            this.textBox9.Location = new System.Drawing.Point(204, 158);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(108, 20);
-            this.textBox9.TabIndex = 9;
-            this.textBox9.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
+            this.textBox7.Location = new System.Drawing.Point(10, 45);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(108, 20);
+            this.textBox7.TabIndex = 6;
+            this.textBox7.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
+            // 
+            // countLabel
+            // 
+            this.countLabel.Location = new System.Drawing.Point(132, 123);
+            this.countLabel.Name = "countLabel";
+            this.countLabel.Size = new System.Drawing.Size(100, 23);
+            this.countLabel.TabIndex = 14;
+            this.countLabel.Text = "...";
+            this.countLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(10, 71);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(108, 20);
+            this.textBox6.TabIndex = 7;
+            this.textBox6.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(318, 132);
+            this.textBox10.Location = new System.Drawing.Point(124, 97);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(108, 20);
             this.textBox10.TabIndex = 13;
             this.textBox10.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(10, 97);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(108, 20);
+            this.textBox5.TabIndex = 8;
+            this.textBox5.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
+            // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(318, 106);
+            this.textBox11.Location = new System.Drawing.Point(124, 71);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(108, 20);
             this.textBox11.TabIndex = 12;
             this.textBox11.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(10, 123);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(108, 20);
+            this.textBox9.TabIndex = 9;
+            this.textBox9.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
+            // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(318, 80);
+            this.textBox12.Location = new System.Drawing.Point(124, 45);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(108, 20);
             this.textBox12.TabIndex = 11;
@@ -156,40 +203,23 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(318, 54);
+            this.textBox13.Location = new System.Drawing.Point(124, 19);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(108, 20);
             this.textBox13.TabIndex = 10;
             this.textBox13.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
-            // countLabel
-            // 
-            this.countLabel.Location = new System.Drawing.Point(326, 158);
-            this.countLabel.Name = "countLabel";
-            this.countLabel.Size = new System.Drawing.Size(100, 23);
-            this.countLabel.TabIndex = 14;
-            this.countLabel.Text = "...";
-            // 
             // CupAndThemeNamesEditor
             // 
-            this.Controls.Add(this.countLabel);
-            this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.textBox12);
-            this.Controls.Add(this.textBox13);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(themeNamesGroupBox);
+            this.Controls.Add(cupNamesGroupBox);
             this.Name = "CupAndThemeNamesEditor";
             this.Size = new System.Drawing.Size(514, 250);
+            cupNamesGroupBox.ResumeLayout(false);
+            cupNamesGroupBox.PerformLayout();
+            themeNamesGroupBox.ResumeLayout(false);
+            themeNamesGroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
         private System.Windows.Forms.Label countLabel;
         private System.Windows.Forms.TextBox textBox13;
