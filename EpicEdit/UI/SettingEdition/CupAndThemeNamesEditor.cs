@@ -53,13 +53,19 @@ namespace EpicEdit.UI.SettingEdition
 
             this.fireEvents = false;
 
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox)
-                {
-                    control.Text = this.names[(int)control.Tag];
-                }
-            }
+            this.textBox1.Text = names[0];
+            this.textBox2.Text = names[1];
+            this.textBox3.Text = names[2];
+            this.textBox4.Text = names[3];
+            this.textBox5.Text = names[4];
+            this.textBox6.Text = names[5];
+            this.textBox7.Text = names[6];
+            this.textBox8.Text = names[7];
+            this.textBox9.Text = names[8];
+            this.textBox10.Text = names[9];
+            this.textBox11.Text = names[10];
+            this.textBox12.Text = names[11];
+            this.textBox13.Text = names[12];
 
             this.fireEvents = true;
 
