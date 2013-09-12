@@ -157,20 +157,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            this.InitThemeComboBox();
-        }
-
-        private void InitThemeComboBox()
-        {
-            this.themeComboBox.BeginUpdate();
-            this.themeComboBox.Items.Clear();
-
-            foreach (Theme theme in Context.Game.Themes)
-            {
-                this.themeComboBox.Items.Add(theme);
-            }
-
-            this.themeComboBox.EndUpdate();
+            this.themeComboBox.Init();
         }
 
         private void InitTileGenreComboBox()
