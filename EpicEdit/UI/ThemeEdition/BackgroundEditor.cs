@@ -63,8 +63,8 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.themeComboBox.SelectedItem as Theme; }
-            set { this.themeComboBox.SelectedItem = value; }
+            get { return this.themeComboBox.SelectedTheme; }
+            set { this.themeComboBox.SelectedTheme = value; }
         }
 
         private byte TileId

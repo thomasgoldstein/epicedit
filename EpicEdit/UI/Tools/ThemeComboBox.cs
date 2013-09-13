@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using EpicEdit.Rom.Tracks;
 
@@ -21,7 +22,7 @@ namespace EpicEdit.UI.Tools
     /// <summary>
     /// A <see cref="ComboBox"/> that contains the track themes.
     /// </summary>
-    public class ThemeComboBox : ComboBox
+    internal class ThemeComboBox : ComboBox
     {
         public void Init()
         {
@@ -34,6 +35,13 @@ namespace EpicEdit.UI.Tools
             }
 
             this.EndUpdate();
+        }
+
+        [Browsable(false), DefaultValue(typeof(Theme), "")]
+        public Theme SelectedTheme
+        {
+            get { return this.SelectedItem as Theme; }
+            set { this.SelectedItem = value; }
         }
     }
 }
