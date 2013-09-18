@@ -16,6 +16,8 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
+using EpicEdit.Rom.Utility;
+
 namespace EpicEdit.Rom.Settings
 {
     /// <summary>
@@ -25,11 +27,16 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Region region;
+        private TextCollection collection;
 
-        public TextItem(Region region, string value)
+        public TextConverter Converter
         {
-            this.region = region;
+            get { return this.collection.Converter; }
+        }
+
+        public TextItem(TextCollection collection, string value)
+        {
+            this.collection = collection;
             this.value = value;
         }
 
@@ -52,7 +59,7 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                return this.region == Region.Jap ?
+                return this.collection.Region == Region.Jap ?
                        this.value :
                        CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.value.ToLowerInvariant());
             }

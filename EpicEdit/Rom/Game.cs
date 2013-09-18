@@ -395,10 +395,9 @@ namespace EpicEdit.Rom
 
                     TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndex[iterator][1]];
 
-                    // FIXME: Decode trackNameSuffix using TextConverter, so that it works properly if it's not a number
                     char? trackNameSuffix =
                         trackNameIndex[iterator].Length <= 2 ? // Check if there is a track number (eg: Rainbow Road doesn't have one)
-                        (char?)null : trackNameIndex[iterator][2].ToString()[0];
+                        (char?)null : trackNameItem.Converter.DecodeText(trackNameIndex[iterator][2]);
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];

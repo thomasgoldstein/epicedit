@@ -27,13 +27,13 @@ namespace EpicEdit.Rom.Settings
     internal class TextCollection : IEnumerable<TextItem>
     {
         /// <summary>
-        /// The converter used to translate font graphics index values into .NET strings.
+        /// Gets the converter used to translate font graphics index values into .NET strings.
         /// </summary>
-        private TextConverter textConverter;
+        public TextConverter Converter { get; private set; }
 
-        private Region Region
+        public Region Region
         {
-            get { return this.textConverter.Region; }
+            get { return this.Converter.Region; }
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace EpicEdit.Rom.Settings
         public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool hasPaletteData,
                               bool fixedLength, bool japAltMode, byte shiftValue, byte[] keys, char[] values)
         {
-            this.textConverter = new TextConverter(Game.GetRegion(romBuffer), shiftValue);
+            this.Converter = new TextConverter(Game.GetRegion(romBuffer), shiftValue);
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
             this.texts = new TextItem[count];
@@ -127,7 +127,7 @@ namespace EpicEdit.Rom.Settings
 
             if (keys != null)
             {
-                this.textConverter.ReplaceKeyValues(keys, values);
+                this.Converter.ReplaceKeyValues(keys, values);
             }
 
             byte leadingOffsetByte = (byte)((indexOffset & 0xF0000) >> 16);
@@ -217,7 +217,7 @@ namespace EpicEdit.Rom.Settings
                     }
                 }
 
-                this.texts[i] = new TextItem(this.Region, this.textConverter.DecodeText(textBytes, hasPaletteData));
+                this.texts[i] = new TextItem(this, this.Converter.DecodeText(textBytes, hasPaletteData));
             }
         }
 
@@ -228,7 +228,7 @@ namespace EpicEdit.Rom.Settings
 
         public void SetValue(int index, string value)
         {
-            this.texts[index].Value = this.textConverter.GetValidatedText(value);
+            this.texts[index].Value = this.Converter.GetValidatedText(value);
 
             int diff = this.TotalCharacterCount - this.MaxCharacterCount;
             if (diff > 0)
@@ -275,7 +275,7 @@ namespace EpicEdit.Rom.Settings
                 indexes[i * 2] = offset[0];
                 indexes[i * 2 + 1] = offset[1];
 
-                byte[] textBytes = this.textConverter.EncodeText(text, paletteIndex);
+                byte[] textBytes = this.Converter.EncodeText(text, paletteIndex);
                 TextCollection.SetBytes(data, textBytes, ref index, hasPaletteData);
 
                 if (this.japAltMode)
