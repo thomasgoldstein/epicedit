@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 
 using EpicEdit.Rom.Utility;
@@ -25,7 +24,7 @@ namespace EpicEdit.Rom.Settings
     /// <summary>
     /// A collection of texts.
     /// </summary>
-    internal class TextCollection : IEnumerable<string>
+    internal class TextCollection : IEnumerable<TextItem>
     {
         /// <summary>
         /// The converter used to translate font graphics index values into .NET strings.
@@ -40,7 +39,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// The texts of the collection.
         /// </summary>
-        private string[] texts;
+        private TextItem[] texts;
 
         /// <summary>
         /// The offset to the indexes that define the address of each text.
@@ -114,7 +113,7 @@ namespace EpicEdit.Rom.Settings
             this.textConverter = new TextConverter(Game.GetRegion(romBuffer), shiftValue);
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
-            this.texts = new string[count];
+            this.texts = new TextItem[count];
             this.indexOffset = indexOffset;
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
@@ -218,34 +217,28 @@ namespace EpicEdit.Rom.Settings
                     }
                 }
 
-                this.texts[i] = this.textConverter.DecodeText(textBytes, hasPaletteData);
+                this.texts[i] = new TextItem(this.Region, this.textConverter.DecodeText(textBytes, hasPaletteData));
             }
         }
 
-        public string this[int index]
+        public TextItem this[int index]
         {
             get { return this.texts[index]; }
-            set
-            {
-                this.texts[index] = this.textConverter.GetValidatedText(value);
-
-                int diff = this.TotalCharacterCount - this.MaxCharacterCount;
-                if (diff > 0)
-                {
-                    string text = this.texts[index];
-                    text = text.Substring(0, text.Length - diff);
-                    this.texts[index] = text;
-                }
-
-                this.Modified = true;
-            }
         }
 
-        public string GetFormattedText(int index)
+        public void SetValue(int index, string value)
         {
-            return this.Region == Region.Jap ?
-                    this.texts[index] :
-                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.texts[index].ToLowerInvariant());
+            this.texts[index].Value = this.textConverter.GetValidatedText(value);
+
+            int diff = this.TotalCharacterCount - this.MaxCharacterCount;
+            if (diff > 0)
+            {
+                string text = this.texts[index].Value;
+                text = text.Substring(0, text.Length - diff);
+                this.texts[index].Value = text;
+            }
+
+            this.Modified = true;
         }
 
         public byte[] GetBytes(out byte[] indexes)
@@ -264,7 +257,7 @@ namespace EpicEdit.Rom.Settings
             for (int i = 0; i < this.texts.Length; i++)
             {
                 byte? paletteIndex = !hasPaletteData ? null as byte? : this.colorIndexes[i];
-                string text = this.texts[i];
+                string text = this.texts[i].Value;
 
                 if (this.japAltMode)
                 {
@@ -292,10 +285,10 @@ namespace EpicEdit.Rom.Settings
                     int step = !hasPaletteData ? 1 : 2;
                     int lastTenMaruIndex = 0;
 
-                    for (int j = 0; j < this.texts[i].Length; j++)
+                    for (int j = 0; j < this.texts[i].Value.Length; j++)
                     {
                         // Disconnect the ten-ten and maru characters from the character
-                        string chr = this.texts[i][j].ToString().Normalize(NormalizationForm.FormD);
+                        string chr = this.texts[i].Value[j].ToString().Normalize(NormalizationForm.FormD);
                         int k = j * step;
 
                         if (chr.Length == 1)
@@ -371,9 +364,9 @@ namespace EpicEdit.Rom.Settings
             this.Modified = false;
         }
 
-        public IEnumerator<string> GetEnumerator()
+        public IEnumerator<TextItem> GetEnumerator()
         {
-            foreach (string text in this.texts)
+            foreach (TextItem text in this.texts)
             {
                 yield return text;
             }

@@ -13,10 +13,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition
@@ -28,6 +30,8 @@ namespace EpicEdit.UI.TrackEdition
     {
         [Browsable(true)]
         public event EventHandler<EventArgs> SelectedTrackChanged;
+
+        private Dictionary<INotifyPropertyChanged, TreeNode> nodeDictionary;
 
         /// <summary>
         /// The selected track.
@@ -51,6 +55,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
+            this.nodeDictionary = new Dictionary<INotifyPropertyChanged, TreeNode>();
             this.InitOnRomLoad();
 
             // Attach the AfterSelect event handler method here
@@ -61,12 +66,16 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
+            this.nodeDictionary.Clear();
+
             this.treeView.BeginUpdate();
             this.treeView.Nodes.Clear();
 
             foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
             {
                 TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
+                this.AddPropertyChangesHandler(trackGroup, trackGroupNode);
+
                 trackGroupNode.ForeColor = SystemColors.WindowText;
 
                 // Makes it so group nodes don't appear highlighted when clicked
@@ -74,7 +83,9 @@ namespace EpicEdit.UI.TrackEdition
 
                 foreach (Track track in trackGroup)
                 {
-                    trackGroupNode.Nodes.Add(track.Name);
+                    TreeNode trackNode = new TreeNode(track.Name);
+                    this.AddPropertyChangesHandler(track, trackNode);
+                    trackGroupNode.Nodes.Add(trackNode);
                 }
 
                 this.treeView.Nodes.Add(trackGroupNode);
@@ -83,6 +94,34 @@ namespace EpicEdit.UI.TrackEdition
             this.treeView.ExpandAll();
             this.treeView.SelectedNode = this.treeView.Nodes[0].Nodes[0];
             this.treeView.EndUpdate();
+        }
+
+        private void AddPropertyChangesHandler(INotifyPropertyChanged element, TreeNode treeNode)
+        {
+            this.nodeDictionary.Add(element, treeNode);
+            element.PropertyChanged += this.textItem_PropertyChanged;
+        }
+
+        private void textItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TreeNode treeNode;
+            string name;
+
+            Track track = sender as Track;
+
+            if (track == null)
+            {
+                TrackGroup trackGroup = sender as TrackGroup;
+                treeNode = this.nodeDictionary[trackGroup];
+                name = trackGroup.Name;
+            }
+            else
+            {
+                treeNode = this.nodeDictionary[track];
+                name = track.Name;
+            }
+
+            treeNode.Text = name;
         }
 
         private void UpdateTrackListNames()

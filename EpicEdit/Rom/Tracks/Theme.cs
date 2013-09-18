@@ -13,6 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Scenery;
 
@@ -21,14 +23,22 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the graphics set and music of a track.
     /// </summary>
-    internal sealed class Theme : IDisposable
+    internal sealed class Theme : IDisposable, INotifyPropertyChanged
     {
         /// <summary>
         /// Number of themes.
         /// </summary>
         public const int Count = 8;
 
-        public string Name { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public TextItem NameItem { get; private set; }
+
+        public string Name
+        {
+            get { return this.NameItem.FormattedValue; }
+        }
+
         public Palettes Palettes { get; private set; }
         public RoadTileset RoadTileset { get; private set; }
         public Background Background  { get; private set; }
@@ -50,13 +60,22 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public Theme(string name, Palettes palettes, RoadTileset roadTileset, Background background)
+        public Theme(TextItem nameItem, Palettes palettes, RoadTileset roadTileset, Background background)
         {
-            this.Name = name;
+            this.NameItem = nameItem;
+            this.NameItem.PropertyChanged += this.NameItem_PropertyChanged;
             this.Palettes = palettes;
             this.Palettes.Theme = this;
             this.RoadTileset = roadTileset;
             this.Background = background;
+        }
+
+        private void NameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs("NameItem"));
+            }
         }
 
         public override string ToString()

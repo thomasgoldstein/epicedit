@@ -13,7 +13,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.IO;
+
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
@@ -36,7 +39,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the common base between a <see cref="GPTrack"/> and a <see cref="BattleTrack"/>.
     /// </summary>
-    internal abstract class Track
+    internal abstract class Track : INotifyPropertyChanged
     {
         /// <summary>
         /// Total number of tracks (GP tracks + battle tracks).
@@ -48,7 +51,17 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public const int GroupCount = GPTrack.GroupCount + BattleTrack.GroupCount;
 
-        public string Name { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public TextItem NameItem { get; private set; }
+
+        private char? nameSuffix;
+
+        public string Name
+        {
+            get { return this.NameItem.FormattedValue + this.nameSuffix; }
+        }
+
         public Theme Theme { get; set; }
         public TrackMap Map { get; private set; }
         public OverlayTiles OverlayTiles { get; private set; }
@@ -62,17 +75,27 @@ namespace EpicEdit.Rom.Tracks
         // TODO: Make setter private
         public bool Modified { get; set; }
 
-        protected Track(string name, Theme theme,
+        protected Track(TextItem nameItem, char? nameSuffix, Theme theme,
                         byte[] map, byte[] overlayTilesData,
                         byte[] aiZoneData, byte[] aiTargetData,
                         OverlayTileSizes overlayTileSizes,
                         OverlayTilePatterns overlayTilePatterns)
         {
-            this.Name = name;
-            this.Map = new TrackMap(map);
             this.Theme = theme;
+            this.NameItem = nameItem;
+            this.NameItem.PropertyChanged += this.NameItem_PropertyChanged;
+            this.nameSuffix = nameSuffix;
+            this.Map = new TrackMap(map);
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
+        }
+
+        private void NameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs("NameItem"));
+            }
         }
 
         public void Import(string filePath, Game game)

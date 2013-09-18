@@ -26,15 +26,7 @@ namespace EpicEdit.UI.Tools
     {
         public void Init()
         {
-            this.BeginUpdate();
-            this.Items.Clear();
-
-            foreach (Theme theme in Context.Game.Themes)
-            {
-                this.Items.Add(theme);
-            }
-
-            this.EndUpdate();
+            this.DataSource = Context.Game.Themes.GetList();
         }
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
