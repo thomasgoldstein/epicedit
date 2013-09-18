@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
@@ -97,7 +98,7 @@ namespace EpicEdit.Rom.Tracks
 
         public int ItemProbabilityIndex { get; set; }
 
-        public GPTrack(string name, Theme theme,
+        public GPTrack(TextItem nameItem, char? nameSuffix, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,
@@ -105,7 +106,7 @@ namespace EpicEdit.Rom.Tracks
                        OverlayTileSizes overlayTileSizes,
                        OverlayTilePatterns overlayTilePatterns,
                        int itemProbaIndex) :
-            base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+            base(nameItem, nameSuffix, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.StartPosition = new GPStartPosition(startPositionData);
             this.LapLine = new LapLine(lapLineData);

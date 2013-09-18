@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
@@ -118,7 +119,7 @@ namespace EpicEdit.Rom.Tracks
 
             for (int i = 0; i < this.themes.Length; i++)
             {
-                string name = names.GetFormattedText(reorder[i]);
+                TextItem nameItem = names[reorder[i]];
 
                 // Force the length to 512 in case the color palette data in the ROM is corrupt
                 byte[] paletteData = Codec.Decompress(romBuffer, paletteOffsets[i], 512);
@@ -194,7 +195,7 @@ namespace EpicEdit.Rom.Tracks
 
                 Background background = new Background(bgTileset, bgLayout);
 
-                this.themes[i] = new Theme(name, palettes, roadTileset, background);
+                this.themes[i] = new Theme(nameItem, palettes, roadTileset, background);
             }
         }
 
@@ -280,6 +281,11 @@ namespace EpicEdit.Rom.Tracks
             }
 
             return new BackgroundTileset(tiles);
+        }
+
+        public BindingList<Theme> GetList()
+        {
+            return new BindingList<Theme>(this.themes);
         }
 
         public byte GetThemeId(Theme theme)

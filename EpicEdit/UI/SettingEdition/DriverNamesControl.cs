@@ -49,14 +49,14 @@ namespace EpicEdit.UI.SettingEdition
 
             this.fireEvents = false;
 
-            this.textBox1.Text = names[0];
-            this.textBox2.Text = names[1];
-            this.textBox3.Text = names[2];
-            this.textBox4.Text = names[3];
-            this.textBox5.Text = names[4];
-            this.textBox6.Text = names[5];
-            this.textBox7.Text = names[6];
-            this.textBox8.Text = names[7];
+            this.textBox1.Text = names[0].Value;
+            this.textBox2.Text = names[1].Value;
+            this.textBox3.Text = names[2].Value;
+            this.textBox4.Text = names[3].Value;
+            this.textBox5.Text = names[4].Value;
+            this.textBox6.Text = names[5].Value;
+            this.textBox7.Text = names[6].Value;
+            this.textBox8.Text = names[7].Value;
 
             this.fireEvents = true;
 
@@ -90,8 +90,8 @@ namespace EpicEdit.UI.SettingEdition
             TextBox textBox = sender as TextBox;
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
-            this.names[id] = textBox.Text;
-            textBox.Text = this.names[id];
+            this.names.SetValue(id, textBox.Text);
+            textBox.Text = this.names[id].Value;
             textBox.SelectionStart = sel;
 
             this.fireEvents = true;

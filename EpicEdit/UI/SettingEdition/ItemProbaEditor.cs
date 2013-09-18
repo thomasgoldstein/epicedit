@@ -111,11 +111,10 @@ namespace EpicEdit.UI.SettingEdition
         {
             this.modeComboBox.BeginUpdate();
             this.modeComboBox.Items.Clear();
-            TextCollection modeNames = Context.Game.Settings.ModeNames;
 
-            for (int i = 0; i < modeNames.Count; i++)
+            foreach (TextItem textItem in Context.Game.Settings.ModeNames)
             {
-                this.modeComboBox.Items.Add(modeNames.GetFormattedText(i));
+                this.modeComboBox.Items.Add(textItem.FormattedValue);
             }
 
             this.modeComboBox.EndUpdate();

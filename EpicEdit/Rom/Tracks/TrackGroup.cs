@@ -15,15 +15,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+
+using EpicEdit.Rom.Settings;
 
 namespace EpicEdit.Rom.Tracks
 {
     /// <summary>
     /// A group of tracks.
     /// </summary>
-    internal class TrackGroup : IEnumerable<Track>
+    internal class TrackGroup : IEnumerable<Track>, INotifyPropertyChanged
     {
-        public string Name { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public TextItem NameItem { get; private set; }
+
+        public string Name
+        {
+            get { return this.NameItem.FormattedValue; }
+        }
+
         private Track[] tracks;
 
         public bool Modified
@@ -42,10 +53,19 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public TrackGroup(string name, Track[] tracks)
+        public TrackGroup(TextItem nameItem, Track[] tracks)
         {
-            this.Name = name;
+            this.NameItem = nameItem;
+            this.NameItem.PropertyChanged += this.NameItem_PropertyChanged;
             this.tracks = tracks;
+        }
+
+        private void NameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs("NameItem"));
+            }
         }
 
         public void ResetModifiedState()

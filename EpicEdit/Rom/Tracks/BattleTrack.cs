@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Drawing;
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Start;
 
@@ -44,13 +45,13 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public BattleStartPosition StartPositionP2 { get; private set; }
 
-        public BattleTrack(string name, Theme theme,
+        public BattleTrack(TextItem nameItem, char? nameSuffix, Theme theme,
                            byte[] map, byte[] overlayTileData,
                            byte[] aiZoneData, byte[] aiTargetData,
                            byte[] startPositionData,
                            OverlayTileSizes overlayTileSizes,
                            OverlayTilePatterns overlayTilePatterns) :
-            base(name, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+            base(nameItem, nameSuffix, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             byte[] startPosition1Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
             byte[] startPosition2Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
