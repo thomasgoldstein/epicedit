@@ -42,7 +42,7 @@ namespace EpicEdit.Test.Rom.Settings
 
             for (int i = 0; i < expectedTexts.Length; i++)
             {
-                Assert.AreEqual(expectedTexts[i], textColl[i]);
+                Assert.AreEqual(expectedTexts[i], textColl[i].Value);
             }
 
             if (expectedBytes != null)
@@ -241,7 +241,7 @@ namespace EpicEdit.Test.Rom.Settings
             romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a 0x2F space
             GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
 
-            Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0]);
+            Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0].Value);
         }
     }
 }
