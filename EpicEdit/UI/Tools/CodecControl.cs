@@ -104,7 +104,7 @@ namespace EpicEdit.UI.Tools
                     }
                     catch (InvalidDataException)
                     {
-                        oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.InvariantCulture) + "." + Environment.NewLine;
+                        oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.CurrentCulture) + "." + Environment.NewLine;
                     }
 
                     info = oldInfo + Environment.NewLine + info;
@@ -124,15 +124,15 @@ namespace EpicEdit.UI.Tools
 
         private static string FormatCompressedChunkInfo(string label, int offset, int compSize, int uncompSize)
         {
-            return string.Format(CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.CurrentCulture,
                                  "{0}: from {1} to {2}" + Environment.NewLine +
                                  "Compressed size: {3}" + Environment.NewLine +
                                  "Uncompressed size: {4}" + Environment.NewLine,
                                  label,
-                                 offset.ToString("X", CultureInfo.InvariantCulture),
-                                 (offset + compSize).ToString("X", CultureInfo.InvariantCulture),
-                                 compSize.ToString("X", CultureInfo.InvariantCulture),
-                                 uncompSize.ToString("X", CultureInfo.InvariantCulture));
+                                 offset.ToString("X", CultureInfo.CurrentCulture),
+                                 (offset + compSize).ToString("X", CultureInfo.CurrentCulture),
+                                 compSize.ToString("X", CultureInfo.CurrentCulture),
+                                 uncompSize.ToString("X", CultureInfo.CurrentCulture));
         }
 
         private static void Decompress(int offset, bool twice)

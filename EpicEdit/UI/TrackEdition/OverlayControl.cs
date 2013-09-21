@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -306,7 +307,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void UpdateTileCount(int count)
         {
-            this.tileCountLabel.Text = string.Format("{0}/{1}", count, OverlayTiles.MaxTileCount);
+            this.tileCountLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", count, OverlayTiles.MaxTileCount);
             this.tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
 
