@@ -247,7 +247,7 @@ namespace EpicEdit.UI.SettingEdition
 
             this.ghostNumericUpDown.ReadOnly = !this.lightningLabel.Enabled;
 
-            CultureInfo ic = CultureInfo.InvariantCulture;
+            CultureInfo ci = CultureInfo.CurrentCulture;
 
             int total = this.itemProbability.Total;
             this.mushroomNumericUpDown.Value = this.itemProbability.Mushroom;
@@ -258,20 +258,20 @@ namespace EpicEdit.UI.SettingEdition
             this.redNumericUpDown.Value = this.itemProbability.Red;
             this.ghostNumericUpDown.Value = this.itemProbability.Ghost;
             this.coinsNumericUpDown.Value = this.itemProbability.Coins;
-            this.lightningValue.Text = this.itemProbability.Lightning.ToString(ic);
-            this.totalValue.Text = total.ToString(ic);
+            this.lightningValue.Text = this.itemProbability.Lightning.ToString(ci);
+            this.totalValue.Text = total.ToString(ci);
             this.itemBoxDisplayOptions.SelectedItem = this.itemProbability.DisplayedItems;
 
-            this.mushroomPctLabel.Text = ((float)this.itemProbability.Mushroom / total).ToString("P1", ic);
-            this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ic);
-            this.starPctLabel.Text = ((float)this.itemProbability.Star / total).ToString("P1", ic);
-            this.bananaPctLabel.Text = ((float)this.itemProbability.Banana / total).ToString("P1", ic);
-            this.greenPctLabel.Text = ((float)this.itemProbability.Green / total).ToString("P1", ic);
-            this.redPctLabel.Text = ((float)this.itemProbability.Red / total).ToString("P1", ic);
-            this.ghostPctLabel.Text = ((float)this.itemProbability.Ghost / total).ToString("P1", ic);
-            this.coinsPctLabel.Text = ((float)this.itemProbability.Coins / total).ToString("P1", ic);
-            this.lightningPctLabel.Text = ((float)this.itemProbability.Lightning / total).ToString("P1", ic);
-            this.totalPctLabel.Text = 1.ToString("P1", ic);
+            this.mushroomPctLabel.Text = ((float)this.itemProbability.Mushroom / total).ToString("P1", ci);
+            this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ci);
+            this.starPctLabel.Text = ((float)this.itemProbability.Star / total).ToString("P1", ci);
+            this.bananaPctLabel.Text = ((float)this.itemProbability.Banana / total).ToString("P1", ci);
+            this.greenPctLabel.Text = ((float)this.itemProbability.Green / total).ToString("P1", ci);
+            this.redPctLabel.Text = ((float)this.itemProbability.Red / total).ToString("P1", ci);
+            this.ghostPctLabel.Text = ((float)this.itemProbability.Ghost / total).ToString("P1", ci);
+            this.coinsPctLabel.Text = ((float)this.itemProbability.Coins / total).ToString("P1", ci);
+            this.lightningPctLabel.Text = ((float)this.itemProbability.Lightning / total).ToString("P1", ci);
+            this.totalPctLabel.Text = 1.ToString("P1", ci);
 
             this.ignoreChange = false;
         }

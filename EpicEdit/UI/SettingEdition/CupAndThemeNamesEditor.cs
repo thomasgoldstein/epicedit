@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Settings;
@@ -76,7 +77,7 @@ namespace EpicEdit.UI.SettingEdition
         {
             int total = this.names.TotalCharacterCount;
             int max = this.names.MaxCharacterCount;
-            this.countLabel.Text = string.Format("{0}/{1}", total, max);
+            this.countLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", total, max);
             this.countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 

@@ -117,7 +117,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.InvariantCulture);
+                this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.CurrentCulture);
             }
         }
     }
