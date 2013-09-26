@@ -46,12 +46,12 @@ namespace EpicEdit.UI.SettingEdition
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingEditorForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.cupThemeTab = new System.Windows.Forms.TabPage();
+            this.cupAndThemeNamesEditor = new EpicEdit.UI.SettingEdition.CupAndThemeNamesEditor();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.cupAndThemeNamesEditor = new EpicEdit.UI.SettingEdition.CupAndThemeNamesEditor();
             this.tabControl.SuspendLayout();
             this.cupThemeTab.SuspendLayout();
             this.resultsTabPage.SuspendLayout();
@@ -65,10 +65,14 @@ namespace EpicEdit.UI.SettingEdition
             this.tabControl.Controls.Add(this.itemProbaTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.ImageList = this.tabImageList;
+            this.tabControl.ItemSize = new System.Drawing.Size(28, 19);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
+            this.tabControl.Padding = new System.Drawing.Point(0, 3);
             this.tabControl.SelectedIndex = 0;
+            this.tabControl.ShowToolTips = true;
             this.tabControl.Size = new System.Drawing.Size(528, 282);
+            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             // 
             // cupThemeTab
@@ -79,8 +83,16 @@ namespace EpicEdit.UI.SettingEdition
             this.cupThemeTab.Name = "cupThemeTab";
             this.cupThemeTab.Size = new System.Drawing.Size(520, 255);
             this.cupThemeTab.TabIndex = 2;
-            this.cupThemeTab.Text = "Cups & themes";
+            this.cupThemeTab.ToolTipText = "Cups & themes";
             this.cupThemeTab.UseVisualStyleBackColor = true;
+            // 
+            // cupAndThemeNamesEditor
+            // 
+            this.cupAndThemeNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cupAndThemeNamesEditor.Location = new System.Drawing.Point(0, 0);
+            this.cupAndThemeNamesEditor.Name = "cupAndThemeNamesEditor";
+            this.cupAndThemeNamesEditor.Size = new System.Drawing.Size(520, 255);
+            this.cupAndThemeNamesEditor.TabIndex = 0;
             // 
             // resultsTabPage
             // 
@@ -91,7 +103,7 @@ namespace EpicEdit.UI.SettingEdition
             this.resultsTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.resultsTabPage.Size = new System.Drawing.Size(520, 255);
             this.resultsTabPage.TabIndex = 1;
-            this.resultsTabPage.Text = "Results";
+            this.resultsTabPage.ToolTipText = "Results";
             this.resultsTabPage.UseVisualStyleBackColor = true;
             // 
             // resultEditor
@@ -111,7 +123,7 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.itemProbaTabPage.Size = new System.Drawing.Size(520, 255);
             this.itemProbaTabPage.TabIndex = 0;
-            this.itemProbaTabPage.Text = "Item probabilities";
+            this.itemProbaTabPage.ToolTipText = "Item probabilities";
             this.itemProbaTabPage.UseVisualStyleBackColor = true;
             // 
             // itemProbaEditor
@@ -128,14 +140,6 @@ namespace EpicEdit.UI.SettingEdition
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.tabImageList.Images.SetKeyName(0, "ResultsTab");
             this.tabImageList.Images.SetKeyName(1, "CupThemeTab");
-            // 
-            // cupAndThemeNamesEditor
-            // 
-            this.cupAndThemeNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cupAndThemeNamesEditor.Location = new System.Drawing.Point(0, 0);
-            this.cupAndThemeNamesEditor.Name = "cupAndThemeNamesEditor";
-            this.cupAndThemeNamesEditor.Size = new System.Drawing.Size(520, 255);
-            this.cupAndThemeNamesEditor.TabIndex = 0;
             // 
             // SettingEditorForm
             // 
