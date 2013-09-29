@@ -71,6 +71,13 @@ namespace EpicEdit.Rom.Utility
             {
                 return this.dictionary.ContainsKey(key);
             }
+
+            public T4[] GetValues()
+            {
+                T4[] values = new T4[this.dictionary.Values.Count];
+                this.dictionary.Values.CopyTo(values, 0);
+                return values;
+            }
         }
     }
 }
