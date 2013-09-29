@@ -84,10 +84,12 @@ namespace EpicEdit.Rom.Settings
                 new int[] { 144, 48, 136, 96, 42 } :
                 new int[] { 173, 66, 134, 112, 52 };
 
+            char thinSpace = '\u2009';
+
             this.CupAndThemeNames = new TextCollection(
                 romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count,
                 nameDataSizes[0], false, false, false, 0,
-                new byte[] { 0x2C }, new char[] { ' ' });
+                new byte[] { 0x2C }, new char[] { thinSpace });
 
             this.ModeNames = new TextCollection(
                 romBuffer, offsets[Offset.ModeNames], 3,
@@ -104,7 +106,8 @@ namespace EpicEdit.Rom.Settings
 
             this.DriverNamesTimeTrial = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
-                nameDataSizes[4], false, false, false, 0, null, null);
+                nameDataSizes[4], false, false, false, 0,
+                new byte[] { 0x2C }, new char[] { thinSpace });
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);

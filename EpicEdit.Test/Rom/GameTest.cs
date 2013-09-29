@@ -1,4 +1,4 @@
-#region GPL statement
+﻿#region GPL statement
 /*Epic Edit is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, version 3 of the License.
@@ -51,73 +51,73 @@ namespace EpicEdit.Test.Rom
         [Test]
         public void TestTrackGroupName1()
         {
-            Assert.AreEqual("Mushroom Cup", this.game.TrackGroups[0].Name);
+            Assert.AreEqual("Mushroom Cup", this.game.TrackGroups[0].Name);
         }
 
         [Test]
         public void TestTrackGroupName2()
         {
-            Assert.AreEqual("Flower Cup", this.game.TrackGroups[1].Name);
+            Assert.AreEqual("Flower Cup", this.game.TrackGroups[1].Name);
         }
 
         [Test]
         public void TestTrackGroupName3()
         {
-            Assert.AreEqual("Star Cup", this.game.TrackGroups[2].Name);
+            Assert.AreEqual("Star Cup", this.game.TrackGroups[2].Name);
         }
 
         [Test]
         public void TestTrackGroupName4()
         {
-            Assert.AreEqual("Special Cup", this.game.TrackGroups[3].Name);
+            Assert.AreEqual("Special Cup", this.game.TrackGroups[3].Name);
         }
 
         [Test]
         public void TestTrackGroupName5()
         {
-            Assert.AreEqual("Battle Course ", this.game.TrackGroups[4].Name);
+            Assert.AreEqual("Battle Course ", this.game.TrackGroups[4].Name);
         }
 
         [Test]
         public void TestTrackName1()
         {
-            Assert.AreEqual("Mario Circuit 1", this.game.TrackGroups[0][0].Name);
+            Assert.AreEqual("Mario Circuit 1", this.game.TrackGroups[0][0].Name);
         }
 
         [Test]
         public void TestTrackName2()
         {
-            Assert.AreEqual("Donut Plains 1", this.game.TrackGroups[0][1].Name);
+            Assert.AreEqual("Donut Plains 1", this.game.TrackGroups[0][1].Name);
         }
 
         [Test]
         public void TestTrackName3()
         {
-            Assert.AreEqual("Ghost Valley 1", this.game.TrackGroups[0][2].Name);
+            Assert.AreEqual("Ghost Valley 1", this.game.TrackGroups[0][2].Name);
         }
 
         [Test]
         public void TestTrackName20()
         {
-            Assert.AreEqual("Rainbow Road ", this.game.TrackGroups[3][4].Name);
+            Assert.AreEqual("Rainbow Road ", this.game.TrackGroups[3][4].Name);
         }
 
         [Test]
         public void TestTrackTheme1()
         {
-            Assert.AreEqual("Mario Circuit ", this.game.TrackGroups[0][0].Theme.Name);
+            Assert.AreEqual("Mario Circuit ", this.game.TrackGroups[0][0].Theme.Name);
         }
 
         [Test]
         public void TestTrackTheme2()
         {
-            Assert.AreEqual("Donut Plains ", this.game.TrackGroups[0][1].Theme.Name);
+            Assert.AreEqual("Donut Plains ", this.game.TrackGroups[0][1].Theme.Name);
         }
 
         [Test]
         public void TestTrackTheme3()
         {
-            Assert.AreEqual("Ghost Valley ", this.game.TrackGroups[0][2].Theme.Name);
+            Assert.AreEqual("Ghost Valley ", this.game.TrackGroups[0][2].Theme.Name);
         }
     }
 }

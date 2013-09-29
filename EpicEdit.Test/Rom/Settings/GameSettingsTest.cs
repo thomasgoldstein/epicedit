@@ -64,9 +64,9 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
-                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
-                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
+                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
+                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
+                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
                 },
                 File.ReadBlock(this.romBuffer, 0x1CA32, 26),
                 File.ReadBlock(this.romBuffer, 0x1CA88, 173),
@@ -134,9 +134,9 @@ namespace EpicEdit.Test.Rom.Settings
             this.TestTexts(
                 new string[]
                 {
-                    "キノコカップ ", "フラワーカップ ", "スターカップ ", "スペシャルカップ ",
-                    "マリオサーキット ", "おばけぬまコース ", "ドーナツへいやコース ", "クッパじょうコース ",
-                    "バニラレイクコース ", "チョコレーとうコース ", "ノコノコビーチコース ", "バトルコース ", "レインボーロード"
+                    "キノコカップ ", "フラワーカップ ", "スターカップ ", "スペシャルカップ ",
+                    "マリオサーキット ", "おばけぬまコース ", "ドーナツへいやコース ", "クッパじょうコース ",
+                    "バニラレイクコース ", "チョコレーとうコース ", "ノコノコビーチコース ", "バトルコース ", "レインボーロード"
                 },
                 File.ReadBlock(this.romBufferJ, 0x1C9A3, 26),
                 File.ReadBlock(this.romBufferJ, 0x1CA19, 144),
@@ -235,13 +235,11 @@ namespace EpicEdit.Test.Rom.Settings
             // Working on a clone to avoid changing the original buffer
             byte[] romBuffer = this.romBuffer.Clone() as byte[];
 
-            // Both 0x2C and 0x2F are valid space characters in non-Jap ROMs. Check that they both result in a space.
-            // (NOTE: seems like 0x2F = big space, 0x2C = small space, at least sometimes, but we treat them the same)
-            romBuffer[0x1DC91 + 1] = 0x2C; // Replace Time Trial Mario's A with a 0x2C space
-            romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a 0x2F space
+            romBuffer[0x1DC91 + 1] = 0x2C; // Replace Time Trial Mario's A with a thin space
+            romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a normal space
             GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
 
-            Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0].Value);
+            Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0].Value);
         }
     }
 }
