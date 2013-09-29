@@ -174,7 +174,7 @@ namespace EpicEdit.Rom.Utility
                 text = text.Normalize(NormalizationForm.FormD);
             }
 
-            string validChars = new string(this.GetCharacterSet()).Replace(char.MinValue.ToString(), string.Empty);
+            string validChars = new string(this.dictionary.Forward.GetValues());
             string pattern = "[^" + Regex.Escape(validChars) + "]*";
             text = Regex.Replace(text, pattern, string.Empty);
 
