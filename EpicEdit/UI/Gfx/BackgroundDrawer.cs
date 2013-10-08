@@ -123,14 +123,15 @@ namespace EpicEdit.UI.Gfx
                         background.Layout.GetTileData(x, y, front, out tileId, out properties);
                         int key = (tileId << 8) + properties;
 
-                        if (!tileCache.ContainsKey(key))
+                        BackgroundTile instance;
+                        if (!tileCache.TryGetValue(key, out instance))
                         {
                             BackgroundTile tile = background.Tileset[tileId];
-                            BackgroundTile instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
+                            instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
                             tileCache.Add(key, instance);
                         }
 
-                        g.DrawImage(tileCache[key].Bitmap, x * Tile.Size, y * Tile.Size);
+                        g.DrawImage(instance.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
             }

@@ -67,9 +67,9 @@ namespace EpicEdit.Rom.Utility
                     this.dictionary.Remove(keys[i]);
                 }
 
-                if (this.dictionary.Reverse.ContainsKey(values[i]))
+                byte key;
+                if (this.dictionary.Reverse.TryGetValue(values[i], out key))
                 {
-                    byte key = this.dictionary.Reverse[values[i]];
                     this.dictionary.Remove(key);
                 }
 
@@ -84,8 +84,9 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding character.</returns>
         public char DecodeText(byte charByte)
         {
-            return !this.dictionary.Forward.ContainsKey(charByte) ?
-                ' ' : this.dictionary.Forward[charByte];
+            char value;
+            return !this.dictionary.Forward.TryGetValue(charByte, out value) ?
+                ' ' : value;
         }
 
         /// <summary>

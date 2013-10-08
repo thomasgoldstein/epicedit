@@ -47,16 +47,17 @@ namespace EpicEdit.Rom.Compression
 
         public void Add(int offset, ChunkNode node)
         {
-            if (!this.nodeDictionary.ContainsKey(offset))
+            ChunkNode storedNode;
+            if (!this.nodeDictionary.TryGetValue(offset, out storedNode))
             {
                 this.nodeDictionary.Add(offset, node);
                 this.offsetQueue.Enqueue(offset);
             }
             else
             {
-                if (node.CompressedBufferSize < this.nodeDictionary[offset].CompressedBufferSize)
+                if (node.CompressedBufferSize < storedNode.CompressedBufferSize)
                 {
-                    this.nodeDictionary[offset].SetAsNonOptimal();
+                    storedNode.SetAsNonOptimal();
                     this.nodeDictionary[offset] = node;
                     this.offsetQueue.Enqueue(offset);
                 }
