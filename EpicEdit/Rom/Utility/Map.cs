@@ -72,6 +72,11 @@ namespace EpicEdit.Rom.Utility
                 return this.dictionary.ContainsKey(key);
             }
 
+            public bool TryGetValue(T3 key, out T4 value)
+            {
+                return this.dictionary.TryGetValue(key, out value);
+            }
+
             public T4[] GetValues()
             {
                 T4[] values = new T4[this.dictionary.Values.Count];

@@ -38,12 +38,14 @@ namespace EpicEdit.Rom.Compression
 
         private void Add(byte value, int offset)
         {
-            if (!this.byteDictionary.ContainsKey(value))
+            List<int> list;
+            if (!this.byteDictionary.TryGetValue(value, out list))
             {
-                this.byteDictionary.Add(value, new List<int>());
+                list = new List<int>();
+                this.byteDictionary.Add(value, list);
             }
 
-            this.byteDictionary[value].Add(offset);
+            list.Add(offset);
         }
 
         public Range GetMaxBackRange(int offset)

@@ -558,10 +558,9 @@ namespace EpicEdit.Rom
                     string fieldName = index == -1 ? line : line.Substring(0, index);
                     fieldName = fieldName.Substring(1); // Remove leading #
 
-                    if (this.fields.ContainsKey(fieldName))
+                    byte[] data;
+                    if (this.fields.TryGetValue(fieldName, out data))
                     {
-                        byte[] data = this.fields[fieldName];
-
                         if (data.Length <= 4)
                         {
                             MakeTrack.LoadLineData(data, line);
