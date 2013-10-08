@@ -86,7 +86,7 @@ namespace EpicEdit.Rom.Utility
         {
             char value;
             return !this.dictionary.Forward.TryGetValue(charByte, out value) ?
-                ' ' : value;
+                '?' : value;
         }
 
         /// <summary>
