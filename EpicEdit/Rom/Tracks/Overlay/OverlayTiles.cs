@@ -120,11 +120,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void Add(OverlayTile overlayTile)
         {
-            if (this.Count == OverlayTiles.MaxTileCount)
+            if (this.Count < OverlayTiles.MaxTileCount)
             {
-                return;
+                this.overlayTiles.Add(overlayTile);
             }
-            this.overlayTiles.Add(overlayTile);
         }
 
         public void Remove(OverlayTile overlayTile)
