@@ -9,6 +9,8 @@ v2.6.3 (???)
 - Added support for driver names editing
 - Improved track graphics renderer, faster and more reliable.
   Fixes occasional display issues.
+- Lowered the overlay tile maximum count from 42 to 41.
+  Having 42 overlay tiles on a track causes tile glitches.
 - Fixed 2bpp tile back color picking issues
 - Fixed selected background tile image size
 - Fixed invalid ROM loading, by keeping the previous ROM loaded
