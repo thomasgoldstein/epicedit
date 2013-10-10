@@ -20,7 +20,7 @@ using System.Drawing;
 namespace EpicEdit.Rom.Tracks.Overlay
 {
     /// <summary>
-    /// A collection of up to 42 <see cref="OverlayTile"/> objects.
+    /// An <see cref="OverlayTile"/> collection.
     /// </summary>
     internal class OverlayTiles : IEnumerable<OverlayTile>
     {
