@@ -24,7 +24,7 @@ namespace EpicEdit.Rom
     internal class Palette
     {
         /// <summary>
-        /// The number of bytes that compose a palette.
+        /// The number of bytes used by a palette.
         /// </summary>
         public const int Size = 32;
 
