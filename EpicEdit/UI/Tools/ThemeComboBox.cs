@@ -13,8 +13,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+
+using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.Tools
@@ -24,9 +27,35 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class ThemeComboBox : ComboBox
     {
+        private Dictionary<TextItem, int> indexDictionary;
+
+        public ThemeComboBox()
+        {
+            this.indexDictionary = new Dictionary<TextItem, int>();
+        }
+
         public void Init()
         {
-            this.DataSource = Context.Game.Themes.GetList();
+            this.indexDictionary.Clear();
+
+            this.BeginUpdate();
+            this.Items.Clear();
+            int index = 0;
+
+            foreach (Theme theme in Context.Game.Themes)
+            {
+                this.indexDictionary.Add(theme.NameItem, index++);
+                theme.NameItem.PropertyChanged += this.themeNameItem_PropertyChanged;
+                this.Items.Add(theme);
+            }
+
+            this.EndUpdate();
+        }
+
+        private void themeNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            int index = this.indexDictionary[sender as TextItem];
+            this.Items[index] = Context.Game.Themes[index];
         }
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
