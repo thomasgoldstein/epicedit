@@ -235,7 +235,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
 
-            this.ColorChanged(sender, e);
+            this.ColorChanged(this, e);
         }
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
