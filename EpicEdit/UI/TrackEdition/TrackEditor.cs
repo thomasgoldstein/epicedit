@@ -881,15 +881,17 @@ namespace EpicEdit.UI.TrackEdition
             {
                 Context.Game.ObjectGraphics.UpdateTiles(palette);
             }
-
-            if (this.backgroundFormInitialized)
+            else
             {
-                this.backgroundForm.Editor.UpdateBackground(theme);
-            }
+                if (this.backgroundFormInitialized)
+                {
+                    this.backgroundForm.Editor.UpdateBackground(theme);
+                }
 
-            if (this.settingFormInitialized)
-            {
-                this.settingForm.UpdateItemIcons(palette);
+                if (this.settingFormInitialized)
+                {
+                    this.settingForm.UpdateItemIcons(palette);
+                }
             }
 
             if (this.track.Theme != theme)
