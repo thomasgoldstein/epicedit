@@ -808,6 +808,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
                 this.paletteForm.ColorsChanged += this.PaletteEditorFormColorsChanged;
                 this.paletteForm.PalettesChanged += this.PaletteEditorFormPalettesChanged;
+                this.paletteForm.ThemeBackColorChanged += this.PaletteEditorFormThemeBackColorChanged;
                 this.trackDisplay.ColorSelected += this.TileColorSelected;
                 this.tilesetControl.ColorSelected += this.TileColorSelected;
                 this.overlayControl.ColorSelected += this.TileColorSelected;
@@ -850,10 +851,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void PaletteEditorFormPalettesChanged(object sender, EventArgs e)
         {
-            foreach (Palette palette in this.paletteForm.Editor.Palette.Collection)
-            {
-                this.UpdateTiles(palette, true);
-            }
+            this.UpdateAllTiles(true);
+        }
+
+        private void PaletteEditorFormThemeBackColorChanged(object sender, EventArgs e)
+        {
+            this.UpdateAllTiles(false);
         }
 
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
@@ -870,6 +873,14 @@ namespace EpicEdit.UI.TrackEdition
         {
             Palette palette = this.paletteForm.Editor.Palette;
             this.UpdateTiles(palette, wholePalette);
+        }
+
+        private void UpdateAllTiles(bool wholePalette)
+        {
+            foreach (Palette palette in this.paletteForm.Editor.Palette.Collection)
+            {
+                this.UpdateTiles(palette, wholePalette);
+            }
         }
 
         private void UpdateTiles(Palette palette, bool wholePalette)

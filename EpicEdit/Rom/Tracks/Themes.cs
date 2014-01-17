@@ -254,11 +254,12 @@ namespace EpicEdit.Rom.Tracks
         private static RoadTileset GetRoadTileset(Palettes palettes, byte[] tilePaletteIndexes, byte[][] tileGfx, RoadTileGenre[] tileGenres)
         {
             RoadTile[] tiles = new RoadTile[RoadTileset.TileCount];
+            Palette firstPalette = palettes[0];
 
             for (int i = 0; i < tileGfx.Length; i++)
             {
                 Palette palette = palettes[tilePaletteIndexes[i]];
-                tiles[i] = new RoadTile(tileGfx[i], palette, tileGenres[i]);
+                tiles[i] = new RoadTile(tileGfx[i], palette, tileGenres[i], firstPalette);
             }
 
             return new RoadTileset(tiles);

@@ -23,6 +23,12 @@ namespace EpicEdit.Rom.Tracks.Road
     /// </summary>
     internal sealed class RoadTile : Tile
     {
+        /// <summary>
+        /// The first palette of the concerned palette collection.
+        /// Needed to retrieve the back color (first color of the first palette).
+        /// </summary>
+        private Palette firstPalette;
+
         private RoadTileGenre genre = RoadTileGenre.Road;
         public RoadTileGenre Genre
         {
@@ -38,8 +44,9 @@ namespace EpicEdit.Rom.Tracks.Road
             }
         }
 
-        public RoadTile(byte[] gfx, Palette palette, RoadTileGenre genre)
+        public RoadTile(byte[] gfx, Palette palette, RoadTileGenre genre, Palette firstPalette)
         {
+            this.firstPalette = firstPalette;
             this.Graphics = gfx;
             this.Palette = palette;
             this.Genre = genre;
@@ -47,7 +54,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         protected override void GenerateBitmap()
         {
-            this.bitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.Palette);
+            this.bitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.TilePalette);
         }
 
         protected override void GenerateGraphics()
@@ -84,6 +91,22 @@ namespace EpicEdit.Rom.Tracks.Road
                 px & 0x0F : (px & 0xF0) >> 4;
 
             return index;
+        }
+
+        /// <summary>
+        /// Gets the actual palette to be applied on the tile.
+        /// </summary>
+        private Palette TilePalette
+        {
+            get
+            {
+                // When a tile uses the first color of the palette, the color actually applied
+                // is the first color of the first palette of the collection.
+                // The first color of the other palettes are ignored / never displayed.
+                Palette palette = new Palette(this.Palette.Collection, this.Palette.GetBytes());
+                palette[0] = this.firstPalette[0];
+                return palette;
+            }
         }
     }
 }
