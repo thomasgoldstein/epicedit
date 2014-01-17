@@ -47,6 +47,13 @@ namespace EpicEdit.UI.ThemeEdition
             remove { this.Editor.PalettesChanged -= value; }
         }
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ThemeBackColorChanged
+        {
+            add { this.Editor.ThemeBackColorChanged += value; }
+            remove { this.Editor.ThemeBackColorChanged -= value; }
+        }
+
         public PaletteEditorForm()
         {
             this.InitializeComponent();

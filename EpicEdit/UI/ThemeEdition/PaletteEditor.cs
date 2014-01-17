@@ -38,6 +38,9 @@ namespace EpicEdit.Rom.ThemeEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> PalettesChanged;
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ThemeBackColorChanged;
+
         /// <summary>
         /// Gets or sets the theme.
         /// </summary>
@@ -213,7 +216,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.Palette.Reset();
             this.UpdatePalette();
 
-            this.ColorsChanged(this, EventArgs.Empty);
+            this.OnColorsChanged(e);
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -235,7 +238,35 @@ namespace EpicEdit.Rom.ThemeEdition
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
 
-            this.ColorChanged(this, e);
+            this.OnColorChanged(e);
+        }
+
+        private void OnColorsChanged(EventArgs e)
+        {
+            if (this.Palette.Index == 0)
+            {
+                // The first color of the first palette (back color) can affect all tiles,
+                // so raise a different event.
+                this.PalettesChanged(this, e);
+            }
+            else
+            {
+                this.ColorsChanged(this, e);
+            }
+        }
+
+        private void OnColorChanged(EventArgs e)
+        {
+            if (this.Palette.Index == 0 && this.colorIndex == 0)
+            {
+                // The first color of the first palette (back color) can affect all tiles,
+                // so raise a different event.
+                this.ThemeBackColorChanged(this, e);
+            }
+            else
+            {
+                this.ColorChanged(this, e);
+            }
         }
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
