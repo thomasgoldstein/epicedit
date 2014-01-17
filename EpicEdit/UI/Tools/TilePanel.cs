@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.UI.Tools
 {
@@ -89,7 +90,8 @@ namespace EpicEdit.UI.Tools
 
             colorIndex = tile.GetColorIndexAt(x, y);
 
-            if (tile is Tile2bpp && (colorIndex % 4) == 0)
+            if (tile is RoadTile && colorIndex == 0 ||
+                tile is Tile2bpp && (colorIndex % 4) == 0)
             {
                 // The back color was selected, which is the first color of the first palette
                 colorIndex = 0;
