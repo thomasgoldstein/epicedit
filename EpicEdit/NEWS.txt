@@ -7,6 +7,8 @@ v2.7.1 (???)
 - Fixed 2.7 regression that could cause road tilesets to be wrongly marked as
   modified by the user, and would sometimes prevent graphics from being
   displayed with certain ROMs
+- Fixed the first color used for road tiles, so it's always the first color
+  of the first palette. The first color of other palettes is not used.
 
 
 v2.7 (October 13th 2013)
