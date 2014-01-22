@@ -100,6 +100,13 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             get
             {
+                if (this.Palette[0] == this.firstPalette[0])
+                {
+                    // The first color of the palette matches the first color of the first palette.
+                    // Optimization, avoid creating a new palette.
+                    return this.Palette;
+                }
+
                 // When a tile uses the first color of the palette, the color actually applied
                 // is the first color of the first palette of the collection.
                 // The first color of the other palettes are ignored / never displayed.
