@@ -61,6 +61,7 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             FastBitmap fBitmap = new FastBitmap(this.bitmap);
 
+            Palette palette = this.TilePalette;
             int pixelIndex = 0;
             for (int y = 0; y < Tile.Size; y++)
             {
@@ -68,8 +69,8 @@ namespace EpicEdit.Rom.Tracks.Road
                 {
                     RomColor color1 = (RomColor)fBitmap.GetPixel(x * 2, y);
                     RomColor color2 = (RomColor)fBitmap.GetPixel(x * 2 + 1, y);
-                    int colorIndex1 = Utilities.GetColorIndex(color1, this.Palette);
-                    int colorIndex2 = Utilities.GetColorIndex(color2, this.Palette);
+                    int colorIndex1 = Utilities.GetColorIndex(color1, palette);
+                    int colorIndex2 = Utilities.GetColorIndex(color2, palette);
 
                     this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
