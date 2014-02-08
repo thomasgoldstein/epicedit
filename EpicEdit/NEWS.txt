@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.7.1 (???)
+v2.7.1 (February 8th 2014)
 - Fixed 2.7 regression that could cause road tilesets to be wrongly marked as
   modified by the user, and would sometimes prevent graphics from being
   displayed with certain ROMs
