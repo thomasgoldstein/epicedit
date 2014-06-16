@@ -904,7 +904,7 @@ namespace EpicEdit.Rom
             {
                 #region Global track array creation
                 // To make the treatment easier, we simply create an array with all the GP tracks
-                TrackGroup tempTrackGroup = new TrackGroup(null, new Track[GPTrack.Count]);
+                Track[] tempTrackGroup = new Track[GPTrack.Count];
                 for (int i = 0; i < this.TrackGroups.Count - 1; i++)
                 {
                     TrackGroup trackGroup = this.TrackGroups[i];
@@ -970,7 +970,12 @@ namespace EpicEdit.Rom
             }
             else // Battle track reordering
             {
-                TrackGroup trackGroup = this.TrackGroups[sourceTrackGroupId];
+                Track[] trackGroup = new GPTrack[BattleTrack.Count];
+
+                for (int i = 0; i < trackGroup.Length; i++)
+                {
+                    trackGroup[i] = this.TrackGroups[sourceTrackGroupId][i];
+                }
 
                 int trackOrderOffset = this.offsets[Offset.BattleTrackOrder];
                 int trackNameOffset = this.offsets[Offset.BattleTrackNames];
@@ -993,7 +998,7 @@ namespace EpicEdit.Rom
             this.modified = true;
         }
 
-        private void ReorderTracksSub(TrackGroup trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void ReorderTracksSub(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
         {
             Track sourceTrack = trackGroup[sourceTrackId];
             byte sourceTrackOrder = this.romBuffer[trackOrderOffset + sourceTrackId];
@@ -1028,7 +1033,7 @@ namespace EpicEdit.Rom
             this.romBuffer[destinationTrackNameOffset + 1] = sourceTrackName[1];
         }
 
-        private void RemapTrack(TrackGroup trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void RemapTrack(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
         {
             trackGroup[destinationTrackId] = trackGroup[sourceTrackId];
             this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
