@@ -90,6 +90,7 @@ namespace EpicEdit.UI.TrackEdition
             this.step1pxRadioButton.Text = "1px";
             this.step1pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.step1pxRadioButton.UseVisualStyleBackColor = true;
+            this.step1pxRadioButton.CheckedChanged += new System.EventHandler(this.StepRadioButtonCheckedChanged);
             // 
             // step8pxRadioButton
             // 
@@ -101,6 +102,7 @@ namespace EpicEdit.UI.TrackEdition
             this.step8pxRadioButton.Text = "8px";
             this.step8pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.step8pxRadioButton.UseVisualStyleBackColor = true;
+            this.step8pxRadioButton.CheckedChanged += new System.EventHandler(this.StepRadioButtonCheckedChanged);
             // 
             // step4pxRadioButton
             // 
@@ -114,6 +116,7 @@ namespace EpicEdit.UI.TrackEdition
             this.step4pxRadioButton.Text = "4px";
             this.step4pxRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.step4pxRadioButton.UseVisualStyleBackColor = true;
+            this.step4pxRadioButton.CheckedChanged += new System.EventHandler(this.StepRadioButtonCheckedChanged);
             // 
             // gpTrackGroupBox
             // 
