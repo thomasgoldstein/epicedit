@@ -62,30 +62,10 @@ namespace EpicEdit.UI.TrackEdition
         public StartControl()
         {
             this.InitializeComponent();
+            this.SetPrecision();
         }
 
-        public int Precision
-        {
-            get
-            {
-                int precision;
-
-                if (this.step1pxRadioButton.Checked)
-                {
-                    precision = 1;
-                }
-                else if (this.step4pxRadioButton.Checked)
-                {
-                    precision = 4;
-                }
-                else //if (this.step8pxRadioButton.Checked)
-                {
-                    precision = 8;
-                }
-
-                return precision;
-            }
-        }
+        public int Precision { get; private set; }
 
         public bool LapLineAndDriverPositionsBound
         {
@@ -97,8 +77,7 @@ namespace EpicEdit.UI.TrackEdition
             GPTrack gpTrack = this.track as GPTrack;
 
             int valueBefore = gpTrack.StartPosition.SecondRowOffset;
-            int step = this.Precision;
-            gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / step) * step;
+            gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / this.Precision) * this.Precision;
             int valueAfter = gpTrack.StartPosition.SecondRowOffset;
 
             if (valueBefore != valueAfter)
@@ -119,6 +98,36 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.CurrentCulture);
             }
+        }
+        
+        private void StepRadioButtonCheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton button = sender as RadioButton;
+
+            // Avoid calling the method twice (once for the button that was previously checked, then the one newly checked)
+            if (button.Checked)
+            {
+                this.SetPrecision();
+            }
+        }
+
+        private void SetPrecision()
+        {
+            if (this.step1pxRadioButton.Checked)
+            {
+                this.Precision = 1;
+            }
+            else if (this.step4pxRadioButton.Checked)
+            {
+                this.Precision = 4;
+            }
+            else //if (this.step8pxRadioButton.Checked)
+            {
+                this.Precision = 8;
+            }
+            
+            this.secondRowTrackBar.SmallChange = this.Precision;
+            this.secondRowTrackBar.LargeChange = this.Precision * 5;
         }
     }
 }
