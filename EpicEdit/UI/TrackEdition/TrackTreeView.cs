@@ -66,8 +66,6 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            this.nodeDictionary.Clear();
-
             this.treeView.BeginUpdate();
             this.treeView.Nodes.Clear();
 
@@ -83,17 +81,43 @@ namespace EpicEdit.UI.TrackEdition
 
                 foreach (Track track in trackGroup)
                 {
-                    TreeNode trackNode = new TreeNode(track.Name);
-                    this.AddPropertyChangesHandler(track, trackNode);
+                    TreeNode trackNode = new TreeNode();
                     trackGroupNode.Nodes.Add(trackNode);
                 }
 
                 this.treeView.Nodes.Add(trackGroupNode);
             }
 
+            this.UpdateTrackNames();
+
             this.treeView.ExpandAll();
             this.treeView.SelectedNode = this.treeView.Nodes[0].Nodes[0];
             this.treeView.EndUpdate();
+        }
+
+        private void UpdateTrackNames()
+        {
+            this.nodeDictionary.Clear();
+
+            for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
+            {
+                TrackGroup trackGroup = Context.Game.TrackGroups[i];
+                TreeNodeCollection trackNodes = this.treeView.Nodes[i].Nodes;
+
+                for (int j = 0; j < trackGroup.Count; j++)
+                {
+                    Track track = trackGroup[j];
+                    TreeNode trackNode = trackNodes[j];
+
+                    this.AddPropertyChangesHandler(track, trackNode);
+                    trackNode.Text = trackGroup[j].Name;
+
+                    if (trackGroup[j].Modified)
+                    {
+                        TrackTreeView.AddModifiedHint(trackNode);
+                    }
+                }
+            }
         }
 
         private void AddPropertyChangesHandler(INotifyPropertyChanged element, TreeNode treeNode)
@@ -122,28 +146,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             treeNode.Text = name;
-        }
-
-        private void UpdateTrackListNames()
-        {
-            this.treeView.BeginUpdate();
-
-            for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
-            {
-                TrackGroup trackGroup = Context.Game.TrackGroups[i];
-                TreeNodeCollection trackNodes = this.treeView.Nodes[i].Nodes;
-
-                for (int j = 0; j < trackGroup.Count; j++)
-                {
-                    trackNodes[j].Text = trackGroup[j].Name;
-                    if (trackGroup[j].Modified)
-                    {
-                        TrackTreeView.AddModifiedHint(trackNodes[j]);
-                    }
-                }
-            }
-
-            this.treeView.EndUpdate();
         }
 
         private void TreeViewBeforeCollapse(object sender, TreeViewCancelEventArgs e)
@@ -298,7 +300,9 @@ namespace EpicEdit.UI.TrackEdition
 
             Context.Game.ReorderTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
 
-            this.UpdateTrackListNames();
+            this.treeView.BeginUpdate();
+            this.UpdateTrackNames();
+            this.treeView.EndUpdate();
 
             this.treeView.AfterSelect -= this.TreeViewAfterSelect;
             this.treeView.SelectedNode = this.treeView.Nodes[destinationTrackGroupId].Nodes[destinationTrackId];
