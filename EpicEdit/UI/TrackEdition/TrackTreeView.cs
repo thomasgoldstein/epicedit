@@ -124,6 +124,7 @@ namespace EpicEdit.UI.TrackEdition
         private void AddPropertyChangesHandler(INotifyPropertyChanged element, TreeNode treeNode)
         {
             this.nodeDictionary.Add(element, treeNode);
+            element.PropertyChanged -= this.textItem_PropertyChanged; // Remove previously-added event handler, if any
             element.PropertyChanged += this.textItem_PropertyChanged;
         }
 
