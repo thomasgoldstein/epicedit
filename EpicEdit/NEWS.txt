@@ -3,6 +3,12 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.7.2 (June 21st 2014)
+- Fixed 2.7 regression that disabled track reordering
+- Fixed second starting position row slider to properly handle keyboard
+  input (left / right arrows) when the precision is 4px or 8px
+
+
 v2.7.1 (February 8th 2014)
 - Fixed 2.7 regression that could cause road tilesets to be wrongly marked as
   modified by the user, and would sometimes prevent graphics from being
