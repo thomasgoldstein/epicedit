@@ -81,9 +81,11 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     TreeNode trackNode = new TreeNode();
                     trackGroupNode.Nodes.Add(trackNode);
+                    track.PropertyChanged += this.textItem_PropertyChanged;
                 }
 
                 this.treeView.Nodes.Add(trackGroupNode);
+                trackGroup.PropertyChanged += this.textItem_PropertyChanged;
             }
 
             this.UpdateTrackNames();
@@ -101,7 +103,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 TrackGroup trackGroup = Context.Game.TrackGroups[i];
                 TreeNode trackGroupNode = this.treeView.Nodes[i];
-                this.AddPropertyChangesHandler(trackGroup, trackGroupNode);
+                this.nodeDictionary.Add(trackGroup, trackGroupNode);
 
                 TreeNodeCollection trackNodes = trackGroupNode.Nodes;
 
@@ -110,7 +112,7 @@ namespace EpicEdit.UI.TrackEdition
                     Track track = trackGroup[j];
                     TreeNode trackNode = trackNodes[j];
 
-                    this.AddPropertyChangesHandler(track, trackNode);
+                    this.nodeDictionary.Add(track, trackNode);
                     trackNode.Text = track.Name;
 
                     if (track.Modified)
@@ -119,13 +121,6 @@ namespace EpicEdit.UI.TrackEdition
                     }
                 }
             }
-        }
-
-        private void AddPropertyChangesHandler(INotifyPropertyChanged element, TreeNode treeNode)
-        {
-            this.nodeDictionary.Add(element, treeNode);
-            element.PropertyChanged -= this.textItem_PropertyChanged; // Remove previously-added event handler, if any
-            element.PropertyChanged += this.textItem_PropertyChanged;
         }
 
         private void textItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
