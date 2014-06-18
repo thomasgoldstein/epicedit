@@ -72,8 +72,6 @@ namespace EpicEdit.UI.TrackEdition
             foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
             {
                 TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
-                this.AddPropertyChangesHandler(trackGroup, trackGroupNode);
-
                 trackGroupNode.ForeColor = SystemColors.WindowText;
 
                 // Makes it so group nodes don't appear highlighted when clicked
@@ -102,7 +100,10 @@ namespace EpicEdit.UI.TrackEdition
             for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
             {
                 TrackGroup trackGroup = Context.Game.TrackGroups[i];
-                TreeNodeCollection trackNodes = this.treeView.Nodes[i].Nodes;
+                TreeNode trackGroupNode = this.treeView.Nodes[i];
+                this.AddPropertyChangesHandler(trackGroup, trackGroupNode);
+
+                TreeNodeCollection trackNodes = trackGroupNode.Nodes;
 
                 for (int j = 0; j < trackGroup.Count; j++)
                 {
@@ -110,9 +111,9 @@ namespace EpicEdit.UI.TrackEdition
                     TreeNode trackNode = trackNodes[j];
 
                     this.AddPropertyChangesHandler(track, trackNode);
-                    trackNode.Text = trackGroup[j].Name;
+                    trackNode.Text = track.Name;
 
-                    if (trackGroup[j].Modified)
+                    if (track.Modified)
                     {
                         TrackTreeView.AddModifiedHint(trackNode);
                     }
