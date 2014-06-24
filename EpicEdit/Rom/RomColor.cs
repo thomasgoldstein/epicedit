@@ -217,7 +217,7 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="value5bit">The 5-bit int color value (0-31).</param>
         /// <returns>The color value in 8-bit precision.</returns>
-        private static byte ConvertTo8BitColor(byte value5bit)
+        public static byte ConvertTo8BitColor(byte value5bit)
         {
             return (byte)(value5bit * 8.25);
         }
@@ -227,7 +227,7 @@ namespace EpicEdit.Rom
         /// </summary>
         /// <param name="value8bit">The 8-bit int color value (0-255).</param>
         /// <returns>The color value in 5-bit precision.</returns>
-        private static byte ConvertTo5BitColor(byte value8bit)
+        public static byte ConvertTo5BitColor(byte value8bit)
         {
             return (byte)Math.Round((double)value8bit / (255d / 31d), 0, MidpointRounding.ToEven);
         }
