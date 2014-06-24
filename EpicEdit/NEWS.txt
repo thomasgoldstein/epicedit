@@ -3,7 +3,8 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.7.2 (June 21st 2014)
+v2.7.2 (June 28th 2014)
+- Added the ability to modify colors as 8-bit (0-255) RGB values
 - Fixed 2.7 regression that disabled track reordering
 - Fixed second starting position row slider to properly handle keyboard
   input (left / right arrows) when the precision is 4px or 8px
