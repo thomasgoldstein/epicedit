@@ -69,21 +69,29 @@ namespace EpicEdit.UI.ThemeEdition
             System.Windows.Forms.Label redLabel;
             System.Windows.Forms.Label greenLabel;
             System.Windows.Forms.Label blueLabel;
+            System.Windows.Forms.Label bitsLabel;
             this.basicColorsPictureBox = new System.Windows.Forms.PictureBox();
             this.shadesPictureBox = new System.Windows.Forms.PictureBox();
-            this.redNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.greenNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.blueNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.red5NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.green5NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.blue5NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.newColorToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.oldColorToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.red8NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.green8NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.blue8NumericUpDown = new System.Windows.Forms.NumericUpDown();
             redLabel = new System.Windows.Forms.Label();
             greenLabel = new System.Windows.Forms.Label();
             blueLabel = new System.Windows.Forms.Label();
+            bitsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.basicColorsPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shadesPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blueNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.red5NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.green5NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blue5NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.red8NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.green8NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blue8NumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // redLabel
@@ -92,7 +100,7 @@ namespace EpicEdit.UI.ThemeEdition
             redLabel.Location = new System.Drawing.Point(133, 22);
             redLabel.Name = "redLabel";
             redLabel.Size = new System.Drawing.Size(27, 13);
-            redLabel.TabIndex = 5;
+            redLabel.TabIndex = 1;
             redLabel.Text = "Red";
             // 
             // greenLabel
@@ -101,7 +109,7 @@ namespace EpicEdit.UI.ThemeEdition
             greenLabel.Location = new System.Drawing.Point(133, 69);
             greenLabel.Name = "greenLabel";
             greenLabel.Size = new System.Drawing.Size(36, 13);
-            greenLabel.TabIndex = 14;
+            greenLabel.TabIndex = 5;
             greenLabel.Text = "Green";
             // 
             // blueLabel
@@ -110,8 +118,17 @@ namespace EpicEdit.UI.ThemeEdition
             blueLabel.Location = new System.Drawing.Point(133, 116);
             blueLabel.Name = "blueLabel";
             blueLabel.Size = new System.Drawing.Size(28, 13);
-            blueLabel.TabIndex = 15;
+            blueLabel.TabIndex = 8;
             blueLabel.Text = "Blue";
+            // 
+            // bitsLabel
+            // 
+            bitsLabel.AutoSize = true;
+            bitsLabel.Location = new System.Drawing.Point(166, 22);
+            bitsLabel.Name = "bitsLabel";
+            bitsLabel.Size = new System.Drawing.Size(44, 13);
+            bitsLabel.TabIndex = 2;
+            bitsLabel.Text = "5 / 8-bit";
             // 
             // basicColorsPictureBox
             // 
@@ -137,44 +154,44 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.ShadesPictureBoxPaint);
             this.shadesPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseMove);
             // 
-            // redNumericUpDown
+            // red5NumericUpDown
             // 
-            this.redNumericUpDown.Location = new System.Drawing.Point(136, 38);
-            this.redNumericUpDown.Maximum = new decimal(new int[] {
+            this.red5NumericUpDown.Location = new System.Drawing.Point(136, 38);
+            this.red5NumericUpDown.Maximum = new decimal(new int[] {
                                     31,
                                     0,
                                     0,
                                     0});
-            this.redNumericUpDown.Name = "redNumericUpDown";
-            this.redNumericUpDown.Size = new System.Drawing.Size(53, 20);
-            this.redNumericUpDown.TabIndex = 10;
-            this.redNumericUpDown.ValueChanged += new System.EventHandler(this.RgbValueChanged);
+            this.red5NumericUpDown.Name = "red5NumericUpDown";
+            this.red5NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.red5NumericUpDown.TabIndex = 3;
+            this.red5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             // 
-            // greenNumericUpDown
+            // green5NumericUpDown
             // 
-            this.greenNumericUpDown.Location = new System.Drawing.Point(136, 85);
-            this.greenNumericUpDown.Maximum = new decimal(new int[] {
+            this.green5NumericUpDown.Location = new System.Drawing.Point(136, 85);
+            this.green5NumericUpDown.Maximum = new decimal(new int[] {
                                     31,
                                     0,
                                     0,
                                     0});
-            this.greenNumericUpDown.Name = "greenNumericUpDown";
-            this.greenNumericUpDown.Size = new System.Drawing.Size(53, 20);
-            this.greenNumericUpDown.TabIndex = 11;
-            this.greenNumericUpDown.ValueChanged += new System.EventHandler(this.RgbValueChanged);
+            this.green5NumericUpDown.Name = "green5NumericUpDown";
+            this.green5NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.green5NumericUpDown.TabIndex = 6;
+            this.green5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             // 
-            // blueNumericUpDown
+            // blue5NumericUpDown
             // 
-            this.blueNumericUpDown.Location = new System.Drawing.Point(136, 132);
-            this.blueNumericUpDown.Maximum = new decimal(new int[] {
+            this.blue5NumericUpDown.Location = new System.Drawing.Point(136, 132);
+            this.blue5NumericUpDown.Maximum = new decimal(new int[] {
                                     31,
                                     0,
                                     0,
                                     0});
-            this.blueNumericUpDown.Name = "blueNumericUpDown";
-            this.blueNumericUpDown.Size = new System.Drawing.Size(53, 20);
-            this.blueNumericUpDown.TabIndex = 12;
-            this.blueNumericUpDown.ValueChanged += new System.EventHandler(this.RgbValueChanged);
+            this.blue5NumericUpDown.Name = "blue5NumericUpDown";
+            this.blue5NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.blue5NumericUpDown.TabIndex = 9;
+            this.blue5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             // 
             // newColorToolTip
             // 
@@ -188,26 +205,75 @@ namespace EpicEdit.UI.ThemeEdition
             this.oldColorToolTip.InitialDelay = 1;
             this.oldColorToolTip.ReshowDelay = 1;
             // 
+            // red8NumericUpDown
+            // 
+            this.red8NumericUpDown.Location = new System.Drawing.Point(186, 38);
+            this.red8NumericUpDown.Maximum = new decimal(new int[] {
+                                    255,
+                                    0,
+                                    0,
+                                    0});
+            this.red8NumericUpDown.Name = "red8NumericUpDown";
+            this.red8NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.red8NumericUpDown.TabIndex = 4;
+            this.red8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            // 
+            // green8NumericUpDown
+            // 
+            this.green8NumericUpDown.Location = new System.Drawing.Point(186, 85);
+            this.green8NumericUpDown.Maximum = new decimal(new int[] {
+                                    255,
+                                    0,
+                                    0,
+                                    0});
+            this.green8NumericUpDown.Name = "green8NumericUpDown";
+            this.green8NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.green8NumericUpDown.TabIndex = 7;
+            this.green8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            // 
+            // blue8NumericUpDown
+            // 
+            this.blue8NumericUpDown.Location = new System.Drawing.Point(186, 132);
+            this.blue8NumericUpDown.Maximum = new decimal(new int[] {
+                                    255,
+                                    0,
+                                    0,
+                                    0});
+            this.blue8NumericUpDown.Name = "blue8NumericUpDown";
+            this.blue8NumericUpDown.Size = new System.Drawing.Size(44, 20);
+            this.blue8NumericUpDown.TabIndex = 10;
+            this.blue8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            // 
             // ColorPicker
             // 
+            this.Controls.Add(bitsLabel);
+            this.Controls.Add(this.blue8NumericUpDown);
+            this.Controls.Add(this.green8NumericUpDown);
+            this.Controls.Add(this.red8NumericUpDown);
             this.Controls.Add(blueLabel);
             this.Controls.Add(greenLabel);
             this.Controls.Add(redLabel);
-            this.Controls.Add(this.blueNumericUpDown);
-            this.Controls.Add(this.greenNumericUpDown);
-            this.Controls.Add(this.redNumericUpDown);
+            this.Controls.Add(this.blue5NumericUpDown);
+            this.Controls.Add(this.green5NumericUpDown);
+            this.Controls.Add(this.red5NumericUpDown);
             this.Controls.Add(this.shadesPictureBox);
             this.Controls.Add(this.basicColorsPictureBox);
             this.Name = "ColorPicker";
-            this.Size = new System.Drawing.Size(189, 152);
+            this.Size = new System.Drawing.Size(230, 152);
             ((System.ComponentModel.ISupportInitialize)(this.basicColorsPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shadesPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.redNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blueNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.red5NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.green5NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blue5NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.red8NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.green8NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blue8NumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.NumericUpDown blue8NumericUpDown;
+        private System.Windows.Forms.NumericUpDown green8NumericUpDown;
+        private System.Windows.Forms.NumericUpDown red8NumericUpDown;
         private System.Windows.Forms.ToolTip newColorToolTip;
         private System.Windows.Forms.ToolTip oldColorToolTip;
 
@@ -215,9 +281,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         private System.Windows.Forms.PictureBox basicColorsPictureBox;
         private System.Windows.Forms.PictureBox shadesPictureBox;
-        private System.Windows.Forms.NumericUpDown redNumericUpDown;
-        private System.Windows.Forms.NumericUpDown greenNumericUpDown;
-        private System.Windows.Forms.NumericUpDown blueNumericUpDown;
+        private System.Windows.Forms.NumericUpDown red5NumericUpDown;
+        private System.Windows.Forms.NumericUpDown green5NumericUpDown;
+        private System.Windows.Forms.NumericUpDown blue5NumericUpDown;
 
     }
 }

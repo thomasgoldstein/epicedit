@@ -68,7 +68,7 @@ namespace EpicEdit.Rom.ThemeEdition
             // 
             this.colorPicker.Location = new System.Drawing.Point(169, 40);
             this.colorPicker.Name = "colorPicker";
-            this.colorPicker.Size = new System.Drawing.Size(189, 153);
+            this.colorPicker.Size = new System.Drawing.Size(230, 153);
             this.colorPicker.TabIndex = 2;
             this.colorPicker.ColorChanged += new System.EventHandler<System.EventArgs>(this.ColorPickerColorChanged);
             // 
@@ -108,7 +108,7 @@ namespace EpicEdit.Rom.ThemeEdition
             // exportPalettesButton
             // 
             this.exportPalettesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportPalettesButton.Location = new System.Drawing.Point(335, 203);
+            this.exportPalettesButton.Location = new System.Drawing.Point(375, 203);
             this.exportPalettesButton.Name = "exportPalettesButton";
             this.exportPalettesButton.Size = new System.Drawing.Size(24, 24);
             this.exportPalettesButton.TabIndex = 7;
@@ -119,7 +119,7 @@ namespace EpicEdit.Rom.ThemeEdition
             // importPalettesButton
             // 
             this.importPalettesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importPalettesButton.Location = new System.Drawing.Point(305, 203);
+            this.importPalettesButton.Location = new System.Drawing.Point(345, 203);
             this.importPalettesButton.Name = "importPalettesButton";
             this.importPalettesButton.Size = new System.Drawing.Size(24, 24);
             this.importPalettesButton.TabIndex = 6;
@@ -137,7 +137,7 @@ namespace EpicEdit.Rom.ThemeEdition
             this.Controls.Add(this.resetSelectedButton);
             this.Controls.Add(this.colorPicker);
             this.Name = "PaletteEditor";
-            this.Size = new System.Drawing.Size(360, 230);
+            this.Size = new System.Drawing.Size(401, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
         }

@@ -81,6 +81,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private bool performEvents;
 
+        /// <summary>
+        /// True when the 8-bit colors are being changed by the user, to avoid updating the 8-bit color values twice
+        /// (first with the value input by the user, then by the automatic 5-bit to 8-bit color conversion).
+        /// </summary>
+        private bool updating8BitColors;
+
         #endregion Private members
 
         /// <summary>
@@ -178,9 +184,16 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.performEvents = false;
 
-            this.redNumericUpDown.Value = color.Red5Bit;
-            this.greenNumericUpDown.Value = color.Green5Bit;
-            this.blueNumericUpDown.Value = color.Blue5Bit;
+            this.red5NumericUpDown.Value = color.Red5Bit;
+            this.green5NumericUpDown.Value = color.Green5Bit;
+            this.blue5NumericUpDown.Value = color.Blue5Bit;
+
+            if (!this.updating8BitColors)
+            {
+                this.red8NumericUpDown.Value = color.Red;
+                this.green8NumericUpDown.Value = color.Green;
+                this.blue8NumericUpDown.Value = color.Blue;
+            }
 
             this.performEvents = true;
         }
@@ -562,18 +575,37 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         /// <summary>
-        /// Catches the user changing numbers for the color.
+        /// Catches the user changing numbers for a 5-bit (0-31) color.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RgbValueChanged(object sender, EventArgs e)
+        private void Color5BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
             if (this.performEvents)
             {
-                RomColor color = RomColor.From5BitRgb((byte)redNumericUpDown.Value, (byte)greenNumericUpDown.Value, (byte)blueNumericUpDown.Value);
+                RomColor color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
                 this.SetColor(color);
 
                 this.ColorChanged(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Catches the user changing numbers for an 8-bit (0-255) color.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Color8BitNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            if (this.performEvents)
+            {
+                this.updating8BitColors = true;
+
+                this.red5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)red8NumericUpDown.Value);
+                this.green5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)green8NumericUpDown.Value);
+                this.blue5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)blue8NumericUpDown.Value);
+
+                this.updating8BitColors = false;
             }
         }
 
