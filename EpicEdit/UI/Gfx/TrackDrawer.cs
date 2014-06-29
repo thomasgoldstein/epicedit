@@ -1073,7 +1073,7 @@ namespace EpicEdit.UI.Gfx
             int hoveredObjectIndex = 0;
 
             // 2P Match Race objects (Chain Chomps or Bananas)
-            for (int i = gpTrack.Objects.Count - 1; i >= 16; i--)
+            for (int i = TrackObjects.ObjectCount - 1; i >= TrackObjects.RegularObjectCount; i--)
             {
                 TrackObjectMatchRace trackObject = gpTrack.Objects[i] as TrackObjectMatchRace;
                 int x = trackObject.X * Tile.Size;
@@ -1103,7 +1103,7 @@ namespace EpicEdit.UI.Gfx
             }
 
             // Regular objects (Pipes, Piranha Plants...)
-            for (int i = 15; i >= 0; i--)
+            for (int i = TrackObjects.RegularObjectCount - 1; i >= 0; i--)
             {
                 TrackObject trackObject = gpTrack.Objects[i];
                 int x = trackObject.X * Tile.Size;

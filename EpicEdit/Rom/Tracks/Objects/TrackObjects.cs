@@ -23,9 +23,9 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObjects : IEnumerable<TrackObject>
     {
-        private const int RegularObjectCount = 16;
-        private const int MatchRaceObjectCount = 6;
-        private const int ObjectCount = RegularObjectCount + MatchRaceObjectCount;
+        public const int RegularObjectCount = 16;
+        public const int MatchRaceObjectCount = 6;
+        public const int ObjectCount = RegularObjectCount + MatchRaceObjectCount;
         private const int BytesPerObject = 2;
         public const int Size = ObjectCount * BytesPerObject;
         
