@@ -63,7 +63,7 @@ namespace EpicEdit.Rom
         public void Add(byte[] data, int offsetIndex)
         {
             byte[] offset = Utilities.OffsetToBytes(this.Index);
-            Buffer.BlockCopy(offset, 0, this.romBuffer, offsetIndex, 3);
+            Buffer.BlockCopy(offset, 0, this.romBuffer, offsetIndex, offset.Length);
             this.Add(data);
         }
 
