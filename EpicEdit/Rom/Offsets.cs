@@ -101,6 +101,11 @@ namespace EpicEdit.Rom
         ThemeBackgroundLayouts,
 
         /// <summary>
+        /// Ghost Valley background animation graphics address index.
+        /// </summary>
+        GhostValleyBackgroundAnimationGraphics,
+
+        /// <summary>
         /// The leading byte that composes AI-related addresses.
         /// </summary>
         TrackAIDataFirstAddressByte,
@@ -386,6 +391,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB795;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6C1;
                     this[Offset.RoadTilesetHack1] = 0x1E695;
+                    this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F04B;
                     this[Offset.RankPoints] = 0x5BE52;
                     break;
 
@@ -411,6 +417,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB79E;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6BD;
                     this[Offset.RoadTilesetHack1] = 0x1E691;
+                    this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F058;
                     this[Offset.RankPoints] = 0x5BEB4;
                     break;
 
@@ -436,6 +443,7 @@ namespace EpicEdit.Rom
                     this[Offset.JumpBarCheck] = 0xB7A3;
                     this[Offset.CommonTilesetGraphicsUpperByte] = 0x1E6AC;
                     this[Offset.RoadTilesetHack1] = 0x1E680;
+                    this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F058;
                     this[Offset.RankPoints] = 0x5BEBC;
                     break;
             }
