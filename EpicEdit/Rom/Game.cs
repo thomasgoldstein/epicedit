@@ -2062,18 +2062,16 @@ namespace EpicEdit.Rom
                     bgTileGfxData = Codec.Compress(bgTileGfxData);
                 }
 
-                int newBgTileGfxOffset = saveBuffer.Index;
                 saveBuffer.AddCompressed(bgTileGfxData, bgTileGfxIndex);
 
                 if (themeIndex == 0)
                 {
                     // Update the Ghost Valley animated graphics source
                     // to point to the new Ghost Valley background tileset location
-                    byte[] offset = Utilities.OffsetToBytes(newBgTileGfxOffset);
                     int index = this.offsets[Offset.GhostValleyBackgroundAnimationGraphics];
-                    this.romBuffer[index + 3] = offset[0];
-                    this.romBuffer[index + 4] = offset[1];
-                    this.romBuffer[index] = offset[2];
+                    this.romBuffer[index + 3] = this.romBuffer[bgTileGfxIndex];
+                    this.romBuffer[index + 4] = this.romBuffer[bgTileGfxIndex + 1];
+                    this.romBuffer[index] = this.romBuffer[bgTileGfxIndex + 2];
                 }
             }
         }
