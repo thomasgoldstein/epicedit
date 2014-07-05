@@ -65,10 +65,14 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaEditor.UpdateImages(palette);
         }
 
-        public void ShowTrackItemProbabilities(Track track)
+        public void ShowTrackItemProbabilities(Track track, bool showItemProba)
         {
             this.itemProbaEditor.ShowTrackData(track);
-            this.tabControl.SelectedTab = this.itemProbaTabPage;
+
+            if (showItemProba)
+            {
+                this.tabControl.SelectedTab = this.itemProbaTabPage;
+            }
         }
     }
 }

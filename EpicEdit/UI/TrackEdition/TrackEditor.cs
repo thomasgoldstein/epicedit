@@ -998,6 +998,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitSettingEditor();
             }
 
+            this.settingForm.ShowTrackItemProbabilities(this.track, false);
             this.settingForm.Visible = !this.settingForm.Visible;
         }
 
@@ -1008,7 +1009,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitSettingEditor();
             }
 
-            this.settingForm.ShowTrackItemProbabilities(this.track);
+            this.settingForm.ShowTrackItemProbabilities(this.track, true);
             this.settingForm.Visible = true;
         }
 
