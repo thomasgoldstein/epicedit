@@ -10,6 +10,8 @@ v2.7.2 (July 4th 2014)
 - Fixed 2.7 regression that disabled track reordering
 - Fixed second starting position row slider to properly handle keyboard
   input (left / right arrows) when the precision is 4px or 8px
+- When opening the Game settings, select the item probabilities
+  used by the current track
 
 
 v2.7.1 (February 8th 2014)
