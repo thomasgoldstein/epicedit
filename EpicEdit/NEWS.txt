@@ -12,6 +12,7 @@ v2.7.2 (July 4th 2014)
   input (left / right arrows) when the precision is 4px or 8px
 - When opening the Game settings, select the item probabilities
   used by the current track
+- Minor tweaks and fixes
 
 
 v2.7.1 (February 8th 2014)
