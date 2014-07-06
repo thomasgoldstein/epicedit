@@ -140,7 +140,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsPictureBox.TabStop = false;
             this.basicColorsPictureBox.Click += new System.EventHandler(this.BasicColorsPictureBoxClick);
             this.basicColorsPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.BasicColorsPictureBoxPaint);
+            this.basicColorsPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseDown);
             this.basicColorsPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseMove);
+            this.basicColorsPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseUp);
             // 
             // shadesPictureBox
             // 
@@ -152,7 +154,9 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesPictureBox.TabStop = false;
             this.shadesPictureBox.Click += new System.EventHandler(this.ShadesPictureBoxClick);
             this.shadesPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.ShadesPictureBoxPaint);
+            this.shadesPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseDown);
             this.shadesPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseMove);
+            this.shadesPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseUp);
             // 
             // red5NumericUpDown
             // 
