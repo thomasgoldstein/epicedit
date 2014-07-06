@@ -998,8 +998,15 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitSettingEditor();
             }
 
-            this.settingForm.ShowTrackItemProbabilities(this.track, false);
-            this.settingForm.Visible = !this.settingForm.Visible;
+            if (this.settingForm.Visible)
+            {
+                this.settingForm.Visible = false;
+            }
+            else
+            {
+                this.settingForm.ShowTrackItemProbabilities(this.track, false);
+                this.settingForm.Visible = true;
+            }
         }
 
         private void ItemProbaEditorRequested(object sender, EventArgs e)
