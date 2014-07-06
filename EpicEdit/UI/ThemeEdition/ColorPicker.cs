@@ -87,6 +87,10 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private bool updating8BitColors;
 
+        private bool basicColorsMouseDown;
+
+        private bool shadesPictureMouseDown;
+
         #endregion Private members
 
         /// <summary>
@@ -483,7 +487,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void BasicColorsPictureBoxMouseMove(object sender, MouseEventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            if (this.basicColorsMouseDown)
             {
                 this.BasicColorsClicked(e.X);
             }
@@ -522,7 +526,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void ShadesPictureBoxMouseMove(object sender, MouseEventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            if (this.shadesPictureMouseDown)
             {
                 this.ShadesClicked(e.X, e.Y);
             }
@@ -622,6 +626,38 @@ namespace EpicEdit.UI.ThemeEdition
         }
 
         #endregion Paint
+
+        private void BasicColorsPictureBoxMouseDown(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.basicColorsMouseDown = true;
+            }
+        }
+
+        private void BasicColorsPictureBoxMouseUp(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.basicColorsMouseDown = false;
+            }
+        }
+
+        private void ShadesPictureBoxMouseDown(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.shadesPictureMouseDown = true;
+            }
+        }
+
+        private void ShadesPictureBoxMouseUp(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+            {
+                this.shadesPictureMouseDown = false;
+            }
+        }
 
         #endregion Events handlers
 
