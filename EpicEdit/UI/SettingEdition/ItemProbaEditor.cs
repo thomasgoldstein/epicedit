@@ -297,7 +297,7 @@ namespace EpicEdit.UI.SettingEdition
 
         #endregion Fields initialization and display
 
-        #region Events handlers
+        #region Event handlers
 
         private void ValueChanged(object sender, EventArgs e)
         {
@@ -512,6 +512,6 @@ namespace EpicEdit.UI.SettingEdition
             }
         }
 
-        #endregion Events handlers
+        #endregion Event handlers
     }
 }
