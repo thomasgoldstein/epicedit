@@ -659,6 +659,12 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
+        private void NumericUpDownEnter(object sender, EventArgs e)
+        {
+            NumericUpDown control = sender as NumericUpDown;
+            control.Select(0, control.Text.Length);
+        }
+
         #endregion Event handlers
 
         #region Find colors
