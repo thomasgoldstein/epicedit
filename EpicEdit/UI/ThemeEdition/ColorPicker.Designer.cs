@@ -170,6 +170,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.red5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.red5NumericUpDown.TabIndex = 3;
             this.red5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
+            this.red5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // green5NumericUpDown
             // 
@@ -183,6 +184,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.green5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.green5NumericUpDown.TabIndex = 6;
             this.green5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
+            this.green5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // blue5NumericUpDown
             // 
@@ -196,6 +198,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.blue5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.blue5NumericUpDown.TabIndex = 9;
             this.blue5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
+            this.blue5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // newColorToolTip
             // 
@@ -221,6 +224,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.red8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.red8NumericUpDown.TabIndex = 4;
             this.red8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            this.red8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // green8NumericUpDown
             // 
@@ -234,6 +238,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.green8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.green8NumericUpDown.TabIndex = 7;
             this.green8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            this.green8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // blue8NumericUpDown
             // 
@@ -247,6 +252,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.blue8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.blue8NumericUpDown.TabIndex = 10;
             this.blue8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
+            this.blue8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
             // ColorPicker
             // 
