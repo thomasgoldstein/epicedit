@@ -47,6 +47,7 @@ namespace EpicEdit.UI.TrackEdition
             System.Windows.Forms.Label shapeLabel;
             System.Windows.Forms.Label speedLabel;
             this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
+            this.cloneButton = new System.Windows.Forms.Button();
             this.indexNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.deleteButton = new System.Windows.Forms.Button();
             this.shapeComboBox = new System.Windows.Forms.ComboBox();
@@ -93,6 +94,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // selectedAIElementGroupBox
             // 
+            this.selectedAIElementGroupBox.Controls.Add(this.cloneButton);
             this.selectedAIElementGroupBox.Controls.Add(this.indexNumericUpDown);
             this.selectedAIElementGroupBox.Controls.Add(aiIndexLabel);
             this.selectedAIElementGroupBox.Controls.Add(this.deleteButton);
@@ -102,10 +104,21 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
             this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 120);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
-            this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 207);
+            this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 199);
             this.selectedAIElementGroupBox.TabIndex = 1;
             this.selectedAIElementGroupBox.TabStop = false;
             this.selectedAIElementGroupBox.Text = "Selected Element";
+            // 
+            // cloneButton
+            // 
+            this.cloneButton.Image = global::EpicEdit.Properties.Resources.CopyButton;
+            this.cloneButton.Location = new System.Drawing.Point(60, 168);
+            this.cloneButton.Name = "cloneButton";
+            this.cloneButton.Size = new System.Drawing.Size(24, 24);
+            this.cloneButton.TabIndex = 6;
+            this.buttonToolTip.SetToolTip(this.cloneButton, "Clone element");
+            this.cloneButton.UseVisualStyleBackColor = true;
+            this.cloneButton.Click += new System.EventHandler(this.CloneButtonClick);
             // 
             // indexNumericUpDown
             // 
@@ -124,13 +137,11 @@ namespace EpicEdit.UI.TrackEdition
             // deleteButton
             // 
             this.deleteButton.Image = global::EpicEdit.Properties.Resources.DeleteButton;
-            this.deleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deleteButton.Location = new System.Drawing.Point(29, 165);
+            this.deleteButton.Location = new System.Drawing.Point(90, 168);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(66, 24);
-            this.deleteButton.TabIndex = 6;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.deleteButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteButton.TabIndex = 7;
+            this.buttonToolTip.SetToolTip(this.deleteButton, "Delete element");
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
@@ -161,7 +172,7 @@ namespace EpicEdit.UI.TrackEdition
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.deleteAllButton.Location = new System.Drawing.Point(102, 335);
+            this.deleteAllButton.Location = new System.Drawing.Point(92, 325);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
             this.deleteAllButton.TabIndex = 2;
@@ -172,7 +183,7 @@ namespace EpicEdit.UI.TrackEdition
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
-            this.addButton.Location = new System.Drawing.Point(73, 335);
+            this.addButton.Location = new System.Drawing.Point(63, 325);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
             this.addButton.TabIndex = 4;
@@ -195,7 +206,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 368);
+            this.warningLabel.Location = new System.Drawing.Point(4, 358);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 3;
@@ -229,13 +240,14 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 420);
+            this.Size = new System.Drawing.Size(130, 410);
             this.selectedAIElementGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
             this.itemProbaGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+        private System.Windows.Forms.Button cloneButton;
         private System.Windows.Forms.Button probaEditorButton;
         private System.Windows.Forms.ComboBox setComboBox;
         private System.Windows.Forms.GroupBox itemProbaGroupBox;

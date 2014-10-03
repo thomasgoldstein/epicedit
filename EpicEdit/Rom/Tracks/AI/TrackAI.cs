@@ -71,7 +71,7 @@ namespace EpicEdit.Rom.Tracks.AI
         }
 
         /// <summary>
-        /// Add a new AI element to the element collection.
+        /// Adds a new AI element to the element collection.
         /// </summary>
         /// <param name="aiElement">The new AI element.</param>
         /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
@@ -80,6 +80,21 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.aiElements.Count < TrackAI.MaxElementCount)
             {
                 this.aiElements.Add(aiElement);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Inserts a new AI element to the element collection at a specific index.
+        /// </summary>
+        /// <param name="aiElement">The new AI element.</param>
+        /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
+        public bool Insert(TrackAIElement aiElement, int index)
+        {
+            if (this.aiElements.Count < TrackAI.MaxElementCount)
+            {
+                this.aiElements.Insert(index, aiElement);
                 return true;
             }
             return false;
@@ -104,7 +119,7 @@ namespace EpicEdit.Rom.Tracks.AI
         }
 
         /// <summary>
-        /// Change the index of a given AI element.
+        /// Changes the index of a given AI element.
         /// This increments or decrements the index of all AI elements in between.
         /// </summary>
         /// <param name="indexBefore">The index of the AI element before moving it.</param>
