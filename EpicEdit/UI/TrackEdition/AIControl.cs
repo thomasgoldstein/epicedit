@@ -38,6 +38,9 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> DataChangedNoRepaint;
 
         [Browsable(true)]
+        public event EventHandler<EventArgs> CloneRequested;
+
+        [Browsable(true)]
         public event EventHandler<EventArgs> DeleteRequested;
 
         [Browsable(true)]
@@ -196,6 +199,11 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedElement.ChangeShape(newShape);
 
             this.DataChanged(this, EventArgs.Empty);
+        }
+
+        private void CloneButtonClick(object sender, EventArgs e)
+        {
+            this.CloneRequested(this, EventArgs.Empty);
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)

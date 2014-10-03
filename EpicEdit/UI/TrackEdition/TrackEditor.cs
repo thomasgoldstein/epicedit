@@ -2870,17 +2870,40 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.track.AI.Add(newAIElem))
             {
-                this.aiControl.SetMaximumAIElementIndex();
-                this.aiControl.SelectedElement = newAIElem;
-                this.InitAIAction();
+                this.OnAIElementAdded(newAIElem);
+            }
+        }
 
-                this.trackTreeView.MarkTrackAsChanged();
-                this.InvalidateTrackDisplay();
+        private void CloneAIElement()
+        {
+            TrackAIElement aiElement = this.aiControl.SelectedElement;
+            TrackAIElement newAIElem = aiElement.Clone();
 
-                if (this.track.AI.ElementCount == 1)
-                {
-                    this.aiControl.HideWarning();
-                }
+            // Shift the cloned element position, so it's not directly over the source element
+            newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
+                                           aiElement.Location.Y + TrackAIElement.Precision);
+
+            // Ensure the cloned element index is right after the source element
+            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
+
+            if (this.track.AI.Insert(newAIElem, newAIElementIndex))
+            {
+                this.OnAIElementAdded(newAIElem);
+            }
+        }
+
+        private void OnAIElementAdded(TrackAIElement aiElement)
+        {
+            this.aiControl.SetMaximumAIElementIndex();
+            this.aiControl.SelectedElement = aiElement;
+            this.InitAIAction();
+
+            this.trackTreeView.MarkTrackAsChanged();
+            this.InvalidateTrackDisplay();
+
+            if (this.track.AI.ElementCount == 1)
+            {
+                this.aiControl.HideWarning();
             }
         }
 
@@ -2914,6 +2937,11 @@ namespace EpicEdit.UI.TrackEdition
         private void AIControlDataChangedNoRepaint(object sender, EventArgs e)
         {
             this.trackTreeView.MarkTrackAsChanged();
+        }
+
+        private void AIControlCloneRequested(object sender, EventArgs e)
+        {
+            this.CloneAIElement();
         }
 
         private void AIControlDeleteRequested(object sender, EventArgs e)

@@ -174,6 +174,8 @@ namespace EpicEdit.Rom.Tracks.AI
             this.Speed = 0;
         }
 
+        private TrackAIElement() { }
+
         public bool IntersectsWith(Point point)
         {
             if (this.ZoneShape == Shape.Rectangle)
@@ -1046,6 +1048,18 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 data[index++] = (byte)size;
             }
+        }
+
+        public TrackAIElement Clone()
+        {
+            return new TrackAIElement
+            {
+                Location = this.Location,
+                Speed = this.Speed,
+                Target = this.Target,
+                zone = this.zone,
+                ZoneShape = this.ZoneShape
+            };
         }
     }
 }
