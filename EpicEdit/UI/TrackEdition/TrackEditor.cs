@@ -572,7 +572,7 @@ namespace EpicEdit.UI.TrackEdition
             TileChange change = this.undoRedoBuffer.NextUndo;
             this.undoRedoBuffer.Undo();
             this.menuBar.RedoEnabled = true;
-            this.EnableDisableUndo();
+            this.ToggleUndo();
             this.EndUndoRedo(change);
         }
 
@@ -581,21 +581,21 @@ namespace EpicEdit.UI.TrackEdition
             TileChange change = this.undoRedoBuffer.NextRedo;
             this.undoRedoBuffer.Redo();
             this.menuBar.UndoEnabled = true;
-            this.EnableDisableRedo();
+            this.ToggleRedo();
             this.EndUndoRedo(change);
         }
 
-        private void EnableDisableUndo()
+        private void ToggleUndo()
         {
             this.menuBar.UndoEnabled = this.undoRedoBuffer.HasUndo;
         }
 
-        private void EnableDisableRedo()
+        private void ToggleRedo()
         {
             this.menuBar.RedoEnabled = this.undoRedoBuffer.HasRedo;
         }
 
-        private void EnableDisableUndoRedo()
+        private void ToggleUndoRedo()
         {
             if (!this.undoRedoBuffers.ContainsKey(this.track))
             {
@@ -605,8 +605,8 @@ namespace EpicEdit.UI.TrackEdition
             {
                 if (this.editionMode == EditionMode.Tileset)
                 {
-                    this.EnableDisableUndo();
-                    this.EnableDisableRedo();
+                    this.ToggleUndo();
+                    this.ToggleRedo();
                 }
                 else
                 {
@@ -1933,7 +1933,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.ResetScrollingPosition();
             this.SetTrack();
-            this.EnableDisableUndoRedo();
+            this.ToggleUndoRedo();
             this.DisplayNewTrack();
         }
 
@@ -2055,7 +2055,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.trackDisplay.EditionMode = this.editionMode;
-            this.EnableDisableUndoRedo();
+            this.ToggleUndoRedo();
         }
 
         private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
