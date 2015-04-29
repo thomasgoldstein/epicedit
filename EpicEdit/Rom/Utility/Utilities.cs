@@ -19,7 +19,7 @@ using System.Text;
 
 namespace EpicEdit.Rom.Utility
 {
-    internal class Utilities
+    internal static class Utilities
     {
         #region Read byte blocks
 
