@@ -333,7 +333,7 @@ namespace EpicEdit.Rom.Settings
             {
                 // The text data is too big to fit into the data array.
                 // This can only happen when the GetBytes method is called from TotalCharacterCount,
-                // because otherwise all text are guaranteed to fit within the collection.
+                // because otherwise all texts are guaranteed to fit within the collection.
                 index = length;
                 return;
             }
