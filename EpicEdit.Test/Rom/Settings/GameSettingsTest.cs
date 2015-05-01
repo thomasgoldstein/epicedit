@@ -203,6 +203,19 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
+        public void TestJapModeNames()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "マリオカートGP", "VSマッチレース", "バトルゲーム"
+                },
+                null, // Not testing expected bytes, data resaving not supported
+                null, // Not testing expected bytes, data resaving not supported
+                this.gameJ.Settings.ModeNames);
+        }
+
+        [Test]
         public void TestJapCupAndThemeNames()
         {
             this.TestTexts(
@@ -215,19 +228,6 @@ namespace EpicEdit.Test.Rom.Settings
                 File.ReadBlock(this.romBufferJ, 0x1C9A3, 26),
                 File.ReadBlock(this.romBufferJ, 0x1CA19, 144),
                 this.gameJ.Settings.CupAndThemeNames);
-        }
-
-        [Test]
-        public void TestJapModeNames()
-        {
-            this.TestTexts(
-                new string[]
-                {
-                    "マリオカートGP", "VSマッチレース", "バトルゲーム"
-                },
-                null, // Not testing expected bytes, data resaving not supported
-                null, // Not testing expected bytes, data resaving not supported
-                this.gameJ.Settings.ModeNames);
         }
 
         [Test]
