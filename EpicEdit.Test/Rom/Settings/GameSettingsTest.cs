@@ -23,17 +23,21 @@ namespace EpicEdit.Test.Rom.Settings
     [TestFixture]
     internal class GameSettingsTest
     {
-        private Game game;
         private Game gameJ;
-        private byte[] romBuffer;
+        private Game gameU;
+        private Game gameE;
         private byte[] romBufferJ;
+        private byte[] romBufferU;
+        private byte[] romBufferE;
 
         public GameSettingsTest()
         {
-            this.game = File.GetGame(Region.US);
             this.gameJ = File.GetGame(Region.Jap);
-            this.romBuffer = File.ReadRom(Region.US);
+            this.gameU = File.GetGame(Region.US);
+            this.gameE = File.GetGame(Region.Euro);
             this.romBufferJ = File.ReadRom(Region.Jap);
+            this.romBufferU = File.ReadRom(Region.US);
+            this.romBufferE = File.ReadRom(Region.Euro);
         }
 
         private void TestTexts(string[] expectedTexts, byte[] expectedIndexes, byte[] expectedBytes, TextCollection textColl)
@@ -59,21 +63,6 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestUSCupAndThemeNames()
-        {
-            this.TestTexts(
-                new string[]
-                {
-                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
-                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
-                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
-                },
-                File.ReadBlock(this.romBuffer, 0x1CA32, 26),
-                File.ReadBlock(this.romBuffer, 0x1CA88, 173),
-                this.game.Settings.CupAndThemeNames);
-        }
-
-        [Test]
         public void TestUSModeNames()
         {
             this.TestTexts(
@@ -83,7 +72,22 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 null, // Not testing expected bytes, data resaving not supported
                 null, // Not testing expected bytes, data resaving not supported
-                this.game.Settings.ModeNames);
+                this.gameU.Settings.ModeNames);
+        }
+
+        [Test]
+        public void TestUSCupAndThemeNames()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
+                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
+                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
+                },
+                File.ReadBlock(this.romBufferU, 0x1CA32, 26),
+                File.ReadBlock(this.romBufferU, 0x1CA88, 173),
+                this.gameU.Settings.CupAndThemeNames);
         }
 
         [Test]
@@ -95,9 +99,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBuffer, 0x5C25B, 16),
-                File.ReadBlock(this.romBuffer, 0x5C277, 134),
-                this.game.Settings.DriverNamesGPResults);
+                File.ReadBlock(this.romBufferU, 0x5C25B, 16),
+                File.ReadBlock(this.romBufferU, 0x5C277, 134),
+                this.gameU.Settings.DriverNamesGPResults);
         }
 
         [Test]
@@ -109,9 +113,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
                     "DK JR.", "KOOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBuffer, 0x5A148, 16),
-                File.ReadBlock(this.romBuffer, 0x5A15C, 112),
-                this.game.Settings.DriverNamesGPPodium);
+                File.ReadBlock(this.romBufferU, 0x5A148, 16),
+                File.ReadBlock(this.romBufferU, 0x5A15C, 112),
+                this.gameU.Settings.DriverNamesGPPodium);
         }
 
         [Test]
@@ -123,9 +127,79 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "D.K.JR", "KOOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBuffer, 0x1DDD3, 16),
-                File.ReadBlock(this.romBuffer, 0x1DC91, 52),
-                this.game.Settings.DriverNamesTimeTrial);
+                File.ReadBlock(this.romBufferU, 0x1DDD3, 16),
+                File.ReadBlock(this.romBufferU, 0x1DC91, 52),
+                this.gameU.Settings.DriverNamesTimeTrial);
+        }
+
+        [Test]
+        public void TestEuroModeNames()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
+                },
+                null, // Not testing expected bytes, data resaving not supported
+                null, // Not testing expected bytes, data resaving not supported
+                this.gameU.Settings.ModeNames);
+        }
+
+        [Test]
+        public void TestEuroCupAndThemeNames()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
+                    "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
+                    "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
+                },
+                File.ReadBlock(this.romBufferU, 0x1CA32, 26),
+                File.ReadBlock(this.romBufferU, 0x1CA88, 173),
+                this.gameU.Settings.CupAndThemeNames);
+        }
+
+        [Test]
+        public void TestEuroDriverNamesGPResults()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MARIO", "LUIGI", "BOWSER", "PRINCESS",
+                    "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
+                },
+                File.ReadBlock(this.romBufferU, 0x5C25B, 16),
+                File.ReadBlock(this.romBufferU, 0x5C277, 134),
+                this.gameU.Settings.DriverNamesGPResults);
+        }
+
+        [Test]
+        public void TestEuroDriverNamesGPPodium()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
+                    "DK JR.", "KOOPA", "TOAD", "YOSHI"
+                },
+                File.ReadBlock(this.romBufferU, 0x5A148, 16),
+                File.ReadBlock(this.romBufferU, 0x5A15C, 112),
+                this.gameU.Settings.DriverNamesGPPodium);
+        }
+
+        [Test]
+        public void TestEuroDriverNamesTimeTrial()
+        {
+            this.TestTexts(
+                new string[]
+                {
+                    "MARIO", "LUIGI", "BOWSER", "PRINCESS",
+                    "D.K.JR", "KOOPA", "TOAD", "YOSHI"
+                },
+                File.ReadBlock(this.romBufferU, 0x1DDD3, 16),
+                File.ReadBlock(this.romBufferU, 0x1DC91, 52),
+                this.gameU.Settings.DriverNamesTimeTrial);
         }
 
         [Test]
@@ -205,13 +279,13 @@ namespace EpicEdit.Test.Rom.Settings
             // (can happen if the ROM has been edited manually).
 
             // Working on a clone to avoid changing the original buffer
-            byte[] romBuffer = this.romBuffer.Clone() as byte[];
+            byte[] romBuffer = this.romBufferU.Clone() as byte[];
 
             // Switch the indexes for the first 2 names
-            romBuffer[0x1CA32] = this.romBuffer[0x1CA34];
-            romBuffer[0x1CA33] = this.romBuffer[0x1CA35];
-            romBuffer[0x1CA34] = this.romBuffer[0x1CA32];
-            romBuffer[0x1CA35] = this.romBuffer[0x1CA33];
+            romBuffer[0x1CA32] = this.romBufferU[0x1CA34];
+            romBuffer[0x1CA33] = this.romBufferU[0x1CA35];
+            romBuffer[0x1CA34] = this.romBufferU[0x1CA32];
+            romBuffer[0x1CA35] = this.romBufferU[0x1CA33];
 
             GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
 
@@ -226,14 +300,14 @@ namespace EpicEdit.Test.Rom.Settings
             // Resaving the data is supposed to sort the texts and the indexes
             settings.CupAndThemeNames.Save(romBuffer);
 
-            Assert.AreEqual(this.romBuffer, romBuffer);
+            Assert.AreEqual(this.romBufferU, romBuffer);
         }
 
         [Test]
         public void TestSpaceBytes()
         {
             // Working on a clone to avoid changing the original buffer
-            byte[] romBuffer = this.romBuffer.Clone() as byte[];
+            byte[] romBuffer = this.romBufferU.Clone() as byte[];
 
             romBuffer[0x1DC91 + 1] = 0x2C; // Replace Time Trial Mario's A with a thin space
             romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a normal space
