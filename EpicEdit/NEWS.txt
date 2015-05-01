@@ -3,6 +3,11 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
+v2.7.5 (xxx 2015)
+- Added the ability to clone AI elements
+- Minor tweaks and fixes
+
+
 v2.7.2 (July 13th 2014)
 - Added the ability to modify colors as 8-bit (0-255) RGB values
 - If you update the Ghost Valley background tileset graphics, the
