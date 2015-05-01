@@ -142,7 +142,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 null, // Not testing expected bytes, data resaving not supported
                 null, // Not testing expected bytes, data resaving not supported
-                this.gameU.Settings.ModeNames);
+                this.gameE.Settings.ModeNames);
         }
 
         [Test]
@@ -155,9 +155,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
                     "VANILLA LAKE ", "CHOCO ISLAND ", "KOOPA BEACH ", "BATTLE COURSE ", "RAINBOW ROAD "
                 },
-                File.ReadBlock(this.romBufferU, 0x1CA32, 26),
-                File.ReadBlock(this.romBufferU, 0x1CA88, 173),
-                this.gameU.Settings.CupAndThemeNames);
+                File.ReadBlock(this.romBufferE, 0x1C8CE, 26),
+                File.ReadBlock(this.romBufferE, 0x1C924, 173),
+                this.gameE.Settings.CupAndThemeNames);
         }
 
         [Test]
@@ -169,9 +169,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBufferU, 0x5C25B, 16),
-                File.ReadBlock(this.romBufferU, 0x5C277, 134),
-                this.gameU.Settings.DriverNamesGPResults);
+                File.ReadBlock(this.romBufferE, 0x5C263, 16),
+                File.ReadBlock(this.romBufferE, 0x5C27F, 134),
+                this.gameE.Settings.DriverNamesGPResults);
         }
 
         [Test]
@@ -183,9 +183,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
                     "DK JR.", "KOOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBufferU, 0x5A148, 16),
-                File.ReadBlock(this.romBufferU, 0x5A15C, 112),
-                this.gameU.Settings.DriverNamesGPPodium);
+                File.ReadBlock(this.romBufferE, 0x5A152, 16),
+                File.ReadBlock(this.romBufferE, 0x5A166, 112),
+                this.gameE.Settings.DriverNamesGPPodium);
         }
 
         [Test]
@@ -197,9 +197,9 @@ namespace EpicEdit.Test.Rom.Settings
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "D.K.JR", "KOOPA", "TOAD", "YOSHI"
                 },
-                File.ReadBlock(this.romBufferU, 0x1DDD3, 16),
-                File.ReadBlock(this.romBufferU, 0x1DC91, 52),
-                this.gameU.Settings.DriverNamesTimeTrial);
+                File.ReadBlock(this.romBufferE, 0x1DC81, 16),
+                File.ReadBlock(this.romBufferE, 0x1DB3F, 52),
+                this.gameE.Settings.DriverNamesTimeTrial);
         }
 
         [Test]
