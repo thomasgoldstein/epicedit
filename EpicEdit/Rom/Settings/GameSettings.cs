@@ -37,7 +37,7 @@ namespace EpicEdit.Rom.Settings
         public TextCollection GPCupNames { get; private set; }
 
         /// <summary>
-        /// Gets the cup and theme names displayed in Time Trial.
+        /// Gets the cup and theme names displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
         public TextCollection CupAndThemeNames { get; private set; }
 

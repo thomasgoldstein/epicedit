@@ -31,7 +31,7 @@ namespace EpicEdit.Rom
         GPCupNames,
 
         /// <summary>
-        /// Offsets to cup and theme names as displayed in Time Trial.
+        /// Offsets to cup and theme names as displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
         CupAndThemeNames,
 
