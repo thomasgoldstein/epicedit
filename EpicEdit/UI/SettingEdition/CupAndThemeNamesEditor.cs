@@ -65,6 +65,13 @@ namespace EpicEdit.UI.SettingEdition
             {
                 // NOTE: Japanese ROM, text editing not supported for GP cup names
                 this.gpCupNamesGroupBox.Enabled = false;
+
+                this.gpTextBox1.Text = string.Empty;
+                this.gpTextBox2.Text = string.Empty;
+                this.gpTextBox3.Text = string.Empty;
+                this.gpTextBox4.Text = string.Empty;
+
+                this.gpCupNamesCountLabel.Text = string.Empty;
             }
             else
             {
