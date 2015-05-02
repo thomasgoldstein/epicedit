@@ -26,12 +26,18 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class CupAndThemeNamesEditor : UserControl
     {
-        private TextCollection names;
+        private TextCollection gpCupNames;
+        private TextCollection cupAndThemeNames;
         private bool fireEvents;
 
         public CupAndThemeNamesEditor()
         {
             this.InitializeComponent();
+
+            this.gpTextBox1.Tag = 0;
+            this.gpTextBox2.Tag = 1;
+            this.gpTextBox3.Tag = 2;
+            this.gpTextBox4.Tag = 3;
 
             this.textBox1.Tag = 0;
             this.textBox2.Tag = 1;
@@ -50,38 +56,66 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.names = Context.Game.Settings.CupAndThemeNames;
+            this.gpCupNames = Context.Game.Settings.GPCupNames;
+            this.cupAndThemeNames = Context.Game.Settings.CupAndThemeNames;
 
             this.fireEvents = false;
 
-            this.textBox1.Text = names[0].Value;
-            this.textBox2.Text = names[1].Value;
-            this.textBox3.Text = names[2].Value;
-            this.textBox4.Text = names[3].Value;
-            this.textBox5.Text = names[4].Value;
-            this.textBox6.Text = names[5].Value;
-            this.textBox7.Text = names[6].Value;
-            this.textBox8.Text = names[7].Value;
-            this.textBox9.Text = names[8].Value;
-            this.textBox10.Text = names[9].Value;
-            this.textBox11.Text = names[10].Value;
-            this.textBox12.Text = names[11].Value;
-            this.textBox13.Text = names[12].Value;
+            if (this.gpCupNames == null)
+            {
+                // NOTE: Japanese ROM, text editing not supported for GP cup names
+                this.gpCupNamesGroupBox.Enabled = false;
+            }
+            else
+            {
+                this.gpCupNamesGroupBox.Enabled = true;
+
+                this.gpTextBox1.Text = this.gpCupNames[0].Value;
+                this.gpTextBox2.Text = this.gpCupNames[1].Value;
+                this.gpTextBox3.Text = this.gpCupNames[2].Value;
+                this.gpTextBox4.Text = this.gpCupNames[3].Value;
+
+                UpdateCount(this.gpCupNames, this.gpCupNamesCountLabel);
+            }
+
+            this.textBox1.Text = this.cupAndThemeNames[0].Value;
+            this.textBox2.Text = this.cupAndThemeNames[1].Value;
+            this.textBox3.Text = this.cupAndThemeNames[2].Value;
+            this.textBox4.Text = this.cupAndThemeNames[3].Value;
+            this.textBox5.Text = this.cupAndThemeNames[4].Value;
+            this.textBox6.Text = this.cupAndThemeNames[5].Value;
+            this.textBox7.Text = this.cupAndThemeNames[6].Value;
+            this.textBox8.Text = this.cupAndThemeNames[7].Value;
+            this.textBox9.Text = this.cupAndThemeNames[8].Value;
+            this.textBox10.Text = this.cupAndThemeNames[9].Value;
+            this.textBox11.Text = this.cupAndThemeNames[10].Value;
+            this.textBox12.Text = this.cupAndThemeNames[11].Value;
+            this.textBox13.Text = this.cupAndThemeNames[12].Value;
+
+            UpdateCount(this.cupAndThemeNames, this.cupAndThemeNamesCountLabel);
 
             this.fireEvents = true;
-
-            this.UpdateCount();
         }
 
-        private void UpdateCount()
+        private static void UpdateCount(TextCollection textCollection, Label countLabel)
         {
-            int total = this.names.TotalCharacterCount;
-            int max = this.names.MaxCharacterCount;
-            this.countLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", total, max);
-            this.countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
+            int total = textCollection.TotalCharacterCount;
+            int max = textCollection.MaxCharacterCount;
+            countLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", total, max);
+            countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 
-        private void TextBoxTextChanged(object sender, EventArgs e)
+        private void GPCupNamesTextBoxTextChanged(object sender, EventArgs e)
+        {
+            this.OnTextBoxTextChanged(sender, this.gpCupNames, this.gpCupNamesCountLabel);
+        }
+
+        private void CupAndThemeNamesTextBoxTextChanged(object sender, EventArgs e)
+        {
+            this.OnTextBoxTextChanged(sender, this.cupAndThemeNames, this.cupAndThemeNamesCountLabel);
+        }
+
+        private void OnTextBoxTextChanged(object sender, TextCollection textCollection, Label countLabel)
         {
             if (!this.fireEvents)
             {
@@ -93,13 +127,15 @@ namespace EpicEdit.UI.SettingEdition
             TextBox textBox = sender as TextBox;
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
-            this.names.SetValue(id, textBox.Text);
-            textBox.Text = this.names[id].Value;
-            textBox.SelectionStart = sel;
+
+            textCollection.SetValue(id, textBox.Text);
+
+            textBox.Text = textCollection[id].Value; // Retrieve validated text
+            textBox.SelectionStart = sel; // Restore text input position
 
             this.fireEvents = true;
 
-            this.UpdateCount();
+            UpdateCount(textCollection, countLabel);
         }
     }
 }
