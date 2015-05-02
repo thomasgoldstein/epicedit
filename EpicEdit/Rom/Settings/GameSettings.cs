@@ -27,14 +27,19 @@ namespace EpicEdit.Rom.Settings
         private Offsets offsets;
 
         /// <summary>
-        /// Gets the cup and theme names.
-        /// </summary>
-        public TextCollection CupAndThemeNames { get; private set; }
-
-        /// <summary>
         /// Gets the game mode names.
         /// </summary>
         public TextCollection ModeNames { get; private set; }
+
+        /// <summary>
+        /// Gets the cup names displayed on the GP cup selection screen.
+        /// </summary>
+        public TextCollection GPCupNames { get; private set; }
+
+        /// <summary>
+        /// Gets the cup and theme names displayed in Time Trial.
+        /// </summary>
+        public TextCollection CupAndThemeNames { get; private set; }
 
         /// <summary>
         /// Driver names that appear on the GP result screen.
@@ -66,6 +71,7 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 return
+                    (this.GPCupNames != null && this.GPCupNames.Modified) ||
                     this.CupAndThemeNames.Modified ||
                     this.DriverNamesGPResults.Modified ||
                     this.DriverNamesGPPodium.Modified ||
@@ -81,32 +87,43 @@ namespace EpicEdit.Rom.Settings
 
             bool isJap = region == Region.Jap;
             int[] nameDataSizes = isJap ?
-                new int[] { 144, 48, 136, 96, 42 } :
-                new int[] { 173, 66, 134, 112, 52 };
+                new int[] { 48, 94, 144, 136, 96, 42 } :
+                new int[] { 66, 130, 173, 134, 112, 52 };
 
             char thinSpace = '\u2009';
 
-            this.CupAndThemeNames = new TextCollection(
-                romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count,
-                nameDataSizes[0], false, false, false, 0,
-                new byte[] { 0x2C }, new char[] { thinSpace });
-
             this.ModeNames = new TextCollection(
                 romBuffer, offsets[Offset.ModeNames], 3,
-                nameDataSizes[1], true, true, false, 0, null, null);
+                nameDataSizes[0], true, true, false, false, 0, null, null);
+
+            if (!isJap)
+            {
+                // NOTE: GP cup names loading and editing is not supported for the Japanese ROM.
+                // These texts are not extensible, as the characters are not reusable.
+                // This is due to the fact characters are specific and split across tiles,
+                // which makes it so they can only be modified properly by editing the tile graphics.
+                this.GPCupNames = new TextCollection(
+                    romBuffer, offsets[Offset.GPCupNames], 4,
+                    nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
+            }
+
+            this.CupAndThemeNames = new TextCollection(
+                romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count,
+                nameDataSizes[2], false, false, false, false, 0,
+                new byte[] { 0x2C }, new char[] { thinSpace });
 
             this.DriverNamesGPResults = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesGPResults], 8,
-                nameDataSizes[2], true, false, isJap, 0, null, null);
+                nameDataSizes[3], true, false, isJap, false, 0, null, null);
 
             this.DriverNamesGPPodium = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesGPPodium], 8,
-                nameDataSizes[3], true, false, false, (isJap ? (byte)0x60 : (byte)0x80),
+                nameDataSizes[4], true, false, false, false, (isJap ? (byte)0x60 : (byte)0x80),
                 !isJap ? null : new byte[] { 0x8B, 0x8C }, !isJap ? null : new char[] { 'J', 'R' });
 
             this.DriverNamesTimeTrial = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
-                nameDataSizes[4], false, false, false, 0,
+                nameDataSizes[5], false, false, false, false, 0,
                 new byte[] { 0x2C }, new char[] { thinSpace });
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
@@ -118,6 +135,10 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer)
         {
+            if (this.GPCupNames != null)
+            {
+                this.GPCupNames.Save(romBuffer);
+            }
             this.CupAndThemeNames.Save(romBuffer);
             this.DriverNamesGPResults.Save(romBuffer);
             this.DriverNamesGPPodium.Save(romBuffer);

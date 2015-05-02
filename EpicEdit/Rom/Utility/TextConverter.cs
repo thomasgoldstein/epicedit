@@ -26,10 +26,10 @@ namespace EpicEdit.Rom.Utility
         public Region Region { get; private set; }
         private Map<byte, char> dictionary;
 
-        public TextConverter(Region region, byte shiftValue)
+        public TextConverter(Region region, bool largeCharacters, byte shiftValue)
         {
             this.Region = region;
-            this.LoadCharacterSet(shiftValue);
+            this.LoadCharacterSet(largeCharacters, shiftValue);
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace EpicEdit.Rom.Utility
         /// This function assumes that the location of each character tile hasn't been changed
         /// (in the ROM font graphics), which may be wrong.
         /// </summary>
-        private void LoadCharacterSet(byte shiftValue)
+        private void LoadCharacterSet(bool largeCharacters, byte shiftValue)
         {
-            char[] chars = this.GetCharacterSet();
+            char[] chars = CharacterSet.Get(this.Region, largeCharacters);
             this.dictionary = new Map<byte, char>();
 
             for (int i = 0; i < chars.Length; i++)
@@ -49,13 +49,6 @@ namespace EpicEdit.Rom.Utility
                     this.dictionary.Add((byte)(i + shiftValue), chars[i]);
                 }
             }
-        }
-
-        private char[] GetCharacterSet()
-        {
-            return this.Region == Region.Jap ?
-                CharacterSetJap.Get() :
-                CharacterSetUS.Get();
         }
 
         public void ReplaceKeyValues(byte[] keys, char[] values)

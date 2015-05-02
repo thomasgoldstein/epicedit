@@ -76,6 +76,31 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
+        public void TestUSGPCupNames()
+        {
+            byte[] expectedBytes = File.ReadBlock(this.romBufferU, 0x4F867, 130);
+
+            // HACK: Update the palette associated with spaces to match the one used on letters
+            // (Epic Edit just applies the same palette to all characters)
+            for (int i = 0; i < expectedBytes.Length; i++)
+            {
+                if (expectedBytes[i] == 0xE5)
+                {
+                    expectedBytes[i + 1] = expectedBytes[i - 1];
+                }
+            }
+
+            this.TestTexts(
+                new string[]
+                {
+                    "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
+                },
+                File.ReadBlock(this.romBufferU, 0x4F85F, 8),
+                expectedBytes,
+                this.gameU.Settings.GPCupNames);
+        }
+
+        [Test]
         public void TestUSCupAndThemeNames()
         {
             this.TestTexts(
@@ -143,6 +168,31 @@ namespace EpicEdit.Test.Rom.Settings
                 null, // Not testing expected bytes, data resaving not supported
                 null, // Not testing expected bytes, data resaving not supported
                 this.gameE.Settings.ModeNames);
+        }
+
+        [Test]
+        public void TestEuroGPCupNames()
+        {
+            byte[] expectedBytes = File.ReadBlock(this.romBufferE, 0x4F780, 130);
+
+            // HACK: Update the palette associated with spaces to match the one used on letters
+            // (Epic Edit just applies the same palette to all characters)
+            for (int i = 0; i < expectedBytes.Length; i++)
+            {
+                if (expectedBytes[i] == 0xE5)
+                {
+                    expectedBytes[i + 1] = expectedBytes[i - 1];
+                }
+            }
+
+            this.TestTexts(
+                new string[]
+                {
+                    "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
+                },
+                File.ReadBlock(this.romBufferE, 0x4F778, 8),
+                expectedBytes,
+                this.gameE.Settings.GPCupNames);
         }
 
         [Test]
