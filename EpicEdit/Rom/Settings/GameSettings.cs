@@ -167,6 +167,7 @@ namespace EpicEdit.Rom.Settings
 
         public void ResetModifiedState()
         {
+            this.GPCupNames.ResetModifiedState();
             this.CupAndThemeNames.ResetModifiedState();
             this.DriverNamesGPResults.ResetModifiedState();
             this.DriverNamesGPPodium.ResetModifiedState();
