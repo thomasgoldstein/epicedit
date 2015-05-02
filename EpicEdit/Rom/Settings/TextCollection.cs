@@ -67,6 +67,11 @@ namespace EpicEdit.Rom.Settings
         private bool japAltMode;
 
         /// <summary>
+        /// True if characters are large (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).
+        /// </summary>
+        private bool largeCharacters;
+
+        /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
         /// </summary>
         public int MaxCharacterCount { get; private set; }
@@ -118,6 +123,7 @@ namespace EpicEdit.Rom.Settings
             this.indexOffset = indexOffset;
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
+            this.largeCharacters = largeCharacters;
 
             if (hasPaletteData)
             {
@@ -323,6 +329,19 @@ namespace EpicEdit.Rom.Settings
             }
 
             length = index;
+
+            if (this.largeCharacters)
+            {
+                // Fix space character attributes (removing palette association)
+
+                for (int i = 0; i < data.Length; i += 2)
+                {
+                    if (data[i] == 0xE5)
+                    {
+                        data[i + 1] = 0x00;
+                    }
+                }
+            }
 
             return data;
         }
