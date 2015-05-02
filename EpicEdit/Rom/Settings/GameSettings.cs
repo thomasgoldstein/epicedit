@@ -42,17 +42,17 @@ namespace EpicEdit.Rom.Settings
         public TextCollection CupAndThemeNames { get; private set; }
 
         /// <summary>
-        /// Driver names that appear on the GP result screen.
+        /// Gets the driver names that appear on the GP result screen.
         /// </summary>
         public TextCollection DriverNamesGPResults { get; private set; }
 
         /// <summary>
-        /// Driver names that appear on the GP podium screen.
+        /// Gets the driver names that appear on the GP podium screen.
         /// </summary>
         public TextCollection DriverNamesGPPodium { get; private set; }
 
         /// <summary>
-        /// Driver names that appear in Time Trial.
+        /// Gets the driver names that appear in Time Trial.
         /// </summary>
         public TextCollection DriverNamesTimeTrial { get; private set; }
 
