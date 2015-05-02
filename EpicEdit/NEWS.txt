@@ -4,6 +4,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 
 
 v2.7.5 (xxx 2015)
+- Added support for GP cup names editing
 - Added the ability to clone AI elements
 - Minor tweaks and fixes
 
