@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace EpicEdit.Rom.Compression
 {
     /// <summary>
-    /// A collection of <see cref="ChunkNodes">chunk nodes</see>.
+    /// A collection of <see cref="ChunkNode">chunk nodes</see>.
     /// It keeps track of the best solutions (ie: resulting in the highest compression rate) among the nodes.
     /// </summary>
     internal class ChunkNodeCollection : IEnumerable<KeyValuePair<int, ChunkNode>>
