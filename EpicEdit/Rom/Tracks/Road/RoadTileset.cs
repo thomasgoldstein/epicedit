@@ -97,8 +97,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
             for (int i = 0; i < data.Length; i++)
             {
-                RoadTile tile = this.tileset[i];
-                data[i] = (byte)tile.Genre;
+                data[i] = (byte)this.tileset[i].Genre;
             }
 
             return data;
