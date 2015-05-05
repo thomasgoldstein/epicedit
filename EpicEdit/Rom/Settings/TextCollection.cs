@@ -67,9 +67,9 @@ namespace EpicEdit.Rom.Settings
         private bool japAltMode;
 
         /// <summary>
-        /// True if characters are large (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).
+        /// True if characters are tall (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).
         /// </summary>
-        private bool largeCharacters;
+        private bool tallCharacters;
 
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
@@ -109,21 +109,21 @@ namespace EpicEdit.Rom.Settings
         /// <param name="fixedLength">True if the length of each text is specified separately in a length table.
         /// Otherwise each text item ends with 0xFF.</param>
         /// <param name="japAltMode">True for Japanese texts with ten-ten and maru characters encoded separately.</param>
-        /// <param name="largeCharacters">True if characters are large (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).</param>
+        /// <param name="tallCharacters">True if characters are tall (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).</param>
         /// <param name="shiftValue">The value to be added to each byte value to get the correct character. Usually 0.</param>
         /// <param name="keys">The byte values that need to be linked to specific characters.</param>
         /// <param name="values">The characters linked to the key byte values.</param>
         public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool hasPaletteData,
-                              bool fixedLength, bool japAltMode, bool largeCharacters, byte shiftValue, byte[] keys, char[] values)
+                              bool fixedLength, bool japAltMode, bool tallCharacters, byte shiftValue, byte[] keys, char[] values)
         {
-            this.Converter = new TextConverter(Game.GetRegion(romBuffer), largeCharacters, shiftValue);
+            this.Converter = new TextConverter(Game.GetRegion(romBuffer), tallCharacters, shiftValue);
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
             this.texts = new TextItem[count];
             this.indexOffset = indexOffset;
             this.totalSize = totalSize;
             this.japAltMode = japAltMode;
-            this.largeCharacters = largeCharacters;
+            this.tallCharacters = tallCharacters;
 
             if (hasPaletteData)
             {
@@ -330,7 +330,7 @@ namespace EpicEdit.Rom.Settings
 
             length = index;
 
-            if (this.largeCharacters)
+            if (this.tallCharacters)
             {
                 // Fix space character attributes (removing palette association)
 

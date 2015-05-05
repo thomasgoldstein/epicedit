@@ -26,10 +26,10 @@ namespace EpicEdit.Rom.Utility
         public Region Region { get; private set; }
         private Map<byte, char> dictionary;
 
-        public TextConverter(Region region, bool largeCharacters, byte shiftValue)
+        public TextConverter(Region region, bool tallCharacters, byte shiftValue)
         {
             this.Region = region;
-            this.LoadCharacterSet(largeCharacters, shiftValue);
+            this.LoadCharacterSet(tallCharacters, shiftValue);
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace EpicEdit.Rom.Utility
         /// This function assumes that the location of each character tile hasn't been changed
         /// (in the ROM font graphics), which may be wrong.
         /// </summary>
-        private void LoadCharacterSet(bool largeCharacters, byte shiftValue)
+        private void LoadCharacterSet(bool tallCharacters, byte shiftValue)
         {
-            char[] chars = CharacterSet.Get(this.Region, largeCharacters);
+            char[] chars = CharacterSet.Get(this.Region, tallCharacters);
             this.dictionary = new Map<byte, char>();
 
             for (int i = 0; i < chars.Length; i++)

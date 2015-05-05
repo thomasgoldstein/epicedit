@@ -18,11 +18,11 @@ namespace EpicEdit.Rom.Utility
 {
     internal static class CharacterSet
     {
-        public static char[] Get(Region region, bool largeCharacters)
+        public static char[] Get(Region region, bool tallCharacters)
         {
             return region == Region.Jap ?
                 CharacterSet.GetJapaneseSet() :
-                !largeCharacters ?
+                !tallCharacters ?
                 CharacterSet.GetEnglishSet() :
                 CharacterSet.GetLargeEnglishSet();
         }
