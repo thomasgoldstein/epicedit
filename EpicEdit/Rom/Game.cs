@@ -1970,10 +1970,11 @@ namespace EpicEdit.Rom
                 // Recompress road tileset data
                 roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.TileCount * 32)];
 
+                Buffer.BlockCopy(theme.RoadTileset.GetTilePaletteBytes(), 0, roadTileGfxData, 0, RoadTileset.TileCount);
+
                 for (int j = 0; j < RoadTileset.TileCount; j++)
                 {
                     RoadTile tile = theme.RoadTileset[j];
-                    roadTileGfxData[j] = tile.PaletteByte;
                     Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                 }
 

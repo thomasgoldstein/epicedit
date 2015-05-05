@@ -103,6 +103,18 @@ namespace EpicEdit.Rom.Tracks.Road
             return data;
         }
 
+        public byte[] GetTilePaletteBytes()
+        {
+            byte[] data = new byte[this.tileset.Length];
+
+            for (int i = 0; i < this.tileset.Length; i++)
+            {
+                data[i] = this.tileset[i].PaletteByte;
+            }
+
+            return data;
+        }
+
         public void ResetModifiedState()
         {
             this.Modified = false;
