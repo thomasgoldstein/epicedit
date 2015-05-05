@@ -116,5 +116,13 @@ namespace EpicEdit.Rom.Tracks.Road
                 return palette;
             }
         }
+
+        /// <summary>
+        /// Gets the tile palette association byte, the way it's stored in the ROM.
+        /// </summary>
+        public byte PaletteByte
+        {
+            get { return (byte)(this.Palette.Index << 4); }
+        }
     }
 }

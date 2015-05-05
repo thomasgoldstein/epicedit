@@ -1973,7 +1973,7 @@ namespace EpicEdit.Rom
                 for (int j = 0; j < RoadTileset.TileCount; j++)
                 {
                     RoadTile tile = theme.RoadTileset[j];
-                    roadTileGfxData[j] = (byte)(tile.Palette.Index << 4);
+                    roadTileGfxData[j] = tile.PaletteByte;
                     Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                 }
 
