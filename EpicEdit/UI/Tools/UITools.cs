@@ -116,7 +116,7 @@ namespace EpicEdit.UI.Tools
             control.MouseEnter += (s, ea) => { toolTip.Active = false; toolTip.Active = true; };
         }
 
-        public static bool ImportTilesetGraphics(Tile[] tileset)
+        public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -223,7 +223,7 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        public static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
+        public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
