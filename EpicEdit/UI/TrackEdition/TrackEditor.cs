@@ -469,10 +469,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackImportDialogRequested(object sender, EventArgs e)
         {
-            this.ImportTrackDialog();
+            this.ShowImportTrackDialog();
         }
 
-        private void ImportTrackDialog()
+        private void ShowImportTrackDialog()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -527,10 +527,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
         {
-            this.ExportTrackDialog();
+            this.ShowExportTrackDialog();
         }
 
-        private void ExportTrackDialog()
+        private void ShowExportTrackDialog()
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
