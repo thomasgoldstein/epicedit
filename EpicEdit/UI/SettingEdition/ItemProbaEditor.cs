@@ -444,38 +444,9 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ImportProbabilitiesButtonClick(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            if (UITools.ShowImportBinaryDataDialog(this.itemProbabilities.SetBytes))
             {
-                ofd.Filter =
-                    "Raw binary file (*.bin)|*.bin|" +
-                    "All files (*.*)|*.*";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ImportProbabilities(ofd.FileName);
-                }
-            }
-        }
-
-        private void ImportProbabilities(string filePath)
-        {
-            try
-            {
-                byte[] data = File.ReadAllBytes(filePath);
-                this.itemProbabilities.SetBytes(data);
                 this.Init();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                UITools.ShowError(ex.Message);
             }
         }
 
