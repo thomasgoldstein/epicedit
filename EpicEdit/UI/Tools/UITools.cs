@@ -227,11 +227,18 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod)
         {
+            string filter =
+                "Raw binary file (*.bin)|*.bin|" +
+                "All files (*.*)|*.*";
+
+            return UITools.ShowImportBinaryDataDialog(setDataMethod, filter);
+        }
+
+        public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod, string filter)
+        {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter =
-                    "Raw binary file (*.bin)|*.bin|" +
-                    "All files (*.*)|*.*";
+                ofd.Filter = filter;
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -320,11 +327,18 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName)
         {
+            string filter =
+                "Raw binary file (*.bin)|*.bin|" +
+                "All files (*.*)|*.*";
+
+            UITools.ShowExportBinaryDataDialog(getDataMethod, fileName, filter);
+        }
+
+        public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName, string filter)
+        {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.Filter =
-                    "Raw binary file (*.bin)|*.bin|" +
-                    "All files (*.*)|*.*";
+                sfd.Filter = filter;
 
                 sfd.FileName = UITools.SanitizeFileName(fileName);
 
