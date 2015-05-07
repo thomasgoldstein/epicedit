@@ -481,7 +481,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ExportProbabilitiesButtonClick(object sender, EventArgs e)
         {
-            UITools.ShowExportBinaryDataDialog(this.itemProbabilities.GetBytes(), "Item probabilities");
+            UITools.ShowExportBinaryDataDialog(this.itemProbabilities.GetBytes, "Item probabilities");
         }
 
         #endregion Event handlers

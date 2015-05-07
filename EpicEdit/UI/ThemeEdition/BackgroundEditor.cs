@@ -382,7 +382,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void ShowExportBackgroundLayoutDialog()
         {
             Theme theme = this.Theme;
-            UITools.ShowExportBinaryDataDialog(theme.Background.Layout.GetBytes(), theme.Name + "bg map");
+            UITools.ShowExportBinaryDataDialog(theme.Background.Layout.GetBytes, theme.Name + "bg map");
         }
     }
 }

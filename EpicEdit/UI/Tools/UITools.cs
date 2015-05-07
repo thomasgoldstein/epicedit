@@ -31,6 +31,8 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal static class UITools
     {
+        public delegate T Func<T>(); // No Func in .NET 2.0, so define it
+
         public static DialogResult ShowWarning(string message, MessageBoxButtons buttons)
         {
             return
@@ -301,7 +303,7 @@ namespace EpicEdit.UI.Tools
             return data;
         }
 
-        public static void ShowExportBinaryDataDialog(byte[] data, string fileName)
+        public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
@@ -315,7 +317,7 @@ namespace EpicEdit.UI.Tools
                 {
                     try
                     {
-                        File.WriteAllBytes(sfd.FileName, data);
+                        File.WriteAllBytes(sfd.FileName, getDataMethod());
                     }
                     catch (UnauthorizedAccessException ex)
                     {

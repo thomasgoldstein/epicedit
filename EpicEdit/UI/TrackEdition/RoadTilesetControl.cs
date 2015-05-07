@@ -355,12 +355,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowExportTilesetGenresDialog()
         {
-            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTileGenreBytes(), this.track.Theme.Name + "road types");
+            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTileGenreBytes, this.track.Theme.Name + "road types");
         }
 
         private void ShowExportTilesetPalettesDialog()
         {
-            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTilePaletteBytes(), this.track.Theme.Name + "road pals");
+            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTilePaletteBytes, this.track.Theme.Name + "road pals");
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)
