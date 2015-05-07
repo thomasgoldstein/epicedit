@@ -225,7 +225,7 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        public static bool ShowImportBinaryDataDialog(Action<byte[]> setMethod)
+        public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -236,7 +236,7 @@ namespace EpicEdit.UI.Tools
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     byte[] data = File.ReadAllBytes(ofd.FileName);
-                    setMethod(data);
+                    setDataMethod(data);
                     return true;
                 }
 
