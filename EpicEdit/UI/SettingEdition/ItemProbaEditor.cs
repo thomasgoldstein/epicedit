@@ -481,35 +481,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ExportProbabilitiesButtonClick(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter =
-                    "Raw binary file (*.bin)|*.bin|" +
-                    "All files (*.*)|*.*";
-
-                sfd.FileName = "Item probabilities";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ExportProbabilities(sfd.FileName);
-                }
-            }
-        }
-
-        private void ExportProbabilities(string filePath)
-        {
-            try
-            {
-                File.WriteAllBytes(filePath, this.itemProbabilities.GetBytes());
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            UITools.ShowExportBinaryDataDialog(this.itemProbabilities.GetBytes(), "Item probabilities");
         }
 
         #endregion Event handlers
