@@ -287,7 +287,7 @@ namespace EpicEdit.Rom.ThemeEdition
             string filter =
                 "Color palettes (*.pal)|*.pal|" +
                 "All files (*.*)|*.*";
-            
+
             UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), filter);
         }
     }
