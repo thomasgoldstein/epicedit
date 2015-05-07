@@ -305,9 +305,7 @@ namespace EpicEdit.UI.Tools
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.Filter =
-                    "Raw binary file (*.bin)|*.bin|" +
-                    "All files (*.*)|*.*";
+                sfd.Filter = "Raw binary file (*.bin)|*.bin";
 
                 sfd.FileName = UITools.SanitizeFileName(fileName);
 
