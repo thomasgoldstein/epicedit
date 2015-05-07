@@ -329,13 +329,13 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
         {
-            if (this.ImportBackgroundLayout())
+            if (this.ShowImportBackgroundLayoutDialog())
             {
                 this.LoadTheme();
             }
         }
 
-        private bool ImportBackgroundLayout()
+        private bool ShowImportBackgroundLayoutDialog()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
