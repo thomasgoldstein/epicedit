@@ -317,8 +317,8 @@ namespace EpicEdit.UI.ThemeEdition
             BackgroundTileset tileset = this.Theme.Background.Tileset;
             if (UITools.ShowImportTilesetGraphicsDialog(tileset.GetTiles()))
             {
-                this.LoadTheme();
                 tileset.Modified = true;
+                this.LoadTheme();
             }
         }
         

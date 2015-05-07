@@ -323,8 +323,8 @@ namespace EpicEdit.UI.TrackEdition
             RoadTileset tileset = this.track.RoadTileset;
             if (UITools.ShowImportTilesetGraphicsDialog(tileset.GetTiles()))
             {
-                this.UpdateTileset();
                 tileset.Modified = true;
+                this.UpdateTileset();
                 this.TilesetChanged(this, EventArgs.Empty);
             }
         }
