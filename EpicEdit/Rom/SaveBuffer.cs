@@ -173,7 +173,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Resize the ROM buffer to the given size.
         /// </summary>
-        /// <param name="newSize">New ROM buffer length.</param>
+        /// <param name="size">New ROM buffer length.</param>
         private void ResizeRomBuffer(int size)
         {
             if (size > RomSize.Size8192)
