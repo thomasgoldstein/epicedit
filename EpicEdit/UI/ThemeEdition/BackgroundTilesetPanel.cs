@@ -85,7 +85,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.MouseDown += this.BackgroundTilesetPanel_MouseDown;
         }
 
-        public void ExportImage()
+        public void ShowExportImageImage()
         {
             UITools.ShowExportTilesetGraphicsDialog(this.drawer.Image, this.Theme.Background.Tileset.GetTiles(), this.Theme.Name + "bg gfx");
         }

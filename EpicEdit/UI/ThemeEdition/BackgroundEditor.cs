@@ -324,7 +324,7 @@ namespace EpicEdit.UI.ThemeEdition
         
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
-            this.tilesetPanel.ExportImage();
+            this.tilesetPanel.ShowExportImageImage();
         }
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
@@ -376,10 +376,10 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ExportLayoutButtonClick(object sender, EventArgs e)
         {
-            this.ExportBackgroundLayout();
+            this.ShowExportBackgroundLayoutDialog();
         }
 
-        private void ExportBackgroundLayout()
+        private void ShowExportBackgroundLayoutDialog()
         {
             Theme theme = this.Theme;
 
