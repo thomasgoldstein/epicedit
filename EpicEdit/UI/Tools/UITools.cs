@@ -235,9 +235,24 @@ namespace EpicEdit.UI.Tools
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    byte[] data = File.ReadAllBytes(ofd.FileName);
-                    setDataMethod(data);
-                    return true;
+                    try
+                    {
+                        byte[] data = File.ReadAllBytes(ofd.FileName);
+                        setDataMethod(data);
+                        return true;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                    catch (IOException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
                 }
 
                 return false;
