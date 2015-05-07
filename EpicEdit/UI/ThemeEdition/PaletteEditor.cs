@@ -271,73 +271,24 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter =
-                    "Color palettes (*.pal)|*.pal|" +
-                    "All files (*.*)|*.*";
+            string filter =
+                "Color palettes (*.pal)|*.pal|" +
+                "All files (*.*)|*.*";
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ImportPalettes(ofd.FileName);
-                }
-            }
-        }
-
-        private void ImportPalettes(string filePath)
-        {
-            try
+            if (UITools.ShowImportBinaryDataDialog(this.Theme.Palettes.SetBytes, filter))
             {
-                byte[] data = File.ReadAllBytes(filePath);
-                this.Theme.Palettes.SetBytes(data);
                 this.UpdatePalette();
                 this.PalettesChanged(this, EventArgs.Empty);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                UITools.ShowError(ex.Message);
             }
         }
 
         private void ExportPalettesButtonClick(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter =
-                    "Color palettes (*.pal)|*.pal|" +
-                    "All files (*.*)|*.*";
-
-                sfd.FileName = UITools.SanitizeFileName(this.Theme.Name).Trim();
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ExportPalettes(sfd.FileName);
-                }
-            }
-        }
-
-        private void ExportPalettes(string filePath)
-        {
-            try
-            {
-                File.WriteAllBytes(filePath, this.Theme.Palettes.GetBytes());
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            string filter =
+                "Color palettes (*.pal)|*.pal|" +
+                "All files (*.*)|*.*";
+            
+            UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), filter);
         }
     }
 }
