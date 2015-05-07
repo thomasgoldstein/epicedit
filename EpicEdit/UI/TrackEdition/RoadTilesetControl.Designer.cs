@@ -58,8 +58,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.RoadTilesetControl.TilesetPanel();
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.importGraphicsButton = new System.Windows.Forms.Button();
-            this.exportGraphicsButton = new System.Windows.Forms.Button();
+            this.importExportRoadTilesetButton = new System.Windows.Forms.Button();
             selectedTileGroupBox = new System.Windows.Forms.GroupBox();
             paletteLabel = new System.Windows.Forms.Label();
             selectedTileGroupBox.SuspendLayout();
@@ -82,10 +81,10 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.tilePaletteNumericUpDown.Location = new System.Drawing.Point(81, 46);
             this.tilePaletteNumericUpDown.Maximum = new decimal(new int[] {
-                                    7,
-                                    0,
-                                    0,
-                                    0});
+            7,
+            0,
+            0,
+            0});
             this.tilePaletteNumericUpDown.Name = "tilePaletteNumericUpDown";
             this.tilePaletteNumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.tilePaletteNumericUpDown.TabIndex = 2;
@@ -133,37 +132,25 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton.Location = new System.Drawing.Point(103, 631);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
-            this.resetMapButton.TabIndex = 6;
+            this.resetMapButton.TabIndex = 5;
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
             // 
-            // importGraphicsButton
+            // importExportRoadTilesetButton
             // 
-            this.importGraphicsButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importGraphicsButton.Location = new System.Drawing.Point(3, 631);
-            this.importGraphicsButton.Name = "importGraphicsButton";
-            this.importGraphicsButton.Size = new System.Drawing.Size(24, 24);
-            this.importGraphicsButton.TabIndex = 4;
-            this.buttonToolTip.SetToolTip(this.importGraphicsButton, "Import graphics");
-            this.importGraphicsButton.UseVisualStyleBackColor = true;
-            this.importGraphicsButton.Click += new System.EventHandler(this.ImportGraphicsButtonClick);
-            // 
-            // exportGraphicsButton
-            // 
-            this.exportGraphicsButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportGraphicsButton.Location = new System.Drawing.Point(33, 631);
-            this.exportGraphicsButton.Name = "exportGraphicsButton";
-            this.exportGraphicsButton.Size = new System.Drawing.Size(24, 24);
-            this.exportGraphicsButton.TabIndex = 5;
-            this.buttonToolTip.SetToolTip(this.exportGraphicsButton, "Export graphics");
-            this.exportGraphicsButton.UseVisualStyleBackColor = true;
-            this.exportGraphicsButton.Click += new System.EventHandler(this.ExportGraphicsButtonClick);
+            this.importExportRoadTilesetButton.Image = global::EpicEdit.Properties.Resources.ImportExportButton;
+            this.importExportRoadTilesetButton.Location = new System.Drawing.Point(3, 631);
+            this.importExportRoadTilesetButton.Name = "importExportRoadTilesetButton";
+            this.importExportRoadTilesetButton.Size = new System.Drawing.Size(24, 24);
+            this.importExportRoadTilesetButton.TabIndex = 4;
+            this.buttonToolTip.SetToolTip(this.importExportRoadTilesetButton, "Import / export road tileset...");
+            this.importExportRoadTilesetButton.UseVisualStyleBackColor = true;
+            this.importExportRoadTilesetButton.Click += new System.EventHandler(this.ImportExportRoadTilesetButtonClick);
             // 
             // RoadTilesetControl
             // 
-            this.Controls.Add(this.exportGraphicsButton);
-            this.Controls.Add(this.importGraphicsButton);
+            this.Controls.Add(this.importExportRoadTilesetButton);
             this.Controls.Add(selectedTileGroupBox);
             this.Controls.Add(this.themeComboBox);
             this.Controls.Add(this.resetMapButton);
@@ -173,9 +160,9 @@ namespace EpicEdit.UI.TrackEdition
             selectedTileGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tilePaletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+
         }
-        private System.Windows.Forms.Button exportGraphicsButton;
-        private System.Windows.Forms.Button importGraphicsButton;
+        private System.Windows.Forms.Button importExportRoadTilesetButton;
         private EpicEdit.UI.Tools.EpicNumericUpDown tilePaletteNumericUpDown;
         private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;

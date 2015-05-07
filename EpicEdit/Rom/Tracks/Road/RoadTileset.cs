@@ -115,6 +115,36 @@ namespace EpicEdit.Rom.Tracks.Road
             return data;
         }
 
+        public void SetTileGenreBytes(byte[] data)
+        {
+            if (data.Length != this.tileset.Length)
+            {
+                throw new ArgumentException("Incorrect road tile type data size", "data");
+            }
+
+            for (int i = 0; i < this.tileset.Length; i++)
+            {
+                this.tileset[i].Genre = (RoadTileGenre)data[i];
+            }
+
+            this.Modified = true;
+        }
+
+        public void SetTilePaletteBytes(byte[] data)
+        {
+            if (data.Length != this.tileset.Length)
+            {
+                throw new ArgumentException("Incorrect road tile palette data size", "data");
+            }
+
+            for (int i = 0; i < this.tileset.Length; i++)
+            {
+                this.tileset[i].PaletteByte = data[i];
+            }
+
+            this.Modified = true;
+        }
+
         public void ResetModifiedState()
         {
             this.Modified = false;

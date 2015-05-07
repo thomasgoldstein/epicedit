@@ -288,6 +288,10 @@
     <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
       <DependentUpon>OverlayControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.cs" />
+    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.Designer.cs">
+      <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TrackEdition\StartControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -377,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\OverlayControl.resx">
       <DependentUpon>OverlayControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetImportExportForm.resx">
+      <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\StartControl.resx">
       <DependentUpon>StartControl.cs</DependentUpon>

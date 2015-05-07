@@ -274,20 +274,93 @@ namespace EpicEdit.UI.TrackEdition
             e.Value = Utilities.ByteToHexString((byte)val) + "- " + UITools.GetDescription(val);
         }
 
-        private void ImportGraphicsButtonClick(object sender, EventArgs e)
+        private void ImportExportRoadTilesetButtonClick(object sender, EventArgs e)
+        {
+            using (RoadTilesetImportExportForm form = new RoadTilesetImportExportForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (form.Action == RoadTilesetImportExportAction.Import)
+                    {
+                        switch (form.Type)
+                        {
+                            case RoadTilesetImportExportType.Graphics:
+                                this.ShowImportTilesetGraphicsDialog();
+                                break;
+
+                            case RoadTilesetImportExportType.Genres:
+                                this.ShowImportTilesetGenresDialog();
+                                break;
+
+                            case RoadTilesetImportExportType.Palettes:
+                                this.ShowImportTilesetPalettesDialog();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (form.Type)
+                        {
+                            case RoadTilesetImportExportType.Graphics:
+                                this.ShowExportTilesetGraphicsDialog();
+                                break;
+
+                            case RoadTilesetImportExportType.Genres:
+                                this.ShowExportTilesetGenresDialog();
+                                break;
+
+                            case RoadTilesetImportExportType.Palettes:
+                                this.ShowExportTilesetPalettesDialog();
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ShowImportTilesetGraphicsDialog()
         {
             RoadTileset tileset = this.track.RoadTileset;
             if (UITools.ShowImportTilesetGraphicsDialog(tileset.GetTiles()))
             {
                 this.UpdateTileset();
-                this.track.RoadTileset.Modified = true;
+                tileset.Modified = true;
                 this.TilesetChanged(this, EventArgs.Empty);
             }
         }
 
-        private void ExportGraphicsButtonClick(object sender, EventArgs e)
+        private void ShowImportTilesetGenresDialog()
         {
-            UITools.ShowExportTilesetGraphicsDialog(this.drawer.Image, this.track.Theme.RoadTileset.GetTiles(), this.track.Theme.Name + "road");
+            if (UITools.ShowImportBinaryDataDialog(this.track.RoadTileset.SetTileGenreBytes))
+            {
+                this.SelectTileGenre();
+                this.TilesetChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void ShowImportTilesetPalettesDialog()
+        {
+            if (UITools.ShowImportBinaryDataDialog(this.track.RoadTileset.SetTilePaletteBytes))
+            {
+                this.UpdateTileset();
+                this.SelectTilePalette();
+                this.TilesetChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void ShowExportTilesetGraphicsDialog()
+        {
+            UITools.ShowExportTilesetGraphicsDialog(this.drawer.Image, this.track.Theme.RoadTileset.GetTiles(), this.track.Theme.Name + "road gfx");
+        }
+
+        private void ShowExportTilesetGenresDialog()
+        {
+            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTileGenreBytes(), this.track.Theme.Name + "road types");
+        }
+
+        private void ShowExportTilesetPalettesDialog()
+        {
+            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTilePaletteBytes(), this.track.Theme.Name + "road pals");
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)

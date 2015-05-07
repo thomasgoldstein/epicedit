@@ -153,6 +153,16 @@ namespace EpicEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImportExportButton {
+            get {
+                object obj = ResourceManager.GetObject("ImportExportButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ItemProbaButton {
             get {
                 object obj = ResourceManager.GetObject("ItemProbaButton", resourceCulture);

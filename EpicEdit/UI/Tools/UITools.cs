@@ -223,6 +223,25 @@ namespace EpicEdit.UI.Tools
             }
         }
 
+        public static bool ShowImportBinaryDataDialog(Action<byte[]> setMethod)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter =
+                    "Raw binary file (*.bin)|*.bin|" +
+                    "All files (*.*)|*.*";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    byte[] data = File.ReadAllBytes(ofd.FileName);
+                    setMethod(data);
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -280,6 +299,34 @@ namespace EpicEdit.UI.Tools
             }
 
             return data;
+        }
+
+        public static void ShowExportBinaryDataDialog(byte[] data, string fileName)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter =
+                    "Raw binary file (*.bin)|*.bin|" +
+                    "All files (*.*)|*.*";
+
+                sfd.FileName = UITools.SanitizeFileName(fileName);
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.WriteAllBytes(sfd.FileName, data);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                    catch (IOException ex)
+                    {
+                        UITools.ShowError(ex.Message);
+                    }
+                }
+            }
         }
     }
 }
