@@ -382,29 +382,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void ShowExportBackgroundLayoutDialog()
         {
             Theme theme = this.Theme;
-
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "Raw binary file (*.bin)|*.bin";
-
-                sfd.FileName = UITools.SanitizeFileName(theme.Name + "bg map");
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        File.WriteAllBytes(sfd.FileName, theme.Background.Layout.GetBytes());
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                }
-            }
+            UITools.ShowExportBinaryDataDialog(theme.Background.Layout.GetBytes(), theme.Name + "bg map");
         }
     }
 }
