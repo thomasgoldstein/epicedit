@@ -329,49 +329,10 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
         {
-            if (this.ShowImportBackgroundLayoutDialog())
+            if (UITools.ShowImportBinaryDataDialog(this.Theme.Background.Layout.SetBytes))
             {
                 this.LoadTheme();
             }
-        }
-
-        private bool ShowImportBackgroundLayoutDialog()
-        {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "Raw binary file (*.bin)|*.bin";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    return this.ImportBackgroundLayout(ofd.FileName);
-                }
-
-                return false;
-            }
-        }
-
-        private bool ImportBackgroundLayout(string filePath)
-        {
-            try
-            {
-                byte[] data = File.ReadAllBytes(filePath);
-                this.Theme.Background.Layout.SetBytes(data);
-                return true;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-
-            return false;
         }
 
         private void ExportLayoutButtonClick(object sender, EventArgs e)
