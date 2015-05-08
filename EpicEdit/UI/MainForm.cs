@@ -186,10 +186,13 @@ namespace EpicEdit.UI
         {
             string fileName = Context.Game.FileName;
             string ext = Path.GetExtension(fileName);
+
+            // Make it so the loaded file extension is the default choice when resaving
             string filter =
                 "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
                 "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
                 "All files (*.*)|*.*";
+
             fileName = Path.GetFileNameWithoutExtension(fileName);
 
             UITools.ShowExportDataDialog(this.SaveRom, fileName, filter);
