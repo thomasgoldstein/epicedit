@@ -52,7 +52,7 @@ namespace EpicEdit.UI
 
             if (args.Length > 0 && File.Exists(args[0]))
             {
-                this.TryToOpenRom(args[0]);
+                UITools.ImportData(this.OpenRom, args[0]);
             }
         }
 
@@ -108,10 +108,10 @@ namespace EpicEdit.UI
 
         private void TrackEditorOpenRomDialogRequested(object sender, EventArgs e)
         {
-            this.OpenRomDialog();
+            this.ShowOpenRomDialog();
         }
 
-        private void OpenRomDialog()
+        private void ShowOpenRomDialog()
         {
             if (MainForm.HasPendingChanges())
             {
@@ -122,37 +122,12 @@ namespace EpicEdit.UI
                 }
             }
 
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc, *.zip)|" +
-                             "*.sfc; *.bin; *.fig; *.smc; *.swc; *.zip|" +
-                             "All files (*.*)|*.*";
+            string filter =
+                "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc, *.zip)|" +
+                "*.sfc; *.bin; *.fig; *.smc; *.swc; *.zip|" +
+                "All files (*.*)|*.*";
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    this.TryToOpenRom(ofd.FileName);
-                }
-            }
-        }
-
-        private void TryToOpenRom(string filePath)
-        {
-            try
-            {
-                this.OpenRom(filePath);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (InvalidDataException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            UITools.ShowImportDataDialog(this.OpenRom, filter);
         }
 
         private void OpenRom(string filePath)
@@ -195,54 +170,28 @@ namespace EpicEdit.UI
             }
             else
             {
-                this.TryToOpenRom(filePath);
+                UITools.ImportData(this.OpenRom, filePath);
             }
         }
 
         private void TrackEditorSaveRomDialogRequested(object sender, EventArgs e)
         {
-            this.SaveRomDialog();
+            this.ShowSaveRomDialog();
         }
 
         /// <summary>
         /// Calls the dialog to save the ROM.
         /// </summary>
-        private void SaveRomDialog()
+        private void ShowSaveRomDialog()
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                string fileName = Context.Game.FileName;
-                string ext = Path.GetExtension(fileName);
-                sfd.Filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
-                             "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
-                             "All files (*.*)|*.*";
-                sfd.FileName = Path.GetFileNameWithoutExtension(fileName);
+            string fileName = Context.Game.FileName;
+            string ext = Path.GetExtension(fileName);
+            string filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
+                         "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
+                         "All files (*.*)|*.*";
+            fileName = Path.GetFileNameWithoutExtension(fileName);
 
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    this.TryToSaveRom(sfd.FileName);
-                }
-            }
-        }
-
-        private void TryToSaveRom(string filePath)
-        {
-            try
-            {
-                this.SaveRom(filePath);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (InvalidOperationException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            UITools.ShowExportDataDialog(this.SaveRom, fileName, filter);
         }
 
         private void SaveRom(string filePath)
