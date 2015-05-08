@@ -186,9 +186,10 @@ namespace EpicEdit.UI
         {
             string fileName = Context.Game.FileName;
             string ext = Path.GetExtension(fileName);
-            string filter = "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
-                         "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
-                         "All files (*.*)|*.*";
+            string filter =
+                "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
+                "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
+                "All files (*.*)|*.*";
             fileName = Path.GetFileNameWithoutExtension(fileName);
 
             UITools.ShowExportDataDialog(this.SaveRom, fileName, filter);
