@@ -469,12 +469,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackImportDialogRequested(object sender, EventArgs e)
         {
-            string filter =
-                "Full track (*.smkc)|*.smkc|" +
-                "Track map only (*.mkt)|*.mkt|" +
-                "All files (*.*)|*.*";
-
-            UITools.ShowImportDataDialog(fileName => this.ImportTrack(fileName), filter);
+            UITools.ShowImportDataDialog(fileName => this.ImportTrack(fileName), FileDialogFilters.Track);
         }
 
         public void ImportTrack(string filePath)
@@ -497,12 +492,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
         {
-            string filter =
-                "Full track (*.smkc)|*.smkc|" +
-                "Track map only (*.mkt)|*.mkt|" +
-                "All files (*.*)|*.*";
-
-            UITools.ShowExportDataDialog(fileName => this.track.Export(fileName, Context.Game), this.trackTreeView.SelectedTrackFileName, filter);
+            UITools.ShowExportDataDialog(fileName => this.track.Export(fileName, Context.Game), this.trackTreeView.SelectedTrackFileName, FileDialogFilters.Track);
         }
 
         private void MenuBarUndoRequested(object sender, EventArgs e)

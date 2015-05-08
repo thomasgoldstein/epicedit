@@ -49,14 +49,10 @@ namespace EpicEdit.UI.Tools
             int offset = (int)this.offsetNumericUpDown.Value;
             bool twice = this.twiceCheckBox.Checked;
 
-            string filter =
-                "Raw binary file (*.bin)|*.bin|" +
-                "All files (*.*)|*.*";
-
             if (this.compressRadioButton.Checked)
             {
                 byte[] data = null;
-                if (UITools.ShowImportDataDialog(fileName => data = File.ReadAllBytes(fileName), filter))
+                if (UITools.ShowImportDataDialog(fileName => data = File.ReadAllBytes(fileName), FileDialogFilters.Binary))
                 {
                     int limit = (int)this.offsetNumericUpDown.Maximum;
                     CodecControl.Compress(data, offset, twice, limit);
@@ -64,7 +60,7 @@ namespace EpicEdit.UI.Tools
             }
             else
             {
-                UITools.ShowExportDataDialog(fileName => File.WriteAllBytes(fileName, Context.Game.Decompress(offset, twice)), string.Empty, filter);
+                UITools.ShowExportDataDialog(fileName => File.WriteAllBytes(fileName, Context.Game.Decompress(offset, twice)), string.Empty, FileDialogFilters.Binary);
             }
         }
 

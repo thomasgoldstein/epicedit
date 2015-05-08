@@ -122,12 +122,7 @@ namespace EpicEdit.UI
                 }
             }
 
-            string filter =
-                "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc, *.zip)|" +
-                "*.sfc; *.bin; *.fig; *.smc; *.swc; *.zip|" +
-                "All files (*.*)|*.*";
-
-            UITools.ShowImportDataDialog(this.OpenRom, filter);
+            UITools.ShowImportDataDialog(this.OpenRom, FileDialogFilters.RomOrZippedRom);
         }
 
         private void OpenRom(string filePath)
@@ -188,10 +183,7 @@ namespace EpicEdit.UI
             string ext = Path.GetExtension(fileName);
 
             // Make it so the loaded file extension is the default choice when resaving
-            string filter =
-                "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
-                "*" + ext + "; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
-                "All files (*.*)|*.*";
+            string filter = string.Format(FileDialogFilters.Rom, ext);
 
             fileName = Path.GetFileNameWithoutExtension(fileName);
 

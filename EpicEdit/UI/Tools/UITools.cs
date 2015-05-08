@@ -120,12 +120,7 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
         {
-            string filter =
-                "PNG (*.png)|*.png|" +
-                "BMP (*.bmp)|*.bmp|" +
-                "Raw binary file (*.bin)|*.bin";
-
-            return UITools.ShowImportDataDialog(filePath => UITools.ImportTilesetGraphics(filePath, tileset), filter);
+            return UITools.ShowImportDataDialog(filePath => UITools.ImportTilesetGraphics(filePath, tileset), FileDialogFilters.ImageOrBinary);
         }
 
         private static void ImportTilesetGraphics(string filePath, Tile[] tileset)
@@ -200,11 +195,7 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod)
         {
-            string filter =
-                "Raw binary file (*.bin)|*.bin|" +
-                "All files (*.*)|*.*";
-
-            return UITools.ShowImportBinaryDataDialog(setDataMethod, filter);
+            return UITools.ShowImportBinaryDataDialog(setDataMethod, FileDialogFilters.Binary);
         }
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod, string filter)
@@ -254,12 +245,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
-            string filter =
-                "PNG (*.png)|*.png|" +
-                "BMP (*.bmp)|*.bmp|" +
-                "Raw binary file (*.bin)|*.bin";
-
-            UITools.ShowExportDataDialog(acceptedFileName => UITools.ExportTilesetGraphics(image, tileset, acceptedFileName), fileName, filter);
+            UITools.ShowExportDataDialog(acceptedFileName => UITools.ExportTilesetGraphics(image, tileset, acceptedFileName), fileName, FileDialogFilters.ImageOrBinary);
         }
 
         private static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
@@ -298,11 +284,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName)
         {
-            string filter =
-                "Raw binary file (*.bin)|*.bin|" +
-                "All files (*.*)|*.*";
-
-            UITools.ShowExportBinaryDataDialog(getDataMethod, fileName, filter);
+            UITools.ShowExportBinaryDataDialog(getDataMethod, fileName, FileDialogFilters.Binary);
         }
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName, string filter)

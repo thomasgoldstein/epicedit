@@ -271,11 +271,7 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
         {
-            string filter =
-                "Color palettes (*.pal)|*.pal|" +
-                "All files (*.*)|*.*";
-
-            if (UITools.ShowImportBinaryDataDialog(this.Theme.Palettes.SetBytes, filter))
+            if (UITools.ShowImportBinaryDataDialog(this.Theme.Palettes.SetBytes, FileDialogFilters.ColorPalette))
             {
                 this.UpdatePalette();
                 this.PalettesChanged(this, EventArgs.Empty);
@@ -284,11 +280,7 @@ namespace EpicEdit.Rom.ThemeEdition
 
         private void ExportPalettesButtonClick(object sender, EventArgs e)
         {
-            string filter =
-                "Color palettes (*.pal)|*.pal|" +
-                "All files (*.*)|*.*";
-
-            UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), filter);
+            UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), FileDialogFilters.ColorPalette);
         }
     }
 }

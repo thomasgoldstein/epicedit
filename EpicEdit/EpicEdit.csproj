@@ -253,6 +253,7 @@
       <DependentUpon>CodecForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
+    <Compile Include="UI\Tools\FileDialogFilters.cs" />
     <Compile Include="UI\Tools\ThemeComboBox.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
