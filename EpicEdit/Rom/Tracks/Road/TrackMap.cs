@@ -35,9 +35,9 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             if (data.Length != TrackMap.SquareSize)
             {
-                throw new ArgumentOutOfRangeException("data",
+                throw new ArgumentException(
                     "The map array must have a length of " + TrackMap.SquareSize +
-                    " (" + TrackMap.Size + " * " + TrackMap.Size + ").");
+                    " (" + TrackMap.Size + " * " + TrackMap.Size + ").", "data");
             }
 
             int dimension = (int)Math.Sqrt(data.Length);

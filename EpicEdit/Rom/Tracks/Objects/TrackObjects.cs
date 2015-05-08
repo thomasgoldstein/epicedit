@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             if (data.Length != Size)
             {
-                throw new ArgumentOutOfRangeException("data");
+                throw new ArgumentException("Incorrect track object data size", "data");
             }
 
             this.objects = new TrackObject[data.Length / BytesPerObject];

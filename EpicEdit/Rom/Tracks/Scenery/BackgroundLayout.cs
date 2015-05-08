@@ -100,8 +100,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             if (data.Length != Size)
             {
-                throw new ArgumentOutOfRangeException("data",
-                    "The background layout must have a length of " + Size + ".");
+                throw new ArgumentException("The background layout must have a length of " + Size + ".", "data");
             }
 
             this.frontLayer = GetLayer(data, 0, FrontLayerRowSize);

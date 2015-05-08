@@ -197,7 +197,7 @@ namespace EpicEdit.Rom
 
             if (data.Length - index < 2)
             {
-                throw new ArgumentOutOfRangeException("data", "Invalid color byte data or index value.");
+                throw new ArgumentException("Invalid color byte data or index value.", "data");
             }
 
             // Decode the bytes into red, green and blue components (8 bits)

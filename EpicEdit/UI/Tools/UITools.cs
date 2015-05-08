@@ -183,7 +183,7 @@ namespace EpicEdit.UI.Tools
                 height % Tile.Size != 0 ||
                 (width * height) != (tileset.Length * Tile.Size * Tile.Size))
             {
-                throw new ArgumentOutOfRangeException("image", "Invalid tileset size.");
+                throw new ArgumentException("Invalid tileset image size.", "image");
             }
 
             int yTileCount = height / Tile.Size;
@@ -213,7 +213,7 @@ namespace EpicEdit.UI.Tools
 
             if (data.Length != tileset.Length * tileLength)
             {
-                throw new ArgumentOutOfRangeException("data", "Invalid tileset size.");
+                throw new ArgumentException("Invalid tileset data size.", "data");
             }
 
             byte[][] tileData = Utilities.ReadBlockGroup(data, 0, tileLength, tileset.Length);

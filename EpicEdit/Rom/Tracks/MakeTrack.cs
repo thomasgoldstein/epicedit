@@ -581,7 +581,7 @@ namespace EpicEdit.Rom
             if (line.Length != data.Length * 2)
             {
                 // Data length is higher or lower than expected
-                throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
+                throw new ArgumentException("Invalid data length. Import aborted.", "data");
             }
 
             Utilities.LoadBytesFromHexString(data, line);
@@ -599,7 +599,7 @@ namespace EpicEdit.Rom
                 if (index + lineBytesLength > data.Length)
                 {
                     // Data length is higher than expected
-                    throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
+                    throw new ArgumentException("Invalid data length. Import aborted.", "data");
                 }
 
                 Buffer.BlockCopy(lineBytes, 0, data, index, lineBytesLength);
@@ -610,7 +610,7 @@ namespace EpicEdit.Rom
             if (index != data.Length)
             {
                 // Data length is lower than expected
-                throw new ArgumentOutOfRangeException("data", "Invalid data length. Import aborted.");
+                throw new ArgumentException("Invalid data length. Import aborted.", "data");
             }
         }
 

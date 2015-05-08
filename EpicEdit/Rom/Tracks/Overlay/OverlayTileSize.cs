@@ -49,7 +49,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             if (data.Length != OverlayTileSize.Size)
             {
-                throw new ArgumentOutOfRangeException("data");
+                throw new ArgumentException("Incorrect overlay tile size data size", "data");
             }
 
             this.width = data[0];

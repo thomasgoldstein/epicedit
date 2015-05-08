@@ -83,7 +83,7 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             if (data.Length != ItemProbabilities.Size)
             {
-                throw new ArgumentOutOfRangeException("data", "Item probabilities data should have a size of " + Size + " bytes. Actual: " + data.Length + " bytes.");
+                throw new ArgumentException("Item probabilities data should have a size of " + Size + " bytes. Actual: " + data.Length + " bytes.", "data");
             }
 
             for (int i = 0; i < ItemProbabilities.Count; i++)
