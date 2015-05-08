@@ -120,58 +120,31 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter =
-                    "PNG (*.png)|*.png|" +
-                    "BMP (*.bmp)|*.bmp|" +
-                    "Raw binary file (*.bin)|*.bin";
+            string filter =
+                "PNG (*.png)|*.png|" +
+                "BMP (*.bmp)|*.bmp|" +
+                "Raw binary file (*.bin)|*.bin";
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    return UITools.ImportTilesetGraphics(ofd.FileName, tileset);
-                }
-
-                return false;
-            }
+            return UITools.ShowImportDataDialog(filePath => UITools.ImportTilesetGraphics(filePath, tileset), filter);
         }
 
-        private static bool ImportTilesetGraphics(string filePath, Tile[] tileset)
+        private static void ImportTilesetGraphics(string filePath, Tile[] tileset)
         {
-            try
+            if (filePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                filePath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
             {
-                if (filePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                    filePath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
+                // Import image
+                using (Bitmap image = new Bitmap(filePath))
                 {
-                    // Import image
-                    using (Bitmap image = new Bitmap(filePath))
-                    {
-                        UITools.ImportTilesetGraphics(image, tileset);
-                    }
+                    UITools.ImportTilesetGraphics(image, tileset);
                 }
-                else
-                {
-                    // Import raw binary graphics
-                    byte[] data = File.ReadAllBytes(filePath);
-                    UITools.ImportTilesetGraphics(data, tileset);
-                }
-
-                return true;
             }
-            catch (UnauthorizedAccessException ex)
+            else
             {
-                UITools.ShowError(ex.Message);
+                // Import raw binary graphics
+                byte[] data = File.ReadAllBytes(filePath);
+                UITools.ImportTilesetGraphics(data, tileset);
             }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-
-            return false;
         }
 
         private static void ImportTilesetGraphics(Bitmap image, Tile[] tileset)
@@ -236,6 +209,11 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod, string filter)
         {
+            return UITools.ShowImportDataDialog(filePath => setDataMethod(File.ReadAllBytes(filePath)), filter);
+        }
+
+        public static bool ShowImportDataDialog(Action<string> setDataMethod, string filter)
+        {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = filter;
@@ -244,8 +222,7 @@ namespace EpicEdit.UI.Tools
                 {
                     try
                     {
-                        byte[] data = File.ReadAllBytes(ofd.FileName);
-                        setDataMethod(data);
+                        setDataMethod(ofd.FileName);
                         return true;
                     }
                     catch (UnauthorizedAccessException ex)
@@ -268,43 +245,28 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
+            string filter = "PNG (*.png)|*.png|" +
+                "BMP (*.bmp)|*.bmp|" +
+                "Raw binary file (*.bin)|*.bin";
+
+            UITools.ShowExportDataDialog(acceptedFileName => UITools.ExportTilesetGraphics(image, tileset, acceptedFileName), fileName, filter);
+        }
+
+        private static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
+        {
+            switch (Path.GetExtension(fileName).ToUpperInvariant())
             {
-                sfd.Filter =
-                    "PNG (*.png)|*.png|" +
-                    "BMP (*.bmp)|*.bmp|" +
-                    "Raw binary file (*.bin)|*.bin";
+                case ".PNG":
+                    image.Save(fileName, ImageFormat.Png);
+                    break;
 
-                sfd.FileName = UITools.SanitizeFileName(fileName);
+                case ".BMP":
+                    image.Save(fileName, ImageFormat.Bmp);
+                    break;
 
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        switch (Path.GetExtension(sfd.FileName).ToUpperInvariant())
-                        {
-                            case ".PNG":
-                                image.Save(sfd.FileName, ImageFormat.Png);
-                                break;
-
-                            case ".BMP":
-                                image.Save(sfd.FileName, ImageFormat.Bmp);
-                                break;
-
-                            default:
-                                File.WriteAllBytes(sfd.FileName, UITools.GetTilesetBytes(tileset));
-                                break;
-                        }
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                }
+                default:
+                    File.WriteAllBytes(fileName, UITools.GetTilesetBytes(tileset));
+                    break;
             }
         }
 
@@ -335,6 +297,11 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName, string filter)
         {
+            UITools.ShowExportDataDialog(acceptedFileName => File.WriteAllBytes(acceptedFileName, getDataMethod()), fileName, filter);
+        }
+
+        public static void ShowExportDataDialog(Action<string> exportMethod, string fileName, string filter)
+        {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = filter;
@@ -345,7 +312,7 @@ namespace EpicEdit.UI.Tools
                 {
                     try
                     {
-                        File.WriteAllBytes(sfd.FileName, getDataMethod());
+                        exportMethod(sfd.FileName);
                     }
                     catch (UnauthorizedAccessException ex)
                     {
