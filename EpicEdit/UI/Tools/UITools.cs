@@ -292,7 +292,6 @@ namespace EpicEdit.UI.Tools
                                 break;
 
                             default:
-                            case ".BIN":
                                 File.WriteAllBytes(sfd.FileName, UITools.GetTilesetBytes(tileset));
                                 break;
                         }
