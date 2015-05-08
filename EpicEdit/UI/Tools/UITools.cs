@@ -245,7 +245,8 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
-            string filter = "PNG (*.png)|*.png|" +
+            string filter =
+                "PNG (*.png)|*.png|" +
                 "BMP (*.bmp)|*.bmp|" +
                 "Raw binary file (*.bin)|*.bin";
 
