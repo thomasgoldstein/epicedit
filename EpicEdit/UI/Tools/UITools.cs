@@ -166,7 +166,7 @@ namespace EpicEdit.UI.Tools
             {
                 UITools.ShowError(ex.Message);
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentException ex)
             {
                 UITools.ShowError(ex.Message);
             }
