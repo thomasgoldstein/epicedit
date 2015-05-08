@@ -27,7 +27,7 @@ namespace EpicEdit.UI
     /// <summary>
     /// The main window of the program.
     /// </summary>
-    internal partial class MainForm : Form
+    internal sealed partial class MainForm : Form
     {
         /// <summary>
         /// The state of the window before going full screen, to restore it later.
