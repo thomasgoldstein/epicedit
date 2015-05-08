@@ -220,30 +220,35 @@ namespace EpicEdit.UI.Tools
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    try
-                    {
-                        setDataMethod(ofd.FileName);
-                        return true;
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
+                    UITools.ImportData(setDataMethod, ofd.FileName);
+                    return true;
                 }
 
                 return false;
+            }
+        }
+
+        public static void ImportData(Action<string> setDataMethod, string filePath)
+        {
+            try
+            {
+                setDataMethod(filePath);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (InvalidDataException ex)
+            {
+                UITools.ShowError(ex.Message);
             }
         }
 
@@ -317,7 +322,7 @@ namespace EpicEdit.UI.Tools
                 {
                     try
                     {
-                        exportMethod(sfd.FileName);
+                        UITools.ExportData(exportMethod, sfd.FileName);
                     }
                     catch (UnauthorizedAccessException ex)
                     {
@@ -328,6 +333,22 @@ namespace EpicEdit.UI.Tools
                         UITools.ShowError(ex.Message);
                     }
                 }
+            }
+        }
+
+        public static void ExportData(Action<string> exportMethod, string fileName)
+        {
+            try
+            {
+                exportMethod(fileName);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                UITools.ShowError(ex.Message);
             }
         }
     }
