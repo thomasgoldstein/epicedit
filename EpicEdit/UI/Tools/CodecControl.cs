@@ -49,76 +49,53 @@ namespace EpicEdit.UI.Tools
             int offset = (int)this.offsetNumericUpDown.Value;
             bool twice = this.twiceCheckBox.Checked;
 
+            string filter =
+                "Raw binary file (*.bin)|*.bin|" +
+                "All files (*.*)|*.*";
+
             if (this.compressRadioButton.Checked)
             {
-                int limit = (int)this.offsetNumericUpDown.Maximum;
-                CodecControl.Compress(offset, twice, limit);
+                byte[] data = null;
+                if (UITools.ShowImportDataDialog(fileName => data = File.ReadAllBytes(fileName), filter))
+                {
+                    int limit = (int)this.offsetNumericUpDown.Maximum;
+                    CodecControl.Compress(data, offset, twice, limit);
+                }
             }
             else
             {
-                CodecControl.Decompress(offset, twice);
+                UITools.ShowExportDataDialog(fileName => File.WriteAllBytes(fileName, Context.Game.Decompress(offset, twice)), string.Empty, filter);
             }
         }
 
-        private static void Compress(int offset, bool twice, int limit)
+        private static void Compress(byte[] data, int offset, bool twice, int limit)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            byte[] compData = Context.Game.Compress(data, twice);
+
+            string info = CodecControl.FormatCompressedChunkInfo("New data", offset, compData.Length, data.Length);
+
+            string oldInfo;
+            try
             {
-                ofd.Filter = "Raw binary file (*.bin)|*.bin|" +
-                             "All files (*.*)|*.*";
+                int oldCompSize = Context.Game.GetCompressedChunkLength(offset, twice);
+                int oldUncompSize = Context.Game.Decompress(offset, twice).Length;
+                oldInfo = CodecControl.FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
+            }
+            catch (InvalidDataException)
+            {
+                oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.CurrentCulture) + "." + Environment.NewLine;
+            }
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    byte[] data;
+            info = oldInfo + Environment.NewLine + info;
 
-                    try
-                    {
-                        data = File.ReadAllBytes(ofd.FileName);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                        return;
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                        return;
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                        return;
-                    }
-
-                    byte[] compData = Context.Game.Compress(data, twice);
-
-                    string info = CodecControl.FormatCompressedChunkInfo("New data", offset, compData.Length, data.Length);
-
-                    string oldInfo;
-                    try
-                    {
-                        int oldCompSize = Context.Game.GetCompressedChunkLength(offset, twice);
-                        int oldUncompSize = Context.Game.Decompress(offset, twice).Length;
-                        oldInfo = CodecControl.FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
-                    }
-                    catch (InvalidDataException)
-                    {
-                        oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.CurrentCulture) + "." + Environment.NewLine;
-                    }
-
-                    info = oldInfo + Environment.NewLine + info;
-
-                    if (offset + compData.Length > limit)
-                    {
-                        info += Environment.NewLine + "Not enough room to fit the new data. Operation cancelled.";
-                        UITools.ShowError(info);
-                    }
-                    else if (UITools.ShowInfo(info, MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    {
-                        Context.Game.InsertData(compData, offset);
-                    }
-                }
+            if (offset + compData.Length > limit)
+            {
+                info += Environment.NewLine + "Not enough room to fit the new data. Operation cancelled.";
+                UITools.ShowError(info);
+            }
+            else if (UITools.ShowInfo(info, MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Context.Game.InsertData(compData, offset);
             }
         }
 
@@ -133,37 +110,6 @@ namespace EpicEdit.UI.Tools
                                  (offset + compSize).ToString("X", CultureInfo.CurrentCulture),
                                  compSize.ToString("X", CultureInfo.CurrentCulture),
                                  uncompSize.ToString("X", CultureInfo.CurrentCulture));
-        }
-
-        private static void Decompress(int offset, bool twice)
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "Raw binary file (*.bin)|*.bin|" +
-                             "All files (*.*)|*.*";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    byte[] data = Context.Game.Decompress(offset, twice);
-
-                    try
-                    {
-                        File.WriteAllBytes(sfd.FileName, data);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                }
-            }
         }
     }
 }
