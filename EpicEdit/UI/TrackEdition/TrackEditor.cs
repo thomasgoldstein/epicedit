@@ -469,55 +469,25 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackImportDialogRequested(object sender, EventArgs e)
         {
-            this.ShowImportTrackDialog();
-        }
+            string filter =
+                "Full track (*.smkc)|*.smkc|" +
+                "Track map only (*.mkt)|*.mkt|" +
+                "All files (*.*)|*.*";
 
-        private void ShowImportTrackDialog()
-        {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter =
-                    "Full track (*.smkc)|*.smkc|" +
-                    "Track map only (*.mkt)|*.mkt|" +
-                    "All files (*.*)|*.*";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ImportTrack(ofd.FileName);
-                }
-            }
+            UITools.ShowImportDataDialog(fileName => this.ImportTrack(fileName), filter);
         }
 
         public void ImportTrack(string filePath)
         {
-            try
-            {
-                this.track.Import(filePath, Context.Game);
+            this.track.Import(filePath, Context.Game);
 
-                this.undoRedoBuffer.Clear();
-                this.menuBar.UndoEnabled = false;
-                this.menuBar.RedoEnabled = false;
+            this.undoRedoBuffer.Clear();
+            this.menuBar.UndoEnabled = false;
+            this.menuBar.RedoEnabled = false;
 
-                this.trackTreeView.MarkTrackAsChanged();
-                this.UpdateControlsOnTrackImport();
-                this.DisplayNewTrack();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (InvalidDataException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            this.trackTreeView.MarkTrackAsChanged();
+            this.UpdateControlsOnTrackImport();
+            this.DisplayNewTrack();
         }
 
         private void UpdateControlsOnTrackImport()
@@ -527,44 +497,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
         {
-            this.ShowExportTrackDialog();
-        }
+            string filter =
+                "Full track (*.smkc)|*.smkc|" +
+                "Track map only (*.mkt)|*.mkt|" +
+                "All files (*.*)|*.*";
 
-        private void ShowExportTrackDialog()
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter =
-                    "Full track (*.smkc)|*.smkc|" +
-                    "Track map only (*.mkt)|*.mkt|" +
-                    "All files (*.*)|*.*";
-
-                string fileName = this.trackTreeView.SelectedTrackFileName;
-                fileName = UITools.SanitizeFileName(fileName);
-
-                sfd.FileName = fileName;
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    this.ExportTrack(sfd.FileName);
-                }
-            }
-        }
-
-        private void ExportTrack(string filePath)
-        {
-            try
-            {
-                this.track.Export(filePath, Context.Game);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                UITools.ShowError(ex.Message);
-            }
+            UITools.ShowExportDataDialog(fileName => this.track.Export(fileName, Context.Game), this.trackTreeView.SelectedTrackFileName, filter);
         }
 
         private void MenuBarUndoRequested(object sender, EventArgs e)
