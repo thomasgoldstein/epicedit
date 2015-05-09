@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 5 / <b>Credits screen data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>3F7F0 -> 3F7FF</td><td>Table that defines where the text for each of the jobs below starts<br>
+(ie: first job text starts at 00, second one starts at 24, etc)</td></tr>
+ <tr><td>3F800 -> 3F823</td><td>"EXECUTIVE PRODUCER" (backward, ie the 1st letter is R, 2nd E, 3rd C, etc)</td></tr>
+ <tr><td>3F824 ->3F833</td><td>"PRODUCER" (backward)</td></tr>
+ <tr><td>3F834 ->3F849</td><td>"PROGRAMMERS" (backward)</td></tr>
+ <tr><td>3F84A ->3F863</td><td>"C.G. DESIGNERS" (backward)</td></tr>
+ <tr><td>3F864 ->3F881</td><td>"SOUND COMPOSERS" (backward)</td></tr>
+ <tr><td>3F882 ->3F899</td><td>"ILLUSTRATORS" (backward)</td></tr>
+ <tr><td>3F89A ->3F8B3</td><td>"MANUAL EDITOR" (backward)</td></tr>
+ <tr><td>3F8B4 ->3F8C5</td><td>"DIRECTORS" (backward)</td></tr>
+ <tr><td>3F8C6 ->3F8D5</td><td>Table that defines how much of the job letters are displayed, from right to left</td></tr>
+ <tr><td>3F8D6 ->3F8E5</td><td>Table that defines the horizonal position of each job text</td></tr>
+ <tr><td>3F8E6 ->3F8F5</td><td>Table that defines the vertical position of each job text<br>
+(defaults: 80 = bottom, 10 = top)</td></tr>
+ <tr><td>3F8F6 ->3F906</td><td>Table that defines where the text for each of the names below starts<br>
+(works the same way as the job table at 3F7F0,<br>
+but numbers must be even due to the twice bigger letters)</td></tr>
+ <tr><td>3F906 ->3F925</td><td>"HIROSHI YAMAUCHI"</td></tr>
+ <tr><td>3F926 ->3F945</td><td>"SHIGERU MIYAMOTO"</td></tr>
+ <tr><td>3F946 ->3F961</td><td>"KENJI YAMAMOTO"</td></tr>
+ <tr><td>3F962 ->3F97B</td><td>"HAJIME YAJIMA"</td></tr>
+ <tr><td>3F97C ->3F995</td><td>"MASATO KIMURA"</td></tr>
+ <tr><td>3F996 ->3F9A9</td><td>"NAOKI MORI"</td></tr>
+ <tr><td>3F9AA ->3F9C9</td><td>"TADASHI SUGIYAMA"</td></tr>
+ <tr><td>3F9CA ->3F9DD</td><td>"TARO BANDO"</td></tr>
+ <tr><td>3F9DE ->3F9ED</td><td>"SOYO OKA"</td></tr>
+ <tr><td>3F9EE ->3FA0D</td><td>"YOSHIAKI KOIZUMI"</td></tr>
+ <tr><td>3FA0E ->3FA27</td><td>"MIE YOSHIMURA"</td></tr>
+ <tr><td>3FA28 ->3FA41</td><td>"YOICHI KOTABE"</td></tr>
+ <tr><td>3FA42 ->3FA5D</td><td>"ATSUSHI TEJIMA"</td></tr>
+ <tr><td>3FA5E ->3FA5F</td><td>"O" (used for a little effect with the name below)</td></tr>
+ <tr><td>3FA60 ->3FA79</td><td>"HIDEQUI KONNO"</td></tr>
+ <tr><td>3FA7A ->3FA99</td><td>"TADASHI SUGIYAMA"</td></tr>
+ <tr><td>3FA9A ->3FAA9</td><td>Table related to all 8 credit text screens (?)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>3FC8D -> 3FC8E</td><td>Top left part of the T of the "THANK YOU"</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>3FD9B -> 3FDAE</td><td>Donkey display data (final ola) (3FD9E/3FD9F = Donkey's jumping bottom half tcp)</td></tr>
+ <tr><td>3FDB0 -> 3FDC3</td><td>Yoshi's display data (final ola) (3FDB3/3FDB4 = Yoshi's jumping bottom half tcp)</td></tr>
+ <tr><td>3FDC5 -> 3FDE5</td><td>Princess' display data (final ola) (3FDC8/3FDC9 = Princess' jumping bottom half tcp)</td></tr>
+ <tr><td>3FDE7 -> 3FDFD</td><td>Bowser's display data (final ola) (3FDEA/3FDEB = Bowser's jumping bottom half tcp)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>3FF25 -> 3FF26</td><td>Top left part of the T of the "THE END" (wrongly colored in the original game)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>3FF6A -> 3FF79</td><td>"THANKYOU"</td></tr>
+ <tr><td>3FF7A -> 3FF89</td><td>Defines where each of the "THANK YOU" letters fall</td></tr>
+ <tr><td>3FF8A -> 3FF95</td><td>Defines where each of the "THE END" letters appear</td></tr>
+ <tr><td>3FF96 -> 3FFA1</td><td>"THEEND"</td></tr>
+</table>
+
+</body>
+</html>

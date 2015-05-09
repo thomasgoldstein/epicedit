@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Data pack 6</h1>
+
+<table>
+ <tr><th>Address</th><th>(*) size</th><th colspan="2">Data</th></tr>
+ <tr><td>48000 -> 481C8 (*)</td><td>1C9</td><td>Loser disappearance cloud sprite</td><th><img src="gfx/lcloud.png"></th></tr>
+ <tr><td>481C9 -> 48F69 (*)</td><td>DA1</td><td>Mario Circuit road gfx <small>(4bpp rev)</small></td><th><img src="gfx/road_mc.png"></th></tr>
+ <tr><td>48F6A -> 49C18 (*)</td><td>CAF</td><td>Bowser Castle road gfx <small>(4bpp rev)</small></td><th><img src="gfx/road_bc.png"></th></tr>
+ <tr><td>49800 -> 49C18 (*)</td><td>419</td><td>Title music</td><th>-</th></tr>
+ <tr><td>49C19 -> 49E8F (*)</td><td>259 (277)</td><td>Dust cloud sprite</td><th><img src="gfx/dcloud.png"></th></tr>
+ <tr><td>49E90 -> 49FFF</td><td>-</td><td>Demo recorded inputs (#3 - Toad, #4 - Princess)</th><th>-</th></tr>
+ <tr><td>4A000 -> 4C7FF</td><td>-</td><td>Luigi driver sprite + Nintendo startup logo</td><th><img src="gfx/luigi.png"></th></tr>
+ <tr><td>4C800 -> 4CC39 (*)</td><td>43A</td><td>Koopa Beach music</td><th>-</th></tr>
+ <tr><td>4CC3A -> 4CFAE (*)</td><td>375</td><td>Bowser Castle music</td><th>-</th></tr>
+ <tr><td>4CFAF -> 4D4FF (*)</td><td>527 (551)</td><td>Choco Island music</td><th>-</th></tr>
+ <tr class="unknown"><td>4D500 -> 4D5B6</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>4D5B7 -> 4D5C6</td><td>-</td><td>Koopa Beach tide animation - Color set to use for each frame<br>(1 byte per frame, 16 frames; each byte is an index to the table at 4D5C7, e.g. 00=color set 1, 05=color set 2, 0A=color set 3, etc.)</td><th>-</th></tr>
+ <tr><td>4D5C7 -> 4D5F8</td><td>-</td><td>Koopa Beach tide animation - Color sets for unique frames of the tide animation<br>(5 bytes per color set, 10 sets; each byte is an index to the table at 4D5F9, e.g. 00 is the dark blue water color, 08 is the lighter sand color)</td><th>-</th></tr>
+ <tr><td>4D5F9 -> 4D608</td><td>-</td><td>Colors used in the Koopa Beach tide animation</td><th>-</th></tr>
+ <tr class="unknown"><td>4D609 -> 4DACE</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>4DACF -> 4DB92</td><td>-</td><td>Object zone data (10 bytes per track, 1-5: front-view zones, 6-10: rear-view zones)<br>
+ Track order: 1, 5, 10, 15, 6, 12, ?, 4, 9, 14, 20, 2, 8, 16, 13, 19, ?, 17, ?, 11</td><th>-</th></tr>
+ <tr><td>4DB93 -> 4DBBA</td><td>-</td><td>Index table to object zone data (2 bytes per track, absolute address: 4 + byte 2 + byte 1)</td><th>-</th></tr>
+ <tr class="unknown"><td>4DBBB -> 4DD1C</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>4DD1D -> 4DEFD</td><td>-</td><td>Ghost Valley Pillar coordinates</td><th>-</th></tr>
+ <tr class="unknown"><td>4DEFE -> 4F23C</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>4F23D -> 4F2AC</td><td>-</td><td>Track overlay pattern addresses (56 patterns, 2 bytes each, address prefixed with 4)</td><th>-</th></tr>
+ <tr><td>4F2AD -> 4F383</td><td>-</td><td>Track overlay patterns (referenced by addresses above)</td><th>-</th></tr>
+ <tr><td>4F384 -> 4F38B</td><td>-</td><td>Track overlay sizes (4 sizes, 2 bytes each)</td><th>-</th></tr>
+ <tr class="unknown"><td>4F38C -> 4F423</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>4F424 -> ?????</td><td>-</td><td><a href="pack6-pcsel1.htm">Player and cup selection screen data</a> (!)</td><th>-</th></tr>
+ <tr><td>50000 -> 50C44 (*)</td><td>C45</td><td>Donut Plains road gfx <small>(4bpp rev)</small></td><th><img src="gfx/road_dp.png"></th></tr>
+ <tr><td>50C45 -> 51635 (**)</td><td>9F1</td><td>Mario Circuit 2 track layout</td><th>-</th></tr>
+ <tr><td>51636 -> 51FFF (*)</td><td>98D (9CA)</td><td>Koopa Beach road gfx <small>(4bpp rev)</small></td><th><img src="gfx/road_kb.png"></th></tr>
+</table>
+
+</body>
+</html>

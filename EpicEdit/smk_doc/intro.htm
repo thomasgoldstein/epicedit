@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<b>Introduction</b><br>
+<br>
+First of all, the offsets documented in this file are for the headerless American Super Mario Kart ROM.<br>
+<hr>
+<blockquote>
+<pre>---------------------Internal ROM Info----------------------
+       File: Super Mario Kart (U) [!].smc
+       Name: SUPER MARIO KART       Company: Nintendo
+     Header: None                      Bank: HiROM
+Interleaved: No                        SRAM: 16 Kb
+       Type: DSP-1 + Batt               ROM: 4 Mb
+    Country: USA                      Video: NTSC
+  ROM Speed: 120ns (FastROM)       Revision: 1.0
+   Checksum: Good 0xEB44              CRC32: CD80DB86
+--------------------------Database--------------------------
+   Name: Super Mario Kart
+Country: USA                    Revision: 1.0
+ Port 1: Gamepad                  Port 2: Gamepad
+Genre 1: Racing                  Genre 2: Battle</pre>
+</blockquote>
+<hr>
+<br>
+In order to hack the ROM, you will mainly need a hexadecimal editor (whichever) and a graphics editor (like <b>Tile Molester</b>).<br>
+To change the tracks, you can use <a href="http://epicedit.stifu.fr/"><b>Epic Edit</b></a>.<br>
+<br>
+As for the compressed data, you can use <b>Epic Edit</b> or <a href="http://fusoya.eludevisibility.org/"><b>Lunar Compress</b></a> to decompress and recompress it.<br>
+You only need the starting address, on the left of the note pages.<br>
+<br>
+Using Lunar Compress, the compression settings for SMK are format1 = 4 and format2 = 0.<br>
+For example, if you want to decompress the Monty Mole sprite, type something like that in the Lunar Compress window:<br>
+<blockquote>decomp.exe smk.smc mole.smc 5D6 4 0</blockquote>
+And to recompress it:<br>
+<blockquote>recomp.exe mole.smc smk.smc 5D6 4 0</blockquote>
+After having decompressed data, modified it, then recompressed it into the ROM, you will also need to make sure its recompressed size isn't bigger than the original compressed size (detailed in the (*) column). Else, that will overwrite the data directly below it, and therefore corrupt a part of your ROM, unless that part was full of blank data. You'll see a bigger size between brackets whenever there's some free room after the concerned compressed structure, meaning the new compressed size can be as big as this second size.<br>
+<br>
+You will see "2bpp" (2 bits per pixel) or "4bpp rev" (4 bits per pixel, reversed) next to some graphics. They are graphics that may require you to change the codec view in your graphics editor in order to see them correctly.<br>
+<br>
+Also, you will often find "tcp" in this manual. That stands for "tile and color palette pointers".<br>
+This is implied for most letters or texts (ie: 1 letter = 2 bytes, 1st byte = letter tile pointer, 2nd byte = letter color palette pointer), and texts are delimited by double quotes, so you know it's text.<br>
+<br>
+By the way, whenever there is data about the drivers in the ROM, like pointers or names, their order is almost always this one:<br>
+Mario, Luigi, Bowser, Princess, Donkey Kong Jr, Koopa, Toad, Yoshi.<br>By looking for "10 00 11 00 12 00 (...) 16 00 17", you will also find data related the 8 characters ("10" being Mario) that is not documented here because not figured out by us. If your hex editor allows wildcard searches, you can also do a search like "10 ?? 11 ?? 12..." for more results.<br>
+<br>
+Finally, if you want to submit corrections or new offsets, feel free to contact me at stifu@free.fr, and I'll update the manual.<br>
+<br>
+<hr>
+<small><i>Written by the Epic Racers team: Ok Impala!, Stifu, smkdan<br>
+Thanks to: FuSoYa, DJ Bouche, d4s, DeaDb0Lt, Cool NesTea, Gavin Ward, dirtbag, GlitchCog, Mattrizzle</i></small>
+
+</body>
+</html>

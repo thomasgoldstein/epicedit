@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 7 / <b>Player and cup selection screen data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><th colspan="4">Player selection screen</th>
+ <tr class="unknown"><td>5929B -> 59139</td><td>Unknown data</td></tr>
+ <tr><td>5913B -> 5914D</td><td>BG2 layer related data ("Choose your driver....")</td></tr>
+ <tr><td>5914F -> 59353</td><td>BG3 layer related data (grass and sky)</td></tr>
+ <tr><td>59155 -> 5924A</td><td>BG4 layer related data (unused in SMK) / Unknown data<br>
+ 59176 = Defines where the BG4 layer starts<br>
+ 5917F = BG4 layer tile pointer (the whole layer uses the same tile)<br>
+ 59189 = Defines the size of the BG4 layer<br></td></tr>
+ <tr><td>5924B -> 59252</td><td>"1P OK?" confirmation indicator tcp</td></tr>
+ <tr><td>59253 -> 5925A</td><td>"2P OK?" confirmation indicator tcp</td></tr>
+ <tr><td>5925B -> 59262</td><td>"1P OK" confirmation indicator tcp</td></tr>
+ <tr><td>59263 -> 5926A</td><td>"2P OK" confirmation indicator tcp</td></tr>
+ <tr><td>5926B -> 59272</td><td>Blank confirmation indicator tcp (1P/2P)</td></tr>
+ <tr class="unknown"><td>59273 -> 592A2</td><td>Unknown data</td></tr>
+ <tr><td>592A4 -> 592DF</td><td>Driver position pointer and x/y location (4 bytes each)<br>
+ 592A4 -> 592A7 = Mario's<br>
+ 592AC -> 592AF = Luigi's<br>
+ 592B4 -> 592B7 = Bowser's<br>
+ 592BC -> 592BF = Princess'<br>
+ 592C4 -> 592C7 = DK Jr's<br>
+ 592CC -> 592CF = Koopa's<br>
+ 592D4 -> 592D7 = Toad's<br>
+ 592DC -> 592DF = Yoshi's</td></tr>
+ <tr><td>592E5 -> 592F4</td><td>Driver selection indicators location (2 bytes each)<br>
+ 592E5 -> 592E6 = Mario's<br>
+ 592E7 -> 592E8 = Princess'<br>
+ 592E9 -> 592EA = Bowser's<br>
+ 592EB -> 592EC = Koopa's<br>
+ 592ED -> 592EE = Luigi's<br>
+ 592EF -> 592F0 = Yoshi's<br>
+ 592F1 -> 592F2 = DK Jr's<br>
+ 592F3 -> 592F4 = Toad's<br>
+ </td></tr>
+ <tr class="unknown"><td>592F5 -> 59347</td><td>Unknown data (some of it Title screen related?)</td></tr>
+ <tr><td>59348 -> 59350</td><td>BG2 layer related data ("Choose your driver....")<br>
+ 5934D -> 5934E = BG2 scrolling speed</td></tr>
+ <tr><td>59352 -> 59359</td><td>BG3 layer related data (grass and sky)<br>
+ 59356 -> 59357 = BG3 scrolling speed</td></tr>
+ <tr class="unknown"><td>59351 -> 59396</td><td>Unknown data</td></tr>
+ <tr><td>59397 -> 5939E</td><td>Mini code (Y+A) related data</td></tr>
+ <tr><td>5939F -> 59480</td><td>Direction (D-pad) related data</td></tr>
+ <tr><td>59482 -> 594E8</td><td>Action button (B / Start) related data</td></tr>
+ <tr><td>594EA -> 5952D</td><td>Cancel button (X) related data</td></tr>
+ <tr><td>5952F -> 59560</td><td>Player confirmation related data</td></tr>
+ <tr><td>59561 -> 59659</td><td>Driver display and behavior<br>(595A6 = rotation speed when selected)</td></tr>
+ <tr><td>5965B -> 5978A</td><td>Bunch of data (player confirmation, selection, etc)<br>
+			59772 = pointer to the BG4 tile used after having cancelled a selection</td></tr>
+ <tr><th colspan="4">Cup selection screen</th>
+ <tr class="unknown"><td>5978C -> 597CF</td><td>Unknown data</td></tr>
+ <tr><td>597D0</td><td>Selected text color palette pointer</td></tr>
+ <tr class="unknown"><td>597D2 -> 597FE</td><td>Unknown data</td></tr>
+</table>
+
+</body>
+</html>

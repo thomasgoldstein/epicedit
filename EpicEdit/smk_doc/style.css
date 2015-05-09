@@ -1,0 +1,87 @@
+body
+{
+	background-color: black;
+	color: white;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+
+a
+{
+	color: #8F86FF;
+	font-weight: bold;
+}
+
+a:visited
+{
+	color: #9976C8;
+}
+
+a:active
+{
+	color: #BE36AD;
+}
+
+a:hover
+{
+	color: #B3ADFF;
+}
+
+h1
+{
+	font: bold 16px Verdana, sans-serif;
+}
+
+table
+{
+	border: solid 3px #292030;
+	background-color: #191020;
+	border-collapse: collapse;
+}
+
+th, td
+{
+	border: solid 1px #292030;
+	padding: .2em .5em;
+}
+
+th
+{
+	background-color: #393040;
+	color: white;
+}
+
+td
+{
+	background-color: #090010;
+}
+
+table td:first-child
+{
+	white-space: nowrap;
+}
+
+blockquote
+{
+	font-style: italic;
+}
+
+.unknown
+{
+	color: #808080;
+}
+
+.gfx
+{
+	color: #FFEB8B;
+}
+
+.data
+{
+	color: #A3C1FF;
+}
+
+.comment
+{
+	color: #C0FFFF;
+	text-align: center;
+}

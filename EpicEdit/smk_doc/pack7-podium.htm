@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 7 / <b>Podium screen data</b><br>
+<br>
+
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="unknown"><td>59800 -> 59859</td><td>Unknown data</td></tr>
+ <tr><td>5985B -> 59878</td><td>Data related to when you get any of the cups</td></tr>
+ <tr><td>59879 -> 59882</td><td>Data related to when you get a gold cup</td></tr>
+ <tr><td>59883 -> 5988C</td><td>Data related to when you get a silver cup</td></tr>
+ <tr><td>5988D -> 59893</td><td>Data related to when you get a bronze cup</td></tr>
+ <tr class="unknown"><td>59894 -> 598B3</td><td>Unknown data</td></tr>
+ <tr><td>598B5 -> 5991B</td><td>Data related to the distortion effects used for the big fish (Cheep-Cheep) and "Congratulations" text</td></tr>
+ <tr class="unknown"><td>5991D -> 5997F</td><td>Unknown data</td></tr>
+ <tr><td>59981 -> 599AE</td><td>Data that includes pointers to graphics tables (the 'A2 XX XX XX 81' packs, among others)</td></tr>
+ <tr><td>599B0 -> 59A7D</td><td>Data that is mostly related to the driver head sprites (weirdly organized...)</td></tr>
+ <tr><td>59A7F -> 59AE7</td><td>Data that includes color palette pointers</td></tr>
+ <tr><td>59AEA -> 59B0B</td><td>Big fish display data and stuff</td></tr>
+ <tr><td>59B0D -> 59B21</td><td>Champagne bottle data<br>
+59B13/59B14 = x/y initial position, 59B19/59B1A = tcp</td></tr>
+ <tr><td>59B24 -> 59B55</td><td>Cloud related data</td></tr>
+ <tr><td>59B58 -> 59B70</td><td>Cloud related data, specific to the Special Cup Race</td></tr>
+ <tr class="unknown"><td>59B73 -> 59BA3</td><td>Unknown data (includes general driver bodies, clouds, cups, big fish etc... data)</td></tr>
+ <tr class="unknown"><td>59BA6 -> 59CF8</td><td>Unknown data (includes data related to when you finish under 3rd)</td></tr>
+ <tr class="unknown"><td>59CFA -> 59D5B</td><td>Unknown data</td></tr>
+ <tr><td>59D5E -> 59D76</td><td>Data related to text display</td></tr>
+ <tr><td>59D78 -> 59D81</td><td>Data related to the resizing of the big fish as he dumps the cup</td></tr>
+ <tr><td>59D82 -> 59D96</td><td>Data related to the falling cup</td></tr>
+ <tr class="unknown"><td>59D97 -> 59DF1</td><td>Unknown data, rarely any effect noticed (but some confetti related data around the end)</td></tr>
+ <tr><td>59DF2 -> 59E15</td><td>Data related to the big fish display<br>
+59DF3/F9DF4 = X/Y animated tail position</td></tr>
+ <tr><td>59E17 -> 59EC6</td><td>Data related to the shadow below the big fish<br>
+59E2B/59E2C = Color and opacity<br>
+59E9B = Vertical position</td></tr>
+ <tr><td>59EC9 -> 59ED7</td><td>Color palettes used on the GP results and podium screens</td></tr>
+ <tr class="unknown"><td>59ED8 -> 59EDA</td><td>Unknown data</td></tr>
+ <tr><td>59EDB -> 59EE0</td><td>Gold, silver and bronze cup behavior pointers</td></tr>
+ <tr class="unknown"><td>59EE1 -> 59EED</td><td>Unknown data (related to big fish and stuff)</td></tr>
+ <tr><td>59EF0 -> 59F06</td><td>Defines whose head is on whose body</td></tr>
+ <tr class="unknown"><td>59F07 -> 59F12</td><td>Unknown data (color palette related?)</td></tr>
+ <tr><td>59F14 -> 59F18</td><td>Data related to the size of the big fish for the gold, silver and bronze cups</td></tr>
+ <tr><td>59F19 -> 59F20</td><td>Big fish data</td></tr>
+ <tr><td>59F21 -> 59FD2</td><td>Big fish tile layout (animated fish tail part from 5A197 onward)</td></tr>
+ <tr><td>59FD3 -> 59FDA</td><td>Congratulations text data<br>
+59FD3/59FD4 = "1" tcp (right above the Congratulations text)<br>
+59FD5/59FD6 = "2" tcp<br>
+59FD7/59FD8 = "3" tcp</td></tr>
+ <tr><td>59FDB -> 5A035</td><td>Congratulations text tile layout</td></tr>
+ <tr><td>5A037 -> 5A0AB</td><td>Random data (need to check in detail)<br>
+5A040/5A041 = Mushroom cloud tcp<br>
+5A042/5A043 = Flower cloud tcp<br>
+5A044/5A045 = Star cloud tcp<br>
+5A04C -> 5A06B = Big impact sprite tcp (when the big fish gets hit by the champagne cork)</td></tr>
+ <tr class="unknown"><td>5A0AC -> 5A0BB</td><td>Color palettes to use for characters (unknown)</td></tr>
+ <tr class="unknown"><td>5A0BC -> 5A0C3</td><td>Unknown data</td></tr>
+</table>
+
+<br>
+
+<table>
+ <tr><th>Address</th><th>Text</th></tr>
+ <tr><td>5A0C4 -> 5A0C9</td><td>Class name pointers (2 bytes each)</td></tr>
+ <tr><td>5A0CA -> 5A0D3</td><td>"50cc  "</td></tr>
+ <tr><td>5A0D6 -> 5A0DF</td><td>"100cc "</td></tr>
+ <tr><td>5A0E2 -> 5A0EB</td><td>"150cc "</td></tr>
+ <tr><td>5A0EE -> 5A0F5</td><td>Cup name pointers (2 bytes each)</td></tr>
+ <tr><td>5A0F8 -> 5A107</td><td>"MUSHROOM"</td></tr>
+ <tr><td>5A10A -> 5A115</td><td>"FLOWER"</td></tr>
+ <tr><td>5A118 -> 5A11F</td><td>"STAR"</td></tr>
+ <tr><td>FA122 -> 5A12F</td><td>"SPECIAL"</td></tr>
+ <tr><td>5A132 -> 5A143</td><td>"CUP RACE"</td></tr>
+ <tr><td>5A148 -> 5A157</td><td>Driver name pointers (2 bytes each)</td></tr>
+ <tr><td>5A15C -> 5A1CB</td><td>Driver name texts<br>
+(Mario, Luigi, Bowser, The Princess, DK Jr., Koopa, Toad, Yoshi)</td></tr>
+ <tr><td>5A1CC -> 5A1DF</td><td>" WINS THE "</td></tr>
+ <tr><td>5A1E2 -> 5A1F3</td><td>" CAME IN "</td></tr>
+ <tr><td>5A1FE -> 5A207</td><td>"GOLD."</td></tr>
+ <tr><td>5A20C -> 5A219</td><td>"SILVER."</td></tr>
+ <tr><td>5A21E -> 5A22B</td><td>"BRONZE."</td></tr>
+ <tr><td>5A230 -> 5A245</td><td>"GREAT RACE!"</td></tr>
+ <tr><td>5A256 -> 5A25D</td><td>"4TH "</td></tr>
+ <tr><td>5A260 -> 5A267</td><td>"5TH "</td></tr>
+ <tr><td>5A26A -> 5A271</td><td>"6TH "</td></tr>
+ <tr><td>5A274 -> 5A27B</td><td>"7TH "</td></tr>
+ <tr><td>5A27E -> 5A285</td><td>"8TH "</td></tr>
+ <tr><td>5A288 -> 5A2A9</td><td>"PLACE.<br>TRY AGAIN."</td></tr>
+ <tr><td>5A2AE -> 5A30F</td><td>"EXCELLENT DRIVING!<br>YOU ARE NOW A SUPER<br>MARIO KART EXPERT."</td></tr>
+</table>
+
+<br>
+Note: to remove the line break in the Princess' text, change 5AD10 from 'AD' to 'AF', and 5AD36 from 'AF' to 'AD'<br>
+<br>
+
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><td>5A324 -> 5A32F</td><td>Data related to the falling cup</td></tr>
+</table>
+
+<br>
+Driver bodies definition:<br>
+<br>
+Each character pointer is made of 4 bytes:<br>
+1st and 2nd byte: standing frame pointer, 3rd and 4th byte: victory frame pointer.<br>
+Then for each frame, each tile is defined by 4 bytes:<br>
+1st/2nd: x/y position, 3rd: graphics tile pointer, 4th: color palette pointer<br>
+<br>
+Note that messing with character body pointers can lead to graphical glitches in the final ola (even if your characters work right in the podium scenes). There are 3 types of characters:<br>
+<ul>
+<li>Type 1: Mario, Luigi, Koopa, Toad (20-byte frames, 4 last used for their shadow)</li>
+<li>Type 2: Donkey, Yoshi (16-byte frames, no shadow as they don't jump)</li>
+<li>Type 3: Bowser, Princess (24-byte frames, as they are taller)</li>
+</ul>
+Those types work according to the corresponding character pointers. Each character pointer is made of 4 bytes. Substract the value of 1st byte from the value of the 3rd byte (for Mario, that's 4A - 34 = 16), add 4 to that result and you get the size the game will accept for each of the character frame. Doing the same calculations for Donkey's pointers will give you 12, and for Bowser 1A (or 20, the way we calculate things here), and adding 4 to those results will give you the same numbers as above.<br>
+To sum things up, you can't swap character pointers if both characters aren't of the same type, or that'll make the final ola glitch.<br>
+However, it is possible to change the frame size of one character by restructuring its data and changing its pointer(s) accordingly, but managing to do so without breaking the final ola can be hard.<br>
+<br>
+Note: all of the characters who jump (Mario, Luigi, Koopa, Toad) have 'E0 E0 C2 32' at the end of their standing frame.
+That's their shadow sprite, but it's hidden by their own body, so it's useless in the original game.<br>
+The shadow sprite as they jump ('78 AD C2 32'), however, can be seen.<br>
+Also note that the other characters (Bowser, Princess, Donkey, Yoshi) only jump for the final ola screen
+(at the end of the staff roll, after having won the Special Cup Race), so their jumping frame isn't defined here but in the <a href="pack5-credits.htm">credits screen data</a>.<br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><td>5A330 -> 5A401</td><td><strong>Mario</strong><br>
+5A330 -> 5A333 = Character pointer<br>
+5A334 -> 5A347 = Standing frame<br>
+5A34A -> 5A35D = Victory frame<br>
+5A360 -> 5A401 = Victory animation (when you finish 1st)</td></tr>
+ <tr><td>5A404 -> 5A467</td><td><strong>Bowser</strong><br>
+5A404 -> 5A407 = Character pointer<br>
+5A408 -> 5A40B = Victory animation pointer<br>
+5A40C -> 5A423 = Standing frame<br>
+5A426 -> 5A43D = Victory frame<br>
+5A440 -> 5A467 = Victory animation</td></tr>
+ <tr><td>5A476 -> 5A4AB</td><td><strong>Princess</strong><br>
+5A476 -> 5A479 = Character pointer<br>
+5A47A -> 5A491 = Standing frame<br>
+5A494 -> 5A4AB = Victory frame</td></tr>
+ <tr><td>5A4AE -> 5A54B</td><td><strong>Donkey</strong><br>
+5A4AE -> 5A4B1 = Character pointer<br>
+5A4B2 -> 5A4B9 = Victory animation pointer<br>
+5A4BA -> 5A4C9 = Standing frame<br>
+5A4CC -> 5A4DB = Victory frame<br>
+5A4DE -> 5A54B = Victory animation</td></tr>
+ <tr><td>5A54E -> 7A637</td><td><strong>Luigi</strong><br>
+5A54E -> 5A551 = Character pointer<br>
+5A552 -> 5A565 = Standing frame<br>
+5A568 -> 5A57B = Victory frame<br>
+5A57E -> 5A637 = Victory animation</td></tr>
+ <tr><td>5A63A -> 5A717</td><td><strong>Koopa</strong><br>
+5A63A -> 5A63D = Character pointer<br>
+5A63E -> 5A641 = Victory animation pointer<br>
+5A642 -> 5A655 = Standing frame<br>
+5A658 -> 5A66B = Victory frame<br>
+5A66E -> 5A717 = Victory animation</td></tr>
+ <tr><td>5A71A -> 5A757</td><td><strong>Toad</strong><br>
+5A71A -> 5A71D = Character pointer<br>
+5A71E -> 5A731 = Standing frame<br>
+5A734 -> 5A747 = Victory frame<br>
+5A74A -> 5A757 = Victory animation</td></tr>
+ <tr><td>5A75A -> 5A794</td><td><strong>Yoshi</strong><br>
+5A75A -> 5A75D = Character pointer<br>
+5A75E -> 5A76D = Standing frame<br>
+5A770 -> 5A77F = Victory frame<br>
+5A782 -> 5A794 = Victory animation</td></tr>
+</table>		 
+
+<br>
+
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><td>5A796 -> 5A7A4</td><td>Data related to the big fish getting blasted to the mountains</td></tr>
+ <tr><td>5A7A6 -> 5A8C6</td><td>Data related to the big fish and the cup, for the gold cup ceremony<br>
+5A7A9/5A7AA = Point where the big fish stops to drop the cup<br>
+5A7AE/5A7AF & 5A7B3/5A7B4 = Big fish deceleration data<br>
+5A7D2 = Vertical position of the cup impact with the winner's head<br>
+5A7D3 = Vertical position of the cup landing</td></tr>
+ <tr><td>5A8C7 -> 5A922</td><td>Data related to the big fish and the cup, for the silver cup ceremony<br>
+5A8CA/5AACB = Point where the big fish stops to drop the cup<br>
+5A8CF/5AAD0 & 5A8D4/5A8D5 = Big fish deceleration data<br>
+5A8F8 = Vertical position of the cup impact with the winner's head<br>
+5A8F9 = Vertical position of the cup landing</td></tr>
+ <tr><td>5A923 -> 5A97E</td><td>Data related to the big fish and the cup, for the bronze cup ceremony<br>
+5A926/5A927 = Point where the big fish stops to drop the cup<br>
+5A92B/5A92C & 5A930/5A931 = Big fish deceleration data<br>
+5A954 = Vertical position of the cup impact with the winner's head<br>
+5A955 = Vertical position of the cup landing</td></tr>
+ <tr><td>5A97F -> 5AA83</td><td>Data related to the big fish and the cup, for all 3 ceremonies<br>
+5A9E0 = Pointer to the music played after the fish dumps the cup<br>
+5A9E1 = Pointer to the sound the fish makes as he dumps the cup<br>
+5A9EB = Pointer to the sound as the cup gets dumped<br>
+5AA5B = Pointer to the sound the cup makes as it hits the player's head and the ground</td></tr>
+ <tr><td>5AA84 -> 5AB66</td><td>Confetti data<br>
+5AB43 -> 5AB48 = Blue confetti tcp (3 frames)<br>
+5AB49 -> 5AB4E = Orange confetti tcp (3 frames)<br>
+5AB4F -> 5AB54 = Yellow confetti tcp (3 frames)<br>
+5AB55 -> 5AB5A = White confetti tcp (3 frames)<br>
+5AB5B -> 5AB60 = Red confetti tcp (3 frames)<br>
+5AB61 -> 5AB66 = Green confetti tcp (3 frames)</td></tr>
+ <tr><td>5AB6D -> 5AB8E</td><td>More data<br>
+5AB89/5AB8A = Little impact sprite tcp (as the cup bumps on the player's head)<br>
+(the impact sprite is made of 4 tiles but you only define the top left one)</td></tr>
+ <tr><td>5AB8F -> 5ABB9</td><td>Cloud data</td></tr>
+ <tr><td>5ABBA -> 5AC5C</td><td>Data related to the "Congratulations" text (flashing, distortion, position)<br>
+5ACF6 = Horizontal position<br>
+5ACFB = Vertical position</td></tr>
+ <tr><td>5AC5D -> 5AEBB</td><td>Text (and stuff) related data<br>
+5AD5F -> 5AD81 = Text data when player is a "Super Mario Kart Expert"<br>
+5AD82 -> 5ADF7 = Text data when player ranks below 3rd<br>
+5AE50 -> 5AEBB = Various data (like character sprite related data) when player ranks below 3rd</td></tr>
+ <tr><td>5AEBC -> 5AF83</td><td>Podium character sprite, text etc display and functional data</td></tr>
+ <tr><td>5AF83 -> 5AFD3</td><td>Unknown data (podium data mixed with some final ola data)<br>
+(some large data ranges seemed to have no effect at all, maybe related to other parts of the game, or unused)<br>
+<br>
+Final ola (at the end of the credits):<br>
+5AF83 -> 5AFB3 = Mario data (5AFA2/5AFA3 = x/y position)<br>
+5B0B8 -> 5B0E8 = Bowser data (5B0D7/5B0D8 = x/y position)<br>
+5B18B -> 5B1BB = Princess data (5B1AA/5B1AB = x/y position)<br>
+5B26F -> 5B29F = Donkey data (5B28E/5B28F = x/y position)<br>
+5B37F -> 5B3AF = Luigi data (5B39E/5B39F = x/y position)<br>
+5B4C4 -> 5B4F4 = Koopa data (5B4E3/5B4E4 = x/y position)<br>
+5B602 -> 5B632 = Toad data (5B621/5B622 = x/y position)<br>
+5B781 -> 5B7B1 = Yoshi data (5B7A0/5B7A1 = x/y position)</td></tr>
+ <tr><td>5BAD6 -> 5BAE0</td><td>Final ola data</td></tr>
+ <tr><td>5BAE1 -> 5BB28</td><td>Final ola character data<br>
+(2nd and 3rd bytes = jumping order<br>
+do not swap data between side characters [those who don't jump at first] and the middle ones, else glitches)<br>
+5BAE2 -> 5BAE9 = Bowser<br>
+5BAEB -> 5BAF2 = Princess<br>
+5BAF4 -> 5BAFB = Koopa<br>
+5BAFD -> 5BB04 = Mario<br>
+5BB06 -> 5BB0D = Luigi<br>
+5BB0F -> 5BB16 = Toad<br>
+5BB18 -> 5BB1F = Yoshi<br>
+5BB21 -> 5BB28 = Donkey</td></tr>
+ <tr><td>5BB29 -> 5BB34</td><td>Final ola data</td></tr>
+</table>
+
+</body>
+</html>

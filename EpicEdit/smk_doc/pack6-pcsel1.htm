@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 6 / <b>Player and cup selection screen data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><th colspan="4">Player selection screen</th>
+ <tr><td>4F424 -> 4F425</td><td>Blank selection indicator tcp</td></tr>
+ <tr><td>4F429 -> 4F42A</td><td>1P confirmation box position</td></tr>
+ <tr><td>4F42E -> 4F42F</td><td>2P confirmation box position</td></tr>
+ <tr><td>4F49C -> 4F49D</td><td>"1P" selection indicator tcp</td></tr>
+ <tr><td>4F4A4 -> 4F4A5</td><td>"1P" selection indicator blinking frame tcp</td></tr>
+ <tr><td>4F4C6 -> 4F4C7</td><td>"COM" selection indicator tcp</td></tr>
+ <tr><td>4F4CE -> 4F4CF</td><td>"2P" selection indicator tcp</td></tr>
+ <tr><td>4F4D6 -> 4F4D7</td><td>"2P"/"COM" selection indicator blinking frame tcp</td></tr>
+ <tr class="comment"><td>Comment</td><td colspan="3">For all of the selection indicator boxes,<br>
+						you can only define where the 1st tile is, the 2nd one<br>
+						is automatically the tile to the right of the 1st one.</td></tr>
+ <tr><th colspan="4">Cup selection screen</th>
+ <tr><td>4F64E</td><td>Special Cup playable in GP 50cc (1/7), change from D0 to 80</td></tr>
+ <tr><td>4F6CD -> 4F6CE</td><td>Special Cup playable in GP 50cc (2/7), change from F0 33 to EA EA</td></tr>
+ <tr><td>4F6D9 -> 4F6DA</td><td>Unlocking Special Cup permanently (1/9), change from D0 1E to EA EA</td></tr>
+ <tr><td>4F6E5 -> 4F6E6</td><td>Unlocking Special Cup permanently (2/9), change from D0 12 to EA EA</td></tr>
+ <tr><td>4F6F1 -> 4F6F2</td><td>Unlocking Special Cup permanently (3/9), change from D0 06 to EA EA</td></tr>
+ <tr><td>4F723</td><td>Special Cup playable in GP 50cc (3/7), change from D0 to 80</td></tr>
+ <tr><td>4F7B6 -> 4F7B7</td><td>"cc"</td></tr>
+ <tr><td>4F81F -> 4F820</td><td>Mushroom Cup icon tcp</td></tr>
+ <tr><td>4F821 -> 4F822</td><td>Flower Cup icon tcp</td></tr>
+ <tr><td>4F823 -> 4F824</td><td>Star Cup icon tcp</td></tr>
+ <tr><td>4F825 -> 4F826</td><td>50cc Mushroom Cup trophy X,Y position</td></tr>
+ <tr><td>4F827 -> 4F828</td><td>50cc Flower Cup trophy X,Y position</td></tr>
+ <tr><td>4F829 -> 4F82A</td><td>50cc Star Cup trophy X,Y position</td></tr>
+ <tr><td>4F82B -> 4F82C</td><td>100cc & 150cc Mushroom Cup trophy X,Y position</td></tr>
+ <tr><td>4F82D -> 4F82F</td><td>100cc & 150cc Flower Cup trophy X,Y position</td></tr>
+ <tr><td>4F830 -> 4F831</td><td>100cc & 150cc Star Cup trophy X,Y position</td></tr>
+ <tr><td>4F832 -> 4F833</td><td>100cc & 150cc Special Cup trophy X,Y position</td></tr>
+ <tr><td>4F833 -> 4F83A</td><td>100cc Cup icon tcp (bronze, silver, gold, none)</td></tr>
+ <tr><td>4F83B -> 4F842</td><td>50cc Cup icon tcp (bronze, silver, gold, none)</td></tr>
+ <tr><td>4F843 -> 4F84A</td><td>150cc Cup icon tcp (bronze, silver, gold, none)</td></tr>
+ <tr><td>4F85F -> 4F866</td><td>Cup name pointers (2 bytes each)</td></tr>
+ <tr><td>4F867 -> 4F888</td><td>"MUSHROOM CUP RACE"</td></tr>
+ <tr><td>4F88B -> 4F8A8</td><td>"FLOWER CUP RACE"</td></tr>
+ <tr><td>4F8AB -> 4F8C4</td><td>"STAR CUP RACE"</td></tr>
+ <tr><td>4F8C7 -> 4F8E6</td><td>"SPECIAL CUP RACE"</td></tr>
+ <tr><td>4F8E9 -> 4F8EE</td><td>Class name pointers (2 bytes each)</td></tr>
+ <tr><td>4F8EF -> 4F902</td><td>" 50  CLASS"</td></tr>
+ <tr><td>4F903 -> 4F916</td><td>"100  CLASS"</td></tr>
+ <tr><td>4F917 -> 4F92A</td><td>"150  CLASS"</td></tr>
+ <tr><td>4F987 -> 4F988</td><td>Special Cup playable in GP 50cc (4/7), change from F0 06 to EA EA</td></tr>
+ <tr><td>4F9B1 -> 4F9B2</td><td>Special Cup playable in GP 50cc (5/7), change from F0 06 to EA EA</td></tr>
+ <tr><td>4FAA0 -> 4FAA1</td><td>Special Cup playable in GP 50cc (6/7), change from F0 35 to EA EA</td></tr>
+ <tr><td>4FB08</td><td>Special Cup playable in GP 50cc (7/7), change from D0 to 80</td></tr>
+ <tr><td>4FB1D -> 4FB1E</td><td>Unlocking Special Cup permanently (4/9), change from D0 EB to EA EA</td></tr>
+ <tr><td>4FB29 -> 4FB2A</td><td>Unlocking Special Cup permanently (5/9), change from D0 DF to EA EA</td></tr> 
+ <tr><td>4FB35 -> 4FB36</td><td>Unlocking Special Cup permanently (6/9), change from D0 D3 to EA EA</td></tr> 
+ <tr><td>4FAAC -> 4FAAD</td><td>Unlocking Special Cup permanently (7/9), change from D0 29 to EA EA</td></tr> 
+ <tr><td>4FAB8 -> 4FAB9</td><td>Unlocking Special Cup permanently (8/9), change from D0 1D to EA EA</td></tr>
+ <tr><td>4FAC4 -> 4FAC5</td><td>Unlocking Special Cup permanently (9/9), change from D0 11 to EA EA</td></tr>
+</table>
+
+</body>
+</html>

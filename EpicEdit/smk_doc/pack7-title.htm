@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 7 / <b>Title screen data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="unknown"><td>58000 -> 58119</td><td>Unknown data (!) (functional and display stuff)</td></tr>
+ <tr><td>5811A -> 5811B</td><td>Little Mushroom icon tcp</td></tr>
+ <tr class="unknown"><td>5811C -> 58132</td><td>Unknown data (!)</td></tr>
+ <tr class="unknown"><td>58134 -> 5815E</td><td>Unknown data (!) (text related)</td></tr>
+ <tr class="unknown"><td>5815F -> 58270</td><td>Unknown data (!) (very sensitive)</td></tr>
+ <tr class="unknown"><td>58171 -> 58276</td><td>Unknown data (!)</td></tr>
+ <tr><td>58277 -> 5827B</td><td>Data related to all of the layers</td></tr>
+ <tr><td>5827C -> 58280</td><td>Scrolling background layer related pointers</td></tr>
+ <tr><td>58281 -> 5828A</td><td>Windows menu layer data</td></tr>
+ <tr><td>5828B -> 5828F</td><td>Non-scrolling graphics related pointers</td></tr>
+ <tr><td>58290 -> 58294</td><td>Scrolling background graphics related pointers</td></tr>
+ <tr><td>58295 -> 58299</td><td>Windows menu background graphics related pointers</td></tr>
+ <tr><td>5829A -> 5829E</td><td>Scrolling background graphics related pointers</td></tr>
+ <tr><td>5829F -> 582A3</td><td>Windows menu background graphics related pointers</td></tr>
+ <tr><td>582A4 -> 582A8</td><td>Driver related pointers</td></tr>
+ <tr class="unknown"><td>582A9 -> 584AD</td><td>Unknown data (!)</td></tr>
+ <tr><td>582C4 -> 58332</td><td>Windows menu data</td></tr>
+ <tr><td>58334 -> 5834C</td><td>Data related to menu windows with 2 options</td></tr>
+ <tr><td>5834E -> 58366</td><td>Data related to menu windows with 3 options</td></tr>
+ <tr><td>58368 -> 58380</td><td>Data related to the confirmation menu window</td></tr>
+ <tr><td>5839B -> 583BE</td><td>Windows menu data</td></tr>
+</table>
+
+<br>
+<table>
+ <tr><th>Address</th><th>Text</th></tr>
+ <tr><td>583BF -> 583CC</td><td>"1P GAME"</td></tr>
+ <tr><td>583CD -> 583DA</td><td>"2P GAME"</td></tr>
+ <tr><td>583DB -> 583F2</td><td>"MARIOKART GP" (2P game)</td></tr>
+ <tr><td>583F3 -> 58406</td><td>"MATCH RACE"</td></tr>
+ <tr><td>58407 -> 5841C</td><td>"BATTLE MODE"</td></tr>
+ <tr><td>5841D -> 58434</td><td>"MARIOKART GP" (1P game)</td></tr>
+ <tr><td>58635 -> 58448</td><td>"TIME TRIAL"</td></tr>
+ <tr><td>58449 -> 5845A</td><td>"50cc CLASS"</td></tr>
+ <tr><td>5845B -> 5846E</td><td>"100cc CLASS"</td></tr>
+ <tr><td>5846F -> 58482</td><td>"150cc CLASS"</td></tr>
+ <tr><td>58483 -> 584A6</td><td>"IS THIS OK?"</td></tr>
+ <tr><td>584A7 -> 584B3</td><td>"YES"</td></tr>
+ <tr><td>584B4 -> 584BB</td><td>"NO"</td></tr>
+ <tr><td>584BB -> 584BE</td><td>"(" next to yes/no (4 bytes = x/y pos, tcp)</td></tr>
+ <tr><td>584BF -> 584C2</td><td>")" next to yes/no (4 bytes = x/y pos, tcp)</td></tr>
+</table>
+
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="unknown"><td>584C5 -> 58B05</td><td>Unknown data (!) (Data related to the title screen and the drivers there)</td></tr>
+ <tr><td>58669 -> 5880E</td><td>Unlock GP150cc mode permanently by changing the values at locations 58669, 587E8 and 5880E (values D0 05, D0 0B and D0 09) to EA EA</td></tr>
+ <tr><td>58B06 -> 58B07</td><td>"MARIOKART GP" text length</td></tr>
+ <tr><td>58B08 -> 58B09</td><td>"MATCH RACE" text length</td></tr>
+ <tr><td>58B0A -> 58B0B</td><td>"BATTLE MODE" text length</td></tr>
+ <tr class="unknown"><td>58B0C -> 59008</td><td>Unknown data (!)</td></tr>
+ <tr><td>59009 -> 59012</td><td>Mario's place, position and direction</td></tr>
+ <tr><td>59013 -> 5901C</td><td>Luigi's</td></tr>
+ <tr><td>5901D -> 59026</td><td>Bowser's</td></tr>
+ <tr><td>59027 -> 59030</td><td>Princess'</td></tr>
+ <tr><td>59031 -> 5903A</td><td>Donkey's</td></tr>
+ <tr><td>5903B -> 59044</td><td>Koopa's</td></tr>
+ <tr><td>59045 -> 5904E</td><td>Toad's</td></tr>
+ <tr><td>5904F -> 59058</td><td>Yoshi's</td></tr>
+ <tr><td>5905A -> 59099</td><td>Drivers related data</td></tr>
+</table>
+
+</body>
+</html>

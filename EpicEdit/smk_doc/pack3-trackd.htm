@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+
+Data pack 3 / <b>Track data</b><br>
+<br>
+<table>
+ <tr><td>1E6BD</td><td>Common tile graphics offset - upper 8 bits</td></tr>
+ <tr><td>1E6C0 -> 1E6C1</td><td>Common tile graphics offset - lower 16 bits</td></tr>
+ <tr><td>1E749 -> 1E74B</td><td>Address to track indexes</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1EB4B -> 1EB5A</td><td>Tile type index for each theme (2 bytes per theme)<br>(Tile type data is at <a href="pack8.htm">7FFBA</a>)</td></tr>
+ <tr><td>1EB5B -> 1EBA2</td><td>Track map address index (3 bytes each)<br>
+ To have the hex address equivalent, read the 3 bytes backward,<br>
+ removing the 1st character of the 3rd byte.<br>
+ Example, Mario Circuit 1: pointer = <font color="lime">00</font><font color="yellow">80</font>8<font color="orange">6</font>, hex address = <font color="orange">6</font><font color="yellow">80</font><font color="lime">00</font><br><br>
+ 1EB5B -> 1EB5D = Mario Circuit 3<br>
+ 1EB5E -> 1EB60 = Ghost Valley 2<br>
+ 1EB61 -> 1EB63 = Donut Plains 2<br>
+ 1EB64 -> 1EB66 = Bowser Castle 2<br>
+ 1EB67 -> 1EB69 = Vanilla Lake 2<br>
+ 1EB6A -> 1EB6C = Rainbow Road<br>
+ 1EB6D -> 1EB6F = Koopa Beach 2<br>
+ 1EB70 -> 1EB72 = Mario Circuit 1<br>
+ 1EB73 -> 1EB75 = Ghost Valley 3<br>
+ 1EB76 -> 1EB78 = Bowser Castle 3<br>
+ 1EB79 -> 1EB7B = Choco Island 2<br>
+ 1EB7C -> 1EB7E = Donut Plains 3<br>
+ 1EB7F -> 1EB81 = Vanilla Lake 1<br>
+ 1EB82 -> 1EB84 = Koopa Beach 1<br>
+ 1EB85 -> 1EB87 = Mario Circuit 4<br>
+ 1EB88 -> 1EB8A = Mario Circuit 2<br>
+ 1EB8B -> 1EB8D = Ghost Valley 1<br>
+ 1EB8E -> 1EB90 = Bowser Castle 1<br>
+ 1EB91 -> 1EB93 = Choco Island 1<br>
+ 1EB94 -> 1EB96 = Donut Plains 1<br>
+ 1EB97 -> 1EB99 = Battle Course 3<br>
+ 1EB9A -> 1EB9C = Battle Course 4<br>
+ 1EB9D -> 1EB9F = Battle Course 1<br>
+ 1EBA0 -> 1EBA2 = Battle Course 2</td></tr>
+ <tr><td>1EBA3 -> 1EBBA</td><td>Theme road graphics address index (3 bytes each, same as above)<br>
+ 1EBA3 -> 1EBA5 = Ghost Valley<br>
+ 1EBA6 -> 1EBA8 = Mario Circuit<br>
+ 1EBA9 -> 1EBAB = Donut Plains<br>
+ 1EBAC -> 1EBAE = Choco Island<br>
+ 1EBAF -> 1EBB1 = Vanilla Lake<br>
+ 1EBB2 -> 1EBB4 = Koopa Beach<br>
+ 1EBB5 -> 1EBB7 = Bowser Castle<br>
+ 1EBB8 -> 1EBBA = Rainbow Road</td></tr>
+ <tr><td>1EBBB -> 1EDD2</td><td>Theme color palette address index (3 bytes each, same as above)<br>
+ 1EBBB -> 1EBBD = Ghost Valley<br>
+ 1EBBE -> 1EBC0 = Mario Circuit<br>
+ 1EBC1 -> 1EBC3 = Donut Plains<br>
+ 1EBC4 -> 1EBC6 = Choco Island<br>
+ 1EBC7 -> 1EBC9 = Vanilla Lake<br>
+ 1EBCA -> 1EBCC = Koopa Beach<br>
+ 1EBCD -> 1EBCF = Bowser Castle<br>
+ 1EBD0 -> 1EBD2 = Rainbow Road</td></tr>
+ <tr><td>1EBD3 -> 1EBEA</td><td>Track object graphics address index (3 bytes each, same as above)<br>
+ 1EBD3 -> 1EBD5 = Ghost Pillar<br>
+ 1EBD6 -> 1EBD8 = Pipe (Mario Circuit, Donut Plains)<br>
+ 1EBD9 -> 1EBDB = Monty Mole<br>
+ 1EBDC -> 1EBDE = Piranha Plant<br>
+ 1EBDF -> 1EBE1 = Pipe (Vanilla Lake)<br>
+ 1EBE2 -> 1EBE4 = Cheep-Cheep<br>
+ 1EBE5 -> 1EBE7 = Thwomp (Bowser Castle)<br>
+ 1EBE8 -> 1EBEA = Thwomp (Rainbow Road)</td></tr>
+ <tr><td>1EBEB -> 1EC02</td><td>Track background graphics address index (3 bytes each, same as above)<br>
+ 1EBEB -> 1EBED = Ghost Valley<br>
+ 1EBEE -> 1EBF0 = Mario Circuit<br>
+ 1EBF1 -> 1EBF3 = Donut Plains<br>
+ 1EBF4 -> 1EBF6 = Choco Island<br>
+ 1EBF7 -> 1EBF9 = Vanilla Lake<br>
+ 1EBFA -> 1EBFC = Koopa Beach<br>
+ 1EBFD -> 1EBFF = Bowser Castle<br>
+ 1EC00 -> 1EC02 = Rainbow Road</td></tr>
+ <tr><td>1EC03 -> 1EC1A</td><td>Track background layout address index (3 bytes each, same as above)<br>
+ 1EC03 -> 1EC05 = Ghost Valley<br>
+ 1EC06 -> 1EC08 = Mario Circuit<br>
+ 1EC09 -> 1EC0B = Donut Plains<br>
+ 1EC0C -> 1EC0E = Choco Island<br>
+ 1EC0F -> 1EC11 = Vanilla Lake<br>
+ 1EC12 -> 1EC14 = Koopa Beach<br>
+ 1EC15 -> 1EC17 = Bowser Castle<br>
+ 1EC18 -> 1EC1A = Rainbow Road</td></tr>  
+ <tr><td>1EC1B -> 1EC2E</td><td>GP track order index (1 byte each)<br>
+ 1EC1B = Track 1 (Mario Circuit 1)<br>
+ 1EC1C = Track 2 (Donut Plains 1)<br>
+ 1EC1D = Track 3 (Ghost Valley 1)<br>
+ 1EC1E = Track 4 (Bowser Castle 1)<br>
+ 1EC1F = Track 5 (Mario Circuit 2)<br><br>
+ 1EC20 = Track 6 (Choco Island 1)<br>
+ 1EC21 = Track 7 (Ghost Valley 2)<br>
+ 1EC22 = Track 8 (Donut Plains 2)<br>
+ 1EC23 = Track 9 (Bowser Castle 2)<br>
+ 1EC24 = Track 10 (Mario Circuit 3)<br><br>
+ 1EC25 = Track 11 (Koopa Beach 1)<br>
+ 1EC26 = Track 12 (Choco Island 2)<br>
+ 1EC27 = Track 13 (Vanilla Lake 1)<br>
+ 1EC28 = Track 14 (Bowser Castle 3)<br>
+ 1EC29 = Track 15 (Mario Circuit 4)<br><br>
+ 1EC2A = Track 16 (Donut Plains 3)<br>
+ 1EC2B = Track 17 (Koopa Beach 2)<br>
+ 1EC2C = Track 18 (Ghost Valley 3)<br>
+ 1EC2D = Track 19 (Vanilla Lake 2)<br>
+ 1EC2E = Track 20 (Rainbow Road)</td></tr>
+ <tr class="comment"><td>Comment</td><td colspan="3">Battle track order index is located at <a href="pack3-intrack.htm">1C15C</a></td></tr>
+ <tr><td>1EC2F -> 1EC46</td><td>Track theme index (1 byte each)<br>
+ 1EC2F = Mario Circuit 3<br>
+ 1EC30 = Ghost Valley 2<br>
+ 1EC31 = Donut Plains 2<br>
+ 1EC32 = Bowser Castle 2<br>
+ 1EC33 = Vanilla Lake 2<br>
+ 1EC34 = Rainbow Road<br>
+ 1EC35 = Koopa Beach 2<br>
+ 1EC36 = Mario Circuit 1<br>
+ 1EC37 = Ghost Valley 3<br>
+ 1EC38 = Bowser Castle 3<br>
+ 1EC39 = Choco Island 2<br>
+ 1EC3A = Donut Plains 3<br>
+ 1EC3B = Vanilla Lake 1<br>
+ 1EC3C = Koopa Beach 1<br>
+ 1EC3D = Mario Circuit 4<br>
+ 1EC3E = Mario Circuit 2<br>
+ 1EC3F = Ghost Valley 1<br>
+ 1EC40 = Bowser Castle 1<br>
+ 1EC41 = Choco Island 1<br>
+ 1EC42 = Donut Plains 1<br>
+ 1EC43 = Battle Course 3<br>
+ 1EC44 = Battle Course 4<br>
+ 1EC45 = Battle Course 1<br>
+ 1EC46 = Battle Course 2</td></tr>
+</table>
+
+</body>
+</html>

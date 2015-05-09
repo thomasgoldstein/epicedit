@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 2 / <b>General and functional data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>848E -> 849D</td><td>Color palette used by each driver<br>(Altering these won't affect the palettes used when characters are squashed or in the trophy sequence)</td></tr>
+ <tr><td>8F23 -> 8F24</td><td>Which character uses the special graphic routine (Luigi)<br>(Note 2: Change 8F25 from BNE to BRA (D0 to 80) to disable this. You will also have to change Luigi's value in the table at 9080.)</td></tr>
+ <tr><td>8F30 -> 8F31</td><td>Which character's sprite Luigi copies when far away/shrunken (from table at 9080)</td></tr>
+ <tr><td>9043 -> 9044</td><td>Luigi's body (all angles except for full front/back)</td></tr>
+ <tr><td>905C -> 905D</td><td>Luigi's body (full front/back)</td></tr>
+ <tr><td>9071 -> 907F</td><td>Driver slot pointers (player select screen)<br>(doesn't change who is actually selected)</td></tr>
+ <tr><td>9080 -> 908F</td><td>Driver sprite pointers for each character (player select screen)</td></tr>
+ <tr><td>9090 -> ????</td><td>Drivers tile layout<br>(9090 -> 90AF = 100% size frames, from back to front)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>B81E -> B81F</td><td>Bright wheel flashing color (1/2)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>B82F -> B830</td><td>Dark wheel flashing color (2/2)</td></tr>
+ <tr><td>B837 -> B846</td><td>This appears to be related to palettes somehow. (look at the upper nybble of every even byte)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>E7D8 -> E889</td><td>Drivers and track objects tile position</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+</table>
+
+</body>
+</html>

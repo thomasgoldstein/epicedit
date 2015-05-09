@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Data pack 7</h1>
+
+<table>
+ <tr><th>Address</th><th>(*) size</th><th colspan="2">Data</th></tr>
+ <tr><td>58000 -> 59099</td><td>-</td><td><a href="pack7-title.htm">Title screen data</a></td><th>-</th></tr>
+ <tr><td>5909B -> 597FE</td><td>-</td><td><a href="pack7-pcsel2.htm">Player and cup selection screen data</a></td><th>-</th></tr>
+ <tr><td>59800 -> 5BB34</td><td>-</td><td><a href="pack7-podium.htm">Podium screen data (+ final ola)</a></td><th>-</th></tr>
+ <tr><td>5BB35 -> ?????</td><td>-</td><td><a href="pack7-gpres.htm">GP results screen data</a> (!)</td><th>-</th></tr>
+ <tr><td>5C800 -> 5CCFF</td><td>-</td><td>Object coordinates for all 20 GP tracks (same track order as <a href="pack3-trackd.htm">here</a>)<br>
+ 64 bytes per track (2 bytes per object),<br>
+ first 32 bytes: object (Pipes, Piranha Plants...) coordinates,<br>
+ 12 following bytes: 2P Match Race object coordinates,<br>
+ the rest is blank<br>
+ <br>
+ Note for Match Race objects:<br>
+ the 7th highest bit of the 2nd byte defines whether Chain Chomps move horizontally (0) or vertically (1)<br>
+ And the highest (ie: 8th) bit defines whether the object is a Chain Chomp (0) or a Banana (1)</td><th>-</th></tr>
+ <tr class="unknown"><td>5CD00 -> 5CFFF</td><td>-</td><td>Unknown data (!) unused?</td><th>-</th></tr>
+ <tr><td>5D000 -> 5DBFF</td><td>-</td><td>Track overlay data for all tracks (same track order as <a href="pack3-trackd.htm">here</a>)<br>
+ 128 bytes per track</td><th>-</th></tr>
+ <tr class="unknown"><td>5DC00 -> ?????</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+ <tr><td>5E770? -> 5EDF4?</td><td>-</td><td>Position number sprites<br>
+<small>(They're in a different format than the rest of the game gfx)</small></td><th>-</th></tr>
+ <tr><td>60000 -> 60188 (*)</td><td>189</td><td>Chain Chomp sprite</td><th><img src="gfx/cchomp.png"></th></tr>
+ <tr><td>60189 -> 60525 (*)</td><td>399 (39D)</td><td>Ghost Valley road gfx <small>(4bpp rev)</small></td><th><img src="gfx/road_gv.png"></th></tr>
+ <tr><td>60526 -> 61E27</td><td>-</td><td><a href="pack7-ai.htm">Driver AI data</a></td><th>-</th></tr>
+ <tr><td>61E28 -> 61F45 (*)</td><td>11E</td><td>Menu music</td><th>-</th></tr>
+ <tr class="unknown"><td>61F46 -> 61FFF</td><td>-</td><td>Unknown data (!)</td><th>-</th></tr>
+</table>
+
+</body>
+</html>

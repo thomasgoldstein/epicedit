@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 7 / <b>GP results screen data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><td>5BB35 -> 5BC04*</td><td>Unknown data</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5BD91 -> 5BD92</td><td>"_" (line above and below the RESULTS text)</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5BE24 -> 5BE41</td><td>"RESULTS" (2 raws)</td></tr>
+ <tr><td>5BE44 -> 5BE6F</td><td>Winner flag display data</td></tr>
+ <tr><td>5BE72 -> 5BEB1</td><td>Driver position pointers</td></tr>
+ <tr><td>5BEB4 -> 5BEC3</td><td>How many points you get for each place, from 1st to 8th</td></tr>
+ <tr><td>5BEC4 -> 5BECB</td><td>Cup name pointers (2 bytes each)</td></tr>
+ <tr><td>5BECC -> 5BEE3</td><td>"MUSHROOM CUP"</td></tr>
+ <tr><td>5BEE6 -> 5BEF9</td><td>"FLOWER CUP"</td></tr>
+ <tr><td>5BEFC -> 5BF0B</td><td>"STAR CUP"</td></tr>
+ <tr><td>5BF0E -> 5BF23</td><td>"SPECIAL CUP"</td></tr>
+ <tr><td>5BF30 -> 5BF3D</td><td>"ROUND 1"</td></tr>
+ <tr><td>5BF40 -> 5BF4D</td><td>"ROUND 2"</td></tr>
+ <tr><td>5BF50 -> 5BF5D</td><td>"ROUND 3"</td></tr>
+ <tr><td>5BF60 -> 5BF6D</td><td>"ROUND 4"</td></tr>
+ <tr><td>5BF70 -> 5BF79</td><td>"FINAL"</td></tr>
+ <tr><td>5BF7C -> 5BF93</td><td>Mushroom/Flower/Star icons around the "RESULTS" and "STANDINGS" texts</td></tr>
+ <tr><td>5BF94 -> 5BF95</td><td>Mushroom Cup icon tcp</td></tr>
+ <tr><td>5BF96 -> 5BF97</td><td>Flower Cup icon tcp</td></tr>
+ <tr><td>5BF98 -> 5BF99</td><td>Star Cup icon tcp</td></tr>
+ <tr><td>5BF9A -> 5BF9B</td><td>Star Cup icon tcp (for Special Cup Race, right side)</td></tr>
+ <tr><td>5BF9C -> 5BF9D</td><td>Flower Cup icon tcp (for Special Cup Race, right side)</td></tr>
+ <tr><td>5BF9E -> 5BF9F</td><td>Mushroom Cup icon tcp (for Special Cup Race, right side)</td></tr>
+ <tr><td>5BFA0 -> 5BFA5</td><td>Class name pointers (2 bytes each)</td></tr>
+ <tr><td>5BFA6 -> 5BFAB</td><td>"50cc"</td></tr>
+ <tr><td>5BFAE -> 5BFB5</td><td>"100cc"</td></tr>
+ <tr><td>5BFB8 -> 5BFBF</td><td>"150cc"</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C0EF -> 5C0F0</td><td>"(" opening bracket around the points you get</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C0F8 -> 5C0F9</td><td>"+" plus sign next to the points you get</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C101 -> 5C102</td><td>")" closing bracket around the points you get</td></tr>
+ <tr><td>5C227 -> 5C23A</td><td>Tiles for the points, from 0 to 9 (2 bytes each)</td></tr>
+ <tr><td>5C24B -> 5C25A</td><td>The starting position on screen of the 8 lines (results, 2 bytes each)</td></tr>
+ <tr><td>5C25B -> 5C26A</td><td>Driver name pointers (2 bytes each)</td></tr>
+ <tr><td>5C277 -> 5C2FC</td><td>Driver name texts<br>
+(Mario, Luigi, Bowser, Princess, Donkey Kong Jr, Koopa Troopa, Toad, Yoshi)</td></tr>
+ <tr><td>5C2FD -> 5C30C</td><td>Ranking lines from 1st to 8th (2 byte each)</td></tr>
+ <tr><td>5C30D -> 5C30E</td><td>P1 driver name, flashing 1/2 (standings)</td></tr>
+ <tr><td>5C30F -> 5C310</td><td>P2 driver name, flashing 1/2 (standings)</td></tr>
+ <tr><td>5C313 -> 5C314</td><td>P1 & P2 driver name, flashing 2/2 (standings)</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C31A -> 5C328</td><td>Driver sprite pointers</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C42F -> 5C430</td><td>" " (tile used for spaces)</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+ <tr><td>5C45D -> 5C45E</td><td>".." (tile next to each name)</td></tr>
+ <tr><td colspan="2">missing data</td></tr>
+</table>
+
+<br>
+Note 1: changing 5C0DB from B0 to B1 (many other values work too) will show the "+ points" for all 8 drivers<br>
+<br>
+Note 2: to move the text lines around, change the following addresses from 'FE' to something else, like 'FF' for example:<br>
+<br>
+<div style="margin-left:3em">5BDFB = x position of all standings lines 1/2<br>
+5C12A = x position of all standings lines 2/2<br>
+5C1E1 = x position where each line starts getting erased, after scores are calculated<br>
+5C7AC = x position of P1 flashing standings line<br>
+5C7CC = x position of P2 flashing standings line</div>
+
+</body>
+</html>

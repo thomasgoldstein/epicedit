@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 8 / <b>Player and cup selection screen gfx <small>(2bpp)</small> & layout</b><br>
+Starting address: 70B29</br>
+Original compressed size: E53</br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><th colspan="4">Player selection screen</th>
+ <tr><td>0000 -> 07FF</td><td>BG1 layout (foreground)</td></tr>
+ <tr><td>0800 -> 10BF</td><td>BG2 scrolling layout ("Choose your driver....")</td></tr>
+ <tr><td>10C0 -> 17FF</td><td>Unknown data</td></tr>
+ <tr><td>1800 -> 27FF</td><td>BG3 scrolling layout (grass and sky)</td></tr>
+ <tr><td>2800 -> 29FF</td><td>Color palettes<br>
+2800 -> 283F: BG1 layer palettes<br>
+2840 -> 287F: BG2 layer palettes<br>
+2880 -> 28BF: BG3 layer palettes<br>
+28C0 -> 28FF: More color palettes<br>
+2900 -> 297F: Driver palettes</td></tr>
+ <tr><td>2A00 -> 2EFF</td><td>Tile graphics <small>(2bpp)</small></td></tr>
+ <tr><th colspan="4">Cup selection screen</th>
+ <tr><td>2F00 -> 36FF</td><td>Background layout</td></tr>
+ <tr><td>3700 -> 387F</td><td>Color palettes</td></tr>
+ <tr><td>3900 -> 3FFF</td><td>Tile graphics <small>(2bpp)</small></td></tr>
+</table>
+
+<br>
+
+<b>Tip:</b> Add 20 to a color palette pointer to make the tile appear above the superior layer.<br>
+Example - color palette pointers: 00 -> 20, 13 -> 33, 1F -> 3F...<br>
+<br>
+Effect:<br>
+BG1: makes the tile appear above the sprite layer (drivers).<br>
+BG2: makes the tile appear above the BG1 layer.<br>
+BG3: makes the tile appear above the BG4 layer.<br>
+</body>
+</html>

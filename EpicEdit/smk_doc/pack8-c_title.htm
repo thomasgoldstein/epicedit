@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 8 / <b>Title and GP result screen gfx & layout</b><br>
+Starting address: 71996</br>
+Original compressed size: 1E44</br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr><td>0000 -> 1FFF</td><td>Tile graphics (4bpp)</td></tr>
+ <tr><td>2000 -> 27FF</td><td>Title foreground layout (4 hex lines = 1 horizontal stripe)</td></tr>
+ <tr><td>2800 -> 2FFF</td><td>Scrolling background layout (Title/GP results), screen 1/2</td></tr>
+ <tr><td>3000 -> 37FF</td><td>Scrolling background layout (Title/GP results), screen 2/2</td></tr>
+ <tr><td>3800 -> 3FFF</td><td>GP results foreground tile layout</td></tr>
+ <tr class="comment"><td>Comment</td><td colspan="3">The above layout includes the "STANDINGS" text<br>
+						as well as the header lines for the standings screen<br>
+						but the "RESULTS" ones are located <a href="pack7-gpres.htm">here</a>.</td></tr>
+ <tr><td>4000 -> 41FF</td><td>Title screen color palettes</td></tr>
+ <tr><td>4200 -> 43FF</td><td>GP results color palettes</td></tr>
+</table>
+
+</body>
+</html>

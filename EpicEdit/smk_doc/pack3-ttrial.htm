@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+
+Data pack 3 / <b>Time Trial data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+
+<tr><td>1C2F9 -> 1C311</td><td>Palette flashing routing code used by the arrow, selected option & start line indicator
+<br>
+<br>    1C304 = Duration of flashing cycle 00 = stopped, 01 = Slowest FF = Fastest
+<br>    1C307 = Change anything other than 0 to disable the flashing color routine
+<br>    1C309 -> 1C30A = Pink color used by the arrow, selected option & start line indicator
+<br>    1C30D = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 209,210,211</td></tr>
+ 
+<tr><td>1C312 -> 1C31A</td><td>Code updating CGRAM colors to be used by the Blue Text (Current Cup & Track, Battle Mode & Best times)
+<br> 	
+<br>	1C313 = Change to FF or anything other than 0 to disable color routine overwriting CGRAM index locations 225,226,227
+<br>	1C315 -> 1C316 = Blue color value (Current cup + track, battle mode & best times texts)
+</td></tr>
+<tr><td>1C31B -> 1C322</td><td>Code updating CGRAM colors to be used by the Orange Text (Best times)
+<br>
+<br>    1C31C = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 241,242,243
+<br>    1C31E -> 1C31F = Orange color value (Best time)</td></tr>
+<tr><td>1C323 -> 1C32B</td><td>Code updating CGRAM colors to be used by the Red Text (Non-focused menu options)
+<br>
+<br>    1C325 = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 129,130,131
+<br>    1C327-1C328 = Red color value (Non-focused menu items)
+</td></tr>
+
+
+<tr class="unknown"><td>1C323 -> 1C33B</td><td>Unknown data (!)</td></tr>
+<td>1C33C -> 1C33D</td><td>Black color value (Used for all text & start line indicator)</td></tr>
+<tr class="unknown"><td>1C33E -> 1C909</td><td>Unknown data (!)</td></tr>
+ 
+
+ <tr><td>1C909 -> 1C913</td><td>"COURSE SELECT"</td></tr>
+ <tr><td>1C915 -> 1C93C</td><td>Track starting line positions (2 bytes each, X/Y), used in Time Trial and Match Race previews</td></tr>
+ <tr><td>1C93D -> 1C94C</td><td>Battle track name pointers, 4 bytes per track.<br>
+4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.</td></tr>
+<tr><td>1C94D -> 1C94E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
+ <tr><td>1C94F -> 1C95A</td><td>Cup names and locations if Special Cup is locked (3 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.</td></tr>
+ <tr><td>1C95B -> 1C95C</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
+ <tr><td>1C95D -> 1C96C</td><td>Cup names and locations if Special Cup unlocked (4 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.<br> 
+ <tr><td>1C96D -> 1C96E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
+ <tr><td>1C96F -> 1C9C6</td><td>Cup course names and locations in order<br>22 bytes for each cup: 4 bytes for each track, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.<br>2 bytes of '00' is used to separate each set of cups course names.</td></tr>
+ <tr><td>1C9C7 -> 1C9CA</td><td>Battle Course 1 (reference to the text, followed by the number)</td></tr>
+ <tr><td>1C9CB -> 1C9CE</td><td>Battle Course 2</td></tr>
+ <tr><td>1C9CF -> 1C9D2</td><td>Battle Course 3</td></tr>
+ <tr><td>1C9D3 -> 1C9D6</td><td>Battle Course 4</td></tr>
+ <tr class="unknown"><td>1C9D7 -> 1C9E2</td><td>Unknown data (!)</td></tr>
+ <tr><td>1C9E3 -> 1C9E6</td><td>Mario Circuit 1</td></tr>
+ <tr><td>1C9E7 -> 1C9EA</td><td>Donut Plains 1</td></tr>
+ <tr><td>1C9EB -> 1C9EE</td><td>Ghost Valley 1</td></tr>
+ <tr><td>1C9EF -> 1C9F2</td><td>Bowser Castle 1</td></tr>
+ <tr><td>1C9F3 -> 1C9F6</td><td>Mario Circuit 2</td></tr>
+ <tr><td>1C9F7 -> 1C9FA</td><td>Choco Island 1</td></tr>
+ <tr><td>1C9FB -> 1C9FE</td><td>Ghost Valley 2</td></tr>
+ <tr><td>1C9FF -> 1CA02</td><td>Donut Plains 2</td></tr>
+ <tr><td>1CA03 -> 1CA06</td><td>Bowser Castle 2</td></tr>
+ <tr><td>1CA07 -> 1CA0A</td><td>Mario Circuit 3</td></tr>
+ <tr><td>1CA0B -> 1CA0E</td><td>Koopa Beach 1</td></tr>
+ <tr><td>1CA0F -> 1CA12</td><td>Choco Island 2</td></tr>
+ <tr><td>1CA13 -> 1CA16</td><td>Vanilla Lake 1</td></tr>
+ <tr><td>1CA17 -> 1CA1A</td><td>Bowser Castle 3</td></tr>
+ <tr><td>1CA1B -> 1CA1E</td><td>Mario Circuit 4</td></tr>
+ <tr><td>1CA1F -> 1CA22</td><td>Donut Plains 3</td></tr>
+ <tr><td>1CA23 -> 1CA26</td><td>Ghost Valley 3</td></tr>
+ <tr><td>1CA27 -> 1CA2A</td><td>Koopa Beach 2</td></tr>
+ <tr><td>1CA2B -> 1CA2E</td><td>Vanilla Lake 2</td></tr>
+ <tr><td>1CA2F -> 1CA31</td><td>Rainbow Road</td></tr>
+ <tr><td>1CA32 -> 1CA39</td><td>Cup name pointers (2 bytes each)</td></tr>
+ <tr><td>1CA3A -> 1CA4D</td><td>Track name pointers (2 bytes each)</td></tr>
+ <tr><td>1CA50</td><td>Selection Arrow tile pointer</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1CA61 -> 1CA67</td><td>"ERASE?"</td></tr>
+ <tr><td>1CA69 -> 1CA74</td><td>"IS THIS OK?"</td></tr>
+ <tr><td>1CA76 -> 1CA7F</td><td>"YES&nbsp;&nbsp;&nbsp;&nbsp;NO"</td></tr>
+ <tr><td>1CA81 -> 1CA87</td><td>"CC SEL"</td></tr>
+ <tr><td>1CA88 -> 1CA94</td><td>"MUSHROOM CUP"</td></tr>
+ <tr><td>1CA95 -> 1CA9F</td><td>"FLOWER CUP"</td></tr>
+ <tr><td>1CAA0 -> 1CAA8</td><td>"STAR CUP"</td></tr>
+ <tr><td>1CAA9 -> 1CAB4</td><td>"SPECIAL CUP"</td></tr>
+ <tr><td>1CAB5 -> 1CAC3</td><td>"MARIO CIRCUIT "</td></tr>
+ <tr><td>1CAC4 -> 1CAD1</td><td>"GHOST VALLEY "</td></tr>
+ <tr><td>1CAD2 -> 1CADF</td><td>"DONUT PLAINS "</td></tr>
+ <tr><td>1CAE0 -> 1CAEE</td><td>"BOWSER CASTLE "</td></tr>
+ <tr><td>1CAEF -> 1CAFC</td><td>"VANILLA LAKE "</td></tr>
+ <tr><td>1CAFD -> 1CB10</td><td>"CHOCO ISLAND "</td></tr>
+ <tr><td>1CB0B -> 1CB17</td><td>"KOOPA BEACH "</td></tr>
+ <tr><td>1CB18 -> 1CB26</td><td>"BATTLE COURSE "</td></tr>
+ <tr><td>1CB27 -> 1CB34</td><td>"RAINBOW ROAD "</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+
+<tr><td>1CEF3 -> 1CF13</td><td>Palette flashing routing code used by the arrow, and fastest lap in Time Trial mode
+<br>
+<br>    1CEFC = Change anything other than 0 to disable the flashing color routine
+<br>    1CEFD = Duration of flashing cycle 00 = stopped, 01 = Slowest FF = Fastest
+<br>    1CF00 -> 1CF01 = Pink color used by the arrow and fastest lap time
+<br>    1CF04 = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 209,210,211</td></tr>
+<tr><td>1CF08 -> 1CF15</td><td>Code updating CGRAM colors to be used by the Blue Text lap times in Time Trial mode
+<br>
+<br>    1CF0A = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 129,130,131
+<br>    1CF0C -> 1CF0D = Blue color value (Best time)</td></tr>
+
+<tr><td>1CF16 -> 1CF25</td><td>Code updating CGRAM colors to be used by the Orange Text (Best times) in Time Trial mode
+<br>
+<br>    1CF19 = Change to FF or anything other than 0 to disable color routing overwriting CGRAM index locations 241,242,243
+<br>    1CF1B -> 1CF1C = Orange color value (Best time)</td></tr>
+
+ <tr><td>1CF26 -> 1CF27</td><td>Black color value</td></tr>
+
+
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+
+ <tr><td>1D918 -> 1D91D</td><td>"LAP TIME"</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1D923 -> 1D92E</td><td>"____________" tile pointers (lap times total line)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1D936 -> 1D93A</td><td>"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" (5 spaces, one in front of each lap time, from L5 to L1)</td></tr>
+ <tr><td>1D93C -> 1D940</td><td>"LLLLL" (lap letters, one in front of each lap time, from L5 to L1)</td></tr>
+ <tr><td>1D942 -> 1D946</td><td>"54321" (lap numbers, one in front of each lap time, from L5 to L1)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1DA80 -> 1DA85</td><td>"BEST 5"</td></tr>
+ <tr><td>1DA88 -> 1DA8F</td><td>"BEST LAP"</td></tr>
+ <tr><td>1DA91 -> 1DAC4</td><td>Driver name texts<br>
+(Mario, Luigi, Bowser, Princess, D.K.Jr, Koopa, Toad, Yoshi)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1DD19 -> 1DD1A</td><td>"1st" (in the Best 5 times)</td></tr>
+ <tr><td>1DD1B -> 1DD1C</td><td>"2nd"</td></tr>
+ <tr><td>1DD1D -> 1DD1E</td><td>"3rd"</td></tr>
+ <tr><td>1DD1F -> 1DD20</td><td>"4th"</td></tr>
+ <tr><td>1DD21 -> 1DD22</td><td>"5th"</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1DDC6 -> 1DDD1</td><td>"--'--"-- ----" (blank lap score)</td></tr>
+ <tr><td>1DDD3 -> 1DDE2</td><td>Driver name pointers (2 bytes each)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 3 / <b>In-track data</b><br>
+<br>
+<table>
+ <tr><th>Address</th><th>Data</th></tr>
+ <tr class="comment"><td>Comment</td><td colspan="3">Changing the pointer below may cause the arrow<br>
+						to glitch after the first track, depending on<br>
+						the location of the new tile, for some reason.</td></tr>
+ <tr><td>1931A</td><td>Selection Arrow tile pointer (when game paused)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1AD25 -> 1AD27</td><td>"YES" (from "GIVE UP?" menu)</td></tr>
+ <tr><td>1AD2C -> 1AD2D</td><td>"NO" (from "GIVE UP?" menu)</td></tr>
+ <tr><td>1AD39 -> 1AD3D</td><td>"RETRY" menu option after losing a race</td></tr>
+ <tr><td>1AD42 -> 1AD44</td><td>"END" menu option after losing a race</td></tr>
+ <tr><td>1AD4A -> 1AD59</td><td>"CHANGE COURSE" pause menu option</td></tr>
+ <tr><td>1AD5E -> 1AD62</td><td>"RETRY" pause menu option</td></tr>
+ <tr><td>1AD67 -> 1AD76</td><td>"CHANGE DRIVER" pause menu option</td></tr>
+ <tr><td>1AD7B -> 1AD7D</td><td>"END" pause menu option</td></tr>
+ <tr><td>1AD83 -> 1AD88</td><td>"REPLAY" menu option</td></tr>
+ <tr class="comment"><td>Comment</td><td colspan="3">The text tile pointers below are awkward to redefine<br>
+						properly, and it may take a bit of time before<br>
+						you manage to reach the tiles you want. Moreover,<br>
+						these pointers are sensitive, and the new texts you define<br>
+						may get glitchy, depending on the new tiles you choose.</td></tr>
+ <tr><td>1AE3B -> 1AE3D</td><td>"WIN" top raw tile pointers</td></tr>
+ <tr><td>1AE42 -> 1AE44</td><td>"WIN" bottom raw tile pointers</td></tr>
+ <tr><td>1AE4A -> 1AE4D</td><td>"LOSE" top raw tile pointers</td></tr>
+ <tr><td>1AE52 -> 1AE55</td><td>"LOSE" bottom raw tile pointers</td></tr>
+ <tr><td>1AE5B</td><td>"!" top part tile pointer</td></tr>
+ <tr><td>1AE60</td><td>"!" bottom part tile pointer</td></tr>
+ <tr><td>1AE65</td><td>"-" tile pointer</td></tr>
+ <tr><td>1AE6A</td><td>"W" tile pointer</td></tr>
+ <tr><td>1AE6F</td><td>"L" tile pointer</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1AEB1 -> 1AEBA</td><td>"0" -> "9" tile pointers</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>*1AF58 -> 1B016*</td><td>Data related to the "GAME OVER" and "RANKED OUT" texts</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1B0FD -> 1B11B</td><td>"GAME OVER"<br>
+(1 letter = 3 bytes: palette, bottom tile and top tile pointers)</td></tr>
+ <tr><td>1B11D -> 1B13F</td><td>"RANKED OUT"<br>
+(1 letter = 3 bytes: palette, bottom tile and top tile pointers)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1B320 -> 1B321</td><td>Mushroom icon tcp</td></tr>
+ <tr><td>1B322 -> 1B323</td><td>Feather icon tcp</td></tr>
+ <tr><td>1B324 -> 1B325</td><td>Star icon tcp</td></tr>
+ <tr><td>1B326 -> 1B327</td><td>Banana icon tcp</td></tr>
+ <tr><td>1B328 -> 1B329</td><td>Green shell icon tcp</td></tr>
+ <tr><td>1B32A -> 1B32B</td><td>Red shell icon tcp</td></tr>
+ <tr><td>1B32C -> 1B32D</td><td>Ghost icon tcp</td></tr>
+ <tr><td>1B32E -> 1B32F</td><td>Coin icon tcp</td></tr>
+ <tr><td>1B330 -> 1B331</td><td>Lightning icon tcp</td></tr>
+ <tr><td>1B332 -> 1B333</td><td>Ghost icon when used tcp</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1B471 -> ?????</td><td>Item probability-related data (16-bit pointers)</td></tr>
+ <tr><td>1B4E3 -> 1B665</td><td>Item probabilities</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1B836 -> 1B847</td><td>Item box P1 tcp</td></tr>
+ <tr><td>1B84A -> 1B85B</td><td>Item box P2 tcp</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1C04C</td><td>Pointer to the battle track displayed by default when entering the battle track selection</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+ <tr><td>1C15C -> 1C15F</td><td>Battle track order index (1 byte each)<br>
+ 1C15C = Battle Course 1<br>
+ 1C15D = Battle Course 2<br>
+ 1C15E = Battle Course 3<br>
+ 1C15F = Battle Course 4</td></tr>
+ <tr><td>1C160 -> 1C163</td><td>Battle track cursor index (1 byte each)</td></tr>
+ <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+Data pack 3 / <b>Driver stats</b><br>
+<br>
+
+<pre>
+Character order: Mario, Luigi, Bowser, Princess, D.K.Jr, Koopa, Toad, Yoshi
+----------------------------------
+OFFSET         LENGTH  DESCRIPTION
+----------------------------------
+0x018000          8*2  Top Speed
+
+0x018010          8*2  Acceleration Curve Pointers
+0x018020         16*1  Set 1 [Mario/Luigi]
+0x018030         16*1  Set 2 [Princess/Yoshi]
+0x018040         16*1  Set 3 [Koopa/Toad]
+0x018050         16*1  Set 4 [Bowser/D.K.Jr.]
+
+0x018060          8*2  Off-road Speed Pointers
+0x018070          6*1  Set 1 [Mario/Luigi]
+0x018076          6*1  Set 2 [Bowser/D.K.Jr.]
+0x01807C          6*1  Set 3 [Princess/Yoshi]
+0x018082          6*1  Set 4 [Koopa/Toad]
+                  '-[Dirt, Mud, Snow, Grass, Shallow Water, Mud Pool]
+
+0x018088          8*2  Handling Pointers
+0x018098  3*(2+1+1+1)  Set 1 [Mario/Luigi]
+0x0180A7  3*(2+1+1+1)  Set 2 [Princess/Yoshi]
+0x0180B6  3*(2+1+1+1)  Set 3 [Koopa/Toad]
+0x0180C5  3*(2+1+1+1)  Set 4 [Bowser/D.K.Jr.]
+          |     '-[Maximum turn rate, Control, Turning, Grip]
+          '-------[Normal, ???, Sliding]
+</pre>
+
+</body>
+</html>

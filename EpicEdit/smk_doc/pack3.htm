@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Data pack 3</h1>
+
+<table>
+ <tr><th>Address</th><th>(*) size</th><th>Data</th></tr>
+ <tr><td>18000 -> 180D3</td><td>-</td><td><a href="pack3-dstats.htm">Driver stats</a></td></tr>
+ <tr><td>180D4 -> 1814B</td><td>-</td><td>Lap line coordinates for all 20 GP tracks<br>
+ (6 bytes per track, same track order as <a href="pack3-trackd.htm">here</a>)</td></tr>
+ <tr class="unknown"><td>1814C -> 18B4A</td><td>-</td><td>Unknown data (!)</td></tr>
+ <tr><td>18B4B -> 18B6A</td><td>-</td><td>Battle track-related data, 8 bytes per track (4 tracks)<br>
+ The 2 first bytes of each group are the offset to the player starting positions<br>e.g. 078C = offset 18C07</td></tr>
+ <tr class="unknown"><td>18B6B -> 18B72</td><td>-</td><td>Unknown data (!)</td></tr>
+ <tr><td>18B73 -> 18B86</td><td>-</td><td>Track item probability associations</td></tr>
+ <tr class="unknown"><td>18B87 -> 18BFC</td><td>-</td><td>Unknown data (!)</td></tr>
+ <tr><td>18BFD -> 18B06</td><td>-</td><td>(Skip first 2 bytes) Player starting positions for battle track 1, 2 and 4<br>
+ (First 4 bytes: P2, then 4 following bytes: P1)</td></tr>
+ <tr><td>18B07 -> 18B10</td><td>-</td><td>(Skip first 2 bytes) Player starting positions for battle track 3</td></tr>
+ <tr><td>18B11 -> 18BB2</td><td>-</td><td>(Skip first 2 bytes) Driver starting position for all GP tracks, 8 bytes each</td></tr>
+ <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-intrack.htm">In-track data</a> (!)</td></tr>
+ <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-ttrial.htm">Time Trial data</a> (!)</td></tr>
+ <tr><td>1E749 -> 1EC46</td><td>-</td><td><a href="pack3-trackd.htm">Track data</a> (!)</td></tr>
+ <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-music.htm">Music-related data</a> (!)</td></tr>
+ <tr><td>1F038 -> 1F039</td><td>-</td><td>50cc speed<br>50cc speed is calculated by subtracting a value to the 100cc speed (which is also the TT/MR/BM default speed), this value is 00 A0, but it is stored as A0 00 in the ROM. It is a hexadecimal value which is equal to 160 in decimal. So you can increase or decrease it. But if you want 50cc to be faster than 100cc (why not ? J) then change the E9 located just before the value (1F03D US no header/1F223 PAL header) into a 69, it will add the value instead of subtracting it.</td></tr>
+ <tr><td>1F03E -> 1F03F</td><td>-</td><td>150cc speed<br>150cc speed on the contrary is calculated by adding a value to the 100cc speed, this value is 00 80 but stored as 80 00 in the ROM, it is equal to 128 in decimal. And like 50cc, if you want 150cc to be slower than 100cc change the 69 before the value into a E9.</td></tr>
+ <tr><td>1FBD3</td><td>-</td><td>Leading first byte for the AI-related addresses below (6 originally)</td></tr>
+ <tr class="unknown"><td>1FBD4 -> 1FF9A</td><td>-</td><td>Unknown data (!)</td></tr>
+ <tr><td>1FF9B -> 1FFCA</td><td>-</td><td>Track AI zones pointer table for all tracks, 2 bytes each<br>
+ (offset: 6 + 2nd byte value + 1st byte value)</td></tr>
+ <tr><td>1FFCB -> 1FFFA</td><td>-</td><td>Track AI targets pointer table for all tracks, 2 bytes each<br>
+ (offset: 6 + 2nd byte value + 1st byte value)</td></tr>
+ <tr><td>20000 -> 214ED</td><td>-</td><td><a href="pack3-c_tbg.htm">Track background gfx & layout</a></td></tr>
+ <tr><td>214EE -> 21764 (**)</td><td>277</td><td>Battle Course 3 track layout</td></tr>
+ <tr><td>21765 -> 21A82 (**)</td><td>31E</td><td>Battle Course 2 track layout</td></tr>
+ <tr><td>21A83 -> 21C92 (*)</td><td>210</td><td>Podium ceremony music</td></tr>
+ <tr><td>21C93 -> 21FFF</td><td>-</td><td>Demo recorded inputs (#2 - Donkey, #3 - Koopa)</td></tr>
+</table>
+
+</body>
+</html>
