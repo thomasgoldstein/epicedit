@@ -166,7 +166,7 @@ namespace EpicEdit.Rom.Tracks
                 if (tileGenresRelocated)
                 {
                     int tileGenreOffset = offsets[Offset.TileGenresRelocated] + i * RoadTileset.TileCount;
-                    allRoadTileGenres = GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
+                    allRoadTileGenres = Themes.GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
                 }
                 else
                 {
