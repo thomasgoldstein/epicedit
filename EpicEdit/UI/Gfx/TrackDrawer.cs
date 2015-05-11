@@ -1115,9 +1115,8 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    int precision = TrackAIElement.Precision;
-                    if (this.zones[trackObject.Y / precision]
-                                  [trackObject.X / precision] != (i / 4))
+                    if (this.zones[trackObject.Y / TrackAIElement.Precision]
+                                  [trackObject.X / TrackAIElement.Precision] != (i / 4))
                     {
                         // The object is out of its zone, it most likely won't
                         // (fully) appear when playing the game. Show it as grayed out.
