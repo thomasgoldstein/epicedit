@@ -41,14 +41,14 @@ Data pack 3 / <b>Time Trial data</b><br>
 
  <tr><td>1C909 -> 1C913</td><td>"COURSE SELECT"</td></tr>
  <tr><td>1C915 -> 1C93C</td><td>Track starting line positions (2 bytes each, X/Y), used in Time Trial and Match Race previews</td></tr>
- <tr><td>1C93D -> 1C94C</td><td>Battle track name pointers, 4 bytes per track.<br>
-4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.</td></tr>
+ <tr><td>1C93D -> 1C94C</td><td>Battle track names and locations, 4 bytes per track.<br>
+4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.</td></tr>
 <tr><td>1C94D -> 1C94E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C94F -> 1C95A</td><td>Cup names and locations if Special Cup is locked (3 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.</td></tr>
+ <tr><td>1C94F -> 1C95A</td><td>Cup names and locations if Special Cup is locked (3 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.</td></tr>
  <tr><td>1C95B -> 1C95C</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C95D -> 1C96C</td><td>Cup names and locations if Special Cup unlocked (4 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.<br> 
+ <tr><td>1C95D -> 1C96C</td><td>Cup names and locations if Special Cup unlocked (4 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.<br> 
  <tr><td>1C96D -> 1C96E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C96F -> 1C9C6</td><td>Cup course names and locations in order<br>22 bytes for each cup: 4 bytes for each track, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text pointer.<br>2 bytes of '00' is used to separate each set of cups course names.</td></tr>
+ <tr><td>1C96F -> 1C9C6</td><td>Cup course names and locations in order<br>22 bytes for each cup: 4 bytes for each track, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.<br>2 bytes of '00' is used to separate each set of cups course names.</td></tr>
  <tr><td>1C9C7 -> 1C9CA</td><td>Battle Course 1 (reference to the text, followed by the number)</td></tr>
  <tr><td>1C9CB -> 1C9CE</td><td>Battle Course 2</td></tr>
  <tr><td>1C9CF -> 1C9D2</td><td>Battle Course 3</td></tr>
@@ -77,9 +77,9 @@ Data pack 3 / <b>Time Trial data</b><br>
  <tr><td>1CA27 -> 1CA2A</td><td>Koopa Beach 2</td></tr>
  <tr><td>1CA2B -> 1CA2E</td><td>Vanilla Lake 2</td></tr>
  <tr><td>1CA2F -> 1CA31</td><td>Rainbow Road</td></tr>
- <tr><td>1CA32 -> 1CA39</td><td>Cup name pointers (2 bytes each)</td></tr>
- <tr><td>1CA3A -> 1CA4D</td><td>Track name pointers (2 bytes each)</td></tr>
- <tr><td>1CA50</td><td>Selection Arrow tile pointer</td></tr>
+ <tr><td>1CA32 -> 1CA39</td><td>Cup name indexes (2 bytes each)</td></tr>
+ <tr><td>1CA3A -> 1CA4D</td><td>Theme name indexes (2 bytes each)</td></tr>
+ <tr><td>1CA50</td><td>Selection Arrow tile index</td></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
  <tr><td>1CA61 -> 1CA67</td><td>"ERASE?"</td></tr>
  <tr><td>1CA69 -> 1CA74</td><td>"IS THIS OK?"</td></tr>
@@ -123,7 +123,7 @@ Data pack 3 / <b>Time Trial data</b><br>
 
  <tr><td>1D918 -> 1D91D</td><td>"LAP TIME"</td></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
- <tr><td>1D923 -> 1D92E</td><td>"____________" tile pointers (lap times total line)</td></tr>
+ <tr><td>1D923 -> 1D92E</td><td>"____________" tile indexes (lap times total line)</td></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
  <tr><td>1D936 -> 1D93A</td><td>"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" (5 spaces, one in front of each lap time, from L5 to L1)</td></tr>
  <tr><td>1D93C -> 1D940</td><td>"LLLLL" (lap letters, one in front of each lap time, from L5 to L1)</td></tr>
@@ -141,7 +141,7 @@ Data pack 3 / <b>Time Trial data</b><br>
  <tr><td>1DD21 -> 1DD22</td><td>"5th"</td></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
  <tr><td>1DDC6 -> 1DDD1</td><td>"--'--"-- ----" (blank lap score)</td></tr>
- <tr><td>1DDD3 -> 1DDE2</td><td>Driver name pointers (2 bytes each)</td></tr>
+ <tr><td>1DDD3 -> 1DDE2</td><td>Driver name indexes (2 bytes each)</td></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
 </table>
 
