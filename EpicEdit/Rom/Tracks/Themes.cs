@@ -293,7 +293,7 @@ namespace EpicEdit.Rom.Tracks
                 }
             }
 
-            throw new MissingMemberException("Theme not found.");
+            throw new ArgumentException("Theme not found.", "theme");
         }
 
         public void ResetModifiedState()

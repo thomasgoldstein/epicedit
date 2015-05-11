@@ -143,7 +143,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 }
             }
 
-            throw new MissingMemberException("Pattern not found.");
+            throw new ArgumentException("Pattern not found.", "pattern");
         }
 
         #region ICollection
