@@ -59,7 +59,10 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void BeginAdd()
         {
-            this.buffer = new Stack<TileChange>();
+            if (this.buffer == null)
+            {
+                this.buffer = new Stack<TileChange>();
+            }
         }
 
         public void Add(TileChange change)
@@ -152,6 +155,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void EndAdd()
         {
+            if (this.buffer == null)
+            {
+                return;
+            }
+
             if (this.buffer.Count > 0)
             {
                 this.Add(this.buffer);
