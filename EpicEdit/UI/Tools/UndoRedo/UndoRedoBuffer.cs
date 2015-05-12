@@ -152,11 +152,15 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void EndAdd()
         {
-            this.Add(this.buffer);
+            if (this.buffer.Count > 0)
+            {
+                this.Add(this.buffer);
+            }
+
             this.buffer = null;
         }
 
-        public void Add(IEnumerable<TileChange> changes)
+        private void Add(IEnumerable<TileChange> changes)
         {
             if (this.undoBuffer.Count == Limit)
             {
