@@ -140,8 +140,6 @@ namespace EpicEdit.Rom.ThemeEdition
                     ReshowDelay = 1,
                     InitialDelay = 1
                 };
-
-                UITools.FixToolTip(this.panels[i], this.toolTips[i]);
             }
 
             this.panels[this.colorIndex].BorderStyle = BorderStyle.Fixed3D;

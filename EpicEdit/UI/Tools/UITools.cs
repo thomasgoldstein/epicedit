@@ -107,17 +107,6 @@ namespace EpicEdit.UI.Tools
             return fileName;
         }
 
-        /// <summary>
-        /// Applies a workaround for a Microsoft bug which makes it so a tooltip
-        /// no longer pops up after it has timed out once. Affects Windows XP but not Vista.
-        /// </summary>
-        public static void FixToolTip(Control control, ToolTip toolTip)
-        {
-            // HACK: See method summary. For more details, see:
-            // http://stackoverflow.com/questions/559707/winforms-tooltip-will-not-re-appear-after-first-use
-            control.MouseEnter += (s, ea) => { toolTip.Active = false; toolTip.Active = true; };
-        }
-
         public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
         {
             return UITools.ShowImportDataDialog(filePath => UITools.ImportTilesetGraphics(filePath, tileset), FileDialogFilters.ImageOrBinary);
