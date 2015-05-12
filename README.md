@@ -15,5 +15,5 @@ Epic Edit makes it easy to:
   - Import/export all kinds of data
   - Directly compress/decompress data into/from the ROM (advanced users)
 
-This application is written in C# and uses Windows.Forms. It is distributed under the GPL. It requires the .NET Framework 2.0 or above on Windows, and also works with Mono on Linux. It works on Mac too, using Mono with an X11 server installed, by passing a command line argument, this way:
+This application is written in C# and uses Windows.Forms. It is free and is distributed under the GPL. It requires the .NET Framework 2.0 or above on Windows, and also works with Mono on Linux. It works on Mac too, using Mono with an X11 server installed, by passing a command line argument, this way:
 > MONO_MWF_MAC_FORCE_X11=1 mono EpicEdit.exe
