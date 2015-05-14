@@ -181,20 +181,44 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.undoBuffer.AddLast(change);
         }
 
-        public void Undo()
+        /// <summary>
+        /// Cancels the previous change.
+        /// </summary>
+        /// <returns>The change that has been reapplied.</returns>
+        public TileChange Undo()
         {
+            if (!this.HasUndo || this.buffer != null)
+            {
+                // Nothing to undo, or a change is already ongoing
+                return null;
+            }
+
             TileChange undoChange = this.undoBuffer.Last.Value;
             TileChange redoChange = this.UndoRedoCommon(undoChange);
             this.undoBuffer.RemoveLast();
             this.redoBuffer.AddFirst(redoChange);
+
+            return undoChange;
         }
 
-        public void Redo()
+        /// <summary>
+        /// Reapplies the last undone change.
+        /// </summary>
+        /// <returns>The change that has been reapplied.</returns>
+        public TileChange Redo()
         {
+            if (!this.HasRedo || this.buffer != null)
+            {
+                // Nothing to redo, or a change is already ongoing
+                return null;
+            }
+
             TileChange redoChange = this.redoBuffer.First.Value;
             TileChange undoChange = this.UndoRedoCommon(redoChange);
             this.redoBuffer.RemoveFirst();
             this.undoBuffer.AddLast(undoChange);
+
+            return redoChange;
         }
 
         private TileChange UndoRedoCommon(TileChange change)
@@ -229,16 +253,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public bool HasRedo
         {
             get { return this.redoBuffer.Count > 0; }
-        }
-
-        public TileChange NextUndo
-        {
-            get { return this.undoBuffer.Last.Value; }
-        }
-
-        public TileChange NextRedo
-        {
-            get { return this.redoBuffer.First.Value; }
         }
     }
 }

@@ -497,33 +497,21 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarUndoRequested(object sender, EventArgs e)
         {
-            TileChange change = this.undoRedoBuffer.NextUndo;
-            this.undoRedoBuffer.Undo();
-            this.menuBar.RedoEnabled = true;
-            this.ToggleUndo();
-            this.EndUndoRedo(change);
+            this.ApplyUndoRedo(this.undoRedoBuffer.Undo());
         }
 
         private void MenuBarRedoRequested(object sender, EventArgs e)
         {
-            TileChange change = this.undoRedoBuffer.NextRedo;
-            this.undoRedoBuffer.Redo();
-            this.menuBar.UndoEnabled = true;
-            this.ToggleRedo();
-            this.EndUndoRedo(change);
-        }
-
-        private void ToggleUndo()
-        {
-            this.menuBar.UndoEnabled = this.undoRedoBuffer.HasUndo;
-        }
-
-        private void ToggleRedo()
-        {
-            this.menuBar.RedoEnabled = this.undoRedoBuffer.HasRedo;
+            this.ApplyUndoRedo(this.undoRedoBuffer.Redo());
         }
 
         private void ToggleUndoRedo()
+        {
+            this.menuBar.UndoEnabled = this.undoRedoBuffer.HasUndo;
+            this.menuBar.RedoEnabled = this.undoRedoBuffer.HasRedo;
+        }
+
+        private void SetUndoRedo()
         {
             if (!this.undoRedoBuffers.ContainsKey(this.track))
             {
@@ -533,8 +521,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 if (this.editionMode == EditionMode.Tileset)
                 {
-                    this.ToggleUndo();
-                    this.ToggleRedo();
+                    this.ToggleUndoRedo();
                 }
                 else
                 {
@@ -554,8 +541,14 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.RedoEnabled = false;
         }
 
-        private void EndUndoRedo(TileChange change)
+        private void ApplyUndoRedo(TileChange change)
         {
+            if (change == null)
+            {
+                return;
+            }
+
+            this.ToggleUndoRedo();
             this.trackTreeView.MarkTrackAsChanged();
             DrawRegion region = this.drawer.ReloadTrackPart(change);
             this.InvalidateTrackDisplay(region);
@@ -1861,7 +1854,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.ResetScrollingPosition();
             this.SetTrack();
-            this.ToggleUndoRedo();
+            this.SetUndoRedo();
             this.DisplayNewTrack();
         }
 
@@ -1983,7 +1976,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.trackDisplay.EditionMode = this.editionMode;
-            this.ToggleUndoRedo();
+            this.SetUndoRedo();
         }
 
         private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
