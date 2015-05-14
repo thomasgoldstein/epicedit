@@ -97,27 +97,10 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
             foreach (TileChange change in changes)
             {
-                if (xStart > change.X)
-                {
-                    xStart = change.X;
-                }
-
-                int right = change.X + change.Width;
-                if (xEnd < right)
-                {
-                    xEnd = right;
-                }
-
-                if (yStart > change.Y)
-                {
-                    yStart = change.Y;
-                }
-
-                int bottom = change.Y + change.Height;
-                if (yEnd < bottom)
-                {
-                    yEnd = bottom;
-                }
+                xStart = Math.Min(xStart, change.X);
+                xEnd = Math.Max(xEnd, change.X + change.Width);
+                yStart = Math.Min(yStart, change.Y);
+                yEnd = Math.Max(yEnd, change.Y + change.Height);
             }
 
             int width = xEnd - xStart;
