@@ -291,18 +291,7 @@ namespace EpicEdit.UI.Tools
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    try
-                    {
-                        UITools.ExportData(exportMethod, sfd.FileName);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
-                    catch (IOException ex)
-                    {
-                        UITools.ShowError(ex.Message);
-                    }
+                    UITools.ExportData(exportMethod, sfd.FileName);
                 }
             }
         }
