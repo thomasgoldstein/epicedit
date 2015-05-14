@@ -1338,9 +1338,16 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.trackDisplay.Cursor = Cursors.Default;
 
-            if (this.buttonsPressed == MouseButtons.Right)
+            if (this.editionMode == EditionMode.Tileset)
             {
-                this.OnRightMouseButtonRelease();
+                if (this.buttonsPressed == MouseButtons.Right)
+                {
+                    this.OnRightMouseButtonRelease();
+                }
+
+                // End the current action in case it hasn't already been terminated
+                this.undoRedoBuffer.EndAdd();
+                this.ToggleUndoRedo();
             }
 
             // Cancel pressed mouse boutons (needed in case the panel lost focus unexpectedly)
