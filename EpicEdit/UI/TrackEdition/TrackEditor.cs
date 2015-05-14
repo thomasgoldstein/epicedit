@@ -1326,22 +1326,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
         {
-            this.trackDisplay.Cursor = Cursors.Default;
-
-            if (this.editionMode == EditionMode.Tileset)
-            {
-                if (this.buttonsPressed == MouseButtons.Right)
-                {
-                    this.OnRightMouseButtonRelease();
-                }
-
-                // End the current action in case it hasn't already been terminated
-                this.undoRedoBuffer.EndAdd();
-                this.ToggleUndoRedo();
-            }
-
-            // Cancel pressed mouse boutons (needed in case the panel lost focus unexpectedly)
-            this.buttonsPressed = MouseButtons.None;
+            this.EndMouseAction(this.buttonsPressed);
 
             this.RemoveFocus();
 
@@ -1564,9 +1549,14 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseUp(object sender, MouseEventArgs e)
         {
+            this.EndMouseAction(e.Button);
+        }
+
+        private void EndMouseAction(MouseButtons button)
+        {
             // When the user releases a mouse button, we ensure this button is the same
             // as the one that was initially held down before validating the action.
-            switch (e.Button)
+            switch (button)
             {
                 case MouseButtons.Middle:
                     if (this.buttonsPressed != MouseButtons.Middle)
