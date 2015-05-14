@@ -1599,8 +1599,7 @@ namespace EpicEdit.UI.TrackEdition
                     if (this.editionMode == EditionMode.Tileset)
                     {
                         this.undoRedoBuffer.EndAdd();
-                        this.menuBar.UndoEnabled = true;
-                        this.menuBar.RedoEnabled = false;
+                        this.ToggleUndoRedo();
                     }
 
                     this.buttonsPressed = MouseButtons.None;
