@@ -36,19 +36,23 @@ Data pack 3 / <b>Time Trial data</b><br>
 
 <tr class="unknown"><td>1C323 -> 1C33B</td><td>Unknown data (!)</td></tr>
 <td>1C33C -> 1C33D</td><td>Black color value (Used for all text & start line indicator)</td></tr>
-<tr class="unknown"><td>1C33E -> 1C909</td><td>Unknown data (!)</td></tr>
+<tr class="unknown"><td>1C33E -> 1C75F</td><td>Unknown data (!)</td></tr>
+<tr><td>1C760 -> 1C761</td><td>Address to cup track names and locations (1C96F)</td></tr>
+<tr class="unknown"><td>1C762 -> 1C788</td><td>Unknown data (!)</td></tr>
+<tr><td>1C789 -> 1C78A</td><td>Address to battle track names and locations (1C93D)</td></tr>
+<tr class="unknown"><td>1C78B -> 1C909</td><td>Unknown data (!)</td></tr>
  
 
  <tr><td>1C909 -> 1C913</td><td>"COURSE SELECT"</td></tr>
  <tr><td>1C915 -> 1C93C</td><td>Track starting line positions (2 bytes each, X/Y), used in Time Trial and Match Race previews</td></tr>
  <tr><td>1C93D -> 1C94C</td><td>Battle track names and locations, 4 bytes per track.<br>
-4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.</td></tr>
+4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text address.</td></tr>
 <tr><td>1C94D -> 1C94E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C94F -> 1C95A</td><td>Cup names and locations if Special Cup is locked (3 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.</td></tr>
+ <tr><td>1C94F -> 1C95A</td><td>Cup names and locations if Special Cup is locked (3 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text address.</td></tr>
  <tr><td>1C95B -> 1C95C</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C95D -> 1C96C</td><td>Cup names and locations if Special Cup unlocked (4 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.<br> 
+ <tr><td>1C95D -> 1C96C</td><td>Cup names and locations if Special Cup unlocked (4 cups)<br>4 bytes each, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text address.<br> 
  <tr><td>1C96D -> 1C96E</td><td>'00''00' end of data block before (Changing may cause crash)</td></tr>
- <tr><td>1C96F -> 1C9C6</td><td>Cup course names and locations in order<br>22 bytes for each cup: 4 bytes for each track, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text index.<br>2 bytes of '00' is used to separate each set of cups course names.</td></tr>
+ <tr><td>1C96F -> 1C9C6</td><td>Cup track names and locations in order<br>22 bytes for each cup: 4 bytes for each track, 1st byte X, 2nd byte Y, 3rd & 4th bytes = text address.<br>2 bytes of '00' is used to separate each set of cups course names.</td></tr>
  <tr><td>1C9C7 -> 1C9CA</td><td>Battle Course 1 (reference to the text, followed by the number)</td></tr>
  <tr><td>1C9CB -> 1C9CE</td><td>Battle Course 2</td></tr>
  <tr><td>1C9CF -> 1C9D2</td><td>Battle Course 3</td></tr>
