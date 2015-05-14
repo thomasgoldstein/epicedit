@@ -35,15 +35,6 @@ using DrawRegion = System.Drawing.Region;
 
 namespace EpicEdit.UI.TrackEdition
 {
-    internal enum EditionMode
-    {
-        Tileset,
-        Overlay,
-        Start,
-        Objects,
-        AI
-    }
-
     /// <summary>
     /// A track editor.
     /// </summary>
@@ -2889,5 +2880,14 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.ShowWarning();
         }
         #endregion EditionMode.AI
+    }
+
+    internal enum EditionMode
+    {
+        Tileset,
+        Overlay,
+        Start,
+        Objects,
+        AI
     }
 }
