@@ -177,7 +177,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
 
             TileChange undoChange = this.undoBuffer.Last.Value;
-            TileChange redoChange = this.ApplyChanges(undoChange);
+            TileChange redoChange = this.ApplyChange(undoChange);
             this.undoBuffer.RemoveLast();
             this.redoBuffer.AddFirst(redoChange);
 
@@ -197,14 +197,14 @@ namespace EpicEdit.UI.Tools.UndoRedo
             }
 
             TileChange redoChange = this.redoBuffer.First.Value;
-            TileChange undoChange = this.ApplyChanges(redoChange);
+            TileChange undoChange = this.ApplyChange(redoChange);
             this.redoBuffer.RemoveFirst();
             this.undoBuffer.AddLast(undoChange);
 
             return redoChange;
         }
 
-        private TileChange ApplyChanges(TileChange change)
+        private TileChange ApplyChange(TileChange change)
         {
             byte[][] previousData = new byte[change.Height][];
 
