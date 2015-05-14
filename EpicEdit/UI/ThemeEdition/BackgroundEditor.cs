@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
