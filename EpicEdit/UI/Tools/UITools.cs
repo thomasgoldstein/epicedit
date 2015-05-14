@@ -234,7 +234,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
-            UITools.ShowExportDataDialog(acceptedFileName => UITools.ExportTilesetGraphics(image, tileset, acceptedFileName), fileName, FileDialogFilters.ImageOrBinary);
+            UITools.ShowExportDataDialog(filePath => UITools.ExportTilesetGraphics(image, tileset, filePath), fileName, FileDialogFilters.ImageOrBinary);
         }
 
         private static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
@@ -278,7 +278,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName, string filter)
         {
-            UITools.ShowExportDataDialog(acceptedFileName => File.WriteAllBytes(acceptedFileName, getDataMethod()), fileName, filter);
+            UITools.ShowExportDataDialog(filePath => File.WriteAllBytes(filePath, getDataMethod()), fileName, filter);
         }
 
         public static void ShowExportDataDialog(Action<string> exportMethod, string fileName, string filter)
@@ -296,11 +296,11 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        public static void ExportData(Action<string> exportMethod, string fileName)
+        public static void ExportData(Action<string> exportMethod, string filePath)
         {
             try
             {
-                exportMethod(fileName);
+                exportMethod(filePath);
             }
             catch (UnauthorizedAccessException ex)
             {
