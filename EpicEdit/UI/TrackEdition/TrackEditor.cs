@@ -1583,13 +1583,14 @@ namespace EpicEdit.UI.TrackEdition
                         break;
                     }
 
+                    this.buttonsPressed = MouseButtons.None;
+
                     if (this.editionMode == EditionMode.Tileset)
                     {
                         this.undoRedoBuffer.EndAdd();
                         this.ToggleUndoRedo();
                     }
 
-                    this.buttonsPressed = MouseButtons.None;
                     break;
 
                 case MouseButtons.Right:
