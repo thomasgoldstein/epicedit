@@ -1874,13 +1874,11 @@ namespace EpicEdit.Rom
 
             if (gpTrack != null)
             {
-                byte[] data;
-
                 // Update driver starting position
                 this.SaveGPStartPositionData(gpTrack, trackIndex);
 
                 // Update lap line position and length
-                data = gpTrack.LapLine.GetBytes();
+                byte[] data = gpTrack.LapLine.GetBytes();
                 Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackLapLines] + trackIndex * data.Length, data.Length);
 
                 // Update lap line position on track preview
