@@ -1856,8 +1856,10 @@ namespace EpicEdit.Rom
 
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
         {
+            // Update track map
             bool quirksMode = this.region != Region.US;
             byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
+            this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
 
             // Update track theme id
             byte themeId = this.Themes.GetThemeId(track.Theme);
@@ -1890,8 +1892,6 @@ namespace EpicEdit.Rom
                 // Update item probability index
                 this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] = (byte)(gpTrack.ItemProbabilityIndex << 1);
             }
-
-            this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
         }
 
         private static Point GetPreviewLapLineLocation(GPTrack track)
