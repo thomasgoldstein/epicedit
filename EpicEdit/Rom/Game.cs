@@ -1878,8 +1878,8 @@ namespace EpicEdit.Rom
                 this.SaveGPStartPositionData(gpTrack, trackIndex);
 
                 // Update lap line position and length
-                byte[] data = gpTrack.LapLine.GetBytes();
-                Buffer.BlockCopy(data, 0, this.romBuffer, this.offsets[Offset.TrackLapLines] + trackIndex * data.Length, data.Length);
+                byte[] lapLineData = gpTrack.LapLine.GetBytes();
+                Buffer.BlockCopy(lapLineData, 0, this.romBuffer, this.offsets[Offset.TrackLapLines] + trackIndex * lapLineData.Length, lapLineData.Length);
 
                 // Update lap line position on track preview
                 int previewLapLineOffset = offsets[Offset.TrackPreviewLapLines] + iterator * 2;
