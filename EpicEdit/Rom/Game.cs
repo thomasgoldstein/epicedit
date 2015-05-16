@@ -1928,9 +1928,9 @@ namespace EpicEdit.Rom
 
         private void SaveTrackMap(int trackIndex, byte[] compressedMap, SaveBuffer saveBuffer)
         {
-            // Update track offset
-            int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            saveBuffer.AddCompressed(compressedMap, trackOffsetIndex);
+            // Update track map offset
+            int mapOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
+            saveBuffer.AddCompressed(compressedMap, mapOffsetIndex);
         }
 
         private void SaveThemes(SaveBuffer saveBuffer)
