@@ -1891,7 +1891,7 @@ namespace EpicEdit.Rom
                 this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] = (byte)(gpTrack.ItemProbabilityIndex << 1);
             }
 
-            this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
+            this.SaveTrackMap(trackIndex, compressedTrack, saveBuffer);
         }
 
         private static Point GetPreviewLapLineLocation(GPTrack track)
@@ -1923,10 +1923,10 @@ namespace EpicEdit.Rom
         private void MoveTrackMap(int trackIndex, int trackOffset, SaveBuffer saveBuffer)
         {
             byte[] compressedTrack = Codec.GetCompressedChunk(this.romBuffer, trackOffset);
-            this.SaveTrackSub(trackIndex, compressedTrack, saveBuffer);
+            this.SaveTrackMap(trackIndex, compressedTrack, saveBuffer);
         }
 
-        private void SaveTrackSub(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
+        private void SaveTrackMap(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
         {
             // Update track offset
             int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
