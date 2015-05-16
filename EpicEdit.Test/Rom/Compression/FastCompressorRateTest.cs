@@ -40,9 +40,9 @@ namespace EpicEdit.Test.Rom.Compression
         {
             Track track = game.TrackGroups[trackGroupId][trackId];
             byte[] buffer = compressor.Compress(track.Map.GetBytes(), false);
-            int compressedTrackSize = buffer.Length;
+            int compressedMapSize = buffer.Length;
 
-            Assert.AreEqual(expectedSize, compressedTrackSize);
+            Assert.AreEqual(expectedSize, compressedMapSize);
         }
 
         [Test]

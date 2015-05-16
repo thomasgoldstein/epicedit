@@ -1857,7 +1857,7 @@ namespace EpicEdit.Rom
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
         {
             bool quirksMode = this.region != Region.US;
-            byte[] compressedTrack = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
+            byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode), quirksMode);
 
             // Update track theme id
             byte themeId = this.Themes.GetThemeId(track.Theme);
@@ -1891,7 +1891,7 @@ namespace EpicEdit.Rom
                 this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] = (byte)(gpTrack.ItemProbabilityIndex << 1);
             }
 
-            this.SaveTrackMap(trackIndex, compressedTrack, saveBuffer);
+            this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
         }
 
         private static Point GetPreviewLapLineLocation(GPTrack track)
@@ -1922,15 +1922,15 @@ namespace EpicEdit.Rom
 
         private void MoveTrackMap(int trackIndex, int trackOffset, SaveBuffer saveBuffer)
         {
-            byte[] compressedTrack = Codec.GetCompressedChunk(this.romBuffer, trackOffset);
-            this.SaveTrackMap(trackIndex, compressedTrack, saveBuffer);
+            byte[] compressedMap = Codec.GetCompressedChunk(this.romBuffer, trackOffset);
+            this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
         }
 
-        private void SaveTrackMap(int trackIndex, byte[] compressedTrack, SaveBuffer saveBuffer)
+        private void SaveTrackMap(int trackIndex, byte[] compressedMap, SaveBuffer saveBuffer)
         {
             // Update track offset
             int trackOffsetIndex = this.offsets[Offset.TrackMaps] + trackIndex * 3;
-            saveBuffer.AddCompressed(compressedTrack, trackOffsetIndex);
+            saveBuffer.AddCompressed(compressedMap, trackOffsetIndex);
         }
 
         private void SaveThemes(SaveBuffer saveBuffer)
