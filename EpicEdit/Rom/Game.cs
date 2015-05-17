@@ -394,10 +394,8 @@ namespace EpicEdit.Rom
                     int trackIndex = trackOrder[iterator];
 
                     TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndex[iterator][1]];
-
-                    char? trackNameSuffix =
-                        trackNameIndex[iterator].Length <= 2 ? // Check if there is a track number (eg: Rainbow Road doesn't have one)
-                        (char?)null : trackNameItem.Converter.DecodeText(trackNameIndex[iterator][2]);
+                    byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndex[iterator], 2, trackNameIndex[iterator].Length - 2);
+                    string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];

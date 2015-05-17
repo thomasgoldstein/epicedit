@@ -45,7 +45,7 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public BattleStartPosition StartPositionP2 { get; private set; }
 
-        public BattleTrack(TextItem nameItem, char? nameSuffix, Theme theme,
+        public BattleTrack(TextItem nameItem, string nameSuffix, Theme theme,
                            byte[] map, byte[] overlayTileData,
                            byte[] aiZoneData, byte[] aiTargetData,
                            byte[] startPositionData,

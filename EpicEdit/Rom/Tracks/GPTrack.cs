@@ -98,7 +98,7 @@ namespace EpicEdit.Rom.Tracks
 
         public int ItemProbabilityIndex { get; set; }
 
-        public GPTrack(TextItem nameItem, char? nameSuffix, Theme theme,
+        public GPTrack(TextItem nameItem, string nameSuffix, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,

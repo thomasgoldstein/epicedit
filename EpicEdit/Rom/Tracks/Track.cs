@@ -55,7 +55,7 @@ namespace EpicEdit.Rom.Tracks
 
         public TextItem NameItem { get; private set; }
 
-        private char? nameSuffix;
+        private string nameSuffix;
 
         public string Name
         {
@@ -75,7 +75,7 @@ namespace EpicEdit.Rom.Tracks
         // TODO: Make setter private
         public bool Modified { get; set; }
 
-        protected Track(TextItem nameItem, char? nameSuffix, Theme theme,
+        protected Track(TextItem nameItem, string nameSuffix, Theme theme,
                         byte[] map, byte[] overlayTilesData,
                         byte[] aiZoneData, byte[] aiTargetData,
                         OverlayTileSizes overlayTileSizes,
