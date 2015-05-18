@@ -61,6 +61,16 @@ namespace EpicEdit.Rom
         TrackThemes,
 
         /// <summary>
+        /// Cup name index, with Special Cup locked (3 cups).
+        /// </summary>
+        CupNamesLocked,
+
+        /// <summary>
+        /// Cup name index, with Special Cup unlocked (4 cups).
+        /// </summary>
+        CupNames,
+
+        /// <summary>
         /// GP track order index.
         /// </summary>
         GPTrackOrder,
@@ -484,7 +494,9 @@ namespace EpicEdit.Rom
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
             this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
             this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x2A;
-            this[Offset.GPTrackNames] = this[Offset.BattleTrackNames] + 0x32;
+            this[Offset.CupNamesLocked] = this[Offset.BattleTrackNames] + 0x12;
+            this[Offset.CupNames] = this[Offset.CupNamesLocked] + 0xE;
+            this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x12;
             this[Offset.CupAndThemeNames] = this[Offset.GPTrackNames] + 0xC1;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
