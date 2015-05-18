@@ -363,6 +363,7 @@ namespace EpicEdit.Rom
 
             byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackThemes], Track.Count);
             byte[] trackOrder = this.GetTrackOrder();
+            byte[][] cupNameIndexes = this.GetCupNameIndexes();
             byte[][] trackNameIndexes = this.GetTrackNameIndexes();
 
             int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
@@ -378,7 +379,7 @@ namespace EpicEdit.Rom
                 if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
-                    trackGroupNameItem = this.Settings.CupAndThemeNames[i];
+                    trackGroupNameItem = this.Settings.CupAndThemeNames[cupNameIndexes[i][1]];
                 }
                 else // Battle track group
                 {
@@ -481,6 +482,20 @@ namespace EpicEdit.Rom
             Buffer.BlockCopy(gpTrackOrder, 0, trackOrder, 0, GPTrack.Count);
             Buffer.BlockCopy(battleTrackOrder, 0, trackOrder, GPTrack.Count, BattleTrack.Count);
             return trackOrder;
+        }
+
+        private byte[][] GetCupNameIndexes()
+        {
+            byte[][] cupNameIndexes = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.CupNames], 4, TrackGroups.Count - 1);
+
+            for (int i = 0; i < cupNameIndexes.Length; i++)
+            {
+                int offset = Utilities.BytesToOffset(cupNameIndexes[i][0], cupNameIndexes[i][1], 1);
+                cupNameIndexes[i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
+                cupNameIndexes[i][1] = (byte)(cupNameIndexes[i][1] & 0xF);
+            }
+
+            return cupNameIndexes;
         }
 
         private byte[][] GetTrackNameIndexes()
