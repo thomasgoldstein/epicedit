@@ -363,7 +363,7 @@ namespace EpicEdit.Rom
 
             byte[] trackThemes = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackThemes], Track.Count);
             byte[] trackOrder = this.GetTrackOrder();
-            byte[][] trackNameIndex = this.GetTrackNameIndexes();
+            byte[][] trackNameIndexes = this.GetTrackNameIndexes();
 
             int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
 
@@ -383,7 +383,7 @@ namespace EpicEdit.Rom
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
-                    trackGroupNameItem = this.Settings.CupAndThemeNames[trackNameIndex[GPTrack.Count][1]];
+                    trackGroupNameItem = this.Settings.CupAndThemeNames[trackNameIndexes[GPTrack.Count][1]];
                 }
 
                 Track[] tracks = new Track[trackCountInGroup];
@@ -393,8 +393,8 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndex[iterator][1]];
-                    byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndex[iterator], 2, trackNameIndex[iterator].Length - 2);
+                    TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndexes[iterator][1]];
+                    byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndexes[iterator], 2, trackNameIndexes[iterator].Length - 2);
                     string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
 
                     int themeId = trackThemes[trackIndex] >> 1;
