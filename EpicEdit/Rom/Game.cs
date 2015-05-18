@@ -496,26 +496,26 @@ namespace EpicEdit.Rom
             }
 
             byte[][] battleTrackPointers = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.BattleTrackNames], 4, BattleTrack.Count);
-            byte[][] trackNameIndex = new byte[Track.Count][];
+            byte[][] trackNameIndexes = new byte[Track.Count][];
 
             for (int i = 0; i < gpTrackPointers.Length; i++)
             {
                 int offset = Utilities.BytesToOffset(gpTrackPointers[i][0], gpTrackPointers[i][1], 1);
-                trackNameIndex[i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
+                trackNameIndexes[i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
             }
 
             for (int i = 0; i < battleTrackPointers.Length; i++)
             {
                 int offset = Utilities.BytesToOffset(battleTrackPointers[i][0], battleTrackPointers[i][1], 1);
-                trackNameIndex[gpTrackPointers.Length + i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
+                trackNameIndexes[gpTrackPointers.Length + i] = Utilities.ReadBlockUntil(this.romBuffer, offset, 0xFF);
             }
 
-            for (int i = 0; i < trackNameIndex.Length; i++)
+            for (int i = 0; i < trackNameIndexes.Length; i++)
             {
-                trackNameIndex[i][1] = (byte)(trackNameIndex[i][1] & 0xF);
+                trackNameIndexes[i][1] = (byte)(trackNameIndexes[i][1] & 0xF);
             }
 
-            return trackNameIndex;
+            return trackNameIndexes;
         }
 
         #endregion Load data
