@@ -248,6 +248,19 @@ namespace EpicEdit.Rom.Settings
             this.Modified = true;
         }
 
+        public int IndexOf(TextItem item)
+        {
+            for (int i = 0; i < this.texts.Length; i++)
+            {
+                if (this.texts[i] == item)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public byte[] GetBytes(out byte[] indexes)
         {
             int length;
