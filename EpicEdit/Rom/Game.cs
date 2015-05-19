@@ -486,7 +486,7 @@ namespace EpicEdit.Rom
 
         private byte[][] GetCupNameIndexes()
         {
-            byte[][] cupNameIndexes = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.CupNames], 4, TrackGroups.Count - 1);
+            byte[][] cupNameIndexes = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.CupNames], 4, GPTrack.GroupCount);
 
             for (int i = 0; i < cupNameIndexes.Length; i++)
             {
