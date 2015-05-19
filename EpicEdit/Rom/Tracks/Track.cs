@@ -53,13 +53,11 @@ namespace EpicEdit.Rom.Tracks
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TextItem NameItem { get; private set; }
-
-        private string nameSuffix;
+        public SuffixedTextItem SuffixedNameItem { get; private set; }
 
         public string Name
         {
-            get { return this.NameItem.FormattedValue + this.nameSuffix; }
+            get { return this.SuffixedNameItem.Value; }
         }
 
         public Theme Theme { get; set; }
@@ -75,26 +73,25 @@ namespace EpicEdit.Rom.Tracks
         // TODO: Make setter private
         public bool Modified { get; set; }
 
-        protected Track(TextItem nameItem, string nameSuffix, Theme theme,
+        protected Track(SuffixedTextItem nameItem, Theme theme,
                         byte[] map, byte[] overlayTilesData,
                         byte[] aiZoneData, byte[] aiTargetData,
                         OverlayTileSizes overlayTileSizes,
                         OverlayTilePatterns overlayTilePatterns)
         {
             this.Theme = theme;
-            this.NameItem = nameItem;
-            this.NameItem.PropertyChanged += this.NameItem_PropertyChanged;
-            this.nameSuffix = nameSuffix;
+            this.SuffixedNameItem = nameItem;
+            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.Map = new TrackMap(map);
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
         }
 
-        private void NameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs("NameItem"));
+                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
             }
         }
 

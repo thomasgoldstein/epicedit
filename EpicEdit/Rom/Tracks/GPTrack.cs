@@ -98,7 +98,7 @@ namespace EpicEdit.Rom.Tracks
 
         public int ItemProbabilityIndex { get; set; }
 
-        public GPTrack(TextItem nameItem, string nameSuffix, Theme theme,
+        public GPTrack(SuffixedTextItem nameItem, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,
@@ -106,7 +106,7 @@ namespace EpicEdit.Rom.Tracks
                        OverlayTileSizes overlayTileSizes,
                        OverlayTilePatterns overlayTilePatterns,
                        int itemProbaIndex) :
-            base(nameItem, nameSuffix, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+            base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.StartPosition = new GPStartPosition(startPositionData);
             this.LapLine = new LapLine(lapLineData);

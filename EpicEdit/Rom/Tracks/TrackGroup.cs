@@ -28,11 +28,11 @@ namespace EpicEdit.Rom.Tracks
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TextItem NameItem { get; private set; }
+        public SuffixedTextItem SuffixedNameItem { get; private set; }
 
         public string Name
         {
-            get { return this.NameItem.FormattedValue; }
+            get { return this.SuffixedNameItem.Value; }
         }
 
         private Track[] tracks;
@@ -53,18 +53,18 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public TrackGroup(TextItem nameItem, Track[] tracks)
+        public TrackGroup(SuffixedTextItem nameItem, Track[] tracks)
         {
-            this.NameItem = nameItem;
-            this.NameItem.PropertyChanged += this.NameItem_PropertyChanged;
+            this.SuffixedNameItem = nameItem;
+            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.tracks = tracks;
         }
 
-        private void NameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs("NameItem"));
+                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
             }
         }
 

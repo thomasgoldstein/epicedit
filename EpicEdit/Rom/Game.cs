@@ -375,16 +375,20 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.TrackGroups.Count; i++)
             {
                 int trackCountInGroup;
-                TextItem trackGroupNameItem;
+                SuffixedTextItem trackGroupNameItem;
                 if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
-                    trackGroupNameItem = this.Settings.CupAndThemeNames[cupNameIndexes[i][1]];
+                    TextItem trackGroupTextItem = this.Settings.CupAndThemeNames[cupNameIndexes[i][1]];
+                    byte[] trackGroupNameSuffixData = Utilities.ReadBlock(cupNameIndexes[i], 2, cupNameIndexes[i].Length - 2);
+                    string trackGroupNameSuffix = trackGroupTextItem.Converter.DecodeText(trackGroupNameSuffixData, false);
+                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix);
                 }
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
-                    trackGroupNameItem = this.Settings.CupAndThemeNames[trackNameIndexes[GPTrack.Count][1]];
+                    TextItem trackGroupTextItem = this.Settings.CupAndThemeNames[trackNameIndexes[GPTrack.Count][1]];
+                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, null);
                 }
 
                 Track[] tracks = new Track[trackCountInGroup];
@@ -397,6 +401,7 @@ namespace EpicEdit.Rom
                     TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndexes[iterator][1]];
                     byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndexes[iterator], 2, trackNameIndexes[iterator].Length - 2);
                     string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
+                    SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix);
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
@@ -416,7 +421,7 @@ namespace EpicEdit.Rom
                         byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
                         int itemProbaIndex = this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] >> 1;
 
-                        GPTrack gpTrack = new GPTrack(trackNameItem, trackNameSuffix, trackTheme,
+                        GPTrack gpTrack = new GPTrack(suffixedTrackNameItem, trackTheme,
                                                       trackMap, overlayTileData,
                                                       aiZoneData, aiTargetData,
                                                       startPositionData, lapLineData,
@@ -433,7 +438,7 @@ namespace EpicEdit.Rom
                     {
                         byte[] startPositionData = this.GetBattleStartPositionData(trackIndex);
 
-                        tracks[j] = new BattleTrack(trackNameItem, trackNameSuffix, trackTheme,
+                        tracks[j] = new BattleTrack(suffixedTrackNameItem, trackTheme,
                                                     trackMap, overlayTileData,
                                                     aiZoneData, aiTargetData,
                                                     startPositionData,

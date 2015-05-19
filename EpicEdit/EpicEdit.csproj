@@ -104,6 +104,7 @@
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Settings\RankPoints.cs" />
+    <Compile Include="Rom\Settings\SuffixedTextItem.cs" />
     <Compile Include="Rom\Settings\TextCollection.cs" />
     <Compile Include="Rom\Settings\TextItem.cs" />
     <Compile Include="Rom\Tile.cs" />

@@ -45,13 +45,13 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public BattleStartPosition StartPositionP2 { get; private set; }
 
-        public BattleTrack(TextItem nameItem, string nameSuffix, Theme theme,
+        public BattleTrack(SuffixedTextItem nameItem, Theme theme,
                            byte[] map, byte[] overlayTileData,
                            byte[] aiZoneData, byte[] aiTargetData,
                            byte[] startPositionData,
                            OverlayTileSizes overlayTileSizes,
                            OverlayTilePatterns overlayTilePatterns) :
-            base(nameItem, nameSuffix, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+            base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             byte[] startPosition1Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
             byte[] startPosition2Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
