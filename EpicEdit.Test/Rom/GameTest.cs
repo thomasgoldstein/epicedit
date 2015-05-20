@@ -190,6 +190,44 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
+        public void TestTrackReorderNamesReload()
+        {
+            // Since we actually modify the Game object in this method,
+            // do not use the private Game member, because that would affect other tests.
+            Game game = File.GetGame(Region.US);
+
+            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+
+            Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
+            Assert.AreEqual("Donut Plains 1", game.TrackGroups[0][1].Name);
+            Assert.AreEqual("Ghost Valley 1", game.TrackGroups[0][2].Name);
+            Assert.AreEqual("Bowser Castle 1", game.TrackGroups[0][3].Name);
+            Assert.AreEqual("Mario Circuit 2", game.TrackGroups[0][4].Name);
+            Assert.AreEqual("Choco Island 1", game.TrackGroups[1][0].Name);
+            Assert.AreEqual("Ghost Valley 2", game.TrackGroups[1][1].Name);
+            Assert.AreEqual("Donut Plains 2", game.TrackGroups[1][2].Name);
+            Assert.AreEqual("Bowser Castle 2", game.TrackGroups[1][3].Name);
+            Assert.AreEqual("Mario Circuit 3", game.TrackGroups[1][4].Name);
+
+            // Take Donut Plains, and move it where Bowser Castle 2 is
+            game.ReorderTracks(0, 1, 1, 3);
+
+            game.SaveRom(fileNameAfter);
+            game = new Game(fileNameAfter); // Reload ROM
+
+            Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
+            Assert.AreEqual("Ghost Valley 1", game.TrackGroups[0][1].Name);
+            Assert.AreEqual("Bowser Castle 1", game.TrackGroups[0][2].Name);
+            Assert.AreEqual("Mario Circuit 2", game.TrackGroups[0][3].Name);
+            Assert.AreEqual("Choco Island 1", game.TrackGroups[0][4].Name);
+            Assert.AreEqual("Ghost Valley 2", game.TrackGroups[1][0].Name);
+            Assert.AreEqual("Donut Plains 2", game.TrackGroups[1][1].Name);
+            Assert.AreEqual("Bowser Castle 2", game.TrackGroups[1][2].Name);
+            Assert.AreEqual("Donut Plains 1", game.TrackGroups[1][3].Name);
+            Assert.AreEqual("Mario Circuit 3", game.TrackGroups[1][4].Name);
+        }
+
+        [Test]
         public void TestTrackReorderRomData()
         {
             // Since we actually modify the Game object in this method,
