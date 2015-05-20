@@ -511,11 +511,12 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < GPTrack.GroupCount; i++)
             {
+                gpTrackNamesOffset += 2; // Skip leading bytes
                 Utilities.ReadBlockGroup(this.romBuffer, gpTrackNamesOffset, 4, GPTrack.CountPerGroup).CopyTo(gpTrackPointers, GPTrack.CountPerGroup * i);
-                gpTrackNamesOffset += GPTrack.CountPerGroup * GPTrack.GroupCount + 2; // 2 separating bytes
+                gpTrackNamesOffset += GPTrack.CountPerGroup * GPTrack.GroupCount;
             }
 
-            byte[][] battleTrackPointers = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.BattleTrackNames], 4, BattleTrack.Count);
+            byte[][] battleTrackPointers = Utilities.ReadBlockGroup(this.romBuffer, this.offsets[Offset.BattleTrackNames] + 2, 4, BattleTrack.Count);
             byte[][] trackNameIndexes = new byte[Track.Count][];
 
             for (int i = 0; i < gpTrackPointers.Length; i++)
@@ -1020,6 +1021,7 @@ namespace EpicEdit.Rom
         {
             Track sourceTrack = trackGroup[sourceTrackId];
             byte sourceTrackOrder = this.romBuffer[trackOrderOffset + sourceTrackId];
+            trackNameOffset += 2; // Skip leading bytes
 
             int sourceTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, sourceTrackId);
             byte[] sourceTrackName =

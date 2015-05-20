@@ -500,11 +500,11 @@ namespace EpicEdit.Rom
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
             this[Offset.TrackAITargets] = this[Offset.TrackAIZones] + 0x30;
-            this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x2A;
-            this[Offset.CupNamesLocked] = this[Offset.BattleTrackNames] + 0x12;
+            this[Offset.BattleTrackNames] = this[Offset.TrackPreviewLapLines] + 0x28;
+            this[Offset.CupNamesLocked] = this[Offset.BattleTrackNames] + 0x14;
             this[Offset.CupNames] = this[Offset.CupNamesLocked] + 0xE;
-            this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x12;
-            this[Offset.NamesAndSuffixes] = this[Offset.GPTrackNames] + 0x56;
+            this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x10;
+            this[Offset.NamesAndSuffixes] = this[Offset.GPTrackNames] + 0x58;
             this[Offset.CupAndThemeNames] = this[Offset.NamesAndSuffixes] + 0x6B;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
