@@ -71,6 +71,13 @@ namespace EpicEdit.Rom
         CupNames,
 
         /// <summary>
+        /// Address to the start of the name references followed by a suffix.
+        /// Only used for resaving, to define where to start saving this data.
+        /// It's safer than deducing it from the game name addresses, which might have been tampered with.
+        /// </summary>
+        NamesAndSuffixes,
+
+        /// <summary>
         /// GP track order index.
         /// </summary>
         GPTrackOrder,
@@ -497,7 +504,8 @@ namespace EpicEdit.Rom
             this[Offset.CupNamesLocked] = this[Offset.BattleTrackNames] + 0x12;
             this[Offset.CupNames] = this[Offset.CupNamesLocked] + 0xE;
             this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x12;
-            this[Offset.CupAndThemeNames] = this[Offset.GPTrackNames] + 0xC1;
+            this[Offset.NamesAndSuffixes] = this[Offset.GPTrackNames] + 0x56;
+            this[Offset.CupAndThemeNames] = this[Offset.NamesAndSuffixes] + 0x6B;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
 
