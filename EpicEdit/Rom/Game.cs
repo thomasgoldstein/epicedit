@@ -1094,6 +1094,7 @@ namespace EpicEdit.Rom
             this.romBuffer = saveBuffer.GetRomBuffer();
 
             this.Settings.Save(this.romBuffer);
+            this.SaveCupAndTrackNames();
         }
 
         private void SetChecksum()
@@ -2093,6 +2094,71 @@ namespace EpicEdit.Rom
                     this.romBuffer[index] = this.romBuffer[bgTileGfxIndex + 2];
                 }
             }
+        }
+
+        private void SaveCupAndTrackNames()
+        {
+            int nameOffset = this.offsets[Offset.NamesAndSuffixes];
+
+            // Update battle track names
+            int battleTrackNameOffsetIndex = this.offsets[Offset.BattleTrackNames] + 2; // Skip leading bytes
+            foreach (Track track in this.TrackGroups[GPTrack.GroupCount])
+            {
+                this.SaveCupOrTrackName(track.SuffixedNameItem, battleTrackNameOffsetIndex, ref nameOffset);
+                battleTrackNameOffsetIndex += 4;
+            }
+
+            // Update cup names
+            int allCupNameOffsetIndex = this.offsets[Offset.CupNames] + 2; // Skip leading bytes
+            int lockedCupNameOffsetIndex = this.offsets[Offset.CupNamesLocked] + 2; // Skip leading bytes
+            for (int i = 0; i < GPTrack.GroupCount; i++)
+            {
+                // Update cup name + name index (including Special Cup)
+                this.SaveCupOrTrackName(this.TrackGroups[i].SuffixedNameItem, allCupNameOffsetIndex, ref nameOffset);
+
+                if (i < GPTrack.GroupCount - 1)
+                {
+                    // Update cup name index (excluding Special Cup)
+                    this.romBuffer[lockedCupNameOffsetIndex] = this.romBuffer[allCupNameOffsetIndex];
+                    this.romBuffer[lockedCupNameOffsetIndex + 1] = this.romBuffer[allCupNameOffsetIndex + 1];
+                    lockedCupNameOffsetIndex += 4;
+                }
+
+                allCupNameOffsetIndex += 4;
+            }
+
+            // Update GP track names
+            int gpTrackNameOffsetIndex = this.offsets[Offset.GPTrackNames];
+            for (int i = 0; i < GPTrack.GroupCount; i++)
+            {
+                this.romBuffer[gpTrackNameOffsetIndex++] = 0x80;
+                this.romBuffer[gpTrackNameOffsetIndex++] = 0x20;
+
+                foreach (var track in this.TrackGroups[i])
+                {
+                    this.SaveCupOrTrackName(track.SuffixedNameItem, gpTrackNameOffsetIndex, ref nameOffset);
+                    gpTrackNameOffsetIndex += 4;
+                }
+            }
+        }
+
+        private void SaveCupOrTrackName(SuffixedTextItem nameItem, int nameOffsetIndex, ref int nameOffset)
+        {
+            byte[] offsetAddressData = Utilities.OffsetToBytes(nameOffset);
+            this.romBuffer[nameOffsetIndex] = offsetAddressData[0];
+            this.romBuffer[nameOffsetIndex + 1] = offsetAddressData[1];
+
+            this.romBuffer[nameOffset++] = 0x29;
+            this.romBuffer[nameOffset++] = (byte)(0xE0 + this.Settings.CupAndThemeNames.IndexOf(nameItem.TextItem));
+
+            byte[] nameSuffixData = nameItem.TextItem.Converter.EncodeText(nameItem.Suffix, null);
+
+            for (int i = 0; i < nameSuffixData.Length; i++)
+            {
+                this.romBuffer[nameOffset++] = nameSuffixData[i];
+            }
+
+            this.romBuffer[nameOffset++] = 0xFF;
         }
 
         private void SaveFile()
