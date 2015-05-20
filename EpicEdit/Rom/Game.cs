@@ -939,9 +939,8 @@ namespace EpicEdit.Rom
                 #endregion Global track array creation
 
                 int trackOrderOffset = this.offsets[Offset.GPTrackOrder];
-                int trackNameOffset = this.offsets[Offset.GPTrackNames];
 
-                this.ReorderTracksSub(tempTrackGroup, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
+                this.ReorderTracksSub(tempTrackGroup, sourceTrackId, destinationTrackId, trackOrderOffset);
 
                 #region GP track specific data update
                 // Update Time Trial lap line positions
@@ -997,9 +996,8 @@ namespace EpicEdit.Rom
                 }
 
                 int trackOrderOffset = this.offsets[Offset.BattleTrackOrder];
-                int trackNameOffset = this.offsets[Offset.BattleTrackNames];
 
-                this.ReorderTracksSub(trackGroup, sourceTrackId, destinationTrackId, trackOrderOffset, trackNameOffset);
+                this.ReorderTracksSub(trackGroup, sourceTrackId, destinationTrackId, trackOrderOffset);
 
                 #region Battle track specific data update
                 // Update the track shown by default when entering the battle track selection
@@ -1017,57 +1015,34 @@ namespace EpicEdit.Rom
             this.modified = true;
         }
 
-        private void ReorderTracksSub(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void ReorderTracksSub(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
         {
             Track sourceTrack = trackGroup[sourceTrackId];
             byte sourceTrackOrder = this.romBuffer[trackOrderOffset + sourceTrackId];
-            trackNameOffset += 2; // Skip leading bytes
-
-            int sourceTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, sourceTrackId);
-            byte[] sourceTrackName =
-            {
-                this.romBuffer[sourceTrackNameOffset],
-                this.romBuffer[sourceTrackNameOffset + 1]
-            };
 
             if (sourceTrackId < destinationTrackId)
             {
                 for (int i = sourceTrackId; i < destinationTrackId; i++)
                 {
-                    this.RemapTrack(trackGroup, i + 1, i, trackOrderOffset, trackNameOffset);
+                    this.RemapTrack(trackGroup, i + 1, i, trackOrderOffset);
                 }
             }
             else
             {
                 for (int i = sourceTrackId; i > destinationTrackId; i--)
                 {
-                    this.RemapTrack(trackGroup, i - 1, i, trackOrderOffset, trackNameOffset);
+                    this.RemapTrack(trackGroup, i - 1, i, trackOrderOffset);
                 }
             }
 
             trackGroup[destinationTrackId] = sourceTrack;
             this.romBuffer[trackOrderOffset + destinationTrackId] = sourceTrackOrder;
-
-            int destinationTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, destinationTrackId);
-            this.romBuffer[destinationTrackNameOffset] = sourceTrackName[0];
-            this.romBuffer[destinationTrackNameOffset + 1] = sourceTrackName[1];
         }
 
-        private void RemapTrack(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset, int trackNameOffset)
+        private void RemapTrack(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
         {
             trackGroup[destinationTrackId] = trackGroup[sourceTrackId];
-            this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
-
-            int destinationTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, destinationTrackId);
-            int sourceTrackNameOffset = Game.GetTrackNameOffset(trackNameOffset, sourceTrackId);
-            this.romBuffer[destinationTrackNameOffset] = this.romBuffer[sourceTrackNameOffset];
-            this.romBuffer[destinationTrackNameOffset + 1] = this.romBuffer[sourceTrackNameOffset + 1];
-        }
-
-        private static int GetTrackNameOffset(int trackNameOffset, int trackId)
-        {
-            int shiftValue = (int)Math.Ceiling((double)(trackId / 5)) * 2;
-            return trackNameOffset + trackId * 4 + shiftValue;
+            this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];;
         }
         #endregion Track reodering
 
