@@ -58,11 +58,7 @@ namespace EpicEdit.Rom.Tracks
 
         public Palette ObjectPalette
         {
-            get
-            {
-                // + 8 because the sprite palettes are the second half of the 16 palettes
-                return this.Theme.Palettes[this.objectPaletteIndexes[0] + 8];
-            }
+            get { return this.Theme.Palettes[this.objectPaletteIndexes[0] + Palettes.SpritePaletteStart]; }
         }
 
         /// <summary>
