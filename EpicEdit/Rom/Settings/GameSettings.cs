@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Settings
     /// </summary>
     internal class GameSettings
     {
-        private Offsets offsets;
+        private readonly Offsets offsets;
 
         /// <summary>
         /// Gets the game mode names.

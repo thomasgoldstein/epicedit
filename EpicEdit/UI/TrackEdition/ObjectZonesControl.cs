@@ -93,7 +93,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to ensure the ValueChanged event is only raised once in case of chain reactions.
         /// </summary>
-        private bool[] raiseValueChanged;
+        private readonly bool[] raiseValueChanged;
 
         public ObjectZonesControl()
         {

@@ -26,7 +26,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        private byte[][] data;
+        private readonly byte[][] data;
 
         public int Height
         {
@@ -40,31 +40,22 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         public TileChange(int x, int y, byte[][] data)
         {
-            this.Init(x, y, data);
-        }
-
-        public TileChange(Point location, Size size, Track track)
-        {
-            byte[][] data = new byte[size.Height][];
-
-            for (int y = 0; y < size.Height; y++)
-            {
-                data[y] = new byte[size.Width];
-
-                for (int x = 0; x < size.Width; x++)
-                {
-                    data[y][x] = track.Map[location.X + x, location.Y + y];
-                }
-            }
-
-            this.Init(location.X, location.Y, data);
-        }
-
-        private void Init(int x, int y, byte[][] data)
-        {
             this.X = x;
             this.Y = y;
             this.data = data;
+        }
+
+        public TileChange(Point location, Size size, Track track) : this(location.X, location.Y, new byte[size.Height][])
+        {
+            for (int y = 0; y < size.Height; y++)
+            {
+                this.data[y] = new byte[size.Width];
+
+                for (int x = 0; x < size.Width; x++)
+                {
+                    this.data[y][x] = track.Map[location.X + x, location.Y + y];
+                }
+            }
         }
 
         /// <summary>

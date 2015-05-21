@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         // TODO: Make setter private
         public bool Modified { get; set; }
 
-        private BackgroundTile[] tileset;
+        private readonly BackgroundTile[] tileset;
 
         public BackgroundTileset(BackgroundTile[] tileset)
         {

@@ -39,7 +39,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to get the index of the paletteNumericUpDown control.
         /// </summary>
-        private Control[] palettePickers;
+        private readonly Control[] palettePickers;
 
         public ObjectsControl()
         {

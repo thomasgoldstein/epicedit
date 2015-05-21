@@ -31,7 +31,7 @@ namespace EpicEdit.UI.Gfx
         public const int Zoom = 2;
 
         private RoadTileset tileset;
-        private Size imageSize;
+        private readonly Size imageSize;
 
         private Bitmap tilesetCache;
 

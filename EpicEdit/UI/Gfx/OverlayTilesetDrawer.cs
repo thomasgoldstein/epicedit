@@ -40,11 +40,11 @@ namespace EpicEdit.UI.Gfx
         public OverlayTilePattern SelectedPattern { get; set; }
 
         private Bitmap tilesetCache;
-        private HatchBrush transparentBrush;
+        private readonly HatchBrush transparentBrush;
 
-        private Pen delimitPen;
-        private Pen highlightPen;
-        private SolidBrush selectBrush;
+        private readonly Pen delimitPen;
+        private readonly Pen highlightPen;
+        private readonly SolidBrush selectBrush;
 
         public OverlayTilesetDrawer()
         {

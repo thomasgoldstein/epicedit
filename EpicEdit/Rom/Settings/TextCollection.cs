@@ -39,37 +39,37 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// The texts of the collection.
         /// </summary>
-        private TextItem[] texts;
+        private readonly TextItem[] texts;
 
         /// <summary>
         /// The offset to the indexes that define the address of each text.
         /// </summary>
-        private int indexOffset;
+        private readonly int indexOffset;
 
         /// <summary>
         /// The offset to the start of the text data.
         /// </summary>
-        private int textOffset;
+        private readonly int textOffset;
 
         /// <summary>
         /// The color palette index used by each text (using the 1st character as reference).
         /// </summary>
-        private byte[] colorIndexes;
+        private readonly byte[] colorIndexes;
 
         /// <summary>
         /// The total size in bytes of the collection.
         /// </summary>
-        private int totalSize;
+        private readonly int totalSize;
 
         /// <summary>
         /// A mode for certain Japanese text collections with ten-ten and maru characters encoded separately.
         /// </summary>
-        private bool japAltMode;
+        private readonly bool japAltMode;
 
         /// <summary>
         /// True if characters are tall (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).
         /// </summary>
-        private bool tallCharacters;
+        private readonly bool tallCharacters;
 
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.

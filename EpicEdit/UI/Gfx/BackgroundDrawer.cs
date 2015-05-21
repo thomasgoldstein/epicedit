@@ -56,17 +56,17 @@ namespace EpicEdit.UI.Gfx
         /// <summary>
         /// Used to draw the rectangle when highlighting tiles.
         /// </summary>
-        private Pen tileHighlightPen;
+        private readonly Pen tileHighlightPen;
 
         /// <summary>
         /// Used to draw the rectangle when selecting tiles.
         /// </summary>
-        private Pen tileSelectPen;
+        private readonly Pen tileSelectPen;
 
         /// <summary>
         /// Used to paint the inside of the selection rectangle.
         /// </summary>
-        private SolidBrush tileSelectBrush;
+        private readonly SolidBrush tileSelectBrush;
 
         public BackgroundDrawer()
         {

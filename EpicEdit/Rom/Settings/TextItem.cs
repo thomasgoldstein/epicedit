@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private TextCollection collection;
+        private readonly TextCollection collection;
 
         public TextConverter Converter
         {

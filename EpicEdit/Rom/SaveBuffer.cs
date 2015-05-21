@@ -26,7 +26,7 @@ namespace EpicEdit.Rom
         private byte[] romBuffer;
         private Queue<byte[]> savedData;
         private Range zone;
-        private Region region;
+        private readonly Region region;
 
         /// <summary>
         /// Gets the current index value.

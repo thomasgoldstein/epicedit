@@ -28,7 +28,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public const int Count = 4;
         public const int Size = Count * OverlayTileSize.Size;
 
-        private OverlayTileSize[] sizes;
+        private readonly OverlayTileSize[] sizes;
 
         public OverlayTileSize this[int index]
         {
@@ -53,12 +53,12 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSizes(byte[] data)
         {
+            this.sizes = new OverlayTileSize[OverlayTileSizes.Count];
             this.SetBytes(data);
         }
 
         private void SetBytes(byte[] data)
         {
-            this.sizes = new OverlayTileSize[OverlayTileSizes.Count];
             byte[][] mData = Utilities.ReadBlockGroup(data, 0, OverlayTileSize.Size, OverlayTileSizes.Count);
             for (int i = 0; i < mData.Length; i++)
             {

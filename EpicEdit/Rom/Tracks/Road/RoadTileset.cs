@@ -36,7 +36,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// </summary>
         public const int TileCount = ThemeTileCount + CommonTileCount;
 
-        private RoadTile[] tileset;
+        private readonly RoadTile[] tileset;
 
         // TODO: Make setter private
         public bool Modified { get; set; }

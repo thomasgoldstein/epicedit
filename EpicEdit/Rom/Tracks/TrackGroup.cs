@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.SuffixedNameItem.Value; }
         }
 
-        private Track[] tracks;
+        private readonly Track[] tracks;
 
         public bool Modified
         {

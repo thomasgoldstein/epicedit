@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal class TrackGroups : IEnumerable<TrackGroup>
     {
-        private TrackGroup[] trackGroups;
+        private readonly TrackGroup[] trackGroups;
 
         public TrackGroups()
         {

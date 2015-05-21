@@ -34,9 +34,9 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         public bool IsOptimal { get; private set; }
 
-        private ChunkNode parent;
+        private readonly ChunkNode parent;
         private List<ChunkNode> children;
-        private byte[] compressedChunk;
+        private readonly byte[] compressedChunk;
 
         public ChunkNode(ChunkNode parent, byte[] compressedChunk)
         {

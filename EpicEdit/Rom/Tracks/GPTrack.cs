@@ -50,7 +50,7 @@ namespace EpicEdit.Rom.Tracks
         public ObjectType ObjectInteraction { get; set; }
         public ObjectType ObjectRoutine { get; set; }
 
-        private byte[] objectPaletteIndexes;
+        private readonly byte[] objectPaletteIndexes;
         public byte[] ObjectPaletteIndexes
         {
             get { return this.objectPaletteIndexes; }

@@ -28,7 +28,7 @@ namespace EpicEdit.UI.Gfx
             public byte alpha;
         }
 
-        private Bitmap subject;
+        private readonly Bitmap subject;
         private int subjectWidth;
         private BitmapData bitmapData;
         private Byte* pBase;

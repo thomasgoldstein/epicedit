@@ -25,7 +25,7 @@ namespace EpicEdit.Rom.Settings
         private const int BytesPerObject = 2;
         public const int Size = Count * BytesPerObject;
 
-        private int[] points;
+        private readonly int[] points;
 
         public bool Modified { get; private set; }
 

@@ -63,7 +63,7 @@ namespace EpicEdit.Rom
 
         public bool Modified { get; private set; }
 
-        private RomColor[] colors;
+        private readonly RomColor[] colors;
 
         public Palette(Palettes collection, byte[] data)
         {

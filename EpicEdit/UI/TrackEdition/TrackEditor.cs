@@ -64,7 +64,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// All the available zoom levels.
         /// </summary>
-        private float[] zoomLevels;
+        private readonly float[] zoomLevels;
 
         /// <summary>
         /// The index to the current zoom level.

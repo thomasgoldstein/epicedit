@@ -26,9 +26,9 @@ namespace EpicEdit.Test.Rom.Compression
     [TestFixture]
     internal class FastCompressorRateTest
     {
-        private FastCompressor compressor = new FastCompressor();
-        private Game smkGame;
-        private Game eeGame;
+        private readonly FastCompressor compressor = new FastCompressor();
+        private readonly Game smkGame;
+        private readonly Game eeGame;
 
         public FastCompressorRateTest()
         {

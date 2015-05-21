@@ -22,7 +22,7 @@ namespace EpicEdit.Test.Rom.Tracks
     [TestFixture]
     internal class GPTrackTest
     {
-        private Game game;
+        private readonly Game game;
 
         public GPTrackTest()
         {

@@ -27,14 +27,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public const int Size = 128;
         public const int MaxTileCount = 41;
 
-        private OverlayTileSizes sizes;
-        private OverlayTilePatterns patterns;
-        private List<OverlayTile> overlayTiles;
+        private readonly OverlayTileSizes sizes;
+        private readonly OverlayTilePatterns patterns;
+        private readonly List<OverlayTile> overlayTiles;
 
         public OverlayTiles(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
         {
             this.sizes = sizes;
             this.patterns = patterns;
+            this.overlayTiles = new List<OverlayTile>();
             this.SetBytes(data);
         }
 
@@ -64,8 +65,6 @@ namespace EpicEdit.Rom.Tracks.Overlay
             {
                 throw new ArgumentException("Incorrect overlay tile data size", "data");
             }
-
-            this.overlayTiles = new List<OverlayTile>();
 
             for (int overlayTileIndex = 0; overlayTileIndex < OverlayTiles.MaxTileCount; overlayTileIndex++)
             {

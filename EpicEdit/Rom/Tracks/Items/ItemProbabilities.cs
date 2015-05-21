@@ -66,7 +66,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public const int Size = Count * ItemProbability.Size;
 
-        private ItemProbability[] itemProbabilities;
+        private readonly ItemProbability[] itemProbabilities;
 
         public ItemProbabilities(byte[] data)
         {

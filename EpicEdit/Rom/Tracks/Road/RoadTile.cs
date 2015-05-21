@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// The first palette of the concerned palette collection.
         /// Needed to retrieve the back color (first color of the first palette).
         /// </summary>
-        private Palette firstPalette;
+        private readonly Palette firstPalette;
 
         private RoadTileGenre genre = RoadTileGenre.Road;
         public RoadTileGenre Genre

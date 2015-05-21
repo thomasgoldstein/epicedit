@@ -36,10 +36,10 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         private const int GridLimit = GridSize - 1;
 
-        private GPTrack track;
+        private readonly GPTrack track;
 
-        private byte[] frontZones;
-        private byte[] rearZones;
+        private readonly byte[] frontZones;
+        private readonly byte[] rearZones;
 
         public TrackObjectZones(byte[] data, GPTrack track)
         {

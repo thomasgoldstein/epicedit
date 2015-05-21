@@ -23,12 +23,12 @@ namespace EpicEdit.Test.Rom.Settings
     [TestFixture]
     internal class GameSettingsTest
     {
-        private Game gameJ;
-        private Game gameU;
-        private Game gameE;
-        private byte[] romBufferJ;
-        private byte[] romBufferU;
-        private byte[] romBufferE;
+        private readonly Game gameJ;
+        private readonly Game gameU;
+        private readonly Game gameE;
+        private readonly byte[] romBufferJ;
+        private readonly byte[] romBufferU;
+        private readonly byte[] romBufferE;
 
         public GameSettingsTest()
         {

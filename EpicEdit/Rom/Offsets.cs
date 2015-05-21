@@ -380,7 +380,7 @@ namespace EpicEdit.Rom
 
     internal class Offsets
     {
-        private int[] offsets;
+        private readonly int[] offsets;
 
         /// <summary>
         /// Loads all the needed offsets depending on the ROM region.

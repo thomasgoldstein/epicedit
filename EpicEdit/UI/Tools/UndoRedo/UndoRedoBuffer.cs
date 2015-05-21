@@ -37,11 +37,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <summary>
         /// The bound track.
         /// </summary>
-        private Track track;
+        private readonly Track track;
 
         // Using LinkedLists rather than Stacks so as to be able to enforce a size limit.
-        private LinkedList<TileChange> undoBuffer;
-        private LinkedList<TileChange> redoBuffer;
+        private readonly LinkedList<TileChange> undoBuffer;
+        private readonly LinkedList<TileChange> redoBuffer;
 
         private Stack<TileChange> buffer;
 

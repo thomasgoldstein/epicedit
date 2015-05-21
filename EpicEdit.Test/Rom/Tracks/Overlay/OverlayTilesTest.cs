@@ -22,7 +22,7 @@ namespace EpicEdit.Test.Rom.Tracks.Overlay
     [TestFixture]
     internal class OverlayTilesTest
     {
-        private Smk smk;
+        private readonly Smk smk;
 
         public OverlayTilesTest()
         {

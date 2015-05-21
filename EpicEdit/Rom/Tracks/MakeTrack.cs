@@ -33,8 +33,8 @@ namespace EpicEdit.Rom
     /// </summary>
     internal class MakeTrack
     {
-        private Track track;
-        private Game game;
+        private readonly Track track;
+        private readonly Game game;
 
         public TrackMap Map
         {

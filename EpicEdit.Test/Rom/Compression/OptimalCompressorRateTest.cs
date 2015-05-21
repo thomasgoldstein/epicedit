@@ -26,9 +26,9 @@ namespace EpicEdit.Test.Rom.Compression
     [TestFixture]
     internal class OptimalCompressorRateTest
     {
-        private OptimalCompressor compressor = new OptimalCompressor();
-        private Game smkGame;
-        private Game eeGame;
+        private readonly OptimalCompressor compressor = new OptimalCompressor();
+        private readonly Game smkGame;
+        private readonly Game eeGame;
 
         public OptimalCompressorRateTest()
         {

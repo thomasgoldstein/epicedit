@@ -23,9 +23,9 @@ namespace EpicEdit.Test.Rom.Compression
     [TestFixture]
     internal class CompressionTest
     {
-        private byte[] smkRomBuffer;
-        private Game smkGame;
-        private Game eeGame;
+        private readonly byte[] smkRomBuffer;
+        private readonly Game smkGame;
+        private readonly Game eeGame;
 
         public CompressionTest()
         {

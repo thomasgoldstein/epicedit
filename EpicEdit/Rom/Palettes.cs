@@ -40,19 +40,17 @@ namespace EpicEdit.Rom
         /// </summary>
         public Theme Theme { get; internal set; }
 
-        private Palette[] palettes;
+        private readonly Palette[] palettes;
 
         public Palettes(byte[] data)
         {
+            this.palettes = new Palette[data.Length / Palette.Size];
             this.Init(data);
         }
 
         private void Init(byte[] data)
         {
-            int count = data.Length / Palette.Size;
-            this.palettes = new Palette[count];
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < this.palettes.Length; i++)
             {
                 byte[] paletteData = Palettes.GetPaletteData(data, i);
                 this.palettes[i] = new Palette(this, paletteData);

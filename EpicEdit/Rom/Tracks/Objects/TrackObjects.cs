@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private const int BytesPerObject = 2;
         public const int Size = ObjectCount * BytesPerObject;
         
-        private TrackObject[] objects;
+        private readonly TrackObject[] objects;
 
         public TrackObjects(byte[] data)
         {

@@ -71,87 +71,87 @@ namespace EpicEdit.UI.Gfx
         /// <summary>
         /// Used to resize the dirty region depending on the zoom level.
         /// </summary>
-        private Matrix zoomMatrix;
+        private readonly Matrix zoomMatrix;
 
         /// <summary>
         /// Used to draw the rectangle when highlighting tiles.
         /// </summary>
-        private Pen tileHighlightPen;
+        private readonly Pen tileHighlightPen;
 
         /// <summary>
         /// Used to draw the rectangle when selecting tiles.
         /// </summary>
-        private Pen tileSelectPen;
+        private readonly Pen tileSelectPen;
 
         /// <summary>
         /// Used to paint the inside of the selection rectangle.
         /// </summary>
-        private SolidBrush tileSelectBrush;
+        private readonly SolidBrush tileSelectBrush;
 
         /// <summary>
         /// Used to paint a rectangle over the hovered overlay tile.
         /// </summary>
-        private SolidBrush overlayHighlightBrush;
+        private readonly SolidBrush overlayHighlightBrush;
 
         /// <summary>
         /// Used to draw the lap line.
         /// </summary>
-        private Pen lapLinePen;
+        private readonly Pen lapLinePen;
 
         /// <summary>
         /// Used to draw the lap line outline.
         /// </summary>
-        private Pen lapLineOutlinePen;
+        private readonly Pen lapLineOutlinePen;
 
         /// <summary>
         /// Used to fill in arrows.
         /// </summary>
-        private SolidBrush arrowBrush;
+        private readonly SolidBrush arrowBrush;
 
         /// <summary>
         /// Used to draw arrow outlines.
         /// </summary>
-        private Pen arrowPen;
+        private readonly Pen arrowPen;
 
         /// <summary>
         /// Used to paint object outlines.
         /// </summary>
-        private Pen objectOutlinePen;
+        private readonly Pen objectOutlinePen;
 
         /// <summary>
         /// Used to fill in objects depending on their group.
         /// </summary>
-        private SolidBrush[] objectBrushes;
+        private readonly SolidBrush[] objectBrushes;
 
         /// <summary>
         /// Used to fill in AI zones.
         /// </summary>
-        private SolidBrush[][] aiZoneBrushes;
+        private readonly SolidBrush[][] aiZoneBrushes;
 
         /// <summary>
         /// Used to draw the AI zone outlines.
         /// </summary>
-        private Pen[] aiZonePens;
+        private readonly Pen[] aiZonePens;
 
         /// <summary>
         /// Used to draw the hovered AI zone outlines.
         /// </summary>
-        private Pen aiElementHighlightPen;
+        private readonly Pen aiElementHighlightPen;
 
         /// <summary>
         /// Used to draw the selected AI zone outlines.
         /// </summary>
-        private Pen aiElementSelectPen;
+        private readonly Pen aiElementSelectPen;
 
         /// <summary>
         /// Image attributes to draw images as semi-transparent.
         /// </summary>
-        private ImageAttributes translucidImageAttr;
+        private readonly ImageAttributes translucidImageAttr;
 
         /// <summary>
         /// Image attributes to draw images as grayed out / disabled
         /// </summary>
-        private ImageAttributes grayScaleImageAttr;
+        private readonly ImageAttributes grayScaleImageAttr;
 
         public TrackDrawer()
         {

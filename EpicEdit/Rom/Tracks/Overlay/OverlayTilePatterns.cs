@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     {
         private const int PatternCount = 56;
 
-        private OverlayTilePattern[] patterns;
+        private readonly OverlayTilePattern[] patterns;
 
         public OverlayTilePattern this[int index]
         {
@@ -52,13 +52,12 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTilePatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
         {
+            this.patterns = new OverlayTilePattern[PatternCount];
             this.LoadPatterns(romBuffer, offsets, sizes);
         }
 
         private void LoadPatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
         {
-            this.patterns = new OverlayTilePattern[PatternCount];
-
             // Get the addresses where the individual pattern data is
             int addressOffset = offsets[Offset.TrackOverlayPatterns];
             int[] dataAddresses = this.LoadPatternDataAddresses(romBuffer, addressOffset);

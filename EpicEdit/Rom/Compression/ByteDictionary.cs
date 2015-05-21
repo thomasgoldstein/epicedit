@@ -22,8 +22,8 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     internal class ByteDictionary
     {
-        private byte[] buffer;
-        private Dictionary<byte, List<int>> byteDictionary;
+        private readonly byte[] buffer;
+        private readonly Dictionary<byte, List<int>> byteDictionary;
 
         public ByteDictionary(byte[] buffer)
         {

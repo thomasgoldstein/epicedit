@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks
     /// </summary>
     internal sealed class Themes : IDisposable, IEnumerable<Theme>
     {
-        private Theme[] themes;
+        private readonly Theme[] themes;
 
         public Theme this[int index]
         {
@@ -60,13 +60,12 @@ namespace EpicEdit.Rom.Tracks
 
         public Themes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
+            this.themes = new Theme[Theme.Count];
             this.LoadThemes(romBuffer, offsets, names);
         }
 
         private void LoadThemes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
-            this.themes = new Theme[Theme.Count];
-
             // TODO: Retrieve order dynamically from the ROM
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
 

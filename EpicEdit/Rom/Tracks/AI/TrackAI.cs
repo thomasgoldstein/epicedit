@@ -28,8 +28,8 @@ namespace EpicEdit.Rom.Tracks.AI
     {
         public const int MaxElementCount = 128;
 
-        private Track track;
-        private List<TrackAIElement> aiElements;
+        private readonly Track track;
+        private readonly List<TrackAIElement> aiElements;
 
         public TrackAI(byte[] zoneData, byte[] targetData, Track track)
         {

@@ -22,7 +22,7 @@ namespace EpicEdit.Test.Rom
     [TestFixture]
     internal class GameTest
     {
-        private Game game;
+        private readonly Game game;
 
         public GameTest()
         {

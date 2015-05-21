@@ -61,7 +61,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private Size imageSize;
+        private readonly Size imageSize;
 
         private Bitmap tilesetCache;
 
