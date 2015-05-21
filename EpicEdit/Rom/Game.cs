@@ -1042,7 +1042,7 @@ namespace EpicEdit.Rom
         private void RemapTrack(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
         {
             trackGroup[destinationTrackId] = trackGroup[sourceTrackId];
-            this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];;
+            this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
         }
         #endregion Track reodering
 
