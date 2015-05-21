@@ -46,6 +46,11 @@ namespace EpicEdit.Rom.Settings
             get { return this.value; }
             set
             {
+                if (this.value == value)
+                {
+                    return;
+                }
+
                 this.value = value;
 
                 if (this.PropertyChanged != null)
