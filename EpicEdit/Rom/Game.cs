@@ -2106,8 +2106,7 @@ namespace EpicEdit.Rom
             int gpTrackNameOffsetIndex = this.offsets[Offset.GPTrackNames];
             for (int i = 0; i < GPTrack.GroupCount; i++)
             {
-                this.romBuffer[gpTrackNameOffsetIndex++] = 0x80;
-                this.romBuffer[gpTrackNameOffsetIndex++] = 0x20;
+                gpTrackNameOffsetIndex += 2; // Skip leading bytes
 
                 foreach (var track in this.TrackGroups[i])
                 {
