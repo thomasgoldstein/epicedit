@@ -40,7 +40,25 @@ namespace EpicEdit.Rom.Settings
             }
         }
 
-        public string Suffix { get; private set; }
+        private string suffix;
+        public string Suffix
+        {
+            get { return this.suffix; }
+            set
+            {
+                if (this.suffix == value)
+                {
+                    return;
+                }
+
+                this.suffix = value;
+
+                if (this.PropertyChanged != null)
+                {
+                    this.PropertyChanged(this, new PropertyChangedEventArgs("Suffix"));
+                }
+            }
+        }
 
         public string Value
         {
@@ -50,7 +68,7 @@ namespace EpicEdit.Rom.Settings
         public SuffixedTextItem(TextItem nameItem, string nameSuffix)
         {
             this.TextItem = nameItem;
-            this.Suffix = nameSuffix;
+            this.suffix = nameSuffix;
         }
 
         private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
