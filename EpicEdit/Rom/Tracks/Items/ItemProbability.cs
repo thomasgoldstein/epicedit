@@ -358,87 +358,14 @@ namespace EpicEdit.Rom.Tracks.Items
         public void GetBytes(byte[] data, int index)
         {
             int total = 0;
-
-            if (this.mushroom == 0)
-            {
-                data[index] = 0;
-            }
-            else
-            {
-                total += this.mushroom;
-                data[index] = (byte)total;
-            }
-
-            if (this.feather == 0)
-            {
-                data[index + 1] = 0;
-            }
-            else
-            {
-                total += this.feather;
-                data[index + 1] = (byte)total;
-            }
-
-            if (this.star == 0)
-            {
-                data[index + 2] = 0;
-            }
-            else
-            {
-                total += this.star;
-                data[index + 2] = (byte)total;
-            }
-
-            if (this.banana == 0)
-            {
-                data[index + 3] = 0;
-            }
-            else
-            {
-                total += this.banana;
-                data[index + 3] = (byte)total;
-            }
-
-            if (this.green == 0)
-            {
-                data[index + 4] = 0;
-            }
-            else
-            {
-                total += this.green;
-                data[index + 4] = (byte)total;
-            }
-
-            if (this.red == 0)
-            {
-                data[index + 5] = 0;
-            }
-            else
-            {
-                total += this.red;
-                data[index + 5] = (byte)total;
-            }
-
-            if (this.ghost == 0)
-            {
-                data[index + 6] = 0;
-            }
-            else
-            {
-                total += this.ghost;
-                data[index + 6] = (byte)total;
-            }
-
-            if (this.coins == 0)
-            {
-                data[index + 7] = 0;
-            }
-            else
-            {
-                total += this.coins;
-                data[index + 7] = (byte)total;
-            }
-
+            data[index] = this.mushroom == 0 ? (byte)0 : (byte)(total += this.mushroom);
+            data[index + 1] = this.feather == 0 ? (byte)0 : (byte)(total += this.feather);
+            data[index + 2] = this.star == 0 ? (byte)0 : (byte)(total += this.star);
+            data[index + 3] = this.banana == 0 ? (byte)0 : (byte)(total += this.banana);
+            data[index + 4] = this.green == 0 ? (byte)0 : (byte)(total += this.green);
+            data[index + 5] = this.red == 0 ? (byte)0 : (byte)(total += this.red);
+            data[index + 6] = this.ghost == 0 ? (byte)0 : (byte)(total += this.ghost);
+            data[index + 7] = this.coins == 0 ? (byte)0 : (byte)(total += this.coins);
             data[index + 8] = (byte)this.displayedItems;
         }
 
