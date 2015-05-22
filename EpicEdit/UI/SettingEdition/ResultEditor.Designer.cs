@@ -50,14 +50,14 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // rankPointsControl
             // 
-            this.rankPointsControl.Location = new System.Drawing.Point(3, 3);
+            this.rankPointsControl.Location = new System.Drawing.Point(6, 6);
             this.rankPointsControl.Name = "rankPointsControl";
             this.rankPointsControl.Size = new System.Drawing.Size(100, 244);
             this.rankPointsControl.TabIndex = 0;
             // 
             // driverNamesControlResults
             // 
-            this.driverNamesControlResults.Location = new System.Drawing.Point(109, 3);
+            this.driverNamesControlResults.Location = new System.Drawing.Point(112, 6);
             this.driverNamesControlResults.Name = "driverNamesControlResults";
             this.driverNamesControlResults.Size = new System.Drawing.Size(130, 244);
             this.driverNamesControlResults.TabIndex = 1;
@@ -65,7 +65,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // driverNamesControlPodium
             // 
-            this.driverNamesControlPodium.Location = new System.Drawing.Point(245, 3);
+            this.driverNamesControlPodium.Location = new System.Drawing.Point(248, 6);
             this.driverNamesControlPodium.Name = "driverNamesControlPodium";
             this.driverNamesControlPodium.Size = new System.Drawing.Size(130, 244);
             this.driverNamesControlPodium.TabIndex = 2;
@@ -73,7 +73,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // driverNamesControlTimeTrial
             // 
-            this.driverNamesControlTimeTrial.Location = new System.Drawing.Point(381, 3);
+            this.driverNamesControlTimeTrial.Location = new System.Drawing.Point(384, 6);
             this.driverNamesControlTimeTrial.Name = "driverNamesControlTimeTrial";
             this.driverNamesControlTimeTrial.Size = new System.Drawing.Size(130, 244);
             this.driverNamesControlTimeTrial.TabIndex = 3;
@@ -88,6 +88,7 @@ namespace EpicEdit.UI.SettingEdition
             this.Name = "ResultEditor";
             this.Size = new System.Drawing.Size(514, 250);
             this.ResumeLayout(false);
+
         }
         private EpicEdit.UI.SettingEdition.DriverNamesControl driverNamesControlTimeTrial;
         private EpicEdit.UI.SettingEdition.DriverNamesControl driverNamesControlPodium;
