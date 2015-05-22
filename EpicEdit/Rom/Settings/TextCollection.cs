@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Settings
     /// <summary>
     /// A collection of texts.
     /// </summary>
-    internal class TextCollection : IEnumerable<TextItem>
+    internal class TextCollection : IEnumerable<TextItem>, ITextCollection
     {
         /// <summary>
         /// Gets the converter used to translate font graphics index values into .NET strings.
