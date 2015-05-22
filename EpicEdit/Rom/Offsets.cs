@@ -26,14 +26,14 @@ namespace EpicEdit.Rom
         ModeNames,
 
         /// <summary>
-        /// Offsets to cup names as displayed on the GP cup selection screen.
+        /// Offsets to cup texts as displayed on the GP cup selection screen.
         /// </summary>
-        GPCupNames,
+        GPCupTexts,
 
         /// <summary>
-        /// Offsets to cup and theme names as displayed in Time Trial, Match Race and Battle Mode.
+        /// Offsets to cup and theme texts as displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
-        CupAndThemeNames,
+        CupAndThemeTexts,
 
         /// <summary>
         /// Offsets to driver names on the GP results screen.
@@ -393,7 +393,7 @@ namespace EpicEdit.Rom
             {
                 case Region.Jap:
                     this[Offset.ModeNames] = 0x58B19;
-                    this[Offset.GPCupNames] = 0x4F6D7;
+                    this[Offset.GPCupTexts] = 0x4F6D7;
                     this[Offset.DriverNamesGPResults] = 0x5C1EC;
                     this[Offset.DriverNamesGPPodium] = 0x5A0E0;
                     this[Offset.DriverNamesTimeTrial] = 0x1DDCA;
@@ -420,7 +420,7 @@ namespace EpicEdit.Rom
 
                 case Region.US:
                     this[Offset.ModeNames] = 0x58B00;
-                    this[Offset.GPCupNames] = 0x4F85F;
+                    this[Offset.GPCupTexts] = 0x4F85F;
                     this[Offset.DriverNamesGPResults] = 0x5C25B;
                     this[Offset.DriverNamesGPPodium] = 0x5A148;
                     this[Offset.DriverNamesTimeTrial] = 0x1DDD3;
@@ -447,7 +447,7 @@ namespace EpicEdit.Rom
 
                 case Region.Euro:
                     this[Offset.ModeNames] = 0x58AF2;
-                    this[Offset.GPCupNames] = 0x4F778;
+                    this[Offset.GPCupTexts] = 0x4F778;
                     this[Offset.DriverNamesGPResults] = 0x5C263;
                     this[Offset.DriverNamesGPPodium] = 0x5A152;
                     this[Offset.DriverNamesTimeTrial] = 0x1DC81;
@@ -505,7 +505,7 @@ namespace EpicEdit.Rom
             this[Offset.CupNames] = this[Offset.CupNamesLocked] + 0xE;
             this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x12;
             this[Offset.NamesAndSuffixes] = this[Offset.GPTrackNames] + 0x58;
-            this[Offset.CupAndThemeNames] = this[Offset.NamesAndSuffixes] + 0x6B;
+            this[Offset.CupAndThemeTexts] = this[Offset.NamesAndSuffixes] + 0x6B;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
 

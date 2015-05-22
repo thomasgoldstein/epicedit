@@ -55,7 +55,7 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.cupAndThemeNamesEditor.Init();
+            this.cupAndThemeTextsEditor.Init();
             this.resultEditor.Init();
             this.itemProbaEditor.Init();
         }

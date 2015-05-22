@@ -46,7 +46,7 @@ namespace EpicEdit.UI.SettingEdition
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingEditorForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.cupThemeTab = new System.Windows.Forms.TabPage();
-            this.cupAndThemeNamesEditor = new EpicEdit.UI.SettingEdition.CupAndThemeNamesEditor();
+            this.cupAndThemeTextsEditor = new EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor();
             this.trackNamesTab = new System.Windows.Forms.TabPage();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
@@ -79,7 +79,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // cupThemeTab
             // 
-            this.cupThemeTab.Controls.Add(this.cupAndThemeNamesEditor);
+            this.cupThemeTab.Controls.Add(this.cupAndThemeTextsEditor);
             this.cupThemeTab.ImageKey = "CupThemeTab";
             this.cupThemeTab.Location = new System.Drawing.Point(4, 23);
             this.cupThemeTab.Name = "cupThemeTab";
@@ -88,13 +88,13 @@ namespace EpicEdit.UI.SettingEdition
             this.cupThemeTab.ToolTipText = "Cups &&& themes";
             this.cupThemeTab.UseVisualStyleBackColor = true;
             // 
-            // cupAndThemeNamesEditor
+            // cupAndThemeTextsEditor
             // 
-            this.cupAndThemeNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cupAndThemeNamesEditor.Location = new System.Drawing.Point(0, 0);
-            this.cupAndThemeNamesEditor.Name = "cupAndThemeNamesEditor";
-            this.cupAndThemeNamesEditor.Size = new System.Drawing.Size(520, 255);
-            this.cupAndThemeNamesEditor.TabIndex = 0;
+            this.cupAndThemeTextsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cupAndThemeTextsEditor.Location = new System.Drawing.Point(0, 0);
+            this.cupAndThemeTextsEditor.Name = "cupAndThemeTextsEditor";
+            this.cupAndThemeTextsEditor.Size = new System.Drawing.Size(520, 255);
+            this.cupAndThemeTextsEditor.TabIndex = 0;
             // 
             // trackNamesTab
             // 
@@ -170,7 +170,7 @@ namespace EpicEdit.UI.SettingEdition
             this.ResumeLayout(false);
 
         }
-        private EpicEdit.UI.SettingEdition.CupAndThemeNamesEditor cupAndThemeNamesEditor;
+        private EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor cupAndThemeTextsEditor;
         private System.Windows.Forms.TabPage cupThemeTab;
         private EpicEdit.UI.SettingEdition.ResultEditor resultEditor;
         private System.Windows.Forms.ImageList tabImageList;

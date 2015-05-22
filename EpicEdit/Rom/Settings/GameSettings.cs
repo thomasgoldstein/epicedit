@@ -34,12 +34,12 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the cup names displayed on the GP cup selection screen.
         /// </summary>
-        public TextCollection GPCupNames { get; private set; }
+        public TextCollection GPCupTexts { get; private set; }
 
         /// <summary>
         /// Gets the cup and theme names displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
-        public TextCollection CupAndThemeNames { get; private set; }
+        public TextCollection CupAndThemeTexts { get; private set; }
 
         /// <summary>
         /// Gets the driver names that appear on the GP result screen.
@@ -71,8 +71,8 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 return
-                    (this.GPCupNames != null && this.GPCupNames.Modified) ||
-                    this.CupAndThemeNames.Modified ||
+                    (this.GPCupTexts != null && this.GPCupTexts.Modified) ||
+                    this.CupAndThemeTexts.Modified ||
                     this.DriverNamesGPResults.Modified ||
                     this.DriverNamesGPPodium.Modified ||
                     this.DriverNamesTimeTrial.Modified ||
@@ -102,13 +102,13 @@ namespace EpicEdit.Rom.Settings
                 // These texts are not extensible, as the characters are not reusable.
                 // This is due to the fact characters are specific and split across tiles,
                 // which makes it so they can only be modified properly by editing the tile graphics.
-                this.GPCupNames = new TextCollection(
-                    romBuffer, offsets[Offset.GPCupNames], 4,
+                this.GPCupTexts = new TextCollection(
+                    romBuffer, offsets[Offset.GPCupTexts], 4,
                     nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
             }
 
-            this.CupAndThemeNames = new TextCollection(
-                romBuffer, offsets[Offset.CupAndThemeNames], Track.GroupCount + Theme.Count,
+            this.CupAndThemeTexts = new TextCollection(
+                romBuffer, offsets[Offset.CupAndThemeTexts], Track.GroupCount + Theme.Count,
                 nameDataSizes[2], false, false, false, false, 0,
                 new byte[] { 0x2C }, new char[] { thinSpace });
 
@@ -135,11 +135,11 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer)
         {
-            if (this.GPCupNames != null)
+            if (this.GPCupTexts != null)
             {
-                this.GPCupNames.Save(romBuffer);
+                this.GPCupTexts.Save(romBuffer);
             }
-            this.CupAndThemeNames.Save(romBuffer);
+            this.CupAndThemeTexts.Save(romBuffer);
             this.DriverNamesGPResults.Save(romBuffer);
             this.DriverNamesGPPodium.Save(romBuffer);
             this.DriverNamesTimeTrial.Save(romBuffer);
@@ -167,8 +167,8 @@ namespace EpicEdit.Rom.Settings
 
         public void ResetModifiedState()
         {
-            this.GPCupNames.ResetModifiedState();
-            this.CupAndThemeNames.ResetModifiedState();
+            this.GPCupTexts.ResetModifiedState();
+            this.CupAndThemeTexts.ResetModifiedState();
             this.DriverNamesGPResults.ResetModifiedState();
             this.DriverNamesGPPodium.ResetModifiedState();
             this.DriverNamesTimeTrial.ResetModifiedState();

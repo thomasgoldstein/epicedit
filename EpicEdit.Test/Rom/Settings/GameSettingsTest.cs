@@ -76,7 +76,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestUSGPCupNames()
+        public void TestUSGPCupTexts()
         {
             this.TestTexts(
                 new string[]
@@ -85,11 +85,11 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferU, 0x4F85F, 8),
                 File.ReadBlock(this.romBufferU, 0x4F867, 130),
-                this.gameU.Settings.GPCupNames);
+                this.gameU.Settings.GPCupTexts);
         }
 
         [Test]
-        public void TestUSCupAndThemeNames()
+        public void TestUSCupAndThemeTexts()
         {
             this.TestTexts(
                 new string[]
@@ -100,7 +100,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferU, 0x1CA32, 26),
                 File.ReadBlock(this.romBufferU, 0x1CA88, 173),
-                this.gameU.Settings.CupAndThemeNames);
+                this.gameU.Settings.CupAndThemeTexts);
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestEuroGPCupNames()
+        public void TestEuroGPCupTexts()
         {
             this.TestTexts(
                 new string[]
@@ -168,11 +168,11 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferE, 0x4F778, 8),
                 File.ReadBlock(this.romBufferE, 0x4F780, 130),
-                this.gameE.Settings.GPCupNames);
+                this.gameE.Settings.GPCupTexts);
         }
 
         [Test]
-        public void TestEuroCupAndThemeNames()
+        public void TestEuroCupAndThemeTexts()
         {
             this.TestTexts(
                 new string[]
@@ -183,7 +183,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferE, 0x1C8CE, 26),
                 File.ReadBlock(this.romBufferE, 0x1C924, 173),
-                this.gameE.Settings.CupAndThemeNames);
+                this.gameE.Settings.CupAndThemeTexts);
         }
 
         [Test]
@@ -242,7 +242,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestJapCupAndThemeNames()
+        public void TestJapCupAndThemeTexts()
         {
             this.TestTexts(
                 new string[]
@@ -253,7 +253,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferJ, 0x1C9A3, 26),
                 File.ReadBlock(this.romBufferJ, 0x1CA19, 144),
-                this.gameJ.Settings.CupAndThemeNames);
+                this.gameJ.Settings.CupAndThemeTexts);
         }
 
         [Test]
@@ -316,15 +316,15 @@ namespace EpicEdit.Test.Rom.Settings
             GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
 
             // Switch the texts for the first 2 names
-            string name1 = settings.CupAndThemeNames[0].Value;
-            string name2 = settings.CupAndThemeNames[1].Value;
+            string name1 = settings.CupAndThemeTexts[0].Value;
+            string name2 = settings.CupAndThemeTexts[1].Value;
 
             // NOTE: Set the second name first because it's shorter, and won't cause us to hit the maximum character count
-            settings.CupAndThemeNames[1].Value = name1;
-            settings.CupAndThemeNames[0].Value = name2;
+            settings.CupAndThemeTexts[1].Value = name1;
+            settings.CupAndThemeTexts[0].Value = name2;
 
             // Resaving the data is supposed to sort the texts and the indexes
-            settings.CupAndThemeNames.Save(romBuffer);
+            settings.CupAndThemeTexts.Save(romBuffer);
 
             Assert.AreEqual(this.romBufferU, romBuffer);
         }
