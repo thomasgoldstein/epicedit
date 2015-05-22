@@ -135,7 +135,7 @@ namespace EpicEdit.UI.SettingEdition
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
 
-            textCollection.SetValue(id, textBox.Text);
+            textCollection[id].Value = textBox.Text;
 
             textBox.Text = textCollection[id].Value; // Retrieve validated text
             textBox.SelectionStart = sel; // Restore text input position

@@ -91,7 +91,7 @@ namespace EpicEdit.UI.SettingEdition
             TextBox textBox = sender as TextBox;
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
-            this.names.SetValue(id, textBox.Text);
+            this.names[id].Value = textBox.Text;
             textBox.Text = this.names[id].Value;
             textBox.SelectionStart = sel;
 

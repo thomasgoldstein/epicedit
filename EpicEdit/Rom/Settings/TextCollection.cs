@@ -225,27 +225,13 @@ namespace EpicEdit.Rom.Settings
                 }
 
                 this.texts[i] = new TextItem(this, this.Converter.DecodeText(textBytes, hasPaletteData));
+                this.texts[i].PropertyChanged += delegate { this.Modified = true; };
             }
         }
 
         public TextItem this[int index]
         {
             get { return this.texts[index]; }
-        }
-
-        public void SetValue(int index, string value)
-        {
-            this.texts[index].Value = this.Converter.GetValidatedText(value);
-
-            int diff = this.TotalCharacterCount - this.MaxCharacterCount;
-            if (diff > 0)
-            {
-                string text = this.texts[index].Value;
-                text = text.Substring(0, text.Length - diff);
-                this.texts[index].Value = text;
-            }
-
-            this.Modified = true;
         }
 
         public int IndexOf(TextItem item)

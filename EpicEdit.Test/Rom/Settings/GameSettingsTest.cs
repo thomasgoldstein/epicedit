@@ -320,8 +320,8 @@ namespace EpicEdit.Test.Rom.Settings
             string name2 = settings.CupAndThemeNames[1].Value;
 
             // NOTE: Set the second name first because it's shorter, and won't cause us to hit the maximum character count
-            settings.CupAndThemeNames.SetValue(1, name1);
-            settings.CupAndThemeNames.SetValue(0, name2);
+            settings.CupAndThemeNames[1].Value = name1;
+            settings.CupAndThemeNames[0].Value = name2;
 
             // Resaving the data is supposed to sort the texts and the indexes
             settings.CupAndThemeNames.Save(romBuffer);
