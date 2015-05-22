@@ -25,6 +25,8 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public const int MaxSuffixCharacterCount = 23;
+
         private TextItem textItem;
         public TextItem TextItem
         {
@@ -40,42 +42,42 @@ namespace EpicEdit.Rom.Settings
             }
         }
 
-        private string suffix;
-        public string Suffix
-        {
-            get { return this.suffix; }
-            set
-            {
-                if (this.suffix == value)
-                {
-                    return;
-                }
-
-                this.suffix = value;
-
-                if (this.PropertyChanged != null)
-                {
-                    this.PropertyChanged(this, new PropertyChangedEventArgs("Suffix"));
-                }
-            }
-        }
+        public TextItem Suffix { get; private set; }
 
         public string Value
         {
-            get { return this.TextItem.FormattedValue + this.Suffix; }
+            get { return this.TextItem.FormattedValue + (this.Suffix == null ? null : this.Suffix.FormattedValue); }
         }
 
-        public SuffixedTextItem(TextItem nameItem, string nameSuffix)
+        public SuffixedTextItem(TextItem nameItem, string nameSuffix, FreeTextCollection suffixCollection)
         {
             this.TextItem = nameItem;
-            this.suffix = nameSuffix;
+
+            // NOTE: The "Battle Course" track group doesn't have a suffix because it doesn't actually exist in the game.
+            // It's only created in the editor to have a logical group that contains the Battle Courses.
+            if (suffixCollection != null)
+            {
+                this.Suffix = new TextItem(suffixCollection, nameSuffix);
+                this.Suffix.PropertyChanged += this.Suffix_PropertyChanged;
+                suffixCollection.Add(this.Suffix);
+            }
         }
 
         private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            this.OnPropertyChange("TextItem");
+        }
+
+        private void Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.OnPropertyChange("Suffix");
+        }
+
+        private void OnPropertyChange(string propertyName)
+        {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs("TextItem"));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

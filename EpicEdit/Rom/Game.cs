@@ -354,6 +354,7 @@ namespace EpicEdit.Rom
             this.offsets = new Offsets(this.romBuffer, this.region);
 
             this.Settings = new GameSettings(this.romBuffer, this.offsets, this.region);
+            FreeTextCollection suffixCollection = new FreeTextCollection(this.Settings.CupAndThemeNames.Converter, SuffixedTextItem.MaxSuffixCharacterCount);
             this.TrackGroups = new TrackGroups();
 
             this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CupAndThemeNames);
@@ -382,13 +383,16 @@ namespace EpicEdit.Rom
                     TextItem trackGroupTextItem = this.Settings.CupAndThemeNames[cupNameIndexes[i][1]];
                     byte[] trackGroupNameSuffixData = Utilities.ReadBlock(cupNameIndexes[i], 2, cupNameIndexes[i].Length - 2);
                     string trackGroupNameSuffix = trackGroupTextItem.Converter.DecodeText(trackGroupNameSuffixData, false);
-                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix);
+                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix, suffixCollection);
                 }
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
                     TextItem trackGroupTextItem = this.Settings.CupAndThemeNames[trackNameIndexes[GPTrack.Count][1]];
-                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, null);
+
+                    // NOTE: The "Battle Course" track group doesn't actually exist in the game.
+                    // It's only created in the editor to have a logical group that contains the Battle Courses.
+                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, null, null);
                 }
 
                 Track[] tracks = new Track[trackCountInGroup];
@@ -401,7 +405,7 @@ namespace EpicEdit.Rom
                     TextItem trackNameItem = this.Settings.CupAndThemeNames[trackNameIndexes[iterator][1]];
                     byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndexes[iterator], 2, trackNameIndexes[iterator].Length - 2);
                     string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
-                    SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix);
+                    SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix, suffixCollection);
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
@@ -2125,7 +2129,7 @@ namespace EpicEdit.Rom
             this.romBuffer[nameOffset++] = 0x29;
             this.romBuffer[nameOffset++] = (byte)(0xE0 + this.Settings.CupAndThemeNames.IndexOf(nameItem.TextItem));
 
-            byte[] nameSuffixData = nameItem.TextItem.Converter.EncodeText(nameItem.Suffix, null);
+            byte[] nameSuffixData = nameItem.TextItem.Converter.EncodeText(nameItem.Suffix.Value, null);
 
             for (int i = 0; i < nameSuffixData.Length; i++)
             {
