@@ -46,12 +46,14 @@ namespace EpicEdit.Rom.Settings
             get { return this.value; }
             set
             {
-                if (this.value == value)
+                string val = this.Converter.GetValidatedText(value);
+
+                if (this.value == val)
                 {
                     return;
                 }
 
-                this.value = this.Converter.GetValidatedText(value);
+                this.value = val;
 
                 int diff = this.collection.TotalCharacterCount - this.collection.MaxCharacterCount;
                 if (diff > 0)
