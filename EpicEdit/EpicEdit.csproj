@@ -105,6 +105,7 @@
     <Compile Include="Rom\SaveBuffer.cs" />
     <Compile Include="Rom\Settings\ITextCollection.cs" />
     <Compile Include="Rom\Settings\RankPoints.cs" />
+    <Compile Include="Rom\Settings\FreeTextCollection.cs" />
     <Compile Include="Rom\Settings\SuffixedTextItem.cs" />
     <Compile Include="Rom\Settings\TextCollection.cs" />
     <Compile Include="Rom\Settings\TextItem.cs" />
