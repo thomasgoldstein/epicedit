@@ -85,7 +85,7 @@ namespace EpicEdit.UI.SettingEdition
             this.cupThemeTab.Name = "cupThemeTab";
             this.cupThemeTab.Size = new System.Drawing.Size(520, 255);
             this.cupThemeTab.TabIndex = 2;
-            this.cupThemeTab.ToolTipText = "Cups & themes";
+            this.cupThemeTab.ToolTipText = "Cups &&& themes";
             this.cupThemeTab.UseVisualStyleBackColor = true;
             // 
             // cupAndThemeNamesEditor
