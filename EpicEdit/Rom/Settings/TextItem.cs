@@ -27,14 +27,14 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly TextCollection collection;
+        private readonly ITextCollection collection;
 
         public TextConverter Converter
         {
             get { return this.collection.Converter; }
         }
 
-        public TextItem(TextCollection collection, string value)
+        public TextItem(ITextCollection collection, string value)
         {
             this.collection = collection;
             this.value = value;
