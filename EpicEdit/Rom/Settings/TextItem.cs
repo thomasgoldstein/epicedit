@@ -56,9 +56,7 @@ namespace EpicEdit.Rom.Settings
                 int diff = this.collection.TotalCharacterCount - this.collection.MaxCharacterCount;
                 if (diff > 0)
                 {
-                    string text = this.value;
-                    text = text.Substring(0, text.Length - diff);
-                    this.value = text;
+                    this.value = this.value.Substring(0, this.value.Length - diff);
                 }
 
                 if (this.PropertyChanged != null)
