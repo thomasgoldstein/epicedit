@@ -47,6 +47,7 @@ namespace EpicEdit.UI.SettingEdition
             this.tabControl = new System.Windows.Forms.TabControl();
             this.cupThemeTab = new System.Windows.Forms.TabPage();
             this.cupAndThemeNamesEditor = new EpicEdit.UI.SettingEdition.CupAndThemeNamesEditor();
+            this.trackNamesTab = new System.Windows.Forms.TabPage();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
@@ -61,6 +62,7 @@ namespace EpicEdit.UI.SettingEdition
             // tabControl
             // 
             this.tabControl.Controls.Add(this.cupThemeTab);
+            this.tabControl.Controls.Add(this.trackNamesTab);
             this.tabControl.Controls.Add(this.resultsTabPage);
             this.tabControl.Controls.Add(this.itemProbaTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -93,6 +95,16 @@ namespace EpicEdit.UI.SettingEdition
             this.cupAndThemeNamesEditor.Name = "cupAndThemeNamesEditor";
             this.cupAndThemeNamesEditor.Size = new System.Drawing.Size(520, 255);
             this.cupAndThemeNamesEditor.TabIndex = 0;
+            // 
+            // trackNamesTab
+            // 
+            this.trackNamesTab.ImageKey = "TrackNamesTab";
+            this.trackNamesTab.Location = new System.Drawing.Point(4, 23);
+            this.trackNamesTab.Name = "trackNamesTab";
+            this.trackNamesTab.Size = new System.Drawing.Size(520, 255);
+            this.trackNamesTab.TabIndex = 3;
+            this.trackNamesTab.ToolTipText = "Track names";
+            this.trackNamesTab.UseVisualStyleBackColor = true;
             // 
             // resultsTabPage
             // 
@@ -136,8 +148,9 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "ResultsTab");
-            this.tabImageList.Images.SetKeyName(1, "CupThemeTab");
+            this.tabImageList.Images.SetKeyName(0, "CupThemeTab");
+            this.tabImageList.Images.SetKeyName(1, "TrackNamesTab");
+            this.tabImageList.Images.SetKeyName(2, "ResultsTab");
             // 
             // SettingEditorForm
             // 
@@ -168,5 +181,6 @@ namespace EpicEdit.UI.SettingEdition
         private System.Windows.Forms.TabPage itemProbaTabPage;
         private System.Windows.Forms.TabPage resultsTabPage;
         private EpicEdit.UI.SettingEdition.ItemProbaEditor itemProbaEditor;
+        private System.Windows.Forms.TabPage trackNamesTab;
     }
 }
