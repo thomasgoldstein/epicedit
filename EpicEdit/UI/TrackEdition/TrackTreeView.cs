@@ -31,7 +31,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true)]
         public event EventHandler<EventArgs> SelectedTrackChanged;
 
-        private Dictionary<INotifyPropertyChanged, TreeNode> nodeDictionary;
+        private Dictionary<SuffixedTextItem, TreeNode> nodeDictionary;
 
         /// <summary>
         /// The selected track.
@@ -55,7 +55,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnFirstRomLoad()
         {
-            this.nodeDictionary = new Dictionary<INotifyPropertyChanged, TreeNode>();
+            this.nodeDictionary = new Dictionary<SuffixedTextItem, TreeNode>();
             this.InitOnRomLoad();
 
             // Attach the AfterSelect event handler method here
@@ -81,11 +81,11 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     TreeNode trackNode = new TreeNode();
                     trackGroupNode.Nodes.Add(trackNode);
-                    track.PropertyChanged += this.textItem_PropertyChanged;
+                    track.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
                 }
 
                 this.treeView.Nodes.Add(trackGroupNode);
-                trackGroup.PropertyChanged += this.textItem_PropertyChanged;
+                trackGroup.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             }
 
             this.UpdateTrackNames();
@@ -103,7 +103,7 @@ namespace EpicEdit.UI.TrackEdition
             {
                 TrackGroup trackGroup = Context.Game.TrackGroups[i];
                 TreeNode trackGroupNode = this.treeView.Nodes[i];
-                this.nodeDictionary.Add(trackGroup, trackGroupNode);
+                this.nodeDictionary.Add(trackGroup.SuffixedNameItem, trackGroupNode);
 
                 TreeNodeCollection trackNodes = trackGroupNode.Nodes;
 
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.TrackEdition
                     Track track = trackGroup[j];
                     TreeNode trackNode = trackNodes[j];
 
-                    this.nodeDictionary.Add(track, trackNode);
+                    this.nodeDictionary.Add(track.SuffixedNameItem, trackNode);
                     trackNode.Text = track.Name;
 
                     if (track.Modified)
@@ -123,26 +123,11 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void textItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            TreeNode treeNode;
-            string name;
-
-            Track track = sender as Track;
-
-            if (track == null)
-            {
-                TrackGroup trackGroup = sender as TrackGroup;
-                treeNode = this.nodeDictionary[trackGroup];
-                name = trackGroup.Name;
-            }
-            else
-            {
-                treeNode = this.nodeDictionary[track];
-                name = track.Name;
-            }
-
-            treeNode.Text = name;
+            SuffixedTextItem textItem = sender as SuffixedTextItem;
+            TreeNode treeNode = this.nodeDictionary[textItem];
+            treeNode.Text = textItem.Value;
         }
 
         private void TreeViewBeforeCollapse(object sender, TreeViewCancelEventArgs e)
