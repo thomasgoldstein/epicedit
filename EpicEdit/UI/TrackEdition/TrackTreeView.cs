@@ -251,8 +251,8 @@ namespace EpicEdit.UI.TrackEdition
 
             TreeNode nodeGroup = hoveredNode.Parent;
 
-            if ((nodeGroup.Index < 4 && this.draggedTrack.Parent.Index < 4) ||
-                (nodeGroup.Index == 4 && this.draggedTrack.Parent.Index == 4))
+            if ((nodeGroup.Index < GPTrack.GroupCount && this.draggedTrack.Parent.Index < GPTrack.GroupCount) ||
+                (nodeGroup.Index == GPTrack.GroupCount && this.draggedTrack.Parent.Index == GPTrack.GroupCount))
             {
                 e.Effect = DragDropEffects.Move;
 
