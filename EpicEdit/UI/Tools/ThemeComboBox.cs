@@ -31,6 +31,7 @@ namespace EpicEdit.UI.Tools
 
         public ThemeComboBox()
         {
+            this.DropDownStyle = ComboBoxStyle.DropDownList;
             this.indexDictionary = new Dictionary<TextItem, int>();
         }
 
