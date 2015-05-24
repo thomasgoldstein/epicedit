@@ -108,7 +108,7 @@ namespace EpicEdit.Rom.Settings
                 // This is due to the fact characters are specific and split across tiles,
                 // which makes it so they can only be modified properly by editing the tile graphics.
                 this.GPCupTexts = new TextCollection(
-                    romBuffer, offsets[Offset.GPCupTexts], 4,
+                    romBuffer, offsets[Offset.GPCupTexts], GPTrack.GroupCount,
                     nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
             }
 
