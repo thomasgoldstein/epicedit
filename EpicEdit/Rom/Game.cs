@@ -47,6 +47,8 @@ namespace EpicEdit.Rom
     {
         private const int RegionOffset = 0xFFD9;
 
+        public event EventHandler<EventArgs> TracksReordered;
+
         #region Public properties and methods
 
         /// <summary>
@@ -1015,6 +1017,11 @@ namespace EpicEdit.Rom
             }
 
             this.modified = true;
+
+            if (this.TracksReordered != null)
+            {
+                this.TracksReordered(this, EventArgs.Empty);
+            }
         }
 
         private void ReorderTracksSub(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
