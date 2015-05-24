@@ -19,7 +19,6 @@ using System.Globalization;
 using System.Windows.Forms;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
-using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.SettingEdition
 {
