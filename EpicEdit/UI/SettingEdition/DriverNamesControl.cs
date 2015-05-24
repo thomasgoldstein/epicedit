@@ -92,8 +92,8 @@ namespace EpicEdit.UI.SettingEdition
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
             this.names[id].Value = textBox.Text;
-            textBox.Text = this.names[id].Value;
-            textBox.SelectionStart = sel;
+            textBox.Text = this.names[id].Value; // Retrieve validated text
+            textBox.SelectionStart = sel; // Restore text input position
 
             this.fireEvents = true;
 
