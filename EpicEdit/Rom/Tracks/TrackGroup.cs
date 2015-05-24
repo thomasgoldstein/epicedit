@@ -35,6 +35,8 @@ namespace EpicEdit.Rom.Tracks
 
         private readonly Track[] tracks;
 
+        private bool modified;
+
         public bool Modified
         {
             get
@@ -47,13 +49,14 @@ namespace EpicEdit.Rom.Tracks
                     }
                 }
 
-                return false;
+                return this.modified;
             }
         }
 
         public TrackGroup(SuffixedTextItem nameItem, Track[] tracks)
         {
             this.SuffixedNameItem = nameItem;
+            this.SuffixedNameItem.PropertyChanged += delegate { this.modified = true; };
             this.tracks = tracks;
         }
 
@@ -63,6 +66,8 @@ namespace EpicEdit.Rom.Tracks
             {
                 track.Modified = false;
             }
+
+            this.modified = false;
         }
 
         public IEnumerator<Track> GetEnumerator()

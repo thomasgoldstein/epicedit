@@ -79,6 +79,7 @@ namespace EpicEdit.Rom.Tracks
         {
             this.Theme = theme;
             this.SuffixedNameItem = nameItem;
+            this.SuffixedNameItem.PropertyChanged += delegate { this.Modified = true; };
             this.Map = new TrackMap(map);
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
