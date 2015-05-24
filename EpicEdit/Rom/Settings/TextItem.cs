@@ -77,5 +77,10 @@ namespace EpicEdit.Rom.Settings
                        CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.value.ToLowerInvariant());
             }
         }
+
+        public override string ToString()
+        {
+            return this.FormattedValue;
+        }
     }
 }
