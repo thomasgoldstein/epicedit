@@ -47,12 +47,12 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.cupAndThemeTextsCountLabel = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.cupAndThemeTextsCountLabel = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox11 = new System.Windows.Forms.TextBox();
@@ -74,12 +74,12 @@ namespace EpicEdit.UI.SettingEdition
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox2);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox3);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox4);
-            cupAndThemeTextsGroupBox.Controls.Add(this.textBox8);
-            cupAndThemeTextsGroupBox.Controls.Add(this.textBox7);
-            cupAndThemeTextsGroupBox.Controls.Add(this.cupAndThemeTextsCountLabel);
-            cupAndThemeTextsGroupBox.Controls.Add(this.textBox6);
-            cupAndThemeTextsGroupBox.Controls.Add(this.textBox13);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox5);
+            cupAndThemeTextsGroupBox.Controls.Add(this.textBox6);
+            cupAndThemeTextsGroupBox.Controls.Add(this.cupAndThemeTextsCountLabel);
+            cupAndThemeTextsGroupBox.Controls.Add(this.textBox7);
+            cupAndThemeTextsGroupBox.Controls.Add(this.textBox13);
+            cupAndThemeTextsGroupBox.Controls.Add(this.textBox8);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox12);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox9);
             cupAndThemeTextsGroupBox.Controls.Add(this.textBox11);
@@ -87,7 +87,7 @@ namespace EpicEdit.UI.SettingEdition
             cupAndThemeTextsGroupBox.Location = new System.Drawing.Point(161, 6);
             cupAndThemeTextsGroupBox.Name = "cupAndThemeTextsGroupBox";
             cupAndThemeTextsGroupBox.Size = new System.Drawing.Size(353, 244);
-            cupAndThemeTextsGroupBox.TabIndex = 3;
+            cupAndThemeTextsGroupBox.TabIndex = 1;
             cupAndThemeTextsGroupBox.TabStop = false;
             cupAndThemeTextsGroupBox.Text = "Cup and Theme texts";
             // 
@@ -96,7 +96,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox1.Location = new System.Drawing.Point(9, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(108, 20);
-            this.textBox1.TabIndex = 22;
+            this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox2
@@ -104,7 +104,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox2.Location = new System.Drawing.Point(9, 45);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(108, 20);
-            this.textBox2.TabIndex = 23;
+            this.textBox2.TabIndex = 8;
             this.textBox2.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox3
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox3.Location = new System.Drawing.Point(9, 71);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(108, 20);
-            this.textBox3.TabIndex = 24;
+            this.textBox3.TabIndex = 9;
             this.textBox3.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox4
@@ -120,64 +120,64 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox4.Location = new System.Drawing.Point(9, 97);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(108, 20);
-            this.textBox4.TabIndex = 25;
+            this.textBox4.TabIndex = 10;
             this.textBox4.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
-            // textBox8
+            // textBox5
             // 
-            this.textBox8.Location = new System.Drawing.Point(122, 19);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(108, 20);
-            this.textBox8.TabIndex = 12;
-            this.textBox8.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.textBox5.Location = new System.Drawing.Point(122, 19);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(108, 20);
+            this.textBox5.TabIndex = 11;
+            this.textBox5.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
-            // textBox7
+            // textBox6
             // 
-            this.textBox7.Location = new System.Drawing.Point(122, 45);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(108, 20);
-            this.textBox7.TabIndex = 13;
-            this.textBox7.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.textBox6.Location = new System.Drawing.Point(122, 45);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(108, 20);
+            this.textBox6.TabIndex = 12;
+            this.textBox6.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // cupAndThemeTextsCountLabel
             // 
             this.cupAndThemeTextsCountLabel.Location = new System.Drawing.Point(244, 123);
             this.cupAndThemeTextsCountLabel.Name = "cupAndThemeTextsCountLabel";
             this.cupAndThemeTextsCountLabel.Size = new System.Drawing.Size(100, 23);
-            this.cupAndThemeTextsCountLabel.TabIndex = 21;
+            this.cupAndThemeTextsCountLabel.TabIndex = 20;
             this.cupAndThemeTextsCountLabel.Text = "...";
             this.cupAndThemeTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox6
+            // textBox7
             // 
-            this.textBox6.Location = new System.Drawing.Point(122, 71);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(108, 20);
-            this.textBox6.TabIndex = 14;
-            this.textBox6.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.textBox7.Location = new System.Drawing.Point(122, 71);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(108, 20);
+            this.textBox7.TabIndex = 13;
+            this.textBox7.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox13
             // 
             this.textBox13.Location = new System.Drawing.Point(236, 97);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(108, 20);
-            this.textBox13.TabIndex = 20;
+            this.textBox13.TabIndex = 19;
             this.textBox13.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
-            // textBox5
+            // textBox8
             // 
-            this.textBox5.Location = new System.Drawing.Point(122, 97);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(108, 20);
-            this.textBox5.TabIndex = 15;
-            this.textBox5.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.textBox8.Location = new System.Drawing.Point(122, 97);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(108, 20);
+            this.textBox8.TabIndex = 14;
+            this.textBox8.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox12
             // 
             this.textBox12.Location = new System.Drawing.Point(236, 71);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(108, 20);
-            this.textBox12.TabIndex = 19;
+            this.textBox12.TabIndex = 18;
             this.textBox12.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox9
@@ -185,7 +185,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox9.Location = new System.Drawing.Point(122, 123);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(108, 20);
-            this.textBox9.TabIndex = 16;
+            this.textBox9.TabIndex = 15;
             this.textBox9.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox11
@@ -193,7 +193,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox11.Location = new System.Drawing.Point(236, 45);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(108, 20);
-            this.textBox11.TabIndex = 18;
+            this.textBox11.TabIndex = 17;
             this.textBox11.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // textBox10
@@ -201,7 +201,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox10.Location = new System.Drawing.Point(236, 19);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(108, 20);
-            this.textBox10.TabIndex = 17;
+            this.textBox10.TabIndex = 16;
             this.textBox10.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
             // gpCupTextsGroupBox
@@ -214,7 +214,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpCupTextsGroupBox.Location = new System.Drawing.Point(6, 6);
             this.gpCupTextsGroupBox.Name = "gpCupTextsGroupBox";
             this.gpCupTextsGroupBox.Size = new System.Drawing.Size(152, 244);
-            this.gpCupTextsGroupBox.TabIndex = 1;
+            this.gpCupTextsGroupBox.TabIndex = 0;
             this.gpCupTextsGroupBox.TabStop = false;
             this.gpCupTextsGroupBox.Text = "GP Cup texts";
             // 
@@ -223,7 +223,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpCupTextsCountLabel.Location = new System.Drawing.Point(44, 123);
             this.gpCupTextsCountLabel.Name = "gpCupTextsCountLabel";
             this.gpCupTextsCountLabel.Size = new System.Drawing.Size(100, 23);
-            this.gpCupTextsCountLabel.TabIndex = 26;
+            this.gpCupTextsCountLabel.TabIndex = 6;
             this.gpCupTextsCountLabel.Text = "...";
             this.gpCupTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -232,7 +232,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox1.Location = new System.Drawing.Point(8, 19);
             this.gpTextBox1.Name = "gpTextBox1";
             this.gpTextBox1.Size = new System.Drawing.Size(136, 20);
-            this.gpTextBox1.TabIndex = 4;
+            this.gpTextBox1.TabIndex = 2;
             this.gpTextBox1.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
             // 
             // gpTextBox2
@@ -240,7 +240,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox2.Location = new System.Drawing.Point(8, 45);
             this.gpTextBox2.Name = "gpTextBox2";
             this.gpTextBox2.Size = new System.Drawing.Size(136, 20);
-            this.gpTextBox2.TabIndex = 5;
+            this.gpTextBox2.TabIndex = 3;
             this.gpTextBox2.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
             // 
             // gpTextBox3
@@ -248,7 +248,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox3.Location = new System.Drawing.Point(8, 71);
             this.gpTextBox3.Name = "gpTextBox3";
             this.gpTextBox3.Size = new System.Drawing.Size(136, 20);
-            this.gpTextBox3.TabIndex = 6;
+            this.gpTextBox3.TabIndex = 4;
             this.gpTextBox3.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
             // 
             // gpTextBox4
@@ -256,7 +256,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox4.Location = new System.Drawing.Point(8, 97);
             this.gpTextBox4.Name = "gpTextBox4";
             this.gpTextBox4.Size = new System.Drawing.Size(136, 20);
-            this.gpTextBox4.TabIndex = 7;
+            this.gpTextBox4.TabIndex = 5;
             this.gpTextBox4.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
             // 
             // CupAndThemeTextsEditor
@@ -278,10 +278,10 @@ namespace EpicEdit.UI.SettingEdition
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
