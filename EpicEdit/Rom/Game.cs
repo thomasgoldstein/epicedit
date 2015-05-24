@@ -354,7 +354,6 @@ namespace EpicEdit.Rom
             this.offsets = new Offsets(this.romBuffer, this.region);
 
             this.Settings = new GameSettings(this.romBuffer, this.offsets, this.region);
-            FreeTextCollection suffixCollection = new FreeTextCollection(this.Settings.CupAndThemeTexts.Converter, SuffixedTextItem.MaxSuffixCharacterCount);
             this.TrackGroups = new TrackGroups();
 
             this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CupAndThemeTexts);
@@ -383,7 +382,7 @@ namespace EpicEdit.Rom
                     TextItem trackGroupTextItem = this.Settings.CupAndThemeTexts[cupNameIndexes[i][1]];
                     byte[] trackGroupNameSuffixData = Utilities.ReadBlock(cupNameIndexes[i], 2, cupNameIndexes[i].Length - 2);
                     string trackGroupNameSuffix = trackGroupTextItem.Converter.DecodeText(trackGroupNameSuffixData, false);
-                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix, suffixCollection);
+                    trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix, this.Settings.CupAndTrackNameSuffixCollection);
                 }
                 else // Battle track group
                 {
@@ -405,7 +404,7 @@ namespace EpicEdit.Rom
                     TextItem trackNameItem = this.Settings.CupAndThemeTexts[trackNameIndexes[iterator][1]];
                     byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndexes[iterator], 2, trackNameIndexes[iterator].Length - 2);
                     string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
-                    SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix, suffixCollection);
+                    SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix, this.Settings.CupAndTrackNameSuffixCollection);
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];

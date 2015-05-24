@@ -42,6 +42,11 @@ namespace EpicEdit.Rom.Settings
         public TextCollection CupAndThemeTexts { get; private set; }
 
         /// <summary>
+        /// Gets the cup and track name suffixes.
+        /// </summary>
+        public FreeTextCollection CupAndTrackNameSuffixCollection { get; private set; }
+
+        /// <summary>
         /// Gets the driver names that appear on the GP result screen.
         /// </summary>
         public TextCollection DriverNamesGPResults { get; private set; }
@@ -111,6 +116,10 @@ namespace EpicEdit.Rom.Settings
                 romBuffer, offsets[Offset.CupAndThemeTexts], Track.GroupCount + Theme.Count,
                 nameDataSizes[2], false, false, false, false, 0,
                 new byte[] { 0x2C }, new char[] { thinSpace });
+
+            this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
+                this.CupAndThemeTexts.Converter,
+                SuffixedTextItem.MaxSuffixCharacterCount);
 
             this.DriverNamesGPResults = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesGPResults], 8,
