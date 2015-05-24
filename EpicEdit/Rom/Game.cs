@@ -28,7 +28,6 @@ using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.Rom.Utility;
-using EpicEdit.UI.Gfx;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
