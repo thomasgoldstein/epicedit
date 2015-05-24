@@ -61,6 +61,7 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <RegisterForComInterop>False</RegisterForComInterop>
@@ -191,6 +192,10 @@
     <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.Designer.cs">
       <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.cs" />
+    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.Designer.cs">
+      <DependentUpon>CupAndTrackNamesEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.cs" />
     <Compile Include="UI\SettingEdition\DriverNamesControl.Designer.cs">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
@@ -213,6 +218,10 @@
     <Compile Include="UI\SettingEdition\SettingEditorForm.cs" />
     <Compile Include="UI\SettingEdition\SettingEditorForm.Designer.cs">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SettingEdition\SuffixedNameControl.cs" />
+    <Compile Include="UI\SettingEdition\SuffixedNameControl.Designer.cs">
+      <DependentUpon>SuffixedNameControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ThemeEdition\BackgroundEditor.cs" />
     <Compile Include="UI\ThemeEdition\BackgroundEditor.Designer.cs">
@@ -257,6 +266,7 @@
     </Compile>
     <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
     <Compile Include="UI\Tools\FileDialogFilters.cs" />
+    <Compile Include="UI\Tools\TextItemComboBox.cs" />
     <Compile Include="UI\Tools\ThemeComboBox.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
@@ -335,6 +345,9 @@
     <EmbeddedResource Include="UI\SettingEdition\CupAndThemeTextsEditor.resx">
       <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\CupAndTrackNamesEditor.resx">
+      <DependentUpon>CupAndTrackNamesEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\DriverNamesControl.resx">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\SettingEditorForm.resx">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\SuffixedNameControl.resx">
+      <DependentUpon>SuffixedNameControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThemeEdition\BackgroundEditor.resx">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>

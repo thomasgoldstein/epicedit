@@ -48,6 +48,7 @@ namespace EpicEdit.UI.SettingEdition
             this.cupThemeTab = new System.Windows.Forms.TabPage();
             this.cupAndThemeTextsEditor = new EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor();
             this.trackNamesTab = new System.Windows.Forms.TabPage();
+            this.cupAndTrackNamesEditor = new EpicEdit.UI.SettingEdition.CupAndTrackNamesEditor();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
@@ -55,6 +56,7 @@ namespace EpicEdit.UI.SettingEdition
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl.SuspendLayout();
             this.cupThemeTab.SuspendLayout();
+            this.trackNamesTab.SuspendLayout();
             this.resultsTabPage.SuspendLayout();
             this.itemProbaTabPage.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +100,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // trackNamesTab
             // 
+            this.trackNamesTab.Controls.Add(this.cupAndTrackNamesEditor);
             this.trackNamesTab.ImageKey = "TrackNamesTab";
             this.trackNamesTab.Location = new System.Drawing.Point(4, 23);
             this.trackNamesTab.Name = "trackNamesTab";
@@ -105,6 +108,14 @@ namespace EpicEdit.UI.SettingEdition
             this.trackNamesTab.TabIndex = 3;
             this.trackNamesTab.ToolTipText = "Track names";
             this.trackNamesTab.UseVisualStyleBackColor = true;
+            // 
+            // cupAndTrackNamesEditor
+            // 
+            this.cupAndTrackNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cupAndTrackNamesEditor.Location = new System.Drawing.Point(0, 0);
+            this.cupAndTrackNamesEditor.Name = "cupAndTrackNamesEditor";
+            this.cupAndTrackNamesEditor.Size = new System.Drawing.Size(520, 255);
+            this.cupAndTrackNamesEditor.TabIndex = 0;
             // 
             // resultsTabPage
             // 
@@ -165,6 +176,7 @@ namespace EpicEdit.UI.SettingEdition
             this.Text = "Game settings";
             this.tabControl.ResumeLayout(false);
             this.cupThemeTab.ResumeLayout(false);
+            this.trackNamesTab.ResumeLayout(false);
             this.resultsTabPage.ResumeLayout(false);
             this.itemProbaTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -182,5 +194,6 @@ namespace EpicEdit.UI.SettingEdition
         private System.Windows.Forms.TabPage resultsTabPage;
         private EpicEdit.UI.SettingEdition.ItemProbaEditor itemProbaEditor;
         private System.Windows.Forms.TabPage trackNamesTab;
+        private EpicEdit.UI.SettingEdition.CupAndTrackNamesEditor cupAndTrackNamesEditor;
     }
 }
