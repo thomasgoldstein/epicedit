@@ -57,7 +57,7 @@ namespace EpicEdit.Rom.Compression
             // is not implemented, because it's almost never used.
             // Implementing it would complicate the code and slow down the compression for little to no benefit.
 
-            // NOTE: Checking out command 0 everytime (ie: putting it out of the if conditions)
+            // NOTE: Checking out command 0 every time (ie: putting it out of the if conditions)
             // can improve compression a tiny bit (like just one byte) in some rare cases,
             // but it's not worth the huge hit on compression speed.
 
