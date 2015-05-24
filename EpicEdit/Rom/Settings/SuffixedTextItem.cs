@@ -39,6 +39,8 @@ namespace EpicEdit.Rom.Settings
                 }
                 this.textItem = value;
                 this.textItem.PropertyChanged += this.TextItem_PropertyChanged;
+
+                this.OnPropertyChange("TextItem");
             }
         }
 
