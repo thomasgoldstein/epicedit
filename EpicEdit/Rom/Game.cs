@@ -45,7 +45,7 @@ namespace EpicEdit.Rom
     /// </summary>
     internal sealed class Game : IDisposable
     {
-        private const int RegionOffset = 0xFFD9; 
+        private const int RegionOffset = 0xFFD9;
 
         #region Public properties and methods
 
