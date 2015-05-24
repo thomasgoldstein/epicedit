@@ -28,7 +28,6 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class CupAndTrackNamesEditor : UserControl
     {
-        //private bool fireEvents;
         private Dictionary<SuffixedNameControl, SuffixedTextItem> controlDictionary;
 
         public CupAndTrackNamesEditor()
@@ -76,14 +75,10 @@ namespace EpicEdit.UI.SettingEdition
             this.controlDictionary.Add(this.battleTrack3NameControl, trackGroups[4][2].SuffixedNameItem);
             this.controlDictionary.Add(this.battleTrack4NameControl, trackGroups[4][3].SuffixedNameItem);
 
-            //this.fireEvents = false;
-
             foreach (KeyValuePair<SuffixedNameControl, SuffixedTextItem> kvp in this.controlDictionary)
             {
                 kvp.Key.Init(kvp.Value);
             }
-
-            //this.fireEvents = true;
 
             this.UpdateCount();
         }
@@ -98,11 +93,6 @@ namespace EpicEdit.UI.SettingEdition
 
         private void NameControlSelectedNameChanged(object sender, EventArgs e)
         {
-            /*if (!this.fireEvents)
-            {
-                return;
-            }*/
-
             SuffixedNameControl control = sender as SuffixedNameControl;
             this.controlDictionary[control].TextItem = control.SelectedTextItem;
         }
