@@ -33,7 +33,6 @@ namespace EpicEdit.UI.SettingEdition
         {
             this.InitializeComponent();
             this.controlDictionary = new Dictionary<SuffixedNameControl, SuffixedTextItem>();
-            Context.Game.TracksReordered += delegate { this.Init(); };
         }
 
         public void Init()
@@ -81,6 +80,8 @@ namespace EpicEdit.UI.SettingEdition
             }
 
             this.UpdateCount();
+
+            Context.Game.TracksReordered += delegate { this.Init(); };
         }
 
         private void UpdateCount()
