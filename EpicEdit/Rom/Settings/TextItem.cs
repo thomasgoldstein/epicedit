@@ -46,19 +46,28 @@ namespace EpicEdit.Rom.Settings
             get { return this.value; }
             set
             {
-                string val = this.Converter.GetValidatedText(value);
+                string oldValue = this.value;
+                string newValue = this.Converter.GetValidatedText(value);
 
-                if (this.value == val)
+                if (oldValue == newValue)
                 {
                     return;
                 }
 
-                this.value = val;
+                this.value = newValue;
 
                 int diff = this.collection.TotalCharacterCount - this.collection.MaxCharacterCount;
                 if (diff > 0)
                 {
-                    this.value = this.value.Substring(0, this.value.Length - diff);
+                    newValue = this.value.Substring(0, this.value.Length - diff);
+
+                    if (oldValue == newValue)
+                    {
+                        this.value = oldValue;
+                        return;
+                    }
+
+                    this.value = newValue;
                 }
 
                 if (this.PropertyChanged != null)
