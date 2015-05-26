@@ -87,7 +87,6 @@ namespace EpicEdit.Rom.Compression
         public static byte[] Decompress(byte[] buffer, int offset)
         {
             byte[] decBuffer = new byte[Codec.BufferSize];
-
             int destPosition = 0;
             byte cmd;
 
@@ -95,97 +94,7 @@ namespace EpicEdit.Rom.Compression
             {
                 while ((cmd = buffer[offset++]) != 0xFF)
                 {
-                    byte ctrl = (byte)((cmd & 0xE0) >> 5);
-                    int i = 0;
-                    int count;
-                    byte xor = 0x00;
-
-                    if (ctrl == 7) // This special command extends the byte count.
-                    {
-                        ctrl = (byte)((cmd & 0x1C) >> 2);
-                        count = ((cmd & 3) << 8) + buffer[offset++];
-                    }
-                    else
-                    {
-                        count = cmd & 0x1F;
-                    }
-                    count++;
-
-                    try
-                    {
-                        switch (ctrl)
-                        {
-                            case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset++];
-                                }
-                                break;
-
-                            case 1: // Reads one byte from ROM and continuously stores the same byte in sequence.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset];
-                                }
-                                offset++;
-                                break;
-
-                            case 2: // Reads two bytes from ROM and continously stores the same two bytes in sequence. 
-                                int j = 0;
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset + j];
-                                    j = 1 - j;
-                                }
-                                offset += 2;
-                                break;
-
-                            case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) & 0xFF);
-                                }
-                                offset++;
-                                break;
-
-                            case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
-                                int srcPosition = buffer[offset++] + (buffer[offset++] << 8);
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = decBuffer[srcPosition + i];
-                                }
-                                break;
-
-                            case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
-                                xor = 0xFF;
-                                srcPosition = buffer[offset++] + (buffer[offset++] << 8);
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = (byte)(decBuffer[srcPosition + i] ^ xor);
-                                }
-                                xor = 0x00;
-                                break;
-
-                            case 6: // Reads one byte, which is then subtracted from the current writing address to create a pointer to a previously written address. Bytes are read in sequence from this address and are stored in sequence.
-                                srcPosition = destPosition - buffer[offset++];
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = decBuffer[srcPosition++];
-                                }
-                                break;
-
-                            default:
-                                throw new InvalidDataException("The data can't be decompressed.");
-                        }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        destPosition--;
-                        for (; i < count; i++)
-                        {
-                            decBuffer[destPosition++] = (byte)(0 ^ xor);
-                        }
-                    }
+                    Codec.Decompress(buffer, decBuffer, cmd, true, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException)
@@ -214,99 +123,111 @@ namespace EpicEdit.Rom.Compression
                 while (destPosition < length)
                 {
                     byte cmd = buffer[offset++];
-                    byte ctrl = (byte)((cmd & 0xE0) >> 5);
-                    int i = 0;
-                    int count;
-                    byte xor = 0x00;
-
-                    if (ctrl == 7) // This special command extends the byte count.
-                    {
-                        ctrl = (byte)((cmd & 0x1C) >> 2);
-                        count = ((cmd & 3) << 8) + buffer[offset++];
-                    }
-                    else
-                    {
-                        count = cmd & 0x1F;
-                    }
-                    count++;
-
-                    try
-                    {
-                        switch (ctrl)
-                        {
-                            case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset++];
-                                }
-                                break;
-
-                            case 1: // Reads one byte from ROM and continuously stores the same byte in sequence.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset];
-                                }
-                                offset++;
-                                break;
-
-                            case 2: // Reads two bytes from ROM and continously stores the same two bytes in sequence. 
-                                int j = 0;
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = buffer[offset + j];
-                                    j = 1 - j;
-                                }
-                                offset += 2;
-                                break;
-
-                            case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) & 0xFF);
-                                }
-                                offset++;
-                                break;
-
-                            case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
-                                int srcPosition = buffer[offset++] + (buffer[offset++] << 8);
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = decBuffer[srcPosition + i];
-                                }
-                                break;
-
-                            case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
-                                xor = 0xFF;
-                                srcPosition = buffer[offset++] + (buffer[offset++] << 8);
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = (byte)(decBuffer[srcPosition + i] ^ xor);
-                                }
-                                xor = 0x00;
-                                break;
-
-                            case 6: // Reads one byte, which is then subtracted from the current writing address to create a pointer to a previously written address. Bytes are read in sequence from this address and are stored in sequence.
-                                srcPosition = destPosition - buffer[offset++];
-                                for (i = 0; i < count; i++)
-                                {
-                                    decBuffer[destPosition++] = decBuffer[srcPosition++];
-                                }
-                                break;
-                        }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        destPosition--;
-                        for (; i < count; i++)
-                        {
-                            decBuffer[destPosition++] = (byte)(0 ^ xor);
-                        }
-                    }
+                    Codec.Decompress(buffer, decBuffer, cmd, false, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException) { }
 
             return decBuffer;
+        }
+
+        private static void Decompress(byte[] buffer, byte[] decBuffer, byte cmd, bool throwOnInvalidData, ref int offset, ref int destPosition)
+        {
+            byte ctrl = (byte)((cmd & 0xE0) >> 5);
+            int i = 0;
+            int count;
+            byte xor = 0x00;
+
+            if (ctrl == 7) // This special command extends the byte count.
+            {
+                ctrl = (byte)((cmd & 0x1C) >> 2);
+                count = ((cmd & 3) << 8) + buffer[offset++];
+            }
+            else
+            {
+                count = cmd & 0x1F;
+            }
+            count++;
+
+            try
+            {
+                switch (ctrl)
+                {
+                    case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = buffer[offset++];
+                        }
+                        break;
+
+                    case 1: // Reads one byte from ROM and continuously stores the same byte in sequence.
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = buffer[offset];
+                        }
+                        offset++;
+                        break;
+
+                    case 2: // Reads two bytes from ROM and continously stores the same two bytes in sequence. 
+                        int j = 0;
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = buffer[offset + j];
+                            j = 1 - j;
+                        }
+                        offset += 2;
+                        break;
+
+                    case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = (byte)((buffer[offset] + i) & 0xFF);
+                        }
+                        offset++;
+                        break;
+
+                    case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
+                        int srcPosition = buffer[offset++] + (buffer[offset++] << 8);
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = decBuffer[srcPosition + i];
+                        }
+                        break;
+
+                    case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
+                        xor = 0xFF;
+                        srcPosition = buffer[offset++] + (buffer[offset++] << 8);
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = (byte)(decBuffer[srcPosition + i] ^ xor);
+                        }
+                        xor = 0x00;
+                        break;
+
+                    case 6: // Reads one byte, which is then subtracted from the current writing address to create a pointer to a previously written address. Bytes are read in sequence from this address and are stored in sequence.
+                        srcPosition = destPosition - buffer[offset++];
+                        for (i = 0; i < count; i++)
+                        {
+                            decBuffer[destPosition++] = decBuffer[srcPosition++];
+                        }
+                        break;
+
+                    default:
+                        if (throwOnInvalidData)
+                        {
+                            throw new InvalidDataException("The data can't be decompressed.");
+                        }
+                        break;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                destPosition--;
+                for (; i < count; i++)
+                {
+                    decBuffer[destPosition++] = (byte)(0 ^ xor);
+                }
+            }
         }
 
         /// <summary>
