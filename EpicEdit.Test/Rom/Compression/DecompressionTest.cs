@@ -30,8 +30,10 @@ namespace EpicEdit.Test.Rom.Compression
         }
 
         [Test]
-        public void RandomTest() // I forgot what this checks specifically, but it's about IndexOutOfRangeException catching
+        public void InvalidCompressedDataTest()
         {
+            // Checks that we don't crash if the compressed data is incorrect.
+            // Here, we have a command 5 that references an address that is out of the buffer range.
             byte[] bufferA = File.ReadFile("randomtest.smc");
             byte[] bufferB = Codec.Decompress(File.ReadFile("randomtestc.smc"), 0);
 
