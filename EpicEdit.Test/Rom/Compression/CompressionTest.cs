@@ -261,145 +261,145 @@ namespace EpicEdit.Test.Rom.Compression
         }
 
         [Test]
-        public void TestTrackEE1()
+        public void TestTrackER1()
         {
             this.CheckTrackCompression(this.eeGame, 0, 0);
         }
 
         [Test]
-        public void TestTrackEE2()
+        public void TestTrackER2()
         {
             this.CheckTrackCompression(this.eeGame, 0, 1);
         }
 
         [Test]
-        public void TestTrackEE3()
+        public void TestTrackER3()
         {
             this.CheckTrackCompression(this.eeGame, 0, 2);
         }
 
         [Test]
-        public void TestTrackEE4()
+        public void TestTrackER4()
         {
             this.CheckTrackCompression(this.eeGame, 0, 3);
         }
 
         [Test]
-        public void TestTrackEE5()
+        public void TestTrackER5()
         {
             this.CheckTrackCompression(this.eeGame, 0, 4);
         }
 
         [Test]
-        public void TestTrackEE6()
+        public void TestTrackER6()
         {
             this.CheckTrackCompression(this.eeGame, 1, 0);
         }
 
         [Test]
-        public void TestTrackEE7()
+        public void TestTrackER7()
         {
             this.CheckTrackCompression(this.eeGame, 1, 1);
         }
 
         [Test]
-        public void TestTrackEE8()
+        public void TestTrackER8()
         {
             this.CheckTrackCompression(this.eeGame, 1, 2);
         }
 
         [Test]
-        public void TestTrackEE9()
+        public void TestTrackER9()
         {
             this.CheckTrackCompression(this.eeGame, 1, 3);
         }
 
         [Test]
-        public void TestTrackEE10()
+        public void TestTrackER10()
         {
             this.CheckTrackCompression(this.eeGame, 1, 4);
         }
 
         [Test]
-        public void TestTrackEE11()
+        public void TestTrackER11()
         {
             this.CheckTrackCompression(this.eeGame, 2, 0);
         }
 
         [Test]
-        public void TestTrackEE12()
+        public void TestTrackER12()
         {
             this.CheckTrackCompression(this.eeGame, 2, 1);
         }
 
         [Test]
-        public void TestTrackEE13()
+        public void TestTrackER13()
         {
             this.CheckTrackCompression(this.eeGame, 2, 2);
         }
 
         [Test]
-        public void TestTrackEE14()
+        public void TestTrackER14()
         {
             this.CheckTrackCompression(this.eeGame, 2, 3);
         }
 
         [Test]
-        public void TestTrackEE15()
+        public void TestTrackER15()
         {
             this.CheckTrackCompression(this.eeGame, 2, 4);
         }
 
         [Test]
-        public void TestTrackEE16()
+        public void TestTrackER16()
         {
             this.CheckTrackCompression(this.eeGame, 3, 0);
         }
 
         [Test]
-        public void TestTrackEE17()
+        public void TestTrackER17()
         {
             this.CheckTrackCompression(this.eeGame, 3, 1);
         }
 
         [Test]
-        public void TestTrackEE18()
+        public void TestTrackER18()
         {
             this.CheckTrackCompression(this.eeGame, 3, 2);
         }
 
         [Test]
-        public void TestTrackEE19()
+        public void TestTrackER19()
         {
             this.CheckTrackCompression(this.eeGame, 3, 3);
         }
 
         [Test]
-        public void TestTrackEE20()
+        public void TestTrackER20()
         {
             this.CheckTrackCompression(this.eeGame, 3, 4);
         }
 
         [Test]
-        public void TestTrackEE21()
+        public void TestTrackER21()
         {
             this.CheckTrackCompression(this.eeGame, 4, 0);
         }
 
         [Test]
-        public void TestTrackEE22()
+        public void TestTrackER22()
         {
             this.CheckTrackCompression(this.eeGame, 4, 1);
         }
 
         [Test]
-        public void TestTrackEE23()
+        public void TestTrackER23()
         {
             this.CheckTrackCompression(this.eeGame, 4, 2);
         }
 
         [Test]
-        public void TestTrackEE24()
+        public void TestTrackER24()
         {
             this.CheckTrackCompression(this.eeGame, 4, 3);
         }
