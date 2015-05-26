@@ -37,6 +37,14 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
+            this.InitControls();
+            this.UpdateCount();
+
+            Context.Game.TracksReordered += delegate { this.InitControls(); };
+        }
+
+        private void InitControls()
+        {
             this.controlDictionary.Clear();
             TrackGroups trackGroups = Context.Game.TrackGroups;
 
@@ -78,10 +86,6 @@ namespace EpicEdit.UI.SettingEdition
             {
                 kvp.Key.Init(kvp.Value);
             }
-
-            this.UpdateCount();
-
-            Context.Game.TracksReordered += delegate { this.Init(); };
         }
 
         private void UpdateCount()
