@@ -26,12 +26,13 @@ namespace EpicEdit.Test.Rom.Compression
     [TestFixture]
     internal class OptimalCompressorRateTest
     {
-        private readonly OptimalCompressor compressor = new OptimalCompressor();
+        private readonly OptimalCompressor compressor;
         private readonly Game smkGame;
         private readonly Game eeGame;
 
         public OptimalCompressorRateTest()
         {
+            this.compressor = new OptimalCompressor();
             this.smkGame = File.GetGame(Region.US);
             this.eeGame = File.GetGame("epicr.smc");
         }
