@@ -923,6 +923,11 @@ namespace EpicEdit.Rom
                 return;
             }
 
+            // TODO: This method is complex and could be simplified a lot.
+            // At the moment, it reorders tracks and updates the ROM data to reflect the reordering.
+            // Instead, it could only reorder the track objects, and let the SaveRom method update all the data in the ROM.
+            // This would also allow us to move this method to the TrackGroups class.
+
             if (sourceTrackGroupId < GPTrack.GroupCount) // GP track reordering
             {
                 this.ReorderGPTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
