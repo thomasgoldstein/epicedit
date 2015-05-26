@@ -30,7 +30,7 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
-        public void TestTrackGroupNumber()
+        public void TestTrackGroupCount()
         {
             Assert.AreEqual(5, this.game.TrackGroups.Count);
         }
