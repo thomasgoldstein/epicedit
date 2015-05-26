@@ -121,7 +121,7 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
-        public void TestTrackReorder()
+        public void TestGPTrackReorderReferences()
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
@@ -157,7 +157,7 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
-        public void TestTrackReorderNames()
+        public void TestGPTrackReorderNames()
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
@@ -190,7 +190,7 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
-        public void TestTrackReorderNamesReload()
+        public void TestGPTrackReorderNamesReload()
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
@@ -228,7 +228,7 @@ namespace EpicEdit.Test.Rom
         }
 
         [Test]
-        public void TestTrackReorderRomData()
+        public void TestGPTrackReorderRomData()
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
