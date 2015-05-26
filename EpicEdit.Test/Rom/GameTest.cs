@@ -127,7 +127,7 @@ namespace EpicEdit.Test.Rom
             // do not use the private Game member, because that would affect other tests.
             Game game = File.GetGame(Region.US);
 
-            Track[] tracks = new Track[]
+            Track[] tracks =
             {
                 game.TrackGroups[0][0],
                 game.TrackGroups[0][1],
