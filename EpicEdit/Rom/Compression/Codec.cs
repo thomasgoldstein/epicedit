@@ -143,13 +143,13 @@ namespace EpicEdit.Rom.Compression
                             case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
                                 for (i = 0; i < count; i++)
                                 {
-                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) % 256);
+                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) & 0xFF);
                                 }
                                 offset++;
                                 break;
 
                             case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
-                                int srcPosition = buffer[offset++] + buffer[offset++] * 256;
+                                int srcPosition = buffer[offset++] + (buffer[offset++] << 8);
                                 for (i = 0; i < count; i++)
                                 {
                                     decBuffer[destPosition++] = decBuffer[srcPosition + i];
@@ -158,7 +158,7 @@ namespace EpicEdit.Rom.Compression
 
                             case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
                                 xor = 0xFF;
-                                srcPosition = buffer[offset++] + buffer[offset++] * 256;
+                                srcPosition = buffer[offset++] + (buffer[offset++] << 8);
                                 for (i = 0; i < count; i++)
                                 {
                                     decBuffer[destPosition++] = (byte)(decBuffer[srcPosition + i] ^ xor);
@@ -262,13 +262,13 @@ namespace EpicEdit.Rom.Compression
                             case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
                                 for (i = 0; i < count; i++)
                                 {
-                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) % 256);
+                                    decBuffer[destPosition++] = (byte)((buffer[offset] + i) & 0xFF);
                                 }
                                 offset++;
                                 break;
 
                             case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
-                                int srcPosition = buffer[offset++] + buffer[offset++] * 256;
+                                int srcPosition = buffer[offset++] + (buffer[offset++] << 8);
                                 for (i = 0; i < count; i++)
                                 {
                                     decBuffer[destPosition++] = decBuffer[srcPosition + i];
@@ -277,7 +277,7 @@ namespace EpicEdit.Rom.Compression
 
                             case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
                                 xor = 0xFF;
-                                srcPosition = buffer[offset++] + buffer[offset++] * 256;
+                                srcPosition = buffer[offset++] + (buffer[offset++] << 8);
                                 for (i = 0; i < count; i++)
                                 {
                                     decBuffer[destPosition++] = (byte)(decBuffer[srcPosition + i] ^ xor);
