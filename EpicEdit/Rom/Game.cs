@@ -992,16 +992,16 @@ namespace EpicEdit.Rom
             }
             else // Battle track reordering
             {
-                Track[] trackGroup = new GPTrack[BattleTrack.Count];
+                Track[] tempTrackGroup = new Track[BattleTrack.Count];
 
-                for (int i = 0; i < trackGroup.Length; i++)
+                for (int i = 0; i < tempTrackGroup.Length; i++)
                 {
-                    trackGroup[i] = this.TrackGroups[sourceTrackGroupId][i];
+                    tempTrackGroup[i] = this.TrackGroups[sourceTrackGroupId][i];
                 }
 
                 int trackOrderOffset = this.offsets[Offset.BattleTrackOrder];
 
-                this.ReorderTracksSub(trackGroup, sourceTrackId, destinationTrackId, trackOrderOffset);
+                this.ReorderTracksSub(tempTrackGroup, sourceTrackId, destinationTrackId, trackOrderOffset);
 
                 #region Battle track specific data update
                 // Update the track shown by default when entering the battle track selection
@@ -1014,6 +1014,15 @@ namespace EpicEdit.Rom
                     this.romBuffer[trackOrderOffset + BattleTrack.Count + value] = i;
                 }
                 #endregion Battle track specific data update
+
+                #region Update track pointers in track groups
+                TrackGroup trackGroup = this.TrackGroups[sourceTrackGroupId];
+
+                for (int i = 0; i < trackGroup.Count; i++)
+                {
+                    trackGroup[i] = tempTrackGroup[i];
+                }
+                #endregion Update track pointers in track groups
             }
 
             this.modified = true;
