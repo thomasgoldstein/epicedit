@@ -290,5 +290,108 @@ namespace EpicEdit.Test.Rom
             Assert.AreEqual(0x04, romAfter[0x1EC2D]);
             Assert.AreEqual(0x05, romAfter[0x1EC2E]);
         }
+
+        [Test]
+        public void TestBattleTrackReorderReferences()
+        {
+            // Since we actually modify the Game object in this method,
+            // do not use the private Game member, because that would affect other tests.
+            Game game = File.GetGame(Region.US);
+
+            Track[] tracks =
+            {
+                game.TrackGroups[4][0],
+                game.TrackGroups[4][1],
+                game.TrackGroups[4][2],
+                game.TrackGroups[4][3]
+            };
+
+            // Take Battle Course 4, and move it where Battle Course 1 is
+            game.ReorderTracks(4, 3, 4, 0);
+
+            Assert.AreEqual(tracks[3], game.TrackGroups[4][0]);
+            Assert.AreEqual(tracks[0], game.TrackGroups[4][1]);
+            Assert.AreEqual(tracks[1], game.TrackGroups[4][2]);
+            Assert.AreEqual(tracks[2], game.TrackGroups[4][3]);
+        }
+
+        [Test]
+        public void TestBattleTrackReorderNames()
+        {
+            // Since we actually modify the Game object in this method,
+            // do not use the private Game member, because that would affect other tests.
+            Game game = File.GetGame(Region.US);
+
+            Assert.AreEqual("Battle Course 1", game.TrackGroups[4][0].Name);
+            Assert.AreEqual("Battle Course 2", game.TrackGroups[4][1].Name);
+            Assert.AreEqual("Battle Course 3", game.TrackGroups[4][2].Name);
+            Assert.AreEqual("Battle Course 4", game.TrackGroups[4][3].Name);
+
+            // Take Battle Course 4, and move it where Battle Course 1 is
+            game.ReorderTracks(4, 3, 4, 0);
+
+            Assert.AreEqual("Battle Course 4", game.TrackGroups[4][0].Name);
+            Assert.AreEqual("Battle Course 1", game.TrackGroups[4][1].Name);
+            Assert.AreEqual("Battle Course 2", game.TrackGroups[4][2].Name);
+            Assert.AreEqual("Battle Course 3", game.TrackGroups[4][3].Name);
+        }
+
+        [Test]
+        public void TestBattleTrackReorderNamesReload()
+        {
+            // Since we actually modify the Game object in this method,
+            // do not use the private Game member, because that would affect other tests.
+            Game game = File.GetGame(Region.US);
+
+            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+
+            Assert.AreEqual("Battle Course 1", game.TrackGroups[4][0].Name);
+            Assert.AreEqual("Battle Course 2", game.TrackGroups[4][1].Name);
+            Assert.AreEqual("Battle Course 3", game.TrackGroups[4][2].Name);
+            Assert.AreEqual("Battle Course 4", game.TrackGroups[4][3].Name);
+
+            // Take Battle Course 4, and move it where Battle Course 1 is
+            game.ReorderTracks(4, 3, 4, 0);
+
+            game.SaveRom(fileNameAfter);
+            game = new Game(fileNameAfter); // Reload ROM
+
+            Assert.AreEqual("Battle Course 4", game.TrackGroups[4][0].Name);
+            Assert.AreEqual("Battle Course 1", game.TrackGroups[4][1].Name);
+            Assert.AreEqual("Battle Course 2", game.TrackGroups[4][2].Name);
+            Assert.AreEqual("Battle Course 3", game.TrackGroups[4][3].Name);
+        }
+
+        [Test]
+        public void TestBattleTrackReorderRomData()
+        {
+            // Since we actually modify the Game object in this method,
+            // do not use the private Game member, because that would affect other tests.
+            Game game = File.GetGame(Region.US);
+
+            string fileNameBefore = "SMK_U_Before_Track_Reorder.smc";
+            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+
+            game.SaveRom(fileNameBefore);
+            byte[] romBefore = System.IO.File.ReadAllBytes(fileNameBefore);
+
+            // Check the order value of each battle track
+            Assert.AreEqual(0x16, romBefore[0x1C15C]);
+            Assert.AreEqual(0x17, romBefore[0x1C15D]);
+            Assert.AreEqual(0x14, romBefore[0x1C15E]);
+            Assert.AreEqual(0x15, romBefore[0x1C15F]);
+
+            // Take Battle Course 4, and move it where Battle Course 1 is
+            game.ReorderTracks(4, 3, 4, 0);
+
+            game.SaveRom(fileNameAfter);
+            byte[] romAfter = System.IO.File.ReadAllBytes(fileNameAfter);
+
+            // Check the order value of each battle track
+            Assert.AreEqual(0x15, romAfter[0x1C15C]);
+            Assert.AreEqual(0x16, romAfter[0x1C15D]);
+            Assert.AreEqual(0x17, romAfter[0x1C15E]);
+            Assert.AreEqual(0x14, romAfter[0x1C15F]);
+        }
     }
 }
