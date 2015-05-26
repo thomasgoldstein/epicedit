@@ -990,14 +990,14 @@ namespace EpicEdit.Rom
         {
             #region Global track array creation
             // To make the treatment easier, we simply create an array with all the GP tracks
-            Track[] tempTrackGroup = new Track[GPTrack.Count];
+            Track[] tracks = new Track[GPTrack.Count];
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
                 TrackGroup trackGroup = this.TrackGroups[i];
 
                 for (int j = 0; j < trackGroup.Count; j++)
                 {
-                    tempTrackGroup[i * trackGroup.Count + j] = trackGroup[j];
+                    tracks[i * trackGroup.Count + j] = trackGroup[j];
                 }
             }
 
@@ -1005,7 +1005,7 @@ namespace EpicEdit.Rom
             destinationTrackId = destinationTrackGroupId * GPTrack.CountPerGroup + destinationTrackId;
             #endregion Global track array creation
 
-            this.ReorderTracks(tempTrackGroup, sourceTrackId, destinationTrackId, this.offsets[Offset.GPTrackOrder]);
+            this.ReorderTracks(tracks, sourceTrackId, destinationTrackId, this.offsets[Offset.GPTrackOrder]);
 
             #region Update track pointers in track groups
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
@@ -1014,7 +1014,7 @@ namespace EpicEdit.Rom
 
                 for (int j = 0; j < trackGroup.Count; j++)
                 {
-                    trackGroup[j] = tempTrackGroup[i * trackGroup.Count + j];
+                    trackGroup[j] = tracks[i * trackGroup.Count + j];
                 }
             }
             #endregion Update track pointers in track groups
@@ -1023,53 +1023,53 @@ namespace EpicEdit.Rom
         private void ReorderBattleTracks(int sourceTrackId, int destinationTrackId)
         {
             #region Track array creation
-            Track[] tempTrackGroup = new Track[BattleTrack.Count];
+            Track[] tracks = new Track[BattleTrack.Count];
 
-            for (int i = 0; i < tempTrackGroup.Length; i++)
+            for (int i = 0; i < tracks.Length; i++)
             {
-                tempTrackGroup[i] = this.TrackGroups[GPTrack.GroupCount][i];
+                tracks[i] = this.TrackGroups[GPTrack.GroupCount][i];
             }
             #endregion Track array creation
 
-            this.ReorderTracks(tempTrackGroup, sourceTrackId, destinationTrackId, this.offsets[Offset.BattleTrackOrder]);
+            this.ReorderTracks(tracks, sourceTrackId, destinationTrackId, this.offsets[Offset.BattleTrackOrder]);
 
             #region Update track pointers in track groups
             TrackGroup trackGroup = this.TrackGroups[GPTrack.GroupCount];
 
             for (int i = 0; i < trackGroup.Count; i++)
             {
-                trackGroup[i] = tempTrackGroup[i];
+                trackGroup[i] = tracks[i];
             }
             #endregion Update track pointers in track groups
         }
 
-        private void ReorderTracks(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
+        private void ReorderTracks(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
         {
-            Track sourceTrack = trackGroup[sourceTrackId];
+            Track sourceTrack = tracks[sourceTrackId];
             byte sourceTrackOrder = this.romBuffer[trackOrderOffset + sourceTrackId];
 
             if (sourceTrackId < destinationTrackId)
             {
                 for (int i = sourceTrackId; i < destinationTrackId; i++)
                 {
-                    this.RemapTrack(trackGroup, i + 1, i, trackOrderOffset);
+                    this.RemapTrack(tracks, i + 1, i, trackOrderOffset);
                 }
             }
             else
             {
                 for (int i = sourceTrackId; i > destinationTrackId; i--)
                 {
-                    this.RemapTrack(trackGroup, i - 1, i, trackOrderOffset);
+                    this.RemapTrack(tracks, i - 1, i, trackOrderOffset);
                 }
             }
 
-            trackGroup[destinationTrackId] = sourceTrack;
+            tracks[destinationTrackId] = sourceTrack;
             this.romBuffer[trackOrderOffset + destinationTrackId] = sourceTrackOrder;
         }
 
-        private void RemapTrack(Track[] trackGroup, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
+        private void RemapTrack(Track[] tracks, int sourceTrackId, int destinationTrackId, int trackOrderOffset)
         {
-            trackGroup[destinationTrackId] = trackGroup[sourceTrackId];
+            tracks[destinationTrackId] = tracks[sourceTrackId];
             this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
         }
         #endregion Track reodering
