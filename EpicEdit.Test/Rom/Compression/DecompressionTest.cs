@@ -22,7 +22,7 @@ namespace EpicEdit.Test.Rom.Compression
     [TestFixture]
     internal class DecompressionTest
     {
-        byte[] romBuffer;
+        private readonly byte[] romBuffer;
 
         public DecompressionTest()
         {
