@@ -9,6 +9,7 @@ v2.7.5 (xxx 2015)
 - Added ability to import and export
   road tile types and palette associations
 - Added the ability to clone AI elements
+- Fixed 2.7.2 regression that disabled battle track reordering
 - Minor tweaks and fixes
 
 
