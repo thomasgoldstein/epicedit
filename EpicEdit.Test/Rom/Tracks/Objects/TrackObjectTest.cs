@@ -24,7 +24,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes1()
         {
-            byte[] dataBefore = new byte[] { 0xA1, 0x05 };
+            byte[] dataBefore = { 0xA1, 0x05 };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -36,7 +36,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes2()
         {
-            byte[] dataBefore = new byte[] { 0x14, 0x08 };
+            byte[] dataBefore = { 0x14, 0x08 };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -48,7 +48,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes3()
         {
-            byte[] dataBefore = new byte[] { 0x17, 0x03 };
+            byte[] dataBefore = { 0x17, 0x03 };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -60,7 +60,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes4()
         {
-            byte[] dataBefore = new byte[] { 0x9F, 0x07 };
+            byte[] dataBefore = { 0x9F, 0x07 };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -72,7 +72,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes5()
         {
-            byte[] dataBefore = new byte[] { 0xBF, 0x27 };
+            byte[] dataBefore = { 0xBF, 0x27 };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -84,7 +84,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes6()
         {
-            byte[] dataBefore = new byte[] { 0x12, 0x2A };
+            byte[] dataBefore = { 0x12, 0x2A };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -96,7 +96,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes7()
         {
-            byte[] dataBefore = new byte[] { 0x20, 0x2E };
+            byte[] dataBefore = { 0x20, 0x2E };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -108,7 +108,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes8()
         {
-            byte[] dataBefore = new byte[] { 0x9E, 0x2E };
+            byte[] dataBefore = { 0x9E, 0x2E };
             byte[] dataAfter = new byte[2];
 
             TrackObject trackObject = new TrackObject(dataBefore, 0);
@@ -120,7 +120,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes9()
         {
-            byte[] dataBefore = new byte[] { 0xEF, 0x1E };
+            byte[] dataBefore = { 0xEF, 0x1E };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -133,7 +133,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         public void TestGetBytes10()
         {
             // NOTE: This tests vertical object direction.
-            byte[] dataBefore = new byte[] { 0xC4, 0x44 };
+            byte[] dataBefore = { 0xC4, 0x44 };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -145,7 +145,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         [Test]
         public void TestGetBytes11()
         {
-            byte[] dataBefore = new byte[] { 0x76, 0x1F };
+            byte[] dataBefore = { 0x76, 0x1F };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -158,7 +158,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         public void TestGetBytes12()
         {
             // NOTE: This tests Match Race Banana objects.
-            byte[] dataBefore = new byte[] { 0x12, 0xAA };
+            byte[] dataBefore = { 0x12, 0xAA };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -171,7 +171,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         public void TestGetBytes13()
         {
             // NOTE: This tests Match Race Banana objects.
-            byte[] dataBefore = new byte[] { 0x16, 0xAA };
+            byte[] dataBefore = { 0x16, 0xAA };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -184,7 +184,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         public void TestGetBytes14()
         {
             // NOTE: This tests Match Race Banana objects.
-            byte[] dataBefore = new byte[] { 0x14, 0xAA };
+            byte[] dataBefore = { 0x14, 0xAA };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
@@ -197,7 +197,7 @@ namespace EpicEdit.Test.Rom.Tracks.Objects
         public void TestGetBytes15()
         {
             // NOTE: This tests Match Race Banana objects.
-            byte[] dataBefore = new byte[] { 0x18, 0xAA };
+            byte[] dataBefore = { 0x18, 0xAA };
             byte[] dataAfter = new byte[2];
 
             TrackObjectMatchRace trackObject = new TrackObjectMatchRace(dataBefore, 0);
