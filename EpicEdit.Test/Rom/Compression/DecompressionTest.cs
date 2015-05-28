@@ -34,8 +34,8 @@ namespace EpicEdit.Test.Rom.Compression
         {
             // Checks that we don't crash if the compressed data is incorrect.
             // Here, we have a command 5 that references an address that is out of the buffer range.
-            byte[] bufferA = File.ReadFile("randomtest.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("randomtestc.smc"), 0);
+            byte[] bufferA = File.ReadFile("cmd5test.smc");
+            byte[] bufferB = Codec.Decompress(File.ReadFile("cmd5testc.smc"), 0);
 
             Assert.AreEqual(bufferA, bufferB);
         }
