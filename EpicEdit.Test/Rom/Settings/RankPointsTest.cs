@@ -24,7 +24,7 @@ namespace EpicEdit.Test.Rom.Settings
         [Test]
         public void TestGetBytes()
         {
-            byte[] dataBefore = new byte[]
+            byte[] dataBefore =
             {
                 0x09, 0x00, 0x06, 0x00, 0x03, 0x00, 0x01, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
