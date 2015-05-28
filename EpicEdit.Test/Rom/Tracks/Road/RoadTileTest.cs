@@ -13,9 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Drawing;
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Road;
 using NUnit.Framework;
 
