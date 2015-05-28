@@ -21,9 +21,10 @@ namespace EpicEdit.Test.Rom.Tracks.Start
     [TestFixture]
     internal class BattleStartPositionTest
     {
-        private readonly byte[] allData;
+        private byte[] allData;
 
-        public BattleStartPositionTest()
+        [TestFixtureSetUp]
+        public void Init()
         {
             this.allData = new byte[]
             {
