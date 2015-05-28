@@ -41,10 +41,11 @@ namespace EpicEdit.Test.Rom.Compression
         }
 
         [Test]
-        public void EpicRacerTest() // Checks that function 3 loops properly after 0xFF
+        public void EpicRacersBattleTrack4Test()
         {
-            byte[] bufferA = File.ReadFile("epicr_track24.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("epicr.smc"), 0x8E5A2);
+            // Checks that command 3 loops properly after 0xFF
+            byte[] bufferA = File.ReadFile("er_track24c.smc");
+            byte[] bufferB = Codec.Decompress(File.ReadFile("er_track24cc.smc"));
 
             Assert.AreEqual(bufferA, bufferB);
         }
