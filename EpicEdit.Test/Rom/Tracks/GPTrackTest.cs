@@ -20,11 +20,11 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom.Tracks
 {
     [TestFixture]
-    internal class GPTrackTest
+    internal class GPTrackTest : TestBase
     {
-        private readonly Game game;
+        private Game game;
 
-        public GPTrackTest()
+        public override void Init()
         {
             this.game = File.GetGame(Region.US);
         }

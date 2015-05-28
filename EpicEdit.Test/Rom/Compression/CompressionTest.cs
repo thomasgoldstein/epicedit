@@ -21,12 +21,12 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom.Compression
 {
     [TestFixture]
-    internal class CompressionTest
+    internal class CompressionTest : TestBase
     {
-        private readonly byte[] romBuffer;
-        private readonly Game game;
+        private byte[] romBuffer;
+        private Game game;
 
-        public CompressionTest()
+        public override void Init()
         {
             this.romBuffer = File.ReadRom(Region.US);
             this.game = File.GetGame(Region.US);

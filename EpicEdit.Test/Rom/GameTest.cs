@@ -20,11 +20,11 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom
 {
     [TestFixture]
-    internal class GameTest
+    internal class GameTest : TestBase
     {
-        private readonly Game game;
+        private Game game;
 
-        public GameTest()
+        public override void Init()
         {
             this.game = File.GetGame(Region.US);
         }

@@ -104,6 +104,7 @@
     <Compile Include="Rom\Tracks\TrackTest.cs" />
     <Compile Include="Rom\Utility\UtilitiesTest.cs" />
     <Compile Include="Smk.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

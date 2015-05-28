@@ -13,18 +13,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Overlay;
 using NUnit.Framework;
 
 namespace EpicEdit.Test.Rom.Tracks.Overlay
 {
     [TestFixture]
-    internal class OverlayTilesTest
+    internal class OverlayTilesTest : TestBase
     {
-        private readonly Smk smk;
+        private Smk smk;
 
-        public OverlayTilesTest()
+        public override void Init()
         {
             this.smk = new Smk();
         }

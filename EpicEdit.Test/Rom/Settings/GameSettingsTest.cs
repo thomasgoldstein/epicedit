@@ -15,22 +15,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Settings;
-using EpicEdit.Rom.Utility;
 using NUnit.Framework;
 
 namespace EpicEdit.Test.Rom.Settings
 {
     [TestFixture]
-    internal class GameSettingsTest
+    internal class GameSettingsTest : TestBase
     {
-        private readonly Game gameJ;
-        private readonly Game gameU;
-        private readonly Game gameE;
-        private readonly byte[] romBufferJ;
-        private readonly byte[] romBufferU;
-        private readonly byte[] romBufferE;
+        private Game gameJ;
+        private Game gameU;
+        private Game gameE;
+        private byte[] romBufferJ;
+        private byte[] romBufferU;
+        private byte[] romBufferE;
 
-        public GameSettingsTest()
+        public override void Init()
         {
             this.gameJ = File.GetGame(Region.Jap);
             this.gameU = File.GetGame(Region.US);
