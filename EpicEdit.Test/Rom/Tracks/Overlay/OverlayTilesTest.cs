@@ -13,7 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Utility;
 using NUnit.Framework;
 
 namespace EpicEdit.Test.Rom.Tracks.Overlay
@@ -21,16 +23,21 @@ namespace EpicEdit.Test.Rom.Tracks.Overlay
     [TestFixture]
     internal class OverlayTilesTest : TestBase
     {
-        private Smk smk;
+        private OverlayTilePatterns overlayTilePatterns;
+        private OverlayTileSizes overlayTileSizes;
 
         public override void Init()
         {
-            this.smk = new Smk();
+            byte[] romBuffer = File.ReadRom(Region.US);
+            Offsets offsets = new Offsets(romBuffer, Region.US);
+            byte[] overlayTileSizesData = Utilities.ReadBlock(romBuffer, offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
+            this.overlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
+            this.overlayTilePatterns = new OverlayTilePatterns(romBuffer, offsets, this.overlayTileSizes);
         }
 
         private void TestGetBytes(byte[] data)
         {
-            OverlayTiles overlayTiles = new OverlayTiles(data, this.smk.OverlayTileSizes, this.smk.OverlayTilePatterns);
+            OverlayTiles overlayTiles = new OverlayTiles(data, this.overlayTileSizes, this.overlayTilePatterns);
             byte[] dataAfter = overlayTiles.GetBytes();
 
             Assert.AreEqual(data, dataAfter);
