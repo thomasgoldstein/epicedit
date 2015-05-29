@@ -22,9 +22,6 @@ namespace EpicEdit.UI.SettingEdition
     internal partial class SuffixedNameControl : UserControl
     {
         [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> SelectedNameChanged;
-
-        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SuffixTextChanged;
 
         private SuffixedTextItem textItem;
@@ -47,17 +44,19 @@ namespace EpicEdit.UI.SettingEdition
             this.fireEvents = true;
         }
 
-        private void NameComboBoxSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.fireEvents && this.SelectedNameChanged != null)
-            {
-                this.SelectedNameChanged(this, EventArgs.Empty);
-            }
-        }
-
-        public TextItem SelectedTextItem
+        private TextItem SelectedTextItem
         {
             get { return this.nameComboBox.SelectedItem as TextItem; }
+        }
+
+        private void NameComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
+            this.textItem.TextItem = this.SelectedTextItem;
         }
 
         private void SuffixTextBoxTextChanged(object sender, EventArgs e)

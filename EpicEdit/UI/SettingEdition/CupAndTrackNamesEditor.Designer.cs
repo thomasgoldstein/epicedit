@@ -108,7 +108,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1NameControl.Name = "cup1NameControl";
             this.cup1NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1NameControl.TabIndex = 0;
-            this.cup1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup1Track1NameControl
@@ -117,7 +116,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1Track1NameControl.Name = "cup1Track1NameControl";
             this.cup1Track1NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1Track1NameControl.TabIndex = 1;
-            this.cup1Track1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1Track1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup1Track2NameControl
@@ -126,7 +124,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1Track2NameControl.Name = "cup1Track2NameControl";
             this.cup1Track2NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1Track2NameControl.TabIndex = 2;
-            this.cup1Track2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1Track2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup1Track3NameControl
@@ -135,7 +132,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1Track3NameControl.Name = "cup1Track3NameControl";
             this.cup1Track3NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1Track3NameControl.TabIndex = 3;
-            this.cup1Track3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1Track3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup1Track4NameControl
@@ -144,7 +140,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1Track4NameControl.Name = "cup1Track4NameControl";
             this.cup1Track4NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1Track4NameControl.TabIndex = 4;
-            this.cup1Track4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1Track4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup1Track5NameControl
@@ -153,7 +148,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup1Track5NameControl.Name = "cup1Track5NameControl";
             this.cup1Track5NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup1Track5NameControl.TabIndex = 5;
-            this.cup1Track5NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup1Track5NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2Track5NameControl
@@ -162,7 +156,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2Track5NameControl.Name = "cup2Track5NameControl";
             this.cup2Track5NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2Track5NameControl.TabIndex = 11;
-            this.cup2Track5NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2Track5NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2Track4NameControl
@@ -171,7 +164,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2Track4NameControl.Name = "cup2Track4NameControl";
             this.cup2Track4NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2Track4NameControl.TabIndex = 10;
-            this.cup2Track4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2Track4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2Track3NameControl
@@ -180,7 +172,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2Track3NameControl.Name = "cup2Track3NameControl";
             this.cup2Track3NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2Track3NameControl.TabIndex = 9;
-            this.cup2Track3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2Track3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2Track2NameControl
@@ -189,7 +180,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2Track2NameControl.Name = "cup2Track2NameControl";
             this.cup2Track2NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2Track2NameControl.TabIndex = 8;
-            this.cup2Track2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2Track2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2Track1NameControl
@@ -198,7 +188,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2Track1NameControl.Name = "cup2Track1NameControl";
             this.cup2Track1NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2Track1NameControl.TabIndex = 7;
-            this.cup2Track1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2Track1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup2NameControl
@@ -207,7 +196,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup2NameControl.Name = "cup2NameControl";
             this.cup2NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup2NameControl.TabIndex = 6;
-            this.cup2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3Track5NameControl
@@ -216,7 +204,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3Track5NameControl.Name = "cup3Track5NameControl";
             this.cup3Track5NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3Track5NameControl.TabIndex = 17;
-            this.cup3Track5NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3Track5NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3Track4NameControl
@@ -225,7 +212,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3Track4NameControl.Name = "cup3Track4NameControl";
             this.cup3Track4NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3Track4NameControl.TabIndex = 16;
-            this.cup3Track4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3Track4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3Track3NameControl
@@ -234,7 +220,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3Track3NameControl.Name = "cup3Track3NameControl";
             this.cup3Track3NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3Track3NameControl.TabIndex = 15;
-            this.cup3Track3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3Track3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3Track2NameControl
@@ -243,7 +228,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3Track2NameControl.Name = "cup3Track2NameControl";
             this.cup3Track2NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3Track2NameControl.TabIndex = 14;
-            this.cup3Track2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3Track2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3Track1NameControl
@@ -252,7 +236,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3Track1NameControl.Name = "cup3Track1NameControl";
             this.cup3Track1NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3Track1NameControl.TabIndex = 13;
-            this.cup3Track1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3Track1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup3NameControl
@@ -261,7 +244,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup3NameControl.Name = "cup3NameControl";
             this.cup3NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup3NameControl.TabIndex = 12;
-            this.cup3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4Track5NameControl
@@ -270,7 +252,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4Track5NameControl.Name = "cup4Track5NameControl";
             this.cup4Track5NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4Track5NameControl.TabIndex = 23;
-            this.cup4Track5NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4Track5NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4Track4NameControl
@@ -279,7 +260,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4Track4NameControl.Name = "cup4Track4NameControl";
             this.cup4Track4NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4Track4NameControl.TabIndex = 22;
-            this.cup4Track4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4Track4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4Track3NameControl
@@ -288,7 +268,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4Track3NameControl.Name = "cup4Track3NameControl";
             this.cup4Track3NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4Track3NameControl.TabIndex = 21;
-            this.cup4Track3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4Track3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4Track2NameControl
@@ -297,7 +276,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4Track2NameControl.Name = "cup4Track2NameControl";
             this.cup4Track2NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4Track2NameControl.TabIndex = 20;
-            this.cup4Track2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4Track2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4Track1NameControl
@@ -306,7 +284,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4Track1NameControl.Name = "cup4Track1NameControl";
             this.cup4Track1NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4Track1NameControl.TabIndex = 19;
-            this.cup4Track1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4Track1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // cup4NameControl
@@ -315,7 +292,6 @@ namespace EpicEdit.UI.SettingEdition
             this.cup4NameControl.Name = "cup4NameControl";
             this.cup4NameControl.Size = new System.Drawing.Size(118, 21);
             this.cup4NameControl.TabIndex = 18;
-            this.cup4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.cup4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // battleTrack1NameControl
@@ -324,7 +300,6 @@ namespace EpicEdit.UI.SettingEdition
             this.battleTrack1NameControl.Name = "battleTrack1NameControl";
             this.battleTrack1NameControl.Size = new System.Drawing.Size(118, 21);
             this.battleTrack1NameControl.TabIndex = 24;
-            this.battleTrack1NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.battleTrack1NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // battleTrack2NameControl
@@ -333,7 +308,6 @@ namespace EpicEdit.UI.SettingEdition
             this.battleTrack2NameControl.Name = "battleTrack2NameControl";
             this.battleTrack2NameControl.Size = new System.Drawing.Size(118, 21);
             this.battleTrack2NameControl.TabIndex = 25;
-            this.battleTrack2NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.battleTrack2NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // battleTrack3NameControl
@@ -342,7 +316,6 @@ namespace EpicEdit.UI.SettingEdition
             this.battleTrack3NameControl.Name = "battleTrack3NameControl";
             this.battleTrack3NameControl.Size = new System.Drawing.Size(118, 21);
             this.battleTrack3NameControl.TabIndex = 26;
-            this.battleTrack3NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.battleTrack3NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // battleTrack4NameControl
@@ -351,7 +324,6 @@ namespace EpicEdit.UI.SettingEdition
             this.battleTrack4NameControl.Name = "battleTrack4NameControl";
             this.battleTrack4NameControl.Size = new System.Drawing.Size(118, 21);
             this.battleTrack4NameControl.TabIndex = 27;
-            this.battleTrack4NameControl.SelectedNameChanged += new System.EventHandler<System.EventArgs>(this.NameControlSelectedNameChanged);
             this.battleTrack4NameControl.SuffixTextChanged += new System.EventHandler<System.EventArgs>(this.NameControlSuffixTextChanged);
             // 
             // countLabel
