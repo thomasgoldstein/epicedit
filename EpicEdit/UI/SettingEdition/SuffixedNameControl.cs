@@ -36,7 +36,14 @@ namespace EpicEdit.UI.SettingEdition
         {
             this.fireEvents = false;
 
+            if (this.textItem != null)
+            {
+                this.textItem.Suffix.PropertyChanged -= this.textItem_Suffix_PropertyChanged;
+            }
+
             this.textItem = textItem;
+            this.textItem.Suffix.PropertyChanged += this.textItem_Suffix_PropertyChanged;
+
             this.nameComboBox.Init(Context.Game.Settings.CupAndThemeTexts);
             this.nameComboBox.SelectedItem = this.textItem.TextItem;
             this.suffixTextBox.Text = this.textItem.Suffix.Value;
@@ -73,12 +80,15 @@ namespace EpicEdit.UI.SettingEdition
             this.suffixTextBox.Text = this.textItem.Suffix.Value; // Retrieve validated text
             this.suffixTextBox.SelectionStart = sel; // Restore text input position
 
+            this.fireEvents = true;
+        }
+  
+        private void textItem_Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
             if (this.SuffixTextChanged != null)
             {
                 this.SuffixTextChanged(this, EventArgs.Empty);
             }
-
-            this.fireEvents = true;
         }
     }
 }
