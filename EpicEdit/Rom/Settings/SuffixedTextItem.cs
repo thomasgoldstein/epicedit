@@ -33,6 +33,11 @@ namespace EpicEdit.Rom.Settings
             get { return this.textItem; }
             set
             {
+                if (this.textItem == value)
+                {
+                    return;
+                }
+
                 if (this.textItem != null)
                 {
                     this.textItem.PropertyChanged -= this.TextItem_PropertyChanged;
