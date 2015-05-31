@@ -35,6 +35,11 @@ namespace EpicEdit.Rom.Tracks.Road
             get { return this.genre; }
             set
             {
+                if (this.genre == value)
+                {
+                    return;
+                }
+
                 if (!Enum.IsDefined(typeof(RoadTileGenre), value))
                 {
                     throw new ArgumentException("Invalid tile type value: " + value.ToString("X") + ".", "value");
