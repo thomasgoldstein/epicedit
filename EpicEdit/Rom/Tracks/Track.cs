@@ -39,7 +39,7 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the common base between a <see cref="GPTrack"/> and a <see cref="BattleTrack"/>.
     /// </summary>
-    internal abstract class Track
+    internal abstract class Track : INotifyPropertyChanged
     {
         /// <summary>
         /// Total number of tracks (GP tracks + battle tracks).
@@ -50,6 +50,8 @@ namespace EpicEdit.Rom.Tracks
         /// Total number of track groups (GP and Battle).
         /// </summary>
         public const int GroupCount = GPTrack.GroupCount + BattleTrack.GroupCount;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public SuffixedTextItem SuffixedNameItem { get; private set; }
 
@@ -79,10 +81,20 @@ namespace EpicEdit.Rom.Tracks
         {
             this.Theme = theme;
             this.SuffixedNameItem = nameItem;
-            this.SuffixedNameItem.PropertyChanged += delegate { this.Modified = true; };
+            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.Map = new TrackMap(map);
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
+        }
+
+        private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.Modified = true;
+
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
+            }
         }
 
         public void Import(string filePath, Game game)

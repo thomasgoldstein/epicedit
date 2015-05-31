@@ -24,8 +24,10 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// A group of tracks.
     /// </summary>
-    internal class TrackGroup : IEnumerable<Track>
+    internal class TrackGroup : IEnumerable<Track>, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SuffixedTextItem SuffixedNameItem { get; private set; }
 
         public string Name
@@ -56,8 +58,18 @@ namespace EpicEdit.Rom.Tracks
         public TrackGroup(SuffixedTextItem nameItem, Track[] tracks)
         {
             this.SuffixedNameItem = nameItem;
-            this.SuffixedNameItem.PropertyChanged += delegate { this.modified = true; };
+            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.tracks = tracks;
+        }
+
+        private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.modified = true;
+
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
+            }
         }
 
         public void ResetModifiedState()
