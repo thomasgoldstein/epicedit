@@ -64,7 +64,7 @@ namespace EpicEdit.Rom.Tracks
         {
             foreach (Track track in this.tracks)
             {
-                track.Modified = false;
+                track.ResetModifiedState();
             }
 
             this.modified = false;

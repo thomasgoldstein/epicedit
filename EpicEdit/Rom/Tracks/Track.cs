@@ -159,6 +159,11 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
+        public void ResetModifiedState()
+        {
+            this.Modified = false;
+        }
+
         /// <summary>
         /// Exports track as MKT (Track Designer).
         /// </summary>
