@@ -196,7 +196,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.SelectedRoadTile.Genre = (RoadTileGenre)this.tileGenreComboBox.SelectedItem;
-            this.track.Theme.RoadTileset.Modified = true;
         }
 
         private void TilePaletteNumericUpDownValueChanged(object sender, EventArgs e)
@@ -208,7 +207,6 @@ namespace EpicEdit.UI.TrackEdition
 
             int palIndex = (int)this.tilePaletteNumericUpDown.Value;
             this.SelectedRoadTile.Palette = this.track.Theme.Palettes[palIndex];
-            this.track.Theme.RoadTileset.Modified = true;
 
             // Could be optimized by not updating the whole cache,
             // and not repainting the whole panel (but it's already fast enough)
@@ -319,10 +317,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowImportTilesetGraphicsDialog()
         {
-            RoadTileset tileset = this.track.RoadTileset;
-            if (UITools.ShowImportTilesetGraphicsDialog(tileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(this.track.RoadTileset.GetTiles()))
             {
-                tileset.Modified = true;
                 this.UpdateTileset();
                 this.TilesetChanged(this, EventArgs.Empty);
             }
