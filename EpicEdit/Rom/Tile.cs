@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace EpicEdit.Rom
@@ -20,9 +21,11 @@ namespace EpicEdit.Rom
     /// <summary>
     /// An 8x8 graphic tile.
     /// </summary>
-    internal abstract class Tile : IDisposable
+    internal abstract class Tile : IDisposable, INotifyPropertyChanged
     {
         public const int Size = 8;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private Palette palette;
         public virtual Palette Palette
@@ -37,6 +40,7 @@ namespace EpicEdit.Rom
 
                 this.palette = value;
                 this.UpdateBitmap();
+                this.OnPropertyChange("Palette");
             }
         }
 
@@ -48,6 +52,7 @@ namespace EpicEdit.Rom
             {
                 this.graphics = value;
                 this.UpdateBitmap();
+                this.OnPropertyChange("Graphics");
             }
         }
 
@@ -59,6 +64,7 @@ namespace EpicEdit.Rom
             {
                 this.bitmap = value;
                 this.GenerateGraphics();
+                this.OnPropertyChange("Bitmap");
             }
         }
 
@@ -99,6 +105,14 @@ namespace EpicEdit.Rom
             }
 
             return false;
+        }
+
+        protected void OnPropertyChange(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         protected virtual void Dispose(bool disposing)
