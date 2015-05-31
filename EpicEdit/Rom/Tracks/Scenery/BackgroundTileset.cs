@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Scenery
 {
@@ -26,14 +27,23 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         public const int TileCount = 48;
 
-        // TODO: Make setter private
-        public bool Modified { get; set; }
+        public bool Modified { get; private set; }
 
         private readonly BackgroundTile[] tileset;
 
         public BackgroundTileset(BackgroundTile[] tileset)
         {
             this.tileset = tileset;
+
+            foreach (Tile tile in this.tileset)
+            {
+                tile.PropertyChanged += this.tile_PropertyChanged;
+            }
+        }
+
+        private void tile_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.Modified = true;
         }
 
         public BackgroundTile[] GetTiles()

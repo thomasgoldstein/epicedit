@@ -313,10 +313,8 @@ namespace EpicEdit.UI.ThemeEdition
         
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
         {
-            BackgroundTileset tileset = this.Theme.Background.Tileset;
-            if (UITools.ShowImportTilesetGraphicsDialog(tileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(this.Theme.Background.Tileset.GetTiles()))
             {
-                tileset.Modified = true;
                 this.LoadTheme();
             }
         }
