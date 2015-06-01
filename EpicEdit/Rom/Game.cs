@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -456,6 +457,24 @@ namespace EpicEdit.Rom
 
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
+
+            foreach (TrackGroup trackGroup in this.TrackGroups)
+            {
+                trackGroup.PropertyChanged += this.track_PropertyChanged;
+
+                foreach (Track track in trackGroup)
+                {
+                    track.PropertyChanged += this.track_PropertyChanged;
+                }
+            }
+        }
+
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SuffixedNameItem")
+            {
+                this.modified = true;
+            }
         }
 
         private void SetRegion()

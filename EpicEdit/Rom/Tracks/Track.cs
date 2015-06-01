@@ -89,8 +89,6 @@ namespace EpicEdit.Rom.Tracks
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.Modified = true;
-
             if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
