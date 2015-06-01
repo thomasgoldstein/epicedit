@@ -116,12 +116,7 @@ namespace EpicEdit.UI.TrackEdition
                     TreeNode trackNode = trackNodes[j];
 
                     this.trackDictionary.Add(track, trackNode);
-                    trackNode.Text = track.Name;
-
-                    if (track.Modified)
-                    {
-                        TrackTreeView.AddModifiedHint(trackNode);
-                    }
+                    trackNode.Text = track.Name + (!track.Modified ? null : "*");
                 }
             }
         }
@@ -196,13 +191,8 @@ namespace EpicEdit.UI.TrackEdition
             if (!this.selectedTrack.Modified)
             {
                 this.selectedTrack.Modified = true;
-                TrackTreeView.AddModifiedHint(this.treeView.SelectedNode);
+                this.treeView.SelectedNode.Text += "*";
             }
-        }
-
-        private static void AddModifiedHint(TreeNode node)
-        {
-            node.Text += "*";
         }
 
         public void RemoveModifiedHints()
