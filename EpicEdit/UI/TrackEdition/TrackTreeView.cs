@@ -198,26 +198,7 @@ namespace EpicEdit.UI.TrackEdition
         public void RemoveModifiedHints()
         {
             this.treeView.BeginUpdate();
-
-            foreach (TreeNode trackGroupNode in this.treeView.Nodes)
-            {
-                TreeNodeCollection trackNodes = trackGroupNode.Nodes;
-
-                foreach (TreeNode trackNode in trackNodes)
-                {
-                    if (trackNode.Text.Length == 0)
-                    {
-                        continue;
-                    }
-
-                    int lastCharIndex = trackNode.Text.Length - 1;
-                    if (trackNode.Text[lastCharIndex] == '*')
-                    {
-                        trackNode.Text = trackNode.Text.Substring(0, lastCharIndex);
-                    }
-                }
-            }
-
+            this.UpdateTrackNames();
             this.treeView.EndUpdate();
         }
 
