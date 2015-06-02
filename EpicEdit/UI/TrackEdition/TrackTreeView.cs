@@ -123,11 +123,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void trackGroup_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != "SuffixedNameItem")
-            {
-                return;
-            }
-
             TrackGroup trackGroup = sender as TrackGroup;
             TreeNode treeNode = this.trackGroupDictionary[trackGroup];
             treeNode.Text = trackGroup.Name;
@@ -135,11 +130,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != "SuffixedNameItem")
-            {
-                return;
-            }
-
             Track track = sender as Track;
             TreeNode treeNode = this.trackDictionary[track];
             treeNode.Text = track.Name + (!track.Modified ? null : "*");
