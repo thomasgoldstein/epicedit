@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private Direction direction;
 
         /// <summary>
-        /// Gets the object direction.
+        /// Gets or sets the object direction.
         /// </summary>
         public Direction Direction
         {
