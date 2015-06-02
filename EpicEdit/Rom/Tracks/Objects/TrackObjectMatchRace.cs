@@ -28,11 +28,11 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObjectMatchRace : TrackObject
     {
-        /// <summary>
-        /// Get the object direction.
-        /// </summary>
         private Direction direction;
 
+        /// <summary>
+        /// Gets the object direction.
+        /// </summary>
         public Direction Direction
         {
             get { return this.direction; }
