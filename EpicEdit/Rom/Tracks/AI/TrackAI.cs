@@ -89,6 +89,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// Inserts a new AI element to the element collection at a specific index.
         /// </summary>
         /// <param name="aiElement">The new AI element.</param>
+        /// <param name="index">The index of the new AI element.</param>
         /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
         public bool Insert(TrackAIElement aiElement, int index)
         {
