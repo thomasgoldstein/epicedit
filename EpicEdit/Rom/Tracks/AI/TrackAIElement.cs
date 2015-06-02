@@ -43,11 +43,37 @@ namespace EpicEdit.Rom.Tracks.AI
         /// The precision for AI elements: 2 tiles (16 pixels).
         /// </summary>
         public const int Precision = 2;
-        
+
+        private Shape zoneShape;
         /// <summary>
-        /// Gets the zone shape.
+        /// Gets or sets the zone shape.
         /// </summary>
-        public Shape ZoneShape { get; private set; }
+        public Shape ZoneShape
+        {
+            get { return this.zoneShape; }
+            set
+            {
+                if (this.zoneShape == value)
+                {
+                    return;
+                }
+
+                if (this.zoneShape == Shape.Rectangle &&
+                    value != Shape.Rectangle)
+                {
+                    if (this.zone.Width > this.zone.Height)
+                    {
+                        this.zone.Width = this.zone.Height;
+                    }
+                    else if (this.zone.Height > this.zone.Width)
+                    {
+                        this.zone.Height = this.zone.Width;
+                    }
+                }
+
+                this.zoneShape = value;
+            }
+        }
 
         private Rectangle zone;
         /// <summary>
@@ -971,24 +997,6 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.zone = new Rectangle(zoneX, zoneY, length, length);
-        }
-
-        public void ChangeShape(Shape newShape)
-        {
-            if (this.ZoneShape == Shape.Rectangle &&
-                newShape != Shape.Rectangle)
-            {
-                if (this.zone.Width > this.zone.Height)
-                {
-                    this.zone.Width = this.zone.Height;
-                }
-                else if (this.zone.Height > this.zone.Width)
-                {
-                    this.zone.Height = this.zone.Width;
-                }
-            }
-
-            this.ZoneShape = newShape;
         }
 
         /// <summary>

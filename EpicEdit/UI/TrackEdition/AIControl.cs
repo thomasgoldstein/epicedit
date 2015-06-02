@@ -193,8 +193,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Shape newShape = (Shape)this.shapeComboBox.SelectedValue;
-            this.selectedElement.ChangeShape(newShape);
+            this.selectedElement.ZoneShape = (Shape)this.shapeComboBox.SelectedValue;
 
             this.DataChanged(this, EventArgs.Empty);
         }
