@@ -36,14 +36,14 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         private const int GridLimit = GridSize - 1;
 
-        private readonly GPTrack track;
+        private readonly TrackAI ai;
 
         private readonly byte[] frontZones;
         private readonly byte[] rearZones;
 
-        public TrackObjectZones(byte[] data, GPTrack track)
+        public TrackObjectZones(byte[] data, TrackAI ai)
         {
-            this.track = track;
+            this.ai = ai;
 
             this.frontZones = new byte[4];
             this.frontZones[0] = data[0];
@@ -106,7 +106,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             byte[][] zones;
 
-            if (this.track.AI.ElementCount == 0)
+            if (this.ai.ElementCount == 0)
             {
                 zones = new byte[GridSize][];
 
@@ -149,9 +149,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void FillGridFromAI(sbyte[][] zones, bool frontZonesView)
         {
-            foreach (TrackAIElement aiElem in this.track.AI)
+            foreach (TrackAIElement aiElem in this.ai)
             {
-                int aiElemIndex = this.track.AI.GetElementIndex(aiElem);
+                int aiElemIndex = this.ai.GetElementIndex(aiElem);
                 sbyte zoneIndex = (sbyte)this.GetZoneIndex(frontZonesView, aiElemIndex);
                 int left = aiElem.Zone.X / TrackAIElement.Precision;
                 int top = aiElem.Zone.Y / TrackAIElement.Precision;

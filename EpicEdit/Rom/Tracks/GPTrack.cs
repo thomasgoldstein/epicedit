@@ -106,7 +106,7 @@ namespace EpicEdit.Rom.Tracks
             this.StartPosition = new GPStartPosition(startPositionData);
             this.LapLine = new LapLine(lapLineData);
             this.Objects = new TrackObjects(objectData);
-            this.ObjectZones = new TrackObjectZones(objectZoneData, this);
+            this.ObjectZones = new TrackObjectZones(objectZoneData, this.AI);
             this.objectPaletteIndexes = new byte[4];
             this.ItemProbabilityIndex = itemProbaIndex;
         }

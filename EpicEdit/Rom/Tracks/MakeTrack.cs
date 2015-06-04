@@ -143,7 +143,7 @@ namespace EpicEdit.Rom
 
         public TrackObjectZones ObjectZones
         {
-            get { return new TrackObjectZones(this.AREA_BORDER, this.track as GPTrack); }
+            get { return new TrackObjectZones(this.AREA_BORDER, this.track.AI); }
             set { this.AREA_BORDER = value.GetBytes(); }
         }
 
