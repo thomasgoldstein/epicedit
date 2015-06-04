@@ -39,7 +39,6 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
 
             this.objects = new TrackObject[data.Length / BytesPerObject];
-            // Object coordinates are defined on 2 bytes
 
             for (int i = 0; i < RegularObjectCount; i++)
             {
