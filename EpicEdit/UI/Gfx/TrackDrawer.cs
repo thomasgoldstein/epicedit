@@ -983,7 +983,7 @@ namespace EpicEdit.UI.Gfx
         {
             GPTrack gpTrack = this.track as GPTrack;
 
-            if (gpTrack.ObjectRoutine != ObjectType.Pillar)
+            if (gpTrack.Objects.Routine != ObjectType.Pillar)
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
 
@@ -1014,7 +1014,7 @@ namespace EpicEdit.UI.Gfx
         private void InitObjectZonesBitmap(bool frontZonesView)
         {
             GPTrack gpTrack = this.track as GPTrack;
-            byte[][] zones = gpTrack.ObjectZones.GetGrid(frontZonesView);
+            byte[][] zones = gpTrack.Objects.Zones.GetGrid(frontZonesView);
 
             if (this.ZonesChanged(zones))
             {

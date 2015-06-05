@@ -76,8 +76,8 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public Bitmap GetImage(GPTrack track)
         {
-            Tile[] tiles = this.GetTiles(track.ObjectTileset);
-            Palette palette = track.ObjectPalette;
+            Tile[] tiles = this.GetTiles(track.Objects.Tileset);
+            Palette palette = track.Objects.Palette;
 
             return TrackObjectGraphics.GetImage(tiles, palette);
         }
@@ -145,7 +145,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             if (matchRaceObject == null)
             {
-                index = (int)track.ObjectTileset;
+                index = (int)track.Objects.Tileset;
             }
             else
             {

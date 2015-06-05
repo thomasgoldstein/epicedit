@@ -130,7 +130,18 @@ namespace EpicEdit.Rom
             get
             {
                 byte[] data = Utilities.ReadBlock(this.OBJ, 0, TrackObjects.Size);
-                return new TrackObjects(data);
+                byte[] propData =
+                {
+                    this.EE_OBJTILESET[1],
+                    this.EE_OBJINTERACT[1],
+                    this.EE_OBJROUTINE[1],
+                    this.EE_OBJPALETTES[0],
+                    this.EE_OBJPALETTES[1],
+                    this.EE_OBJPALETTES[2],
+                    this.EE_OBJPALETTES[3],
+                    this.EE_OBJFLASHING[1]
+                };
+                return new TrackObjects(data, this.AREA_BORDER, this.AI, propData, this.Theme.Palettes);
             }
             set
             {
@@ -138,43 +149,15 @@ namespace EpicEdit.Rom
                 byte[] data = value.GetBytes();
                 Array.Resize<byte>(ref data, size);
                 this.OBJ = data;
+
+                this.AREA_BORDER = value.Zones.GetBytes();
+
+                this.EE_OBJTILESET = new byte[] { 0, (byte)value.Tileset };
+                this.EE_OBJINTERACT = new byte[] { 0, (byte)value.Interaction };
+                this.EE_OBJROUTINE = new byte[] { 0, (byte)value.Routine };
+                this.EE_OBJPALETTES = value.PaletteIndexes;
+                this.EE_OBJFLASHING = new byte[] { 0, value.Flashing ? (byte)1 : (byte)0 };
             }
-        }
-
-        public TrackObjectZones ObjectZones
-        {
-            get { return new TrackObjectZones(this.AREA_BORDER, this.track.AI); }
-            set { this.AREA_BORDER = value.GetBytes(); }
-        }
-
-        public ObjectType ObjectTileset
-        {
-            get { return (ObjectType)this.EE_OBJTILESET[1]; }
-            set { this.EE_OBJTILESET = new byte[] { 0, (byte)value }; }
-        }
-
-        public ObjectType ObjectInteraction
-        {
-            get { return (ObjectType)this.EE_OBJINTERACT[1]; }
-            set { this.EE_OBJINTERACT = new byte[] { 0, (byte)value }; }
-        }
-
-        public ObjectType ObjectRoutine
-        {
-            get { return (ObjectType)this.EE_OBJROUTINE[1]; }
-            set { this.EE_OBJROUTINE = new byte[] { 0, (byte)value }; }
-        }
-
-        public byte[] ObjectPaletteIndexes
-        {
-            get { return this.EE_OBJPALETTES; }
-            set { this.EE_OBJPALETTES = value; }
-        }
-
-        public bool ObjectFlashing
-        {
-            get { return this.EE_OBJFLASHING[1] != 0; }
-            set { this.EE_OBJFLASHING[1] = value ? (byte)1 : (byte)0; }
         }
 
         public TrackAI AI

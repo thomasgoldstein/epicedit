@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EpicEdit.Rom.Tracks.AI;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
@@ -28,10 +29,51 @@ namespace EpicEdit.Rom.Tracks.Objects
         public const int ObjectCount = RegularObjectCount + MatchRaceObjectCount;
         private const int BytesPerObject = 2;
         public const int Size = ObjectCount * BytesPerObject;
-        
-        private readonly TrackObject[] objects;
 
-        public TrackObjects(byte[] data)
+        private readonly TrackObject[] objects;
+        public TrackObjectZones Zones { get; private set; }
+        public TrackObjectProperties Properties { get; private set; }
+
+        public ObjectType Tileset
+        {
+            get { return this.Properties.Tileset; }
+            set { this.Properties.Tileset = value; }
+        }
+
+        public ObjectType Interaction
+        {
+            get { return this.Properties.Interaction; }
+            set { this.Properties.Interaction = value; }
+        }
+
+        public ObjectType Routine
+        {
+            get { return this.Properties.Routine; }
+            set { this.Properties.Routine = value; }
+        }
+
+        public byte[] PaletteIndexes
+        {
+            get { return this.Properties.PaletteIndexes; }
+        }
+
+        public Palette Palette
+        {
+            get { return this.Properties.Palette; }
+        }
+
+        public bool Flashing
+        {
+            get { return this.Properties.Flashing; }
+            set { this.Properties.Flashing = value; }
+        }
+
+        public ObjectLoading Loading
+        {
+            get { return this.Properties.Loading; }
+        }
+
+        public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, Palettes palettes)
         {
             if (data.Length != Size)
             {
@@ -39,17 +81,22 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
 
             this.objects = new TrackObject[data.Length / BytesPerObject];
+            this.InitObjects(data);
 
+            this.Zones = new TrackObjectZones(zoneData, ai);
+            this.Properties = new TrackObjectProperties(propData, palettes);
+        }
+
+        private void InitObjects(byte[] data)
+        {
             for (int i = 0; i < RegularObjectCount; i++)
             {
-                TrackObject trackObject = new TrackObject(data, i * BytesPerObject);
-                this.objects[i] = trackObject;
+                this.objects[i] = new TrackObject(data, i * BytesPerObject);
             }
 
             for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
-                TrackObjectMatchRace trackObject = new TrackObjectMatchRace(data, i * BytesPerObject);
-                this.objects[i] = trackObject;
+                this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
             }
         }
 

@@ -424,20 +424,17 @@ namespace EpicEdit.Rom
                         byte[] lapLineData = this.GetLapLineData(trackIndex);
                         byte[] objectData = this.GetObjectData(trackIndex);
                         byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
+                        byte[] objectPropData = this.GetObjectPropertiesData(trackIndex, themeId);
                         int itemProbaIndex = this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] >> 1;
 
-                        GPTrack gpTrack = new GPTrack(suffixedTrackNameItem, trackTheme,
-                                                      trackMap, overlayTileData,
-                                                      aiZoneData, aiTargetData,
-                                                      startPositionData, lapLineData,
-                                                      objectData, objectZoneData,
-                                                      this.OverlayTileSizes,
-                                                      this.OverlayTilePatterns,
-                                                      itemProbaIndex);
-
-                        this.SetObjectProperties(gpTrack, trackIndex, themeId);
-
-                        tracks[j] = gpTrack;
+                        tracks[j] = new GPTrack(suffixedTrackNameItem, trackTheme,
+                                                trackMap, overlayTileData,
+                                                aiZoneData, aiTargetData,
+                                                startPositionData, lapLineData,
+                                                objectData, objectZoneData, objectPropData,
+                                                this.OverlayTileSizes,
+                                                this.OverlayTilePatterns,
+                                                itemProbaIndex);
                     }
                     else // Battle track
                     {
@@ -711,33 +708,36 @@ namespace EpicEdit.Rom
             return Utilities.ReadBlock(this.romBuffer, objectOffset, TrackObjects.Size);
         }
 
-        private void SetObjectProperties(GPTrack track, int trackIndex, int themeId)
+        private byte[] GetObjectPropertiesData(int trackIndex, int themeId)
         {
+            byte[] data = new byte[8];
             byte[] paletteIndexes;
 
             if (this.ObjectZonesRelocated)
             {
                 int offset = this.offsets[Offset.TrackObjectProperties] + trackIndex;
-                track.ObjectTileset = (ObjectType)this.romBuffer[offset];
-                track.ObjectInteraction = (ObjectType)this.romBuffer[offset + Track.Count];
-                track.ObjectRoutine = (ObjectType)this.romBuffer[offset + Track.Count * 2];
+                data[0] = this.romBuffer[offset];
+                data[1] = this.romBuffer[offset + Track.Count];
+                data[2] = this.romBuffer[offset + Track.Count * 2];
+                data[7] = this.romBuffer[this.offsets[Offset.TrackObjectFlashing] + trackIndex];
                 paletteIndexes = this.GetObjectPaletteIndexes(trackIndex);
-                track.ObjectFlashing = this.GetObjectFlashing(trackIndex);
             }
             else
             {
-                ObjectType objectType = Game.GetObjectType(themeId, trackIndex);
-                track.ObjectTileset = objectType;
-                track.ObjectInteraction = objectType;
-                track.ObjectRoutine = objectType;
+                byte objectType = (byte)Game.GetObjectType(themeId, trackIndex);
+                data[0] = objectType;
+                data[1] = objectType;
+                data[2] = objectType;
+                data[7] = themeId == 7 ? (byte)1 : (byte) 0; // Rainbow Road
                 paletteIndexes = Game.GetObjectPaletteIndexes(themeId, trackIndex);
-                track.ObjectFlashing = themeId == 7; // Rainbow Road
             }
 
-            track.ObjectPaletteIndexes[0] = paletteIndexes[0];
-            track.ObjectPaletteIndexes[1] = paletteIndexes[1];
-            track.ObjectPaletteIndexes[2] = paletteIndexes[2];
-            track.ObjectPaletteIndexes[3] = paletteIndexes[3];
+            data[3] = paletteIndexes[0];
+            data[4] = paletteIndexes[1];
+            data[5] = paletteIndexes[2];
+            data[6] = paletteIndexes[3];
+
+            return data;
         }
 
         private static ObjectType GetObjectType(int themeId, int trackIndex)
@@ -847,12 +847,6 @@ namespace EpicEdit.Rom
             }
 
             return paletteIndexes;
-        }
-
-        private bool GetObjectFlashing(int trackIndex)
-        {
-            int offset = this.offsets[Offset.TrackObjectFlashing] + trackIndex;
-            return this.romBuffer[offset] != 0;
         }
 
         #endregion Objects
@@ -1391,11 +1385,11 @@ namespace EpicEdit.Rom
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     GPTrack gpTrack = trackGroup[j] as GPTrack;
 
-                    tilesetData[trackIndex] = (byte)gpTrack.ObjectTileset;
-                    interactData[trackIndex] = (byte)gpTrack.ObjectInteraction;
-                    routineData[trackIndex] = (byte)gpTrack.ObjectRoutine;
+                    tilesetData[trackIndex] = (byte)gpTrack.Objects.Tileset;
+                    interactData[trackIndex] = (byte)gpTrack.Objects.Interaction;
+                    routineData[trackIndex] = (byte)gpTrack.Objects.Routine;
                     zData[trackIndex] = routineData[trackIndex];
-                    loadingData[trackIndex] = (byte)gpTrack.ObjectLoading;
+                    loadingData[trackIndex] = (byte)gpTrack.Objects.Loading;
                 }
             }
 
@@ -1550,7 +1544,7 @@ namespace EpicEdit.Rom
                     GPTrack gpTrack = trackGroup[j] as GPTrack;
 
                     // Update object zones
-                    byte[] data = gpTrack.ObjectZones.GetBytes();
+                    byte[] data = gpTrack.Objects.Zones.GetBytes();
                     Buffer.BlockCopy(data, 0, objectZonesData,
                                      trackIndex * data.Length,
                                      data.Length);
@@ -1654,13 +1648,13 @@ namespace EpicEdit.Rom
                     int offset = trackIndex * 4;
                     GPTrack gpTrack = trackGroup[j] as GPTrack;
 
-                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[0] << 1);
-                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[1] << 1);
-                    objectPalData[offset++] = (byte)(gpTrack.ObjectPaletteIndexes[2] << 1);
-                    objectPalData[offset] = (byte)(gpTrack.ObjectPaletteIndexes[3] << 1);
+                    objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[0] << 1);
+                    objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[1] << 1);
+                    objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[2] << 1);
+                    objectPalData[offset] = (byte)(gpTrack.Objects.PaletteIndexes[3] << 1);
 
                     objectPalData[flashingOffset + trackIndex] =
-                        gpTrack.ObjectFlashing ? (byte)1 : (byte)0;
+                        gpTrack.Objects.Flashing ? (byte)1 : (byte)0;
                 }
             }
 

@@ -2523,7 +2523,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             // Try to hover object
-            if (gpTrack.ObjectRoutine == ObjectType.Pillar)
+            if (gpTrack.Objects.Routine == ObjectType.Pillar)
             {
                 // Not supported yet
                 this.trackDisplay.Cursor = Cursors.Default;

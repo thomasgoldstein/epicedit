@@ -43,61 +43,13 @@ namespace EpicEdit.Rom.Tracks
         public GPStartPosition StartPosition { get; private set; }
         public LapLine LapLine { get; private set; }
         public TrackObjects Objects { get; private set; }
-        public TrackObjectZones ObjectZones { get; private set; }
-
-        public ObjectType ObjectTileset { get; set; }
-        public ObjectType ObjectInteraction { get; set; }
-        public ObjectType ObjectRoutine { get; set; }
-
-        private readonly byte[] objectPaletteIndexes;
-        public byte[] ObjectPaletteIndexes
-        {
-            get { return this.objectPaletteIndexes; }
-        }
-
-        public Palette ObjectPalette
-        {
-            get { return this.Theme.Palettes[this.objectPaletteIndexes[0] + Palettes.SpritePaletteStart]; }
-        }
-
-        /// <summary>
-        /// If true, the object sprites will loop through 4 color palettes at 60 FPS
-        /// (like the Rainbow Road Thwomps do).
-        /// </summary>
-        public bool ObjectFlashing { get; set; }
-
-        public ObjectLoading ObjectLoading
-        {
-            get
-            {
-                switch (this.ObjectRoutine)
-                {
-                    case ObjectType.Pipe:
-                    case ObjectType.Thwomp:
-                    case ObjectType.Mole:
-                    case ObjectType.Plant:
-                    case ObjectType.RThwomp:
-                        return ObjectLoading.Regular;
-
-                    case ObjectType.Fish:
-                        return ObjectLoading.Fish;
-
-                    case ObjectType.Pillar:
-                        return ObjectLoading.Pillar;
-
-                    default:
-                        return ObjectLoading.None;
-                }
-            }
-        }
-
         public int ItemProbabilityIndex { get; set; }
 
         public GPTrack(SuffixedTextItem nameItem, Theme theme,
                        byte[] map, byte[] overlayTileData,
                        byte[] aiZoneData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,
-                       byte[] objectData, byte[] objectZoneData,
+                       byte[] objectData, byte[] objectZoneData, byte[] objectPropData,
                        OverlayTileSizes overlayTileSizes,
                        OverlayTilePatterns overlayTilePatterns,
                        int itemProbaIndex) :
@@ -105,9 +57,7 @@ namespace EpicEdit.Rom.Tracks
         {
             this.StartPosition = new GPStartPosition(startPositionData);
             this.LapLine = new LapLine(lapLineData);
-            this.Objects = new TrackObjects(objectData);
-            this.ObjectZones = new TrackObjectZones(objectZoneData, this.AI);
-            this.objectPaletteIndexes = new byte[4];
+            this.Objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
             this.ItemProbabilityIndex = itemProbaIndex;
         }
 
@@ -121,15 +71,6 @@ namespace EpicEdit.Rom.Tracks
             this.StartPosition = track.StartPosition;
             this.LapLine = track.LapLine;
             this.Objects = track.Objects;
-            this.ObjectZones = track.ObjectZones;
-            this.ObjectTileset = track.ObjectTileset;
-            this.ObjectInteraction = track.ObjectInteraction;
-            this.ObjectRoutine = track.ObjectRoutine;
-            this.ObjectPaletteIndexes[0] = track.ObjectPaletteIndexes[0];
-            this.ObjectPaletteIndexes[1] = track.ObjectPaletteIndexes[1];
-            this.ObjectPaletteIndexes[2] = track.ObjectPaletteIndexes[2];
-            this.ObjectPaletteIndexes[3] = track.ObjectPaletteIndexes[3];
-            this.ObjectFlashing = track.ObjectFlashing;
             this.ItemProbabilityIndex = track.ItemProbabilityIndex;
         }
 
@@ -143,15 +84,6 @@ namespace EpicEdit.Rom.Tracks
             track.StartPosition = this.StartPosition;
             track.LapLine = this.LapLine;
             track.Objects = this.Objects;
-            track.ObjectZones = this.ObjectZones;
-            track.ObjectTileset = this.ObjectTileset;
-            track.ObjectInteraction = this.ObjectInteraction;
-            track.ObjectRoutine = this.ObjectRoutine;
-            track.ObjectPaletteIndexes[0] = this.ObjectPaletteIndexes[0];
-            track.ObjectPaletteIndexes[1] = this.ObjectPaletteIndexes[1];
-            track.ObjectPaletteIndexes[2] = this.ObjectPaletteIndexes[2];
-            track.ObjectPaletteIndexes[3] = this.ObjectPaletteIndexes[3];
-            track.ObjectFlashing = this.ObjectFlashing;
             track.ItemProbabilityIndex = this.ItemProbabilityIndex;
         }
     }
