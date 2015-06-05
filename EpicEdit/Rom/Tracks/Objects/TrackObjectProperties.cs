@@ -78,7 +78,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public ByteArray(byte[] data)
         {
-            this.data = data;
+            this.data = Clone(data);
         }
 
         public byte this[int index]
@@ -89,9 +89,14 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[this.data.Length];
-            Buffer.BlockCopy(this.data, 0, data, 0, data.Length);
-            return data;
+            return Clone(this.data);
+        }
+
+        private static byte[] Clone(byte[] data)
+        {
+            byte[] copy = new byte[data.Length];
+            Buffer.BlockCopy(data, 0, copy, 0, data.Length);
+            return copy;
         }
     }
 }
