@@ -52,7 +52,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             set { this.Properties.Routine = value; }
         }
 
-        public byte[] PaletteIndexes
+        public ByteArray PaletteIndexes
         {
             get { return this.Properties.PaletteIndexes; }
         }

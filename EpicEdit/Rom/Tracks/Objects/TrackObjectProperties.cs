@@ -21,15 +21,11 @@ namespace EpicEdit.Rom.Tracks.Objects
         public ObjectType Tileset { get; set; }
         public ObjectType Interaction { get; set; }
         public ObjectType Routine { get; set; }
-
-        public byte[] PaletteIndexes
-        {
-            get { return this.paletteIndexes; }
-        }
+        public ByteArray PaletteIndexes { get; private set; }
 
         public Palette Palette
         {
-            get { return this.palettes[this.paletteIndexes[0] + Palettes.SpritePaletteStart]; }
+            get { return this.palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart]; }
         }
 
         /// <summary>
@@ -64,7 +60,6 @@ namespace EpicEdit.Rom.Tracks.Objects
         }
 
         private readonly Palettes palettes;
-        private readonly byte[] paletteIndexes;
 
         public TrackObjectProperties(byte[] data, Palettes palettes)
         {
@@ -72,8 +67,31 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.Interaction = (ObjectType)data[1];
             this.Routine = (ObjectType)data[2];
             this.palettes = palettes;
-            this.paletteIndexes = new [] { data[3], data[4], data[5], data[6] };
+            this.PaletteIndexes = new ByteArray(new [] { data[3], data[4], data[5], data[6] });
             this.Flashing = data[7] != 0;
+        }
+    }
+
+    internal class ByteArray
+    {
+        private readonly byte[] data;
+
+        public ByteArray(byte[] data)
+        {
+            this.data = data;
+        }
+
+        public byte this[int index]
+        {
+            get { return this.data[index]; }
+            set { this.data[index] = value; }
+        }
+
+        public byte[] GetBytes()
+        {
+            byte[] data = new byte[this.data.Length];
+            Buffer.BlockCopy(this.data, 0, data, 0, data.Length);
+            return data;
         }
     }
 }

@@ -155,7 +155,7 @@ namespace EpicEdit.Rom
                 this.EE_OBJTILESET = new byte[] { 0, (byte)value.Tileset };
                 this.EE_OBJINTERACT = new byte[] { 0, (byte)value.Interaction };
                 this.EE_OBJROUTINE = new byte[] { 0, (byte)value.Routine };
-                this.EE_OBJPALETTES = value.PaletteIndexes;
+                this.EE_OBJPALETTES = value.PaletteIndexes.GetBytes();
                 this.EE_OBJFLASHING = new byte[] { 0, value.Flashing ? (byte)1 : (byte)0 };
             }
         }
