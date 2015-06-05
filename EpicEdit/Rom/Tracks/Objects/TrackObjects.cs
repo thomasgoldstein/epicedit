@@ -32,45 +32,45 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private readonly TrackObject[] objects;
         public TrackObjectZones Zones { get; private set; }
-        public TrackObjectProperties Properties { get; private set; }
+        private TrackObjectProperties properties;
 
         public ObjectType Tileset
         {
-            get { return this.Properties.Tileset; }
-            set { this.Properties.Tileset = value; }
+            get { return this.properties.Tileset; }
+            set { this.properties.Tileset = value; }
         }
 
         public ObjectType Interaction
         {
-            get { return this.Properties.Interaction; }
-            set { this.Properties.Interaction = value; }
+            get { return this.properties.Interaction; }
+            set { this.properties.Interaction = value; }
         }
 
         public ObjectType Routine
         {
-            get { return this.Properties.Routine; }
-            set { this.Properties.Routine = value; }
+            get { return this.properties.Routine; }
+            set { this.properties.Routine = value; }
         }
 
         public ByteArray PaletteIndexes
         {
-            get { return this.Properties.PaletteIndexes; }
+            get { return this.properties.PaletteIndexes; }
         }
 
         public Palette Palette
         {
-            get { return this.Properties.Palette; }
+            get { return this.properties.Palette; }
         }
 
         public bool Flashing
         {
-            get { return this.Properties.Flashing; }
-            set { this.Properties.Flashing = value; }
+            get { return this.properties.Flashing; }
+            set { this.properties.Flashing = value; }
         }
 
         public ObjectLoading Loading
         {
-            get { return this.Properties.Loading; }
+            get { return this.properties.Loading; }
         }
 
         public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, Palettes palettes)
@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.InitObjects(data);
 
             this.Zones = new TrackObjectZones(zoneData, ai);
-            this.Properties = new TrackObjectProperties(propData, palettes);
+            this.properties = new TrackObjectProperties(propData, palettes);
         }
 
         private void InitObjects(byte[] data)
