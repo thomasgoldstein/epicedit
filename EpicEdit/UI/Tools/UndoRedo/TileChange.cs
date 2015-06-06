@@ -59,7 +59,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
         }
 
         /// <summary>
-        /// Gets the tile value at the given coordinate.
+        /// Gets the tile value at the given coordinates.
         /// </summary>
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
