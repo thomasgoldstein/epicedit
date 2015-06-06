@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 using EpicEdit.Rom.Utility;
@@ -104,22 +103,30 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <summary>
         /// Sets the value of a group of tiles.
         /// </summary>
-        /// <param name="startingPosition">Top-left position of <paramref name="affectedSurface"/> and <paramref name="rectangleSize"/>.</param>
-        /// <param name="affectedSurface">The area to be modified.</param>
-        /// <param name="rectangleSize">The size of the rectangle of new tiles. It is usually the same as the <paramref name="affectedSurface"/>, but is bigger when the rectangle goes beyond the track bounds (in which case the <paramref name="affectedSurface"/> equals the <paramref name="rectangleSize"/> minus the part that's out of bounds).</param>
-        /// <param name="tiles">List of tile values.</param>
-        public void SetTiles(Point startingPosition, Size affectedSurface, Size rectangleSize, IList<byte> tiles)
+        /// <param name="startingPosition">Top-left position of tiles to be changed.</param>
+        /// <param name="tiles">The new tile values.</param>
+        public void SetTiles(Point startingPosition, byte[][] tiles)
+        {
+            this.SetTiles(startingPosition.X, startingPosition.Y, tiles);
+        }
+
+        /// <summary>
+        /// Sets the value of a group of tiles.
+        /// </summary>
+        /// <param name="startX">Left-most position of the tiles to be changed.</param>
+        /// <param name="startY">Top-most position of the tiles to be changed.</param>
+        /// <param name="tiles">The new tile values.</param>
+        public void SetTiles(int startX, int startY, byte[][] tiles)
         {
             bool dataChanged = false;
 
-            for (int y = 0; y < affectedSurface.Height; y++)
+            for (int y = 0; y < tiles.Length; y++)
             {
-                for (int x = 0; x < affectedSurface.Width; x++)
+                for (int x = 0; x < tiles[y].Length; x++)
                 {
-                    int positionX = startingPosition.X + x;
-                    int positionY = startingPosition.Y + y;
-                    int tileIndex = x + y * rectangleSize.Width;
-                    byte tile = tiles[tileIndex];
+                    int positionX = startX + x;
+                    int positionY = startY + y;
+                    byte tile = tiles[y][x];
 
                     if (this.SetTileInternal(positionX, positionY, tile))
                     {

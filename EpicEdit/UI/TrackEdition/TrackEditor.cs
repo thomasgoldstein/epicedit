@@ -2039,7 +2039,18 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.AddUndoChange(hoveredTilePosition, affectedSurface);
 
-                this.track.Map.SetTiles(hoveredTilePosition, affectedSurface, this.tileClipboardSize, this.tileClipboard);
+                byte[][] tiles = new byte[affectedSurface.Height][];
+                for (int y = 0; y < tiles.Length; y++)
+                {
+                    tiles[y] = new byte[affectedSurface.Width];
+
+                    for (int x = 0; x < tiles[y].Length; x++)
+                    {
+                        tiles[y][x] = this.tileClipboard[x + y * this.tileClipboardSize.Width];
+                    }
+                }
+
+                this.track.Map.SetTiles(hoveredTilePosition, tiles);
 
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
