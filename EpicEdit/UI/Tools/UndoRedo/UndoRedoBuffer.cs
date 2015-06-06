@@ -215,9 +215,10 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 for (int x = 0; x < change.Width; x++)
                 {
                     previousData[y][x] = this.track.Map[change.X + x, change.Y + y];
-                    this.track.Map[change.X + x, change.Y + y] = change[x, y];
                 }
             }
+
+            this.track.Map.SetTiles(change.X, change.Y, change.GetTiles());
 
             return new TileChange(change.X, change.Y, previousData);
         }

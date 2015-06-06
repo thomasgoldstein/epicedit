@@ -69,6 +69,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
             return this.data[y][x];
         }
 
+        public byte[][] GetTiles()
+        {
+            return this.data;
+        }
+
         public byte this[int x, int y]
         {
             get { return this.GetTile(x, y); }
