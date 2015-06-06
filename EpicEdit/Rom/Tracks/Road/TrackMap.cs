@@ -81,13 +81,24 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tile">Tile value.</param>
         public void SetTile(int x, int y, byte tile)
         {
-            if (this.map[y][x] == tile)
+            if (this.SetTileInternal(x, y, tile))
             {
-                return;
+                this.OnDataChanged();
             }
+        }
 
+        /// <summary>
+        /// Sets the tile value at the given coordinates without raising a DataChanged event.
+        /// </summary>
+        /// <param name="x">Row.</param>
+        /// <param name="y">Column.</param>
+        /// <param name="tile">Tile value.</param>
+        /// <returns>True if the new value is different from the old one, false otherwise.</returns>
+        private bool SetTileInternal(int x, int y, byte tile)
+        {
+            bool dataChanged = this.map[y][x] != tile;
             this.map[y][x] = tile;
-            this.OnDataChanged();
+            return dataChanged;
         }
 
         /// <summary>
@@ -99,6 +110,8 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tiles">List of tile values.</param>
         public void SetTiles(Point startingPosition, Size affectedSurface, Size rectangleSize, IList<byte> tiles)
         {
+            bool dataChanged = false;
+
             for (int y = 0; y < affectedSurface.Height; y++)
             {
                 for (int x = 0; x < affectedSurface.Width; x++)
@@ -107,8 +120,17 @@ namespace EpicEdit.Rom.Tracks.Road
                     int positionY = startingPosition.Y + y;
                     int tileIndex = x + y * rectangleSize.Width;
                     byte tile = tiles[tileIndex];
-                    this.SetTile(positionX, positionY, tile);
+
+                    if (this.SetTileInternal(positionX, positionY, tile))
+                    {
+                        dataChanged = true;
+                    }
                 }
+            }
+
+            if (dataChanged)
+            {
+                this.OnDataChanged();
             }
         }
 
