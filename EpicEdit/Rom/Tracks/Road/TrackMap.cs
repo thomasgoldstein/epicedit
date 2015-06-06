@@ -91,16 +91,6 @@ namespace EpicEdit.Rom.Tracks.Road
         }
 
         /// <summary>
-        /// Sets the tile value at the given coordinate.
-        /// </summary>
-        /// <param name="position">Position.</param>
-        /// <param name="tile">Tile value.</param>
-        public void SetTile(Point position, byte tile)
-        {
-            this.SetTile(position.X, position.Y, tile);
-        }
-
-        /// <summary>
         /// Sets the value of a group of tiles.
         /// </summary>
         /// <param name="startingPosition">Top-left position of <paramref name="affectedSurface"/> and <paramref name="rectangleSize"/>.</param>
