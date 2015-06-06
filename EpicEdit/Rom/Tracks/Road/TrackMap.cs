@@ -122,10 +122,11 @@ namespace EpicEdit.Rom.Tracks.Road
 
             for (int y = 0; y < tiles.Length; y++)
             {
+                int positionY = startY + y;
+
                 for (int x = 0; x < tiles[y].Length; x++)
                 {
                     int positionX = startX + x;
-                    int positionY = startY + y;
                     byte tile = tiles[y][x];
 
                     if (this.SetTileInternal(positionX, positionY, tile))
