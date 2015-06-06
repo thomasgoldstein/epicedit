@@ -22,7 +22,7 @@ using EpicEdit.Rom.Utility;
 namespace EpicEdit.UI.TrackEdition
 {
     /// <summary>
-    /// Represents a collection of controls to edit <see cref="TrackObjectZones"/>.
+    /// Represents a collection of controls to edit <see cref="EpicEdit.Rom.Tracks.Objects.TrackObjectZones"/>.
     /// </summary>
     internal partial class ObjectZonesControl : UserControl
     {
