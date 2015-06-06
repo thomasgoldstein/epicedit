@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.Tracks.Road
         }
 
         /// <summary>
-        /// Gets the tile value at the given coordinate.
+        /// Gets the tile value at the given coordinates.
         /// </summary>
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
@@ -64,7 +64,7 @@ namespace EpicEdit.Rom.Tracks.Road
         }
 
         /// <summary>
-        /// Gets the tile value at the given coordinate.
+        /// Gets the tile value at the given coordinates.
         /// </summary>
         /// <param name="position">Position.</param>
         /// <returns>Tile value.</returns>
@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Tracks.Road
         }
 
         /// <summary>
-        /// Sets the tile value at the given coordinate.
+        /// Sets the tile value at the given coordinates.
         /// </summary>
         /// <param name="x">Row.</param>
         /// <param name="y">Column.</param>
