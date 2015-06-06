@@ -116,7 +116,7 @@ namespace EpicEdit.UI.TrackEdition
                     TreeNode trackNode = trackNodes[j];
 
                     this.trackDictionary.Add(track, trackNode);
-                    trackNode.Text = track.Name + (!track.Modified ? null : "*");
+                    trackNode.Text = TrackTreeView.GetTrackText(track);
                 }
             }
         }
@@ -132,7 +132,12 @@ namespace EpicEdit.UI.TrackEdition
         {
             Track track = sender as Track;
             TreeNode treeNode = this.trackDictionary[track];
-            treeNode.Text = track.Name + (!track.Modified ? null : "*");
+            treeNode.Text = TrackTreeView.GetTrackText(track);
+        }
+
+        private static string GetTrackText(Track track)
+        {
+            return track.Name + (!track.Modified ? null : "*");;
         }
 
         private void TreeViewBeforeCollapse(object sender, TreeViewCancelEventArgs e)
