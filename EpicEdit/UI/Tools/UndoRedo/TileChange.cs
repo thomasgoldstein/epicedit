@@ -42,11 +42,15 @@ namespace EpicEdit.UI.Tools.UndoRedo
         {
             this.X = x;
             this.Y = y;
-            this.data = data;
+            this.data = Clone(data);
         }
 
-        public TileChange(Point location, Size size, Track track) : this(location.X, location.Y, new byte[size.Height][])
+        public TileChange(Point location, Size size, Track track)
         {
+            this.X = location.X;
+            this.Y = location.Y;
+            this.data = new byte[size.Height][];
+
             for (int y = 0; y < size.Height; y++)
             {
                 this.data[y] = new byte[size.Width];
@@ -71,7 +75,20 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         public byte[][] GetTiles()
         {
-            return this.data;
+            return Clone(this.data);
+        }
+
+        private static byte[][] Clone(byte[][] data)
+        {
+            byte[][] copy = new byte[data.Length][];
+
+            for (int y = 0; y < data.Length; y++)
+            {
+                copy[y] = new byte[data[y].Length];
+                Buffer.BlockCopy(data[y], 0, copy[y], 0, data[y].Length);
+            }
+
+            return copy;
         }
 
         public byte this[int x, int y]
