@@ -36,7 +36,16 @@ namespace EpicEdit.Rom.Tracks.Objects
         public Direction Direction
         {
             get { return this.direction; }
-            set { this.direction = value; }
+            set
+            {
+                if (this.direction == value)
+                {
+                    return;
+                }
+
+                this.direction = value;
+                this.OnDataChanged();
+            }
         }
 
         /// <summary>

@@ -28,6 +28,8 @@ namespace EpicEdit.Rom.Tracks.AI
     {
         public const int MaxElementCount = 128;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private readonly Track track;
         private readonly List<TrackAIElement> aiElements;
 
@@ -46,10 +48,8 @@ namespace EpicEdit.Rom.Tracks.AI
                     // due to the fact the last AI element has an invalid zone shape value.
                     break;
                 }
-                
-                TrackAIElement aiElem = new TrackAIElement(zoneData, ref i, targetData, ref j);
 
-                this.aiElements.Add(aiElem);
+                this.Add(new TrackAIElement(zoneData, ref i, targetData, ref j));
             }
 
             this.track = track;
@@ -80,6 +80,8 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.aiElements.Count < TrackAI.MaxElementCount)
             {
                 this.aiElements.Add(aiElement);
+                aiElement.DataChanged += this.aiElement_DataChanged;
+                this.OnDataChanged();
                 return true;
             }
             return false;
@@ -96,6 +98,8 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.aiElements.Count < TrackAI.MaxElementCount)
             {
                 this.aiElements.Insert(index, aiElement);
+                aiElement.DataChanged += this.aiElement_DataChanged;
+                this.OnDataChanged();
                 return true;
             }
             return false;
@@ -103,7 +107,9 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public void Remove(TrackAIElement aiElement)
         {
+            aiElement.DataChanged -= this.aiElement_DataChanged;
             this.aiElements.Remove(aiElement);
+            this.OnDataChanged();
         }
 
         /// <summary>
@@ -111,7 +117,26 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public void Clear()
         {
+            foreach (TrackAIElement aiElement in this.aiElements)
+            {
+                aiElement.DataChanged -= this.aiElement_DataChanged;
+            }
+
             this.aiElements.Clear();
+            this.OnDataChanged();
+        }
+
+        private void aiElement_DataChanged(object sender, EventArgs e)
+        {
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
 
         public int GetElementIndex(TrackAIElement aiElement)
@@ -130,6 +155,7 @@ namespace EpicEdit.Rom.Tracks.AI
             TrackAIElement aiElement = this.aiElements[indexBefore];
             this.aiElements.RemoveAt(indexBefore);
             this.aiElements.Insert(indexAfter, aiElement);
+            this.OnDataChanged();
         }
 
         public static int ComputeTargetDataLength(byte[] zoneData)

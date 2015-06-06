@@ -60,7 +60,22 @@ namespace EpicEdit.Rom.Tracks
             get { return this.SuffixedNameItem.Value; }
         }
 
-        public Theme Theme { get; set; }
+        private Theme theme;
+        public Theme Theme
+        {
+            get { return this.theme; }
+            set
+            {
+                if (this.theme == value)
+                {
+                    return;
+                }
+
+                this.theme = value;
+                this.MarkAsModified("Theme");
+            }
+        }
+
         public TrackMap Map { get; private set; }
         public OverlayTiles OverlayTiles { get; private set; }
         public TrackAI AI { get; private set; }
@@ -70,8 +85,7 @@ namespace EpicEdit.Rom.Tracks
             get { return this.Theme.RoadTileset; }
         }
 
-        // TODO: Make setter private
-        public bool Modified { get; set; }
+        public bool Modified { get; private set; }
 
         protected Track(SuffixedTextItem nameItem, Theme theme,
                         byte[] map, byte[] overlayTilesData,
@@ -79,20 +93,35 @@ namespace EpicEdit.Rom.Tracks
                         OverlayTileSizes overlayTileSizes,
                         OverlayTilePatterns overlayTilePatterns)
         {
-            this.Theme = theme;
+            this.theme = theme;
             this.SuffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.Map = new TrackMap(map);
+            this.Map.DataChanged += this.Map_DataChanged;
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
+            this.AI.DataChanged += this.AI_DataChanged;
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
+            this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
-            }
+            this.OnPropertyChange("SuffixedNameItem");
+        }
+
+        private void Map_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("Map");
+        }
+
+        private void AI_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("AI");
+        }
+
+        private void OverlayTiles_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("OverlayTiles");
         }
 
         public void Import(string filePath, Game game)
@@ -105,6 +134,8 @@ namespace EpicEdit.Rom.Tracks
             {
                 this.ImportSmkc(filePath, game);
             }
+
+            this.MarkAsModified("Map");
         }
 
         /// <summary>
@@ -169,9 +200,29 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
+        protected void MarkAsModified(string propertyName)
+        {
+            this.Modified = true;
+            this.OnPropertyChange(propertyName);
+        }
+
+        private void OnPropertyChange(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         public void ResetModifiedState()
         {
+            if (!this.Modified)
+            {
+                return;
+            }
+
             this.Modified = false;
+            this.OnPropertyChange("Modified");
         }
 
         /// <summary>

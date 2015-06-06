@@ -43,7 +43,22 @@ namespace EpicEdit.Rom.Tracks
         public GPStartPosition StartPosition { get; private set; }
         public LapLine LapLine { get; private set; }
         public TrackObjects Objects { get; private set; }
-        public int ItemProbabilityIndex { get; set; }
+
+        private int itemProbabilityIndex;
+        public int ItemProbabilityIndex
+        {
+            get { return this.itemProbabilityIndex; }
+            set
+            {
+                if (this.itemProbabilityIndex == value)
+                {
+                    return;
+                }
+
+                this.itemProbabilityIndex = value;
+                this.MarkAsModified("ItemProbabilityIndex");
+            }
+        }
 
         public GPTrack(SuffixedTextItem nameItem, Theme theme,
                        byte[] map, byte[] overlayTileData,
@@ -56,9 +71,27 @@ namespace EpicEdit.Rom.Tracks
             base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.StartPosition = new GPStartPosition(startPositionData);
+            this.StartPosition.DataChanged += this.StartPosition_DataChanged;
             this.LapLine = new LapLine(lapLineData);
+            this.LapLine.DataChanged += this.LapLine_DataChanged;
             this.Objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
-            this.ItemProbabilityIndex = itemProbaIndex;
+            this.Objects.DataChanged += this.Objects_DataChanged;
+            this.itemProbabilityIndex = itemProbaIndex;
+        }
+
+        private void StartPosition_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("StartPosition");
+        }
+
+        private void LapLine_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("LapLine");
+        }
+
+        private void Objects_DataChanged(object sender, EventArgs e)
+        {
+            this.MarkAsModified("Objects");
         }
 
         /// <summary>

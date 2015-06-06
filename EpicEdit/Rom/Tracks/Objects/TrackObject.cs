@@ -22,7 +22,23 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObject
     {
-        public Point Location { get; set; }
+        public event EventHandler<EventArgs> DataChanged;
+
+        private Point location;
+        public Point Location
+        {
+            get { return this.location; }
+            set
+            {
+                if (this.location == value)
+                {
+                    return;
+                }
+
+                this.location = value;
+                this.OnDataChanged();
+            }
+        }
 
         /// <summary>
         /// Initializes a TrackObject.
@@ -44,6 +60,14 @@ namespace EpicEdit.Rom.Tracks.Objects
         public int Y
         {
             get { return this.Location.Y; }
+        }
+
+        protected void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>

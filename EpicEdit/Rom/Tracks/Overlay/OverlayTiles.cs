@@ -24,6 +24,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     internal class OverlayTiles : IEnumerable<OverlayTile>
     {
+        public event EventHandler<EventArgs> DataChanged;
+
         public const int Size = 128;
         public const int MaxTileCount = 41;
 
@@ -89,8 +91,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
                 Point location = new Point(x, y);
 
-                OverlayTile overlayTile = new OverlayTile(pattern, location);
-                this.overlayTiles.Add(overlayTile);
+                this.Add(new OverlayTile(pattern, location));
             }
         }
 
@@ -122,12 +123,21 @@ namespace EpicEdit.Rom.Tracks.Overlay
             if (this.Count < OverlayTiles.MaxTileCount)
             {
                 this.overlayTiles.Add(overlayTile);
+                overlayTile.DataChanged += this.overlayTile_DataChanged;
+                this.OnDataChanged();
             }
         }
 
         public void Remove(OverlayTile overlayTile)
         {
+            overlayTile.DataChanged -= this.overlayTile_DataChanged;
             this.overlayTiles.Remove(overlayTile);
+            this.OnDataChanged();
+        }
+
+        private void overlayTile_DataChanged(object sender, EventArgs e)
+        {
+            this.OnDataChanged();
         }
 
         /// <summary>
@@ -136,6 +146,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public void Clear()
         {
             this.overlayTiles.Clear();
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
     }
 }

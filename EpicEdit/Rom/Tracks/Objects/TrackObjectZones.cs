@@ -36,6 +36,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         private const int GridLimit = GridSize - 1;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private readonly TrackAI ai;
 
         private readonly byte[] frontZones;
@@ -99,6 +101,16 @@ namespace EpicEdit.Rom.Tracks.Objects
             else
             {
                 this.rearZones[zoneIndex] = value;
+            }
+
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
             }
         }
 

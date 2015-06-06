@@ -44,6 +44,8 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public const int Precision = 2;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private Shape zoneShape;
         /// <summary>
         /// Gets or sets the zone shape.
@@ -72,6 +74,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
 
                 this.zoneShape = value;
+                this.OnDataChanged();
             }
         }
 
@@ -94,10 +97,24 @@ namespace EpicEdit.Rom.Tracks.AI
             set { this.MoveTargetTo(value.X, value.Y); }
         }
 
+        private byte speed;
         /// <summary>
         /// Gets or sets the speed.
         /// </summary>
-        public byte Speed { get; set; }
+        public byte Speed
+        {
+            get { return this.speed; }
+            set
+            {
+                if (this.speed == value)
+                {
+                    return;
+                }
+
+                this.speed = value;
+                this.OnDataChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the location.
@@ -511,8 +528,13 @@ namespace EpicEdit.Rom.Tracks.AI
             int targetX = x - (this.zone.X - this.target.X);
             int targetY = y - (this.zone.Y - this.target.Y);
 
-            this.zone.Location = new Point(x, y);
-            this.MoveTargetTo(targetX, targetY);
+            if (this.zone.X != x || this.zone.Y != y)
+            {
+                this.zone.Location = new Point(x, y);
+                this.OnDataChanged();
+
+                this.MoveTargetTo(targetX, targetY);
+            }
         }
 
         private void MoveTargetTo(int x, int y)
@@ -535,7 +557,11 @@ namespace EpicEdit.Rom.Tracks.AI
                 y = TrackMap.Limit;
             }
 
-            this.target = new Point(x, y);
+            if (this.target.X != x || this.target.Y != y)
+            {
+                this.target = new Point(x, y);
+                this.OnDataChanged();
+            }
         }
 
         public void Resize(ResizeHandle resizeHandle, int x, int y)
@@ -552,6 +578,8 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 this.ResizeTriangle(resizeHandle, x, y);
             }
+
+            this.OnDataChanged();
         }
 
         private void ResizeRectangle(ResizeHandle resizeHandle, int x, int y)
@@ -1068,6 +1096,14 @@ namespace EpicEdit.Rom.Tracks.AI
                 zone = this.zone,
                 ZoneShape = this.ZoneShape
             };
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
     }
 }

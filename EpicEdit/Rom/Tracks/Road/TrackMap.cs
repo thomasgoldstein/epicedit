@@ -29,6 +29,8 @@ namespace EpicEdit.Rom.Tracks.Road
         public const int Limit = TrackMap.Size - 1;
         public const int SquareSize = TrackMap.Size * TrackMap.Size;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private byte[][] map;
 
         public TrackMap(byte[] data)
@@ -79,7 +81,13 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tile">Tile value.</param>
         public void SetTile(int x, int y, byte tile)
         {
+            if (this.map[y][x] == tile)
+            {
+                return;
+            }
+
             this.map[y][x] = tile;
+            this.OnDataChanged();
         }
 
         /// <summary>
@@ -114,6 +122,29 @@ namespace EpicEdit.Rom.Tracks.Road
             }
         }
 
+        public void Clear(byte tile)
+        {
+            for (int x = 0; x < this.Width; x++)
+            {
+                this.SetTile(x, 0, tile);
+            }
+
+            for (int y = 1; y < this.Height; y++)
+            {
+                Buffer.BlockCopy(this.map[0], 0, this.map[y], 0, this.Width);
+            }
+
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
+        }
+
         public int Width
         {
             get { return this.map[0].Length; }
@@ -140,19 +171,6 @@ namespace EpicEdit.Rom.Tracks.Road
             }
 
             return data;
-        }
-
-        public void Clear(byte tile)
-        {
-            for (int x = 0; x < this.Width; x++)
-            {
-                this.SetTile(x, 0, tile);
-            }
-
-            for (int y = 1; y < this.Height; y++)
-            {
-                Buffer.BlockCopy(this.map[0], 0, this.map[y], 0, this.Width);
-            }
         }
     }
 }

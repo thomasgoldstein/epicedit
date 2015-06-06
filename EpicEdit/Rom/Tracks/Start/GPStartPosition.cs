@@ -28,6 +28,8 @@ namespace EpicEdit.Rom.Tracks.Start
         private const int SecondRowMin = -256;
         private const int SecondRowMax = 255;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private Point location;
         public Point Location
         {
@@ -70,7 +72,11 @@ namespace EpicEdit.Rom.Tracks.Start
                     y = limit - GPStartPosition.Height;
                 }
 
-                this.location = new Point(x, y);
+                if (this.X != x || this.Y != y)
+                {
+                    this.location = new Point(x, y);
+                    this.OnDataChanged();
+                }
             }
         }
 
@@ -99,7 +105,11 @@ namespace EpicEdit.Rom.Tracks.Start
                     value = GPStartPosition.SecondRowMax;
                 }
 
-                this.secondRowOffset = value;
+                if (this.secondRowOffset != value)
+                {
+                    this.secondRowOffset = value;
+                    this.OnDataChanged();
+                }
             }
         }
 
@@ -151,6 +161,14 @@ namespace EpicEdit.Rom.Tracks.Start
             }
 
             this.SecondRowOffset = rowOffset;
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>

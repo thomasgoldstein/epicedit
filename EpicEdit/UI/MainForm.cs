@@ -193,7 +193,6 @@ namespace EpicEdit.UI
         private void SaveRom(string filePath)
         {
             Context.Game.SaveRom(filePath);
-            this.trackEditor.RemoveModifiedHints();
             this.UpdateApplicationTitle();
         }
 

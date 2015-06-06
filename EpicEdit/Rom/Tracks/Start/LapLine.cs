@@ -42,6 +42,8 @@ namespace EpicEdit.Rom.Tracks.Start
         /// </summary>
         private const int ZonePrecisionY = 8;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private Point location;
         public Point Location
         {
@@ -71,7 +73,11 @@ namespace EpicEdit.Rom.Tracks.Start
                     y = TrackMap.Size * Tile.Size - 1;
                 }
 
-                this.location = new Point(x, y);
+                if (this.X != x || this.Y != y)
+                {
+                    this.location = new Point(x, y);
+                    this.OnDataChanged();
+                }
             }
         }
 
@@ -179,6 +185,16 @@ namespace EpicEdit.Rom.Tracks.Start
                 {
                     this.Length = x - this.X;
                 }
+            }
+
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
             }
         }
 

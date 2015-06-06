@@ -25,6 +25,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
     {
         public const byte None = 0xFF;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private Point location;
         public Point Location
         {
@@ -52,7 +54,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
                     y = TrackMap.Size - this.Height;
                 }
 
-                this.location = new Point(x, y);
+                if (this.X != x || this.Y != y)
+                {
+                    this.location = new Point(x, y);
+                    this.OnDataChanged();
+                }
             }
         }
 
@@ -98,15 +104,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 point.Y < this.Y + this.Height;
         }
 
-        /*private void SetBytes(byte[] data, int index, OverlayTilePatterns patterns, OverlayTileSizes sizes)
+        private void OnDataChanged()
         {
-            this.Size = sizes[(data[index] & 0xC0) >> 6];
-            this.Pattern = patterns[data[index] & 0x3F];
-
-            int x = (data[index + 1] & 0x7F);
-            int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
-            this.location = new Point(x, y);
-        }*/
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
+        }
 
         /// <summary>
         /// Fills the passed byte array with data in the format the SMK ROM expects.

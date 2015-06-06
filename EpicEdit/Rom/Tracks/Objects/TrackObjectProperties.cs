@@ -18,9 +18,56 @@ namespace EpicEdit.Rom.Tracks.Objects
 {
     internal class TrackObjectProperties
     {
-        public ObjectType Tileset { get; set; }
-        public ObjectType Interaction { get; set; }
-        public ObjectType Routine { get; set; }
+        public event EventHandler<EventArgs> DataChanged;
+
+        private ObjectType tileset;
+        public ObjectType Tileset
+        {
+            get { return this.tileset; }
+            set
+            {
+                if (this.tileset == value)
+                {
+                    return;
+                }
+
+                this.tileset = value;
+                this.OnDataChanged();
+            }
+        }
+
+        private ObjectType interaction;
+        public ObjectType Interaction
+        {
+            get { return this.interaction; }
+            set
+            {
+                if (this.interaction == value)
+                {
+                    return;
+                }
+
+                this.interaction = value;
+                this.OnDataChanged();
+            }
+        }
+
+        private ObjectType routine;
+        public ObjectType Routine
+        {
+            get { return this.routine; }
+            set
+            {
+                if (this.routine == value)
+                {
+                    return;
+                }
+
+                this.routine = value;
+                this.OnDataChanged();
+            }
+        }
+
         public ByteArray PaletteIndexes { get; private set; }
 
         public Palette Palette
@@ -28,11 +75,25 @@ namespace EpicEdit.Rom.Tracks.Objects
             get { return this.palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart]; }
         }
 
+        private bool flashing;
         /// <summary>
         /// If true, the object sprites will loop through 4 color palettes at 60 FPS
         /// (like the Rainbow Road Thwomps do).
         /// </summary>
-        public bool Flashing { get; set; }
+        public bool Flashing
+        {
+            get { return this.flashing; }
+            set
+            {
+                if (this.flashing == value)
+                {
+                    return;
+                }
+
+                this.flashing = value;
+                this.OnDataChanged();
+            }
+        }
 
         public ObjectLoading Loading
         {
@@ -68,12 +129,28 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.Routine = (ObjectType)data[2];
             this.palettes = palettes;
             this.PaletteIndexes = new ByteArray(new [] { data[3], data[4], data[5], data[6] });
+            this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
             this.Flashing = data[7] != 0;
+        }
+
+        private void PaletteIndexes_DataChanged(object sender, EventArgs e)
+        {
+            this.OnDataChanged();
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
     }
 
     internal class ByteArray
     {
+        public event EventHandler<EventArgs> DataChanged;
+
         private readonly byte[] data;
 
         public ByteArray(byte[] data)
@@ -84,12 +161,29 @@ namespace EpicEdit.Rom.Tracks.Objects
         public byte this[int index]
         {
             get { return this.data[index]; }
-            set { this.data[index] = value; }
+            set
+            {
+                if (this.data[index] == value)
+                {
+                    return;
+                }
+
+                this.data[index] = value;
+                this.OnDataChanged();
+            }
         }
 
         public byte[] GetBytes()
         {
             return Clone(this.data);
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
+            }
         }
 
         private static byte[] Clone(byte[] data)

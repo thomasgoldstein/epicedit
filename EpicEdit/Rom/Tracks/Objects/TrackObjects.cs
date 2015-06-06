@@ -30,6 +30,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         private const int BytesPerObject = 2;
         public const int Size = ObjectCount * BytesPerObject;
 
+        public event EventHandler<EventArgs> DataChanged;
+
         private readonly TrackObject[] objects;
         public TrackObjectZones Zones { get; private set; }
         private TrackObjectProperties properties;
@@ -84,7 +86,15 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.InitObjects(data);
 
             this.Zones = new TrackObjectZones(zoneData, ai);
+            this.Zones.DataChanged += this.SubDataChanged;
+
             this.properties = new TrackObjectProperties(propData, palettes);
+            this.properties.DataChanged += this.SubDataChanged;
+        }
+
+        private void SubDataChanged(object sender, EventArgs e)
+        {
+            this.OnDataChanged();
         }
 
         private void InitObjects(byte[] data)
@@ -92,11 +102,21 @@ namespace EpicEdit.Rom.Tracks.Objects
             for (int i = 0; i < RegularObjectCount; i++)
             {
                 this.objects[i] = new TrackObject(data, i * BytesPerObject);
+                this.objects[i].DataChanged += this.SubDataChanged;
             }
 
             for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
                 this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
+                this.objects[i].DataChanged += this.SubDataChanged;
+            }
+        }
+
+        private void OnDataChanged()
+        {
+            if (this.DataChanged != null)
+            {
+                this.DataChanged(this, EventArgs.Empty);
             }
         }
 

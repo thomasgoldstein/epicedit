@@ -33,9 +33,6 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> DataChanged;
 
         [Browsable(true)]
-        public event EventHandler<EventArgs> DataChangedNoRepaint;
-
-        [Browsable(true)]
         public event EventHandler<EventArgs> CloneRequested;
 
         [Browsable(true)]
@@ -166,8 +163,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             GPTrack gpTrack = this.track as GPTrack;
             gpTrack.ItemProbabilityIndex = this.setComboBox.SelectedIndex;
-
-            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
 
         private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
@@ -180,21 +175,18 @@ namespace EpicEdit.UI.TrackEdition
             int oldIndex = this.track.AI.GetElementIndex(this.selectedElement);
             int newIndex = (int)this.indexNumericUpDown.Value;
             this.track.AI.ChangeElementIndex(oldIndex, newIndex);
-
             this.DataChanged(this, EventArgs.Empty);
         }
 
         private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
             this.selectedElement.Speed = (byte)this.speedNumericUpDown.Value;
-
             this.DataChanged(this, EventArgs.Empty);
         }
 
         private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.selectedElement.ZoneShape = (Shape)this.shapeComboBox.SelectedValue;
-
             this.DataChanged(this, EventArgs.Empty);
         }
 

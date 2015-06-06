@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
@@ -27,12 +26,6 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class ObjectsControl : UserControl
     {
-        [Browsable(true)]
-        public event EventHandler<EventArgs> DataChanged;
-
-        [Browsable(true)]
-        public event EventHandler<EventArgs> DataChangedNoRepaint;
-
         [Browsable(true)]
         public event EventHandler<EventArgs> ViewChanged;
 
@@ -117,31 +110,30 @@ namespace EpicEdit.UI.TrackEdition
 
         private void FrontObjectZonesControlValueChanged(object sender, EventArgs e)
         {
-            this.DataChanged(this, EventArgs.Empty);
+            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void RearObjectZonesControlValueChanged(object sender, EventArgs e)
         {
-            this.DataChanged(this, EventArgs.Empty);
+            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.Objects.Tileset = (ObjectType)this.tilesetComboBox.SelectedItem;
-            this.DataChanged(this, EventArgs.Empty);
+            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.Objects.Interaction = (ObjectType)this.interactComboBox.SelectedItem;
-            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
 
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.Objects.Routine = (ObjectType)this.routineComboBox.SelectedItem;
             this.ToggleZoneGroupBox();
-            this.DataChanged(this, EventArgs.Empty);
+            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void ToggleZoneGroupBox()
@@ -166,12 +158,9 @@ namespace EpicEdit.UI.TrackEdition
 
             if (index == 0)
             {
-                this.DataChanged(this, EventArgs.Empty);
-            }
-            else
-            {
-                // No visible change
-                this.DataChangedNoRepaint(this, EventArgs.Empty);
+                // Only changing the first (main) palette triggers a visual change.
+                // Flashing palettes (2, 3, 4) are not shown.
+                this.ViewChanged(this, EventArgs.Empty);
             }
         }
 
@@ -179,7 +168,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.Track.Objects.Flashing = this.flashingCheckBox.Checked;
             this.ToggleAlternatePalettes();
-            this.DataChangedNoRepaint(this, EventArgs.Empty);
         }
 
         private void ToggleAlternatePalettes()

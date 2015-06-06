@@ -176,22 +176,6 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        public void MarkTrackAsChanged()
-        {
-            if (!this.selectedTrack.Modified)
-            {
-                this.selectedTrack.Modified = true;
-                this.treeView.SelectedNode.Text += "*";
-            }
-        }
-
-        public void RemoveModifiedHints()
-        {
-            this.treeView.BeginUpdate();
-            this.UpdateTrackNames();
-            this.treeView.EndUpdate();
-        }
-
         #region Track reordering
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
         {

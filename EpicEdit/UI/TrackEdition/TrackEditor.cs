@@ -470,7 +470,6 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.trackTreeView.MarkTrackAsChanged();
             this.UpdateControlsOnTrackImport();
             this.DisplayNewTrack();
         }
@@ -539,7 +538,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.ToggleUndoRedo();
-            this.trackTreeView.MarkTrackAsChanged();
             DrawRegion region = this.drawer.ReloadTrackPart(change);
             this.InvalidateTrackDisplay(region);
         }
@@ -1405,7 +1403,6 @@ namespace EpicEdit.UI.TrackEdition
                             OverlayTile overlayTile = new OverlayTile(this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
                             this.track.OverlayTiles.Add(overlayTile);
                             this.UpdateOverlayTileCount();
-                            this.trackTreeView.MarkTrackAsChanged();
                         }
                         break;
 
@@ -1504,7 +1501,6 @@ namespace EpicEdit.UI.TrackEdition
                             hoveredObjectMatchRace.Direction = Direction.Horizontal;
                         }
 
-                        this.trackTreeView.MarkTrackAsChanged();
                         this.InvalidateTrackDisplay();
                         break;
                 }
@@ -1540,7 +1536,6 @@ namespace EpicEdit.UI.TrackEdition
                         }
 
                         this.aiControl.SelectedElement = this.hoveredAIElem;
-                        this.trackTreeView.MarkTrackAsChanged();
                         this.InvalidateTrackDisplay();
                         break;
                 }
@@ -1832,11 +1827,6 @@ namespace EpicEdit.UI.TrackEdition
         #endregion TrackDisplay methods
 
         #region TrackTreeView
-        public void RemoveModifiedHints()
-        {
-            this.trackTreeView.RemoveModifiedHints();
-        }
-
         private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
         {
             this.ResetScrollingPosition();
@@ -2053,8 +2043,6 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
-                this.trackTreeView.MarkTrackAsChanged();
-
                 return true;
             }
 
@@ -2108,7 +2096,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
         {
-            this.trackTreeView.MarkTrackAsChanged();
             this.DisplayNewTrack();
         }
 
@@ -2141,7 +2128,6 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateWholeTrackDisplay();
         }
 
@@ -2174,7 +2160,6 @@ namespace EpicEdit.UI.TrackEdition
                 this.overlayControl.SelectedTile.Location =
                     new Point(hoveredTilePosition.X - this.anchorPoint.X,
                               hoveredTilePosition.Y - this.anchorPoint.Y);
-                this.trackTreeView.MarkTrackAsChanged();
                 return true;
             }
 
@@ -2234,7 +2219,6 @@ namespace EpicEdit.UI.TrackEdition
             this.InitOverlayAction();
             this.UpdateOverlayTileCount();
 
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateTrackDisplay();
         }
 
@@ -2248,7 +2232,6 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.SelectedTile = null;
             this.track.OverlayTiles.Clear();
             this.UpdateOverlayTileCount();
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateWholeTrackDisplay();
         }
 
@@ -2331,10 +2314,7 @@ namespace EpicEdit.UI.TrackEdition
 
                         gpTrack.LapLine.Location = destination;
 
-                        int xDifference = gpTrack.LapLine.X - xBefore;
-                        int yDifference = gpTrack.LapLine.Y - yBefore;
-
-                        if (xDifference != 0 || yDifference != 0)
+                        if (gpTrack.LapLine.X != xBefore || gpTrack.LapLine.Y != yBefore)
                         {
                             dataChanged = true;
                         }
@@ -2346,7 +2326,7 @@ namespace EpicEdit.UI.TrackEdition
 
                         gpTrack.LapLine.Resize(this.resizeHandle, absPixelPos.X);
 
-                        if (lengthBefore != gpTrack.LapLine.Length)
+                        if (gpTrack.LapLine.Length != lengthBefore)
                         {
                             dataChanged = true;
                         }
@@ -2363,10 +2343,7 @@ namespace EpicEdit.UI.TrackEdition
 
                         gpTrack.StartPosition.Location = destination;
 
-                        xDifference = gpTrack.StartPosition.X - xBefore;
-                        yDifference = gpTrack.StartPosition.Y - yBefore;
-
-                        if (xDifference != 0 || yDifference != 0)
+                        if (gpTrack.StartPosition.X != xBefore || gpTrack.StartPosition.Y != yBefore)
                         {
                             dataChanged = true;
                         }
@@ -2383,8 +2360,8 @@ namespace EpicEdit.UI.TrackEdition
 
                         gpTrack.LapLine.Location = destination;
 
-                        xDifference = gpTrack.LapLine.X - xBefore;
-                        yDifference = gpTrack.LapLine.Y - yBefore;
+                        int xDifference = gpTrack.LapLine.X - xBefore;
+                        int yDifference = gpTrack.LapLine.Y - yBefore;
 
                         if (xDifference != 0 || yDifference != 0)
                         {
@@ -2395,11 +2372,6 @@ namespace EpicEdit.UI.TrackEdition
                             dataChanged = true;
                         }
                         break;
-                }
-
-                if (dataChanged)
-                {
-                    this.trackTreeView.MarkTrackAsChanged();
                 }
 
                 return dataChanged;
@@ -2482,22 +2454,11 @@ namespace EpicEdit.UI.TrackEdition
 
             position.Location = destination;
 
-            int xDifference = position.X - xBefore;
-            int yDifference = position.Y - yBefore;
-
-            bool dataChanged = xDifference != 0 || yDifference != 0;
-
-            if (dataChanged)
-            {
-                this.trackTreeView.MarkTrackAsChanged();
-            }
-
-            return dataChanged;
+            return position.X != xBefore || position.Y != yBefore;
         }
 
         private void StartControlDataChanged(object sender, EventArgs e)
         {
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateTrackDisplay();
         }
         #endregion EditionMode.Start
@@ -2518,7 +2479,6 @@ namespace EpicEdit.UI.TrackEdition
             {
                 // Drag object
                 this.hoveredObject.Location = hoveredTilePosition;
-                this.trackTreeView.MarkTrackAsChanged();
                 return true;
             }
 
@@ -2571,17 +2531,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.InvalidateWholeTrackDisplay();
         }
-
-        private void ObjectsControlDataChanged(object sender, EventArgs e)
-        {
-            this.trackTreeView.MarkTrackAsChanged();
-            this.InvalidateWholeTrackDisplay();
-        }
-
-        private void ObjectsControlDataChangedNoRepaint(object sender, EventArgs e)
-        {
-            this.trackTreeView.MarkTrackAsChanged();
-        }
         #endregion EditionMode.Objects
 
         #region EditionMode.AI
@@ -2633,11 +2582,6 @@ namespace EpicEdit.UI.TrackEdition
                     {
                         dataChanged = true;
                     }
-                }
-
-                if (dataChanged)
-                {
-                    this.trackTreeView.MarkTrackAsChanged();
                 }
 
                 return dataChanged;
@@ -2806,10 +2750,9 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.SelectedElement = aiElement;
             this.InitAIAction();
 
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateTrackDisplay();
 
-            if (this.track.AI.ElementCount == 1)
+            if (this.track.AI.ElementCount >= 1)
             {
                 this.aiControl.HideWarning();
             }
@@ -2827,7 +2770,6 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.SetMaximumAIElementIndex();
             this.InitAIAction();
 
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateTrackDisplay();
 
             if (this.track.AI.ElementCount == 0)
@@ -2838,13 +2780,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AIControlDataChanged(object sender, EventArgs e)
         {
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateTrackDisplay();
-        }
-
-        private void AIControlDataChangedNoRepaint(object sender, EventArgs e)
-        {
-            this.trackTreeView.MarkTrackAsChanged();
         }
 
         private void AIControlCloneRequested(object sender, EventArgs e)
@@ -2866,7 +2802,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.aiControl.SelectedElement = null;
             this.track.AI.Clear();
-            this.trackTreeView.MarkTrackAsChanged();
             this.InvalidateWholeTrackDisplay();
             this.aiControl.ShowWarning();
         }

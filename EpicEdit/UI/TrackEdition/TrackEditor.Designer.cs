@@ -239,8 +239,6 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsControl.Name = "objectsControl";
             this.objectsControl.Size = new System.Drawing.Size(130, 550);
             this.objectsControl.TabIndex = 0;
-            this.objectsControl.DataChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlDataChanged);
-            this.objectsControl.DataChangedNoRepaint += new System.EventHandler<System.EventArgs>(this.ObjectsControlDataChangedNoRepaint);
             this.objectsControl.ViewChanged += new System.EventHandler<System.EventArgs>(this.ObjectsControlViewChanged);
             // 
             // aiTabPage
@@ -261,7 +259,6 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.Size = new System.Drawing.Size(130, 410);
             this.aiControl.TabIndex = 0;
             this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
-            this.aiControl.DataChangedNoRepaint += new System.EventHandler<System.EventArgs>(this.AIControlDataChangedNoRepaint);
             this.aiControl.CloneRequested += new System.EventHandler<System.EventArgs>(this.AIControlCloneRequested);
             this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
             this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
