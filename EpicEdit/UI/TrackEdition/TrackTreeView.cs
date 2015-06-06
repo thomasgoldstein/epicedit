@@ -132,7 +132,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             Track track = sender as Track;
             TreeNode treeNode = this.trackDictionary[track];
-            treeNode.Text = TrackTreeView.GetTrackText(track);
+            string trackText = TrackTreeView.GetTrackText(track);
+
+            if (treeNode.Text != trackText)
+            {
+                // NOTE: Supposedly a redundant condition check before assignment,
+                // but without it, the TrackTreeView flickers (gets invalidated)
+                // even when the text is the same as before.
+                treeNode.Text = trackText;
+            }
         }
 
         private static string GetTrackText(Track track)
