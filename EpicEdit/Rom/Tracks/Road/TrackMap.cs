@@ -116,7 +116,7 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             for (int x = 0; x < this.Width; x++)
             {
-                this.SetTile(x, 0, tile);
+                this.map[0][x] = tile;
             }
 
             for (int y = 1; y < this.Height; y++)
