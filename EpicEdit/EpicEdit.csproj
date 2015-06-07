@@ -269,6 +269,7 @@
     <Compile Include="UI\Tools\FileDialogFilters.cs" />
     <Compile Include="UI\Tools\TextItemComboBox.cs" />
     <Compile Include="UI\Tools\ThemeComboBox.cs" />
+    <Compile Include="UI\Tools\TileClipboard.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
     </Compile>

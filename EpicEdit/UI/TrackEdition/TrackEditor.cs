@@ -184,19 +184,9 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
-        /// Where copied tiles are stored.
+        /// A collection of tiles copied by the user.
         /// </summary>
-        private List<byte> tileClipboard;
-
-        /// <summary>
-        /// Top-left position of the clipboard rectangle (takes scrolling position in consideration).
-        /// </summary>
-        private Point tileClipboardTopLeft;
-
-        /// <summary>
-        /// Dimension of the tile clipboard.
-        /// </summary>
-        private Size tileClipboardSize;
+        private TileClipboard tileClipboard;
 
         /// <summary>
         /// Used to store the anchor point for various operations (position where tile clipboard was started, dragging map or AI elements...).
@@ -222,10 +212,10 @@ namespace EpicEdit.UI.TrackEdition
                 }
                 else // A tile selection is happening now
                 {
-                    position = this.tileClipboardTopLeft;
+                    position = this.tileClipboard.Location;
                 }
 
-                return new Rectangle(position, this.tileClipboardSize);
+                return new Rectangle(position, this.tileClipboard.Size);
             }
         }
 
@@ -378,9 +368,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4, 5, 6, 7, 8 };
             this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
 
-            this.tileClipboard = new List<byte>();
-            this.tileClipboard.Add(this.tilesetControl.SelectedTile);
-            this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
+            this.tileClipboard = new TileClipboard(this.tilesetControl.SelectedTile);
 
             this.undoRedoBuffers = new Dictionary<Track, UndoRedoBuffer>();
 
@@ -1315,11 +1303,13 @@ namespace EpicEdit.UI.TrackEdition
         {
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            this.tileClipboardSize.Width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
-            this.tileClipboardSize.Height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
+            int width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
+            int height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
+            this.tileClipboard.Size = new Size(width, height);
 
-            this.tileClipboardTopLeft.X = Math.Min(this.anchorPoint.X, hoveredTilePosition.X);
-            this.tileClipboardTopLeft.Y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
+            int x = Math.Min(this.anchorPoint.X, hoveredTilePosition.X);
+            int y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
+            this.tileClipboard.Location = new Point(x, y);
         }
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
@@ -1373,8 +1363,8 @@ namespace EpicEdit.UI.TrackEdition
                         {
                             this.buttonsPressed = MouseButtons.Right;
 
-                            this.anchorPoint = this.tileClipboardTopLeft = this.AbsoluteTilePosition;
-                            this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
+                            this.anchorPoint = this.tileClipboard.Location = this.AbsoluteTilePosition;
+                            this.tileClipboard.Size = new Size(1, 1);
 
                             this.InvalidateTrackDisplay();
                         }
@@ -1820,9 +1810,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTileClipboard()
         {
-            int xStart = this.tileClipboardTopLeft.X;
-            int yStart = this.tileClipboardTopLeft.Y;
-            this.drawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
+            this.drawer.UpdateTileClipboard(this.tileClipboard.Location.X, this.tileClipboard.Location.Y, this.tileClipboard.Size);
         }
         #endregion TrackDisplay methods
 
@@ -2039,18 +2027,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.AddUndoChange(hoveredTilePosition, affectedSurface);
 
-                byte[][] tiles = new byte[affectedSurface.Height][];
-                for (int y = 0; y < tiles.Length; y++)
-                {
-                    tiles[y] = new byte[affectedSurface.Width];
-
-                    for (int x = 0; x < tiles[y].Length; x++)
-                    {
-                        tiles[y][x] = this.tileClipboard[x + y * this.tileClipboardSize.Width];
-                    }
-                }
-
-                this.track.Map.SetTiles(hoveredTilePosition, tiles);
+                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard.GetData(affectedSurface));
 
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
@@ -2068,7 +2045,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private Size GetTruncatedRectangle()
         {
-            Size rectangleToDisplay = this.tileClipboardSize;
+            Size rectangleToDisplay = this.tileClipboard.Size;
             if ((this.scrollPosition.X + this.TilePosition.X + rectangleToDisplay.Width) >= this.track.Map.Width)
             {
                 int subFromWidth = this.scrollPosition.X + this.TilePosition.X + rectangleToDisplay.Width - this.track.Map.Width;
@@ -2084,24 +2061,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void OnRightMouseButtonRelease()
         {
-            // Fill the clipboard with the selected tiles
-            this.tileClipboard.Clear();
-
-            int xStart = this.tileClipboardTopLeft.X;
-            int yStart = this.tileClipboardTopLeft.Y;
-            int xLimit = xStart + this.tileClipboardSize.Width;
-            int yLimit = yStart + this.tileClipboardSize.Height;
-            for (int y = yStart; y < yLimit; y++)
-            {
-                for (int x = xStart; x < xLimit; x++)
-                {
-                    this.tileClipboard.Add(this.track.Map[x, y]);
-                }
-            }
-            this.drawer.UpdateTileClipboard(xStart, yStart, this.tileClipboardSize);
-
-            this.tilesetControl.SelectedTile = this.tileClipboard[0];
-
+            this.tileClipboard.Fill(this.track.Map);
+            this.drawer.UpdateTileClipboard(this.tileClipboard.Location.X, this.tileClipboard.Location.Y, this.tileClipboard.Size);
+            this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
             this.InvalidateTrackDisplay();
         }
 
@@ -2113,7 +2075,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
             RoadTileset tileset = this.track.RoadTileset;
-            this.drawer.UpdateTileClipboardOnThemeChange(this.tileClipboard, this.tileClipboardSize, tileset);
+            this.drawer.UpdateTileClipboardOnThemeChange(tileset, this.tileClipboard.GetData());
             this.overlayControl.Tileset = tileset;
 
             if (this.settingFormInitialized)
@@ -2125,9 +2087,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
         {
             byte selectedTile = this.tilesetControl.SelectedTile;
-            this.tileClipboard.Clear();
-            this.tileClipboard.Add(selectedTile);
-            this.tileClipboardSize.Width = this.tileClipboardSize.Height = 1;
+            this.tileClipboard.Fill(selectedTile);
             this.drawer.UpdateTileClipboard(this.track.RoadTileset[selectedTile]);
         }
 

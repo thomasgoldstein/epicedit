@@ -1576,18 +1576,20 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardOnThemeChange(IList<byte> tiles, Size clipboardSize, RoadTileset tileset)
+        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, byte[][] tiles)
         {
             this.tileClipboardCache.Dispose();
 
-            this.tileClipboardCache = new Bitmap(clipboardSize.Width * Tile.Size, clipboardSize.Height * Tile.Size, PixelFormat.Format32bppPArgb);
+            int width = tiles[0].Length;
+            int height = tiles.Length;
+            this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
             {
-                for (int y = 0; y < clipboardSize.Height; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    for (int x = 0; x < clipboardSize.Width; x++)
+                    for (int x = 0; x < width; x++)
                     {
-                        Tile tile = tileset[tiles[x + y * clipboardSize.Width]];
+                        Tile tile = tileset[tiles[y][x]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
