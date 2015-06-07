@@ -30,14 +30,25 @@ namespace EpicEdit.UI.Tools
         private List<byte> data;
 
         /// <summary>
-        /// Gets or sets the top-left position of the clipboard rectangle, as a tile selection is occuring.
+        /// Gets or sets the rectangle representing the tile clipboard selection.
         /// </summary>
-        public Point Location { get; set; }
+        public Rectangle Rectangle { get; set; }
 
         /// <summary>
-        /// Gets or sets the dimension of the tile clipboard.
+        /// Gets the top-left position of the clipboard rectangle, as a tile selection is occuring.
         /// </summary>
-        public Size Size { get; set; }
+        public Point Location
+        {
+            get { return this.Rectangle.Location; }
+        }
+
+        /// <summary>
+        /// Gets the dimension of the tile clipboard.
+        /// </summary>
+        public Size Size
+        {
+            get { return this.Rectangle.Size; }
+        }
 
         /// <summary>
         /// Gets the first tile stored in the clipboard.
@@ -66,7 +77,7 @@ namespace EpicEdit.UI.Tools
         private void Add(byte tile)
         {
             this.data.Add(tile);
-            this.Size = new Size(1, 1);
+            this.Rectangle = new Rectangle(0, 0, 1, 1);
         }
 
         /// <summary>
@@ -77,11 +88,9 @@ namespace EpicEdit.UI.Tools
         {
             this.data.Clear();
 
-            int xLimit = this.Location.X + this.Size.Width;
-            int yLimit = this.Location.Y + this.Size.Height;
-            for (int y = this.Location.Y; y < yLimit; y++)
+            for (int y = this.Rectangle.Y; y < this.Rectangle.Bottom; y++)
             {
-                for (int x = this.Location.X; x < xLimit; x++)
+                for (int x = this.Rectangle.X; x < this.Rectangle.Right; x++)
                 {
                     this.data.Add(trackMap[x, y]);
                 }
@@ -112,7 +121,7 @@ namespace EpicEdit.UI.Tools
 
                 for (int x = 0; x < tiles[y].Length; x++)
                 {
-                    tiles[y][x] = this.data[x + y * this.Size.Width];
+                    tiles[y][x] = this.data[x + y * this.Rectangle.Width];
                 }
             }
 

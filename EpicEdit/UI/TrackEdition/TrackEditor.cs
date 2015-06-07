@@ -1303,13 +1303,12 @@ namespace EpicEdit.UI.TrackEdition
         {
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            int width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
-            int height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
-            this.tileClipboard.Size = new Size(width, height);
-
             int x = Math.Min(this.anchorPoint.X, hoveredTilePosition.X);
             int y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
-            this.tileClipboard.Location = new Point(x, y);
+            int width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
+            int height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
+
+            this.tileClipboard.Rectangle = new Rectangle(x, y, width, height);
         }
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
@@ -1363,8 +1362,9 @@ namespace EpicEdit.UI.TrackEdition
                         {
                             this.buttonsPressed = MouseButtons.Right;
 
-                            this.anchorPoint = this.tileClipboard.Location = this.AbsoluteTilePosition;
-                            this.tileClipboard.Size = new Size(1, 1);
+                            this.anchorPoint = this.AbsoluteTilePosition;
+                            this.tileClipboard.Rectangle =
+                                new Rectangle(this.AbsoluteTilePosition.X, this.AbsoluteTilePosition.Y, 1, 1);
 
                             this.InvalidateTrackDisplay();
                         }
@@ -1810,7 +1810,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTileClipboard()
         {
-            this.drawer.UpdateTileClipboard(this.tileClipboard.Location.X, this.tileClipboard.Location.Y, this.tileClipboard.Size);
+            this.drawer.UpdateTileClipboard(this.tileClipboard.Rectangle);
         }
         #endregion TrackDisplay methods
 
@@ -2062,7 +2062,7 @@ namespace EpicEdit.UI.TrackEdition
         private void OnRightMouseButtonRelease()
         {
             this.tileClipboard.Fill(this.track.Map);
-            this.drawer.UpdateTileClipboard(this.tileClipboard.Location.X, this.tileClipboard.Location.Y, this.tileClipboard.Size);
+            this.drawer.UpdateTileClipboard(this.tileClipboard.Rectangle);
             this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
             this.InvalidateTrackDisplay();
         }

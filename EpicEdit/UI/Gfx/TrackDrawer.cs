@@ -1568,11 +1568,16 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
         }
 
-        public void UpdateTileClipboard(int x, int y, Size size)
+        public void UpdateTileClipboard(Rectangle rectangle)
         {
             this.tileClipboardCache.Dispose();
 
-            Rectangle clipboardRectangle = new Rectangle(x * Tile.Size, y * Tile.Size, size.Width * Tile.Size, size.Height * Tile.Size);
+            Rectangle clipboardRectangle = new Rectangle(
+                rectangle.X * Tile.Size,
+                rectangle.Y * Tile.Size,
+                rectangle.Width * Tile.Size,
+                rectangle.Height * Tile.Size);
+
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
