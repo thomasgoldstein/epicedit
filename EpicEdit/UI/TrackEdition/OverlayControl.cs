@@ -20,9 +20,9 @@ using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 

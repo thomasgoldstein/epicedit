@@ -19,6 +19,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI

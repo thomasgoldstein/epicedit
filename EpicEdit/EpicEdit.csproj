@@ -165,6 +165,7 @@
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
     <Compile Include="Rom\Tracks\TrackGroups.cs" />
     <Compile Include="Rom\Utility\CharacterSet.cs" />
+    <Compile Include="Rom\Utility\EventArgs.cs" />
     <Compile Include="Rom\Utility\IMapBuffer.cs" />
     <Compile Include="Rom\Utility\Map.cs" />
     <Compile Include="Rom\Utility\TextConverter.cs" />
@@ -277,7 +278,6 @@
     <Compile Include="UI\Tools\EpicPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\EventArgs.cs" />
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
     <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />

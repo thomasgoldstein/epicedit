@@ -21,6 +21,7 @@ using EpicEdit.Rom;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.SettingEdition

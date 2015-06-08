@@ -17,7 +17,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
-using EpicEdit.UI.Tools;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.ThemeEdition
 {

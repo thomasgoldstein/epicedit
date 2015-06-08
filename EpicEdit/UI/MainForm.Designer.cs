@@ -62,7 +62,7 @@ namespace EpicEdit.UI
             this.trackEditor.Name = "trackEditor";
             this.trackEditor.Size = new System.Drawing.Size(854, 716);
             this.trackEditor.TabIndex = 0;
-            this.trackEditor.FileDragged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<string>>(this.TrackEditorFileDragged);
+            this.trackEditor.FileDragged += new System.EventHandler<EpicEdit.Rom.Utility.EventArgs<string>>(this.TrackEditorFileDragged);
             this.trackEditor.OpenRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorOpenRomDialogRequested);
             this.trackEditor.SaveRomDialogRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorSaveRomDialogRequested);
             this.trackEditor.ToggleScreenModeRequested += new System.EventHandler<System.EventArgs>(this.TrackEditorToggleScreenModeRequested);

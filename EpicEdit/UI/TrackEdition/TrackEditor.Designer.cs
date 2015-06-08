@@ -179,7 +179,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
             this.tilesetControl.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedTileChanged);
             this.tilesetControl.TrackMapChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackMapChanged);
-            this.tilesetControl.TileChanged += new System.EventHandler<EpicEdit.UI.Tools.EventArgs<byte>>(this.TilesetControlTileChanged);
+            this.tilesetControl.TileChanged += new System.EventHandler<EpicEdit.Rom.Utility.EventArgs<byte>>(this.TilesetControlTileChanged);
             this.tilesetControl.TilesetChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTilesetChanged);
             // 
             // overlayTabPage

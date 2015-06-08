@@ -26,6 +26,7 @@ using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.SettingEdition;
 using EpicEdit.UI.ThemeEdition;
