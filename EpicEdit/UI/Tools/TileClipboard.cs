@@ -103,21 +103,11 @@ namespace EpicEdit.UI.Tools
         /// <returns>The tiles.</returns>
         public byte[][] GetData()
         {
-            return this.GetData(this.Size);
-        }
-
-        /// <summary>
-        /// Gets the tiles stored in the clipboard, within a given surface.
-        /// </summary>
-        /// <param name="surface">The surface.</param>
-        /// <returns>The tiles.</returns>
-        public byte[][] GetData(Size surface)
-        {
-            byte[][] tiles = new byte[surface.Height][];
+            byte[][] tiles = new byte[this.Rectangle.Height][];
 
             for (int y = 0; y < tiles.Length; y++)
             {
-                tiles[y] = new byte[surface.Width];
+                tiles[y] = new byte[this.Rectangle.Width];
 
                 for (int x = 0; x < tiles[y].Length; x++)
                 {

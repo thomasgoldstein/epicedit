@@ -2026,7 +2026,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.AddUndoChange(hoveredTilePosition, affectedSurface);
 
-                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard.GetData(affectedSurface));
+                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard.GetData());
 
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 

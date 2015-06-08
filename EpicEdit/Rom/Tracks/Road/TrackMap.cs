@@ -119,12 +119,14 @@ namespace EpicEdit.Rom.Tracks.Road
         public void SetTiles(int startX, int startY, byte[][] tiles)
         {
             bool dataChanged = false;
+            int yLimit = Math.Min(tiles.Length, TrackMap.Size - startY);
+            int xLimit = Math.Min(tiles[0].Length, TrackMap.Size - startX);
 
-            for (int y = 0; y < tiles.Length; y++)
+            for (int y = 0; y < yLimit; y++)
             {
                 int positionY = startY + y;
 
-                for (int x = 0; x < tiles[y].Length; x++)
+                for (int x = 0; x < xLimit; x++)
                 {
                     int positionX = startX + x;
                     byte tile = tiles[y][x];
