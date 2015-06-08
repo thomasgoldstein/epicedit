@@ -1363,8 +1363,7 @@ namespace EpicEdit.UI.TrackEdition
                             this.buttonsPressed = MouseButtons.Right;
 
                             this.anchorPoint = this.AbsoluteTilePosition;
-                            this.tileClipboard.Rectangle =
-                                new Rectangle(this.AbsoluteTilePosition.X, this.AbsoluteTilePosition.Y, 1, 1);
+                            this.tileClipboard.Rectangle = new Rectangle(this.anchorPoint.X, this.anchorPoint.Y, 1, 1);
 
                             this.InvalidateTrackDisplay();
                         }
