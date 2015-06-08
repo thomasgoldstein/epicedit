@@ -165,6 +165,7 @@
     <Compile Include="Rom\Tracks\TrackGroup.cs" />
     <Compile Include="Rom\Tracks\TrackGroups.cs" />
     <Compile Include="Rom\Utility\CharacterSet.cs" />
+    <Compile Include="Rom\Utility\IMapBuffer.cs" />
     <Compile Include="Rom\Utility\Map.cs" />
     <Compile Include="Rom\Utility\TextConverter.cs" />
     <Compile Include="Rom\Utility\Utilities.cs" />

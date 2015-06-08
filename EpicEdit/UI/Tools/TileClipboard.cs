@@ -16,13 +16,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools
 {
     /// <summary>
     /// A collection of tiles copied by the user.
     /// </summary>
-    internal class TileClipboard
+    internal class TileClipboard : IMapBuffer
     {
         /// <summary>
         /// Where copied tiles are stored.
@@ -48,6 +49,16 @@ namespace EpicEdit.UI.Tools
         public Size Size
         {
             get { return this.Rectangle.Size; }
+        }
+
+        public int Width
+        {
+            get { return this.Rectangle.Width; }
+        }
+
+        public int Height
+        {
+            get { return this.Rectangle.Height; }
         }
 
         /// <summary>
@@ -97,25 +108,14 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        /// <summary>
-        /// Gets the tiles stored in the clipboard.
-        /// </summary>
-        /// <returns>The tiles.</returns>
-        public byte[][] GetData()
+        public byte GetByte(int x, int y)
         {
-            byte[][] tiles = new byte[this.Rectangle.Height][];
+            return this.data[x + y * this.Rectangle.Width];
+        }
 
-            for (int y = 0; y < tiles.Length; y++)
-            {
-                tiles[y] = new byte[this.Rectangle.Width];
-
-                for (int x = 0; x < tiles[y].Length; x++)
-                {
-                    tiles[y][x] = this.data[x + y * this.Rectangle.Width];
-                }
-            }
-
-            return tiles;
+        public byte this[int x, int y]
+        {
+            get { return this.GetByte(x, y); }
         }
     }
 }

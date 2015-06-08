@@ -218,7 +218,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 }
             }
 
-            this.track.Map.SetTiles(change.X, change.Y, change.GetTiles());
+            this.track.Map.SetTiles(change.X, change.Y, change);
 
             return new TileChange(change.X, change.Y, previousData);
         }

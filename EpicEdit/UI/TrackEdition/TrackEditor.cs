@@ -2026,7 +2026,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.AddUndoChange(hoveredTilePosition, affectedSurface);
 
-                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard.GetData());
+                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard);
 
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
@@ -2074,7 +2074,7 @@ namespace EpicEdit.UI.TrackEdition
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
             RoadTileset tileset = this.track.RoadTileset;
-            this.drawer.UpdateTileClipboardOnThemeChange(tileset, this.tileClipboard.GetData());
+            this.drawer.UpdateTileClipboardOnThemeChange(tileset, this.tileClipboard);
             this.overlayControl.Tileset = tileset;
 
             if (this.settingFormInitialized)

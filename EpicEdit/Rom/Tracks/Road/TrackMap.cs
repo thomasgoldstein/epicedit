@@ -104,10 +104,10 @@ namespace EpicEdit.Rom.Tracks.Road
         /// Sets the value of a group of tiles.
         /// </summary>
         /// <param name="startingPosition">Top-left position of tiles to be changed.</param>
-        /// <param name="tiles">The new tile values.</param>
-        public void SetTiles(Point startingPosition, byte[][] tiles)
+        /// <param name="tileBuffer">The tile buffer.</param>
+        public void SetTiles(Point startingPosition, IMapBuffer tileBuffer)
         {
-            this.SetTiles(startingPosition.X, startingPosition.Y, tiles);
+            this.SetTiles(startingPosition.X, startingPosition.Y, tileBuffer);
         }
 
         /// <summary>
@@ -115,12 +115,12 @@ namespace EpicEdit.Rom.Tracks.Road
         /// </summary>
         /// <param name="startX">Left-most position of the tiles to be changed.</param>
         /// <param name="startY">Top-most position of the tiles to be changed.</param>
-        /// <param name="tiles">The new tile values.</param>
-        public void SetTiles(int startX, int startY, byte[][] tiles)
+        /// <param name="tileBuffer">The tile buffer.</param>
+        public void SetTiles(int startX, int startY, IMapBuffer tileBuffer)
         {
             bool dataChanged = false;
-            int yLimit = Math.Min(tiles.Length, TrackMap.Size - startY);
-            int xLimit = Math.Min(tiles[0].Length, TrackMap.Size - startX);
+            int yLimit = Math.Min(tileBuffer.Height, TrackMap.Size - startY);
+            int xLimit = Math.Min(tileBuffer.Width, TrackMap.Size - startX);
 
             for (int y = 0; y < yLimit; y++)
             {
@@ -129,9 +129,8 @@ namespace EpicEdit.Rom.Tracks.Road
                 for (int x = 0; x < xLimit; x++)
                 {
                     int positionX = startX + x;
-                    byte tile = tiles[y][x];
 
-                    if (this.SetTileInternal(positionX, positionY, tile))
+                    if (this.SetTileInternal(positionX, positionY, tileBuffer[x, y]))
                     {
                         dataChanged = true;
                     }

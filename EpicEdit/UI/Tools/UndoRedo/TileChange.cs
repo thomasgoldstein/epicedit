@@ -15,13 +15,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Drawing;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools.UndoRedo
 {
     /// <summary>
     /// A change done on a rectangle of tiles.
     /// </summary>
-    internal class TileChange
+    internal class TileChange : IMapBuffer
     {
         public int X { get; private set; }
         public int Y { get; private set; }
@@ -71,11 +72,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public byte GetTile(int x, int y)
         {
             return this.data[y][x];
-        }
-
-        public byte[][] GetTiles()
-        {
-            return Clone(this.data);
         }
 
         private static byte[][] Clone(byte[][] data)

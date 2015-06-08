@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -26,6 +25,7 @@ using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Tools.UndoRedo;
 using EpicEdit.UI.TrackEdition;
 using Region = System.Drawing.Region;
@@ -1581,12 +1581,12 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, byte[][] tiles)
+        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, IMapBuffer tileBuffer)
         {
             this.tileClipboardCache.Dispose();
 
-            int width = tiles[0].Length;
-            int height = tiles.Length;
+            int width = tileBuffer.Width;
+            int height = tileBuffer.Height;
             this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
             using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
             {
@@ -1594,7 +1594,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        Tile tile = tileset[tiles[y][x]];
+                        Tile tile = tileset[tileBuffer[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
