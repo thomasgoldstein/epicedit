@@ -94,12 +94,19 @@ namespace EpicEdit.Rom.Tracks
                         OverlayTilePatterns overlayTilePatterns)
         {
             this.theme = theme;
+
             this.SuffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
+
             this.Map = new TrackMap(map);
             this.Map.DataChanged += this.Map_DataChanged;
+
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.AI.DataChanged += this.AI_DataChanged;
+            this.AI.ElementAdded += this.AI_DataChanged;
+            this.AI.ElementDeleted += this.AI_DataChanged;
+            this.AI.ElementsCleared += this.AI_DataChanged;
+
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
             this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
         }

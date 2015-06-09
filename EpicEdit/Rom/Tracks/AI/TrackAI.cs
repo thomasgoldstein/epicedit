@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Drawing;
 
 using EpicEdit.Rom.Tracks.Objects;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.AI
 {
@@ -29,6 +30,9 @@ namespace EpicEdit.Rom.Tracks.AI
         public const int MaxElementCount = 128;
 
         public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs<TrackAIElement>> ElementAdded;
+        public event EventHandler<EventArgs> ElementDeleted;
+        public event EventHandler<EventArgs> ElementsCleared;
 
         private readonly Track track;
         private readonly List<TrackAIElement> aiElements;
@@ -84,7 +88,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             this.aiElements.Add(aiElement);
             aiElement.DataChanged += this.aiElement_DataChanged;
-            this.OnDataChanged();
+            this.OnElementAdded(aiElement);
 
             return true;
         }
@@ -104,7 +108,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             this.aiElements.Insert(index, aiElement);
             aiElement.DataChanged += this.aiElement_DataChanged;
-            this.OnDataChanged();
+            this.OnElementAdded(aiElement);
 
             return true;
         }
@@ -113,7 +117,7 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             aiElement.DataChanged -= this.aiElement_DataChanged;
             this.aiElements.Remove(aiElement);
-            this.OnDataChanged();
+            this.OnElementDeleted();
         }
 
         /// <summary>
@@ -127,7 +131,7 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.aiElements.Clear();
-            this.OnDataChanged();
+            this.OnElementsCleared();
         }
 
         private void aiElement_DataChanged(object sender, EventArgs e)
@@ -140,6 +144,30 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.DataChanged != null)
             {
                 this.DataChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnElementAdded(TrackAIElement aiElement)
+        {
+            if (this.ElementAdded != null)
+            {
+                this.ElementAdded(this, new EventArgs<TrackAIElement>(aiElement));
+            }
+        }
+
+        private void OnElementDeleted()
+        {
+            if (this.ElementDeleted != null)
+            {
+                this.ElementDeleted(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnElementsCleared()
+        {
+            if (this.ElementsCleared != null)
+            {
+                this.ElementsCleared(this, EventArgs.Empty);
             }
         }
 
