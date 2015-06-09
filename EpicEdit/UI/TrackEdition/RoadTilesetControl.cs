@@ -34,43 +34,43 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Raised when the theme of the current track has been modified.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> TrackThemeChanged;
 
         /// <summary>
         /// Raised when the selected theme has been changed.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedThemeChanged;
 
         /// <summary>
         /// Raised when a new tile has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedTileChanged;
 
         /// <summary>
         /// Raised when the track map has been changed.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> TrackMapChanged;
 
         /// <summary>
         /// Raised when tile graphics have been changed.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<byte>> TileChanged;
 
         /// <summary>
         /// Raised when the theme tileset has been changed.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> TilesetChanged;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
             add { this.tilesetPanel.ColorSelected += value; }

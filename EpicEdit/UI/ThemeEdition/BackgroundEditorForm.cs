@@ -29,7 +29,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
             add { this.Editor.ColorSelected += value; }

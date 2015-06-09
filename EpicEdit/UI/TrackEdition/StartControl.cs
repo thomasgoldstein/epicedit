@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -23,17 +22,17 @@ using EpicEdit.Rom.Tracks;
 namespace EpicEdit.UI.TrackEdition
 {
     /// <summary>
-    /// Represents a collection of controls to edit <see cref="LapLine"/> and <see cref="StartPosition"/> objects.
+    /// Represents a collection of controls to edit <see cref="EpicEdit.Rom.Tracks.Start.LapLine"/> and <see cref="EpicEdit.Rom.Tracks.Start.GPStartPosition"/> objects.
     /// </summary>
     internal partial class StartControl : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> DataChanged;
 
         /// <summary>
         /// The current track.
         /// </summary>
-        private Track track = null;
+        private Track track;
 
         /// <summary>
         /// Gets or sets the current track.

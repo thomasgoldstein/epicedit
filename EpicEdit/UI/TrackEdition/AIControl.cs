@@ -31,22 +31,22 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class AIControl : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> AddElementRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Data")]
         public event EventHandler<EventArgs> ElementChanged;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Data")]
         public event EventHandler<EventArgs> ElementAdded;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Data")]
         public event EventHandler<TrackAIElementEventArgs> ElementDeleted;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Data")]
         public event EventHandler<EventArgs> ElementsCleared;
 
         /// <summary>

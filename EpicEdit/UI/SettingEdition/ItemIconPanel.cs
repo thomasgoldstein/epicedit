@@ -99,7 +99,7 @@ namespace EpicEdit.UI.SettingEdition
         /// Gets or sets value that specifies whether the control looks enabled or not.
         /// This enables mouse events (color picking) even if the control looks disabled.
         /// </summary>
-        [Browsable(true), DefaultValue(typeof(bool), "true")]
+        [Browsable(true), Category("Appearance"), DefaultValue(typeof(bool), "True")]
         public bool LooksEnabled
         {
             //get { return this.looksEnabled; }

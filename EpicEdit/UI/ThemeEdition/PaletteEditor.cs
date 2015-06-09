@@ -28,16 +28,16 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class PaletteEditor : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ColorChanged;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ColorsChanged;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> PalettesChanged;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ThemeBackColorChanged;
 
         /// <summary>

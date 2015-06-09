@@ -16,9 +16,6 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
-
 namespace EpicEdit.UI.ThemeEdition
 {
     /// <summary>
@@ -26,28 +23,28 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class PaletteEditorForm : Form
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ColorChanged
         {
             add { this.Editor.ColorChanged += value; }
             remove { this.Editor.ColorChanged -= value; }
         }
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ColorsChanged
         {
             add { this.Editor.ColorsChanged += value; }
             remove { this.Editor.ColorsChanged -= value; }
         }
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> PalettesChanged
         {
             add { this.Editor.PalettesChanged += value; }
             remove { this.Editor.PalettesChanged -= value; }
         }
 
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ThemeBackColorChanged
         {
             add { this.Editor.ThemeBackColorChanged += value; }

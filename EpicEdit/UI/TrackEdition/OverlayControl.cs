@@ -34,19 +34,19 @@ namespace EpicEdit.UI.TrackEdition
     internal partial class OverlayControl : UserControl
     {
         #region Events
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> DeleteRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> DeleteAllRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> RepaintRequested;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
             add { this.tilesetPanel.ColorSelected += value; }

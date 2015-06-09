@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -29,7 +28,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Raised when a new tile has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedTileChanged;
 
         private BackgroundTilesetDrawer drawer;
@@ -68,7 +67,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        [Browsable(true), DefaultValue(typeof(bool), "True")]
+        [Browsable(true), Category("Behavior"), DefaultValue(typeof(bool), "True")]
         public bool Front
         {
             get { return this.drawer.Front; }

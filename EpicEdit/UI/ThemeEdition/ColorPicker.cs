@@ -22,13 +22,12 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom;
 using EpicEdit.UI.Gfx;
-using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.ThemeEdition
 {
     internal partial class ColorPicker : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ColorChanged;
 
         #region Private members

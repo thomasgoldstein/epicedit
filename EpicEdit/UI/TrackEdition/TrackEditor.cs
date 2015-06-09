@@ -334,24 +334,24 @@ namespace EpicEdit.UI.TrackEdition
         #endregion Private members
 
         #region Events
-        [Browsable(true)]
+        [Browsable(true), Category("Drag Drop")]
         public event EventHandler<EventArgs<string>> FileDragged;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> OpenRomDialogRequested
         {
             add { this.menuBar.OpenRomDialogRequested += value; }
             remove { this.menuBar.OpenRomDialogRequested -= value; }
         }
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> SaveRomDialogRequested
         {
             add { this.menuBar.SaveRomDialogRequested += value; }
             remove { this.menuBar.SaveRomDialogRequested -= value; }
         }
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ToggleScreenModeRequested
         {
             add { this.menuBar.ToggleScreenModeRequested += value; }

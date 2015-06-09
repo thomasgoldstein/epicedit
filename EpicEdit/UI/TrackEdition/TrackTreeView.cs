@@ -18,7 +18,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition
@@ -28,7 +27,7 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class TrackTreeView : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedTrackChanged;
 
         private Dictionary<TrackGroup, TreeNode> trackGroupDictionary;

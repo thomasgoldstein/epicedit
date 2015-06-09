@@ -26,7 +26,7 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class ObjectZonesControl : UserControl
     {
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ValueChanged;
 
         [Category("Data")]

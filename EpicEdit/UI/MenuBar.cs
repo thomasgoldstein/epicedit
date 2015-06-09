@@ -15,13 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
 using EpicEdit.Properties;
-using EpicEdit.UI.ThemeEdition;
-using EpicEdit.UI.Tools.UndoRedo;
 
 namespace EpicEdit.UI
 {
@@ -31,46 +28,46 @@ namespace EpicEdit.UI
     internal partial class MenuBar : UserControl
     {
         #region Events
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> OpenRomDialogRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> SaveRomDialogRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> TrackImportDialogRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> TrackExportDialogRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> UndoRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> RedoRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ZoomInRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ZoomOutRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ZoomResetRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ToggleScreenModeRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> PaletteEditorRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> BackgroundEditorRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> SettingEditorRequested;
 
-        [Browsable(true)]
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> CodecRequested;
         #endregion Events
 

@@ -31,12 +31,12 @@ namespace EpicEdit.UI.Tools
         /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected;
 
         private float zoom = 1;
 
-        [Browsable(true), DefaultValue(typeof(float), "1")]
+        [Browsable(true), Category("Appearance"), DefaultValue(typeof(float), "1")]
         public float Zoom
         {
             get { return this.zoom; }

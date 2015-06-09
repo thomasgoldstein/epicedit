@@ -34,13 +34,13 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Raised when a tile has been modified.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> TileChanged;
 
         /// <summary>
         /// Raised when a tile has been selected.
         /// </summary>
-        [Browsable(true)]
+        [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<byte, Tile2bppProperties>> TileSelected;
 
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
