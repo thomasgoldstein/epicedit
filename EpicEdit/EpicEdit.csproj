@@ -126,7 +126,6 @@
     <Compile Include="Rom\Compression\OptimalCompressor.cs" />
     <Compile Include="Rom\Palette.cs" />
     <Compile Include="Rom\Game.cs" />
-    <Compile Include="Rom\Range.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAI.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
     <Compile Include="Rom\Tracks\BattleTrack.cs" />
@@ -168,6 +167,7 @@
     <Compile Include="Rom\Utility\EventArgs.cs" />
     <Compile Include="Rom\Utility\IMapBuffer.cs" />
     <Compile Include="Rom\Utility\Map.cs" />
+    <Compile Include="Rom\Utility\Range.cs" />
     <Compile Include="Rom\Utility\TextConverter.cs" />
     <Compile Include="Rom\Utility\Utilities.cs" />
     <Compile Include="UI\Context.cs" />
