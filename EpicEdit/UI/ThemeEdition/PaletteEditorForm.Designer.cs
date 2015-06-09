@@ -42,7 +42,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitializeComponent()
         {
-            this.Editor = new EpicEdit.Rom.ThemeEdition.PaletteEditor();
+            this.Editor = new EpicEdit.UI.ThemeEdition.PaletteEditor();
             this.SuspendLayout();
             // 
             // PaletteEditorForm
@@ -59,6 +59,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.Text = "Color palettes";
             this.ResumeLayout(false);
         }
-        public EpicEdit.Rom.ThemeEdition.PaletteEditor Editor;
+        public EpicEdit.UI.ThemeEdition.PaletteEditor Editor;
     }
 }

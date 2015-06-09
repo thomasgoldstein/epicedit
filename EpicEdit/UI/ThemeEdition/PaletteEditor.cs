@@ -17,10 +17,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.UI.Tools;
 
-namespace EpicEdit.Rom.ThemeEdition
+namespace EpicEdit.UI.ThemeEdition
 {
     /// <summary>
     /// Represents a collection of controls used to edit color palettes.
