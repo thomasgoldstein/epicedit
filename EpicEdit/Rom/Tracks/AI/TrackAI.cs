@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public event EventHandler<EventArgs> DataChanged;
         public event EventHandler<EventArgs<TrackAIElement>> ElementAdded;
-        public event EventHandler<EventArgs> ElementDeleted;
+        public event EventHandler<EventArgs<TrackAIElement>> ElementDeleted;
         public event EventHandler<EventArgs> ElementsCleared;
 
         private readonly Track track;
@@ -78,19 +78,16 @@ namespace EpicEdit.Rom.Tracks.AI
         /// Adds a new AI element to the element collection.
         /// </summary>
         /// <param name="aiElement">The new AI element.</param>
-        /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
-        public bool Add(TrackAIElement aiElement)
+        public void Add(TrackAIElement aiElement)
         {
             if (this.aiElements.Count >= TrackAI.MaxElementCount)
             {
-                return false;
+                return;
             }
 
             this.aiElements.Add(aiElement);
             aiElement.DataChanged += this.aiElement_DataChanged;
             this.OnElementAdded(aiElement);
-
-            return true;
         }
 
         /// <summary>
@@ -98,26 +95,23 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         /// <param name="aiElement">The new AI element.</param>
         /// <param name="index">The index of the new AI element.</param>
-        /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
-        public bool Insert(TrackAIElement aiElement, int index)
+        public void Insert(TrackAIElement aiElement, int index)
         {
             if (this.aiElements.Count >= TrackAI.MaxElementCount)
             {
-                return false;
+                return;
             }
 
             this.aiElements.Insert(index, aiElement);
             aiElement.DataChanged += this.aiElement_DataChanged;
             this.OnElementAdded(aiElement);
-
-            return true;
         }
 
         public void Remove(TrackAIElement aiElement)
         {
             aiElement.DataChanged -= this.aiElement_DataChanged;
             this.aiElements.Remove(aiElement);
-            this.OnElementDeleted();
+            this.OnElementDeleted(aiElement);
         }
 
         /// <summary>
@@ -155,11 +149,11 @@ namespace EpicEdit.Rom.Tracks.AI
             }
         }
 
-        private void OnElementDeleted()
+        private void OnElementDeleted(TrackAIElement aiElement)
         {
             if (this.ElementDeleted != null)
             {
-                this.ElementDeleted(this, EventArgs.Empty);
+                this.ElementDeleted(this, new EventArgs<TrackAIElement>(aiElement));
             }
         }
 

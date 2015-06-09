@@ -258,12 +258,12 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.Name = "aiControl";
             this.aiControl.Size = new System.Drawing.Size(130, 410);
             this.aiControl.TabIndex = 0;
-            this.aiControl.DataChanged += new System.EventHandler<System.EventArgs>(this.AIControlDataChanged);
-            this.aiControl.CloneRequested += new System.EventHandler<System.EventArgs>(this.AIControlCloneRequested);
-            this.aiControl.DeleteRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteRequested);
-            this.aiControl.AddRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddRequested);
-            this.aiControl.DeleteAllRequested += new System.EventHandler<System.EventArgs>(this.AIControlDeleteAllRequested);
+            this.aiControl.AddElementRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddElementRequested);
             this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.ItemProbaEditorRequested);
+            this.aiControl.ElementChanged += new System.EventHandler<System.EventArgs>(this.AIControlElementChanged);
+            this.aiControl.ElementAdded += new System.EventHandler<System.EventArgs>(this.AIControlElementAdded);
+            this.aiControl.ElementDeleted += new System.EventHandler<EpicEdit.UI.TrackEdition.TrackAIElementEventArgs>(this.AIControlElementDeleted);
+            this.aiControl.ElementsCleared += new System.EventHandler<System.EventArgs>(this.AIControlElementsCleared);
             // 
             // tabImageList
             // 
@@ -326,6 +326,7 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsTabPage.ResumeLayout(false);
             this.aiTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
         private EpicEdit.UI.TrackEdition.OverlayControl overlayControl;
         private EpicEdit.UI.TrackEdition.RoadTilesetControl tilesetControl;

@@ -2689,92 +2689,44 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AddAIElement(Point location)
         {
-            TrackAIElement newAIElem = new TrackAIElement(location);
-
-            if (this.track.AI.Add(newAIElem))
-            {
-                this.OnAIElementAdded(newAIElem);
-            }
-        }
-
-        private void CloneAIElement()
-        {
-            TrackAIElement aiElement = this.aiControl.SelectedElement;
-            TrackAIElement newAIElem = aiElement.Clone();
-
-            // Shift the cloned element position, so it's not directly over the source element
-            newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
-                                           aiElement.Location.Y + TrackAIElement.Precision);
-
-            // Ensure the cloned element index is right after the source element
-            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
-
-            if (this.track.AI.Insert(newAIElem, newAIElementIndex))
-            {
-                this.OnAIElementAdded(newAIElem);
-            }
-        }
-
-        private void OnAIElementAdded(TrackAIElement aiElement)
-        {
-            this.aiControl.SetMaximumAIElementIndex();
-            this.aiControl.SelectedElement = aiElement;
-            this.InitAIAction();
-
-            this.InvalidateTrackDisplay();
-
-            if (this.track.AI.ElementCount >= 1)
-            {
-                this.aiControl.HideWarning();
-            }
+            this.track.AI.Add(new TrackAIElement(location));
         }
 
         private void DeleteAIElement()
         {
             this.track.AI.Remove(this.aiControl.SelectedElement);
-            if (this.hoveredAIElem == this.aiControl.SelectedElement)
-            {
-                this.hoveredAIElem = null;
-            }
-
-            this.aiControl.SelectedElement = null;
-            this.aiControl.SetMaximumAIElementIndex();
-            this.InitAIAction();
-
-            this.InvalidateTrackDisplay();
-
-            if (this.track.AI.ElementCount == 0)
-            {
-                this.aiControl.ShowWarning();
-            }
         }
 
-        private void AIControlDataChanged(object sender, EventArgs e)
-        {
-            this.InvalidateTrackDisplay();
-        }
-
-        private void AIControlCloneRequested(object sender, EventArgs e)
-        {
-            this.CloneAIElement();
-        }
-
-        private void AIControlDeleteRequested(object sender, EventArgs e)
-        {
-            this.DeleteAIElement();
-        }
-
-        private void AIControlAddRequested(object sender, EventArgs e)
+        private void AIControlAddElementRequested(object sender, EventArgs e)
         {
             this.AddAIElement(this.AbsoluteCenterTileLocation);
         }
 
-        private void AIControlDeleteAllRequested(object sender, EventArgs e)
+        private void AIControlElementChanged(object sender, EventArgs e)
         {
-            this.aiControl.SelectedElement = null;
-            this.track.AI.Clear();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void AIControlElementAdded(object sender, EventArgs e)
+        {
+            this.InitAIAction();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void AIControlElementDeleted(object sender, TrackAIElementEventArgs e)
+        {
+            if (this.hoveredAIElem == e.Value)
+            {
+                this.hoveredAIElem = null;
+            }
+
+            this.InitAIAction();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void AIControlElementsCleared(object sender, EventArgs e)
+        {
             this.InvalidateWholeTrackDisplay();
-            this.aiControl.ShowWarning();
         }
         #endregion EditionMode.AI
     }

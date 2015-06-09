@@ -14,48 +14,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Items;
+using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI.TrackEdition
 {
+    /// <summary>
+    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
+    /// </summary>
+    internal class TrackAIElementEventArgs : EventArgs<TrackAIElement>
+    {
+        public TrackAIElementEventArgs(TrackAIElement value) : base(value) { }
+    }
+
     /// <summary>
     /// Represents a collection of controls to edit <see cref="TrackAI"/>.
     /// </summary>
     internal partial class AIControl : UserControl
     {
         [Browsable(true)]
-        public event EventHandler<EventArgs> DataChanged;
-
-        [Browsable(true)]
-        public event EventHandler<EventArgs> CloneRequested;
-
-        [Browsable(true)]
-        public event EventHandler<EventArgs> DeleteRequested;
-
-        [Browsable(true)]
-        public event EventHandler<EventArgs> AddRequested;
-
-        [Browsable(true)]
-        public event EventHandler<EventArgs> DeleteAllRequested;
+        public event EventHandler<EventArgs> AddElementRequested;
 
         [Browsable(true)]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
 
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ElementChanged;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ElementAdded;
+
+        [Browsable(true)]
+        public event EventHandler<TrackAIElementEventArgs> ElementDeleted;
+
+        [Browsable(true)]
+        public event EventHandler<EventArgs> ElementsCleared;
+
         /// <summary>
         /// The current track.
         /// </summary>
-        private Track track = null;
+        private Track track;
 
         /// <summary>
         /// The selected AI element.
         /// </summary>
-        private TrackAIElement selectedElement = null;
+        private TrackAIElement selectedElement;
 
         /// <summary>
         /// Gets or sets the selected AI element.
@@ -104,7 +114,25 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track; }
             set
             {
+                if (this.track == value)
+                {
+                    return;
+                }
+
+                if (this.track != null)
+                {
+                    this.track.AI.DataChanged -= track_AI_DataChanged;
+                    this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
+                    this.track.AI.ElementDeleted -= this.track_AI_ElementDeleted;
+                    this.track.AI.ElementsCleared -= track_AI_ElementsCleared;
+                }
+
                 this.track = value;
+
+                this.track.AI.DataChanged += track_AI_DataChanged;
+                this.track.AI.ElementAdded += this.track_AI_ElementAdded;
+                this.track.AI.ElementDeleted += this.track_AI_ElementDeleted;
+                this.track.AI.ElementsCleared += track_AI_ElementsCleared;
 
                 this.LoadItemProbabilitySet();
                 this.SelectedElement = null;
@@ -175,29 +203,36 @@ namespace EpicEdit.UI.TrackEdition
             int oldIndex = this.track.AI.GetElementIndex(this.selectedElement);
             int newIndex = (int)this.indexNumericUpDown.Value;
             this.track.AI.ChangeElementIndex(oldIndex, newIndex);
-            this.DataChanged(this, EventArgs.Empty);
         }
 
         private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
             this.selectedElement.Speed = (byte)this.speedNumericUpDown.Value;
-            this.DataChanged(this, EventArgs.Empty);
         }
 
         private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.selectedElement.ZoneShape = (Shape)this.shapeComboBox.SelectedValue;
-            this.DataChanged(this, EventArgs.Empty);
         }
 
         private void CloneButtonClick(object sender, EventArgs e)
         {
-            this.CloneRequested(this, EventArgs.Empty);
+            TrackAIElement aiElement = this.SelectedElement;
+            TrackAIElement newAIElem = aiElement.Clone();
+
+            // Shift the cloned element position, so it's not directly over the source element
+            newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
+                                           aiElement.Location.Y + TrackAIElement.Precision);
+
+            // Ensure the cloned element index is right after the source element
+            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
+
+            this.track.AI.Insert(newAIElem, newAIElementIndex);
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            this.DeleteRequested(this, EventArgs.Empty);
+            this.track.AI.Remove(this.SelectedElement);
         }
 
         private void LoadItemProbabilitySet()
@@ -230,7 +265,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ItemProbaEditorRequested(this, EventArgs.Empty);
         }
 
-        public void SetMaximumAIElementIndex()
+        private void SetMaximumAIElementIndex()
         {
             this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
             this.indexNumericUpDown.Maximum = this.track.AI.ElementCount - 1;
@@ -239,7 +274,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AddButtonClick(object sender, EventArgs e)
         {
-            this.AddRequested(this, EventArgs.Empty);
+            this.AddElementRequested(this, EventArgs.Empty);
         }
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
@@ -248,16 +283,54 @@ namespace EpicEdit.UI.TrackEdition
 
             if (result == DialogResult.Yes)
             {
-                this.DeleteAllRequested(this, EventArgs.Empty);
+                this.track.AI.Clear();
             }
         }
 
-        public void ShowWarning()
+        private void track_AI_DataChanged(object sender, EventArgs e)
+        {
+            this.ElementChanged(this, EventArgs.Empty);
+        }
+
+        private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
+        {
+            this.SetMaximumAIElementIndex();
+            this.SelectedElement = e.Value;
+
+            if (this.track.AI.ElementCount > 0)
+            {
+                this.HideWarning();
+            }
+
+            this.ElementAdded(this, EventArgs.Empty);
+        }
+
+        private void track_AI_ElementDeleted(object sender, EventArgs<TrackAIElement> e)
+        {
+            this.SelectedElement = null;
+            this.SetMaximumAIElementIndex();
+
+            if (this.track.AI.ElementCount == 0)
+            {
+                this.ShowWarning();
+            }
+
+            this.ElementDeleted(this, new TrackAIElementEventArgs(e.Value));
+        }
+
+        private void track_AI_ElementsCleared(object sender, EventArgs e)
+        {
+            this.SelectedElement = null;
+            this.ShowWarning();
+            this.ElementsCleared(this, EventArgs.Empty);
+        }
+
+        private void ShowWarning()
         {
             this.warningLabel.Visible = true;
         }
 
-        public void HideWarning()
+        private void HideWarning()
         {
             this.warningLabel.Visible = false;
         }
