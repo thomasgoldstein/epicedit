@@ -77,14 +77,16 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
         public bool Add(TrackAIElement aiElement)
         {
-            if (this.aiElements.Count < TrackAI.MaxElementCount)
+            if (this.aiElements.Count >= TrackAI.MaxElementCount)
             {
-                this.aiElements.Add(aiElement);
-                aiElement.DataChanged += this.aiElement_DataChanged;
-                this.OnDataChanged();
-                return true;
+                return false;
             }
-            return false;
+
+            this.aiElements.Add(aiElement);
+            aiElement.DataChanged += this.aiElement_DataChanged;
+            this.OnDataChanged();
+
+            return true;
         }
 
         /// <summary>
@@ -95,14 +97,16 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>True if the element was successfully added, false if the element collection has already reached its maximum size (128).</returns>
         public bool Insert(TrackAIElement aiElement, int index)
         {
-            if (this.aiElements.Count < TrackAI.MaxElementCount)
+            if (this.aiElements.Count >= TrackAI.MaxElementCount)
             {
-                this.aiElements.Insert(index, aiElement);
-                aiElement.DataChanged += this.aiElement_DataChanged;
-                this.OnDataChanged();
-                return true;
+                return false;
             }
-            return false;
+
+            this.aiElements.Insert(index, aiElement);
+            aiElement.DataChanged += this.aiElement_DataChanged;
+            this.OnDataChanged();
+
+            return true;
         }
 
         public void Remove(TrackAIElement aiElement)
