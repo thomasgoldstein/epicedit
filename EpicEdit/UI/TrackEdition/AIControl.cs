@@ -27,14 +27,6 @@ using EpicEdit.UI.Tools;
 namespace EpicEdit.UI.TrackEdition
 {
     /// <summary>
-    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
-    /// </summary>
-    internal class TrackAIElementEventArgs : EventArgs<TrackAIElement>
-    {
-        public TrackAIElementEventArgs(TrackAIElement value) : base(value) { }
-    }
-
-    /// <summary>
     /// Represents a collection of controls to edit <see cref="TrackAI"/>.
     /// </summary>
     internal partial class AIControl : UserControl
@@ -334,5 +326,13 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.warningLabel.Visible = false;
         }
+    }
+
+    /// <summary>
+    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
+    /// </summary>
+    internal class TrackAIElementEventArgs : EventArgs<TrackAIElement>
+    {
+        public TrackAIElementEventArgs(TrackAIElement value) : base(value) { }
     }
 }
