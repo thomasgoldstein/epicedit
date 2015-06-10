@@ -141,19 +141,19 @@ namespace EpicEdit.Rom.Tracks.AI
             }
         }
 
-        private void OnElementAdded(TrackAIElement aiElement)
+        private void OnElementAdded(TrackAIElement value)
         {
             if (this.ElementAdded != null)
             {
-                this.ElementAdded(this, new EventArgs<TrackAIElement>(aiElement));
+                this.ElementAdded(this, new EventArgs<TrackAIElement>(value));
             }
         }
 
-        private void OnElementDeleted(TrackAIElement aiElement)
+        private void OnElementDeleted(TrackAIElement value)
         {
             if (this.ElementDeleted != null)
             {
-                this.ElementDeleted(this, new EventArgs<TrackAIElement>(aiElement));
+                this.ElementDeleted(this, new EventArgs<TrackAIElement>(value));
             }
         }
 
