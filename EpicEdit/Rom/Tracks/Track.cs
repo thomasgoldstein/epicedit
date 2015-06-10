@@ -109,6 +109,9 @@ namespace EpicEdit.Rom.Tracks
 
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
             this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
+            this.OverlayTiles.ElementAdded += this.OverlayTiles_DataChanged;
+            this.OverlayTiles.ElementDeleted += this.OverlayTiles_DataChanged;
+            this.OverlayTiles.ElementsCleared += this.OverlayTiles_DataChanged;
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)

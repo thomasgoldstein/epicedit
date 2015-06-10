@@ -16,6 +16,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.Overlay
 {
@@ -24,10 +25,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     internal class OverlayTiles : IEnumerable<OverlayTile>
     {
-        public event EventHandler<EventArgs> DataChanged;
-
         public const int Size = 128;
         public const int MaxTileCount = 41;
+
+        public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs<OverlayTile>> ElementAdded;
+        public event EventHandler<EventArgs<OverlayTile>> ElementDeleted;
+        public event EventHandler<EventArgs> ElementsCleared;
 
         private readonly OverlayTileSizes sizes;
         private readonly OverlayTilePatterns patterns;
@@ -124,7 +128,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             {
                 this.overlayTiles.Add(overlayTile);
                 overlayTile.DataChanged += this.overlayTile_DataChanged;
-                this.OnDataChanged();
+                this.OnElementAdded(overlayTile);
             }
         }
 
@@ -146,7 +150,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public void Clear()
         {
             this.overlayTiles.Clear();
-            this.OnDataChanged();
+            this.OnElementsCleared();
         }
 
         private void OnDataChanged()
@@ -154,6 +158,30 @@ namespace EpicEdit.Rom.Tracks.Overlay
             if (this.DataChanged != null)
             {
                 this.DataChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnElementAdded(OverlayTile value)
+        {
+            if (this.ElementAdded != null)
+            {
+                this.ElementAdded(this, new EventArgs<OverlayTile>(value));
+            }
+        }
+
+        private void OnElementDeleted(OverlayTile value)
+        {
+            if (this.ElementDeleted != null)
+            {
+                this.ElementDeleted(this, new EventArgs<OverlayTile>(value));
+            }
+        }
+
+        private void OnElementsCleared()
+        {
+            if (this.ElementsCleared != null)
+            {
+                this.ElementsCleared(this, EventArgs.Empty);
             }
         }
     }
