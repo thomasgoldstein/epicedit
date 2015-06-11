@@ -404,7 +404,6 @@ namespace EpicEdit.UI.TrackEdition
                 byte tileId = pattern[x, y];
 
                 return tileId == OverlayTile.None ? null : parent.Tileset[tileId];
-
             }
         }
     }
