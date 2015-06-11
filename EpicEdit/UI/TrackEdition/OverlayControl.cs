@@ -160,6 +160,7 @@ namespace EpicEdit.UI.TrackEdition
                     this.track.OverlayTiles.ElementAdded -= this.track_OverlayTiles_ElementAdded;
                     this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
                     this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
+                    this.track.PropertyChanged -= this.track_PropertyChanged;
                 }
 
                 this.SelectedTile = null;
@@ -169,7 +170,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.OverlayTiles.ElementAdded += this.track_OverlayTiles_ElementAdded;
                 this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
                 this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
+                this.track.PropertyChanged += this.track_PropertyChanged;
 
+                this.Tileset = this.track.RoadTileset;
                 this.UpdateTileCount();
             }
         }
@@ -321,7 +324,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 return this.drawer.Tileset;
             }
-            set
+            private set
             {
                 if (this.drawer == null)
                 {
@@ -436,6 +439,14 @@ namespace EpicEdit.UI.TrackEdition
             this.SelectedTile = null;
             this.UpdateTileCount();
             this.ElementsCleared(this, EventArgs.Empty);
+        }
+
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Theme")
+            {
+                this.Tileset = this.track.RoadTileset;
+            }
         }
 
         private sealed class OverlayPanel : TilePanel

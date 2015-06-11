@@ -2072,9 +2072,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            RoadTileset tileset = this.track.RoadTileset;
-            this.drawer.UpdateTileClipboardOnThemeChange(tileset, this.tileClipboard);
-            this.overlayControl.Tileset = tileset;
+            this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset, this.tileClipboard);
 
             if (this.settingFormInitialized)
             {
