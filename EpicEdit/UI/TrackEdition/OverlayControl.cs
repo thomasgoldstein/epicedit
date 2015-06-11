@@ -312,8 +312,7 @@ namespace EpicEdit.UI.TrackEdition
             this.drawer.SetImageSize(this.tilesetPanel.Size);
         }
 
-        [Browsable(false), DefaultValue(typeof(RoadTileset), "")]
-        public RoadTileset Tileset
+        private RoadTileset Tileset
         {
             get
             {
@@ -324,7 +323,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 return this.drawer.Tileset;
             }
-            private set
+            set
             {
                 if (this.drawer == null)
                 {
