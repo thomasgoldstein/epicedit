@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public event EventHandler<EventArgs> DataChanged;
         public event EventHandler<EventArgs<TrackAIElement>> ElementAdded;
-        public event EventHandler<EventArgs<TrackAIElement>> ElementDeleted;
+        public event EventHandler<EventArgs<TrackAIElement>> ElementRemoved;
         public event EventHandler<EventArgs> ElementsCleared;
 
         private readonly Track track;
@@ -111,7 +111,7 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             aiElement.DataChanged -= this.aiElement_DataChanged;
             this.aiElements.Remove(aiElement);
-            this.OnElementDeleted(aiElement);
+            this.OnElementRemoved(aiElement);
         }
 
         /// <summary>
@@ -149,11 +149,11 @@ namespace EpicEdit.Rom.Tracks.AI
             }
         }
 
-        private void OnElementDeleted(TrackAIElement value)
+        private void OnElementRemoved(TrackAIElement value)
         {
-            if (this.ElementDeleted != null)
+            if (this.ElementRemoved != null)
             {
-                this.ElementDeleted(this, new EventArgs<TrackAIElement>(value));
+                this.ElementRemoved(this, new EventArgs<TrackAIElement>(value));
             }
         }
 

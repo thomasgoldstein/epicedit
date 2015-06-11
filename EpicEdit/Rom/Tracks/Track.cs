@@ -104,13 +104,13 @@ namespace EpicEdit.Rom.Tracks
             this.AI = new TrackAI(aiZoneData, aiTargetData, this);
             this.AI.DataChanged += this.AI_DataChanged;
             this.AI.ElementAdded += this.AI_DataChanged;
-            this.AI.ElementDeleted += this.AI_DataChanged;
+            this.AI.ElementRemoved += this.AI_DataChanged;
             this.AI.ElementsCleared += this.AI_DataChanged;
 
             this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
             this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementAdded += this.OverlayTiles_DataChanged;
-            this.OverlayTiles.ElementDeleted += this.OverlayTiles_DataChanged;
+            this.OverlayTiles.ElementRemoved += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementsCleared += this.OverlayTiles_DataChanged;
         }
 

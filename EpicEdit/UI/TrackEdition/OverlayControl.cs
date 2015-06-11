@@ -39,7 +39,7 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> RepaintRequested;
 
         [Browsable(true), Category("Data")]
-        public event EventHandler<OverlayTileEventArgs> ElementDeleted;
+        public event EventHandler<OverlayTileEventArgs> ElementRemoved;
 
         [Browsable(true), Category("Data")]
         public event EventHandler<EventArgs> ElementsCleared;
@@ -158,7 +158,7 @@ namespace EpicEdit.UI.TrackEdition
                 if (this.track != null)
                 {
                     this.track.OverlayTiles.ElementAdded -= this.track_OverlayTiles_ElementAdded;
-                    this.track.OverlayTiles.ElementDeleted -= this.track_OverlayTiles_ElementDeleted;
+                    this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
                     this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
                 }
 
@@ -167,7 +167,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.track = value;
 
                 this.track.OverlayTiles.ElementAdded += this.track_OverlayTiles_ElementAdded;
-                this.track.OverlayTiles.ElementDeleted += this.track_OverlayTiles_ElementDeleted;
+                this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
                 this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
 
                 this.UpdateTileCount();
@@ -424,11 +424,11 @@ namespace EpicEdit.UI.TrackEdition
             this.UpdateTileCount();
         }
 
-        private void track_OverlayTiles_ElementDeleted(object sender, EventArgs<OverlayTile> e)
+        private void track_OverlayTiles_ElementRemoved(object sender, EventArgs<OverlayTile> e)
         {
             this.SelectedTile = null;
             this.UpdateTileCount();
-            this.ElementDeleted(this, new OverlayTileEventArgs(e.Value));
+            this.ElementRemoved(this, new OverlayTileEventArgs(e.Value));
         }
 
         private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)

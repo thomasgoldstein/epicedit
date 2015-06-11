@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public event EventHandler<EventArgs> DataChanged;
         public event EventHandler<EventArgs<OverlayTile>> ElementAdded;
-        public event EventHandler<EventArgs<OverlayTile>> ElementDeleted;
+        public event EventHandler<EventArgs<OverlayTile>> ElementRemoved;
         public event EventHandler<EventArgs> ElementsCleared;
 
         private readonly OverlayTileSizes sizes;
@@ -138,7 +138,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             overlayTile.DataChanged -= this.overlayTile_DataChanged;
             this.overlayTiles.Remove(overlayTile);
-            this.OnElementDeleted(overlayTile);
+            this.OnElementRemoved(overlayTile);
         }
 
         private void overlayTile_DataChanged(object sender, EventArgs e)
@@ -171,11 +171,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
             }
         }
 
-        private void OnElementDeleted(OverlayTile value)
+        private void OnElementRemoved(OverlayTile value)
         {
-            if (this.ElementDeleted != null)
+            if (this.ElementRemoved != null)
             {
-                this.ElementDeleted(this, new EventArgs<OverlayTile>(value));
+                this.ElementRemoved(this, new EventArgs<OverlayTile>(value));
             }
         }
 

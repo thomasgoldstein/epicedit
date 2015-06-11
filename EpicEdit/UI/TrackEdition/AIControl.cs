@@ -44,7 +44,7 @@ namespace EpicEdit.UI.TrackEdition
         public event EventHandler<EventArgs> ElementAdded;
 
         [Browsable(true), Category("Data")]
-        public event EventHandler<TrackAIElementEventArgs> ElementDeleted;
+        public event EventHandler<TrackAIElementEventArgs> ElementRemoved;
 
         [Browsable(true), Category("Data")]
         public event EventHandler<EventArgs> ElementsCleared;
@@ -115,7 +115,7 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.track.AI.DataChanged -= track_AI_DataChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
-                    this.track.AI.ElementDeleted -= this.track_AI_ElementDeleted;
+                    this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                     this.track.AI.ElementsCleared -= track_AI_ElementsCleared;
                 }
 
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.track.AI.DataChanged += track_AI_DataChanged;
                 this.track.AI.ElementAdded += this.track_AI_ElementAdded;
-                this.track.AI.ElementDeleted += this.track_AI_ElementDeleted;
+                this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += track_AI_ElementsCleared;
 
                 this.LoadItemProbabilitySet();
@@ -297,7 +297,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ElementAdded(this, EventArgs.Empty);
         }
 
-        private void track_AI_ElementDeleted(object sender, EventArgs<TrackAIElement> e)
+        private void track_AI_ElementRemoved(object sender, EventArgs<TrackAIElement> e)
         {
             this.SelectedElement = null;
             this.SetMaximumAIElementIndex();
@@ -307,7 +307,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.ShowWarning();
             }
 
-            this.ElementDeleted(this, new TrackAIElementEventArgs(e.Value));
+            this.ElementRemoved(this, new TrackAIElementEventArgs(e.Value));
         }
 
         private void track_AI_ElementsCleared(object sender, EventArgs e)

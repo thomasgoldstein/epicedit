@@ -2176,7 +2176,7 @@ namespace EpicEdit.UI.TrackEdition
             this.track.OverlayTiles.Remove(this.overlayControl.SelectedTile);
         }
 
-        private void OverlayControlElementDeleted(object sender, OverlayTileEventArgs e)
+        private void OverlayControlElementRemoved(object sender, OverlayTileEventArgs e)
         {
             if (this.hoveredOverlayTile == e.Value)
             {
@@ -2699,7 +2699,7 @@ namespace EpicEdit.UI.TrackEdition
             this.InvalidateTrackDisplay();
         }
 
-        private void AIControlElementDeleted(object sender, TrackAIElementEventArgs e)
+        private void AIControlElementRemoved(object sender, TrackAIElementEventArgs e)
         {
             if (this.hoveredAIElem == e.Value)
             {

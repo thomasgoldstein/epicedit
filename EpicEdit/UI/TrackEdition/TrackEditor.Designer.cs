@@ -200,7 +200,7 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.Size = new System.Drawing.Size(130, 548);
             this.overlayControl.TabIndex = 0;
             this.overlayControl.RepaintRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlRepaintRequested);
-            this.overlayControl.ElementDeleted += new System.EventHandler<EpicEdit.UI.TrackEdition.OverlayTileEventArgs>(this.OverlayControlElementDeleted);
+            this.overlayControl.ElementRemoved += new System.EventHandler<EpicEdit.UI.TrackEdition.OverlayTileEventArgs>(this.OverlayControlElementRemoved);
             this.overlayControl.ElementsCleared += new System.EventHandler<System.EventArgs>(this.OverlayControlElementsCleared);
             // 
             // startTabPage
@@ -262,7 +262,7 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.ItemProbaEditorRequested);
             this.aiControl.ElementChanged += new System.EventHandler<System.EventArgs>(this.AIControlElementChanged);
             this.aiControl.ElementAdded += new System.EventHandler<System.EventArgs>(this.AIControlElementAdded);
-            this.aiControl.ElementDeleted += new System.EventHandler<EpicEdit.UI.TrackEdition.TrackAIElementEventArgs>(this.AIControlElementDeleted);
+            this.aiControl.ElementRemoved += new System.EventHandler<EpicEdit.UI.TrackEdition.TrackAIElementEventArgs>(this.AIControlElementRemoved);
             this.aiControl.ElementsCleared += new System.EventHandler<System.EventArgs>(this.AIControlElementsCleared);
             // 
             // tabImageList
