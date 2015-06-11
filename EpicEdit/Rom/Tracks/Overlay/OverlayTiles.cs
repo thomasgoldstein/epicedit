@@ -138,7 +138,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             overlayTile.DataChanged -= this.overlayTile_DataChanged;
             this.overlayTiles.Remove(overlayTile);
-            this.OnDataChanged();
+            this.OnElementDeleted(overlayTile);
         }
 
         private void overlayTile_DataChanged(object sender, EventArgs e)
