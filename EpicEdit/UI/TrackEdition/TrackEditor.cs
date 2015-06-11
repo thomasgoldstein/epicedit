@@ -1392,7 +1392,6 @@ namespace EpicEdit.UI.TrackEdition
                         {
                             OverlayTile overlayTile = new OverlayTile(this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
                             this.track.OverlayTiles.Add(overlayTile);
-                            this.UpdateOverlayTileCount();
                         }
                         break;
 
@@ -1836,11 +1835,10 @@ namespace EpicEdit.UI.TrackEdition
 
             this.tilesetControl.Track = this.track;
             this.hoveredOverlayTile = null;
-            this.overlayControl.SelectedTile = null;
-            this.UpdateOverlayTileCount();
+            this.overlayControl.Track = this.track;
             this.startControl.Track = this.track;
-            this.aiControl.Track = this.track;
             this.hoveredAIElem = null;
+            this.aiControl.Track = this.track;
 
             if (this.editionMode == EditionMode.Objects)
             {
@@ -2173,36 +2171,24 @@ namespace EpicEdit.UI.TrackEdition
                    originalPatternLocation.Y != this.selectedOverlayPatternLocation.Y;
         }
 
-        private void UpdateOverlayTileCount()
-        {
-            this.overlayControl.UpdateTileCount(this.track.OverlayTiles.Count);
-        }
-
         private void DeleteOverlayTile()
         {
             this.track.OverlayTiles.Remove(this.overlayControl.SelectedTile);
-            if (this.hoveredOverlayTile == this.overlayControl.SelectedTile)
+        }
+
+        private void OverlayControlElementDeleted(object sender, OverlayTileEventArgs e)
+        {
+            if (this.hoveredOverlayTile == e.Value)
             {
                 this.hoveredOverlayTile = null;
             }
-            this.overlayControl.SelectedTile = null;
 
             this.InitOverlayAction();
-            this.UpdateOverlayTileCount();
-
             this.InvalidateTrackDisplay();
         }
 
-        private void OverlayControlDeleteRequested(object sender, EventArgs e)
+        private void OverlayControlElementsCleared(object sender, EventArgs e)
         {
-            this.DeleteOverlayTile();
-        }
-
-        private void OverlayControlDeleteAllRequested(object sender, EventArgs e)
-        {
-            this.overlayControl.SelectedTile = null;
-            this.track.OverlayTiles.Clear();
-            this.UpdateOverlayTileCount();
             this.InvalidateWholeTrackDisplay();
         }
 

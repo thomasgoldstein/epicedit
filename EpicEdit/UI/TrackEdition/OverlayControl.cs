@@ -20,6 +20,7 @@ using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Utility;
@@ -35,13 +36,13 @@ namespace EpicEdit.UI.TrackEdition
     {
         #region Events
         [Browsable(true), Category("Action")]
-        public event EventHandler<EventArgs> DeleteRequested;
-
-        [Browsable(true), Category("Action")]
-        public event EventHandler<EventArgs> DeleteAllRequested;
-
-        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> RepaintRequested;
+
+        [Browsable(true), Category("Data")]
+        public event EventHandler<OverlayTileEventArgs> ElementDeleted;
+
+        [Browsable(true), Category("Data")]
+        public event EventHandler<EventArgs> ElementsCleared;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
@@ -69,7 +70,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The selected overlay tile pattern.
         /// </summary>
-        private OverlayTilePattern selectedPattern = null;
+        private OverlayTilePattern selectedPattern;
 
         /// <summary>
         /// Gets or sets the selected overlay tile pattern.
@@ -125,7 +126,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The selected track overlay tile.
         /// </summary>
-        private OverlayTile selectedTile = null;
+        private OverlayTile selectedTile;
 
         /// <summary>
         /// Gets or sets the selected track overlay tile.
@@ -138,6 +139,38 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.selectedTile = value;
                 this.deleteButton.Enabled = this.selectedTile != null;
+            }
+        }
+
+        private Track track;
+
+        [Browsable(false), DefaultValue(typeof(Track), "")]
+        public Track Track
+        {
+            get { return this.track; }
+            set
+            {
+                if (this.track == value)
+                {
+                    return;
+                }
+ 
+                if (this.track != null)
+                {
+                    this.track.OverlayTiles.ElementAdded -= this.track_OverlayTiles_ElementAdded;
+                    this.track.OverlayTiles.ElementDeleted -= this.track_OverlayTiles_ElementDeleted;
+                    this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
+                }
+
+                this.SelectedTile = null;
+
+                this.track = value;
+
+                this.track.OverlayTiles.ElementAdded += this.track_OverlayTiles_ElementAdded;
+                this.track.OverlayTiles.ElementDeleted += this.track_OverlayTiles_ElementDeleted;
+                this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
+
+                this.UpdateTileCount();
             }
         }
 
@@ -305,8 +338,9 @@ namespace EpicEdit.UI.TrackEdition
             this.Tileset = this.drawer.Tileset;
         }
 
-        public void UpdateTileCount(int count)
+        private void UpdateTileCount()
         {
+            int count = this.track.OverlayTiles.Count;
             this.tileCountLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", count, OverlayTiles.MaxTileCount);
             this.tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
@@ -362,7 +396,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            this.DeleteRequested(this, EventArgs.Empty);
+            this.track.OverlayTiles.Remove(this.SelectedTile);
         }
 
         private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
@@ -381,8 +415,27 @@ namespace EpicEdit.UI.TrackEdition
 
             if (result == DialogResult.Yes)
             {
-                this.DeleteAllRequested(this, EventArgs.Empty);
+                this.track.OverlayTiles.Clear();
             }
+        }
+
+        private void track_OverlayTiles_ElementAdded(object sender, EventArgs<OverlayTile> e)
+        {
+            this.UpdateTileCount();
+        }
+
+        private void track_OverlayTiles_ElementDeleted(object sender, EventArgs<OverlayTile> e)
+        {
+            this.SelectedTile = null;
+            this.UpdateTileCount();
+            this.ElementDeleted(this, new OverlayTileEventArgs(e.Value));
+        }
+
+        private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
+        {
+            this.SelectedTile = null;
+            this.UpdateTileCount();
+            this.ElementsCleared(this, EventArgs.Empty);
         }
 
         private sealed class OverlayPanel : TilePanel
@@ -406,5 +459,13 @@ namespace EpicEdit.UI.TrackEdition
                 return tileId == OverlayTile.None ? null : parent.Tileset[tileId];
             }
         }
+    }
+
+    /// <summary>
+    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
+    /// </summary>
+    internal class OverlayTileEventArgs : EventArgs<OverlayTile>
+    {
+        public OverlayTileEventArgs(OverlayTile value) : base(value) { }
     }
 }
