@@ -325,7 +325,8 @@ namespace EpicEdit.UI.TrackEdition
             }
             set
             {
-                if (this.drawer == null)
+                if (this.drawer == null ||
+                    this.drawer.Tileset == value)
                 {
                     return;
                 }
