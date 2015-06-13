@@ -272,19 +272,18 @@ namespace EpicEdit.Rom.Tracks.Items
         public ItemProbability(byte[] data)
         {
             this.backupData = data;
-            this.SetBytes(data);
-            this.Modified = false;
+            this.SetBytesInternal(data);
         }
 
         public void Reset()
         {
-            this.SetBytes(this.backupData);
+            this.SetBytesInternal(this.backupData);
             this.Modified = false;
         }
 
         #region Reading and writing byte data
 
-        public void SetBytes(byte[] data)
+        private void SetBytesInternal(byte[] data)
         {
             // Init everything back to default, this will help when calling reset
             this.mushroom = 0;
@@ -344,7 +343,11 @@ namespace EpicEdit.Rom.Tracks.Items
             this.displayedItems = (ItemBoxDisplay)data[8];
 
             this.SetProbsBasedOnDisplayedItems();
+        }
 
+        public void SetBytes(byte[] data)
+        {
+            this.SetBytesInternal(data);
             this.Modified = true;
         }
 
