@@ -73,7 +73,6 @@ namespace EpicEdit.Rom
             this.backupData = data;
 
             this.SetBytesInternal(data);
-            this.Modified = false;
         }
 
         private void SetBytesInternal(byte[] data)
