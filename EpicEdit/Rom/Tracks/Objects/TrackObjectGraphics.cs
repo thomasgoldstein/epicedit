@@ -18,7 +18,6 @@ using System.Drawing.Imaging;
 
 using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Utility;
-using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
