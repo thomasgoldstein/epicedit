@@ -94,156 +94,74 @@ namespace EpicEdit.Rom.Tracks.Items
 
         #region Items
 
+        private void SetFieldValue(ref int field, int value)
+        {
+            if (this.subTotal - field + value > ItemProbability.TotalCount)
+            {
+                value = ItemProbability.TotalCount - (this.subTotal - field);
+            }
+
+            if (field != value)
+            {
+                field = value;
+                this.Modified = true;
+            }
+        }
+
         private int mushroom;
         public int Mushroom
         {
             get { return this.mushroom; }
-            set
-            {
-                if (this.subTotal - this.mushroom + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.mushroom);
-                }
-
-                if (value != this.mushroom)
-                {
-                    this.Modified = true;
-                    this.mushroom = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.mushroom, value); }
         }
 
         private int feather;
         public int Feather
         {
             get { return this.feather; }
-            set
-            {
-                if (this.subTotal - this.feather + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.feather);
-                }
-
-                if (value != this.feather)
-                {
-                    this.Modified = true;
-                    this.feather = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.feather, value); }
         }
 
         private int star;
         public int Star
         {
             get { return this.star; }
-            set
-            {
-                if (this.subTotal - this.star + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.star);
-                }
-
-                if (value != this.star)
-                {
-                    this.Modified = true;
-                    this.star = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.star, value); }
         }
 
         private int banana;
         public int Banana
         {
             get { return this.banana; }
-            set
-            {
-                if (this.subTotal - this.banana + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.banana);
-                }
-
-                if (value != this.banana)
-                {
-                    this.Modified = true;
-                    this.banana = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.banana, value); }
         }
 
         private int green;
         public int Green
         {
             get { return this.green; }
-            set
-            {
-                if (this.subTotal - this.green + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.green);
-                }
-
-                if (value != this.green)
-                {
-                    this.Modified = true;
-                    this.green = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.green, value); }
         }
 
         private int red;
         public int Red
         {
             get { return this.red; }
-            set
-            {
-                if (this.subTotal - this.red + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.red);
-                }
-
-                if (value != this.red)
-                {
-                    this.Modified = true;
-                    this.red = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.red, value); }
         }
 
         private int ghost;
         public int Ghost
         {
             get { return this.ghost; }
-            set
-            {
-                if (this.subTotal - this.ghost + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.ghost);
-                }
-
-                if (value != this.ghost)
-                {
-                    this.Modified = true;
-                    this.ghost = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.ghost, value); }
         }
 
         private int coins;
         public int Coins
         {
             get { return this.coins; }
-            set
-            {
-                if (this.subTotal - this.coins + value > ItemProbability.TotalCount)
-                {
-                    value = ItemProbability.TotalCount - (this.subTotal - this.coins);
-                }
-
-                if (value != this.coins)
-                {
-                    this.Modified = true;
-                    this.coins = value;
-                }
-            }
+            set { this.SetFieldValue(ref this.coins, value); }
         }
 
         public int Lightning
