@@ -108,60 +108,52 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        private int mushroom;
         public int Mushroom
         {
-            get { return this.mushroom; }
-            set { this.SetFieldValue(ref this.mushroom, value); }
+            get { return this.values[(int)ItemType.Mushroom]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Mushroom], value); }
         }
 
-        private int feather;
         public int Feather
         {
-            get { return this.feather; }
-            set { this.SetFieldValue(ref this.feather, value); }
+            get { return this.values[(int)ItemType.Feather]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Feather], value); }
         }
 
-        private int star;
         public int Star
         {
-            get { return this.star; }
-            set { this.SetFieldValue(ref this.star, value); }
+            get { return this.values[(int)ItemType.Star]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Star], value); }
         }
 
-        private int banana;
         public int Banana
         {
-            get { return this.banana; }
-            set { this.SetFieldValue(ref this.banana, value); }
+            get { return this.values[(int)ItemType.Banana]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Banana], value); }
         }
 
-        private int green;
         public int Green
         {
-            get { return this.green; }
-            set { this.SetFieldValue(ref this.green, value); }
+            get { return this.values[(int)ItemType.GreenShell]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.GreenShell], value); }
         }
 
-        private int red;
         public int Red
         {
-            get { return this.red; }
-            set { this.SetFieldValue(ref this.red, value); }
+            get { return this.values[(int)ItemType.RedShell]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.RedShell], value); }
         }
 
-        private int ghost;
         public int Ghost
         {
-            get { return this.ghost; }
-            set { this.SetFieldValue(ref this.ghost, value); }
+            get { return this.values[(int)ItemType.Ghost]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Ghost], value); }
         }
 
-        private int coins;
         public int Coins
         {
-            get { return this.coins; }
-            set { this.SetFieldValue(ref this.coins, value); }
+            get { return this.values[(int)ItemType.Coins]; }
+            set { this.SetFieldValue(ref this.values[(int)ItemType.Coins], value); }
         }
 
         public int Lightning
@@ -173,8 +165,14 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             get
             {
-                return this.mushroom + this.feather + this.star + this.banana +
-                    this.green + this.red + this.ghost + this.coins;
+                int value = 0;
+
+                for (int i = 0; i < this.values.Length; i++)
+                {
+                    value += this.values[i];
+                }
+
+                return value;
             }
         }
 
@@ -187,9 +185,12 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public bool Modified { get; private set; }
 
+        private readonly int[] values;
+
         public ItemProbability(byte[] data)
         {
             this.backupData = data;
+            this.values = new int[ItemProbability.Size - 1]; // Contains all the data except displayedItems
             this.SetBytes(data);
             this.Modified = false;
         }
@@ -205,25 +206,19 @@ namespace EpicEdit.Rom.Tracks.Items
         public void SetBytes(byte[] data)
         {
             // Init everything back to default to reset the SubTotal value
-            this.mushroom = 0;
-            this.feather = 0;
-            this.star = 0;
-            this.banana = 0;
-            this.green = 0;
-            this.red = 0;
-            this.ghost = 0;
-            this.coins = 0;
+            for (int i = 0; i < this.values.Length; i++)
+            {
+                this.values[i] = 0;
+            }
 
             int total = 0;
 
-            this.Mushroom = ItemProbability.GetFieldValue(data, 0, ref total);
-            this.Feather = ItemProbability.GetFieldValue(data, 1, ref total);
-            this.Star = ItemProbability.GetFieldValue(data, 2, ref total);
-            this.Banana = ItemProbability.GetFieldValue(data, 3, ref total);
-            this.Green = ItemProbability.GetFieldValue(data, 4, ref total);
-            this.Red = ItemProbability.GetFieldValue(data, 5, ref total);
-            this.Ghost = ItemProbability.GetFieldValue(data, 6, ref total);
-            this.Coins = ItemProbability.GetFieldValue(data, 7, ref total);
+            for (int i = 0; i < this.values.Length; i++)
+            {
+                int value = ItemProbability.GetFieldValue(data, i, ref total);
+                this.SetFieldValue(ref this.values[i], value);
+            }
+
             this.displayedItems = (ItemBoxDisplay)data[8];
 
             this.SetProbsBasedOnDisplayedItems();
@@ -253,15 +248,13 @@ namespace EpicEdit.Rom.Tracks.Items
         public void GetBytes(byte[] data, int index)
         {
             int total = 0;
-            data[index] = this.mushroom == 0 ? (byte)0 : (byte)(total += this.mushroom);
-            data[index + 1] = this.feather == 0 ? (byte)0 : (byte)(total += this.feather);
-            data[index + 2] = this.star == 0 ? (byte)0 : (byte)(total += this.star);
-            data[index + 3] = this.banana == 0 ? (byte)0 : (byte)(total += this.banana);
-            data[index + 4] = this.green == 0 ? (byte)0 : (byte)(total += this.green);
-            data[index + 5] = this.red == 0 ? (byte)0 : (byte)(total += this.red);
-            data[index + 6] = this.ghost == 0 ? (byte)0 : (byte)(total += this.ghost);
-            data[index + 7] = this.coins == 0 ? (byte)0 : (byte)(total += this.coins);
-            data[index + 8] = (byte)this.displayedItems;
+
+            for (int i = 0; i < this.values.Length; i++)
+            {
+                data[index + i] = this.values[i] == 0 ? (byte)0 : (byte)(total += this.values[i]);
+            }
+
+            data[index + this.values.Length] = (byte)this.displayedItems;
         }
 
         public void ResetModifiedState()
