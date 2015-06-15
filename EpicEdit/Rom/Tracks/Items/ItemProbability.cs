@@ -215,55 +215,34 @@ namespace EpicEdit.Rom.Tracks.Items
             this.coins = 0;
             this.displayedItems = ItemBoxDisplay.AllItems;
 
-            this.Mushroom = data[0];
-            int total = this.mushroom;
+            int total = 0;
 
-            if (data[1] != 0)
-            {
-                this.Feather = data[1] - total;
-                total += this.feather;
-            }
-
-            if (data[2] != 0)
-            {
-                this.Star = data[2] - total;
-                total += this.star;
-            }
-
-            if (data[3] != 0)
-            {
-                this.Banana = data[3] - total;
-                total += this.banana;
-            }
-
-            if (data[4] != 0)
-            {
-                this.Green = data[4] - total;
-                total += this.green;
-            }
-
-            if (data[5] != 0)
-            {
-                this.Red = data[5] - total;
-                total += this.red;
-            }
-
-            if (data[6] != 0)
-            {
-                this.Ghost = data[6] - total;
-                total += this.ghost;
-            }
-
-            if (data[7] != 0)
-            {
-                this.Coins = data[7] - total;
-            }
+            this.Mushroom = ItemProbability.GetFieldValue(data, 0, ref total);
+            this.Feather = ItemProbability.GetFieldValue(data, 1, ref total);
+            this.Star = ItemProbability.GetFieldValue(data, 2, ref total);
+            this.Banana = ItemProbability.GetFieldValue(data, 3, ref total);
+            this.Green = ItemProbability.GetFieldValue(data, 4, ref total);
+            this.Red = ItemProbability.GetFieldValue(data, 5, ref total);
+            this.Ghost = ItemProbability.GetFieldValue(data, 6, ref total);
+            this.Coins = ItemProbability.GetFieldValue(data, 7, ref total);
 
             this.displayedItems = (ItemBoxDisplay)data[8];
 
             this.SetProbsBasedOnDisplayedItems();
 
             this.Modified = true;
+        }
+
+        private static int GetFieldValue(byte[] data, int index, ref int total)
+        {
+            if (data[index] == 0)
+            {
+                return 0;
+            }
+
+            int value = data[index] - total;
+            total += value;
+            return value;
         }
 
         private byte[] GetBytes()
