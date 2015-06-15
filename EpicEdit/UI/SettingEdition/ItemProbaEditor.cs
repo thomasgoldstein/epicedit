@@ -254,8 +254,8 @@ namespace EpicEdit.UI.SettingEdition
             this.featherNumericUpDown.Value = this.itemProbability.Feather;
             this.starNumericUpDown.Value = this.itemProbability.Star;
             this.bananaNumericUpDown.Value = this.itemProbability.Banana;
-            this.greenNumericUpDown.Value = this.itemProbability.Green;
-            this.redNumericUpDown.Value = this.itemProbability.Red;
+            this.greenNumericUpDown.Value = this.itemProbability.GreenShell;
+            this.redNumericUpDown.Value = this.itemProbability.RedShell;
             this.ghostNumericUpDown.Value = this.itemProbability.Ghost;
             this.coinsNumericUpDown.Value = this.itemProbability.Coins;
             this.lightningValue.Text = this.itemProbability.Lightning.ToString(ci);
@@ -266,8 +266,8 @@ namespace EpicEdit.UI.SettingEdition
             this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ci);
             this.starPctLabel.Text = ((float)this.itemProbability.Star / total).ToString("P1", ci);
             this.bananaPctLabel.Text = ((float)this.itemProbability.Banana / total).ToString("P1", ci);
-            this.greenPctLabel.Text = ((float)this.itemProbability.Green / total).ToString("P1", ci);
-            this.redPctLabel.Text = ((float)this.itemProbability.Red / total).ToString("P1", ci);
+            this.greenPctLabel.Text = ((float)this.itemProbability.GreenShell / total).ToString("P1", ci);
+            this.redPctLabel.Text = ((float)this.itemProbability.RedShell / total).ToString("P1", ci);
             this.ghostPctLabel.Text = ((float)this.itemProbability.Ghost / total).ToString("P1", ci);
             this.coinsPctLabel.Text = ((float)this.itemProbability.Coins / total).ToString("P1", ci);
             this.lightningPctLabel.Text = ((float)this.itemProbability.Lightning / total).ToString("P1", ci);
@@ -324,8 +324,8 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbability.Feather = (int)this.featherNumericUpDown.Value;
             this.itemProbability.Star = (int)this.starNumericUpDown.Value;
             this.itemProbability.Banana = (int)this.bananaNumericUpDown.Value;
-            this.itemProbability.Green = (int)this.greenNumericUpDown.Value;
-            this.itemProbability.Red = (int)this.redNumericUpDown.Value;
+            this.itemProbability.GreenShell = (int)this.greenNumericUpDown.Value;
+            this.itemProbability.RedShell = (int)this.redNumericUpDown.Value;
             this.itemProbability.Coins = (int)this.coinsNumericUpDown.Value;
 
             if (this.itemProbability.DisplayedItems == ItemBoxDisplay.NoCoinsOrLightnings)

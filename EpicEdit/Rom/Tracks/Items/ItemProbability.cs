@@ -132,13 +132,13 @@ namespace EpicEdit.Rom.Tracks.Items
             set { this.SetFieldValue(ref this.values[(int)ItemType.Banana], value); }
         }
 
-        public int Green
+        public int GreenShell
         {
             get { return this.values[(int)ItemType.GreenShell]; }
             set { this.SetFieldValue(ref this.values[(int)ItemType.GreenShell], value); }
         }
 
-        public int Red
+        public int RedShell
         {
             get { return this.values[(int)ItemType.RedShell]; }
             set { this.SetFieldValue(ref this.values[(int)ItemType.RedShell], value); }
