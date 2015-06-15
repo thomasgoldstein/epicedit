@@ -58,8 +58,8 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 if (value != this.displayedItems)
                 {
-                    this.Modified = true;
                     this.displayedItems = value;
+                    this.Modified = true;
                     this.SetProbsBasedOnDisplayedItems();
                 }
             }
