@@ -213,7 +213,6 @@ namespace EpicEdit.Rom.Tracks.Items
             this.red = 0;
             this.ghost = 0;
             this.coins = 0;
-            this.displayedItems = ItemBoxDisplay.AllItems;
 
             int total = 0;
 
@@ -225,7 +224,6 @@ namespace EpicEdit.Rom.Tracks.Items
             this.Red = ItemProbability.GetFieldValue(data, 5, ref total);
             this.Ghost = ItemProbability.GetFieldValue(data, 6, ref total);
             this.Coins = ItemProbability.GetFieldValue(data, 7, ref total);
-
             this.displayedItems = (ItemBoxDisplay)data[8];
 
             this.SetProbsBasedOnDisplayedItems();
