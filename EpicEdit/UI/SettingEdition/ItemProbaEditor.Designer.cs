@@ -221,7 +221,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // coinsPanel
             // 
-            this.coinsPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Coin;
+            this.coinsPanel.ItemType = EpicEdit.Rom.Tracks.Items.ItemType.Coins;
             this.coinsPanel.Location = new System.Drawing.Point(347, 103);
             this.coinsPanel.Name = "coinsPanel";
             this.coinsPanel.Size = new System.Drawing.Size(16, 16);

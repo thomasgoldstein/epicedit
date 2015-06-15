@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Tracks.Items
         GreenShell,
         RedShell,
         Ghost,
-        Coin,
+        Coins,
         Lightning
     }
 }
