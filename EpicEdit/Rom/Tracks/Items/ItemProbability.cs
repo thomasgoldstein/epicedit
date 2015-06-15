@@ -204,7 +204,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public void SetBytes(byte[] data)
         {
-            // Init everything back to default, this will help when calling reset
+            // Init everything back to default to reset the SubTotal value
             this.mushroom = 0;
             this.feather = 0;
             this.star = 0;
