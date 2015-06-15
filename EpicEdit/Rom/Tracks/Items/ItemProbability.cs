@@ -56,7 +56,7 @@ namespace EpicEdit.Rom.Tracks.Items
             get { return this.displayedItems; }
             set
             {
-                if (value != this.displayedItems)
+                if (this.displayedItems != value)
                 {
                     this.displayedItems = value;
                     this.Modified = true;
