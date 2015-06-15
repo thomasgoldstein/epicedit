@@ -96,9 +96,9 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private void SetFieldValue(ref int field, int value)
         {
-            if (this.subTotal - field + value > ItemProbability.TotalCount)
+            if (this.SubTotal - field + value > ItemProbability.TotalCount)
             {
-                value = ItemProbability.TotalCount - (this.subTotal - field);
+                value = ItemProbability.TotalCount - (this.SubTotal - field);
             }
 
             if (field != value)
@@ -166,10 +166,10 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public int Lightning
         {
-            get { return ItemProbability.TotalCount - this.subTotal; }
+            get { return ItemProbability.TotalCount - this.SubTotal; }
         }
 
-        private int subTotal
+        private int SubTotal
         {
             get
             {
@@ -180,7 +180,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public int Total
         {
-            get { return this.subTotal + this.Lightning; }
+            get { return this.SubTotal + this.Lightning; }
         }
 
         #endregion Items
