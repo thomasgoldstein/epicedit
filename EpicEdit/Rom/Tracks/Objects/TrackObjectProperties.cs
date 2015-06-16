@@ -128,7 +128,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.Interaction = (ObjectType)data[1];
             this.Routine = (ObjectType)data[2];
             this.palettes = palettes;
-            this.PaletteIndexes = new ByteArray(new [] { data[3], data[4], data[5], data[6] });
+            this.PaletteIndexes = new ByteArray(new[] { data[3], data[4], data[5], data[6] });
             this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
             this.Flashing = data[7] != 0;
         }
