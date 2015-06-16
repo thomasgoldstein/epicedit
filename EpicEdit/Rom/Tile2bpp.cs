@@ -183,7 +183,7 @@ namespace EpicEdit.Rom
             Palette palette = this.Palette;
             int subPalIndex = this.Properties.SubPaletteIndex;
 
-            return new RomColor[]
+            return new[]
             {
                 this.Palettes.BackColor,
                 palette[subPalIndex + 1],
