@@ -127,15 +127,7 @@ namespace EpicEdit.Rom
     {
         public override Palette Palette
         {
-            get
-            {
-                if (this.palettes == null)
-                {
-                    return null;
-                }
-
-                return this.palettes[this.Properties.PaletteIndex];
-            }
+            get { return this.palettes == null ? null : this.palettes[this.Properties.PaletteIndex]; }
             set
             {
                 if (value == null)
