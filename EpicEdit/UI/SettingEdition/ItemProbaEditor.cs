@@ -289,12 +289,6 @@ namespace EpicEdit.UI.SettingEdition
             this.lightningPanel.UpdateImage();
         }
 
-        public void UpdateImages(Palette palette)
-        {
-            Context.Game.ItemIconGraphics.UpdateTiles(palette);
-            this.InitImages();
-        }
-
         #endregion Fields initialization and display
 
         #region Event handlers
@@ -402,9 +396,30 @@ namespace EpicEdit.UI.SettingEdition
                     return;
                 }
 
+                if (this.theme != null)
+                {
+                    for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                    {
+                        this.theme.Palettes[i].ColorChanged -= this.palette_ColorsChanged;
+                        this.theme.Palettes[i].ColorsChanged -= this.palette_ColorsChanged;
+                    }
+                }
+
                 this.theme = value;
+
+                for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                {
+                    this.theme.Palettes[i].ColorChanged += this.palette_ColorsChanged;
+                    this.theme.Palettes[i].ColorsChanged += this.palette_ColorsChanged;
+                }
+
                 this.UpdateIcons(this.theme);
             }
+        }
+
+        private void palette_ColorsChanged(object sender, EventArgs e)
+        {
+            this.InitImages();
         }
 
         public void ShowTrackData(Track track)

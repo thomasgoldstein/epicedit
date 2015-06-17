@@ -83,12 +83,12 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private RoadTilesetDrawer drawer;
 
-        private Track track = null;
+        private Track track;
 
         /// <summary>
         /// Flag to differentiate user actions and automatic actions.
         /// </summary>
-        private bool userAction = false;
+        private bool userAction;
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
@@ -96,14 +96,24 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track; }
             set
             {
-                this.userAction = false;
+                if (this.track != null)
+                {
+                    this.track.ColorChanged -= this.track_ColorsChanged;
+                    this.track.ColorsChanged -= this.track_ColorsChanged;
+                }
+
                 this.track = value;
+
+                this.track.ColorChanged += this.track_ColorsChanged;
+                this.track.ColorsChanged += this.track_ColorsChanged;
+
+                this.userAction = false;
                 this.SelectTrackTheme();
                 this.userAction = true;
             }
         }
 
-        private byte selectedTile = 0;
+        private byte selectedTile;
 
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
@@ -133,6 +143,14 @@ namespace EpicEdit.UI.TrackEdition
             this.InitializeComponent();
 
             this.tilesetPanel.Zoom = RoadTilesetDrawer.Zoom;
+        }
+
+        private void track_ColorsChanged(object sender, EventArgs e)
+        {
+            if ((sender as Palette).Index < Palettes.SpritePaletteStart)
+            {
+                this.UpdateTileset();
+            }
         }
 
         public void InitOnFirstRomLoad()

@@ -133,12 +133,31 @@ namespace EpicEdit.UI.ThemeEdition
             this.playPauseButton.Text = "Play";
         }
 
-        public void UpdateBackground(Theme theme)
+        private void SetTheme()
         {
-            if (theme == this.Theme)
+            if (this.drawer.Theme != null)
             {
-                this.LoadTheme();
+                for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                {
+                    Palette palette = this.drawer.Theme.Palettes[i];
+                    palette.ColorChanged -= this.palette_ColorsChanged;
+                    palette.ColorsChanged -= this.palette_ColorsChanged;
+                }
             }
+
+            this.LoadTheme();
+
+            for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+            {
+                Palette palette = this.drawer.Theme.Palettes[i];
+                palette.ColorChanged += this.palette_ColorsChanged;
+                palette.ColorsChanged += this.palette_ColorsChanged;
+            }
+        }
+
+        private void palette_ColorsChanged(object sender, EventArgs e)
+        {
+            this.LoadTheme();
         }
 
         private void LoadTheme()
@@ -156,7 +175,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.ResetSettings();
-            this.LoadTheme();
+            this.SetTheme();
         }
         
         private void PlayPauseButtonClick(object sender, EventArgs e)

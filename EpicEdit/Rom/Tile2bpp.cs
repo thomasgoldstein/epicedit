@@ -125,6 +125,13 @@ namespace EpicEdit.Rom
     /// </summary>
     internal class Tile2bpp : Tile
     {
+        protected void SetPalette()
+        {
+            // Setting the base Palette lets us listen to the palette color change events,
+            // and will update the Bitmap if the Palette has changed.
+            base.Palette = this.Palette;
+        }
+
         public override Palette Palette
         {
             get { return this.palettes == null ? null : this.palettes[this.Properties.PaletteIndex]; }
@@ -141,6 +148,8 @@ namespace EpicEdit.Rom
                     SubPaletteIndex = this.Properties.SubPaletteIndex,
                     Flip = this.Properties.Flip
                 };
+
+                this.SetPalette();
             }
         }
 
@@ -157,10 +166,7 @@ namespace EpicEdit.Rom
 
                 this.palettes = value;
 
-                if (value != null)
-                {
-                    this.UpdateBitmap();
-                }
+                this.SetPalette();
             }
         }
 
@@ -173,7 +179,7 @@ namespace EpicEdit.Rom
                 if (this.properties != value)
                 {
                     this.properties = value;
-                    this.UpdateBitmap();
+                    this.SetPalette();
                 }
             }
         }

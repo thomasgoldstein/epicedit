@@ -43,7 +43,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
                 {
                     this.front = value;
                     this.paletteStart = this.front ? FrontPaletteStart : BackPaletteStart;
-                    this.UpdateBitmap();
+                    this.SetPalette();
                 }
             }
         }

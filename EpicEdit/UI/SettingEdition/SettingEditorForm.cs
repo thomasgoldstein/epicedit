@@ -61,11 +61,6 @@ namespace EpicEdit.UI.SettingEdition
             this.itemProbaEditor.Init();
         }
 
-        public void UpdateItemIcons(Palette palette)
-        {
-            this.itemProbaEditor.UpdateImages(palette);
-        }
-
         public void ShowTrackItemProbabilities(Track track, bool showItemProba)
         {
             this.itemProbaEditor.ShowTrackData(track);

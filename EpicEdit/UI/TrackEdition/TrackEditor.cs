@@ -389,6 +389,8 @@ namespace EpicEdit.UI.TrackEdition
         public void InitOnFirstRomLoad()
         {
             this.drawer = new TrackDrawer();
+            this.drawer.ColorsChanged += this.drawer_ColorsChanged;
+
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
             this.trackTreeView.InitOnFirstRomLoad();
@@ -408,6 +410,17 @@ namespace EpicEdit.UI.TrackEdition
             this.trackDisplay.Enabled = true;
             this.modeTabControl.Enabled = true;
             this.menuBar.EnableControls();
+        }
+
+        private void drawer_ColorsChanged(object sender, EventArgs<bool> e)
+        {
+            if (e.Value)
+            {
+                this.UpdateTileClipboard();
+            }
+
+            this.InvalidateWholeTrackDisplay();
+            this.trackDisplay.Update();
         }
 
         public void InitOnRomLoad()
@@ -702,10 +715,6 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.paletteForm = new PaletteEditorForm();
                 this.paletteForm.Owner = this.ParentForm;
-                this.paletteForm.ColorChanged += this.PaletteEditorFormColorChanged;
-                this.paletteForm.ColorsChanged += this.PaletteEditorFormColorsChanged;
-                this.paletteForm.PalettesChanged += this.PaletteEditorFormPalettesChanged;
-                this.paletteForm.ThemeBackColorChanged += this.PaletteEditorFormThemeBackColorChanged;
                 this.trackDisplay.ColorSelected += this.TileColorSelected;
                 this.tilesetControl.ColorSelected += this.TileColorSelected;
                 this.overlayControl.ColorSelected += this.TileColorSelected;
@@ -736,106 +745,10 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void PaletteEditorFormColorChanged(object sender, EventArgs e)
-        {
-            this.UpdateTiles(false);
-        }
-
-        private void PaletteEditorFormColorsChanged(object sender, EventArgs e)
-        {
-            this.UpdateTiles(true);
-        }
-
-        private void PaletteEditorFormPalettesChanged(object sender, EventArgs e)
-        {
-            this.UpdateAllTiles(true);
-        }
-
-        private void PaletteEditorFormThemeBackColorChanged(object sender, EventArgs e)
-        {
-            this.UpdateAllTiles(false);
-        }
-
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
         {
             this.paletteForm.Editor.Palette = e.Value1;
             this.paletteForm.Editor.ColorIndex = e.Value2;
-        }
-
-        /// <summary>
-        /// If the user changed a color palette, the tiles need to be updated to reflect this.
-        /// </summary>
-        /// <param name="wholePalette">Determines whether the whole palette has been updated, or only a single color.</param>
-        private void UpdateTiles(bool wholePalette)
-        {
-            Palette palette = this.paletteForm.Editor.Palette;
-            this.UpdateTiles(palette, wholePalette);
-        }
-
-        private void UpdateAllTiles(bool wholePalette)
-        {
-            foreach (Palette palette in this.paletteForm.Editor.Palette.Collection)
-            {
-                this.UpdateTiles(palette, wholePalette);
-            }
-        }
-
-        private void UpdateTiles(Palette palette, bool wholePalette)
-        {
-            Theme theme = this.paletteForm.Editor.Theme;
-            bool isSpritePalette = palette.Index >= Palettes.SpritePaletteStart;
-
-            if (isSpritePalette)
-            {
-                Context.Game.ObjectGraphics.UpdateTiles(palette);
-            }
-            else
-            {
-                if (this.backgroundFormInitialized)
-                {
-                    this.backgroundForm.Editor.UpdateBackground(theme);
-                }
-
-                if (this.settingFormInitialized)
-                {
-                    this.settingForm.UpdateItemIcons(palette);
-                }
-            }
-
-            if (this.track.Theme != theme)
-            {
-                if (!isSpritePalette)
-                {
-                    theme.RoadTileset.UpdateTiles(palette);
-                }
-            }
-            else
-            {
-                if (!isSpritePalette)
-                {
-                    // The updated color belongs to the theme of the current track,
-                    // and is not a sprite color palette, so caches need to be updated
-
-                    if (wholePalette)
-                    {
-                        theme.RoadTileset.UpdateTiles(palette);
-                        this.drawer.UpdateCache(palette);
-                    }
-                    else // Optimized cache updates, for a single color change
-                    {
-                        int colorIndex = this.paletteForm.Editor.ColorIndex;
-                        bool[] tileUpdates = theme.RoadTileset.UpdateTiles(palette, colorIndex);
-                        this.drawer.UpdateCache(tileUpdates);
-                    }
-
-                    this.UpdateTileClipboard();
-                    this.tilesetControl.UpdateTileset();
-                    this.overlayControl.UpdateTileset();
-                }
-
-                this.InvalidateWholeTrackDisplay();
-                this.trackDisplay.Update();
-            }
         }
 
         private void MenuBarBackgroundEditorRequested(object sender, EventArgs e)

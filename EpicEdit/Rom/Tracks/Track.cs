@@ -20,6 +20,7 @@ using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks
 {
@@ -52,6 +53,8 @@ namespace EpicEdit.Rom.Tracks
         public const int GroupCount = GPTrack.GroupCount + BattleTrack.GroupCount;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<EventArgs<int>> ColorChanged;
+        public event EventHandler<EventArgs> ColorsChanged;
 
         public SuffixedTextItem SuffixedNameItem { get; private set; }
 
@@ -71,7 +74,10 @@ namespace EpicEdit.Rom.Tracks
                     return;
                 }
 
+                this.RemoveColorChangedEventHandlers();
                 this.theme = value;
+                this.AddColorChangedEventHandlers();
+
                 this.MarkAsModified("Theme");
             }
         }
@@ -94,6 +100,7 @@ namespace EpicEdit.Rom.Tracks
                         OverlayTilePatterns overlayTilePatterns)
         {
             this.theme = theme;
+            this.AddColorChangedEventHandlers();
 
             this.SuffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
@@ -112,6 +119,50 @@ namespace EpicEdit.Rom.Tracks
             this.OverlayTiles.ElementAdded += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementRemoved += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementsCleared += this.OverlayTiles_DataChanged;
+        }
+
+        private void AddColorChangedEventHandlers()
+        {
+            foreach (Palette palette in this.theme.Palettes)
+            {
+                palette.ColorChanged += this.palette_ColorChanged;
+                palette.ColorsChanged += this.palette_ColorsChanged;
+            }
+        }
+
+        private void RemoveColorChangedEventHandlers()
+        {
+            foreach (Palette palette in this.theme.Palettes)
+            {
+                palette.ColorChanged -= this.palette_ColorChanged;
+                palette.ColorsChanged -= this.palette_ColorsChanged;
+            }
+        }
+
+        private void palette_ColorChanged(object sender, EventArgs<int> e)
+        {
+            this.OnColorChanged(sender, e.Value);
+        }
+
+        private void palette_ColorsChanged(object sender, EventArgs e)
+        {
+            this.OnColorsChanged(sender);
+        }
+
+        private void OnColorChanged(object sender, int value)
+        {
+            if (this.ColorChanged != null)
+            {
+                this.ColorChanged(sender, new EventArgs<int>(value));
+            }
+        }
+
+        private void OnColorsChanged(object sender)
+        {
+            if (this.ColorsChanged != null)
+            {
+                this.ColorsChanged(sender, EventArgs.Empty);
+            }
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)

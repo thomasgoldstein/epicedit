@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Drawing;
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom
 {
@@ -32,6 +33,9 @@ namespace EpicEdit.Rom
         /// The number of colors that compose a palette.
         /// </summary>
         public const int ColorCount = Palette.Size / RomColor.Size;
+
+        public event EventHandler<EventArgs<int>> ColorChanged;
+        public event EventHandler<EventArgs> ColorsChanged;
 
         /// <summary>
         /// The collection the palette belongs to.
@@ -73,6 +77,36 @@ namespace EpicEdit.Rom
             this.backupData = data;
 
             this.SetBytesInternal(data);
+
+            if (this.Index > 0)
+            {
+                // Listen to the events of the first palette of the collection,
+                // because the first color of the first palette (back color) is shared by all palettes
+                // TODO: Consider turning RomColor into a class, make palettes share the same first RomColor,
+                // and make colors raise changed events. This way, these hacks will no longer be necessary.
+                this.Collection[0].ColorChanged += this.firstPalette_ColorChanged;
+                this.Collection[0].ColorsChanged += this.firstPalette_ColorsChanged;
+            }
+        }
+
+        private void firstPalette_ColorChanged(object sender, EventArgs<int> e)
+        {
+            if (e.Value == 0)
+            {
+                // The first color of the first palette (back color) is part of all palettes
+                this.OnColorChanged(0);
+            }
+        }
+
+        private void firstPalette_ColorsChanged(object sender, EventArgs e)
+        {
+            // The first color of the first palette (back color) is part of all palettes
+
+            // NOTE: this event is raised unnecessarily when the ColorsChanged event is raised
+            // for all of the palettes (which happens when importing new palettes), as it leads us
+            // to raise both a ColorChanged and a ColorsChanged event for each palette after the first.
+            // Implementing the TODO described in the constructor would fix this.
+            this.OnColorChanged(0);
         }
 
         private void SetBytesInternal(byte[] data)
@@ -84,7 +118,7 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < this.colors.Length; i++)
             {
-                this.LoadColor(data, i);
+                this.colors[i] = Palette.GetColor(data, i);
             }
         }
 
@@ -92,11 +126,12 @@ namespace EpicEdit.Rom
         {
             this.SetBytesInternal(data);
             this.Modified = true;
+            this.OnColorsChanged();
         }
 
-        private void LoadColor(byte[] data, int index)
+        private static RomColor GetColor(byte[] data, int index)
         {
-            this.colors[index] = RomColor.FromBytes(data, index * RomColor.Size);
+            return RomColor.FromBytes(data, index * RomColor.Size);
         }
 
         /// <summary>
@@ -105,7 +140,7 @@ namespace EpicEdit.Rom
         /// <param name="index">The color index.</param>
         public void ResetColor(int index)
         {
-            this.LoadColor(this.backupData, index);
+            this[index] = Palette.GetColor(this.backupData, index);
         }
 
         /// <summary>
@@ -115,6 +150,7 @@ namespace EpicEdit.Rom
         {
             this.SetBytesInternal(this.backupData);
             this.Modified = false;
+            this.OnColorsChanged();
         }
 
         public RomColor this[int index]
@@ -122,8 +158,36 @@ namespace EpicEdit.Rom
             get { return this.colors[index]; }
             set
             {
+                if (this.colors[index] == value)
+                {
+                    return;
+                }
+
                 this.colors[index] = value;
                 this.Modified = true;
+                this.OnColorChanged(index);
+            }
+        }
+
+        private void OnColorChanged(int value)
+        {
+            if (value == 0 && this.Index > 0)
+            {
+                // The first color of each palette after the first is never used. No need to raise a ColorChanged event.
+                return;
+            }
+
+            if (this.ColorChanged != null)
+            {
+                this.ColorChanged(this, new EventArgs<int>(value));
+            }
+        }
+
+        private void OnColorsChanged()
+        {
+            if (this.ColorsChanged != null)
+            {
+                this.ColorsChanged(this, EventArgs.Empty);
             }
         }
 

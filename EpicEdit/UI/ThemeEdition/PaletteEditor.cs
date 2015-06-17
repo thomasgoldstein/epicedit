@@ -28,18 +28,6 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class PaletteEditor : UserControl
     {
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ColorChanged;
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ColorsChanged;
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> PalettesChanged;
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ThemeBackColorChanged;
-
         /// <summary>
         /// Gets or sets the theme.
         /// </summary>
@@ -67,7 +55,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Index of the selected color from the palette.
         /// </summary>
-        private int colorIndex = 0;
+        private int colorIndex;
 
         /// <summary>
         /// Gets or sets the index of the selected color from the palette.
@@ -199,8 +187,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.Palette.ResetColor(this.colorIndex);
             this.UpdateColor(this.colorIndex);
             this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-
-            this.ColorChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -212,8 +198,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.Palette.Reset();
             this.UpdatePalette();
-
-            this.OnColorsChanged(e);
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -234,36 +218,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.panels[this.colorIndex].BackColor = color;
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
-
-            this.OnColorChanged(e);
-        }
-
-        private void OnColorsChanged(EventArgs e)
-        {
-            if (this.Palette.Index == 0)
-            {
-                // The first color of the first palette (back color) can affect all tiles,
-                // so raise a different event.
-                this.PalettesChanged(this, e);
-            }
-            else
-            {
-                this.ColorsChanged(this, e);
-            }
-        }
-
-        private void OnColorChanged(EventArgs e)
-        {
-            if (this.Palette.Index == 0 && this.colorIndex == 0)
-            {
-                // The first color of the first palette (back color) can affect all tiles,
-                // so raise a different event.
-                this.ThemeBackColorChanged(this, e);
-            }
-            else
-            {
-                this.ColorChanged(this, e);
-            }
         }
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
@@ -271,7 +225,6 @@ namespace EpicEdit.UI.ThemeEdition
             if (UITools.ShowImportBinaryDataDialog(this.Theme.Palettes.SetBytes, FileDialogFilters.ColorPalette))
             {
                 this.UpdatePalette();
-                this.PalettesChanged(this, EventArgs.Empty);
             }
         }
 

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom
 {
@@ -38,10 +39,33 @@ namespace EpicEdit.Rom
                     return;
                 }
 
+                if (this.palette != null)
+                {
+                    this.palette.ColorChanged -= this.palette_ColorChanged;
+                    this.palette.ColorsChanged -= this.palette_ColorsChanged;
+                }
+
                 this.palette = value;
+
+                this.palette.ColorChanged += this.palette_ColorChanged;
+                this.palette.ColorsChanged += this.palette_ColorsChanged;
+
                 this.UpdateBitmap();
                 this.OnPropertyChange("Palette");
             }
+        }
+
+        private void palette_ColorChanged(object sender, EventArgs<int> e)
+        {
+            if (this.Contains(e.Value))
+            {
+                this.UpdateBitmap();
+            }
+        }
+
+        private void palette_ColorsChanged(object sender, EventArgs e)
+        {
+            this.UpdateBitmap();
         }
 
         private byte[] graphics;
@@ -68,9 +92,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        // NOTE: Might be better if this method was protected, and we'd internally figure out
-        // when to update the bitmap as events are raised when color palettes have been changed, etc.
-        public void UpdateBitmap()
+        protected void UpdateBitmap()
         {
             if (this.Palette == null)
             {

@@ -71,36 +71,6 @@ namespace EpicEdit.Rom.Tracks.Road
             get { return this.GetTile(index); }
         }
 
-        public void UpdateTiles(Palette palette)
-        {
-            foreach (Tile tile in this.tileset)
-            {
-                if (tile.Palette == palette)
-                {
-                    tile.UpdateBitmap();
-                }
-            }
-        }
-
-        public bool[] UpdateTiles(Palette palette, int colorIndex)
-        {
-            bool[] tileUpdates = new bool[this.tileset.Length];
-            int index = 0;
-
-            foreach (Tile tile in this.tileset)
-            {
-                if (tile.Palette == palette && tile.Contains(colorIndex))
-                {
-                    tileUpdates[index] = true;
-                    tile.UpdateBitmap();
-                }
-
-                index++;
-            }
-
-            return tileUpdates;
-        }
-
         public byte[] GetTileGenreBytes()
         {
             byte[] data = new byte[this.tileset.Length];

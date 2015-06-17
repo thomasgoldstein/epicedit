@@ -23,34 +23,6 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal partial class PaletteEditorForm : Form
     {
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ColorChanged
-        {
-            add { this.Editor.ColorChanged += value; }
-            remove { this.Editor.ColorChanged -= value; }
-        }
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ColorsChanged
-        {
-            add { this.Editor.ColorsChanged += value; }
-            remove { this.Editor.ColorsChanged -= value; }
-        }
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> PalettesChanged
-        {
-            add { this.Editor.PalettesChanged += value; }
-            remove { this.Editor.PalettesChanged -= value; }
-        }
-
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ThemeBackColorChanged
-        {
-            add { this.Editor.ThemeBackColorChanged += value; }
-            remove { this.Editor.ThemeBackColorChanged -= value; }
-        }
-
         public PaletteEditorForm()
         {
             this.InitializeComponent();

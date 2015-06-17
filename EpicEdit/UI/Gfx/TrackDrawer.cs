@@ -37,6 +37,8 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal sealed class TrackDrawer : IDisposable
     {
+        public event EventHandler<EventArgs<bool>> ColorsChanged;
+
         private Track track;
 
         private Point scrollPosition;
@@ -259,7 +261,17 @@ namespace EpicEdit.UI.Gfx
         {
             this.trackCache.Dispose();
 
+            if (this.track != null)
+            {
+                this.track.ColorChanged -= this.track_ColorChanged;
+                this.track.ColorsChanged -= this.track_ColorsChanged;
+            }
+
             this.track = track;
+
+            this.track.ColorChanged += this.track_ColorChanged;
+            this.track.ColorsChanged += this.track_ColorsChanged;
+
             RoadTileset tileset = this.track.RoadTileset;
 
             this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
@@ -276,6 +288,36 @@ namespace EpicEdit.UI.Gfx
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
+            }
+        }
+
+        private void track_ColorChanged(object sender, EventArgs<int> e)
+        {
+            bool updateCache = (sender as Palette).Index < Palettes.SpritePaletteStart;
+            if (updateCache)
+            {
+                this.UpdateCache(sender as Palette, e.Value);
+            }
+
+            this.OnColorsChanged(updateCache);
+        }
+
+        private void track_ColorsChanged(object sender, EventArgs e)
+        {
+            bool updateCache = (sender as Palette).Index < Palettes.SpritePaletteStart;
+            if (updateCache)
+            {
+                this.UpdateCache(sender as Palette);
+            }
+
+            this.OnColorsChanged(updateCache);
+        }
+
+        private void OnColorsChanged(bool updateCache)
+        {
+            if (this.ColorsChanged != null)
+            {
+                this.ColorsChanged(this, new EventArgs<bool>(updateCache));
             }
         }
 
@@ -300,7 +342,7 @@ namespace EpicEdit.UI.Gfx
             return this.GetZoomedRegion(region);
         }
 
-        public void UpdateCache(Palette palette)
+        private void UpdateCache(Palette palette)
         {
             RoadTileset tileset = this.track.RoadTileset;
 
@@ -339,8 +381,26 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void UpdateCache(bool[] tileUpdates)
+        private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
         {
+            bool[] tilesToBeUpdated = new bool[RoadTileset.TileCount];
+
+            for (int i = 0; i < tilesToBeUpdated.Length; i++)
+            {
+                Tile tile = this.track.RoadTileset[i];
+                if (tile.Palette == palette && tile.Contains(colorIndex))
+                {
+                    tilesToBeUpdated[i] = true;
+                }
+            }
+
+            return tilesToBeUpdated;
+        }
+
+        private void UpdateCache(Palette palette, int colorIndex)
+        {
+            bool[] tilesToBeUpdated = this.GetTilesToBeUpdated(palette, colorIndex);
+
             RoadTileset tileset = this.track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
@@ -350,7 +410,7 @@ namespace EpicEdit.UI.Gfx
                     for (int y = 0; y < this.track.Map.Height; y++)
                     {
                         byte tileId = this.track.Map[x, y];
-                        if (tileUpdates[tileId])
+                        if (tilesToBeUpdated[tileId])
                         {
                             Tile tile = tileset[tileId];
                             g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
