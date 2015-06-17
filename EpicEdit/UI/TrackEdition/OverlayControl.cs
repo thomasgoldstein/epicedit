@@ -176,11 +176,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.ColorChanged += this.track_ColorsChanged;
                 this.track.ColorsChanged += this.track_ColorsChanged;
 
-                if (this.Tileset == null ||
-                    this.Tileset != this.drawer.Tileset)
-                {
-                    this.Tileset = this.track.RoadTileset;
-                }
+                this.LoadTileset(this.track.RoadTileset);
                 this.UpdateTileCount();
             }
         }
@@ -333,19 +329,26 @@ namespace EpicEdit.UI.TrackEdition
             }
             set
             {
-                if (this.drawer == null)
+                if (this.drawer == null ||
+                    this.drawer.Tileset == value)
                 {
                     return;
                 }
 
-                this.drawer.Tileset = value;
-                this.tilesetPanel.Refresh();
+                this.LoadTileset(value);
             }
+        }
+
+        private void LoadTileset(RoadTileset tileset)
+        {
+            this.drawer.Tileset = tileset;
+            this.tilesetPanel.Refresh();
         }
 
         public void UpdateTileset()
         {
-            this.Tileset = this.drawer.Tileset;
+            this.drawer.ReloadTileset();
+            this.tilesetPanel.Refresh();
         }
 
         private void UpdateTileCount()
@@ -452,7 +455,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.PropertyName == "Theme")
             {
-                this.Tileset = this.track.RoadTileset;
+                this.LoadTileset(this.track.RoadTileset);
             }
         }
 

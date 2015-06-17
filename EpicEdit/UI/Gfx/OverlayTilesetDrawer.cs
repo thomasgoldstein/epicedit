@@ -69,6 +69,11 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
+        public void ReloadTileset()
+        {
+            this.UpdateCache();
+        }
+
         public void SetImageSize(Size size)
         {
             this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
