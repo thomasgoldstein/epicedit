@@ -172,7 +172,12 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
                 this.track.PropertyChanged += this.track_PropertyChanged;
 
-                this.Tileset = this.track.RoadTileset;
+                if (this.Tileset == null ||
+                    this.Tileset != this.drawer.Tileset)
+                {
+                    this.Tileset = this.track.RoadTileset;
+                }
+
                 this.UpdateTileCount();
             }
         }
@@ -325,8 +330,7 @@ namespace EpicEdit.UI.TrackEdition
             }
             set
             {
-                if (this.drawer == null ||
-                    this.drawer.Tileset == value)
+                if (this.drawer == null)
                 {
                     return;
                 }
