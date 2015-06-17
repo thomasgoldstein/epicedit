@@ -1972,7 +1972,7 @@ namespace EpicEdit.UI.TrackEdition
         private void OnRightMouseButtonRelease()
         {
             this.tileClipboard.Fill(this.track.Map);
-            this.drawer.UpdateTileClipboard(this.tileClipboard.Rectangle);
+            this.UpdateTileClipboard();
             this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
             this.InvalidateTrackDisplay();
         }
