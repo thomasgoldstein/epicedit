@@ -664,6 +664,16 @@ namespace EpicEdit.UI.ThemeEdition
             control.Select(0, control.Text.Length);
         }
 
+        private void BasicColorsPictureBoxMouseLeave(object sender, EventArgs e)
+        {
+            this.basicColorsMouseDown = false;
+        }
+
+        private void ShadesPictureBoxMouseLeave(object sender, EventArgs e)
+        {
+            this.shadesPictureMouseDown = false;
+        }
+
         #endregion Event handlers
 
         #region Find colors

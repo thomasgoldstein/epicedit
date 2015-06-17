@@ -141,6 +141,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.basicColorsPictureBox.Click += new System.EventHandler(this.BasicColorsPictureBoxClick);
             this.basicColorsPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.BasicColorsPictureBoxPaint);
             this.basicColorsPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseDown);
+            this.basicColorsPictureBox.MouseLeave += new System.EventHandler(this.BasicColorsPictureBoxMouseLeave);
             this.basicColorsPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseMove);
             this.basicColorsPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BasicColorsPictureBoxMouseUp);
             // 
@@ -155,6 +156,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.shadesPictureBox.Click += new System.EventHandler(this.ShadesPictureBoxClick);
             this.shadesPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.ShadesPictureBoxPaint);
             this.shadesPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseDown);
+            this.shadesPictureBox.MouseLeave += new System.EventHandler(this.ShadesPictureBoxMouseLeave);
             this.shadesPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseMove);
             this.shadesPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShadesPictureBoxMouseUp);
             // 
@@ -162,10 +164,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.red5NumericUpDown.Location = new System.Drawing.Point(136, 38);
             this.red5NumericUpDown.Maximum = new decimal(new int[] {
-                                    31,
-                                    0,
-                                    0,
-                                    0});
+            31,
+            0,
+            0,
+            0});
             this.red5NumericUpDown.Name = "red5NumericUpDown";
             this.red5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.red5NumericUpDown.TabIndex = 3;
@@ -176,10 +178,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.green5NumericUpDown.Location = new System.Drawing.Point(136, 85);
             this.green5NumericUpDown.Maximum = new decimal(new int[] {
-                                    31,
-                                    0,
-                                    0,
-                                    0});
+            31,
+            0,
+            0,
+            0});
             this.green5NumericUpDown.Name = "green5NumericUpDown";
             this.green5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.green5NumericUpDown.TabIndex = 6;
@@ -190,10 +192,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.blue5NumericUpDown.Location = new System.Drawing.Point(136, 132);
             this.blue5NumericUpDown.Maximum = new decimal(new int[] {
-                                    31,
-                                    0,
-                                    0,
-                                    0});
+            31,
+            0,
+            0,
+            0});
             this.blue5NumericUpDown.Name = "blue5NumericUpDown";
             this.blue5NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.blue5NumericUpDown.TabIndex = 9;
@@ -216,10 +218,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.red8NumericUpDown.Location = new System.Drawing.Point(186, 38);
             this.red8NumericUpDown.Maximum = new decimal(new int[] {
-                                    255,
-                                    0,
-                                    0,
-                                    0});
+            255,
+            0,
+            0,
+            0});
             this.red8NumericUpDown.Name = "red8NumericUpDown";
             this.red8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.red8NumericUpDown.TabIndex = 4;
@@ -230,10 +232,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.green8NumericUpDown.Location = new System.Drawing.Point(186, 85);
             this.green8NumericUpDown.Maximum = new decimal(new int[] {
-                                    255,
-                                    0,
-                                    0,
-                                    0});
+            255,
+            0,
+            0,
+            0});
             this.green8NumericUpDown.Name = "green8NumericUpDown";
             this.green8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.green8NumericUpDown.TabIndex = 7;
@@ -244,10 +246,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.blue8NumericUpDown.Location = new System.Drawing.Point(186, 132);
             this.blue8NumericUpDown.Maximum = new decimal(new int[] {
-                                    255,
-                                    0,
-                                    0,
-                                    0});
+            255,
+            0,
+            0,
+            0});
             this.blue8NumericUpDown.Name = "blue8NumericUpDown";
             this.blue8NumericUpDown.Size = new System.Drawing.Size(44, 20);
             this.blue8NumericUpDown.TabIndex = 10;
@@ -280,6 +282,7 @@ namespace EpicEdit.UI.ThemeEdition
             ((System.ComponentModel.ISupportInitialize)(this.blue8NumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         private System.Windows.Forms.NumericUpDown blue8NumericUpDown;
         private System.Windows.Forms.NumericUpDown green8NumericUpDown;
