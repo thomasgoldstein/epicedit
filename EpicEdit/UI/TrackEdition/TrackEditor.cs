@@ -1226,6 +1226,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
         {
+            this.trackDisplay.Cursor = Cursors.Default;
             this.EndMouseAction(this.buttonsPressed);
 
             this.RemoveFocus();
