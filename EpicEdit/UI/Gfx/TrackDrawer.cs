@@ -254,23 +254,11 @@ namespace EpicEdit.UI.Gfx
         }
 
         /// <summary>
-        /// Loads a track and generates the track image cache.
+        /// Reloads the current track and regenerates the track image cache.
         /// </summary>
-        /// <param name="track">The track.</param>
-        public void LoadTrack(Track track)
+        public void ReloadTrack()
         {
             this.trackCache.Dispose();
-
-            if (this.track != null)
-            {
-                this.track.ColorChanged -= this.track_ColorChanged;
-                this.track.ColorsChanged -= this.track_ColorsChanged;
-            }
-
-            this.track = track;
-
-            this.track.ColorChanged += this.track_ColorChanged;
-            this.track.ColorsChanged += this.track_ColorsChanged;
 
             RoadTileset tileset = this.track.RoadTileset;
 
@@ -289,6 +277,26 @@ namespace EpicEdit.UI.Gfx
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Loads a track and generates the track image cache.
+        /// </summary>
+        /// <param name="track">The track.</param>
+        public void LoadTrack(Track track)
+        {
+            if (this.track != null)
+            {
+                this.track.ColorChanged -= this.track_ColorChanged;
+                this.track.ColorsChanged -= this.track_ColorsChanged;
+            }
+
+            this.track = track;
+
+            this.track.ColorChanged += this.track_ColorChanged;
+            this.track.ColorsChanged += this.track_ColorsChanged;
+
+            this.ReloadTrack();
         }
 
         private void track_ColorChanged(object sender, EventArgs<int> e)

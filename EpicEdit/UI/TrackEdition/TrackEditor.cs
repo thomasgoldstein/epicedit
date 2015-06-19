@@ -472,7 +472,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.RedoEnabled = false;
 
             this.UpdateControlsOnTrackImport();
-            this.DisplayNewTrack();
+            this.InvalidateTrack();
         }
 
         private void UpdateControlsOnTrackImport()
@@ -1575,6 +1575,12 @@ namespace EpicEdit.UI.TrackEdition
             this.InvalidateWholeTrackDisplay();
         }
 
+        private void InvalidateTrack()
+        {
+            this.drawer.ReloadTrack();
+            this.InvalidateWholeTrackDisplay();
+        }
+
         private void ResetPosition()
         {
             this.pixelPosition = TrackEditor.OutOfBounds;
@@ -1980,7 +1986,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
         {
-            this.DisplayNewTrack();
+            this.InvalidateTrack();
         }
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
@@ -2006,7 +2012,7 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.DisplayNewTrack();
+            this.InvalidateTrack();
         }
 
         private void TilesetControlTileChanged(object sender, EventArgs<byte> e)
@@ -2021,7 +2027,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlTilesetChanged(object sender, EventArgs e)
         {
-            this.DisplayNewTrack();
+            this.InvalidateTrack();
             this.UpdateTileClipboard();
             this.overlayControl.UpdateTileset();
         }
