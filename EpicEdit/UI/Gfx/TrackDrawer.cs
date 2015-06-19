@@ -293,10 +293,11 @@ namespace EpicEdit.UI.Gfx
 
         private void track_ColorChanged(object sender, EventArgs<int> e)
         {
-            bool updateCache = (sender as Palette).Index < Palettes.SpritePaletteStart;
+            Palette palette = sender as Palette;
+            bool updateCache = palette.Index < Palettes.SpritePaletteStart;
             if (updateCache)
             {
-                this.UpdateCache(sender as Palette, e.Value);
+                this.UpdateCache(palette, e.Value);
             }
 
             this.OnColorsChanged(updateCache);
@@ -304,10 +305,11 @@ namespace EpicEdit.UI.Gfx
 
         private void track_ColorsChanged(object sender, EventArgs e)
         {
-            bool updateCache = (sender as Palette).Index < Palettes.SpritePaletteStart;
+            Palette palette = sender as Palette;
+            bool updateCache = palette.Index < Palettes.SpritePaletteStart;
             if (updateCache)
             {
-                this.UpdateCache(sender as Palette);
+                this.UpdateCache(palette);
             }
 
             this.OnColorsChanged(updateCache);
