@@ -2002,13 +2002,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
         {
-            this.drawer.LoadTrack(this.track);
-
             this.undoRedoBuffer.Clear();
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.InvalidateWholeTrackDisplay();
+            this.DisplayNewTrack();
         }
 
         private void TilesetControlTileChanged(object sender, EventArgs<byte> e)
