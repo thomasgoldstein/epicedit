@@ -96,6 +96,11 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track; }
             set
             {
+                if (this.track == value)
+                {
+                    return;
+                }
+
                 if (this.track != null)
                 {
                     this.track.ColorChanged -= this.track_ColorsChanged;

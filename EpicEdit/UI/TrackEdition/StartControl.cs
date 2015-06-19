@@ -43,6 +43,11 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track; }
             set
             {
+                if (this.track == value)
+                {
+                    return;
+                }
+
                 this.track = value;
                 GPTrack gpTrack = this.track as GPTrack;
 
