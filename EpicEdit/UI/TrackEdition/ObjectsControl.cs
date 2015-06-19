@@ -57,6 +57,11 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.frontObjectZonesControl.Track; }
             set
             {
+                if (this.frontObjectZonesControl.Track == value)
+                {
+                    return;
+                }
+
                 this.frontObjectZonesControl.Track = value;
                 this.rearObjectZonesControl.Track = value;
 
