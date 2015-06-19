@@ -57,7 +57,7 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.frontObjectZonesControl.Track; }
             set
             {
-                if (this.frontObjectZonesControl.Track == value)
+                if (this.Track == value)
                 {
                     return;
                 }
@@ -65,36 +65,49 @@ namespace EpicEdit.UI.TrackEdition
                 this.frontObjectZonesControl.Track = value;
                 this.rearObjectZonesControl.Track = value;
 
-                this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
-                this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
-                this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
-                this.palette1NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-                this.palette2NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-                this.palette3NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-                this.palette4NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-                this.flashingCheckBox.CheckedChanged -= this.FlashingCheckBoxCheckedChanged;
-
-                this.tilesetComboBox.SelectedItem = value.Objects.Tileset;
-                this.interactComboBox.SelectedItem = value.Objects.Interaction;
-                this.routineComboBox.SelectedItem = value.Objects.Routine;
-                this.palette1NumericUpDown.Value = value.Objects.PaletteIndexes[0];
-                this.palette2NumericUpDown.Value = value.Objects.PaletteIndexes[1];
-                this.palette3NumericUpDown.Value = value.Objects.PaletteIndexes[2];
-                this.palette4NumericUpDown.Value = value.Objects.PaletteIndexes[3];
-                this.flashingCheckBox.Checked = value.Objects.Flashing;
-
-                this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
-                this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
-                this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
-                this.palette1NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-                this.palette2NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-                this.palette3NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-                this.palette4NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-                this.flashingCheckBox.CheckedChanged += this.FlashingCheckBoxCheckedChanged;
-
-                this.ToggleZoneGroupBox();
-                this.ToggleAlternatePalettes();
+                this.Enabled = value != null; // Enabled if GPTrack, disabled if BattleTrack
+                this.ResetTrack();
             }
+        }
+
+        public void ResetTrack()
+        {
+            if (this.Track == null) // BattleTrack
+            {
+                return;
+            }
+
+            TrackObjects objects = this.Track.Objects;
+
+            this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
+            this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
+            this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
+            this.palette1NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+            this.palette2NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+            this.palette3NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+            this.palette4NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
+            this.flashingCheckBox.CheckedChanged -= this.FlashingCheckBoxCheckedChanged;
+
+            this.tilesetComboBox.SelectedItem = objects.Tileset;
+            this.interactComboBox.SelectedItem = objects.Interaction;
+            this.routineComboBox.SelectedItem = objects.Routine;
+            this.palette1NumericUpDown.Value = objects.PaletteIndexes[0];
+            this.palette2NumericUpDown.Value = objects.PaletteIndexes[1];
+            this.palette3NumericUpDown.Value = objects.PaletteIndexes[2];
+            this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
+            this.flashingCheckBox.Checked = objects.Flashing;
+
+            this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
+            this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
+            this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
+            this.palette1NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+            this.palette2NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+            this.palette3NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+            this.palette4NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+            this.flashingCheckBox.CheckedChanged += this.FlashingCheckBoxCheckedChanged;
+
+            this.ToggleZoneGroupBox();
+            this.ToggleAlternatePalettes();
         }
 
         /// <summary>

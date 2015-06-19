@@ -49,17 +49,19 @@ namespace EpicEdit.UI.TrackEdition
                 }
 
                 this.track = value;
-                GPTrack gpTrack = this.track as GPTrack;
 
-                if (gpTrack != null)
-                {
-                    this.gpTrackGroupBox.Enabled = true;
-                    this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
-                }
-                else
-                {
-                    this.gpTrackGroupBox.Enabled = false;
-                }
+                this.gpTrackGroupBox.Enabled = this.track is GPTrack;
+                this.ResetTrack();
+            }
+        }
+
+        public void ResetTrack()
+        {
+            GPTrack gpTrack = this.track as GPTrack;
+
+            if (gpTrack != null)
+            {
+                this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
             }
         }
 

@@ -42,6 +42,11 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.track = value;
 
+                if (this.track == null) // BattleTrack
+                {
+                    return;
+                }
+
                 int max = this.track.AI.ElementCount;
                 this.Maximum = max;
 

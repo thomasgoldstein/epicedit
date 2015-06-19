@@ -471,13 +471,24 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.UpdateControlsOnTrackImport();
+            this.ResetTrack();
+        }
+
+        private void ResetTrack()
+        {
+            this.ResetEditionControls();
             this.InvalidateTrack();
         }
 
-        private void UpdateControlsOnTrackImport()
+        private void ResetEditionControls()
         {
-            this.SetTrack();
+            this.tilesetControl.ResetTrack();
+            this.hoveredOverlayTile = null;
+            this.overlayControl.ResetTrack();
+            this.startControl.ResetTrack();
+            this.objectsControl.ResetTrack();
+            this.hoveredAIElem = null;
+            this.aiControl.ResetTrack();
         }
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
@@ -1756,13 +1767,9 @@ namespace EpicEdit.UI.TrackEdition
             this.hoveredOverlayTile = null;
             this.overlayControl.Track = this.track;
             this.startControl.Track = this.track;
+            this.objectsControl.Track = this.track as GPTrack;
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
-
-            if (this.editionMode == EditionMode.Objects)
-            {
-                this.SetTrackObjectZones();
-            }
         }
         #endregion TrackTreeView
 
@@ -1850,7 +1857,8 @@ namespace EpicEdit.UI.TrackEdition
             else if (this.objectsTabPage.Visible)
             {
                 this.editionMode = EditionMode.Objects;
-                this.SetTrackObjectZones();
+                // Object data depends on AI data, reset the track data in case the AI data has changed
+                this.objectsControl.ResetTrack();
             }
             else // if (this.aiTabPage.Visible)
             {
@@ -2382,21 +2390,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             return false;
-        }
-
-        private void SetTrackObjectZones()
-        {
-            GPTrack gpTrack = this.track as GPTrack;
-
-            if (gpTrack != null)
-            {
-                this.objectsTabPage.Enabled = true;
-                this.objectsControl.Track = gpTrack;
-            }
-            else
-            {
-                this.objectsTabPage.Enabled = false;
-            }
         }
 
         private void ObjectsControlViewChanged(object sender, EventArgs e)

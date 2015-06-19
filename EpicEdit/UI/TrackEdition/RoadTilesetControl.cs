@@ -112,10 +112,15 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.ColorChanged += this.track_ColorsChanged;
                 this.track.ColorsChanged += this.track_ColorsChanged;
 
-                this.userAction = false;
-                this.SelectTrackTheme();
-                this.userAction = true;
+                this.ResetTrack();
             }
+        }
+
+        public void ResetTrack()
+        {
+            this.userAction = false;
+            this.SelectTrackTheme();
+            this.userAction = true;
         }
 
         private byte selectedTile;

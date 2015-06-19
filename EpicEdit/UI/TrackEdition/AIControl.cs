@@ -113,24 +113,29 @@ namespace EpicEdit.UI.TrackEdition
 
                 if (this.track != null)
                 {
-                    this.track.AI.DataChanged -= track_AI_DataChanged;
+                    this.track.AI.DataChanged -= this.track_AI_DataChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                     this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
-                    this.track.AI.ElementsCleared -= track_AI_ElementsCleared;
+                    this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
                 }
 
                 this.track = value;
 
-                this.track.AI.DataChanged += track_AI_DataChanged;
+                this.track.AI.DataChanged += this.track_AI_DataChanged;
                 this.track.AI.ElementAdded += this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
-                this.track.AI.ElementsCleared += track_AI_ElementsCleared;
+                this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
 
-                this.LoadItemProbabilitySet();
-                this.SelectedElement = null;
-                this.SetMaximumAIElementIndex();
-                this.warningLabel.Visible = this.track.AI.ElementCount == 0;
+                this.ResetTrack();
             }
+        }
+
+        public void ResetTrack()
+        {
+            this.SelectedElement = null;
+            this.LoadItemProbabilitySet();
+            this.SetMaximumAIElementIndex();
+            this.warningLabel.Visible = this.track.AI.ElementCount == 0;
         }
 
         public AIControl()

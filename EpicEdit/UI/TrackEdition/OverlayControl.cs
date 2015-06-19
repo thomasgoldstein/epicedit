@@ -165,8 +165,6 @@ namespace EpicEdit.UI.TrackEdition
                     this.track.ColorsChanged -= this.track_ColorsChanged;
                 }
 
-                this.SelectedTile = null;
-
                 this.track = value;
 
                 this.track.OverlayTiles.ElementAdded += this.track_OverlayTiles_ElementAdded;
@@ -176,9 +174,15 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.ColorChanged += this.track_ColorsChanged;
                 this.track.ColorsChanged += this.track_ColorsChanged;
 
-                this.LoadTileset(this.track.RoadTileset);
-                this.UpdateTileCount();
+                this.ResetTrack();
             }
+        }
+
+        public void ResetTrack()
+        {
+            this.SelectedTile = null;
+            this.LoadTileset(this.track.RoadTileset);
+            this.UpdateTileCount();
         }
 
         public OverlayControl()
