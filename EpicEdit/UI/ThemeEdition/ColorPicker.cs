@@ -584,13 +584,15 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void Color5BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (this.fireEvents)
+            if (!this.fireEvents)
             {
-                RomColor color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
-                this.SetColor(color);
-
-                this.ColorChanged(this, EventArgs.Empty);
+                return;
             }
+
+            RomColor color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
+            this.SetColor(color);
+
+            this.ColorChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -600,16 +602,18 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void Color8BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (this.fireEvents)
+            if (!this.fireEvents)
             {
-                this.updating8BitColors = true;
-
-                this.red5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)red8NumericUpDown.Value);
-                this.green5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)green8NumericUpDown.Value);
-                this.blue5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)blue8NumericUpDown.Value);
-
-                this.updating8BitColors = false;
+                return;
             }
+
+            this.updating8BitColors = true;
+
+            this.red5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)red8NumericUpDown.Value);
+            this.green5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)green8NumericUpDown.Value);
+            this.blue5NumericUpDown.Value = RomColor.ConvertTo5BitColor((byte)blue8NumericUpDown.Value);
+
+            this.updating8BitColors = false;
         }
 
         #region Paint
