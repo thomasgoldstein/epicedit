@@ -78,7 +78,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Used to prevent loops when certain clicks are performed in different UI controls.
         /// </summary>
-        private bool performEvents;
+        private bool fireEvents;
 
         /// <summary>
         /// True when the 8-bit colors are being changed by the user, to avoid updating the 8-bit color values twice
@@ -185,7 +185,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.selectedColor = color;
 
-            this.performEvents = false;
+            this.fireEvents = false;
 
             this.red5NumericUpDown.Value = color.Red5Bit;
             this.green5NumericUpDown.Value = color.Green5Bit;
@@ -198,7 +198,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.blue8NumericUpDown.Value = color.Blue;
             }
 
-            this.performEvents = true;
+            this.fireEvents = true;
         }
 
         #region Bitmap drawing
@@ -584,7 +584,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void Color5BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (this.performEvents)
+            if (this.fireEvents)
             {
                 RomColor color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
                 this.SetColor(color);
@@ -600,7 +600,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void Color8BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (this.performEvents)
+            if (this.fireEvents)
             {
                 this.updating8BitColors = true;
 
