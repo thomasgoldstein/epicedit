@@ -212,12 +212,13 @@ namespace EpicEdit.UI.SettingEdition
             }
         }
 
-        private bool ignoreChange = false;
-
         private void DisplayProbability()
         {
+            // Back up the fireEvents value to restore it at the end of the method
+            bool fireEventsBefore = this.fireEvents;
+
             // Disable events being fired by updating the various fields
-            this.ignoreChange = true;
+            this.fireEvents = false;
 
             this.coinsLabel.Enabled =
                 this.coinsPanel.LooksEnabled =
@@ -273,7 +274,7 @@ namespace EpicEdit.UI.SettingEdition
             this.lightningPctLabel.Text = ((float)this.itemProbability.Lightning / total).ToString("P1", ci);
             this.totalPctLabel.Text = 1.ToString("P1", ci);
 
-            this.ignoreChange = false;
+            this.fireEvents = fireEventsBefore;
         }
 
         private void InitImages()
@@ -295,7 +296,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ValueChanged(object sender, EventArgs e)
         {
-            if (this.ignoreChange)
+            if (!this.fireEvents)
             {
                 // This event may be fired because of DisplayProbability, skip in that case
                 return;
