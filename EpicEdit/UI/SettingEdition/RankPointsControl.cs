@@ -28,7 +28,7 @@ namespace EpicEdit.UI.SettingEdition
             get { return Context.Game.Settings.RankPoints; }
         }
 
-        private bool performEvents;
+        private bool fireEvents;
 
         public RankPointsControl()
         {
@@ -46,7 +46,7 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.performEvents = false;
+            this.fireEvents = false;
 
             RankPointsControl.InitRankPoint(this.numericUpDown1);
             RankPointsControl.InitRankPoint(this.numericUpDown2);
@@ -57,7 +57,7 @@ namespace EpicEdit.UI.SettingEdition
             RankPointsControl.InitRankPoint(this.numericUpDown7);
             RankPointsControl.InitRankPoint(this.numericUpDown8);
 
-            this.performEvents = true;
+            this.fireEvents = true;
         }
 
         private static void InitRankPoint(NumericUpDown control)
@@ -68,7 +68,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void NumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.performEvents)
+            if (!this.fireEvents)
             {
                 return;
             }
