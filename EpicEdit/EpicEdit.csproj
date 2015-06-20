@@ -112,6 +112,7 @@
     <Compile Include="Rom\Settings\TextItem.cs" />
     <Compile Include="Rom\Tile.cs" />
     <Compile Include="Rom\Tile2bpp.cs" />
+    <Compile Include="Rom\Tile2bppProperties.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
