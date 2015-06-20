@@ -106,7 +106,7 @@ namespace EpicEdit.UI.TrackEdition
         /// Flag to determine whether to repaint the track display
         /// when the scrolling position has changed.
         /// </summary>
-        private bool repaintAfterScrolling = false;
+        private bool repaintAfterScrolling;
 
         // Which pixel the cursor is on (doesn't take scrolling position in consideration).
         private Point pixelPosition;
