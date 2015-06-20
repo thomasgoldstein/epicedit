@@ -37,7 +37,7 @@ namespace EpicEdit.UI.SettingEdition
         /// <summary>
         /// Flag to prevent events being fired in sequence from one control to another.
         /// </summary>
-        private bool performEvents;
+        private bool fireEvents;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
@@ -90,7 +90,7 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.performEvents = false;
+            this.fireEvents = false;
 
             this.itemProbabilities = Context.Game.Settings.ItemProbabilities;
 
@@ -104,7 +104,7 @@ namespace EpicEdit.UI.SettingEdition
 
             this.InitImages();
 
-            this.performEvents = true;
+            this.fireEvents = true;
         }
 
         private void InitModeComboBox()
@@ -335,13 +335,13 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ModeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.performEvents)
+            if (!this.fireEvents)
             {
                 return;
             }
 
             // Disable events so they don't get fired multiple times by other controls being updated
-            this.performEvents = false;
+            this.fireEvents = false;
 
             this.InitLapRankComboBox();
             this.InitItemBoxDisplayOptionComboBox();
@@ -362,12 +362,12 @@ namespace EpicEdit.UI.SettingEdition
             this.InitProbability();
             this.DisplayProbability();
 
-            this.performEvents = true;
+            this.fireEvents = true;
         }
 
         private void LapRankComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.performEvents)
+            if (this.fireEvents)
             {
                 this.InitProbability();
                 this.DisplayProbability();
@@ -376,7 +376,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.performEvents)
+            if (this.fireEvents)
             {
                 this.InitProbability();
                 this.DisplayProbability();
