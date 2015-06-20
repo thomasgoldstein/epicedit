@@ -159,5 +159,13 @@ namespace EpicEdit.Rom
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
             return this.Properties.SubPaletteIndex + colIndex;
         }
+
+        public override bool Contains(int colorIndex)
+        {
+            // Tile2bpp instances have transparent pixels where the color 0 is,
+            // so consider they don't contain it. This lets us avoid unnecessarily recreating
+            // the tile image when the color 0 is changed.
+            return colorIndex != 0 && base.Contains(colorIndex);
+        }
     }
 }

@@ -113,7 +113,7 @@ namespace EpicEdit.Rom
 
         public abstract int GetColorIndexAt(int x, int y);
 
-        public bool Contains(int colorIndex)
+        public virtual bool Contains(int colorIndex)
         {
             for (int y = 0; y < Tile.Size; y++)
             {
