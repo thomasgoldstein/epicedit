@@ -367,20 +367,24 @@ namespace EpicEdit.UI.SettingEdition
 
         private void LapRankComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.fireEvents)
+            if (!this.fireEvents)
             {
-                this.InitProbability();
-                this.DisplayProbability();
+                return;
             }
+
+            this.InitProbability();
+            this.DisplayProbability();
         }
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.fireEvents)
+            if (!this.fireEvents)
             {
-                this.InitProbability();
-                this.DisplayProbability();
+                return;
             }
+
+            this.InitProbability();
+            this.DisplayProbability();
         }
 
         private Theme theme;
