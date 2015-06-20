@@ -44,12 +44,12 @@ namespace EpicEdit.Test.Rom.Tracks
             Assert.AreEqual(track1.LapLine.GetBytes(), track2.LapLine.GetBytes());
             Assert.AreEqual(track1.Objects.GetBytes(), track2.Objects.GetBytes());
             Assert.AreEqual(track1.Objects.Zones.GetBytes(), track2.Objects.Zones.GetBytes());
-            Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
             Assert.AreEqual(track1.Objects.Tileset, track2.Objects.Tileset);
             Assert.AreEqual(track1.Objects.Interaction, track2.Objects.Interaction);
             Assert.AreEqual(track1.Objects.Routine, track2.Objects.Routine);
             Assert.AreEqual(track1.Objects.PaletteIndexes.GetBytes(), track2.Objects.PaletteIndexes.GetBytes());
             Assert.AreEqual(track1.Objects.Flashing, track2.Objects.Flashing);
+            Assert.AreEqual(track1.AI.GetBytes(), track2.AI.GetBytes());
         }
 
         [Test]
