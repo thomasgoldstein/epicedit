@@ -17,7 +17,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.Gfx
 {
