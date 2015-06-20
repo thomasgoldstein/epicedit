@@ -117,7 +117,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 // When a tile uses the first color of the palette, the color actually applied
                 // is the first color of the first palette of the collection.
                 // The first color of the other palettes are ignored / never displayed.
-                Palette palette = new Palette(this.Palette.Collection, this.Palette.GetBytes());
+                Palette palette = new Palette(this.Palette.Collection, -1, this.Palette.GetBytes());
                 palette[0] = this.firstPalette[0];
                 return palette;
             }

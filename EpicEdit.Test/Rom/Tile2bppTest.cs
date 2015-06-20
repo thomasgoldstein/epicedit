@@ -26,7 +26,7 @@ namespace EpicEdit.Test.Rom
             Palettes palettes = new Palettes(palData);
             Tile2bpp tile = new Tile2bpp(gfx, palettes, properties);
 
-            Palette palette = new Palette(null, palData);
+            Palette palette = new Palette(null, 0, palData);
             TileTest.TestGetColorIndexAt(tile, palette, false);
         }
 

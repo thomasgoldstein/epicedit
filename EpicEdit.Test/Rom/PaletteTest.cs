@@ -28,7 +28,7 @@ namespace EpicEdit.Test.Rom
             byte[] palData = new byte[32];
             palData[0] = 0x00;
             palData[1] = 0x00;
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
             Assert.AreEqual(Color.FromArgb(0, 0, 0), pal[0].Color);
         }
 
@@ -38,7 +38,7 @@ namespace EpicEdit.Test.Rom
             byte[] palData = new byte[32];
             palData[0] = 0xFF;
             palData[1] = 0xFF;
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
             Assert.AreEqual(Color.FromArgb(255, 255, 255), pal[0].Color);
         }
 
@@ -48,7 +48,7 @@ namespace EpicEdit.Test.Rom
             byte[] palData = new byte[32];
             palData[0] = 0x1F;
             palData[1] = 0x00;
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
             Assert.AreEqual(Color.FromArgb(255, 0, 0), pal[0].Color);
         }
 
@@ -58,7 +58,7 @@ namespace EpicEdit.Test.Rom
             byte[] palData = new byte[32];
             palData[0] = 0xE0;
             palData[1] = 0x03;
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
             Assert.AreEqual(Color.FromArgb(0, 255, 0), pal[0].Color);
         }
 
@@ -68,7 +68,7 @@ namespace EpicEdit.Test.Rom
             byte[] palData = new byte[32];
             palData[0] = 0x00;
             palData[1] = 0xFC;
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
             Assert.AreEqual(Color.FromArgb(0, 0, 255), pal[0].Color);
         }
     }

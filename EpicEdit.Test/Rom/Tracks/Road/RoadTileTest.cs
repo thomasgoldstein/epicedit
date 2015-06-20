@@ -24,7 +24,7 @@ namespace EpicEdit.Test.Rom.Tracks.Road
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
-            Palette palette = new Palette(null, palData);
+            Palette palette = new Palette(null, 0, palData);
             RoadTile tile = new RoadTile(gfx, palette, RoadTileGenre.Road, palette);
 
             this.TestGetColorIndexAt(gfx, palette, tile);
@@ -32,7 +32,7 @@ namespace EpicEdit.Test.Rom.Tracks.Road
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
         {
-            Palette pal = new Palette(null, palData);
+            Palette pal = new Palette(null, 0, palData);
 
             RoadTile tile = new RoadTile(gfx, pal, RoadTileGenre.Road, pal);
             RoadTile tile2 = new RoadTile(new byte[gfx.Length], pal, RoadTileGenre.Road, pal);

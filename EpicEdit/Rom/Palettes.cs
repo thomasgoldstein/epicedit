@@ -53,7 +53,7 @@ namespace EpicEdit.Rom
             for (int i = 0; i < this.palettes.Length; i++)
             {
                 byte[] paletteData = Palettes.GetPaletteData(data, i);
-                this.palettes[i] = new Palette(this, paletteData);
+                this.palettes[i] = new Palette(this, i, paletteData);
             }
         }
 
