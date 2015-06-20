@@ -44,7 +44,7 @@ namespace EpicEdit.UI.Gfx
                     int mask = 1 << x;
                     int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
 
-                    if (colIndex > 0)
+                    if (colIndex > 0) // If pixel is not transparent
                     {
                         int xPos = (flip & Flip.X) != 0 ?
                             x : (Tile.Size - 1) - x;
