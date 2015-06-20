@@ -13,10 +13,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.Rom
 {
+    [Flags]
+    internal enum Flip : byte
+    {
+        None = 0x00,
+        X = 0x40,
+        Y = 0x80
+    }
+
     internal struct Tile2bppProperties
     {
         private int paletteIndex;

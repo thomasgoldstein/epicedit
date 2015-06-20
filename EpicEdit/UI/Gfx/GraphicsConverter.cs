@@ -20,14 +20,6 @@ using EpicEdit.Rom;
 
 namespace EpicEdit.UI.Gfx
 {
-    [Flags]
-    internal enum Flip : byte
-    {
-        None = 0x00,
-        X = 0x40,
-        Y = 0x80
-    }
-
     /// <summary>
     /// Converts various SNES graphics types to Bitmaps.
     /// </summary>
