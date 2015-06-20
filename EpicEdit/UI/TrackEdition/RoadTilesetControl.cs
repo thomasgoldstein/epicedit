@@ -88,7 +88,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Flag to differentiate user actions and automatic actions.
         /// </summary>
-        private bool userAction;
+        private bool fireEvents;
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
@@ -118,9 +118,9 @@ namespace EpicEdit.UI.TrackEdition
 
         public void ResetTrack()
         {
-            this.userAction = false;
+            this.fireEvents = false;
             this.SelectTrackTheme();
-            this.userAction = true;
+            this.fireEvents = true;
         }
 
         private byte selectedTile;
@@ -136,10 +136,10 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
-                this.userAction = false;
+                this.fireEvents = false;
                 this.selectedTile = value;
                 this.SetCurrentTile();
-                this.userAction = true;
+                this.fireEvents = true;
             }
         }
 
@@ -218,7 +218,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.userAction)
+            if (!this.fireEvents)
             {
                 return;
             }
@@ -228,7 +228,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilePaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.userAction)
+            if (!this.fireEvents)
             {
                 return;
             }
