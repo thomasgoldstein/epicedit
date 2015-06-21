@@ -151,6 +151,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// </summary>
         public void Clear()
         {
+            foreach (OverlayTile tile in this.overlayTiles)
+            {
+                tile.DataChanged -= this.overlayTile_DataChanged;
+            }
+
             this.overlayTiles.Clear();
             this.OnElementsCleared();
         }
