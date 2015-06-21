@@ -62,22 +62,22 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
-                this.frontObjectZonesControl.Track = value;
-                this.rearObjectZonesControl.Track = value;
-
                 this.Enabled = value != null; // Enabled if GPTrack, disabled if BattleTrack
-                this.ResetTrack();
+                this.SetTrack(value);
             }
         }
 
-        public void ResetTrack()
+        private void SetTrack(GPTrack track)
         {
-            if (this.Track == null) // BattleTrack
+            this.frontObjectZonesControl.Track = track;
+            this.rearObjectZonesControl.Track = track;
+
+            if (track == null) // BattleTrack
             {
                 return;
             }
 
-            TrackObjects objects = this.Track.Objects;
+            TrackObjects objects = track.Objects;
 
             this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
             this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
@@ -108,6 +108,11 @@ namespace EpicEdit.UI.TrackEdition
 
             this.ToggleZoneGroupBox();
             this.ToggleAlternatePalettes();
+        }
+
+        public void ResetTrack()
+        {
+            this.SetTrack(this.Track);
         }
 
         /// <summary>
