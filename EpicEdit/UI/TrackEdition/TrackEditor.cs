@@ -483,7 +483,7 @@ namespace EpicEdit.UI.TrackEdition
         private void ResetEditionControls()
         {
             this.hoveredOverlayTile = null;
-            this.overlayControl.ResetTrack();
+            this.overlayControl.SelectedTile = null;
             this.startControl.ResetTrack();
             this.objectsControl.ResetTrack();
             this.hoveredAIElem = null;
@@ -1762,11 +1762,15 @@ namespace EpicEdit.UI.TrackEdition
             if (this.track != null)
             {
                 this.track.PropertyChanged -= this.track_PropertyChanged;
+                this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
+                this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
             }
 
             this.track = this.trackTreeView.SelectedTrack;
 
             this.track.PropertyChanged += this.track_PropertyChanged;
+            this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
+            this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
 
             this.trackDisplay.Track = this.track;
 
@@ -1787,6 +1791,21 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
+        private void track_OverlayTiles_ElementRemoved(object sender, EventArgs<OverlayTile> e)
+        {
+            if (this.hoveredOverlayTile == e.Value)
+            {
+                this.hoveredOverlayTile = null;
+            }
+
+            this.InitOverlayAction();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
+        {
+            this.InvalidateWholeTrackDisplay();
+        }
         #endregion TrackTreeView
 
         #region EditionMode tabs
@@ -2108,22 +2127,6 @@ namespace EpicEdit.UI.TrackEdition
         private void DeleteOverlayTile()
         {
             this.track.OverlayTiles.Remove(this.overlayControl.SelectedTile);
-        }
-
-        private void OverlayControlElementRemoved(object sender, OverlayTileEventArgs e)
-        {
-            if (this.hoveredOverlayTile == e.Value)
-            {
-                this.hoveredOverlayTile = null;
-            }
-
-            this.InitOverlayAction();
-            this.InvalidateTrackDisplay();
-        }
-
-        private void OverlayControlElementsCleared(object sender, EventArgs e)
-        {
-            this.InvalidateWholeTrackDisplay();
         }
 
         private void OverlayControlRepaintRequested(object sender, EventArgs e)

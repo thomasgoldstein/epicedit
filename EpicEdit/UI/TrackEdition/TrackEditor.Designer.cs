@@ -199,8 +199,6 @@ namespace EpicEdit.UI.TrackEdition
             this.overlayControl.Size = new System.Drawing.Size(130, 548);
             this.overlayControl.TabIndex = 0;
             this.overlayControl.RepaintRequested += new System.EventHandler<System.EventArgs>(this.OverlayControlRepaintRequested);
-            this.overlayControl.ElementRemoved += new System.EventHandler<EpicEdit.UI.TrackEdition.OverlayTileEventArgs>(this.OverlayControlElementRemoved);
-            this.overlayControl.ElementsCleared += new System.EventHandler<System.EventArgs>(this.OverlayControlElementsCleared);
             // 
             // startTabPage
             // 

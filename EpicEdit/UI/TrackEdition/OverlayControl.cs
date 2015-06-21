@@ -38,12 +38,6 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> RepaintRequested;
 
-        [Browsable(true), Category("Data")]
-        public event EventHandler<OverlayTileEventArgs> ElementRemoved;
-
-        [Browsable(true), Category("Data")]
-        public event EventHandler<EventArgs> ElementsCleared;
-
         /// <summary>
         /// Raised when a pixel color has been selected.
         /// </summary>
@@ -174,15 +168,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.ColorChanged += this.track_ColorsChanged;
                 this.track.ColorsChanged += this.track_ColorsChanged;
 
-                this.ResetTrack();
+                this.SelectedTile = null;
+                this.LoadTileset(this.track.RoadTileset);
+                this.UpdateTileCount();
             }
-        }
-
-        public void ResetTrack()
-        {
-            this.SelectedTile = null;
-            this.LoadTileset(this.track.RoadTileset);
-            this.UpdateTileCount();
         }
 
         public OverlayControl()
@@ -445,14 +434,12 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.SelectedTile = null;
             this.UpdateTileCount();
-            this.ElementRemoved(this, new OverlayTileEventArgs(e.Value));
         }
 
         private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
         {
             this.SelectedTile = null;
             this.UpdateTileCount();
-            this.ElementsCleared(this, EventArgs.Empty);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -492,13 +479,5 @@ namespace EpicEdit.UI.TrackEdition
                 return tileId == OverlayTile.None ? null : parent.Tileset[tileId];
             }
         }
-    }
-
-    /// <summary>
-    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
-    /// </summary>
-    internal class OverlayTileEventArgs : EventArgs<OverlayTile>
-    {
-        public OverlayTileEventArgs(OverlayTile value) : base(value) { }
     }
 }
