@@ -32,12 +32,6 @@ namespace EpicEdit.UI.TrackEdition
     {
         #region Events
         /// <summary>
-        /// Raised when the theme of the current track has been modified.
-        /// </summary>
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> TrackThemeChanged;
-
-        /// <summary>
         /// Raised when the selected theme has been changed.
         /// </summary>
         [Browsable(true), Category("Behavior")]
@@ -105,22 +99,17 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     this.track.ColorChanged -= this.track_ColorsChanged;
                     this.track.ColorsChanged -= this.track_ColorsChanged;
+                    this.track.PropertyChanged -= this.track_PropertyChanged;
                 }
 
                 this.track = value;
 
                 this.track.ColorChanged += this.track_ColorsChanged;
                 this.track.ColorsChanged += this.track_ColorsChanged;
+                this.track.PropertyChanged += this.track_PropertyChanged;
 
-                this.ResetTrack();
+                this.SelectTrackTheme();
             }
-        }
-
-        public void ResetTrack()
-        {
-            this.fireEvents = false;
-            this.SelectTrackTheme();
-            this.fireEvents = true;
         }
 
         private byte selectedTile;
@@ -163,6 +152,14 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Theme")
+            {
+                this.SelectTrackTheme();
+            }
+        }
+
         public void InitOnFirstRomLoad()
         {
             this.drawer = new RoadTilesetDrawer(this.tilesetPanel.Size);
@@ -195,14 +192,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            Theme theme = this.themeComboBox.SelectedTheme;
-            if (this.track.Theme != theme)
-            {
-                this.track.Theme = theme;
-                this.TrackThemeChanged(this, EventArgs.Empty);
-            }
+            this.track.Theme = this.themeComboBox.SelectedTheme;
 
-            this.tilesetPanel.Tileset = theme.RoadTileset;
+            this.tilesetPanel.Tileset = this.track.RoadTileset;
             this.ResetTileset();
             this.SetCurrentTile();
 
@@ -256,7 +248,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SelectTrackTheme()
         {
+            this.fireEvents = false;
             this.themeComboBox.SelectedItem = this.track.Theme;
+            this.fireEvents = true;
         }
 
         private void SelectTileGenre()

@@ -482,7 +482,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetEditionControls()
         {
-            this.tilesetControl.ResetTrack();
             this.hoveredOverlayTile = null;
             this.overlayControl.ResetTrack();
             this.startControl.ResetTrack();
@@ -1760,7 +1759,15 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetTrack()
         {
+            if (this.track != null)
+            {
+                this.track.PropertyChanged -= this.track_PropertyChanged;
+            }
+
             this.track = this.trackTreeView.SelectedTrack;
+
+            this.track.PropertyChanged += this.track_PropertyChanged;
+
             this.trackDisplay.Track = this.track;
 
             this.tilesetControl.Track = this.track;
@@ -1771,6 +1778,15 @@ namespace EpicEdit.UI.TrackEdition
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
         }
+
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Theme")
+            {
+                this.InvalidateTrack();
+            }
+        }
+
         #endregion TrackTreeView
 
         #region EditionMode tabs
@@ -1990,11 +2006,6 @@ namespace EpicEdit.UI.TrackEdition
             this.UpdateTileClipboard();
             this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
             this.InvalidateTrackDisplay();
-        }
-
-        private void TilesetControlTrackThemeChanged(object sender, EventArgs e)
-        {
-            this.InvalidateTrack();
         }
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)

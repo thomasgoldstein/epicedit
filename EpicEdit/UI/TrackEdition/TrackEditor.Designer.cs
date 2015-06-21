@@ -175,7 +175,6 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetControl.Name = "tilesetControl";
             this.tilesetControl.Size = new System.Drawing.Size(130, 660);
             this.tilesetControl.TabIndex = 0;
-            this.tilesetControl.TrackThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackThemeChanged);
             this.tilesetControl.SelectedThemeChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedThemeChanged);
             this.tilesetControl.SelectedTileChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlSelectedTileChanged);
             this.tilesetControl.TrackMapChanged += new System.EventHandler<System.EventArgs>(this.TilesetControlTrackMapChanged);
