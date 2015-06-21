@@ -198,15 +198,8 @@ namespace EpicEdit.Rom.Tracks.AI
             int i = 0;
             while (i < zoneData.Length)
             {
-                if (zoneData[i] == 0) // The zone is a rectangle
-                {
-                    i += 5;
-                }
-                else // The zone is a triangle
-                {
-                    i += 4;
-                }
-
+                // Depending on whether the zone is a rectangle or triangle
+                i += zoneData[i] == 0 ? 5 : 4;
                 zoneCount++;
             }
 
@@ -219,14 +212,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             foreach (TrackAIElement aiElement in this.aiElements)
             {
-                if (aiElement.ZoneShape == Shape.Rectangle)
-                {
-                    zoneDataLength += 5;
-                }
-                else
-                {
-                    zoneDataLength += 4;
-                }
+                zoneDataLength += aiElement.ZoneShape == Shape.Rectangle ? 5 : 4;
             }
 
             return zoneDataLength;
@@ -310,10 +296,8 @@ namespace EpicEdit.Rom.Tracks.AI
                         elementIsNextToAnother = true;
                         break;
                     }
-                    else
-                    {
-                        elementIsNextToAnother = false;
-                    }
+
+                    elementIsNextToAnother = false;
                 }
 
                 if (!elementIsNextToAnother)
