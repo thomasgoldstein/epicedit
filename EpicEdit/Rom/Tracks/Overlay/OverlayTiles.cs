@@ -65,13 +65,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
             get { return this.overlayTiles[index]; }
         }
 
-        private void SetBytes(byte[] data)
+        public void SetBytes(byte[] data)
         {
             if (data.Length != OverlayTiles.Size)
             {
                 throw new ArgumentException("Incorrect overlay tile data size", "data");
             }
 
+            this.Clear();
             for (int overlayTileIndex = 0; overlayTileIndex < OverlayTiles.MaxTileCount; overlayTileIndex++)
             {
                 int index = overlayTileIndex * 3;

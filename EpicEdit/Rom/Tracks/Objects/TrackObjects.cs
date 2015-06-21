@@ -33,8 +33,18 @@ namespace EpicEdit.Rom.Tracks.Objects
         public event EventHandler<EventArgs> DataChanged;
 
         private readonly TrackObject[] objects;
-        public TrackObjectZones Zones { get; private set; }
-        private TrackObjectProperties properties;
+
+        private readonly TrackObjectZones zones;
+        public TrackObjectZones Zones
+        {
+            get { return this.zones; }
+        }
+
+        private readonly TrackObjectProperties properties;
+        public TrackObjectProperties Properties
+        {
+            get { return this.properties; }
+        }
 
         public ObjectType Tileset
         {
@@ -77,28 +87,23 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, Palettes palettes)
         {
-            if (data.Length != Size)
-            {
-                throw new ArgumentException("Incorrect track object data size", "data");
-            }
+            this.objects = new TrackObject[Size / BytesPerObject];
+            this.SetBytes(data);
 
-            this.objects = new TrackObject[data.Length / BytesPerObject];
-            this.InitObjects(data);
-
-            this.Zones = new TrackObjectZones(zoneData, ai);
+            this.zones = new TrackObjectZones(zoneData, ai);
             this.Zones.DataChanged += this.SubDataChanged;
 
             this.properties = new TrackObjectProperties(propData, palettes);
             this.properties.DataChanged += this.SubDataChanged;
         }
 
-        private void SubDataChanged(object sender, EventArgs e)
+        public void SetBytes(byte[] data)
         {
-            this.OnDataChanged();
-        }
+            if (data.Length != Size)
+            {
+                throw new ArgumentException("Incorrect track object data size", "data");
+            }
 
-        private void InitObjects(byte[] data)
-        {
             for (int i = 0; i < RegularObjectCount; i++)
             {
                 this.objects[i] = new TrackObject(data, i * BytesPerObject);
@@ -110,6 +115,11 @@ namespace EpicEdit.Rom.Tracks.Objects
                 this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
                 this.objects[i].DataChanged += this.SubDataChanged;
             }
+        }
+
+        private void SubDataChanged(object sender, EventArgs e)
+        {
+            this.OnDataChanged();
         }
 
         private void OnDataChanged()

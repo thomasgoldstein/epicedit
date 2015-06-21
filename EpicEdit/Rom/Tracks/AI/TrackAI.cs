@@ -40,6 +40,13 @@ namespace EpicEdit.Rom.Tracks.AI
         public TrackAI(byte[] zoneData, byte[] targetData, Track track)
         {
             this.aiElements = new List<TrackAIElement>();
+            this.track = track;
+            this.SetBytes(zoneData, targetData);
+        }
+
+        public void SetBytes(byte[] zoneData, byte[] targetData)
+        {
+            this.Clear();
 
             int i = 0; // i = iterator for zoneData
             int j = 0; // j = iterator for targetData
@@ -55,8 +62,6 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 this.Add(new TrackAIElement(zoneData, ref i, targetData, ref j));
             }
-
-            this.track = track;
         }
 
         public IEnumerator<TrackAIElement> GetEnumerator()

@@ -72,6 +72,11 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public BattleStartPosition(byte[] data)
         {
+            this.SetBytes(data);
+        }
+
+        public void SetBytes(byte[] data)
+        {
             int x = (data[1] << 8) + data[0];
             int y = (data[3] << 8) + data[2];
             this.location = new Point(x, y);

@@ -46,14 +46,18 @@ namespace EpicEdit.Rom.Tracks.Objects
         public TrackObjectZones(byte[] data, TrackAI ai)
         {
             this.ai = ai;
-
             this.frontZones = new byte[4];
+            this.rearZones = new byte[4];
+            this.SetBytes(data);
+        }
+
+        public void SetBytes(byte[] data)
+        {
             this.frontZones[0] = data[0];
             this.frontZones[1] = Math.Max(this.frontZones[0], data[1]);
             this.frontZones[2] = Math.Max(this.frontZones[1], data[2]);
             this.frontZones[3] = Math.Max(this.frontZones[2], data[3]);
 
-            this.rearZones = new byte[4];
             this.rearZones[0] = data[5];
             this.rearZones[1] = Math.Max(this.rearZones[0], data[6]);
             this.rearZones[2] = Math.Max(this.rearZones[1], data[7]);

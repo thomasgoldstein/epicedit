@@ -124,13 +124,33 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectProperties(byte[] data, Palettes palettes)
         {
+            this.SetBytes(data);
+            this.palettes = palettes;
+        }
+
+        public void SetBytes(byte[] data)
+        {
             this.Tileset = (ObjectType)data[0];
             this.Interaction = (ObjectType)data[1];
             this.Routine = (ObjectType)data[2];
-            this.palettes = palettes;
             this.PaletteIndexes = new ByteArray(new[] { data[3], data[4], data[5], data[6] });
             this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
             this.Flashing = data[7] != 0;
+        }
+
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte)this.Tileset,
+                (byte)this.Interaction,
+                (byte)this.Routine,
+                this.PaletteIndexes[0],
+                this.PaletteIndexes[1],
+                this.PaletteIndexes[2],
+                this.PaletteIndexes[3],
+                Flashing ? (byte)1 : (byte)0
+            };
         }
 
         private void PaletteIndexes_DataChanged(object sender, EventArgs e)

@@ -56,7 +56,11 @@ namespace EpicEdit.Rom.Tracks
         public event EventHandler<EventArgs<int>> ColorChanged;
         public event EventHandler<EventArgs> ColorsChanged;
 
-        public SuffixedTextItem SuffixedNameItem { get; private set; }
+        private readonly SuffixedTextItem suffixedNameItem;
+        public SuffixedTextItem SuffixedNameItem
+        {
+            get { return this.suffixedNameItem; }
+        }
 
         public string Name
         {
@@ -82,9 +86,34 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public TrackMap Map { get; private set; }
-        public OverlayTiles OverlayTiles { get; private set; }
-        public TrackAI AI { get; private set; }
+        private readonly TrackMap map;
+        public TrackMap Map
+        {
+            get { return this.map; }
+            private set { this.map.SetBytes(value.GetBytes()); }
+        }
+
+        private readonly OverlayTiles overlayTiles;
+        public OverlayTiles OverlayTiles
+        {
+            get { return this.overlayTiles; }
+            private set { this.overlayTiles.SetBytes(value.GetBytes()); }
+        }
+
+        private readonly TrackAI ai;
+        public TrackAI AI
+        {
+            get { return this.ai; }
+            private set
+            {
+                byte[] data = value.GetBytes();
+                byte[] zoneData = new byte[data.Length - value.ElementCount * 3];
+                byte[] targetData = new byte[data.Length - zoneData.Length];
+                Buffer.BlockCopy(data, 0, zoneData, 0, zoneData.Length);
+                Buffer.BlockCopy(data, zoneData.Length, targetData, 0, targetData.Length);
+                this.ai.SetBytes(zoneData, targetData);
+            }
+        }
 
         public RoadTileset RoadTileset
         {
@@ -102,19 +131,19 @@ namespace EpicEdit.Rom.Tracks
             this.theme = theme;
             this.AddColorChangedEventHandlers();
 
-            this.SuffixedNameItem = nameItem;
+            this.suffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
 
-            this.Map = new TrackMap(map);
+            this.map = new TrackMap(map);
             this.Map.DataChanged += this.Map_DataChanged;
 
-            this.AI = new TrackAI(aiZoneData, aiTargetData, this);
+            this.ai = new TrackAI(aiZoneData, aiTargetData, this);
             this.AI.DataChanged += this.AI_DataChanged;
             this.AI.ElementAdded += this.AI_DataChanged;
             this.AI.ElementRemoved += this.AI_DataChanged;
             this.AI.ElementsCleared += this.AI_DataChanged;
 
-            this.OverlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
+            this.overlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
             this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementAdded += this.OverlayTiles_DataChanged;
             this.OverlayTiles.ElementRemoved += this.OverlayTiles_DataChanged;

@@ -118,6 +118,11 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public LapLine(byte[] data)
         {
+            this.SetBytes(data);
+        }
+
+        public void SetBytes(byte[] data)
+        {
             // In the game, the lap line data consists of a vertical value (the 2 first bytes),
             // and a rectangle (the 4 following bytes: x, y, width, height).
             // The only point of interest is where the vertical value intersects with

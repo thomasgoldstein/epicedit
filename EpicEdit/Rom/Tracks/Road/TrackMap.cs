@@ -34,6 +34,12 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public TrackMap(byte[] data)
         {
+            this.map = new byte[(int)Math.Sqrt(TrackMap.SquareSize)][];
+            this.SetBytes(data);
+        }
+
+        public void SetBytes(byte[] data)
+        {
             if (data.Length != TrackMap.SquareSize)
             {
                 throw new ArgumentException(
@@ -41,13 +47,9 @@ namespace EpicEdit.Rom.Tracks.Road
                     " (" + TrackMap.Size + " * " + TrackMap.Size + ").", "data");
             }
 
-            int dimension = (int)Math.Sqrt(data.Length);
-
-            this.map = new byte[dimension][];
-
-            for (int y = 0; y < dimension; y++)
+            for (int y = 0; y < this.map.Length; y++)
             {
-                this.map[y] = Utilities.ReadBlock(data, y * dimension, dimension);
+                this.map[y] = Utilities.ReadBlock(data, y * this.map.Length, this.map.Length);
             }
         }
 

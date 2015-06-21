@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Drawing;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Start;
@@ -35,15 +34,27 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public new const int GroupCount = 1;
 
+        private readonly BattleStartPosition startPositionP1;
+
         /// <summary>
         /// The starting position of Player 1.
         /// </summary>
-        public BattleStartPosition StartPositionP1 { get; private set; }
+        public BattleStartPosition StartPositionP1
+        {
+            get { return this.startPositionP1; }
+            private set { this.startPositionP1.SetBytes(value.GetBytes()); }
+        }
+
+        private readonly BattleStartPosition startPositionP2;
 
         /// <summary>
         /// The starting position of Player 2.
         /// </summary>
-        public BattleStartPosition StartPositionP2 { get; private set; }
+        public BattleStartPosition StartPositionP2
+        {
+            get { return this.startPositionP2; }
+            private set { this.startPositionP2.SetBytes(value.GetBytes()); }
+        }
 
         public BattleTrack(SuffixedTextItem nameItem, Theme theme,
                            byte[] map, byte[] overlayTileData,
@@ -53,10 +64,10 @@ namespace EpicEdit.Rom.Tracks
                            OverlayTilePatterns overlayTilePatterns) :
             base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
-            byte[] startPosition1Data = new byte[] { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
-            byte[] startPosition2Data = new byte[] { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
-            this.StartPositionP1 = new BattleStartPosition(startPosition1Data);
-            this.StartPositionP2 = new BattleStartPosition(startPosition2Data);
+            byte[] startPosition1Data = { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
+            byte[] startPosition2Data = { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
+            this.startPositionP1 = new BattleStartPosition(startPosition1Data);
+            this.startPositionP2 = new BattleStartPosition(startPosition2Data);
         }
 
         /// <summary>

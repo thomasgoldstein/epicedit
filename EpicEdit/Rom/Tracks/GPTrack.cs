@@ -40,9 +40,31 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public const int CountPerGroup = 5;
 
-        public GPStartPosition StartPosition { get; private set; }
-        public LapLine LapLine { get; private set; }
-        public TrackObjects Objects { get; private set; }
+        private readonly GPStartPosition startPosition;
+        public GPStartPosition StartPosition
+        {
+            get { return this.startPosition; }
+            private set { this.startPosition.SetBytes(value.GetBytes()); }
+        }
+
+        private readonly LapLine lapLine;
+        public LapLine LapLine
+        {
+            get { return this.lapLine; }
+            private set { this.lapLine.SetBytes(value.GetBytes()); }
+        }
+
+        private readonly TrackObjects objects;
+        public TrackObjects Objects
+        {
+            get { return this.objects; }
+            private set
+            {
+                this.objects.SetBytes(value.GetBytes());
+                this.objects.Zones.SetBytes(value.Zones.GetBytes());
+                this.objects.Properties.SetBytes(value.Properties.GetBytes());
+            }
+        }
 
         private int itemProbabilityIndex;
         public int ItemProbabilityIndex
@@ -70,12 +92,15 @@ namespace EpicEdit.Rom.Tracks
                        int itemProbaIndex) :
             base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
-            this.StartPosition = new GPStartPosition(startPositionData);
+            this.startPosition = new GPStartPosition(startPositionData);
             this.StartPosition.DataChanged += this.StartPosition_DataChanged;
-            this.LapLine = new LapLine(lapLineData);
+
+            this.lapLine = new LapLine(lapLineData);
             this.LapLine.DataChanged += this.LapLine_DataChanged;
-            this.Objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
+
+            this.objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
             this.Objects.DataChanged += this.Objects_DataChanged;
+
             this.itemProbabilityIndex = itemProbaIndex;
         }
 
