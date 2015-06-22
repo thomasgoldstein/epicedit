@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using EpicEdit.Rom.Tracks.Road;
 
@@ -21,14 +22,14 @@ namespace EpicEdit.Rom.Tracks.Start
     /// <summary>
     /// The starting position of the drivers on a GP track.
     /// </summary>
-    internal class GPStartPosition
+    internal class GPStartPosition : INotifyPropertyChanged
     {
         public const int Size = 6;
         public const int Height = 168;
         private const int SecondRowMin = -256;
         private const int SecondRowMax = 255;
 
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private Point location;
         public Point Location
@@ -75,7 +76,7 @@ namespace EpicEdit.Rom.Tracks.Start
                 if (this.X != x || this.Y != y)
                 {
                     this.location = new Point(x, y);
-                    this.OnDataChanged();
+                    this.OnPropertyChanged("Location");
                 }
             }
         }
@@ -108,7 +109,7 @@ namespace EpicEdit.Rom.Tracks.Start
                 if (this.secondRowOffset != value)
                 {
                     this.secondRowOffset = value;
-                    this.OnDataChanged();
+                    this.OnPropertyChanged("SecondRowOffset");
                 }
             }
         }
@@ -168,11 +169,11 @@ namespace EpicEdit.Rom.Tracks.Start
             this.SecondRowOffset = rowOffset;
         }
 
-        private void OnDataChanged()
+        private void OnPropertyChanged(string propertyName)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

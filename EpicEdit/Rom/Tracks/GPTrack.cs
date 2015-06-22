@@ -93,7 +93,7 @@ namespace EpicEdit.Rom.Tracks
             base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.startPosition = new GPStartPosition(startPositionData);
-            this.StartPosition.DataChanged += this.StartPosition_DataChanged;
+            this.StartPosition.PropertyChanged += this.StartPosition_PropertyChanged;
 
             this.lapLine = new LapLine(lapLineData);
             this.LapLine.DataChanged += this.LapLine_DataChanged;
@@ -104,7 +104,7 @@ namespace EpicEdit.Rom.Tracks
             this.itemProbabilityIndex = itemProbaIndex;
         }
 
-        private void StartPosition_DataChanged(object sender, EventArgs e)
+        private void StartPosition_PropertyChanged(object sender, EventArgs e)
         {
             this.MarkAsModified("StartPosition");
         }
