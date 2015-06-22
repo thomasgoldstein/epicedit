@@ -51,7 +51,7 @@ namespace EpicEdit.Rom
                 this.palette.ColorsChanged += this.palette_ColorsChanged;
 
                 this.UpdateBitmap();
-                this.OnPropertyChange("Palette");
+                this.OnPropertyChanged("Palette");
             }
         }
 
@@ -76,7 +76,7 @@ namespace EpicEdit.Rom
             {
                 this.graphics = value;
                 this.UpdateBitmap();
-                this.OnPropertyChange("Graphics");
+                this.OnPropertyChanged("Graphics");
             }
         }
 
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom
             {
                 this.bitmap = value;
                 this.GenerateGraphics();
-                this.OnPropertyChange("Bitmap");
+                this.OnPropertyChanged("Bitmap");
             }
         }
 
@@ -129,7 +129,7 @@ namespace EpicEdit.Rom
             return false;
         }
 
-        protected void OnPropertyChange(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
             {

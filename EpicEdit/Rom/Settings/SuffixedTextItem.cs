@@ -45,7 +45,7 @@ namespace EpicEdit.Rom.Settings
                 this.textItem = value;
                 this.textItem.PropertyChanged += this.TextItem_PropertyChanged;
 
-                this.OnPropertyChange("TextItem");
+                this.OnPropertyChanged("TextItem");
             }
         }
 
@@ -72,15 +72,15 @@ namespace EpicEdit.Rom.Settings
 
         private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChange("TextItem");
+            this.OnPropertyChanged("TextItem");
         }
 
         private void Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChange("Suffix");
+            this.OnPropertyChanged("Suffix");
         }
 
-        private void OnPropertyChange(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
             {

@@ -196,7 +196,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChange("SuffixedNameItem");
+            this.OnPropertyChanged("SuffixedNameItem");
         }
 
         private void Map_DataChanged(object sender, EventArgs e)
@@ -293,10 +293,10 @@ namespace EpicEdit.Rom.Tracks
         protected void MarkAsModified(string propertyName)
         {
             this.Modified = true;
-            this.OnPropertyChange(propertyName);
+            this.OnPropertyChanged(propertyName);
         }
 
-        private void OnPropertyChange(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
             {
@@ -312,7 +312,7 @@ namespace EpicEdit.Rom.Tracks
             }
 
             this.Modified = false;
-            this.OnPropertyChange("Modified");
+            this.OnPropertyChanged("Modified");
         }
 
         /// <summary>
