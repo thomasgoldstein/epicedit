@@ -16,19 +16,6 @@ using System.Windows.Forms;
 
 namespace EpicEdit.UI.TrackEdition
 {
-    internal enum RoadTilesetImportExportAction
-    {
-        Import,
-        Export
-    }
-
-    internal enum RoadTilesetImportExportType
-    {
-        Graphics,
-        Genres,
-        Palettes
-    }
-
     /// <summary>
     /// Form which contains road tileset export options.
     /// </summary>
@@ -91,5 +78,18 @@ namespace EpicEdit.UI.TrackEdition
                 RoadTilesetImportExportType.Genres :
                 RoadTilesetImportExportType.Palettes;
         }
+    }
+
+    internal enum RoadTilesetImportExportAction
+    {
+        Import,
+        Export
+    }
+
+    internal enum RoadTilesetImportExportType
+    {
+        Graphics,
+        Genres,
+        Palettes
     }
 }
