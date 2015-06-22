@@ -155,7 +155,7 @@ namespace EpicEdit.Rom.Tracks.Start
         {
             int x = (data[1] << 8) + data[0];
             int y = (data[3] << 8) + data[2];
-            this.location = new Point(x, y);
+            this.Location = new Point(x, y);
 
             int rowOffset = data[4];
             if (data[5] != 0x00)
