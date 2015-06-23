@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
@@ -159,8 +160,15 @@ namespace EpicEdit.Rom.Tracks.Objects
             };
         }
 
-        private void PaletteIndexes_DataChanged(object sender, EventArgs e)
+        private void PaletteIndexes_DataChanged(object sender, EventArgs<int> e)
         {
+            if (e.Value == 0)
+            {
+                // Raise an additional event for the default palette index, to be able to
+                // differentiate it from the other palette indexes (used for flashing objects).
+                this.OnPropertyChanged("Palette");
+            }
+
             this.OnPropertyChanged("PaletteIndexes");
         }
 
@@ -175,7 +183,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
     internal class ByteArray
     {
-        public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs<int>> DataChanged;
 
         private byte[] data;
 
@@ -200,7 +208,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.data[index] = value;
-                this.OnDataChanged();
+                this.OnDataChanged(index);
             }
         }
 
@@ -209,11 +217,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             return Clone(this.data);
         }
 
-        private void OnDataChanged()
+        private void OnDataChanged(int value)
         {
             if (this.DataChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.DataChanged(this, new EventArgs<int>(value));
             }
         }
 
