@@ -170,7 +170,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void palette_ColorChanged(object sender, EventArgs<int> e)
         {
-            this.OnColorChanged(sender, e.Value);
+            this.OnColorChanged(sender, e);
         }
 
         private void palette_ColorsChanged(object sender, EventArgs e)
@@ -178,11 +178,11 @@ namespace EpicEdit.Rom.Tracks
             this.OnColorsChanged(sender);
         }
 
-        private void OnColorChanged(object sender, int value)
+        private void OnColorChanged(object sender, EventArgs<int> e)
         {
             if (this.ColorChanged != null)
             {
-                this.ColorChanged(sender, new EventArgs<int>(value));
+                this.ColorChanged(sender, e);
             }
         }
 
