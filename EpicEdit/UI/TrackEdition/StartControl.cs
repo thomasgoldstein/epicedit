@@ -26,9 +26,6 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class StartControl : UserControl
     {
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> DataChanged;
-
         /// <summary>
         /// The current track.
         /// </summary>
@@ -48,20 +45,33 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
+                GPTrack gpTrack = this.track as GPTrack;
+
+                if (gpTrack != null)
+                {
+                    gpTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                }
+
                 this.track = value;
 
-                this.gpTrackGroupBox.Enabled = this.track is GPTrack;
-                this.ResetTrack();
-            }
-        }
+                gpTrack = this.track as GPTrack;
 
-        public void ResetTrack()
-        {
-            GPTrack gpTrack = this.track as GPTrack;
+                if (gpTrack != null)
+                {
+                    gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
+                }
 
-            if (gpTrack != null)
-            {
-                this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+                this.gpTrackGroupBox.Enabled = gpTrack != null;
+
+                if (gpTrack == null)
+                {
+                    this.gpTrackGroupBox.Enabled = false;
+                }
+                else
+                {
+                    this.gpTrackGroupBox.Enabled = true;
+                    this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+                }
             }
         }
 
@@ -69,6 +79,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.InitializeComponent();
             this.SetPrecision();
+        }
+
+        private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SecondRowOffset")
+            {
+                GPTrack gpTrack = this.track as GPTrack;
+                this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+            }
         }
 
         public int Precision { get; private set; }
@@ -81,15 +100,7 @@ namespace EpicEdit.UI.TrackEdition
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
         {
             GPTrack gpTrack = this.track as GPTrack;
-
-            int valueBefore = gpTrack.StartPosition.SecondRowOffset;
             gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / this.Precision) * this.Precision;
-            int valueAfter = gpTrack.StartPosition.SecondRowOffset;
-
-            if (valueBefore != valueAfter)
-            {
-                this.DataChanged(this, EventArgs.Empty);
-            }
         }
 
         private void SecondRowTrackBarValueChanged(object sender, EventArgs e)

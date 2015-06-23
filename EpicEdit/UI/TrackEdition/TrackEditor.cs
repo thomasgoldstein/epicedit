@@ -484,7 +484,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.hoveredOverlayTile = null;
             this.overlayControl.SelectedTile = null;
-            this.startControl.ResetTrack();
             this.objectsControl.ResetTrack();
             this.hoveredAIElem = null;
             this.aiControl.ResetTrack();
@@ -1759,11 +1758,18 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetTrack()
         {
+            GPTrack gpTrack;
             if (this.track != null)
             {
                 this.track.PropertyChanged -= this.track_PropertyChanged;
                 this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
                 this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
+
+                gpTrack = this.track as GPTrack;
+                if (gpTrack != null)
+                {
+                    gpTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                }
             }
 
             this.track = this.trackTreeView.SelectedTrack;
@@ -1772,13 +1778,19 @@ namespace EpicEdit.UI.TrackEdition
             this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
             this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
 
+            gpTrack = this.track as GPTrack;
+            if (gpTrack != null)
+            {
+                gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
+            }
+
             this.trackDisplay.Track = this.track;
 
             this.tilesetControl.Track = this.track;
             this.hoveredOverlayTile = null;
             this.overlayControl.Track = this.track;
             this.startControl.Track = this.track;
-            this.objectsControl.Track = this.track as GPTrack;
+            this.objectsControl.Track = gpTrack;
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
         }
@@ -1805,6 +1817,14 @@ namespace EpicEdit.UI.TrackEdition
         private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
         {
             this.InvalidateWholeTrackDisplay();
+        }
+
+        private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SecondRowOffset")
+            {
+                this.InvalidateTrackDisplay();
+            }
         }
         #endregion TrackTreeView
 
@@ -2349,11 +2369,6 @@ namespace EpicEdit.UI.TrackEdition
             position.Location = destination;
 
             return position.X != xBefore || position.Y != yBefore;
-        }
-
-        private void StartControlDataChanged(object sender, EventArgs e)
-        {
-            this.InvalidateTrackDisplay();
         }
         #endregion EditionMode.Start
 
