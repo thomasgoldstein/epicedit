@@ -13,12 +13,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    internal class TrackObjectProperties
+    internal class TrackObjectProperties : INotifyPropertyChanged
     {
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private ObjectType tileset;
         public ObjectType Tileset
@@ -32,7 +33,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.tileset = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Tileset");
             }
         }
 
@@ -48,7 +49,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.interaction = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Interaction");
             }
         }
 
@@ -64,7 +65,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.routine = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Routine");
             }
         }
 
@@ -91,7 +92,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.flashing = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Flashing");
             }
         }
 
@@ -155,14 +156,14 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void PaletteIndexes_DataChanged(object sender, EventArgs e)
         {
-            this.OnDataChanged();
+            this.OnPropertyChanged("PaletteIndexes");
         }
 
-        private void OnDataChanged()
+        private void OnPropertyChanged(string propertyName)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

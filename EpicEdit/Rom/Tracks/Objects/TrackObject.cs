@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks.Objects
@@ -20,9 +21,9 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// A track object. E.g.: a pipe, a Cheep-Cheep, a Thwomp...
     /// </summary>
-    internal class TrackObject
+    internal class TrackObject : INotifyPropertyChanged
     {
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private Point location;
         public Point Location
@@ -36,7 +37,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.location = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Location");
             }
         }
 
@@ -62,11 +63,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             get { return this.Location.Y; }
         }
 
-        protected void OnDataChanged()
+        protected void OnPropertyChanged(string propertyName)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

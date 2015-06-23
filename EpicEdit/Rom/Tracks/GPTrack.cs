@@ -99,7 +99,7 @@ namespace EpicEdit.Rom.Tracks
             this.LapLine.DataChanged += this.LapLine_DataChanged;
 
             this.objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
-            this.Objects.DataChanged += this.Objects_DataChanged;
+            this.Objects.PropertyChanged += this.Objects_PropertyChanged;
 
             this.itemProbabilityIndex = itemProbaIndex;
         }
@@ -114,7 +114,7 @@ namespace EpicEdit.Rom.Tracks
             this.MarkAsModified("LapLine");
         }
 
-        private void Objects_DataChanged(object sender, EventArgs e)
+        private void Objects_PropertyChanged(object sender, EventArgs e)
         {
             this.MarkAsModified("Objects");
         }

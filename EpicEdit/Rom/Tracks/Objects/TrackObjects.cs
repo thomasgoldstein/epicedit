@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using EpicEdit.Rom.Tracks.AI;
 
 namespace EpicEdit.Rom.Tracks.Objects
@@ -22,7 +23,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// <summary>
     /// A collection of 16 <see cref="TrackObject"/> objects, and 6 <see cref="TrackObjectMatchRace"/> objects.
     /// </summary>
-    internal class TrackObjects : IEnumerable<TrackObject>
+    internal class TrackObjects : IEnumerable<TrackObject>, INotifyPropertyChanged
     {
         public const int RegularObjectCount = 16;
         public const int MatchRaceObjectCount = 6;
@@ -30,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private const int BytesPerObject = 2;
         public const int Size = ObjectCount * BytesPerObject;
 
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly TrackObject[] objects;
 
@@ -91,10 +92,10 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.SetBytes(data);
 
             this.zones = new TrackObjectZones(zoneData, ai);
-            this.Zones.DataChanged += this.SubDataChanged;
+            this.Zones.DataChanged += delegate { this.OnPropertyChanged("TrackObjectZones"); };
 
             this.properties = new TrackObjectProperties(propData, palettes);
-            this.properties.DataChanged += this.SubDataChanged;
+            this.properties.PropertyChanged += this.SubPropertyChanged;
         }
 
         public void SetBytes(byte[] data)
@@ -107,26 +108,34 @@ namespace EpicEdit.Rom.Tracks.Objects
             for (int i = 0; i < RegularObjectCount; i++)
             {
                 this.objects[i] = new TrackObject(data, i * BytesPerObject);
-                this.objects[i].DataChanged += this.SubDataChanged;
+                this.objects[i].PropertyChanged += this.SubPropertyChanged;
             }
 
             for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
                 this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
-                this.objects[i].DataChanged += this.SubDataChanged;
+                this.objects[i].PropertyChanged += this.SubPropertyChanged;
             }
         }
 
-        private void SubDataChanged(object sender, EventArgs e)
+        private void SubPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnDataChanged();
+            this.OnPropertyChanged(sender, e);
         }
 
-        private void OnDataChanged()
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(sender, e);
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
