@@ -122,7 +122,7 @@ namespace EpicEdit.UI.TrackEdition
             this.rearObjectZonesControl.TabIndex = 7;
             this.rearObjectZonesControl.Title = "Rear-view Zones";
             this.rearObjectZonesControl.Visible = false;
-            this.rearObjectZonesControl.ValueChanged += new System.EventHandler<System.EventArgs>(this.RearObjectZonesControlValueChanged);
+            this.rearObjectZonesControl.ValueChanged += new System.EventHandler<System.EventArgs>(this.ObjectZonesControlValueChanged);
             // 
             // frontObjectZonesControl
             // 
@@ -132,7 +132,7 @@ namespace EpicEdit.UI.TrackEdition
             this.frontObjectZonesControl.Size = new System.Drawing.Size(122, 149);
             this.frontObjectZonesControl.TabIndex = 6;
             this.frontObjectZonesControl.Title = "Front-view Zones";
-            this.frontObjectZonesControl.ValueChanged += new System.EventHandler<System.EventArgs>(this.FrontObjectZonesControlValueChanged);
+            this.frontObjectZonesControl.ValueChanged += new System.EventHandler<System.EventArgs>(this.ObjectZonesControlValueChanged);
             // 
             // rearZonesRadioButton
             // 
