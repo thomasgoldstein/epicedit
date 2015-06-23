@@ -69,7 +69,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        public ByteArray PaletteIndexes { get; private set; }
+        private readonly ByteArray paletteIndexes;
+        public ByteArray PaletteIndexes
+        {
+            get { return this.paletteIndexes; }
+        }
 
         public Palette Palette
         {
@@ -125,7 +129,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectProperties(byte[] data, Palettes palettes)
         {
+            this.paletteIndexes = new ByteArray();
             this.SetBytes(data);
+            this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
             this.palettes = palettes;
         }
 
@@ -134,8 +140,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.Tileset = (ObjectType)data[0];
             this.Interaction = (ObjectType)data[1];
             this.Routine = (ObjectType)data[2];
-            this.PaletteIndexes = new ByteArray(new[] { data[3], data[4], data[5], data[6] });
-            this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
+            this.PaletteIndexes.SetBytes(new[] { data[3], data[4], data[5], data[6] });
             this.Flashing = data[7] != 0;
         }
 
@@ -172,11 +177,16 @@ namespace EpicEdit.Rom.Tracks.Objects
     {
         public event EventHandler<EventArgs> DataChanged;
 
-        private readonly byte[] data;
+        private byte[] data;
 
-        public ByteArray(byte[] data)
+        public void SetBytes(byte[] data)
         {
-            this.data = Clone(data);
+            this.data = new byte[data.Length];
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                this[i] = data[i];
+            }
         }
 
         public byte this[int index]
