@@ -75,10 +75,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 fireEvents = true;
 
-                ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
-                ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
-                ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
-                ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
+                this.UpdateTrackBarLabels();
             }
         }
 
@@ -131,10 +128,7 @@ namespace EpicEdit.UI.TrackEdition
 
             fireEvents = true;
 
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
-            ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
+            this.UpdateTrackBarLabels();
         }
 
         private void track_AI_CollectionChanged(object sender, EventArgs<TrackAIElement> e)
@@ -201,6 +195,14 @@ namespace EpicEdit.UI.TrackEdition
             label.Text =
                 Utilities.ByteToHexString((byte)value1) + "-" +
                 Utilities.ByteToHexString((byte)value2);
+        }
+
+        private void UpdateTrackBarLabels()
+        {
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
         }
     }
 }
