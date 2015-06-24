@@ -66,14 +66,14 @@ namespace EpicEdit.UI.TrackEdition
                 byte zone3Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 2);
                 byte zone4Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 3);
 
-                fireEvents = false;
+                this.fireEvents = false;
 
                 this.zone1TrackBar.Value = Math.Min(zone1Value, max);
                 this.zone2TrackBar.Value = Math.Min(zone2Value, max);
                 this.zone3TrackBar.Value = Math.Min(zone3Value, max);
                 this.zone4TrackBar.Value = Math.Min(zone4Value, max);
 
-                fireEvents = true;
+                this.fireEvents = true;
 
                 this.UpdateTrackBarLabels();
             }
@@ -121,11 +121,11 @@ namespace EpicEdit.UI.TrackEdition
                 e.Value2 == 2 ? this.zone3TrackBar :
                 this.zone4TrackBar;
 
-            fireEvents = false;
+            this.fireEvents = false;
 
             trackBar.Value = Math.Min(this.track.Objects.Zones.GetZoneValue(e.Value1, e.Value2), this.track.AI.ElementCount);
 
-            fireEvents = true;
+            this.fireEvents = true;
 
             this.UpdateTrackBarLabels();
         }
