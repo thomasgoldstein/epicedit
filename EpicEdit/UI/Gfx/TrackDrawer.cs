@@ -1077,14 +1077,16 @@ namespace EpicEdit.UI.Gfx
                         new Rectangle(0, 0,
                                       this.track.Map.Width * Tile.Size,
                                       this.track.Map.Height * Tile.Size),
-                        0, 0, TrackObjectZones.GridSize, TrackObjectZones.GridSize,
+                        0, 0, TrackObjectZonesView.GridSize, TrackObjectZonesView.GridSize,
                         GraphicsUnit.Pixel, this.translucidImageAttr);
         }
 
         private void InitObjectZonesBitmap(bool frontZonesView)
         {
             GPTrack gpTrack = this.track as GPTrack;
-            byte[][] zones = gpTrack.Objects.Zones.GetGrid(frontZonesView);
+            byte[][] zones = frontZonesView ?
+                gpTrack.Objects.Zones.FrontView.GetGrid() :
+                gpTrack.Objects.Zones.RearView.GetGrid();
 
             if (this.ZonesChanged(zones))
             {
@@ -1120,7 +1122,7 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private Bitmap CreateObjectZonesBitmap()
         {
-            Bitmap bitmap = new Bitmap(TrackObjectZones.GridSize, TrackObjectZones.GridSize, this.trackCache.PixelFormat);
+            Bitmap bitmap = new Bitmap(TrackObjectZonesView.GridSize, TrackObjectZonesView.GridSize, this.trackCache.PixelFormat);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
             for (int y = 0; y < this.zones.Length; y++)

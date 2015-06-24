@@ -115,7 +115,6 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // rearObjectZonesControl
             // 
-            this.rearObjectZonesControl.FrontViewZones = false;
             this.rearObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.rearObjectZonesControl.Name = "rearObjectZonesControl";
             this.rearObjectZonesControl.Size = new System.Drawing.Size(122, 149);
@@ -125,7 +124,6 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // frontObjectZonesControl
             // 
-            this.frontObjectZonesControl.FrontViewZones = true;
             this.frontObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.frontObjectZonesControl.Name = "frontObjectZonesControl";
             this.frontObjectZonesControl.Size = new System.Drawing.Size(122, 149);

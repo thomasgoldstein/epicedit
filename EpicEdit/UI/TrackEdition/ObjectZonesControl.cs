@@ -18,53 +18,46 @@ using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
+using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.TrackEdition
 {
     /// <summary>
-    /// Represents a collection of controls to edit <see cref="EpicEdit.Rom.Tracks.Objects.TrackObjectZones"/>.
+    /// Represents a collection of controls to edit <see cref="TrackObjectZonesView"/>.
     /// </summary>
     internal partial class ObjectZonesControl : UserControl
     {
-        [Category("Data")]
-        public bool FrontViewZones { get; set; }
-
         private bool fireEvents;
 
-        private GPTrack track;
+        private TrackObjectZonesView zonesView;
 
         [Category("Data"), Browsable(false), DefaultValue(typeof(GPTrack), "")]
-        public GPTrack Track
+        public TrackObjectZonesView ZonesView
         {
-            get { return this.track; }
+            get { return this.zonesView; }
             set
             {
-                if (this.track != null)
+                if (this.zonesView != null)
                 {
-                    this.track.Objects.Zones.DataChanged -= this.track_Objects_Zones_DataChanged;
-                    this.track.AI.ElementAdded -= this.track_AI_CollectionChanged;
-                    this.track.AI.ElementRemoved -= this.track_AI_CollectionChanged;
+                    this.zonesView.DataChanged -= this.zonesView_DataChanged;
+                    this.zonesView.AI.ElementAdded -= this.zonesView_AI_CollectionChanged;
+                    this.zonesView.AI.ElementRemoved -= this.zonesView_AI_CollectionChanged;
                 }
 
-                this.track = value;
+                this.zonesView = value;
 
-                if (this.track == null) // BattleTrack
-                {
-                    return;
-                }
+                this.zonesView.DataChanged += this.zonesView_DataChanged;
+                this.zonesView.AI.ElementAdded += this.zonesView_AI_CollectionChanged;
+                this.zonesView.AI.ElementRemoved += this.zonesView_AI_CollectionChanged;
 
-                this.track.Objects.Zones.DataChanged += this.track_Objects_Zones_DataChanged;
-                this.track.AI.ElementAdded += this.track_AI_CollectionChanged;
-                this.track.AI.ElementRemoved += this.track_AI_CollectionChanged;
-
-                int max = this.track.AI.ElementCount;
+                int max = this.zonesView.AI.ElementCount;
                 this.Maximum = max;
 
-                byte zone1Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 0);
-                byte zone2Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 1);
-                byte zone3Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 2);
-                byte zone4Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 3);
+                byte zone1Value = this.zonesView.GetZoneValue(0);
+                byte zone2Value = this.zonesView.GetZoneValue(1);
+                byte zone3Value = this.zonesView.GetZoneValue(2);
+                byte zone4Value = this.zonesView.GetZoneValue(3);
 
                 this.fireEvents = false;
 
@@ -107,32 +100,26 @@ namespace EpicEdit.UI.TrackEdition
             this.zone4TrackBar.Tag = 3;
         }
 
-        private void track_Objects_Zones_DataChanged(object sender, EventArgs<bool, int> e)
+        private void zonesView_DataChanged(object sender, EventArgs<int> e)
         {
-            if (e.Value1 != this.FrontViewZones)
-            {
-                // Rear zones were modified while this control shows front zones, or vice versa.
-                return;
-            }
-
             TrackBar trackBar =
-                e.Value2 == 0 ? this.zone1TrackBar :
-                e.Value2 == 1 ? this.zone2TrackBar :
-                e.Value2 == 2 ? this.zone3TrackBar :
+                e.Value == 0 ? this.zone1TrackBar :
+                e.Value == 1 ? this.zone2TrackBar :
+                e.Value == 2 ? this.zone3TrackBar :
                 this.zone4TrackBar;
 
             this.fireEvents = false;
 
-            trackBar.Value = Math.Min(this.track.Objects.Zones.GetZoneValue(e.Value1, e.Value2), this.track.AI.ElementCount);
+            trackBar.Value = Math.Min(this.zonesView.GetZoneValue(e.Value), this.zonesView.AI.ElementCount);
 
             this.fireEvents = true;
 
             this.UpdateTrackBarLabels();
         }
 
-        private void track_AI_CollectionChanged(object sender, EventArgs<TrackAIElement> e)
+        private void zonesView_AI_CollectionChanged(object sender, EventArgs<TrackAIElement> e)
         {
-            this.Maximum = this.track.AI.ElementCount;
+            this.Maximum = this.zonesView.AI.ElementCount;
         }
 
         private void Zone1TrackBarValueChanged(object sender, EventArgs e)
@@ -186,7 +173,7 @@ namespace EpicEdit.UI.TrackEdition
                 ObjectZonesControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
             }
 
-            this.track.Objects.Zones.SetZoneValue(this.FrontViewZones, (int)trackBar.Tag, (byte)trackBar.Value);
+            this.zonesView.SetZoneValue((int)trackBar.Tag, (byte)trackBar.Value);
         }
 
         private static void UpdateTrackBarLabel(Label label, int value1, int value2)

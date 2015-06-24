@@ -138,6 +138,7 @@
     <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTypes.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectZonesView.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePatterns.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />

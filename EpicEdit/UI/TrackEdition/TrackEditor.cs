@@ -1835,8 +1835,21 @@ namespace EpicEdit.UI.TrackEdition
                 case "Tileset":
                 case "Routine":
                 case "Palette":
-                case "Zones":
                     this.InvalidateWholeTrackDisplay();
+                    break;
+
+                case "FrontView":
+                    if (this.objectsControl.FrontZonesView)
+                    {
+                        this.InvalidateWholeTrackDisplay();
+                    }
+                    break;
+
+                case "RearView":
+                    if (!this.objectsControl.FrontZonesView)
+                    {
+                        this.InvalidateWholeTrackDisplay();
+                    }
                     break;
             }
         }

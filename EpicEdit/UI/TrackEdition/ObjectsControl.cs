@@ -53,30 +53,60 @@ namespace EpicEdit.UI.TrackEdition
             };
         }
 
+        private GPTrack track;
+
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public GPTrack Track
         {
-            get { return this.frontObjectZonesControl.Track; }
+            get { return this.track; }
             set
             {
-                if (this.Track == value)
+                if (this.track == value)
                 {
                     return;
                 }
 
-                if (this.Track != null)
+                if (this.track != null)
                 {
-                    this.Track.Objects.PropertyChanged -= this.Track_Objects_PropertyChanged;
+                    this.track.Objects.PropertyChanged -= this.track_Objects_PropertyChanged;
                 }
 
-                this.Enabled = value != null; // Enabled if GPTrack, disabled if BattleTrack
-                this.SetTrack(value);
+                this.track = value;
+    
+                if (this.track == null) // BattleTrack
+                {
+                    this.Enabled = false;
+                    return;
+                }
 
-                this.Track.Objects.PropertyChanged += this.Track_Objects_PropertyChanged;
+                this.Enabled = true;
+
+                this.track.Objects.PropertyChanged += this.track_Objects_PropertyChanged;
+
+                this.frontObjectZonesControl.ZonesView = this.track.Objects.Zones.FrontView;
+                this.rearObjectZonesControl.ZonesView = this.track.Objects.Zones.RearView;
+    
+                TrackObjects objects = this.track.Objects;
+    
+                this.fireEvents = false;
+    
+                this.tilesetComboBox.SelectedItem = objects.Tileset;
+                this.interactComboBox.SelectedItem = objects.Interaction;
+                this.routineComboBox.SelectedItem = objects.Routine;
+                this.palette1NumericUpDown.Value = objects.PaletteIndexes[0];
+                this.palette2NumericUpDown.Value = objects.PaletteIndexes[1];
+                this.palette3NumericUpDown.Value = objects.PaletteIndexes[2];
+                this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
+                this.flashingCheckBox.Checked = objects.Flashing;
+    
+                this.fireEvents = true;
+    
+                this.ToggleZoneGroupBox();
+                this.ToggleAlternatePalettes();
             }
         }
 
-        private void Track_Objects_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void track_Objects_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -103,35 +133,6 @@ namespace EpicEdit.UI.TrackEdition
                     this.flashingCheckBox.Checked = this.Track.Objects.Flashing;
                     break;
             }
-        }
-
-        private void SetTrack(GPTrack track)
-        {
-            this.frontObjectZonesControl.Track = track;
-            this.rearObjectZonesControl.Track = track;
-
-            if (track == null) // BattleTrack
-            {
-                return;
-            }
-
-            TrackObjects objects = track.Objects;
-
-            this.fireEvents = false;
-
-            this.tilesetComboBox.SelectedItem = objects.Tileset;
-            this.interactComboBox.SelectedItem = objects.Interaction;
-            this.routineComboBox.SelectedItem = objects.Routine;
-            this.palette1NumericUpDown.Value = objects.PaletteIndexes[0];
-            this.palette2NumericUpDown.Value = objects.PaletteIndexes[1];
-            this.palette3NumericUpDown.Value = objects.PaletteIndexes[2];
-            this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
-            this.flashingCheckBox.Checked = objects.Flashing;
-
-            this.fireEvents = true;
-
-            this.ToggleZoneGroupBox();
-            this.ToggleAlternatePalettes();
         }
 
         /// <summary>

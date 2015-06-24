@@ -92,7 +92,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.SetBytes(data);
 
             this.zones = new TrackObjectZones(zoneData, ai);
-            this.Zones.DataChanged += delegate { this.OnPropertyChanged("Zones"); };
+            this.Zones.PropertyChanged += this.SubPropertyChanged;
 
             this.properties = new TrackObjectProperties(propData, palettes);
             this.properties.PropertyChanged += this.SubPropertyChanged;
