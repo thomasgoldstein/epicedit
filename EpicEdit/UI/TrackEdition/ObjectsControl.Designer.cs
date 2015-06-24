@@ -184,37 +184,40 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.palette4NumericUpDown.Location = new System.Drawing.Point(77, 257);
             this.palette4NumericUpDown.Maximum = new decimal(new int[] {
-                                    7,
-                                    0,
-                                    0,
-                                    0});
+            7,
+            0,
+            0,
+            0});
             this.palette4NumericUpDown.Name = "palette4NumericUpDown";
             this.palette4NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette4NumericUpDown.TabIndex = 12;
+            this.palette4NumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // palette3NumericUpDown
             // 
             this.palette3NumericUpDown.Location = new System.Drawing.Point(77, 237);
             this.palette3NumericUpDown.Maximum = new decimal(new int[] {
-                                    7,
-                                    0,
-                                    0,
-                                    0});
+            7,
+            0,
+            0,
+            0});
             this.palette3NumericUpDown.Name = "palette3NumericUpDown";
             this.palette3NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette3NumericUpDown.TabIndex = 11;
+            this.palette3NumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // palette2NumericUpDown
             // 
             this.palette2NumericUpDown.Location = new System.Drawing.Point(77, 217);
             this.palette2NumericUpDown.Maximum = new decimal(new int[] {
-                                    7,
-                                    0,
-                                    0,
-                                    0});
+            7,
+            0,
+            0,
+            0});
             this.palette2NumericUpDown.Name = "palette2NumericUpDown";
             this.palette2NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette2NumericUpDown.TabIndex = 10;
+            this.palette2NumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // flashingCheckBox
             // 
@@ -224,18 +227,20 @@ namespace EpicEdit.UI.TrackEdition
             this.flashingCheckBox.TabIndex = 8;
             this.flashingCheckBox.Text = "Enable flashing";
             this.flashingCheckBox.UseVisualStyleBackColor = true;
+            this.flashingCheckBox.CheckedChanged += new System.EventHandler(this.FlashingCheckBoxCheckedChanged);
             // 
             // palette1NumericUpDown
             // 
             this.palette1NumericUpDown.Location = new System.Drawing.Point(77, 166);
             this.palette1NumericUpDown.Maximum = new decimal(new int[] {
-                                    7,
-                                    0,
-                                    0,
-                                    0});
+            7,
+            0,
+            0,
+            0});
             this.palette1NumericUpDown.Name = "palette1NumericUpDown";
             this.palette1NumericUpDown.Size = new System.Drawing.Size(37, 20);
             this.palette1NumericUpDown.TabIndex = 7;
+            this.palette1NumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // routineComboBox
             // 
@@ -245,6 +250,7 @@ namespace EpicEdit.UI.TrackEdition
             this.routineComboBox.Name = "routineComboBox";
             this.routineComboBox.Size = new System.Drawing.Size(104, 21);
             this.routineComboBox.TabIndex = 1;
+            this.routineComboBox.SelectedIndexChanged += new System.EventHandler(this.RoutineComboBoxSelectedIndexChanged);
             // 
             // interactComboBox
             // 
@@ -254,6 +260,7 @@ namespace EpicEdit.UI.TrackEdition
             this.interactComboBox.Name = "interactComboBox";
             this.interactComboBox.Size = new System.Drawing.Size(104, 21);
             this.interactComboBox.TabIndex = 3;
+            this.interactComboBox.SelectedIndexChanged += new System.EventHandler(this.InteractComboBoxSelectedIndexChanged);
             // 
             // tilesetComboBox
             // 
@@ -263,6 +270,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox.Name = "tilesetComboBox";
             this.tilesetComboBox.Size = new System.Drawing.Size(104, 21);
             this.tilesetComboBox.TabIndex = 5;
+            this.tilesetComboBox.SelectedIndexChanged += new System.EventHandler(this.TilesetComboBoxSelectedIndexChanged);
             // 
             // zoneGroupBox
             // 
@@ -290,6 +298,7 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).EndInit();
             this.zoneGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.Label palettesLabel;
         private EpicEdit.UI.Tools.EpicNumericUpDown palette1NumericUpDown;

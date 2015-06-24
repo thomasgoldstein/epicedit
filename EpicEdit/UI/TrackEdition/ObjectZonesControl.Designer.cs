@@ -126,6 +126,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone4TrackBar.Size = new System.Drawing.Size(100, 25);
             this.zone4TrackBar.TabIndex = 3;
             this.zone4TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.zone4TrackBar.ValueChanged += new System.EventHandler(this.Zone4TrackBarValueChanged);
             // 
             // zone3TrackBar
             // 
@@ -138,6 +139,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone3TrackBar.Size = new System.Drawing.Size(100, 25);
             this.zone3TrackBar.TabIndex = 2;
             this.zone3TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.zone3TrackBar.ValueChanged += new System.EventHandler(this.Zone3TrackBarValueChanged);
             // 
             // zone2TrackBar
             // 
@@ -150,6 +152,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone2TrackBar.Size = new System.Drawing.Size(100, 25);
             this.zone2TrackBar.TabIndex = 1;
             this.zone2TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.zone2TrackBar.ValueChanged += new System.EventHandler(this.Zone2TrackBarValueChanged);
             // 
             // zone1TrackBar
             // 
@@ -162,6 +165,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone1TrackBar.Size = new System.Drawing.Size(100, 25);
             this.zone1TrackBar.TabIndex = 0;
             this.zone1TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.zone1TrackBar.ValueChanged += new System.EventHandler(this.Zone1TrackBarValueChanged);
             // 
             // ObjectZonesControl
             // 
@@ -173,6 +177,7 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.zone2TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zone1TrackBar)).EndInit();
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.Label zone2Label;
         private System.Windows.Forms.Label zone3Label;

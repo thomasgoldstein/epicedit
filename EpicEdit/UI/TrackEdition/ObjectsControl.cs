@@ -29,6 +29,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ViewChanged;
 
+        private bool fireEvents;
+
         /// <summary>
         /// Used to get the index of the paletteNumericUpDown control.
         /// </summary>
@@ -115,14 +117,7 @@ namespace EpicEdit.UI.TrackEdition
 
             TrackObjects objects = track.Objects;
 
-            this.tilesetComboBox.SelectedIndexChanged -= this.TilesetComboBoxSelectedIndexChanged;
-            this.interactComboBox.SelectedIndexChanged -= this.InteractComboBoxSelectedIndexChanged;
-            this.routineComboBox.SelectedIndexChanged -= this.RoutineComboBoxSelectedIndexChanged;
-            this.palette1NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.palette2NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.palette3NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.palette4NumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.flashingCheckBox.CheckedChanged -= this.FlashingCheckBoxCheckedChanged;
+            this.fireEvents = false;
 
             this.tilesetComboBox.SelectedItem = objects.Tileset;
             this.interactComboBox.SelectedItem = objects.Interaction;
@@ -133,14 +128,7 @@ namespace EpicEdit.UI.TrackEdition
             this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
             this.flashingCheckBox.Checked = objects.Flashing;
 
-            this.tilesetComboBox.SelectedIndexChanged += this.TilesetComboBoxSelectedIndexChanged;
-            this.interactComboBox.SelectedIndexChanged += this.InteractComboBoxSelectedIndexChanged;
-            this.routineComboBox.SelectedIndexChanged += this.RoutineComboBoxSelectedIndexChanged;
-            this.palette1NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-            this.palette2NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-            this.palette3NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-            this.palette4NumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
-            this.flashingCheckBox.CheckedChanged += this.FlashingCheckBoxCheckedChanged;
+            this.fireEvents = true;
 
             this.ToggleZoneGroupBox();
             this.ToggleAlternatePalettes();
@@ -164,16 +152,31 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.Track.Objects.Tileset = (ObjectType)this.tilesetComboBox.SelectedItem;
         }
 
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.Track.Objects.Interaction = (ObjectType)this.interactComboBox.SelectedItem;
         }
 
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.Track.Objects.Routine = (ObjectType)this.routineComboBox.SelectedItem;
             this.ToggleZoneGroupBox();
         }
@@ -185,6 +188,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             NumericUpDown control = sender as NumericUpDown;
 
             int index;
@@ -201,6 +209,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void FlashingCheckBoxCheckedChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.Track.Objects.Flashing = this.flashingCheckBox.Checked;
             this.ToggleAlternatePalettes();
         }

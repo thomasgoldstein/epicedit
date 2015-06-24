@@ -30,6 +30,8 @@ namespace EpicEdit.UI.TrackEdition
         [Category("Data")]
         public bool FrontViewZones { get; set; }
 
+        private bool fireEvents;
+
         private GPTrack track;
 
         [Category("Data"), Browsable(false), DefaultValue(typeof(GPTrack), "")]
@@ -64,20 +66,14 @@ namespace EpicEdit.UI.TrackEdition
                 byte zone3Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 2);
                 byte zone4Value = this.track.Objects.Zones.GetZoneValue(this.FrontViewZones, 3);
 
-                this.zone1TrackBar.ValueChanged -= this.Zone1TrackBarValueChanged;
-                this.zone2TrackBar.ValueChanged -= this.Zone2TrackBarValueChanged;
-                this.zone3TrackBar.ValueChanged -= this.Zone3TrackBarValueChanged;
-                this.zone4TrackBar.ValueChanged -= this.Zone4TrackBarValueChanged;
+                fireEvents = false;
 
                 this.zone1TrackBar.Value = Math.Min(zone1Value, max);
                 this.zone2TrackBar.Value = Math.Min(zone2Value, max);
                 this.zone3TrackBar.Value = Math.Min(zone3Value, max);
                 this.zone4TrackBar.Value = Math.Min(zone4Value, max);
 
-                this.zone1TrackBar.ValueChanged += this.Zone1TrackBarValueChanged;
-                this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
-                this.zone3TrackBar.ValueChanged += this.Zone3TrackBarValueChanged;
-                this.zone4TrackBar.ValueChanged += this.Zone4TrackBarValueChanged;
+                fireEvents = true;
 
                 ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
                 ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
@@ -129,17 +125,11 @@ namespace EpicEdit.UI.TrackEdition
                 e.Value2 == 2 ? this.zone3TrackBar :
                 this.zone4TrackBar;
 
-            this.zone1TrackBar.ValueChanged -= this.Zone1TrackBarValueChanged;
-            this.zone2TrackBar.ValueChanged -= this.Zone2TrackBarValueChanged;
-            this.zone3TrackBar.ValueChanged -= this.Zone3TrackBarValueChanged;
-            this.zone4TrackBar.ValueChanged -= this.Zone4TrackBarValueChanged;
+            fireEvents = false;
 
             trackBar.Value = Math.Min(this.track.Objects.Zones.GetZoneValue(e.Value1, e.Value2), this.track.AI.ElementCount);
 
-            this.zone1TrackBar.ValueChanged += this.Zone1TrackBarValueChanged;
-            this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
-            this.zone3TrackBar.ValueChanged += this.Zone3TrackBarValueChanged;
-            this.zone4TrackBar.ValueChanged += this.Zone4TrackBarValueChanged;
+            fireEvents = true;
 
             ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
             ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
@@ -182,6 +172,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ZoneTrackBarValueChanged(TrackBar prevTrackBar, TrackBar trackBar, Label label, TrackBar nextTrackBar, Label nextLabel)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             if (nextTrackBar != null && nextTrackBar.Value < trackBar.Value)
             {
                 nextTrackBar.Value = trackBar.Value;
