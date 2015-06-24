@@ -54,15 +54,15 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public void SetBytes(byte[] data)
         {
-            this.frontZones[0] = data[0];
-            this.frontZones[1] = Math.Max(this.frontZones[0], data[1]);
-            this.frontZones[2] = Math.Max(this.frontZones[1], data[2]);
-            this.frontZones[3] = Math.Max(this.frontZones[2], data[3]);
+            for (int i = 0; i < this.frontZones.Length; i++)
+            {
+                this.SetZoneValue(true, i, data[i]);
+            }
 
-            this.rearZones[0] = data[5];
-            this.rearZones[1] = Math.Max(this.rearZones[0], data[6]);
-            this.rearZones[2] = Math.Max(this.rearZones[1], data[7]);
-            this.rearZones[3] = Math.Max(this.rearZones[2], data[8]);
+            for (int i = 0; i < this.rearZones.Length; i++)
+            {
+                this.SetZoneValue(false, i, data[5 + i]);
+            }
         }
 
         private byte GetZoneIndex(bool frontZonesView, int aiElementIndex)
