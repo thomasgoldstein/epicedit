@@ -62,8 +62,44 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
+                if (this.Track != null)
+                {
+                    this.Track.Objects.PropertyChanged -= this.Track_Objects_PropertyChanged;
+                }
+
                 this.Enabled = value != null; // Enabled if GPTrack, disabled if BattleTrack
                 this.SetTrack(value);
+
+                this.Track.Objects.PropertyChanged += this.Track_Objects_PropertyChanged;
+            }
+        }
+
+        private void Track_Objects_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Tileset":
+                    this.tilesetComboBox.SelectedItem = this.Track.Objects.Tileset;
+                    break;
+
+                case "Interaction":
+                    this.interactComboBox.SelectedItem = this.Track.Objects.Interaction;
+                    break;
+
+                case "Routine":
+                    this.routineComboBox.SelectedItem = this.Track.Objects.Routine;
+                    break;
+
+                case "PaletteIndexes":
+                    this.palette1NumericUpDown.Value = this.Track.Objects.PaletteIndexes[0];
+                    this.palette2NumericUpDown.Value = this.Track.Objects.PaletteIndexes[1];
+                    this.palette3NumericUpDown.Value = this.Track.Objects.PaletteIndexes[2];
+                    this.palette4NumericUpDown.Value = this.Track.Objects.PaletteIndexes[3];
+                    break;
+
+                case "Flashing":
+                    this.flashingCheckBox.Checked = this.Track.Objects.Flashing;
+                    break;
             }
         }
 
@@ -110,11 +146,6 @@ namespace EpicEdit.UI.TrackEdition
             this.ToggleAlternatePalettes();
         }
 
-        public void ResetTrack()
-        {
-            this.SetTrack(this.Track);
-        }
-
         /// <summary>
         /// Gets a value indicating whether the current view is the front-zones one.
         /// </summary>
@@ -131,15 +162,9 @@ namespace EpicEdit.UI.TrackEdition
             this.rearObjectZonesControl.Visible = this.rearZonesRadioButton.Checked;
         }
 
-        private void ObjectZonesControlValueChanged(object sender, EventArgs e)
-        {
-            this.ViewChanged(this, EventArgs.Empty);
-        }
-
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             this.Track.Objects.Tileset = (ObjectType)this.tilesetComboBox.SelectedItem;
-            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -151,7 +176,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.Track.Objects.Routine = (ObjectType)this.routineComboBox.SelectedItem;
             this.ToggleZoneGroupBox();
-            this.ViewChanged(this, EventArgs.Empty);
         }
 
         private void ToggleZoneGroupBox()
@@ -173,13 +197,6 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.Track.Objects.PaletteIndexes[index] = (byte)control.Value;
-
-            if (index == 0)
-            {
-                // Only changing the first (main) palette triggers a visual change.
-                // Flashing palettes (2, 3, 4) are not shown.
-                this.ViewChanged(this, EventArgs.Empty);
-            }
         }
 
         private void FlashingCheckBoxCheckedChanged(object sender, EventArgs e)

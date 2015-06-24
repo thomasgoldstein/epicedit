@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 
 using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.TrackEdition
@@ -26,13 +27,10 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class ObjectZonesControl : UserControl
     {
-        [Browsable(true), Category("Behavior")]
-        public event EventHandler<EventArgs> ValueChanged;
-
         [Category("Data")]
         public bool FrontViewZones { get; set; }
 
-        private GPTrack track = null;
+        private GPTrack track;
 
         [Category("Data"), Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public GPTrack Track
@@ -40,12 +38,23 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.track; }
             set
             {
+                if (this.track != null)
+                {
+                    this.track.Objects.Zones.DataChanged -= this.track_Objects_Zones_DataChanged;
+                    this.track.AI.ElementAdded -= this.track_AI_CollectionChanged;
+                    this.track.AI.ElementRemoved -= this.track_AI_CollectionChanged;
+                }
+
                 this.track = value;
 
                 if (this.track == null) // BattleTrack
                 {
                     return;
                 }
+
+                this.track.Objects.Zones.DataChanged += this.track_Objects_Zones_DataChanged;
+                this.track.AI.ElementAdded += this.track_AI_CollectionChanged;
+                this.track.AI.ElementRemoved += this.track_AI_CollectionChanged;
 
                 int max = this.track.AI.ElementCount;
                 this.Maximum = max;
@@ -95,26 +104,52 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        /// <summary>
-        /// Used to ensure the ValueChanged event is only raised once in case of chain reactions.
-        /// </summary>
-        private readonly bool[] raiseValueChanged;
-
         public ObjectZonesControl()
         {
             this.InitializeComponent();
 
-            this.raiseValueChanged = new bool[4];
             this.zone1TrackBar.Tag = 0;
             this.zone2TrackBar.Tag = 1;
             this.zone3TrackBar.Tag = 2;
             this.zone4TrackBar.Tag = 3;
         }
 
-        private void ZoneTrackBarScroll(object sender, EventArgs e)
+        private void track_Objects_Zones_DataChanged(object sender, EventArgs<bool, int> e)
         {
-            int zoneIndex = (int)(sender as Control).Tag;
-            this.raiseValueChanged[zoneIndex] = true;
+            if (!this.Visible || e.Value1 != this.FrontViewZones)
+            {
+                // Rear zones were modified while this control shows front zones, or vice versa.
+                // No need to update the control values, as they're not visible.
+                return;
+            }
+
+            TrackBar trackBar =
+                e.Value2 == 0 ? this.zone1TrackBar :
+                e.Value2 == 1 ? this.zone2TrackBar :
+                e.Value2 == 2 ? this.zone3TrackBar :
+                this.zone4TrackBar;
+
+            this.zone1TrackBar.ValueChanged -= this.Zone1TrackBarValueChanged;
+            this.zone2TrackBar.ValueChanged -= this.Zone2TrackBarValueChanged;
+            this.zone3TrackBar.ValueChanged -= this.Zone3TrackBarValueChanged;
+            this.zone4TrackBar.ValueChanged -= this.Zone4TrackBarValueChanged;
+
+            trackBar.Value = Math.Min(this.track.Objects.Zones.GetZoneValue(e.Value1, e.Value2), this.track.AI.ElementCount);
+
+            this.zone1TrackBar.ValueChanged += this.Zone1TrackBarValueChanged;
+            this.zone2TrackBar.ValueChanged += this.Zone2TrackBarValueChanged;
+            this.zone3TrackBar.ValueChanged += this.Zone3TrackBarValueChanged;
+            this.zone4TrackBar.ValueChanged += this.Zone4TrackBarValueChanged;
+
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone1Label, 0, this.zone1TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone2Label, this.zone1TrackBar.Value, this.zone2TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone3Label, this.zone2TrackBar.Value, this.zone3TrackBar.Value);
+            ObjectZonesControl.UpdateTrackBarLabel(this.zone4Label, this.zone3TrackBar.Value, this.zone4TrackBar.Value);
+        }
+
+        private void track_AI_CollectionChanged(object sender, EventArgs<TrackAIElement> e)
+        {
+            this.Maximum = this.track.AI.ElementCount;
         }
 
         private void Zone1TrackBarValueChanged(object sender, EventArgs e)
@@ -163,14 +198,7 @@ namespace EpicEdit.UI.TrackEdition
                 ObjectZonesControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
             }
 
-            int zoneIndex = (int)trackBar.Tag;
-            this.track.Objects.Zones.SetZoneValue(this.FrontViewZones, zoneIndex, (byte)trackBar.Value);
-
-            if (this.raiseValueChanged[zoneIndex])
-            {
-                this.ValueChanged(this, EventArgs.Empty);
-                this.raiseValueChanged[zoneIndex] = false;
-            }
+            this.track.Objects.Zones.SetZoneValue(this.FrontViewZones, (int)trackBar.Tag, (byte)trackBar.Value);
         }
 
         private static void UpdateTrackBarLabel(Label label, int value1, int value2)

@@ -484,7 +484,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.hoveredOverlayTile = null;
             this.overlayControl.SelectedTile = null;
-            this.objectsControl.ResetTrack();
             this.hoveredAIElem = null;
             this.aiControl.ResetTrack();
         }
@@ -1769,6 +1768,7 @@ namespace EpicEdit.UI.TrackEdition
                 if (gpTrack != null)
                 {
                     gpTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                    gpTrack.Objects.PropertyChanged -= this.gpTrack_Objects_PropertyChanged;
                 }
             }
 
@@ -1782,6 +1782,7 @@ namespace EpicEdit.UI.TrackEdition
             if (gpTrack != null)
             {
                 gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
+                gpTrack.Objects.PropertyChanged += this.gpTrack_Objects_PropertyChanged;
             }
 
             this.trackDisplay.Track = this.track;
@@ -1826,6 +1827,20 @@ namespace EpicEdit.UI.TrackEdition
                 this.InvalidateTrackDisplay();
             }
         }
+
+        private void gpTrack_Objects_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Tileset":
+                case "Routine":
+                case "Palette":
+                case "Zones":
+                    this.InvalidateWholeTrackDisplay();
+                    break;
+            }
+        }
+
         #endregion TrackTreeView
 
         #region EditionMode tabs
@@ -1912,8 +1927,6 @@ namespace EpicEdit.UI.TrackEdition
             else if (this.objectsTabPage.Visible)
             {
                 this.editionMode = EditionMode.Objects;
-                // Object data depends on AI data, reset the track data in case the AI data has changed
-                this.objectsControl.ResetTrack();
             }
             else // if (this.aiTabPage.Visible)
             {
