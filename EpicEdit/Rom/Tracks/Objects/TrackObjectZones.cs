@@ -90,10 +90,8 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 return this.frontZones[zoneIndex];
             }
-            else
-            {
-                return this.rearZones[zoneIndex];
-            }
+
+            return this.rearZones[zoneIndex];
         }
 
         public void SetZoneValue(bool frontZonesView, int zoneIndex, byte value)
