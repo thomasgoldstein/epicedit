@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Road;
+using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
@@ -36,7 +37,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         private const int GridLimit = GridSize - 1;
 
-        public event EventHandler<EventArgs> DataChanged;
+        public event EventHandler<EventArgs<bool, int>> DataChanged;
 
         private readonly TrackAI ai;
 
@@ -105,14 +106,14 @@ namespace EpicEdit.Rom.Tracks.Objects
                 this.rearZones[zoneIndex] = value;
             }
 
-            this.OnDataChanged();
+            this.OnDataChanged(frontZonesView, zoneIndex);
         }
 
-        private void OnDataChanged()
+        private void OnDataChanged(bool frontZonesView, int zoneIndex)
         {
             if (this.DataChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.DataChanged(this, new EventArgs<bool, int>(frontZonesView, zoneIndex));
             }
         }
 
