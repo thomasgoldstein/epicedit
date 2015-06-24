@@ -109,10 +109,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_Objects_Zones_DataChanged(object sender, EventArgs<bool, int> e)
         {
-            if (!this.Visible || e.Value1 != this.FrontViewZones)
+            if (e.Value1 != this.FrontViewZones)
             {
                 // Rear zones were modified while this control shows front zones, or vice versa.
-                // No need to update the control values, as they're not visible.
                 return;
             }
 
