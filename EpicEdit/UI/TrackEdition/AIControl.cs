@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 if (this.track != null)
                 {
-                    this.track.AI.PropertyChanged -= this.track_AI_DataChanged;
+                    this.track.AI.PropertyChanged -= this.track_AI_PropertyChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                     this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                     this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
@@ -109,7 +109,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.track = value;
 
-                this.track.AI.PropertyChanged += this.track_AI_DataChanged;
+                this.track.AI.PropertyChanged += this.track_AI_PropertyChanged;
                 this.track.AI.ElementAdded += this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
@@ -282,7 +282,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void track_AI_DataChanged(object sender, EventArgs e)
+        private void track_AI_PropertyChanged(object sender, EventArgs e)
         {
             // TODO: Update control values
         }

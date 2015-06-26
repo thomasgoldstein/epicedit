@@ -138,10 +138,10 @@ namespace EpicEdit.Rom.Tracks
             this.Map.DataChanged += this.Map_DataChanged;
 
             this.ai = new TrackAI(aiZoneData, aiTargetData, this);
-            this.AI.PropertyChanged += this.AI_DataChanged;
-            this.AI.ElementAdded += this.AI_DataChanged;
-            this.AI.ElementRemoved += this.AI_DataChanged;
-            this.AI.ElementsCleared += this.AI_DataChanged;
+            this.AI.PropertyChanged += this.AI_PropertyChanged;
+            this.AI.ElementAdded += this.AI_PropertyChanged;
+            this.AI.ElementRemoved += this.AI_PropertyChanged;
+            this.AI.ElementsCleared += this.AI_PropertyChanged;
 
             this.overlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
             this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
@@ -204,7 +204,7 @@ namespace EpicEdit.Rom.Tracks
             this.MarkAsModified("Map");
         }
 
-        private void AI_DataChanged(object sender, EventArgs e)
+        private void AI_PropertyChanged(object sender, EventArgs e)
         {
             this.MarkAsModified("AI");
         }
