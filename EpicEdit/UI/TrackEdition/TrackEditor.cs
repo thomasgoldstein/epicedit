@@ -476,16 +476,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetTrack()
         {
-            this.ResetEditionControls();
-            this.InvalidateTrack();
-        }
-
-        private void ResetEditionControls()
-        {
             this.hoveredOverlayTile = null;
             this.overlayControl.SelectedTile = null;
             this.hoveredAIElem = null;
-            this.aiControl.ResetTrack();
+            this.aiControl.SelectedElement = null;
+
+            this.InvalidateTrack();
         }
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
@@ -1763,6 +1759,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.PropertyChanged -= this.track_PropertyChanged;
                 this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
                 this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
+                this.track.AI.DataChanged -= this.track_AI_DataChanged;
+                this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
+                this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
+                this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
 
                 gpTrack = this.track as GPTrack;
                 if (gpTrack != null)
@@ -1777,6 +1777,10 @@ namespace EpicEdit.UI.TrackEdition
             this.track.PropertyChanged += this.track_PropertyChanged;
             this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
             this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
+            this.track.AI.DataChanged += this.track_AI_DataChanged;
+            this.track.AI.ElementAdded += this.track_AI_ElementAdded;
+            this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
+            this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
 
             gpTrack = this.track as GPTrack;
             if (gpTrack != null)
@@ -1854,6 +1858,39 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
+        private void track_AI_DataChanged(object sender, EventArgs e)
+        {
+            this.InvalidateTrackDisplay();
+        }
+
+        private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
+        {
+            this.aiControl.SelectedElement = e.Value;
+            this.InitAIAction();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void track_AI_ElementRemoved(object sender, EventArgs<TrackAIElement> e)
+        {
+            if (this.hoveredAIElem == e.Value)
+            {
+                this.hoveredAIElem = null;
+            }
+
+            if (this.aiControl.SelectedElement == e.Value)
+            {
+                this.aiControl.SelectedElement = null;
+            }
+
+            this.InitAIAction();
+            this.InvalidateTrackDisplay();
+        }
+
+        private void track_AI_ElementsCleared(object sender, EventArgs e)
+        {
+            this.aiControl.SelectedElement = null;
+            this.InvalidateWholeTrackDisplay();
+        }
         #endregion TrackTreeView
 
         #region EditionMode tabs
@@ -2649,33 +2686,6 @@ namespace EpicEdit.UI.TrackEdition
         private void AIControlAddElementRequested(object sender, EventArgs e)
         {
             this.AddAIElement(this.AbsoluteCenterTileLocation);
-        }
-
-        private void AIControlElementChanged(object sender, EventArgs e)
-        {
-            this.InvalidateTrackDisplay();
-        }
-
-        private void AIControlElementAdded(object sender, EventArgs e)
-        {
-            this.InitAIAction();
-            this.InvalidateTrackDisplay();
-        }
-
-        private void AIControlElementRemoved(object sender, TrackAIElementEventArgs e)
-        {
-            if (this.hoveredAIElem == e.Value)
-            {
-                this.hoveredAIElem = null;
-            }
-
-            this.InitAIAction();
-            this.InvalidateTrackDisplay();
-        }
-
-        private void AIControlElementsCleared(object sender, EventArgs e)
-        {
-            this.InvalidateWholeTrackDisplay();
         }
         #endregion EditionMode.AI
     }

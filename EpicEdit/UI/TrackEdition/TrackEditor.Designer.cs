@@ -256,10 +256,6 @@ namespace EpicEdit.UI.TrackEdition
             this.aiControl.TabIndex = 0;
             this.aiControl.AddElementRequested += new System.EventHandler<System.EventArgs>(this.AIControlAddElementRequested);
             this.aiControl.ItemProbaEditorRequested += new System.EventHandler<System.EventArgs>(this.ItemProbaEditorRequested);
-            this.aiControl.ElementChanged += new System.EventHandler<System.EventArgs>(this.AIControlElementChanged);
-            this.aiControl.ElementAdded += new System.EventHandler<System.EventArgs>(this.AIControlElementAdded);
-            this.aiControl.ElementRemoved += new System.EventHandler<EpicEdit.UI.TrackEdition.TrackAIElementEventArgs>(this.AIControlElementRemoved);
-            this.aiControl.ElementsCleared += new System.EventHandler<System.EventArgs>(this.AIControlElementsCleared);
             // 
             // tabImageList
             // 

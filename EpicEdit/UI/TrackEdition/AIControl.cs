@@ -37,18 +37,6 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
 
-        [Browsable(true), Category("Data")]
-        public event EventHandler<EventArgs> ElementChanged;
-
-        [Browsable(true), Category("Data")]
-        public event EventHandler<EventArgs> ElementAdded;
-
-        [Browsable(true), Category("Data")]
-        public event EventHandler<TrackAIElementEventArgs> ElementRemoved;
-
-        [Browsable(true), Category("Data")]
-        public event EventHandler<EventArgs> ElementsCleared;
-
         /// <summary>
         /// The current track.
         /// </summary>
@@ -77,6 +65,8 @@ namespace EpicEdit.UI.TrackEdition
                 else
                 {
                     this.selectedAIElementGroupBox.Enabled = true;
+
+                    this.SetMaximumAIElementIndex();
 
                     this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
                     this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
@@ -126,16 +116,11 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
 
-                this.ResetTrack();
+                this.SelectedElement = null;
+                this.LoadItemProbabilitySet();
+                this.SetMaximumAIElementIndex();
+                this.warningLabel.Visible = this.track.AI.ElementCount == 0;
             }
-        }
-
-        public void ResetTrack()
-        {
-            this.SelectedElement = null;
-            this.LoadItemProbabilitySet();
-            this.SetMaximumAIElementIndex();
-            this.warningLabel.Visible = this.track.AI.ElementCount == 0;
         }
 
         public AIControl()
@@ -286,40 +271,32 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_AI_DataChanged(object sender, EventArgs e)
         {
-            this.ElementChanged(this, EventArgs.Empty);
+            // TODO: Update control values
         }
 
         private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
         {
             this.SetMaximumAIElementIndex();
-            this.SelectedElement = e.Value;
 
             if (this.track.AI.ElementCount > 0)
             {
                 this.HideWarning();
             }
-
-            this.ElementAdded(this, EventArgs.Empty);
         }
 
         private void track_AI_ElementRemoved(object sender, EventArgs<TrackAIElement> e)
         {
-            this.SelectedElement = null;
             this.SetMaximumAIElementIndex();
 
             if (this.track.AI.ElementCount == 0)
             {
                 this.ShowWarning();
             }
-
-            this.ElementRemoved(this, new TrackAIElementEventArgs(e.Value));
         }
 
         private void track_AI_ElementsCleared(object sender, EventArgs e)
         {
-            this.SelectedElement = null;
             this.ShowWarning();
-            this.ElementsCleared(this, EventArgs.Empty);
         }
 
         private void ShowWarning()
@@ -331,13 +308,5 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.warningLabel.Visible = false;
         }
-    }
-
-    /// <summary>
-    /// Wrapper class around a generic EventArgs to make it work with the WinForms designer.
-    /// </summary>
-    internal class TrackAIElementEventArgs : EventArgs<TrackAIElement>
-    {
-        public TrackAIElementEventArgs(TrackAIElement value) : base(value) { }
     }
 }
