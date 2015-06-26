@@ -37,6 +37,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
 
+        private bool fireEvents;
+
         /// <summary>
         /// The current track.
         /// </summary>
@@ -68,17 +70,13 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.SetMaximumAIElementIndex();
 
-                    this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
+                    this.fireEvents = false;
+
                     this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
-                    this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
-
-                    this.speedNumericUpDown.ValueChanged -= this.SpeedNumericUpDownValueChanged;
                     this.speedNumericUpDown.Value = this.selectedElement.Speed;
-                    this.speedNumericUpDown.ValueChanged += this.SpeedNumericUpDownValueChanged;
-
-                    this.shapeComboBox.SelectedIndexChanged -= this.ShapeComboBoxSelectedIndexChanged;
                     this.shapeComboBox.SelectedItem = this.selectedElement.ZoneShape;
-                    this.shapeComboBox.SelectedIndexChanged += this.ShapeComboBoxSelectedIndexChanged;
+
+                    this.fireEvents = true;
                 }
 
                 // Force controls to refresh so that the new data shows up instantly.
@@ -182,6 +180,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             int oldIndex = this.track.AI.GetElementIndex(this.selectedElement);
             int newIndex = (int)this.indexNumericUpDown.Value;
             this.track.AI.ChangeElementIndex(oldIndex, newIndex);
@@ -189,11 +192,21 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.selectedElement.Speed = (byte)this.speedNumericUpDown.Value;
         }
 
         private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             this.selectedElement.ZoneShape = (Shape)this.shapeComboBox.SelectedValue;
         }
 
@@ -249,9 +262,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetMaximumAIElementIndex()
         {
-            this.indexNumericUpDown.ValueChanged -= this.IndexNumericUpDownValueChanged;
+            this.fireEvents = false;
             this.indexNumericUpDown.Maximum = this.track.AI.ElementCount - 1;
-            this.indexNumericUpDown.ValueChanged += this.IndexNumericUpDownValueChanged;
+            this.fireEvents = true;
         }
 
         private void AddButtonClick(object sender, EventArgs e)

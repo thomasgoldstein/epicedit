@@ -124,10 +124,10 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.indexNumericUpDown.Location = new System.Drawing.Point(69, 30);
             this.indexNumericUpDown.Maximum = new decimal(new int[] {
-                                    127,
-                                    0,
-                                    0,
-                                    0});
+            127,
+            0,
+            0,
+            0});
             this.indexNumericUpDown.Name = "indexNumericUpDown";
             this.indexNumericUpDown.Size = new System.Drawing.Size(45, 20);
             this.indexNumericUpDown.TabIndex = 1;
@@ -153,16 +153,17 @@ namespace EpicEdit.UI.TrackEdition
             this.shapeComboBox.Name = "shapeComboBox";
             this.shapeComboBox.Size = new System.Drawing.Size(104, 21);
             this.shapeComboBox.TabIndex = 5;
+            this.shapeComboBox.SelectedIndexChanged += new System.EventHandler(this.ShapeComboBoxSelectedIndexChanged);
             this.shapeComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ShapeComboBoxFormat);
             // 
             // speedNumericUpDown
             // 
             this.speedNumericUpDown.Location = new System.Drawing.Point(69, 63);
             this.speedNumericUpDown.Maximum = new decimal(new int[] {
-                                    3,
-                                    0,
-                                    0,
-                                    0});
+            3,
+            0,
+            0,
+            0});
             this.speedNumericUpDown.Name = "speedNumericUpDown";
             this.speedNumericUpDown.Size = new System.Drawing.Size(45, 20);
             this.speedNumericUpDown.TabIndex = 3;
@@ -246,6 +247,7 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
             this.itemProbaGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.Button cloneButton;
         private System.Windows.Forms.Button probaEditorButton;
