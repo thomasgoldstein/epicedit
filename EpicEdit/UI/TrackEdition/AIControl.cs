@@ -282,9 +282,29 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void track_AI_PropertyChanged(object sender, EventArgs e)
+        private void track_AI_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // TODO: Update control values
+            TrackAIElement aiElement = sender as TrackAIElement;
+
+            if (this.SelectedElement != aiElement)
+            {
+                return;
+            }
+
+            switch (e.PropertyName)
+            {
+                case "Index":
+                    this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
+                    break;
+
+                case "Speed":
+                    this.speedNumericUpDown.Value = aiElement.Speed;
+                    break;
+
+                case "ZoneShape":
+                    this.shapeComboBox.SelectedValue = aiElement.ZoneShape;
+                    break;
+            }
         }
 
         private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
