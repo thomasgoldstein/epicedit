@@ -147,14 +147,6 @@ namespace EpicEdit.Rom.Tracks.AI
             }
         }
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
         private void OnElementAdded(TrackAIElement value)
         {
             if (this.ElementAdded != null)
