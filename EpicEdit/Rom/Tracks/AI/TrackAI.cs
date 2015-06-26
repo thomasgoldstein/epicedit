@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 using EpicEdit.Rom.Tracks.Objects;
@@ -25,11 +26,11 @@ namespace EpicEdit.Rom.Tracks.AI
     /// <summary>
     /// The Artificial Intelligence attached to a track. Basically a path that the computer follows.
     /// </summary>
-    internal class TrackAI : IEnumerable<TrackAIElement>
+    internal class TrackAI : IEnumerable<TrackAIElement>, INotifyPropertyChanged
     {
         public const int MaxElementCount = 128;
 
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<EventArgs<TrackAIElement>> ElementAdded;
         public event EventHandler<EventArgs<TrackAIElement>> ElementRemoved;
         public event EventHandler<EventArgs> ElementsCleared;
@@ -91,7 +92,7 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.aiElements.Add(aiElement);
-            aiElement.DataChanged += this.aiElement_DataChanged;
+            aiElement.PropertyChanged += this.aiElement_PropertyChanged;
             this.OnElementAdded(aiElement);
         }
 
@@ -108,13 +109,13 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.aiElements.Insert(index, aiElement);
-            aiElement.DataChanged += this.aiElement_DataChanged;
+            aiElement.PropertyChanged += aiElement_PropertyChanged;
             this.OnElementAdded(aiElement);
         }
 
         public void Remove(TrackAIElement aiElement)
         {
-            aiElement.DataChanged -= this.aiElement_DataChanged;
+            aiElement.PropertyChanged -= this.aiElement_PropertyChanged;
             this.aiElements.Remove(aiElement);
             this.OnElementRemoved(aiElement);
         }
@@ -126,23 +127,31 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             foreach (TrackAIElement aiElement in this.aiElements)
             {
-                aiElement.DataChanged -= this.aiElement_DataChanged;
+                aiElement.PropertyChanged -= this.aiElement_PropertyChanged;
             }
 
             this.aiElements.Clear();
             this.OnElementsCleared();
         }
 
-        private void aiElement_DataChanged(object sender, EventArgs e)
+        private void aiElement_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnDataChanged();
+            this.OnPropertyChanged(sender, e);
         }
 
-        private void OnDataChanged()
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(sender, e);
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -186,7 +195,7 @@ namespace EpicEdit.Rom.Tracks.AI
             TrackAIElement aiElement = this.aiElements[indexBefore];
             this.aiElements.RemoveAt(indexBefore);
             this.aiElements.Insert(indexAfter, aiElement);
-            this.OnDataChanged();
+            this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs("Index"));
         }
 
         public static int ComputeTargetDataLength(byte[] zoneData)

@@ -138,7 +138,7 @@ namespace EpicEdit.Rom.Tracks
             this.Map.DataChanged += this.Map_DataChanged;
 
             this.ai = new TrackAI(aiZoneData, aiTargetData, this);
-            this.AI.DataChanged += this.AI_DataChanged;
+            this.AI.PropertyChanged += this.AI_DataChanged;
             this.AI.ElementAdded += this.AI_DataChanged;
             this.AI.ElementRemoved += this.AI_DataChanged;
             this.AI.ElementsCleared += this.AI_DataChanged;

@@ -37,14 +37,14 @@ namespace EpicEdit.Rom.Tracks.AI
     /// <summary>
     /// Represents an element of the <see cref="TrackAI"/>.
     /// </summary>
-    internal class TrackAIElement
+    internal class TrackAIElement : INotifyPropertyChanged
     {
         /// <summary>
         /// The precision for AI elements: 2 tiles (16 pixels).
         /// </summary>
         public const int Precision = 2;
 
-        public event EventHandler<EventArgs> DataChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private Shape zoneShape;
         /// <summary>
@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
 
                 this.zoneShape = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("ZoneShape");
             }
         }
 
@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
 
                 this.speed = value;
-                this.OnDataChanged();
+                this.OnPropertyChanged("Speed");
             }
         }
 
@@ -531,7 +531,7 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.zone.X != x || this.zone.Y != y)
             {
                 this.zone.Location = new Point(x, y);
-                this.OnDataChanged();
+                this.OnPropertyChanged("Location");
 
                 this.MoveTargetTo(targetX, targetY);
             }
@@ -560,7 +560,7 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.target.X != x || this.target.Y != y)
             {
                 this.target = new Point(x, y);
-                this.OnDataChanged();
+                this.OnPropertyChanged("Target");
             }
         }
 
@@ -579,7 +579,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 this.ResizeTriangle(resizeHandle, x, y);
             }
 
-            this.OnDataChanged();
+            this.OnPropertyChanged("Zone");
         }
 
         private void ResizeRectangle(ResizeHandle resizeHandle, int x, int y)
@@ -1098,11 +1098,11 @@ namespace EpicEdit.Rom.Tracks.AI
             };
         }
 
-        private void OnDataChanged()
+        private void OnPropertyChanged(string propertyName)
         {
-            if (this.DataChanged != null)
+            if (this.PropertyChanged != null)
             {
-                this.DataChanged(this, EventArgs.Empty);
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

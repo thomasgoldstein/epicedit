@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 if (this.track != null)
                 {
-                    this.track.AI.DataChanged -= this.track_AI_DataChanged;
+                    this.track.AI.PropertyChanged -= this.track_AI_DataChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                     this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                     this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
@@ -109,7 +109,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.track = value;
 
-                this.track.AI.DataChanged += this.track_AI_DataChanged;
+                this.track.AI.PropertyChanged += this.track_AI_DataChanged;
                 this.track.AI.ElementAdded += this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
