@@ -187,6 +187,9 @@ namespace EpicEdit.Rom.Tracks.AI
             TrackAIElement aiElement = this.aiElements[indexBefore];
             this.aiElements.RemoveAt(indexBefore);
             this.aiElements.Insert(indexAfter, aiElement);
+
+            // HACK: The TrackAIElement doesn't raise this event itself,
+            // and the Index property does not actually exist.
             this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs(PropertyNames.TrackAIElement.Index));
         }
 
