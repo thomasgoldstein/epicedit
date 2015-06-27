@@ -224,8 +224,6 @@ namespace EpicEdit.Rom.Tracks
             {
                 this.ImportSmkc(filePath, game);
             }
-
-            this.MarkAsModified(PropertyNames.Track.Map);
         }
 
         /// <summary>
