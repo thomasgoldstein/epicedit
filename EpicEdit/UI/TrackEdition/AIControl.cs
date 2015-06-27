@@ -186,6 +186,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.fireEvents)
+            {
+                return;
+            }
+
             GPTrack gpTrack = this.track as GPTrack;
             gpTrack.ItemProbabilityIndex = this.setComboBox.SelectedIndex;
         }
@@ -249,7 +254,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void LoadItemProbabilitySet()
         {
-            this.setComboBox.SelectedIndexChanged -= this.SetComboBoxSelectedIndexChanged;
+            this.fireEvents = false;
 
             GPTrack gpTrack = this.track as GPTrack;
             if (gpTrack != null)
@@ -269,7 +274,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            this.setComboBox.SelectedIndexChanged += this.SetComboBoxSelectedIndexChanged;
+            this.fireEvents = true;
         }
 
         private void ProbaEditorButtonClick(object sender, EventArgs e)

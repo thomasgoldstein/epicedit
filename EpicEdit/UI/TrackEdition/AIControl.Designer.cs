@@ -232,6 +232,7 @@ namespace EpicEdit.UI.TrackEdition
             this.setComboBox.Name = "setComboBox";
             this.setComboBox.Size = new System.Drawing.Size(104, 21);
             this.setComboBox.TabIndex = 7;
+            this.setComboBox.SelectedIndexChanged += new System.EventHandler(this.SetComboBoxSelectedIndexChanged);
             // 
             // AIControl
             // 
