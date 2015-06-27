@@ -482,8 +482,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches when the user moves in the basic colors while clicked.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void BasicColorsPictureBoxMouseMove(object sender, MouseEventArgs e)
         {
             if (this.basicColorsMouseDown)
@@ -495,8 +495,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches a user click in the basic colors.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void BasicColorsPictureBoxClick(object sender, EventArgs e)
         {
             MouseEventArgs me = e as MouseEventArgs;
@@ -521,8 +521,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches when the user moves in the shades while clicked.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void ShadesPictureBoxMouseMove(object sender, MouseEventArgs e)
         {
             if (this.shadesPictureMouseDown)
@@ -534,8 +534,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches a user click in the shades.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void ShadesPictureBoxClick(object sender, EventArgs e)
         {
             MouseEventArgs me = e as MouseEventArgs;
@@ -580,8 +580,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches the user changing numbers for a 5-bit (0-31) color.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Color5BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
             if (!this.fireEvents)
@@ -598,8 +598,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// Catches the user changing numbers for an 8-bit (0-255) color.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The control which raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Color8BitNumericUpDownValueChanged(object sender, EventArgs e)
         {
             if (!this.fireEvents)
@@ -686,8 +686,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// Finds the basic color of any RomColor.
         /// A basic color always has one of the three components equal to 255 (8 bit).
         /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
+        /// <param name="color">The color from which to retrieve the basic color.</param>
+        /// <returns>The basic color.</returns>
         public static RomColor FindBasicColor(RomColor color)
         {
             byte max = Math.Max(color.Red, color.Green);
