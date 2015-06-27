@@ -100,12 +100,21 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
+                GPTrack gpTrack;
+
                 if (this.track != null)
                 {
                     this.track.AI.PropertyChanged -= this.track_AI_PropertyChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                     this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                     this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
+
+                    gpTrack = this.track as GPTrack;
+
+                    if (gpTrack != null)
+                    {
+                        gpTrack.PropertyChanged -= this.gpTrack_PropertyChanged;
+                    }
                 }
 
                 this.track = value;
@@ -114,6 +123,13 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementAdded += this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
+
+                gpTrack = this.track as GPTrack;
+
+                if (gpTrack != null)
+                {
+                    gpTrack.PropertyChanged += this.gpTrack_PropertyChanged;
+                }
 
                 this.SelectedElement = null;
                 this.LoadItemProbabilitySet();
@@ -305,6 +321,14 @@ namespace EpicEdit.UI.TrackEdition
                 case PropertyNames.TrackAIElement.ZoneShape:
                     this.shapeComboBox.SelectedValue = aiElement.ZoneShape;
                     break;
+            }
+        }
+
+        private void gpTrack_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == PropertyNames.GPTrack.ItemProbabilityIndex)
+            {
+                this.setComboBox.SelectedIndex = (this.track as GPTrack).ItemProbabilityIndex;
             }
         }
 
