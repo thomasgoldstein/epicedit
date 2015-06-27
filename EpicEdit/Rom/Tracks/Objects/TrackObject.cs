@@ -37,7 +37,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.location = value;
-                this.OnPropertyChanged("Location");
+                this.OnPropertyChanged(PropertyNames.TrackObject.Location);
             }
         }
 

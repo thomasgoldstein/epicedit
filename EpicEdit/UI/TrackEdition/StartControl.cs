@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition
@@ -83,7 +84,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SecondRowOffset")
+            if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
                 GPTrack gpTrack = this.track as GPTrack;
                 this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;

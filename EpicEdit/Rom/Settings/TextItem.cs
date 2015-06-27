@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Settings
 
                 if (this.PropertyChanged != null)
                 {
-                    this.PropertyChanged(this, new PropertyChangedEventArgs("Value"));
+                    this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyNames.TextItem.Value));
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.direction = value;
-                this.OnPropertyChanged("Direction");
+                this.OnPropertyChanged(PropertyNames.TrackObjectMatchRace.Direction);
             }
         }
 

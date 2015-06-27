@@ -82,7 +82,7 @@ namespace EpicEdit.Rom.Tracks
                 this.theme = value;
                 this.AddColorChangedEventHandlers();
 
-                this.MarkAsModified("Theme");
+                this.MarkAsModified(PropertyNames.Track.Theme);
             }
         }
 
@@ -196,22 +196,22 @@ namespace EpicEdit.Rom.Tracks
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged("SuffixedNameItem");
+            this.OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
         }
 
         private void Map_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("Map");
+            this.MarkAsModified(PropertyNames.Track.Map);
         }
 
         private void AI_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("AI");
+            this.MarkAsModified(PropertyNames.Track.AI);
         }
 
         private void OverlayTiles_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("OverlayTiles");
+            this.MarkAsModified(PropertyNames.Track.OverlayTiles);
         }
 
         public void Import(string filePath, Game game)
@@ -225,7 +225,7 @@ namespace EpicEdit.Rom.Tracks
                 this.ImportSmkc(filePath, game);
             }
 
-            this.MarkAsModified("Map");
+            this.MarkAsModified(PropertyNames.Track.Map);
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace EpicEdit.Rom.Tracks
             }
 
             this.Modified = false;
-            this.OnPropertyChanged("Modified");
+            this.OnPropertyChanged(PropertyNames.Track.Modified);
         }
 
         /// <summary>

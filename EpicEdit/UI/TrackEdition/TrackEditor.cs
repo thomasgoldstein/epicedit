@@ -1802,7 +1802,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Theme")
+            if (e.PropertyName == PropertyNames.Track.Theme)
             {
                 this.InvalidateTrack();
             }
@@ -1826,7 +1826,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SecondRowOffset")
+            if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
                 this.InvalidateTrackDisplay();
             }
@@ -1836,20 +1836,20 @@ namespace EpicEdit.UI.TrackEdition
         {
             switch (e.PropertyName)
             {
-                case "Tileset":
-                case "Routine":
-                case "Palette":
+                case PropertyNames.TrackObjectProperties.Tileset:
+                case PropertyNames.TrackObjectProperties.Routine:
+                case PropertyNames.TrackObjectProperties.Palette:
                     this.InvalidateWholeTrackDisplay();
                     break;
 
-                case "FrontView":
+                case PropertyNames.TrackObjectZones.FrontView:
                     if (this.objectsControl.FrontZonesView)
                     {
                         this.InvalidateWholeTrackDisplay();
                     }
                     break;
 
-                case "RearView":
+                case PropertyNames.TrackObjectZones.RearView:
                     if (!this.objectsControl.FrontZonesView)
                     {
                         this.InvalidateWholeTrackDisplay();

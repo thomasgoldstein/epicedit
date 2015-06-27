@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
 
                 this.zoneShape = value;
-                this.OnPropertyChanged("ZoneShape");
+                this.OnPropertyChanged(PropertyNames.TrackAIElement.ZoneShape);
             }
         }
 
@@ -112,7 +112,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
 
                 this.speed = value;
-                this.OnPropertyChanged("Speed");
+                this.OnPropertyChanged(PropertyNames.TrackAIElement.Speed);
             }
         }
 
@@ -531,7 +531,7 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.zone.X != x || this.zone.Y != y)
             {
                 this.zone.Location = new Point(x, y);
-                this.OnPropertyChanged("Location");
+                this.OnPropertyChanged(PropertyNames.TrackAIElement.Location);
 
                 this.MoveTargetTo(targetX, targetY);
             }
@@ -560,7 +560,7 @@ namespace EpicEdit.Rom.Tracks.AI
             if (this.target.X != x || this.target.Y != y)
             {
                 this.target = new Point(x, y);
-                this.OnPropertyChanged("Target");
+                this.OnPropertyChanged(PropertyNames.TrackAIElement.Target);
             }
         }
 
@@ -579,7 +579,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 this.ResizeTriangle(resizeHandle, x, y);
             }
 
-            this.OnPropertyChanged("Zone");
+            this.OnPropertyChanged(PropertyNames.TrackAIElement.Zone);
         }
 
         private void ResizeRectangle(ResizeHandle resizeHandle, int x, int y)

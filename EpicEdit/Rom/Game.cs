@@ -468,7 +468,7 @@ namespace EpicEdit.Rom
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SuffixedNameItem")
+            if (e.PropertyName == PropertyNames.Track.SuffixedNameItem)
             {
                 this.modified = true;
             }

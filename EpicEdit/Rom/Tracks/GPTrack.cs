@@ -78,7 +78,7 @@ namespace EpicEdit.Rom.Tracks
                 }
 
                 this.itemProbabilityIndex = value;
-                this.MarkAsModified("ItemProbabilityIndex");
+                this.MarkAsModified(PropertyNames.GPTrack.ItemProbabilityIndex);
             }
         }
 
@@ -106,17 +106,17 @@ namespace EpicEdit.Rom.Tracks
 
         private void StartPosition_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("StartPosition");
+            this.MarkAsModified(PropertyNames.GPTrack.StartPosition);
         }
 
         private void LapLine_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("LapLine");
+            this.MarkAsModified(PropertyNames.GPTrack.LapLine);
         }
 
         private void Objects_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified("Objects");
+            this.MarkAsModified(PropertyNames.GPTrack.Objects);
         }
 
         /// <summary>

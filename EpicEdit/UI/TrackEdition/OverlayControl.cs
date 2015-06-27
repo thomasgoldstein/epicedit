@@ -444,7 +444,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Theme")
+            if (e.PropertyName == PropertyNames.Track.Theme)
             {
                 this.LoadTileset(this.track.RoadTileset);
             }

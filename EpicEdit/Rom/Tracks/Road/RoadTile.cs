@@ -46,7 +46,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 }
 
                 this.genre = value;
-                this.OnPropertyChanged("Genre");
+                this.OnPropertyChanged(PropertyNames.RoadTile.Genre);
             }
         }
 

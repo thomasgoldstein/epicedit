@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
@@ -293,15 +294,15 @@ namespace EpicEdit.UI.TrackEdition
 
             switch (e.PropertyName)
             {
-                case "Index":
+                case PropertyNames.TrackAIElement.Index:
                     this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
                     break;
 
-                case "Speed":
+                case PropertyNames.TrackAIElement.Speed:
                     this.speedNumericUpDown.Value = aiElement.Speed;
                     break;
 
-                case "ZoneShape":
+                case PropertyNames.TrackAIElement.ZoneShape:
                     this.shapeComboBox.SelectedValue = aiElement.ZoneShape;
                     break;
             }

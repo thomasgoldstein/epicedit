@@ -16,6 +16,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Objects;
 
@@ -110,26 +111,26 @@ namespace EpicEdit.UI.TrackEdition
         {
             switch (e.PropertyName)
             {
-                case "Tileset":
+                case PropertyNames.TrackObjectProperties.Tileset:
                     this.tilesetComboBox.SelectedItem = this.Track.Objects.Tileset;
                     break;
 
-                case "Interaction":
+                case PropertyNames.TrackObjectProperties.Interaction:
                     this.interactComboBox.SelectedItem = this.Track.Objects.Interaction;
                     break;
 
-                case "Routine":
+                case PropertyNames.TrackObjectProperties.Routine:
                     this.routineComboBox.SelectedItem = this.Track.Objects.Routine;
                     break;
 
-                case "PaletteIndexes":
+                case PropertyNames.TrackObjectProperties.PaletteIndexes:
                     this.palette1NumericUpDown.Value = this.Track.Objects.PaletteIndexes[0];
                     this.palette2NumericUpDown.Value = this.Track.Objects.PaletteIndexes[1];
                     this.palette3NumericUpDown.Value = this.Track.Objects.PaletteIndexes[2];
                     this.palette4NumericUpDown.Value = this.Track.Objects.PaletteIndexes[3];
                     break;
 
-                case "Flashing":
+                case PropertyNames.TrackObjectProperties.Flashing:
                     this.flashingCheckBox.Checked = this.Track.Objects.Flashing;
                     break;
             }

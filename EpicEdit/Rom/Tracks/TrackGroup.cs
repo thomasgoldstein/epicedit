@@ -64,7 +64,7 @@ namespace EpicEdit.Rom.Tracks
         {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs("SuffixedNameItem"));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyNames.Track.SuffixedNameItem));
             }
         }
 

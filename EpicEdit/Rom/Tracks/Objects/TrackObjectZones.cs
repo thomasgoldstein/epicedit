@@ -59,12 +59,12 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void frontView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged("FrontView");
+            this.OnPropertyChanged(PropertyNames.TrackObjectZones.FrontView);
         }
 
         private void rearView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged("RearView");
+            this.OnPropertyChanged(PropertyNames.TrackObjectZones.RearView);
         }
 
         private void OnPropertyChanged(string propertyName)

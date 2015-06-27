@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.tileset = value;
-                this.OnPropertyChanged("Tileset");
+                this.OnPropertyChanged(PropertyNames.TrackObjectProperties.Tileset);
             }
         }
 
@@ -50,7 +50,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.interaction = value;
-                this.OnPropertyChanged("Interaction");
+                this.OnPropertyChanged(PropertyNames.TrackObjectProperties.Interaction);
             }
         }
 
@@ -66,7 +66,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.routine = value;
-                this.OnPropertyChanged("Routine");
+                this.OnPropertyChanged(PropertyNames.TrackObjectProperties.Routine);
             }
         }
 
@@ -97,7 +97,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 }
 
                 this.flashing = value;
-                this.OnPropertyChanged("Flashing");
+                this.OnPropertyChanged(PropertyNames.TrackObjectProperties.Flashing);
             }
         }
 
@@ -166,10 +166,10 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 // Raise an additional event for the default palette index, to be able to
                 // differentiate it from the other palette indexes (used for flashing objects).
-                this.OnPropertyChanged("Palette");
+                this.OnPropertyChanged(PropertyNames.TrackObjectProperties.Palette);
             }
 
-            this.OnPropertyChanged("PaletteIndexes");
+            this.OnPropertyChanged(PropertyNames.TrackObjectProperties.PaletteIndexes);
         }
 
         private void OnPropertyChanged(string propertyName)

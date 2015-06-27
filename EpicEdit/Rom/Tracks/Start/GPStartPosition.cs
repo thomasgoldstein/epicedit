@@ -76,7 +76,7 @@ namespace EpicEdit.Rom.Tracks.Start
                 if (this.X != x || this.Y != y)
                 {
                     this.location = new Point(x, y);
-                    this.OnPropertyChanged("Location");
+                    this.OnPropertyChanged(PropertyNames.GPStartPosition.Location);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace EpicEdit.Rom.Tracks.Start
                 if (this.secondRowOffset != value)
                 {
                     this.secondRowOffset = value;
-                    this.OnPropertyChanged("SecondRowOffset");
+                    this.OnPropertyChanged(PropertyNames.GPStartPosition.SecondRowOffset);
                 }
             }
         }

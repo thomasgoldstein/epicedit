@@ -187,7 +187,7 @@ namespace EpicEdit.Rom.Tracks.AI
             TrackAIElement aiElement = this.aiElements[indexBefore];
             this.aiElements.RemoveAt(indexBefore);
             this.aiElements.Insert(indexAfter, aiElement);
-            this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs("Index"));
+            this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs(PropertyNames.TrackAIElement.Index));
         }
 
         public static int ComputeTargetDataLength(byte[] zoneData)
