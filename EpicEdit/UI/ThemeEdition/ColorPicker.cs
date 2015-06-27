@@ -410,16 +410,16 @@ namespace EpicEdit.UI.ThemeEdition
             int height = this.shadesSize.Height;
             int size = width / 2; // Unscaled image size
             int halfSize = size / 2;
-            int index, index2;
+            int x, y;
 
             // Generate the grays from black to white, these are at the bottom of the square, left to right
             RomColor[] grays = new RomColor[size];
             IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), size);
-            index = 0;
+            x = 0;
             while (graysIte.MoveNext())
             {
-                grays[index] = graysIte.Current.To5Bit();
-                index++;
+                grays[x] = graysIte.Current.To5Bit();
+                x++;
             }
 
             using (Bitmap tempBitmap = new Bitmap(size, size, PixelFormat.Format32bppPArgb))
@@ -428,38 +428,38 @@ namespace EpicEdit.UI.ThemeEdition
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
                 IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(this.selectedBasicColor, halfSize);
-                index = 0;
+                x = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index], size);
-                    index2 = 0;
+                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x], size);
+                    y = 0;
                     // Draw the vertical colors that goes from our shade (our color to black) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
                         RomColor color = toGrayIte.Current.To5Bit();
-                        fTempBitmap.SetPixel(index, index2, color);
-                        index2++;
+                        fTempBitmap.SetPixel(x, y, color);
+                        y++;
                     }
 
-                    index++;
+                    x++;
                 }
 
                 // Draw from white (top right) to our selected color (in the middle at the top)
                 colorsIte = this.selectedBasicColor.GetEnumerator(RomColor.From5BitRgb(31, 31, 31), halfSize);
-                index = 0;
+                x = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[index + halfSize], size);
-                    index2 = 0;
+                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x + halfSize], size);
+                    y = 0;
                     // Draw the vertical colors that goes from our shade (our color to white) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
                         RomColor color = toGrayIte.Current.To5Bit();
-                        fTempBitmap.SetPixel(index + halfSize, index2, color);
-                        index2++;
+                        fTempBitmap.SetPixel(x + halfSize, y, color);
+                        y++;
                     }
 
-                    index++;
+                    x++;
                 }
 
                 fTempBitmap.Release();
