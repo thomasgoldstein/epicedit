@@ -70,10 +70,7 @@ namespace EpicEdit.Rom.Settings
                     this.value = newValue;
                 }
 
-                if (this.PropertyChanged != null)
-                {
-                    this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyNames.TextItem.Value));
-                }
+                this.OnPropertyChanged(PropertyNames.TextItem.Value);
             }
         }
 
@@ -84,6 +81,14 @@ namespace EpicEdit.Rom.Settings
                 return this.collection.Region == Region.Jap ?
                        this.value :
                        CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.value.ToLowerInvariant());
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
