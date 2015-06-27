@@ -471,11 +471,6 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
 
-            this.ResetTrack();
-        }
-
-        private void ResetTrack()
-        {
             this.hoveredOverlayTile = null;
             this.overlayControl.SelectedTile = null;
             this.hoveredAIElem = null;
