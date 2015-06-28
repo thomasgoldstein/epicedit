@@ -710,7 +710,7 @@ namespace EpicEdit.UI.ThemeEdition
             return color.To5Bit();
         }
 
-        private static byte GetBasicColorChannel(byte value, int min, int max)
+        private static byte GetBasicColorChannel(byte value, byte min, byte max)
         {
             // The color channel(s) with the highest value will have a value of 255 (1 or 2 channels)
             // The color channel(s) with the smallest value will have a value of 0 (1 or 2 channels)
