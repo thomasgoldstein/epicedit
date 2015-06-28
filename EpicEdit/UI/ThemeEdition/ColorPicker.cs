@@ -709,11 +709,11 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 color.Blue = 0;
             }
-            else if (color.Green == min)
+            if (color.Green == min)
             {
                 color.Green = 0;
             }
-            else if (color.Red == min)
+            if (color.Red == min)
             {
                 color.Red = 0;
             }
