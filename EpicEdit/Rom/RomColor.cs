@@ -233,7 +233,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Implicitly convert to a RomColor object.
+        /// Implicitly converts to a RomColor object.
         /// </summary>
         public static implicit operator RomColor(Color color)
         {
@@ -241,7 +241,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Implicitly convert to a Color object.
+        /// Implicitly converts to a Color object.
         /// </summary>
         public static implicit operator Color(RomColor color)
         {
