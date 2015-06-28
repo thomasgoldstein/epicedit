@@ -690,19 +690,18 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The basic color.</returns>
         public static RomColor FindBasicColor(RomColor color)
         {
-            byte max = Math.Max(color.Red, color.Green);
-            max = Math.Max(max, color.Blue);
-            if (max == 0) // If the color passed is black, then this color will be found in any shade, pass the default red.
+            if (color.Red == color.Green && color.Green == color.Blue)
             {
+                // If the color passed is a neutral gray (any gray from white to black with R = G = B),
+                // then this color will be found in any shade, pass the default red.
                 return Color.Red;
             }
+            
+            byte max = Math.Max(color.Red, color.Green);
+            max = Math.Max(max, color.Blue);
 
             byte min = Math.Min(color.Red, color.Green);
             min = Math.Min(min, color.Blue);
-            if (min == 255) // If the color passed is white, then this color will be found in any shade, pass the default red.
-            {
-                return Color.Red;
-            }
 
             // Remove the smallest component as the basic colors only ever contain two of the components
             // This is done in the reverse order so that it makes more sense to the user when playing with numbers on the dialog
