@@ -154,6 +154,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="color">The color.</param>
         private void SetColor(RomColor color)
         {
+            // This method is called whenever the user changes the RGB values manually.
+            // FIXME: Out of 32768 colors (32 * 32 * 32 possible combinations), we're able to find the
+            // wanted color within the shades for 31562 colors. For the 1206 remaining colors, the color
+            // is not within the currently-displayed shades, and so we do not draw the selection circle
+            // around it in the shades (e.g: R=6, G=7, B=19). Not sure how to fix this,
+            // but it could be a problem with FindBasicColor and/or with InitShadesCache.
             color = color.To5Bit();
             RomColor basicColor = ColorPicker.FindBasicColor(color);
             int x = this.FindColorIndex(basicColor);
@@ -162,9 +168,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void SetColor(int x, RomColor basicColor, RomColor color)
         {
-            // TODO: The logic to find the location of the color in the basic and shades needs to be revamped, often colors are not found.
-            // This is possibly due to the fact that not every shade is displayed. FindBasicColor may possibly be flawed as well.
-
             if (this.selectedBasicColor != basicColor)
             {
                 this.InvalidateBasicColorsSelection();
