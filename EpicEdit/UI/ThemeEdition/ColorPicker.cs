@@ -696,35 +696,26 @@ namespace EpicEdit.UI.ThemeEdition
                 // then this color will be found in any shade, pass the default red.
                 return Color.Red;
             }
-            
-            byte max = Math.Max(color.Red, color.Green);
-            max = Math.Max(max, color.Blue);
 
-            byte min = Math.Min(color.Red, color.Green);
-            min = Math.Min(min, color.Blue);
+            byte min = Math.Min(Math.Min(color.Red, color.Green), color.Blue);
+            byte max = Math.Max(Math.Max(color.Red, color.Green), color.Blue);
 
-            // Remove the smallest component as the basic colors only ever contain two of the components
-            // This is done in the reverse order so that it makes more sense to the user when playing with numbers on the dialog
-            if (color.Blue == min)
-            {
-                color.Blue = 0;
-            }
-            if (color.Green == min)
-            {
-                color.Green = 0;
-            }
-            if (color.Red == min)
-            {
-                color.Red = 0;
-            }
-
-            float multiplier = 255f / (float)max;
-
-            color.Red = (byte)(color.Red * multiplier);
-            color.Green = (byte)(color.Green * multiplier);
-            color.Blue = (byte)(color.Blue * multiplier);
+            color.Red = ColorPicker.GetBasicColorChannel(color.Red, min, max);
+            color.Green = ColorPicker.GetBasicColorChannel(color.Green, min, max);
+            color.Blue = ColorPicker.GetBasicColorChannel(color.Blue, min, max);
 
             return color.To5Bit();
+        }
+
+        private static byte GetBasicColorChannel(byte value, int min, int max)
+        {
+            // The color channel(s) with the highest value will have a value of 255 (1 or 2 channels)
+            // The color channel(s) with the smallest value will have a value of 0 (1 or 2 channels)
+            // The remaining color channel between both bounds, if any, will have its value calculated
+            return
+                value == max ? byte.MaxValue :
+                value == min ? byte.MinValue :
+                (byte)(value * (255f / (float)max));
         }
 
         private int FindColorIndex(RomColor color)
