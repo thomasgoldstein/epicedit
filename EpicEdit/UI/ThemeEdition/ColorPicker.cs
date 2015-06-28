@@ -715,7 +715,7 @@ namespace EpicEdit.UI.ThemeEdition
             return
                 value == max ? byte.MaxValue :
                 value == min ? byte.MinValue :
-                (byte)(value * (255f / (float)max));
+                (byte)(byte.MaxValue * (value - min) / (max - min));
         }
 
         private int FindColorIndex(RomColor color)
