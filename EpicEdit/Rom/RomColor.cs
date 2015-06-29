@@ -229,7 +229,7 @@ namespace EpicEdit.Rom
         /// <returns>The color value in 5-bit precision.</returns>
         public static byte ConvertTo5BitColor(byte value8bit)
         {
-            return (byte)Math.Round((double)value8bit / (255d / 31d), 0, MidpointRounding.ToEven);
+            return (byte)Math.Round(value8bit / 8.25);
         }
 
         /// <summary>
