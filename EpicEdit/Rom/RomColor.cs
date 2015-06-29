@@ -211,19 +211,20 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Simply multiplying the 5-bit color from the ROM by 8 is not a totally correct conversion to an 8-bit color.
-        /// A "white" in 5-bit color is 31,31,31 whereas in 8-bit it is 255,255,255. 31 * 8 = 248.
-        /// This calculation corrects this so that 0 = 0 and 31 = 255.
+        /// Converts a 5-bit color channel value to 8 bit.
         /// </summary>
         /// <param name="value5bit">The 5-bit int color value (0-31).</param>
         /// <returns>The color value in 8-bit precision.</returns>
         public static byte ConvertTo8BitColor(byte value5bit)
         {
+            // Simply multiplying the 5-bit color from the ROM by 8 is not a totally correct conversion to an 8-bit color.
+            // A "white" in 5-bit color is 31,31,31 whereas in 8-bit it is 255,255,255. 31 * 8 = 248.
+            // This calculation corrects this so that 0 = 0 and 31 = 255.
             return (byte)(value5bit * 8.25);
         }
 
         /// <summary>
-        /// Takes care of finding nearest color.
+        /// Converts an 8-bit color channel value to 5 bit.
         /// </summary>
         /// <param name="value8bit">The 8-bit int color value (0-255).</param>
         /// <returns>The color value in 5-bit precision.</returns>
