@@ -100,7 +100,7 @@ namespace EpicEdit.UI.SettingEdition
             groupBox.Location = new System.Drawing.Point(0, 0);
             groupBox.Name = "groupBox";
             groupBox.Size = new System.Drawing.Size(100, 244);
-            groupBox.TabIndex = 1;
+            groupBox.TabIndex = 0;
             groupBox.TabStop = false;
             groupBox.Text = "Ranking points";
             // 
@@ -108,10 +108,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown8.Location = new System.Drawing.Point(39, 202);
             this.numericUpDown8.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown8.Name = "numericUpDown8";
             this.numericUpDown8.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown8.TabIndex = 15;
@@ -130,10 +130,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown7.Location = new System.Drawing.Point(39, 176);
             this.numericUpDown7.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown7.Name = "numericUpDown7";
             this.numericUpDown7.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown7.TabIndex = 13;
@@ -152,10 +152,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown6.Location = new System.Drawing.Point(39, 150);
             this.numericUpDown6.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown6.TabIndex = 11;
@@ -174,10 +174,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown5.Location = new System.Drawing.Point(39, 124);
             this.numericUpDown5.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown5.TabIndex = 9;
@@ -196,10 +196,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(39, 98);
             this.numericUpDown4.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown4.TabIndex = 7;
@@ -218,10 +218,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown3.Location = new System.Drawing.Point(39, 72);
             this.numericUpDown3.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown3.TabIndex = 5;
@@ -240,10 +240,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(39, 46);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown2.TabIndex = 3;
@@ -262,10 +262,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(39, 20);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-                                    9,
-                                    0,
-                                    0,
-                                    0});
+            9,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(40, 20);
             this.numericUpDown1.TabIndex = 1;
@@ -296,6 +296,7 @@ namespace EpicEdit.UI.SettingEdition
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;

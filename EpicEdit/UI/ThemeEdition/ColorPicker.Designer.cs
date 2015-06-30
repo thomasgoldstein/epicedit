@@ -100,7 +100,7 @@ namespace EpicEdit.UI.ThemeEdition
             redLabel.Location = new System.Drawing.Point(133, 22);
             redLabel.Name = "redLabel";
             redLabel.Size = new System.Drawing.Size(27, 13);
-            redLabel.TabIndex = 1;
+            redLabel.TabIndex = 0;
             redLabel.Text = "Red";
             // 
             // greenLabel
@@ -109,7 +109,7 @@ namespace EpicEdit.UI.ThemeEdition
             greenLabel.Location = new System.Drawing.Point(133, 69);
             greenLabel.Name = "greenLabel";
             greenLabel.Size = new System.Drawing.Size(36, 13);
-            greenLabel.TabIndex = 5;
+            greenLabel.TabIndex = 3;
             greenLabel.Text = "Green";
             // 
             // blueLabel
@@ -118,7 +118,7 @@ namespace EpicEdit.UI.ThemeEdition
             blueLabel.Location = new System.Drawing.Point(133, 116);
             blueLabel.Name = "blueLabel";
             blueLabel.Size = new System.Drawing.Size(28, 13);
-            blueLabel.TabIndex = 8;
+            blueLabel.TabIndex = 5;
             blueLabel.Text = "Blue";
             // 
             // bitsLabel
@@ -127,7 +127,7 @@ namespace EpicEdit.UI.ThemeEdition
             bitsLabel.Location = new System.Drawing.Point(166, 22);
             bitsLabel.Name = "bitsLabel";
             bitsLabel.Size = new System.Drawing.Size(44, 13);
-            bitsLabel.TabIndex = 2;
+            bitsLabel.TabIndex = 1;
             bitsLabel.Text = "5 / 8-bit";
             // 
             // basicColorsPictureBox
@@ -170,7 +170,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.red5NumericUpDown.Name = "red5NumericUpDown";
             this.red5NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.red5NumericUpDown.TabIndex = 3;
+            this.red5NumericUpDown.TabIndex = 2;
             this.red5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             this.red5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
@@ -184,7 +184,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.green5NumericUpDown.Name = "green5NumericUpDown";
             this.green5NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.green5NumericUpDown.TabIndex = 6;
+            this.green5NumericUpDown.TabIndex = 4;
             this.green5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             this.green5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
@@ -198,7 +198,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.blue5NumericUpDown.Name = "blue5NumericUpDown";
             this.blue5NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.blue5NumericUpDown.TabIndex = 9;
+            this.blue5NumericUpDown.TabIndex = 6;
             this.blue5NumericUpDown.ValueChanged += new System.EventHandler(this.Color5BitNumericUpDownValueChanged);
             this.blue5NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
@@ -224,7 +224,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.red8NumericUpDown.Name = "red8NumericUpDown";
             this.red8NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.red8NumericUpDown.TabIndex = 4;
+            this.red8NumericUpDown.TabIndex = 7;
             this.red8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
             this.red8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
@@ -238,7 +238,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.green8NumericUpDown.Name = "green8NumericUpDown";
             this.green8NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.green8NumericUpDown.TabIndex = 7;
+            this.green8NumericUpDown.TabIndex = 8;
             this.green8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
             this.green8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 
@@ -252,7 +252,7 @@ namespace EpicEdit.UI.ThemeEdition
             0});
             this.blue8NumericUpDown.Name = "blue8NumericUpDown";
             this.blue8NumericUpDown.Size = new System.Drawing.Size(44, 20);
-            this.blue8NumericUpDown.TabIndex = 10;
+            this.blue8NumericUpDown.TabIndex = 9;
             this.blue8NumericUpDown.ValueChanged += new System.EventHandler(this.Color8BitNumericUpDownValueChanged);
             this.blue8NumericUpDown.Enter += new System.EventHandler(this.NumericUpDownEnter);
             // 

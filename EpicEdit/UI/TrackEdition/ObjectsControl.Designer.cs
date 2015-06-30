@@ -118,7 +118,7 @@ namespace EpicEdit.UI.TrackEdition
             this.rearObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.rearObjectZonesControl.Name = "rearObjectZonesControl";
             this.rearObjectZonesControl.Size = new System.Drawing.Size(122, 149);
-            this.rearObjectZonesControl.TabIndex = 7;
+            this.rearObjectZonesControl.TabIndex = 3;
             this.rearObjectZonesControl.Title = "Rear-view Zones";
             this.rearObjectZonesControl.Visible = false;
             // 
@@ -127,7 +127,7 @@ namespace EpicEdit.UI.TrackEdition
             this.frontObjectZonesControl.Location = new System.Drawing.Point(1, 86);
             this.frontObjectZonesControl.Name = "frontObjectZonesControl";
             this.frontObjectZonesControl.Size = new System.Drawing.Size(122, 149);
-            this.frontObjectZonesControl.TabIndex = 6;
+            this.frontObjectZonesControl.TabIndex = 2;
             this.frontObjectZonesControl.Title = "Front-view Zones";
             // 
             // rearZonesRadioButton
@@ -136,7 +136,7 @@ namespace EpicEdit.UI.TrackEdition
             this.rearZonesRadioButton.Location = new System.Drawing.Point(10, 50);
             this.rearZonesRadioButton.Name = "rearZonesRadioButton";
             this.rearZonesRadioButton.Size = new System.Drawing.Size(104, 24);
-            this.rearZonesRadioButton.TabIndex = 5;
+            this.rearZonesRadioButton.TabIndex = 1;
             this.rearZonesRadioButton.TabStop = true;
             this.rearZonesRadioButton.Text = "Rear-view Zones";
             this.rearZonesRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,7 +149,7 @@ namespace EpicEdit.UI.TrackEdition
             this.frontZonesRadioButton.Location = new System.Drawing.Point(10, 20);
             this.frontZonesRadioButton.Name = "frontZonesRadioButton";
             this.frontZonesRadioButton.Size = new System.Drawing.Size(104, 24);
-            this.frontZonesRadioButton.TabIndex = 4;
+            this.frontZonesRadioButton.TabIndex = 0;
             this.frontZonesRadioButton.TabStop = true;
             this.frontZonesRadioButton.Text = "Front-view Zones";
             this.frontZonesRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -174,7 +174,7 @@ namespace EpicEdit.UI.TrackEdition
             this.propertiesGroupBox.Location = new System.Drawing.Point(2, 4);
             this.propertiesGroupBox.Name = "propertiesGroupBox";
             this.propertiesGroupBox.Size = new System.Drawing.Size(124, 293);
-            this.propertiesGroupBox.TabIndex = 8;
+            this.propertiesGroupBox.TabIndex = 0;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Object Properties";
             // 
@@ -279,7 +279,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zoneGroupBox.Location = new System.Drawing.Point(2, 303);
             this.zoneGroupBox.Name = "zoneGroupBox";
             this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
-            this.zoneGroupBox.TabIndex = 9;
+            this.zoneGroupBox.TabIndex = 1;
             this.zoneGroupBox.TabStop = false;
             this.zoneGroupBox.Text = "Object Visibility";
             // 

@@ -176,7 +176,7 @@ namespace EpicEdit.UI.TrackEdition
             this.deleteAllButton.Location = new System.Drawing.Point(92, 325);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteAllButton.TabIndex = 2;
+            this.deleteAllButton.TabIndex = 3;
             this.buttonToolTip.SetToolTip(this.deleteAllButton, "Delete all");
             this.deleteAllButton.UseVisualStyleBackColor = true;
             this.deleteAllButton.Click += new System.EventHandler(this.DeleteAllButtonClick);
@@ -187,7 +187,7 @@ namespace EpicEdit.UI.TrackEdition
             this.addButton.Location = new System.Drawing.Point(63, 325);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
-            this.addButton.TabIndex = 4;
+            this.addButton.TabIndex = 2;
             this.buttonToolTip.SetToolTip(this.addButton, "Add new element");
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.AddButtonClick);
@@ -199,7 +199,7 @@ namespace EpicEdit.UI.TrackEdition
             this.probaEditorButton.Location = new System.Drawing.Point(29, 68);
             this.probaEditorButton.Name = "probaEditorButton";
             this.probaEditorButton.Size = new System.Drawing.Size(66, 24);
-            this.probaEditorButton.TabIndex = 9;
+            this.probaEditorButton.TabIndex = 1;
             this.probaEditorButton.Text = "View";
             this.probaEditorButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.probaEditorButton.UseVisualStyleBackColor = true;
@@ -210,7 +210,7 @@ namespace EpicEdit.UI.TrackEdition
             this.warningLabel.Location = new System.Drawing.Point(4, 358);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
-            this.warningLabel.TabIndex = 3;
+            this.warningLabel.TabIndex = 4;
             this.warningLabel.Text = "Warning: a track needs at least one element in order to work.";
             // 
             // itemProbaGroupBox
@@ -220,7 +220,7 @@ namespace EpicEdit.UI.TrackEdition
             this.itemProbaGroupBox.Location = new System.Drawing.Point(2, 4);
             this.itemProbaGroupBox.Name = "itemProbaGroupBox";
             this.itemProbaGroupBox.Size = new System.Drawing.Size(124, 110);
-            this.itemProbaGroupBox.TabIndex = 8;
+            this.itemProbaGroupBox.TabIndex = 0;
             this.itemProbaGroupBox.TabStop = false;
             this.itemProbaGroupBox.Text = "Item probabilities";
             // 
@@ -231,7 +231,7 @@ namespace EpicEdit.UI.TrackEdition
             this.setComboBox.Location = new System.Drawing.Point(10, 30);
             this.setComboBox.Name = "setComboBox";
             this.setComboBox.Size = new System.Drawing.Size(104, 21);
-            this.setComboBox.TabIndex = 7;
+            this.setComboBox.TabIndex = 0;
             this.setComboBox.SelectedIndexChanged += new System.EventHandler(this.SetComboBoxSelectedIndexChanged);
             // 
             // AIControl

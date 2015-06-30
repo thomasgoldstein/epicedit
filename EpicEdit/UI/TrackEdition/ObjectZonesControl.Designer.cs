@@ -82,7 +82,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone4Label.Margin = new System.Windows.Forms.Padding(0);
             this.zone4Label.Name = "zone4Label";
             this.zone4Label.Size = new System.Drawing.Size(40, 25);
-            this.zone4Label.TabIndex = 7;
+            this.zone4Label.TabIndex = 6;
             this.zone4Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zone3Label
@@ -92,7 +92,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone3Label.Margin = new System.Windows.Forms.Padding(0);
             this.zone3Label.Name = "zone3Label";
             this.zone3Label.Size = new System.Drawing.Size(40, 25);
-            this.zone3Label.TabIndex = 6;
+            this.zone3Label.TabIndex = 4;
             this.zone3Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zone2Label
@@ -102,7 +102,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone2Label.Margin = new System.Windows.Forms.Padding(0);
             this.zone2Label.Name = "zone2Label";
             this.zone2Label.Size = new System.Drawing.Size(40, 25);
-            this.zone2Label.TabIndex = 5;
+            this.zone2Label.TabIndex = 2;
             this.zone2Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zone1Label
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone1Label.Margin = new System.Windows.Forms.Padding(0);
             this.zone1Label.Name = "zone1Label";
             this.zone1Label.Size = new System.Drawing.Size(40, 25);
-            this.zone1Label.TabIndex = 4;
+            this.zone1Label.TabIndex = 0;
             this.zone1Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zone4TrackBar
@@ -124,7 +124,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone4TrackBar.Maximum = 128;
             this.zone4TrackBar.Name = "zone4TrackBar";
             this.zone4TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone4TrackBar.TabIndex = 3;
+            this.zone4TrackBar.TabIndex = 7;
             this.zone4TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.zone4TrackBar.ValueChanged += new System.EventHandler(this.Zone4TrackBarValueChanged);
             // 
@@ -137,7 +137,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone3TrackBar.Maximum = 128;
             this.zone3TrackBar.Name = "zone3TrackBar";
             this.zone3TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone3TrackBar.TabIndex = 2;
+            this.zone3TrackBar.TabIndex = 5;
             this.zone3TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.zone3TrackBar.ValueChanged += new System.EventHandler(this.Zone3TrackBarValueChanged);
             // 
@@ -150,7 +150,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone2TrackBar.Maximum = 128;
             this.zone2TrackBar.Name = "zone2TrackBar";
             this.zone2TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone2TrackBar.TabIndex = 1;
+            this.zone2TrackBar.TabIndex = 3;
             this.zone2TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.zone2TrackBar.ValueChanged += new System.EventHandler(this.Zone2TrackBarValueChanged);
             // 
@@ -163,7 +163,7 @@ namespace EpicEdit.UI.TrackEdition
             this.zone1TrackBar.Maximum = 128;
             this.zone1TrackBar.Name = "zone1TrackBar";
             this.zone1TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone1TrackBar.TabIndex = 0;
+            this.zone1TrackBar.TabIndex = 1;
             this.zone1TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.zone1TrackBar.ValueChanged += new System.EventHandler(this.Zone1TrackBarValueChanged);
             // 

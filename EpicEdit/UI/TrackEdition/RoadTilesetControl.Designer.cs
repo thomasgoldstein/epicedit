@@ -73,7 +73,7 @@ namespace EpicEdit.UI.TrackEdition
             selectedTileGroupBox.Location = new System.Drawing.Point(2, 30);
             selectedTileGroupBox.Name = "selectedTileGroupBox";
             selectedTileGroupBox.Size = new System.Drawing.Size(124, 76);
-            selectedTileGroupBox.TabIndex = 7;
+            selectedTileGroupBox.TabIndex = 1;
             selectedTileGroupBox.TabStop = false;
             selectedTileGroupBox.Text = "Selected tile";
             // 
@@ -95,7 +95,7 @@ namespace EpicEdit.UI.TrackEdition
             paletteLabel.Location = new System.Drawing.Point(6, 48);
             paletteLabel.Name = "paletteLabel";
             paletteLabel.Size = new System.Drawing.Size(100, 23);
-            paletteLabel.TabIndex = 2;
+            paletteLabel.TabIndex = 1;
             paletteLabel.Text = "Color palette";
             // 
             // tileGenreComboBox
@@ -115,7 +115,7 @@ namespace EpicEdit.UI.TrackEdition
             this.themeComboBox.Location = new System.Drawing.Point(3, 3);
             this.themeComboBox.Name = "themeComboBox";
             this.themeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.themeComboBox.TabIndex = 1;
+            this.themeComboBox.TabIndex = 0;
             // 
             // tilesetPanel
             // 
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel.Location = new System.Drawing.Point(0, 112);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
-            this.tilesetPanel.TabIndex = 3;
+            this.tilesetPanel.TabIndex = 2;
             this.tilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseDown);
             // 
             // resetMapButton
@@ -132,7 +132,7 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton.Location = new System.Drawing.Point(103, 631);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
-            this.resetMapButton.TabIndex = 5;
+            this.resetMapButton.TabIndex = 4;
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
@@ -143,7 +143,7 @@ namespace EpicEdit.UI.TrackEdition
             this.importExportRoadTilesetButton.Location = new System.Drawing.Point(3, 631);
             this.importExportRoadTilesetButton.Name = "importExportRoadTilesetButton";
             this.importExportRoadTilesetButton.Size = new System.Drawing.Size(24, 24);
-            this.importExportRoadTilesetButton.TabIndex = 4;
+            this.importExportRoadTilesetButton.TabIndex = 3;
             this.buttonToolTip.SetToolTip(this.importExportRoadTilesetButton, "Import / export road tileset...");
             this.importExportRoadTilesetButton.UseVisualStyleBackColor = true;
             this.importExportRoadTilesetButton.Click += new System.EventHandler(this.ImportExportRoadTilesetButtonClick);
