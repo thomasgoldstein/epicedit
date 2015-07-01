@@ -50,13 +50,14 @@ namespace EpicEdit.UI.TrackEdition
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Panel buttonPanel;
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel();
-            this.buttonPanel = new System.Windows.Forms.Panel();
             this.tileCountLabel = new System.Windows.Forms.Label();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonPanel.SuspendLayout();
+            buttonPanel = new System.Windows.Forms.Panel();
+            buttonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // deleteAllButton
@@ -94,14 +95,14 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // buttonPanel
             // 
-            this.buttonPanel.Controls.Add(this.tileCountLabel);
-            this.buttonPanel.Controls.Add(this.deleteButton);
-            this.buttonPanel.Controls.Add(this.deleteAllButton);
-            this.buttonPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.buttonPanel.Location = new System.Drawing.Point(0, 516);
-            this.buttonPanel.Name = "buttonPanel";
-            this.buttonPanel.Size = new System.Drawing.Size(130, 32);
-            this.buttonPanel.TabIndex = 1;
+            buttonPanel.Controls.Add(this.tileCountLabel);
+            buttonPanel.Controls.Add(this.deleteButton);
+            buttonPanel.Controls.Add(this.deleteAllButton);
+            buttonPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            buttonPanel.Location = new System.Drawing.Point(0, 516);
+            buttonPanel.Name = "buttonPanel";
+            buttonPanel.Size = new System.Drawing.Size(130, 32);
+            buttonPanel.TabIndex = 1;
             // 
             // tileCountLabel
             // 
@@ -113,16 +114,15 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // OverlayControl
             // 
-            this.Controls.Add(this.buttonPanel);
+            this.Controls.Add(buttonPanel);
             this.Controls.Add(this.tilesetPanel);
             this.Name = "OverlayControl";
             this.Size = new System.Drawing.Size(130, 548);
-            this.buttonPanel.ResumeLayout(false);
+            buttonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
         private System.Windows.Forms.Label tileCountLabel;
-        private System.Windows.Forms.Panel buttonPanel;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private EpicEdit.UI.TrackEdition.OverlayControl.OverlayPanel tilesetPanel;
         private System.Windows.Forms.Button deleteButton;
