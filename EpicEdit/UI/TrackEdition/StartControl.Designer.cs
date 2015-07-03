@@ -157,6 +157,7 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowTrackBar.AutoSize = false;
             this.secondRowTrackBar.Location = new System.Drawing.Point(30, 85);
             this.secondRowTrackBar.Maximum = 255;
+            this.secondRowTrackBar.Minimum = -256;
             this.secondRowTrackBar.Name = "secondRowTrackBar";
             this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
             this.secondRowTrackBar.TabIndex = 2;
