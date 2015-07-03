@@ -391,6 +391,11 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
+        public bool BucketMode
+        {
+            get { return this.bucketButton.Checked; }
+        }
+
         private sealed class TilesetPanel : TilePanel
         {
             [Browsable(false), DefaultValue(typeof(RoadTileset), "")]

@@ -59,6 +59,8 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.importExportRoadTilesetButton = new System.Windows.Forms.Button();
+            this.pointerButton = new System.Windows.Forms.RadioButton();
+            this.bucketButton = new System.Windows.Forms.RadioButton();
             selectedTileGroupBox = new System.Windows.Forms.GroupBox();
             paletteLabel = new System.Windows.Forms.Label();
             selectedTileGroupBox.SuspendLayout();
@@ -132,7 +134,7 @@ namespace EpicEdit.UI.TrackEdition
             this.resetMapButton.Location = new System.Drawing.Point(103, 631);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
-            this.resetMapButton.TabIndex = 4;
+            this.resetMapButton.TabIndex = 6;
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
@@ -140,16 +142,43 @@ namespace EpicEdit.UI.TrackEdition
             // importExportRoadTilesetButton
             // 
             this.importExportRoadTilesetButton.Image = global::EpicEdit.Properties.Resources.ImportExportButton;
-            this.importExportRoadTilesetButton.Location = new System.Drawing.Point(3, 631);
+            this.importExportRoadTilesetButton.Location = new System.Drawing.Point(73, 631);
             this.importExportRoadTilesetButton.Name = "importExportRoadTilesetButton";
             this.importExportRoadTilesetButton.Size = new System.Drawing.Size(24, 24);
-            this.importExportRoadTilesetButton.TabIndex = 3;
+            this.importExportRoadTilesetButton.TabIndex = 5;
             this.buttonToolTip.SetToolTip(this.importExportRoadTilesetButton, "Import / export road tileset...");
             this.importExportRoadTilesetButton.UseVisualStyleBackColor = true;
             this.importExportRoadTilesetButton.Click += new System.EventHandler(this.ImportExportRoadTilesetButtonClick);
             // 
+            // pointerButton
+            // 
+            this.pointerButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.pointerButton.Checked = true;
+            this.pointerButton.Image = global::EpicEdit.Properties.Resources.PointerButton;
+            this.pointerButton.Location = new System.Drawing.Point(3, 631);
+            this.pointerButton.Name = "pointerButton";
+            this.pointerButton.Size = new System.Drawing.Size(24, 24);
+            this.pointerButton.TabIndex = 3;
+            this.pointerButton.TabStop = true;
+            this.buttonToolTip.SetToolTip(this.pointerButton, "Pointer tool");
+            this.pointerButton.UseVisualStyleBackColor = true;
+            // 
+            // bucketButton
+            // 
+            this.bucketButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.bucketButton.Image = global::EpicEdit.Properties.Resources.BucketButton;
+            this.bucketButton.Location = new System.Drawing.Point(33, 631);
+            this.bucketButton.Name = "bucketButton";
+            this.bucketButton.Size = new System.Drawing.Size(24, 24);
+            this.bucketButton.TabIndex = 4;
+            this.bucketButton.TabStop = true;
+            this.buttonToolTip.SetToolTip(this.bucketButton, "Paint bucket");
+            this.bucketButton.UseVisualStyleBackColor = true;
+            // 
             // RoadTilesetControl
             // 
+            this.Controls.Add(this.bucketButton);
+            this.Controls.Add(this.pointerButton);
             this.Controls.Add(this.importExportRoadTilesetButton);
             this.Controls.Add(selectedTileGroupBox);
             this.Controls.Add(this.themeComboBox);
@@ -169,5 +198,7 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Button resetMapButton;
         private EpicEdit.UI.TrackEdition.RoadTilesetControl.TilesetPanel tilesetPanel;
         private EpicEdit.UI.Tools.ThemeComboBox themeComboBox;
+        private System.Windows.Forms.RadioButton pointerButton;
+        private System.Windows.Forms.RadioButton bucketButton;
     }
 }

@@ -71,6 +71,26 @@ namespace EpicEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BucketButton {
+            get {
+                object obj = ResourceManager.GetObject("BucketButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
+        /// </summary>
+        internal static System.Windows.Forms.Cursor BucketCursor {
+            get {
+                object obj = ResourceManager.GetObject("BucketCursor", resourceCulture);
+                return ((System.Windows.Forms.Cursor)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
         /// </summary>
         internal static System.Windows.Forms.Cursor ColorPickerCursor {
@@ -176,6 +196,16 @@ namespace EpicEdit.Properties {
         internal static System.Drawing.Bitmap NukeButton {
             get {
                 object obj = ResourceManager.GetObject("NukeButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PointerButton {
+            get {
+                object obj = ResourceManager.GetObject("PointerButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
@@ -1462,8 +1463,7 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.buttonsPressed = MouseButtons.None;
 
-                    if (this.editionMode == EditionMode.Tileset ||
-                        this.track is BattleTrack && this.editionMode == EditionMode.Objects)
+                    if (this.track is BattleTrack && this.editionMode == EditionMode.Objects)
                     {
                         // For other modes, the cursor will be reset
                         // by the call to the InitEditionModeAction method below.
@@ -2035,6 +2035,7 @@ namespace EpicEdit.UI.TrackEdition
                     break;
             }
 
+            this.trackDisplay.Cursor = !this.tilesetControl.BucketMode ? Cursors.Default : Resources.BucketCursor;
             return repaintNeeded;
         }
 
