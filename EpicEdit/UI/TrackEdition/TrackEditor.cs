@@ -1262,11 +1262,20 @@ namespace EpicEdit.UI.TrackEdition
                     case MouseButtons.Left:
                         this.buttonsPressed = MouseButtons.Left;
 
-                        this.undoRedoBuffer.BeginAdd();
-
-                        if (this.LayTiles())
+                        if (!this.tilesetControl.BucketMode)
                         {
-                            this.InvalidateTrackDisplay();
+                            this.undoRedoBuffer.BeginAdd();
+                            if (this.LayTiles())
+                            {
+                                this.InvalidateTrackDisplay();
+                            }
+                        }
+                        else
+                        {
+                            if (this.FillTiles())
+                            {
+                                this.InvalidateTrackDisplay();
+                            }
                         }
                         break;
 
@@ -2022,11 +2031,14 @@ namespace EpicEdit.UI.TrackEdition
             switch (this.buttonsPressed)
             {
                 case MouseButtons.Left:
-                    repaintNeeded = this.LayTiles();
+                    repaintNeeded = this.tilesetControl.BucketMode || this.LayTiles();
                     break;
 
                 case MouseButtons.Right:
-                    this.RecalculateTileClipboard();
+                    if (!this.tilesetControl.BucketMode)
+                    {
+                        this.RecalculateTileClipboard();
+                    }
                     repaintNeeded = true;
                     break;
 
@@ -2039,7 +2051,6 @@ namespace EpicEdit.UI.TrackEdition
             return repaintNeeded;
         }
 
-        
         private bool IsOverTrackMap(Point location)
         {
             return
@@ -2066,19 +2077,37 @@ namespace EpicEdit.UI.TrackEdition
             return this.LayTiles(this.AbsoluteTilePosition);
         }
 
-        private bool LayTiles(Point hoveredTilePosition)
+        private bool LayTiles(Point location)
         {
-            if (this.IsOverTrackMap(hoveredTilePosition))
+            if (!this.IsOverTrackMap(location))
             {
-                Size affectedSurface = this.GetTruncatedRectangle();
-                this.AddUndoChange(hoveredTilePosition, affectedSurface);
-                this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard);
-                this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
-
-                return true;
+                return false;
             }
 
-            return false;
+            Size affectedSurface = this.GetTruncatedRectangle();
+            this.AddUndoChange(location, affectedSurface);
+            this.track.Map.SetTiles(location, this.tileClipboard);
+            this.drawer.UpdateCacheAfterTileLaying(location);
+
+            return true;
+        }
+
+        private bool FillTiles()
+        {
+            return this.FillTiles(this.AbsoluteTilePosition);
+        }
+
+        private bool FillTiles(Point location)
+        {
+            if (!this.IsOverTrackMap(location))
+            {
+                return false;
+            }
+
+            this.undoRedoBuffer.BeginAdd();
+            // TODO: change tiles
+            this.undoRedoBuffer.EndAdd();
+            return true;
         }
 
         private void AddUndoChange(Point location, Size size)
