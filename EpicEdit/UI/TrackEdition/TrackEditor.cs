@@ -2039,16 +2039,25 @@ namespace EpicEdit.UI.TrackEdition
             return repaintNeeded;
         }
 
+        
+        private bool IsOverTrackMap(Point location)
+        {
+            return
+                location.X >= 0 &&
+                location.Y >= 0 &&
+                location.X < this.track.Map.Width &&
+                location.Y < this.track.Map.Height;
+        }
+
         private byte? GetHoveredTile()
         {
             Point hoveredTilePosition = this.AbsoluteTilePosition;
 
-            if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
-                hoveredTilePosition.X < this.track.Map.Width &&
-                hoveredTilePosition.Y < this.track.Map.Height)
+            if (this.IsOverTrackMap(hoveredTilePosition))
             {
                 return this.track.Map.GetTile(hoveredTilePosition);
             }
+
             return null;
         }
 
@@ -2059,15 +2068,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool LayTiles(Point hoveredTilePosition)
         {
-            if (hoveredTilePosition.X >= 0 && hoveredTilePosition.Y >= 0 &&
-                hoveredTilePosition.X < this.track.Map.Width && hoveredTilePosition.Y < this.track.Map.Height)
+            if (this.IsOverTrackMap(hoveredTilePosition))
             {
                 Size affectedSurface = this.GetTruncatedRectangle();
-
                 this.AddUndoChange(hoveredTilePosition, affectedSurface);
-
                 this.track.Map.SetTiles(hoveredTilePosition, this.tileClipboard);
-
                 this.drawer.UpdateCacheAfterTileLaying(hoveredTilePosition);
 
                 return true;
