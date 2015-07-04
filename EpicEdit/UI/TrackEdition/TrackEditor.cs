@@ -2107,6 +2107,11 @@ namespace EpicEdit.UI.TrackEdition
 
             TileChange change = this.GetFloodFillChange(location, this.tileClipboard.FirstTile);
 
+            if (change == null)
+            {
+                return false;
+            }
+
             this.undoRedoBuffer.BeginAdd();
             this.AddUndoChange(change.X, change.Y, change.Width, change.Height);
             this.undoRedoBuffer.EndAdd();
@@ -2125,13 +2130,19 @@ namespace EpicEdit.UI.TrackEdition
 
         private TileChange GetFloodFillChange(Point location, byte tile)
         {
+            byte targetTile = this.track.Map[location.X, location.Y];
+
+            if (targetTile == tile)
+            {
+                return null;
+            }
+
             TrackMap tempBuffer = new TrackMap(this.track.Map.GetBytes());
             int minX = TrackMap.Size;
             int minY = TrackMap.Size;
             int maxX = 0;
             int maxY = 0;
 
-            byte targetTile = tempBuffer[location.X, location.Y];
             Queue<Point> locations = new Queue<Point>();
             locations.Enqueue(location);
 
