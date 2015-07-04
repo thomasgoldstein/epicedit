@@ -2085,7 +2085,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             Size affectedSurface = this.GetTruncatedRectangle();
-            this.AddUndoChange(location, affectedSurface);
+            this.AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
             this.track.Map.SetTiles(location, this.tileClipboard);
             this.drawer.UpdateCacheAfterTileLaying(location);
 
@@ -2110,9 +2110,9 @@ namespace EpicEdit.UI.TrackEdition
             return true;
         }
 
-        private void AddUndoChange(Point location, Size size)
+        private void AddUndoChange(int x, int y, int width, int height)
         {
-            TileChange tileChange = new TileChange(location, size, this.track);
+            TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
             this.undoRedoBuffer.Add(tileChange);
         }
 
