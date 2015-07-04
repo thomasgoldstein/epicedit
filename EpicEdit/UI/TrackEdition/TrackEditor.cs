@@ -25,6 +25,7 @@ using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
+using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
@@ -2104,15 +2105,81 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
+            TileChange change = this.GetFloodFillChange(location, this.tileClipboard.FirstTile);
+
             this.undoRedoBuffer.BeginAdd();
-            // TODO: change tiles
+            this.AddUndoChange(change.X, change.Y, change.Width, change.Height);
             this.undoRedoBuffer.EndAdd();
+
+            this.track.Map.SetTiles(new Point(change.X, change.Y), change);
+            this.drawer.ReloadTrackPart(change);
+
+            this.dirtyRegion.Union(new RectangleF(
+                (change.X - this.scrollPosition.X) * Tile.Size * this.Zoom,
+                (change.Y - this.scrollPosition.Y) * Tile.Size * this.Zoom,
+                change.Width * Tile.Size * this.Zoom,
+                change.Height * Tile.Size * this.Zoom));
+
             return true;
+        }
+
+        private TileChange GetFloodFillChange(Point location, byte tile)
+        {
+            TrackMap tempBuffer = new TrackMap(this.track.Map.GetBytes());
+            int minX = TrackMap.Size;
+            int minY = TrackMap.Size;
+            int maxX = 0;
+            int maxY = 0;
+
+            byte targetTile = tempBuffer[location.X, location.Y];
+            Queue<Point> locations = new Queue<Point>();
+            locations.Enqueue(location);
+
+            while (locations.Count > 0)
+            {
+                Point loc = locations.Dequeue();
+                int x = loc.X;
+                int y = loc.Y;
+                int left = x;
+                int right = x;
+
+                do { left--; }
+                while (left >= 0 && tempBuffer[left, y] == targetTile);
+                left++;
+
+                do { right++; }
+                while (right < TrackMap.Size && tempBuffer[right, y] == targetTile);
+                right--;
+
+                minX = Math.Min(minX, left);
+                minY = Math.Min(minY, y);
+                maxX = Math.Max(maxX, right);
+                maxY = Math.Max(maxY, y);
+
+                for (int xIter = left; xIter <= right; xIter++)
+                {
+                    tempBuffer[xIter, y] = tile;
+
+                    if (y > 0 && tempBuffer[xIter, y - 1] == targetTile)
+                    {
+                        locations.Enqueue(new Point(xIter, y - 1));
+                    }
+
+                    if (y < TrackMap.Size - 1 && tempBuffer[xIter, y + 1] == targetTile)
+                    {
+                        locations.Enqueue(new Point(xIter, y + 1));
+                    }
+                }
+            }
+
+            int width = maxX - minX + 1;
+            int height = maxY - minY + 1;
+            return new TileChange(minX, minY, width, height, tempBuffer);
         }
 
         private void AddUndoChange(int x, int y, int width, int height)
         {
-            TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
+        	TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
             this.undoRedoBuffer.Add(tileChange);
         }
 
