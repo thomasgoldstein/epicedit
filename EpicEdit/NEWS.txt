@@ -3,14 +3,15 @@ Epic Edit, Super Mario Kart track editor by Stifu and Midwife
 ---------------------------------------------------------------------------
 
 
-v2.7.5 (xxx 2015)
+v2.8 (xxx 2015)
 - Added support for GP cup texts editing (English only)
 - Added support for cup and track name editing
 - Added ability to import and export
   road tile types and palette associations
+- Added a paint bucket feature for road tile editing
 - Added the ability to clone AI elements
 - Fixed 2.7.2 regression that disabled battle track reordering
-- Minor tweaks and fixes
+- Many tweaks and fixes
 
 
 v2.7.2 (July 13th 2014)
