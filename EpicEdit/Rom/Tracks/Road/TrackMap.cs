@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Tracks.Road
     /// <summary>
     /// The map layout of a track.
     /// </summary>
-    internal class TrackMap
+    internal class TrackMap : IMapBuffer
     {
         public const int Size = 128;
         public const int Limit = TrackMap.Size - 1;
