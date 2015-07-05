@@ -206,21 +206,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         private TileChange ApplyChange(TileChange change)
         {
-            byte[][] previousData = new byte[change.Height][];
-
-            for (int y = 0; y < change.Height; y++)
-            {
-                previousData[y] = new byte[change.Width];
-
-                for (int x = 0; x < change.Width; x++)
-                {
-                    previousData[y][x] = this.track.Map[change.X + x, change.Y + y];
-                }
-            }
-
+            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, track.Map);
             this.track.Map.SetTiles(change.X, change.Y, change);
-
-            return new TileChange(change.X, change.Y, previousData);
+            return undoChange;
         }
 
         public void Clear()
