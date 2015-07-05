@@ -912,7 +912,7 @@ namespace EpicEdit.UI.TrackEdition
             switch (this.editionMode)
             {
                 case EditionMode.Tileset:
-                    this.drawer.DrawTrackTileset(e, this.TileSelectionRectangle, this.buttonsPressed == MouseButtons.Right);
+                    this.drawer.DrawTrackTileset(e, this.TileSelectionRectangle, this.buttonsPressed == MouseButtons.Right, this.tilesetControl.BucketMode);
                     break;
 
                 case EditionMode.Overlay:

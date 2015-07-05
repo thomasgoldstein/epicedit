@@ -521,7 +521,8 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                Rectangle visibleSelection = TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
+                Rectangle visibleSelection = tileSelection.IsEmpty ? Rectangle.Empty :
+                    TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
 
                 // Enlarge rectangle by 1px to account for the 1px border of the selection
                 visibleSelection.Inflate(1, 1);
@@ -632,7 +633,7 @@ namespace EpicEdit.UI.Gfx
             return region;
         }
 
-        public void DrawTrackTileset(PaintEventArgs e, Rectangle tileSelection, bool selectingTiles)
+        public void DrawTrackTileset(PaintEventArgs e, Rectangle tileSelection, bool selectingTiles, bool bucketMode)
         {
             Rectangle clip = this.GetTrackClip(e.ClipRectangle);
 
@@ -642,6 +643,12 @@ namespace EpicEdit.UI.Gfx
                 {
                     if (!tileSelection.IsEmpty)
                     {
+                        if (bucketMode)
+                        {
+                            tileSelection.Width = 1;
+                            tileSelection.Height = 1;
+                        }
+
                         using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                         {
                             this.DrawTileSelection(backBuffer, tileSelection, selectingTiles);
@@ -731,11 +738,10 @@ namespace EpicEdit.UI.Gfx
 
         private static Rectangle GetVisibleTileSelectionRectangle(Rectangle tileSelection)
         {
-            return tileSelection.IsEmpty ? tileSelection :
-                new Rectangle(tileSelection.X * Tile.Size - 1,
-                              tileSelection.Y * Tile.Size - 1,
-                              tileSelection.Width * Tile.Size + 1,
-                              tileSelection.Height * Tile.Size + 1);
+            return new Rectangle(tileSelection.X * Tile.Size - 1,
+                                 tileSelection.Y * Tile.Size - 1,
+                                 tileSelection.Width * Tile.Size + 1,
+                                 tileSelection.Height * Tile.Size + 1);
         }
 
         private static Rectangle GetOverlayClipRectangle(OverlayTilePattern overlayTilePattern, Point location)
