@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.Collections.Generic;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools.UndoRedo
@@ -37,13 +38,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
             get { return this.data[0].Length; }
         }
 
-        public TileChange(int x, int y, byte[][] data)
-        {
-            this.X = x;
-            this.Y = y;
-            this.data = Clone(data);
-        }
-
         public TileChange(int x, int y, int width, int height, IMapBuffer buffer)
         {
             this.X = x;
@@ -62,6 +56,57 @@ namespace EpicEdit.UI.Tools.UndoRedo
         }
 
         /// <summary>
+        /// Consolidates all changes into a single one.
+        /// </summary>
+        /// <param name="changes">The tile changes.</param>
+        /// <param name="buffer">The map buffer the changes are applied on.</param>
+        public TileChange(IEnumerable<TileChange> changes, IMapBuffer buffer)
+        {
+            int xStart = buffer.Width;
+            int yStart = buffer.Height;
+            int xEnd = 0;
+            int yEnd = 0;
+
+            foreach (TileChange change in changes)
+            {
+                xStart = Math.Min(xStart, change.X);
+                xEnd = Math.Max(xEnd, change.X + change.Width);
+                yStart = Math.Min(yStart, change.Y);
+                yEnd = Math.Max(yEnd, change.Y + change.Height);
+            }
+
+            int width = xEnd - xStart;
+            int height = yEnd - yStart;
+
+            byte[][] data = new byte[height][];
+            for (int y = 0; y < height; y++)
+            {
+                data[y] = new byte[width];
+                for (int x = 0; x < width; x++)
+                {
+                    data[y][x] = buffer[xStart + x, yStart + y];
+                }
+            }
+
+            foreach (TileChange change in changes)
+            {
+                int offsetY = change.Y - yStart;
+                int offsetX = change.X - xStart;
+                for (int y = 0; y < change.Height; y++)
+                {
+                    for (int x = 0; x < change.Width; x++)
+                    {
+                        data[offsetY + y][offsetX + x] = change[x, y];
+                    }
+                }
+            }
+
+            this.X = xStart;
+            this.Y = yStart;
+            this.data = data;
+        }
+
+        /// <summary>
         /// Gets the tile value at the given coordinates.
         /// </summary>
         /// <param name="x">Row.</param>
@@ -70,19 +115,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public byte GetTile(int x, int y)
         {
             return this.data[y][x];
-        }
-
-        private static byte[][] Clone(byte[][] data)
-        {
-            byte[][] copy = new byte[data.Length][];
-
-            for (int y = 0; y < data.Length; y++)
-            {
-                copy[y] = new byte[data[y].Length];
-                Buffer.BlockCopy(data[y], 0, copy[y], 0, data[y].Length);
-            }
-
-            return copy;
         }
 
         public byte this[int x, int y]

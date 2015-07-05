@@ -78,59 +78,12 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 this.buffer.Push(change);
                 if (this.buffer.Count == ChangeLimit)
                 {
-                    TileChange tileChange = this.ConsolidateChanges(this.buffer);
+                    // Consolidate tile changes to improve performances
+                    TileChange tileChange = new TileChange(this.buffer, this.track.Map);
                     this.buffer.Clear();
                     this.buffer.Push(tileChange);
                 }
             }
-        }
-
-        /// <summary>
-        /// Consolidates changes, uniting them all into a single one, so as to improve performances.
-        /// </summary>
-        private TileChange ConsolidateChanges(IEnumerable<TileChange> changes)
-        {
-            int xStart = TrackMap.Size;
-            int yStart = TrackMap.Size;
-            int xEnd = 0;
-            int yEnd = 0;
-
-            foreach (TileChange change in changes)
-            {
-                xStart = Math.Min(xStart, change.X);
-                xEnd = Math.Max(xEnd, change.X + change.Width);
-                yStart = Math.Min(yStart, change.Y);
-                yEnd = Math.Max(yEnd, change.Y + change.Height);
-            }
-
-            int width = xEnd - xStart;
-            int height = yEnd - yStart;
-
-            TrackMap map = this.track.Map;
-            byte[][] data = new byte[height][];
-            for (int y = 0; y < height; y++)
-            {
-                data[y] = new byte[width];
-                for (int x = 0; x < width; x++)
-                {
-                    data[y][x] = map[xStart + x, yStart + y];
-                }
-            }
-
-            foreach (TileChange change in changes)
-            {
-                int offsetY = change.Y - yStart;
-                int offsetX = change.X - xStart;
-                for (int y = 0; y < change.Height; y++)
-                {
-                    for (int x = 0; x < change.Width; x++)
-                    {
-                        data[offsetY + y][offsetX + x] = change[x, y];
-                    }
-                }
-            }
-
-            return new TileChange(xStart, yStart, data);
         }
 
         /// <summary>
@@ -160,7 +113,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
             this.redoBuffer.Clear();
 
-            TileChange change = this.ConsolidateChanges(changes);
+            // Consolidate tile changes into a single one
+            TileChange change = new TileChange(changes, this.track.Map);
             this.undoBuffer.AddLast(change);
         }
 
