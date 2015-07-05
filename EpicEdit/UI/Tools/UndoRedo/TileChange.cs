@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools.UndoRedo
@@ -36,6 +37,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public int Width
         {
             get { return this.data[0].Length; }
+        }
+
+        public Rectangle Rectangle
+        {
+            get { return new Rectangle(this.X, this.Y, this.Width, this.Height); }
         }
 
         public TileChange(int x, int y, int width, int height, IMapBuffer buffer)

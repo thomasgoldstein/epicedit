@@ -540,7 +540,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.ToggleUndoRedo();
-            DrawRegion region = this.drawer.ReloadTrackPart(change);
+            DrawRegion region = this.drawer.ReloadTrackPart(change.Rectangle);
             this.InvalidateTrackDisplay(region);
         }
 
@@ -2117,7 +2117,7 @@ namespace EpicEdit.UI.TrackEdition
             this.undoRedoBuffer.EndAdd();
 
             this.track.Map.SetTiles(new Point(change.X, change.Y), change);
-            this.drawer.ReloadTrackPart(change);
+            this.drawer.ReloadTrackPart(change.Rectangle);
 
             this.dirtyRegion.Union(new RectangleF(
                 (change.X - this.scrollPosition.X) * Tile.Size * this.Zoom,

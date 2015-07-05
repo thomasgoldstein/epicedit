@@ -430,27 +430,25 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public Region ReloadTrackPart(TileChange change)
+        public Region ReloadTrackPart(Rectangle rectangle)
         {
             RoadTileset tileset = this.track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
-                for (int x = 0; x < change.Width; x++)
+                for (int x = rectangle.X; x < rectangle.Right; x++)
                 {
-                    for (int y = 0; y < change.Height; y++)
+                    for (int y = rectangle.Y; y < rectangle.Bottom; y++)
                     {
-                        Tile tile = tileset[change[x, y]];
-                        g.DrawImage(tile.Bitmap,
-                                    (change.X + x) * Tile.Size,
-                                    (change.Y + y) * Tile.Size);
+                        Tile tile = tileset[this.track.Map[x, y]];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
 
-                Rectangle dirtyRectangle = new Rectangle(change.X * Tile.Size,
-                                                         change.Y * Tile.Size,
-                                                         change.Width * Tile.Size,
-                                                         change.Height * Tile.Size);
+                Rectangle dirtyRectangle = new Rectangle(rectangle.X * Tile.Size,
+                                                         rectangle.Y * Tile.Size,
+                                                         rectangle.Width * Tile.Size,
+                                                         rectangle.Height * Tile.Size);
 
                 return this.GetTranslatedZoomedRegion(dirtyRectangle);
             }
