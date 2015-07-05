@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Utility;
@@ -94,6 +95,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public BackgroundPanel()
         {
+            this.Cursor = Resources.PencilCursor;
             this.TilePosition = TrackEditor.OutOfBounds;
             this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
             this.MouseMove += this.BackgroundPanel_MouseMove;
