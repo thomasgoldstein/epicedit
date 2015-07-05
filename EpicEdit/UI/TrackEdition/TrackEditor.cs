@@ -523,7 +523,7 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
-        /// Init undo/redo buffer for the current track.
+        /// Inits undo/redo buffer for the current track.
         /// </summary>
         private void InitUndoRedo()
         {
