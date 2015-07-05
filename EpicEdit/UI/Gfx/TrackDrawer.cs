@@ -433,6 +433,7 @@ namespace EpicEdit.UI.Gfx
         public Region ReloadTrackPart(Rectangle rectangle)
         {
             RoadTileset tileset = this.track.RoadTileset;
+            TrackMap trackMap = this.track.Map;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
@@ -440,7 +441,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int y = rectangle.Y; y < rectangle.Bottom; y++)
                     {
-                        Tile tile = tileset[this.track.Map[x, y]];
+                        Tile tile = tileset[trackMap[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
