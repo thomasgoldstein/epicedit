@@ -122,19 +122,19 @@ namespace EpicEdit.UI.TrackEdition
             // tilesetPanel
             // 
             this.tilesetPanel.BackColor = System.Drawing.Color.Black;
-            this.tilesetPanel.Location = new System.Drawing.Point(0, 112);
+            this.tilesetPanel.Location = new System.Drawing.Point(0, 143);
             this.tilesetPanel.Name = "tilesetPanel";
             this.tilesetPanel.Size = new System.Drawing.Size(128, 512);
-            this.tilesetPanel.TabIndex = 2;
+            this.tilesetPanel.TabIndex = 6;
             this.tilesetPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TilesetPanelMouseDown);
             // 
             // resetMapButton
             // 
             this.resetMapButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.resetMapButton.Location = new System.Drawing.Point(103, 631);
+            this.resetMapButton.Location = new System.Drawing.Point(103, 113);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(24, 24);
-            this.resetMapButton.TabIndex = 6;
+            this.resetMapButton.TabIndex = 5;
             this.buttonToolTip.SetToolTip(this.resetMapButton, "Reset map");
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.ResetMapButtonClick);
@@ -142,10 +142,10 @@ namespace EpicEdit.UI.TrackEdition
             // importExportRoadTilesetButton
             // 
             this.importExportRoadTilesetButton.Image = global::EpicEdit.Properties.Resources.ImportExportButton;
-            this.importExportRoadTilesetButton.Location = new System.Drawing.Point(73, 631);
+            this.importExportRoadTilesetButton.Location = new System.Drawing.Point(73, 113);
             this.importExportRoadTilesetButton.Name = "importExportRoadTilesetButton";
             this.importExportRoadTilesetButton.Size = new System.Drawing.Size(24, 24);
-            this.importExportRoadTilesetButton.TabIndex = 5;
+            this.importExportRoadTilesetButton.TabIndex = 4;
             this.buttonToolTip.SetToolTip(this.importExportRoadTilesetButton, "Import / export road tileset...");
             this.importExportRoadTilesetButton.UseVisualStyleBackColor = true;
             this.importExportRoadTilesetButton.Click += new System.EventHandler(this.ImportExportRoadTilesetButtonClick);
@@ -155,10 +155,10 @@ namespace EpicEdit.UI.TrackEdition
             this.pointerButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.pointerButton.Checked = true;
             this.pointerButton.Image = global::EpicEdit.Properties.Resources.PointerButton;
-            this.pointerButton.Location = new System.Drawing.Point(3, 631);
+            this.pointerButton.Location = new System.Drawing.Point(3, 113);
             this.pointerButton.Name = "pointerButton";
             this.pointerButton.Size = new System.Drawing.Size(24, 24);
-            this.pointerButton.TabIndex = 3;
+            this.pointerButton.TabIndex = 2;
             this.pointerButton.TabStop = true;
             this.buttonToolTip.SetToolTip(this.pointerButton, "Pointer tool");
             this.pointerButton.UseVisualStyleBackColor = true;
@@ -167,10 +167,10 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.bucketButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.bucketButton.Image = global::EpicEdit.Properties.Resources.BucketButton;
-            this.bucketButton.Location = new System.Drawing.Point(33, 631);
+            this.bucketButton.Location = new System.Drawing.Point(33, 113);
             this.bucketButton.Name = "bucketButton";
             this.bucketButton.Size = new System.Drawing.Size(24, 24);
-            this.bucketButton.TabIndex = 4;
+            this.bucketButton.TabIndex = 3;
             this.bucketButton.TabStop = true;
             this.buttonToolTip.SetToolTip(this.bucketButton, "Paint bucket");
             this.bucketButton.UseVisualStyleBackColor = true;
