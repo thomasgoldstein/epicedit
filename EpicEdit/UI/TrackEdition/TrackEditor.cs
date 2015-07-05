@@ -2027,14 +2027,14 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                this.trackDisplay.Cursor = Cursors.Default;
+                this.trackDisplay.Cursor = Resources.PencilCursor;
 
                 switch (this.buttonsPressed)
                 {
                     case MouseButtons.Left:
                         this.LayTiles();
                         break;
-    
+
                     case MouseButtons.Right:
                         this.RecalculateTileClipboard();
                         break;

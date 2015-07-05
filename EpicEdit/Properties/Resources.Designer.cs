@@ -203,10 +203,20 @@ namespace EpicEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PointerButton {
+        internal static System.Drawing.Bitmap PencilButton {
             get {
-                object obj = ResourceManager.GetObject("PointerButton", resourceCulture);
+                object obj = ResourceManager.GetObject("PencilButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
+        /// </summary>
+        internal static System.Windows.Forms.Cursor PencilCursor {
+            get {
+                object obj = ResourceManager.GetObject("PencilCursor", resourceCulture);
+                return ((System.Windows.Forms.Cursor)(obj));
             }
         }
         
