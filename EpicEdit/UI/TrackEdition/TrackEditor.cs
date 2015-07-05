@@ -2007,7 +2007,7 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
-        /// Adapt the modeTabControl width depending on whether its vertical scroll bar is visible.
+        /// Adapts the modeTabControl width depending on whether its vertical scroll bar is visible.
         /// </summary>
         private void ResizeModeTabControl()
         {
