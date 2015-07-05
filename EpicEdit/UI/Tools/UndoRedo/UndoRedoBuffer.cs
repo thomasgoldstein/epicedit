@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Collections.Generic;
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.UI.Tools.UndoRedo
@@ -35,9 +34,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
         private const int ChangeLimit = 50;
 
         /// <summary>
-        /// The bound track.
+        /// The bound track map.
         /// </summary>
-        private readonly Track track;
+        private readonly TrackMap trackMap;
 
         // Using LinkedLists rather than Stacks so as to be able to enforce a size limit.
         private readonly LinkedList<TileChange> undoBuffer;
@@ -45,9 +44,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         private Stack<TileChange> buffer;
 
-        public UndoRedoBuffer(Track track)
+        public UndoRedoBuffer(TrackMap trackMap)
         {
-            this.track = track;
+            this.trackMap = trackMap;
             this.undoBuffer = new LinkedList<TileChange>();
             this.redoBuffer = new LinkedList<TileChange>();
         }
@@ -79,7 +78,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 if (this.buffer.Count == ChangeLimit)
                 {
                     // Consolidate tile changes to improve performances
-                    TileChange tileChange = new TileChange(this.buffer, this.track.Map);
+                    TileChange tileChange = new TileChange(this.buffer, this.trackMap);
                     this.buffer.Clear();
                     this.buffer.Push(tileChange);
                 }
@@ -114,7 +113,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.redoBuffer.Clear();
 
             // Consolidate tile changes into a single one
-            TileChange change = new TileChange(changes, this.track.Map);
+            TileChange change = new TileChange(changes, this.trackMap);
             this.undoBuffer.AddLast(change);
         }
 
@@ -160,8 +159,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         private TileChange ApplyChange(TileChange change)
         {
-            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, track.Map);
-            this.track.Map.SetTiles(change.X, change.Y, change);
+            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, this.trackMap);
+            this.trackMap.SetTiles(change.X, change.Y, change);
             return undoChange;
         }
 

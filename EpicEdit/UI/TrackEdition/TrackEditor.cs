@@ -527,7 +527,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitUndoRedo()
         {
-            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer(this.track));
+            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer(this.track.Map));
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
         }
