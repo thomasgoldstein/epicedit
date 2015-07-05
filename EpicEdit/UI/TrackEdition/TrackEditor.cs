@@ -1266,10 +1266,8 @@ namespace EpicEdit.UI.TrackEdition
                         if (!this.tilesetControl.BucketMode)
                         {
                             this.undoRedoBuffer.BeginAdd();
-                            if (this.LayTiles())
-                            {
-                                this.InvalidateTrackDisplay();
-                            }
+                            this.LayTiles();
+                            this.InvalidateTrackDisplay();
                         }
                         else
                         {
@@ -1281,16 +1279,12 @@ namespace EpicEdit.UI.TrackEdition
                         break;
 
                     case MouseButtons.Right:
-                        byte? hoveredTile = this.GetHoveredTile();
-                        if (hoveredTile != null)
-                        {
-                            this.buttonsPressed = MouseButtons.Right;
+                        this.buttonsPressed = MouseButtons.Right;
 
-                            this.anchorPoint = this.AbsoluteTilePosition;
-                            this.tileClipboard.Rectangle = new Rectangle(this.anchorPoint.X, this.anchorPoint.Y, 1, 1);
+                        this.anchorPoint = this.AbsoluteTilePosition;
+                        this.tileClipboard.Rectangle = new Rectangle(this.anchorPoint.X, this.anchorPoint.Y, 1, 1);
 
-                            this.InvalidateTrackDisplay();
-                        }
+                        this.InvalidateTrackDisplay();
                         break;
                 }
             }
@@ -2027,70 +2021,40 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Tileset
         private bool InitTilesetAction()
         {
-            bool repaintNeeded;
-
-            switch (this.buttonsPressed)
+            if (this.tilesetControl.BucketMode)
             {
-                case MouseButtons.Left:
-                    repaintNeeded = this.tilesetControl.BucketMode || this.LayTiles();
-                    break;
+                this.trackDisplay.Cursor = Resources.BucketCursor;
+            }
+            else
+            {
+                this.trackDisplay.Cursor = Cursors.Default;
 
-                case MouseButtons.Right:
-                    if (!this.tilesetControl.BucketMode)
-                    {
+                switch (this.buttonsPressed)
+                {
+                    case MouseButtons.Left:
+                        this.LayTiles();
+                        break;
+    
+                    case MouseButtons.Right:
                         this.RecalculateTileClipboard();
-                    }
-                    repaintNeeded = true;
-                    break;
-
-                default:
-                    repaintNeeded = true;
-                    break;
+                        break;
+                }
             }
 
-            this.trackDisplay.Cursor = !this.tilesetControl.BucketMode ? Cursors.Default : Resources.BucketCursor;
-            return repaintNeeded;
+            return true; // Repaint always needed in tileset mode
         }
 
-        private bool IsOverTrackMap(Point location)
+        private void LayTiles()
         {
-            return
-                location.X >= 0 &&
-                location.Y >= 0 &&
-                location.X < this.track.Map.Width &&
-                location.Y < this.track.Map.Height;
+            this.LayTiles(this.AbsoluteTilePosition);
         }
 
-        private byte? GetHoveredTile()
+        private void LayTiles(Point location)
         {
-            Point hoveredTilePosition = this.AbsoluteTilePosition;
-
-            if (this.IsOverTrackMap(hoveredTilePosition))
-            {
-                return this.track.Map.GetTile(hoveredTilePosition);
-            }
-
-            return null;
-        }
-
-        private bool LayTiles()
-        {
-            return this.LayTiles(this.AbsoluteTilePosition);
-        }
-
-        private bool LayTiles(Point location)
-        {
-            if (!this.IsOverTrackMap(location))
-            {
-                return false;
-            }
-
             Size affectedSurface = this.GetTruncatedRectangle();
             this.AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
             this.track.Map.SetTiles(location, this.tileClipboard);
             this.drawer.UpdateCacheAfterTileLaying(location);
-
-            return true;
         }
 
         private bool FillTiles()
@@ -2100,11 +2064,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool FillTiles(Point location)
         {
-            if (!this.IsOverTrackMap(location))
-            {
-                return false;
-            }
-
             TileChange change = this.GetFloodFillChange(location, this.tileClipboard.FirstTile);
 
             if (change == null)
@@ -2190,7 +2149,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AddUndoChange(int x, int y, int width, int height)
         {
-        	TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
+            TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
             this.undoRedoBuffer.Add(tileChange);
         }
 
