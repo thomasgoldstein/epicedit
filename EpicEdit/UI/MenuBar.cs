@@ -227,24 +227,15 @@ namespace EpicEdit.UI
         {
             if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
-                if (this.exitFullScreenButtonImage == null)
-                {
-                    this.exitFullScreenButtonImage = Resources.ExitFullScreenButton;
-                    this.fullScreenButtonImage = this.fullScreenToolStripButton.Image;
-                }
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = this.exitFullScreenButtonImage;
+                this.fullScreenToolStripButton.Image = Resources.ExitFullScreenButton;
             }
             else
             {
                 this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-                this.fullScreenToolStripButton.Image = this.fullScreenButtonImage;
+                this.fullScreenToolStripButton.Image = Resources.FullScreenButton;
             }
         }
-
-        private Image fullScreenButtonImage;
-
-        private Image exitFullScreenButtonImage;
         #endregion Full screen
 
         #region Palette editor
