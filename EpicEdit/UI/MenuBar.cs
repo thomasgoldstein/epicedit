@@ -219,12 +219,13 @@ namespace EpicEdit.UI
         #region Full screen
         private void FullScreenToolStripButtonClick(object sender, EventArgs e)
         {
-            this.ToggleScreenModeRequested(this, e);
-            this.UpdateFullScreenButton();
+            this.ToggleScreenMode();
         }
 
-        private void UpdateFullScreenButton()
+        private void ToggleScreenMode()
         {
+            this.ToggleScreenModeRequested(this, EventArgs.Empty);
+
             if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
                 this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
@@ -340,8 +341,7 @@ namespace EpicEdit.UI
 
         private void FullScreenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ToggleScreenModeRequested(this, e);
-            this.UpdateFullScreenButton();
+            this.ToggleScreenMode();
         }
 
         private void UndoToolStripMenuItemClick(object sender, EventArgs e)
