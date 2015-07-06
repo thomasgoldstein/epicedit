@@ -195,13 +195,13 @@ namespace EpicEdit.UI.TrackEdition
             // probaEditorButton
             // 
             this.probaEditorButton.Image = global::EpicEdit.Properties.Resources.ItemProbaButton;
-            this.probaEditorButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.probaEditorButton.Location = new System.Drawing.Point(29, 68);
             this.probaEditorButton.Name = "probaEditorButton";
             this.probaEditorButton.Size = new System.Drawing.Size(66, 24);
             this.probaEditorButton.TabIndex = 1;
             this.probaEditorButton.Text = "View";
             this.probaEditorButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.probaEditorButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.probaEditorButton.UseVisualStyleBackColor = true;
             this.probaEditorButton.Click += new System.EventHandler(this.ProbaEditorButtonClick);
             // 
