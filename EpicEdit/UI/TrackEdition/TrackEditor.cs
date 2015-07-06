@@ -2023,11 +2023,11 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (this.tilesetControl.BucketMode)
             {
-                this.trackDisplay.Cursor = Resources.BucketCursor;
+                this.trackDisplay.Cursor = EpicCursors.BucketCursor;
             }
             else
             {
-                this.trackDisplay.Cursor = Resources.PencilCursor;
+                this.trackDisplay.Cursor = EpicCursors.PencilCursor;
 
                 switch (this.buttonsPressed)
                 {

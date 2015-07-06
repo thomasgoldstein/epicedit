@@ -95,7 +95,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         public BackgroundPanel()
         {
-            this.Cursor = Resources.PencilCursor;
             this.TilePosition = TrackEditor.OutOfBounds;
             this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
             this.MouseMove += this.BackgroundPanel_MouseMove;
@@ -125,6 +124,8 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 return;
             }
+
+            this.Cursor = EpicCursors.PencilCursor;
 
             Point tilePositionBefore = this.TilePosition;
             this.SetPosition(e.Location);

@@ -43,27 +43,6 @@ namespace EpicEdit.UI.Tools
             set { this.zoom = value; }
         }
 
-        private static Cursor colorPickerCursor;
-        private static Cursor ColorPickerCursor
-        {
-            get
-            {
-                if (TilePanel.colorPickerCursor == null)
-                {
-                    TilePanel.colorPickerCursor = Resources.ColorPickerCursor;
-
-                    if (TilePanel.colorPickerCursor.Size.IsEmpty)
-                    {
-                        // HACK: Mitigate the effects of Mono bug #749
-                        // https://bugzilla.xamarin.com/show_bug.cgi?id=749
-                        TilePanel.colorPickerCursor = Cursors.Hand;
-                    }
-                }
-
-                return TilePanel.colorPickerCursor;
-            }
-        }
-
         protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
             // Take scrolling position in consideration
@@ -112,7 +91,7 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            this.Cursor = TilePanel.ColorPickerCursor;
+            this.Cursor = EpicCursors.ColorPickerCursor;
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -155,7 +134,7 @@ namespace EpicEdit.UI.Tools
 
                 if (Context.ColorPickerMode)
                 {
-                    this.Cursor = TilePanel.ColorPickerCursor;
+                    this.Cursor = EpicCursors.ColorPickerCursor;
                 }
             }
         }

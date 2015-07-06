@@ -270,6 +270,7 @@
     <Compile Include="UI\Tools\CodecForm.Designer.cs">
       <DependentUpon>CodecForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\EpicCursors.cs" />
     <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
     <Compile Include="UI\Tools\FileDialogFilters.cs" />
     <Compile Include="UI\Tools\TextItemComboBox.cs" />
