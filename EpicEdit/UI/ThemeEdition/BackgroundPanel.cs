@@ -17,7 +17,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Utility;
