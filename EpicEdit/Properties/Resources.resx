@@ -774,18 +774,17 @@
   </data>
   <data name="BucketButton" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
 </value>
   </data>
   <data name="BucketCursor" type="System.Windows.Forms.Cursor, System.Windows.Forms" mimetype="application/x-microsoft.net.object.bytearray.base64">
