@@ -100,21 +100,27 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // rewindButton
             // 
-            this.rewindButton.Location = new System.Drawing.Point(88, 19);
+            this.rewindButton.Image = global::EpicEdit.Properties.Resources.RewindButton;
+            this.rewindButton.Location = new System.Drawing.Point(88, 18);
             this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(75, 23);
+            this.rewindButton.Size = new System.Drawing.Size(75, 24);
             this.rewindButton.TabIndex = 1;
             this.rewindButton.Text = "Rewind";
+            this.rewindButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rewindButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.rewindButton.UseVisualStyleBackColor = true;
             this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
             // 
             // playPauseButton
             // 
-            this.playPauseButton.Location = new System.Drawing.Point(7, 19);
+            this.playPauseButton.Image = global::EpicEdit.Properties.Resources.PlayButton;
+            this.playPauseButton.Location = new System.Drawing.Point(7, 18);
             this.playPauseButton.Name = "playPauseButton";
-            this.playPauseButton.Size = new System.Drawing.Size(75, 23);
+            this.playPauseButton.Size = new System.Drawing.Size(75, 24);
             this.playPauseButton.TabIndex = 0;
             this.playPauseButton.Text = "Play";
+            this.playPauseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.playPauseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.playPauseButton.UseVisualStyleBackColor = true;
             this.playPauseButton.Click += new System.EventHandler(this.PlayPauseButtonClick);
             // 

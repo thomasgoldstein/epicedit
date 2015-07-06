@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Properties;
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Utility;
@@ -125,12 +126,14 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.backgroundPreviewer.Play();
             this.playPauseButton.Text = "Pause";
+            this.playPauseButton.Image = Resources.PauseButton;
         }
 
         private void PausePreview()
         {
             this.backgroundPreviewer.Pause();
             this.playPauseButton.Text = "Play";
+            this.playPauseButton.Image = Resources.PlayButton;
         }
 
         private void SetTheme()
