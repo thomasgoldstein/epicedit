@@ -77,7 +77,7 @@ namespace EpicEdit.Rom.Utility
 
         public override int GetHashCode()
         {
-            return this.start ^ this.end;
+            return base.GetHashCode();
         }
 
         public bool Includes(int value)

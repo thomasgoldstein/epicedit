@@ -117,7 +117,7 @@ namespace EpicEdit.Rom
 
         public override int GetHashCode()
         {
-            return this.GetByte();
+            return base.GetHashCode();
         }
 
         public byte GetByte()
