@@ -25,9 +25,18 @@ namespace EpicEdit.Rom
     {
         protected void SetPalette()
         {
-            // Setting the base Palette lets us listen to the palette color change events,
-            // and will update the Bitmap if the Palette has changed.
-            base.Palette = this.Palette;
+            if (base.Palette != this.Palette)
+            {
+                // Setting the base Palette lets us listen to the palette color change events,
+                // and will update the Bitmap if the Palette has changed.
+                base.Palette = this.Palette;
+            }
+            else
+            {
+                // Force the update of the bitmap. This is necessary because even though
+                // the palette is the same, Tile2bppProperties changes still affect the tile image.
+                this.UpdateBitmap();
+            }
         }
 
         public override Palette Palette
