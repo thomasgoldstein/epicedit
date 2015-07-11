@@ -43,6 +43,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         private void tile_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName != PropertyNames.Tile.Bitmap &&
+                e.PropertyName != PropertyNames.Tile.Graphics)
+            {
+                return;
+            }
+
             this.Modified = true;
         }
 
