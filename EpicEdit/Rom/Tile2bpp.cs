@@ -72,7 +72,6 @@ namespace EpicEdit.Rom
                 }
 
                 this.palettes = value;
-
                 this.SetPalette();
             }
         }
@@ -83,11 +82,13 @@ namespace EpicEdit.Rom
             get { return this.properties; }
             set
             {
-                if (this.properties != value)
+                if (this.properties == value)
                 {
-                    this.properties = value;
-                    this.SetPalette();
+                    return;
                 }
+
+                this.properties = value;
+                this.SetPalette();
             }
         }
 

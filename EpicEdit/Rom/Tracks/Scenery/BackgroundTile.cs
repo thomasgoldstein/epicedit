@@ -39,12 +39,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
             get { return this.front; }
             set
             {
-                if (this.front != value)
+                if (this.front == value)
                 {
-                    this.front = value;
-                    this.paletteStart = this.front ? FrontPaletteStart : BackPaletteStart;
-                    this.SetPalette();
+                    return;
                 }
+
+                this.front = value;
+                this.paletteStart = this.front ? FrontPaletteStart : BackPaletteStart;
+                this.SetPalette();
             }
         }
 
