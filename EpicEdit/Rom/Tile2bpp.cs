@@ -56,7 +56,7 @@ namespace EpicEdit.Rom
                     Flip = this.Properties.Flip
                 };
 
-                this.SetPalette();
+                base.Palette = this.Palette;
             }
         }
 
