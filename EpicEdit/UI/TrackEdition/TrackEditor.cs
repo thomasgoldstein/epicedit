@@ -1242,8 +1242,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseDown(object sender, MouseEventArgs e)
         {
-            // We only acknowledge the click if no mouse button is already pressed
-            if (this.buttonsPressed != MouseButtons.None)
+            // We only acknowledge the click if the cursor isn't out of bounds,
+            // and if no mouse button is already pressed
+            if (this.pixelPosition == TrackEditor.OutOfBounds ||
+                this.buttonsPressed != MouseButtons.None)
             {
                 return;
             }
