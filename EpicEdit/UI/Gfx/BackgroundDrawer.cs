@@ -34,6 +34,7 @@ namespace EpicEdit.UI.Gfx
         private const int FrontWidth = BackgroundLayout.FrontLayerWidth * Tile.Size;
         private const int BackWidth = BackgroundLayout.BackLayerWidth * Tile.Size;
         private const int Height = BackgroundLayout.RowCount * Tile.Size;
+        private const int CanvasWidth = BackWidth / 2;
 
         private Theme theme;
 
@@ -158,24 +159,24 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
-            using (Bitmap image = new Bitmap(BackWidth, Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(this.backLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
-                BackgroundDrawer.DrawImage(g, image, BackWidth);
+                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
             }
         }
 
         private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x,  bool selectingTile)
         {
-            using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.Clear(this.theme.BackColor);
                 backBuffer.DrawImage(this.frontLayer, x, 0);
                 this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
-                BackgroundDrawer.DrawImage(g, image, FrontWidth);
+                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
             }
         }
 
@@ -203,7 +204,7 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawBackgroundPreview(Graphics g)
         {
-            using (Bitmap image = new Bitmap(FrontWidth, Height, PixelFormat.Format32bppPArgb))
+            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 // Drawing the back and front layers twice, so that the background loops horizontally
@@ -213,7 +214,7 @@ namespace EpicEdit.UI.Gfx
                 backBuffer.DrawImage(this.frontLayer, x * 2, 0);
                 backBuffer.DrawImage(this.frontLayer, x * 2 + FrontWidth, 0);
 
-                BackgroundDrawer.DrawImage(g, image, FrontWidth);
+                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
             }
         }
 
