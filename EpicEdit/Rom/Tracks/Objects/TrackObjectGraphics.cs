@@ -104,15 +104,15 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             if (type == ObjectType.Plant || type == ObjectType.Fish)
             {
-                return new int[] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
+                return new [] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
             }
 
-            return new int[] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
+            return new [] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
         }
 
         private static int[] GetMatchRaceTileIndexes()
         {
-            return new int[] { 0, 32, 64, 96 };
+            return new [] { 0, 32, 64, 96 };
         }
 
         private static Bitmap GetImage(Tile[] tiles, Palette palette)
