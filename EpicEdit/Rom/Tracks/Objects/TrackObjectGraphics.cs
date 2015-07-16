@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal sealed class TrackObjectGraphics : IDisposable
     {
-        private Tile[][] tiles;
+        private readonly Tile[][] tiles;
 
         public TrackObjectGraphics(byte[] romBuffer, Offsets offsets)
         {

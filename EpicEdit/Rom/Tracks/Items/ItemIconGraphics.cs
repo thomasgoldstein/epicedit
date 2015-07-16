@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal sealed class ItemIconGraphics : IDisposable
     {
-        private Tile[][] tiles;
+        private readonly Tile[][] tiles;
 
         public ItemIconGraphics(byte[] romBuffer, Offsets offsets)
         {
