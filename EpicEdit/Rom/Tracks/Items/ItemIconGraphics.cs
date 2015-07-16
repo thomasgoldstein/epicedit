@@ -26,6 +26,8 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal sealed class ItemIconGraphics : IDisposable
     {
+        private const int BytesPerTile = 16;
+        private readonly Tile2bpp topBorder;
         private readonly Tile[][] tiles;
 
         public ItemIconGraphics(byte[] romBuffer, Offsets offsets)
@@ -40,23 +42,32 @@ namespace EpicEdit.Rom.Tracks.Items
                 int offset = startOffset + i * 2;
                 this.tiles[i] = ItemIconGraphics.GetTiles(romBuffer, offset, itemGfx);
             }
+
+            int topBorderOffset = offsets[Offset.TopBorderTileLayout];
+            byte tileIndex = (byte)(romBuffer[topBorderOffset] & 0x7F);
+            byte properties = romBuffer[topBorderOffset + 1];
+            this.topBorder = ItemIconGraphics.GetTile(tileIndex, properties, itemGfx);
         }
 
         private static Tile[] GetTiles(byte[] romBuffer, int offset, byte[] itemGfx)
         {
-            int tileIndex = romBuffer[offset] & 0x7F;
+            byte tileIndex = (byte)(romBuffer[offset] & 0x7F);
             byte properties = romBuffer[offset + 1];
 
             Tile[] tiles = new Tile2bpp[4];
-            int bytesPerTile = 16;
 
             for (int i = 0; i < tiles.Length; i++)
             {
-                byte[] gfx = Utilities.ReadBlock(itemGfx, (tileIndex + i) * bytesPerTile, bytesPerTile);
-                tiles[i] = new Tile2bpp(gfx, properties);
+                tiles[i] = ItemIconGraphics.GetTile((byte)(tileIndex + 1), properties, itemGfx);
             }
 
             return tiles;
+        }
+
+        private static Tile2bpp GetTile(byte tileIndex, byte properties, byte[] itemGfx)
+        {
+            byte[] gfx = Utilities.ReadBlock(itemGfx, tileIndex * BytesPerTile, BytesPerTile);
+            return new Tile2bpp(gfx, properties);
         }
 
         private Tile[] GetTiles(ItemType type)
@@ -95,6 +106,12 @@ namespace EpicEdit.Rom.Tracks.Items
             Tile[] tiles = this.tiles[(int)type];
             int subIndex = (y * 2) + x;
             return tiles[subIndex];
+        }
+
+        public Bitmap GetTopBorder(Palettes palettes)
+        {
+            this.topBorder.Palettes = palettes;
+            return this.topBorder.Bitmap;
         }
 
         public void Dispose()

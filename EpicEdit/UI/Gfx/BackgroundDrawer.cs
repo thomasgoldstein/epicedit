@@ -214,6 +214,13 @@ namespace EpicEdit.UI.Gfx
                 backBuffer.DrawImage(this.frontLayer, x * 2, 0);
                 backBuffer.DrawImage(this.frontLayer, x * 2 + FrontWidth, 0);
 
+                Bitmap topBorder = Context.Game.ItemIconGraphics.GetTopBorder(this.Theme.Palettes);
+
+                for (int i = 0; i < CanvasWidth; i += Tile.Size)
+                {
+                    backBuffer.DrawImage(topBorder, i, -1);
+                }
+
                 BackgroundDrawer.DrawImage(g, image, CanvasWidth);
             }
         }

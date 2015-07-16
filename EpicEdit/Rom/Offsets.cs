@@ -240,6 +240,11 @@ namespace EpicEdit.Rom
         ItemIconTileLayout,
 
         /// <summary>
+        /// Top border tile index and properties (color palette and flip flag).
+        /// </summary>
+        TopBorderTileLayout,
+
+        /// <summary>
         /// Offset for hack to extend the object engine.
         /// </summary>
         TrackObjectHack1,
@@ -496,6 +501,7 @@ namespace EpicEdit.Rom
             this[Offset.RoadTilesetHack3] = this[Offset.RoadTilesetHack2] + 0x38;
             this[Offset.RoadTilesetHack4] = this[Offset.RoadTilesetHack3] + 0x92;
 
+            this[Offset.TopBorderTileLayout] = this[Offset.ItemIconTileLayout] + 0x507;
             this[Offset.TrackItemProbabilityIndexes] = this[Offset.BattleTrackStartPositions] + 0x28;
             this[Offset.GPTrackStartPositions] = this[Offset.BattleTrackStartPositions] + 0xC8;
             this[Offset.BattleTrackStartPositionsIndex] = this[Offset.BattleTrackStartPositions] + 0x3C9;
