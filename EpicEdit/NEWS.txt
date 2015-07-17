@@ -10,6 +10,9 @@ v2.8 (xxx 2015)
   road tile types and palette associations
 - Added a paint bucket feature for road tile editing
 - Added the ability to clone AI elements
+- Added the display of the in-game top border over the background preview
+- Added the ability to jump to any part of the background preview
+  animation, and to set the animation speed
 - Fixed 2.7.2 regression that disabled battle track reordering
 - Many tweaks and fixes
 
