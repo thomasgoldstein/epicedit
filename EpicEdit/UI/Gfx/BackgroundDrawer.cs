@@ -81,11 +81,6 @@ namespace EpicEdit.UI.Gfx
             this.backLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
-        public void RewindPreview()
-        {            
-            this.x = 0;
-        }
-
         private void InitFrontLayer()
         {
             this.frontLayer.Dispose();
@@ -246,14 +241,10 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void IncrementPreviewFrame()
+        public int PreviewFrame
         {
-            this.x--;
-
-            if (this.x < -BackWidth)
-            {
-                this.x = 0;
-            }
+            //get { return -this.x; }
+            set { this.x = -value; }
         }
 
         public void Dispose()

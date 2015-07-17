@@ -31,40 +31,12 @@ namespace EpicEdit.UI.ThemeEdition
         public BackgroundDrawer Drawer
         {
             //get { return this.drawer; }
-            set
-            {
-                this.drawer = value;
-
-                this.repaintTimer = new Timer();
-                this.repaintTimer.Interval = 30;
-                this.repaintTimer.Tick += delegate
-                {
-                    this.Invalidate();
-                    this.drawer.IncrementPreviewFrame();
-                };
-            }
+            set { this.drawer = value; }
         }
-
-        private Timer repaintTimer;
 
         public BackgroundPreviewer()
         {
             this.InitializeComponent();
-        }
-
-        public bool Paused
-        {
-            get { return !this.repaintTimer.Enabled; }
-        }
-
-        public void Play()
-        {
-            this.repaintTimer.Start();
-        }
-
-        public void Pause()
-        {
-            this.repaintTimer.Stop();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -75,6 +47,17 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             this.drawer.DrawBackgroundPreview(e.Graphics);
+        }
+
+        public void SetFrame(int value)
+        {
+            if (this.drawer == null)
+            {
+                return;
+            }
+
+            this.drawer.PreviewFrame = value;
+            this.Invalidate();
         }
     }
 }

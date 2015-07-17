@@ -775,7 +775,7 @@
   <data name="BucketButton" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsEAAA7BAbiRa+0AAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNWWFMmUA
+        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNWWFMmUA
         AAHvSURBVDhPlZNNSxtRFIbvvyguXFSXftQSqrjowkKRihZjtH7FsYRiBIkbx00tqFHjIhKxfi0EKy61
         pc2itMSqdZeF4EJRFJVRTDpjvJmt1ibH+95hJK1Q9cADM+e+zzsXQhjGH75UfXNJrWM2aQr4LZi+D0mt
         /8uFKuXez7/VpvEEKZNnpEzdHTjvPp2rrG0mobknDFFwKmnJeAa1IV2SuQNwvMJlnmnDbB7Tyf1ep+ax
@@ -850,22 +850,6 @@
         2XY5yMtPBlEuB1F6QiCPYyzMUXJkDJtanqNM7On2B8Ihl5man+nbjgWwNcuW1gDWSn5sFjO3ywc55LL1
         kk8zOfwwOXwF4ge5rKg2oGyUHqHE/rggNginqO5p5o9cZfEpa6xerbjWqxfbvPyviA51V9f4hMzYDyga
         qbf6sZDZAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="RewindButton" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAJFSURBVDhPlZPdS1NxGMd//0V04U3eFFEko2SURRop+dZetLQ1YWW+tS70RC+WOi0t5+ssI4Pq
-        Nih0kESzHF6oq1aSL4tWk7M8qdN+OxgUldC38/xmwRAqH/jA4Xk+nwPn4jCaeveyZL8blStuR1UN/g9U
-        +52o7Oj7Lom4tveHVNi1COv1T7B2/z/UXHjwTWInbi3KlmsR7QULa4KaEq1lthsR9UjnPCyuGPR8sPkj
-        DrXNxe2MzlkUtMfvbN0RlVm7ZvnhNkU7UqQgv3UGL6e/oubeAsxORZBWJ6Pv+WeU98whvyXmUkMtK2xX
-        eJ4zrB0+wNwchvFqGDQ9jzl2nQ+h7KaCpS/LYlfcrYg7udRQy/KcMjc0hWC4EkJuYwg5GjSdDyPwjC2J
-        599jc4WRffm9cKmhlhkaQzynIYjcS++QVR9EpiO4oq+eovZpcSeXGmpZluMtP1AXQGbdG2TUBJBxcWpF
-        Xz2WliD2a3dyqaGWpVdP8vTqCRD7zo0j7cxrIbt6ZzA8Ff8JBU0BpJ4dF26MSc72Vo3x1NN+EHuq/Nhd
-        6Rdy6/0wEouGUdoRAH6KFfIaxpFS+UK4BLVMb/fxlFM+pNh92HnSB335CJ4FVJR1TCC5bAQ7SkewsWgI
-        /b55mGpfQV8xKlxqqGW640NqcqlXE2NsL/Fi09EBJB17GrfbbH0CXfHgnx011LItVo+ssw1AZ/OskQFQ
-        yxJMXinJ2o+tlkdrYpvWJJgHY3/kuiyPtMHglhNNbjXR6OZ/RXPIXZ/t0WLGfgF8KbO1gsxQpgAAAABJ
-        RU5ErkJggg==
 </value>
   </data>
 </root>

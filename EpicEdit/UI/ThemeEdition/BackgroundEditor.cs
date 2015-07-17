@@ -55,7 +55,8 @@ namespace EpicEdit.UI.ThemeEdition
             }
         }
 
-        private BackgroundDrawer drawer;
+        private readonly BackgroundDrawer drawer;
+        private readonly Timer previewTimer;
 
         /// <summary>
         /// Gets or sets the theme.
@@ -106,6 +107,20 @@ namespace EpicEdit.UI.ThemeEdition
 
             this.backgroundPreviewer.Drawer = this.drawer;
             BackgroundEditor.SelectTilePanel(this.frontTilePanel);
+
+            this.previewTimer = new Timer();
+            this.previewTimer.Interval = 30;
+            this.previewTimer.Tick += delegate
+            {
+                if (this.playerTrackBar.Value == this.playerTrackBar.Maximum)
+                {
+                    this.playerTrackBar.Value = 0;
+                }
+                else
+                {
+                    this.playerTrackBar.Value++;
+                }
+            };
         }
 
         public void Init()
@@ -117,23 +132,40 @@ namespace EpicEdit.UI.ThemeEdition
         public void ResetSettings()
         {
             this.PausePreview();
-            this.drawer.RewindPreview();
+            this.playerTrackBar.Value = 0;
             this.frontLayerPanel.AutoScrollPosition = Point.Empty;
             this.backLayerPanel.AutoScrollPosition = Point.Empty;
         }
 
         private void PlayPreview()
         {
-            this.backgroundPreviewer.Play();
+            this.previewTimer.Start();
             this.playPauseButton.Text = "Pause";
             this.playPauseButton.Image = Resources.PauseButton;
         }
 
         private void PausePreview()
         {
-            this.backgroundPreviewer.Pause();
+            this.previewTimer.Stop();
             this.playPauseButton.Text = "Play";
             this.playPauseButton.Image = Resources.PlayButton;
+        }
+
+        private void PlayPauseButtonClick(object sender, EventArgs e)
+        {
+            if (!this.previewTimer.Enabled)
+            {
+                this.PlayPreview();
+            }
+            else
+            {
+                this.PausePreview();
+            }
+        }
+
+        private void PlayerTrackBarValueChanged(object sender, EventArgs e)
+        {
+            this.backgroundPreviewer.SetFrame(this.playerTrackBar.Value);
         }
 
         private void SetTheme()
@@ -179,24 +211,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.ResetSettings();
             this.SetTheme();
-        }
-        
-        private void PlayPauseButtonClick(object sender, EventArgs e)
-        {
-            if (this.backgroundPreviewer.Paused)
-            {
-                this.PlayPreview();
-            }
-            else
-            {
-                this.PausePreview();
-            }
-        }
-
-        private void RewindButtonClick(object sender, EventArgs e)
-        {
-            this.drawer.RewindPreview();
-            this.backgroundPreviewer.Invalidate();
         }
 
         private void BackgroundLayerPanelTileChanged(object sender, EventArgs e)

@@ -35,6 +35,7 @@ namespace EpicEdit.UI.ThemeEdition
                 }
 
                 this.drawer.Dispose();
+                this.playerTrackBar.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -53,9 +54,9 @@ namespace EpicEdit.UI.ThemeEdition
             System.Windows.Forms.Label backTileLabel;
             System.Windows.Forms.Label frontTileLabel;
             System.Windows.Forms.Label paletteLabel;
-            this.rewindButton = new System.Windows.Forms.Button();
-            this.playPauseButton = new System.Windows.Forms.Button();
+            this.playerTrackBar = new System.Windows.Forms.TrackBar();
             this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
+            this.playPauseButton = new System.Windows.Forms.Button();
             this.frontLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.tilesetPanel = new EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel();
@@ -79,6 +80,7 @@ namespace EpicEdit.UI.ThemeEdition
             frontTileLabel = new System.Windows.Forms.Label();
             paletteLabel = new System.Windows.Forms.Label();
             previewGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.playerTrackBar)).BeginInit();
             frontLayerGroupBox.SuspendLayout();
             backLayerGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
@@ -88,7 +90,7 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // previewGroupBox
             // 
-            previewGroupBox.Controls.Add(this.rewindButton);
+            previewGroupBox.Controls.Add(this.playerTrackBar);
             previewGroupBox.Controls.Add(this.backgroundPreviewer);
             previewGroupBox.Controls.Add(this.playPauseButton);
             previewGroupBox.Location = new System.Drawing.Point(6, 238);
@@ -98,18 +100,22 @@ namespace EpicEdit.UI.ThemeEdition
             previewGroupBox.TabStop = false;
             previewGroupBox.Text = "Preview";
             // 
-            // rewindButton
+            // playerTrackBar
             // 
-            this.rewindButton.Image = global::EpicEdit.Properties.Resources.RewindButton;
-            this.rewindButton.Location = new System.Drawing.Point(88, 77);
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(75, 24);
-            this.rewindButton.TabIndex = 2;
-            this.rewindButton.Text = "Rewind";
-            this.rewindButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rewindButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.rewindButton.UseVisualStyleBackColor = true;
-            this.rewindButton.Click += new System.EventHandler(this.RewindButtonClick);
+            this.playerTrackBar.Location = new System.Drawing.Point(89, 77);
+            this.playerTrackBar.Maximum = 511;
+            this.playerTrackBar.Name = "playerTrackBar";
+            this.playerTrackBar.Size = new System.Drawing.Size(430, 45);
+            this.playerTrackBar.TabIndex = 2;
+            this.playerTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.playerTrackBar.ValueChanged += new System.EventHandler(this.PlayerTrackBarValueChanged);
+            // 
+            // backgroundPreviewer
+            // 
+            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 19);
+            this.backgroundPreviewer.Name = "backgroundPreviewer";
+            this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
+            this.backgroundPreviewer.TabIndex = 0;
             // 
             // playPauseButton
             // 
@@ -123,13 +129,6 @@ namespace EpicEdit.UI.ThemeEdition
             this.playPauseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.playPauseButton.UseVisualStyleBackColor = true;
             this.playPauseButton.Click += new System.EventHandler(this.PlayPauseButtonClick);
-            // 
-            // backgroundPreviewer
-            // 
-            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 19);
-            this.backgroundPreviewer.Name = "backgroundPreviewer";
-            this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
-            this.backgroundPreviewer.TabIndex = 0;
             // 
             // frontLayerGroupBox
             // 
@@ -361,6 +360,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.Name = "BackgroundEditor";
             this.Size = new System.Drawing.Size(610, 350);
             previewGroupBox.ResumeLayout(false);
+            previewGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.playerTrackBar)).EndInit();
             frontLayerGroupBox.ResumeLayout(false);
             backLayerGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
@@ -382,11 +383,11 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel backTilePanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel frontTilePanel;
         private EpicEdit.UI.Tools.EpicNumericUpDown paletteNumericUpDown;
-        private System.Windows.Forms.Button rewindButton;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel frontLayerPanel;
         private System.Windows.Forms.Button playPauseButton;
         private EpicEdit.UI.Tools.ThemeComboBox themeComboBox;
         private EpicEdit.UI.ThemeEdition.BackgroundPreviewer backgroundPreviewer;
+        private System.Windows.Forms.TrackBar playerTrackBar;
     }
 }

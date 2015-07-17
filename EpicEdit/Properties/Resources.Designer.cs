@@ -253,16 +253,6 @@ namespace EpicEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RewindButton {
-            get {
-                object obj = ResourceManager.GetObject("RewindButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap SettingsButton {
             get {
                 object obj = ResourceManager.GetObject("SettingsButton", resourceCulture);
