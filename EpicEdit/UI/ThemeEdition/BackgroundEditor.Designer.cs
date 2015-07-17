@@ -49,11 +49,13 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox previewGroupBox;
+            System.Windows.Forms.Label previewSpeedLabel;
             System.Windows.Forms.GroupBox frontLayerGroupBox;
             System.Windows.Forms.GroupBox backLayerGroupBox;
             System.Windows.Forms.Label backTileLabel;
             System.Windows.Forms.Label frontTileLabel;
             System.Windows.Forms.Label paletteLabel;
+            this.previewSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.playerTrackBar = new System.Windows.Forms.TrackBar();
             this.backgroundPreviewer = new EpicEdit.UI.ThemeEdition.BackgroundPreviewer();
             this.playPauseButton = new System.Windows.Forms.Button();
@@ -74,12 +76,14 @@ namespace EpicEdit.UI.ThemeEdition
             this.graphicsGroupBox = new System.Windows.Forms.GroupBox();
             this.layoutGroupBox = new System.Windows.Forms.GroupBox();
             previewGroupBox = new System.Windows.Forms.GroupBox();
+            previewSpeedLabel = new System.Windows.Forms.Label();
             frontLayerGroupBox = new System.Windows.Forms.GroupBox();
             backLayerGroupBox = new System.Windows.Forms.GroupBox();
             backTileLabel = new System.Windows.Forms.Label();
             frontTileLabel = new System.Windows.Forms.Label();
             paletteLabel = new System.Windows.Forms.Label();
             previewGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.previewSpeedNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerTrackBar)).BeginInit();
             frontLayerGroupBox.SuspendLayout();
             backLayerGroupBox.SuspendLayout();
@@ -90,6 +94,8 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // previewGroupBox
             // 
+            previewGroupBox.Controls.Add(previewSpeedLabel);
+            previewGroupBox.Controls.Add(this.previewSpeedNumericUpDown);
             previewGroupBox.Controls.Add(this.playerTrackBar);
             previewGroupBox.Controls.Add(this.backgroundPreviewer);
             previewGroupBox.Controls.Add(this.playPauseButton);
@@ -100,12 +106,43 @@ namespace EpicEdit.UI.ThemeEdition
             previewGroupBox.TabStop = false;
             previewGroupBox.Text = "Preview";
             // 
+            // previewSpeedLabel
+            // 
+            previewSpeedLabel.Location = new System.Drawing.Point(431, 80);
+            previewSpeedLabel.Name = "previewSpeedLabel";
+            previewSpeedLabel.Size = new System.Drawing.Size(43, 23);
+            previewSpeedLabel.TabIndex = 3;
+            previewSpeedLabel.Text = "Speed";
+            // 
+            // previewSpeedNumericUpDown
+            // 
+            this.previewSpeedNumericUpDown.Location = new System.Drawing.Point(480, 77);
+            this.previewSpeedNumericUpDown.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.previewSpeedNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.previewSpeedNumericUpDown.Name = "previewSpeedNumericUpDown";
+            this.previewSpeedNumericUpDown.Size = new System.Drawing.Size(40, 20);
+            this.previewSpeedNumericUpDown.TabIndex = 4;
+            this.previewSpeedNumericUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.previewSpeedNumericUpDown.ValueChanged += new System.EventHandler(this.PreviewSpeedNumericUpDownValueChanged);
+            // 
             // playerTrackBar
             // 
-            this.playerTrackBar.Location = new System.Drawing.Point(89, 77);
+            this.playerTrackBar.Location = new System.Drawing.Point(88, 78);
             this.playerTrackBar.Maximum = 511;
             this.playerTrackBar.Name = "playerTrackBar";
-            this.playerTrackBar.Size = new System.Drawing.Size(430, 45);
+            this.playerTrackBar.Size = new System.Drawing.Size(337, 45);
             this.playerTrackBar.TabIndex = 2;
             this.playerTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.playerTrackBar.ValueChanged += new System.EventHandler(this.PlayerTrackBarValueChanged);
@@ -361,6 +398,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Size = new System.Drawing.Size(610, 350);
             previewGroupBox.ResumeLayout(false);
             previewGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.previewSpeedNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerTrackBar)).EndInit();
             frontLayerGroupBox.ResumeLayout(false);
             backLayerGroupBox.ResumeLayout(false);
@@ -389,5 +427,6 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.Tools.ThemeComboBox themeComboBox;
         private EpicEdit.UI.ThemeEdition.BackgroundPreviewer backgroundPreviewer;
         private System.Windows.Forms.TrackBar playerTrackBar;
+        private System.Windows.Forms.NumericUpDown previewSpeedNumericUpDown;
     }
 }

@@ -109,7 +109,7 @@ namespace EpicEdit.UI.ThemeEdition
             BackgroundEditor.SelectTilePanel(this.frontTilePanel);
 
             this.previewTimer = new Timer();
-            this.previewTimer.Interval = 30;
+            this.SetPreviewSpeed();
             this.previewTimer.Tick += delegate
             {
                 if (this.playerTrackBar.Value == this.playerTrackBar.Maximum)
@@ -161,6 +161,17 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 this.PausePreview();
             }
+        }
+
+        private void PreviewSpeedNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            this.SetPreviewSpeed();
+        }
+
+        private void SetPreviewSpeed()
+        {
+            int value = (int)this.previewSpeedNumericUpDown.Value;
+            this.previewTimer.Interval = 70 - (value * 20);
         }
 
         private void PlayerTrackBarValueChanged(object sender, EventArgs e)
