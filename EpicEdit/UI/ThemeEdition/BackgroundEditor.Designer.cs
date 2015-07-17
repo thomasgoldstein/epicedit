@@ -89,8 +89,8 @@ namespace EpicEdit.UI.ThemeEdition
             // previewGroupBox
             // 
             previewGroupBox.Controls.Add(this.rewindButton);
-            previewGroupBox.Controls.Add(this.playPauseButton);
             previewGroupBox.Controls.Add(this.backgroundPreviewer);
+            previewGroupBox.Controls.Add(this.playPauseButton);
             previewGroupBox.Location = new System.Drawing.Point(6, 238);
             previewGroupBox.Name = "previewGroupBox";
             previewGroupBox.Size = new System.Drawing.Size(526, 107);
@@ -101,10 +101,10 @@ namespace EpicEdit.UI.ThemeEdition
             // rewindButton
             // 
             this.rewindButton.Image = global::EpicEdit.Properties.Resources.RewindButton;
-            this.rewindButton.Location = new System.Drawing.Point(88, 18);
+            this.rewindButton.Location = new System.Drawing.Point(88, 77);
             this.rewindButton.Name = "rewindButton";
             this.rewindButton.Size = new System.Drawing.Size(75, 24);
-            this.rewindButton.TabIndex = 1;
+            this.rewindButton.TabIndex = 2;
             this.rewindButton.Text = "Rewind";
             this.rewindButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rewindButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -114,10 +114,10 @@ namespace EpicEdit.UI.ThemeEdition
             // playPauseButton
             // 
             this.playPauseButton.Image = global::EpicEdit.Properties.Resources.PlayButton;
-            this.playPauseButton.Location = new System.Drawing.Point(7, 18);
+            this.playPauseButton.Location = new System.Drawing.Point(7, 77);
             this.playPauseButton.Name = "playPauseButton";
             this.playPauseButton.Size = new System.Drawing.Size(75, 24);
-            this.playPauseButton.TabIndex = 0;
+            this.playPauseButton.TabIndex = 1;
             this.playPauseButton.Text = "Play";
             this.playPauseButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.playPauseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -126,10 +126,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             // backgroundPreviewer
             // 
-            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 46);
+            this.backgroundPreviewer.Location = new System.Drawing.Point(7, 19);
             this.backgroundPreviewer.Name = "backgroundPreviewer";
             this.backgroundPreviewer.Size = new System.Drawing.Size(512, 48);
-            this.backgroundPreviewer.TabIndex = 2;
+            this.backgroundPreviewer.TabIndex = 0;
             // 
             // frontLayerGroupBox
             // 
