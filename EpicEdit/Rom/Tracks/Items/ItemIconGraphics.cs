@@ -58,7 +58,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < tiles.Length; i++)
             {
-                tiles[i] = ItemIconGraphics.GetTile((byte)(tileIndex + 1), properties, itemGfx);
+                tiles[i] = ItemIconGraphics.GetTile((byte)(tileIndex + i), properties, itemGfx);
             }
 
             return tiles;
