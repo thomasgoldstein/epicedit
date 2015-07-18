@@ -45,7 +45,7 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (!this.Visible)
             {
-                this.Editor.ResetSettings();
+                this.Editor.PausePreview();
             }
 
             base.OnVisibleChanged(e);
@@ -54,6 +54,7 @@ namespace EpicEdit.UI.ThemeEdition
         protected override void OnClosing(CancelEventArgs e)
         {
             this.Hide();
+            this.Editor.ResetScrollPositions();
             e.Cancel = true;
         }
 

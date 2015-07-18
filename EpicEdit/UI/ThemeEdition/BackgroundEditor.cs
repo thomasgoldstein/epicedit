@@ -129,22 +129,21 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.SelectedIndex = 0;
         }
 
-        public void ResetSettings()
+        public void ResetScrollPositions()
         {
-            this.PausePreview();
-            this.playerTrackBar.Value = 0;
             this.frontLayerPanel.AutoScrollPosition = Point.Empty;
             this.backLayerPanel.AutoScrollPosition = Point.Empty;
+            this.playerTrackBar.Value = 0;
         }
 
-        private void PlayPreview()
+        public void PlayPreview()
         {
             this.previewTimer.Start();
             this.playPauseButton.Text = "Pause";
             this.playPauseButton.Image = Resources.PauseButton;
         }
 
-        private void PausePreview()
+        public void PausePreview()
         {
             this.previewTimer.Stop();
             this.playPauseButton.Text = "Play";
@@ -220,7 +219,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.ResetSettings();
+            this.ResetScrollPositions();
             this.SetTheme();
         }
 
