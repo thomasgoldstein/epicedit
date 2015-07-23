@@ -95,7 +95,7 @@ namespace EpicEdit.Rom.Settings
                 new int[] { 48, 94, 144, 136, 96, 42 } :
                 new int[] { 66, 130, 173, 134, 112, 52 };
 
-            char thinSpace = '\u2009';
+            const char ThinSpace = '\u2009';
 
             this.ModeNames = new TextCollection(
                 romBuffer, offsets[Offset.ModeNames], 3,
@@ -115,7 +115,7 @@ namespace EpicEdit.Rom.Settings
             this.CupAndThemeTexts = new TextCollection(
                 romBuffer, offsets[Offset.CupAndThemeTexts], Track.GroupCount + Theme.Count,
                 nameDataSizes[2], false, false, false, false, 0,
-                new byte[] { 0x2C }, new char[] { thinSpace });
+                new byte[] { 0x2C }, new char[] { ThinSpace });
 
             this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
                 this.CupAndThemeTexts.Converter,
@@ -133,7 +133,7 @@ namespace EpicEdit.Rom.Settings
             this.DriverNamesTimeTrial = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
                 nameDataSizes[5], false, false, false, false, 0,
-                new byte[] { 0x2C }, new char[] { thinSpace });
+                new byte[] { 0x2C }, new char[] { ThinSpace });
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);

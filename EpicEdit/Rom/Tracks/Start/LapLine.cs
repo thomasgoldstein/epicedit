@@ -227,10 +227,10 @@ namespace EpicEdit.Rom.Tracks.Start
             data[4] = (byte)zoneWidth;
 
             int zoneHeight = 16 / LapLine.ZonePrecision; // 16 tiles
-            int trackHeight = TrackMap.Size / LapLine.ZonePrecision;
-            if (zoneY + zoneHeight > trackHeight)
+            const int TrackHeight = TrackMap.Size / LapLine.ZonePrecision;
+            if (zoneY + zoneHeight > TrackHeight)
             {
-                zoneHeight = trackHeight - zoneY;
+                zoneHeight = TrackHeight - zoneY;
             }
             data[5] = (byte)zoneHeight;
 

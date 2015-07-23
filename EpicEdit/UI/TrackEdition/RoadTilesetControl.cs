@@ -275,9 +275,9 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            int zoom = RoadTilesetDrawer.Zoom;
-            int rowTileCount = this.tilesetPanel.Width / (Tile.Size * zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
+            const int Zoom = RoadTilesetDrawer.Zoom;
+            int rowTileCount = this.tilesetPanel.Width / (Tile.Size * Zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * Zoom)) + (e.Y / (Tile.Size * Zoom)) * rowTileCount);
 
             if (this.selectedTile != newSelectedTile)
             {

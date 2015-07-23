@@ -26,6 +26,7 @@ namespace EpicEdit.Rom.Tracks.Start
     {
         public const int Size = 6;
         public const int Height = 168;
+        private const int PixelLimit = TrackMap.Limit * Tile.Size;
         private const int SecondRowMin = -256;
         private const int SecondRowMax = 255;
 
@@ -39,7 +40,6 @@ namespace EpicEdit.Rom.Tracks.Start
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = TrackMap.Limit * Tile.Size;
 
                 if (this.SecondRowOffset > 0)
                 {
@@ -47,9 +47,9 @@ namespace EpicEdit.Rom.Tracks.Start
                     {
                         x = Tile.Size;
                     }
-                    else if (x + this.SecondRowOffset > limit)
+                    else if (x + this.SecondRowOffset > GPStartPosition.PixelLimit)
                     {
-                        x = limit - this.SecondRowOffset;
+                        x = GPStartPosition.PixelLimit - this.SecondRowOffset;
                     }
                 }
                 else
@@ -58,9 +58,9 @@ namespace EpicEdit.Rom.Tracks.Start
                     {
                         x = Tile.Size - this.SecondRowOffset;
                     }
-                    else if (x > limit)
+                    else if (x > GPStartPosition.PixelLimit)
                     {
-                        x = limit;
+                        x = GPStartPosition.PixelLimit;
                     }
                 }
 
@@ -68,9 +68,9 @@ namespace EpicEdit.Rom.Tracks.Start
                 {
                     y = Tile.Size;
                 }
-                else if (y > limit - GPStartPosition.Height)
+                else if (y > GPStartPosition.PixelLimit - GPStartPosition.Height)
                 {
-                    y = limit - GPStartPosition.Height;
+                    y = GPStartPosition.PixelLimit - GPStartPosition.Height;
                 }
 
                 if (this.X != x || this.Y != y)
@@ -87,15 +87,13 @@ namespace EpicEdit.Rom.Tracks.Start
             get { return this.secondRowOffset; }
             set
             {
-                int limit = TrackMap.Limit * Tile.Size;
-
                 if (this.X + value < Tile.Size)
                 {
                     value = Tile.Size - this.X;
                 }
-                else if (this.X + value > limit)
+                else if (this.X + value > GPStartPosition.PixelLimit)
                 {
-                    value = limit - this.X;
+                    value = GPStartPosition.PixelLimit - this.X;
                 }
                 else if (value < GPStartPosition.SecondRowMin)
                 {

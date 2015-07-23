@@ -65,8 +65,8 @@ namespace EpicEdit.Rom
 
         public Tile2bppProperties(byte data)
         {
-            byte flipMask = (byte)(Flip.X | Flip.Y);
-            byte paletteData = (byte)(data &~ flipMask);
+            const byte FlipMask = (byte)(Flip.X | Flip.Y);
+            byte paletteData = (byte)(data &~ FlipMask);
 
             if ((paletteData & 0x03) != 0)
             {
@@ -75,7 +75,7 @@ namespace EpicEdit.Rom
 
             this.paletteIndex = (paletteData & 0x30) >> 4;
             this.subPaletteIndex = (paletteData & 0xC);
-            this.flip = (Flip)(data & flipMask);
+            this.flip = (Flip)(data & FlipMask);
         }
 
         public void FlipX()

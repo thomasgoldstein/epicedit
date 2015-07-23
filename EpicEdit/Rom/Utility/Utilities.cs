@@ -128,12 +128,12 @@ namespace EpicEdit.Rom.Utility
         /// <returns>An array of offsets.</returns>
         public static int[] ReadBlockOffset(byte[] buffer, int offset, int offsetCount)
         {
-            int offsetSize = 3;
+            const int OffsetSize = 3;
             int[] offsetGroup = new int[offsetCount];
 
             for (int i = 0; i < offsetCount; i++)
             {
-                byte[] address = Utilities.ReadBlock(buffer, offset + (i * offsetSize), offsetSize);
+                byte[] address = Utilities.ReadBlock(buffer, offset + (i * OffsetSize), OffsetSize);
                 offsetGroup[i] = Utilities.BytesToOffset(address);
             }
 

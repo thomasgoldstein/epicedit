@@ -23,6 +23,8 @@ namespace EpicEdit.Rom.Tracks.Start
     /// </summary>
     internal class BattleStartPosition
     {
+        private const int PixelLimit = TrackMap.Limit * Tile.Size;
+
         public event EventHandler<EventArgs> DataChanged;
 
         private Point location;
@@ -33,24 +35,23 @@ namespace EpicEdit.Rom.Tracks.Start
             {
                 int x = value.X;
                 int y = value.Y;
-                int limit = TrackMap.Limit * Tile.Size;
 
                 if (x < Tile.Size)
                 {
                     x = Tile.Size;
                 }
-                else if (x > limit)
+                else if (x > BattleStartPosition.PixelLimit)
                 {
-                    x = limit;
+                    x = BattleStartPosition.PixelLimit;
                 }
 
                 if (y < Tile.Size)
                 {
                     y = Tile.Size;
                 }
-                else if (y > limit)
+                else if (y > BattleStartPosition.PixelLimit)
                 {
-                    y = limit;
+                    y = BattleStartPosition.PixelLimit;
                 }
 
                 if (this.X != x || this.Y != y)

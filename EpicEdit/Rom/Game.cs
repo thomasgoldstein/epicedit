@@ -1394,11 +1394,11 @@ namespace EpicEdit.Rom
             }
 
             // Mark battle tracks as not having objects
-            byte noObject = (byte)ObjectLoading.None;
-            loadingData[GPTrack.Count] = noObject;
-            loadingData[GPTrack.Count + 1] = noObject;
-            loadingData[GPTrack.Count + 2] = noObject;
-            loadingData[GPTrack.Count + 3] = noObject;
+            const byte NoObject = (byte)ObjectLoading.None;
+            loadingData[GPTrack.Count] = NoObject;
+            loadingData[GPTrack.Count + 1] = NoObject;
+            loadingData[GPTrack.Count + 2] = NoObject;
+            loadingData[GPTrack.Count + 3] = NoObject;
 
             saveBuffer.Add(tilesetData);
             saveBuffer.Add(interactData);
@@ -1636,7 +1636,7 @@ namespace EpicEdit.Rom
         {
             byte[] trackOrder = this.GetTrackOrder();
             byte[] objectPalData = new byte[Track.Count * 5];
-            int flashingOffset = Track.Count * 4;
+            const int FlashingOffset = Track.Count * 4;
 
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
@@ -1653,7 +1653,7 @@ namespace EpicEdit.Rom
                     objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[2] << 1);
                     objectPalData[offset] = (byte)(gpTrack.Objects.PaletteIndexes[3] << 1);
 
-                    objectPalData[flashingOffset + trackIndex] =
+                    objectPalData[FlashingOffset + trackIndex] =
                         gpTrack.Objects.Flashing ? (byte)1 : (byte)0;
                 }
             }
@@ -1937,21 +1937,21 @@ namespace EpicEdit.Rom
         private static Point GetPreviewLapLineLocation(GPTrack track)
         {
             // Track coordinates:
-            int xTopLeft = 40; // Top-left X value
-            int xBottomLeft = 6; // Bottom-left X value
-            int xBottomRight = 235; // Bottom-right X value
-            int yTop = 16; // Top value
-            int yBottom = 104; // Bottom value
+            const int XTopLeft = 40; // Top-left X value
+            const int XBottomLeft = 6; // Bottom-left X value
+            const int XBottomRight = 235; // Bottom-right X value
+            const int YTop = 16; // Top value
+            const int YBottom = 104; // Bottom value
 
-            float yRelative = (1023 - track.LapLine.Y) * (xBottomRight - xBottomLeft) / 1023;
-            int y = (int)(yBottom - (yRelative * Math.Sin(0.389)) - 7);
+            float yRelative = (1023 - track.LapLine.Y) * (XBottomRight - XBottomLeft) / 1023;
+            int y = (int)(YBottom - (yRelative * Math.Sin(0.389)) - 7);
 
             float xPercent = (float)(track.StartPosition.X + track.StartPosition.SecondRowOffset / 2) / 1023;
-            float yPercent = (float)(y - yTop) / (yBottom - yTop);
-            int xStart = (int)(xTopLeft - (xTopLeft - xBottomLeft) * yPercent);
-            int mapWidth = xBottomRight - (xStart - xBottomLeft) * 2;
+            float yPercent = (float)(y - YTop) / (YBottom - YTop);
+            int xStart = (int)(XTopLeft - (XTopLeft - XBottomLeft) * yPercent);
+            int mapWidth = XBottomRight - (xStart - XBottomLeft) * 2;
             int x = (int)(xStart + mapWidth * xPercent);
-            if (x < (xBottomRight - xBottomLeft) / 2)
+            if (x < (XBottomRight - XBottomLeft) / 2)
             {
                 // If the lap line is on the left side, shift its position a bit
                 x -= 5;

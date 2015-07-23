@@ -106,9 +106,9 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            int zoom = BackgroundTilesetDrawer.Zoom;
-            int rowTileCount = this.Width / (Tile.Size * zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
+            const int Zoom = BackgroundTilesetDrawer.Zoom;
+            int rowTileCount = this.Width / (Tile.Size * Zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * Zoom)) + (e.Y / (Tile.Size * Zoom)) * rowTileCount);
 
             if (this.selectedTile != newSelectedTile)
             {

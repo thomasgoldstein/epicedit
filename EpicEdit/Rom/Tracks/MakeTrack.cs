@@ -33,6 +33,11 @@ namespace EpicEdit.Rom
     /// </summary>
     internal class MakeTrack
     {
+        /// <summary>
+        /// Byte count per line.
+        /// </summary>
+        private const int LineLength = 32;
+
         private readonly Track track;
         private readonly Game game;
 
@@ -462,30 +467,28 @@ namespace EpicEdit.Rom
         /// </summary>
         private void GetAIData(out byte[] targetData, out byte[] zoneData)
         {
-            int lineLength = 32; // Byte count per line
-
             List<byte> targetDataList = new List<byte>();
             List<byte> zoneDataList = new List<byte>();
 
-            int count = this.AREA.Length / lineLength;
+            int count = this.AREA.Length / LineLength;
 
             for (int x = 0; x < count; x++)
             {
-                if (this.AREA[x * lineLength] != 0xFF)
+                if (this.AREA[x * LineLength] != 0xFF)
                 {
                     // Reorder the target data bytes
-                    targetDataList.Add(this.AREA[x * lineLength + 1]);
-                    targetDataList.Add(this.AREA[x * lineLength + 2]);
-                    targetDataList.Add(this.AREA[x * lineLength]);
+                    targetDataList.Add(this.AREA[x * LineLength + 1]);
+                    targetDataList.Add(this.AREA[x * LineLength + 2]);
+                    targetDataList.Add(this.AREA[x * LineLength]);
 
-                    byte zoneShape = this.AREA[x * lineLength + 16];
+                    byte zoneShape = this.AREA[x * LineLength + 16];
                     zoneDataList.Add(zoneShape);
-                    zoneDataList.Add(this.AREA[x * lineLength + 17]);
-                    zoneDataList.Add(this.AREA[x * lineLength + 18]);
-                    zoneDataList.Add(this.AREA[x * lineLength + 19]);
+                    zoneDataList.Add(this.AREA[x * LineLength + 17]);
+                    zoneDataList.Add(this.AREA[x * LineLength + 18]);
+                    zoneDataList.Add(this.AREA[x * LineLength + 19]);
                     if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                     {
-                        zoneDataList.Add(this.AREA[x * lineLength + 20]);
+                        zoneDataList.Add(this.AREA[x * LineLength + 20]);
                     }
                 }
             }
@@ -499,24 +502,23 @@ namespace EpicEdit.Rom
         /// </summary>
         private void SetAIData(TrackAI ai)
         {
-            int lineLength = 32; // Byte count per line
             byte[] data = ai.GetBytes();
             int index = 0;
 
             for (int x = 0; x < ai.ElementCount; x++)
             {
-                this.AREA[x * lineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
-                this.AREA[x * lineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
-                this.AREA[x * lineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
+                this.AREA[x * LineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
+                this.AREA[x * LineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
+                this.AREA[x * LineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
 
                 byte zoneShape = data[index++];
-                this.AREA[x * lineLength + 16] = zoneShape;
-                this.AREA[x * lineLength + 17] = data[index++];
-                this.AREA[x * lineLength + 18] = data[index++];
-                this.AREA[x * lineLength + 19] = data[index++];
+                this.AREA[x * LineLength + 16] = zoneShape;
+                this.AREA[x * LineLength + 17] = data[index++];
+                this.AREA[x * LineLength + 18] = data[index++];
+                this.AREA[x * LineLength + 19] = data[index++];
                 if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                 {
-                    this.AREA[x * lineLength + 20] = data[index++];
+                    this.AREA[x * LineLength + 20] = data[index++];
                 }
             }
         }
@@ -625,7 +627,7 @@ namespace EpicEdit.Rom
 
         private static void AppendBlockData(StringBuilder sb, byte[] data)
         {
-            int lineLength = 32; // Byte count per line
+            int lineLength = LineLength; // Byte count per line
             int lineCount = data.Length / lineLength;
 
             if (lineCount == 0)

@@ -182,32 +182,32 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public TrackAIElement(Point position)
         {
-            int size = 16;
+            const int Size = 16;
             // Halve precision, so that zones are positioned following a 2-tile (16-px) step
-            int zoneX = ((position.X - (size / 2)) / Precision) * Precision;
-            int zoneY = ((position.Y - (size / 2)) / Precision) * Precision;
+            int zoneX = ((position.X - (Size / 2)) / Precision) * Precision;
+            int zoneY = ((position.Y - (Size / 2)) / Precision) * Precision;
 
             #region Ensure the element isn't out of the track bounds
             if (zoneX < 0)
             {
                 zoneX = 0;
             }
-            else if ((zoneX + size) > TrackMap.Size)
+            else if ((zoneX + Size) > TrackMap.Size)
             {
-                zoneX = TrackMap.Size - size;
+                zoneX = TrackMap.Size - Size;
             }
 
             if (zoneY < 0)
             {
                 zoneY = 0;
             }
-            else if ((zoneY + size) > TrackMap.Size)
+            else if ((zoneY + Size) > TrackMap.Size)
             {
-                zoneY = TrackMap.Size - size;
+                zoneY = TrackMap.Size - Size;
             }
             #endregion Ensure the element isn't out of the track bounds
 
-            Rectangle zone = new Rectangle(zoneX, zoneY, size, size);
+            Rectangle zone = new Rectangle(zoneX, zoneY, Size, Size);
 
             this.zone = zone;
 

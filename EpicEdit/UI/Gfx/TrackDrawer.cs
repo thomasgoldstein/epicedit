@@ -1255,14 +1255,14 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawAIElement(Graphics g, TrackAIElement aiElem)
         {
-            int halfTileSize = Tile.Size / 2;
+            const int HalfTileSize = Tile.Size / 2;
 
             int pointX = aiElem.Target.X * Tile.Size;
             int pointY = aiElem.Target.Y * Tile.Size;
-            g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
+            g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, HalfTileSize + 1, HalfTileSize + 1);
 
             Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
-            Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
+            Point target = new Point(pointX + HalfTileSize, pointY + HalfTileSize);
             int speed = aiElem.Speed;
 
             if (aiElem.ZoneShape == Shape.Rectangle)
