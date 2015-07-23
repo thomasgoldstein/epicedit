@@ -26,7 +26,6 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal sealed class ItemIconGraphics : IDisposable
     {
-        private const int BytesPerTile = 16;
         private readonly Tile2bpp topBorder;
         private readonly Tile[][] tiles;
 
@@ -66,6 +65,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private static Tile2bpp GetTile(byte tileIndex, byte properties, byte[] itemGfx)
         {
+            const int BytesPerTile = 16;
             byte[] gfx = Utilities.ReadBlock(itemGfx, tileIndex * BytesPerTile, BytesPerTile);
             return new Tile2bpp(gfx, properties);
         }
