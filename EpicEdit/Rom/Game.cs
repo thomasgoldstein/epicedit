@@ -109,7 +109,7 @@ namespace EpicEdit.Rom
 
             if (twice)
             {
-                data = Codec.Compress(data);
+                data = Codec.Compress(data, quirksMode);
             }
 
             Codec.Optimal = false;
