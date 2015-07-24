@@ -27,21 +27,81 @@ namespace EpicEdit.Test.Rom.Compression
     internal class FastCompressorRateTest : TestBase
     {
         private FastCompressor compressor;
+        private byte[] romBuffer;
         private Game game;
 
         public override void Init()
         {
             this.compressor = new FastCompressor();
+            this.romBuffer = File.ReadRom(Region.US);
             this.game = File.GetGame(Region.US);
+        }
+
+        private void CheckCompression(int offset, int expectedSize)
+        {
+            int originalCompressedSize = Codec.GetLength(this.romBuffer, offset);
+            byte[] decompressedData = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, originalCompressedSize));
+            byte[] buffer = this.compressor.Compress(decompressedData, false);
+            int compressedSize = buffer.Length;
+
+            Assert.AreEqual(expectedSize, compressedSize);
         }
 
         private void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
         {
             Track track = this.game.TrackGroups[trackGroupId][trackId];
-            byte[] buffer = compressor.Compress(track.Map.GetBytes(), false);
+            byte[] buffer = this.compressor.Compress(track.Map.GetBytes(), false);
             int compressedMapSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedMapSize);
+        }
+
+        [Test]
+        public void TestGfxGhostPillar()
+        {
+            this.CheckCompression(0, 733);
+        }
+
+        [Test]
+        public void TestGfxMountyMole()
+        {
+            this.CheckCompression(0x5D6, 715);
+        }
+
+        [Test]
+        public void TestGfxWinnerFlag()
+        {
+            this.CheckCompression(0xBB7, 662);
+        }
+
+        [Test]
+        public void TestGfxThwomp()
+        {
+            this.CheckCompression(0x1070, 965);
+        }
+
+        [Test]
+        public void TestGfxLakitu()
+        {
+            this.CheckCompression(0x10000, 2319);
+        }
+
+        [Test]
+        public void TestGfxPiranhaPlant()
+        {
+            this.CheckCompression(0x10AA5, 1238);
+        }
+
+        [Test]
+        public void TestGfxPipe()
+        {
+            this.CheckCompression(0x10F9B, 782);
+        }
+
+        [Test]
+        public void TestGfxChomp()
+        {
+            this.CheckCompression(0x60000, 350);
         }
 
         [Test]
