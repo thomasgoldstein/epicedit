@@ -43,7 +43,7 @@ namespace EpicEdit.Test.Rom.Compression
             Codec.Optimal = optimal;
 
             byte[] bufferA = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize));
-            byte[] bufferB = Codec.Decompress(Codec.Compress(bufferA));
+            byte[] bufferB = Codec.Decompress(Codec.Compress(bufferA, false));
 
             Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset));
             Assert.AreEqual(bufferA, bufferB, "(Optimal: " + optimal + ")");
@@ -104,12 +104,12 @@ namespace EpicEdit.Test.Rom.Compression
             byte[] bufferA = track.Map.GetBytes();
 
             // Test simple compression
-            byte[] bufferC1 = Codec.Compress(bufferA);
+            byte[] bufferC1 = Codec.Compress(bufferA, false);
             byte[] bufferB = Codec.Decompress(bufferC1, 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
 
             // Test double compression
-            byte[] bufferC2 = Codec.Compress(bufferC1);
+            byte[] bufferC2 = Codec.Compress(bufferC1, false);
             bufferB = Codec.Decompress(Codec.Decompress(bufferC2), 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
         }

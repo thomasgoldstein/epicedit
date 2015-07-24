@@ -300,16 +300,6 @@ namespace EpicEdit.Rom.Compression
         /// Compresses the data of the passed buffer.
         /// </summary>
         /// <param name="buffer">The data to compress.</param>
-        /// <returns>The compressed data.</returns>
-        public static byte[] Compress(byte[] buffer)
-        {
-            return Codec.Compress(buffer, false);
-        }
-
-        /// <summary>
-        /// Compresses the data of the passed buffer.
-        /// </summary>
-        /// <param name="buffer">The data to compress.</param>
         /// <param name="quirksMode">Quirks mode has a lower compression rate,
         /// but which works with Japanese and European ROMs.</param>
         /// <returns>The compressed data.</returns>

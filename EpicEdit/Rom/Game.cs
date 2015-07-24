@@ -2018,7 +2018,7 @@ namespace EpicEdit.Rom
                     Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
                 }
 
-                roadTileGfxData = Codec.Compress(roadTileGfxData);
+                roadTileGfxData = Codec.Compress(roadTileGfxData, this.region != Region.US);
             }
 
             saveBuffer.AddCompressed(roadTileGfxData, roadTileGfxIndex);
@@ -2042,7 +2042,7 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress palettes
-                    palettesData = Codec.Compress(theme.Palettes.GetBytes());
+                    palettesData = Codec.Compress(theme.Palettes.GetBytes(), this.region != Region.US);
                 }
 
                 saveBuffer.AddCompressed(palettesData, palettesIndex);
@@ -2067,7 +2067,7 @@ namespace EpicEdit.Rom
                 else
                 {
                     // Recompress background layout
-                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
+                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes(), this.region != Region.US);
                 }
 
                 saveBuffer.AddCompressed(bgLayoutData, bgLayoutIndex);
@@ -2100,7 +2100,7 @@ namespace EpicEdit.Rom
                         Buffer.BlockCopy(tile.Graphics, 0, bgTileGfxData, j * 16, tile.Graphics.Length);
                     }
 
-                    bgTileGfxData = Codec.Compress(bgTileGfxData);
+                    bgTileGfxData = Codec.Compress(bgTileGfxData, this.region != Region.US);
                 }
 
                 saveBuffer.AddCompressed(bgTileGfxData, bgTileGfxIndex);
