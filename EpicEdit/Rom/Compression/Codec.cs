@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// The size of the buffer to handle data compression and decompression.
         /// </summary>
-        internal const int BufferSize = 16384;
+        internal const int BufferSize = 131072;
 
         /// <summary>
         /// The maximum number of bytes stored by regular compression commands.
