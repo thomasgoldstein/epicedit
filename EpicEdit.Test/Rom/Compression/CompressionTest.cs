@@ -32,13 +32,13 @@ namespace EpicEdit.Test.Rom.Compression
             this.game = File.GetGame(Region.US);
         }
 
-        private void TestGraphics(int offset, int expectedSize)
+        private void CheckCompression(int offset, int expectedSize)
         {
-            this.TestGraphics(offset, expectedSize, false);
-            this.TestGraphics(offset, expectedSize, true);
+            this.CheckCompression(offset, expectedSize, false);
+            this.CheckCompression(offset, expectedSize, true);
         }
 
-        private void TestGraphics(int offset, int expectedSize, bool optimal)
+        private void CheckCompression(int offset, int expectedSize, bool optimal)
         {
             Codec.Optimal = optimal;
 
@@ -47,54 +47,6 @@ namespace EpicEdit.Test.Rom.Compression
 
             Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset));
             Assert.AreEqual(bufferA, bufferB, "(Optimal: " + optimal + ")");
-        }
-
-        [Test]
-        public void TestGfxGhostPillar()
-        {
-            this.TestGraphics(0, 0x334);
-        }
-
-        [Test]
-        public void TestGfxMountyMole()
-        {
-            this.TestGraphics(0x5D6, 0x32D);
-        }
-
-        [Test]
-        public void TestGfxWinnerFlag()
-        {
-            this.TestGraphics(0xBB7, 0x2DF);
-        }
-
-        [Test]
-        public void TestGfxThwomp()
-        {
-            this.TestGraphics(0x1070, 0x429);
-        }
-
-        [Test]
-        public void TestGfxLakitu()
-        {
-            this.TestGraphics(0x10000, 0xAA5);
-        }
-
-        [Test]
-        public void TestGfxPiranhaPlant()
-        {
-            this.TestGraphics(0x10AA5, 0x4F6);
-        }
-
-        [Test]
-        public void TestGfxPipe()
-        {
-            this.TestGraphics(0x10F9B, 0x35D);
-        }
-
-        [Test]
-        public void TestGfxChomp()
-        {
-            this.TestGraphics(0x60000, 0x189);
         }
 
         private void CheckTrackCompression(int trackGroupId, int trackId)
@@ -112,6 +64,54 @@ namespace EpicEdit.Test.Rom.Compression
             byte[] bufferC2 = Codec.Compress(bufferC1, false);
             bufferB = Codec.Decompress(Codec.Decompress(bufferC2), 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
+        }
+
+        [Test]
+        public void TestGfxGhostPillar()
+        {
+            this.CheckCompression(0, 0x334);
+        }
+
+        [Test]
+        public void TestGfxMountyMole()
+        {
+            this.CheckCompression(0x5D6, 0x32D);
+        }
+
+        [Test]
+        public void TestGfxWinnerFlag()
+        {
+            this.CheckCompression(0xBB7, 0x2DF);
+        }
+
+        [Test]
+        public void TestGfxThwomp()
+        {
+            this.CheckCompression(0x1070, 0x429);
+        }
+
+        [Test]
+        public void TestGfxLakitu()
+        {
+            this.CheckCompression(0x10000, 0xAA5);
+        }
+
+        [Test]
+        public void TestGfxPiranhaPlant()
+        {
+            this.CheckCompression(0x10AA5, 0x4F6);
+        }
+
+        [Test]
+        public void TestGfxPipe()
+        {
+            this.CheckCompression(0x10F9B, 0x35D);
+        }
+
+        [Test]
+        public void TestGfxChomp()
+        {
+            this.CheckCompression(0x60000, 0x189);
         }
 
         [Test]
