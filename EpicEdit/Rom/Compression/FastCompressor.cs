@@ -53,12 +53,12 @@ namespace EpicEdit.Rom.Compression
                     buffer[i] == buffer[k])
                 {
                     #region Command 1
-                    k++;
-                    while (k < buffer.Length &&
-                           buffer[i] == buffer[k])
+                    do
                     {
                         k++;
                     }
+                    while (k < buffer.Length &&
+                           buffer[i] == buffer[k]);
 
                     Range range = FastCompressor.GetRange(i, k);
 
@@ -134,12 +134,12 @@ namespace EpicEdit.Rom.Compression
                          ((buffer[i] + 1) & 0xFF) == buffer[k])
                 {
                     #region Command 3
-                    k++;
-                    while (k < buffer.Length &&
-                           ((buffer[k - 1] + 1) & 0xFF) == buffer[k])
+                    do
                     {
                         k++;
                     }
+                    while (k < buffer.Length &&
+                           ((buffer[k - 1] + 1) & 0xFF) == buffer[k]);
 
                     Range range = FastCompressor.GetRange(i, k);
 
