@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         /// <param name="buffer">The data to compress.</param>
         /// <param name="quirksMode">Quirks mode has a lower compression rate,
-        /// but which works with Japanese and European ROMs.</param>
+        /// but is needed for double compression of data for Japanese and European ROMs.</param>
         /// <returns>The compressed data.</returns>
         public byte[] Compress(byte[] buffer, bool quirksMode)
         {
