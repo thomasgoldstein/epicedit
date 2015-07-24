@@ -35,7 +35,7 @@ namespace EpicEdit.Test.Rom.Compression
             this.game = File.GetGame(Region.US);
         }
 
-        public void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
+        private void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
         {
             Track track = this.game.TrackGroups[trackGroupId][trackId];
             byte[] buffer = compressor.Compress(track.Map.GetBytes(), false);
