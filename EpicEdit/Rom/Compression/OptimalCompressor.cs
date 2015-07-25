@@ -105,6 +105,7 @@ namespace EpicEdit.Rom.Compression
                 nodeCollection.Add(i + byteCountS, node);
             }
         }
+
         private static void CreateNodesFromBackCommands(ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode, ByteDictionary byteDictionary, bool quirksMode)
         {
             Range[] ranges = byteDictionary.GetMaxBackRanges(i);
@@ -143,6 +144,7 @@ namespace EpicEdit.Rom.Compression
                 nodeCollection.Add(i + byteCountS, node);
             }
         }
+
         private static void CreateNodesFromCommand0(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
             byte[] chunk;
@@ -182,6 +184,7 @@ namespace EpicEdit.Rom.Compression
 
             Buffer.BlockCopy(buffer, i, chunk, k, byteCount);
         }
+
         private static Range GetCommand0Range(byte[] buffer, int i)
         {
             int j = i + 1; // Forward iterator for buffer
@@ -190,7 +193,7 @@ namespace EpicEdit.Rom.Compression
             {
                 if (
                 #region A command is coming up
-(
+                    (
                     // Matches command 3
                         (j + 2) < buffer.Length &&
                         (buffer[j] == ((buffer[j + 1] - 1) & 0xFF) &&
@@ -214,7 +217,7 @@ namespace EpicEdit.Rom.Compression
                     // Matches command 4 or 6
                         OptimalCompressor.IsBackCommandComing(buffer, j)
                 #endregion
-)
+                )
                 {
                     break;
                 }
@@ -244,6 +247,7 @@ namespace EpicEdit.Rom.Compression
             OptimalCompressor.CallCommand1Normal(buffer, i, out chunk, ref byteCount);
             OptimalCompressor.CallCommand1Super(buffer, i, out chunkS, ref byteCountS);
         }
+
         private static void CallCommand1Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount > Codec.NormalCommandMax)
@@ -255,6 +259,7 @@ namespace EpicEdit.Rom.Compression
             chunk[0] = (byte)(0x20 + byteCount - 1);
             chunk[1] = buffer[i];
         }
+
         private static void CallCommand1Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount <= Codec.NormalCommandMax)
@@ -291,6 +296,7 @@ namespace EpicEdit.Rom.Compression
             OptimalCompressor.CallCommand2Normal(buffer, i, out chunk, ref byteCount);
             OptimalCompressor.CallCommand2Super(buffer, i, out chunkS, ref byteCountS);
         }
+
         private static void CallCommand2Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount > Codec.NormalCommandMax)
@@ -303,6 +309,7 @@ namespace EpicEdit.Rom.Compression
             chunk[1] = buffer[i];
             chunk[2] = buffer[i + 1];
         }
+
         private static void CallCommand2Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount <= Codec.NormalCommandMax)
@@ -340,6 +347,7 @@ namespace EpicEdit.Rom.Compression
             OptimalCompressor.CallCommand3Normal(buffer, i, out chunk, ref byteCount);
             OptimalCompressor.CallCommand3Super(buffer, i, out chunkS, ref byteCountS);
         }
+
         private static void CallCommand3Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount > Codec.NormalCommandMax)
@@ -351,6 +359,7 @@ namespace EpicEdit.Rom.Compression
             chunk[0] = (byte)(0x60 + byteCount - 1);
             chunk[1] = buffer[i];
         }
+
         private static void CallCommand3Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
         {
             if (byteCount <= Codec.NormalCommandMax)
@@ -375,6 +384,7 @@ namespace EpicEdit.Rom.Compression
             OptimalCompressor.CallCommand4Normal(out chunk, out byteCount, range);
             OptimalCompressor.CallCommand4Super(out chunkS, out byteCountS, rangeS);
         }
+
         private static void CallCommand4Normal(out byte[] chunk, out int byteCount, Range range)
         {
             byteCount = range.Length;
@@ -389,6 +399,7 @@ namespace EpicEdit.Rom.Compression
             chunk[1] = (byte)(range.Start & 0x00FF);
             chunk[2] = (byte)((range.Start & 0xFF00) >> 8);
         }
+
         private static void CallCommand4Super(out byte[] chunk, out int byteCount, Range range)
         {
             byteCount = range.Length;
@@ -410,6 +421,7 @@ namespace EpicEdit.Rom.Compression
             OptimalCompressor.CallCommand6Normal(i, out chunk, out byteCount, range);
             OptimalCompressor.CallCommand6Super(i, out chunkS, out byteCountS, rangeS);
         }
+
         private static void CallCommand6Normal(int i, out byte[] chunk, out int byteCount, Range range)
         {
             byteCount = range.Length;
@@ -425,6 +437,7 @@ namespace EpicEdit.Rom.Compression
             chunk[0] = (byte)(0xC0 + byteCount - 1);
             chunk[1] = (byte)distance;
         }
+
         private static void CallCommand6Super(int i, out byte[] chunk, out int byteCount, Range range)
         {
             byteCount = range.Length;
