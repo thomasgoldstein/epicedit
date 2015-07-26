@@ -301,9 +301,10 @@ namespace EpicEdit.Rom.Compression
 
         private static Range GetRange(int start, int end)
         {
-            if (end - start > Codec.SuperCommandMax)
+            int max = start + Codec.SuperCommandMax;
+            if (end > max)
             {
-                end = start + Codec.SuperCommandMax;
+                end = max;
             }
 
             return new Range(start, end);
