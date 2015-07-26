@@ -21,6 +21,13 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     internal interface ICompressor
     {
+        /// <summary>
+        /// Compresses the data of the passed buffer.
+        /// </summary>
+        /// <param name="buffer">The data to compress.</param>
+        /// <param name="quirksMode">Quirks mode has a slightly lower compression rate,
+        /// but is needed for Japanese and European data.</param>
+        /// <returns>The compressed data.</returns>
         byte[] Compress(byte[] buffer, bool quirksMode);
     }
 }
