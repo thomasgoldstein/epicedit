@@ -13,6 +13,7 @@ v2.8 (xxx 2015)
 - Added the display of the in-game top border over the background preview
 - Added the ability to jump to any part of the background preview
   animation, and to set the animation speed
+- Fixed possible data compression issues with Euro and Jap ROMs
 - Improved the data compression rate for Euro and Jap ROMs
 - Increased the decompression buffer size from 16 to 128 KiB. This makes
   it possible to manually decompress larger data such as podium graphics.
