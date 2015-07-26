@@ -105,7 +105,7 @@ namespace EpicEdit.Rom
             bool quirksMode = this.region != Region.US && twice;
 
             Codec.Optimal = true;
-            data = Codec.Compress(data, quirksMode);
+            data = Codec.Compress(data);
             Codec.Optimal = false;
 
             if (twice)
@@ -352,6 +352,7 @@ namespace EpicEdit.Rom
         private void LoadData()
         {
             this.SetRegion();
+            Codec.SetRegion(this.region);
             this.offsets = new Offsets(this.romBuffer, this.region);
 
             this.Settings = new GameSettings(this.romBuffer, this.offsets, this.region);
@@ -1899,7 +1900,7 @@ namespace EpicEdit.Rom
         {
             // Update track map
             bool quirksMode = this.region != Region.US;
-            byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes(), quirksMode));
+            byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes()));
             this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
 
             // Update track theme id

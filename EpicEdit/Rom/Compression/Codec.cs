@@ -43,6 +43,13 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         public static bool Optimal { get; set; }
 
+        private static bool QuirksMode;
+
+        public static void SetRegion(Region region)
+        {
+            Codec.QuirksMode = region != Region.US;
+        }
+
         private static ICompressor compressor;
 
         private static ICompressor Compressor
@@ -303,19 +310,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer)
         {
-            return Codec.Compress(buffer, false);
-        }
-
-        /// <summary>
-        /// Compresses the data of the passed buffer.
-        /// </summary>
-        /// <param name="buffer">The data to compress.</param>
-        /// <param name="quirksMode">Quirks mode has a lower compression rate,
-        /// but is needed for double compression of data for Japanese and European ROMs.</param>
-        /// <returns>The compressed data.</returns>
-        public static byte[] Compress(byte[] buffer, bool quirksMode)
-        {
-            return Codec.Compressor.Compress(buffer, quirksMode);
+            return Codec.Compressor.Compress(buffer, Codec.QuirksMode);
         }
 
         /// <summary>
@@ -325,11 +320,9 @@ namespace EpicEdit.Rom.Compression
         /// <param name="bufferToCompress">The data to compress.</param>
         /// <param name="destinationBuffer">The buffer where the compressed data will be saved.</param>
         /// <param name="offset">Location where the data will be saved.</param>
-        /// <param name="quirksMode">Quirks mode has a lower compression rate,
-        /// but which works with Japanese and European ROMs.</param>
-        public static void Compress(byte[] bufferToCompress, byte[] destinationBuffer, int offset, bool quirksMode)
+        public static void Compress(byte[] bufferToCompress, byte[] destinationBuffer, int offset)
         {
-            byte[] compBuffer = Codec.Compress(bufferToCompress, quirksMode);
+            byte[] compBuffer = Codec.Compress(bufferToCompress);
             Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
         }
     }
