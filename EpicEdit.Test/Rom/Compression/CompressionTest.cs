@@ -34,19 +34,17 @@ namespace EpicEdit.Test.Rom.Compression
 
         private void CheckCompression(int offset, int expectedSize)
         {
-            this.CheckCompression(offset, expectedSize, false);
-            this.CheckCompression(offset, expectedSize, true);
+            this.CheckCompression(offset, expectedSize, new FastCompressor());
+            this.CheckCompression(offset, expectedSize, new OptimalCompressor());
         }
 
-        private void CheckCompression(int offset, int expectedSize, bool optimal)
+        private void CheckCompression(int offset, int expectedSize, ICompressor compressor)
         {
-            Codec.Optimal = optimal;
-
             byte[] bufferA = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize));
-            byte[] bufferB = Codec.Decompress(Codec.Compress(bufferA));
+            byte[] bufferB = Codec.Decompress(compressor.Compress(bufferA));
 
             Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset));
-            Assert.AreEqual(bufferA, bufferB, "(Optimal: " + optimal + ")");
+            Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
         }
 
         private void CheckTrackCompression(int trackGroupId, int trackId)
