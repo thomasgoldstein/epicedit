@@ -102,8 +102,6 @@ namespace EpicEdit.Rom
 
         public byte[] Compress(byte[] data, bool twice)
         {
-            bool quirksMode = this.region != Region.US && twice;
-
             Codec.Optimal = true;
             data = Codec.Compress(data);
             Codec.Optimal = false;
@@ -1899,7 +1897,6 @@ namespace EpicEdit.Rom
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
         {
             // Update track map
-            bool quirksMode = this.region != Region.US;
             byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes()));
             this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
 
