@@ -102,17 +102,16 @@ namespace EpicEdit.Rom
 
         public byte[] Compress(byte[] data, bool twice)
         {
-            Codec.Optimal = true;
-
             bool quirksMode = this.region != Region.US && twice;
+
+            Codec.Optimal = true;
             data = Codec.Compress(data, quirksMode);
+            Codec.Optimal = false;
 
             if (twice)
             {
                 data = Codec.Compress(data);
             }
-
-            Codec.Optimal = false;
 
             return data;
         }
