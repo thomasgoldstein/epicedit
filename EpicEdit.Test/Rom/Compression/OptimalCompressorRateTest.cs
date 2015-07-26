@@ -41,7 +41,7 @@ namespace EpicEdit.Test.Rom.Compression
         {
             int originalCompressedSize = Codec.GetLength(this.romBuffer, offset);
             byte[] decompressedData = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, originalCompressedSize));
-            byte[] buffer = this.compressor.Compress(decompressedData, false);
+            byte[] buffer = this.compressor.Compress(decompressedData);
             int compressedSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedSize);
@@ -50,7 +50,7 @@ namespace EpicEdit.Test.Rom.Compression
         private void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
         {
             Track track = this.game.TrackGroups[trackGroupId][trackId];
-            byte[] buffer = this.compressor.Compress(track.Map.GetBytes(), false);
+            byte[] buffer = this.compressor.Compress(track.Map.GetBytes());
             int compressedMapSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedMapSize);

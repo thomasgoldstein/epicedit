@@ -50,6 +50,24 @@ namespace EpicEdit.Rom.Compression
             Codec.QuirksMode = region != Region.US;
         }
 
+        public static int GetValidatedSuperCommandSize(int byteCount)
+        {
+            if (byteCount > Codec.SuperCommandMax)
+            {
+                byteCount = Codec.SuperCommandMax;
+            }
+
+            if (QuirksMode && (byteCount % 256) == 0)
+            {
+                // Japanese and European ROMs do not support command sizes
+                // that are a multiple of 256 (at least for double compressed data),
+                // so subtract one from the byte count.
+                byteCount--;
+            }
+
+            return byteCount;
+        }
+
         private static ICompressor compressor;
 
         private static ICompressor Compressor
@@ -310,7 +328,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer)
         {
-            return Codec.Compressor.Compress(buffer, Codec.QuirksMode);
+            return Codec.Compressor.Compress(buffer);
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     internal class FastCompressor : ICompressor
     {
-        public byte[] Compress(byte[] buffer, bool quirksMode)
+        public byte[] Compress(byte[] buffer)
         {
             ByteDictionary byteDictionary = new ByteDictionary(buffer);
             byte[] compBuffer = new byte[Codec.BufferSize];
@@ -55,9 +55,8 @@ namespace EpicEdit.Rom.Compression
 
                     Range range = FastCompressor.GetRange(i, k);
 
-                    if (((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
-                         (distance <= 0xFF && maxBackRange.Length > range.Length)) &&
-                         FastCompressor.IsBackCommandCallable(distance, quirksMode))
+                    if ((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
+                        (distance <= 0xFF && maxBackRange.Length > range.Length))
                     {
                         FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
                     }
@@ -95,9 +94,8 @@ namespace EpicEdit.Rom.Compression
 
                     Range range = FastCompressor.GetRange(i, k);
 
-                    if (((distance > 0xFF && maxBackRange.Length >= range.Length) ||
-                         (distance <= 0xFF && maxBackRange.Length + 1 >= range.Length)) &&
-                         FastCompressor.IsBackCommandCallable(distance, quirksMode))
+                    if ((distance > 0xFF && maxBackRange.Length >= range.Length) ||
+                        (distance <= 0xFF && maxBackRange.Length + 1 >= range.Length))
                     {
                         FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
                     }
@@ -136,9 +134,8 @@ namespace EpicEdit.Rom.Compression
 
                     Range range = FastCompressor.GetRange(i, k);
 
-                    if (((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
-                         (distance <= 0xFF && maxBackRange.Length > range.Length)) &&
-                         FastCompressor.IsBackCommandCallable(distance, quirksMode))
+                    if ((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
+                        (distance <= 0xFF && maxBackRange.Length > range.Length))
                     {
                         FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
                     }
@@ -166,9 +163,8 @@ namespace EpicEdit.Rom.Compression
                 else
                 {
                     #region Command 0
-                    if (((distance > 0xFF && maxBackRange.Length > 2) ||
-                         (distance <= 0xFF && maxBackRange.Length > 1)) &&
-                         FastCompressor.IsBackCommandCallable(distance, quirksMode))
+                    if ((distance > 0xFF && maxBackRange.Length > 2) ||
+                        (distance <= 0xFF && maxBackRange.Length > 1))
                     {
                         FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
                     }
@@ -294,30 +290,9 @@ namespace EpicEdit.Rom.Compression
 
         private static Range GetRange(int start, int end)
         {
-            int max = start + Codec.SuperCommandMax;
-            if (end > max)
-            {
-                end = max;
-            }
-
-            return new Range(start, end);
-        }
-
-        /// <summary>
-        /// Checks whether it is safe to call a back command.
-        /// </summary>
-        /// <param name="distance">Distance between the current buffer iterator value, and the range start.</param>
-        /// <param name="quirksMode">Whether quirks mode is enabled.</param>
-        /// <returns>Whether it is safe to call a back command.</returns>
-        private static bool IsBackCommandCallable(int distance, bool quirksMode)
-        {
-            // We should not call command 4 in "quirks mode" (for Jap and Euro ROMs),
-            // because it can lead to data that the game cannot decompress properly.
-            // Sometimes command 4 works, sometimes not. Since the details are not known (bound-crossing related, or so?),
-            // we just never call the command (except for US ROMs, which are not affected by this issue).
-            return
-                !quirksMode ||
-                distance <= 0xFF; // If distance <= 0xFF, then it's command 6, otherwise it's command 4
+            Range range = new Range(start, end);
+            range.Length = Codec.GetValidatedSuperCommandSize(range.Length);
+            return range;
         }
     }
 }
