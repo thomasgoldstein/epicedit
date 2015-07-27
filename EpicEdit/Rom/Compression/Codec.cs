@@ -38,11 +38,6 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         internal const int SuperCommandMax = 1024;
 
-        /// <summary>
-        /// Gets or sets value that specifies whether the compression rate should be optimal (slower).
-        /// </summary>
-        public static bool Optimal { get; set; }
-
         private static bool QuirksMode;
 
         public static void SetRegion(Region region)
@@ -74,22 +69,27 @@ namespace EpicEdit.Rom.Compression
         {
             get
             {
-                if (Codec.Optimal)
+                if (Codec.compressor == null)
                 {
-                    if (!(Codec.compressor is OptimalCompressor))
-                    {
-                        Codec.compressor = new OptimalCompressor();
-                    }
-                }
-                else
-                {
-                    if (!(Codec.compressor is FastCompressor))
-                    {
-                        Codec.compressor = new FastCompressor();
-                    }
+                    Codec.compressor = new FastCompressor();
                 }
 
                 return Codec.compressor;
+            }
+        }
+
+        private static ICompressor optimalCompressor;
+
+        private static ICompressor OptimalCompressor
+        {
+            get
+            {
+                if (Codec.optimalCompressor == null)
+                {
+                    Codec.optimalCompressor = new OptimalCompressor();
+                }
+
+                return Codec.optimalCompressor;
             }
         }
 
@@ -328,7 +328,19 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer)
         {
-            return Codec.Compressor.Compress(buffer);
+            return Codec.Compress(buffer, false);
+        }
+
+        /// <summary>
+        /// Compresses the data of the passed buffer.
+        /// </summary>
+        /// <param name="buffer">The data to compress.</param>
+        /// <param name="optimize">Optimize compression rate (slower).</param>
+        /// <returns>The compressed data.</returns>
+        public static byte[] Compress(byte[] buffer, bool optimize)
+        {
+            ICompressor comp = !optimize ? Codec.Compressor : Codec.OptimalCompressor;
+            return comp.Compress(buffer);
         }
 
         /// <summary>
@@ -342,6 +354,27 @@ namespace EpicEdit.Rom.Compression
         {
             byte[] compBuffer = Codec.Compress(bufferToCompress);
             Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
+        }
+
+        /// <summary>
+        /// Compresses the data of the passed buffer twice.
+        /// </summary>
+        /// <param name="buffer">The data to compress.</param>
+        /// <param name="twice">Compress the data twice.</param>
+        /// <param name="optimize">Optimize compression rate (slower).</param>
+        /// <returns>The double-compressed data.</returns>
+        public static byte[] Compress(byte[] buffer, bool twice, bool optimize)
+        {
+            buffer = Codec.Compress(buffer, optimize);
+
+            if (twice)
+            {
+                // NOTE: No need to optimize the second compression,
+                // it's quite slow and doesn't really improve the compression rate.
+                buffer = Codec.Compress(buffer);
+            }
+
+            return buffer;
         }
     }
 }

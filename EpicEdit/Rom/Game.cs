@@ -102,16 +102,7 @@ namespace EpicEdit.Rom
 
         public byte[] Compress(byte[] data, bool twice)
         {
-            Codec.Optimal = true;
-            data = Codec.Compress(data);
-            Codec.Optimal = false;
-
-            if (twice)
-            {
-                data = Codec.Compress(data);
-            }
-
-            return data;
+            return Codec.Compress(data, twice, true);
         }
 
         public void InsertData(byte[] data, int offset)
@@ -1897,7 +1888,7 @@ namespace EpicEdit.Rom
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
         {
             // Update track map
-            byte[] compressedMap = Codec.Compress(Codec.Compress(track.Map.GetBytes()));
+            byte[] compressedMap = Codec.Compress(track.Map.GetBytes(), true, false);
             this.SaveTrackMap(trackIndex, compressedMap, saveBuffer);
 
             // Update track theme id
