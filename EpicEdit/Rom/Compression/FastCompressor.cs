@@ -252,7 +252,7 @@ namespace EpicEdit.Rom.Compression
 
             if (distance <= 0xFF)
             {
-                // Command 6: use a relative address (on 1 byte) to previous data
+                // Command 6: uses a relative address (on 1 byte) to previous data
                 if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0xC0 + byteCount - 1);
@@ -267,7 +267,7 @@ namespace EpicEdit.Rom.Compression
             }
             else
             {
-                // Command 4: use an absolute address (on 2 bytes) to previous data
+                // Command 4: uses an absolute address (on 2 bytes) to previous data
                 if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0x80 + byteCount - 1);
