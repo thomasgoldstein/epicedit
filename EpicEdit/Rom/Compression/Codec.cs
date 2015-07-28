@@ -113,13 +113,13 @@ namespace EpicEdit.Rom.Compression
         {
             byte[] destBuffer = new byte[Codec.BufferSize];
             int destPosition = 0;
-            byte cmd;
+            byte value;
 
             try
             {
-                while ((cmd = buffer[offset++]) != 0xFF)
+                while ((value = buffer[offset++]) != 0xFF)
                 {
-                    Codec.Decompress(buffer, destBuffer, cmd, true, ref offset, ref destPosition);
+                    Codec.Decompress(buffer, destBuffer, value, true, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException)
@@ -147,8 +147,8 @@ namespace EpicEdit.Rom.Compression
             {
                 while (destPosition < length)
                 {
-                    byte cmd = buffer[offset++];
-                    Codec.Decompress(buffer, destBuffer, cmd, false, ref offset, ref destPosition);
+                    byte value = buffer[offset++];
+                    Codec.Decompress(buffer, destBuffer, value, false, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException) { }
@@ -156,27 +156,27 @@ namespace EpicEdit.Rom.Compression
             return destBuffer;
         }
 
-        private static void Decompress(byte[] srcBuffer, byte[] destBuffer, byte cmd, bool throwOnInvalidData, ref int srcOffset, ref int destOffset)
+        private static void Decompress(byte[] srcBuffer, byte[] destBuffer, byte value, bool throwOnInvalidData, ref int srcOffset, ref int destOffset)
         {
-            byte ctrl = (byte)((cmd & 0xE0) >> 5);
+            byte command = (byte)((value & 0xE0) >> 5);
             int i = 0;
             int count;
             byte xor = 0x00;
 
-            if (ctrl == 7) // This special command extends the byte count.
+            if (command == 7) // This special command extends the byte count.
             {
-                ctrl = (byte)((cmd & 0x1C) >> 2);
-                count = ((cmd & 3) << 8) + srcBuffer[srcOffset++];
+                command = (byte)((value & 0x1C) >> 2);
+                count = ((value & 3) << 8) + srcBuffer[srcOffset++];
             }
             else
             {
-                count = cmd & 0x1F;
+                count = value & 0x1F;
             }
             count++;
 
             try
             {
-                switch (ctrl)
+                switch (command)
                 {
                     case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
                         for (i = 0; i < count; i++)
@@ -274,25 +274,25 @@ namespace EpicEdit.Rom.Compression
         public static int GetLength(byte[] buffer, int offset)
         {
             int startingOffset = offset;
-            byte cmd;
+            byte value;
 
-            while ((cmd = buffer[offset++]) != 0xFF)
+            while ((value = buffer[offset++]) != 0xFF)
             {
-                byte ctrl = (byte)((cmd & 0xE0) >> 5);
+                byte command = (byte)((value & 0xE0) >> 5);
                 int count;
 
-                if (ctrl == 7) // This special command extends the byte count.
+                if (command == 7) // This special command extends the byte count.
                 {
-                    ctrl = (byte)((cmd & 0x1C) >> 2);
-                    count = ((cmd & 3) << 8) + buffer[offset++];
+                    command = (byte)((value & 0x1C) >> 2);
+                    count = ((value & 3) << 8) + buffer[offset++];
                 }
                 else
                 {
-                    count = cmd & 0x1F;
+                    count = value & 0x1F;
                 }
                 count++;
 
-                switch (ctrl)
+                switch (command)
                 {
                     case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
                         offset += count;
