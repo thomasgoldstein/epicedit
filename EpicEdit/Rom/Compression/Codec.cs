@@ -52,7 +52,7 @@ namespace EpicEdit.Rom.Compression
                 byteCount = Codec.SuperCommandMax;
             }
 
-            if (QuirksMode && (byteCount % 256) == 0)
+            if (Codec.QuirksMode && (byteCount % 256) == 0)
             {
                 // Japanese and European ROMs do not support command sizes that are a multiple of 256
                 // (at least for the second compression of double compressed data),
