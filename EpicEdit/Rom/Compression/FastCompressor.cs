@@ -32,216 +32,217 @@ namespace EpicEdit.Rom.Compression
 
             while (i < buffer.Length)
             {
-                // Gather data to call command 4 or 6 later
-                Range maxBackRange = byteDictionary.GetMaxBackRange(i);
-
-                int distance = i - maxBackRange.Start;
-                // If distance > 0xFF, then command 4 is used, otherwise it's command 6
-                // We need to know this to optimize compression, because using command 4 is more expensive
-                // (address is encoded on one more byte, because it's absolute rather than relative)
-
                 int k = i + 1; // Forward iterator for buffer
+                int command; // The compression command we consider the most efficient
+                int commandCost; // How costly we consider this command
 
                 if (k < buffer.Length &&
                     buffer[i] == buffer[k])
                 {
-                    #region Command 1
+                    // Command 1: the same byte is repeated
+                    command = 1;
+                    commandCost = 0;
+
                     do
                     {
                         k++;
                     }
                     while (k < buffer.Length &&
                            buffer[i] == buffer[k]);
-
-                    Range range = FastCompressor.GetRange(i, k);
-
-                    if ((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
-                        (distance <= 0xFF && maxBackRange.Length > range.Length))
-                    {
-                        FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
-                    }
-                    else
-                    {
-                        #region Call command 1
-                        int byteCount = range.Length;
-
-                        if (byteCount <= Codec.NormalCommandMax)
-                        {
-                            compBuffer[j++] = (byte)(0x20 + byteCount - 1);
-                        }
-                        else
-                        {
-                            compBuffer[j++] = (byte)(0xE4 + ((byteCount - 1 & 0x300) >> 8));
-                            compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
-                        }
-
-                        compBuffer[j++] = buffer[i];
-                        i += byteCount;
-                        #endregion
-                    }
-                    #endregion
                 }
                 else if ((k + 1) < buffer.Length &&
                          buffer[i] == buffer[i + 2])
                 {
-                    #region Command 2
+                    // Command 2: a sequence of 2 bytes is repeated
+                    command = 2;
+                    commandCost = 2;
+
                     k += 2;
                     while (k < buffer.Length &&
                            buffer[k - 2] == buffer[k])
                     {
                         k++;
                     }
-
-                    Range range = FastCompressor.GetRange(i, k);
-
-                    if ((distance > 0xFF && maxBackRange.Length >= range.Length) ||
-                        (distance <= 0xFF && maxBackRange.Length + 1 >= range.Length))
-                    {
-                        FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
-                    }
-                    else
-                    {
-                        #region Call command 2
-                        int byteCount = range.Length;
-
-                        if (byteCount <= Codec.NormalCommandMax)
-                        {
-                            compBuffer[j++] = (byte)(0x40 + byteCount - 1);
-                        }
-                        else
-                        {
-                            compBuffer[j++] = (byte)(0xE8 + ((byteCount - 1 & 0x300) >> 8));
-                            compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
-                        }
-
-                        compBuffer[j++] = buffer[i];
-                        compBuffer[j++] = buffer[i + 1];
-                        i += byteCount;
-                        #endregion
-                    }
-                    #endregion
                 }
                 else if (k < buffer.Length &&
                          ((buffer[i] + 1) & 0xFF) == buffer[k])
                 {
-                    #region Command 3
+                    // Command 3: a value keeps getting incremented by 1
+                    command = 3;
+                    commandCost = 0;
+
                     do
                     {
                         k++;
                     }
                     while (k < buffer.Length &&
                            ((buffer[k - 1] + 1) & 0xFF) == buffer[k]);
-
-                    Range range = FastCompressor.GetRange(i, k);
-
-                    if ((distance > 0xFF && maxBackRange.Length - 1 > range.Length) ||
-                        (distance <= 0xFF && maxBackRange.Length > range.Length))
-                    {
-                        FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
-                    }
-                    else
-                    {
-                        #region Call command 3
-                        int byteCount = range.Length;
-
-                        if (byteCount <= Codec.NormalCommandMax)
-                        {
-                            compBuffer[j++] = (byte)(0x60 + byteCount - 1);
-                        }
-                        else
-                        {
-                            compBuffer[j++] = (byte)(0xEC + ((byteCount - 1 & 0x300) >> 8));
-                            compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
-                        }
-
-                        compBuffer[j++] = buffer[i];
-                        i += byteCount;
-                        #endregion
-                    }
-                    #endregion
                 }
                 else
                 {
-                    #region Command 0
-                    if ((distance > 0xFF && maxBackRange.Length > 2) ||
-                        (distance <= 0xFF && maxBackRange.Length > 1))
-                    {
+                    // Command 0: simply stores a sequence of bytes as is
+                    command = 0;
+                    commandCost = 0;
+                }
+
+                Range range = FastCompressor.GetRange(i, k);
+                Range maxBackRange = byteDictionary.GetMaxBackRange(i);
+                int distance = i - maxBackRange.Start;
+
+                if (distance > 0xFF)
+                {
+                    // If distance > 0xFF, then command 4 should be used, otherwise command 6 is more efficient.
+                    // We need to know this to optimize compression, because using command 4 is more expensive
+                    // (the address is encoded on one more byte, because it's absolute rather than relative).
+                    commandCost--; // Decreases the odds of using a back command (4 or 6)
+                }
+
+                if (maxBackRange.Length + commandCost > range.Length)
+                {
+                    // Command 4 or 6: repeats a previous data sequence
+                    // Command 4: from an absolute address (on two bytes)
+                    // Command 6: from a relative address (on one byte)
+                    command = 4; // Actually 4 or 6
+                }
+
+                switch (command)
+                {
+                    case 0:
+                        FastCompressor.CallCommand0(buffer, compBuffer, ref i, ref j, k, byteDictionary);
+                        break;
+
+                    case 1:
+                        FastCompressor.CallCommand1(buffer, compBuffer, ref i, ref j, range.Length);
+                        break;
+
+                    case 2:
+                        FastCompressor.CallCommand2(buffer, compBuffer, ref i, ref j, range.Length);
+                        break;
+
+                    case 3:
+                        FastCompressor.CallCommand3(buffer, compBuffer, ref i, ref j, range.Length);
+                        break;
+
+                    case 4:
                         FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
-                    }
-                    else
-                    {
-                        #region Call command 0 (pre)
-                        while (k < buffer.Length)
-                        {
-                            if
-                            (
-                            #region Matches command 1, 2 or 3
-                                (
-                                // Matches command 3
-                                    (k + 2) < buffer.Length &&
-                                    (buffer[k] == ((buffer[k + 1] - 1) & 0xFF) &&
-                                     buffer[k + 2] == ((buffer[k + 1] + 1) & 0xFF))
-                                )
-                                ||
-                                (
-                                // Matches command 1
-                                    (k + 2) < buffer.Length &&
-                                    (buffer[k] == buffer[k + 1] &&
-                                     buffer[k] == buffer[k + 2])
-                                )
-                                ||
-                                (
-                                // Matches command 2
-                                    (k + 3) < buffer.Length &&
-                                    (buffer[k] == buffer[k + 2] &&
-                                     buffer[k + 1] == buffer[k + 3])
-                                )
-                            #endregion
-                            )
-                            {
-                                break;
-                            }
-
-                            Range backRange = byteDictionary.GetMaxBackRange(k);
-                            distance = k - backRange.Start;
-                            // Matches command 4 or 6
-                            if ((distance > 0xFF && backRange.Length > 4) ||
-                                (distance <= 0xFF && backRange.Length > 3))
-                            {
-                                break;
-                            }
-
-                            k++;
-                        }
-
-                        Range range = FastCompressor.GetRange(i, k);
-                        #endregion
-
-                        #region Call command 0
-                        int byteCount = range.Length;
-
-                        if (byteCount <= Codec.NormalCommandMax)
-                        {
-                            compBuffer[j++] = (byte)(byteCount - 1);
-                        }
-                        else
-                        {
-                            compBuffer[j++] = (byte)(0xE0 + ((byteCount - 1 & 0x300) >> 8));
-                            compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
-                        }
-
-                        Buffer.BlockCopy(buffer, i, compBuffer, j, byteCount);
-                        j += byteCount;
-                        i += byteCount;
-                        #endregion
-                    }
-                    #endregion
+                        break;
                 }
             }
 
             compBuffer[j++] = 0xFF;
 
             return Utilities.ReadBlock(compBuffer, 0, j);
+        }
+
+        private static void CallCommand0(byte[] buffer, byte[] compBuffer, ref int i, ref int j, int k, ByteDictionary byteDictionary)
+        {
+            while (k < buffer.Length)
+            {
+                if
+                (
+                    (
+                    // Matches command 3
+                        (k + 2) < buffer.Length &&
+                        (buffer[k] == ((buffer[k + 1] - 1) & 0xFF) &&
+                         buffer[k + 2] == ((buffer[k + 1] + 1) & 0xFF))
+                    )
+                    ||
+                    (
+                    // Matches command 1
+                        (k + 2) < buffer.Length &&
+                        (buffer[k] == buffer[k + 1] &&
+                         buffer[k] == buffer[k + 2])
+                    )
+                    ||
+                    (
+                    // Matches command 2
+                        (k + 3) < buffer.Length &&
+                        (buffer[k] == buffer[k + 2] &&
+                         buffer[k + 1] == buffer[k + 3])
+                    )
+                )
+                {
+                    break;
+                }
+
+                Range backRange = byteDictionary.GetMaxBackRange(k);
+                int distance = k - backRange.Start;
+                // Matches command 4 or 6
+                if ((distance > 0xFF && backRange.Length > 4) ||
+                    (distance <= 0xFF && backRange.Length > 3))
+                {
+                    break;
+                }
+
+                k++;
+            }
+
+            Range range = FastCompressor.GetRange(i, k);
+
+            int byteCount = range.Length;
+
+            if (byteCount <= Codec.NormalCommandMax)
+            {
+                compBuffer[j++] = (byte)(byteCount - 1);
+            }
+            else
+            {
+                compBuffer[j++] = (byte)(0xE0 + ((byteCount - 1 & 0x300) >> 8));
+                compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
+            }
+
+            Buffer.BlockCopy(buffer, i, compBuffer, j, byteCount);
+            j += byteCount;
+            i += byteCount;
+        }
+
+        private static void CallCommand1(byte[] buffer, byte[] compBuffer, ref int i, ref int j, int byteCount)
+        {
+            if (byteCount <= Codec.NormalCommandMax)
+            {
+                compBuffer[j++] = (byte)(0x20 + byteCount - 1);
+            }
+            else
+            {
+                compBuffer[j++] = (byte)(0xE4 + ((byteCount - 1 & 0x300) >> 8));
+                compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
+            }
+
+            compBuffer[j++] = buffer[i];
+            i += byteCount;
+        }
+
+        private static void CallCommand2(byte[] buffer, byte[] compBuffer, ref int i, ref int j, int byteCount)
+        {
+            if (byteCount <= Codec.NormalCommandMax)
+            {
+                compBuffer[j++] = (byte)(0x40 + byteCount - 1);
+            }
+            else
+            {
+                compBuffer[j++] = (byte)(0xE8 + ((byteCount - 1 & 0x300) >> 8));
+                compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
+            }
+
+            compBuffer[j++] = buffer[i];
+            compBuffer[j++] = buffer[i + 1];
+            i += byteCount;
+        }
+
+        private static void CallCommand3(byte[] buffer, byte[] compBuffer, ref int i, ref int j, int byteCount)
+        {
+            if (byteCount <= Codec.NormalCommandMax)
+            {
+                compBuffer[j++] = (byte)(0x60 + byteCount - 1);
+            }
+            else
+            {
+                compBuffer[j++] = (byte)(0xEC + ((byteCount - 1 & 0x300) >> 8));
+                compBuffer[j++] = (byte)(byteCount - 1 & 0xFF);
+            }
+
+            compBuffer[j++] = buffer[i];
+            i += byteCount;
         }
 
         private static void CallCommand4Or6(byte[] compBuffer, ref int i, ref int j, Range range)
@@ -251,8 +252,7 @@ namespace EpicEdit.Rom.Compression
 
             if (distance <= 0xFF)
             {
-                // Use a relative address (on 1 byte) to previous data
-                #region Command 6
+                // Command 6: use a relative address (on 1 byte) to previous data
                 if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0xC0 + byteCount - 1);
@@ -264,12 +264,10 @@ namespace EpicEdit.Rom.Compression
                 }
 
                 compBuffer[j++] = (byte)distance;
-                #endregion
             }
             else
             {
-                // Use an absolute address (on 2 bytes) to previous data
-                #region Command 4
+                // Command 4: use an absolute address (on 2 bytes) to previous data
                 if (byteCount <= Codec.NormalCommandMax)
                 {
                     compBuffer[j++] = (byte)(0x80 + byteCount - 1);
@@ -282,7 +280,6 @@ namespace EpicEdit.Rom.Compression
 
                 compBuffer[j++] = (byte)(range.Start & 0x00FF);
                 compBuffer[j++] = (byte)((range.Start & 0xFF00) >> 8);
-                #endregion
             }
 
             i += byteCount;
