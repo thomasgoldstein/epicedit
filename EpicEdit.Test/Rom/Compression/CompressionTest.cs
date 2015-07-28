@@ -49,17 +49,23 @@ namespace EpicEdit.Test.Rom.Compression
 
         private void CheckTrackCompression(int trackGroupId, int trackId)
         {
+            this.CheckTrackCompression(trackGroupId, trackId, new FastCompressor());
+            this.CheckTrackCompression(trackGroupId, trackId, new OptimalCompressor());
+        }
+
+        private void CheckTrackCompression(int trackGroupId, int trackId, ICompressor compressor)
+        {
             Track track = this.game.TrackGroups[trackGroupId][trackId];
 
             byte[] bufferA = track.Map.GetBytes();
 
             // Test simple compression
-            byte[] bufferC1 = Codec.Compress(bufferA);
+            byte[] bufferC1 = compressor.Compress(bufferA);
             byte[] bufferB = Codec.Decompress(bufferC1, 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
 
             // Test double compression
-            byte[] bufferC2 = Codec.Compress(bufferC1);
+            byte[] bufferC2 = compressor.Compress(bufferC1);
             bufferB = Codec.Decompress(Codec.Decompress(bufferC2), 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
         }
