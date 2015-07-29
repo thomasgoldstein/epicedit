@@ -38,12 +38,27 @@ namespace EpicEdit.Test.Rom.Compression
             this.CheckCompression(offset, expectedSize, new OptimalCompressor());
         }
 
+        private void CheckDoubleCompression(int offset, int expectedSize)
+        {
+            this.CheckDoubleCompression(offset, expectedSize, new FastCompressor());
+            this.CheckDoubleCompression(offset, expectedSize, new OptimalCompressor());
+        }
+
         private void CheckCompression(int offset, int expectedSize, ICompressor compressor)
         {
             byte[] bufferA = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize));
             byte[] bufferB = Codec.Decompress(compressor.Compress(bufferA));
 
             Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset));
+            Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
+        }
+
+        private void CheckDoubleCompression(int offset, int expectedSize, ICompressor compressor)
+        {
+            byte[] bufferA = Codec.Decompress(Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize)));
+            byte[] bufferB = Codec.Decompress(Codec.Decompress(compressor.Compress(compressor.Compress(bufferA))));
+
+            Assert.AreEqual(expectedSize, Codec.GetLength(Codec.Decompress(this.romBuffer, offset)));
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
         }
 
@@ -116,6 +131,12 @@ namespace EpicEdit.Test.Rom.Compression
         public void TestChompGraphics()
         {
             this.CheckCompression(0x60000, 0x189);
+        }
+
+        [Test]
+        public void TestPodiumGraphics()
+        {
+            this.CheckDoubleCompression(0x737DA, 0x295D);
         }
 
         [Test]

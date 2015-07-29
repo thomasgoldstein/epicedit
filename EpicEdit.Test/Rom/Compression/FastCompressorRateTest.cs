@@ -47,6 +47,16 @@ namespace EpicEdit.Test.Rom.Compression
             Assert.AreEqual(expectedSize, compressedSize);
         }
 
+        private void CheckCompressionFromDoubleCompressed(int offset, int expectedSize)
+        {
+            int originalCompressedSize = Codec.GetLength(this.romBuffer, offset);
+            byte[] decompressedData = Codec.Decompress(Codec.Decompress(File.ReadBlock(this.romBuffer, offset, originalCompressedSize)));
+            byte[] buffer = this.compressor.Compress(decompressedData);
+            int compressedSize = buffer.Length;
+
+            Assert.AreEqual(expectedSize, compressedSize);
+        }
+
         private void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
         {
             Track track = this.game.TrackGroups[trackGroupId][trackId];
@@ -102,6 +112,12 @@ namespace EpicEdit.Test.Rom.Compression
         public void TestChompGraphics()
         {
             this.CheckCompression(0x60000, 350);
+        }
+
+        [Test]
+        public void TestPodiumGraphics()
+        {
+            this.CheckCompressionFromDoubleCompressed(0x737DA, 9422);
         }
 
         [Test]
