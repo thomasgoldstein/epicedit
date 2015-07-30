@@ -324,7 +324,7 @@ namespace EpicEdit.UI.TrackEdition
                     break;
 
                 case PropertyNames.TrackAIElement.ZoneShape:
-                    this.shapeComboBox.SelectedValue = aiElement.ZoneShape;
+                    this.shapeComboBox.SelectedItem = aiElement.ZoneShape;
                     break;
             }
         }
