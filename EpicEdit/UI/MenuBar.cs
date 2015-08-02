@@ -307,7 +307,7 @@ namespace EpicEdit.UI
 
         private void SaveRomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Context.Game.SaveRom(Context.Game.FilePath);
+            Context.Game.SaveRom();
         }
 
         private void SaveRomAsToolStripMenuItemClick(object sender, EventArgs e)

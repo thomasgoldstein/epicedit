@@ -1082,6 +1082,11 @@ namespace EpicEdit.Rom
         #endregion Track reodering
 
         #region Save data
+        public void SaveRom()
+        {
+            this.SaveRom(this.FilePath);
+        }
+
         public void SaveRom(string filePath)
         {
             this.FilePath = filePath;
