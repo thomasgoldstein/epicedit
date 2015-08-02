@@ -107,8 +107,9 @@ namespace EpicEdit.UI
             this.settingToolStripButton.Enabled = true;
             this.codecToolStripButton.Enabled = true;
 
-            // Enable hidden key shortcuts
+            // Enable key shortcuts
             this.saveRomToolStripMenuItem.Enabled = true;
+            this.saveRomAsToolStripMenuItem.Enabled = true;
             this.importTrackToolStripMenuItem.Enabled = true;
             this.exportTrackToolStripMenuItem.Enabled = true;
             this.zoomInToolStripMenuItem.Enabled = true;
@@ -120,11 +121,6 @@ namespace EpicEdit.UI
 
         #region Save ROM
         private void SaveRomToolStripButtonClick(object sender, EventArgs e)
-        {
-            this.SaveRomDialogRequested(this, EventArgs.Empty);
-        }
-
-        private void SaveRomToolStripMenuItemClick(object sender, EventArgs e)
         {
             this.SaveRomDialogRequested(this, EventArgs.Empty);
         }
@@ -307,6 +303,16 @@ namespace EpicEdit.UI
         private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
         {
             this.OpenRomDialogRequested(this, EventArgs.Empty);
+        }
+
+        private void SaveRomToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            Context.Game.SaveRom(Context.Game.FilePath);
+        }
+
+        private void SaveRomAsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            this.SaveRomDialogRequested(this, EventArgs.Empty);
         }
 
         private void ImportTrackToolStripMenuItemClick(object sender, EventArgs e)
