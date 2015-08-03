@@ -2188,11 +2188,6 @@ namespace EpicEdit.Rom
 
         #region Compression
 
-        public byte[] Compress(byte[] data, bool twice)
-        {
-            return Codec.Compress(data, twice, true);
-        }
-
         public void InsertData(byte[] data, int offset)
         {
             offset -= this.romHeader.Length;

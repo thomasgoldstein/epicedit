@@ -18,6 +18,7 @@ using System.IO;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Compression;
 
 namespace EpicEdit.UI.Tools
 {
@@ -66,7 +67,7 @@ namespace EpicEdit.UI.Tools
 
         private static void Compress(byte[] data, int offset, bool twice, int limit)
         {
-            byte[] compData = Context.Game.Compress(data, twice);
+            byte[] compData = Codec.Compress(data, twice, true);
 
             string info = CodecControl.FormatCompressedChunkInfo("New data", offset, compData.Length, data.Length);
 
