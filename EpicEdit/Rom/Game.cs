@@ -46,11 +46,19 @@ namespace EpicEdit.Rom
     /// </summary>
     internal sealed class Game : IDisposable
     {
+        #region Constants
+
         private const int RegionOffset = 0xFFD9;
+
+        #endregion Constants
+
+        #region Events
 
         public event EventHandler<EventArgs> TracksReordered;
 
-        #region Public properties and methods
+        #endregion
+
+        #region Public properties
 
         /// <summary>
         /// Gets the track groups, each of which contains several tracks.
@@ -100,51 +108,23 @@ namespace EpicEdit.Rom
         /// </summary>
         public ItemIconGraphics ItemIconGraphics { get; private set; }
 
-        public byte[] Compress(byte[] data, bool twice)
-        {
-            return Codec.Compress(data, twice, true);
-        }
-
-        public void InsertData(byte[] data, int offset)
-        {
-            offset -= this.romHeader.Length;
-            Buffer.BlockCopy(data, 0, this.romBuffer, offset, data.Length);
-            this.modified = true;
-        }
-
-        public byte[] Decompress(int offset, bool twice)
-        {
-            offset -= this.romHeader.Length;
-
-            byte[] data = Codec.Decompress(this.romBuffer, offset);
-
-            if (twice)
-            {
-                data = Codec.Decompress(data);
-            }
-
-            return data;
-        }
-
-        public int GetCompressedChunkLength(int offset, bool doubleCompressed)
-        {
-            offset -= this.romHeader.Length;
-
-            if (!doubleCompressed)
-            {
-                return Codec.GetLength(this.romBuffer, offset);
-            }
-
-            byte[] data = Codec.Decompress(this.romBuffer, offset);
-            return Codec.GetLength(data);
-        }
-
         public int HeaderSize
         {
             get { return this.romHeader.Length; }
         }
 
-        #endregion Public properties and methods
+        public bool Modified
+        {
+            get
+            {
+                return this.modified ||
+                    this.TrackGroups.Modified ||
+                    this.Themes.Modified ||
+                    this.Settings.Modified;
+            }
+        }
+
+        #endregion Public properties
 
         #region Private members
 
@@ -172,6 +152,8 @@ namespace EpicEdit.Rom
 
         #endregion Private members
 
+        #region Constructor
+
         /// <param name="filePath">The path to the ROM file.</param>
         public Game(string filePath)
         {
@@ -179,7 +161,10 @@ namespace EpicEdit.Rom
             this.LoadRom();
             this.ValidateRom();
             this.LoadData();
+            this.HandleModifiedChanges();
         }
+
+        #endregion Constructor
 
         #region Read ROM & validate
 
@@ -443,24 +428,6 @@ namespace EpicEdit.Rom
 
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
-
-            foreach (TrackGroup trackGroup in this.TrackGroups)
-            {
-                trackGroup.PropertyChanged += this.track_PropertyChanged;
-
-                foreach (Track track in trackGroup)
-                {
-                    track.PropertyChanged += this.track_PropertyChanged;
-                }
-            }
-        }
-
-        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == PropertyNames.Track.SuffixedNameItem)
-            {
-                this.modified = true;
-            }
         }
 
         private void SetRegion()
@@ -985,7 +952,7 @@ namespace EpicEdit.Rom
                 #endregion Battle track specific data update
             }
 
-            this.modified = true;
+            this.MarkAsModified();
 
             if (this.TracksReordered != null)
             {
@@ -2184,6 +2151,32 @@ namespace EpicEdit.Rom
             }
         }
 
+        private void HandleModifiedChanges()
+        {
+            foreach (TrackGroup trackGroup in this.TrackGroups)
+            {
+                trackGroup.PropertyChanged += this.track_PropertyChanged;
+
+                foreach (Track track in trackGroup)
+                {
+                    track.PropertyChanged += this.track_PropertyChanged;
+                }
+            }
+        }
+
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == PropertyNames.Track.SuffixedNameItem)
+            {
+                this.MarkAsModified();
+            }
+        }
+
+        private void MarkAsModified()
+        {
+            this.modified = true;
+        }
+
         private void ResetModifiedState()
         {
             this.modified = false;
@@ -2191,15 +2184,52 @@ namespace EpicEdit.Rom
             this.Themes.ResetModifiedState();
             this.Settings.ResetModifiedState();
         }
-
-        public bool HasPendingChanges()
-        {
-            return this.modified ||
-                this.TrackGroups.Modified ||
-                this.Themes.Modified ||
-                this.Settings.Modified;
-        }
         #endregion Save data
+
+        #region Compression
+
+        public byte[] Compress(byte[] data, bool twice)
+        {
+            return Codec.Compress(data, twice, true);
+        }
+
+        public void InsertData(byte[] data, int offset)
+        {
+            offset -= this.romHeader.Length;
+            Buffer.BlockCopy(data, 0, this.romBuffer, offset, data.Length);
+            this.MarkAsModified();
+        }
+
+        public byte[] Decompress(int offset, bool twice)
+        {
+            offset -= this.romHeader.Length;
+
+            byte[] data = Codec.Decompress(this.romBuffer, offset);
+
+            if (twice)
+            {
+                data = Codec.Decompress(data);
+            }
+
+            return data;
+        }
+
+        public int GetCompressedChunkLength(int offset, bool doubleCompressed)
+        {
+            offset -= this.romHeader.Length;
+
+            if (!doubleCompressed)
+            {
+                return Codec.GetLength(this.romBuffer, offset);
+            }
+
+            byte[] data = Codec.Decompress(this.romBuffer, offset);
+            return Codec.GetLength(data);
+        }
+
+        #endregion Compression
+
+        #region IDisposable
 
         public void Dispose()
         {
@@ -2209,5 +2239,7 @@ namespace EpicEdit.Rom
 
             GC.SuppressFinalize(this);
         }
+
+        #endregion IDisposable
     }
 }

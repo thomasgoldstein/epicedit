@@ -102,9 +102,7 @@ namespace EpicEdit.UI
 
         private static bool HasPendingChanges()
         {
-            return
-                Context.Game != null &&
-                Context.Game.HasPendingChanges();
+            return Context.Game != null && Context.Game.Modified;
         }
 
         private void TrackEditorOpenRomDialogRequested(object sender, EventArgs e)
