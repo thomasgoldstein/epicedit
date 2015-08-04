@@ -255,6 +255,18 @@ namespace EpicEdit.Rom.Compression
             }
         }
 
+        public static byte[] Decompress(byte[] buffer, int offset, bool twice)
+        {
+            byte[] data = Codec.Decompress(buffer, offset);
+
+            if (twice)
+            {
+                data = Codec.Decompress(data);
+            }
+
+            return data;
+        }
+
         /// <summary>
         /// Computes the length of a compressed data block.
         /// </summary>

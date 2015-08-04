@@ -2198,15 +2198,7 @@ namespace EpicEdit.Rom
         public byte[] Decompress(int offset, bool twice)
         {
             offset -= this.romHeader.Length;
-
-            byte[] data = Codec.Decompress(this.romBuffer, offset);
-
-            if (twice)
-            {
-                data = Codec.Decompress(data);
-            }
-
-            return data;
+            return Codec.Decompress(this.romBuffer, offset, twice);
         }
 
         public int GetCompressedChunkLength(int offset, bool doubleCompressed)
