@@ -161,7 +161,7 @@ namespace EpicEdit.Rom
             this.LoadRom();
             this.ValidateRom();
             this.LoadData();
-            this.HandleModifiedChanges();
+            this.HandleChanges();
         }
 
         #endregion Constructor
@@ -2151,7 +2151,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        private void HandleModifiedChanges()
+        private void HandleChanges()
         {
             foreach (TrackGroup trackGroup in this.TrackGroups)
             {
