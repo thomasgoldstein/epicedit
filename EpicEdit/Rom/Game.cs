@@ -2204,14 +2204,7 @@ namespace EpicEdit.Rom
         public int GetCompressedChunkLength(int offset, bool doubleCompressed)
         {
             offset -= this.romHeader.Length;
-
-            if (!doubleCompressed)
-            {
-                return Codec.GetLength(this.romBuffer, offset);
-            }
-
-            byte[] data = Codec.Decompress(this.romBuffer, offset);
-            return Codec.GetLength(data);
+            return Codec.GetLength(this.romBuffer, offset, doubleCompressed);
         }
 
         #endregion Compression

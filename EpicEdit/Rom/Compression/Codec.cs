@@ -327,6 +327,13 @@ namespace EpicEdit.Rom.Compression
             return offset - startingOffset;
         }
 
+        public static int GetLength(byte[] buffer, int offset, bool doubleCompressed)
+        {
+            return !doubleCompressed ?
+                Codec.GetLength(buffer, offset) :
+                Codec.GetLength(Codec.Decompress(buffer, offset));
+        }
+
         public static byte[] GetCompressedChunk(byte[] buffer, int offset)
         {
             int compressedChunkLength = Codec.GetLength(buffer, offset);
