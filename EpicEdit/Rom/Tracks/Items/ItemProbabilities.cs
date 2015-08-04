@@ -45,7 +45,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Collection of <see cref="ItemProbability"/> objects.
     /// </summary>
-    internal class ItemProbabilities
+    internal class ItemProbabilities : INotifyPropertyChanged
     {
         /// <summary>
         /// The number of probability sets.
@@ -66,6 +66,8 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public const int Size = Count * ItemProbability.Size;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly ItemProbability[] itemProbabilities;
 
         public ItemProbabilities(byte[] data)
@@ -76,6 +78,15 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 byte[] itemData = ItemProbabilities.GetItemData(data, i);
                 this.itemProbabilities[i] = new ItemProbability(itemData);
+                this.itemProbabilities[i].PropertyChanged += this.OnPropertyChanged;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
             }
         }
 
@@ -156,6 +167,15 @@ namespace EpicEdit.Rom.Tracks.Items
                 }
 
                 return false;
+            }
+        }
+
+        public void Save(byte[] romBuffer, int offset)
+        {
+            if (this.Modified)
+            {
+                byte[] data = this.GetBytes();
+                Buffer.BlockCopy(data, 0, romBuffer, offset, ItemProbabilities.Size);
             }
         }
 

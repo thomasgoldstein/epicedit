@@ -59,7 +59,7 @@ namespace EpicEdit.UI
 
         private void UpdateApplicationTitle()
         {
-            this.Text = Context.Game.FileName + " - " + Application.ProductName;
+            this.Text = Context.Game.FileName + (!Context.Game.Modified ? null : "*") + " - " + Application.ProductName;
         }
 
         private void MainFormFormClosing(object sender, FormClosingEventArgs e)
@@ -137,12 +137,19 @@ namespace EpicEdit.UI
             }
             else
             {
+                Context.Game.PropertyChanged -= this.Context_Game_PropertyChanged;
                 Context.Game.Dispose();
                 Context.Game = null;
                 Context.Game = game;
                 this.trackEditor.InitOnRomLoad();
             }
 
+            Context.Game.PropertyChanged += this.Context_Game_PropertyChanged;
+            this.UpdateApplicationTitle();
+        }
+
+        private void Context_Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
             this.UpdateApplicationTitle();
         }
 
@@ -192,7 +199,6 @@ namespace EpicEdit.UI
         private void SaveRom(string filePath)
         {
             Context.Game.SaveRom(filePath);
-            this.UpdateApplicationTitle();
         }
 
         private void TrackEditorToggleScreenModeRequested(object sender, EventArgs e)

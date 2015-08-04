@@ -21,6 +21,17 @@ namespace EpicEdit.Rom
     /// </summary>
     internal static class PropertyNames
     {
+        internal static class Background
+        {
+            public const string Data = "Data";
+        }
+
+        internal static class Game
+        {
+            public const string Data = "Data";
+            public const string Modified = "Modified";
+        }
+
         internal static class GPStartPosition
         {
             public const string Location = "Location";
@@ -33,6 +44,22 @@ namespace EpicEdit.Rom
             public const string LapLine = "LapLine";
             public const string Objects = "Objects";
             public const string StartPosition = "StartPosition";
+        }
+
+        internal static class ItemProbability
+        {
+            public const string DisplayedItems = "DisplayedItems";
+            public const string FieldValue = "FieldValue";
+        }
+
+        internal static class Palettes
+        {
+            public const string Palette = "Palette";
+        }
+
+        internal static class RankPoints
+        {
+            public const string Value = "Value";
         }
 
         internal static class RoadTile

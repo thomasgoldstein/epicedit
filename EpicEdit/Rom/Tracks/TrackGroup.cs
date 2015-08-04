@@ -58,13 +58,31 @@ namespace EpicEdit.Rom.Tracks
             this.SuffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
             this.tracks = tracks;
+
+            foreach (Track track in tracks)
+            {
+                track.PropertyChanged += this.OnPropertyChanged;
+            }
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            this.OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
             if (this.PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyNames.Track.SuffixedNameItem));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
             }
         }
 

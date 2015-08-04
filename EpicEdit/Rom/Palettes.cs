@@ -16,6 +16,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using System.ComponentModel;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Utility;
 
@@ -24,7 +25,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// Represents a collection of <see cref="Palette">palettes</see>.
     /// </summary>
-    internal class Palettes : IEnumerable<Palette>
+    internal class Palettes : IEnumerable<Palette>, INotifyPropertyChanged
     {
         private const int PaletteCount = 16;
         private const int Size = PaletteCount * Palette.Size;
@@ -34,6 +35,8 @@ namespace EpicEdit.Rom
         /// From 0 to 7: non-sprite palettes, from 8 to 15: sprite palettes.
         /// </summary>
         public const int SpritePaletteStart = 8;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// The theme the palettes belong to.
@@ -54,6 +57,22 @@ namespace EpicEdit.Rom
             {
                 byte[] paletteData = Palettes.GetPaletteData(data, i);
                 this.palettes[i] = new Palette(this, i, paletteData);
+                this.palettes[i].ColorChanged += this.palette_ColorsChanged;
+                this.palettes[i].ColorsChanged += this.palette_ColorsChanged;
+            }
+        }
+
+        private void palette_ColorsChanged(object sender, EventArgs e)
+        {
+            // NOTE: Dummy property name
+            this.OnPropertyChanged(PropertyNames.Palettes.Palette);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

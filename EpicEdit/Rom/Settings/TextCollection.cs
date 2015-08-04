@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 using EpicEdit.Rom.Utility;
@@ -24,8 +25,10 @@ namespace EpicEdit.Rom.Settings
     /// <summary>
     /// A collection of texts.
     /// </summary>
-    internal class TextCollection : IEnumerable<TextItem>, ITextCollection
+    internal class TextCollection : IEnumerable<TextItem>, ITextCollection, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// Gets the converter used to translate font graphics index values into .NET strings.
         /// </summary>
@@ -225,7 +228,21 @@ namespace EpicEdit.Rom.Settings
                 }
 
                 this.texts[i] = new TextItem(this, this.Converter.DecodeText(textBytes, hasPaletteData));
-                this.texts[i].PropertyChanged += delegate { this.Modified = true; };
+                this.texts[i].PropertyChanged += this.TextItem_PropertyChanged;
+            }
+        }
+
+        private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            this.Modified = true;
+            this.OnPropertyChanged(sender, e);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
             }
         }
 

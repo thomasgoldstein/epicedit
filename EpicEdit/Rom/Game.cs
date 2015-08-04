@@ -44,7 +44,7 @@ namespace EpicEdit.Rom
     /// <summary>
     /// The Super Mario Kart Game class, which contains all of the game data.
     /// </summary>
-    internal sealed class Game : IDisposable
+    internal sealed class Game : INotifyPropertyChanged, IDisposable
     {
         #region Constants
 
@@ -53,6 +53,8 @@ namespace EpicEdit.Rom
         #endregion Constants
 
         #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<EventArgs> TracksReordered;
 
@@ -113,16 +115,7 @@ namespace EpicEdit.Rom
             get { return this.romHeader.Length; }
         }
 
-        public bool Modified
-        {
-            get
-            {
-                return this.modified ||
-                    this.TrackGroups.Modified ||
-                    this.Themes.Modified ||
-                    this.Settings.Modified;
-            }
-        }
+        public bool Modified { get; private set; }
 
         #endregion Public properties
 
@@ -147,8 +140,6 @@ namespace EpicEdit.Rom
         /// The offsets to find the needed data in the ROM.
         /// </summary>
         private Offsets offsets;
-
-        private bool modified;
 
         #endregion Private members
 
@@ -2153,36 +2144,47 @@ namespace EpicEdit.Rom
 
         private void HandleChanges()
         {
-            foreach (TrackGroup trackGroup in this.TrackGroups)
-            {
-                trackGroup.PropertyChanged += this.track_PropertyChanged;
-
-                foreach (Track track in trackGroup)
-                {
-                    track.PropertyChanged += this.track_PropertyChanged;
-                }
-            }
-        }
-
-        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == PropertyNames.Track.SuffixedNameItem)
-            {
-                this.MarkAsModified();
-            }
+            this.TrackGroups.PropertyChanged += this.MarkAsModified;
+            this.Themes.PropertyChanged += this.MarkAsModified;
+            this.Settings.PropertyChanged += this.MarkAsModified;
         }
 
         private void MarkAsModified()
         {
-            this.modified = true;
+            // NOTE: Dummy property name
+            this.MarkAsModified(this, new PropertyChangedEventArgs(PropertyNames.Game.Data));
+        }
+
+        private void MarkAsModified(object sender, PropertyChangedEventArgs e)
+        {
+            this.Modified = true;
+            this.OnPropertyChanged(sender, e);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
         }
 
         private void ResetModifiedState()
         {
-            this.modified = false;
             this.TrackGroups.ResetModifiedState();
             this.Themes.ResetModifiedState();
             this.Settings.ResetModifiedState();
+
+            this.Modified = false;
+            this.OnPropertyChanged(PropertyNames.Game.Modified);
         }
         #endregion Save data
 

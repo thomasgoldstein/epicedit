@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks.Items
     /// <summary>
     /// Represents the probability for players to get each item.
     /// </summary>
-    internal class ItemProbability
+    internal class ItemProbability : INotifyPropertyChanged
     {
         /// <summary>
         /// The amount of bytes a probability takes up.
@@ -45,6 +45,8 @@ namespace EpicEdit.Rom.Tracks.Items
         /// The total number of item probability items.
         /// </summary>
         private const int TotalCount = 32;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private byte[] backupData;
 
@@ -59,9 +61,23 @@ namespace EpicEdit.Rom.Tracks.Items
                 if (this.displayedItems != value)
                 {
                     this.displayedItems = value;
-                    this.Modified = true;
+                    this.MarkAsModified(PropertyNames.ItemProbability.DisplayedItems);
                     this.SetProbsBasedOnDisplayedItems();
                 }
+            }
+        }
+
+        private void MarkAsModified(string propertyName)
+        {
+            this.Modified = true;
+            this.OnPropertyChanged(propertyName);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -104,7 +120,9 @@ namespace EpicEdit.Rom.Tracks.Items
             if (field != value)
             {
                 field = value;
-                this.Modified = true;
+                // NOTE: Dummy property name
+                // We could pass the actual property name, but it's not used, so that'd complicate the code for nothing.
+                this.MarkAsModified(PropertyNames.ItemProbability.FieldValue);
             }
         }
 
@@ -219,11 +237,7 @@ namespace EpicEdit.Rom.Tracks.Items
                 this.SetFieldValue(ref this.values[i], value);
             }
 
-            this.displayedItems = (ItemBoxDisplay)data[8];
-
-            this.SetProbsBasedOnDisplayedItems();
-
-            this.Modified = true;
+            this.DisplayedItems = (ItemBoxDisplay)data[8];
         }
 
         private static int GetFieldValue(byte[] data, int index, ref int total)

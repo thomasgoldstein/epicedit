@@ -13,16 +13,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
-using System.Drawing;
-using EpicEdit.UI.Gfx;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Scenery
 {
     /// <summary>
     /// Represents the background of a track.
     /// </summary>
-    internal class Background : IDisposable
+    internal class Background : INotifyPropertyChanged, IDisposable
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public BackgroundTileset Tileset { get; private set; }
         public BackgroundLayout Layout { get; private set; }
 
@@ -30,6 +31,17 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             this.Tileset = tileset;
             this.Layout = layout;
+
+            this.Tileset.PropertyChanged += this.OnPropertyChanged;
+            this.Layout.PropertyChanged += this.OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
         }
 
         public BackgroundTile GetTileInstance(int x, int y, bool front)

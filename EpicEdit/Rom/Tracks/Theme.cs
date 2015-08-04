@@ -23,12 +23,14 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents the graphics set and music of a track.
     /// </summary>
-    internal sealed class Theme : IDisposable
+    internal sealed class Theme : INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// Number of themes.
         /// </summary>
         public const int Count = 8;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public TextItem NameItem { get; private set; }
 
@@ -65,6 +67,18 @@ namespace EpicEdit.Rom.Tracks
             this.Palettes.Theme = this;
             this.RoadTileset = roadTileset;
             this.Background = background;
+
+            this.Palettes.PropertyChanged += this.OnPropertyChanged;
+            this.RoadTileset.PropertyChanged += this.OnPropertyChanged;
+            this.Background.PropertyChanged += this.OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
         }
 
         public override string ToString()

@@ -13,13 +13,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Scenery
 {
     /// <summary>
     /// Represents the way background tiles are laid.
     /// </summary>
-    internal class BackgroundLayout
+    internal class BackgroundLayout : INotifyPropertyChanged
     {
         /// <summary>
         /// The number of visible tile rows that compose a background layer.
@@ -86,6 +87,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         public const int Size = FrontLayerSize + BackLayerSize;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private byte[][] frontLayer;
         private byte[][] backLayer;
 
@@ -110,7 +113,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         public void SetBytes(byte[] data)
         {
             this.SetBytesInternal(data);
-            this.Modified = true;
+            this.MarkAsModified();
         }
 
         private static byte[][] GetLayer(byte[] data, int start, int rowSize)
@@ -145,7 +148,22 @@ namespace EpicEdit.Rom.Tracks.Scenery
             layer[YStart + y][x * 2] = tileId;
             layer[YStart + y][x * 2 + 1] = properties;
 
+            this.MarkAsModified();
+        }
+
+        private void MarkAsModified()
+        {
             this.Modified = true;
+            // NOTE: Dummy property name
+            this.OnPropertyChanged(PropertyNames.Background.Data);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         public byte[] GetBytes()

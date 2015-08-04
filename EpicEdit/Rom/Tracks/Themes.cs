@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 using EpicEdit.Rom.Compression;
@@ -28,8 +29,10 @@ namespace EpicEdit.Rom.Tracks
     /// <summary>
     /// Represents a collection of <see cref="Theme">themes</see>.
     /// </summary>
-    internal sealed class Themes : IDisposable, IEnumerable<Theme>
+    internal sealed class Themes : IEnumerable<Theme>, INotifyPropertyChanged, IDisposable
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly Theme[] themes;
 
         public Theme this[int index]
@@ -61,10 +64,11 @@ namespace EpicEdit.Rom.Tracks
         public Themes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
             this.themes = new Theme[Theme.Count];
-            this.LoadThemes(romBuffer, offsets, names);
+            this.Init(romBuffer, offsets, names);
+            this.HandleChanges();
         }
 
-        private void LoadThemes(byte[] romBuffer, Offsets offsets, TextCollection names)
+        private void Init(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
             // TODO: Retrieve order dynamically from the ROM
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
@@ -194,6 +198,22 @@ namespace EpicEdit.Rom.Tracks
                 Background background = new Background(bgTileset, bgLayout);
 
                 this.themes[i] = new Theme(nameItem, palettes, roadTileset, background);
+            }
+        }
+
+        private void HandleChanges()
+        {
+            foreach (Theme theme in this.themes)
+            {
+                theme.PropertyChanged += this.OnPropertyChanged;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
             }
         }
 

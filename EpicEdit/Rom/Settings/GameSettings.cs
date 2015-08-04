@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using System;
+using System.ComponentModel;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.Rom.Utility;
@@ -22,8 +23,10 @@ namespace EpicEdit.Rom.Settings
     /// <summary>
     /// Regroups various game settings.
     /// </summary>
-    internal class GameSettings
+    internal class GameSettings : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly Offsets offsets;
 
         /// <summary>
@@ -89,7 +92,12 @@ namespace EpicEdit.Rom.Settings
         public GameSettings(byte[] romBuffer, Offsets offsets, Region region)
         {
             this.offsets = offsets;
+            this.Init(romBuffer, region);
+            this.HandleChanges();
+        }
 
+        private void Init(byte[] romBuffer, Region region)
+        {
             bool isJap = region == Region.Jap;
             int[] nameDataSizes = isJap ?
                 new int[] { 48, 94, 144, 136, 96, 42 } :
@@ -142,6 +150,28 @@ namespace EpicEdit.Rom.Settings
             this.ItemProbabilities = new ItemProbabilities(itemProbaData);
         }
 
+        private void HandleChanges()
+        {
+            if (this.GPCupTexts != null)
+            {
+                this.GPCupTexts.PropertyChanged += this.OnPropertyChanged;
+            }
+            this.CupAndThemeTexts.PropertyChanged += this.OnPropertyChanged;
+            this.DriverNamesGPResults.PropertyChanged += this.OnPropertyChanged;
+            this.DriverNamesGPPodium.PropertyChanged += this.OnPropertyChanged;
+            this.DriverNamesTimeTrial.PropertyChanged += this.OnPropertyChanged;
+            this.RankPoints.PropertyChanged += this.OnPropertyChanged;
+            this.ItemProbabilities.PropertyChanged += this.OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
+        }
+
         public void Save(byte[] romBuffer)
         {
             if (this.GPCupTexts != null)
@@ -152,26 +182,8 @@ namespace EpicEdit.Rom.Settings
             this.DriverNamesGPResults.Save(romBuffer);
             this.DriverNamesGPPodium.Save(romBuffer);
             this.DriverNamesTimeTrial.Save(romBuffer);
-            this.SaveRankPoints(romBuffer);
-            this.SaveItemProbabilities(romBuffer);
-        }
-
-        private void SaveRankPoints(byte[] romBuffer)
-        {
-            if (this.RankPoints.Modified)
-            {
-                byte[] data = this.RankPoints.GetBytes();
-                Buffer.BlockCopy(data, 0, romBuffer, this.offsets[Offset.RankPoints], RankPoints.Size);
-            }
-        }
-
-        private void SaveItemProbabilities(byte[] romBuffer)
-        {
-            if (this.ItemProbabilities.Modified)
-            {
-                byte[] data = this.ItemProbabilities.GetBytes();
-                Buffer.BlockCopy(data, 0, romBuffer, this.offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
-            }
+            this.RankPoints.Save(romBuffer, this.offsets[Offset.RankPoints]);
+            this.ItemProbabilities.Save(romBuffer, this.offsets[Offset.ItemProbabilities]);
         }
 
         public void ResetModifiedState()

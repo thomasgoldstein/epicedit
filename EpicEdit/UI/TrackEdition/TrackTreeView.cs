@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition
@@ -123,6 +124,12 @@ namespace EpicEdit.UI.TrackEdition
         private void trackGroup_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             TrackGroup trackGroup = sender as TrackGroup;
+
+            if (trackGroup == null)
+            {
+                return;
+            }
+
             TreeNode treeNode = this.trackGroupDictionary[trackGroup];
             treeNode.Text = trackGroup.Name;
         }

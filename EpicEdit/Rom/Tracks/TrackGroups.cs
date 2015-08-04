@@ -15,14 +15,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks
 {
     /// <summary>
     /// A collection of track groups, each of which contains several tracks.
     /// </summary>
-    internal class TrackGroups : IEnumerable<TrackGroup>
+    internal class TrackGroups : IEnumerable<TrackGroup>, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly TrackGroup[] trackGroups;
 
         public TrackGroups()
@@ -70,7 +73,20 @@ namespace EpicEdit.Rom.Tracks
         public TrackGroup this[int index]
         {
             get { return this.trackGroups[index]; }
-            set { this.trackGroups[index] = value; }
+            set
+            {
+                // NOTE: Only meant to be called once per item, so no need to detach event handlers
+                this.trackGroups[index] = value;
+                this.trackGroups[index].PropertyChanged += this.OnPropertyChanged;
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
         }
 
         public int Count

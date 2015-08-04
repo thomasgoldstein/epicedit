@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Road
     /// <summary>
     /// Represents a collection of road tiles.
     /// </summary>
-    internal class RoadTileset : IDisposable
+    internal class RoadTileset : INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// Number of theme-specific tiles in the tileset.
@@ -37,6 +37,8 @@ namespace EpicEdit.Rom.Tracks.Road
         /// </summary>
         public const int TileCount = ThemeTileCount + CommonTileCount;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly RoadTile[] tileset;
 
         public bool Modified { get; private set; }
@@ -47,13 +49,8 @@ namespace EpicEdit.Rom.Tracks.Road
 
             foreach (Tile tile in this.tileset)
             {
-                tile.PropertyChanged += this.tile_PropertyChanged;
+                tile.PropertyChanged += this.MarkAsModified;
             }
-        }
-
-        private void tile_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            this.Modified = true;
         }
 
         public RoadTile[] GetTiles()
@@ -106,8 +103,6 @@ namespace EpicEdit.Rom.Tracks.Road
             {
                 this.tileset[i].Genre = (RoadTileGenre)data[i];
             }
-
-            this.Modified = true;
         }
 
         public void SetTilePaletteBytes(byte[] data)
@@ -121,8 +116,20 @@ namespace EpicEdit.Rom.Tracks.Road
             {
                 this.tileset[i].PaletteByte = data[i];
             }
+        }
 
+        private void MarkAsModified(object sender, PropertyChangedEventArgs e)
+        {
             this.Modified = true;
+            this.OnPropertyChanged(sender, e);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(sender, e);
+            }
         }
 
         public void ResetModifiedState()
