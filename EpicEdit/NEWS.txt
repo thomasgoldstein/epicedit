@@ -17,6 +17,9 @@ v2.8 (xxx 2015)
 - Improved the data compression rate for Euro and Jap ROMs
 - Increased the decompression buffer size from 16 to 128 KiB. This makes
   it possible to manually decompress larger data such as podium graphics.
+- Added a star next to the loaded ROM name when there are unsaved changes
+- Changed Ctrl+S shortcut to act as "Save ROM" rather than "Save ROM As"
+- Added Ctrl+Shift+S shortcut for "Save ROM As"
 - Fixed 2.7.2 regression that disabled battle track reordering
 - Many tweaks and fixes
 
