@@ -23,7 +23,7 @@ namespace EpicEdit.UI.ThemeEdition
     /// <summary>
     /// Represents a background previewer.
     /// </summary>
-    internal partial class BackgroundPreviewer : EpicPanel
+    internal class BackgroundPreviewer : EpicPanel
     {
         private BackgroundDrawer drawer;
 
@@ -32,11 +32,6 @@ namespace EpicEdit.UI.ThemeEdition
         {
             //get { return this.drawer; }
             set { this.drawer = value; }
-        }
-
-        public BackgroundPreviewer()
-        {
-            this.InitializeComponent();
         }
 
         protected override void OnPaint(PaintEventArgs e)
