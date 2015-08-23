@@ -74,7 +74,7 @@ namespace EpicEdit.UI.Tools
             string oldInfo;
             try
             {
-                int oldCompSize = Context.Game.GetCompressedChunkLength(offset, twice);
+                int oldCompSize = Context.Game.GetCompressedChunkLength(offset);
                 int oldUncompSize = Context.Game.Decompress(offset, twice).Length;
                 oldInfo = CodecControl.FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
             }
