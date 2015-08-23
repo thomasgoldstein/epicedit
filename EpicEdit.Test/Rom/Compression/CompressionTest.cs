@@ -49,7 +49,7 @@ namespace EpicEdit.Test.Rom.Compression
             byte[] bufferA = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize));
             byte[] bufferB = Codec.Decompress(compressor.Compress(bufferA));
 
-            Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset));
+            Assert.AreEqual(expectedSize, bufferA.Length);
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
         }
 
@@ -58,7 +58,7 @@ namespace EpicEdit.Test.Rom.Compression
             byte[] bufferA = Codec.Decompress(Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize)));
             byte[] bufferB = Codec.Decompress(Codec.Decompress(compressor.Compress(compressor.Compress(bufferA))));
 
-            Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset, true));
+            Assert.AreEqual(expectedSize, bufferA.Length);
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
         }
 
@@ -88,55 +88,55 @@ namespace EpicEdit.Test.Rom.Compression
         [Test]
         public void TestGhostPillarGraphics()
         {
-            this.CheckCompression(0, 0x334);
+            this.CheckCompression(0, 0x800);
         }
 
         [Test]
         public void TestMontyMoleGraphics()
         {
-            this.CheckCompression(0x5D6, 0x32D);
+            this.CheckCompression(0x5D6, 0x720);
         }
 
         [Test]
         public void TestWinnerFlagGraphics()
         {
-            this.CheckCompression(0xBB7, 0x2DF);
+            this.CheckCompression(0xBB7, 0x700);
         }
 
         [Test]
         public void TestThwompGraphics()
         {
-            this.CheckCompression(0x1070, 0x429);
+            this.CheckCompression(0x1070, 0x720);
         }
 
         [Test]
         public void TestLakituGraphics()
         {
-            this.CheckCompression(0x10000, 0xAA5);
+            this.CheckCompression(0x10000, 0x1380);
         }
 
         [Test]
         public void TestPiranhaPlantGraphics()
         {
-            this.CheckCompression(0x10AA5, 0x4F6);
+            this.CheckCompression(0x10AA5, 0x720);
         }
 
         [Test]
         public void TestPipeGraphics()
         {
-            this.CheckCompression(0x10F9B, 0x35D);
+            this.CheckCompression(0x10F9B, 0x720);
         }
 
         [Test]
         public void TestChompGraphics()
         {
-            this.CheckCompression(0x60000, 0x189);
+            this.CheckCompression(0x60000, 0x280);
         }
 
         [Test]
         public void TestPodiumGraphics()
         {
-            this.CheckDoubleCompression(0x737DA, 0x295D);
+            this.CheckDoubleCompression(0x737DA, 0x4A00);
         }
 
         [Test]
