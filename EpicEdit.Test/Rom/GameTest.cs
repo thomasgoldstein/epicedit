@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using EpicEdit.Rom;
+using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Tracks;
 using NUnit.Framework;
 
@@ -392,6 +393,81 @@ namespace EpicEdit.Test.Rom
             Assert.AreEqual(0x16, romAfter[0x1C15D]);
             Assert.AreEqual(0x17, romAfter[0x1C15E]);
             Assert.AreEqual(0x14, romAfter[0x1C15F]);
+        }
+
+        private void TestCodec(Region region, int offset, bool twice)
+        {
+            Game game = File.GetGame(region);
+
+            byte[] romBuffer = File.ReadRom(region);
+            byte[] originalCompressedData = Codec.GetCompressedChunk(romBuffer, offset);
+
+            byte[] data = game.Decompress(offset, twice);
+            byte[] newCompressedData = Codec.Compress(data, twice, true);
+
+            // The new compressed data has to be different from the original compressed data,
+            // since both didn't use the same compressor.
+            Assert.AreNotEqual(originalCompressedData, newCompressedData);
+
+            byte[] originalDecompressedData = Codec.Decompress(originalCompressedData);
+            byte[] newDecompressedData = Codec.Decompress(newCompressedData);
+
+            if (twice)
+            {
+                originalDecompressedData = Codec.Decompress(originalDecompressedData);
+                newDecompressedData = Codec.Decompress(newDecompressedData);
+            }
+
+            // The decompressed data has to be the same, otherwise this implies that
+            // simply recompressing unmodified data somehow modified it.
+            Assert.AreEqual(originalDecompressedData, newDecompressedData);
+
+            game.InsertData(newCompressedData, offset);
+
+            string fileName = string.Format("SMK_{0}_{1:X}_{2}", region, offset, twice);
+            game.SaveRom(fileName);
+
+            byte[] newRomBuffer = System.IO.File.ReadAllBytes(fileName);
+            byte[] newResavedCompressedData = Codec.GetCompressedChunk(newRomBuffer, offset);
+
+            // Ensure the resaved ROM contains the new compressed data
+            Assert.AreEqual(newCompressedData, newResavedCompressedData);
+        }
+
+        [Test]
+        public void TestCodecPillarGraphicsUS()
+        {
+            this.TestCodec(Region.US, 0, false);
+        }
+
+        [Test]
+        public void TestCodecPillarGraphicsEuro()
+        {
+            this.TestCodec(Region.Euro, 0, false);
+        }
+
+        [Test]
+        public void TestCodecPillarGraphicsJap()
+        {
+            this.TestCodec(Region.Jap, 0, false);
+        }
+
+        [Test]
+        public void TestCodecPodiumGraphicsUS()
+        {
+            this.TestCodec(Region.US, 0x737DA, true);
+        }
+
+        [Test]
+        public void TestCodecPodiumGraphicsEuro()
+        {
+            this.TestCodec(Region.Euro, 0x737DA, true);
+        }
+
+        [Test]
+        public void TestCodecPodiumGraphicsJap()
+        {
+            this.TestCodec(Region.Jap, 0x73A63, true);
         }
     }
 }
