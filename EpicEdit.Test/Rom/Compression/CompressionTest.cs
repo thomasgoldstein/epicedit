@@ -58,7 +58,7 @@ namespace EpicEdit.Test.Rom.Compression
             byte[] bufferA = Codec.Decompress(Codec.Decompress(File.ReadBlock(this.romBuffer, offset, expectedSize)));
             byte[] bufferB = Codec.Decompress(Codec.Decompress(compressor.Compress(compressor.Compress(bufferA))));
 
-            Assert.AreEqual(expectedSize, Codec.GetLength(Codec.Decompress(this.romBuffer, offset)));
+            Assert.AreEqual(expectedSize, Codec.GetLength(this.romBuffer, offset, true));
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
         }
 
