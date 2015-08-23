@@ -327,6 +327,13 @@ namespace EpicEdit.Rom.Compression
             return offset - startingOffset;
         }
 
+        /// <summary>
+        /// Computes the length of a compressed data block.
+        /// </summary>
+        /// <param name="buffer">The buffer to decompress data from.</param>
+        /// <param name="offset">The buffer position to start from.</param>
+        /// <param name="doubleCompressed">Specifies whether the data is compressed twice or not.</param>
+        /// <returns>The length of the compressed block.</returns>
         public static int GetCompressedLength(byte[] buffer, int offset, bool doubleCompressed)
         {
             return !doubleCompressed ?
