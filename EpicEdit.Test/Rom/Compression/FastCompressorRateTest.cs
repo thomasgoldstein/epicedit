@@ -39,7 +39,7 @@ namespace EpicEdit.Test.Rom.Compression
 
         private void CheckCompression(int offset, int expectedSize)
         {
-            int originalCompressedSize = Codec.GetLength(this.romBuffer, offset);
+            int originalCompressedSize = Codec.GetCompressedLength(this.romBuffer, offset);
             byte[] decompressedData = Codec.Decompress(File.ReadBlock(this.romBuffer, offset, originalCompressedSize));
             byte[] buffer = this.compressor.Compress(decompressedData);
             int compressedSize = buffer.Length;
@@ -49,7 +49,7 @@ namespace EpicEdit.Test.Rom.Compression
 
         private void CheckCompressionFromDoubleCompressed(int offset, int expectedSize)
         {
-            int originalCompressedSize = Codec.GetLength(this.romBuffer, offset);
+            int originalCompressedSize = Codec.GetCompressedLength(this.romBuffer, offset);
             byte[] decompressedData = Codec.Decompress(Codec.Decompress(File.ReadBlock(this.romBuffer, offset, originalCompressedSize)));
             byte[] buffer = this.compressor.Compress(decompressedData);
             int compressedSize = buffer.Length;

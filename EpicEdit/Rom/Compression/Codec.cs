@@ -272,9 +272,9 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         /// <param name="buffer">The compressed data block.</param>
         /// <returns>The length of the compressed block.</returns>
-        public static int GetLength(byte[] buffer)
+        public static int GetCompressedLength(byte[] buffer)
         {
-            return Codec.GetLength(buffer, 0);
+            return Codec.GetCompressedLength(buffer, 0);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace EpicEdit.Rom.Compression
         /// <param name="buffer">The buffer to decompress data from.</param>
         /// <param name="offset">The buffer position to start from.</param>
         /// <returns>The length of the compressed block.</returns>
-        public static int GetLength(byte[] buffer, int offset)
+        public static int GetCompressedLength(byte[] buffer, int offset)
         {
             int startingOffset = offset;
             byte value;
@@ -327,16 +327,16 @@ namespace EpicEdit.Rom.Compression
             return offset - startingOffset;
         }
 
-        public static int GetLength(byte[] buffer, int offset, bool doubleCompressed)
+        public static int GetCompressedLength(byte[] buffer, int offset, bool doubleCompressed)
         {
             return !doubleCompressed ?
-                Codec.GetLength(buffer, offset) :
-                Codec.GetLength(Codec.Decompress(buffer, offset));
+                Codec.GetCompressedLength(buffer, offset) :
+                Codec.GetCompressedLength(Codec.Decompress(buffer, offset));
         }
 
         public static byte[] GetCompressedChunk(byte[] buffer, int offset)
         {
-            int compressedChunkLength = Codec.GetLength(buffer, offset);
+            int compressedChunkLength = Codec.GetCompressedLength(buffer, offset);
             return Utilities.ReadBlock(buffer, offset, compressedChunkLength);
         }
 
