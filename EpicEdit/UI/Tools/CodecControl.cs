@@ -104,7 +104,7 @@ namespace EpicEdit.UI.Tools
                                  "Uncompressed size: {4}" + Environment.NewLine,
                                  label,
                                  offset.ToString("X", CultureInfo.CurrentCulture),
-                                 (offset + compSize).ToString("X", CultureInfo.CurrentCulture),
+                                 (offset + compSize - 1).ToString("X", CultureInfo.CurrentCulture),
                                  compSize.ToString("X", CultureInfo.CurrentCulture),
                                  uncompSize.ToString("X", CultureInfo.CurrentCulture));
         }
