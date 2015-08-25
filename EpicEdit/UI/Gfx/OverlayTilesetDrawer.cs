@@ -19,7 +19,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 

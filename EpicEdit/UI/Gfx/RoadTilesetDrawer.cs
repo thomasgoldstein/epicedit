@@ -14,11 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
 using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Road;
 
 namespace EpicEdit.UI.Gfx

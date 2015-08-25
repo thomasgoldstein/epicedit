@@ -18,7 +18,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 
 namespace EpicEdit.UI.TrackEdition

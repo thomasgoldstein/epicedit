@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using System;
 using System.ComponentModel;
 using EpicEdit.Rom.Tracks.AI;
-using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.Objects
