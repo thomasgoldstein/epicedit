@@ -144,10 +144,10 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 int aiElemIndex = this.ai.GetElementIndex(aiElem);
                 sbyte zoneIndex = (sbyte)this.GetZoneIndex(aiElemIndex);
-                int left = aiElem.Zone.X / TrackAIElement.Precision;
-                int top = aiElem.Zone.Y / TrackAIElement.Precision;
-                int right = aiElem.Zone.Right / TrackAIElement.Precision;
-                int bottom = aiElem.Zone.Bottom / TrackAIElement.Precision;
+                int left = Math.Min(aiElem.Zone.X / TrackAIElement.Precision, GridSize);
+                int top = Math.Min(aiElem.Zone.Y / TrackAIElement.Precision, GridSize);
+                int right = Math.Min(aiElem.Zone.Right / TrackAIElement.Precision, GridSize);
+                int bottom = Math.Min(aiElem.Zone.Bottom / TrackAIElement.Precision, GridSize);
 
                 switch (aiElem.ZoneShape)
                 {
