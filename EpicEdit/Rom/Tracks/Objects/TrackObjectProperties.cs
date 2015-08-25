@@ -189,7 +189,10 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public void SetBytes(byte[] data)
         {
-            this.data = new byte[data.Length];
+            if (this.data == null)
+            {
+                this.data = new byte[data.Length];
+            }
 
             for (int i = 0; i < data.Length; i++)
             {
