@@ -107,12 +107,22 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             for (int i = 0; i < RegularObjectCount; i++)
             {
+                if (this.objects[i] != null)
+                {
+                    this.objects[i].PropertyChanged -= this.SubPropertyChanged;
+                }
+
                 this.objects[i] = new TrackObject(data, i * BytesPerObject);
                 this.objects[i].PropertyChanged += this.SubPropertyChanged;
             }
 
             for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
+                if (this.objects[i] != null)
+                {
+                    this.objects[i].PropertyChanged -= this.SubPropertyChanged;
+                }
+
                 this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
                 this.objects[i].PropertyChanged += this.SubPropertyChanged;
             }
