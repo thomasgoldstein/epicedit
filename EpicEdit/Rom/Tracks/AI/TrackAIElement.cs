@@ -749,7 +749,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = length - Math.Max(this.zone.Right, this.zone.Bottom);
+                        int offBounds = Math.Max(length - this.zone.Right, length - this.zone.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -822,7 +822,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = length - Math.Max(zoneX + TrackMap.Size, this.zone.Bottom);
+                        int offBounds = Math.Max(zoneX + length - TrackMap.Size, length - this.zone.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -850,7 +850,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                            int offBounds = Math.Max(zoneX + length - TrackMap.Size, zoneY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -867,7 +867,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - Math.Max(zoneX + TrackMap.Size, this.zone.Bottom);
+                            int offBounds = Math.Max(zoneX + length - TrackMap.Size, length - this.zone.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -893,7 +893,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                        int offBounds = Math.Max(zoneX + length - TrackMap.Size, zoneY + length - TrackMap.Size);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -917,7 +917,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                            int offBounds = Math.Max(length - this.zone.Right, zoneY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -938,7 +938,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - TrackMap.Size + Math.Max(zoneX, zoneY);
+                            int offBounds = Math.Max(zoneX + length - TrackMap.Size, zoneY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -961,7 +961,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                        int offBounds = Math.Max(length - this.zone.Right, zoneY + length - TrackMap.Size);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -988,7 +988,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - Math.Max(this.zone.Right, zoneY + TrackMap.Size);
+                            int offBounds = Math.Max(length - this.zone.Right, zoneY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -1005,7 +1005,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - Math.Max(this.zone.Right, this.zone.Bottom);
+                            int offBounds = Math.Max(length - this.zone.Right, length - this.zone.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
