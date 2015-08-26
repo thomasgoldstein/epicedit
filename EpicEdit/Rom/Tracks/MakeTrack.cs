@@ -146,7 +146,7 @@ namespace EpicEdit.Rom
                     this.EE_OBJPALETTES[3],
                     this.EE_OBJFLASHING[1]
                 };
-                return new TrackObjects(data, this.AREA_BORDER, this.AI, propData, this.Theme.Palettes);
+                return new TrackObjects(data, this.AREA_BORDER, this.AI, propData, null);
             }
             set
             {

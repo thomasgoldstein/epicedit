@@ -86,7 +86,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             get { return this.properties.Loading; }
         }
 
-        public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, Palettes palettes)
+        public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, GPTrack track)
         {
             this.objects = new TrackObject[Size / BytesPerObject];
             this.SetBytes(data);
@@ -94,7 +94,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.zones = new TrackObjectZones(zoneData, ai);
             this.Zones.PropertyChanged += this.SubPropertyChanged;
 
-            this.properties = new TrackObjectProperties(propData, palettes);
+            this.properties = new TrackObjectProperties(propData, track);
             this.properties.PropertyChanged += this.SubPropertyChanged;
         }
 

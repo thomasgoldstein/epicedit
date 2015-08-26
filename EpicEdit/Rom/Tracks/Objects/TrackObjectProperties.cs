@@ -78,7 +78,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public Palette Palette
         {
-            get { return this.palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart]; }
+            get { return this.track.Theme.Palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart]; }
         }
 
         private bool flashing;
@@ -126,14 +126,14 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private readonly Palettes palettes;
+        private readonly GPTrack track;
 
-        public TrackObjectProperties(byte[] data, Palettes palettes)
+        public TrackObjectProperties(byte[] data, GPTrack track)
         {
             this.paletteIndexes = new ByteArray();
             this.SetBytes(data);
             this.PaletteIndexes.DataChanged += this.PaletteIndexes_DataChanged;
-            this.palettes = palettes;
+            this.track = track;
         }
 
         public void SetBytes(byte[] data)

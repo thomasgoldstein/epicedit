@@ -98,7 +98,7 @@ namespace EpicEdit.Rom.Tracks
             this.lapLine = new LapLine(lapLineData);
             this.LapLine.DataChanged += this.LapLine_DataChanged;
 
-            this.objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, theme.Palettes);
+            this.objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, this);
             this.Objects.PropertyChanged += this.Objects_PropertyChanged;
 
             this.itemProbabilityIndex = itemProbaIndex;
