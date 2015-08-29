@@ -2,7 +2,7 @@
 
 Official site: http://epicedit.stifu.fr
 
-Epic Edit is a track editor for Super Mario Kart (Super Nintendo), which runs on Windows, Linux and Mac. It requires a Super Mario Kart ROM, which is not included. Games modified with Epic Edit can then be played on a real SNES console, or with a SNES emulator.
+Epic Edit is a track editor for Super Mario Kart (Super Nintendo), which runs on Windows, Linux and Mac. It requires a Super Mario Kart ROM, which is not included. Games modified with Epic Edit can then be played on a real SNES console, or with an SNES emulator.
 
 Epic Edit makes it easy to:
   - Modify track tiles and overlay tiles
