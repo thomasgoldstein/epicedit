@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         public TrackObjectGraphics(byte[] romBuffer, Offsets offsets)
         {
             int typeCount = Enum.GetValues(typeof(ObjectType)).Length;
-            int count = typeCount + 2; // + 2 for moving Match Race object and items
+            int count = typeCount + 2; // + 2 to account for moving Match Race object and items
             this.tiles = new TrackObjectTile[count][];
             int offsetLocation = offsets[Offset.TrackObjectGraphics];
             byte[] tilesetGfx;
