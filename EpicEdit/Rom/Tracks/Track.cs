@@ -53,8 +53,20 @@ namespace EpicEdit.Rom.Tracks
         public const int GroupCount = GPTrack.GroupCount + BattleTrack.GroupCount;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Raised when a single color has been changed.
+        /// </summary>
         public event EventHandler<EventArgs<int>> ColorChanged;
+
+        /// <summary>
+        /// Raised when multiple colors have been changed.
+        /// </summary>
         public event EventHandler<EventArgs> ColorsChanged;
+
+        /// <summary>
+        /// Raised after ColorChanged or ColorsChanged events have been raised and all related event handlers have been called,
+        /// ensuring graphics that used these colors have been updated at this point.
+        /// </summary>
         public event EventHandler<EventArgs> GraphicsChanged;
 
         private readonly SuffixedTextItem suffixedNameItem;
