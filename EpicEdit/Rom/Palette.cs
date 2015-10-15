@@ -35,6 +35,7 @@ namespace EpicEdit.Rom
 
         public event EventHandler<EventArgs<int>> ColorChanged;
         public event EventHandler<EventArgs> ColorsChanged;
+        public event EventHandler<EventArgs> GraphicsChanged;
 
         /// <summary>
         /// The collection the palette belongs to.
@@ -170,6 +171,7 @@ namespace EpicEdit.Rom
             if (this.ColorChanged != null)
             {
                 this.ColorChanged(this, new EventArgs<int>(value));
+                this.OnGraphicsChanged();
             }
         }
 
@@ -178,6 +180,15 @@ namespace EpicEdit.Rom
             if (this.ColorsChanged != null)
             {
                 this.ColorsChanged(this, EventArgs.Empty);
+                this.OnGraphicsChanged();
+            }
+        }
+
+        private void OnGraphicsChanged()
+        {
+            if (this.GraphicsChanged != null)
+            {
+                this.GraphicsChanged(this, EventArgs.Empty);
             }
         }
 

@@ -405,8 +405,7 @@ namespace EpicEdit.UI.SettingEdition
                 {
                     for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                     {
-                        this.theme.Palettes[i].ColorChanged -= this.palette_ColorsChanged;
-                        this.theme.Palettes[i].ColorsChanged -= this.palette_ColorsChanged;
+                        this.theme.Palettes[i].GraphicsChanged -= this.palette_GraphicsChanged;
                     }
                 }
 
@@ -414,15 +413,14 @@ namespace EpicEdit.UI.SettingEdition
 
                 for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
-                    this.theme.Palettes[i].ColorChanged += this.palette_ColorsChanged;
-                    this.theme.Palettes[i].ColorsChanged += this.palette_ColorsChanged;
+                    this.theme.Palettes[i].GraphicsChanged += this.palette_GraphicsChanged;
                 }
 
                 this.UpdateIcons(this.theme);
             }
         }
 
-        private void palette_ColorsChanged(object sender, EventArgs e)
+        private void palette_GraphicsChanged(object sender, EventArgs e)
         {
             this.InitImages();
         }

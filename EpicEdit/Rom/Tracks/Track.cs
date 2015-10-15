@@ -55,6 +55,7 @@ namespace EpicEdit.Rom.Tracks
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<EventArgs<int>> ColorChanged;
         public event EventHandler<EventArgs> ColorsChanged;
+        public event EventHandler<EventArgs> GraphicsChanged;
 
         private readonly SuffixedTextItem suffixedNameItem;
         public SuffixedTextItem SuffixedNameItem
@@ -156,6 +157,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 palette.ColorChanged += this.palette_ColorChanged;
                 palette.ColorsChanged += this.palette_ColorsChanged;
+                palette.GraphicsChanged += this.palette_GraphicsChanged;
             }
         }
 
@@ -165,6 +167,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 palette.ColorChanged -= this.palette_ColorChanged;
                 palette.ColorsChanged -= this.palette_ColorsChanged;
+                palette.GraphicsChanged -= this.palette_GraphicsChanged;
             }
         }
 
@@ -176,6 +179,11 @@ namespace EpicEdit.Rom.Tracks
         private void palette_ColorsChanged(object sender, EventArgs e)
         {
             this.OnColorsChanged(sender);
+        }
+
+        private void palette_GraphicsChanged(object sender, EventArgs e)
+        {
+            this.OnGraphicsChanged(sender);
         }
 
         private void OnColorChanged(object sender, EventArgs<int> e)
@@ -191,6 +199,14 @@ namespace EpicEdit.Rom.Tracks
             if (this.ColorsChanged != null)
             {
                 this.ColorsChanged(sender, EventArgs.Empty);
+            }
+        }
+
+        private void OnGraphicsChanged(object sender)
+        {
+            if (this.GraphicsChanged != null)
+            {
+                this.GraphicsChanged(sender, EventArgs.Empty);
             }
         }
 

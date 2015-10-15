@@ -419,9 +419,6 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.UpdateTileClipboard();
             }
-
-            this.InvalidateWholeTrackDisplay();
-            this.trackDisplay.Update();
         }
 
         public void InitOnRomLoad()
@@ -1763,6 +1760,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
+                this.track.GraphicsChanged -= track_GraphicsChanged;
 
                 gpTrack = this.track as GPTrack;
                 if (gpTrack != null)
@@ -1781,6 +1779,7 @@ namespace EpicEdit.UI.TrackEdition
             this.track.AI.ElementAdded += this.track_AI_ElementAdded;
             this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
             this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
+            this.track.GraphicsChanged += track_GraphicsChanged;
 
             gpTrack = this.track as GPTrack;
             if (gpTrack != null)
@@ -1890,6 +1889,12 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.aiControl.SelectedElement = null;
             this.InvalidateWholeTrackDisplay();
+        }
+
+        private void track_GraphicsChanged(object sender, EventArgs e)
+        {
+            this.InvalidateWholeTrackDisplay();
+            this.trackDisplay.Update();
         }
         #endregion TrackTreeView
 
