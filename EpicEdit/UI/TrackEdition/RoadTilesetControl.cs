@@ -97,15 +97,15 @@ namespace EpicEdit.UI.TrackEdition
 
                 if (this.track != null)
                 {
-                    this.track.ColorChanged -= this.track_ColorsChanged;
-                    this.track.ColorsChanged -= this.track_ColorsChanged;
+                    this.track.ColorGraphicsChanged -= this.track_ColorsGraphicsChanged;
+                    this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
                     this.track.PropertyChanged -= this.track_PropertyChanged;
                 }
 
                 this.track = value;
 
-                this.track.ColorChanged += this.track_ColorsChanged;
-                this.track.ColorsChanged += this.track_ColorsChanged;
+                this.track.ColorGraphicsChanged += this.track_ColorsGraphicsChanged;
+                this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
                 this.track.PropertyChanged += this.track_PropertyChanged;
 
                 this.SelectTrackTheme();
@@ -144,7 +144,7 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel.Zoom = RoadTilesetDrawer.Zoom;
         }
 
-        private void track_ColorsChanged(object sender, EventArgs e)
+        private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             if ((sender as Palette).Index < Palettes.SpritePaletteStart)
             {

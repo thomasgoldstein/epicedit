@@ -36,7 +36,7 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal sealed class TrackDrawer : IDisposable
     {
-        public event EventHandler<EventArgs<bool>> ColorsChanged;
+        public event EventHandler<EventArgs<bool>> GraphicsChanged;
 
         private Track track;
 
@@ -286,19 +286,19 @@ namespace EpicEdit.UI.Gfx
         {
             if (this.track != null)
             {
-                this.track.ColorChanged -= this.track_ColorChanged;
-                this.track.ColorsChanged -= this.track_ColorsChanged;
+                this.track.ColorGraphicsChanged -= this.track_ColorGraphicsChanged;
+                this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
             }
 
             this.track = track;
 
-            this.track.ColorChanged += this.track_ColorChanged;
-            this.track.ColorsChanged += this.track_ColorsChanged;
+            this.track.ColorGraphicsChanged += this.track_ColorGraphicsChanged;
+            this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
 
             this.ReloadTrack();
         }
 
-        private void track_ColorChanged(object sender, EventArgs<int> e)
+        private void track_ColorGraphicsChanged(object sender, EventArgs<int> e)
         {
             Palette palette = sender as Palette;
             bool updateCache = palette.Index < Palettes.SpritePaletteStart;
@@ -307,10 +307,10 @@ namespace EpicEdit.UI.Gfx
                 this.UpdateCache(palette, e.Value);
             }
 
-            this.OnColorsChanged(updateCache);
+            this.OnGraphicsChanged(updateCache);
         }
 
-        private void track_ColorsChanged(object sender, EventArgs e)
+        private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             Palette palette = sender as Palette;
             bool updateCache = palette.Index < Palettes.SpritePaletteStart;
@@ -319,14 +319,14 @@ namespace EpicEdit.UI.Gfx
                 this.UpdateCache(palette);
             }
 
-            this.OnColorsChanged(updateCache);
+            this.OnGraphicsChanged(updateCache);
         }
 
-        private void OnColorsChanged(bool updateCache)
+        private void OnGraphicsChanged(bool updateCache)
         {
-            if (this.ColorsChanged != null)
+            if (this.GraphicsChanged != null)
             {
-                this.ColorsChanged(this, new EventArgs<bool>(updateCache));
+                this.GraphicsChanged(this, new EventArgs<bool>(updateCache));
             }
         }
 

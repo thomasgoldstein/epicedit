@@ -44,10 +44,16 @@ namespace EpicEdit.Rom
         public event EventHandler<EventArgs> ColorsChanged;
 
         /// <summary>
-        /// Raised after ColorChanged or ColorsChanged events have been raised and all related event handlers have been called,
+        /// Raised after the ColorChanged event has been raised and all related event handlers have been called,
+        /// ensuring graphics that used this color have been updated at this point.
+        /// </summary>
+        public event EventHandler<EventArgs<int>> ColorGraphicsChanged;
+
+        /// <summary>
+        /// Raised after the ColorsChanged event has been raised and all related event handlers have been called,
         /// ensuring graphics that used these colors have been updated at this point.
         /// </summary>
-        public event EventHandler<EventArgs> GraphicsChanged;
+        public event EventHandler<EventArgs> ColorsGraphicsChanged;
 
         /// <summary>
         /// The collection the palette belongs to.
@@ -183,7 +189,7 @@ namespace EpicEdit.Rom
             if (this.ColorChanged != null)
             {
                 this.ColorChanged(this, new EventArgs<int>(value));
-                this.OnGraphicsChanged();
+                this.OnColorGraphicsChanged(value);
             }
         }
 
@@ -192,15 +198,23 @@ namespace EpicEdit.Rom
             if (this.ColorsChanged != null)
             {
                 this.ColorsChanged(this, EventArgs.Empty);
-                this.OnGraphicsChanged();
+                this.OnColorsGraphicsChanged();
             }
         }
 
-        private void OnGraphicsChanged()
+        private void OnColorGraphicsChanged(int value)
         {
-            if (this.GraphicsChanged != null)
+            if (this.ColorGraphicsChanged != null)
             {
-                this.GraphicsChanged(this, EventArgs.Empty);
+                this.ColorGraphicsChanged(this, new EventArgs<int>(value));
+            }
+        }
+
+        private void OnColorsGraphicsChanged()
+        {
+            if (this.ColorsGraphicsChanged != null)
+            {
+                this.ColorsGraphicsChanged(this, EventArgs.Empty);
             }
         }
 

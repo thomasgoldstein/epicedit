@@ -185,8 +185,8 @@ namespace EpicEdit.UI.ThemeEdition
                 for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
                     Palette palette = this.drawer.Theme.Palettes[i];
-                    palette.ColorChanged -= this.palette_ColorsChanged;
-                    palette.ColorsChanged -= this.palette_ColorsChanged;
+                    palette.ColorChanged -= this.palette_ColorsGraphicsChanged;
+                    palette.ColorsChanged -= this.palette_ColorsGraphicsChanged;
                 }
             }
 
@@ -195,12 +195,12 @@ namespace EpicEdit.UI.ThemeEdition
             for (int i = 0; i < Palettes.SpritePaletteStart; i++)
             {
                 Palette palette = this.drawer.Theme.Palettes[i];
-                palette.ColorChanged += this.palette_ColorsChanged;
-                palette.ColorsChanged += this.palette_ColorsChanged;
+                palette.ColorGraphicsChanged += this.palette_ColorsGraphicsChanged;
+                palette.ColorsGraphicsChanged += this.palette_ColorsGraphicsChanged;
             }
         }
 
-        private void palette_ColorsChanged(object sender, EventArgs e)
+        private void palette_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             this.LoadTheme();
         }

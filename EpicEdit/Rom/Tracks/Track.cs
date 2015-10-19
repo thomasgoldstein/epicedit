@@ -64,10 +64,16 @@ namespace EpicEdit.Rom.Tracks
         public event EventHandler<EventArgs> ColorsChanged;
 
         /// <summary>
-        /// Raised after ColorChanged or ColorsChanged events have been raised and all related event handlers have been called,
+        /// Raised after the ColorChanged event has been raised and all related event handlers have been called,
+        /// ensuring graphics that used this color have been updated at this point.
+        /// </summary>
+        public event EventHandler<EventArgs<int>> ColorGraphicsChanged;
+
+        /// <summary>
+        /// Raised after the ColorsChanged event has been raised and all related event handlers have been called,
         /// ensuring graphics that used these colors have been updated at this point.
         /// </summary>
-        public event EventHandler<EventArgs> GraphicsChanged;
+        public event EventHandler<EventArgs> ColorsGraphicsChanged;
 
         private readonly SuffixedTextItem suffixedNameItem;
         public SuffixedTextItem SuffixedNameItem
@@ -169,7 +175,8 @@ namespace EpicEdit.Rom.Tracks
             {
                 palette.ColorChanged += this.palette_ColorChanged;
                 palette.ColorsChanged += this.palette_ColorsChanged;
-                palette.GraphicsChanged += this.palette_GraphicsChanged;
+                palette.ColorGraphicsChanged += this.palette_ColorGraphicsChanged;
+                palette.ColorsGraphicsChanged += this.palette_ColorsGraphicsChanged;
             }
         }
 
@@ -179,7 +186,8 @@ namespace EpicEdit.Rom.Tracks
             {
                 palette.ColorChanged -= this.palette_ColorChanged;
                 palette.ColorsChanged -= this.palette_ColorsChanged;
-                palette.GraphicsChanged -= this.palette_GraphicsChanged;
+                palette.ColorGraphicsChanged -= this.palette_ColorGraphicsChanged;
+                palette.ColorsGraphicsChanged -= this.palette_ColorsGraphicsChanged;
             }
         }
 
@@ -193,9 +201,14 @@ namespace EpicEdit.Rom.Tracks
             this.OnColorsChanged(sender);
         }
 
-        private void palette_GraphicsChanged(object sender, EventArgs e)
+        private void palette_ColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            this.OnGraphicsChanged(sender);
+            this.OnColorGraphicsChanged(sender, e);
+        }
+
+        private void palette_ColorsGraphicsChanged(object sender, EventArgs e)
+        {
+            this.OnColorsGraphicsChanged(sender);
         }
 
         private void OnColorChanged(object sender, EventArgs<int> e)
@@ -214,11 +227,19 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        private void OnGraphicsChanged(object sender)
+        private void OnColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            if (this.GraphicsChanged != null)
+            if (this.ColorGraphicsChanged != null)
             {
-                this.GraphicsChanged(sender, EventArgs.Empty);
+                this.ColorGraphicsChanged(sender, e);
+            }
+        }
+
+        private void OnColorsGraphicsChanged(object sender)
+        {
+            if (this.ColorsGraphicsChanged != null)
+            {
+                this.ColorsGraphicsChanged(sender, EventArgs.Empty);
             }
         }
 

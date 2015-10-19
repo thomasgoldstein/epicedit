@@ -390,7 +390,7 @@ namespace EpicEdit.UI.TrackEdition
         public void InitOnFirstRomLoad()
         {
             this.drawer = new TrackDrawer();
-            this.drawer.ColorsChanged += this.drawer_ColorsChanged;
+            this.drawer.GraphicsChanged += this.drawer_GraphicsChanged;
 
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
@@ -413,12 +413,15 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.EnableControls();
         }
 
-        private void drawer_ColorsChanged(object sender, EventArgs<bool> e)
+        private void drawer_GraphicsChanged(object sender, EventArgs<bool> e)
         {
             if (e.Value)
             {
                 this.UpdateTileClipboard();
             }
+
+            this.InvalidateWholeTrackDisplay();
+            this.trackDisplay.Update();
         }
 
         public void InitOnRomLoad()
@@ -1760,7 +1763,6 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                 this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
-                this.track.GraphicsChanged -= track_GraphicsChanged;
 
                 gpTrack = this.track as GPTrack;
                 if (gpTrack != null)
@@ -1779,7 +1781,6 @@ namespace EpicEdit.UI.TrackEdition
             this.track.AI.ElementAdded += this.track_AI_ElementAdded;
             this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
             this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
-            this.track.GraphicsChanged += track_GraphicsChanged;
 
             gpTrack = this.track as GPTrack;
             if (gpTrack != null)
@@ -1889,12 +1890,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.aiControl.SelectedElement = null;
             this.InvalidateWholeTrackDisplay();
-        }
-
-        private void track_GraphicsChanged(object sender, EventArgs e)
-        {
-            this.InvalidateWholeTrackDisplay();
-            this.trackDisplay.Update();
         }
         #endregion TrackTreeView
 

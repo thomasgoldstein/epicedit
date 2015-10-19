@@ -155,8 +155,8 @@ namespace EpicEdit.UI.TrackEdition
                     this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
                     this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
                     this.track.PropertyChanged -= this.track_PropertyChanged;
-                    this.track.ColorChanged -= this.track_ColorsChanged;
-                    this.track.ColorsChanged -= this.track_ColorsChanged;
+                    this.track.ColorGraphicsChanged -= this.track_ColorsGraphicsChanged;
+                    this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
                 }
 
                 this.track = value;
@@ -165,8 +165,8 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
                 this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
                 this.track.PropertyChanged += this.track_PropertyChanged;
-                this.track.ColorChanged += this.track_ColorsChanged;
-                this.track.ColorsChanged += this.track_ColorsChanged;
+                this.track.ColorGraphicsChanged += this.track_ColorsGraphicsChanged;
+                this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
 
                 this.SelectedTile = null;
                 this.LoadTileset(this.track.RoadTileset);
@@ -450,7 +450,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private void track_ColorsChanged(object sender, EventArgs e)
+        private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             if ((sender as Palette).Index < Palettes.SpritePaletteStart)
             {
