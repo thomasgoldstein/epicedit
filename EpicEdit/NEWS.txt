@@ -3,6 +3,10 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
 
+v2.8.1 (???)
+- Fixed 2.8 regression that prevented the immediate rendering
+  of color changes on track objects and item icons
+
 v2.8 (August 29th 2015)
 - Added support for GP cup texts editing (English only)
 - Added support for cup and track name editing
