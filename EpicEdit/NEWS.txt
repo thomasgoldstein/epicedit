@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
 
-v2.8.1 (???)
+v2.8.1 (November 11th 2015)
 - Fixed 2.8 regression that prevented the immediate rendering
   of color changes on track objects and item icons
 
