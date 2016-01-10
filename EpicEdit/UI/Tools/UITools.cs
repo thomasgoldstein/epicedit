@@ -310,6 +310,10 @@ namespace EpicEdit.UI.Tools
             {
                 UITools.ShowError(ex.Message);
             }
+            catch (InvalidDataException ex)
+            {
+                UITools.ShowError(ex.Message);
+            }
         }
     }
 }
