@@ -3,6 +3,12 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
 
+v2.8.2 (? 2016)
+- Added a hack to work around Mono crashes, especially on Mac
+- When using the Codec and trying to decompress from an invalid address,
+  show a simple error message
+
+
 v2.8.1 (November 11th 2015)
 - Fixed 2.8 regression that prevented the immediate rendering
   of color changes on track objects and item icons
