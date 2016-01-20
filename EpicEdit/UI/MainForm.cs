@@ -37,6 +37,16 @@ namespace EpicEdit.UI
         [STAThread]
         public static void Main(string[] args)
         {
+            if (Platform.IsMono)
+            {
+                // HACK: Swallow UI thread exceptions. This is needed to work around Mono bugs,
+                // most notably the fact disabled controls still raise events on Mac (Carbon driver).
+                // E.g: hovering the track map panel before loading a ROM makes the application crash,
+                // because Mono raises events that shouldn't be raised at this point.
+                // We can safely ignore such exceptions.
+                Application.ThreadException += delegate { };
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
