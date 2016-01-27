@@ -698,14 +698,14 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitPaletteEditorForm();
             }
 
-            if (!this.paletteForm.Visible)
+            if (this.paletteForm.Visible)
             {
-                this.paletteForm.Editor.Theme = this.track.Theme;
-                this.paletteForm.Visible = true;
+                this.paletteForm.Visible = false;
             }
             else
             {
-                this.paletteForm.Visible = false;
+                this.paletteForm.Editor.Theme = this.track.Theme;
+                this.paletteForm.Visible = true;
             }
         }
 
@@ -758,14 +758,14 @@ namespace EpicEdit.UI.TrackEdition
                 this.InitBackgroundEditor();
             }
 
-            if (!this.backgroundForm.Visible)
+            if (this.backgroundForm.Visible)
             {
-                this.backgroundForm.Editor.Theme = this.track.Theme;
-                this.backgroundForm.Visible = true;
+                this.backgroundForm.Visible = false;
             }
             else
             {
-                this.backgroundForm.Visible = false;
+                this.backgroundForm.Editor.Theme = this.track.Theme;
+                this.backgroundForm.Visible = true;
             }
         }
 
