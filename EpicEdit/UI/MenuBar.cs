@@ -41,6 +41,14 @@ namespace EpicEdit.UI
         public event EventHandler<EventArgs> TrackExportDialogRequested;
 
         [Browsable(true), Category("Action")]
+        public event EventHandler<EventArgs> AllTrackImportDialogRequested;
+
+        [Browsable(true), Category("Action")]
+        public event EventHandler<EventArgs> AllTrackExportDialogRequested;
+
+
+
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> UndoRequested;
 
         [Browsable(true), Category("Action")]
@@ -100,6 +108,9 @@ namespace EpicEdit.UI
             this.saveRomToolStripButton.Enabled = true;
             this.importTrackToolStripButton.Enabled = true;
             this.exportTrackToolStripButton.Enabled = true;
+            this.importAllTrackToolStripButton.Enabled = true;
+            this.exportAllTracksTooltipButton.Enabled = true;
+            
             this.zoomOutToolStripButton.Enabled = true;
             this.zoomInToolStripButton.Enabled = true;
             this.paletteToolStripButton.Enabled = true;
@@ -365,5 +376,15 @@ namespace EpicEdit.UI
             this.TryToRedo();
         }
         #endregion Menu shortcut keys
+
+        private void exportAllTracksTooltipButton_Click(object sender, EventArgs e)
+        {
+            this.AllTrackExportDialogRequested(this, EventArgs.Empty);
+        }
+
+        private void importAllTrackToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.AllTrackImportDialogRequested(this, EventArgs.Empty);
+        }
     }
 }

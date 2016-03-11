@@ -66,9 +66,6 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrackEditor));
-            this.trackDisplay = new EpicEdit.UI.TrackEdition.TrackPanel();
-            this.trackDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
-            this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
             this.modeTabControl = new System.Windows.Forms.TabControl();
             this.tilesetTabPage = new System.Windows.Forms.TabPage();
             this.tilesetControl = new EpicEdit.UI.TrackEdition.RoadTilesetControl();
@@ -81,60 +78,19 @@ namespace EpicEdit.UI.TrackEdition
             this.aiTabPage = new System.Windows.Forms.TabPage();
             this.aiControl = new EpicEdit.UI.TrackEdition.AIControl();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
+            this.trackDisplay = new EpicEdit.UI.TrackEdition.TrackPanel();
+            this.trackDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
+            this.trackDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
             this.trackTreeView = new EpicEdit.UI.TrackEdition.TrackTreeView();
             this.menuBar = new EpicEdit.UI.MenuBar();
-            this.trackDisplay.SuspendLayout();
             this.modeTabControl.SuspendLayout();
             this.tilesetTabPage.SuspendLayout();
             this.overlayTabPage.SuspendLayout();
             this.startTabPage.SuspendLayout();
             this.objectsTabPage.SuspendLayout();
             this.aiTabPage.SuspendLayout();
+            this.trackDisplay.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // trackDisplay
-            // 
-            this.trackDisplay.BackColor = System.Drawing.Color.Black;
-            this.trackDisplay.Controls.Add(this.trackDisplayHScrollBar);
-            this.trackDisplay.Controls.Add(this.trackDisplayVScrollBar);
-            this.trackDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackDisplay.Enabled = false;
-            this.trackDisplay.Location = new System.Drawing.Point(144, 25);
-            this.trackDisplay.Name = "trackDisplay";
-            this.trackDisplay.Size = new System.Drawing.Size(403, 451);
-            this.trackDisplay.TabIndex = 1;
-            this.trackDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayKeyDown);
-            this.trackDisplay.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDoubleClick);
-            this.trackDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDown);
-            this.trackDisplay.MouseLeave += new System.EventHandler(this.TrackDisplayMouseLeave);
-            this.trackDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseMove);
-            this.trackDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseUp);
-            this.trackDisplay.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
-            // 
-            // trackDisplayHScrollBar
-            // 
-            this.trackDisplayHScrollBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.trackDisplayHScrollBar.Location = new System.Drawing.Point(0, 434);
-            this.trackDisplayHScrollBar.Name = "trackDisplayHScrollBar";
-            this.trackDisplayHScrollBar.Size = new System.Drawing.Size(386, 17);
-            this.trackDisplayHScrollBar.TabIndex = 0;
-            this.trackDisplayHScrollBar.Visible = false;
-            this.trackDisplayHScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayHScrollBarScroll);
-            this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
-            // 
-            // trackDisplayVScrollBar
-            // 
-            this.trackDisplayVScrollBar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.trackDisplayVScrollBar.Location = new System.Drawing.Point(386, 0);
-            this.trackDisplayVScrollBar.Name = "trackDisplayVScrollBar";
-            this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 451);
-            this.trackDisplayVScrollBar.TabIndex = 1;
-            this.trackDisplayVScrollBar.Visible = false;
-            this.trackDisplayVScrollBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayVScrollBarMouseMove);
-            this.trackDisplayVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayVScrollBarScroll);
-            this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
-            this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
-            this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
             // 
             // modeTabControl
             // 
@@ -267,6 +223,50 @@ namespace EpicEdit.UI.TrackEdition
             this.tabImageList.Images.SetKeyName(3, "ObjectTab");
             this.tabImageList.Images.SetKeyName(4, "AITab");
             // 
+            // trackDisplay
+            // 
+            this.trackDisplay.BackColor = System.Drawing.Color.Black;
+            this.trackDisplay.Controls.Add(this.trackDisplayHScrollBar);
+            this.trackDisplay.Controls.Add(this.trackDisplayVScrollBar);
+            this.trackDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackDisplay.Enabled = false;
+            this.trackDisplay.Location = new System.Drawing.Point(144, 25);
+            this.trackDisplay.Name = "trackDisplay";
+            this.trackDisplay.Size = new System.Drawing.Size(403, 451);
+            this.trackDisplay.TabIndex = 1;
+            this.trackDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackDisplayKeyDown);
+            this.trackDisplay.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDoubleClick);
+            this.trackDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseDown);
+            this.trackDisplay.MouseLeave += new System.EventHandler(this.TrackDisplayMouseLeave);
+            this.trackDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseMove);
+            this.trackDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseUp);
+            this.trackDisplay.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
+            // 
+            // trackDisplayHScrollBar
+            // 
+            this.trackDisplayHScrollBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.trackDisplayHScrollBar.Location = new System.Drawing.Point(0, 434);
+            this.trackDisplayHScrollBar.Name = "trackDisplayHScrollBar";
+            this.trackDisplayHScrollBar.Size = new System.Drawing.Size(386, 17);
+            this.trackDisplayHScrollBar.TabIndex = 0;
+            this.trackDisplayHScrollBar.Visible = false;
+            this.trackDisplayHScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayHScrollBarScroll);
+            this.trackDisplayHScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayHScrollBarValueChanged);
+            // 
+            // trackDisplayVScrollBar
+            // 
+            this.trackDisplayVScrollBar.Dock = System.Windows.Forms.DockStyle.Right;
+            this.trackDisplayVScrollBar.Location = new System.Drawing.Point(386, 0);
+            this.trackDisplayVScrollBar.Name = "trackDisplayVScrollBar";
+            this.trackDisplayVScrollBar.Size = new System.Drawing.Size(17, 451);
+            this.trackDisplayVScrollBar.TabIndex = 1;
+            this.trackDisplayVScrollBar.Visible = false;
+            this.trackDisplayVScrollBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayVScrollBarMouseMove);
+            this.trackDisplayVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackDisplayVScrollBarScroll);
+            this.trackDisplayVScrollBar.ValueChanged += new System.EventHandler(this.TrackDisplayVScrollBarValueChanged);
+            this.trackDisplayVScrollBar.MouseLeave += new System.EventHandler(this.TrackDisplayVScrollBarMouseLeave);
+            this.trackDisplayVScrollBar.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TrackDisplayMouseWheel);
+            // 
             // trackTreeView
             // 
             this.trackTreeView.Dock = System.Windows.Forms.DockStyle.Left;
@@ -289,6 +289,8 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.ZoomOutEnabled = false;
             this.menuBar.TrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportDialogRequested);
             this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
+            this.menuBar.AllTrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.AllTrackImportDialogRequested);
+            this.menuBar.AllTrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.AllTrackExportDialogRequested);
             this.menuBar.UndoRequested += new System.EventHandler<System.EventArgs>(this.MenuBarUndoRequested);
             this.menuBar.RedoRequested += new System.EventHandler<System.EventArgs>(this.MenuBarRedoRequested);
             this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);
@@ -310,13 +312,13 @@ namespace EpicEdit.UI.TrackEdition
             this.Size = new System.Drawing.Size(691, 476);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TrackEditorDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TrackEditorDragEnter);
-            this.trackDisplay.ResumeLayout(false);
             this.modeTabControl.ResumeLayout(false);
             this.tilesetTabPage.ResumeLayout(false);
             this.overlayTabPage.ResumeLayout(false);
             this.startTabPage.ResumeLayout(false);
             this.objectsTabPage.ResumeLayout(false);
             this.aiTabPage.ResumeLayout(false);
+            this.trackDisplay.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
