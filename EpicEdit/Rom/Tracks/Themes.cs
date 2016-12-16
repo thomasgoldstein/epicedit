@@ -211,10 +211,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, e);
-            }
+            this.PropertyChanged?.Invoke(sender, e);
         }
 
         private static bool AreTileGenresRelocated(byte[] romBuffer, int offset)

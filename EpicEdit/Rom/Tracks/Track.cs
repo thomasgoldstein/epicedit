@@ -213,34 +213,22 @@ namespace EpicEdit.Rom.Tracks
 
         private void OnColorChanged(object sender, EventArgs<int> e)
         {
-            if (this.ColorChanged != null)
-            {
-                this.ColorChanged(sender, e);
-            }
+            this.ColorChanged?.Invoke(sender, e);
         }
 
         private void OnColorsChanged(object sender)
         {
-            if (this.ColorsChanged != null)
-            {
-                this.ColorsChanged(sender, EventArgs.Empty);
-            }
+            this.ColorsChanged?.Invoke(sender, EventArgs.Empty);
         }
 
         private void OnColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            if (this.ColorGraphicsChanged != null)
-            {
-                this.ColorGraphicsChanged(sender, e);
-            }
+            this.ColorGraphicsChanged?.Invoke(sender, e);
         }
 
         private void OnColorsGraphicsChanged(object sender)
         {
-            if (this.ColorsGraphicsChanged != null)
-            {
-                this.ColorsGraphicsChanged(sender, EventArgs.Empty);
-            }
+            this.ColorsGraphicsChanged?.Invoke(sender, EventArgs.Empty);
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -344,10 +332,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void ResetModifiedState()

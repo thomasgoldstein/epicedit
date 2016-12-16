@@ -174,10 +174,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -222,10 +219,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void OnDataChanged(int value)
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, new EventArgs<int>(value));
-            }
+            this.DataChanged?.Invoke(this, new EventArgs<int>(value));
         }
 
         private static byte[] Clone(byte[] data)

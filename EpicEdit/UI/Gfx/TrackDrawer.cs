@@ -324,10 +324,7 @@ namespace EpicEdit.UI.Gfx
 
         private void OnGraphicsChanged(bool updateCache)
         {
-            if (this.GraphicsChanged != null)
-            {
-                this.GraphicsChanged(this, new EventArgs<bool>(updateCache));
-            }
+            this.GraphicsChanged?.Invoke(this, new EventArgs<bool>(updateCache));
         }
 
         private Region GetZoomedRegion(Region region)

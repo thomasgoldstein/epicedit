@@ -204,18 +204,12 @@ namespace EpicEdit.Rom
 
         private void OnColorGraphicsChanged(int value)
         {
-            if (this.ColorGraphicsChanged != null)
-            {
-                this.ColorGraphicsChanged(this, new EventArgs<int>(value));
-            }
+            this.ColorGraphicsChanged?.Invoke(this, new EventArgs<int>(value));
         }
 
         private void OnColorsGraphicsChanged()
         {
-            if (this.ColorsGraphicsChanged != null)
-            {
-                this.ColorsGraphicsChanged(this, EventArgs.Empty);
-            }
+            this.ColorsGraphicsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public byte[] GetBytes()

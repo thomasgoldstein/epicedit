@@ -87,10 +87,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void OnDataChanged(int zoneIndex)
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, new EventArgs<int>(zoneIndex));
-            }
+            this.DataChanged?.Invoke(this, new EventArgs<int>(zoneIndex));
         }
 
         public byte[][] GetGrid()

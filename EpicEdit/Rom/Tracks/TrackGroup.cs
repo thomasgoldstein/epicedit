@@ -72,18 +72,12 @@ namespace EpicEdit.Rom.Tracks
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, e);
-            }
+            this.PropertyChanged?.Invoke(sender, e);
         }
 
         public void ResetModifiedState()

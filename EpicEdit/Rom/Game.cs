@@ -943,10 +943,7 @@ namespace EpicEdit.Rom
 
             this.MarkAsModified();
 
-            if (this.TracksReordered != null)
-            {
-                this.TracksReordered(this, EventArgs.Empty);
-            }
+            this.TracksReordered?.Invoke(this, EventArgs.Empty);
         }
 
         private void ReorderGPTracks(int sourceTrackGroupId, int sourceTrackId, int destinationTrackGroupId, int destinationTrackId)
@@ -2161,18 +2158,12 @@ namespace EpicEdit.Rom
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, e);
-            }
+            this.PropertyChanged?.Invoke(sender, e);
         }
 
         private void ResetModifiedState()

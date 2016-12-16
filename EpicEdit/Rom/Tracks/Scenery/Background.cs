@@ -38,10 +38,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, e);
-            }
+            this.PropertyChanged?.Invoke(sender, e);
         }
 
         public BackgroundTile GetTileInstance(int x, int y, bool front)

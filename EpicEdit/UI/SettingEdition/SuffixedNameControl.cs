@@ -85,10 +85,7 @@ namespace EpicEdit.UI.SettingEdition
   
         private void textItem_Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.SuffixTextChanged != null)
-            {
-                this.SuffixTextChanged(this, EventArgs.Empty);
-            }
+            this.SuffixTextChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

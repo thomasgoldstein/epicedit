@@ -160,10 +160,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         private void OnDataChanged()
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, EventArgs.Empty);
-            }
+            this.DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public int Width

@@ -197,10 +197,7 @@ namespace EpicEdit.Rom.Tracks.Start
 
         private void OnDataChanged()
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, EventArgs.Empty);
-            }
+            this.DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public byte[] GetBytes()

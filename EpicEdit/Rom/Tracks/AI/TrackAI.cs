@@ -141,34 +141,22 @@ namespace EpicEdit.Rom.Tracks.AI
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(sender, e);
-            }
+            this.PropertyChanged?.Invoke(sender, e);
         }
 
         private void OnElementAdded(TrackAIElement value)
         {
-            if (this.ElementAdded != null)
-            {
-                this.ElementAdded(this, new EventArgs<TrackAIElement>(value));
-            }
+            this.ElementAdded?.Invoke(this, new EventArgs<TrackAIElement>(value));
         }
 
         private void OnElementRemoved(TrackAIElement value)
         {
-            if (this.ElementRemoved != null)
-            {
-                this.ElementRemoved(this, new EventArgs<TrackAIElement>(value));
-            }
+            this.ElementRemoved?.Invoke(this, new EventArgs<TrackAIElement>(value));
         }
 
         private void OnElementsCleared()
         {
-            if (this.ElementsCleared != null)
-            {
-                this.ElementsCleared(this, EventArgs.Empty);
-            }
+            this.ElementsCleared?.Invoke(this, EventArgs.Empty);
         }
 
         public int GetElementIndex(TrackAIElement aiElement)

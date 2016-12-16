@@ -163,34 +163,22 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         private void OnDataChanged()
         {
-            if (this.DataChanged != null)
-            {
-                this.DataChanged(this, EventArgs.Empty);
-            }
+            this.DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnElementAdded(OverlayTile value)
         {
-            if (this.ElementAdded != null)
-            {
-                this.ElementAdded(this, new EventArgs<OverlayTile>(value));
-            }
+            this.ElementAdded?.Invoke(this, new EventArgs<OverlayTile>(value));
         }
 
         private void OnElementRemoved(OverlayTile value)
         {
-            if (this.ElementRemoved != null)
-            {
-                this.ElementRemoved(this, new EventArgs<OverlayTile>(value));
-            }
+            this.ElementRemoved?.Invoke(this, new EventArgs<OverlayTile>(value));
         }
 
         private void OnElementsCleared()
         {
-            if (this.ElementsCleared != null)
-            {
-                this.ElementsCleared(this, EventArgs.Empty);
-            }
+            this.ElementsCleared?.Invoke(this, EventArgs.Empty);
         }
     }
 }
