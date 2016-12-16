@@ -186,18 +186,20 @@ namespace EpicEdit.Rom
                 return;
             }
 
-            if (this.ColorChanged != null)
+            EventHandler<EventArgs<int>> colorChanged = this.ColorChanged;
+            if (colorChanged != null)
             {
-                this.ColorChanged(this, new EventArgs<int>(value));
+                colorChanged(this, new EventArgs<int>(value));
                 this.OnColorGraphicsChanged(value);
             }
         }
 
         private void OnColorsChanged()
         {
-            if (this.ColorsChanged != null)
+            EventHandler<EventArgs> colorsChanged = this.ColorsChanged;
+            if (colorsChanged != null)
             {
-                this.ColorsChanged(this, EventArgs.Empty);
+                colorsChanged(this, EventArgs.Empty);
                 this.OnColorsGraphicsChanged();
             }
         }
