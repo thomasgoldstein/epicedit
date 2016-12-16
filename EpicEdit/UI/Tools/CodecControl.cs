@@ -99,14 +99,12 @@ namespace EpicEdit.UI.Tools
         private static string FormatCompressedChunkInfo(string label, int offset, int compSize, int uncompSize)
         {
             return string.Format(CultureInfo.CurrentCulture,
-                                 "{0}: from {1} to {2}" + Environment.NewLine +
+                                 "{0}: from {1:X} to {2:X}" + Environment.NewLine +
                                  "Compressed size: {3}" + Environment.NewLine +
                                  "Uncompressed size: {4}" + Environment.NewLine,
-                                 label,
-                                 offset.ToString("X", CultureInfo.CurrentCulture),
-                                 (offset + compSize - 1).ToString("X", CultureInfo.CurrentCulture),
-                                 compSize.ToString("X", CultureInfo.CurrentCulture),
-                                 uncompSize.ToString("X", CultureInfo.CurrentCulture));
+                                 label, offset, (offset + compSize - 1),
+                                 compSize,
+                                 uncompSize);
         }
     }
 }
