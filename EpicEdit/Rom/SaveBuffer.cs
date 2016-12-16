@@ -178,7 +178,7 @@ namespace EpicEdit.Rom
         {
             if (size > RomSize.Size8192)
             {
-                throw new ArgumentOutOfRangeException("size", "The ROM can't be expanded because the maximum size has been reached.");
+                throw new ArgumentOutOfRangeException(nameof(size), "The ROM can't be expanded because the maximum size has been reached.");
             }
 
             byte[] resizedRomBuffer = new byte[size];

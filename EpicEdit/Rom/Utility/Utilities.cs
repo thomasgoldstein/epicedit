@@ -161,7 +161,7 @@ namespace EpicEdit.Rom.Utility
         {
             if (data > 0xFFFFF)
             {
-                throw new ArgumentOutOfRangeException("data", "The offset value is too high.");
+                throw new ArgumentOutOfRangeException(nameof(data), "The offset value is too high.");
             }
 
             return new byte[]

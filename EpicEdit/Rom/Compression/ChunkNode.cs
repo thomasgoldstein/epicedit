@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Compression
         {
             if (compressedChunk == null)
             {
-                throw new ArgumentNullException("compressedChunk", "The compressed chunk can't be null.");
+                throw new ArgumentNullException(nameof(compressedChunk), "The compressed chunk can't be null.");
             }
 
             this.IsOptimal = true;

@@ -122,7 +122,7 @@ namespace EpicEdit.Rom
         {
             if (data.Length != Palette.Size)
             {
-                throw new ArgumentException($"The palette is not {Palette.Size}-byte long.", "data");
+                throw new ArgumentException($"The palette is not {Palette.Size}-byte long.", nameof(data));
             }
 
             for (int i = 0; i < this.colors.Length; i++)

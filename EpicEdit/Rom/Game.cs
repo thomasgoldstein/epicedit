@@ -727,7 +727,7 @@ namespace EpicEdit.Rom
                         objectType = ObjectType.RThwomp;
                         break;
 
-                        default: throw new ArgumentOutOfRangeException("themeId");
+                        default: throw new ArgumentOutOfRangeException(nameof(themeId));
                 }
             }
 
@@ -787,7 +787,7 @@ namespace EpicEdit.Rom
                         paletteIndexes[3] = 7;
                         break;
 
-                    default: throw new ArgumentOutOfRangeException("themeId");
+                    default: throw new ArgumentOutOfRangeException(nameof(themeId));
                 }
             }
 

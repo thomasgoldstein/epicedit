@@ -192,12 +192,12 @@ namespace EpicEdit.Rom
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", "Color byte data cannot be null.");
+                throw new ArgumentNullException(nameof(data), "Color byte data cannot be null.");
             }
 
             if (data.Length - index < 2)
             {
-                throw new ArgumentException("Invalid color byte data or index value.", "data");
+                throw new ArgumentException("Invalid color byte data or index value.", nameof(data));
             }
 
             // Decode the bytes into red, green and blue components (8 bits)

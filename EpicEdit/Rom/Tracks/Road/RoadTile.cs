@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
                 if (!Enum.IsDefined(typeof(RoadTileGenre), value))
                 {
-                    throw new ArgumentException($"Invalid tile type value: {value:X}.", "value");
+                    throw new ArgumentException($"Invalid tile type value: {value:X}.", nameof(value));
                 }
 
                 this.genre = value;

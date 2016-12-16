@@ -96,7 +96,7 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             if (data.Length != this.tileset.Length)
             {
-                throw new ArgumentException("Incorrect road tile type data size", "data");
+                throw new ArgumentException("Incorrect road tile type data size", nameof(data));
             }
 
             for (int i = 0; i < this.tileset.Length; i++)
@@ -109,7 +109,7 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             if (data.Length != this.tileset.Length)
             {
-                throw new ArgumentException("Incorrect road tile palette data size", "data");
+                throw new ArgumentException("Incorrect road tile palette data size", nameof(data));
             }
 
             for (int i = 0; i < this.tileset.Length; i++)

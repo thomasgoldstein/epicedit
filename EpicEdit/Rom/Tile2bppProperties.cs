@@ -34,7 +34,7 @@ namespace EpicEdit.Rom
             {
                 if (value < 0 || value > 15)
                 {
-                    throw new ArgumentOutOfRangeException("value", "The palette index value should be between 0 and 15.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "The palette index value should be between 0 and 15.");
                 }
 
                 this.paletteIndex = value;
@@ -49,7 +49,7 @@ namespace EpicEdit.Rom
             {
                 if (value != 0 && value != 4 && value != 8 && value != 12)
                 {
-                    throw new ArgumentOutOfRangeException("value", "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
                 }
 
                 this.subPaletteIndex = value;
@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
 
             if ((paletteData & 0x03) != 0)
             {
-                throw new ArgumentOutOfRangeException("data", "Invalid 2bpp tile property data. The 2 lower bits should be 0.");
+                throw new ArgumentOutOfRangeException(nameof(data), "Invalid 2bpp tile property data. The 2 lower bits should be 0.");
             }
 
             this.paletteIndex = (paletteData & 0x30) >> 4;

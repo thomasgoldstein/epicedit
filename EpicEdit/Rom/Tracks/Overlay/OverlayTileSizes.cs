@@ -101,7 +101,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 }
             }
 
-            throw new ArgumentException("Size not found.", "size");
+            throw new ArgumentException("Size not found.", nameof(size));
         }
     }
 }
