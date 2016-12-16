@@ -727,7 +727,7 @@ namespace EpicEdit.Rom
                         objectType = ObjectType.RThwomp;
                         break;
 
-                        default: throw new ArgumentOutOfRangeException(nameof(themeId));
+                    default: throw new ArgumentOutOfRangeException(nameof(themeId));
                 }
             }
 
