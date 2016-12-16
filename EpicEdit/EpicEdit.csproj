@@ -44,6 +44,7 @@
     <TargetFrameworkProfile />
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <CscToolPath>$(MSBuildProgramFiles32)\MSBuild\14.0\Bin</CscToolPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
