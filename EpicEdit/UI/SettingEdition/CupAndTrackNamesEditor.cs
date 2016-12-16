@@ -81,7 +81,7 @@ namespace EpicEdit.UI.SettingEdition
         {
             int total = Context.Game.Settings.CupAndTrackNameSuffixCollection.TotalCharacterCount;
             int max = Context.Game.Settings.CupAndTrackNameSuffixCollection.MaxCharacterCount;
-            this.countLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", total, max);
+            this.countLabel.Text = $"{total}/{max}";
             this.countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 

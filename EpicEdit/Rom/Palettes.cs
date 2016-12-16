@@ -80,7 +80,7 @@ namespace EpicEdit.Rom
         {
             if (data.Length != Size)
             {
-                throw new ArgumentException("Palettes data should have a size of " + Size + " bytes. Actual: " + data.Length + " bytes.", "data");
+                throw new ArgumentException($"Palettes data should have a size of {Size} bytes. Actual: {data.Length} bytes.", "data");
             }
 
             int count = data.Length / Palette.Size;

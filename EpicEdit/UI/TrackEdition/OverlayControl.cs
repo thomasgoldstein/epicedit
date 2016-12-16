@@ -347,7 +347,7 @@ namespace EpicEdit.UI.TrackEdition
         private void UpdateTileCount()
         {
             int count = this.track.OverlayTiles.Count;
-            this.tileCountLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", count, OverlayTiles.MaxTileCount);
+            this.tileCountLabel.Text = $"{count}/{OverlayTiles.MaxTileCount}";
             this.tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
 

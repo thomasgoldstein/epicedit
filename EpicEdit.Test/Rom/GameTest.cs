@@ -424,7 +424,7 @@ namespace EpicEdit.Test.Rom
 
             game.InsertData(newCompressedData, offset);
 
-            string fileName = string.Format("SMK_{0}_{1:X}_{2}", region, offset, twice);
+            string fileName = $"SMK_{region}_{offset:X}_{twice}";
             game.SaveRom(fileName);
 
             byte[] newRomBuffer = System.IO.File.ReadAllBytes(fileName);

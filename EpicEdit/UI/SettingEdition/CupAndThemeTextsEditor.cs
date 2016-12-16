@@ -108,7 +108,7 @@ namespace EpicEdit.UI.SettingEdition
         {
             int total = textCollection.TotalCharacterCount;
             int max = textCollection.MaxCharacterCount;
-            countLabel.Text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}", total, max);
+            countLabel.Text = $"{total}/{max}";
             countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 

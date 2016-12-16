@@ -239,12 +239,12 @@ namespace EpicEdit.Rom
         {
             if (!this.IsSnesRom())
             {
-                throw new InvalidDataException("\"" + this.FileName + "\" is not an SNES ROM.");
+                throw new InvalidDataException($"\"{this.FileName}\" is not an SNES ROM.");
             }
 
             if (!this.IsSuperMarioKart())
             {
-                throw new InvalidDataException("\"" + this.FileName + "\" is not a Super Mario Kart ROM.");
+                throw new InvalidDataException($"\"{this.FileName}\" is not a Super Mario Kart ROM.");
             }
         }
 
@@ -427,9 +427,7 @@ namespace EpicEdit.Rom
 
             if (!Enum.IsDefined(typeof(Region), region))
             {
-                throw new InvalidDataException(string.Format(CultureInfo.CurrentCulture,
-                                                             "\"{0}\" has an invalid region. Value at {1:X} must be 0, 1 or 2, was: {2:X}.",
-                                                             this.FileName, Game.RegionOffset + this.romHeader.Length, region));
+                throw new InvalidDataException($"\"{this.FileName}\" has an invalid region. Value at {(Game.RegionOffset + this.romHeader.Length):X} must be 0, 1 or 2, was: {region:X}.");
             }
 
             this.region = (Region)region;
@@ -729,7 +727,7 @@ namespace EpicEdit.Rom
                         objectType = ObjectType.RThwomp;
                         break;
 
-                    default: throw new ArgumentOutOfRangeException("themeId");
+                        default: throw new ArgumentOutOfRangeException("themeId");
                 }
             }
 

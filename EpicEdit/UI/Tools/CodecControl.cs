@@ -80,7 +80,7 @@ namespace EpicEdit.UI.Tools
             }
             catch (InvalidDataException)
             {
-                oldInfo = "Cannot decompress data at " + offset.ToString("X", CultureInfo.CurrentCulture) + "." + Environment.NewLine;
+                oldInfo = $"Cannot decompress data at {offset:X}." + Environment.NewLine;
             }
 
             info = oldInfo + Environment.NewLine + info;
