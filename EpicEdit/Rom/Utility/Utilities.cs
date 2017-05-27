@@ -40,25 +40,38 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         /// <param name="buffer">The buffer to retrieve data from.</param>
         /// <param name="offset">The buffer position the function starts reading from.</param>
-        /// <param name="stopValue">The function keeps reading the buffer until it reaches this value. -1 means there is no stop value.</param>
+        /// <param name="stopValues">The function keeps reading the buffer until it reaches these values. Null if there is no stop value.</param>
         /// <returns>An array of bytes.</returns>
-        public static byte[] ReadBlockUntil(byte[] buffer, int offset, int stopValue)
+        public static byte[] ReadBlockUntil(byte[] buffer, int offset, params byte[] stopValues)
         {
             int length;
-            if (stopValue == -1) // Means there is no stop value, we continue until the end of the buffer
+            if (stopValues == null) // There is no stop value, we continue until the end of the buffer
             {
                 length = buffer.Length - offset;
             }
             else
             {
                 length = 0;
-                while (buffer[offset + length] != stopValue)
+                while (!Utilities.IsBlockLimitReached(buffer, offset + length, stopValues))
                 {
                     length++;
                 }
             }
 
             return Utilities.ReadBlock(buffer, offset, length);
+        }
+
+        private static bool IsBlockLimitReached(byte[] buffer, int offset, params byte[] stopValues)
+        {
+            for (int i = 0; i < stopValues.Length; i++)
+            {
+                if (buffer[offset + i] != stopValues[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
