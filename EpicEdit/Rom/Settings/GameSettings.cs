@@ -126,7 +126,7 @@ namespace EpicEdit.Rom.Settings
                     nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
             }
 
-            this.GPPodiumCupTexts = new TextCollection(
+            this.GPPodiumCupTexts = new GPPodiumCupTextCollection(
                 romBuffer, offsets[Offset.GPPodiumCupTexts], GPTrack.GroupCount + 1,
                 nameDataSizes[2], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,

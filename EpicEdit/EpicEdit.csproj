@@ -106,6 +106,7 @@
     <Compile Include="Rom\RomColor.cs" />
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
+    <Compile Include="Rom\Settings\GPPodiumCupTextCollection.cs" />
     <Compile Include="Rom\Settings\ITextCollection.cs" />
     <Compile Include="Rom\Settings\RankPoints.cs" />
     <Compile Include="Rom\Settings\FreeTextCollection.cs" />

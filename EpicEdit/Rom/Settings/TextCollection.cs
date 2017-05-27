@@ -268,7 +268,7 @@ namespace EpicEdit.Rom.Settings
             return this.GetBytes(out indexes, out length);
         }
 
-        private byte[] GetBytes(out byte[] indexes, out int length)
+        protected virtual byte[] GetBytes(out byte[] indexes, out int length)
         {
             indexes = new byte[this.texts.Length * (!this.japAltMode ? 2 : 4)];
             byte[] data = new byte[this.totalSize];
