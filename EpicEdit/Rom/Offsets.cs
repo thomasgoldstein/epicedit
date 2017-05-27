@@ -26,27 +26,27 @@ namespace EpicEdit.Rom
         ModeNames,
 
         /// <summary>
-        /// Offsets to cup texts as displayed on the GP cup selection screen.
+        /// Offsets to the cup texts as displayed on the GP cup selection screen.
         /// </summary>
         GPCupTexts,
 
         /// <summary>
-        /// Offsets to cup and theme texts as displayed in Time Trial, Match Race and Battle Mode.
+        /// Offsets to the cup and theme texts as displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
         CupAndThemeTexts,
 
         /// <summary>
-        /// Offsets to driver names on the GP results screen.
+        /// Offsets to the driver names on the GP results screen.
         /// </summary>
         DriverNamesGPResults,
 
         /// <summary>
-        /// Offsets to driver names on the GP podium screen.
+        /// Offsets to the driver names on the GP podium screen.
         /// </summary>
         DriverNamesGPPodium,
 
         /// <summary>
-        /// Offsets to driver names in Time Trial.
+        /// Offsets to the driver names in Time Trial.
         /// </summary>
         DriverNamesTimeTrial,
 
