@@ -31,6 +31,11 @@ namespace EpicEdit.Rom
         GPCupTexts,
 
         /// <summary>
+        /// Offsets to the cup texts displayed on the GP podium screen.
+        /// </summary>
+        GPPodiumCupTexts,
+
+        /// <summary>
         /// Offsets to the cup and theme texts as displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
         CupAndThemeTexts,
@@ -399,6 +404,7 @@ namespace EpicEdit.Rom
                 case Region.Jap:
                     this[Offset.ModeNames] = 0x58B19;
                     this[Offset.GPCupTexts] = 0x4F6D7;
+                    this[Offset.GPPodiumCupTexts] = 0x5A092;
                     this[Offset.DriverNamesGPResults] = 0x5C1EC;
                     this[Offset.DriverNamesGPPodium] = 0x5A0E0;
                     this[Offset.DriverNamesTimeTrial] = 0x1DDCA;
@@ -426,6 +432,7 @@ namespace EpicEdit.Rom
                 case Region.US:
                     this[Offset.ModeNames] = 0x58B00;
                     this[Offset.GPCupTexts] = 0x4F85F;
+                    this[Offset.GPPodiumCupTexts] = 0x5A0EE;
                     this[Offset.DriverNamesGPResults] = 0x5C25B;
                     this[Offset.DriverNamesGPPodium] = 0x5A148;
                     this[Offset.DriverNamesTimeTrial] = 0x1DDD3;
@@ -453,6 +460,7 @@ namespace EpicEdit.Rom
                 case Region.Euro:
                     this[Offset.ModeNames] = 0x58AF2;
                     this[Offset.GPCupTexts] = 0x4F778;
+                    this[Offset.GPPodiumCupTexts] = 0x5A0F8;
                     this[Offset.DriverNamesGPResults] = 0x5C263;
                     this[Offset.DriverNamesGPPodium] = 0x5A152;
                     this[Offset.DriverNamesTimeTrial] = 0x1DC81;
