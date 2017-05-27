@@ -65,7 +65,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSModeNames()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
                 },
@@ -78,7 +78,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSGPCupTexts()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
                 },
@@ -91,7 +91,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSCupAndThemeTexts()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
                     "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
@@ -106,7 +106,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSDriverNamesGPResults()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
@@ -120,7 +120,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSDriverNamesGPPodium()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
                     "DK JR.", "KOOPA", "TOAD", "YOSHI"
@@ -134,7 +134,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestUSDriverNamesTimeTrial()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "D.K.JR", "KOOPA", "TOAD", "YOSHI"
@@ -148,7 +148,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroModeNames()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
                 },
@@ -161,7 +161,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroGPCupTexts()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
                 },
@@ -174,7 +174,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroCupAndThemeTexts()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
                     "MARIO CIRCUIT ", "GHOST VALLEY ", "DONUT PLAINS ", "BOWSER CASTLE ",
@@ -189,7 +189,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroDriverNamesGPResults()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "DONKEY KONG JR", "KOOPA TROOPA", "TOAD", "YOSHI"
@@ -203,7 +203,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroDriverNamesGPPodium()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
                     "DK JR.", "KOOPA", "TOAD", "YOSHI"
@@ -217,7 +217,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestEuroDriverNamesTimeTrial()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
                     "D.K.JR", "KOOPA", "TOAD", "YOSHI"
@@ -231,7 +231,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestJapModeNames()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "マリオカートGP", "VSマッチレース", "バトルゲーム"
                 },
@@ -244,7 +244,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestJapCupAndThemeTexts()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "キノコカップ ", "フラワーカップ ", "スターカップ ", "スペシャルカップ ",
                     "マリオサーキット ", "おばけぬまコース ", "ドーナツへいやコース ", "クッパじょうコース ",
@@ -259,7 +259,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestJapDriverNamesGPResults()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
@@ -273,7 +273,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestJapDriverNamesGPPodium()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキーコングJR", "ノコノコ", "キノピオ", "ヨッシー"
@@ -287,7 +287,7 @@ namespace EpicEdit.Test.Rom.Settings
         public void TestJapDriverNamesTimeTrial()
         {
             this.TestTexts(
-                new string[]
+                new []
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
                     "ドンキー", "ノコノコ", "キノピオ", "ヨッシー"
