@@ -161,8 +161,9 @@ namespace EpicEdit.Rom.Settings
 
                 if (!fixedLength)
                 {
-                    // Dynamic text length, ends at byte 0xFF
-                    textBytes = Utilities.ReadBlockUntil(romBuffer, offsets[i], 0xFF);
+                    // Dynamic text length, ends at bytes 0xFF or 0xFFFF
+                    byte[] stopValues = !hasPaletteData ? new byte[] { 0xFF } : new byte[] { 0xFF, 0xFF };
+                    textBytes = Utilities.ReadBlockUntil(romBuffer, offsets[i], stopValues);
                 }
                 else
                 {
