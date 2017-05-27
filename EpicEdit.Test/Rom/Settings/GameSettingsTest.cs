@@ -88,6 +88,19 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
+        public void TestUSGPPodiumTexts()
+        {
+            this.TestTexts(
+                new []
+                {
+                    "MUSHROOM", "FLOWER", "STAR", "SPECIAL", " CUP RACE\n"
+                },
+                File.ReadBlock(this.romBufferU, 0x5A0EE, 10),
+                File.ReadBlock(this.romBufferU, 0x5A0F8, 80),
+                this.gameU.Settings.GPPodiumCupTexts);
+        }
+
+        [Test]
         public void TestUSCupAndThemeTexts()
         {
             this.TestTexts(
@@ -171,6 +184,19 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
+        public void TestEuroGPPodiumTexts()
+        {
+            this.TestTexts(
+                new []
+                {
+                    "MUSHROOM", "FLOWER", "STAR", "SPECIAL", " CUP RACE\n"
+                },
+                File.ReadBlock(this.romBufferE, 0x5A0F8, 10),
+                File.ReadBlock(this.romBufferE, 0x5A102, 80),
+                this.gameE.Settings.GPPodiumCupTexts);
+        }
+
+        [Test]
         public void TestEuroCupAndThemeTexts()
         {
             this.TestTexts(
@@ -238,6 +264,19 @@ namespace EpicEdit.Test.Rom.Settings
                 null, // Not testing expected bytes, data resaving not supported
                 null, // Not testing expected bytes, data resaving not supported
                 this.gameJ.Settings.ModeNames);
+        }
+
+        [Test]
+        public void TestJapGPPodiumTexts()
+        {
+            this.TestTexts(
+                new []
+                {
+                    " キノコ", " フラワー", " スター", " スペシャル", "カップレースー\n"
+                },
+                File.ReadBlock(this.romBufferJ, 0x5A092, 10),
+                File.ReadBlock(this.romBufferJ, 0x5A09C, 68),
+                this.gameJ.Settings.GPPodiumCupTexts);
         }
 
         [Test]
