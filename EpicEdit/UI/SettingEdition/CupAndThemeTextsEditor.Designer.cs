@@ -310,7 +310,7 @@ namespace EpicEdit.UI.SettingEdition
             this.pcTextBox5.Name = "pcTextBox5";
             this.pcTextBox5.Size = new System.Drawing.Size(136, 20);
             this.pcTextBox5.TabIndex = 4;
-            this.pcTextBox5.TextChanged += new System.EventHandler(this.GPPodiumCupTextsBoxTextChanged);
+            this.pcTextBox5.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // pcTextBox1
             // 
@@ -318,7 +318,7 @@ namespace EpicEdit.UI.SettingEdition
             this.pcTextBox1.Name = "pcTextBox1";
             this.pcTextBox1.Size = new System.Drawing.Size(136, 20);
             this.pcTextBox1.TabIndex = 0;
-            this.pcTextBox1.TextChanged += new System.EventHandler(this.GPPodiumCupTextsBoxTextChanged);
+            this.pcTextBox1.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // pcTextBox2
             // 
@@ -326,7 +326,7 @@ namespace EpicEdit.UI.SettingEdition
             this.pcTextBox2.Name = "pcTextBox2";
             this.pcTextBox2.Size = new System.Drawing.Size(136, 20);
             this.pcTextBox2.TabIndex = 1;
-            this.pcTextBox2.TextChanged += new System.EventHandler(this.GPPodiumCupTextsBoxTextChanged);
+            this.pcTextBox2.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // pcTextBox3
             // 
@@ -334,7 +334,7 @@ namespace EpicEdit.UI.SettingEdition
             this.pcTextBox3.Name = "pcTextBox3";
             this.pcTextBox3.Size = new System.Drawing.Size(136, 20);
             this.pcTextBox3.TabIndex = 2;
-            this.pcTextBox3.TextChanged += new System.EventHandler(this.GPPodiumCupTextsBoxTextChanged);
+            this.pcTextBox3.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // pcTextBox4
             // 
@@ -342,7 +342,7 @@ namespace EpicEdit.UI.SettingEdition
             this.pcTextBox4.Name = "pcTextBox4";
             this.pcTextBox4.Size = new System.Drawing.Size(136, 20);
             this.pcTextBox4.TabIndex = 3;
-            this.pcTextBox4.TextChanged += new System.EventHandler(this.GPPodiumCupTextsBoxTextChanged);
+            this.pcTextBox4.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // CupAndThemeTextsEditor
             // 
