@@ -27,6 +27,7 @@ namespace EpicEdit.UI.SettingEdition
     internal partial class CupAndThemeTextsEditor : UserControl
     {
         private TextCollection gpCupTexts;
+        private TextCollection gpPodiumCupTexts;
         private TextCollection cupAndThemeTexts;
         private bool fireEvents;
 
@@ -38,6 +39,12 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox2.Tag = 1;
             this.gpTextBox3.Tag = 2;
             this.gpTextBox4.Tag = 3;
+
+            this.pcTextBox1.Tag = 0;
+            this.pcTextBox2.Tag = 1;
+            this.pcTextBox3.Tag = 2;
+            this.pcTextBox4.Tag = 3;
+            this.pcTextBox5.Tag = 4;
 
             this.textBox1.Tag = 0;
             this.textBox2.Tag = 1;
@@ -57,6 +64,7 @@ namespace EpicEdit.UI.SettingEdition
         public void Init()
         {
             this.gpCupTexts = Context.Game.Settings.GPCupTexts;
+            this.gpPodiumCupTexts = Context.Game.Settings.GPPodiumCupTexts;
             this.cupAndThemeTexts = Context.Game.Settings.CupAndThemeTexts;
 
             this.fireEvents = false;
@@ -84,6 +92,14 @@ namespace EpicEdit.UI.SettingEdition
 
                 UpdateCount(this.gpCupTexts, this.gpCupTextsCountLabel);
             }
+
+            this.pcTextBox1.Text = this.gpPodiumCupTexts[0].Value;
+            this.pcTextBox2.Text = this.gpPodiumCupTexts[1].Value;
+            this.pcTextBox3.Text = this.gpPodiumCupTexts[2].Value;
+            this.pcTextBox4.Text = this.gpPodiumCupTexts[3].Value;
+            this.pcTextBox5.Text = this.gpPodiumCupTexts[4].Value;
+
+            UpdateCount(this.gpPodiumCupTexts, this.gpPodiumCupTextsCountLabel);
 
             this.textBox1.Text = this.cupAndThemeTexts[0].Value;
             this.textBox2.Text = this.cupAndThemeTexts[1].Value;
@@ -115,6 +131,11 @@ namespace EpicEdit.UI.SettingEdition
         private void GPCupTextsTextBoxTextChanged(object sender, EventArgs e)
         {
             this.OnTextBoxTextChanged(sender, this.gpCupTexts, this.gpCupTextsCountLabel);
+        }
+
+        private void GPPodiumCupTextBoxTextChanged(object sender, EventArgs e)
+        {
+            this.OnTextBoxTextChanged(sender, this.gpPodiumCupTexts, this.gpPodiumCupTextsCountLabel);
         }
 
         private void CupAndThemeTextsTextBoxTextChanged(object sender, EventArgs e)
