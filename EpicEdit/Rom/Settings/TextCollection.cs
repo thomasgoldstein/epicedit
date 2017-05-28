@@ -357,6 +357,12 @@ namespace EpicEdit.Rom.Settings
                 }
             }
 
+            for (int i = length; i < this.totalSize; i++)
+            {
+                // Fill the unused end of the data with 0xFF
+                data[i] = 0xFF;
+            }
+
             return data;
         }
 
