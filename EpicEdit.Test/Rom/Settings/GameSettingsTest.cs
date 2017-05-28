@@ -75,7 +75,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestUSGPCupTexts()
+        public void TestUSGPCupSelectTexts()
         {
             this.TestTexts(
                 new []
@@ -84,7 +84,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferU, 0x4F85F, 8),
                 File.ReadBlock(this.romBufferU, 0x4F867, 130),
-                this.gameU.Settings.GPCupTexts);
+                this.gameU.Settings.GPCupSelectTexts);
         }
 
         [Test]
@@ -171,7 +171,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestEuroGPCupTexts()
+        public void TestEuroGPCupSelectTexts()
         {
             this.TestTexts(
                 new []
@@ -180,7 +180,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(this.romBufferE, 0x4F778, 8),
                 File.ReadBlock(this.romBufferE, 0x4F780, 130),
-                this.gameE.Settings.GPCupTexts);
+                this.gameE.Settings.GPCupSelectTexts);
         }
 
         [Test]

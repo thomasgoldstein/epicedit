@@ -28,7 +28,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Offsets to the cup texts as displayed on the GP cup selection screen.
         /// </summary>
-        GPCupTexts,
+        GPCupSelectTexts,
 
         /// <summary>
         /// Offsets to the cup texts displayed on the GP podium screen.
@@ -403,7 +403,7 @@ namespace EpicEdit.Rom
             {
                 case Region.Jap:
                     this[Offset.ModeNames] = 0x58B19;
-                    this[Offset.GPCupTexts] = 0x4F6D7;
+                    this[Offset.GPCupSelectTexts] = 0x4F6D7;
                     this[Offset.GPPodiumCupTexts] = 0x5A092;
                     this[Offset.DriverNamesGPResults] = 0x5C1EC;
                     this[Offset.DriverNamesGPPodium] = 0x5A0E0;
@@ -431,7 +431,7 @@ namespace EpicEdit.Rom
 
                 case Region.US:
                     this[Offset.ModeNames] = 0x58B00;
-                    this[Offset.GPCupTexts] = 0x4F85F;
+                    this[Offset.GPCupSelectTexts] = 0x4F85F;
                     this[Offset.GPPodiumCupTexts] = 0x5A0EE;
                     this[Offset.DriverNamesGPResults] = 0x5C25B;
                     this[Offset.DriverNamesGPPodium] = 0x5A148;
@@ -459,7 +459,7 @@ namespace EpicEdit.Rom
 
                 case Region.Euro:
                     this[Offset.ModeNames] = 0x58AF2;
-                    this[Offset.GPCupTexts] = 0x4F778;
+                    this[Offset.GPCupSelectTexts] = 0x4F778;
                     this[Offset.GPPodiumCupTexts] = 0x5A0F8;
                     this[Offset.DriverNamesGPResults] = 0x5C263;
                     this[Offset.DriverNamesGPPodium] = 0x5A152;

@@ -58,8 +58,8 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
-            this.gpCupTextsGroupBox = new System.Windows.Forms.GroupBox();
-            this.gpCupTextsCountLabel = new System.Windows.Forms.Label();
+            this.gpCupSelectTextsGroupBox = new System.Windows.Forms.GroupBox();
+            this.gpCupSelectTextsCountLabel = new System.Windows.Forms.Label();
             this.gpTextBox1 = new System.Windows.Forms.TextBox();
             this.gpTextBox2 = new System.Windows.Forms.TextBox();
             this.gpTextBox3 = new System.Windows.Forms.TextBox();
@@ -74,7 +74,7 @@ namespace EpicEdit.UI.SettingEdition
             cupAndThemeTextsGroupBox = new System.Windows.Forms.GroupBox();
             cupAndThemeTextsGroupBox.SuspendLayout();
             this.cupAndThemeTextsPanel.SuspendLayout();
-            this.gpCupTextsGroupBox.SuspendLayout();
+            this.gpCupSelectTextsGroupBox.SuspendLayout();
             this.gpPodiumCupTextsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -225,28 +225,28 @@ namespace EpicEdit.UI.SettingEdition
             this.textBox7.TabIndex = 6;
             this.textBox7.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
             // 
-            // gpCupTextsGroupBox
+            // gpCupSelectTextsGroupBox
             // 
-            this.gpCupTextsGroupBox.Controls.Add(this.gpCupTextsCountLabel);
-            this.gpCupTextsGroupBox.Controls.Add(this.gpTextBox1);
-            this.gpCupTextsGroupBox.Controls.Add(this.gpTextBox2);
-            this.gpCupTextsGroupBox.Controls.Add(this.gpTextBox3);
-            this.gpCupTextsGroupBox.Controls.Add(this.gpTextBox4);
-            this.gpCupTextsGroupBox.Location = new System.Drawing.Point(6, 6);
-            this.gpCupTextsGroupBox.Name = "gpCupTextsGroupBox";
-            this.gpCupTextsGroupBox.Size = new System.Drawing.Size(152, 244);
-            this.gpCupTextsGroupBox.TabIndex = 0;
-            this.gpCupTextsGroupBox.TabStop = false;
-            this.gpCupTextsGroupBox.Text = "GP Cup Select texts";
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.gpCupSelectTextsCountLabel);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.gpTextBox1);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.gpTextBox2);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.gpTextBox3);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.gpTextBox4);
+            this.gpCupSelectTextsGroupBox.Location = new System.Drawing.Point(6, 6);
+            this.gpCupSelectTextsGroupBox.Name = "gpCupSelectTextsGroupBox";
+            this.gpCupSelectTextsGroupBox.Size = new System.Drawing.Size(152, 244);
+            this.gpCupSelectTextsGroupBox.TabIndex = 0;
+            this.gpCupSelectTextsGroupBox.TabStop = false;
+            this.gpCupSelectTextsGroupBox.Text = "GP Cup Select texts";
             // 
-            // gpCupTextsCountLabel
+            // gpCupSelectTextsCountLabel
             // 
-            this.gpCupTextsCountLabel.Location = new System.Drawing.Point(44, 123);
-            this.gpCupTextsCountLabel.Name = "gpCupTextsCountLabel";
-            this.gpCupTextsCountLabel.Size = new System.Drawing.Size(100, 23);
-            this.gpCupTextsCountLabel.TabIndex = 4;
-            this.gpCupTextsCountLabel.Text = "...";
-            this.gpCupTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.gpCupSelectTextsCountLabel.Location = new System.Drawing.Point(44, 123);
+            this.gpCupSelectTextsCountLabel.Name = "gpCupSelectTextsCountLabel";
+            this.gpCupSelectTextsCountLabel.Size = new System.Drawing.Size(100, 23);
+            this.gpCupSelectTextsCountLabel.TabIndex = 4;
+            this.gpCupSelectTextsCountLabel.Text = "...";
+            this.gpCupSelectTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // gpTextBox1
             // 
@@ -254,7 +254,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox1.Name = "gpTextBox1";
             this.gpTextBox1.Size = new System.Drawing.Size(136, 20);
             this.gpTextBox1.TabIndex = 0;
-            this.gpTextBox1.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
+            this.gpTextBox1.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
             // gpTextBox2
             // 
@@ -262,7 +262,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox2.Name = "gpTextBox2";
             this.gpTextBox2.Size = new System.Drawing.Size(136, 20);
             this.gpTextBox2.TabIndex = 1;
-            this.gpTextBox2.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
+            this.gpTextBox2.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
             // gpTextBox3
             // 
@@ -270,7 +270,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox3.Name = "gpTextBox3";
             this.gpTextBox3.Size = new System.Drawing.Size(136, 20);
             this.gpTextBox3.TabIndex = 2;
-            this.gpTextBox3.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
+            this.gpTextBox3.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
             // gpTextBox4
             // 
@@ -278,7 +278,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpTextBox4.Name = "gpTextBox4";
             this.gpTextBox4.Size = new System.Drawing.Size(136, 20);
             this.gpTextBox4.TabIndex = 3;
-            this.gpTextBox4.TextChanged += new System.EventHandler(this.GPCupTextsTextBoxTextChanged);
+            this.gpTextBox4.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
             // gpPodiumCupTextsGroupBox
             // 
@@ -347,15 +347,15 @@ namespace EpicEdit.UI.SettingEdition
             // CupAndThemeTextsEditor
             // 
             this.Controls.Add(this.gpPodiumCupTextsGroupBox);
-            this.Controls.Add(this.gpCupTextsGroupBox);
+            this.Controls.Add(this.gpCupSelectTextsGroupBox);
             this.Controls.Add(cupAndThemeTextsGroupBox);
             this.Name = "CupAndThemeTextsEditor";
             this.Size = new System.Drawing.Size(514, 250);
             cupAndThemeTextsGroupBox.ResumeLayout(false);
             this.cupAndThemeTextsPanel.ResumeLayout(false);
             this.cupAndThemeTextsPanel.PerformLayout();
-            this.gpCupTextsGroupBox.ResumeLayout(false);
-            this.gpCupTextsGroupBox.PerformLayout();
+            this.gpCupSelectTextsGroupBox.ResumeLayout(false);
+            this.gpCupSelectTextsGroupBox.PerformLayout();
             this.gpPodiumCupTextsGroupBox.ResumeLayout(false);
             this.gpPodiumCupTextsGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -379,8 +379,8 @@ namespace EpicEdit.UI.SettingEdition
         private System.Windows.Forms.TextBox gpTextBox2;
         private System.Windows.Forms.TextBox gpTextBox3;
         private System.Windows.Forms.TextBox gpTextBox4;
-        private System.Windows.Forms.GroupBox gpCupTextsGroupBox;
-        private System.Windows.Forms.Label gpCupTextsCountLabel;
+        private System.Windows.Forms.GroupBox gpCupSelectTextsGroupBox;
+        private System.Windows.Forms.Label gpCupSelectTextsCountLabel;
         private System.Windows.Forms.GroupBox gpPodiumCupTextsGroupBox;
         private System.Windows.Forms.TextBox pcTextBox1;
         private System.Windows.Forms.TextBox pcTextBox2;

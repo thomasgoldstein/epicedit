@@ -37,7 +37,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the cup texts displayed on the GP cup selection screen.
         /// </summary>
-        public TextCollection GPCupTexts { get; private set; }
+        public TextCollection GPCupSelectTexts { get; private set; }
 
         /// <summary>
         /// Gets the cup texts displayed on the GP podium screen.
@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 return
-                    (this.GPCupTexts != null && this.GPCupTexts.Modified) ||
+                    (this.GPCupSelectTexts != null && this.GPCupSelectTexts.Modified) ||
                     this.GPPodiumCupTexts.Modified ||
                     this.CupAndThemeTexts.Modified ||
                     this.DriverNamesGPResults.Modified ||
@@ -121,8 +121,8 @@ namespace EpicEdit.Rom.Settings
                 // These texts are not extensible, as the characters are not reusable.
                 // This is due to the fact characters are specific and split across tiles,
                 // which makes it so they can only be modified properly by editing the tile graphics.
-                this.GPCupTexts = new TextCollection(
-                    romBuffer, offsets[Offset.GPCupTexts], GPTrack.GroupCount,
+                this.GPCupSelectTexts = new TextCollection(
+                    romBuffer, offsets[Offset.GPCupSelectTexts], GPTrack.GroupCount,
                     nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
             }
 
@@ -167,9 +167,9 @@ namespace EpicEdit.Rom.Settings
 
         private void HandleChanges()
         {
-            if (this.GPCupTexts != null)
+            if (this.GPCupSelectTexts != null)
             {
-                this.GPCupTexts.PropertyChanged += this.OnPropertyChanged;
+                this.GPCupSelectTexts.PropertyChanged += this.OnPropertyChanged;
             }
             this.GPPodiumCupTexts.PropertyChanged += this.OnPropertyChanged;
             this.CupAndThemeTexts.PropertyChanged += this.OnPropertyChanged;
@@ -187,9 +187,9 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer)
         {
-            if (this.GPCupTexts != null)
+            if (this.GPCupSelectTexts != null)
             {
-                this.GPCupTexts.Save(romBuffer);
+                this.GPCupSelectTexts.Save(romBuffer);
             }
             this.GPPodiumCupTexts.Save(romBuffer);
             this.CupAndThemeTexts.Save(romBuffer);
@@ -202,9 +202,9 @@ namespace EpicEdit.Rom.Settings
 
         public void ResetModifiedState()
         {
-            if (this.GPCupTexts != null)
+            if (this.GPCupSelectTexts != null)
             {
-                this.GPCupTexts.ResetModifiedState();
+                this.GPCupSelectTexts.ResetModifiedState();
             }
             this.GPPodiumCupTexts.ResetModifiedState();
             this.CupAndThemeTexts.ResetModifiedState();

@@ -26,7 +26,7 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class CupAndThemeTextsEditor : UserControl
     {
-        private TextCollection gpCupTexts;
+        private TextCollection gpCupSelectTexts;
         private TextCollection gpPodiumCupTexts;
         private TextCollection cupAndThemeTexts;
         private bool fireEvents;
@@ -63,34 +63,34 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.gpCupTexts = Context.Game.Settings.GPCupTexts;
+            this.gpCupSelectTexts = Context.Game.Settings.GPCupSelectTexts;
             this.gpPodiumCupTexts = Context.Game.Settings.GPPodiumCupTexts;
             this.cupAndThemeTexts = Context.Game.Settings.CupAndThemeTexts;
 
             this.fireEvents = false;
 
-            if (this.gpCupTexts == null)
+            if (this.gpCupSelectTexts == null)
             {
                 // NOTE: Japanese ROM, text editing not supported for GP cup names
-                this.gpCupTextsGroupBox.Enabled = false;
+                this.gpCupSelectTextsGroupBox.Enabled = false;
 
                 this.gpTextBox1.Text = string.Empty;
                 this.gpTextBox2.Text = string.Empty;
                 this.gpTextBox3.Text = string.Empty;
                 this.gpTextBox4.Text = string.Empty;
 
-                this.gpCupTextsCountLabel.Text = string.Empty;
+                this.gpCupSelectTextsCountLabel.Text = string.Empty;
             }
             else
             {
-                this.gpCupTextsGroupBox.Enabled = true;
+                this.gpCupSelectTextsGroupBox.Enabled = true;
 
-                this.gpTextBox1.Text = this.gpCupTexts[0].Value;
-                this.gpTextBox2.Text = this.gpCupTexts[1].Value;
-                this.gpTextBox3.Text = this.gpCupTexts[2].Value;
-                this.gpTextBox4.Text = this.gpCupTexts[3].Value;
+                this.gpTextBox1.Text = this.gpCupSelectTexts[0].Value;
+                this.gpTextBox2.Text = this.gpCupSelectTexts[1].Value;
+                this.gpTextBox3.Text = this.gpCupSelectTexts[2].Value;
+                this.gpTextBox4.Text = this.gpCupSelectTexts[3].Value;
 
-                UpdateCount(this.gpCupTexts, this.gpCupTextsCountLabel);
+                UpdateCount(this.gpCupSelectTexts, this.gpCupSelectTextsCountLabel);
             }
 
             this.pcTextBox1.Text = this.gpPodiumCupTexts[0].Value;
@@ -128,9 +128,9 @@ namespace EpicEdit.UI.SettingEdition
             countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 
-        private void GPCupTextsTextBoxTextChanged(object sender, EventArgs e)
+        private void GPCupSelectTextsTextBoxTextChanged(object sender, EventArgs e)
         {
-            this.OnTextBoxTextChanged(sender, this.gpCupTexts, this.gpCupTextsCountLabel);
+            this.OnTextBoxTextChanged(sender, this.gpCupSelectTexts, this.gpCupSelectTextsCountLabel);
         }
 
         private void GPPodiumCupTextBoxTextChanged(object sender, EventArgs e)
