@@ -3,7 +3,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
 
-v2.8.2 (? 2016)
+v2.8.2 (July 8th 2016)
 - Added support for GP podium texts editing
 - Added a hack to work around Mono crashes, especially on Mac
 - When using the Codec and trying to decompress from an invalid address,
