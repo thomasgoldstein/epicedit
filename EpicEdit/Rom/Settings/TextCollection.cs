@@ -348,7 +348,7 @@ namespace EpicEdit.Rom.Settings
             {
                 // Fix space character attributes (removing palette association)
 
-                for (int i = 0; i < data.Length; i += 2)
+                for (int i = 0; i < length; i += 2)
                 {
                     if (data[i] == 0xE5)
                     {
