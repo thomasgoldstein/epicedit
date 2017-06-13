@@ -43,5 +43,6 @@ namespace EpicEdit.UI.Tools
         public const string Binary =
             "Raw binary file (*.bin)|*.bin|" +
             "All files (*.*)|*.*";
+
     }
 }
