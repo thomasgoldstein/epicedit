@@ -5,6 +5,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 
 v2.8.2 (July 8th 2017)
 - Added support for GP podium texts editing
+- Added the ability to import and export all tracks (by mcintyre321)
 - Added a hack to work around Mono crashes, especially on Mac
 - When using the Codec and trying to decompress from an invalid address,
   show a simple error message
