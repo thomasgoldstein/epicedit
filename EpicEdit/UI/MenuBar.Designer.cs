@@ -52,7 +52,9 @@ namespace EpicEdit.UI
             this.menuToolStrip = new System.Windows.Forms.ToolStrip();
             this.openRomToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveRomToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.importAllTrackToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.importTrackToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.exportAllTracksTooltipButton = new System.Windows.Forms.ToolStripButton();
             this.exportTrackToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.undoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.redoToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -115,6 +117,8 @@ namespace EpicEdit.UI
             this.saveRomToolStripButton,
             this.importTrackToolStripButton,
             this.exportTrackToolStripButton,
+            this.importAllTrackToolStripButton,
+            this.exportAllTracksTooltipButton,
             this.toolStripSeparator1,
             this.undoToolStripButton,
             this.redoToolStripButton,
@@ -160,6 +164,19 @@ namespace EpicEdit.UI
             this.saveRomToolStripButton.Text = "Save ROM";
             this.saveRomToolStripButton.Click += new System.EventHandler(this.SaveRomToolStripButtonClick);
             // 
+            // importAllTrackToolStripButton
+            // 
+            this.importAllTrackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.importAllTrackToolStripButton.Enabled = false;
+            this.importAllTrackToolStripButton.Image = global::EpicEdit.Properties.Resources.ImportAllButton;
+            this.importAllTrackToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.importAllTrackToolStripButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.importAllTrackToolStripButton.Name = "importAllTrackToolStripButton";
+            this.importAllTrackToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.importAllTrackToolStripButton.Text = "Import all tracks";
+            this.importAllTrackToolStripButton.ToolTipText = "Import all tracks";
+            this.importAllTrackToolStripButton.Click += new System.EventHandler(this.ImportAllTrackToolStripButton_Click);
+            // 
             // importTrackToolStripButton
             // 
             this.importTrackToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -171,6 +188,19 @@ namespace EpicEdit.UI
             this.importTrackToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.importTrackToolStripButton.Text = "Import track";
             this.importTrackToolStripButton.Click += new System.EventHandler(this.ImportTrackToolStripButtonClick);
+            // 
+            // exportAllTracksTooltipButton
+            // 
+            this.exportAllTracksTooltipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportAllTracksTooltipButton.Enabled = false;
+            this.exportAllTracksTooltipButton.Image = global::EpicEdit.Properties.Resources.ExportAllButton;
+            this.exportAllTracksTooltipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportAllTracksTooltipButton.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.exportAllTracksTooltipButton.Name = "exportAllTracksTooltipButton";
+            this.exportAllTracksTooltipButton.Size = new System.Drawing.Size(23, 22);
+            this.exportAllTracksTooltipButton.Text = "Export all tracks";
+            this.exportAllTracksTooltipButton.ToolTipText = "Export all tracks";
+            this.exportAllTracksTooltipButton.Click += new System.EventHandler(this.ExportAllTracksTooltipButton_Click);
             // 
             // exportTrackToolStripButton
             // 
@@ -500,5 +530,7 @@ namespace EpicEdit.UI
         private System.Windows.Forms.MenuStrip hiddenMenuStrip;
         private System.Windows.Forms.ToolStripLabel aboutToolStripLabel;
         private System.Windows.Forms.ToolStripMenuItem saveRomAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton importAllTrackToolStripButton;
+        private System.Windows.Forms.ToolStripButton exportAllTracksTooltipButton;
     }
 }

@@ -41,6 +41,12 @@ namespace EpicEdit.UI
         public event EventHandler<EventArgs> TrackExportDialogRequested;
 
         [Browsable(true), Category("Action")]
+        public event EventHandler<EventArgs> TrackImportAllDialogRequested;
+
+        [Browsable(true), Category("Action")]
+        public event EventHandler<EventArgs> TrackExportAllDialogRequested;
+
+        [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> UndoRequested;
 
         [Browsable(true), Category("Action")]
@@ -100,6 +106,9 @@ namespace EpicEdit.UI
             this.saveRomToolStripButton.Enabled = true;
             this.importTrackToolStripButton.Enabled = true;
             this.exportTrackToolStripButton.Enabled = true;
+            this.importAllTrackToolStripButton.Enabled = true;
+            this.exportAllTracksTooltipButton.Enabled = true;
+            
             this.zoomOutToolStripButton.Enabled = true;
             this.zoomInToolStripButton.Enabled = true;
             this.paletteToolStripButton.Enabled = true;
@@ -126,7 +135,7 @@ namespace EpicEdit.UI
         }
         #endregion Save ROM
 
-        #region Import / Export track
+        #region Import / Export tracks
         private void ImportTrackToolStripButtonClick(object sender, EventArgs e)
         {
             this.TrackImportDialogRequested(this, EventArgs.Empty);
@@ -136,7 +145,17 @@ namespace EpicEdit.UI
         {
             this.TrackExportDialogRequested(this, EventArgs.Empty);
         }
-        #endregion Import / Export track
+
+        private void ImportAllTrackToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.TrackImportAllDialogRequested(this, EventArgs.Empty);
+        }
+
+        private void ExportAllTracksTooltipButton_Click(object sender, EventArgs e)
+        {
+            this.TrackExportAllDialogRequested(this, EventArgs.Empty);
+        }
+        #endregion Import / Export tracks
 
         #region Undo / Redo
         private void Undo()

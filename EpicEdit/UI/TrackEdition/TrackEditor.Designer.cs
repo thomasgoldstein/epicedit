@@ -289,6 +289,8 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.ZoomOutEnabled = false;
             this.menuBar.TrackImportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportDialogRequested);
             this.menuBar.TrackExportDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportDialogRequested);
+            this.menuBar.TrackImportAllDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackImportAllDialogRequested);
+            this.menuBar.TrackExportAllDialogRequested += new System.EventHandler<System.EventArgs>(this.MenuBarTrackExportAllDialogRequested);
             this.menuBar.UndoRequested += new System.EventHandler<System.EventArgs>(this.MenuBarUndoRequested);
             this.menuBar.RedoRequested += new System.EventHandler<System.EventArgs>(this.MenuBarRedoRequested);
             this.menuBar.ZoomInRequested += new System.EventHandler<System.EventArgs>(this.MenuBarZoomInRequested);

@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -464,10 +465,33 @@ namespace EpicEdit.UI.TrackEdition
             UITools.ShowImportDataDialog(fileName => this.ImportTrack(fileName), FileDialogFilters.Track);
         }
 
+        private void MenuBarTrackImportAllDialogRequested(object sender, EventArgs e)
+        {
+            UITools.ShowImportDataDialog(fileName =>
+            {
+                string directoryName = Path.GetDirectoryName(fileName);
+                int trackId = 1;
+                foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
+                {
+                    foreach (Track t in trackGroup)
+                    {
+                        string file = Directory.GetFiles(directoryName, trackId + "-*.smkc")[0];
+                        t.Import(file, Context.Game);
+                        trackId++;
+                    }
+                }
+                this.RefreshCurrentTrack();
+            }, FileDialogFilters.Track);
+        }
+
         public void ImportTrack(string filePath)
         {
             this.track.Import(filePath, Context.Game);
+            this.RefreshCurrentTrack();
+        }
 
+        public void RefreshCurrentTrack()
+        {
             this.undoRedoBuffer.Clear();
             this.menuBar.UndoEnabled = false;
             this.menuBar.RedoEnabled = false;
@@ -483,6 +507,27 @@ namespace EpicEdit.UI.TrackEdition
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
         {
             UITools.ShowExportDataDialog(fileName => this.track.Export(fileName, Context.Game), this.trackTreeView.SelectedTrackFileName, FileDialogFilters.Track);
+        }
+
+        private void MenuBarTrackExportAllDialogRequested(object sender, EventArgs e)
+        {
+            const string TrackNumberPattern = "TRACKNO";
+            const string TrackNamePattern = "TRACKNAME";
+            const string FileNamePattern = TrackNumberPattern + "- " +  TrackNamePattern;
+
+            UITools.ShowExportDataDialog(templateFileName =>
+            {
+                int trackId = 1;
+                foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
+                {
+                    foreach (Track t in trackGroup)
+                    {
+                        t.Export(templateFileName.Replace(TrackNumberPattern, trackId.ToString()).Replace(TrackNamePattern, t.Name),
+                                 Context.Game);
+                        trackId++;
+                    }
+                }
+            }, FileNamePattern, FileDialogFilters.Track);
         }
 
         private void MenuBarUndoRequested(object sender, EventArgs e)
