@@ -513,7 +513,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             const string TrackNumberPattern = "TRACKNO";
             const string TrackNamePattern = "TRACKNAME";
-            const string FileNamePattern = TrackNumberPattern + "- " +  TrackNamePattern;
+            const string FileNamePattern = TrackNumberPattern + "- " + TrackNamePattern;
 
             UITools.ShowExportDataDialog(templateFileName =>
             {
