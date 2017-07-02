@@ -872,7 +872,7 @@ namespace EpicEdit.Rom
 
         #endregion Get / set, load / save specific data
 
-        #region Track reodering
+        #region Track reordering
         public void ReorderTracks(int sourceTrackGroupId, int sourceTrackId, int destinationTrackGroupId, int destinationTrackId)
         {
             if (sourceTrackGroupId == destinationTrackGroupId &&
@@ -1032,7 +1032,7 @@ namespace EpicEdit.Rom
             tracks[destinationTrackId] = tracks[sourceTrackId];
             this.romBuffer[trackOrderOffset + destinationTrackId] = this.romBuffer[trackOrderOffset + sourceTrackId];
         }
-        #endregion Track reodering
+        #endregion Track reordering
 
         #region Save data
         public void SaveRom()
