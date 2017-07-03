@@ -505,14 +505,14 @@ namespace EpicEdit.UI.TrackEdition
             const string TrackNamePattern = "TRACKNAME";
             const string FileNamePattern = TrackNumberPattern + "- " + TrackNamePattern;
 
-            UITools.ShowExportDataDialog(templateFileName =>
+            UITools.ShowExportDataDialog(fileName =>
             {
                 int trackId = 1;
                 foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
                 {
                     foreach (Track t in trackGroup)
                     {
-                        t.Export(templateFileName.Replace(TrackNumberPattern, trackId.ToString()).Replace(TrackNamePattern, t.Name),
+                        t.Export(fileName.Replace(TrackNumberPattern, trackId.ToString()).Replace(TrackNamePattern, t.Name),
                                  Context.Game);
                         trackId++;
                     }
