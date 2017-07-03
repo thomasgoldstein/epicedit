@@ -470,12 +470,13 @@ namespace EpicEdit.UI.TrackEdition
             UITools.ShowImportDataDialog(fileName =>
             {
                 string directoryName = Path.GetDirectoryName(fileName);
+                string extension = Path.GetExtension(fileName);
                 int trackId = 1;
                 foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
                 {
                     foreach (Track t in trackGroup)
                     {
-                        string file = Directory.GetFiles(directoryName, trackId + "-*.smkc")[0];
+                        string file = Directory.GetFiles(directoryName, trackId + "-*" + extension)[0];
                         t.Import(file, Context.Game);
                         trackId++;
                     }
