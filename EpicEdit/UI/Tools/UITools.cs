@@ -32,6 +32,7 @@ namespace EpicEdit.UI.Tools
     internal static class UITools
     {
         public delegate T Func<T>(); // No Func in .NET 2.0, so define it
+        public delegate void BulkImportDataAction(int fileIndex, string fileName);
 
         public static DialogResult ShowWarning(string message, MessageBoxButtons buttons)
         {
@@ -194,25 +195,46 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportDataDialog(Action<string> setDataMethod, string filter)
         {
+            return UITools.ShowImportDataDialog((index, filePath) => setDataMethod(filePath), filter, 1);
+        }
+
+        public static bool ShowImportDataDialog(BulkImportDataAction setDataMethod, string filter, int maxFileCount)
+        {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = filter;
+                ofd.Multiselect = maxFileCount > 1;
 
-                if (ofd.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() != DialogResult.OK)
                 {
-                    UITools.ImportData(setDataMethod, ofd.FileName);
-                    return true;
+                    return false;
                 }
 
-                return false;
+                string[] filePaths = ofd.FileNames;
+                if (filePaths.Length > maxFileCount)
+                {
+                    Array.Resize(ref filePaths, maxFileCount);
+                }
+
+                UITools.ImportData(setDataMethod, filePaths);
+
+                return true;
             }
         }
 
-        public static void ImportData(Action<string> setDataMethod, string filePath)
+        public static void ImportData(Action<string> setDataMethod, params string[] filePaths)
+        {
+            UITools.ImportData((index, filePath) => setDataMethod(filePath), filePaths);
+        }
+
+        public static void ImportData(BulkImportDataAction setDataMethod, params string[] filePaths)
         {
             try
             {
-                setDataMethod(filePath);
+                for (int i = 0; i < filePaths.Length; i++)
+                {
+                    setDataMethod(i, filePaths[i]);
+                }
             }
             catch (UnauthorizedAccessException ex)
             {
