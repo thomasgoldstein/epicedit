@@ -467,11 +467,16 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MenuBarTrackImportAllDialogRequested(object sender, EventArgs e)
         {
-            UITools.ShowImportDataDialog((index, fileName) =>
-                Context.Game.TrackGroups.GetTrack(index).Import(fileName, Context.Game),
-                FileDialogFilters.Track, Track.Count);
-
-            this.RefreshCurrentTrack();
+            try
+            {
+                UITools.ShowImportDataDialog((index, fileName) =>
+                    Context.Game.TrackGroups.GetTrack(index).Import(fileName, Context.Game),
+                    FileDialogFilters.Track, Track.Count);
+            }
+            finally
+            {
+                this.RefreshCurrentTrack();
+            }
         }
 
         public void ImportTrack(string filePath)
