@@ -56,13 +56,6 @@ namespace EpicEdit.UI.TrackEdition
 
                 gpTrack = this.track as GPTrack;
 
-                if (gpTrack != null)
-                {
-                    gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
-                }
-
-                this.gpTrackGroupBox.Enabled = gpTrack != null;
-
                 if (gpTrack == null)
                 {
                     this.gpTrackGroupBox.Enabled = false;
@@ -72,6 +65,7 @@ namespace EpicEdit.UI.TrackEdition
                     this.gpTrackGroupBox.Enabled = true;
                     this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
                     this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+                    gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
                 }
             }
         }
