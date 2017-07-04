@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Windows.Forms;
 
 using EpicEdit.Rom;
@@ -71,6 +70,7 @@ namespace EpicEdit.UI.TrackEdition
                 else
                 {
                     this.gpTrackGroupBox.Enabled = true;
+                    this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
                     this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
                 }
             }
@@ -87,6 +87,7 @@ namespace EpicEdit.UI.TrackEdition
             if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
                 GPTrack gpTrack = this.track as GPTrack;
+                this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
                 this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
             }
         }
@@ -98,26 +99,25 @@ namespace EpicEdit.UI.TrackEdition
             get { return this.startBindCheckBox.Checked; }
         }
 
+        private void SecondRowValueLabelNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            GPTrack gpTrack = this.track as GPTrack;
+            gpTrack.StartPosition.SecondRowOffset = this.GetPrecisionValue((int)this.secondRowNumericUpDown.Value);
+        }
+
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
         {
             GPTrack gpTrack = this.track as GPTrack;
-            gpTrack.StartPosition.SecondRowOffset = (this.secondRowTrackBar.Value / this.Precision) * this.Precision;
+            gpTrack.StartPosition.SecondRowOffset = this.GetPrecisionValue(this.secondRowTrackBar.Value);
         }
 
         private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
         {
             GPTrack gpTrack = this.track as GPTrack;
-
-            if (this.secondRowTrackBar.Value != gpTrack.StartPosition.SecondRowOffset)
-            {
-                this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
-            }
-            else
-            {
-                this.secondRowValueLabel.Text = gpTrack.StartPosition.SecondRowOffset.ToString(CultureInfo.CurrentCulture);
-            }
+            // Make sure the UI reflects the validated SecondRowOffset value
+            this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
         }
-        
+
         private void StepRadioButtonCheckedChanged(object sender, EventArgs e)
         {
             RadioButton button = sender as RadioButton;
@@ -143,9 +143,15 @@ namespace EpicEdit.UI.TrackEdition
             {
                 this.Precision = 8;
             }
-            
+
+            this.secondRowNumericUpDown.Increment = this.Precision;
             this.secondRowTrackBar.SmallChange = this.Precision;
             this.secondRowTrackBar.LargeChange = this.Precision * 5;
+        }
+
+        private int GetPrecisionValue(int value)
+        {
+            return (value / this.Precision) * this.Precision;
         }
     }
 }

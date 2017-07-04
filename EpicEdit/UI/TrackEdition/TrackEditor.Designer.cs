@@ -215,7 +215,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.startControl.Location = new System.Drawing.Point(3, 3);
             this.startControl.Name = "startControl";
-            this.startControl.Size = new System.Drawing.Size(130, 270);
+            this.startControl.Size = new System.Drawing.Size(130, 291);
             this.startControl.TabIndex = 0;
             // 
             // objectsTabPage
