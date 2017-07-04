@@ -131,18 +131,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetPrecision()
         {
-            if (this.step1pxRadioButton.Checked)
-            {
-                this.Precision = 1;
-            }
-            else if (this.step4pxRadioButton.Checked)
-            {
-                this.Precision = 4;
-            }
-            else //if (this.step8pxRadioButton.Checked)
-            {
-                this.Precision = 8;
-            }
+            this.Precision =
+                this.step1pxRadioButton.Checked ? 1 :
+                this.step4pxRadioButton.Checked ? 4 :
+                8;
 
             this.secondRowNumericUpDown.Increment = this.Precision;
             this.secondRowTrackBar.SmallChange = this.Precision;
