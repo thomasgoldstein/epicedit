@@ -149,7 +149,7 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowValueLabel.Margin = new System.Windows.Forms.Padding(0);
             this.secondRowValueLabel.Name = "secondRowValueLabel";
             this.secondRowValueLabel.Size = new System.Drawing.Size(35, 25);
-            this.secondRowValueLabel.TabIndex = 15;
+            this.secondRowValueLabel.TabIndex = 2;
             this.secondRowValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // secondRowTrackBar
@@ -157,10 +157,9 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowTrackBar.AutoSize = false;
             this.secondRowTrackBar.Location = new System.Drawing.Point(30, 85);
             this.secondRowTrackBar.Maximum = 255;
-            this.secondRowTrackBar.Minimum = -256;
             this.secondRowTrackBar.Name = "secondRowTrackBar";
             this.secondRowTrackBar.Size = new System.Drawing.Size(92, 25);
-            this.secondRowTrackBar.TabIndex = 2;
+            this.secondRowTrackBar.TabIndex = 3;
             this.secondRowTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.secondRowTrackBar.Scroll += new System.EventHandler(this.SecondRowTrackBarScroll);
             this.secondRowTrackBar.ValueChanged += new System.EventHandler(this.SecondRowTrackBarValueChanged);
