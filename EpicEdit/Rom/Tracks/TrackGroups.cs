@@ -81,21 +81,21 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public Track GetTrack(int trackId)
+        public Track GetTrack(int index)
         {
-            int trackIterator = 0;
+            int iterator = 0;
             foreach (TrackGroup trackGroup in this.trackGroups)
             {
                 foreach (Track track in trackGroup)
                 {
-                    if (trackId == trackIterator++)
+                    if (index == iterator++)
                     {
                         return track;
                     }
                 }
             }
 
-            throw new ArgumentOutOfRangeException(nameof(trackId));
+            throw new ArgumentOutOfRangeException(nameof(index));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
