@@ -90,11 +90,10 @@ namespace EpicEdit.Rom.Compression
 
         public Range[] GetMaxBackRanges(int offset)
         {
-            Range[] maxRanges = new Range[4];
-            maxRanges[0] = Range.Empty; // Command 4 normal
-            maxRanges[1] = Range.Empty; // Command 4 super
-            maxRanges[2] = Range.Empty; // Command 6 normal
-            maxRanges[3] = Range.Empty; // Command 6 super
+            Range maxRange4n = Range.Empty; // Command 4 normal
+            Range maxRange4s = Range.Empty; // Command 4 super
+            Range maxRange6n = Range.Empty; // Command 6 normal
+            Range maxRange6s = Range.Empty; // Command 6 super
 
             byte value = this.buffer[offset];
 
@@ -128,44 +127,53 @@ namespace EpicEdit.Rom.Compression
                 Range backRange = new Range(start, end);
                 backRange.Length = Codec.GetValidatedSuperCommandSize(backRange.Length);
 
-                int rangeArrayIndex = otherOffset < startPosition ? 1 : 3;
-                if (backRange.Length >= maxRanges[rangeArrayIndex].Length)
+                if (otherOffset < startPosition)
                 {
-                    maxRanges[rangeArrayIndex] = backRange;
+                    if (backRange.Length >= maxRange4s.Length)
+                    {
+                        maxRange4s = backRange;
+                    }
+                }
+                else
+                {
+                    if (backRange.Length >= maxRange6s.Length)
+                    {
+                        maxRange6s = backRange;
+                    }
                 }
             }
 
-            maxRanges[2] = maxRanges[3];
-            if (maxRanges[2].Length <= Codec.NormalCommandMax)
+            maxRange6n = maxRange6s;
+            if (maxRange6n.Length <= Codec.NormalCommandMax)
             {
-                maxRanges[3] = Range.Empty;
+                maxRange6s = Range.Empty;
             }
             else
             {
-                maxRanges[2].Length = Codec.NormalCommandMax;
+                maxRange6n.Length = Codec.NormalCommandMax;
             }
 
-            maxRanges[0] = maxRanges[1];
-            if (maxRanges[0].Length <= Codec.NormalCommandMax)
+            maxRange4n = maxRange4s;
+            if (maxRange4n.Length <= Codec.NormalCommandMax)
             {
-                maxRanges[1] = Range.Empty;
+                maxRange4s = Range.Empty;
             }
             else
             {
-                maxRanges[0].Length = Codec.NormalCommandMax;
+                maxRange4n.Length = Codec.NormalCommandMax;
             }
 
-            if (maxRanges[0].Length == maxRanges[2].Length)
+            if (maxRange4n.Length == maxRange6n.Length)
             {
-                maxRanges[0] = Range.Empty;
+                maxRange4n = Range.Empty;
             }
 
-            if (maxRanges[1].Length == maxRanges[3].Length)
+            if (maxRange4s.Length == maxRange6s.Length)
             {
-                maxRanges[1] = Range.Empty;
+                maxRange4s = Range.Empty;
             }
 
-            return maxRanges;
+            return new [] { maxRange4n, maxRange4s, maxRange6n, maxRange6s };
         }
     }
 }
