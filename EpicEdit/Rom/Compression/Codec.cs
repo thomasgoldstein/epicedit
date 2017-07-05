@@ -64,33 +64,15 @@ namespace EpicEdit.Rom.Compression
         }
 
         private static ICompressor compressor;
-
         private static ICompressor Compressor
         {
-            get
-            {
-                if (Codec.compressor == null)
-                {
-                    Codec.compressor = new FastCompressor();
-                }
-
-                return Codec.compressor;
-            }
+            get { return Codec.compressor ?? (Codec.compressor = new FastCompressor()); }
         }
 
         private static ICompressor optimalCompressor;
-
         private static ICompressor OptimalCompressor
         {
-            get
-            {
-                if (Codec.optimalCompressor == null)
-                {
-                    Codec.optimalCompressor = new OptimalCompressor();
-                }
-
-                return Codec.optimalCompressor;
-            }
+            get { return Codec.optimalCompressor ?? (Codec.optimalCompressor = new OptimalCompressor()); }
         }
 
         /// <summary>
