@@ -359,12 +359,12 @@ namespace EpicEdit.Rom.Compression
         /// Compresses the data of a passed buffer into a destination buffer,
         /// starting at the offset value.
         /// </summary>
-        /// <param name="bufferToCompress">The data to be compressed.</param>
+        /// <param name="sourceBuffer">The data to be compressed.</param>
         /// <param name="destinationBuffer">The buffer where the compressed data will be saved.</param>
         /// <param name="offset">Location where the data will be saved.</param>
-        public static void Compress(byte[] bufferToCompress, byte[] destinationBuffer, int offset)
+        public static void Compress(byte[] sourceBuffer, byte[] destinationBuffer, int offset)
         {
-            byte[] compBuffer = Codec.Compress(bufferToCompress);
+            byte[] compBuffer = Codec.Compress(sourceBuffer);
             Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
         }
 
