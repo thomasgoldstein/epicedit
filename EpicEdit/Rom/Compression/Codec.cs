@@ -336,7 +336,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Compresses the data of the passed buffer.
         /// </summary>
-        /// <param name="buffer">The data to compress.</param>
+        /// <param name="buffer">The data to be compressed.</param>
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer)
         {
@@ -346,7 +346,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Compresses the data of the passed buffer.
         /// </summary>
-        /// <param name="buffer">The data to compress.</param>
+        /// <param name="buffer">The data to be compressed.</param>
         /// <param name="optimize">Optimize compression rate (slower).</param>
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer, bool optimize)
@@ -359,7 +359,7 @@ namespace EpicEdit.Rom.Compression
         /// Compresses the data of a passed buffer into a destination buffer,
         /// starting at the offset value.
         /// </summary>
-        /// <param name="bufferToCompress">The data to compress.</param>
+        /// <param name="bufferToCompress">The data to be compressed.</param>
         /// <param name="destinationBuffer">The buffer where the compressed data will be saved.</param>
         /// <param name="offset">Location where the data will be saved.</param>
         public static void Compress(byte[] bufferToCompress, byte[] destinationBuffer, int offset)
@@ -371,7 +371,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Compresses the data of the passed buffer twice.
         /// </summary>
-        /// <param name="buffer">The data to compress.</param>
+        /// <param name="buffer">The data to be compressed.</param>
         /// <param name="twice">Compress the data twice.</param>
         /// <param name="optimize">Optimize compression rate (slower).</param>
         /// <returns>The double-compressed data.</returns>

@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Compresses the data of the passed buffer.
         /// </summary>
-        /// <param name="buffer">The data to compress.</param>
+        /// <param name="buffer">The data to be compressed.</param>
         byte[] Compress(byte[] buffer);
     }
 }
