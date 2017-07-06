@@ -560,8 +560,7 @@ namespace EpicEdit.UI.Gfx
         {
             Region region;
 
-            GPTrack gpTrack = this.track as GPTrack;
-            if (gpTrack != null)
+            if (this.track is GPTrack gpTrack)
             {
                 region = this.GetGPStartClipRegion(gpTrack.LapLine, gpTrack.StartPosition);
             }
@@ -1213,9 +1212,7 @@ namespace EpicEdit.UI.Gfx
                 Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
                 g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
 
-                TrackObjectMatchRace matchRaceObject = hoveredObject as TrackObjectMatchRace;
-
-                if (matchRaceObject == null)
+                if (!(hoveredObject is TrackObjectMatchRace matchRaceObject))
                 {
                     g.FillEllipse(this.objectBrushes[hoveredObjectIndex / 4], trackObjectRect);
                     g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));

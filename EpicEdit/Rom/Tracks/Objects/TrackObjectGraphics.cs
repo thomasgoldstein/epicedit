@@ -139,9 +139,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         public Tile GetTile(GPTrack track, TrackObject trackObject, int x, int y)
         {
             int index;
-            TrackObjectMatchRace matchRaceObject = trackObject as TrackObjectMatchRace;
 
-            if (matchRaceObject == null)
+            if (!(trackObject is TrackObjectMatchRace matchRaceObject))
             {
                 index = (int)track.Objects.Tileset;
             }

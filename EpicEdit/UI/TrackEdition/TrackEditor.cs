@@ -1380,8 +1380,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.buttonsPressed = MouseButtons.Left;
                 Point absPixelPos = this.AbsolutePixelPosition;
 
-                GPTrack gpTrack = this.track as GPTrack;
-                if (gpTrack != null)
+                if (this.track is GPTrack gpTrack)
                 {
                     if (this.startAction == StartAction.DragStartPosition)
                     {
@@ -1789,7 +1788,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetTrack()
         {
-            GPTrack gpTrack;
             if (this.track != null)
             {
                 this.track.PropertyChanged -= this.track_PropertyChanged;
@@ -1800,11 +1798,10 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
 
-                gpTrack = this.track as GPTrack;
-                if (gpTrack != null)
+                if (this.track is GPTrack oldGPTrack)
                 {
-                    gpTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
-                    gpTrack.Objects.PropertyChanged -= this.gpTrack_Objects_PropertyChanged;
+                    oldGPTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                    oldGPTrack.Objects.PropertyChanged -= this.gpTrack_Objects_PropertyChanged;
                 }
             }
 
@@ -1818,7 +1815,7 @@ namespace EpicEdit.UI.TrackEdition
             this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
             this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
 
-            gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = this.track as GPTrack;
             if (gpTrack != null)
             {
                 gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
@@ -2542,9 +2539,7 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Objects
         private bool InitObjectAction()
         {
-            GPTrack gpTrack = this.track as GPTrack;
-
-            if (gpTrack == null)
+            if (!(this.track is GPTrack gpTrack))
             {
                 return false;
             }

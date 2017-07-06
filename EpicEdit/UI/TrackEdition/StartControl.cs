@@ -44,18 +44,14 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
-                GPTrack gpTrack = this.track as GPTrack;
-
-                if (gpTrack != null)
+                if (this.track is GPTrack oldGPTrack)
                 {
-                    gpTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                    oldGPTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
                 }
 
                 this.track = value;
 
-                gpTrack = this.track as GPTrack;
-
-                if (gpTrack == null)
+                if (!(this.track is GPTrack gpTrack))
                 {
                     this.gpTrackGroupBox.Enabled = false;
                 }

@@ -99,20 +99,16 @@ namespace EpicEdit.UI.TrackEdition
                     return;
                 }
 
-                GPTrack gpTrack;
-
                 if (this.track != null)
                 {
                     this.track.AI.PropertyChanged -= this.track_AI_PropertyChanged;
                     this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
                     this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
                     this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
-
-                    gpTrack = this.track as GPTrack;
-
-                    if (gpTrack != null)
+                    
+                    if (this.track is GPTrack oldGPTrack)
                     {
-                        gpTrack.PropertyChanged -= this.gpTrack_PropertyChanged;
+                        oldGPTrack.PropertyChanged -= this.gpTrack_PropertyChanged;
                     }
                 }
 
@@ -123,9 +119,7 @@ namespace EpicEdit.UI.TrackEdition
                 this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
                 this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
 
-                gpTrack = this.track as GPTrack;
-
-                if (gpTrack != null)
+                if (this.track is GPTrack gpTrack)
                 {
                     gpTrack.PropertyChanged += this.gpTrack_PropertyChanged;
                 }
@@ -255,8 +249,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.fireEvents = false;
 
-            GPTrack gpTrack = this.track as GPTrack;
-            if (gpTrack != null)
+            if (this.track is GPTrack gpTrack)
             {
                 if (!this.setComboBox.Enabled)
                 {

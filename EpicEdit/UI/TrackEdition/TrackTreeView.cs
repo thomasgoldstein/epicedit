@@ -121,9 +121,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void trackGroup_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            TrackGroup trackGroup = sender as TrackGroup;
-
-            if (trackGroup == null)
+            if (!(sender is TrackGroup trackGroup))
             {
                 return;
             }

@@ -1855,9 +1855,7 @@ namespace EpicEdit.Rom
             byte[] overlayTileData = track.OverlayTiles.GetBytes();
             this.SaveOverlayTileData(overlayTileData, trackIndex);
 
-            GPTrack gpTrack = track as GPTrack;
-
-            if (gpTrack != null)
+            if (track is GPTrack gpTrack)
             {
                 // Update driver starting position
                 this.SaveGPStartPositionData(gpTrack, trackIndex);

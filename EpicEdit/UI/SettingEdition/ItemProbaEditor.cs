@@ -428,9 +428,7 @@ namespace EpicEdit.UI.SettingEdition
 
         public void ShowTrackData(Track track)
         {
-            GPTrack gpTrack = track as GPTrack;
-
-            if (gpTrack != null)
+            if (track is GPTrack gpTrack)
             {
                 this.modeComboBox.SelectedIndex = 0;
                 this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;

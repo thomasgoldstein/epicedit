@@ -501,9 +501,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e">The event arguments.</param>
         private void BasicColorsPictureBoxClick(object sender, EventArgs e)
         {
-            MouseEventArgs me = e as MouseEventArgs;
-
-            if (me != null)
+            if (e is MouseEventArgs me)
             {
                 this.BasicColorsClicked(me.X);
             }
@@ -540,9 +538,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e">The event arguments.</param>
         private void ShadesPictureBoxClick(object sender, EventArgs e)
         {
-            MouseEventArgs me = e as MouseEventArgs;
-
-            if (me != null)
+            if (e is MouseEventArgs me)
             {
                 this.ShadesClicked(me.X, me.Y);
             }
