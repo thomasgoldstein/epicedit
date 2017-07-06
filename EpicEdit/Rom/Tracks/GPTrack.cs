@@ -12,11 +12,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Start;
+using System;
 
 namespace EpicEdit.Rom.Tracks
 {

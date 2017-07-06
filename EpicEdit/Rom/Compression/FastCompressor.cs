@@ -12,8 +12,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
 using EpicEdit.Rom.Utility;
+using System;
 
 namespace EpicEdit.Rom.Compression
 {
@@ -141,21 +141,21 @@ namespace EpicEdit.Rom.Compression
                 if
                 (
                     (
-                    // Matches command 3
+                        // Matches command 3
                         (k + 2) < buffer.Length &&
                         (buffer[k] == ((buffer[k + 1] - 1) & 0xFF) &&
                          buffer[k + 2] == ((buffer[k + 1] + 1) & 0xFF))
                     )
                     ||
                     (
-                    // Matches command 1
+                        // Matches command 1
                         (k + 2) < buffer.Length &&
                         (buffer[k] == buffer[k + 1] &&
                          buffer[k] == buffer[k + 2])
                     )
                     ||
                     (
-                    // Matches command 2
+                        // Matches command 2
                         (k + 3) < buffer.Length &&
                         (buffer[k] == buffer[k + 2] &&
                          buffer[k + 1] == buffer[k + 3])

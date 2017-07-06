@@ -12,13 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-
-using EpicEdit.Properties;
 
 namespace EpicEdit.UI
 {
@@ -108,7 +107,7 @@ namespace EpicEdit.UI
             this.exportTrackToolStripButton.Enabled = true;
             this.importAllTrackToolStripButton.Enabled = true;
             this.exportAllTracksTooltipButton.Enabled = true;
-            
+
             this.zoomOutToolStripButton.Enabled = true;
             this.zoomInToolStripButton.Enabled = true;
             this.paletteToolStripButton.Enabled = true;

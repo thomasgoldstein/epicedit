@@ -12,16 +12,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
+using EpicEdit.Rom.Tracks.Scenery;
+using EpicEdit.UI.TrackEdition;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
-using EpicEdit.Rom;
-using EpicEdit.Rom.Tracks;
-using EpicEdit.Rom.Tracks.Scenery;
-using EpicEdit.UI.TrackEdition;
 
 namespace EpicEdit.UI.Gfx
 {
@@ -160,7 +159,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x,  bool selectingTile)
+        private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
             using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))

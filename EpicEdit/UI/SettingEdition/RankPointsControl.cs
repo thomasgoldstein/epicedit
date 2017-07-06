@@ -12,9 +12,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom.Settings;
 using System;
 using System.Windows.Forms;
-using EpicEdit.Rom.Settings;
 
 namespace EpicEdit.UI.SettingEdition
 {

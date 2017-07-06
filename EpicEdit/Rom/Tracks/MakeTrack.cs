@@ -12,12 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
@@ -25,6 +19,11 @@ using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.Rom.Utility;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace EpicEdit.Rom
 {

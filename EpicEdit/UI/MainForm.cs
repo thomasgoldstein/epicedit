@@ -12,15 +12,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom;
+using EpicEdit.Rom.Utility;
+using EpicEdit.UI.Tools;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-
-using EpicEdit.Rom;
-using EpicEdit.Rom.Utility;
-using EpicEdit.UI.Tools;
 
 namespace EpicEdit.UI
 {

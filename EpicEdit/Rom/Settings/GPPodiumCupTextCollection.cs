@@ -12,8 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-
 namespace EpicEdit.Rom.Settings
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace EpicEdit.Rom.Settings
                                          bool fixedLength, bool japAltMode, bool tallCharacters, byte shiftValue, byte[] keys, char[] values)
             : base(romBuffer, indexOffset, count, totalSize, hasPaletteData, fixedLength, japAltMode, tallCharacters, shiftValue, keys, values)
         {
-            
+
         }
 
         protected override byte[] GetBytes(out byte[] indexes, out int length)

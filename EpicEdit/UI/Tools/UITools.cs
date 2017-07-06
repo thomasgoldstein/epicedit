@@ -12,6 +12,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom;
+using EpicEdit.Rom.Utility;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -20,9 +22,6 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-
-using EpicEdit.Rom;
-using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.UI.Tools
 {

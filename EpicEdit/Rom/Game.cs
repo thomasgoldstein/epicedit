@@ -12,12 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-
 using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks;
@@ -31,6 +25,10 @@ using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.Rom.Utility;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 
 namespace EpicEdit.Rom
 {
@@ -672,7 +670,7 @@ namespace EpicEdit.Rom
                 data[0] = objectType;
                 data[1] = objectType;
                 data[2] = objectType;
-                data[7] = themeId == 7 ? (byte)1 : (byte) 0; // Rainbow Road
+                data[7] = themeId == 7 ? (byte)1 : (byte)0; // Rainbow Road
                 paletteIndexes = Game.GetObjectPaletteIndexes(themeId, trackIndex);
             }
 

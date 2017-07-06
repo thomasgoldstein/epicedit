@@ -12,13 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom;
+using EpicEdit.Rom.Compression;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-
-using EpicEdit.Rom;
-using EpicEdit.Rom.Compression;
 
 namespace EpicEdit.UI.Tools
 {
@@ -44,7 +43,7 @@ namespace EpicEdit.UI.Tools
 
             this.offsetNumericUpDown.Value = min;
         }
-        
+
         private void BrowseButtonClick(object sender, EventArgs e)
         {
             int offset = (int)this.offsetNumericUpDown.Value;

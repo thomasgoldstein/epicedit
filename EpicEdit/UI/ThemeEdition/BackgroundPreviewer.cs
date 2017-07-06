@@ -12,11 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Windows.Forms;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace EpicEdit.UI.ThemeEdition
 {

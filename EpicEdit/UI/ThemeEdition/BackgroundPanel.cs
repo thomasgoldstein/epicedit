@@ -12,17 +12,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
 using EpicEdit.UI.TrackEdition;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace EpicEdit.UI.ThemeEdition
 {

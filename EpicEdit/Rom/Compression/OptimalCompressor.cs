@@ -12,9 +12,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom.Utility;
 using System;
 using System.Collections.Generic;
-using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Compression
 {
@@ -164,27 +164,27 @@ namespace EpicEdit.Rom.Compression
                 if (
                 #region A command is coming up
                     (
-                    // Matches command 3
+                        // Matches command 3
                         (j + 2) < buffer.Length &&
                         (buffer[j] == ((buffer[j + 1] - 1) & 0xFF) &&
                          buffer[j + 2] == ((buffer[j + 1] + 1) & 0xFF))
                     )
                     ||
                     (
-                    // Matches command 1
+                        // Matches command 1
                         (j + 2) < buffer.Length &&
                         (buffer[j] == buffer[j + 1] &&
                          buffer[j] == buffer[j + 2])
                     )
                     ||
                     (
-                    // Matches command 2
+                         // Matches command 2
                          (j + 3) < buffer.Length &&
                          (buffer[j] == buffer[j + 2] &&
                           buffer[j + 1] == buffer[j + 3])
                     )
                     ||
-                    // Matches command 4 or 6
+                        // Matches command 4 or 6
                         OptimalCompressor.IsBackCommandComing(buffer, j)
                 #endregion
                 )

@@ -12,8 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-
 namespace EpicEdit.Rom.Utility
 {
     internal static class CharacterSet
@@ -34,7 +32,7 @@ namespace EpicEdit.Rom.Utility
 
         private static char[] GetEnglishSet()
         {
-            return new []
+            return new[]
             {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', // 00-0F
                 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', // 10-1F
@@ -44,7 +42,7 @@ namespace EpicEdit.Rom.Utility
 
         private static char[] GetLargeEnglishSet()
         {
-            return new []
+            return new[]
             {
                 'A', Nch, 'B', Nch, 'C', Nch, 'D', Nch, 'E', Nch, 'F', Nch, 'G', Nch, 'H', Nch, // 80-8F
                 'I', Nch, 'J', Nch, 'K', Nch, 'L', Nch, 'M', Nch, 'N', Nch, 'O', Nch, 'P', Nch, // 90-9F
@@ -60,7 +58,7 @@ namespace EpicEdit.Rom.Utility
         {
             const char Ten = '\u3099'; // Ten-ten
             const char Mar = '\u309A'; // Maru
-            return new []
+            return new[]
             {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', // 00-0F
                 Nch, Nch, Nch, 'J', Nch, Nch, Nch, Nch, Nch, Nch, Nch, 'R', Nch, Nch, Nch, Nch, // 10-1F

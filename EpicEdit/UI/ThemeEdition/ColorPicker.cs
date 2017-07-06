@@ -12,6 +12,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom;
+using EpicEdit.UI.Gfx;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,9 +21,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-
-using EpicEdit.Rom;
-using EpicEdit.UI.Gfx;
 
 namespace EpicEdit.UI.ThemeEdition
 {

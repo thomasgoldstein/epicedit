@@ -12,10 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom.Settings;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using EpicEdit.Rom.Settings;
 
 namespace EpicEdit.UI.SettingEdition
 {
@@ -82,7 +82,7 @@ namespace EpicEdit.UI.SettingEdition
 
             this.fireEvents = true;
         }
-  
+
         private void textItem_Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.SuffixTextChanged?.Invoke(this, EventArgs.Empty);

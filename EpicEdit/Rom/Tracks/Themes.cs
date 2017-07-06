@@ -12,17 +12,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-
 using EpicEdit.Rom.Compression;
 using EpicEdit.Rom.Settings;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Scenery;
 using EpicEdit.Rom.Utility;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 
 namespace EpicEdit.Rom.Tracks
 {
@@ -143,7 +142,7 @@ namespace EpicEdit.Rom.Tracks
                     allRoadTilePaletteIndexes = new byte[RoadTileset.TileCount];
                     Buffer.BlockCopy(roadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, 0, RoadTileset.ThemeTileCount);
                     Buffer.BlockCopy(commonRoadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, RoadTileset.ThemeTileCount, RoadTileset.CommonTileCount);
-    
+
                     allRoadTileGfx = new byte[RoadTileset.TileCount][];
                     Array.Copy(roadTileGfx, 0, allRoadTileGfx, 0, roadTileGfx.Length);
 
@@ -156,7 +155,7 @@ namespace EpicEdit.Rom.Tracks
                     }
 
                     Array.Copy(commonRoadTileGfxClone, 0, allRoadTileGfx, RoadTileset.ThemeTileCount, commonRoadTileGfxClone.Length);
-    
+
                     // Set empty tile default graphics value
                     for (int j = roadTileGfx.Length; j < RoadTileset.ThemeTileCount; j++)
                     {

@@ -12,11 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.ComponentModel;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Items;
 using EpicEdit.Rom.Utility;
+using System.ComponentModel;
 
 namespace EpicEdit.Rom.Settings
 {
@@ -106,8 +105,8 @@ namespace EpicEdit.Rom.Settings
         {
             bool isJap = region == Region.Jap;
             int[] nameDataSizes = isJap ?
-                new [] { 48, 94, 68, 144, 136, 96, 42 } :
-                new [] { 66, 130, 80, 173, 134, 112, 52 };
+                new[] { 48, 94, 68, 144, 136, 96, 42 } :
+                new[] { 66, 130, 80, 173, 134, 112, 52 };
 
             const char ThinSpace = '\u2009';
 
@@ -131,12 +130,12 @@ namespace EpicEdit.Rom.Settings
                 nameDataSizes[2], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
-                !isJap ? new [] { '\n' } : new [] { 'J', 'R', '\n', ' ' });
+                !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
             this.CupAndThemeTexts = new TextCollection(
                 romBuffer, offsets[Offset.CupAndThemeTexts], Track.GroupCount + Theme.Count,
                 nameDataSizes[3], false, false, false, false, 0,
-                new byte[] { 0x2C }, new [] { ThinSpace });
+                new byte[] { 0x2C }, new[] { ThinSpace });
 
             this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
                 this.CupAndThemeTexts.Converter,
@@ -151,12 +150,12 @@ namespace EpicEdit.Rom.Settings
                 nameDataSizes[5], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
-                !isJap ? new [] { '\n' } : new [] { 'J', 'R', '\n', ' ' });
+                !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
             this.DriverNamesTimeTrial = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
                 nameDataSizes[6], false, false, false, false, 0,
-                new byte[] { 0x2C }, new [] { ThinSpace });
+                new byte[] { 0x2C }, new[] { ThinSpace });
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
             this.RankPoints = new RankPoints(rankPointsData);

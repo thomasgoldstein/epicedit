@@ -12,12 +12,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom.Compression;
+using EpicEdit.Rom.Utility;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
-using EpicEdit.Rom.Compression;
-using EpicEdit.Rom.Utility;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
@@ -104,15 +103,15 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             if (type == ObjectType.Plant || type == ObjectType.Fish)
             {
-                return new [] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
+                return new[] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
             }
 
-            return new [] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
+            return new[] { 32 * 32, 33 * 32, 48 * 32, 49 * 32 };
         }
 
         private static int[] GetMatchRaceTileIndexes()
         {
-            return new [] { 0, 32, 64, 96 };
+            return new[] { 0, 32, 64, 96 };
         }
 
         private static Bitmap GetImage(Tile[] tiles, Palette palette)

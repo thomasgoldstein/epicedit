@@ -12,9 +12,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.Windows.Forms;
 using EpicEdit.Properties;
+using System.Windows.Forms;
 
 namespace EpicEdit.UI.Tools
 {

@@ -12,9 +12,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
 using EpicEdit.Rom.Tracks.AI;
 using NUnit.Framework;
+using System;
 
 namespace EpicEdit.Test.Rom.Tracks.AI
 {

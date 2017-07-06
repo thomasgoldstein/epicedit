@@ -12,14 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
@@ -33,6 +25,12 @@ using EpicEdit.UI.SettingEdition;
 using EpicEdit.UI.ThemeEdition;
 using EpicEdit.UI.Tools;
 using EpicEdit.UI.Tools.UndoRedo;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using DrawRegion = System.Drawing.Region;
 
 namespace EpicEdit.UI.TrackEdition

@@ -12,13 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Objects;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -73,7 +72,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
 
                 this.track = value;
-    
+
                 if (this.track == null) // BattleTrack
                 {
                     this.Enabled = false;
@@ -86,11 +85,11 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.frontObjectZonesControl.ZonesView = this.track.Objects.Zones.FrontView;
                 this.rearObjectZonesControl.ZonesView = this.track.Objects.Zones.RearView;
-    
+
                 TrackObjects objects = this.track.Objects;
-    
+
                 this.fireEvents = false;
-    
+
                 this.tilesetComboBox.SelectedItem = objects.Tileset;
                 this.interactComboBox.SelectedItem = objects.Interaction;
                 this.routineComboBox.SelectedItem = objects.Routine;
@@ -99,9 +98,9 @@ namespace EpicEdit.UI.TrackEdition
                 this.palette3NumericUpDown.Value = objects.PaletteIndexes[2];
                 this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
                 this.flashingCheckBox.Checked = objects.Flashing;
-    
+
                 this.fireEvents = true;
-    
+
                 this.ToggleZoneGroupBox();
                 this.ToggleAlternatePalettes();
             }

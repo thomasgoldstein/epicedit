@@ -12,13 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Windows.Forms;
-
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.Overlay;
@@ -26,6 +19,11 @@ using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using EpicEdit.UI.Tools;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -148,7 +146,7 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     return;
                 }
- 
+
                 if (this.track != null)
                 {
                     this.track.OverlayTiles.ElementAdded -= this.track_OverlayTiles_ElementAdded;
