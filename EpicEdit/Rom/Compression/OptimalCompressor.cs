@@ -81,13 +81,11 @@ namespace EpicEdit.Rom.Compression
         private static void CreateNodesFromCommand(CommandCall commandCall, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
             commandCall(buffer, i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS);
-            ChunkNode node = new ChunkNode(parentNode, chunk);
-            nodeCollection.Add(i + byteCount, node);
+            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
 
             if (chunkS != null)
             {
-                node = new ChunkNode(parentNode, chunkS);
-                nodeCollection.Add(i + byteCountS, node);
+                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
             }
         }
 
@@ -95,38 +93,31 @@ namespace EpicEdit.Rom.Compression
         {
             Range[] ranges = byteDictionary.GetMaxBackRanges(i);
 
-            ChunkNode node;
-
             OptimalCompressor.CallCommand4(out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS, ranges[0], ranges[1]);
             if (chunk != null)
             {
-                node = new ChunkNode(parentNode, chunk);
-                nodeCollection.Add(i + byteCount, node);
+                nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
             }
             if (chunkS != null)
             {
-                node = new ChunkNode(parentNode, chunkS);
-                nodeCollection.Add(i + byteCountS, node);
+                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
             }
 
             OptimalCompressor.CallCommand6(i, out chunk, out byteCount, out chunkS, out byteCountS, ranges[2], ranges[3]);
             if (chunk != null)
             {
-                node = new ChunkNode(parentNode, chunk);
-                nodeCollection.Add(i + byteCount, node);
+                nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
             }
             if (chunkS != null)
             {
-                node = new ChunkNode(parentNode, chunkS);
-                nodeCollection.Add(i + byteCountS, node);
+                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
             }
         }
 
         private static void CreateNodesFromCommand0(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
             OptimalCompressor.CallCommand0(buffer, i, out byte[] chunk, out int byteCount);
-            ChunkNode node = new ChunkNode(parentNode, chunk);
-            nodeCollection.Add(i + byteCount, node);
+            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
         }
 
         private delegate void CommandCall(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS);
