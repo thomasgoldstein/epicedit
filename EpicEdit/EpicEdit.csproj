@@ -44,7 +44,6 @@
     <TargetFrameworkProfile />
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <NoWin32Manifest>False</NoWin32Manifest>
-    <CscToolPath>$(MSBuildProgramFiles32)\MSBuild\14.0\Bin</CscToolPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -196,53 +195,81 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.cs" />
+    <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.Designer.cs">
       <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.cs" />
+    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.Designer.cs">
       <DependentUpon>CupAndTrackNamesEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\DriverNamesControl.cs" />
+    <Compile Include="UI\SettingEdition\DriverNamesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.Designer.cs">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\ItemIconPanel.cs" />
+    <Compile Include="UI\SettingEdition\ItemIconPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\ItemProbaEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\SettingEdition\ItemProbaEditor.Designer.cs">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\RankPointsControl.cs" />
+    <Compile Include="UI\SettingEdition\RankPointsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\RankPointsControl.Designer.cs">
       <DependentUpon>RankPointsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\ResultEditor.cs" />
+    <Compile Include="UI\SettingEdition\ResultEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\ResultEditor.Designer.cs">
       <DependentUpon>ResultEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\SettingEditorForm.cs" />
+    <Compile Include="UI\SettingEdition\SettingEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\SettingEditorForm.Designer.cs">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\SuffixedNameControl.cs" />
+    <Compile Include="UI\SettingEdition\SuffixedNameControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\SettingEdition\SuffixedNameControl.Designer.cs">
       <DependentUpon>SuffixedNameControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditor.cs" />
+    <Compile Include="UI\ThemeEdition\BackgroundEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\BackgroundEditor.Designer.cs">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditorForm.cs" />
+    <Compile Include="UI\ThemeEdition\BackgroundEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\BackgroundEditorForm.Designer.cs">
       <DependentUpon>BackgroundEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundPanel.cs" />
-    <Compile Include="UI\ThemeEdition\BackgroundPreviewer.cs" />
-    <Compile Include="UI\ThemeEdition\BackgroundTilePanel.cs" />
-    <Compile Include="UI\ThemeEdition\BackgroundTilesetPanel.cs" />
+    <Compile Include="UI\ThemeEdition\BackgroundPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\BackgroundPreviewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\BackgroundTilePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ThemeEdition\BackgroundTilesetPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\ThemeEdition\ColorPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -261,19 +288,29 @@
     <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\CodecControl.cs" />
+    <Compile Include="UI\Tools\CodecControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\Tools\CodecControl.Designer.cs">
       <DependentUpon>CodecControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\CodecForm.cs" />
+    <Compile Include="UI\Tools\CodecForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\Tools\CodecForm.Designer.cs">
       <DependentUpon>CodecForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tools\EpicCursors.cs" />
-    <Compile Include="UI\Tools\EpicNumericUpDown.cs" />
+    <Compile Include="UI\Tools\EpicNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Tools\FileDialogFilters.cs" />
-    <Compile Include="UI\Tools\TextItemComboBox.cs" />
-    <Compile Include="UI\Tools\ThemeComboBox.cs" />
+    <Compile Include="UI\Tools\TextItemComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\ThemeComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Tools\TileClipboard.cs" />
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
@@ -284,7 +321,9 @@
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
     <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />
-    <Compile Include="UI\Tools\PlayerTrackBar.cs" />
+    <Compile Include="UI\Tools\PlayerTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,7 +348,9 @@
     <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
       <DependentUpon>OverlayControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.cs" />
+    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.Designer.cs">
       <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
     </Compile>
@@ -331,7 +372,9 @@
     <Compile Include="UI\TrackEdition\TrackEditor.Designer.cs">
       <DependentUpon>TrackEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackPanel.cs" />
+    <Compile Include="UI\TrackEdition\TrackPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\TrackEdition\TrackTreeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -444,11 +487,5 @@
       <Visible>False</Visible>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Rom\Utility" />
-    <Folder Include="Rom\Tracks\Road" />
-    <Folder Include="Rom\Settings" />
-    <Folder Include="Rom\Tracks\Start" />
-    <Folder Include="UI\SettingEdition" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
