@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EpicEdit.Properties {
+namespace EpicEdit.Properties
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,269 +23,323 @@ namespace EpicEdit.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        
+    internal class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EpicEdit.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddButton {
-            get {
+        internal static System.Drawing.Bitmap AddButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("AddButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BucketButton {
-            get {
+        internal static System.Drawing.Bitmap BucketButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("BucketButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
         /// </summary>
-        internal static System.Windows.Forms.Cursor BucketCursor {
-            get {
+        internal static System.Windows.Forms.Cursor BucketCursor
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("BucketCursor", resourceCulture);
                 return ((System.Windows.Forms.Cursor)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
         /// </summary>
-        internal static System.Windows.Forms.Cursor ColorPickerCursor {
-            get {
+        internal static System.Windows.Forms.Cursor ColorPickerCursor
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ColorPickerCursor", resourceCulture);
                 return ((System.Windows.Forms.Cursor)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CopyButton {
-            get {
+        internal static System.Drawing.Bitmap CopyButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("CopyButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteButton {
-            get {
+        internal static System.Drawing.Bitmap DeleteButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("DeleteButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon EpicEditIcon {
-            get {
+        internal static System.Drawing.Icon EpicEditIcon
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("EpicEditIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExitFullScreenButton {
-            get {
+        internal static System.Drawing.Bitmap ExitFullScreenButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ExitFullScreenButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExportAllButton {
-            get {
+        internal static System.Drawing.Bitmap ExportAllButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ExportAllButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExportButton {
-            get {
+        internal static System.Drawing.Bitmap ExportButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ExportButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FullScreenButton {
-            get {
+        internal static System.Drawing.Bitmap FullScreenButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("FullScreenButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImportAllButton {
-            get {
+        internal static System.Drawing.Bitmap ImportAllButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ImportAllButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImportButton {
-            get {
+        internal static System.Drawing.Bitmap ImportButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ImportButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImportExportButton {
-            get {
+        internal static System.Drawing.Bitmap ImportExportButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ImportExportButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ItemProbaButton {
-            get {
+        internal static System.Drawing.Bitmap ItemProbaButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("ItemProbaButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap NukeButton {
-            get {
+        internal static System.Drawing.Bitmap NukeButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("NukeButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PauseButton {
-            get {
+        internal static System.Drawing.Bitmap PauseButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("PauseButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PencilButton {
-            get {
+        internal static System.Drawing.Bitmap PencilButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("PencilButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Windows.Forms.Cursor similar to [Cursor: System.Windows.Forms.Cursor].
         /// </summary>
-        internal static System.Windows.Forms.Cursor PencilCursor {
-            get {
+        internal static System.Windows.Forms.Cursor PencilCursor
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("PencilCursor", resourceCulture);
                 return ((System.Windows.Forms.Cursor)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PlayButton {
-            get {
+        internal static System.Drawing.Bitmap PlayButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("PlayButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap RedoButton {
-            get {
+        internal static System.Drawing.Bitmap RedoButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("RedoButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SettingsButton {
-            get {
+        internal static System.Drawing.Bitmap SettingsButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("SettingsButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap UndoButton {
-            get {
+        internal static System.Drawing.Bitmap UndoButton
+        {
+            get
+            {
                 object obj = ResourceManager.GetObject("UndoButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }

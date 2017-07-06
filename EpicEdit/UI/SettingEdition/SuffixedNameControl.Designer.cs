@@ -22,21 +22,23 @@ namespace EpicEdit.UI.SettingEdition
         private System.ComponentModel.IContainer components = null;
         private EpicEdit.UI.Tools.TextItemComboBox nameComboBox;
         private System.Windows.Forms.TextBox suffixTextBox;
-        
+
         /// <summary>
         /// Disposes resources used by the control.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
-                if (components != null) {
+            if (disposing)
+            {
+                if (components != null)
+                {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
         }
-        
+
         /// <summary>
         /// This method is required for Windows Forms designer support.
         /// Do not change the method contents inside the source code editor. The Forms designer might

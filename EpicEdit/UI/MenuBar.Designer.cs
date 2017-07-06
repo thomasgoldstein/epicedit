@@ -388,7 +388,7 @@ namespace EpicEdit.UI
             // 
             this.saveRomAsToolStripMenuItem.Enabled = false;
             this.saveRomAsToolStripMenuItem.Name = "saveRomAsToolStripMenuItem";
-            this.saveRomAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveRomAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveRomAsToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.saveRomAsToolStripMenuItem.Text = "Save ROM As";
@@ -431,7 +431,7 @@ namespace EpicEdit.UI
             // redoToolStripMenuItem2
             // 
             this.redoToolStripMenuItem2.Name = "redoToolStripMenuItem2";
-            this.redoToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.redoToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.Z)));
             this.redoToolStripMenuItem2.Size = new System.Drawing.Size(224, 22);
             this.redoToolStripMenuItem2.Text = "Redo";

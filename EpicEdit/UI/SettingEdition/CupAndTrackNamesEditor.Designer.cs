@@ -49,21 +49,23 @@ namespace EpicEdit.UI.SettingEdition
         private EpicEdit.UI.SettingEdition.SuffixedNameControl battleTrack3NameControl;
         private EpicEdit.UI.SettingEdition.SuffixedNameControl battleTrack4NameControl;
         private System.Windows.Forms.Label countLabel;
-        
+
         /// <summary>
         /// Disposes resources used by the control.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
-                if (components != null) {
+            if (disposing)
+            {
+                if (components != null)
+                {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
         }
-        
+
         /// <summary>
         /// This method is required for Windows Forms designer support.
         /// Do not change the method contents inside the source code editor. The Forms designer might
