@@ -39,8 +39,7 @@ namespace EpicEdit.Rom.Compression
 
         private void Add(byte value, int offset)
         {
-            List<int> list;
-            if (!this.byteDictionary.TryGetValue(value, out list))
+            if (!this.byteDictionary.TryGetValue(value, out List<int> list))
             {
                 list = new List<int>();
                 this.byteDictionary.Add(value, list);
@@ -173,7 +172,7 @@ namespace EpicEdit.Rom.Compression
                 maxRange4s = Range.Empty;
             }
 
-            return new [] { maxRange4n, maxRange4s, maxRange6n, maxRange6s };
+            return new[] { maxRange4n, maxRange4s, maxRange6n, maxRange6s };
         }
     }
 }

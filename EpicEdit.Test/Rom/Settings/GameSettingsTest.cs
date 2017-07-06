@@ -50,8 +50,7 @@ namespace EpicEdit.Test.Rom.Settings
 
             if (expectedBytes != null)
             {
-                byte[] indexes;
-                byte[] textBytes = textColl.GetBytes(out indexes);
+                byte[] textBytes = textColl.GetBytes(out byte[] indexes);
                 Assert.AreEqual(expectedIndexes, indexes);
                 Assert.AreEqual(expectedBytes, textBytes);
 

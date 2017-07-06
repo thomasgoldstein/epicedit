@@ -47,8 +47,7 @@ namespace EpicEdit.Rom.Compression
 
         public void Add(int offset, ChunkNode node)
         {
-            ChunkNode storedNode;
-            if (!this.nodeDictionary.TryGetValue(offset, out storedNode))
+            if (!this.nodeDictionary.TryGetValue(offset, out ChunkNode storedNode))
             {
                 this.nodeDictionary.Add(offset, node);
                 this.offsetQueue.Enqueue(offset);

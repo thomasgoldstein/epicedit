@@ -1637,9 +1637,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void UpdateScrollBars()
         {
-            int offScreenTileCountX;
-            int offScreenTileCountY;
-            this.GetOffScreenTileCounts(out offScreenTileCountX, out offScreenTileCountY);
+            this.GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY);
 
             // Recalculate the maximum value of the horizontal scroll bar
             this.UpdateScrollBar(this.trackDisplayHScrollBar, offScreenTileCountX);

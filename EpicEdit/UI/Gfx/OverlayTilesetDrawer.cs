@@ -148,8 +148,7 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null && !Context.ColorPickerMode)
             {
-                Point location;
-                this.PatternList.TryGetValue(pattern, out location);
+                this.PatternList.TryGetValue(pattern, out Point location);
                 g.DrawRectangle(this.highlightPen,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,
@@ -161,8 +160,7 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null)
             {
-                Point location;
-                this.PatternList.TryGetValue(pattern, out location);
+                this.PatternList.TryGetValue(pattern, out Point location);
                 g.FillRectangle(this.selectBrush,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,

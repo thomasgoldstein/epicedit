@@ -113,9 +113,7 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            Palette palette;
-            int colorIndex;
-            this.GetColorAt(e.X, e.Y, out palette, out colorIndex);
+            this.GetColorAt(e.X, e.Y, out Palette palette, out int colorIndex);
 
             if (colorIndex != -1) // Not an empty tile
             {

@@ -114,13 +114,10 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int x = 0; x < layerWidth; x++)
                     {
-                        byte tileId;
-                        byte properties;
-                        background.Layout.GetTileData(x, y, front, out tileId, out properties);
+                        background.Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
                         int key = (tileId << 8) + properties;
 
-                        BackgroundTile instance;
-                        if (!tileCache.TryGetValue(key, out instance))
+                        if (!tileCache.TryGetValue(key, out BackgroundTile instance))
                         {
                             BackgroundTile tile = background.Tileset[tileId];
                             instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);

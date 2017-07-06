@@ -380,8 +380,7 @@ namespace EpicEdit.Rom
 
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
 
-                    byte[] aiZoneData, aiTargetData;
-                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out aiZoneData, out aiTargetData);
+                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
 
                     if (trackIndex < GPTrack.Count) // GP track
                     {

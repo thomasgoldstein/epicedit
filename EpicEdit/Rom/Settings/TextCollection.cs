@@ -86,9 +86,7 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                byte[] indexes;
-                int length;
-                this.GetBytes(out indexes, out length);
+                this.GetBytes(out byte[] indexes, out int length);
                 return this.GetCharacterCount(length);
             }
         }
@@ -264,8 +262,7 @@ namespace EpicEdit.Rom.Settings
 
         public byte[] GetBytes(out byte[] indexes)
         {
-            int length;
-            return this.GetBytes(out indexes, out length);
+            return this.GetBytes(out indexes, out int length);
         }
 
         protected virtual byte[] GetBytes(out byte[] indexes, out int length)
@@ -392,8 +389,7 @@ namespace EpicEdit.Rom.Settings
         {
             if (this.Modified)
             {
-                byte[] indexes;
-                byte[] data = this.GetBytes(out indexes);
+                byte[] data = this.GetBytes(out byte[] indexes);
                 Buffer.BlockCopy(indexes, 0, romBuffer, this.indexOffset, indexes.Length);
                 Buffer.BlockCopy(data, 0, romBuffer, this.textOffset, data.Length);
             }

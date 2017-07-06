@@ -43,9 +43,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundTile GetTileInstance(int x, int y, bool front)
         {
-            byte tileId;
-            byte properties;
-            this.Layout.GetTileData(x, y, front, out tileId, out properties);
+            this.Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
 
             return this.GetTileInstance(tileId, properties, front);
         }

@@ -80,16 +80,8 @@ namespace EpicEdit.Rom.Compression
 
         private static void CreateNodesFromCommand(CommandCall commandCall, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
-            byte[] chunk;
-            byte[] chunkS;
-
-            int byteCount;
-            int byteCountS;
-
-            ChunkNode node;
-
-            commandCall(buffer, i, out chunk, out byteCount, out chunkS, out byteCountS);
-            node = new ChunkNode(parentNode, chunk);
+            commandCall(buffer, i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS);
+            ChunkNode node = new ChunkNode(parentNode, chunk);
             nodeCollection.Add(i + byteCount, node);
 
             if (chunkS != null)
@@ -102,15 +94,10 @@ namespace EpicEdit.Rom.Compression
         private static void CreateNodesFromBackCommands(ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode, ByteDictionary byteDictionary)
         {
             Range[] ranges = byteDictionary.GetMaxBackRanges(i);
-            byte[] chunk;
-            byte[] chunkS;
-
-            int byteCount;
-            int byteCountS;
 
             ChunkNode node;
 
-            OptimalCompressor.CallCommand4(out chunk, out byteCount, out chunkS, out byteCountS, ranges[0], ranges[1]);
+            OptimalCompressor.CallCommand4(out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS, ranges[0], ranges[1]);
             if (chunk != null)
             {
                 node = new ChunkNode(parentNode, chunk);
@@ -137,12 +124,8 @@ namespace EpicEdit.Rom.Compression
 
         private static void CreateNodesFromCommand0(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
-            byte[] chunk;
-            int byteCount;
-            ChunkNode node;
-
-            OptimalCompressor.CallCommand0(buffer, i, out chunk, out byteCount);
-            node = new ChunkNode(parentNode, chunk);
+            OptimalCompressor.CallCommand0(buffer, i, out byte[] chunk, out int byteCount);
+            ChunkNode node = new ChunkNode(parentNode, chunk);
             nodeCollection.Add(i + byteCount, node);
         }
 

@@ -220,9 +220,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.tileSelection = true;
 
             Point position = this.AbsoluteTilePosition;
-            byte tileId;
-            byte properties;
-            this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out tileId, out properties);
+            this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out byte tileId, out byte properties);
 
             EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
             this.TileSelected(this, ea);

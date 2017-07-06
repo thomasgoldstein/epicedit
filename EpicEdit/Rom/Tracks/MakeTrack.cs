@@ -169,8 +169,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                byte[] targetData, zoneData;
-                this.GetAIData(out targetData, out zoneData);
+                this.GetAIData(out byte[] targetData, out byte[] zoneData);
                 return new TrackAI(zoneData, targetData, this.track);
             }
             set { this.SetAIData(value); }
@@ -543,8 +542,7 @@ namespace EpicEdit.Rom
                     string fieldName = index == -1 ? line : line.Substring(0, index);
                     fieldName = fieldName.Substring(1); // Remove leading #
 
-                    byte[] data;
-                    if (this.fields.TryGetValue(fieldName, out data))
+                    if (this.fields.TryGetValue(fieldName, out byte[] data))
                     {
                         if (data.Length <= 4)
                         {
