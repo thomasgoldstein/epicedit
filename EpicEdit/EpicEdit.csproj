@@ -99,6 +99,8 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Rom\Compression\Decompressor.cs" />
+    <Compile Include="Rom\Compression\IDecompressor.cs" />
     <Compile Include="Rom\Offsets.cs" />
     <Compile Include="Rom\Palettes.cs" />
     <Compile Include="Rom\PropertyNames.cs" />
