@@ -186,9 +186,7 @@ namespace EpicEdit.Rom.Compression
                 j++;
             }
 
-            Range range = new Range(i, j);
-
-            return range;
+            return new Range(i, j);
         }
 
         private static void CallCommand1(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS)
