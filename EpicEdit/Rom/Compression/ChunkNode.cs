@@ -119,6 +119,7 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Returns all the data compressed up to this node.
         /// </summary>
+        /// <param name="sourceBuffer">The data to be compressed.</param>
         /// <returns>The compressed data.</returns>
         public byte[] GetCompressedBuffer(byte[] sourceBuffer)
         {
