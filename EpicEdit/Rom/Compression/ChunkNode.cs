@@ -66,11 +66,6 @@ namespace EpicEdit.Rom.Compression
             byte[] compressedBuffer = new byte[this.CompressedBufferSize + 1];
             // + 1 for the ending 0xFF command
 
-            if (this.parent != null)
-            {
-                this.parent.CopyChunk(compressedBuffer);
-            }
-
             this.CopyChunk(compressedBuffer);
             compressedBuffer[this.CompressedBufferSize] = 0xFF;
 
