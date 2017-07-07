@@ -36,18 +36,24 @@ namespace EpicEdit.Rom.Compression
 
         private readonly ChunkNode parent;
         private List<ChunkNode> children;
-        private readonly byte[] compressedChunk;
+        private readonly int command;
+        private readonly int sourceOffset;
+        private readonly int byteCount;
+        private readonly int compressedChunkSize;
 
-        public ChunkNode(ChunkNode parent, byte[] compressedChunk)
+        private int CompressedBufferOffset
         {
-            if (compressedChunk == null)
-            {
-                throw new ArgumentNullException(nameof(compressedChunk), "The compressed chunk can't be null.");
-            }
+            get { return this.CompressedBufferSize - this.compressedChunkSize; }
+        }
 
+        public ChunkNode(ChunkNode parent, int command, int sourceOffset, int byteCount)
+        {
             this.IsOptimal = true;
-            this.compressedChunk = compressedChunk;
-            this.CompressedBufferSize = this.compressedChunk.Length;
+            this.command = command;
+            this.sourceOffset = sourceOffset;
+            this.byteCount = byteCount;
+            this.compressedChunkSize = this.GetCompressedSize();
+            this.CompressedBufferSize = this.compressedChunkSize;
 
             if (parent != null)
             {
@@ -55,31 +61,6 @@ namespace EpicEdit.Rom.Compression
                 this.parent.AddChild(this);
                 this.CompressedBufferSize += this.parent.CompressedBufferSize;
             }
-        }
-
-        /// <summary>
-        /// Returns all the data compressed up to this node.
-        /// </summary>
-        /// <returns>The compressed data.</returns>
-        public byte[] GetCompressedBuffer()
-        {
-            byte[] compressedBuffer = new byte[this.CompressedBufferSize + 1];
-            // + 1 for the ending 0xFF command
-
-            this.CopyChunk(compressedBuffer);
-            compressedBuffer[this.CompressedBufferSize] = 0xFF;
-
-            return compressedBuffer;
-        }
-
-        private void CopyChunk(byte[] compressedBuffer)
-        {
-            if (this.parent != null)
-            {
-                this.parent.CopyChunk(compressedBuffer);
-            }
-
-            Buffer.BlockCopy(this.compressedChunk, 0, compressedBuffer, this.CompressedBufferSize - this.compressedChunk.Length, this.compressedChunk.Length);
         }
 
         private void AddChild(ChunkNode child)
@@ -105,6 +86,142 @@ namespace EpicEdit.Rom.Compression
                 {
                     child.SetAsNonOptimal();
                 }
+            }
+        }
+
+        private int GetCompressedSize()
+        {
+            int length = this.byteCount <= Codec.NormalCommandMax ? 1 : 2;
+
+            switch (this.command)
+            {
+                case 0: // Reads an amount of bytes from ROM in sequence stores them in the same sequence.
+                    length += this.byteCount;
+                    break;
+                case 1: // Reads one byte from ROM and continuously stores the same byte in sequence.
+                case 3: // Reads one byte from ROM and continously stores it, but the byte to write is incremented after every write.
+                case 6: // Reads one byte, which is then subtracted from the current writing address to create a pointer to a previously written address. Bytes are read in sequence from this address and are stored in sequence.
+                    length++;
+                    break;
+                case 2: // Reads two bytes from ROM and continously stores the same two bytes in sequence. 
+                case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
+                case 5: // Identical to 4, although every byte read is inverted (EOR #$FF) before it is stored. This command doesn't see much use.
+                    length += 2;
+                    break;
+                default: // Root ChunkNode
+                    length = 0;
+                    break;
+            }
+
+            return length;
+        }
+
+        /// <summary>
+        /// Returns all the data compressed up to this node.
+        /// </summary>
+        /// <returns>The compressed data.</returns>
+        public byte[] GetCompressedBuffer(byte[] sourceBuffer)
+        {
+            byte[] compressedBuffer = new byte[this.CompressedBufferSize + 1];
+            // + 1 for the ending 0xFF command
+
+            this.CopyChunk(sourceBuffer, compressedBuffer);
+            compressedBuffer[this.CompressedBufferSize] = 0xFF;
+
+            return compressedBuffer;
+        }
+
+        private void CopyChunk(byte[] sourceBuffer, byte[] compressedBuffer)
+        {
+            if (this.parent != null)
+            {
+                this.parent.CopyChunk(sourceBuffer, compressedBuffer);
+            }
+
+            int destOffset = this.CompressedBufferOffset;
+
+            switch (this.command)
+            {
+                case 0:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xE0 + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+
+                    Buffer.BlockCopy(sourceBuffer, this.sourceOffset, compressedBuffer, destOffset, byteCount);
+                    break;
+
+                case 1:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0x20 + byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xE4 + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+                    compressedBuffer[destOffset] = sourceBuffer[this.sourceOffset];
+                    break;
+
+                case 2:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0x40 + byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xE8 + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+                    compressedBuffer[destOffset++] = sourceBuffer[this.sourceOffset];
+                    compressedBuffer[destOffset] = sourceBuffer[this.sourceOffset + 1];
+                    break;
+
+                case 3:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0x60 + byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xEC + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+                    compressedBuffer[destOffset] = sourceBuffer[this.sourceOffset];
+                    break;
+
+                case 4:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0x80 + byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xF0 + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+                    compressedBuffer[destOffset++] = (byte)(this.sourceOffset & 0x00FF);
+                    compressedBuffer[destOffset] = (byte)((this.sourceOffset & 0xFF00) >> 8);
+                    break;
+
+                case 6:
+                    if (byteCount <= Codec.NormalCommandMax)
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xC0 + byteCount - 1);
+                    }
+                    else
+                    {
+                        compressedBuffer[destOffset++] = (byte)(0xF8 + ((byteCount - 1 & 0x300) >> 8));
+                        compressedBuffer[destOffset++] = (byte)(byteCount - 1 & 0xFF);
+                    }
+                    compressedBuffer[destOffset] = (byte)(this.sourceOffset);
+                    break;
             }
         }
     }

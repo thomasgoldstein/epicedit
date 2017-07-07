@@ -42,7 +42,7 @@ namespace EpicEdit.Rom.Compression
             }
 
             ChunkNode bestNode = nodeCollection[buffer.Length];
-            return bestNode.GetCompressedBuffer();
+            return bestNode.GetCompressedBuffer(buffer);
         }
 
         private static void CreateChildNodes(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode, ByteDictionary byteDictionary)
@@ -60,17 +60,17 @@ namespace EpicEdit.Rom.Compression
             if ((i + 1) < buffer.Length &&
                 buffer[i] == buffer[i + 1])
             {
-                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.CallCommand1, buffer, nodeCollection, i, parentNode);
+                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.GetCommand1ByteCount, 1, buffer, nodeCollection, i, parentNode);
             }
             else if ((i + 2) < buffer.Length &&
                      buffer[i] == buffer[i + 2])
             {
-                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.CallCommand2, buffer, nodeCollection, i, parentNode);
+                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.GetCommand2ByteCount, 2, buffer, nodeCollection, i, parentNode);
             }
             else if ((i + 1) < buffer.Length &&
                      ((buffer[i] + 1) & 0xFF) == buffer[i + 1])
             {
-                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.CallCommand3, buffer, nodeCollection, i, parentNode);
+                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.GetCommand3ByteCount, 3, buffer, nodeCollection, i, parentNode);
             }
             else
             {
@@ -78,75 +78,54 @@ namespace EpicEdit.Rom.Compression
             }
         }
 
-        private static void CreateNodesFromCommand(CommandCall commandCall, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
+        private static void CreateNodesFromCommand(GetCommandByteCount commandCall, int command, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
-            commandCall(buffer, i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS);
-            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
+            int byteCount = commandCall(buffer, i);
+            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
 
-            if (chunkS != null)
+            if (byteCount > Codec.NormalCommandMax)
             {
-                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
+                int reducedByteCount = Math.Min(byteCount, Codec.NormalCommandMax);
+                nodeCollection.Add(i + reducedByteCount, new ChunkNode(parentNode, command, i, reducedByteCount));
             }
+
+            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, command, i, byteCount));
         }
 
         private static void CreateNodesFromBackCommands(ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode, ByteDictionary byteDictionary)
         {
             Range[] ranges = byteDictionary.GetMaxBackRanges(i);
 
-            OptimalCompressor.CallCommand4(out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS, ranges[0], ranges[1]);
-            if (chunk != null)
+            if (ranges[0].Length > 0)
             {
-                nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
+                nodeCollection.Add(i + ranges[0].Length, new ChunkNode(parentNode, 4, ranges[0].Start, ranges[0].Length));
             }
-            if (chunkS != null)
+            if (ranges[1].Length > 0)
             {
-                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
+                nodeCollection.Add(i + ranges[1].Length, new ChunkNode(parentNode, 4, ranges[1].Start, ranges[1].Length));
             }
-
-            OptimalCompressor.CallCommand6(i, out chunk, out byteCount, out chunkS, out byteCountS, ranges[2], ranges[3]);
-            if (chunk != null)
+            
+            if (ranges[2].Length > 0)
             {
-                nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
+                nodeCollection.Add(i + ranges[2].Length, new ChunkNode(parentNode, 6, i - ranges[2].Start, ranges[2].Length));
             }
-            if (chunkS != null)
+            if (ranges[3].Length > 0)
             {
-                nodeCollection.Add(i + byteCountS, new ChunkNode(parentNode, chunkS));
+                nodeCollection.Add(i + ranges[3].Length, new ChunkNode(parentNode, 6, i - ranges[3].Start, ranges[3].Length));
             }
         }
 
         private static void CreateNodesFromCommand0(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
-            OptimalCompressor.CallCommand0(buffer, i, out byte[] chunk, out int byteCount);
-            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, chunk));
+            int byteCount = OptimalCompressor.GetCommand0ByteCount(buffer, i);
+            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
+
+            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, 0, i, byteCount));
         }
 
-        private delegate void CommandCall(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS);
+        private delegate int GetCommandByteCount(byte[] buffer, int i);
 
-        private static void CallCommand0(byte[] buffer, int i, out byte[] chunk, out int byteCount)
-        {
-            Range range = OptimalCompressor.GetCommand0Range(buffer, i);
-            byteCount = range.Length;
-
-            int k = 0; // Iterator for compressed chunk
-
-            if (byteCount <= Codec.NormalCommandMax)
-            {
-                chunk = new byte[byteCount + 1];
-                chunk[k++] = (byte)(byteCount - 1);
-            }
-            else
-            {
-                byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
-
-                chunk = new byte[byteCount + 2];
-                chunk[k++] = (byte)(0xE0 + ((byteCount - 1 & 0x300) >> 8));
-                chunk[k++] = (byte)(byteCount - 1 & 0xFF);
-            }
-
-            Buffer.BlockCopy(buffer, i, chunk, k, byteCount);
-        }
-
-        private static Range GetCommand0Range(byte[] buffer, int i)
+        private static int GetCommand0ByteCount(byte[] buffer, int i)
         {
             int j = i + 1; // Forward iterator for buffer
 
@@ -186,10 +165,10 @@ namespace EpicEdit.Rom.Compression
                 j++;
             }
 
-            return new Range(i, j);
+            return j - i;
         }
 
-        private static void CallCommand1(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS)
+        private static int GetCommand1ByteCount(byte[] buffer, int i)
         {
             int j = i + 2; // Forward iterator for buffer
 
@@ -199,43 +178,10 @@ namespace EpicEdit.Rom.Compression
                 j++;
             }
 
-            Range range = new Range(i, j);
-            byteCount = range.Length;
-            byteCountS = byteCount;
-
-            OptimalCompressor.CallCommand1Normal(buffer, i, out chunk, ref byteCount);
-            OptimalCompressor.CallCommand1Super(buffer, i, out chunkS, ref byteCountS);
+            return j - i;
         }
 
-        private static void CallCommand1Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount > Codec.NormalCommandMax)
-            {
-                byteCount = Codec.NormalCommandMax;
-            }
-
-            chunk = new byte[2];
-            chunk[0] = (byte)(0x20 + byteCount - 1);
-            chunk[1] = buffer[i];
-        }
-
-        private static void CallCommand1Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount <= Codec.NormalCommandMax)
-            {
-                chunk = null;
-                return;
-            }
-
-            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
-
-            chunk = new byte[3];
-            chunk[0] = (byte)(0xE4 + ((byteCount - 1 & 0x300) >> 8));
-            chunk[1] = (byte)(byteCount - 1 & 0xFF);
-            chunk[2] = buffer[i];
-        }
-
-        private static void CallCommand2(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS)
+        private static int GetCommand2ByteCount(byte[] buffer, int i)
         {
             int j = i + 3; // Forward iterator for buffer
 
@@ -245,45 +191,10 @@ namespace EpicEdit.Rom.Compression
                 j++;
             }
 
-            Range range = new Range(i, j);
-            byteCount = range.Length;
-            byteCountS = byteCount;
-
-            OptimalCompressor.CallCommand2Normal(buffer, i, out chunk, ref byteCount);
-            OptimalCompressor.CallCommand2Super(buffer, i, out chunkS, ref byteCountS);
+            return j - i;
         }
 
-        private static void CallCommand2Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount > Codec.NormalCommandMax)
-            {
-                byteCount = Codec.NormalCommandMax;
-            }
-
-            chunk = new byte[3];
-            chunk[0] = (byte)(0x40 + byteCount - 1);
-            chunk[1] = buffer[i];
-            chunk[2] = buffer[i + 1];
-        }
-
-        private static void CallCommand2Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount <= Codec.NormalCommandMax)
-            {
-                chunk = null;
-                return;
-            }
-
-            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
-
-            chunk = new byte[4];
-            chunk[0] = (byte)(0xE8 + ((byteCount - 1 & 0x300) >> 8));
-            chunk[1] = (byte)(byteCount - 1 & 0xFF);
-            chunk[2] = buffer[i];
-            chunk[3] = buffer[i + 1];
-        }
-
-        private static void CallCommand3(byte[] buffer, int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS)
+        private static int GetCommand3ByteCount(byte[] buffer, int i)
         {
             int j = i + 2; // Forward iterator for buffer
 
@@ -293,116 +204,7 @@ namespace EpicEdit.Rom.Compression
                 j++;
             }
 
-            Range range = new Range(i, j);
-            byteCount = range.Length;
-            byteCountS = byteCount;
-
-            OptimalCompressor.CallCommand3Normal(buffer, i, out chunk, ref byteCount);
-            OptimalCompressor.CallCommand3Super(buffer, i, out chunkS, ref byteCountS);
-        }
-
-        private static void CallCommand3Normal(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount > Codec.NormalCommandMax)
-            {
-                byteCount = Codec.NormalCommandMax;
-            }
-
-            chunk = new byte[2];
-            chunk[0] = (byte)(0x60 + byteCount - 1);
-            chunk[1] = buffer[i];
-        }
-
-        private static void CallCommand3Super(byte[] buffer, int i, out byte[] chunk, ref int byteCount)
-        {
-            if (byteCount <= Codec.NormalCommandMax)
-            {
-                chunk = null;
-                return;
-            }
-
-            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
-
-            chunk = new byte[3];
-            chunk[0] = (byte)(0xEC + ((byteCount - 1 & 0x300) >> 8));
-            chunk[1] = (byte)(byteCount - 1 & 0xFF);
-            chunk[2] = buffer[i];
-        }
-
-        private static void CallCommand4(out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS, Range range, Range rangeS)
-        {
-            OptimalCompressor.CallCommand4Normal(out chunk, out byteCount, range);
-            OptimalCompressor.CallCommand4Super(out chunkS, out byteCountS, rangeS);
-        }
-
-        private static void CallCommand4Normal(out byte[] chunk, out int byteCount, Range range)
-        {
-            byteCount = range.Length;
-            if (byteCount == 0)
-            {
-                chunk = null;
-                return;
-            }
-
-            chunk = new byte[3];
-            chunk[0] = (byte)(0x80 + byteCount - 1);
-            chunk[1] = (byte)(range.Start & 0x00FF);
-            chunk[2] = (byte)((range.Start & 0xFF00) >> 8);
-        }
-
-        private static void CallCommand4Super(out byte[] chunk, out int byteCount, Range range)
-        {
-            byteCount = range.Length;
-            if (byteCount == 0)
-            {
-                chunk = null;
-                return;
-            }
-
-            chunk = new byte[4];
-            chunk[0] = (byte)(0xF0 + ((byteCount - 1 & 0x300) >> 8));
-            chunk[1] = (byte)(byteCount - 1 & 0xFF);
-            chunk[2] = (byte)(range.Start & 0x00FF);
-            chunk[3] = (byte)((range.Start & 0xFF00) >> 8);
-        }
-
-        private static void CallCommand6(int i, out byte[] chunk, out int byteCount, out byte[] chunkS, out int byteCountS, Range range, Range rangeS)
-        {
-            OptimalCompressor.CallCommand6Normal(i, out chunk, out byteCount, range);
-            OptimalCompressor.CallCommand6Super(i, out chunkS, out byteCountS, rangeS);
-        }
-
-        private static void CallCommand6Normal(int i, out byte[] chunk, out int byteCount, Range range)
-        {
-            byteCount = range.Length;
-            if (byteCount == 0)
-            {
-                chunk = null;
-                return;
-            }
-
-            int distance = i - range.Start;
-
-            chunk = new byte[2];
-            chunk[0] = (byte)(0xC0 + byteCount - 1);
-            chunk[1] = (byte)distance;
-        }
-
-        private static void CallCommand6Super(int i, out byte[] chunk, out int byteCount, Range range)
-        {
-            byteCount = range.Length;
-            if (byteCount == 0)
-            {
-                chunk = null;
-                return;
-            }
-
-            int distance = i - range.Start;
-
-            chunk = new byte[3];
-            chunk[0] = (byte)(0xF8 + ((byteCount - 1 & 0x300) >> 8));
-            chunk[1] = (byte)(byteCount - 1 & 0xFF);
-            chunk[2] = (byte)distance;
+            return j - i;
         }
 
         private static bool IsBackCommandComing(byte[] buffer, int position)

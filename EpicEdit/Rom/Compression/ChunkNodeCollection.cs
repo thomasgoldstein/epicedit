@@ -40,7 +40,7 @@ namespace EpicEdit.Rom.Compression
             this.nodeDictionary = new Dictionary<int, ChunkNode>();
             this.offsetQueue = new Queue<int>();
 
-            ChunkNode rootNode = new ChunkNode(null, new byte[0]);
+            ChunkNode rootNode = new ChunkNode(null, -1, 0, 0);
             this.Add(0, rootNode);
         }
 
