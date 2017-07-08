@@ -19,11 +19,12 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom.Compression
 {
     [TestFixture]
-    internal class DecompressionTest : TestBase
+    internal class DecompressionTest
     {
         private byte[] romBuffer;
 
-        public override void Init()
+        [SetUp]
+        public void SetUp()
         {
             this.romBuffer = File.ReadRom(Region.US);
         }

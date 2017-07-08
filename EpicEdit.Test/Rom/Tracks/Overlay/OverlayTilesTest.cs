@@ -20,12 +20,13 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom.Tracks.Overlay
 {
     [TestFixture]
-    internal class OverlayTilesTest : TestBase
+    internal class OverlayTilesTest 
     {
         private OverlayTilePatterns overlayTilePatterns;
         private OverlayTileSizes overlayTileSizes;
 
-        public override void Init()
+        [SetUp]
+        public void SetUp()
         {
             byte[] romBuffer = File.ReadRom(Region.US);
             Offsets offsets = new Offsets(romBuffer, Region.US);

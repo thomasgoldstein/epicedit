@@ -19,23 +19,18 @@ using NUnit.Framework;
 namespace EpicEdit.Test.Rom.Tracks
 {
     [TestFixture]
-    internal class TrackTest : TestBase
+    internal class TrackTest
     {
-        private Game game;
-
-        public override void Init()
-        {
-            this.game = File.GetGame(Region.US);
-        }
-
         private void TestMktImportExport(int trackGroupId, int trackId)
         {
-            Track track1 = this.game.TrackGroups[trackGroupId][trackId];
-            Track track2 = this.game.TrackGroups[0][0];
+            Game game = File.GetGame(Region.US);
+
+            Track track1 = game.TrackGroups[trackGroupId][trackId];
+            Track track2 = game.TrackGroups[0][0];
             string filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.mkt");
 
-            track1.Export(filePath, this.game);
-            track2.Import(filePath, this.game);
+            track1.Export(filePath, game);
+            track2.Import(filePath, game);
 
             Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
             Assert.AreEqual(game.Themes.GetThemeId(track1.Theme), game.Themes.GetThemeId(track2.Theme));

@@ -23,13 +23,14 @@ namespace EpicEdit.Test.Rom.Compression
     /// Non-regression tests for the compression rate of the OptimalCompressor.
     /// </summary>
     [TestFixture]
-    internal class OptimalCompressorRateTest : TestBase
+    internal class OptimalCompressorRateTest
     {
         private OptimalCompressor compressor;
         private byte[] romBuffer;
         private Game game;
 
-        public override void Init()
+        [SetUp]
+        public void SetUp()
         {
             this.compressor = new OptimalCompressor();
             this.romBuffer = File.ReadRom(Region.US);
