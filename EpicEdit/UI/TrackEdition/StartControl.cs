@@ -92,6 +92,9 @@ namespace EpicEdit.UI.TrackEdition
         {
             GPTrack gpTrack = this.track as GPTrack;
             gpTrack.StartPosition.SecondRowOffset = this.GetPrecisionValue((int)this.secondRowNumericUpDown.Value);
+
+            // Make sure the UI reflects the validated SecondRowOffset value
+            this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
         }
 
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
