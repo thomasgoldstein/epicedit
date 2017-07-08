@@ -39,7 +39,8 @@ namespace EpicEdit.Test
             get
             {
                 string location = Assembly.GetExecutingAssembly().Location;
-                return Directory.GetParent(location).FullName + Path.DirectorySeparatorChar;
+                return Directory.GetParent(location).FullName +
+                    Path.DirectorySeparatorChar + "files" + Path.DirectorySeparatorChar;
             }
         }
 
@@ -86,7 +87,13 @@ namespace EpicEdit.Test
 
         public static string GetOutputPath(string fileName)
         {
-            return File.OutputPath + fileName;
+            string outputPath = File.OutputPath;
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
+
+            return outputPath + fileName;
         }
 
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)
