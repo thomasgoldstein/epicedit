@@ -7,7 +7,7 @@ Thanks to: Presea, Midwife, Cragz, smkdan, Ok Impala!, teknix1 and Scoub
 Epic Edit icon by Stifu
 Menu icons by Axialis Team
 
-Site: http://epicedit.stifu.fr/
+Site: https://epicedit.stifu.fr/
 Contact: stifu@stifu.fr
 
 ---------------------------------------------------------------------------
