@@ -78,9 +78,9 @@ namespace EpicEdit.Rom.Compression
             }
         }
 
-        private static void CreateNodesFromCommand(GetCommandByteCount commandCall, int command, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
+        private static void CreateNodesFromCommand(GetCommandByteCount getSize, int command, byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
         {
-            int byteCount = commandCall(buffer, i);
+            int byteCount = getSize(buffer, i);
             byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
 
             if (byteCount > Codec.NormalCommandMax)
