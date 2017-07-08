@@ -21,7 +21,7 @@ namespace EpicEdit.Test
     {
         private Exception testFixtureSetupException;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         protected void SetUpTestFixture()
         {
             try

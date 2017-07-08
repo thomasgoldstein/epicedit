@@ -22,7 +22,7 @@ namespace EpicEdit.Test.Rom.Tracks.Start
     {
         private byte[] allData;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             this.allData = new byte[]
