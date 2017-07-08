@@ -80,7 +80,7 @@ namespace EpicEdit.Test.Rom.Compression
         [Test]
         public void TestWinnerFlagGraphics()
         {
-            this.CheckCompression(0xBB7, 658);
+            this.CheckCompression(0xBB7, 657);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace EpicEdit.Test.Rom.Compression
         [Test]
         public void TestLakituGraphics()
         {
-            this.CheckCompression(0x10000, 2298);
+            this.CheckCompression(0x10000, 2297);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace EpicEdit.Test.Rom.Compression
         [Test]
         public void TestPodiumGraphics()
         {
-            this.CheckCompressionFromDoubleCompressed(0x737DA, 9285);
+            this.CheckCompressionFromDoubleCompressed(0x737DA, 9277);
         }
 
         [Test]

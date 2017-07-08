@@ -74,7 +74,7 @@ namespace EpicEdit.Rom.Compression
             }
             else
             {
-                OptimalCompressor.CreateNodesFromCommand0(buffer, nodeCollection, i, parentNode);
+                OptimalCompressor.CreateNodesFromCommand(OptimalCompressor.GetCommand0ByteCount, 0, buffer, nodeCollection, i, parentNode);
             }
         }
 
@@ -113,14 +113,6 @@ namespace EpicEdit.Rom.Compression
             {
                 nodeCollection.Add(i + ranges[3].Length, new ChunkNode(parentNode, 6, i - ranges[3].Start, ranges[3].Length));
             }
-        }
-
-        private static void CreateNodesFromCommand0(byte[] buffer, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
-        {
-            int byteCount = OptimalCompressor.GetCommand0ByteCount(buffer, i);
-            byteCount = Codec.GetValidatedSuperCommandSize(byteCount);
-
-            nodeCollection.Add(i + byteCount, new ChunkNode(parentNode, 0, i, byteCount));
         }
 
         private delegate int GetCommandByteCount(byte[] buffer, int i);
