@@ -9,8 +9,9 @@ v2.8.2 (July 8th 2017)
 - Added an alternative way to set the starting position second row offset
 - Added a hack to work around Mono crashes, especially on Mac
 - Fixed a ROM text loading edge case bug
-- When using the Codec and trying to decompress from an invalid address,
-  show a simple error message
+- Improved the speed and compression rate of the Codec compressor
+- Fixed error message handling when using the Codec
+  and trying to decompress from an invalid address
 
 
 v2.8.1 (November 11th 2015)
