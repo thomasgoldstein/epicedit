@@ -33,14 +33,14 @@ namespace EpicEdit.Test
             switch (region)
             {
                 case Region.Jap:
-                    return "Super Mario Kart (J) [!].smc";
+                    return "Super Mario Kart (Japan).sfc";
 
                 default:
                 case Region.US:
-                    return "Super Mario Kart (U) [!].smc";
+                    return "Super Mario Kart (USA).sfc";
 
                 case Region.Euro:
-                    return "Super Mario Kart (E) [!].smc";
+                    return "Super Mario Kart (Europe).sfc";
             }
         }
 
