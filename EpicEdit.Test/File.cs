@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using EpicEdit.Rom;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace EpicEdit.Test
 {
@@ -23,10 +24,24 @@ namespace EpicEdit.Test
     /// </summary>
     internal static class File
     {
-        private readonly static string RelativePath =
-            ".." + Path.DirectorySeparatorChar +
-            ".." + Path.DirectorySeparatorChar +
-            "files" + Path.DirectorySeparatorChar;
+        private static string InputPath
+        {
+            get
+            {
+                string location = Assembly.GetExecutingAssembly().Location;
+                return Directory.GetParent(location).Parent.Parent.FullName +
+                    Path.DirectorySeparatorChar +  "files" + Path.DirectorySeparatorChar;
+            }
+        }
+
+        private static string OutputPath
+        {
+            get
+            {
+                string location = Assembly.GetExecutingAssembly().Location;
+                return Directory.GetParent(location).FullName + Path.DirectorySeparatorChar;
+            }
+        }
 
         private static string GetRomFileName(Region region)
         {
@@ -51,7 +66,7 @@ namespace EpicEdit.Test
 
         public static Game GetGame(string fileName)
         {
-            return new Game(File.RelativePath + fileName);
+            return new Game(File.GetInputPath(fileName));
         }
 
         public static byte[] ReadRom(Region region)
@@ -61,7 +76,17 @@ namespace EpicEdit.Test
 
         public static byte[] ReadFile(string fileName)
         {
-            return System.IO.File.ReadAllBytes(File.RelativePath + fileName);
+            return System.IO.File.ReadAllBytes(File.GetInputPath(fileName));
+        }
+
+        private static string GetInputPath(string fileName)
+        {
+            return File.InputPath + fileName;
+        }
+
+        public static string GetOutputPath(string fileName)
+        {
+            return File.OutputPath + fileName;
         }
 
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)

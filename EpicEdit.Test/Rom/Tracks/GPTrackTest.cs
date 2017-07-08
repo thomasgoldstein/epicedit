@@ -32,9 +32,10 @@ namespace EpicEdit.Test.Rom.Tracks
         {
             GPTrack track1 = this.game.TrackGroups[trackGroupId][trackId] as GPTrack;
             GPTrack track2 = this.game.TrackGroups[0][0] as GPTrack;
+            string filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.smkc");
 
-            track1.Export("track.smkc", this.game);
-            track2.Import("track.smkc", this.game);
+            track1.Export(filePath, this.game);
+            track2.Import(filePath, this.game);
 
             Assert.AreEqual(track1.Map.GetBytes(), track2.Map.GetBytes());
             Assert.AreEqual(track1.Theme, track2.Theme);

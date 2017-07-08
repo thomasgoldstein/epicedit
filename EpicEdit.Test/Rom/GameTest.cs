@@ -196,7 +196,7 @@ namespace EpicEdit.Test.Rom
             // do not use the private Game member, because that would affect other tests.
             Game game = File.GetGame(Region.US);
 
-            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+            string filePath = File.GetOutputPath("SMK_TestGPTrackReorderNamesReload.sfc");
 
             Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
             Assert.AreEqual("Donut Plains 1", game.TrackGroups[0][1].Name);
@@ -212,8 +212,8 @@ namespace EpicEdit.Test.Rom
             // Take Donut Plains, and move it where Bowser Castle 2 is
             game.ReorderTracks(0, 1, 1, 3);
 
-            game.SaveRom(fileNameAfter);
-            game = new Game(fileNameAfter); // Reload ROM
+            game.SaveRom(filePath);
+            game = new Game(filePath); // Reload ROM
 
             Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
             Assert.AreEqual("Ghost Valley 1", game.TrackGroups[0][1].Name);
@@ -234,11 +234,11 @@ namespace EpicEdit.Test.Rom
             // do not use the private Game member, because that would affect other tests.
             Game game = File.GetGame(Region.US);
 
-            string fileNameBefore = "SMK_U_Before_Track_Reorder.smc";
-            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+            string filePathBefore = File.GetOutputPath("SMK_TestGPTrackReorderRomData_before.sfc");
+            string filePatheAfter = File.GetOutputPath("SMK_TestGPTrackReorderRomData_after.sfc");
 
-            game.SaveRom(fileNameBefore);
-            byte[] romBefore = System.IO.File.ReadAllBytes(fileNameBefore);
+            game.SaveRom(filePathBefore);
+            byte[] romBefore = System.IO.File.ReadAllBytes(filePathBefore);
 
             // Check the order value of each GP track
             Assert.AreEqual(0x07, romBefore[0x1EC1B]);
@@ -265,8 +265,8 @@ namespace EpicEdit.Test.Rom
             // Take Donut Plains, and move it where Bowser Castle 2 is
             game.ReorderTracks(0, 1, 1, 3);
 
-            game.SaveRom(fileNameAfter);
-            byte[] romAfter = System.IO.File.ReadAllBytes(fileNameAfter);
+            game.SaveRom(filePatheAfter);
+            byte[] romAfter = System.IO.File.ReadAllBytes(filePatheAfter);
 
             // Check the order value of each GP track
             Assert.AreEqual(0x07, romAfter[0x1EC1B]);
@@ -343,7 +343,7 @@ namespace EpicEdit.Test.Rom
             // do not use the private Game member, because that would affect other tests.
             Game game = File.GetGame(Region.US);
 
-            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+            string filePath = File.GetOutputPath("SMK_TestBattleTrackReorderNamesReload.sfc");
 
             Assert.AreEqual("Battle Course 1", game.TrackGroups[4][0].Name);
             Assert.AreEqual("Battle Course 2", game.TrackGroups[4][1].Name);
@@ -353,8 +353,8 @@ namespace EpicEdit.Test.Rom
             // Take Battle Course 4, and move it where Battle Course 1 is
             game.ReorderTracks(4, 3, 4, 0);
 
-            game.SaveRom(fileNameAfter);
-            game = new Game(fileNameAfter); // Reload ROM
+            game.SaveRom(filePath);
+            game = new Game(filePath); // Reload ROM
 
             Assert.AreEqual("Battle Course 4", game.TrackGroups[4][0].Name);
             Assert.AreEqual("Battle Course 1", game.TrackGroups[4][1].Name);
@@ -369,11 +369,11 @@ namespace EpicEdit.Test.Rom
             // do not use the private Game member, because that would affect other tests.
             Game game = File.GetGame(Region.US);
 
-            string fileNameBefore = "SMK_U_Before_Track_Reorder.smc";
-            string fileNameAfter = "SMK_U_After_Track_Reorder.smc";
+            string filePathBefore = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_before.sfc");
+            string filePathAfter = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_after.sfc");
 
-            game.SaveRom(fileNameBefore);
-            byte[] romBefore = System.IO.File.ReadAllBytes(fileNameBefore);
+            game.SaveRom(filePathBefore);
+            byte[] romBefore = System.IO.File.ReadAllBytes(filePathBefore);
 
             // Check the order value of each battle track
             Assert.AreEqual(0x16, romBefore[0x1C15C]);
@@ -384,8 +384,8 @@ namespace EpicEdit.Test.Rom
             // Take Battle Course 4, and move it where Battle Course 1 is
             game.ReorderTracks(4, 3, 4, 0);
 
-            game.SaveRom(fileNameAfter);
-            byte[] romAfter = System.IO.File.ReadAllBytes(fileNameAfter);
+            game.SaveRom(filePathAfter);
+            byte[] romAfter = System.IO.File.ReadAllBytes(filePathAfter);
 
             // Check the order value of each battle track
             Assert.AreEqual(0x15, romAfter[0x1C15C]);
@@ -423,10 +423,10 @@ namespace EpicEdit.Test.Rom
 
             game.InsertData(newCompressedData, offset);
 
-            string fileName = $"SMK_{region}_{offset:X}_{twice}";
-            game.SaveRom(fileName);
+            string filePath = File.GetOutputPath($"SMK_{region}_{offset:X}_{twice}.sfc");
+            game.SaveRom(filePath);
 
-            byte[] newRomBuffer = System.IO.File.ReadAllBytes(fileName);
+            byte[] newRomBuffer = System.IO.File.ReadAllBytes(filePath);
             byte[] newResavedCompressedData = Codec.GetCompressedChunk(newRomBuffer, offset);
 
             // Ensure the resaved ROM contains the new compressed data
