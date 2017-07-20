@@ -124,7 +124,14 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset, bool twice)
         {
-            return Codec.Decompressor.Decompress(buffer, offset, twice);
+            byte[] data = Codec.Decompressor.Decompress(buffer, offset);
+
+            if (twice)
+            {
+                data = Codec.Decompressor.Decompress(data);
+            }
+
+            return data;
         }
 
         /// <summary>

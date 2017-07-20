@@ -181,24 +181,5 @@ namespace EpicEdit.Rom.Compression
                 }
             }
         }
-
-        /// <summary>
-        /// Decompresses data until a stop (0xFF) command is found.
-        /// </summary>
-        /// <param name="buffer">The buffer to decompress data from.</param>
-        /// <param name="offset">The buffer position to start from.</param>
-        /// <param name="twice">Decompress the data twice.</param>
-        /// <returns>The decompressed data.</returns>
-        public byte[] Decompress(byte[] buffer, int offset, bool twice)
-        {
-            byte[] data = this.Decompress(buffer, offset);
-
-            if (twice)
-            {
-                data = this.Decompress(data);
-            }
-
-            return data;
-        }
     }
 }
