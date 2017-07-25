@@ -102,10 +102,11 @@ namespace EpicEdit.Rom
             byte green = ConvertTo5BitColor(this.green);
             byte blue = ConvertTo5BitColor(this.blue);
 
-            byte[] data = new byte[2];
-            data[0] = (byte)(red | ((green & 0x07) << 5));
-            data[1] = (byte)(((green & 0x18) >> 3) | ((blue & 0x1F) << 2));
-            return data;
+            return new[]
+            {
+                (byte)(red | ((green & 0x07) << 5)),
+                (byte)(((green & 0x18) >> 3) | ((blue & 0x1F) << 2))
+            };
         }
 
         /// <summary>
@@ -138,11 +139,12 @@ namespace EpicEdit.Rom
         /// <returns>The created RomColor object.</returns>
         public static RomColor From8BitRgb(byte red, byte green, byte blue)
         {
-            RomColor color = new RomColor();
-            color.red = red;
-            color.green = green;
-            color.blue = blue;
-            return color;
+            return new RomColor
+            {
+                red = red,
+                green = green,
+                blue = blue
+            };
         }
 
         /// <summary>
@@ -153,11 +155,12 @@ namespace EpicEdit.Rom
         public static RomColor FromColor(Color color)
         {
             // Extract the bytes into red, green and blue components (8 bits).
-            RomColor rc = new RomColor();
-            rc.red = color.R;
-            rc.green = color.G;
-            rc.blue = color.B;
-            return rc;
+            return new RomColor
+            {
+                red = color.R,
+                green = color.G,
+                blue = color.B
+            };
         }
 
         /// <summary>
@@ -189,13 +192,14 @@ namespace EpicEdit.Rom
             }
 
             // Decode the bytes into red, green and blue components (8 bits)
-            RomColor rc = new RomColor();
             byte lobyte = data[index];
             byte hibyte = data[index + 1];
-            rc.red = ConvertTo8BitColor((byte)(lobyte & 0x1F));
-            rc.green = ConvertTo8BitColor((byte)(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5)));
-            rc.blue = ConvertTo8BitColor((byte)((hibyte & 0x7C) >> 2));
-            return rc;
+            return new RomColor
+            {
+                red = ConvertTo8BitColor((byte)(lobyte & 0x1F)),
+                green = ConvertTo8BitColor((byte)(((hibyte & 0x03) << 3) + ((lobyte & 0xE0) >> 5))),
+                blue = ConvertTo8BitColor((byte)((hibyte & 0x7C) >> 2))
+            };
         }
 
         /// <summary>
