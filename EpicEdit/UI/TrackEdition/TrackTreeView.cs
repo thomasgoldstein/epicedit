@@ -180,7 +180,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public string SelectedTrackFileName => this.SelectedTrackId + "- " + this.selectedTrack.Name;
 
-        public int SelectedTrackId => this.treeView.SelectedNode.Parent.Index* GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
+        public int SelectedTrackId => this.treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
 
         #region Track reordering
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
