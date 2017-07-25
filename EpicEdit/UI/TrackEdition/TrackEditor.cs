@@ -76,7 +76,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private int ZoomLevelIndex
         {
-            get { return this.zoomLevelIndex; }
+            get => this.zoomLevelIndex;
             set
             {
                 this.zoomLevelIndex = value;
@@ -92,10 +92,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The current zoom level of the track display.
         /// </summary>
-        private float Zoom
-        {
-            get { return this.zoomLevels[this.ZoomLevelIndex]; }
-        }
+        private float Zoom => this.zoomLevels[this.ZoomLevelIndex];
 
         /// <summary>
         /// Region which needs to be invalidated.
@@ -286,10 +283,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Undo/redo buffer for tile changes, for the current track.
         /// </summary>
-        private UndoRedoBuffer undoRedoBuffer
-        {
-            get { return this.undoRedoBuffers[this.track]; }
-        }
+        private UndoRedoBuffer undoRedoBuffer => this.undoRedoBuffers[this.track];
 
         /// <summary>
         /// Determines whether the palette editor form has been initialized.
@@ -339,22 +333,22 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> OpenRomDialogRequested
         {
-            add { this.menuBar.OpenRomDialogRequested += value; }
-            remove { this.menuBar.OpenRomDialogRequested -= value; }
+            add => this.menuBar.OpenRomDialogRequested += value;
+            remove => this.menuBar.OpenRomDialogRequested -= value;
         }
 
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> SaveRomDialogRequested
         {
-            add { this.menuBar.SaveRomDialogRequested += value; }
-            remove { this.menuBar.SaveRomDialogRequested -= value; }
+            add => this.menuBar.SaveRomDialogRequested += value;
+            remove => this.menuBar.SaveRomDialogRequested -= value;
         }
 
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ToggleScreenModeRequested
         {
-            add { this.menuBar.ToggleScreenModeRequested += value; }
-            remove { this.menuBar.ToggleScreenModeRequested -= value; }
+            add => this.menuBar.ToggleScreenModeRequested += value;
+            remove => this.menuBar.ToggleScreenModeRequested -= value;
         }
         #endregion Events
 

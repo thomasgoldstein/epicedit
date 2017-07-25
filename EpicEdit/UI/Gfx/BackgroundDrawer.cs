@@ -39,7 +39,7 @@ namespace EpicEdit.UI.Gfx
 
         public Theme Theme
         {
-            get { return this.theme; }
+            get => this.theme;
             set
             {
                 this.theme = value;
@@ -239,8 +239,8 @@ namespace EpicEdit.UI.Gfx
 
         public int PreviewFrame
         {
-            //get { return -this.x; }
-            set { this.x = -value; }
+            //get => -this.x;
+            set => this.x = -value;
         }
 
         public void Dispose()

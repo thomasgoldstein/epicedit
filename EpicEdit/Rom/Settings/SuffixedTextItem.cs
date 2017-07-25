@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Settings
         private TextItem textItem;
         public TextItem TextItem
         {
-            get { return this.textItem; }
+            get => this.textItem;
             set
             {
                 if (this.textItem == value)
@@ -50,10 +50,7 @@ namespace EpicEdit.Rom.Settings
 
         public TextItem Suffix { get; private set; }
 
-        public string Value
-        {
-            get { return this.TextItem.FormattedValue + (this.Suffix == null ? null : this.Suffix.FormattedValue); }
-        }
+        public string Value => this.TextItem.FormattedValue + this.Suffix?.FormattedValue;
 
         public SuffixedTextItem(TextItem nameItem, string nameSuffix, FreeTextCollection suffixCollection)
         {

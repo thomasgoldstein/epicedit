@@ -30,8 +30,8 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.itemProbaEditor.ColorSelected += value; }
-            remove { this.itemProbaEditor.ColorSelected -= value; }
+            add => this.itemProbaEditor.ColorSelected += value;
+            remove => this.itemProbaEditor.ColorSelected -= value;
         }
 
         public SettingEditorForm()
@@ -48,8 +48,8 @@ namespace EpicEdit.UI.SettingEdition
 
         public Theme Theme
         {
-            get { return this.itemProbaEditor.Theme; }
-            set { this.itemProbaEditor.Theme = value; }
+            get => this.itemProbaEditor.Theme;
+            set => this.itemProbaEditor.Theme = value;
         }
 
         public void Init()

@@ -27,10 +27,7 @@ namespace EpicEdit.Rom.Utility
         }
 
         private T value;
-        public T Value
-        {
-            get { return this.value; }
-        }
+        public T Value => this.value;
     }
 
     /// <summary>
@@ -45,15 +42,9 @@ namespace EpicEdit.Rom.Utility
         }
 
         private T value1;
-        public T Value1
-        {
-            get { return this.value1; }
-        }
+        public T Value1 => this.value1;
 
         private U value2;
-        public U Value2
-        {
-            get { return this.value2; }
-        }
+        public U Value2 => this.value2;
     }
 }

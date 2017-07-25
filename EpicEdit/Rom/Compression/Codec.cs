@@ -64,22 +64,13 @@ namespace EpicEdit.Rom.Compression
         }
 
         private static IDecompressor decompressor;
-        private static IDecompressor Decompressor
-        {
-            get { return Codec.decompressor ?? (Codec.decompressor = new Decompressor()); }
-        }
+        private static IDecompressor Decompressor => Codec.decompressor ?? (Codec.decompressor = new Decompressor());
 
         private static ICompressor compressor;
-        private static ICompressor Compressor
-        {
-            get { return Codec.compressor ?? (Codec.compressor = new FastCompressor()); }
-        }
+        private static ICompressor Compressor => Codec.compressor ?? (Codec.compressor = new FastCompressor());
 
         private static ICompressor optimalCompressor;
-        private static ICompressor OptimalCompressor
-        {
-            get { return Codec.optimalCompressor ?? (Codec.optimalCompressor = new OptimalCompressor()); }
-        }
+        private static ICompressor OptimalCompressor => Codec.optimalCompressor ?? (Codec.optimalCompressor = new OptimalCompressor());
 
         /// <summary>
         /// Decompresses data until a stop (0xFF) command is found.

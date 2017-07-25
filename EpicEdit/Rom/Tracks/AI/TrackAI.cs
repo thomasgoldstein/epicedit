@@ -74,10 +74,7 @@ namespace EpicEdit.Rom.Tracks.AI
             return this.aiElements.GetEnumerator();
         }
 
-        public int ElementCount
-        {
-            get { return this.aiElements.Count; }
-        }
+        public int ElementCount => this.aiElements.Count;
 
         /// <summary>
         /// Adds a new AI element to the element collection.

@@ -34,10 +34,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         public event EventHandler<EventArgs<int>> DataChanged;
 
         private readonly TrackAI ai;
-        public TrackAI AI
-        {
-            get { return this.ai; }
-        }
+        public TrackAI AI => this.ai;
 
         private readonly byte[] zones;
 

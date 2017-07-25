@@ -58,7 +58,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public GPTrack Track
         {
-            get { return this.track; }
+            get => this.track;
             set
             {
                 if (this.track == value)
@@ -138,10 +138,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Gets a value indicating whether the current view is the front-zones one.
         /// </summary>
-        public bool FrontZonesView
-        {
-            get { return this.frontZonesRadioButton.Checked; }
-        }
+        public bool FrontZonesView => this.frontZonesRadioButton.Checked;
 
         private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
         {

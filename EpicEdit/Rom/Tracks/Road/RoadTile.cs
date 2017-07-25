@@ -32,7 +32,7 @@ namespace EpicEdit.Rom.Tracks.Road
         private RoadTileGenre genre = RoadTileGenre.Road;
         public RoadTileGenre Genre
         {
-            get { return this.genre; }
+            get => this.genre;
             set
             {
                 if (this.genre == value)
@@ -128,8 +128,8 @@ namespace EpicEdit.Rom.Tracks.Road
         /// </summary>
         public byte PaletteByte
         {
-            get { return (byte)(this.Palette.Index << 4); }
-            set { this.Palette = this.Palette.Collection[(value >> 4)]; }
+            get => (byte)(this.Palette.Index << 4);
+            set => this.Palette = this.Palette.Collection[(value >> 4)];
         }
     }
 }

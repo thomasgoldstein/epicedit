@@ -93,21 +93,15 @@ namespace EpicEdit.Rom
             return Utilities.ReadBlock(data, index * Palette.Size, Palette.Size);
         }
 
-        public int Count
-        {
-            get { return this.palettes.Length; }
-        }
+        public int Count => this.palettes.Length;
 
         public Palette this[int index]
         {
-            get { return this.palettes[index]; }
-            set { this.palettes[index] = value; }
+            get => this.palettes[index];
+            set => this.palettes[index] = value;
         }
 
-        public RomColor BackColor
-        {
-            get { return this.palettes[0][0]; }
-        }
+        public RomColor BackColor => this.palettes[0][0];
 
         public bool Modified
         {

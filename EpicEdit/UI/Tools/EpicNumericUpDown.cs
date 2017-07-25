@@ -24,10 +24,7 @@ namespace EpicEdit.UI.Tools
     {
         private const int StartValue = 1;
 
-        private decimal DisplayedValue
-        {
-            get { return this.Value + StartValue; }
-        }
+        private decimal DisplayedValue => this.Value + StartValue;
 
         protected override void UpdateEditText()
         {

@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private Point location;
         public Point Location
         {
-            get { return this.location; }
+            get => this.location;
             set
             {
                 if (this.location == value)
@@ -52,15 +52,9 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.Location = new Point(x, y);
         }
 
-        public int X
-        {
-            get { return this.Location.X; }
-        }
+        public int X => this.Location.X;
 
-        public int Y
-        {
-            get { return this.Location.Y; }
-        }
+        public int Y => this.Location.Y;
 
         protected void OnPropertyChanged(string propertyName)
         {

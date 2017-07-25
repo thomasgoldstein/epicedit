@@ -61,15 +61,9 @@ namespace EpicEdit.Rom
         public Palettes Collection { get; private set; }
 
         private readonly int index;
-        public int Index
-        {
-            get { return this.index; }
-        }
+        public int Index => this.index;
 
-        public Theme Theme
-        {
-            get { return this.Collection.Theme; }
-        }
+        public Theme Theme => this.Collection.Theme;
 
         private byte[] backupData;
 
@@ -164,7 +158,7 @@ namespace EpicEdit.Rom
 
         public RomColor this[int index]
         {
-            get { return this.colors[index]; }
+            get => this.colors[index];
             set
             {
                 if (this.colors[index] == value)

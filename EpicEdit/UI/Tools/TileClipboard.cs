@@ -37,36 +37,21 @@ namespace EpicEdit.UI.Tools
         /// <summary>
         /// Gets the top-left position of the clipboard rectangle, as a tile selection is occuring.
         /// </summary>
-        public Point Location
-        {
-            get { return this.Rectangle.Location; }
-        }
+        public Point Location => this.Rectangle.Location;
 
         /// <summary>
         /// Gets the dimension of the tile clipboard.
         /// </summary>
-        public Size Size
-        {
-            get { return this.Rectangle.Size; }
-        }
+        public Size Size => this.Rectangle.Size;
 
-        public int Width
-        {
-            get { return this.Rectangle.Width; }
-        }
+        public int Width => this.Rectangle.Width;
 
-        public int Height
-        {
-            get { return this.Rectangle.Height; }
-        }
+        public int Height => this.Rectangle.Height;
 
         /// <summary>
         /// Gets the first tile stored in the clipboard.
         /// </summary>
-        public byte FirstTile
-        {
-            get { return this.data[0]; }
-        }
+        public byte FirstTile => this.data[0];
 
         public TileClipboard(byte tile)
         {
@@ -112,9 +97,6 @@ namespace EpicEdit.UI.Tools
             return this.data[x + y * this.Rectangle.Width];
         }
 
-        public byte this[int x, int y]
-        {
-            get { return this.GetByte(x, y); }
-        }
+        public byte this[int x, int y] => this.GetByte(x, y);
     }
 }

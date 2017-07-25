@@ -40,8 +40,8 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public BattleStartPosition StartPositionP1
         {
-            get { return this.startPositionP1; }
-            private set { this.startPositionP1.SetBytes(value.GetBytes()); }
+            get => this.startPositionP1;
+            private set => this.startPositionP1.SetBytes(value.GetBytes());
         }
 
         private readonly BattleStartPosition startPositionP2;
@@ -51,8 +51,8 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public BattleStartPosition StartPositionP2
         {
-            get { return this.startPositionP2; }
-            private set { this.startPositionP2.SetBytes(value.GetBytes()); }
+            get => this.startPositionP2;
+            private set => this.startPositionP2.SetBytes(value.GetBytes());
         }
 
         public BattleTrack(SuffixedTextItem nameItem, Theme theme,

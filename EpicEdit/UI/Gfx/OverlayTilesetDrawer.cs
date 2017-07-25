@@ -59,7 +59,7 @@ namespace EpicEdit.UI.Gfx
 
         public RoadTileset Tileset
         {
-            get { return this.tileset; }
+            get => this.tileset;
             set
             {
                 this.tileset = value;

@@ -20,22 +20,13 @@ namespace EpicEdit.UI.Tools
     internal static class EpicCursors
     {
         private static Cursor pencilCursor;
-        public static Cursor PencilCursor
-        {
-            get { return pencilCursor ?? (pencilCursor = GetCursor(Resources.PencilCursor, Cursors.Arrow)); }
-        }
+        public static Cursor PencilCursor => pencilCursor ?? (pencilCursor = GetCursor(Resources.PencilCursor, Cursors.Arrow));
 
         private static Cursor bucketCursor;
-        public static Cursor BucketCursor
-        {
-            get { return bucketCursor ?? (bucketCursor = GetCursor(Resources.BucketCursor, Cursors.Cross)); }
-        }
+        public static Cursor BucketCursor => bucketCursor ?? (bucketCursor = GetCursor(Resources.BucketCursor, Cursors.Cross));
 
         private static Cursor colorPickerCursor;
-        public static Cursor ColorPickerCursor
-        {
-            get { return colorPickerCursor ?? (colorPickerCursor = GetCursor(Resources.ColorPickerCursor, Cursors.Hand)); }
-        }
+        public static Cursor ColorPickerCursor => colorPickerCursor ?? (colorPickerCursor = GetCursor(Resources.ColorPickerCursor, Cursors.Hand));
 
         private static Cursor GetCursor(Cursor cursor, Cursor replacementCursor)
         {

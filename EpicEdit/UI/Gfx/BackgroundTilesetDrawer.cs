@@ -28,7 +28,7 @@ namespace EpicEdit.UI.Gfx
         private Theme theme;
         public Theme Theme
         {
-            get { return this.theme; }
+            get => this.theme;
             set
             {
                 this.theme = value;
@@ -39,7 +39,7 @@ namespace EpicEdit.UI.Gfx
         private Tile2bppProperties tileProperties;
         public Tile2bppProperties TileProperties
         {
-            get { return this.tileProperties; }
+            get => this.tileProperties;
             set
             {
                 value.Flip = Flip.None;
@@ -51,7 +51,7 @@ namespace EpicEdit.UI.Gfx
         private bool front = true;
         public bool Front
         {
-            get { return this.front; }
+            get => this.front;
             set
             {
                 this.front = value;
@@ -63,7 +63,7 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap tilesetCache;
 
-        public Bitmap Image { get { return this.tilesetCache; } }
+        public Bitmap Image => this.tilesetCache;
 
         public BackgroundTilesetDrawer(Size size)
         {

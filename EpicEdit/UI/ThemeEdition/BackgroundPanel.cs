@@ -52,15 +52,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         public Point TilePosition { get; private set; }
 
-        public int ScrollPixelPositionX
-        {
-            get { return (int)(this.AutoScrollPosition.X / this.Zoom); }
-        }
+        public int ScrollPixelPositionX => (int)(this.AutoScrollPosition.X / this.Zoom);
 
-        public int ScrollTilePositionX
-        {
-            get { return this.ScrollPixelPositionX / Tile.Size; }
-        }
+        public int ScrollTilePositionX => this.ScrollPixelPositionX / Tile.Size;
 
         public Point AbsoluteTilePosition
         {
@@ -87,8 +81,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         public Tile2bppProperties TileProperties
         {
-            get { return new Tile2bppProperties(this.tileProperties); }
-            set { this.tileProperties = value.GetByte(); }
+            get => new Tile2bppProperties(this.tileProperties);
+            set => this.tileProperties = value.GetByte();
         }
 
         public BackgroundPanel()

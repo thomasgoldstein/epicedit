@@ -41,10 +41,7 @@ namespace EpicEdit.Rom.Compression
         private readonly int byteCount;
         private readonly int compressedChunkSize;
 
-        private int CompressedBufferOffset
-        {
-            get { return this.CompressedBufferSize - this.compressedChunkSize; }
-        }
+        private int CompressedBufferOffset => this.CompressedBufferSize - this.compressedChunkSize;
 
         public ChunkNode(ChunkNode parent, int command, int sourceOffset, int byteCount)
         {

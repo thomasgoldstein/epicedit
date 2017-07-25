@@ -49,8 +49,8 @@ namespace EpicEdit.Rom
         /// </summary>
         public byte Red
         {
-            get { return this.red; }
-            set { this.red = value; }
+            get => this.red;
+            set => this.red = value;
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace EpicEdit.Rom
         /// </summary>
         public byte Green
         {
-            get { return this.green; }
-            set { this.green = value; }
+            get => this.green;
+            set => this.green = value;
         }
 
         /// <summary>
@@ -67,41 +67,29 @@ namespace EpicEdit.Rom
         /// </summary>
         public byte Blue
         {
-            get { return this.blue; }
-            set { this.blue = value; }
+            get => this.blue;
+            set => this.blue = value;
         }
 
         /// <summary>
         /// Gets the red channel (5-bit).
         /// </summary>
-        public byte Red5Bit
-        {
-            get { return ConvertTo5BitColor(this.red); }
-        }
+        public byte Red5Bit => RomColor.ConvertTo5BitColor(this.red);
 
         /// <summary>
         /// Gets the green channel (5-bit).
         /// </summary>
-        public byte Green5Bit
-        {
-            get { return ConvertTo5BitColor(this.green); }
-        }
+        public byte Green5Bit => RomColor.ConvertTo5BitColor(this.green);
 
         /// <summary>
         /// Gets the blue channel (5-bit).
         /// </summary>
-        public byte Blue5Bit
-        {
-            get { return ConvertTo5BitColor(this.blue); }
-        }
+        public byte Blue5Bit => RomColor.ConvertTo5BitColor(this.blue);
 
         /// <summary>
         /// Gets the .NET Framework Color object representation of this color.
         /// </summary>
-        public Color Color
-        {
-            get { return Color.FromArgb(this.red, this.green, this.blue); }
-        }
+        public Color Color => Color.FromArgb(this.red, this.green, this.blue);
 
         /// <summary>
         /// Gets the SMK ROM encoded bytes for this color (5-bit precise).

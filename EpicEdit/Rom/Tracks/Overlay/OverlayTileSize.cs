@@ -26,21 +26,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
         private int width;
         public int Width
         {
-            get { return this.width; }
-            set
-            {
-                this.SetSize(value, this.height);
-            }
+            get => this.width;
+            set => this.SetSize(value, this.height);
         }
 
         private int height;
         public int Height
         {
-            get { return this.height; }
-            set
-            {
-                this.SetSize(this.width, value);
-            }
+            get => this.height;
+            set => this.SetSize(this.width, value);
         }
 
         public bool Modified { get; private set; }

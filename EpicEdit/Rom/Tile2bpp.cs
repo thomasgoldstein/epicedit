@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
 
         public override Palette Palette
         {
-            get { return this.palettes == null ? null : this.palettes[this.Properties.PaletteIndex]; }
+            get => this.palettes?[this.Properties.PaletteIndex];
             set
             {
                 if (value == null)
@@ -62,7 +62,7 @@ namespace EpicEdit.Rom
         private Palettes palettes;
         public Palettes Palettes
         {
-            get { return this.palettes; }
+            get => this.palettes;
             set
             {
                 if (this.palettes == value)
@@ -78,7 +78,7 @@ namespace EpicEdit.Rom
         private Tile2bppProperties properties;
         public virtual Tile2bppProperties Properties
         {
-            get { return this.properties; }
+            get => this.properties;
             set
             {
                 if (this.properties == value)

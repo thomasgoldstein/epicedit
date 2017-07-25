@@ -63,10 +63,7 @@ namespace EpicEdit.Rom.Tracks.Road
             return this.tileset[index];
         }
 
-        public RoadTile this[int index]
-        {
-            get { return this.GetTile(index); }
-        }
+        public RoadTile this[int index] => this.GetTile(index);
 
         public byte[] GetTileGenreBytes()
         {

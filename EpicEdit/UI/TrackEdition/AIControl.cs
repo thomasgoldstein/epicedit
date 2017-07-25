@@ -55,7 +55,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(TrackAIElement), "")]
         public TrackAIElement SelectedElement
         {
-            get { return this.selectedElement; }
+            get => this.selectedElement;
             set
             {
                 this.selectedElement = value;
@@ -91,7 +91,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get { return this.track; }
+            get => this.track;
             set
             {
                 if (this.track == value)

@@ -176,20 +176,11 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
         }
 
-        public Track SelectedTrack
-        {
-            get { return this.selectedTrack; }
-        }
+        public Track SelectedTrack => this.selectedTrack;
 
-        public string SelectedTrackFileName
-        {
-            get { return this.SelectedTrackId + "- " + this.selectedTrack.Name; }
-        }
+        public string SelectedTrackFileName => this.SelectedTrackId + "- " + this.selectedTrack.Name;
 
-        public int SelectedTrackId
-        {
-            get { return this.treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1; }
-        }
+        public int SelectedTrackId => this.treeView.SelectedNode.Parent.Index* GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
 
         #region Track reordering
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)

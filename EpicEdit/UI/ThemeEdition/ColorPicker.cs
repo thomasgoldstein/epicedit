@@ -97,8 +97,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The color.</returns>
         public RomColor SelectedColor
         {
-            get { return this.selectedColor; }
-            set { this.SetColor(value); }
+            get => this.selectedColor;
+            set => this.SetColor(value);
         }
 
         public ColorPicker()

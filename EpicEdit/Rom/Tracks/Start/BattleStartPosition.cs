@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks.Start
         private Point location;
         public Point Location
         {
-            get { return this.location; }
+            get => this.location;
             set
             {
                 int x = value.X;
@@ -62,14 +62,9 @@ namespace EpicEdit.Rom.Tracks.Start
             }
         }
 
-        public int X
-        {
-            get { return this.location.X; }
-        }
-        public int Y
-        {
-            get { return this.location.Y; }
-        }
+        public int X => this.location.X;
+
+        public int Y => this.location.Y;
 
         public BattleStartPosition(byte[] data)
         {

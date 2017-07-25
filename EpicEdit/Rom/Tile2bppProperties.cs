@@ -29,7 +29,7 @@ namespace EpicEdit.Rom
         private int paletteIndex;
         public int PaletteIndex
         {
-            get { return this.paletteIndex; }
+            get => this.paletteIndex;
             set
             {
                 if (value < 0 || value > 15)
@@ -44,7 +44,7 @@ namespace EpicEdit.Rom
         private int subPaletteIndex;
         public int SubPaletteIndex
         {
-            get { return this.subPaletteIndex; }
+            get => this.subPaletteIndex;
             set
             {
                 if (value != 0 && value != 4 && value != 8 && value != 12)
@@ -59,8 +59,8 @@ namespace EpicEdit.Rom
         private Flip flip;
         public Flip Flip
         {
-            get { return this.flip; }
-            set { this.flip = value; }
+            get => this.flip;
+            set => this.flip = value;
         }
 
         public Tile2bppProperties(byte data)

@@ -36,7 +36,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get { return this.track; }
+            get => this.track;
             set
             {
                 if (this.track == value)
@@ -83,10 +83,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public int Precision { get; private set; }
 
-        public bool LapLineAndDriverPositionsBound
-        {
-            get { return this.startBindCheckBox.Checked; }
-        }
+        public bool LapLineAndDriverPositionsBound => this.startBindCheckBox.Checked;
 
         private void SecondRowValueLabelNumericUpDownValueChanged(object sender, EventArgs e)
         {

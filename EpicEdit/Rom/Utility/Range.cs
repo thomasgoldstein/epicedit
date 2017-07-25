@@ -35,8 +35,8 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         public int Start
         {
-            get { return this.start; }
-            set { this.start = value; }
+            get => this.start;
+            set => this.start = value;
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         public int End
         {
-            get { return this.end; }
-            set { this.end = value; }
+            get => this.end;
+            set => this.end = value;
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         public int Length
         {
-            get { return this.end - this.start; }
-            set { this.end = this.start + value; }
+            get => this.end - this.start;
+            set => this.end = this.start + value;
         }
 
         public static bool operator ==(Range left, Range right)

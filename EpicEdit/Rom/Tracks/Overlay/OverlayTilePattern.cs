@@ -26,15 +26,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSize Size { get; private set; }
 
-        public int Width
-        {
-            get { return this.Size.Width; }
-        }
+        public int Width => this.Size.Width;
 
-        public int Height
-        {
-            get { return this.Size.Height; }
-        }
+        public int Height => this.Size.Height;
 
         public bool Modified { get; private set; }
 
@@ -55,10 +49,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             return this.tiles[y][x];
         }
 
-        public byte this[int x, int y]
-        {
-            get { return this.GetTile(x, y); }
-        }
+        public byte this[int x, int y] => this.GetTile(x, y);
 
         /// <summary>
         /// Convert data into a nice y/x byte[][] to facilitate reading.

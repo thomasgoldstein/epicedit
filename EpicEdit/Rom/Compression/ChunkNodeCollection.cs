@@ -75,18 +75,12 @@ namespace EpicEdit.Rom.Compression
         /// <summary>
         /// Gets the node at a given index.
         /// </summary>
-        public ChunkNode this[int offset]
-        {
-            get { return this.nodeDictionary[offset]; }
-        }
+        public ChunkNode this[int offset] => this.nodeDictionary[offset];
 
         /// <summary>
         /// Gets the number of remaining nodes to process.
         /// </summary>
-        public int Count
-        {
-            get { return this.offsetQueue.Count; }
-        }
+        public int Count => this.offsetQueue.Count;
 
         /// <summary>
         /// Checks whether the next <see cref="ChunkNode">node</see> in the queue is worth processing,

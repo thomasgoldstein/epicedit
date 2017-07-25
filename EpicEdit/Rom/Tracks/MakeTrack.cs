@@ -42,25 +42,20 @@ namespace EpicEdit.Rom
 
         public TrackMap Map
         {
-            get { return new TrackMap(this.MAP); }
-            set { this.MAP = value.GetBytes(); }
+            get => new TrackMap(this.MAP);
+            set => this.MAP = value.GetBytes();
         }
 
         public Theme Theme
         {
-            get { return this.game.Themes[this.SP_REGION[1] >> 1]; }
-            set { this.SP_REGION = new byte[] { 0, this.game.Themes.GetThemeId(value) }; }
+            get => this.game.Themes[this.SP_REGION[1] >> 1];
+            set => this.SP_REGION = new byte[] { 0, this.game.Themes.GetThemeId(value) };
         }
 
         public OverlayTiles OverlayTiles
         {
-            get
-            {
-                return new OverlayTiles(this.GPEX,
-                                        this.game.OverlayTileSizes,
-                                        this.game.OverlayTilePatterns);
-            }
-            set { this.GPEX = value.GetBytes(); }
+            get => new OverlayTiles(this.GPEX, this.game.OverlayTileSizes, this.game.OverlayTilePatterns);
+            set => this.GPEX = value.GetBytes();
         }
 
         public GPStartPosition StartPosition
@@ -119,14 +114,14 @@ namespace EpicEdit.Rom
 
         public BattleStartPosition StartPositionP1
         {
-            get { return new BattleStartPosition(this.EE_BATTLESTART1); }
-            set { this.EE_BATTLESTART1 = value.GetBytes(); }
+            get => new BattleStartPosition(this.EE_BATTLESTART1);
+            set => this.EE_BATTLESTART1 = value.GetBytes();
         }
 
         public BattleStartPosition StartPositionP2
         {
-            get { return new BattleStartPosition(this.EE_BATTLESTART2); }
-            set { this.EE_BATTLESTART2 = value.GetBytes(); }
+            get => new BattleStartPosition(this.EE_BATTLESTART2);
+            set => this.EE_BATTLESTART2 = value.GetBytes();
         }
 
         public TrackObjects Objects
@@ -171,20 +166,20 @@ namespace EpicEdit.Rom
                 this.GetAIData(out byte[] targetData, out byte[] zoneData);
                 return new TrackAI(zoneData, targetData, this.track);
             }
-            set { this.SetAIData(value); }
+            set => this.SetAIData(value);
         }
 
         public int ItemProbabilityIndex
         {
-            get { return this.EE_ITEMPROBA[1] >> 1; }
-            set { this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) }; }
+            get => this.EE_ITEMPROBA[1] >> 1;
+            set => this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) };
         }
 
         private Dictionary<string, byte[]> fields;
 
         public byte[] this[string name]
         {
-            get { return this.fields[name]; }
+            get => this.fields[name];
             set
             {
                 if (!this.fields.ContainsKey(name))
@@ -201,8 +196,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_STX
         {
-            get { return this["SP_STX"]; }
-            set { this["SP_STX"] = value; }
+            get => this["SP_STX"];
+            set => this["SP_STX"] = value;
         }
 
         /// <summary>
@@ -210,8 +205,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_STY
         {
-            get { return this["SP_STY"]; }
-            set { this["SP_STY"] = value; }
+            get => this["SP_STY"];
+            set => this["SP_STY"] = value;
         }
 
         /// <summary>
@@ -219,8 +214,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_STW
         {
-            get { return this["SP_STW"]; }
-            set { this["SP_STW"] = value; }
+            get => this["SP_STW"];
+            set => this["SP_STW"] = value;
         }
 
         /// <summary>
@@ -228,8 +223,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_LSPX
         {
-            get { return this["SP_LSPX"]; }
-            set { this["SP_LSPX"] = value; }
+            get => this["SP_LSPX"];
+            set => this["SP_LSPX"] = value;
         }
 
         /// <summary>
@@ -237,8 +232,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_LSPY
         {
-            get { return this["SP_LSPY"]; }
-            set { this["SP_LSPY"] = value; }
+            get => this["SP_LSPY"];
+            set => this["SP_LSPY"] = value;
         }
 
         /// <summary>
@@ -246,8 +241,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_LSPW
         {
-            get { return this["SP_LSPW"]; }
-            set { this["SP_LSPW"] = value; }
+            get => this["SP_LSPW"];
+            set => this["SP_LSPW"] = value;
         }
 
         /// <summary>
@@ -255,8 +250,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_LSPH
         {
-            get { return this["SP_LSPH"]; }
-            set { this["SP_LSPH"] = value; }
+            get => this["SP_LSPH"];
+            set => this["SP_LSPH"] = value;
         }
 
         /// <summary>
@@ -264,8 +259,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_LSLY
         {
-            get { return this["SP_LSLY"]; }
-            set { this["SP_LSLY"] = value; }
+            get => this["SP_LSLY"];
+            set => this["SP_LSLY"] = value;
         }
 
         /// <summary>
@@ -273,8 +268,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] SP_REGION
         {
-            get { return this["SP_REGION"]; }
-            set { this["SP_REGION"] = value; }
+            get => this["SP_REGION"];
+            set => this["SP_REGION"] = value;
         }
 
         /// <summary>
@@ -282,8 +277,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_BATTLESTART1
         {
-            get { return this["EE_BATTLESTART1"]; }
-            set { this["EE_BATTLESTART1"] = value; }
+            get => this["EE_BATTLESTART1"];
+            set => this["EE_BATTLESTART1"] = value;
         }
 
         /// <summary>
@@ -291,8 +286,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_BATTLESTART2
         {
-            get { return this["EE_BATTLESTART2"]; }
-            set { this["EE_BATTLESTART2"] = value; }
+            get => this["EE_BATTLESTART2"];
+            set => this["EE_BATTLESTART2"] = value;
         }
 
         /// <summary>
@@ -300,8 +295,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJTILESET
         {
-            get { return this["EE_OBJTILESET"]; }
-            set { this["EE_OBJTILESET"] = value; }
+            get => this["EE_OBJTILESET"];
+            set => this["EE_OBJTILESET"] = value;
         }
 
         /// <summary>
@@ -309,8 +304,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJINTERACT
         {
-            get { return this["EE_OBJINTERACT"]; }
-            set { this["EE_OBJINTERACT"] = value; }
+            get => this["EE_OBJINTERACT"];
+            set => this["EE_OBJINTERACT"] = value;
         }
 
         /// <summary>
@@ -318,8 +313,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJROUTINE
         {
-            get { return this["EE_OBJROUTINE"]; }
-            set { this["EE_OBJROUTINE"] = value; }
+            get => this["EE_OBJROUTINE"];
+            set => this["EE_OBJROUTINE"] = value;
         }
 
         /// <summary>
@@ -327,8 +322,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJPALETTES
         {
-            get { return this["EE_OBJPALETTES"]; }
-            set { this["EE_OBJPALETTES"] = value; }
+            get => this["EE_OBJPALETTES"];
+            set => this["EE_OBJPALETTES"] = value;
         }
 
         /// <summary>
@@ -336,8 +331,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_OBJFLASHING
         {
-            get { return this["EE_OBJFLASHING"]; }
-            set { this["EE_OBJFLASHING"] = value; }
+            get => this["EE_OBJFLASHING"];
+            set => this["EE_OBJFLASHING"] = value;
         }
 
         /// <summary>
@@ -345,8 +340,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] EE_ITEMPROBA
         {
-            get { return this["EE_ITEMPROBA"]; }
-            set { this["EE_ITEMPROBA"] = value; }
+            get => this["EE_ITEMPROBA"];
+            set => this["EE_ITEMPROBA"] = value;
         }
 
         // Object Behavior.
@@ -358,8 +353,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] MAP
         {
-            get { return this["MAP"]; }
-            set { this["MAP"] = value; }
+            get => this["MAP"];
+            set => this["MAP"] = value;
         }
 
         // NOTE: Data ignored by Epic Edit, supported differently.
@@ -370,8 +365,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] GPEX
         {
-            get { return this["GPEX"]; }
-            set { this["GPEX"] = value; }
+            get => this["GPEX"];
+            set => this["GPEX"] = value;
         }
 
         /// <summary>
@@ -379,8 +374,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] AREA
         {
-            get { return this["AREA"]; }
-            set { this["AREA"] = value; }
+            get => this["AREA"];
+            set => this["AREA"] = value;
         }
 
         /// <summary>
@@ -388,8 +383,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] OBJ
         {
-            get { return this["OBJ"]; }
-            set { this["OBJ"] = value; }
+            get => this["OBJ"];
+            set => this["OBJ"] = value;
         }
 
         /// <summary>
@@ -397,8 +392,8 @@ namespace EpicEdit.Rom
         /// </summary>
         private byte[] AREA_BORDER
         {
-            get { return this["AREA_BORDER"]; }
-            set { this["AREA_BORDER"] = value; }
+            get => this["AREA_BORDER"];
+            set => this["AREA_BORDER"] = value;
         }
 
         public MakeTrack(Track track, Game game)

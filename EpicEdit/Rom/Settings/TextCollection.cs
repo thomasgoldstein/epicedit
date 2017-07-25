@@ -33,10 +33,7 @@ namespace EpicEdit.Rom.Settings
         /// </summary>
         public TextConverter Converter { get; private set; }
 
-        public Region Region
-        {
-            get { return this.Converter.Region; }
-        }
+        public Region Region => this.Converter.Region;
 
         /// <summary>
         /// The texts of the collection.
@@ -241,10 +238,7 @@ namespace EpicEdit.Rom.Settings
             this.PropertyChanged?.Invoke(sender, e);
         }
 
-        public TextItem this[int index]
-        {
-            get { return this.texts[index]; }
-        }
+        public TextItem this[int index] => this.texts[index];
 
         public int IndexOf(TextItem item)
         {
@@ -412,9 +406,6 @@ namespace EpicEdit.Rom.Settings
             return this.texts.GetEnumerator();
         }
 
-        public int Count
-        {
-            get { return this.texts.Length; }
-        }
+        public int Count => this.texts.Length;
     }
 }

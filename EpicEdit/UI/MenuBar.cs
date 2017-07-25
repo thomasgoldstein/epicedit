@@ -195,14 +195,14 @@ namespace EpicEdit.UI
 
         public bool UndoEnabled
         {
-            get { return this.undoToolStripButton.Enabled; }
-            set { this.undoToolStripButton.Enabled = value; }
+            get => this.undoToolStripButton.Enabled;
+            set => this.undoToolStripButton.Enabled = value;
         }
 
         public bool RedoEnabled
         {
-            get { return this.redoToolStripButton.Enabled; }
-            set { this.redoToolStripButton.Enabled = value; }
+            get => this.redoToolStripButton.Enabled;
+            set => this.redoToolStripButton.Enabled = value;
         }
         #endregion Undo / Redo
 
@@ -219,14 +219,14 @@ namespace EpicEdit.UI
 
         public bool ZoomInEnabled
         {
-            get { return this.zoomInToolStripButton.Enabled; }
-            set { this.zoomInToolStripButton.Enabled = value; }
+            get => this.zoomInToolStripButton.Enabled;
+            set => this.zoomInToolStripButton.Enabled = value;
         }
 
         public bool ZoomOutEnabled
         {
-            get { return this.zoomOutToolStripButton.Enabled; }
-            set { this.zoomOutToolStripButton.Enabled = value; }
+            get => this.zoomOutToolStripButton.Enabled;
+            set => this.zoomOutToolStripButton.Enabled = value;
         }
         #endregion Zoom in / out
 

@@ -28,10 +28,7 @@ namespace EpicEdit.Rom.Tracks
 
         public SuffixedTextItem SuffixedNameItem { get; private set; }
 
-        public string Name
-        {
-            get { return this.SuffixedNameItem.Value; }
-        }
+        public string Name => this.SuffixedNameItem.Value;
 
         private readonly Track[] tracks;
 
@@ -99,15 +96,12 @@ namespace EpicEdit.Rom.Tracks
             return this.tracks.GetEnumerator();
         }
 
-        public int Count
-        {
-            get { return this.tracks.Length; }
-        }
+        public int Count => this.tracks.Length;
 
         public Track this[int index]
         {
-            get { return this.tracks[index]; }
-            set { this.tracks[index] = value; }
+            get => this.tracks[index];
+            set => this.tracks[index] = value;
         }
     }
 }

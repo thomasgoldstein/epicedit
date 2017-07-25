@@ -44,7 +44,7 @@ namespace EpicEdit.Rom.Settings
 
         public int this[int rank]
         {
-            get { return this.points[rank]; }
+            get => this.points[rank];
             set
             {
                 this.points[rank] = value;

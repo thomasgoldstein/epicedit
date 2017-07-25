@@ -31,8 +31,8 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.Editor.ColorSelected += value; }
-            remove { this.Editor.ColorSelected -= value; }
+            add => this.Editor.ColorSelected += value;
+            remove => this.Editor.ColorSelected -= value;
         }
 
         public BackgroundEditorForm()

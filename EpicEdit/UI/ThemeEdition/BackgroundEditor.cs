@@ -63,13 +63,13 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.themeComboBox.SelectedTheme; }
-            set { this.themeComboBox.SelectedTheme = value; }
+            get => this.themeComboBox.SelectedTheme;
+            set => this.themeComboBox.SelectedTheme = value;
         }
 
         private byte TileId
         {
-            get { return this.frontLayerPanel.TileId; }
+            get => this.frontLayerPanel.TileId;
             set
             {
                 this.frontLayerPanel.TileId = value;
@@ -79,7 +79,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private Tile2bppProperties TileProperties
         {
-            get { return this.frontLayerPanel.TileProperties; }
+            get => this.frontLayerPanel.TileProperties;
             set
             {
                 this.frontLayerPanel.TileProperties = value;

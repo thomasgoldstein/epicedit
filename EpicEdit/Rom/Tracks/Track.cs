@@ -75,20 +75,14 @@ namespace EpicEdit.Rom.Tracks
         public event EventHandler<EventArgs> ColorsGraphicsChanged;
 
         private readonly SuffixedTextItem suffixedNameItem;
-        public SuffixedTextItem SuffixedNameItem
-        {
-            get { return this.suffixedNameItem; }
-        }
+        public SuffixedTextItem SuffixedNameItem => this.suffixedNameItem;
 
-        public string Name
-        {
-            get { return this.SuffixedNameItem.Value; }
-        }
+        public string Name => this.SuffixedNameItem.Value;
 
         private Theme theme;
         public Theme Theme
         {
-            get { return this.theme; }
+            get => this.theme;
             set
             {
                 if (this.theme == value)
@@ -107,21 +101,21 @@ namespace EpicEdit.Rom.Tracks
         private readonly TrackMap map;
         public TrackMap Map
         {
-            get { return this.map; }
-            private set { this.map.SetBytes(value.GetBytes()); }
+            get => this.map;
+            private set => this.map.SetBytes(value.GetBytes());
         }
 
         private readonly OverlayTiles overlayTiles;
         public OverlayTiles OverlayTiles
         {
-            get { return this.overlayTiles; }
-            private set { this.overlayTiles.SetBytes(value.GetBytes()); }
+            get => this.overlayTiles;
+            private set => this.overlayTiles.SetBytes(value.GetBytes());
         }
 
         private readonly TrackAI ai;
         public TrackAI AI
         {
-            get { return this.ai; }
+            get => this.ai;
             private set
             {
                 byte[] data = value.GetBytes();
@@ -133,10 +127,7 @@ namespace EpicEdit.Rom.Tracks
             }
         }
 
-        public RoadTileset RoadTileset
-        {
-            get { return this.Theme.RoadTileset; }
-        }
+        public RoadTileset RoadTileset => this.Theme.RoadTileset;
 
         public bool Modified { get; private set; }
 

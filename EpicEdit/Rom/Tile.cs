@@ -31,7 +31,7 @@ namespace EpicEdit.Rom
         private Palette palette;
         public virtual Palette Palette
         {
-            get { return this.palette; }
+            get => this.palette;
             set
             {
                 if (this.palette == value)
@@ -71,7 +71,7 @@ namespace EpicEdit.Rom
         private byte[] graphics;
         public byte[] Graphics
         {
-            get { return this.graphics; }
+            get => this.graphics;
             set
             {
                 this.graphics = value;
@@ -83,7 +83,7 @@ namespace EpicEdit.Rom
         protected Bitmap bitmap;
         public Bitmap Bitmap
         {
-            get { return this.bitmap; }
+            get => this.bitmap;
             set
             {
                 this.bitmap = value;

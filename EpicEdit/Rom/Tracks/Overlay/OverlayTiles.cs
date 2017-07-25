@@ -55,15 +55,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
             return this.overlayTiles.GetEnumerator();
         }
 
-        public int Count
-        {
-            get { return this.overlayTiles.Count; }
-        }
+        public int Count => this.overlayTiles.Count;
 
-        public OverlayTile this[int index]
-        {
-            get { return this.overlayTiles[index]; }
-        }
+        public OverlayTile this[int index] => this.overlayTiles[index];
 
         public void SetBytes(byte[] data)
         {

@@ -88,10 +88,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Gets the file name of the loaded ROM.
         /// </summary>
-        public string FileName
-        {
-            get { return Path.GetFileName(this.FilePath); }
-        }
+        public string FileName => Path.GetFileName(this.FilePath);
 
         /// <summary>
         /// Gets the game settings.
@@ -108,10 +105,7 @@ namespace EpicEdit.Rom
         /// </summary>
         public ItemIconGraphics ItemIconGraphics { get; private set; }
 
-        public int HeaderSize
-        {
-            get { return this.romHeader.Length; }
-        }
+        public int HeaderSize => this.romHeader.Length;
 
         public bool Modified { get; private set; }
 
@@ -300,10 +294,7 @@ namespace EpicEdit.Rom
             return true;
         }
 
-        public int Size
-        {
-            get { return this.romBuffer.Length; }
-        }
+        public int Size => this.romBuffer.Length;
 
         #endregion Read ROM & validate
 
@@ -844,10 +835,7 @@ namespace EpicEdit.Rom
             return Utilities.BytesToOffset(this.romBuffer[index], this.romBuffer[index + 1], 4);
         }
 
-        private bool ObjectZonesRelocated
-        {
-            get { return this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7; }
-        }
+        private bool ObjectZonesRelocated => this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7;
 
         #endregion Object zones
 

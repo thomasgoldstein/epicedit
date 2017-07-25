@@ -24,10 +24,7 @@ namespace EpicEdit.Rom.Settings
     {
         public TextConverter Converter { get; private set; }
 
-        public Region Region
-        {
-            get { return this.Converter.Region; }
-        }
+        public Region Region => this.Converter.Region;
 
         public int TotalCharacterCount
         {

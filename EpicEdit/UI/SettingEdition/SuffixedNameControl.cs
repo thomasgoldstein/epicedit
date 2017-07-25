@@ -51,10 +51,7 @@ namespace EpicEdit.UI.SettingEdition
             this.fireEvents = true;
         }
 
-        private TextItem SelectedTextItem
-        {
-            get { return this.nameComboBox.SelectedItem as TextItem; }
-        }
+        private TextItem SelectedTextItem => this.nameComboBox.SelectedItem as TextItem;
 
         private void NameComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {

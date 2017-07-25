@@ -73,8 +73,8 @@ namespace EpicEdit.UI.SettingEdition
         [Category("Appearance")]
         public string Title
         {
-            get { return this.groupBox.Text; }
-            set { this.groupBox.Text = value; }
+            get => this.groupBox.Text;
+            set => this.groupBox.Text = value;
         }
 
         private void TextBoxTextChanged(object sender, EventArgs e)

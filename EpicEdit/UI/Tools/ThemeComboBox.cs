@@ -60,8 +60,8 @@ namespace EpicEdit.UI.Tools
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme SelectedTheme
         {
-            get { return this.SelectedItem as Theme; }
-            set { this.SelectedItem = value; }
+            get => this.SelectedItem as Theme;
+            set => this.SelectedItem = value;
         }
     }
 }

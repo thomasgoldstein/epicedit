@@ -72,7 +72,7 @@ namespace EpicEdit.Rom.Tracks
 
         public TrackGroup this[int index]
         {
-            get { return this.trackGroups[index]; }
+            get => this.trackGroups[index];
             set
             {
                 // NOTE: Only meant to be called once per item, so no need to detach event handlers
@@ -103,9 +103,6 @@ namespace EpicEdit.Rom.Tracks
             this.PropertyChanged?.Invoke(sender, e);
         }
 
-        public int Count
-        {
-            get { return this.trackGroups.Length; }
-        }
+        public int Count => this.trackGroups.Length;
     }
 }

@@ -23,10 +23,7 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class RankPointsControl : UserControl
     {
-        private static RankPoints RankPoints
-        {
-            get { return Context.Game.Settings.RankPoints; }
-        }
+        private static RankPoints RankPoints => Context.Game.Settings.RankPoints;
 
         private bool fireEvents;
 

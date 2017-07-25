@@ -29,10 +29,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         private readonly OverlayTileSize[] sizes;
 
-        public OverlayTileSize this[int index]
-        {
-            get { return this.sizes[index]; }
-        }
+        public OverlayTileSize this[int index] => this.sizes[index];
 
         public bool Modified
         {

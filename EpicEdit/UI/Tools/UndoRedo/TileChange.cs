@@ -29,20 +29,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         private readonly byte[][] data;
 
-        public int Height
-        {
-            get { return this.data.Length; }
-        }
+        public int Height => this.data.Length;
 
-        public int Width
-        {
-            get { return this.data[0].Length; }
-        }
+        public int Width => this.data[0].Length;
 
-        public Rectangle Rectangle
-        {
-            get { return new Rectangle(this.X, this.Y, this.Width, this.Height); }
-        }
+        public Rectangle Rectangle => new Rectangle(this.X, this.Y, this.Width, this.Height);
 
         public TileChange(int x, int y, int width, int height, IMapBuffer buffer)
         {
@@ -123,9 +114,6 @@ namespace EpicEdit.UI.Tools.UndoRedo
             return this.data[y][x];
         }
 
-        public byte this[int x, int y]
-        {
-            get { return this.GetTile(x, y); }
-        }
+        public byte this[int x, int y] => this.GetTile(x, y);
     }
 }

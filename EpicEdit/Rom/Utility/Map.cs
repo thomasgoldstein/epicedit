@@ -62,8 +62,8 @@ namespace EpicEdit.Rom.Utility
 
             public T4 this[T3 index]
             {
-                get { return this.dictionary[index]; }
-                private set { this.dictionary[index] = value; }
+                get => this.dictionary[index];
+                private set => this.dictionary[index] = value;
             }
 
             public bool ContainsKey(T3 key)

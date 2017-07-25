@@ -42,14 +42,14 @@ namespace EpicEdit.UI.Gfx
         private Point scrollPosition;
         public Point ScrollPosition
         {
-            //get { return this.scrollPosition; }
-            set { this.scrollPosition = value; }
+            //get => this.scrollPosition;
+            set => this.scrollPosition = value;
         }
 
         private float zoom;
         public float Zoom
         {
-            //get { return this.zoom; }
+            //get => this.zoom;
             set
             {
                 this.zoom = value;

@@ -30,16 +30,10 @@ namespace EpicEdit.Rom.Tracks.Objects
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly TrackObjectZonesView frontView;
-        public TrackObjectZonesView FrontView
-        {
-            get { return this.frontView; }
-        }
+        public TrackObjectZonesView FrontView => this.frontView;
 
         private readonly TrackObjectZonesView rearView;
-        public TrackObjectZonesView RearView
-        {
-            get { return this.rearView; }
-        }
+        public TrackObjectZonesView RearView => this.rearView;
 
         public TrackObjectZones(byte[] data, TrackAI ai)
         {

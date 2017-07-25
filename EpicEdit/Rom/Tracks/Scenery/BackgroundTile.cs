@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         private bool front = true;
         public bool Front
         {
-            get { return this.front; }
+            get => this.front;
             set
             {
                 if (this.front == value)

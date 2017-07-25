@@ -34,19 +34,13 @@ namespace EpicEdit.Rom.Tracks
 
         public TextItem NameItem { get; private set; }
 
-        public string Name
-        {
-            get { return this.NameItem.FormattedValue; }
-        }
+        public string Name => this.NameItem.FormattedValue;
 
         public Palettes Palettes { get; private set; }
         public RoadTileset RoadTileset { get; private set; }
         public Background Background { get; private set; }
 
-        public RomColor BackColor
-        {
-            get { return this.Palettes.BackColor; }
-        }
+        public RomColor BackColor => this.Palettes.BackColor;
 
         public bool Modified
         {

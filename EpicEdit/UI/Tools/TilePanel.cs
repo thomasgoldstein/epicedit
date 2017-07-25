@@ -37,8 +37,8 @@ namespace EpicEdit.UI.Tools
         [Browsable(true), Category("Appearance"), DefaultValue(typeof(float), "1")]
         public float Zoom
         {
-            get { return this.zoom; }
-            set { this.zoom = value; }
+            get => this.zoom;
+            set => this.zoom = value;
         }
 
         protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)

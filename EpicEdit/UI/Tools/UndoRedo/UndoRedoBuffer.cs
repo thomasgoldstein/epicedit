@@ -169,14 +169,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
             this.redoBuffer.Clear();
         }
 
-        public bool HasUndo
-        {
-            get { return this.undoBuffer.Count > 0; }
-        }
+        public bool HasUndo => this.undoBuffer.Count > 0;
 
-        public bool HasRedo
-        {
-            get { return this.redoBuffer.Count > 0; }
-        }
+        public bool HasRedo => this.redoBuffer.Count > 0;
     }
 }

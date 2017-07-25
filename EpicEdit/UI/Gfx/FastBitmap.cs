@@ -54,10 +54,7 @@ namespace EpicEdit.UI.Gfx
             return this.subject;
         }
 
-        public Bitmap Bitmap
-        {
-            get { return this.subject; }
-        }
+        public Bitmap Bitmap => this.subject;
 
         public void SetPixel(int x, int y, Color color)
         {

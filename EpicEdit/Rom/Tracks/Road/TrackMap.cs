@@ -162,20 +162,14 @@ namespace EpicEdit.Rom.Tracks.Road
             this.DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public int Width
-        {
-            get { return this.map[0].Length; }
-        }
+        public int Width => this.map[0].Length;
 
-        public int Height
-        {
-            get { return this.map.Length; }
-        }
+        public int Height => this.map.Length;
 
         public byte this[int x, int y]
         {
-            get { return this.GetTile(x, y); }
-            set { this.SetTile(x, y, value); }
+            get => this.GetTile(x, y);
+            set => this.SetTile(x, y, value);
         }
 
         public byte[] GetBytes()

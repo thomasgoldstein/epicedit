@@ -539,8 +539,8 @@ namespace EpicEdit.Rom
 
         public int this[Offset offset]
         {
-            get { return offsets[(int)offset]; }
-            set { this.offsets[(int)offset] = value; }
+            get => offsets[(int)offset];
+            set => this.offsets[(int)offset] = value;
         }
     }
 }

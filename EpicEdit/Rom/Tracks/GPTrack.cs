@@ -43,21 +43,21 @@ namespace EpicEdit.Rom.Tracks
         private readonly GPStartPosition startPosition;
         public GPStartPosition StartPosition
         {
-            get { return this.startPosition; }
-            private set { this.startPosition.SetBytes(value.GetBytes()); }
+            get => this.startPosition;
+            private set => this.startPosition.SetBytes(value.GetBytes());
         }
 
         private readonly LapLine lapLine;
         public LapLine LapLine
         {
-            get { return this.lapLine; }
-            private set { this.lapLine.SetBytes(value.GetBytes()); }
+            get => this.lapLine;
+            private set => this.lapLine.SetBytes(value.GetBytes());
         }
 
         private readonly TrackObjects objects;
         public TrackObjects Objects
         {
-            get { return this.objects; }
+            get => this.objects;
             private set
             {
                 this.objects.SetBytes(value.GetBytes());
@@ -69,7 +69,7 @@ namespace EpicEdit.Rom.Tracks
         private int itemProbabilityIndex;
         public int ItemProbabilityIndex
         {
-            get { return this.itemProbabilityIndex; }
+            get => this.itemProbabilityIndex;
             set
             {
                 if (this.itemProbabilityIndex == value)

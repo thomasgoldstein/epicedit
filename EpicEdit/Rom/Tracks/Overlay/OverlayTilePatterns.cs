@@ -28,10 +28,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         private readonly OverlayTilePattern[] patterns;
 
-        public OverlayTilePattern this[int index]
-        {
-            get { return this.patterns[index]; }
-        }
+        public OverlayTilePattern this[int index] => this.patterns[index];
 
         public bool Modified
         {
@@ -159,15 +156,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
             return this.patterns.GetEnumerator();
         }
 
-        public int Count
-        {
-            get { return this.patterns.Length; }
-        }
+        public int Count => this.patterns.Length;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         public void Add(OverlayTilePattern item)
         {

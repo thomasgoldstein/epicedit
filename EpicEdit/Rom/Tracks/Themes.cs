@@ -34,15 +34,9 @@ namespace EpicEdit.Rom.Tracks
 
         private readonly Theme[] themes;
 
-        public Theme this[int index]
-        {
-            get { return this.themes[index]; }
-        }
+        public Theme this[int index] => this.themes[index];
 
-        public int Count
-        {
-            get { return this.themes.Length; }
-        }
+        public int Count => this.themes.Length;
 
         public bool Modified
         {

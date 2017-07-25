@@ -77,10 +77,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             return this.tileset[index];
         }
 
-        public BackgroundTile this[int index]
-        {
-            get { return this.GetTile(index); }
-        }
+        public BackgroundTile this[int index] => this.GetTile(index);
 
         public void ResetModifiedState()
         {

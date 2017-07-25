@@ -27,10 +27,7 @@ namespace EpicEdit.Rom.Settings
 
         private readonly ITextCollection collection;
 
-        public TextConverter Converter
-        {
-            get { return this.collection.Converter; }
-        }
+        public TextConverter Converter => this.collection.Converter;
 
         public TextItem(ITextCollection collection, string value)
         {
@@ -41,7 +38,7 @@ namespace EpicEdit.Rom.Settings
         private string value;
         public string Value
         {
-            get { return this.value; }
+            get => this.value;
             set
             {
                 string oldValue = this.value;

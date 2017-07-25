@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         private Point location;
         public Point Location
         {
-            get { return this.location; }
+            get => this.location;
             set
             {
                 int x = value.X;
@@ -62,25 +62,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
             }
         }
 
-        public int X
-        {
-            get { return this.location.X; }
-        }
+        public int X => this.location.X;
 
-        public int Y
-        {
-            get { return this.location.Y; }
-        }
+        public int Y => this.location.Y;
 
-        public int Width
-        {
-            get { return this.Pattern.Width; }
-        }
+        public int Width => this.Pattern.Width;
 
-        public int Height
-        {
-            get { return this.Pattern.Height; }
-        }
+        public int Height => this.Pattern.Height;
 
         public OverlayTilePattern Pattern { get; set; }
 

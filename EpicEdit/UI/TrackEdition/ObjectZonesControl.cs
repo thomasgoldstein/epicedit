@@ -34,7 +34,7 @@ namespace EpicEdit.UI.TrackEdition
         [Category("Data"), Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public TrackObjectZonesView ZonesView
         {
-            get { return this.zonesView; }
+            get => this.zonesView;
             set
             {
                 if (this.zonesView != null)
@@ -74,8 +74,8 @@ namespace EpicEdit.UI.TrackEdition
         [Category("Appearance")]
         public string Title
         {
-            get { return this.groupBox.Text; }
-            set { this.groupBox.Text = value; }
+            get => this.groupBox.Text;
+            set => this.groupBox.Text = value;
         }
 
         private int Maximum

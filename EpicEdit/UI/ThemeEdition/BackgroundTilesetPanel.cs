@@ -37,7 +37,7 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
         {
-            get { return this.selectedTile; }
+            get => this.selectedTile;
             set
             {
                 this.selectedTile = value;
@@ -48,7 +48,7 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.drawer.Theme; }
+            get => this.drawer.Theme;
             set
             {
                 this.drawer.Theme = value;
@@ -58,7 +58,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public Tile2bppProperties TileProperties
         {
-            get { return this.drawer.TileProperties; }
+            get => this.drawer.TileProperties;
             set
             {
                 this.drawer.TileProperties = value;
@@ -69,7 +69,7 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true), Category("Behavior"), DefaultValue(typeof(bool), "True")]
         public bool Front
         {
-            get { return this.drawer.Front; }
+            get => this.drawer.Front;
             set
             {
                 this.drawer.Front = value;

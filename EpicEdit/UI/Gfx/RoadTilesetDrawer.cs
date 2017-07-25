@@ -32,7 +32,7 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap tilesetCache;
 
-        public Bitmap Image { get { return this.tilesetCache; } }
+        public Bitmap Image => this.tilesetCache;
 
         public RoadTilesetDrawer(Size size)
         {
@@ -45,7 +45,7 @@ namespace EpicEdit.UI.Gfx
 
         public RoadTileset Tileset
         {
-            //get { return this.tileset; }
+            //get => this.tileset;
             set
             {
                 this.tileset = value;

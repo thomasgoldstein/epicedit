@@ -392,7 +392,7 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.theme; }
+            get => this.theme;
             set
             {
                 if (this.theme == value)

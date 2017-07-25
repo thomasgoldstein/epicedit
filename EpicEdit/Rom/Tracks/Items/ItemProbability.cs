@@ -54,7 +54,7 @@ namespace EpicEdit.Rom.Tracks.Items
         private ItemBoxDisplay displayedItems;
         public ItemBoxDisplay DisplayedItems
         {
-            get { return this.displayedItems; }
+            get => this.displayedItems;
             set
             {
                 if (this.displayedItems != value)
@@ -124,56 +124,53 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public int Mushroom
         {
-            get { return this.values[(int)ItemType.Mushroom]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Mushroom], value); }
+            get => this.values[(int)ItemType.Mushroom];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Mushroom], value);
         }
 
         public int Feather
         {
-            get { return this.values[(int)ItemType.Feather]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Feather], value); }
+            get => this.values[(int)ItemType.Feather];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Feather], value);
         }
 
         public int Star
         {
-            get { return this.values[(int)ItemType.Star]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Star], value); }
+            get => this.values[(int)ItemType.Star];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Star], value);
         }
 
         public int Banana
         {
-            get { return this.values[(int)ItemType.Banana]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Banana], value); }
+            get => this.values[(int)ItemType.Banana];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Banana], value);
         }
 
         public int GreenShell
         {
-            get { return this.values[(int)ItemType.GreenShell]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.GreenShell], value); }
+            get => this.values[(int)ItemType.GreenShell];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.GreenShell], value);
         }
 
         public int RedShell
         {
-            get { return this.values[(int)ItemType.RedShell]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.RedShell], value); }
+            get => this.values[(int)ItemType.RedShell];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.RedShell], value);
         }
 
         public int Ghost
         {
-            get { return this.values[(int)ItemType.Ghost]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Ghost], value); }
+            get => this.values[(int)ItemType.Ghost];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Ghost], value);
         }
 
         public int Coins
         {
-            get { return this.values[(int)ItemType.Coins]; }
-            set { this.SetFieldValue(ref this.values[(int)ItemType.Coins], value); }
+            get => this.values[(int)ItemType.Coins];
+            set => this.SetFieldValue(ref this.values[(int)ItemType.Coins], value);
         }
 
-        public int Lightning
-        {
-            get { return ItemProbability.TotalCount - this.SubTotal; }
-        }
+        public int Lightning => ItemProbability.TotalCount - this.SubTotal;
 
         private int SubTotal
         {
@@ -190,10 +187,7 @@ namespace EpicEdit.Rom.Tracks.Items
             }
         }
 
-        public int Total
-        {
-            get { return this.SubTotal + this.Lightning; }
-        }
+        public int Total => this.SubTotal + this.Lightning;
 
         #endregion Items
 

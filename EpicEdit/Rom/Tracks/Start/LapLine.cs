@@ -47,7 +47,7 @@ namespace EpicEdit.Rom.Tracks.Start
         private Point location;
         public Point Location
         {
-            get { return this.location; }
+            get => this.location;
             set
             {
                 // Divide x precision, so that the lap line
@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Tracks.Start
         private int length;
         public int Length
         {
-            get { return this.length; }
+            get => this.length;
             private set
             {
                 if (value < LapLine.PrecisionX)
@@ -98,23 +98,14 @@ namespace EpicEdit.Rom.Tracks.Start
             }
         }
 
-        public int X
-        {
-            get { return this.location.X; }
-        }
+        public int X => this.location.X;
 
-        public int Y
-        {
-            get { return this.location.Y; }
-        }
+        public int Y => this.location.Y;
 
         /// <summary>
         /// Gets the x-coordinate that is the sum of X and Length property values of this LapLine.
         /// </summary>
-        public int Right
-        {
-            get { return this.X + this.Length; }
-        }
+        public int Right => this.X + this.Length;
 
         public LapLine(byte[] data)
         {

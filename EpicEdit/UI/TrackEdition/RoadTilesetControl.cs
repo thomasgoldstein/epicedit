@@ -66,8 +66,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.tilesetPanel.ColorSelected += value; }
-            remove { this.tilesetPanel.ColorSelected -= value; }
+            add => this.tilesetPanel.ColorSelected += value;
+            remove => this.tilesetPanel.ColorSelected -= value;
         }
         #endregion Events
 
@@ -86,7 +86,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get { return this.track; }
+            get => this.track;
             set
             {
                 if (this.track == value)
@@ -116,7 +116,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
         {
-            get { return this.selectedTile; }
+            get => this.selectedTile;
             set
             {
                 if (this.selectedTile == value)
@@ -131,10 +131,7 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        private RoadTile SelectedRoadTile
-        {
-            get { return this.track.RoadTileset[this.selectedTile]; }
-        }
+        private RoadTile SelectedRoadTile => this.track.RoadTileset[this.selectedTile];
 
         public RoadTilesetControl()
         {
@@ -390,20 +387,14 @@ namespace EpicEdit.UI.TrackEdition
             }
         }
 
-        public bool BucketMode
-        {
-            get { return this.bucketButton.Checked; }
-        }
+        public bool BucketMode => this.bucketButton.Checked;
 
         private sealed class TilesetPanel : TilePanel
         {
             [Browsable(false), DefaultValue(typeof(RoadTileset), "")]
             public RoadTileset Tileset { get; set; }
 
-            private int TilesPerRow
-            {
-                get { return (int)(this.Width / (Tile.Size * this.Zoom)); }
-            }
+            private int TilesPerRow => (int)(this.Width / (Tile.Size * this.Zoom));
 
             protected override Tile GetTileAt(int x, int y)
             {

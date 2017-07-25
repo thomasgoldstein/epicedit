@@ -33,7 +33,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         public Direction Direction
         {
-            get { return this.direction; }
+            get => this.direction;
             set
             {
                 if (this.direction == value)

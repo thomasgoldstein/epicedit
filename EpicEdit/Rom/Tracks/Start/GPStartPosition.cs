@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks.Start
         private Point location;
         public Point Location
         {
-            get { return this.location; }
+            get => this.location;
             set
             {
                 int x = value.X;
@@ -84,7 +84,7 @@ namespace EpicEdit.Rom.Tracks.Start
         private int secondRowOffset;
         public int SecondRowOffset
         {
-            get { return this.secondRowOffset; }
+            get => this.secondRowOffset;
             set
             {
                 if (this.X + value < Tile.Size)
@@ -112,31 +112,19 @@ namespace EpicEdit.Rom.Tracks.Start
             }
         }
 
-        public int X
-        {
-            get { return this.location.X; }
-        }
+        public int X => this.location.X;
 
-        public int Y
-        {
-            get { return this.location.Y; }
-        }
+        public int Y => this.location.Y;
 
         /// <summary>
         /// Gets the left bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
         /// </summary>
-        public int Left
-        {
-            get { return this.X + Math.Min(0, this.SecondRowOffset); }
-        }
+        public int Left => this.X + Math.Min(0, this.SecondRowOffset);
 
         /// <summary>
         /// Gets the right bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
         /// </summary>
-        public int Right
-        {
-            get { return this.X + Math.Max(0, this.SecondRowOffset); }
-        }
+        public int Right => this.X + Math.Max(0, this.SecondRowOffset);
 
         public GPStartPosition(short x, short y, short secondRowOffset)
         {

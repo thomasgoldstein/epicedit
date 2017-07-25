@@ -36,55 +36,40 @@ namespace EpicEdit.Rom.Tracks.Objects
         private readonly TrackObject[] objects;
 
         private readonly TrackObjectZones zones;
-        public TrackObjectZones Zones
-        {
-            get { return this.zones; }
-        }
+        public TrackObjectZones Zones => this.zones;
 
         private readonly TrackObjectProperties properties;
-        public TrackObjectProperties Properties
-        {
-            get { return this.properties; }
-        }
+        public TrackObjectProperties Properties => this.properties;
 
         public ObjectType Tileset
         {
-            get { return this.properties.Tileset; }
-            set { this.properties.Tileset = value; }
+            get => this.properties.Tileset;
+            set => this.properties.Tileset = value;
         }
 
         public ObjectType Interaction
         {
-            get { return this.properties.Interaction; }
-            set { this.properties.Interaction = value; }
+            get => this.properties.Interaction;
+            set => this.properties.Interaction = value;
         }
 
         public ObjectType Routine
         {
-            get { return this.properties.Routine; }
-            set { this.properties.Routine = value; }
+            get => this.properties.Routine;
+            set => this.properties.Routine = value;
         }
 
-        public ByteArray PaletteIndexes
-        {
-            get { return this.properties.PaletteIndexes; }
-        }
+        public ByteArray PaletteIndexes => this.properties.PaletteIndexes;
 
-        public Palette Palette
-        {
-            get { return this.properties.Palette; }
-        }
+        public Palette Palette => this.properties.Palette;
 
         public bool Flashing
         {
-            get { return this.properties.Flashing; }
-            set { this.properties.Flashing = value; }
+            get => this.properties.Flashing;
+            set => this.properties.Flashing = value;
         }
 
-        public ObjectLoading Loading
-        {
-            get { return this.properties.Loading; }
-        }
+        public ObjectLoading Loading => this.properties.Loading;
 
         public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, GPTrack track)
         {
@@ -156,15 +141,9 @@ namespace EpicEdit.Rom.Tracks.Objects
             return this.objects.GetEnumerator();
         }
 
-        public int Count
-        {
-            get { return this.objects.Length; }
-        }
+        public int Count => this.objects.Length;
 
-        public TrackObject this[int index]
-        {
-            get { return this.objects[index]; }
-        }
+        public TrackObject this[int index] => this.objects[index];
 
         /// <summary>
         /// Returns the TrackObjects data as a byte array, in the format the SMK ROM expects.

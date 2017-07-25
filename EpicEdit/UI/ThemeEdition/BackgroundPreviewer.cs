@@ -29,8 +29,8 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer
         {
-            //get { return this.drawer; }
-            set { this.drawer = value; }
+            //get => this.drawer;
+            set => this.drawer = value;
         }
 
         protected override void OnPaint(PaintEventArgs e)

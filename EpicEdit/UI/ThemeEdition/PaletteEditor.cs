@@ -33,8 +33,8 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.themeComboBox.SelectedTheme; }
-            set { this.themeComboBox.SelectedTheme = value; }
+            get => this.themeComboBox.SelectedTheme;
+            set => this.themeComboBox.SelectedTheme = value;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
-            get { return this.Theme.Palettes[(int)this.paletteNumericUpDown.Value]; }
+            get => this.Theme.Palettes[(int)this.paletteNumericUpDown.Value];
             set
             {
                 this.Theme = value.Theme;
@@ -61,7 +61,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         public int ColorIndex
         {
-            get { return this.colorIndex; }
+            get => this.colorIndex;
             set
             {
                 // Deselect previous panel

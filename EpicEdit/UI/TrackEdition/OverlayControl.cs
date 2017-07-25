@@ -42,8 +42,8 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add { this.tilesetPanel.ColorSelected += value; }
-            remove { this.tilesetPanel.ColorSelected -= value; }
+            add => this.tilesetPanel.ColorSelected += value;
+            remove => this.tilesetPanel.ColorSelected -= value;
         }
         #endregion Events
 
@@ -70,7 +70,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(OverlayTilePattern), "")]
         public OverlayTilePattern SelectedPattern
         {
-            get { return this.selectedPattern; }
+            get => this.selectedPattern;
             set
             {
                 if (value != null && !this.patternList.ContainsKey(value))
@@ -97,7 +97,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private OverlayTilePattern SelectedPatternInternal
         {
-            get { return this.selectedPattern; }
+            get => this.selectedPattern;
             set
             {
                 if (value != null && this.SelectedTile != null)
@@ -126,7 +126,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(OverlayTile), "")]
         public OverlayTile SelectedTile
         {
-            get { return this.selectedTile; }
+            get => this.selectedTile;
             set
             {
                 this.selectedTile = value;
@@ -139,7 +139,7 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get { return this.track; }
+            get => this.track;
             set
             {
                 if (this.track == value)
@@ -309,15 +309,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private RoadTileset Tileset
         {
-            get
-            {
-                if (this.drawer == null)
-                {
-                    return null;
-                }
-
-                return this.drawer.Tileset;
-            }
+            get => this.drawer?.Tileset;
             set
             {
                 if (this.drawer == null ||

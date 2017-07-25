@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public Shape ZoneShape
         {
-            get { return this.zoneShape; }
+            get => this.zoneShape;
             set
             {
                 if (this.zoneShape == value)
@@ -81,10 +81,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <summary>
         /// Gets the zone.
         /// </summary>
-        public Rectangle Zone
-        {
-            get { return this.zone; }
-        }
+        public Rectangle Zone => this.zone;
 
         private Point target;
         /// <summary>
@@ -92,8 +89,8 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public Point Target
         {
-            get { return this.target; }
-            set { this.MoveTargetTo(value.X, value.Y); }
+            get => this.target;
+            set => this.MoveTargetTo(value.X, value.Y);
         }
 
         private byte speed;
@@ -102,7 +99,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public byte Speed
         {
-            get { return this.speed; }
+            get => this.speed;
             set
             {
                 if (this.speed == value)
@@ -120,8 +117,8 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public Point Location
         {
-            get { return this.zone.Location; }
-            set { this.MoveTo(value.X, value.Y); }
+            get => this.zone.Location;
+            set => this.MoveTo(value.X, value.Y);
         }
 
         /// <summary>

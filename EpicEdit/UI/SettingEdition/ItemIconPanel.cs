@@ -30,7 +30,7 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get { return this.theme; }
+            get => this.theme;
             set
             {
                 this.theme = value;
@@ -71,7 +71,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private Image Image
         {
-            //get { return this.image; }
+            //get => this.image;
             set
             {
                 if (this.image != null)
@@ -100,7 +100,7 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(true), Category("Appearance"), DefaultValue(typeof(bool), "True")]
         public bool LooksEnabled
         {
-            //get { return this.looksEnabled; }
+            //get => this.looksEnabled;
             set
             {
                 this.looksEnabled = value;

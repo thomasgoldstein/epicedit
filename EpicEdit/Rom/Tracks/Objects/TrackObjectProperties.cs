@@ -25,7 +25,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private ObjectType tileset;
         public ObjectType Tileset
         {
-            get { return this.tileset; }
+            get => this.tileset;
             set
             {
                 if (this.tileset == value)
@@ -41,7 +41,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private ObjectType interaction;
         public ObjectType Interaction
         {
-            get { return this.interaction; }
+            get => this.interaction;
             set
             {
                 if (this.interaction == value)
@@ -57,7 +57,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         private ObjectType routine;
         public ObjectType Routine
         {
-            get { return this.routine; }
+            get => this.routine;
             set
             {
                 if (this.routine == value)
@@ -71,15 +71,9 @@ namespace EpicEdit.Rom.Tracks.Objects
         }
 
         private readonly ByteArray paletteIndexes;
-        public ByteArray PaletteIndexes
-        {
-            get { return this.paletteIndexes; }
-        }
+        public ByteArray PaletteIndexes => this.paletteIndexes;
 
-        public Palette Palette
-        {
-            get { return this.track.Theme.Palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart]; }
-        }
+        public Palette Palette => this.track.Theme.Palettes[this.PaletteIndexes[0] + Palettes.SpritePaletteStart];
 
         private bool flashing;
         /// <summary>
@@ -88,7 +82,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// </summary>
         public bool Flashing
         {
-            get { return this.flashing; }
+            get => this.flashing;
             set
             {
                 if (this.flashing == value)
@@ -199,7 +193,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte this[int index]
         {
-            get { return this.data[index]; }
+            get => this.data[index];
             set
             {
                 if (this.data[index] == value)
