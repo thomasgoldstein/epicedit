@@ -38,10 +38,12 @@ namespace EpicEdit.UI.Tools
         public const string ImageOrBinary =
             "PNG (*.png)|*.png|" +
             "BMP (*.bmp)|*.bmp|" +
-            "Raw binary file (*.bin)|*.bin";
+            "Raw binary file (*.sfc, *.fig, *.smc, *.swc)|" +
+            "*.sfc; *.fig; *.smc; *.swc";
 
         public const string Binary =
-            "Raw binary file (*.bin)|*.bin|" +
+            "Raw binary file (*.sfc, *.fig, *.smc, *.swc)|" +
+            "*.sfc; *.fig; *.smc; *.swc|" +
             "All files (*.*)|*.*";
     }
 }
