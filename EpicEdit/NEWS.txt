@@ -2,6 +2,11 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
+v2.x.x (???)
+- Removed .bin from the recognized SNES ROM file extensions (not common)
+- Made raw binary files use the same file extensions as SNES ROMs.
+  This makes binary files load properly in Tile Molester.
+
 
 v2.8.2 (July 8th 2017)
 - Added support for GP podium texts editing
