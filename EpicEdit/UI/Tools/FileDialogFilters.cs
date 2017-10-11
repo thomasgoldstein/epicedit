@@ -17,13 +17,13 @@ namespace EpicEdit.UI.Tools
     internal static class FileDialogFilters
     {
         public const string RomOrZippedRom =
-            "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc, *.zip)|" +
-            "*.sfc; *.bin; *.fig; *.smc; *.swc; *.zip|" +
+            "SNES ROM file (*.sfc, *.fig, *.smc, *.swc, *.zip)|" +
+            "*.sfc; *.fig; *.smc; *.swc; *.zip|" +
             "All files (*.*)|*.*";
 
         public const string Rom =
-            "SNES ROM file (*.sfc, *.bin, *.fig, *.smc, *.swc)|" +
-            "*{0}; *.sfc; *.bin; *.fig; *.smc; *.swc|" +
+            "SNES ROM file (*.sfc, *.fig, *.smc, *.swc)|" +
+            "*{0}; *.sfc; *.fig; *.smc; *.swc|" +
             "All files (*.*)|*.*";
 
         public const string Track =
