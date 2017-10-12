@@ -188,8 +188,7 @@ namespace EpicEdit.Rom
                         }
 
                         string ext = Path.GetExtension(entry.Name);
-                        if (".bin".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
-                            ".fig".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
+                        if (".fig".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
                             ".sfc".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
                             ".smc".Equals(ext, StringComparison.OrdinalIgnoreCase) ||
                             ".swc".Equals(ext, StringComparison.OrdinalIgnoreCase))
