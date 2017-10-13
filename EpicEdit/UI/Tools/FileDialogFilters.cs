@@ -17,13 +17,13 @@ namespace EpicEdit.UI.Tools
     internal static class FileDialogFilters
     {
         public const string RomOrZippedRom =
-            "SNES ROM file (*.sfc, *.fig, *.smc, *.swc, *.zip)|" +
-            "*.sfc; *.fig; *.smc; *.swc; *.zip|" +
+            "SNES ROM file (*.sfc, *.smc, *.swc, *.fig, *.zip)|" +
+            "*.sfc; *.smc; *.swc; *.fig; *.zip|" +
             "All files (*.*)|*.*";
 
         public const string Rom =
-            "SNES ROM file (*.sfc, *.fig, *.smc, *.swc)|" +
-            "*{0}; *.sfc; *.fig; *.smc; *.swc|" +
+            "SNES ROM file (*.sfc, *.smc, *.swc, *.fig)|" +
+            "*{0}; *.sfc; *.smc; *.swc; *.fig|" +
             "All files (*.*)|*.*";
 
         public const string Track =
@@ -38,12 +38,12 @@ namespace EpicEdit.UI.Tools
         public const string ImageOrBinary =
             "PNG (*.png)|*.png|" +
             "BMP (*.bmp)|*.bmp|" +
-            "Raw binary file (*.sfc, *.fig, *.smc, *.swc)|" +
-            "*.sfc; *.fig; *.smc; *.swc";
+            "Raw binary file (*.sfc, *.smc, *.swc, *.fig)|" +
+            "*.sfc; *.smc; *.swc; *.fig";
 
         public const string Binary =
-            "Raw binary file (*.sfc, *.fig, *.smc, *.swc)|" +
-            "*.sfc; *.fig; *.smc; *.swc|" +
+            "Raw binary file (*.sfc, *.smc, *.swc, *.fig)|" +
+            "*.sfc; *.smc; *.swc; *.fig|" +
             "All files (*.*)|*.*";
     }
 }
