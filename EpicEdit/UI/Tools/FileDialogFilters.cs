@@ -38,11 +38,11 @@ namespace EpicEdit.UI.Tools
         public const string ImageOrBinary =
             "PNG (*.png)|*.png|" +
             "BMP (*.bmp)|*.bmp|" +
-            "Raw binary file (*.sfc, *.smc, *.swc, *.fig)|" +
+            "SNES binary file (*.sfc, *.smc, *.swc, *.fig)|" +
             "*.sfc; *.smc; *.swc; *.fig";
 
         public const string Binary =
-            "Raw binary file (*.sfc, *.smc, *.swc, *.fig)|" +
+            "SNES binary file (*.sfc, *.smc, *.swc, *.fig)|" +
             "*.sfc; *.smc; *.swc; *.fig|" +
             "All files (*.*)|*.*";
     }
