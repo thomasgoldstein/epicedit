@@ -327,6 +327,8 @@ namespace EpicEdit.Rom
             byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIZones], Track.Count * 2); // 2 offset bytes per track
             byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAITargets], Track.Count * 2); // 2 offset bytes per track
 
+            int uncompressedTrackMapIterator = 0; // HACK: Iterator that allows us to handle uncompressed track maps (used for MAKE ROM compatibility).
+
             for (int i = 0; i < this.TrackGroups.Count; i++)
             {
                 int trackCountInGroup;
@@ -363,7 +365,7 @@ namespace EpicEdit.Rom
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
-                    byte[] trackMap = this.GetTrackMap(mapOffsets[trackIndex], iterator);
+                    byte[] trackMap = this.GetTrackMap(mapOffsets[trackIndex], ref uncompressedTrackMapIterator);
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
                     this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
 
@@ -422,7 +424,7 @@ namespace EpicEdit.Rom
             return trackNameItem;
         }
 
-        private byte[] GetTrackMap(int mapOffset, int iterator)
+        private byte[] GetTrackMap(int mapOffset, ref int uncompressedTrackMapIterator)
         {
             byte[] trackMap = Codec.Decompress(this.romBuffer, mapOffset, true);
 
@@ -433,7 +435,7 @@ namespace EpicEdit.Rom
                 // which does not compress track maps and just leaves them uncompressed, unlike the original game.
                 // Try loading the track map without decompressing it.
 
-                mapOffset = 0x90000 + iterator * TrackMap.SquareSize; // The MAKE map offset
+                mapOffset = 0x90000 + uncompressedTrackMapIterator++ * TrackMap.SquareSize; // The MAKE map offset
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
 
