@@ -363,11 +363,8 @@ namespace EpicEdit.Rom
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
-
-                    byte[] trackMap = Codec.Decompress(Codec.Decompress(this.romBuffer, mapOffsets[trackIndex]), 0, TrackMap.SquareSize);
-
+                    byte[] trackMap = this.GetTrackMap(mapOffsets[trackIndex], iterator);
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
-
                     this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
 
                     if (trackIndex < GPTrack.Count) // GP track
@@ -406,6 +403,24 @@ namespace EpicEdit.Rom
 
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
+        }
+
+        private byte[] GetTrackMap(int mapOffset, int iterator)
+        {
+            byte[] trackMap = Codec.Decompress(this.romBuffer, mapOffset, true);
+
+            if (trackMap.Length == 0)
+            {
+                // HACK: The decompressed track map has a size of 0.
+                // This may be due to the fact this ROM has been saved with MAKE (another SMK editor),
+                // which does not compress track maps and just leaves them uncompressed, unlike the original game.
+                // Try loading the track map without decompressing it.
+
+                mapOffset = 0x90000 + iterator * TrackMap.SquareSize; // The MAKE map offset
+                trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
+            }
+
+            return trackMap;
         }
 
         private void SetRegion()
