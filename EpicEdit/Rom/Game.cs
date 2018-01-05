@@ -356,7 +356,7 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    TextItem trackNameItem = this.Settings.CupAndThemeTexts[trackNameIndexes[iterator][1]];
+                    TextItem trackNameItem = this.GetTrackNameItem(trackNameIndexes[iterator][1]);
                     byte[] trackNameSuffixData = Utilities.ReadBlock(trackNameIndexes[iterator], 2, trackNameIndexes[iterator].Length - 2);
                     string trackNameSuffix = trackNameItem.Converter.DecodeText(trackNameSuffixData, false);
                     SuffixedTextItem suffixedTrackNameItem = new SuffixedTextItem(trackNameItem, trackNameSuffix, this.Settings.CupAndTrackNameSuffixCollection);
@@ -403,6 +403,23 @@ namespace EpicEdit.Rom
 
             this.ObjectGraphics = new TrackObjectGraphics(this.romBuffer, this.offsets);
             this.ItemIconGraphics = new ItemIconGraphics(this.romBuffer, this.offsets);
+        }
+
+        private TextItem GetTrackNameItem(int cupAndThemTextId)
+        {
+            TextItem trackNameItem;
+
+            try
+            {
+                trackNameItem = this.Settings.CupAndThemeTexts[cupAndThemTextId];
+            }
+            catch
+            {
+                // HACK: Handle invalid text data (e.g: "Super Mario Kart (J) - Series 2")
+                trackNameItem = new TextItem(this.Settings.CupAndThemeTexts, string.Empty);
+            }
+
+            return trackNameItem;
         }
 
         private byte[] GetTrackMap(int mapOffset, int iterator)
@@ -500,6 +517,14 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < trackNameIndexes.Length; i++)
             {
+                if (trackNameIndexes[i].Length < 3)
+                {
+                    // HACK: Handle invalid text data (e.g: "Super Mario Kart (J) - Series 2")
+                    byte[] invalidData = trackNameIndexes[i];
+                    trackNameIndexes[i] = new[] { (byte)0xFF, (byte)0xFF, (byte)0xFF };
+                    Buffer.BlockCopy(invalidData, 0, trackNameIndexes[i], 0, invalidData.Length);
+                }
+
                 trackNameIndexes[i][1] = (byte)(trackNameIndexes[i][1] & 0xF);
             }
 
