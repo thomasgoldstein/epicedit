@@ -63,7 +63,6 @@ namespace EpicEdit.Rom
 
         private void palette_ColorsChanged(object sender, EventArgs e)
         {
-            // NOTE: Dummy property name
             this.OnPropertyChanged(PropertyNames.Palettes.Palette);
         }
 

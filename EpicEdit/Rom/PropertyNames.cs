@@ -21,112 +21,112 @@ namespace EpicEdit.Rom
     {
         internal static class Background
         {
-            public const string Data = "Data";
+            public const string Data = "Data"; // NOTE: Dummy property name
         }
 
         internal static class Game
         {
-            public const string Data = "Data";
-            public const string Modified = "Modified";
+            public const string Data = "Data"; // NOTE: Dummy property name
+            public const string Modified = nameof(Rom.Game.Modified);
         }
 
         internal static class GPStartPosition
         {
-            public const string Location = "Location";
-            public const string SecondRowOffset = "SecondRowOffset";
+            public const string Location = nameof(Tracks.Start.GPStartPosition.Location);
+            public const string SecondRowOffset = nameof(Tracks.Start.GPStartPosition.SecondRowOffset);
         }
 
         internal static class GPTrack
         {
-            public const string ItemProbabilityIndex = "ItemProbabilityIndex";
-            public const string LapLine = "LapLine";
-            public const string Objects = "Objects";
-            public const string StartPosition = "StartPosition";
+            public const string ItemProbabilityIndex = nameof(Tracks.GPTrack.ItemProbabilityIndex);
+            public const string LapLine = nameof(Tracks.GPTrack.LapLine);
+            public const string Objects = nameof(Tracks.GPTrack.Objects);
+            public const string StartPosition = nameof(Tracks.GPTrack.StartPosition);
         }
 
         internal static class ItemProbability
         {
-            public const string DisplayedItems = "DisplayedItems";
-            public const string FieldValue = "FieldValue";
+            public const string DisplayedItems = nameof(Tracks.Items.ItemProbability.DisplayedItems);
+            public const string FieldValue = "FieldValue"; // NOTE: Dummy property name
         }
 
         internal static class Palettes
         {
-            public const string Palette = "Palette";
+            public const string Palette = "Palette"; // NOTE: Dummy property name
         }
 
         internal static class RankPoints
         {
-            public const string Value = "Value";
+            public const string Value = "Value"; // NOTE: Dummy property name
         }
 
         internal static class RoadTile
         {
-            public const string Genre = "Genre";
+            public const string Genre = nameof(Tracks.Road.RoadTile.Genre);
         }
 
         internal static class SuffixedTextItem
         {
-            public const string Suffix = "Suffix";
-            public const string TextItem = "TextItem";
+            public const string Suffix = nameof(Settings.SuffixedTextItem.Suffix);
+            public const string TextItem = nameof(Settings.SuffixedTextItem.TextItem);
         }
 
         internal static class TextItem
         {
-            public const string Value = "Value";
+            public const string Value = nameof(Settings.TextItem.Value);
         }
 
         internal static class Tile
         {
-            public const string Bitmap = "Bitmap";
-            public const string Graphics = "Graphics";
-            public const string Palette = "Palette";
+            public const string Bitmap = nameof(Rom.Tile.Bitmap);
+            public const string Graphics = nameof(Rom.Tile.Graphics);
+            public const string Palette = nameof(Rom.Tile.Palette);
         }
 
         internal static class Track
         {
-            public const string AI = "AI";
-            public const string Map = "Map";
-            public const string Modified = "Modified";
-            public const string OverlayTiles = "OverlayTiles";
-            public const string SuffixedNameItem = "SuffixedNameItem";
-            public const string Theme = "Theme";
+            public const string AI = nameof(Tracks.Track.AI);
+            public const string Map = nameof(Tracks.Track.Map);
+            public const string Modified = nameof(Tracks.Track.Modified);
+            public const string OverlayTiles = nameof(Tracks.Track.OverlayTiles);
+            public const string SuffixedNameItem = nameof(Tracks.Track.SuffixedNameItem);
+            public const string Theme = nameof(Tracks.Track.Theme);
         }
 
         internal static class TrackAIElement
         {
-            public const string Index = "Index";
-            public const string Location = "Location";
-            public const string Speed = "Speed";
-            public const string Target = "Target";
-            public const string Zone = "Zone";
-            public const string ZoneShape = "ZoneShape";
+            public const string Index = "Index"; // NOTE: Dummy property name
+            public const string Location = nameof(Tracks.AI.TrackAIElement.Location);
+            public const string Speed = nameof(Tracks.AI.TrackAIElement.Speed);
+            public const string Target = nameof(Tracks.AI.TrackAIElement.Target);
+            public const string Zone = nameof(Tracks.AI.TrackAIElement.Zone);
+            public const string ZoneShape = nameof(Tracks.AI.TrackAIElement.ZoneShape);
         }
 
         internal static class TrackObject
         {
-            public const string Location = "Location";
+            public const string Location = nameof(Tracks.Objects.TrackObject.Location);
         }
 
         internal static class TrackObjectMatchRace
         {
-            public const string Direction = "Direction";
+            public const string Direction = nameof(Tracks.Objects.TrackObjectMatchRace.Direction);
         }
 
         internal static class TrackObjectProperties
         {
-            public const string Flashing = "Flashing";
-            public const string Interaction = "Interaction";
-            public const string Palette = "Palette";
-            public const string PaletteIndexes = "PaletteIndexes";
-            public const string Routine = "Routine";
-            public const string Tileset = "Tileset";
+            public const string Flashing = nameof(Tracks.Objects.TrackObjectProperties.Flashing);
+            public const string Interaction = nameof(Tracks.Objects.TrackObjectProperties.Interaction);
+            public const string Palette = nameof(Tracks.Objects.TrackObjectProperties.Palette);
+            public const string PaletteIndexes = nameof(Tracks.Objects.TrackObjectProperties.PaletteIndexes);
+            public const string Routine = nameof(Tracks.Objects.TrackObjectProperties.Routine);
+            public const string Tileset = nameof(Tracks.Objects.TrackObjectProperties.Tileset);
         }
 
         internal static class TrackObjectZones
         {
-            public const string FrontView = "FrontView";
-            public const string RearView = "RearView";
+            public const string FrontView = nameof(Tracks.Objects.TrackObjectZones.FrontView);
+            public const string RearView = nameof(Tracks.Objects.TrackObjectZones.RearView);
         }
     }
 }

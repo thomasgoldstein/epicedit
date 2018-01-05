@@ -116,7 +116,6 @@ namespace EpicEdit.Rom.Tracks.Items
             if (field != value)
             {
                 field = value;
-                // NOTE: Dummy property name
                 // We could pass the actual property name, but it's not used, so that'd complicate the code for nothing.
                 this.MarkAsModified(PropertyNames.ItemProbability.FieldValue);
             }

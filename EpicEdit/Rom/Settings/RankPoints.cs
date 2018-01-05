@@ -55,7 +55,6 @@ namespace EpicEdit.Rom.Settings
         private void MarkAsModified()
         {
             this.Modified = true;
-            // NOTE: Dummy property name
             this.OnPropertyChanged(PropertyNames.RankPoints.Value);
         }
 

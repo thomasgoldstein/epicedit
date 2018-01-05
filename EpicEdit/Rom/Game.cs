@@ -2128,7 +2128,6 @@ namespace EpicEdit.Rom
 
         private void MarkAsModified()
         {
-            // NOTE: Dummy property name
             this.MarkAsModified(this, new PropertyChangedEventArgs(PropertyNames.Game.Data));
         }
 

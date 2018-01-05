@@ -154,7 +154,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
         private void MarkAsModified()
         {
             this.Modified = true;
-            // NOTE: Dummy property name
             this.OnPropertyChanged(PropertyNames.Background.Data);
         }
 
