@@ -517,12 +517,16 @@ namespace EpicEdit.Rom
 
             for (int i = 0; i < trackNameIndexes.Length; i++)
             {
-                if (trackNameIndexes[i].Length < 3)
+                if (trackNameIndexes[i].Length < 2)
                 {
                     // HACK: Handle invalid text data ("Super Mario Kart (J) - Series 2" has this issue)
                     byte[] invalidData = trackNameIndexes[i];
-                    trackNameIndexes[i] = new[] { (byte)0xFF, (byte)0xFF, (byte)0xFF };
-                    Buffer.BlockCopy(invalidData, 0, trackNameIndexes[i], 0, invalidData.Length);
+                    trackNameIndexes[i] = new[] { (byte)0xFF, (byte)0xFF };
+
+                    if (invalidData.Length == 1)
+                    {
+                        trackNameIndexes[i][0] = invalidData[0];
+                    }
                 }
 
                 trackNameIndexes[i][1] = (byte)(trackNameIndexes[i][1] & 0xF);
