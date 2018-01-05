@@ -140,7 +140,6 @@ namespace EpicEdit.UI.TrackEdition
             this.secondRowNumericUpDown.Name = "secondRowNumericUpDown";
             this.secondRowNumericUpDown.Size = new System.Drawing.Size(45, 20);
             this.secondRowNumericUpDown.TabIndex = 2;
-            this.secondRowNumericUpDown.ValueChanged += new System.EventHandler(this.SecondRowValueLabelNumericUpDownValueChanged);
             // 
             // startBindCheckBox
             // 

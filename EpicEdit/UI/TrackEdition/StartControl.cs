@@ -58,7 +58,13 @@ namespace EpicEdit.UI.TrackEdition
                 else
                 {
                     this.gpTrackGroupBox.Enabled = true;
+
+                    // NOTE: Temporarily detach the secondRowNumericUpDown.ValueChanged event handler
+                    // so that the current precision does not alter the second row offset on track load.
+                    this.secondRowNumericUpDown.ValueChanged -= this.SecondRowValueLabelNumericUpDownValueChanged;
                     this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
+                    this.secondRowNumericUpDown.ValueChanged += this.SecondRowValueLabelNumericUpDownValueChanged;
+
                     this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
                     gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
                 }
