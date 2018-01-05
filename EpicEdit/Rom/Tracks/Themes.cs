@@ -116,7 +116,7 @@ namespace EpicEdit.Rom.Tracks
             {
                 TextItem nameItem = names[reorder[i]];
 
-                // Force the length to 512 in case the color palette data in the ROM is corrupt
+                // HACK: Force the length to 512 in case the color palette data in the ROM is corrupt ("EarthBound Kart Beta" has this issue)
                 byte[] paletteData = Codec.Decompress(romBuffer, paletteOffsets[i], 512);
                 Palettes palettes = new Palettes(paletteData);
 

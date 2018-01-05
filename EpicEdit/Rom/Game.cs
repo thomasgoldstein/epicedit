@@ -415,7 +415,7 @@ namespace EpicEdit.Rom
             }
             catch
             {
-                // HACK: Handle invalid text data (e.g: "Super Mario Kart (J) - Series 2")
+                // HACK: Handle invalid text data ("Super Mario Kart (J) - Series 2" has this issue)
                 trackNameItem = new TextItem(this.Settings.CupAndThemeTexts, string.Empty);
             }
 
@@ -519,7 +519,7 @@ namespace EpicEdit.Rom
             {
                 if (trackNameIndexes[i].Length < 3)
                 {
-                    // HACK: Handle invalid text data (e.g: "Super Mario Kart (J) - Series 2")
+                    // HACK: Handle invalid text data ("Super Mario Kart (J) - Series 2" has this issue)
                     byte[] invalidData = trackNameIndexes[i];
                     trackNameIndexes[i] = new[] { (byte)0xFF, (byte)0xFF, (byte)0xFF };
                     Buffer.BlockCopy(invalidData, 0, trackNameIndexes[i], 0, invalidData.Length);
