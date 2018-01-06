@@ -894,7 +894,7 @@ namespace EpicEdit.Rom
             aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
 
             int aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
-            int aiTargetDataLength = TrackAI.ComputeTargetDataLength(aiZoneData);
+            int aiTargetDataLength = TrackAI.GetTargetDataLength(aiZoneData);
             aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
         }
 

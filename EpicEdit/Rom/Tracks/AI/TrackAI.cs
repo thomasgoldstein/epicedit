@@ -176,14 +176,14 @@ namespace EpicEdit.Rom.Tracks.AI
             this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs(PropertyNames.TrackAIElement.Index));
         }
 
-        public static int ComputeTargetDataLength(byte[] zoneData)
+        public static int GetTargetDataLength(byte[] zoneData)
         {
-            int zoneCount = TrackAI.ComputeZoneCount(zoneData);
+            int zoneCount = TrackAI.GetZoneCount(zoneData);
             int aiTargetDataLength = zoneCount * 3;
             return aiTargetDataLength;
         }
 
-        private static int ComputeZoneCount(byte[] zoneData)
+        private static int GetZoneCount(byte[] zoneData)
         {
             int zoneCount = 0;
 
@@ -198,7 +198,7 @@ namespace EpicEdit.Rom.Tracks.AI
             return zoneCount;
         }
 
-        private int ComputeZoneDataLength()
+        private int GetZoneDataLength()
         {
             int zoneDataLength = 0;
 
@@ -216,7 +216,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>The AI bytes.</returns>
         public byte[] GetBytes()
         {
-            int zoneDataLength = this.ComputeZoneDataLength() + 1; // + 1 for ending 0xFF
+            int zoneDataLength = this.GetZoneDataLength() + 1; // + 1 for ending 0xFF
             int targetDataLength = this.aiElements.Count * 3;
             byte[] data = new byte[zoneDataLength + targetDataLength];
 
