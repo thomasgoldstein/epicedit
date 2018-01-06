@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Rom\Compression\Decompressor.cs" />
     <Compile Include="Rom\Compression\IDecompressor.cs" />
+    <Compile Include="Rom\Offset.cs" />
     <Compile Include="Rom\Offsets.cs" />
     <Compile Include="Rom\Palettes.cs" />
     <Compile Include="Rom\PropertyNames.cs" />
