@@ -839,11 +839,11 @@ namespace EpicEdit.Rom
 
             if (objectZoneOffset == -1)
             {
-                data = new byte[10]; // Ghost Valley track, has pillars
+                data = new byte[TrackObjectZones.Size]; // Ghost Valley track, has pillars
             }
             else
             {
-                data = Utilities.ReadBlock(this.romBuffer, objectZoneOffset, 10);
+                data = Utilities.ReadBlock(this.romBuffer, objectZoneOffset, TrackObjectZones.Size);
             }
 
             return data;
