@@ -859,10 +859,10 @@ namespace EpicEdit.Rom
             // TODO: Retrieve order dynamically from the ROM
             int[] reorder =
             {
-                2, -1 /* Ghost Valley x */, 12, 8, 15,
-                10, 17, 0, -1 /* Ghost Valley x */, 9,
+                2, -1 /* Ghost Valley 2 */, 12, 8, 15,
+                10, 17, 0, -1 /* Ghost Valley 3 */, 9,
                 5, 13, 14, 17, 3,
-                1, -1 /* Ghost Valley x */, 7, 4, 11
+                1, -1 /* Ghost Valley 1 */, 7, 4, 11
             };
 
             // NOTE: The 2 bytes at 4DB85 (93DB) are an address (4DB93)
@@ -872,7 +872,9 @@ namespace EpicEdit.Rom
 
             if (reorder[trackIndex] == -1)
             {
-                return reorder[trackIndex];
+                // Ghost Valley tracks do not have object data.
+                // They have pillar data, which is not supported by this editor.
+                return -1;
             }
 
             int objectZonesOffset = this.offsets[Offset.TrackObjectZones];
