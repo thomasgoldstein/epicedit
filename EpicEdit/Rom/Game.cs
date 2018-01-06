@@ -38,7 +38,17 @@ namespace EpicEdit.Rom
     {
         #region Constants
 
+        private const int RomTypeOffset = 0xFFD5;
+        private const int CartTypeOffset = 0xFFD6;
+        private const int RomSizeOffset = 0xFFD7;
+        private const int RamSizeOffset = 0xFFD8;
         private const int RegionOffset = 0xFFD9;
+        private const int ChecksumOffset1 = 0xFFDC;
+        private const int ChecksumOffset2 = 0xFFDD;
+        private const int ChecksumOffset3 = 0xFFDE;
+        private const int ChecksumOffset4 = 0xFFDF;
+        private const int NewBattleStartOffset = 0x80000;
+        private const int MakeTrackMapOffset = 0x90000;
 
         #endregion Constants
 
@@ -273,9 +283,9 @@ namespace EpicEdit.Rom
                 return false;
             }
 
-            byte cartType = this.romBuffer[0xFFD6]; // Cartridge type. SMK has 05 here, if this byte in any SNES ROM is not 05 then it is not a battery backed DSP-1 game
-            byte cartRamSize = this.romBuffer[0xFFD8]; // Cart RAM size. SMK has 01 here, to say that there's 2 KiB of oncart RAM
-            byte cartRomType = this.romBuffer[0xFFD5]; // SMK has 31 here, to indicate a HiROM FastROM game
+            byte cartType = this.romBuffer[Game.CartTypeOffset]; // Cartridge type. SMK has 05 here, if this byte in any SNES ROM is not 05 then it is not a battery backed DSP-1 game
+            byte cartRamSize = this.romBuffer[Game.RamSizeOffset]; // Cart RAM size. SMK has 01 here, to say that there's 2 KiB of oncart RAM
+            byte cartRomType = this.romBuffer[Game.RomTypeOffset]; // SMK has 31 here, to indicate a HiROM FastROM game
 
             if (cartType != 0x05 || cartRamSize != 0x01 || cartRomType != 0x31)
             {
@@ -427,7 +437,7 @@ namespace EpicEdit.Rom
                 // which does not compress track maps and just leaves them uncompressed, unlike the original game.
                 // Try loading the track map without decompressing it.
 
-                mapOffset = 0x90000 + uncompressedMapIterator++ * TrackMap.SquareSize; // The MAKE map offset
+                mapOffset = Game.MakeTrackMapOffset + uncompressedMapIterator++ * TrackMap.SquareSize; // The MAKE map offset
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
 
@@ -628,7 +638,7 @@ namespace EpicEdit.Rom
 
             if (this.BattleStartPositionsRelocated)
             {
-                startPositionOffset = 0x80000 + bTrackIndex * 8;
+                startPositionOffset = Game.NewBattleStartOffset + bTrackIndex * 8;
             }
             else
             {
@@ -1106,13 +1116,13 @@ namespace EpicEdit.Rom
             // 11 = 16 Mb
             // 12 = 32 Mb
             // 13 = 64 Mb
-            this.romBuffer[0xFFD7] = (byte)(sizeIndex + 8);
+            this.romBuffer[Game.RomSizeOffset] = (byte)(sizeIndex + 8);
 
             // Reset the checksum in case it is corrupted
-            this.romBuffer[0xFFDC] = 0xFF;
-            this.romBuffer[0xFFDD] = 0xFF;
-            this.romBuffer[0xFFDE] = 0x00;
-            this.romBuffer[0xFFDF] = 0x00;
+            this.romBuffer[Game.ChecksumOffset1] = 0xFF;
+            this.romBuffer[Game.ChecksumOffset2] = 0xFF;
+            this.romBuffer[Game.ChecksumOffset3] = 0x00;
+            this.romBuffer[Game.ChecksumOffset4] = 0x00;
 
             int end = isExactSize ? romSizes[sizeIndex] : romSizes[sizeIndex - 1];
 
@@ -1134,10 +1144,10 @@ namespace EpicEdit.Rom
                 total += lastPartTotal * multiplier;
             }
 
-            this.romBuffer[0xFFDE] = (byte)(total & 0xFF);
-            this.romBuffer[0xFFDF] = (byte)((total & 0xFF00) >> 8);
-            this.romBuffer[0xFFDC] = (byte)(0xFF - this.romBuffer[0xFFDE]);
-            this.romBuffer[0xFFDD] = (byte)(0xFF - this.romBuffer[0xFFDF]);
+            this.romBuffer[Game.ChecksumOffset3] = (byte)(total & 0xFF);
+            this.romBuffer[Game.ChecksumOffset4] = (byte)((total & 0xFF00) >> 8);
+            this.romBuffer[Game.ChecksumOffset1] = (byte)(0xFF - this.romBuffer[Game.ChecksumOffset3]);
+            this.romBuffer[Game.ChecksumOffset2] = (byte)(0xFF - this.romBuffer[Game.ChecksumOffset4]);
         }
 
         private void SaveBattleStartPositions(SaveBuffer saveBuffer)
