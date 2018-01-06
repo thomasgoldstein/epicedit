@@ -31,13 +31,6 @@ using System.IO;
 
 namespace EpicEdit.Rom
 {
-    internal enum Region
-    {
-        Jap,
-        US,
-        Euro
-    }
-
     /// <summary>
     /// The Super Mario Kart Game class, which contains all of the game data.
     /// </summary>

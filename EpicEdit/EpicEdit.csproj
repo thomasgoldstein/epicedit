@@ -106,6 +106,7 @@
     <Compile Include="Rom\Offsets.cs" />
     <Compile Include="Rom\Palettes.cs" />
     <Compile Include="Rom\PropertyNames.cs" />
+    <Compile Include="Rom\Region.cs" />
     <Compile Include="Rom\RomColor.cs" />
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
