@@ -149,18 +149,20 @@ namespace EpicEdit.Rom.Tracks.AI
                 // determine the location of its right angle.
                 // We don't follow this logic, and change X and Y
                 // to make them always determine the top left corner.
-                if (this.ZoneShape == Shape.TriangleTopRight)
+                switch (this.ZoneShape)
                 {
-                    zoneX -= zoneSize - Precision;
-                }
-                else if (this.ZoneShape == Shape.TriangleBottomRight)
-                {
-                    zoneX -= zoneSize - Precision;
-                    zoneY -= zoneSize - Precision;
-                }
-                else if (this.ZoneShape == Shape.TriangleBottomLeft)
-                {
-                    zoneY -= zoneSize - Precision;
+                    case Shape.TriangleTopRight:
+                        zoneX -= zoneSize - Precision;
+                        break;
+
+                    case Shape.TriangleBottomRight:
+                        zoneX -= zoneSize - Precision;
+                        zoneY -= zoneSize - Precision;
+                        break;
+
+                    case Shape.TriangleBottomLeft:
+                        zoneY -= zoneSize - Precision;
+                        break;
                 }
 
                 this.zone = new Rectangle(zoneX, zoneY, zoneSize, zoneSize);
