@@ -1964,29 +1964,10 @@ namespace EpicEdit.Rom
         {
             int roadTileGfxIndex = this.offsets[Offset.ThemeRoadGraphics] + themeIndex * 3;
             int roadTileGfxOffset = Utilities.BytesToOffset(this.romBuffer, roadTileGfxIndex);
-            byte[] roadTileGfxData;
 
-            if (!theme.RoadTileset.Modified && saveBuffer.Includes(roadTileGfxOffset))
-            {
-                // Do not recompress road tileset data (perf optimization),
-                // simply copy the existing compressed data
-                roadTileGfxData = Codec.GetCompressedChunk(this.romBuffer, roadTileGfxOffset);
-            }
-            else
-            {
-                // Recompress road tileset data
-                roadTileGfxData = new byte[RoadTileset.TileCount + (RoadTileset.TileCount * 32)];
-
-                Buffer.BlockCopy(theme.RoadTileset.GetTilePaletteBytes(), 0, roadTileGfxData, 0, RoadTileset.TileCount);
-
-                for (int j = 0; j < RoadTileset.TileCount; j++)
-                {
-                    RoadTile tile = theme.RoadTileset[j];
-                    Buffer.BlockCopy(tile.Graphics, 0, roadTileGfxData, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
-                }
-
-                roadTileGfxData = Codec.Compress(roadTileGfxData);
-            }
+            byte[] roadTileGfxData = !theme.RoadTileset.Modified && saveBuffer.Includes(roadTileGfxOffset) ?
+                Codec.GetCompressedChunk(this.romBuffer, roadTileGfxOffset) : // Copy the unchanged compressed data (perf optimization)
+                Codec.Compress(theme.RoadTileset.GetBytes()); // Compress the modified data
 
             saveBuffer.AddCompressed(roadTileGfxData, roadTileGfxIndex);
         }
@@ -1998,19 +1979,9 @@ namespace EpicEdit.Rom
 
             if (theme.Palettes.Modified || saveBuffer.Includes(palettesOffset))
             {
-                byte[] palettesData;
-
-                if (!theme.Palettes.Modified)
-                {
-                    // Do not recompress palettes (perf optimization),
-                    // simply copy the existing compressed data
-                    palettesData = Codec.GetCompressedChunk(this.romBuffer, palettesOffset);
-                }
-                else
-                {
-                    // Recompress palettes
-                    palettesData = Codec.Compress(theme.Palettes.GetBytes());
-                }
+                byte[] palettesData = !theme.Palettes.Modified ?
+                    Codec.GetCompressedChunk(this.romBuffer, palettesOffset) : // Copy the unchanged compressed data (perf optimization)
+                    Codec.Compress(theme.Palettes.GetBytes()); // Compress the modified data
 
                 saveBuffer.AddCompressed(palettesData, palettesIndex);
             }
@@ -2023,19 +1994,9 @@ namespace EpicEdit.Rom
 
             if (theme.Background.Layout.Modified || saveBuffer.Includes(bgLayoutOffset))
             {
-                byte[] bgLayoutData;
-
-                if (!theme.Background.Layout.Modified)
-                {
-                    // Do not recompress background layout (perf optimization),
-                    // simply copy the existing compressed data
-                    bgLayoutData = Codec.GetCompressedChunk(this.romBuffer, bgLayoutOffset);
-                }
-                else
-                {
-                    // Recompress background layout
-                    bgLayoutData = Codec.Compress(theme.Background.Layout.GetBytes());
-                }
+                byte[] bgLayoutData = !theme.Background.Layout.Modified ?
+                    Codec.GetCompressedChunk(this.romBuffer, bgLayoutOffset) : // Copy the unchanged compressed data (perf optimization)
+                    Codec.Compress(theme.Background.Layout.GetBytes()); // Compress the modified data
 
                 saveBuffer.AddCompressed(bgLayoutData, bgLayoutIndex);
             }
@@ -2048,27 +2009,9 @@ namespace EpicEdit.Rom
 
             if (theme.Background.Tileset.Modified || saveBuffer.Includes(bgTileGfxOffset))
             {
-                byte[] bgTileGfxData;
-
-                if (!theme.Background.Tileset.Modified)
-                {
-                    // Do not recompress background tileset graphics (perf optimization),
-                    // simply copy the existing compressed data
-                    bgTileGfxData = Codec.GetCompressedChunk(this.romBuffer, bgTileGfxOffset);
-                }
-                else
-                {
-                    // Recompress background tileset graphics
-                    bgTileGfxData = new byte[BackgroundTileset.TileCount * 16];
-
-                    for (int j = 0; j < BackgroundTileset.TileCount; j++)
-                    {
-                        BackgroundTile tile = theme.Background.Tileset[j];
-                        Buffer.BlockCopy(tile.Graphics, 0, bgTileGfxData, j * 16, tile.Graphics.Length);
-                    }
-
-                    bgTileGfxData = Codec.Compress(bgTileGfxData);
-                }
+                byte[] bgTileGfxData = !theme.Background.Tileset.Modified ?
+                    Codec.GetCompressedChunk(this.romBuffer, bgTileGfxOffset) : // Copy the unchanged compressed data (perf optimization)
+                    Codec.Compress(theme.Background.Tileset.GetBytes()); // Compress the modified data
 
                 saveBuffer.AddCompressed(bgTileGfxData, bgTileGfxIndex);
 

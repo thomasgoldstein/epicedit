@@ -89,6 +89,21 @@ namespace EpicEdit.Rom.Tracks.Road
             return data;
         }
 
+        public byte[] GetBytes()
+        {
+            byte[] data = new byte[RoadTileset.TileCount + (RoadTileset.TileCount * 32)];
+
+            Buffer.BlockCopy(this.GetTilePaletteBytes(), 0, data, 0, RoadTileset.TileCount);
+
+            for (int j = 0; j < RoadTileset.TileCount; j++)
+            {
+                RoadTile tile = this.GetTile(j);
+                Buffer.BlockCopy(tile.Graphics, 0, data, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
+            }
+
+            return data;
+        }
+
         public void SetTileGenreBytes(byte[] data)
         {
             if (data.Length != this.tileset.Length)

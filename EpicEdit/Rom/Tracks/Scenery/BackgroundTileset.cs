@@ -77,6 +77,19 @@ namespace EpicEdit.Rom.Tracks.Scenery
             return this.tileset[index];
         }
 
+        public byte[] GetBytes()
+        {
+            byte[] data = new byte[BackgroundTileset.TileCount * 16];
+
+            for (int j = 0; j < BackgroundTileset.TileCount; j++)
+            {
+                BackgroundTile tile = this.GetTile(j);
+                Buffer.BlockCopy(tile.Graphics, 0, data, j * 16, tile.Graphics.Length);
+            }
+
+            return data;
+        }
+
         public BackgroundTile this[int index] => this.GetTile(index);
 
         public void ResetModifiedState()
