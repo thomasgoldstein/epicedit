@@ -790,7 +790,7 @@ namespace EpicEdit.Rom
 
             if (trackIndex == 19) // Donut Plains 1
             {
-                // This track is an exception
+                // This track is an exception, as it has orange pipes instead of moles (like other Donut Plains tracks do).
                 paletteIndexes[0] = 5;
             }
             else
