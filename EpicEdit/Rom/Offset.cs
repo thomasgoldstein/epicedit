@@ -129,7 +129,7 @@ namespace EpicEdit.Rom
         GhostValleyBackgroundAnimationGraphics,
 
         /// <summary>
-        /// The leading byte that composes AI-related addresses.
+        /// Leading byte that composes AI-related addresses.
         /// </summary>
         TrackAIDataFirstAddressByte,
 
@@ -216,7 +216,7 @@ namespace EpicEdit.Rom
         CommonTilesetGraphicsLowerBytes,
 
         /// <summary>
-        /// The associations between tracks and item probabilities.
+        /// Associations between tracks and item probabilities.
         /// </summary>
         TrackItemProbabilityIndexes,
 
@@ -286,7 +286,7 @@ namespace EpicEdit.Rom
         TrackObjectHack8,
 
         /// <summary>
-        /// The track object properties (tileset, interaction, routine) for each track.
+        /// Track object properties (tileset, interaction, routine) for each track.
         /// </summary>
         TrackObjectProperties,
 
@@ -320,22 +320,22 @@ namespace EpicEdit.Rom
         TrackObjectPalHack4,
 
         /// <summary>
-        /// The object color palette indexes.
+        /// Object color palette indexes.
         /// </summary>
         TrackObjectPaletteIndexes,
 
         /// <summary>
-        /// The object color flashing setting.
+        /// Object color flashing setting.
         /// </summary>
         TrackObjectFlashing,
 
         /// <summary>
-        /// The tile types for each theme tileset.
+        /// Tile types for each theme tileset.
         /// </summary>
         TileGenres,
 
         /// <summary>
-        /// The tile type indexes for each theme tileset.
+        /// Tile type indexes for each theme tileset.
         /// </summary>
         TileGenreIndexes,
 
@@ -350,7 +350,7 @@ namespace EpicEdit.Rom
         TileGenreLoad,
 
         /// <summary>
-        /// The tile types for each theme tileset (after relocation).
+        /// Tile types for each theme tileset (after relocation).
         /// </summary>
         TileGenresRelocated,
 
