@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
                     this[Offset.DriverNamesTimeTrial] = 0x1DDCA;
                     this[Offset.BattleTrackOrder] = 0x1C022;
                     this[Offset.FirstBattleTrack] = 0x1BF0A;
-                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E74D, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(romBuffer, 0x1E74D);
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FBC4;
                     this[Offset.TrackAIZones] = 0x1FF8C;
                     this[Offset.BattleTrackStartPositions] = 0x18B5F;
@@ -70,7 +70,7 @@ namespace EpicEdit.Rom
                     this[Offset.DriverNamesTimeTrial] = 0x1DDD3;
                     this[Offset.BattleTrackOrder] = 0x1C15C;
                     this[Offset.FirstBattleTrack] = 0x1C04C;
-                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E749, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(romBuffer, 0x1E749);
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FBD3;
                     this[Offset.TrackAIZones] = 0x1FF9B;
                     this[Offset.BattleTrackStartPositions] = 0x18B4B;
@@ -100,7 +100,7 @@ namespace EpicEdit.Rom
                     this[Offset.DriverNamesTimeTrial] = 0x1DC81;
                     this[Offset.BattleTrackOrder] = 0x1BFF8;
                     this[Offset.FirstBattleTrack] = 0x1BEE8;
-                    this[Offset.TrackMaps] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, 0x1E738, 3));
+                    this[Offset.TrackMaps] = Utilities.BytesToOffset(romBuffer, 0x1E738);
                     this[Offset.TrackAIDataFirstAddressByte] = 0x1FB9D;
                     this[Offset.TrackAIZones] = 0x1FF6D;
                     this[Offset.BattleTrackStartPositions] = 0x18B64;
@@ -123,7 +123,7 @@ namespace EpicEdit.Rom
             }
 
             this[Offset.TileGenres] = 0x7FDBA;
-            this[Offset.TileGenresRelocated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.JumpBarCheck] + 1, 3)) + 0x12;
+            this[Offset.TileGenresRelocated] = Utilities.BytesToOffset(romBuffer, this[Offset.JumpBarCheck] + 1) + 0x12;
             this[Offset.ItemIconGraphics] = 0x112F8;
             this[Offset.TrackObjects] = 0x5C800;
             this[Offset.TrackObjectZones] = 0x4DB93;
@@ -136,8 +136,8 @@ namespace EpicEdit.Rom
             this[Offset.TrackObjectHack7] = 0x4DCBD;
             this[Offset.TrackObjectHack8] = 0x4DCC2;
             this[Offset.TrackObjectProperties] = 0x80062;
-            this[Offset.TrackObjectZonesRelocated] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.TrackObjectHack5] + 1, 3)) + 0x6E;
-            this[Offset.TrackObjectPaletteIndexes] = Utilities.BytesToOffset(Utilities.ReadBlock(romBuffer, this[Offset.TrackObjectHack3] + 1, 3)) + 0x13;
+            this[Offset.TrackObjectZonesRelocated] = Utilities.BytesToOffset(romBuffer, this[Offset.TrackObjectHack5] + 1) + 0x6E;
+            this[Offset.TrackObjectPaletteIndexes] = Utilities.BytesToOffset(romBuffer, this[Offset.TrackObjectHack3] + 1) + 0x13;
             this[Offset.TrackObjectFlashing] = this[Offset.TrackObjectPaletteIndexes] + Track.Count * 4;
             this[Offset.CommonTilesetGraphicsLowerBytes] = this[Offset.CommonTilesetGraphicsUpperByte] + 3;
             this[Offset.TileGenreLoad] = this[Offset.CommonTilesetGraphicsUpperByte] + 0x454;
