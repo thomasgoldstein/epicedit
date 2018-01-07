@@ -381,6 +381,16 @@ namespace EpicEdit.Rom
         /// <summary>
         /// How many points drivers get depending on their finishing position, from 1st to 8th.
         /// </summary>
-        RankPoints
+        RankPoints,
+
+        /// <summary>
+        /// Offset to bytes that MAKE modifies, and that Epic Edit needs to reset.
+        /// </summary>
+        MakeDataReset1,
+
+        /// <summary>
+        /// Offset to bytes that MAKE modifies, and that Epic Edit needs to reset.
+        /// </summary>
+        MakeDataReset2
     }
 }

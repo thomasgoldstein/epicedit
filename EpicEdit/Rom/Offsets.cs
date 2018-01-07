@@ -57,6 +57,8 @@ namespace EpicEdit.Rom
                     this[Offset.RoadTilesetHack1] = 0x1E695;
                     this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F04B;
                     this[Offset.RankPoints] = 0x5BE52;
+                    this[Offset.MakeDataReset1] = 0x1E769;
+                    this[Offset.MakeDataReset2] = 0x1FBBE;
                     break;
 
                 case Region.US:
@@ -85,6 +87,8 @@ namespace EpicEdit.Rom
                     this[Offset.RoadTilesetHack1] = 0x1E691;
                     this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F058;
                     this[Offset.RankPoints] = 0x5BEB4;
+                    this[Offset.MakeDataReset1] = 0x1E765;
+                    this[Offset.MakeDataReset2] = 0x1FBCD;
                     break;
 
                 case Region.Euro:
@@ -113,6 +117,8 @@ namespace EpicEdit.Rom
                     this[Offset.RoadTilesetHack1] = 0x1E680;
                     this[Offset.GhostValleyBackgroundAnimationGraphics] = 0x3F058;
                     this[Offset.RankPoints] = 0x5BEBC;
+                    this[Offset.MakeDataReset1] = 0x1EB0A;
+                    this[Offset.MakeDataReset2] = 0x1FB97;
                     break;
             }
 

@@ -439,12 +439,17 @@ namespace EpicEdit.Rom
                 // Now let's try loading the track map without decompressing it, using the MAKE data offsets.
 
                 isMakeTrack = true;
-                int mapOffsetIndex = Game.MakeTrackMapIndexOffset + trackIndex * 4;
+                int mapOffsetIndex = this.GetMakeTrackMapOffset(trackIndex);
                 mapOffset = Utilities.BytesToOffset(this.romBuffer[mapOffsetIndex], this.romBuffer[mapOffsetIndex + 1], this.romBuffer[mapOffsetIndex + 2]);
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
 
             return trackMap;
+        }
+
+        private int GetMakeTrackMapOffset(int trackIndex)
+        {
+            return Game.MakeTrackMapIndexOffset + trackIndex * 4;
         }
 
         private void SetRegion()
@@ -1103,6 +1108,7 @@ namespace EpicEdit.Rom
 
             this.Settings.Save(this.romBuffer);
             this.SaveCupAndTrackNames();
+            this.ResetTrackLoadingLogic();
         }
 
         private void SetChecksum()
@@ -1812,7 +1818,7 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    if (trackGroup[j].Modified)
+                    if (trackGroup[j].Modified || IsMakeTrack(trackIndex))
                     {
                         this.SaveTrack(trackGroup[j], iterator, trackIndex, saveBuffer);
                     }
@@ -1827,6 +1833,17 @@ namespace EpicEdit.Rom
                     }
                 }
             }
+        }
+
+        private bool IsMakeTrack(int trackIndex)
+        {
+            // HACK: We need to detect whether a track has been modified with MAKE in order to make sure
+            // we compress its track map when resaving the ROM, as MAKE does not compress track maps.
+            // We don't want to bother handling both compressed and uncompressed track maps when resaving them.
+
+            return
+                this.romBuffer[this.offsets[Offset.MakeDataReset2]] != 0xBD && // Is MAKE ROM
+                this.GetMakeTrackMapOffset(trackIndex) != 0; // Is MAKE Track
         }
 
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
@@ -2052,6 +2069,27 @@ namespace EpicEdit.Rom
             }
 
             this.romBuffer[nameOffset++] = 0xFF;
+        }
+
+        private void ResetTrackLoadingLogic()
+        {
+            // HACK: MAKE modifies these bytes in order to relocate track-related data.
+            // I'm not sure what they are or reference, but they're probably related to track map and AI data.
+            // In order to keep MAKE ROMs working when resaving them, we need to reset them to their original values,
+            // because we do not save data the way MAKE does.
+
+            int offset1 = this.offsets[Offset.MakeDataReset1];
+            int offset2 = this.offsets[Offset.MakeDataReset2];
+
+            this.romBuffer[offset1] = this.region == Region.US ? (byte)0x9E : (byte)0x41;
+            this.romBuffer[offset1 + 1] = this.region == Region.US ? (byte)0xE0 : (byte)0xDF;
+            this.romBuffer[offset1 + 2] = this.region == Region.US ? (byte)0x84 : (byte)0x84;
+
+            this.romBuffer[offset2] = 0xBD;
+            this.romBuffer[offset2 + 1] = this.region == Region.Jap ? (byte)0x8C : this.region == Region.Euro ? (byte)0x6D : (byte)0x9B;
+            this.romBuffer[offset2 + 2] = 0xFF;
+            this.romBuffer[offset2 + 3] = 0x85;
+            this.romBuffer[offset2 + 4] = 0x08;
         }
 
         private void SaveFile()
