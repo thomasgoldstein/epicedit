@@ -144,6 +144,10 @@ namespace EpicEdit.Rom
             this[Offset.RoadTilesetHack2] = this[Offset.RoadTilesetHack1] + 0x28;
             this[Offset.RoadTilesetHack3] = this[Offset.RoadTilesetHack2] + 0x38;
             this[Offset.RoadTilesetHack4] = this[Offset.RoadTilesetHack3] + 0x92;
+            this[Offset.NewBattleStart] = 0x80000;
+            this[Offset.MakeAIZone] = 0x80080;
+            this[Offset.MakeAITarget] = this[Offset.MakeAIZone] + 128;
+            this[Offset.MakeTrackMap] = this[Offset.MakeAITarget] + 128;
 
             this[Offset.TopBorderTileLayout] = this[Offset.ItemIconTileLayout] + 0x507;
             this[Offset.TrackItemProbabilityIndexes] = this[Offset.BattleTrackStartPositions] + 0x28;

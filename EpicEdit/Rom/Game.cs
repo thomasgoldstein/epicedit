@@ -47,10 +47,6 @@ namespace EpicEdit.Rom
         private const int ChecksumOffset2 = 0xFFDD;
         private const int ChecksumOffset3 = 0xFFDE;
         private const int ChecksumOffset4 = 0xFFDF;
-        private const int NewBattleStartOffset = 0x80000;
-        private const int MakeAIZoneIndexOffset = 0x80080;
-        private const int MakeAITargetIndexOffset = Game.MakeAIZoneIndexOffset + 128;
-        private const int MakeTrackMapIndexOffset = Game.MakeAITargetIndexOffset + 128;
 
         #endregion Constants
 
@@ -449,7 +445,7 @@ namespace EpicEdit.Rom
 
         private int GetMakeTrackMapOffset(int trackIndex)
         {
-            return Game.MakeTrackMapIndexOffset + trackIndex * 4;
+            return this.offsets[Offset.MakeTrackMap] + trackIndex * 4;
         }
 
         private void SetRegion()
@@ -646,7 +642,7 @@ namespace EpicEdit.Rom
 
             if (this.BattleStartPositionsRelocated)
             {
-                startPositionOffset = Game.NewBattleStartOffset + bTrackIndex * 8;
+                startPositionOffset = this.offsets[Offset.NewBattleStart] + bTrackIndex * 8;
             }
             else
             {
@@ -902,8 +898,8 @@ namespace EpicEdit.Rom
             }
             else
             {
-                int aiZoneDataOffsetIndex = Game.MakeAIZoneIndexOffset + trackIndex * 3;
-                int aiTargetDataOffsetIndex = Game.MakeAITargetIndexOffset + trackIndex * 3;
+                int aiZoneDataOffsetIndex = this.offsets[Offset.MakeAIZone] + trackIndex * 3;
+                int aiTargetDataOffsetIndex = this.offsets[Offset.MakeAITarget] + trackIndex * 3;
                 aiZoneDataOffset = Utilities.BytesToOffset(this.romBuffer[aiZoneDataOffsetIndex], this.romBuffer[aiZoneDataOffsetIndex + 1], this.romBuffer[aiZoneDataOffsetIndex + 2]);
                 aiTargetDataOffset = Utilities.BytesToOffset(this.romBuffer[aiTargetDataOffsetIndex], this.romBuffer[aiTargetDataOffsetIndex + 1], this.romBuffer[aiTargetDataOffsetIndex + 2]);
             }

@@ -384,6 +384,26 @@ namespace EpicEdit.Rom
         RankPoints,
 
         /// <summary>
+        /// Battle starting position data after Epic Edit has resaved a ROM.
+        /// </summary>
+        NewBattleStart,
+
+        /// <summary>
+        /// Offset to indexes that MAKE uses to save AI zone data.
+        /// </summary>
+        MakeAIZone,
+
+        /// <summary>
+        /// Offset to indexes that MAKE uses to save AI target data.
+        /// </summary>
+        MakeAITarget,
+
+        /// <summary>
+        /// Offset to indexes that MAKE uses to save track map data.
+        /// </summary>
+        MakeTrackMap,
+
+        /// <summary>
         /// Offset to bytes that MAKE modifies, and that Epic Edit needs to reset.
         /// </summary>
         MakeDataReset1,
