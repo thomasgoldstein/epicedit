@@ -1,7 +1,7 @@
 Epic Edit
 Super Mario Kart track editor
 
-Copyright 2007, 2017 Thomas Goldstein aka Stifu
+Copyright 2007, 2018 Thomas Goldstein aka Stifu
 
 Thanks to: Presea, Midwife, Cragz, smkdan, Ok Impala!, teknix1 and Scoub
 Epic Edit icon by Stifu
