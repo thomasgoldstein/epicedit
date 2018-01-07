@@ -48,7 +48,9 @@ namespace EpicEdit.Rom
         private const int ChecksumOffset3 = 0xFFDE;
         private const int ChecksumOffset4 = 0xFFDF;
         private const int NewBattleStartOffset = 0x80000;
-        private const int MakeTrackMapOffset = 0x90000;
+        private const int MakeAIZoneIndexOffset = 0x80080;
+        private const int MakeAITargetIndexOffset = Game.MakeAIZoneIndexOffset + 128;
+        private const int MakeTrackMapIndexOffset = Game.MakeAITargetIndexOffset + 128;
 
         #endregion Constants
 
@@ -329,8 +331,6 @@ namespace EpicEdit.Rom
             byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIZones], Track.Count * 2); // 2 offset bytes per track
             byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAITargets], Track.Count * 2); // 2 offset bytes per track
 
-            int uncompressedMapIterator = 0; // HACK: Iterator that allows us to handle uncompressed track maps (used for MAKE ROM compatibility).
-
             for (int i = 0; i < this.TrackGroups.Count; i++)
             {
                 int trackCountInGroup;
@@ -367,9 +367,9 @@ namespace EpicEdit.Rom
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
-                    byte[] trackMap = this.GetTrackMap(mapOffsets[trackIndex], ref uncompressedMapIterator);
+                    byte[] trackMap = this.GetTrackMap(trackIndex, mapOffsets[trackIndex], out bool isMakeTrack);
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
-                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
+                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, isMakeTrack, out byte[] aiZoneData, out byte[] aiTargetData);
 
                     if (trackIndex < GPTrack.Count) // GP track
                     {
@@ -426,8 +426,9 @@ namespace EpicEdit.Rom
             return trackNameItem;
         }
 
-        private byte[] GetTrackMap(int mapOffset, ref int uncompressedMapIterator)
+        private byte[] GetTrackMap(int trackIndex, int mapOffset, out bool isMakeTrack)
         {
+            isMakeTrack = false;
             byte[] trackMap = Codec.Decompress(this.romBuffer, mapOffset, true);
 
             if (trackMap.Length == 0)
@@ -435,9 +436,11 @@ namespace EpicEdit.Rom
                 // HACK: The decompressed track map has a size of 0.
                 // This may be due to the fact this ROM has been saved with MAKE (another SMK editor),
                 // which does not compress track maps and just leaves them uncompressed, unlike the original game.
-                // Try loading the track map without decompressing it.
+                // Now let's try loading the track map without decompressing it, using the MAKE data offsets.
 
-                mapOffset = Game.MakeTrackMapOffset + uncompressedMapIterator++ * TrackMap.SquareSize; // The MAKE map offset
+                isMakeTrack = true;
+                int mapOffsetIndex = Game.MakeTrackMapIndexOffset + trackIndex * 4;
+                mapOffset = Utilities.BytesToOffset(this.romBuffer[mapOffsetIndex], this.romBuffer[mapOffsetIndex + 1], this.romBuffer[mapOffsetIndex + 2]);
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
 
@@ -881,14 +884,26 @@ namespace EpicEdit.Rom
 
         #region AI
 
-        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
+        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, bool isMakeTrack, out byte[] aiZoneData, out byte[] aiTargetData)
         {
             int aiOffset = trackIndex * 2;
+            int aiZoneDataOffset;
+            int aiTargetDataOffset;
 
-            int aiZoneDataOffset = Utilities.BytesToOffset(aiZoneOffsets[aiOffset], aiZoneOffsets[aiOffset + 1], aiOffsetBase);
+            if (!isMakeTrack)
+            {
+                aiZoneDataOffset = Utilities.BytesToOffset(aiZoneOffsets[aiOffset], aiZoneOffsets[aiOffset + 1], aiOffsetBase);
+                aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
+            }
+            else
+            {
+                int aiZoneDataOffsetIndex = Game.MakeAIZoneIndexOffset + trackIndex * 3;
+                int aiTargetDataOffsetIndex = Game.MakeAITargetIndexOffset + trackIndex * 3;
+                aiZoneDataOffset = Utilities.BytesToOffset(this.romBuffer[aiZoneDataOffsetIndex], this.romBuffer[aiZoneDataOffsetIndex + 1], this.romBuffer[aiZoneDataOffsetIndex + 2]);
+                aiTargetDataOffset = Utilities.BytesToOffset(this.romBuffer[aiTargetDataOffsetIndex], this.romBuffer[aiTargetDataOffsetIndex + 1], this.romBuffer[aiTargetDataOffsetIndex + 2]);
+            }
+
             aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
-
-            int aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
             int aiTargetDataLength = TrackAI.GetTargetDataLength(aiZoneData);
             aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
         }
