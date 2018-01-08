@@ -363,9 +363,9 @@ namespace EpicEdit.Rom
 
                     int themeId = trackThemes[trackIndex] >> 1;
                     Theme trackTheme = this.Themes[themeId];
-                    byte[] trackMap = this.GetTrackMap(trackIndex, mapOffsets[trackIndex], out bool isMakeTrack);
+                    byte[] trackMap = this.GetTrackMap(trackIndex, mapOffsets[trackIndex]);
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
-                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, isMakeTrack, out byte[] aiZoneData, out byte[] aiTargetData);
+                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
 
                     if (trackIndex < GPTrack.Count) // GP track
                     {
@@ -422,19 +422,20 @@ namespace EpicEdit.Rom
             return trackNameItem;
         }
 
-        private byte[] GetTrackMap(int trackIndex, int mapOffset, out bool isMakeTrack)
+        private byte[] GetTrackMap(int trackIndex, int mapOffset)
         {
-            isMakeTrack = false;
-            byte[] trackMap = Codec.Decompress(this.romBuffer, mapOffset, true);
+            byte[] trackMap;
 
-            if (trackMap.Length == 0)
+            if (!this.IsMakeTrack(trackIndex))
             {
-                // HACK: The decompressed track map has a size of 0.
-                // This may be due to the fact this ROM has been saved with MAKE (another SMK editor),
+                trackMap = Codec.Decompress(this.romBuffer, mapOffset, true);
+            }
+            else
+            {
+                // HACK: It seems like this track has been saved with MAKE,
                 // which does not compress track maps and just leaves them uncompressed, unlike the original game.
-                // Now let's try loading the track map without decompressing it, using the MAKE data offsets.
+                // Let's load the track map without decompressing it, using the MAKE data offsets.
 
-                isMakeTrack = true;
                 mapOffset = this.GetMakeTrackMapOffset(trackIndex);
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
@@ -446,6 +447,13 @@ namespace EpicEdit.Rom
         {
             int mapOffsetIndex = this.offsets[Offset.MakeTrackMap] + trackIndex * 4;
             return Utilities.BytesToOffset(this.romBuffer, mapOffsetIndex);
+        }
+
+        private bool IsMakeTrack(int trackIndex)
+        {
+            return
+                this.romBuffer[this.offsets[Offset.MakeDataReset2]] != 0xBD && // Is MAKE ROM
+                this.GetMakeTrackMapOffset(trackIndex) != 0; // Is MAKE Track
         }
 
         private void SetRegion()
@@ -885,13 +893,13 @@ namespace EpicEdit.Rom
 
         #region AI
 
-        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, bool isMakeTrack, out byte[] aiZoneData, out byte[] aiTargetData)
+        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
         {
             int aiOffset = trackIndex * 2;
             int aiZoneDataOffset;
             int aiTargetDataOffset;
 
-            if (!isMakeTrack)
+            if (!this.IsMakeTrack(trackIndex))
             {
                 aiZoneDataOffset = Utilities.BytesToOffset(aiZoneOffsets[aiOffset], aiZoneOffsets[aiOffset + 1], aiOffsetBase);
                 aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
@@ -1816,6 +1824,9 @@ namespace EpicEdit.Rom
 
                     if (trackGroup[j].Modified || this.IsMakeTrack(trackIndex))
                     {
+                        // HACK: We need to detect whether a track has been modified with MAKE in order to make sure
+                        // we compress its track map when resaving the ROM, as MAKE does not compress track maps.
+                        // We don't want to bother handling both compressed and uncompressed track maps when resaving them.
                         this.SaveTrack(trackGroup[j], iterator, trackIndex, saveBuffer);
                     }
                     else
@@ -1829,17 +1840,6 @@ namespace EpicEdit.Rom
                     }
                 }
             }
-        }
-
-        private bool IsMakeTrack(int trackIndex)
-        {
-            // HACK: We need to detect whether a track has been modified with MAKE in order to make sure
-            // we compress its track map when resaving the ROM, as MAKE does not compress track maps.
-            // We don't want to bother handling both compressed and uncompressed track maps when resaving them.
-
-            return
-                this.romBuffer[this.offsets[Offset.MakeDataReset2]] != 0xBD && // Is MAKE ROM
-                this.GetMakeTrackMapOffset(trackIndex) != 0; // Is MAKE Track
         }
 
         private void SaveTrack(Track track, int iterator, int trackIndex, SaveBuffer saveBuffer)
