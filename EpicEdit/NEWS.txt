@@ -9,6 +9,8 @@ v2.8.4 (??? 2018)
 - Added support for ROMs with invalid track name data
 - Fixed 2.8.2 regression that updated the starting position row offset data
   if the current precision did not allow the value of the loaded track
+- Tweaked the AI selection behavior. If multiple AI targets are at the same
+  hovered location, then give the hover priority to the selected AI element
 
 
 v2.8.3 (October 14th 2017)
