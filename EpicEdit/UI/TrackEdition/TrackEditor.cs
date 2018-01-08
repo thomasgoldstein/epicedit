@@ -2638,6 +2638,18 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             // Try to hover AI target
+            // Priority to selected element
+            if (this.aiControl.SelectedElement != null &&
+                this.aiControl.SelectedElement.Target.X == hoveredTilePosition.X &&
+                this.aiControl.SelectedElement.Target.Y == hoveredTilePosition.Y)
+            {
+                // Hover AI target
+                this.hoveredAIElem = this.aiControl.SelectedElement;
+                this.aiAction = AIAction.DragTarget;
+                this.trackDisplay.Cursor = Cursors.Hand;
+                return true;
+            }
+
             foreach (TrackAIElement trackAIElem in this.track.AI)
             {
                 if (trackAIElem.Target.X == hoveredTilePosition.X &&
@@ -2651,6 +2663,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
+            // Try to hover AI zone
             // Priority to selected element
             if (this.aiControl.SelectedElement != null &&
                 this.TryToHoverAIZone(this.aiControl.SelectedElement, hoveredTilePosition))
@@ -2660,7 +2673,6 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
-            // Try to hover AI zone
             if (this.hoveredAIElem != null &&
                 this.TryToHoverAIZone(this.hoveredAIElem, hoveredTilePosition))
             {
