@@ -1814,7 +1814,7 @@ namespace EpicEdit.Rom
                     int iterator = i * GPTrack.CountPerGroup + j;
                     int trackIndex = trackOrder[iterator];
 
-                    if (trackGroup[j].Modified || IsMakeTrack(trackIndex))
+                    if (trackGroup[j].Modified || this.IsMakeTrack(trackIndex))
                     {
                         this.SaveTrack(trackGroup[j], iterator, trackIndex, saveBuffer);
                     }
