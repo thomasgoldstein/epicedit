@@ -144,8 +144,7 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < offsetCount; i++)
             {
-                byte[] address = Utilities.ReadBlock(buffer, offset + (i * OffsetSize), OffsetSize);
-                offsetGroup[i] = Utilities.BytesToOffset(address);
+                offsetGroup[i] = Utilities.BytesToOffset(buffer, offset + (i * OffsetSize));
             }
 
             return offsetGroup;
