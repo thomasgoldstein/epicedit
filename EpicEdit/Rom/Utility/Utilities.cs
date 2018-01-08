@@ -154,11 +154,6 @@ namespace EpicEdit.Rom.Utility
 
         #region Bytes <-> Offset conversion
 
-        public static int BytesToOffset(byte[] data)
-        {
-            return Utilities.BytesToOffset(data, 0);
-        }
-
         public static int BytesToOffset(byte[] data, int start)
         {
             return Utilities.BytesToOffset(data[start], data[start + 1], data[start + 2]);
