@@ -435,8 +435,7 @@ namespace EpicEdit.Rom
                 // Now let's try loading the track map without decompressing it, using the MAKE data offsets.
 
                 isMakeTrack = true;
-                int mapOffsetIndex = this.GetMakeTrackMapOffset(trackIndex);
-                mapOffset = Utilities.BytesToOffset(this.romBuffer[mapOffsetIndex], this.romBuffer[mapOffsetIndex + 1], this.romBuffer[mapOffsetIndex + 2]);
+                mapOffset = this.GetMakeTrackMapOffset(trackIndex);
                 trackMap = Utilities.ReadBlock(this.romBuffer, mapOffset, TrackMap.SquareSize);
             }
 
@@ -445,7 +444,8 @@ namespace EpicEdit.Rom
 
         private int GetMakeTrackMapOffset(int trackIndex)
         {
-            return this.offsets[Offset.MakeTrackMap] + trackIndex * 4;
+            int mapOffsetIndex = this.offsets[Offset.MakeTrackMap] + trackIndex * 4;
+            return Utilities.BytesToOffset(this.romBuffer, mapOffsetIndex);
         }
 
         private void SetRegion()
