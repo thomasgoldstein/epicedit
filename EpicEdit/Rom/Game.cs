@@ -909,8 +909,8 @@ namespace EpicEdit.Rom
             {
                 int aiZoneDataOffsetIndex = this.offsets[Offset.MakeAIZone] + trackIndex * 3;
                 int aiTargetDataOffsetIndex = this.offsets[Offset.MakeAITarget] + trackIndex * 3;
-                aiZoneDataOffset = Utilities.BytesToOffset(this.romBuffer[aiZoneDataOffsetIndex], this.romBuffer[aiZoneDataOffsetIndex + 1], this.romBuffer[aiZoneDataOffsetIndex + 2]);
-                aiTargetDataOffset = Utilities.BytesToOffset(this.romBuffer[aiTargetDataOffsetIndex], this.romBuffer[aiTargetDataOffsetIndex + 1], this.romBuffer[aiTargetDataOffsetIndex + 2]);
+                aiZoneDataOffset = Utilities.BytesToOffset(this.romBuffer, aiZoneDataOffsetIndex);
+                aiTargetDataOffset = Utilities.BytesToOffset(this.romBuffer, aiTargetDataOffsetIndex);
             }
 
             aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);

@@ -184,9 +184,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                     break;
             }
 
-            return Utilities.BytesToOffset(romBuffer[offsetLocation],
-                                           romBuffer[offsetLocation + 1],
-                                           romBuffer[offsetLocation + 2]);
+            return Utilities.BytesToOffset(romBuffer, offsetLocation);
         }
 
         public void Dispose()
