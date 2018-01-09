@@ -4,7 +4,7 @@ Epic Edit, Super Mario Kart track editor by Stifu and pals
 
 v2.8.4 (??? 2018)
 - Added support for loading and saving ROMs saved with MAKE
-  NB: track object properties are not loaded and need to be set manually,
+  NB: track object behaviors are not loaded and need to be set manually,
   because Epic Edit does not handle objects the way MAKE does
 - Added support for ROMs with invalid track name data
 - Fixed 2.8.2 regression that updated the starting position row offset data
