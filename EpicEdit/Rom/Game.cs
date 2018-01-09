@@ -735,6 +735,8 @@ namespace EpicEdit.Rom
 
         private static ObjectType GetObjectType(int themeId, int trackIndex)
         {
+            // HACK: We guess the object type based on the track index or theme.
+            // It must be possible to retrieve the actual object properties from somewhere.
             ObjectType objectType;
 
             if (trackIndex == 19) // Donut Plains 1
