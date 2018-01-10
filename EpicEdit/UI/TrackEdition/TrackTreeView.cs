@@ -147,7 +147,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private static string GetTrackText(Track track)
         {
-            return track.Name + (!track.Modified ? null : "*"); ;
+            return track.Name + (!track.Modified ? null : "*");
         }
 
         private void TreeViewBeforeCollapse(object sender, TreeViewCancelEventArgs e)
