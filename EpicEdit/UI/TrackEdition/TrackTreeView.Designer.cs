@@ -51,7 +51,6 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.treeView.AllowDrop = true;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.FullRowSelect = true;
             this.treeView.HideSelection = false;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
@@ -71,6 +70,7 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.treeView);
             this.Name = "TrackTreeView";
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.TreeView treeView;
     }
