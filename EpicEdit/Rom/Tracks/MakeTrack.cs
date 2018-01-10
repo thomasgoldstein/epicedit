@@ -465,24 +465,21 @@ namespace EpicEdit.Rom
 
             int count = this.AREA.Length / LineLength;
 
-            for (int x = 0; x < count; x++)
+            for (int x = 0; x < count && this.AREA[x * LineLength] != 0xFF; x++)
             {
-                if (this.AREA[x * LineLength] != 0xFF)
-                {
-                    // Reorder the target data bytes
-                    targetDataList.Add(this.AREA[x * LineLength + 1]);
-                    targetDataList.Add(this.AREA[x * LineLength + 2]);
-                    targetDataList.Add(this.AREA[x * LineLength]);
+                // Reorder the target data bytes
+                targetDataList.Add(this.AREA[x * LineLength + 1]);
+                targetDataList.Add(this.AREA[x * LineLength + 2]);
+                targetDataList.Add(this.AREA[x * LineLength]);
 
-                    byte zoneShape = this.AREA[x * LineLength + 16];
-                    zoneDataList.Add(zoneShape);
-                    zoneDataList.Add(this.AREA[x * LineLength + 17]);
-                    zoneDataList.Add(this.AREA[x * LineLength + 18]);
-                    zoneDataList.Add(this.AREA[x * LineLength + 19]);
-                    if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
-                    {
-                        zoneDataList.Add(this.AREA[x * LineLength + 20]);
-                    }
+                byte zoneShape = this.AREA[x * LineLength + 16];
+                zoneDataList.Add(zoneShape);
+                zoneDataList.Add(this.AREA[x * LineLength + 17]);
+                zoneDataList.Add(this.AREA[x * LineLength + 18]);
+                zoneDataList.Add(this.AREA[x * LineLength + 19]);
+                if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
+                {
+                    zoneDataList.Add(this.AREA[x * LineLength + 20]);
                 }
             }
 
