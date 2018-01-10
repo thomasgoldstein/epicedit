@@ -119,10 +119,10 @@ namespace EpicEdit.Rom.Tracks
             private set
             {
                 byte[] data = value.GetBytes();
-                byte[] zoneData = new byte[data.Length - value.ElementCount * 3];
-                byte[] targetData = new byte[data.Length - zoneData.Length];
+                byte[] zoneData = new byte[data.Length - value.ElementCount * 3 - 1];
+                byte[] targetData = new byte[data.Length - zoneData.Length - 1];
                 Buffer.BlockCopy(data, 0, zoneData, 0, zoneData.Length);
-                Buffer.BlockCopy(data, zoneData.Length, targetData, 0, targetData.Length);
+                Buffer.BlockCopy(data, zoneData.Length + 1, targetData, 0, targetData.Length);
                 this.ai.SetBytes(zoneData, targetData);
             }
         }
