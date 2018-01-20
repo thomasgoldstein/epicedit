@@ -12,6 +12,7 @@ Data pack 2 / <b>General and functional data</b><br>
  <tr><th>Address</th><th>Data</th></tr>
  <tr class="unknown"><td colspan="2">Unknown data (!)</td></tr>
  <tr><td>848E -> 849D</td><td>Color palette used by each driver<br>(Altering these won't affect the palettes used when characters are squashed or in the trophy sequence)</td></tr>
+ <tr><td>874D -> 874E</td><td>Change these 2 bytes from B0 89 to EA EA to disable the demo that plays at the end of the title screen.</td></tr>
  <tr><td>8F23 -> 8F24</td><td>Which character uses the special graphic routine (Luigi)<br>(Note 2: Change 8F25 from BNE to BRA (D0 to 80) to disable this. You will also have to change Luigi's value in the table at 9080.)</td></tr>
  <tr><td>8F30 -> 8F31</td><td>Which character's sprite Luigi copies when far away/shrunken (from table at 9080)</td></tr>
  <tr><td>9043 -> 9044</td><td>Luigi's body (all angles except for full front/back)</td></tr>
