@@ -452,9 +452,9 @@ namespace EpicEdit.Rom
         private bool IsMakeTrack(int trackIndex)
         {
             return
-                this.romBuffer.Length > RomSize.Size512 && // Expanded ROM
                 this.romBuffer[this.offsets[Offset.MakeDataReset2]] != 0xBD && // Is MAKE ROM
-                this.GetMakeTrackMapOffset(trackIndex) != 0; // Is MAKE Track
+                this.romBuffer.Length > RomSize.Size512 && // Is expanded ROM
+                this.GetMakeTrackMapOffset(trackIndex) != 0; // Is MAKE track
         }
 
         private void SetRegion()
