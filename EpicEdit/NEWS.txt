@@ -7,6 +7,8 @@ v2.8.4 (??? 2018)
   NB: track object behaviors are not loaded and need to be set manually,
   because Epic Edit does not handle objects the way MAKE does
 - Added support for ROMs with invalid track name data
+- Changed AI element intersection handling logic to let users
+  set them up manually, instead of trying to automatically detect them
 - Fixed 2.8.2 regression that updated the starting position row offset data
   if the current precision did not allow the value of the loaded track
 - Tweaked the AI selection behavior. If multiple AI targets are at the same
