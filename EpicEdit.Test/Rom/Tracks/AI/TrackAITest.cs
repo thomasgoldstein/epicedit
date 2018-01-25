@@ -44,5 +44,15 @@ namespace EpicEdit.Test.Rom.Tracks.AI
             byte[] targetData = File.ReadBlock(romBuffer, 0x60F5A, 90);
             this.TestGetBytes(zoneData, targetData);
         }
+
+        [Test]
+        public void TestGetBytesMarioCircuit2()
+        {
+            // NOTE: Mario Circuit 2 has an intersection, good to test
+            byte[] romBuffer = File.ReadRom(Region.US);
+            byte[] zoneData = File.ReadBlock(romBuffer, 0x617D9, 169);
+            byte[] targetData = File.ReadBlock(romBuffer, 0x61883, 105);
+            this.TestGetBytes(zoneData, targetData);
+        }
     }
 }
