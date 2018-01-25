@@ -98,6 +98,7 @@ namespace EpicEdit.Rom
             public const string Index = "Index"; // NOTE: Dummy property name
             public const string Location = nameof(Tracks.AI.TrackAIElement.Location);
             public const string Speed = nameof(Tracks.AI.TrackAIElement.Speed);
+            public const string IsIntersection = nameof(Tracks.AI.TrackAIElement.IsIntersection);
             public const string Target = nameof(Tracks.AI.TrackAIElement.Target);
             public const string Zone = nameof(Tracks.AI.TrackAIElement.Zone);
             public const string ZoneShape = nameof(Tracks.AI.TrackAIElement.ZoneShape);

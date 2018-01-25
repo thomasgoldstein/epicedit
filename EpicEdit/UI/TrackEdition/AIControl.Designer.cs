@@ -49,6 +49,7 @@ namespace EpicEdit.UI.TrackEdition
             System.Windows.Forms.Label shapeLabel;
             System.Windows.Forms.Label speedLabel;
             this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
+            this.isIntersectionCheckBox = new System.Windows.Forms.CheckBox();
             this.cloneButton = new System.Windows.Forms.Button();
             this.indexNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.deleteButton = new System.Windows.Forms.Button();
@@ -96,6 +97,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // selectedAIElementGroupBox
             // 
+            this.selectedAIElementGroupBox.Controls.Add(this.isIntersectionCheckBox);
             this.selectedAIElementGroupBox.Controls.Add(this.cloneButton);
             this.selectedAIElementGroupBox.Controls.Add(this.indexNumericUpDown);
             this.selectedAIElementGroupBox.Controls.Add(aiIndexLabel);
@@ -106,18 +108,29 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox.Controls.Add(this.speedNumericUpDown);
             this.selectedAIElementGroupBox.Location = new System.Drawing.Point(2, 120);
             this.selectedAIElementGroupBox.Name = "selectedAIElementGroupBox";
-            this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 199);
+            this.selectedAIElementGroupBox.Size = new System.Drawing.Size(124, 226);
             this.selectedAIElementGroupBox.TabIndex = 1;
             this.selectedAIElementGroupBox.TabStop = false;
             this.selectedAIElementGroupBox.Text = "Selected Element";
             // 
+            // isIntersectionCheckBox
+            // 
+            this.isIntersectionCheckBox.AutoSize = true;
+            this.isIntersectionCheckBox.Location = new System.Drawing.Point(10, 163);
+            this.isIntersectionCheckBox.Name = "isIntersectionCheckBox";
+            this.isIntersectionCheckBox.Size = new System.Drawing.Size(81, 17);
+            this.isIntersectionCheckBox.TabIndex = 6;
+            this.isIntersectionCheckBox.Text = "Intersection";
+            this.isIntersectionCheckBox.UseVisualStyleBackColor = true;
+            this.isIntersectionCheckBox.CheckedChanged += new System.EventHandler(this.IsIntersectionCheckBoxCheckedChanged);
+            // 
             // cloneButton
             // 
             this.cloneButton.Image = global::EpicEdit.Properties.Resources.CopyButton;
-            this.cloneButton.Location = new System.Drawing.Point(60, 168);
+            this.cloneButton.Location = new System.Drawing.Point(61, 195);
             this.cloneButton.Name = "cloneButton";
             this.cloneButton.Size = new System.Drawing.Size(24, 24);
-            this.cloneButton.TabIndex = 6;
+            this.cloneButton.TabIndex = 7;
             this.buttonToolTip.SetToolTip(this.cloneButton, "Clone element");
             this.cloneButton.UseVisualStyleBackColor = true;
             this.cloneButton.Click += new System.EventHandler(this.CloneButtonClick);
@@ -139,10 +152,10 @@ namespace EpicEdit.UI.TrackEdition
             // deleteButton
             // 
             this.deleteButton.Image = global::EpicEdit.Properties.Resources.DeleteButton;
-            this.deleteButton.Location = new System.Drawing.Point(90, 168);
+            this.deleteButton.Location = new System.Drawing.Point(90, 195);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteButton.TabIndex = 7;
+            this.deleteButton.TabIndex = 8;
             this.buttonToolTip.SetToolTip(this.deleteButton, "Delete element");
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
@@ -175,7 +188,7 @@ namespace EpicEdit.UI.TrackEdition
             // deleteAllButton
             // 
             this.deleteAllButton.Image = global::EpicEdit.Properties.Resources.NukeButton;
-            this.deleteAllButton.Location = new System.Drawing.Point(92, 325);
+            this.deleteAllButton.Location = new System.Drawing.Point(92, 352);
             this.deleteAllButton.Name = "deleteAllButton";
             this.deleteAllButton.Size = new System.Drawing.Size(24, 24);
             this.deleteAllButton.TabIndex = 3;
@@ -186,7 +199,7 @@ namespace EpicEdit.UI.TrackEdition
             // addButton
             // 
             this.addButton.Image = global::EpicEdit.Properties.Resources.AddButton;
-            this.addButton.Location = new System.Drawing.Point(63, 325);
+            this.addButton.Location = new System.Drawing.Point(63, 352);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(24, 24);
             this.addButton.TabIndex = 2;
@@ -209,7 +222,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             // warningLabel
             // 
-            this.warningLabel.Location = new System.Drawing.Point(4, 358);
+            this.warningLabel.Location = new System.Drawing.Point(4, 385);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(122, 44);
             this.warningLabel.TabIndex = 4;
@@ -244,8 +257,9 @@ namespace EpicEdit.UI.TrackEdition
             this.Controls.Add(this.deleteAllButton);
             this.Controls.Add(this.selectedAIElementGroupBox);
             this.Name = "AIControl";
-            this.Size = new System.Drawing.Size(130, 410);
+            this.Size = new System.Drawing.Size(130, 437);
             this.selectedAIElementGroupBox.ResumeLayout(false);
+            this.selectedAIElementGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indexNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedNumericUpDown)).EndInit();
             this.itemProbaGroupBox.ResumeLayout(false);
@@ -265,5 +279,6 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Button deleteButton;
         private EpicEdit.UI.Tools.EpicNumericUpDown speedNumericUpDown;
         private System.Windows.Forms.GroupBox selectedAIElementGroupBox;
+        private System.Windows.Forms.CheckBox isIntersectionCheckBox;
     }
 }

@@ -98,6 +98,27 @@ namespace EpicEdit.Rom.Tracks.AI
             }
         }
 
+        private bool isIntersection;
+        /// <summary>
+        /// Gets or sets a value that determines if the element is at an intersection.
+        /// When an AI element is flagged as an intersection, this tells the AI to ignore
+        /// the intersected AI zone, and avoids track object display issues when switching zones.
+        /// </summary>
+        public bool IsIntersection
+        {
+            get => this.isIntersection;
+            set
+            {
+                if (this.isIntersection == value)
+                {
+                    return;
+                }
+
+                this.isIntersection = value;
+                this.OnPropertyChanged(PropertyNames.TrackAIElement.IsIntersection);
+            }
+        }
+
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
@@ -155,13 +176,9 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
-            this.speed = (byte)(targetData[targetDataIndex++] & 0x03);
-            // In the original SMK ROM, Mario Circuit 2 has an AI element that has 0x80
-            // tacked on its speed value. This is made to avoid a problem regarding object zones,
-            // so that when doing the jump over the other road, the 4 pipes in front of you
-            // still show up despite the fact you're over a different object zone at this point.
-            // The extra 0x80 value is not actually related to the speed
-            // (and will automatically be regenerated when resaving the AI), hence the bit mask.
+            byte speedAndTarget = targetData[targetDataIndex++];
+            this.speed = (byte)(speedAndTarget & 0x03);
+            this.isIntersection = (speedAndTarget & 0x80) == 0x80;
         }
 
         public TrackAIElement(Point position)
@@ -1020,7 +1037,7 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             data[index++] = (byte)this.target.X;
             data[index++] = (byte)this.target.Y;
-            data[index++] = this.speed;
+            data[index++] = (byte)(this.speed + (!this.isIntersection ? 0x00 : 0x80));
         }
 
         /// <summary>
