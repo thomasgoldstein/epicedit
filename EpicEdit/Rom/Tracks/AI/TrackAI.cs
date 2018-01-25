@@ -196,7 +196,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             foreach (TrackAIElement aiElement in this.aiElements)
             {
-                zoneDataLength += aiElement.ZoneShape == Shape.Rectangle ? 5 : 4;
+                zoneDataLength += aiElement.ZoneShape == TrackAIElementShape.Rectangle ? 5 : 4;
             }
 
             return zoneDataLength;

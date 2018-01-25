@@ -145,7 +145,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
                 switch (aiElem.ZoneShape)
                 {
-                    case Shape.Rectangle:
+                    case TrackAIElementShape.Rectangle:
                         for (int y = top; y < bottom; y++)
                         {
                             for (int x = left; x < right; x++)
@@ -155,7 +155,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         }
                         break;
 
-                    case Shape.TriangleTopLeft:
+                    case TrackAIElementShape.TriangleTopLeft:
                         for (int y = top; y < bottom; y++)
                         {
                             for (int x = left; x < right; x++)
@@ -166,7 +166,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         }
                         break;
 
-                    case Shape.TriangleTopRight:
+                    case TrackAIElementShape.TriangleTopRight:
                         for (int y = top; y < bottom; y++)
                         {
                             for (int x = left; x < right; x++)
@@ -177,7 +177,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         }
                         break;
 
-                    case Shape.TriangleBottomRight:
+                    case TrackAIElementShape.TriangleBottomRight:
                         left = right - 1;
                         for (int y = top; y < bottom; y++)
                         {
@@ -189,7 +189,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         }
                         break;
 
-                    case Shape.TriangleBottomLeft:
+                    case TrackAIElementShape.TriangleBottomLeft:
                         right = left + 1;
                         for (int y = top; y < bottom; y++)
                         {

@@ -1257,7 +1257,7 @@ namespace EpicEdit.UI.Gfx
             Point target = new Point(pointX + HalfTileSize, pointY + HalfTileSize);
             int speed = aiElem.Speed;
 
-            if (aiElem.ZoneShape == Shape.Rectangle)
+            if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
                 TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
@@ -1274,25 +1274,25 @@ namespace EpicEdit.UI.Gfx
 
                 switch (aiElem.ZoneShape)
                 {
-                    case Shape.TriangleTopLeft:
+                    case TrackAIElementShape.TriangleTopLeft:
                         TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
                         TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
                         break;
 
-                    case Shape.TriangleTopRight:
+                    case TrackAIElementShape.TriangleTopRight:
                         TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
                         TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
                         break;
 
-                    case Shape.TriangleBottomRight:
+                    case TrackAIElementShape.TriangleBottomRight:
                         TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
                         TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
                         break;
 
-                    case Shape.TriangleBottomLeft:
+                    case TrackAIElementShape.TriangleBottomLeft:
                         TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
                         TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
                         TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
@@ -1382,7 +1382,7 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                if (aiElem.ZoneShape == Shape.Rectangle)
+                if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
                 {
                     g.DrawRectangle(this.aiElementHighlightPen, zone);
                 }
@@ -1418,7 +1418,7 @@ namespace EpicEdit.UI.Gfx
 
         private void HighlightAIElement(Graphics g, Brush brush, TrackAIElement aiElem, Rectangle zone)
         {
-            if (aiElem.ZoneShape == Shape.Rectangle)
+            if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 g.DrawRectangle(this.aiElementSelectPen, zone);
                 g.FillRectangle(brush, zone);
@@ -1452,22 +1452,22 @@ namespace EpicEdit.UI.Gfx
             switch (aiElem.ZoneShape)
             {
                 default:
-                case Shape.TriangleTopLeft:
+                case TrackAIElementShape.TriangleTopLeft:
                     xCorrectionStep = 1;
                     yCorrectionStep = 1;
                     break;
 
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     xCorrectionStep = 0;
                     yCorrectionStep = 1;
                     break;
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     xCorrectionStep = 0;
                     yCorrectionStep = 0;
                     break;
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     xCorrectionStep = 1;
                     yCorrectionStep = 0;
                     break;
@@ -1488,20 +1488,20 @@ namespace EpicEdit.UI.Gfx
 
             switch (aiElem.ZoneShape)
             {
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     points[0].X--;
                     points[points.Length - 2].X--;
                     points[points.Length - 1].X--;
                     break;
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     points[0].X--;
                     points[points.Length - 3].Y--;
                     points[points.Length - 2].Offset(-1, -1);
                     points[points.Length - 1].X--;
                     break;
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     points[points.Length - 3].Y--;
                     points[points.Length - 2].Y--;
                     break;
@@ -1519,7 +1519,7 @@ namespace EpicEdit.UI.Gfx
 
             switch (aiElem.ZoneShape)
             {
-                case Shape.Rectangle:
+                case TrackAIElementShape.Rectangle:
                     {
                         Point[] targetLines =
                         {
@@ -1536,7 +1536,7 @@ namespace EpicEdit.UI.Gfx
                         break;
                     }
 
-                case Shape.TriangleTopLeft:
+                case TrackAIElementShape.TriangleTopLeft:
                     {
                         Point[] targetLines =
                         {
@@ -1551,7 +1551,7 @@ namespace EpicEdit.UI.Gfx
                         break;
                     }
 
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     {
                         Point[] targetLines =
                         {
@@ -1566,7 +1566,7 @@ namespace EpicEdit.UI.Gfx
                         break;
                     }
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     {
                         Point[] targetLines =
                         {
@@ -1581,7 +1581,7 @@ namespace EpicEdit.UI.Gfx
                         break;
                     }
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     {
                         Point[] targetLines =
                         {

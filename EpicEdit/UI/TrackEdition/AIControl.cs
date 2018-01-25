@@ -140,7 +140,7 @@ namespace EpicEdit.UI.TrackEdition
         private void Init()
         {
             this.InitSetComboBox();
-            this.shapeComboBox.DataSource = Enum.GetValues(typeof(Shape));
+            this.shapeComboBox.DataSource = Enum.GetValues(typeof(TrackAIElementShape));
         }
 
         private void InitSetComboBox()
@@ -222,7 +222,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.selectedElement.ZoneShape = (Shape)this.shapeComboBox.SelectedValue;
+            this.selectedElement.ZoneShape = (TrackAIElementShape)this.shapeComboBox.SelectedValue;
         }
 
         private void CloneButtonClick(object sender, EventArgs e)

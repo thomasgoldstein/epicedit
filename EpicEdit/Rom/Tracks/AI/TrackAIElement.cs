@@ -19,20 +19,6 @@ using System.Drawing;
 
 namespace EpicEdit.Rom.Tracks.AI
 {
-    internal enum Shape
-    {
-        [Description("Rectangle")]
-        Rectangle = 0,
-        [Description("Triangle top left")]
-        TriangleTopLeft = 2, // Top-left angle is the right angle
-        [Description("Triangle top right")]
-        TriangleTopRight = 4, // And so on
-        [Description("Triangle bottom right")]
-        TriangleBottomRight = 6,
-        [Description("Triangle bottom left")]
-        TriangleBottomLeft = 8
-    }
-
     /// <summary>
     /// Represents an element of the <see cref="TrackAI"/>.
     /// </summary>
@@ -45,11 +31,11 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Shape zoneShape;
+        private TrackAIElementShape zoneShape;
         /// <summary>
         /// Gets or sets the zone shape.
         /// </summary>
-        public Shape ZoneShape
+        public TrackAIElementShape ZoneShape
         {
             get => this.zoneShape;
             set
@@ -59,8 +45,8 @@ namespace EpicEdit.Rom.Tracks.AI
                     return;
                 }
 
-                if (this.zoneShape == Shape.Rectangle &&
-                    value != Shape.Rectangle)
+                if (this.zoneShape == TrackAIElementShape.Rectangle &&
+                    value != TrackAIElementShape.Rectangle)
                 {
                     if (this.zone.Width > this.zone.Height)
                     {
@@ -130,11 +116,11 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <param name="targetDataIndex">The index to use in the target byte array.</param>
         public TrackAIElement(byte[] zoneData, ref int zoneDataIndex, byte[] targetData, ref int targetDataIndex)
         {
-            this.ZoneShape = (Shape)zoneData[zoneDataIndex++];
+            this.ZoneShape = (TrackAIElementShape)zoneData[zoneDataIndex++];
             int zoneX = zoneData[zoneDataIndex++] * Precision;
             int zoneY = zoneData[zoneDataIndex++] * Precision;
 
-            if (this.ZoneShape == Shape.Rectangle)
+            if (this.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 int zoneWidth = zoneData[zoneDataIndex++] * Precision;
                 int zoneHeight = zoneData[zoneDataIndex++] * Precision;
@@ -151,16 +137,16 @@ namespace EpicEdit.Rom.Tracks.AI
                 // to make them always determine the top left corner.
                 switch (this.ZoneShape)
                 {
-                    case Shape.TriangleTopRight:
+                    case TrackAIElementShape.TriangleTopRight:
                         zoneX -= zoneSize - Precision;
                         break;
 
-                    case Shape.TriangleBottomRight:
+                    case TrackAIElementShape.TriangleBottomRight:
                         zoneX -= zoneSize - Precision;
                         zoneY -= zoneSize - Precision;
                         break;
 
-                    case Shape.TriangleBottomLeft:
+                    case TrackAIElementShape.TriangleBottomLeft:
                         zoneY -= zoneSize - Precision;
                         break;
                 }
@@ -219,7 +205,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public bool IntersectsWith(Point point)
         {
-            if (this.ZoneShape == Shape.Rectangle)
+            if (this.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 return this.IntersectsWithRectangle(point);
             }
@@ -250,16 +236,16 @@ namespace EpicEdit.Rom.Tracks.AI
 
             switch (this.ZoneShape)
             {
-                case Shape.TriangleTopLeft:
+                case TrackAIElementShape.TriangleTopLeft:
                     return x + y <= this.zone.Width - Precision;
 
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     return x >= y;
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     return x + y >= this.zone.Width - Precision;
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     return x <= y;
 
                 default:
@@ -269,7 +255,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public ResizeHandle GetResizeHandle(Point point)
         {
-            if (this.ZoneShape == Shape.Rectangle)
+            if (this.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 return this.GetResizeHandleRectangle(point);
             }
@@ -342,7 +328,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             switch (this.ZoneShape)
             {
-                case Shape.TriangleTopLeft:
+                case TrackAIElementShape.TriangleTopLeft:
                     #region
                     diagonal = (point.X - this.zone.X) + (point.Y - this.zone.Y);
                     if (diagonal >= this.zone.Width - Precision && diagonal <= this.zone.Width)
@@ -362,7 +348,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #endregion
                     break;
 
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     #region
                     diagonal = (point.X - this.zone.X) - (point.Y - this.zone.Y);
                     if (diagonal >= -Precision && diagonal <= 0)
@@ -382,7 +368,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #endregion
                     break;
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     #region
                     diagonal = (point.X - this.zone.X) + (point.Y - this.zone.Y);
                     if (diagonal >= this.zone.Width - Precision && diagonal <= this.zone.Width)
@@ -402,7 +388,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #endregion
                     break;
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     #region
                     diagonal = (point.X - this.zone.X) - (point.Y - this.zone.Y);
                     if (diagonal >= 0 && diagonal <= Precision)
@@ -441,7 +427,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
             switch (this.ZoneShape)
             {
-                case Shape.TriangleTopLeft:
+                case TrackAIElementShape.TriangleTopLeft:
                     x = this.zone.X;
                     y = this.zone.Y + this.zone.Height;
                     xStep = Precision;
@@ -449,7 +435,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     rightAngle = this.zone.Location;
                     break;
 
-                case Shape.TriangleTopRight:
+                case TrackAIElementShape.TriangleTopRight:
                     x = this.zone.X + this.zone.Width;
                     y = this.zone.Y + this.zone.Height;
                     xStep = -Precision;
@@ -457,7 +443,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     rightAngle = new Point(x, this.zone.Y);
                     break;
 
-                case Shape.TriangleBottomRight:
+                case TrackAIElementShape.TriangleBottomRight:
                     x = this.zone.X + this.zone.Width;
                     y = this.zone.Y;
                     xStep = -Precision;
@@ -465,7 +451,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     rightAngle = new Point(x, this.zone.Y + this.zone.Height);
                     break;
 
-                case Shape.TriangleBottomLeft:
+                case TrackAIElementShape.TriangleBottomLeft:
                     x = this.zone.X;
                     y = this.zone.Y;
                     xStep = Precision;
@@ -568,7 +554,7 @@ namespace EpicEdit.Rom.Tracks.AI
             x = (x / Precision) * Precision;
             y = (y / Precision) * Precision;
 
-            if (this.ZoneShape == Shape.Rectangle)
+            if (this.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 this.ResizeRectangle(resizeHandle, x, y);
             }
@@ -764,7 +750,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     length = this.zone.Bottom - y;
 
-                    if (this.ZoneShape == Shape.TriangleTopLeft)
+                    if (this.ZoneShape == TrackAIElementShape.TriangleTopLeft)
                     {
                         zoneX = this.zone.Left;
 
@@ -837,7 +823,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     length = x - this.zone.X + Precision;
                     zoneX = this.zone.X;
 
-                    if (this.ZoneShape == Shape.TriangleTopRight)
+                    if (this.ZoneShape == TrackAIElementShape.TriangleTopRight)
                     {
                         zoneY = this.zone.Y;
 
@@ -906,7 +892,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     length = y - this.zone.Y + Precision;
                     zoneY = this.zone.Y;
 
-                    if (this.ZoneShape == Shape.TriangleBottomRight)
+                    if (this.ZoneShape == TrackAIElementShape.TriangleBottomRight)
                     {
                         #region Validate zone length
                         if (length < Precision)
@@ -975,7 +961,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     #region
                     length = this.zone.Right - x;
 
-                    if (this.ZoneShape == Shape.TriangleTopLeft)
+                    if (this.ZoneShape == TrackAIElementShape.TriangleTopLeft)
                     {
                         zoneY = this.zone.Y;
 
@@ -1046,7 +1032,7 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             data[index++] = (byte)this.ZoneShape;
 
-            if (this.ZoneShape == Shape.Rectangle)
+            if (this.ZoneShape == TrackAIElementShape.Rectangle)
             {
                 data[index++] = (byte)(this.zone.X / Precision);
                 data[index++] = (byte)(this.zone.Y / Precision);
@@ -1059,22 +1045,22 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 switch (this.ZoneShape)
                 {
-                    case Shape.TriangleTopLeft:
+                    case TrackAIElementShape.TriangleTopLeft:
                         data[index++] = (byte)(this.zone.X / Precision);
                         data[index++] = (byte)(this.zone.Y / Precision);
                         break;
 
-                    case Shape.TriangleTopRight:
+                    case TrackAIElementShape.TriangleTopRight:
                         data[index++] = (byte)(this.zone.X / Precision + size - 1);
                         data[index++] = (byte)(this.zone.Y / Precision);
                         break;
 
-                    case Shape.TriangleBottomRight:
+                    case TrackAIElementShape.TriangleBottomRight:
                         data[index++] = (byte)(this.zone.X / Precision + size - 1);
                         data[index++] = (byte)(this.zone.Y / Precision + size - 1);
                         break;
 
-                    case Shape.TriangleBottomLeft:
+                    case TrackAIElementShape.TriangleBottomLeft:
                         data[index++] = (byte)(this.zone.X / Precision);
                         data[index++] = (byte)(this.zone.Y / Precision + size - 1);
                         break;
