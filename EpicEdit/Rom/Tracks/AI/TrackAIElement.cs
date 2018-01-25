@@ -176,9 +176,9 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
-            byte speedAndTarget = targetData[targetDataIndex++];
-            this.speed = (byte)(speedAndTarget & 0x03);
-            this.isIntersection = (speedAndTarget & 0x80) == 0x80;
+            byte speedAndIntersection = targetData[targetDataIndex++];
+            this.speed = (byte)(speedAndIntersection & 0x03);
+            this.isIntersection = (speedAndIntersection & 0x80) == 0x80;
         }
 
         public TrackAIElement(Point position)
