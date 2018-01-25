@@ -155,7 +155,7 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             this.target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
-            this.Speed = (byte)(targetData[targetDataIndex++] & 3);
+            this.Speed = (byte)(targetData[targetDataIndex++] & 0x03);
             // In the original SMK ROM, Mario Circuit 2 has an AI element that has 0x80
             // tacked on its speed value. This is made to avoid a problem regarding object zones,
             // so that when doing the jump over the other road, the 4 pipes in front of you
