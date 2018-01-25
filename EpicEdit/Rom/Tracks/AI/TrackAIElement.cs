@@ -1080,11 +1080,11 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             return new TrackAIElement
             {
-                Target = this.target,
-                Speed = this.speed,
-                IsIntersection = this.isIntersection,
+                target = this.target,
+                speed = this.speed,
+                isIntersection = this.isIntersection,
                 zone = this.zone,
-                ZoneShape = this.zoneShape
+                zoneShape = this.zoneShape
             };
         }
 
