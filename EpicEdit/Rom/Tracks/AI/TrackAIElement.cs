@@ -188,25 +188,14 @@ namespace EpicEdit.Rom.Tracks.AI
             int zoneX = ((position.X - (Size / 2)) / Precision) * Precision;
             int zoneY = ((position.Y - (Size / 2)) / Precision) * Precision;
 
-            #region Ensure the element isn't out of the track bounds
-            if (zoneX < 0)
-            {
-                zoneX = 0;
-            }
-            else if ((zoneX + Size) > TrackMap.Size)
-            {
-                zoneX = TrackMap.Size - Size;
-            }
+            // Ensure the element isn't out of the track bounds
+            zoneX = zoneX < 0 ? 0 :
+                (zoneX + Size) > TrackMap.Size ? TrackMap.Size - Size :
+                zoneX;
 
-            if (zoneY < 0)
-            {
-                zoneY = 0;
-            }
-            else if ((zoneY + Size) > TrackMap.Size)
-            {
-                zoneY = TrackMap.Size - Size;
-            }
-            #endregion Ensure the element isn't out of the track bounds
+            zoneY = zoneY < 0 ? 0 :
+                (zoneY + Size) > TrackMap.Size ? TrackMap.Size - Size :
+                zoneY;
 
             Rectangle zone = new Rectangle(zoneX, zoneY, Size, Size);
 
