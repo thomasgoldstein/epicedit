@@ -174,7 +174,7 @@ namespace EpicEdit.Rom
 
         private void OnColorChanged(int value)
         {
-            if (value == 0 && this.Index > 0)
+            if (value == 0 && this.Index != 0)
             {
                 // The first color of each palette after the first is never used. No need to raise a ColorChanged event.
                 return;
