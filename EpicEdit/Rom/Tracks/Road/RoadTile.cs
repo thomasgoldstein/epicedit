@@ -73,8 +73,8 @@ namespace EpicEdit.Rom.Tracks.Road
             {
                 for (int x = 0; x < Tile.Size / 2; x++)
                 {
-                    RomColor color1 = (RomColor)fBitmap.GetPixel(x * 2, y);
-                    RomColor color2 = (RomColor)fBitmap.GetPixel(x * 2 + 1, y);
+                    RomColor color1 = fBitmap.GetPixel(x * 2, y);
+                    RomColor color2 = fBitmap.GetPixel(x * 2 + 1, y);
                     int colorIndex1 = Utilities.GetColorIndex(color1, palette);
                     int colorIndex2 = Utilities.GetColorIndex(color2, palette);
 

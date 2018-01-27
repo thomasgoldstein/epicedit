@@ -133,7 +133,7 @@ namespace EpicEdit.Rom
                 for (int x = 0; x < Tile.Size; x++)
                 {
                     int xPos = (Tile.Size - 1) - x;
-                    RomColor color = (RomColor)fBitmap.GetPixel(xPos, y);
+                    RomColor color = fBitmap.GetPixel(xPos, y);
                     int colorIndex = Utilities.GetColorIndex(color, palette);
                     val1 |= (byte)((colorIndex & 0x01) << x);
                     val2 |= (byte)(((colorIndex & 0x02) << x) >> 1);

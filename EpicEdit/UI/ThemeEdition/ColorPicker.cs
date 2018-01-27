@@ -237,7 +237,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <returns>The color at x.</returns>
         private RomColor DrawBasicColorsBitmap(int x)
         {
-            RomColor color = (RomColor)this.basicColorsCache.GetPixel(x, 0);
+            RomColor color = this.basicColorsCache.GetPixel(x, 0);
             this.DrawBasicColorsBitmap(color, x);
             return color;
         }
@@ -335,7 +335,7 @@ namespace EpicEdit.UI.ThemeEdition
         private RomColor DrawShadesBitmap(int x, int y)
         {
             this.selectedShadeLocation = new Point(x, y);
-            RomColor selectedColor = (RomColor)this.shadesCache.GetPixel(x, y);
+            RomColor selectedColor = this.shadesCache.GetPixel(x, y);
 
             this.shadesBitmap.Dispose();
             this.shadesBitmap = this.shadesCache.Clone() as Bitmap;
@@ -367,7 +367,7 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 for (int x = 0; x < this.shadesSize.Width; x += 2)
                 {
-                    RomColor selectedColor = (RomColor)fShadesBitmap.GetPixel(x, y);
+                    RomColor selectedColor = fShadesBitmap.GetPixel(x, y);
                     if (selectedColor == color)
                     {
                         fShadesBitmap.Release();
@@ -721,7 +721,7 @@ namespace EpicEdit.UI.ThemeEdition
             FastBitmap fBasicColors = new FastBitmap(this.basicColorsCache);
             for (int x = 0; x < this.basicColorsSize.Width; x++)
             {
-                RomColor selectedColor = (RomColor)fBasicColors.GetPixel(x, 0);
+                RomColor selectedColor = fBasicColors.GetPixel(x, 0);
                 if (selectedColor == color)
                 {
                     fBasicColors.Release();
