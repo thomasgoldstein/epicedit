@@ -97,7 +97,7 @@ namespace EpicEdit.Rom
             if (e.Value == 0)
             {
                 // The first color of the first palette (back color) is part of all palettes
-                this.OnColorChangedInternal(0);
+                this.OnColorChanged(0);
             }
         }
 
@@ -109,7 +109,7 @@ namespace EpicEdit.Rom
             // for all of the palettes (which happens when importing new palettes), as it leads us
             // to raise both a ColorChanged and a ColorsChanged event for each palette after the first.
             // Implementing the TODO described in the constructor would fix this.
-            this.OnColorChangedInternal(0);
+            this.OnColorChanged(0);
         }
 
         private void SetBytesInternal(byte[] data)
@@ -168,22 +168,19 @@ namespace EpicEdit.Rom
 
                 this.colors[index] = value;
                 this.Modified = true;
+
+                if (index == 0 && this.Index != 0)
+                {
+                    // The first color of each palette after the first is never used.
+                    // No need to raise a ColorChanged event.
+                    return;
+                }
+
                 this.OnColorChanged(index);
             }
         }
 
         private void OnColorChanged(int value)
-        {
-            if (value == 0 && this.Index != 0)
-            {
-                // The first color of each palette after the first is never used. No need to raise a ColorChanged event.
-                return;
-            }
-
-            this.OnColorChangedInternal(value);
-        }
-
-        private void OnColorChangedInternal(int value)
         {
             EventHandler<EventArgs<int>> colorChanged = this.ColorChanged;
             if (colorChanged != null)
