@@ -306,15 +306,17 @@ namespace EpicEdit.UI.Gfx
                 this.UpdateCache(palette, e.Value);
             }
 
-            if (e.Value != 0 || palette.Index == 0)
+            if (e.Value == 0 && palette.Index != 0)
             {
                 // HACK: Performance optimization.
                 // When changing the first color of the first palette, only raise
                 // the OnGraphicsChanged event once instead of 16 times (once per palette).
                 // This event handler will be called in order by palettes from index 1 to 15,
-                // then palette 0 is last.
-                this.OnGraphicsChanged(updateCache);
+                // then palette 0 is last. Only the last call will raise the OnGraphicsChanged event.
+                return;
             }
+
+            this.OnGraphicsChanged(updateCache);
         }
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
