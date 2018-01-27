@@ -15,5 +15,4 @@ namespace EpicEdit.Rom.Tracks.AI
         [Description("Triangle bottom left")]
         TriangleBottomLeft = 8
     }
-
 }
