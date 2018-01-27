@@ -51,5 +51,13 @@ namespace EpicEdit.Rom.Tracks.Objects
             int val4b = (((val4 & mask) << 3) >> x);
             return val1b + val2b + val3b + val4b;
         }
+
+        public override bool Contains(int colorIndex)
+        {
+            // TrackObjectTile instances have transparent pixels where the color 0 is,
+            // so consider they don't contain it. This lets us avoid unnecessarily recreating
+            // the tile image when the color 0 is changed.
+            return colorIndex != 0 && base.Contains(colorIndex);
+        }
     }
 }
