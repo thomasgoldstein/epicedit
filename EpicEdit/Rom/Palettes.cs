@@ -73,9 +73,9 @@ namespace EpicEdit.Rom
 
         public void SetBytes(byte[] data)
         {
-            if (data.Length != Size)
+            if (data.Length != Palettes.Size)
             {
-                throw new ArgumentException($"Palettes data should have a size of {Size} bytes. Actual: {data.Length} bytes.", nameof(data));
+                throw new ArgumentException($"Palettes data should have a size of {Palettes.Size} bytes. Actual: {data.Length} bytes.", nameof(data));
             }
 
             int count = data.Length / Palette.Size;
