@@ -40,9 +40,9 @@ namespace EpicEdit.UI.Gfx
                 for (int x = 0; x < Tile.Size; x++)
                 {
                     int mask = 1 << x;
-                    int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+                    int colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
 
-                    if (colIndex > 0) // If pixel is not transparent
+                    if (colorIndex > 0) // If pixel is not transparent
                     {
                         int xPos = (flip & Flip.X) != 0 ?
                             x : (Tile.Size - 1) - x;
@@ -50,7 +50,7 @@ namespace EpicEdit.UI.Gfx
                         int yPos = (flip & Flip.Y) == 0 ?
                             y : (Tile.Size - 1) - y;
 
-                        Color color = palette[subPalIndex + colIndex];
+                        Color color = palette[subPalIndex + colorIndex];
 
                         fBitmap.SetPixel(xPos, yPos, color);
                     }
@@ -82,11 +82,11 @@ namespace EpicEdit.UI.Gfx
                     int val2b = (((val2 & mask) << 1) >> x);
                     int val3b = (((val3 & mask) << 2) >> x);
                     int val4b = (((val4 & mask) << 3) >> x);
-                    int colIndex = val1b + val2b + val3b + val4b;
+                    int colorIndex = val1b + val2b + val3b + val4b;
 
-                    if (colIndex > 0)
+                    if (colorIndex > 0) // If pixel is not transparent
                     {
-                        Color color = palette[colIndex].Color;
+                        Color color = palette[colorIndex].Color;
                         fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
                     }
                 }
