@@ -448,7 +448,7 @@ namespace EpicEdit.UI.Gfx
         {
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
-                g.DrawImageUnscaled(this.tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
+                g.DrawImage(this.tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
             }
         }
 
