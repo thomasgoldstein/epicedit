@@ -252,32 +252,6 @@ namespace EpicEdit.UI.Gfx
         }
 
         /// <summary>
-        /// Reloads the current track and regenerates the track image cache.
-        /// </summary>
-        public void ReloadTrack()
-        {
-            this.trackCache.Dispose();
-
-            RoadTileset tileset = this.track.RoadTileset;
-
-            this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
-                                         this.track.Map.Height * Tile.Size,
-                                         PixelFormat.Format32bppPArgb);
-
-            using (Graphics g = Graphics.FromImage(this.trackCache))
-            {
-                for (int x = 0; x < this.track.Map.Width; x++)
-                {
-                    for (int y = 0; y < this.track.Map.Height; y++)
-                    {
-                        Tile tile = tileset[this.track.Map[x, y]];
-                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Loads a track and generates the track image cache.
         /// </summary>
         /// <param name="track">The track.</param>
@@ -294,7 +268,7 @@ namespace EpicEdit.UI.Gfx
             this.track.ColorGraphicsChanged += this.track_ColorGraphicsChanged;
             this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
 
-            this.ReloadTrack();
+            this.CreateCache();
         }
 
         private void track_ColorGraphicsChanged(object sender, EventArgs<int> e)
@@ -357,6 +331,32 @@ namespace EpicEdit.UI.Gfx
             return this.GetZoomedRegion(region);
         }
 
+        /// <summary>
+        /// Reloads the current track and regenerates the track image cache.
+        /// </summary>
+        public void CreateCache()
+        {
+            this.trackCache.Dispose();
+
+            RoadTileset tileset = this.track.RoadTileset;
+
+            this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
+                                         this.track.Map.Height * Tile.Size,
+                                         PixelFormat.Format32bppPArgb);
+
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                for (int x = 0; x < this.track.Map.Width; x++)
+                {
+                    for (int y = 0; y < this.track.Map.Height; y++)
+                    {
+                        Tile tile = tileset[this.track.Map[x, y]];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                    }
+                }
+            }
+        }
+
         private void UpdateCache(Palette palette)
         {
             RoadTileset tileset = this.track.RoadTileset;
@@ -396,22 +396,6 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
-        {
-            bool[] tilesToBeUpdated = new bool[RoadTileset.TileCount];
-
-            for (int i = 0; i < tilesToBeUpdated.Length; i++)
-            {
-                Tile tile = this.track.RoadTileset[i];
-                if (tile.Palette == palette && tile.Contains(colorIndex))
-                {
-                    tilesToBeUpdated[i] = true;
-                }
-            }
-
-            return tilesToBeUpdated;
-        }
-
         private void UpdateCache(Palette palette, int colorIndex)
         {
             bool[] tilesToBeUpdated = this.GetTilesToBeUpdated(palette, colorIndex);
@@ -435,7 +419,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public Region ReloadTrackPart(Rectangle rectangle)
+        public Region UpdateCache(Rectangle rectangle)
         {
             RoadTileset tileset = this.track.RoadTileset;
             TrackMap trackMap = this.track.Map;
@@ -458,6 +442,69 @@ namespace EpicEdit.UI.Gfx
 
                 return this.GetTranslatedZoomedRegion(dirtyRectangle);
             }
+        }
+
+        public void UpdateCacheAfterTileLaying(Point absolutePosition)
+        {
+            using (Graphics g = Graphics.FromImage(this.trackCache))
+            {
+                g.DrawImageUnscaled(this.tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
+            }
+        }
+
+        public void UpdateTileClipboard(Tile tile)
+        {
+            this.tileClipboardCache.Dispose();
+            this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
+        }
+
+        public void UpdateTileClipboard(Rectangle rectangle)
+        {
+            this.tileClipboardCache.Dispose();
+
+            Rectangle clipboardRectangle = new Rectangle(
+                rectangle.X * Tile.Size,
+                rectangle.Y * Tile.Size,
+                rectangle.Width * Tile.Size,
+                rectangle.Height * Tile.Size);
+
+            this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
+        }
+
+        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, IMapBuffer tileBuffer)
+        {
+            this.tileClipboardCache.Dispose();
+
+            int width = tileBuffer.Width;
+            int height = tileBuffer.Height;
+            this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
+            using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        Tile tile = tileset[tileBuffer[x, y]];
+                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
+                    }
+                }
+            }
+        }
+
+        private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
+        {
+            bool[] tilesToBeUpdated = new bool[RoadTileset.TileCount];
+
+            for (int i = 0; i < tilesToBeUpdated.Length; i++)
+            {
+                Tile tile = this.track.RoadTileset[i];
+                if (tile.Palette == palette && tile.Contains(colorIndex))
+                {
+                    tilesToBeUpdated[i] = true;
+                }
+            }
+
+            return tilesToBeUpdated;
         }
 
         private Rectangle GetTrackClip(Rectangle bounds)
@@ -1630,53 +1677,6 @@ namespace EpicEdit.UI.Gfx
                 };
 
                 e.Graphics.FillRectangles(Brushes.Black, outbounds);
-            }
-        }
-
-        public void UpdateCacheAfterTileLaying(Point absolutePosition)
-        {
-            using (Graphics g = Graphics.FromImage(this.trackCache))
-            {
-                g.DrawImageUnscaled(this.tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
-            }
-        }
-
-        public void UpdateTileClipboard(Tile tile)
-        {
-            this.tileClipboardCache.Dispose();
-            this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
-        }
-
-        public void UpdateTileClipboard(Rectangle rectangle)
-        {
-            this.tileClipboardCache.Dispose();
-
-            Rectangle clipboardRectangle = new Rectangle(
-                rectangle.X * Tile.Size,
-                rectangle.Y * Tile.Size,
-                rectangle.Width * Tile.Size,
-                rectangle.Height * Tile.Size);
-
-            this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
-        }
-
-        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, IMapBuffer tileBuffer)
-        {
-            this.tileClipboardCache.Dispose();
-
-            int width = tileBuffer.Width;
-            int height = tileBuffer.Height;
-            this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        Tile tile = tileset[tileBuffer[x, y]];
-                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
-                    }
-                }
             }
         }
 
