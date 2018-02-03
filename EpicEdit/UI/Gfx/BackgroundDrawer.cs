@@ -232,7 +232,10 @@ namespace EpicEdit.UI.Gfx
             using (BackgroundTile tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, front))
             {
                 g.SetClip(rec);
-                g.Clear(front ? Color.Transparent : this.theme.BackColor.Color);
+                if (!front)
+                {
+                    g.Clear(this.theme.BackColor.Color);
+                }
                 g.DrawImage(tile.Bitmap, rec.X, rec.Y);
             }
         }
