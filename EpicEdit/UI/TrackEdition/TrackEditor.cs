@@ -2082,7 +2082,7 @@ namespace EpicEdit.UI.TrackEdition
             Size affectedSurface = this.GetTruncatedRectangle();
             this.AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
             this.track.Map.SetTiles(location, this.tileClipboard);
-            this.drawer.UpdateCacheAfterTileLaying(location);
+            this.drawer.UpdateCacheAfterTileChange(location);
         }
 
         private bool FillTiles()

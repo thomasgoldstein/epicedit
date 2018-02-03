@@ -444,7 +444,7 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void UpdateCacheAfterTileLaying(Point absolutePosition)
+        public void UpdateCacheAfterTileChange(Point absolutePosition)
         {
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
