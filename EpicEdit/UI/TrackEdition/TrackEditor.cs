@@ -382,7 +382,7 @@ namespace EpicEdit.UI.TrackEdition
         #region MenuBar
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new TrackDrawer();
+            this.drawer = new TrackDrawer(this.tileClipboard);
             this.drawer.GraphicsChanged += this.drawer_GraphicsChanged;
 
             this.tilesetControl.InitOnFirstRomLoad();
@@ -2202,7 +2202,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset, this.tileClipboard);
+            this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
 
             if (this.settingFormInitialized)
             {

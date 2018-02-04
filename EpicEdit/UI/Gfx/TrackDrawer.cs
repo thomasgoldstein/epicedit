@@ -38,6 +38,7 @@ namespace EpicEdit.UI.Gfx
         public event EventHandler<EventArgs<bool>> GraphicsChanged;
 
         private Track track;
+        private readonly IMapBuffer tileClipboard;
 
         private Point scrollPosition;
         public Point ScrollPosition
@@ -153,8 +154,10 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private readonly ImageAttributes grayScaleImageAttr;
 
-        public TrackDrawer()
+        public TrackDrawer(IMapBuffer tileClipboard)
         {
+            this.tileClipboard = tileClipboard;
+
             #region Pens and Brushes initialization
 
             this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
@@ -471,20 +474,24 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset, IMapBuffer tileBuffer)
+        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset)
         {
+            // TODO: We should not have to pass the RoadTileset and instead retrieve it from the track.
+            // This is not possible right now because the first time this method is called, the track has not been initialized yet.
+
             this.tileClipboardCache.Dispose();
 
-            int width = tileBuffer.Width;
-            int height = tileBuffer.Height;
+            int width = this.tileClipboard.Width;
+            int height = this.tileClipboard.Height;
             this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
+
             using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
             {
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        Tile tile = tileset[tileBuffer[x, y]];
+                        Tile tile = tileset[this.tileClipboard[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
