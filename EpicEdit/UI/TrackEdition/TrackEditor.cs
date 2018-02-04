@@ -2197,7 +2197,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.drawer.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
+            this.drawer.CreateTileClipboardCache(this.track.RoadTileset);
 
             if (this.settingFormInitialized)
             {

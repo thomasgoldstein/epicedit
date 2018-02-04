@@ -475,7 +475,7 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardCacheOnThemeChange(RoadTileset tileset)
+        public void CreateTileClipboardCache(RoadTileset tileset)
         {
             // TODO: We should not have to pass the RoadTileset and instead retrieve it from the track.
             // This is not possible right now because the first time this method is called, the track has not been initialized yet.
