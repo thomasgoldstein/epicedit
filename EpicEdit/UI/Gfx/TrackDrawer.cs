@@ -339,21 +339,22 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         public void CreateCache()
         {
-            this.trackCache.Dispose();
+            this.CreateCache(ref this.trackCache, this.track.Map, this.track.RoadTileset);
+        }
 
-            RoadTileset tileset = this.track.RoadTileset;
+        private void CreateCache(ref Bitmap cache, IMapBuffer mapBuffer, RoadTileset tileset)
+        {
+            cache.Dispose();
 
-            this.trackCache = new Bitmap(this.track.Map.Width * Tile.Size,
-                                         this.track.Map.Height * Tile.Size,
-                                         PixelFormat.Format32bppPArgb);
+            cache = new Bitmap(mapBuffer.Width * Tile.Size, mapBuffer.Height * Tile.Size, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(cache))
             {
-                for (int x = 0; x < this.track.Map.Width; x++)
+                for (int x = 0; x < mapBuffer.Width; x++)
                 {
-                    for (int y = 0; y < this.track.Map.Height; y++)
+                    for (int y = 0; y < mapBuffer.Height; y++)
                     {
-                        Tile tile = tileset[this.track.Map[x, y]];
+                        Tile tile = tileset[mapBuffer[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
@@ -479,23 +480,7 @@ namespace EpicEdit.UI.Gfx
             // TODO: We should not have to pass the RoadTileset and instead retrieve it from the track.
             // This is not possible right now because the first time this method is called, the track has not been initialized yet.
 
-            this.tileClipboardCache.Dispose();
-
-            int width = this.tileClipboard.Width;
-            int height = this.tileClipboard.Height;
-            this.tileClipboardCache = new Bitmap(width * Tile.Size, height * Tile.Size, PixelFormat.Format32bppPArgb);
-
-            using (Graphics g = Graphics.FromImage(this.tileClipboardCache))
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        Tile tile = tileset[this.tileClipboard[x, y]];
-                        g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
-                    }
-                }
-            }
+            this.CreateCache(ref this.tileClipboardCache, this.tileClipboard, tileset);
         }
 
         private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
