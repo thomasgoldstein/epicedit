@@ -390,7 +390,6 @@ namespace EpicEdit.UI.TrackEdition
             this.trackTreeView.InitOnFirstRomLoad();
 
             this.SetTrack();
-            this.drawer.LoadTrack(this.track);
             this.InitUndoRedo();
 
             // Adding these event handlers here rather than in the Designer.cs
@@ -1604,12 +1603,6 @@ namespace EpicEdit.UI.TrackEdition
         #endregion TrackDisplay events
 
         #region TrackDisplay methods
-        private void DisplayNewTrack()
-        {
-            this.drawer.LoadTrack(this.track);
-            this.InvalidateWholeTrackDisplay();
-        }
-
         private void InvalidateTrack()
         {
             this.drawer.CreateCache();
@@ -1771,7 +1764,7 @@ namespace EpicEdit.UI.TrackEdition
             this.ResetScrollingPosition();
             this.SetTrack();
             this.SetUndoRedo();
-            this.DisplayNewTrack();
+            this.InvalidateWholeTrackDisplay();
         }
 
         private void ResetScrollingPosition()
@@ -1825,6 +1818,8 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsControl.Track = gpTrack;
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
+
+            this.drawer.LoadTrack(this.track);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
