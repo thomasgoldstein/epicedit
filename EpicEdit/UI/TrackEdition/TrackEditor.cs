@@ -409,7 +409,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.Value)
             {
-                this.UpdateTileClipboard();
+                this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
             }
 
             this.InvalidateWholeTrackDisplay();
