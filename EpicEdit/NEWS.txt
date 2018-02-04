@@ -9,6 +9,7 @@ v2.8.4 (??? 2018)
 - Added support for ROMs with invalid track name data
 - Changed AI element intersection handling logic to let users
   set them up manually, instead of trying to automatically detect them
+- Fixed tile clipboard display issue after having changed palette colors 
 - Fixed 2.8 regression which made it so changes made to the first color
   of the first palette of any theme would not be instantly visible on tiles
   that use a palette from #2 to #16
