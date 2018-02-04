@@ -279,8 +279,8 @@ namespace EpicEdit.UI.Gfx
             Palette palette = sender as Palette;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
-                this.UpdateCache(palette, e.Value);
-                this.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
+                this.UpdateCache(this.trackCache, this.track.Map, palette, e.Value);
+                this.UpdateCache(this.tileClipboardCache, this.tileClipboard, palette, e.Value);
             }
 
             if (e.Value == 0 && palette.Index != 0)
@@ -301,8 +301,8 @@ namespace EpicEdit.UI.Gfx
             Palette palette = sender as Palette;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
-                this.UpdateCache(palette);
-                this.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
+                this.UpdateCache(this.trackCache, this.track.Map, palette);
+                this.UpdateCache(this.tileClipboardCache, this.tileClipboard, palette);
             }
 
             this.OnGraphicsChanged();
@@ -360,17 +360,17 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void UpdateCache(Palette palette)
+        private void UpdateCache(Image cache, IMapBuffer mapBuffer, Palette palette)
         {
             RoadTileset tileset = this.track.RoadTileset;
 
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(cache))
             {
-                for (int x = 0; x < this.track.Map.Width; x++)
+                for (int x = 0; x < mapBuffer.Width; x++)
                 {
-                    for (int y = 0; y < this.track.Map.Height; y++)
+                    for (int y = 0; y < mapBuffer.Height; y++)
                     {
-                        Tile tile = tileset[this.track.Map[x, y]];
+                        Tile tile = tileset[mapBuffer[x, y]];
                         if (tile.Palette == palette)
                         {
                             g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
@@ -399,19 +399,19 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void UpdateCache(Palette palette, int colorIndex)
+        private void UpdateCache(Image cache, IMapBuffer mapBuffer, Palette palette, int colorIndex)
         {
             bool[] tilesToBeUpdated = this.GetTilesToBeUpdated(palette, colorIndex);
 
             RoadTileset tileset = this.track.RoadTileset;
 
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(cache))
             {
-                for (int x = 0; x < this.track.Map.Width; x++)
+                for (int x = 0; x < mapBuffer.Width; x++)
                 {
-                    for (int y = 0; y < this.track.Map.Height; y++)
+                    for (int y = 0; y < mapBuffer.Height; y++)
                     {
-                        byte tileId = this.track.Map[x, y];
+                        byte tileId = mapBuffer[x, y];
                         if (tilesToBeUpdated[tileId])
                         {
                             Tile tile = tileset[tileId];
