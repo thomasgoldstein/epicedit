@@ -260,8 +260,11 @@ namespace EpicEdit.UI.Gfx
         /// <param name="track">The track.</param>
         public void LoadTrack(Track track)
         {
+            bool sameTheme = false;
+
             if (this.track != null)
             {
+                sameTheme = this.track.Theme == track.Theme;
                 this.track.ColorGraphicsChanged -= this.track_ColorGraphicsChanged;
                 this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
             }
@@ -272,6 +275,11 @@ namespace EpicEdit.UI.Gfx
             this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
 
             this.CreateCache();
+
+            if (!sameTheme)
+            {
+                this.CreateTileClipboardCache();
+            }
         }
 
         private void track_ColorGraphicsChanged(object sender, EventArgs<int> e)
@@ -475,7 +483,7 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void CreateTileClipboardCache()
+        private void CreateTileClipboardCache()
         {
             this.CreateCache(ref this.tileClipboardCache, this.tileClipboard);
         }

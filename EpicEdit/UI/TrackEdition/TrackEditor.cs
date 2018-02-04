@@ -2198,8 +2198,6 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.drawer.CreateTileClipboardCache();
-
             if (this.settingFormInitialized)
             {
                 this.settingForm.Theme = this.track.Theme;
