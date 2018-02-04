@@ -405,13 +405,8 @@ namespace EpicEdit.UI.TrackEdition
             this.menuBar.EnableControls();
         }
 
-        private void drawer_GraphicsChanged(object sender, EventArgs<bool> e)
+        private void drawer_GraphicsChanged(object sender, EventArgs e)
         {
-            if (e.Value)
-            {
-                this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
-            }
-
             this.InvalidateWholeTrackDisplay();
             this.trackDisplay.Update();
         }

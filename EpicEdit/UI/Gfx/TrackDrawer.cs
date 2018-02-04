@@ -35,7 +35,7 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal sealed class TrackDrawer : IDisposable
     {
-        public event EventHandler<EventArgs<bool>> GraphicsChanged;
+        public event EventHandler<EventArgs> GraphicsChanged;
 
         private Track track;
         private readonly IMapBuffer tileClipboard;
@@ -277,10 +277,10 @@ namespace EpicEdit.UI.Gfx
         private void track_ColorGraphicsChanged(object sender, EventArgs<int> e)
         {
             Palette palette = sender as Palette;
-            bool updateCache = palette.Index < Palettes.SpritePaletteStart;
-            if (updateCache)
+            if (palette.Index < Palettes.SpritePaletteStart)
             {
                 this.UpdateCache(palette, e.Value);
+                this.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
             }
 
             if (e.Value == 0 && palette.Index != 0)
@@ -293,24 +293,24 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            this.OnGraphicsChanged(updateCache);
+            this.OnGraphicsChanged();
         }
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             Palette palette = sender as Palette;
-            bool updateCache = palette.Index < Palettes.SpritePaletteStart;
-            if (updateCache)
+            if (palette.Index < Palettes.SpritePaletteStart)
             {
                 this.UpdateCache(palette);
+                this.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
             }
 
-            this.OnGraphicsChanged(updateCache);
+            this.OnGraphicsChanged();
         }
 
-        private void OnGraphicsChanged(bool updateCache)
+        private void OnGraphicsChanged()
         {
-            this.GraphicsChanged?.Invoke(this, new EventArgs<bool>(updateCache));
+            this.GraphicsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private Region GetZoomedRegion(Region region)
