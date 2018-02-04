@@ -17,6 +17,7 @@ v2.8.4 (??? 2018)
   if the current precision did not allow the value of the loaded track
 - Tweaked the AI selection behavior. If multiple AI targets are at the same
   hovered location, then give the hover priority to the selected AI element
+- Minor tweaks and fixes
 
 
 v2.8.3 (October 14th 2017)
