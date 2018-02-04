@@ -94,13 +94,12 @@ namespace EpicEdit.UI.Tools
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            if (!Context.ColorPickerMode)
+            if (Context.ColorPickerMode)
             {
-                base.OnMouseLeave(e);
-                return;
+                this.Cursor = Cursors.Default;
             }
 
-            this.Cursor = Cursors.Default;
+            base.OnMouseLeave(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
