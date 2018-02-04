@@ -1759,8 +1759,8 @@ namespace EpicEdit.UI.TrackEdition
         private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
         {
             this.ResetScrollingPosition();
+            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
             this.SetTrack();
-            this.drawer.LoadTrack(this.track);
             this.SetUndoRedo();
             this.InvalidateWholeTrackDisplay();
         }
