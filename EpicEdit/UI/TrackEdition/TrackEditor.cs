@@ -385,9 +385,11 @@ namespace EpicEdit.UI.TrackEdition
             this.drawer = new TrackDrawer(this.tileClipboard);
             this.drawer.GraphicsChanged += this.drawer_GraphicsChanged;
 
+            this.trackTreeView.InitOnFirstRomLoad();
+            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
+
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
-            this.trackTreeView.InitOnFirstRomLoad();
 
             this.SetTrack();
             this.InitUndoRedo();
@@ -1758,6 +1760,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.ResetScrollingPosition();
             this.SetTrack();
+            this.drawer.LoadTrack(this.track);
             this.SetUndoRedo();
             this.InvalidateWholeTrackDisplay();
         }
@@ -1813,8 +1816,6 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsControl.Track = gpTrack;
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
-
-            this.drawer.LoadTrack(this.track);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -2197,7 +2198,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.drawer.CreateTileClipboardCache(this.track.RoadTileset);
+            this.drawer.CreateTileClipboardCache();
 
             if (this.settingFormInitialized)
             {

@@ -339,10 +339,10 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         public void CreateCache()
         {
-            this.CreateCache(ref this.trackCache, this.track.Map, this.track.RoadTileset);
+            this.CreateCache(ref this.trackCache, this.track.Map);
         }
 
-        private void CreateCache(ref Bitmap cache, IMapBuffer mapBuffer, RoadTileset tileset)
+        private void CreateCache(ref Bitmap cache, IMapBuffer mapBuffer)
         {
             cache.Dispose();
 
@@ -354,7 +354,7 @@ namespace EpicEdit.UI.Gfx
                 {
                     for (int y = 0; y < mapBuffer.Height; y++)
                     {
-                        Tile tile = tileset[mapBuffer[x, y]];
+                        Tile tile = this.track.RoadTileset[mapBuffer[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
@@ -475,12 +475,9 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void CreateTileClipboardCache(RoadTileset tileset)
+        public void CreateTileClipboardCache()
         {
-            // TODO: We should not have to pass the RoadTileset and instead retrieve it from the track.
-            // This is not possible right now because the first time this method is called, the track has not been initialized yet.
-
-            this.CreateCache(ref this.tileClipboardCache, this.tileClipboard, tileset);
+            this.CreateCache(ref this.tileClipboardCache, this.tileClipboard);
         }
 
         private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
