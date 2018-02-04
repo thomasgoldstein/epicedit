@@ -359,13 +359,15 @@ namespace EpicEdit.UI.Gfx
 
             cache = new Bitmap(mapBuffer.Width * Tile.Size, mapBuffer.Height * Tile.Size, PixelFormat.Format32bppPArgb);
 
+            RoadTileset tileset = this.track.RoadTileset;
+
             using (Graphics g = Graphics.FromImage(cache))
             {
                 for (int x = 0; x < mapBuffer.Width; x++)
                 {
                     for (int y = 0; y < mapBuffer.Height; y++)
                     {
-                        Tile tile = this.track.RoadTileset[mapBuffer[x, y]];
+                        Tile tile = tileset[mapBuffer[x, y]];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
