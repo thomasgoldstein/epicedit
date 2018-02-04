@@ -20,6 +20,7 @@ using EpicEdit.Rom.Tracks.Overlay;
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Tracks.Start;
 using EpicEdit.Rom.Utility;
+using EpicEdit.UI.Tools;
 using EpicEdit.UI.TrackEdition;
 using System;
 using System.Drawing;
@@ -37,8 +38,8 @@ namespace EpicEdit.UI.Gfx
     {
         public event EventHandler<EventArgs> GraphicsChanged;
 
+        private readonly TileClipboard tileClipboard;
         private Track track;
-        private readonly IMapBuffer tileClipboard;
 
         private Point scrollPosition;
         public Point ScrollPosition
@@ -154,9 +155,11 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private readonly ImageAttributes grayScaleImageAttr;
 
-        public TrackDrawer(IMapBuffer tileClipboard)
+        public TrackDrawer(TileClipboard tileClipboard)
         {
             this.tileClipboard = tileClipboard;
+            this.tileClipboard.TileChanged += (sender, e) => this.UpdateTileClipboardCache(e.Value);
+            this.tileClipboard.TilesChanged += (sender, e) => this.UpdateTileClipboardCache(e.Value);
 
             #region Pens and Brushes initialization
 
@@ -464,10 +467,10 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void UpdateTileClipboardCache(Tile tile)
+        private void UpdateTileClipboardCache(byte tile)
         {
             this.tileClipboardCache.Dispose();
-            this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
+            this.tileClipboardCache = this.track.RoadTileset[tile].Bitmap.Clone() as Bitmap;
         }
 
         public void UpdateTileClipboardCache(Rectangle rectangle)

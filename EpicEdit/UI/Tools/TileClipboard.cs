@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using EpicEdit.Rom.Tracks.Road;
 using EpicEdit.Rom.Utility;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -24,6 +25,9 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class TileClipboard : IMapBuffer
     {
+        public event EventHandler<EventArgs<byte>> TileChanged;
+        public event EventHandler<EventArgs<Rectangle>> TilesChanged;
+
         /// <summary>
         /// Where copied tiles are stored.
         /// </summary>
@@ -59,6 +63,12 @@ namespace EpicEdit.UI.Tools
             this.Add(tile);
         }
 
+        private void Add(byte tile)
+        {
+            this.data.Add(tile);
+            this.Rectangle = new Rectangle(0, 0, 1, 1);
+        }
+
         /// <summary>
         /// Fills the clipboard with a given tile.
         /// </summary>
@@ -67,12 +77,7 @@ namespace EpicEdit.UI.Tools
         {
             this.data.Clear();
             this.Add(tile);
-        }
-
-        private void Add(byte tile)
-        {
-            this.data.Add(tile);
-            this.Rectangle = new Rectangle(0, 0, 1, 1);
+            this.OnTileChanged(tile);
         }
 
         /// <summary>
@@ -90,6 +95,18 @@ namespace EpicEdit.UI.Tools
                     this.data.Add(trackMap[x, y]);
                 }
             }
+
+            this.OnTilesChanged(this.Rectangle);
+        }
+
+        private void OnTileChanged(byte value)
+        {
+            this.TileChanged?.Invoke(this, new EventArgs<byte>(value));
+        }
+
+        private void OnTilesChanged(Rectangle value)
+        {
+            this.TilesChanged?.Invoke(this, new EventArgs<Rectangle>(value));
         }
 
         public byte GetByte(int x, int y)

@@ -2191,7 +2191,6 @@ namespace EpicEdit.UI.TrackEdition
         private void OnRightMouseButtonRelease()
         {
             this.tileClipboard.Fill(this.track.Map);
-            this.UpdateTileClipboard();
             this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
             this.InvalidateTrackDisplay();
         }
@@ -2206,9 +2205,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
         {
-            byte selectedTile = this.tilesetControl.SelectedTile;
-            this.tileClipboard.Fill(selectedTile);
-            this.drawer.UpdateTileClipboardCache(this.track.RoadTileset[selectedTile]);
+            this.tileClipboard.Fill(this.tilesetControl.SelectedTile);
         }
 
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
