@@ -280,7 +280,7 @@ namespace EpicEdit.UI.Gfx
             if (palette.Index < Palettes.SpritePaletteStart)
             {
                 this.UpdateCache(palette, e.Value);
-                this.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
+                this.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
             }
 
             if (e.Value == 0 && palette.Index != 0)
@@ -302,7 +302,7 @@ namespace EpicEdit.UI.Gfx
             if (palette.Index < Palettes.SpritePaletteStart)
             {
                 this.UpdateCache(palette);
-                this.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
+                this.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
             }
 
             this.OnGraphicsChanged();
@@ -455,13 +455,13 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        public void UpdateTileClipboard(Tile tile)
+        public void UpdateTileClipboardCache(Tile tile)
         {
             this.tileClipboardCache.Dispose();
             this.tileClipboardCache = tile.Bitmap.Clone() as Bitmap;
         }
 
-        public void UpdateTileClipboard(Rectangle rectangle)
+        public void UpdateTileClipboardCache(Rectangle rectangle)
         {
             this.tileClipboardCache.Dispose();
 
@@ -474,7 +474,7 @@ namespace EpicEdit.UI.Gfx
             this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
         }
 
-        public void UpdateTileClipboardOnThemeChange(RoadTileset tileset)
+        public void UpdateTileClipboardCacheOnThemeChange(RoadTileset tileset)
         {
             // TODO: We should not have to pass the RoadTileset and instead retrieve it from the track.
             // This is not possible right now because the first time this method is called, the track has not been initialized yet.

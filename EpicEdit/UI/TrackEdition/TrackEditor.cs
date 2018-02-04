@@ -1749,7 +1749,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTileClipboard()
         {
-            this.drawer.UpdateTileClipboard(this.tileClipboard.Rectangle);
+            this.drawer.UpdateTileClipboardCache(this.tileClipboard.Rectangle);
         }
         #endregion TrackDisplay methods
 
@@ -2197,7 +2197,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            this.drawer.UpdateTileClipboardOnThemeChange(this.track.RoadTileset);
+            this.drawer.UpdateTileClipboardCacheOnThemeChange(this.track.RoadTileset);
 
             if (this.settingFormInitialized)
             {
@@ -2209,7 +2209,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             byte selectedTile = this.tilesetControl.SelectedTile;
             this.tileClipboard.Fill(selectedTile);
-            this.drawer.UpdateTileClipboard(this.track.RoadTileset[selectedTile]);
+            this.drawer.UpdateTileClipboardCache(this.track.RoadTileset[selectedTile]);
         }
 
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
