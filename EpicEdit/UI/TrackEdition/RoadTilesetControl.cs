@@ -347,7 +347,6 @@ namespace EpicEdit.UI.TrackEdition
             if (UITools.ShowImportBinaryDataDialog(this.track.RoadTileset.SetTileGenreBytes))
             {
                 this.SelectTileGenre();
-                this.TilesetChanged(this, EventArgs.Empty);
             }
         }
 
