@@ -450,14 +450,14 @@ namespace EpicEdit.UI.Gfx
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
-
-                Rectangle dirtyRectangle = new Rectangle(rectangle.X * Tile.Size,
-                                                         rectangle.Y * Tile.Size,
-                                                         rectangle.Width * Tile.Size,
-                                                         rectangle.Height * Tile.Size);
-
-                return this.GetTranslatedZoomedRegion(dirtyRectangle);
             }
+
+            Rectangle dirtyRectangle = new Rectangle(rectangle.X * Tile.Size,
+                                                     rectangle.Y * Tile.Size,
+                                                     rectangle.Width * Tile.Size,
+                                                     rectangle.Height * Tile.Size);
+
+            return this.GetTranslatedZoomedRegion(dirtyRectangle);
         }
 
         public void UpdateCacheOnTileChange(Point absolutePosition)
