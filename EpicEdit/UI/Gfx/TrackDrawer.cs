@@ -419,14 +419,15 @@ namespace EpicEdit.UI.Gfx
         public void UpdateCache(byte tileId)
         {
             Tile tile = this.track.RoadTileset[tileId];
+            TrackMap trackMap = this.track.Map;
 
             using (Graphics g = Graphics.FromImage(this.trackCache))
             {
-                for (int x = 0; x < this.track.Map.Width; x++)
+                for (int x = 0; x < trackMap.Width; x++)
                 {
-                    for (int y = 0; y < this.track.Map.Height; y++)
+                    for (int y = 0; y < trackMap.Height; y++)
                     {
-                        if (this.track.Map[x, y] == tileId)
+                        if (trackMap[x, y] == tileId)
                         {
                             g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                         }
