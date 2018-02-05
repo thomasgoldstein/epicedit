@@ -23,6 +23,7 @@ using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Tools;
 using EpicEdit.UI.TrackEdition;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -268,18 +269,28 @@ namespace EpicEdit.UI.Gfx
             if (this.track != null)
             {
                 sameTheme = this.track.Theme == track.Theme;
+                this.track.PropertyChanged -= this.track_PropertyChanged;
                 this.track.ColorGraphicsChanged -= this.track_ColorGraphicsChanged;
                 this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
             }
 
             this.track = track;
 
+            this.track.PropertyChanged += this.track_PropertyChanged;
             this.track.ColorGraphicsChanged += this.track_ColorGraphicsChanged;
             this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
 
             this.CreateCache();
 
             if (!sameTheme)
+            {
+                this.CreateTileClipboardCache();
+            }
+        }
+
+        private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == PropertyNames.Track.Theme)
             {
                 this.CreateTileClipboardCache();
             }
