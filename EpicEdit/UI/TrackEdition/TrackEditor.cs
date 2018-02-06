@@ -1814,7 +1814,7 @@ namespace EpicEdit.UI.TrackEdition
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
 
-            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
+            this.drawer.LoadTrack(this.track);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
