@@ -386,8 +386,6 @@ namespace EpicEdit.UI.TrackEdition
             this.drawer.GraphicsChanged += this.drawer_GraphicsChanged;
 
             this.trackTreeView.InitOnFirstRomLoad();
-            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
-
             this.tilesetControl.InitOnFirstRomLoad();
             this.overlayControl.InitOnFirstRomLoad();
 
@@ -1759,7 +1757,6 @@ namespace EpicEdit.UI.TrackEdition
         private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
         {
             this.ResetScrollingPosition();
-            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
             this.SetTrack();
             this.SetUndoRedo();
             this.InvalidateWholeTrackDisplay();
@@ -1816,6 +1813,8 @@ namespace EpicEdit.UI.TrackEdition
             this.objectsControl.Track = gpTrack;
             this.hoveredAIElem = null;
             this.aiControl.Track = this.track;
+
+            this.drawer.LoadTrack(this.trackTreeView.SelectedTrack);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
