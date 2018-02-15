@@ -142,6 +142,8 @@
     <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
     <Compile Include="Rom\Tracks\BattleTrack.cs" />
     <Compile Include="Rom\Tracks\GPTrack.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbabilityGrandprixCondition.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbabilityMatchRaceCondition.cs" />
     <Compile Include="Rom\Tracks\Items\ItemType.cs" />
     <Compile Include="Rom\Tracks\MakeTrack.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectDirection.cs" />

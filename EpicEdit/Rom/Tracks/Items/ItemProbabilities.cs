@@ -18,30 +18,6 @@ using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Items
 {
-    #region Enumerations
-
-    internal enum ItemProbabilityGrandprixCondition
-    {
-        [Description("Lap 1 or 1st")]
-        Lap1_1st = 1,
-        [Description("Lap 2-5 / 2nd-4th")]
-        Lap2To5_2ndTo4th = 0,
-        [Description("Lap 2-5 / 5th-8th")]
-        Lap2To5_5thTo8th = 2
-    }
-
-    internal enum ItemProbabilityMatchRaceCondition
-    {
-        [Description("Lap 1")]
-        Lap1 = 0,
-        [Description("Lap 2-5 / 1st")]
-        Lap2To5_1st = 1,
-        [Description("Lap 2-5 / 2nd")]
-        Lap2To5_2nd = 2
-    }
-
-    #endregion Enumerations
-
     /// <summary>
     /// Collection of <see cref="ItemProbability"/> objects.
     /// </summary>
