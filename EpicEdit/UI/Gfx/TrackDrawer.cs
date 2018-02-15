@@ -1226,17 +1226,17 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    Bitmap image = trackObject.Direction == Direction.None ?
+                    Bitmap image = trackObject.Direction == TrackObjectDirection.None ?
                         stillMatchRaceObjectImage : matchRaceObjectImage;
                     g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }
 
-                if (trackObject.Direction == Direction.Horizontal)
+                if (trackObject.Direction == TrackObjectDirection.Horizontal)
                 {
                     this.DrawLeftArrow(g, x - 9, y + 4);
                     this.DrawRightArrow(g, x + 18, y + 4);
                 }
-                else if (trackObject.Direction == Direction.Vertical)
+                else if (trackObject.Direction == TrackObjectDirection.Vertical)
                 {
                     this.DrawUpArrow(g, x + 4, y - 9);
                     this.DrawDownArrow(g, x + 4, y + 18);
@@ -1289,7 +1289,7 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    Bitmap image = matchRaceObject.Direction == Direction.None ?
+                    Bitmap image = matchRaceObject.Direction == TrackObjectDirection.None ?
                         stillMatchRaceObjectImage : matchRaceObjectImage;
                     g.DrawImage(image, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }

@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    internal enum Direction
+    internal enum TrackObjectDirection
     {
         None,
         Horizontal,
@@ -26,12 +26,12 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObjectMatchRace : TrackObject
     {
-        private Direction direction;
+        private TrackObjectDirection direction;
 
         /// <summary>
         /// Gets or sets the object direction.
         /// </summary>
-        public Direction Direction
+        public TrackObjectDirection Direction
         {
             get => this.direction;
             set
@@ -57,11 +57,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             if ((data[index + 1] & 0x80) == 0)
             {
                 this.direction = (data[index + 1] & 0x40) == 0 ?
-                    Direction.Horizontal : Direction.Vertical;
+                    TrackObjectDirection.Horizontal : TrackObjectDirection.Vertical;
             }
             else
             {
-                this.direction = Direction.None;
+                this.direction = TrackObjectDirection.None;
             }
         }
 
@@ -74,11 +74,11 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             base.GetBytes(data, index);
 
-            if (this.direction == Direction.Vertical)
+            if (this.direction == TrackObjectDirection.Vertical)
             {
                 data[index + 1] += 0x40;
             }
-            else if (this.direction == Direction.None)
+            else if (this.direction == TrackObjectDirection.None)
             {
                 data[index + 1] += 0x80;
             }

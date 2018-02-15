@@ -1420,17 +1420,17 @@ namespace EpicEdit.UI.TrackEdition
 
                         TrackObjectMatchRace hoveredObjectMatchRace = this.hoveredObject as TrackObjectMatchRace;
 
-                        if (hoveredObjectMatchRace.Direction == Direction.Horizontal)
+                        if (hoveredObjectMatchRace.Direction == TrackObjectDirection.Horizontal)
                         {
-                            hoveredObjectMatchRace.Direction = Direction.Vertical;
+                            hoveredObjectMatchRace.Direction = TrackObjectDirection.Vertical;
                         }
-                        else if (hoveredObjectMatchRace.Direction == Direction.Vertical)
+                        else if (hoveredObjectMatchRace.Direction == TrackObjectDirection.Vertical)
                         {
-                            hoveredObjectMatchRace.Direction = Direction.None;
+                            hoveredObjectMatchRace.Direction = TrackObjectDirection.None;
                         }
                         else // hoveredObjectMatchRace.Direction == Direction.None
                         {
-                            hoveredObjectMatchRace.Direction = Direction.Horizontal;
+                            hoveredObjectMatchRace.Direction = TrackObjectDirection.Horizontal;
                         }
 
                         this.InvalidateTrackDisplay();

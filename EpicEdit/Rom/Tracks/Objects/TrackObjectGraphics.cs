@@ -146,7 +146,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
             else
             {
-                bool moving = matchRaceObject.Direction != Direction.None;
+                bool moving = matchRaceObject.Direction != TrackObjectDirection.None;
                 index = this.GetMatchRaceTileIndex(moving);
             }
 
