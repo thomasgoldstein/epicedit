@@ -16,20 +16,6 @@ using System.ComponentModel;
 
 namespace EpicEdit.Rom.Tracks.Items
 {
-    internal enum ItemBoxDisplay : byte
-    {
-        [Description("All items")]
-        AllItems = 0x80,
-        [Description("No feathers")]
-        NoFeathers = 0x81,
-        [Description("No coins or lightnings")]
-        NoCoinsOrLightnings = 0x82,
-        [Description("No ghosts")]
-        NoGhosts = 0x83,
-        [Description("No ghosts or feathers")]
-        NoGhostsOrFeathers = 0x84
-    }
-
     /// <summary>
     /// Represents the probability for players to get each item.
     /// </summary>

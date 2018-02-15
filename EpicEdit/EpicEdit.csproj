@@ -124,6 +124,7 @@
     <Compile Include="Rom\Tile2bppProperties.cs" />
     <Compile Include="Rom\TileFlip.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAIElementShape.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemBoxDisplay.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
