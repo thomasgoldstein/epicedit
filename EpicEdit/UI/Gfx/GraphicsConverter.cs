@@ -29,7 +29,7 @@ namespace EpicEdit.UI.Gfx
 
             Palette palette = palettes[properties.PaletteIndex];
             int subPalIndex = properties.SubPaletteIndex;
-            Flip flip = properties.Flip;
+            TileFlip flip = properties.Flip;
             Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
@@ -44,10 +44,10 @@ namespace EpicEdit.UI.Gfx
 
                     if (colorIndex > 0) // If pixel is not transparent
                     {
-                        int xPos = (flip & Flip.X) != 0 ?
+                        int xPos = (flip & TileFlip.X) != 0 ?
                             x : (Tile.Size - 1) - x;
 
-                        int yPos = (flip & Flip.Y) == 0 ?
+                        int yPos = (flip & TileFlip.Y) == 0 ?
                             y : (Tile.Size - 1) - y;
 
                         Color color = palette[subPalIndex + colorIndex];

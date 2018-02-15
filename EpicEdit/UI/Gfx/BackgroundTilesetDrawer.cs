@@ -42,7 +42,7 @@ namespace EpicEdit.UI.Gfx
             get => this.tileProperties;
             set
             {
-                value.Flip = Flip.None;
+                value.Flip = TileFlip.None;
                 this.tileProperties = value;
                 this.UpdateCache();
             }

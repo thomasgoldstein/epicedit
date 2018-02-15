@@ -17,7 +17,7 @@ using System;
 namespace EpicEdit.Rom
 {
     [Flags]
-    internal enum Flip : byte
+    internal enum TileFlip : byte
     {
         None = 0x00,
         X = 0x40,
@@ -56,8 +56,8 @@ namespace EpicEdit.Rom
             }
         }
 
-        private Flip flip;
-        public Flip Flip
+        private TileFlip flip;
+        public TileFlip Flip
         {
             get => this.flip;
             set => this.flip = value;
@@ -65,7 +65,7 @@ namespace EpicEdit.Rom
 
         public Tile2bppProperties(byte data)
         {
-            const byte FlipMask = (byte)(Flip.X | Flip.Y);
+            const byte FlipMask = (byte)(TileFlip.X | TileFlip.Y);
             byte paletteData = (byte)(data & ~FlipMask);
 
             if ((paletteData & 0x03) != 0)
@@ -75,20 +75,20 @@ namespace EpicEdit.Rom
 
             this.paletteIndex = (paletteData & 0x30) >> 4;
             this.subPaletteIndex = (paletteData & 0xC);
-            this.flip = (Flip)(data & FlipMask);
+            this.flip = (TileFlip)(data & FlipMask);
         }
 
         public void FlipX()
         {
-            this.FlipXY(Flip.X);
+            this.FlipXY(TileFlip.X);
         }
 
         public void FlipY()
         {
-            this.FlipXY(Flip.Y);
+            this.FlipXY(TileFlip.Y);
         }
 
-        private void FlipXY(Flip value)
+        private void FlipXY(TileFlip value)
         {
             if ((this.flip & value) != 0)
             {

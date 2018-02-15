@@ -152,12 +152,12 @@ namespace EpicEdit.Rom
 
         public override int GetColorIndexAt(int x, int y)
         {
-            if ((this.Properties.Flip & Flip.X) == 0)
+            if ((this.Properties.Flip & TileFlip.X) == 0)
             {
                 x = (Tile.Size - 1) - x;
             }
 
-            if ((this.Properties.Flip & Flip.Y) != 0)
+            if ((this.Properties.Flip & TileFlip.Y) != 0)
             {
                 y = (Tile.Size - 1) - y;
             }

@@ -275,7 +275,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.paletteNumericUpDown.Value = (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
             this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
 
-            bool flipX = (this.TileProperties.Flip & Flip.X) != 0;
+            bool flipX = (this.TileProperties.Flip & TileFlip.X) != 0;
             if (this.flipXButton.Checked != flipX)
             {
                 this.flipXButton.CheckedChanged -= this.FlipXButtonCheckedChanged;
@@ -283,7 +283,7 @@ namespace EpicEdit.UI.ThemeEdition
                 this.flipXButton.CheckedChanged += this.FlipXButtonCheckedChanged;
             }
 
-            bool flipY = (this.TileProperties.Flip & Flip.Y) != 0;
+            bool flipY = (this.TileProperties.Flip & TileFlip.Y) != 0;
             if (this.flipYButton.Checked != flipY)
             {
                 this.flipYButton.CheckedChanged -= this.FlipYButtonCheckedChanged;
