@@ -14,14 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    internal enum TrackObjectType : byte
+    internal enum TrackObjectLoading : byte
     {
-        Pipe = 0,
-        Pillar = 1,
-        Thwomp = 2,
-        Mole = 3,
-        Plant = 4,
-        Fish = 5,
-        RThwomp = 6
+        Regular = 0,
+        Fish = 1,
+        Pillar = 2,
+        None = 3
     }
 }

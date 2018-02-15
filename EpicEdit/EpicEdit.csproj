@@ -144,6 +144,7 @@
     <Compile Include="Rom\Tracks\Items\ItemType.cs" />
     <Compile Include="Rom\Tracks\MakeTrack.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectDirection.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectLoading.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectProperties.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
