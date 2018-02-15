@@ -142,16 +142,16 @@ namespace EpicEdit.UI.SettingEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0:
-                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap1_1st);
-                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap2To5_2ndTo4th);
-                    this.lapRankComboBox.Items.Add(GrandprixCondition.Lap2To5_5thTo8th);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap1_1st);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_2ndTo4th);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_5thTo8th);
                     this.lapRankComboBox.SelectedIndex = 0;
                     break;
 
                 case 1:
-                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap1);
-                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2To5_1st);
-                    this.lapRankComboBox.Items.Add(MatchRaceCondition.Lap2To5_2nd);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap1);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_1st);
+                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_2nd);
                     this.lapRankComboBox.SelectedIndex = 0;
                     break;
             }
@@ -192,7 +192,7 @@ namespace EpicEdit.UI.SettingEdition
             switch (this.modeComboBox.SelectedIndex)
             {
                 case 0: // GP
-                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.setComboBox.SelectedIndex, (GrandprixCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.setComboBox.SelectedIndex, (ItemProbabilityGrandprixCondition)this.lapRankComboBox.SelectedItem);
                     if (this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
                         this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
                     {
@@ -201,7 +201,7 @@ namespace EpicEdit.UI.SettingEdition
                     break;
 
                 case 1: // Match Race
-                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.setComboBox.SelectedIndex, (MatchRaceCondition)this.lapRankComboBox.SelectedItem);
+                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.setComboBox.SelectedIndex, (ItemProbabilityMatchRaceCondition)this.lapRankComboBox.SelectedItem);
                     break;
 
                 case 2: // Battle Mode

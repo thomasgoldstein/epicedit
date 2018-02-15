@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Items
 {
     #region Enumerations
 
-    internal enum GrandprixCondition
+    internal enum ItemProbabilityGrandprixCondition
     {
         [Description("Lap 1 or 1st")]
         Lap1_1st = 1,
@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Tracks.Items
         Lap2To5_5thTo8th = 2
     }
 
-    internal enum MatchRaceCondition
+    internal enum ItemProbabilityMatchRaceCondition
     {
         [Description("Lap 1")]
         Lap1 = 0,
@@ -123,14 +123,14 @@ namespace EpicEdit.Rom.Tracks.Items
 
         #region Get single item probability
 
-        public ItemProbability GetGrandprixProbability(int setIndex, GrandprixCondition condition)
+        public ItemProbability GetGrandprixProbability(int setIndex, ItemProbabilityGrandprixCondition condition)
         {
             setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition + (LapRankCount * SetCount);
             return this.itemProbabilities[offset];
         }
 
-        public ItemProbability GetMatchRaceProbability(int setIndex, MatchRaceCondition condition)
+        public ItemProbability GetMatchRaceProbability(int setIndex, ItemProbabilityMatchRaceCondition condition)
         {
             setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition;
