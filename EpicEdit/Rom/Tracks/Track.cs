@@ -23,19 +23,6 @@ using System.IO;
 
 namespace EpicEdit.Rom.Tracks
 {
-    internal enum ResizeHandle
-    {
-        None,
-        TopLeft,
-        Top,
-        TopRight,
-        Right,
-        BottomRight,
-        Bottom,
-        BottomLeft,
-        Left
-    }
-
     /// <summary>
     /// Represents the common base between a <see cref="GPTrack"/> and a <see cref="BattleTrack"/>.
     /// </summary>
