@@ -16,14 +16,6 @@ using System;
 
 namespace EpicEdit.Rom
 {
-    [Flags]
-    internal enum TileFlip : byte
-    {
-        None = 0x00,
-        X = 0x40,
-        Y = 0x80
-    }
-
     internal struct Tile2bppProperties
     {
         private int paletteIndex;
