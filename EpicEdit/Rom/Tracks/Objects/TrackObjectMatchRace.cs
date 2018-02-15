@@ -14,13 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
-    internal enum TrackObjectDirection
-    {
-        None,
-        Horizontal,
-        Vertical
-    }
-
     /// <summary>
     /// A type of track object that only appears in Match Race mode.
     /// </summary>
