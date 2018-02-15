@@ -24,7 +24,7 @@ namespace EpicEdit.Rom
     internal class SaveBuffer
     {
         private byte[] romBuffer;
-        private Queue<byte[]> savedData;
+        private readonly Queue<byte[]> savedData;
         private Range zone;
         private readonly Region region;
 

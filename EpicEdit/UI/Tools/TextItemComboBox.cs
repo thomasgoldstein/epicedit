@@ -24,7 +24,7 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class TextItemComboBox : ComboBox
     {
-        private Dictionary<TextItem, int> indexDictionary;
+        private readonly Dictionary<TextItem, int> indexDictionary;
         private TextCollection textCollection;
 
         public TextItemComboBox()

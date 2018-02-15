@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public event EventHandler<EventArgs> DataChanged;
 
-        private byte[][] map;
+        private readonly byte[][] map;
 
         public TrackMap(byte[] data)
         {

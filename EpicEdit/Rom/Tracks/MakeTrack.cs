@@ -175,7 +175,7 @@ namespace EpicEdit.Rom
             set => this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) };
         }
 
-        private Dictionary<string, byte[]> fields;
+        private readonly Dictionary<string, byte[]> fields;
 
         public byte[] this[string name]
         {
@@ -400,6 +400,7 @@ namespace EpicEdit.Rom
         {
             this.track = track;
             this.game = game;
+            this.fields = new Dictionary<string, byte[]>();
             this.InitFields();
         }
 
@@ -408,8 +409,6 @@ namespace EpicEdit.Rom
         /// </summary>
         private void InitFields()
         {
-            this.fields = new Dictionary<string, byte[]>();
-
             this.SP_STX = new byte[2];
             this.SP_STY = new byte[2];
             this.SP_STW = new byte[2];

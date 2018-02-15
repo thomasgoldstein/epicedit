@@ -23,11 +23,12 @@ namespace EpicEdit.Rom.Utility
     internal class TextConverter
     {
         public Region Region { get; }
-        private Map<byte, char> dictionary;
+        private readonly Map<byte, char> dictionary;
 
         public TextConverter(Region region, bool tallCharacters, byte shiftValue)
         {
             this.Region = region;
+            this.dictionary = new Map<byte, char>();
             this.LoadCharacterSet(tallCharacters, shiftValue);
         }
 
@@ -39,7 +40,6 @@ namespace EpicEdit.Rom.Utility
         private void LoadCharacterSet(bool tallCharacters, byte shiftValue)
         {
             char[] chars = CharacterSet.Get(this.Region, tallCharacters);
-            this.dictionary = new Map<byte, char>();
 
             for (int i = 0; i < chars.Length; i++)
             {

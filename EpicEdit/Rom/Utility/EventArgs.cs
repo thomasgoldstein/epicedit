@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Utility
             this.value = value;
         }
 
-        private T value;
+        private readonly T value;
         public T Value => this.value;
     }
 
@@ -41,10 +41,10 @@ namespace EpicEdit.Rom.Utility
             this.value2 = value2;
         }
 
-        private T value1;
+        private readonly T value1;
         public T Value1 => this.value1;
 
-        private U value2;
+        private readonly U value2;
         public U Value2 => this.value2;
     }
 }

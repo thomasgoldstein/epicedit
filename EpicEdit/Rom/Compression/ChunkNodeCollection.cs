@@ -27,13 +27,13 @@ namespace EpicEdit.Rom.Compression
         /// A dictionary of all the best <see cref="ChunkNode">nodes</see> (ie: nodes that lead to the best compression rate).
         /// The integer value represents the offset (position) in the buffer we want to compress.
         /// </summary>
-        private Dictionary<int, ChunkNode> nodeDictionary;
+        private readonly Dictionary<int, ChunkNode> nodeDictionary;
 
         /// <summary>
         /// The queue of offsets to process.
         /// Using it with the <see cref="ByteDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
         /// </summary>
-        private Queue<int> offsetQueue;
+        private readonly Queue<int> offsetQueue;
 
         public ChunkNodeCollection()
         {

@@ -24,11 +24,13 @@ namespace EpicEdit.Rom.Utility
         public Indexer<T1, T2> Forward { get; }
         public Indexer<T2, T1> Reverse { get; }
 
-        private Dictionary<T1, T2> forward = new Dictionary<T1, T2>();
-        private Dictionary<T2, T1> reverse = new Dictionary<T2, T1>();
+        private readonly Dictionary<T1, T2> forward;
+        private readonly Dictionary<T2, T1> reverse;
 
         public Map()
         {
+            this.forward = new Dictionary<T1, T2>();
+            this.reverse = new Dictionary<T2, T1>();
             this.Forward = new Indexer<T1, T2>(this.forward);
             this.Reverse = new Indexer<T2, T1>(this.reverse);
         }
@@ -53,7 +55,7 @@ namespace EpicEdit.Rom.Utility
 
         public class Indexer<T3, T4>
         {
-            private Dictionary<T3, T4> dictionary;
+            private readonly Dictionary<T3, T4> dictionary;
 
             public Indexer(Dictionary<T3, T4> dictionary)
             {
