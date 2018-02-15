@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectGraphics(byte[] romBuffer, Offsets offsets)
         {
-            int typeCount = Enum.GetValues(typeof(ObjectType)).Length;
+            int typeCount = Enum.GetValues(typeof(TrackObjectType)).Length;
             int count = typeCount + 2; // + 2 to account for moving Match Race object and items
             this.tiles = new TrackObjectTile[count][];
             int offsetLocation = offsets[Offset.TrackObjectGraphics];
@@ -38,7 +38,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             for (int i = 0; i < typeCount; i++)
             {
-                ObjectType type = (ObjectType)i;
+                TrackObjectType type = (TrackObjectType)i;
                 int offset = TrackObjectGraphics.GetGraphicsOffset(type, romBuffer, offsetLocation);
                 tilesetGfx = Codec.Decompress(romBuffer, offset);
                 tileIndexes = TrackObjectGraphics.GetTileIndexes(type);
@@ -67,7 +67,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             return tiles;
         }
 
-        private Tile[] GetTiles(ObjectType tileset)
+        private Tile[] GetTiles(TrackObjectType tileset)
         {
             return this.tiles[(int)tileset];
         }
@@ -99,9 +99,9 @@ namespace EpicEdit.Rom.Tracks.Objects
             return moving ? this.tiles.Length - 2 : this.tiles.Length - 1;
         }
 
-        private static int[] GetTileIndexes(ObjectType type)
+        private static int[] GetTileIndexes(TrackObjectType type)
         {
-            if (type == ObjectType.Plant || type == ObjectType.Fish)
+            if (type == TrackObjectType.Plant || type == TrackObjectType.Fish)
             {
                 return new[] { 4 * 32, 5 * 32, 20 * 32, 21 * 32 };
             }
@@ -155,31 +155,31 @@ namespace EpicEdit.Rom.Tracks.Objects
             return tiles[subIndex];
         }
 
-        private static int GetGraphicsOffset(ObjectType tileset, byte[] romBuffer, int offsetLocation)
+        private static int GetGraphicsOffset(TrackObjectType tileset, byte[] romBuffer, int offsetLocation)
         {
             switch (tileset)
             {
-                case ObjectType.Pipe:
+                case TrackObjectType.Pipe:
                     offsetLocation += 3;
                     break;
 
-                case ObjectType.Thwomp:
+                case TrackObjectType.Thwomp:
                     offsetLocation += 18;
                     break;
 
-                case ObjectType.Mole:
+                case TrackObjectType.Mole:
                     offsetLocation += 6;
                     break;
 
-                case ObjectType.Plant:
+                case TrackObjectType.Plant:
                     offsetLocation += 9;
                     break;
 
-                case ObjectType.Fish:
+                case TrackObjectType.Fish:
                     offsetLocation += 15;
                     break;
 
-                case ObjectType.RThwomp:
+                case TrackObjectType.RThwomp:
                     offsetLocation += 21;
                     break;
             }

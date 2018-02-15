@@ -22,8 +22,8 @@ namespace EpicEdit.Rom.Tracks.Objects
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObjectType tileset;
-        public ObjectType Tileset
+        private TrackObjectType tileset;
+        public TrackObjectType Tileset
         {
             get => this.tileset;
             set
@@ -38,8 +38,8 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private ObjectType interaction;
-        public ObjectType Interaction
+        private TrackObjectType interaction;
+        public TrackObjectType Interaction
         {
             get => this.interaction;
             set
@@ -54,8 +54,8 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        private ObjectType routine;
-        public ObjectType Routine
+        private TrackObjectType routine;
+        public TrackObjectType Routine
         {
             get => this.routine;
             set
@@ -95,27 +95,27 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
         }
 
-        public ObjectLoading Loading
+        public TrackObjectLoading Loading
         {
             get
             {
                 switch (this.Routine)
                 {
-                    case ObjectType.Pipe:
-                    case ObjectType.Thwomp:
-                    case ObjectType.Mole:
-                    case ObjectType.Plant:
-                    case ObjectType.RThwomp:
-                        return ObjectLoading.Regular;
+                    case TrackObjectType.Pipe:
+                    case TrackObjectType.Thwomp:
+                    case TrackObjectType.Mole:
+                    case TrackObjectType.Plant:
+                    case TrackObjectType.RThwomp:
+                        return TrackObjectLoading.Regular;
 
-                    case ObjectType.Fish:
-                        return ObjectLoading.Fish;
+                    case TrackObjectType.Fish:
+                        return TrackObjectLoading.Fish;
 
-                    case ObjectType.Pillar:
-                        return ObjectLoading.Pillar;
+                    case TrackObjectType.Pillar:
+                        return TrackObjectLoading.Pillar;
 
                     default:
-                        return ObjectLoading.None;
+                        return TrackObjectLoading.None;
                 }
             }
         }
@@ -132,9 +132,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public void SetBytes(byte[] data)
         {
-            this.Tileset = (ObjectType)data[0];
-            this.Interaction = (ObjectType)data[1];
-            this.Routine = (ObjectType)data[2];
+            this.Tileset = (TrackObjectType)data[0];
+            this.Interaction = (TrackObjectType)data[1];
+            this.Routine = (TrackObjectType)data[2];
             this.PaletteIndexes.SetBytes(new[] { data[3], data[4], data[5], data[6] });
             this.Flashing = data[7] != 0;
         }

@@ -733,48 +733,48 @@ namespace EpicEdit.Rom
             return data;
         }
 
-        private static ObjectType GetObjectType(int themeId, int trackIndex)
+        private static TrackObjectType GetObjectType(int themeId, int trackIndex)
         {
             // HACK: We guess the object type based on the track index or theme.
             // It must be possible to retrieve the actual object properties from somewhere.
-            ObjectType objectType;
+            TrackObjectType objectType;
 
             if (trackIndex == 19) // Donut Plains 1
             {
                 // This track is an exception
-                objectType = ObjectType.Pipe;
+                objectType = TrackObjectType.Pipe;
             }
             else
             {
                 switch (themeId)
                 {
                     case 0: // Ghost Valley
-                        objectType = ObjectType.Pillar;
+                        objectType = TrackObjectType.Pillar;
                         break;
 
                     case 1: // Mario Circuit
                     case 4: // Vanilla Lake
-                        objectType = ObjectType.Pipe;
+                        objectType = TrackObjectType.Pipe;
                         break;
 
                     case 2: // Donut Plains
-                        objectType = ObjectType.Mole;
+                        objectType = TrackObjectType.Mole;
                         break;
 
                     case 3: // Choco Island
-                        objectType = ObjectType.Plant;
+                        objectType = TrackObjectType.Plant;
                         break;
 
                     case 5: // Koopa Beach
-                        objectType = ObjectType.Fish;
+                        objectType = TrackObjectType.Fish;
                         break;
 
                     case 6: // Bowser Castle
-                        objectType = ObjectType.Thwomp;
+                        objectType = TrackObjectType.Thwomp;
                         break;
 
                     case 7: // Rainbow Road
-                        objectType = ObjectType.RThwomp;
+                        objectType = TrackObjectType.RThwomp;
                         break;
 
                     default: throw new ArgumentOutOfRangeException(nameof(themeId));
@@ -1378,7 +1378,7 @@ namespace EpicEdit.Rom
             }
 
             // Mark battle tracks as not having objects
-            const byte NoObject = (byte)ObjectLoading.None;
+            const byte NoObject = (byte)TrackObjectLoading.None;
             loadingData[GPTrack.Count] = NoObject;
             loadingData[GPTrack.Count + 1] = NoObject;
             loadingData[GPTrack.Count + 2] = NoObject;

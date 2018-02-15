@@ -1122,7 +1122,7 @@ namespace EpicEdit.UI.Gfx
         {
             GPTrack gpTrack = this.track as GPTrack;
 
-            if (gpTrack.Objects.Routine != ObjectType.Pillar)
+            if (gpTrack.Objects.Routine != TrackObjectType.Pillar)
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
 

@@ -41,7 +41,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (this.EditionMode == EditionMode.Objects)
             {
-                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != ObjectType.Pillar)
+                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
                 {
                     // Shift the X value, to account for the fact that track objects,
                     // which are rendered on 2x2 tiles (16x16 pixels) are spread across 3 tiles
@@ -75,7 +75,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (this.EditionMode == EditionMode.Objects)
             {
-                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != ObjectType.Pillar)
+                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
                 {
                     return TrackPanel.GetObjectTile(gpTrack, x, y, tileX, tileY);
                 }

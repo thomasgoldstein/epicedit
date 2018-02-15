@@ -40,9 +40,9 @@ namespace EpicEdit.UI.TrackEdition
         {
             this.InitializeComponent();
 
-            this.tilesetComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
-            this.interactComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
-            this.routineComboBox.DataSource = Enum.GetValues(typeof(ObjectType));
+            this.tilesetComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
+            this.interactComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
+            this.routineComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
 
             this.palettePickers = new Control[]
             {
@@ -155,7 +155,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.Track.Objects.Tileset = (ObjectType)this.tilesetComboBox.SelectedItem;
+            this.Track.Objects.Tileset = (TrackObjectType)this.tilesetComboBox.SelectedItem;
         }
 
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -165,7 +165,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.Track.Objects.Interaction = (ObjectType)this.interactComboBox.SelectedItem;
+            this.Track.Objects.Interaction = (TrackObjectType)this.interactComboBox.SelectedItem;
         }
 
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -175,13 +175,13 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.Track.Objects.Routine = (ObjectType)this.routineComboBox.SelectedItem;
+            this.Track.Objects.Routine = (TrackObjectType)this.routineComboBox.SelectedItem;
             this.ToggleZoneGroupBox();
         }
 
         private void ToggleZoneGroupBox()
         {
-            this.zoneGroupBox.Enabled = this.Track.Objects.Routine != ObjectType.Pillar;
+            this.zoneGroupBox.Enabled = this.Track.Objects.Routine != TrackObjectType.Pillar;
         }
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)

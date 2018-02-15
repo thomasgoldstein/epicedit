@@ -41,19 +41,19 @@ namespace EpicEdit.Rom.Tracks.Objects
         private readonly TrackObjectProperties properties;
         public TrackObjectProperties Properties => this.properties;
 
-        public ObjectType Tileset
+        public TrackObjectType Tileset
         {
             get => this.properties.Tileset;
             set => this.properties.Tileset = value;
         }
 
-        public ObjectType Interaction
+        public TrackObjectType Interaction
         {
             get => this.properties.Interaction;
             set => this.properties.Interaction = value;
         }
 
-        public ObjectType Routine
+        public TrackObjectType Routine
         {
             get => this.properties.Routine;
             set => this.properties.Routine = value;
@@ -69,7 +69,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             set => this.properties.Flashing = value;
         }
 
-        public ObjectLoading Loading => this.properties.Loading;
+        public TrackObjectLoading Loading => this.properties.Loading;
 
         public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, GPTrack track)
         {
