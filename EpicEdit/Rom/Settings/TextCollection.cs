@@ -31,7 +31,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the converter used to translate font graphics index values into .NET strings.
         /// </summary>
-        public TextConverter Converter { get; private set; }
+        public TextConverter Converter { get; }
 
         public Region Region => this.Converter.Region;
 
@@ -73,7 +73,7 @@ namespace EpicEdit.Rom.Settings
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
         /// </summary>
-        public int MaxCharacterCount { get; private set; }
+        public int MaxCharacterCount { get; }
 
         /// <summary>
         /// Gets the total amount of characters used by the whole collection.

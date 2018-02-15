@@ -58,7 +58,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// The collection the palette belongs to.
         /// </summary>
-        public Palettes Collection { get; private set; }
+        public Palettes Collection { get; }
 
         private readonly int index;
         public int Index => this.index;

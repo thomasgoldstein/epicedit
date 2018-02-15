@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Settings
     /// </summary>
     internal class FreeTextCollection : ITextCollection
     {
-        public TextConverter Converter { get; private set; }
+        public TextConverter Converter { get; }
 
         public Region Region => this.Converter.Region;
 
@@ -41,7 +41,7 @@ namespace EpicEdit.Rom.Settings
             }
         }
 
-        public int MaxCharacterCount { get; private set; }
+        public int MaxCharacterCount { get; }
 
         private readonly List<TextItem> items;
 

@@ -48,7 +48,7 @@ namespace EpicEdit.Rom.Settings
             }
         }
 
-        public TextItem Suffix { get; private set; }
+        public TextItem Suffix { get; }
 
         public string Value => this.TextItem.FormattedValue + this.Suffix?.FormattedValue;
 

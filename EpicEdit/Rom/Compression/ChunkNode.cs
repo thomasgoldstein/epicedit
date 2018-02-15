@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     internal class ChunkNode
     {
-        public int CompressedBufferSize { get; private set; }
+        public int CompressedBufferSize { get; }
 
         /// <summary>
         /// Gets or sets the value determining whether the node has already been processed.

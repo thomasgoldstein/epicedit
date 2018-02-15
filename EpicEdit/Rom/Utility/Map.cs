@@ -21,8 +21,8 @@ namespace EpicEdit.Rom.Utility
     /// </summary>
     internal class Map<T1, T2>
     {
-        public Indexer<T1, T2> Forward { get; private set; }
-        public Indexer<T2, T1> Reverse { get; private set; }
+        public Indexer<T1, T2> Forward { get; }
+        public Indexer<T2, T1> Reverse { get; }
 
         private Dictionary<T1, T2> forward = new Dictionary<T1, T2>();
         private Dictionary<T2, T1> reverse = new Dictionary<T2, T1>();

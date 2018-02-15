@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Tracks
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SuffixedTextItem SuffixedNameItem { get; private set; }
+        public SuffixedTextItem SuffixedNameItem { get; }
 
         public string Name => this.SuffixedNameItem.Value;
 

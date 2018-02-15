@@ -32,13 +32,13 @@ namespace EpicEdit.Rom.Tracks
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TextItem NameItem { get; private set; }
+        public TextItem NameItem { get; }
 
         public string Name => this.NameItem.FormattedValue;
 
-        public Palettes Palettes { get; private set; }
-        public RoadTileset RoadTileset { get; private set; }
-        public Background Background { get; private set; }
+        public Palettes Palettes { get; }
+        public RoadTileset RoadTileset { get; }
+        public Background Background { get; }
 
         public RomColor BackColor => this.Palettes.BackColor;
 

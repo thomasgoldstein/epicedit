@@ -24,8 +24,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
     /// </summary>
     internal class TileChange : IMapBuffer
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int X { get; }
+        public int Y { get; }
 
         private readonly byte[][] data;
 

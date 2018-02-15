@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
     {
         private byte[][] tiles;
 
-        public OverlayTileSize Size { get; private set; }
+        public OverlayTileSize Size { get; }
 
         public int Width => this.Size.Width;
 

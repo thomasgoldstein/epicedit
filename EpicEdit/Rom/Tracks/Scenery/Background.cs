@@ -24,8 +24,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public BackgroundTileset Tileset { get; private set; }
-        public BackgroundLayout Layout { get; private set; }
+        public BackgroundTileset Tileset { get; }
+        public BackgroundLayout Layout { get; }
 
         public Background(BackgroundTileset tileset, BackgroundLayout layout)
         {

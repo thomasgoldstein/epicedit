@@ -22,7 +22,7 @@ namespace EpicEdit.Rom.Utility
     /// </summary>
     internal class TextConverter
     {
-        public Region Region { get; private set; }
+        public Region Region { get; }
         private Map<byte, char> dictionary;
 
         public TextConverter(Region region, bool tallCharacters, byte shiftValue)
