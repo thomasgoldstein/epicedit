@@ -503,8 +503,10 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     foreach (Track t in trackGroup)
                     {
-                        t.Export(fileName.Replace(TrackNumberPattern, trackId.ToString()).Replace(TrackNamePattern, t.Name),
-                                 Context.Game);
+                        t.Export(fileName
+                            .Replace(TrackNumberPattern, trackId.ToString())
+                            .Replace(TrackNamePattern, UITools.SanitizeFileName(t.Name)),
+                            Context.Game);
                         trackId++;
                     }
                 }
