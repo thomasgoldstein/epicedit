@@ -32,6 +32,8 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private bool enableBoundsChecks;
+
         private Point location;
         public Point Location
         {
@@ -41,36 +43,39 @@ namespace EpicEdit.Rom.Tracks.Start
                 int x = value.X;
                 int y = value.Y;
 
-                if (this.SecondRowOffset > 0)
+                if (this.enableBoundsChecks)
                 {
-                    if (x < Tile.Size)
+                    if (this.SecondRowOffset > 0)
                     {
-                        x = Tile.Size;
+                        if (x < Tile.Size)
+                        {
+                            x = Tile.Size;
+                        }
+                        else if (x + this.SecondRowOffset > GPStartPosition.PixelLimit)
+                        {
+                            x = GPStartPosition.PixelLimit - this.SecondRowOffset;
+                        }
                     }
-                    else if (x + this.SecondRowOffset > GPStartPosition.PixelLimit)
+                    else
                     {
-                        x = GPStartPosition.PixelLimit - this.SecondRowOffset;
+                        if (x + this.SecondRowOffset < Tile.Size)
+                        {
+                            x = Tile.Size - this.SecondRowOffset;
+                        }
+                        else if (x > GPStartPosition.PixelLimit)
+                        {
+                            x = GPStartPosition.PixelLimit;
+                        }
                     }
-                }
-                else
-                {
-                    if (x + this.SecondRowOffset < Tile.Size)
-                    {
-                        x = Tile.Size - this.SecondRowOffset;
-                    }
-                    else if (x > GPStartPosition.PixelLimit)
-                    {
-                        x = GPStartPosition.PixelLimit;
-                    }
-                }
 
-                if (y < Tile.Size)
-                {
-                    y = Tile.Size;
-                }
-                else if (y > GPStartPosition.PixelLimit - GPStartPosition.Height)
-                {
-                    y = GPStartPosition.PixelLimit - GPStartPosition.Height;
+                    if (y < Tile.Size)
+                    {
+                        y = Tile.Size;
+                    }
+                    else if (y > GPStartPosition.PixelLimit - GPStartPosition.Height)
+                    {
+                        y = GPStartPosition.PixelLimit - GPStartPosition.Height;
+                    }
                 }
 
                 if (this.X != x || this.Y != y)
@@ -87,21 +92,24 @@ namespace EpicEdit.Rom.Tracks.Start
             get => this.secondRowOffset;
             set
             {
-                if (this.X + value < Tile.Size)
+                if (this.enableBoundsChecks)
                 {
-                    value = Tile.Size - this.X;
-                }
-                else if (this.X + value > GPStartPosition.PixelLimit)
-                {
-                    value = GPStartPosition.PixelLimit - this.X;
-                }
-                else if (value < GPStartPosition.SecondRowMin)
-                {
-                    value = GPStartPosition.SecondRowMin;
-                }
-                else if (value > GPStartPosition.SecondRowMax)
-                {
-                    value = GPStartPosition.SecondRowMax;
+                    if (this.X + value < Tile.Size)
+                    {
+                        value = Tile.Size - this.X;
+                    }
+                    else if (this.X + value > GPStartPosition.PixelLimit)
+                    {
+                        value = GPStartPosition.PixelLimit - this.X;
+                    }
+                    else if (value < GPStartPosition.SecondRowMin)
+                    {
+                        value = GPStartPosition.SecondRowMin;
+                    }
+                    else if (value > GPStartPosition.SecondRowMax)
+                    {
+                        value = GPStartPosition.SecondRowMax;
+                    }
                 }
 
                 if (this.secondRowOffset != value)
@@ -128,8 +136,12 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public GPStartPosition(short x, short y, short secondRowOffset)
         {
+            this.enableBoundsChecks = false;
+
             this.Location = new Point(x, y);
             this.SecondRowOffset = secondRowOffset;
+
+            this.enableBoundsChecks = true;
         }
 
         public GPStartPosition(byte[] data)
@@ -139,6 +151,8 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public void SetBytes(byte[] data)
         {
+            this.enableBoundsChecks = false;
+
             int x = (data[1] << 8) + data[0];
             int y = (data[3] << 8) + data[2];
             this.Location = new Point(x, y);
@@ -153,6 +167,8 @@ namespace EpicEdit.Rom.Tracks.Start
             }
 
             this.SecondRowOffset = rowOffset;
+
+            this.enableBoundsChecks = true;
         }
 
         private void OnPropertyChanged(string propertyName)
