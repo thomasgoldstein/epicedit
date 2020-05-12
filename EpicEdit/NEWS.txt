@@ -2,9 +2,14 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
+v2.8.6 (??? 2020)
+- Fixed 2.8 regression which could lead to altered GP starting position
+  data on track load or import
+
+
 v2.8.5 (April 30th 2020)
 - Fixed display regression from 2.8.4 when editing front background tiles
-- Remove invalid characters from track names in bulk export file names
+- Removed invalid characters from track names in bulk export file names
 
 
 v2.8.4 (February 10th 2018)
@@ -18,7 +23,7 @@ v2.8.4 (February 10th 2018)
 - Fixed 2.8 regression which made it so changes made to the first color
   of the first palette of any theme would not be instantly visible on tiles
   that use a palette from #2 to #16
-- Fixed 2.8.2 regression that updated the starting position row offset data
+- Fixed 2.8.2 regression that altered the starting position row offset data
   if the current precision did not allow the value of the loaded track
 - Tweaked the AI selection behavior. If multiple AI targets are at the same
   hovered location, then give the hover priority to the selected AI element
