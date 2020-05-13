@@ -24,6 +24,12 @@ namespace EpicEdit.Rom
             public const string Data = "Data"; // NOTE: Dummy property name
         }
 
+        internal static class BattleTrack
+        {
+            public const string StartPositionP1 = nameof(Tracks.BattleTrack.StartPositionP1);
+            public const string StartPositionP2 = nameof(Tracks.BattleTrack.StartPositionP2);
+        }
+
         internal static class Game
         {
             public const string Data = "Data"; // NOTE: Dummy property name

@@ -65,8 +65,22 @@ namespace EpicEdit.Rom.Tracks
         {
             byte[] startPosition1Data = { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
             byte[] startPosition2Data = { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
+
             this.startPositionP1 = new BattleStartPosition(startPosition1Data);
+            this.StartPositionP1.DataChanged += StartPositionP1_DataChanged;
+
             this.startPositionP2 = new BattleStartPosition(startPosition2Data);
+            this.StartPositionP2.DataChanged += StartPositionP2_DataChanged;
+        }
+
+        private void StartPositionP1_DataChanged(object sender, System.EventArgs e)
+        {
+            this.MarkAsModified(PropertyNames.BattleTrack.StartPositionP1);
+        }
+
+        private void StartPositionP2_DataChanged(object sender, System.EventArgs e)
+        {
+            this.MarkAsModified(PropertyNames.BattleTrack.StartPositionP2);
         }
 
         /// <summary>
