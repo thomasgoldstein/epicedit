@@ -35,52 +35,50 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private readonly TrackObject[] objects;
 
-        private readonly TrackObjectZones zones;
-        public TrackObjectZones Zones => this.zones;
+        public TrackObjectZones Zones { get; }
 
-        private readonly TrackObjectProperties properties;
-        public TrackObjectProperties Properties => this.properties;
+        public TrackObjectProperties Properties { get; }
 
         public TrackObjectType Tileset
         {
-            get => this.properties.Tileset;
-            set => this.properties.Tileset = value;
+            get => this.Properties.Tileset;
+            set => this.Properties.Tileset = value;
         }
 
         public TrackObjectType Interaction
         {
-            get => this.properties.Interaction;
-            set => this.properties.Interaction = value;
+            get => this.Properties.Interaction;
+            set => this.Properties.Interaction = value;
         }
 
         public TrackObjectType Routine
         {
-            get => this.properties.Routine;
-            set => this.properties.Routine = value;
+            get => this.Properties.Routine;
+            set => this.Properties.Routine = value;
         }
 
-        public ByteArray PaletteIndexes => this.properties.PaletteIndexes;
+        public ByteArray PaletteIndexes => this.Properties.PaletteIndexes;
 
-        public Palette Palette => this.properties.Palette;
+        public Palette Palette => this.Properties.Palette;
 
         public bool Flashing
         {
-            get => this.properties.Flashing;
-            set => this.properties.Flashing = value;
+            get => this.Properties.Flashing;
+            set => this.Properties.Flashing = value;
         }
 
-        public TrackObjectLoading Loading => this.properties.Loading;
+        public TrackObjectLoading Loading => this.Properties.Loading;
 
         public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, GPTrack track)
         {
             this.objects = new TrackObject[Size / BytesPerObject];
             this.SetBytes(data);
 
-            this.zones = new TrackObjectZones(zoneData, ai);
+            this.Zones = new TrackObjectZones(zoneData, ai);
             this.Zones.PropertyChanged += this.SubPropertyChanged;
 
-            this.properties = new TrackObjectProperties(propData, track);
-            this.properties.PropertyChanged += this.SubPropertyChanged;
+            this.Properties = new TrackObjectProperties(propData, track);
+            this.Properties.PropertyChanged += this.SubPropertyChanged;
         }
 
         public void SetBytes(byte[] data)
