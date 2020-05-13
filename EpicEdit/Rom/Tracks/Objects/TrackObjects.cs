@@ -123,11 +123,6 @@ namespace EpicEdit.Rom.Tracks.Objects
             this.PropertyChanged?.Invoke(sender, e);
         }
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public IEnumerator<TrackObject> GetEnumerator()
         {
             foreach (TrackObject tObject in this.objects)
