@@ -2,9 +2,11 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
-v2.8.6 (??? 2020)
+v2.8.6 (May 13th 2020)
 - Fixed 2.8 regression which could lead to altered GP starting position
   data on track load or import
+- Fixed 2.8 regression which made it so modifying battle track starting
+  positions would not mark the ROM as modified
 
 
 v2.8.5 (April 30th 2020)
