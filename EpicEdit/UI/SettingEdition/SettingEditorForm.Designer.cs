@@ -52,7 +52,7 @@ namespace EpicEdit.UI.SettingEdition
             this.courseSelectNamesTab = new System.Windows.Forms.TabPage();
             this.courseSelectNamesEditor = new EpicEdit.UI.SettingEdition.CourseSelectNamesEditor();
             this.resultsTab = new System.Windows.Forms.TabPage();
-            this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
+            this.resultsEditor = new EpicEdit.UI.SettingEdition.ResultsEditor();
             this.itemProbaTab = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
@@ -142,7 +142,7 @@ namespace EpicEdit.UI.SettingEdition
             // 
             // resultsTab
             // 
-            this.resultsTab.Controls.Add(this.resultEditor);
+            this.resultsTab.Controls.Add(this.resultsEditor);
             this.resultsTab.ImageKey = "ResultsTab";
             this.resultsTab.Location = new System.Drawing.Point(4, 23);
             this.resultsTab.Name = "resultsTab";
@@ -151,13 +151,13 @@ namespace EpicEdit.UI.SettingEdition
             this.resultsTab.ToolTipText = "Results";
             this.resultsTab.UseVisualStyleBackColor = true;
             // 
-            // resultEditor
+            // resultsEditor
             // 
-            this.resultEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultEditor.Location = new System.Drawing.Point(0, 0);
-            this.resultEditor.Name = "resultEditor";
-            this.resultEditor.Size = new System.Drawing.Size(520, 255);
-            this.resultEditor.TabIndex = 0;
+            this.resultsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultsEditor.Location = new System.Drawing.Point(0, 0);
+            this.resultsEditor.Name = "resultsEditor";
+            this.resultsEditor.Size = new System.Drawing.Size(520, 255);
+            this.resultsEditor.TabIndex = 0;
             // 
             // itemProbaTab
             // 
@@ -209,7 +209,7 @@ namespace EpicEdit.UI.SettingEdition
         }
         private EpicEdit.UI.SettingEdition.GPCupTextsEditor gpCupTextsEditor;
         private System.Windows.Forms.TabPage gpCupTextsTab;
-        private EpicEdit.UI.SettingEdition.ResultEditor resultEditor;
+        private EpicEdit.UI.SettingEdition.ResultsEditor resultsEditor;
         private System.Windows.Forms.ImageList tabImageList;
 
         #endregion

@@ -248,11 +248,11 @@
     <Compile Include="UI\SettingEdition\RankPointsControl.Designer.cs">
       <DependentUpon>RankPointsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\ResultEditor.cs">
+    <Compile Include="UI\SettingEdition\ResultsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\ResultEditor.Designer.cs">
-      <DependentUpon>ResultEditor.cs</DependentUpon>
+    <Compile Include="UI\SettingEdition\ResultsEditor.Designer.cs">
+      <DependentUpon>ResultsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingEdition\SettingEditorForm.cs">
       <SubType>Form</SubType>
@@ -430,8 +430,8 @@
     <EmbeddedResource Include="UI\SettingEdition\RankPointsControl.resx">
       <DependentUpon>RankPointsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\ResultEditor.resx">
-      <DependentUpon>ResultEditor.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SettingEdition\ResultsEditor.resx">
+      <DependentUpon>ResultsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\SettingEditorForm.resx">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>

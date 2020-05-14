@@ -57,7 +57,7 @@ namespace EpicEdit.UI.SettingEdition
             this.gpCupTextsEditor.Init();
             this.courseSelectTextsEditor.Init();
             this.courseSelectNamesEditor.Init();
-            this.resultEditor.Init();
+            this.resultsEditor.Init();
             this.itemProbaEditor.Init();
         }
 
