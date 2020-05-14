@@ -215,11 +215,11 @@
     <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.Designer.cs">
       <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.cs">
+    <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndTrackNamesEditor.Designer.cs">
-      <DependentUpon>CupAndTrackNamesEditor.cs</DependentUpon>
+    <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.Designer.cs">
+      <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.cs">
       <SubType>UserControl</SubType>
@@ -409,8 +409,8 @@
     <EmbeddedResource Include="UI\SettingEdition\CupAndThemeTextsEditor.resx">
       <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\CupAndTrackNamesEditor.resx">
-      <DependentUpon>CupAndTrackNamesEditor.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SettingEdition\CourseSelectNamesEditor.resx">
+      <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\DriverNamesControl.resx">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>

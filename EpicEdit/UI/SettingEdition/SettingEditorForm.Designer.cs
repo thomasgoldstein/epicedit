@@ -45,26 +45,26 @@ namespace EpicEdit.UI.SettingEdition
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingEditorForm));
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.cupThemeTab = new System.Windows.Forms.TabPage();
+            this.cupAndThemeTextsTab = new System.Windows.Forms.TabPage();
             this.cupAndThemeTextsEditor = new EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor();
-            this.trackNamesTab = new System.Windows.Forms.TabPage();
-            this.cupAndTrackNamesEditor = new EpicEdit.UI.SettingEdition.CupAndTrackNamesEditor();
+            this.courseSelectNamesTab = new System.Windows.Forms.TabPage();
+            this.courseSelectNamesEditor = new EpicEdit.UI.SettingEdition.CourseSelectNamesEditor();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
             this.itemProbaTabPage = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl.SuspendLayout();
-            this.cupThemeTab.SuspendLayout();
-            this.trackNamesTab.SuspendLayout();
+            this.cupAndThemeTextsTab.SuspendLayout();
+            this.courseSelectNamesTab.SuspendLayout();
             this.resultsTabPage.SuspendLayout();
             this.itemProbaTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.cupThemeTab);
-            this.tabControl.Controls.Add(this.trackNamesTab);
+            this.tabControl.Controls.Add(this.cupAndThemeTextsTab);
+            this.tabControl.Controls.Add(this.courseSelectNamesTab);
             this.tabControl.Controls.Add(this.resultsTabPage);
             this.tabControl.Controls.Add(this.itemProbaTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -79,16 +79,16 @@ namespace EpicEdit.UI.SettingEdition
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             // 
-            // cupThemeTab
+            // cupAndThemeTextsTab
             // 
-            this.cupThemeTab.Controls.Add(this.cupAndThemeTextsEditor);
-            this.cupThemeTab.ImageKey = "CupThemeTab";
-            this.cupThemeTab.Location = new System.Drawing.Point(4, 23);
-            this.cupThemeTab.Name = "cupThemeTab";
-            this.cupThemeTab.Size = new System.Drawing.Size(520, 255);
-            this.cupThemeTab.TabIndex = 2;
-            this.cupThemeTab.ToolTipText = "Cups &&& themes";
-            this.cupThemeTab.UseVisualStyleBackColor = true;
+            this.cupAndThemeTextsTab.Controls.Add(this.cupAndThemeTextsEditor);
+            this.cupAndThemeTextsTab.ImageKey = "CupAndThemeTextsTab";
+            this.cupAndThemeTextsTab.Location = new System.Drawing.Point(4, 23);
+            this.cupAndThemeTextsTab.Name = "cupAndThemeTextsTab";
+            this.cupAndThemeTextsTab.Size = new System.Drawing.Size(520, 255);
+            this.cupAndThemeTextsTab.TabIndex = 2;
+            this.cupAndThemeTextsTab.ToolTipText = "Cups &&& themes";
+            this.cupAndThemeTextsTab.UseVisualStyleBackColor = true;
             // 
             // cupAndThemeTextsEditor
             // 
@@ -98,24 +98,24 @@ namespace EpicEdit.UI.SettingEdition
             this.cupAndThemeTextsEditor.Size = new System.Drawing.Size(520, 255);
             this.cupAndThemeTextsEditor.TabIndex = 0;
             // 
-            // trackNamesTab
+            // courseSelectNamesTab
             // 
-            this.trackNamesTab.Controls.Add(this.cupAndTrackNamesEditor);
-            this.trackNamesTab.ImageKey = "TrackNamesTab";
-            this.trackNamesTab.Location = new System.Drawing.Point(4, 23);
-            this.trackNamesTab.Name = "trackNamesTab";
-            this.trackNamesTab.Size = new System.Drawing.Size(520, 255);
-            this.trackNamesTab.TabIndex = 3;
-            this.trackNamesTab.ToolTipText = "Track names";
-            this.trackNamesTab.UseVisualStyleBackColor = true;
+            this.courseSelectNamesTab.Controls.Add(this.courseSelectNamesEditor);
+            this.courseSelectNamesTab.ImageKey = "CourseSelectNamesTab";
+            this.courseSelectNamesTab.Location = new System.Drawing.Point(4, 23);
+            this.courseSelectNamesTab.Name = "courseSelectNamesTab";
+            this.courseSelectNamesTab.Size = new System.Drawing.Size(520, 255);
+            this.courseSelectNamesTab.TabIndex = 3;
+            this.courseSelectNamesTab.ToolTipText = "Course select names";
+            this.courseSelectNamesTab.UseVisualStyleBackColor = true;
             // 
-            // cupAndTrackNamesEditor
+            // courseSelectNamesEditor
             // 
-            this.cupAndTrackNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cupAndTrackNamesEditor.Location = new System.Drawing.Point(0, 0);
-            this.cupAndTrackNamesEditor.Name = "cupAndTrackNamesEditor";
-            this.cupAndTrackNamesEditor.Size = new System.Drawing.Size(520, 255);
-            this.cupAndTrackNamesEditor.TabIndex = 0;
+            this.courseSelectNamesEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.courseSelectNamesEditor.Location = new System.Drawing.Point(0, 0);
+            this.courseSelectNamesEditor.Name = "courseSelectNamesEditor";
+            this.courseSelectNamesEditor.Size = new System.Drawing.Size(520, 255);
+            this.courseSelectNamesEditor.TabIndex = 0;
             // 
             // resultsTabPage
             // 
@@ -159,8 +159,8 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "CupThemeTab");
-            this.tabImageList.Images.SetKeyName(1, "TrackNamesTab");
+            this.tabImageList.Images.SetKeyName(0, "CupAndThemeTextsTab");
+            this.tabImageList.Images.SetKeyName(1, "CourseSelectNamesTab");
             this.tabImageList.Images.SetKeyName(2, "ResultsTab");
             // 
             // SettingEditorForm
@@ -175,15 +175,15 @@ namespace EpicEdit.UI.SettingEdition
             this.ShowInTaskbar = false;
             this.Text = "Game settings";
             this.tabControl.ResumeLayout(false);
-            this.cupThemeTab.ResumeLayout(false);
-            this.trackNamesTab.ResumeLayout(false);
+            this.cupAndThemeTextsTab.ResumeLayout(false);
+            this.courseSelectNamesTab.ResumeLayout(false);
             this.resultsTabPage.ResumeLayout(false);
             this.itemProbaTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
         private EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor cupAndThemeTextsEditor;
-        private System.Windows.Forms.TabPage cupThemeTab;
+        private System.Windows.Forms.TabPage cupAndThemeTextsTab;
         private EpicEdit.UI.SettingEdition.ResultEditor resultEditor;
         private System.Windows.Forms.ImageList tabImageList;
 
@@ -193,7 +193,7 @@ namespace EpicEdit.UI.SettingEdition
         private System.Windows.Forms.TabPage itemProbaTabPage;
         private System.Windows.Forms.TabPage resultsTabPage;
         private EpicEdit.UI.SettingEdition.ItemProbaEditor itemProbaEditor;
-        private System.Windows.Forms.TabPage trackNamesTab;
-        private EpicEdit.UI.SettingEdition.CupAndTrackNamesEditor cupAndTrackNamesEditor;
+        private System.Windows.Forms.TabPage courseSelectNamesTab;
+        private EpicEdit.UI.SettingEdition.CourseSelectNamesEditor courseSelectNamesEditor;
     }
 }

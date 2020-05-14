@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.SettingEdition
 {
-    partial class CupAndTrackNamesEditor
+    partial class CourseSelectNamesEditor
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
@@ -337,7 +337,7 @@ namespace EpicEdit.UI.SettingEdition
             this.countLabel.Text = "...";
             this.countLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // CupAndTrackNamesEditor
+            // CourseSelectNamesEditor
             // 
             this.Controls.Add(this.countLabel);
             this.Controls.Add(this.battleTrack4NameControl);
@@ -368,7 +368,7 @@ namespace EpicEdit.UI.SettingEdition
             this.Controls.Add(this.cup1Track2NameControl);
             this.Controls.Add(this.cup1Track1NameControl);
             this.Controls.Add(this.cup1NameControl);
-            this.Name = "CupAndTrackNamesEditor";
+            this.Name = "CourseSelectNamesEditor";
             this.Size = new System.Drawing.Size(514, 250);
             this.ResumeLayout(false);
 

@@ -20,11 +20,11 @@ using System.Windows.Forms;
 namespace EpicEdit.UI.SettingEdition
 {
     /// <summary>
-    /// Represents a collection of controls used to edit the name of each cup and track.
+    /// Represents a collection of controls used to edit the names displayed on the Course Select screen.
     /// </summary>
-    internal partial class CupAndTrackNamesEditor : UserControl
+    internal partial class CourseSelectNamesEditor : UserControl
     {
-        public CupAndTrackNamesEditor()
+        public CourseSelectNamesEditor()
         {
             this.InitializeComponent();
         }
