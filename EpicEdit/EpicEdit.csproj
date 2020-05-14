@@ -209,11 +209,17 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.cs">
+    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\CupAndThemeTextsEditor.Designer.cs">
-      <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
+    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.Designer.cs">
+      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SettingEdition\GPCupTextsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SettingEdition\GPCupTextsEditor.Designer.cs">
+      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.cs">
       <SubType>UserControl</SubType>
@@ -406,8 +412,11 @@
     <EmbeddedResource Include="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\CupAndThemeTextsEditor.resx">
-      <DependentUpon>CupAndThemeTextsEditor.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SettingEdition\CourseSelectTextsEditor.resx">
+      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\GPCupTextsEditor.resx">
+      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\CourseSelectNamesEditor.resx">
       <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>

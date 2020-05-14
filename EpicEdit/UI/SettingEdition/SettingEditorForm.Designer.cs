@@ -45,28 +45,32 @@ namespace EpicEdit.UI.SettingEdition
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingEditorForm));
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.cupAndThemeTextsTab = new System.Windows.Forms.TabPage();
-            this.cupAndThemeTextsEditor = new EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor();
+            this.gpCupTextsTab = new System.Windows.Forms.TabPage();
+            this.gpCupTextsEditor = new EpicEdit.UI.SettingEdition.GPCupTextsEditor();
+            this.courseSelectTextsTab = new System.Windows.Forms.TabPage();
+            this.courseSelectTextsEditor = new EpicEdit.UI.SettingEdition.CourseSelectTextsEditor();
             this.courseSelectNamesTab = new System.Windows.Forms.TabPage();
             this.courseSelectNamesEditor = new EpicEdit.UI.SettingEdition.CourseSelectNamesEditor();
-            this.resultsTabPage = new System.Windows.Forms.TabPage();
+            this.resultsTab = new System.Windows.Forms.TabPage();
             this.resultEditor = new EpicEdit.UI.SettingEdition.ResultEditor();
-            this.itemProbaTabPage = new System.Windows.Forms.TabPage();
+            this.itemProbaTab = new System.Windows.Forms.TabPage();
             this.itemProbaEditor = new EpicEdit.UI.SettingEdition.ItemProbaEditor();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl.SuspendLayout();
-            this.cupAndThemeTextsTab.SuspendLayout();
+            this.gpCupTextsTab.SuspendLayout();
+            this.courseSelectTextsTab.SuspendLayout();
             this.courseSelectNamesTab.SuspendLayout();
-            this.resultsTabPage.SuspendLayout();
-            this.itemProbaTabPage.SuspendLayout();
+            this.resultsTab.SuspendLayout();
+            this.itemProbaTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.cupAndThemeTextsTab);
+            this.tabControl.Controls.Add(this.gpCupTextsTab);
+            this.tabControl.Controls.Add(this.courseSelectTextsTab);
             this.tabControl.Controls.Add(this.courseSelectNamesTab);
-            this.tabControl.Controls.Add(this.resultsTabPage);
-            this.tabControl.Controls.Add(this.itemProbaTabPage);
+            this.tabControl.Controls.Add(this.resultsTab);
+            this.tabControl.Controls.Add(this.itemProbaTab);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.ImageList = this.tabImageList;
             this.tabControl.ItemSize = new System.Drawing.Size(28, 19);
@@ -79,24 +83,43 @@ namespace EpicEdit.UI.SettingEdition
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             // 
-            // cupAndThemeTextsTab
+            // gpCupTextsTab
             // 
-            this.cupAndThemeTextsTab.Controls.Add(this.cupAndThemeTextsEditor);
-            this.cupAndThemeTextsTab.ImageKey = "CupAndThemeTextsTab";
-            this.cupAndThemeTextsTab.Location = new System.Drawing.Point(4, 23);
-            this.cupAndThemeTextsTab.Name = "cupAndThemeTextsTab";
-            this.cupAndThemeTextsTab.Size = new System.Drawing.Size(520, 255);
-            this.cupAndThemeTextsTab.TabIndex = 2;
-            this.cupAndThemeTextsTab.ToolTipText = "Cups &&& themes";
-            this.cupAndThemeTextsTab.UseVisualStyleBackColor = true;
+            this.gpCupTextsTab.Controls.Add(this.gpCupTextsEditor);
+            this.gpCupTextsTab.ImageKey = "GPCupTextsTab";
+            this.gpCupTextsTab.Location = new System.Drawing.Point(4, 23);
+            this.gpCupTextsTab.Name = "gpCupTextsTab";
+            this.gpCupTextsTab.Size = new System.Drawing.Size(520, 255);
+            this.gpCupTextsTab.TabIndex = 0;
+            this.gpCupTextsTab.ToolTipText = "GP cup texts";
+            this.gpCupTextsTab.UseVisualStyleBackColor = true;
             // 
-            // cupAndThemeTextsEditor
+            // gpCupTextsEditor
             // 
-            this.cupAndThemeTextsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cupAndThemeTextsEditor.Location = new System.Drawing.Point(0, 0);
-            this.cupAndThemeTextsEditor.Name = "cupAndThemeTextsEditor";
-            this.cupAndThemeTextsEditor.Size = new System.Drawing.Size(520, 255);
-            this.cupAndThemeTextsEditor.TabIndex = 0;
+            this.gpCupTextsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gpCupTextsEditor.Location = new System.Drawing.Point(0, 0);
+            this.gpCupTextsEditor.Name = "gpCupTextsEditor";
+            this.gpCupTextsEditor.Size = new System.Drawing.Size(520, 255);
+            this.gpCupTextsEditor.TabIndex = 0;
+            // 
+            // courseSelectTextsTab
+            // 
+            this.courseSelectTextsTab.Controls.Add(this.courseSelectTextsEditor);
+            this.courseSelectTextsTab.ImageKey = "CourseSelectTextsTab";
+            this.courseSelectTextsTab.Location = new System.Drawing.Point(4, 23);
+            this.courseSelectTextsTab.Name = "courseSelectTextsTab";
+            this.courseSelectTextsTab.Size = new System.Drawing.Size(520, 255);
+            this.courseSelectTextsTab.TabIndex = 1;
+            this.courseSelectTextsTab.ToolTipText = "Course select texts";
+            this.courseSelectTextsTab.UseVisualStyleBackColor = true;
+            // 
+            // courseSelectTextsEditor
+            // 
+            this.courseSelectTextsEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.courseSelectTextsEditor.Location = new System.Drawing.Point(0, 0);
+            this.courseSelectTextsEditor.Name = "courseSelectTextsEditor";
+            this.courseSelectTextsEditor.Size = new System.Drawing.Size(520, 255);
+            this.courseSelectTextsEditor.TabIndex = 0;
             // 
             // courseSelectNamesTab
             // 
@@ -105,7 +128,7 @@ namespace EpicEdit.UI.SettingEdition
             this.courseSelectNamesTab.Location = new System.Drawing.Point(4, 23);
             this.courseSelectNamesTab.Name = "courseSelectNamesTab";
             this.courseSelectNamesTab.Size = new System.Drawing.Size(520, 255);
-            this.courseSelectNamesTab.TabIndex = 3;
+            this.courseSelectNamesTab.TabIndex = 2;
             this.courseSelectNamesTab.ToolTipText = "Course select names";
             this.courseSelectNamesTab.UseVisualStyleBackColor = true;
             // 
@@ -117,16 +140,16 @@ namespace EpicEdit.UI.SettingEdition
             this.courseSelectNamesEditor.Size = new System.Drawing.Size(520, 255);
             this.courseSelectNamesEditor.TabIndex = 0;
             // 
-            // resultsTabPage
+            // resultsTab
             // 
-            this.resultsTabPage.Controls.Add(this.resultEditor);
-            this.resultsTabPage.ImageKey = "ResultsTab";
-            this.resultsTabPage.Location = new System.Drawing.Point(4, 23);
-            this.resultsTabPage.Name = "resultsTabPage";
-            this.resultsTabPage.Size = new System.Drawing.Size(520, 255);
-            this.resultsTabPage.TabIndex = 1;
-            this.resultsTabPage.ToolTipText = "Results";
-            this.resultsTabPage.UseVisualStyleBackColor = true;
+            this.resultsTab.Controls.Add(this.resultEditor);
+            this.resultsTab.ImageKey = "ResultsTab";
+            this.resultsTab.Location = new System.Drawing.Point(4, 23);
+            this.resultsTab.Name = "resultsTab";
+            this.resultsTab.Size = new System.Drawing.Size(520, 255);
+            this.resultsTab.TabIndex = 3;
+            this.resultsTab.ToolTipText = "Results";
+            this.resultsTab.UseVisualStyleBackColor = true;
             // 
             // resultEditor
             // 
@@ -136,16 +159,16 @@ namespace EpicEdit.UI.SettingEdition
             this.resultEditor.Size = new System.Drawing.Size(520, 255);
             this.resultEditor.TabIndex = 0;
             // 
-            // itemProbaTabPage
+            // itemProbaTab
             // 
-            this.itemProbaTabPage.Controls.Add(this.itemProbaEditor);
-            this.itemProbaTabPage.ImageKey = "ItemProbaButton";
-            this.itemProbaTabPage.Location = new System.Drawing.Point(4, 23);
-            this.itemProbaTabPage.Name = "itemProbaTabPage";
-            this.itemProbaTabPage.Size = new System.Drawing.Size(520, 255);
-            this.itemProbaTabPage.TabIndex = 0;
-            this.itemProbaTabPage.ToolTipText = "Item probabilities";
-            this.itemProbaTabPage.UseVisualStyleBackColor = true;
+            this.itemProbaTab.Controls.Add(this.itemProbaEditor);
+            this.itemProbaTab.ImageKey = "ItemProbaButton";
+            this.itemProbaTab.Location = new System.Drawing.Point(4, 23);
+            this.itemProbaTab.Name = "itemProbaTab";
+            this.itemProbaTab.Size = new System.Drawing.Size(520, 255);
+            this.itemProbaTab.TabIndex = 4;
+            this.itemProbaTab.ToolTipText = "Item probabilities";
+            this.itemProbaTab.UseVisualStyleBackColor = true;
             // 
             // itemProbaEditor
             // 
@@ -159,9 +182,10 @@ namespace EpicEdit.UI.SettingEdition
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "CupAndThemeTextsTab");
-            this.tabImageList.Images.SetKeyName(1, "CourseSelectNamesTab");
-            this.tabImageList.Images.SetKeyName(2, "ResultsTab");
+            this.tabImageList.Images.SetKeyName(0, "GPCupTextsTab");
+            this.tabImageList.Images.SetKeyName(1, "CourseSelectTextsTab");
+            this.tabImageList.Images.SetKeyName(2, "CourseSelectNamesTab");
+            this.tabImageList.Images.SetKeyName(3, "ResultsTab");
             // 
             // SettingEditorForm
             // 
@@ -175,25 +199,28 @@ namespace EpicEdit.UI.SettingEdition
             this.ShowInTaskbar = false;
             this.Text = "Game settings";
             this.tabControl.ResumeLayout(false);
-            this.cupAndThemeTextsTab.ResumeLayout(false);
+            this.gpCupTextsTab.ResumeLayout(false);
+            this.courseSelectTextsTab.ResumeLayout(false);
             this.courseSelectNamesTab.ResumeLayout(false);
-            this.resultsTabPage.ResumeLayout(false);
-            this.itemProbaTabPage.ResumeLayout(false);
+            this.resultsTab.ResumeLayout(false);
+            this.itemProbaTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-        private EpicEdit.UI.SettingEdition.CupAndThemeTextsEditor cupAndThemeTextsEditor;
-        private System.Windows.Forms.TabPage cupAndThemeTextsTab;
+        private EpicEdit.UI.SettingEdition.GPCupTextsEditor gpCupTextsEditor;
+        private System.Windows.Forms.TabPage gpCupTextsTab;
         private EpicEdit.UI.SettingEdition.ResultEditor resultEditor;
         private System.Windows.Forms.ImageList tabImageList;
 
         #endregion
 
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage itemProbaTabPage;
-        private System.Windows.Forms.TabPage resultsTabPage;
+        private System.Windows.Forms.TabPage itemProbaTab;
+        private System.Windows.Forms.TabPage resultsTab;
         private EpicEdit.UI.SettingEdition.ItemProbaEditor itemProbaEditor;
         private System.Windows.Forms.TabPage courseSelectNamesTab;
         private EpicEdit.UI.SettingEdition.CourseSelectNamesEditor courseSelectNamesEditor;
+        private System.Windows.Forms.TabPage courseSelectTextsTab;
+        private CourseSelectTextsEditor courseSelectTextsEditor;
     }
 }

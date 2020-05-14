@@ -22,14 +22,14 @@ namespace EpicEdit.UI.SettingEdition
     /// <summary>
     /// Represents a collection of controls used to edit the text of each cup and theme.
     /// </summary>
-    internal partial class CupAndThemeTextsEditor : UserControl
+    internal partial class GPCupTextsEditor : UserControl
     {
         private TextCollection gpCupSelectTexts;
+        private TextCollection gpResultsCupTexts;
         private TextCollection gpPodiumCupTexts;
-        private TextCollection courseSelectTexts;
         private bool fireEvents;
 
-        public CupAndThemeTextsEditor()
+        public GPCupTextsEditor()
         {
             this.InitializeComponent();
 
@@ -38,32 +38,23 @@ namespace EpicEdit.UI.SettingEdition
             this.cupTextBox3.Tag = 2;
             this.cupTextBox4.Tag = 3;
 
+            this.resultsTextBox1.Tag = 0;
+            this.resultsTextBox2.Tag = 1;
+            this.resultsTextBox3.Tag = 2;
+            this.resultsTextBox4.Tag = 3;
+
             this.podiumTextBox1.Tag = 0;
             this.podiumTextBox2.Tag = 1;
             this.podiumTextBox3.Tag = 2;
             this.podiumTextBox4.Tag = 3;
             this.podiumTextBox5.Tag = 4;
-
-            this.courseTextBox1.Tag = 0;
-            this.courseTextBox2.Tag = 1;
-            this.courseTextBox3.Tag = 2;
-            this.courseTextBox4.Tag = 3;
-            this.courseTextBox5.Tag = 4;
-            this.courseTextBox6.Tag = 5;
-            this.courseTextBox7.Tag = 6;
-            this.courseTextBox8.Tag = 7;
-            this.courseTextBox9.Tag = 8;
-            this.courseTextBox10.Tag = 9;
-            this.courseTextBox11.Tag = 10;
-            this.courseTextBox12.Tag = 11;
-            this.courseTextBox13.Tag = 12;
         }
 
         public void Init()
         {
             this.gpCupSelectTexts = Context.Game.Settings.GPCupSelectTexts;
+            this.gpResultsCupTexts = Context.Game.Settings.GPResultsCupTexts;
             this.gpPodiumCupTexts = Context.Game.Settings.GPPodiumCupTexts;
-            this.courseSelectTexts = Context.Game.Settings.CourseSelectTexts;
 
             this.fireEvents = false;
 
@@ -91,6 +82,13 @@ namespace EpicEdit.UI.SettingEdition
                 UpdateCount(this.gpCupSelectTexts, this.gpCupSelectTextsCountLabel);
             }
 
+            this.resultsTextBox1.Text = this.gpResultsCupTexts[0].Value;
+            this.resultsTextBox2.Text = this.gpResultsCupTexts[1].Value;
+            this.resultsTextBox3.Text = this.gpResultsCupTexts[2].Value;
+            this.resultsTextBox4.Text = this.gpResultsCupTexts[3].Value;
+
+            UpdateCount(this.gpResultsCupTexts, this.gpResultsCupTextsCountLabel);
+
             this.podiumTextBox1.Text = this.gpPodiumCupTexts[0].Value;
             this.podiumTextBox2.Text = this.gpPodiumCupTexts[1].Value;
             this.podiumTextBox3.Text = this.gpPodiumCupTexts[2].Value;
@@ -98,22 +96,6 @@ namespace EpicEdit.UI.SettingEdition
             this.podiumTextBox5.Text = this.gpPodiumCupTexts[4].Value;
 
             UpdateCount(this.gpPodiumCupTexts, this.gpPodiumCupTextsCountLabel);
-
-            this.courseTextBox1.Text = this.courseSelectTexts[0].Value;
-            this.courseTextBox2.Text = this.courseSelectTexts[1].Value;
-            this.courseTextBox3.Text = this.courseSelectTexts[2].Value;
-            this.courseTextBox4.Text = this.courseSelectTexts[3].Value;
-            this.courseTextBox5.Text = this.courseSelectTexts[4].Value;
-            this.courseTextBox6.Text = this.courseSelectTexts[5].Value;
-            this.courseTextBox7.Text = this.courseSelectTexts[6].Value;
-            this.courseTextBox8.Text = this.courseSelectTexts[7].Value;
-            this.courseTextBox9.Text = this.courseSelectTexts[8].Value;
-            this.courseTextBox10.Text = this.courseSelectTexts[9].Value;
-            this.courseTextBox11.Text = this.courseSelectTexts[10].Value;
-            this.courseTextBox12.Text = this.courseSelectTexts[11].Value;
-            this.courseTextBox13.Text = this.courseSelectTexts[12].Value;
-
-            UpdateCount(this.courseSelectTexts, this.courseSelectTextsCountLabel);
 
             this.fireEvents = true;
         }
@@ -131,14 +113,14 @@ namespace EpicEdit.UI.SettingEdition
             this.OnTextBoxTextChanged(sender, this.gpCupSelectTexts, this.gpCupSelectTextsCountLabel);
         }
 
+        private void GPResultsCupTextsTextBoxTextChanged(object sender, EventArgs e)
+        {
+            this.OnTextBoxTextChanged(sender, this.gpResultsCupTexts, this.gpResultsCupTextsCountLabel);
+        }
+
         private void GPPodiumCupTextsTextBoxTextChanged(object sender, EventArgs e)
         {
             this.OnTextBoxTextChanged(sender, this.gpPodiumCupTexts, this.gpPodiumCupTextsCountLabel);
-        }
-
-        private void CourseSelectTextsTextBoxTextChanged(object sender, EventArgs e)
-        {
-            this.OnTextBoxTextChanged(sender, this.courseSelectTexts, this.courseSelectTextsCountLabel);
         }
 
         private void OnTextBoxTextChanged(object sender, TextCollection textCollection, Label countLabel)

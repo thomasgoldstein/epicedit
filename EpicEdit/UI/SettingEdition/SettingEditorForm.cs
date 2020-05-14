@@ -54,7 +54,8 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.cupAndThemeTextsEditor.Init();
+            this.gpCupTextsEditor.Init();
+            this.courseSelectTextsEditor.Init();
             this.courseSelectNamesEditor.Init();
             this.resultEditor.Init();
             this.itemProbaEditor.Init();
@@ -66,7 +67,7 @@ namespace EpicEdit.UI.SettingEdition
 
             if (showItemProba)
             {
-                this.tabControl.SelectedTab = this.itemProbaTabPage;
+                this.tabControl.SelectedTab = this.itemProbaTab;
             }
         }
     }
