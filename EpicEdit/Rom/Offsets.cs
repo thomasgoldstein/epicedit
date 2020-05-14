@@ -159,7 +159,7 @@ namespace EpicEdit.Rom
             this[Offset.CupNames] = this[Offset.CupNamesLocked] + 0xE;
             this[Offset.GPTrackNames] = this[Offset.CupNames] + 0x12;
             this[Offset.NamesAndSuffixes] = this[Offset.GPTrackNames] + 0x58;
-            this[Offset.CupAndThemeTexts] = this[Offset.NamesAndSuffixes] + 0x6B;
+            this[Offset.CourseSelectTexts] = this[Offset.NamesAndSuffixes] + 0x6B;
             this[Offset.TrackOverlaySizes] = this[Offset.TrackOverlayPatterns] + 0x147;
             this[Offset.ItemProbabilities] = this[Offset.ItemIconTileLayout] + 0x1C3;
 

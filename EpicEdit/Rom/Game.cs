@@ -311,7 +311,7 @@ namespace EpicEdit.Rom
             this.Settings = new GameSettings(this.romBuffer, this.offsets, this.region);
             this.TrackGroups = new TrackGroups();
 
-            this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CupAndThemeTexts);
+            this.Themes = new Themes(this.romBuffer, this.offsets, this.Settings.CourseSelectTexts);
             byte[] overlayTileSizesData = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
             this.OverlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
             this.OverlayTilePatterns = new OverlayTilePatterns(this.romBuffer, this.offsets, this.OverlayTileSizes);
@@ -334,7 +334,7 @@ namespace EpicEdit.Rom
                 if (i != this.TrackGroups.Count - 1) // GP track group
                 {
                     trackCountInGroup = GPTrack.CountPerGroup;
-                    TextItem trackGroupTextItem = this.Settings.CupAndThemeTexts[cupNameIndexes[i][1]];
+                    TextItem trackGroupTextItem = this.Settings.CourseSelectTexts[cupNameIndexes[i][1]];
                     byte[] trackGroupNameSuffixData = Utilities.ReadBlock(cupNameIndexes[i], 2, cupNameIndexes[i].Length - 2);
                     string trackGroupNameSuffix = trackGroupTextItem.Converter.DecodeText(trackGroupNameSuffixData, false);
                     trackGroupNameItem = new SuffixedTextItem(trackGroupTextItem, trackGroupNameSuffix, this.Settings.CupAndTrackNameSuffixCollection);
@@ -342,7 +342,7 @@ namespace EpicEdit.Rom
                 else // Battle track group
                 {
                     trackCountInGroup = BattleTrack.Count;
-                    TextItem trackGroupTextItem = this.Settings.CupAndThemeTexts[trackNameIndexes[GPTrack.Count][1]];
+                    TextItem trackGroupTextItem = this.Settings.CourseSelectTexts[trackNameIndexes[GPTrack.Count][1]];
 
                     // NOTE: The "Battle Course" track group doesn't actually exist in the game.
                     // It's only created in the editor to have a logical group that contains the Battle Courses.
@@ -411,12 +411,12 @@ namespace EpicEdit.Rom
 
             try
             {
-                trackNameItem = this.Settings.CupAndThemeTexts[cupAndThemTextId];
+                trackNameItem = this.Settings.CourseSelectTexts[cupAndThemTextId];
             }
             catch
             {
                 // HACK: Handle invalid text data ("Super Mario Kart (J) - Series 2" has this issue)
-                trackNameItem = new TextItem(this.Settings.CupAndThemeTexts, string.Empty);
+                trackNameItem = new TextItem(this.Settings.CourseSelectTexts, string.Empty);
             }
 
             return trackNameItem;
@@ -2058,7 +2058,7 @@ namespace EpicEdit.Rom
             this.romBuffer[nameOffsetIndex + 1] = offsetAddressData[1];
 
             this.romBuffer[nameOffset++] = 0x29;
-            this.romBuffer[nameOffset++] = (byte)(0xE0 + this.Settings.CupAndThemeTexts.IndexOf(nameItem.TextItem));
+            this.romBuffer[nameOffset++] = (byte)(0xE0 + this.Settings.CourseSelectTexts.IndexOf(nameItem.TextItem));
 
             byte[] nameSuffixData = nameItem.TextItem.Converter.EncodeText(nameItem.Suffix.Value, null);
 

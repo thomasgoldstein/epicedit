@@ -44,7 +44,7 @@ namespace EpicEdit.UI.SettingEdition
             this.textItem = textItem;
             this.textItem.Suffix.PropertyChanged += this.textItem_Suffix_PropertyChanged;
 
-            this.nameComboBox.Init(Context.Game.Settings.CupAndThemeTexts);
+            this.nameComboBox.Init(Context.Game.Settings.CourseSelectTexts);
             this.nameComboBox.SelectedItem = this.textItem.TextItem;
             this.suffixTextBox.Text = this.textItem.Suffix.Value;
 

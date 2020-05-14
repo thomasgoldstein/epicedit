@@ -44,9 +44,9 @@ namespace EpicEdit.Rom.Settings
         public TextCollection GPPodiumCupTexts { get; private set; }
 
         /// <summary>
-        /// Gets the cup and theme texts displayed in Time Trial, Match Race and Battle Mode.
+        /// Gets the course select texts displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
-        public TextCollection CupAndThemeTexts { get; private set; }
+        public TextCollection CourseSelectTexts { get; private set; }
 
         /// <summary>
         /// Gets the cup and track name suffixes.
@@ -85,7 +85,7 @@ namespace EpicEdit.Rom.Settings
                 return
                     (this.GPCupSelectTexts != null && this.GPCupSelectTexts.Modified) ||
                     this.GPPodiumCupTexts.Modified ||
-                    this.CupAndThemeTexts.Modified ||
+                    this.CourseSelectTexts.Modified ||
                     this.DriverNamesGPResults.Modified ||
                     this.DriverNamesGPPodium.Modified ||
                     this.DriverNamesTimeTrial.Modified ||
@@ -132,13 +132,13 @@ namespace EpicEdit.Rom.Settings
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
                 !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
-            this.CupAndThemeTexts = new TextCollection(
-                romBuffer, offsets[Offset.CupAndThemeTexts], Track.GroupCount + Theme.Count,
+            this.CourseSelectTexts = new TextCollection(
+                romBuffer, offsets[Offset.CourseSelectTexts], Track.GroupCount + Theme.Count,
                 nameDataSizes[3], false, false, false, false, 0,
                 new byte[] { 0x2C }, new[] { ThinSpace });
 
             this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
-                this.CupAndThemeTexts.Converter,
+                this.CourseSelectTexts.Converter,
                 SuffixedTextItem.MaxSuffixCharacterCount);
 
             this.DriverNamesGPResults = new TextCollection(
@@ -171,7 +171,7 @@ namespace EpicEdit.Rom.Settings
                 this.GPCupSelectTexts.PropertyChanged += this.OnPropertyChanged;
             }
             this.GPPodiumCupTexts.PropertyChanged += this.OnPropertyChanged;
-            this.CupAndThemeTexts.PropertyChanged += this.OnPropertyChanged;
+            this.CourseSelectTexts.PropertyChanged += this.OnPropertyChanged;
             this.DriverNamesGPResults.PropertyChanged += this.OnPropertyChanged;
             this.DriverNamesGPPodium.PropertyChanged += this.OnPropertyChanged;
             this.DriverNamesTimeTrial.PropertyChanged += this.OnPropertyChanged;
@@ -191,7 +191,7 @@ namespace EpicEdit.Rom.Settings
                 this.GPCupSelectTexts.Save(romBuffer);
             }
             this.GPPodiumCupTexts.Save(romBuffer);
-            this.CupAndThemeTexts.Save(romBuffer);
+            this.CourseSelectTexts.Save(romBuffer);
             this.DriverNamesGPResults.Save(romBuffer);
             this.DriverNamesGPPodium.Save(romBuffer);
             this.DriverNamesTimeTrial.Save(romBuffer);
@@ -206,7 +206,7 @@ namespace EpicEdit.Rom.Settings
                 this.GPCupSelectTexts.ResetModifiedState();
             }
             this.GPPodiumCupTexts.ResetModifiedState();
-            this.CupAndThemeTexts.ResetModifiedState();
+            this.CourseSelectTexts.ResetModifiedState();
             this.DriverNamesGPResults.ResetModifiedState();
             this.DriverNamesGPPodium.ResetModifiedState();
             this.DriverNamesTimeTrial.ResetModifiedState();

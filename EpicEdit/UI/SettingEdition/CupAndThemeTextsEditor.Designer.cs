@@ -44,196 +44,196 @@ namespace EpicEdit.UI.SettingEdition
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.GroupBox cupAndThemeTextsGroupBox;
-            this.cupAndThemeTextsPanel = new System.Windows.Forms.Panel();
-            this.ctTextBox1 = new System.Windows.Forms.TextBox();
-            this.cupAndThemeTextsCountLabel = new System.Windows.Forms.Label();
-            this.ctTextBox10 = new System.Windows.Forms.TextBox();
-            this.ctTextBox2 = new System.Windows.Forms.TextBox();
-            this.ctTextBox11 = new System.Windows.Forms.TextBox();
-            this.ctTextBox3 = new System.Windows.Forms.TextBox();
-            this.ctTextBox9 = new System.Windows.Forms.TextBox();
-            this.ctTextBox4 = new System.Windows.Forms.TextBox();
-            this.ctTextBox12 = new System.Windows.Forms.TextBox();
-            this.ctTextBox5 = new System.Windows.Forms.TextBox();
-            this.ctTextBox8 = new System.Windows.Forms.TextBox();
-            this.ctTextBox6 = new System.Windows.Forms.TextBox();
-            this.ctTextBox13 = new System.Windows.Forms.TextBox();
-            this.ctTextBox7 = new System.Windows.Forms.TextBox();
+            System.Windows.Forms.GroupBox courseSelectTextsGroupBox;
+            this.courseSelectTextsPanel = new System.Windows.Forms.Panel();
+            this.courseTextBox1 = new System.Windows.Forms.TextBox();
+            this.courseSelectTextsCountLabel = new System.Windows.Forms.Label();
+            this.courseTextBox10 = new System.Windows.Forms.TextBox();
+            this.courseTextBox2 = new System.Windows.Forms.TextBox();
+            this.courseTextBox11 = new System.Windows.Forms.TextBox();
+            this.courseTextBox3 = new System.Windows.Forms.TextBox();
+            this.courseTextBox9 = new System.Windows.Forms.TextBox();
+            this.courseTextBox4 = new System.Windows.Forms.TextBox();
+            this.courseTextBox12 = new System.Windows.Forms.TextBox();
+            this.courseTextBox5 = new System.Windows.Forms.TextBox();
+            this.courseTextBox8 = new System.Windows.Forms.TextBox();
+            this.courseTextBox6 = new System.Windows.Forms.TextBox();
+            this.courseTextBox13 = new System.Windows.Forms.TextBox();
+            this.courseTextBox7 = new System.Windows.Forms.TextBox();
             this.gpCupSelectTextsGroupBox = new System.Windows.Forms.GroupBox();
             this.gpCupSelectTextsCountLabel = new System.Windows.Forms.Label();
-            this.csTextBox1 = new System.Windows.Forms.TextBox();
-            this.csTextBox2 = new System.Windows.Forms.TextBox();
-            this.csTextBox3 = new System.Windows.Forms.TextBox();
-            this.csTextBox4 = new System.Windows.Forms.TextBox();
+            this.cupTextBox1 = new System.Windows.Forms.TextBox();
+            this.cupTextBox2 = new System.Windows.Forms.TextBox();
+            this.cupTextBox3 = new System.Windows.Forms.TextBox();
+            this.cupTextBox4 = new System.Windows.Forms.TextBox();
             this.gpPodiumCupTextsGroupBox = new System.Windows.Forms.GroupBox();
             this.gpPodiumCupTextsCountLabel = new System.Windows.Forms.Label();
-            this.pcTextBox5 = new System.Windows.Forms.TextBox();
-            this.pcTextBox1 = new System.Windows.Forms.TextBox();
-            this.pcTextBox2 = new System.Windows.Forms.TextBox();
-            this.pcTextBox3 = new System.Windows.Forms.TextBox();
-            this.pcTextBox4 = new System.Windows.Forms.TextBox();
-            cupAndThemeTextsGroupBox = new System.Windows.Forms.GroupBox();
-            cupAndThemeTextsGroupBox.SuspendLayout();
-            this.cupAndThemeTextsPanel.SuspendLayout();
+            this.podiumTextBox5 = new System.Windows.Forms.TextBox();
+            this.podiumTextBox1 = new System.Windows.Forms.TextBox();
+            this.podiumTextBox2 = new System.Windows.Forms.TextBox();
+            this.podiumTextBox3 = new System.Windows.Forms.TextBox();
+            this.podiumTextBox4 = new System.Windows.Forms.TextBox();
+            courseSelectTextsGroupBox = new System.Windows.Forms.GroupBox();
+            courseSelectTextsGroupBox.SuspendLayout();
+            this.courseSelectTextsPanel.SuspendLayout();
             this.gpCupSelectTextsGroupBox.SuspendLayout();
             this.gpPodiumCupTextsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cupAndThemeTextsGroupBox
+            // courseSelectTextsGroupBox
             // 
-            cupAndThemeTextsGroupBox.Controls.Add(this.cupAndThemeTextsPanel);
-            cupAndThemeTextsGroupBox.Location = new System.Drawing.Point(322, 6);
-            cupAndThemeTextsGroupBox.Name = "cupAndThemeTextsGroupBox";
-            cupAndThemeTextsGroupBox.Padding = new System.Windows.Forms.Padding(0, 0, 3, 3);
-            cupAndThemeTextsGroupBox.Size = new System.Drawing.Size(189, 400);
-            cupAndThemeTextsGroupBox.TabIndex = 2;
-            cupAndThemeTextsGroupBox.TabStop = false;
-            cupAndThemeTextsGroupBox.Text = "Cup and Theme texts";
+            courseSelectTextsGroupBox.Controls.Add(this.courseSelectTextsPanel);
+            courseSelectTextsGroupBox.Location = new System.Drawing.Point(322, 6);
+            courseSelectTextsGroupBox.Name = "courseSelectTextsGroupBox";
+            courseSelectTextsGroupBox.Padding = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            courseSelectTextsGroupBox.Size = new System.Drawing.Size(189, 400);
+            courseSelectTextsGroupBox.TabIndex = 2;
+            courseSelectTextsGroupBox.TabStop = false;
+            courseSelectTextsGroupBox.Text = "Course Select texts";
             // 
-            // cupAndThemeTextsPanel
+            // courseSelectTextsPanel
             // 
-            this.cupAndThemeTextsPanel.AutoScroll = true;
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox1);
-            this.cupAndThemeTextsPanel.Controls.Add(this.cupAndThemeTextsCountLabel);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox10);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox2);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox11);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox3);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox9);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox4);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox12);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox5);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox8);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox6);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox13);
-            this.cupAndThemeTextsPanel.Controls.Add(this.ctTextBox7);
-            this.cupAndThemeTextsPanel.Location = new System.Drawing.Point(5, 16);
-            this.cupAndThemeTextsPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.cupAndThemeTextsPanel.Name = "cupAndThemeTextsPanel";
-            this.cupAndThemeTextsPanel.Size = new System.Drawing.Size(181, 210);
-            this.cupAndThemeTextsPanel.TabIndex = 0;
+            this.courseSelectTextsPanel.AutoScroll = true;
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox1);
+            this.courseSelectTextsPanel.Controls.Add(this.courseSelectTextsCountLabel);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox10);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox2);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox11);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox3);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox9);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox4);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox12);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox5);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox8);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox6);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox13);
+            this.courseSelectTextsPanel.Controls.Add(this.courseTextBox7);
+            this.courseSelectTextsPanel.Location = new System.Drawing.Point(5, 16);
+            this.courseSelectTextsPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.courseSelectTextsPanel.Name = "courseSelectTextsPanel";
+            this.courseSelectTextsPanel.Size = new System.Drawing.Size(181, 210);
+            this.courseSelectTextsPanel.TabIndex = 0;
             // 
-            // ctTextBox1
+            // courseTextBox1
             // 
-            this.ctTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.ctTextBox1.Name = "ctTextBox1";
-            this.ctTextBox1.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox1.TabIndex = 0;
-            this.ctTextBox1.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.courseTextBox1.Name = "courseTextBox1";
+            this.courseTextBox1.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox1.TabIndex = 0;
+            this.courseTextBox1.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // cupAndThemeTextsCountLabel
+            // courseSelectTextsCountLabel
             // 
-            this.cupAndThemeTextsCountLabel.Location = new System.Drawing.Point(39, 338);
-            this.cupAndThemeTextsCountLabel.Name = "cupAndThemeTextsCountLabel";
-            this.cupAndThemeTextsCountLabel.Size = new System.Drawing.Size(100, 23);
-            this.cupAndThemeTextsCountLabel.TabIndex = 13;
-            this.cupAndThemeTextsCountLabel.Text = "...";
-            this.cupAndThemeTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.courseSelectTextsCountLabel.Location = new System.Drawing.Point(39, 338);
+            this.courseSelectTextsCountLabel.Name = "courseSelectTextsCountLabel";
+            this.courseSelectTextsCountLabel.Size = new System.Drawing.Size(100, 23);
+            this.courseSelectTextsCountLabel.TabIndex = 13;
+            this.courseSelectTextsCountLabel.Text = "...";
+            this.courseSelectTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ctTextBox10
+            // courseTextBox10
             // 
-            this.ctTextBox10.Location = new System.Drawing.Point(3, 237);
-            this.ctTextBox10.Name = "ctTextBox10";
-            this.ctTextBox10.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox10.TabIndex = 9;
-            this.ctTextBox10.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox10.Location = new System.Drawing.Point(3, 237);
+            this.courseTextBox10.Name = "courseTextBox10";
+            this.courseTextBox10.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox10.TabIndex = 9;
+            this.courseTextBox10.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox2
+            // courseTextBox2
             // 
-            this.ctTextBox2.Location = new System.Drawing.Point(3, 29);
-            this.ctTextBox2.Name = "ctTextBox2";
-            this.ctTextBox2.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox2.TabIndex = 1;
-            this.ctTextBox2.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox2.Location = new System.Drawing.Point(3, 29);
+            this.courseTextBox2.Name = "courseTextBox2";
+            this.courseTextBox2.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox2.TabIndex = 1;
+            this.courseTextBox2.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox11
+            // courseTextBox11
             // 
-            this.ctTextBox11.Location = new System.Drawing.Point(3, 263);
-            this.ctTextBox11.Name = "ctTextBox11";
-            this.ctTextBox11.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox11.TabIndex = 10;
-            this.ctTextBox11.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox11.Location = new System.Drawing.Point(3, 263);
+            this.courseTextBox11.Name = "courseTextBox11";
+            this.courseTextBox11.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox11.TabIndex = 10;
+            this.courseTextBox11.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox3
+            // courseTextBox3
             // 
-            this.ctTextBox3.Location = new System.Drawing.Point(3, 55);
-            this.ctTextBox3.Name = "ctTextBox3";
-            this.ctTextBox3.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox3.TabIndex = 2;
-            this.ctTextBox3.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox3.Location = new System.Drawing.Point(3, 55);
+            this.courseTextBox3.Name = "courseTextBox3";
+            this.courseTextBox3.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox3.TabIndex = 2;
+            this.courseTextBox3.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox9
+            // courseTextBox9
             // 
-            this.ctTextBox9.Location = new System.Drawing.Point(3, 211);
-            this.ctTextBox9.Name = "ctTextBox9";
-            this.ctTextBox9.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox9.TabIndex = 8;
-            this.ctTextBox9.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox9.Location = new System.Drawing.Point(3, 211);
+            this.courseTextBox9.Name = "courseTextBox9";
+            this.courseTextBox9.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox9.TabIndex = 8;
+            this.courseTextBox9.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox4
+            // courseTextBox4
             // 
-            this.ctTextBox4.Location = new System.Drawing.Point(3, 81);
-            this.ctTextBox4.Name = "ctTextBox4";
-            this.ctTextBox4.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox4.TabIndex = 3;
-            this.ctTextBox4.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox4.Location = new System.Drawing.Point(3, 81);
+            this.courseTextBox4.Name = "courseTextBox4";
+            this.courseTextBox4.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox4.TabIndex = 3;
+            this.courseTextBox4.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox12
+            // courseTextBox12
             // 
-            this.ctTextBox12.Location = new System.Drawing.Point(3, 289);
-            this.ctTextBox12.Name = "ctTextBox12";
-            this.ctTextBox12.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox12.TabIndex = 11;
-            this.ctTextBox12.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox12.Location = new System.Drawing.Point(3, 289);
+            this.courseTextBox12.Name = "courseTextBox12";
+            this.courseTextBox12.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox12.TabIndex = 11;
+            this.courseTextBox12.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox5
+            // courseTextBox5
             // 
-            this.ctTextBox5.Location = new System.Drawing.Point(3, 107);
-            this.ctTextBox5.Name = "ctTextBox5";
-            this.ctTextBox5.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox5.TabIndex = 4;
-            this.ctTextBox5.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox5.Location = new System.Drawing.Point(3, 107);
+            this.courseTextBox5.Name = "courseTextBox5";
+            this.courseTextBox5.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox5.TabIndex = 4;
+            this.courseTextBox5.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox8
+            // courseTextBox8
             // 
-            this.ctTextBox8.Location = new System.Drawing.Point(3, 185);
-            this.ctTextBox8.Name = "ctTextBox8";
-            this.ctTextBox8.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox8.TabIndex = 7;
-            this.ctTextBox8.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox8.Location = new System.Drawing.Point(3, 185);
+            this.courseTextBox8.Name = "courseTextBox8";
+            this.courseTextBox8.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox8.TabIndex = 7;
+            this.courseTextBox8.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox6
+            // courseTextBox6
             // 
-            this.ctTextBox6.Location = new System.Drawing.Point(3, 133);
-            this.ctTextBox6.Name = "ctTextBox6";
-            this.ctTextBox6.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox6.TabIndex = 5;
-            this.ctTextBox6.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox6.Location = new System.Drawing.Point(3, 133);
+            this.courseTextBox6.Name = "courseTextBox6";
+            this.courseTextBox6.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox6.TabIndex = 5;
+            this.courseTextBox6.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox13
+            // courseTextBox13
             // 
-            this.ctTextBox13.Location = new System.Drawing.Point(3, 315);
-            this.ctTextBox13.Name = "ctTextBox13";
-            this.ctTextBox13.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox13.TabIndex = 12;
-            this.ctTextBox13.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox13.Location = new System.Drawing.Point(3, 315);
+            this.courseTextBox13.Name = "courseTextBox13";
+            this.courseTextBox13.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox13.TabIndex = 12;
+            this.courseTextBox13.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
-            // ctTextBox7
+            // courseTextBox7
             // 
-            this.ctTextBox7.Location = new System.Drawing.Point(3, 159);
-            this.ctTextBox7.Name = "ctTextBox7";
-            this.ctTextBox7.Size = new System.Drawing.Size(136, 20);
-            this.ctTextBox7.TabIndex = 6;
-            this.ctTextBox7.TextChanged += new System.EventHandler(this.CupAndThemeTextsTextBoxTextChanged);
+            this.courseTextBox7.Location = new System.Drawing.Point(3, 159);
+            this.courseTextBox7.Name = "courseTextBox7";
+            this.courseTextBox7.Size = new System.Drawing.Size(136, 20);
+            this.courseTextBox7.TabIndex = 6;
+            this.courseTextBox7.TextChanged += new System.EventHandler(this.CourseSelectTextsTextBoxTextChanged);
             // 
             // gpCupSelectTextsGroupBox
             // 
             this.gpCupSelectTextsGroupBox.Controls.Add(this.gpCupSelectTextsCountLabel);
-            this.gpCupSelectTextsGroupBox.Controls.Add(this.csTextBox1);
-            this.gpCupSelectTextsGroupBox.Controls.Add(this.csTextBox2);
-            this.gpCupSelectTextsGroupBox.Controls.Add(this.csTextBox3);
-            this.gpCupSelectTextsGroupBox.Controls.Add(this.csTextBox4);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.cupTextBox1);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.cupTextBox2);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.cupTextBox3);
+            this.gpCupSelectTextsGroupBox.Controls.Add(this.cupTextBox4);
             this.gpCupSelectTextsGroupBox.Location = new System.Drawing.Point(6, 6);
             this.gpCupSelectTextsGroupBox.Name = "gpCupSelectTextsGroupBox";
             this.gpCupSelectTextsGroupBox.Size = new System.Drawing.Size(152, 244);
@@ -250,46 +250,46 @@ namespace EpicEdit.UI.SettingEdition
             this.gpCupSelectTextsCountLabel.Text = "...";
             this.gpCupSelectTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // csTextBox1
+            // cupTextBox1
             // 
-            this.csTextBox1.Location = new System.Drawing.Point(8, 19);
-            this.csTextBox1.Name = "csTextBox1";
-            this.csTextBox1.Size = new System.Drawing.Size(136, 20);
-            this.csTextBox1.TabIndex = 0;
-            this.csTextBox1.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
+            this.cupTextBox1.Location = new System.Drawing.Point(8, 19);
+            this.cupTextBox1.Name = "cupTextBox1";
+            this.cupTextBox1.Size = new System.Drawing.Size(136, 20);
+            this.cupTextBox1.TabIndex = 0;
+            this.cupTextBox1.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
-            // csTextBox2
+            // cupTextBox2
             // 
-            this.csTextBox2.Location = new System.Drawing.Point(8, 45);
-            this.csTextBox2.Name = "csTextBox2";
-            this.csTextBox2.Size = new System.Drawing.Size(136, 20);
-            this.csTextBox2.TabIndex = 1;
-            this.csTextBox2.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
+            this.cupTextBox2.Location = new System.Drawing.Point(8, 45);
+            this.cupTextBox2.Name = "cupTextBox2";
+            this.cupTextBox2.Size = new System.Drawing.Size(136, 20);
+            this.cupTextBox2.TabIndex = 1;
+            this.cupTextBox2.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
-            // csTextBox3
+            // cupTextBox3
             // 
-            this.csTextBox3.Location = new System.Drawing.Point(8, 71);
-            this.csTextBox3.Name = "csTextBox3";
-            this.csTextBox3.Size = new System.Drawing.Size(136, 20);
-            this.csTextBox3.TabIndex = 2;
-            this.csTextBox3.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
+            this.cupTextBox3.Location = new System.Drawing.Point(8, 71);
+            this.cupTextBox3.Name = "cupTextBox3";
+            this.cupTextBox3.Size = new System.Drawing.Size(136, 20);
+            this.cupTextBox3.TabIndex = 2;
+            this.cupTextBox3.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
-            // csTextBox4
+            // cupTextBox4
             // 
-            this.csTextBox4.Location = new System.Drawing.Point(8, 97);
-            this.csTextBox4.Name = "csTextBox4";
-            this.csTextBox4.Size = new System.Drawing.Size(136, 20);
-            this.csTextBox4.TabIndex = 3;
-            this.csTextBox4.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
+            this.cupTextBox4.Location = new System.Drawing.Point(8, 97);
+            this.cupTextBox4.Name = "cupTextBox4";
+            this.cupTextBox4.Size = new System.Drawing.Size(136, 20);
+            this.cupTextBox4.TabIndex = 3;
+            this.cupTextBox4.TextChanged += new System.EventHandler(this.GPCupSelectTextsTextBoxTextChanged);
             // 
             // gpPodiumCupTextsGroupBox
             // 
             this.gpPodiumCupTextsGroupBox.Controls.Add(this.gpPodiumCupTextsCountLabel);
-            this.gpPodiumCupTextsGroupBox.Controls.Add(this.pcTextBox5);
-            this.gpPodiumCupTextsGroupBox.Controls.Add(this.pcTextBox1);
-            this.gpPodiumCupTextsGroupBox.Controls.Add(this.pcTextBox2);
-            this.gpPodiumCupTextsGroupBox.Controls.Add(this.pcTextBox3);
-            this.gpPodiumCupTextsGroupBox.Controls.Add(this.pcTextBox4);
+            this.gpPodiumCupTextsGroupBox.Controls.Add(this.podiumTextBox5);
+            this.gpPodiumCupTextsGroupBox.Controls.Add(this.podiumTextBox1);
+            this.gpPodiumCupTextsGroupBox.Controls.Add(this.podiumTextBox2);
+            this.gpPodiumCupTextsGroupBox.Controls.Add(this.podiumTextBox3);
+            this.gpPodiumCupTextsGroupBox.Controls.Add(this.podiumTextBox4);
             this.gpPodiumCupTextsGroupBox.Location = new System.Drawing.Point(164, 6);
             this.gpPodiumCupTextsGroupBox.Name = "gpPodiumCupTextsGroupBox";
             this.gpPodiumCupTextsGroupBox.Size = new System.Drawing.Size(152, 244);
@@ -306,56 +306,56 @@ namespace EpicEdit.UI.SettingEdition
             this.gpPodiumCupTextsCountLabel.Text = "...";
             this.gpPodiumCupTextsCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // pcTextBox5
+            // podiumTextBox5
             // 
-            this.pcTextBox5.Location = new System.Drawing.Point(8, 123);
-            this.pcTextBox5.Name = "pcTextBox5";
-            this.pcTextBox5.Size = new System.Drawing.Size(136, 20);
-            this.pcTextBox5.TabIndex = 4;
-            this.pcTextBox5.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
+            this.podiumTextBox5.Location = new System.Drawing.Point(8, 123);
+            this.podiumTextBox5.Name = "podiumTextBox5";
+            this.podiumTextBox5.Size = new System.Drawing.Size(136, 20);
+            this.podiumTextBox5.TabIndex = 4;
+            this.podiumTextBox5.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
-            // pcTextBox1
+            // podiumTextBox1
             // 
-            this.pcTextBox1.Location = new System.Drawing.Point(8, 19);
-            this.pcTextBox1.Name = "pcTextBox1";
-            this.pcTextBox1.Size = new System.Drawing.Size(136, 20);
-            this.pcTextBox1.TabIndex = 0;
-            this.pcTextBox1.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
+            this.podiumTextBox1.Location = new System.Drawing.Point(8, 19);
+            this.podiumTextBox1.Name = "podiumTextBox1";
+            this.podiumTextBox1.Size = new System.Drawing.Size(136, 20);
+            this.podiumTextBox1.TabIndex = 0;
+            this.podiumTextBox1.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
-            // pcTextBox2
+            // podiumTextBox2
             // 
-            this.pcTextBox2.Location = new System.Drawing.Point(8, 45);
-            this.pcTextBox2.Name = "pcTextBox2";
-            this.pcTextBox2.Size = new System.Drawing.Size(136, 20);
-            this.pcTextBox2.TabIndex = 1;
-            this.pcTextBox2.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
+            this.podiumTextBox2.Location = new System.Drawing.Point(8, 45);
+            this.podiumTextBox2.Name = "podiumTextBox2";
+            this.podiumTextBox2.Size = new System.Drawing.Size(136, 20);
+            this.podiumTextBox2.TabIndex = 1;
+            this.podiumTextBox2.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
-            // pcTextBox3
+            // podiumTextBox3
             // 
-            this.pcTextBox3.Location = new System.Drawing.Point(8, 71);
-            this.pcTextBox3.Name = "pcTextBox3";
-            this.pcTextBox3.Size = new System.Drawing.Size(136, 20);
-            this.pcTextBox3.TabIndex = 2;
-            this.pcTextBox3.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
+            this.podiumTextBox3.Location = new System.Drawing.Point(8, 71);
+            this.podiumTextBox3.Name = "podiumTextBox3";
+            this.podiumTextBox3.Size = new System.Drawing.Size(136, 20);
+            this.podiumTextBox3.TabIndex = 2;
+            this.podiumTextBox3.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
-            // pcTextBox4
+            // podiumTextBox4
             // 
-            this.pcTextBox4.Location = new System.Drawing.Point(8, 97);
-            this.pcTextBox4.Name = "pcTextBox4";
-            this.pcTextBox4.Size = new System.Drawing.Size(136, 20);
-            this.pcTextBox4.TabIndex = 3;
-            this.pcTextBox4.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
+            this.podiumTextBox4.Location = new System.Drawing.Point(8, 97);
+            this.podiumTextBox4.Name = "podiumTextBox4";
+            this.podiumTextBox4.Size = new System.Drawing.Size(136, 20);
+            this.podiumTextBox4.TabIndex = 3;
+            this.podiumTextBox4.TextChanged += new System.EventHandler(this.GPPodiumCupTextsTextBoxTextChanged);
             // 
             // CupAndThemeTextsEditor
             // 
             this.Controls.Add(this.gpPodiumCupTextsGroupBox);
             this.Controls.Add(this.gpCupSelectTextsGroupBox);
-            this.Controls.Add(cupAndThemeTextsGroupBox);
+            this.Controls.Add(courseSelectTextsGroupBox);
             this.Name = "CupAndThemeTextsEditor";
             this.Size = new System.Drawing.Size(514, 250);
-            cupAndThemeTextsGroupBox.ResumeLayout(false);
-            this.cupAndThemeTextsPanel.ResumeLayout(false);
-            this.cupAndThemeTextsPanel.PerformLayout();
+            courseSelectTextsGroupBox.ResumeLayout(false);
+            this.courseSelectTextsPanel.ResumeLayout(false);
+            this.courseSelectTextsPanel.PerformLayout();
             this.gpCupSelectTextsGroupBox.ResumeLayout(false);
             this.gpCupSelectTextsGroupBox.PerformLayout();
             this.gpPodiumCupTextsGroupBox.ResumeLayout(false);
@@ -363,33 +363,33 @@ namespace EpicEdit.UI.SettingEdition
             this.ResumeLayout(false);
 
         }
-        private System.Windows.Forms.Label cupAndThemeTextsCountLabel;
-        private System.Windows.Forms.TextBox ctTextBox10;
-        private System.Windows.Forms.TextBox ctTextBox11;
-        private System.Windows.Forms.TextBox ctTextBox12;
-        private System.Windows.Forms.TextBox ctTextBox13;
-        private System.Windows.Forms.TextBox ctTextBox9;
-        private System.Windows.Forms.TextBox ctTextBox5;
-        private System.Windows.Forms.TextBox ctTextBox6;
-        private System.Windows.Forms.TextBox ctTextBox7;
-        private System.Windows.Forms.TextBox ctTextBox8;
-        private System.Windows.Forms.TextBox ctTextBox4;
-        private System.Windows.Forms.TextBox ctTextBox3;
-        private System.Windows.Forms.TextBox ctTextBox2;
-        private System.Windows.Forms.TextBox ctTextBox1;
-        private System.Windows.Forms.TextBox csTextBox1;
-        private System.Windows.Forms.TextBox csTextBox2;
-        private System.Windows.Forms.TextBox csTextBox3;
-        private System.Windows.Forms.TextBox csTextBox4;
+        private System.Windows.Forms.Label courseSelectTextsCountLabel;
+        private System.Windows.Forms.TextBox courseTextBox10;
+        private System.Windows.Forms.TextBox courseTextBox11;
+        private System.Windows.Forms.TextBox courseTextBox12;
+        private System.Windows.Forms.TextBox courseTextBox13;
+        private System.Windows.Forms.TextBox courseTextBox9;
+        private System.Windows.Forms.TextBox courseTextBox5;
+        private System.Windows.Forms.TextBox courseTextBox6;
+        private System.Windows.Forms.TextBox courseTextBox7;
+        private System.Windows.Forms.TextBox courseTextBox8;
+        private System.Windows.Forms.TextBox courseTextBox4;
+        private System.Windows.Forms.TextBox courseTextBox3;
+        private System.Windows.Forms.TextBox courseTextBox2;
+        private System.Windows.Forms.TextBox courseTextBox1;
+        private System.Windows.Forms.TextBox cupTextBox1;
+        private System.Windows.Forms.TextBox cupTextBox2;
+        private System.Windows.Forms.TextBox cupTextBox3;
+        private System.Windows.Forms.TextBox cupTextBox4;
         private System.Windows.Forms.GroupBox gpCupSelectTextsGroupBox;
         private System.Windows.Forms.Label gpCupSelectTextsCountLabel;
         private System.Windows.Forms.GroupBox gpPodiumCupTextsGroupBox;
-        private System.Windows.Forms.TextBox pcTextBox1;
-        private System.Windows.Forms.TextBox pcTextBox2;
-        private System.Windows.Forms.TextBox pcTextBox3;
-        private System.Windows.Forms.TextBox pcTextBox4;
+        private System.Windows.Forms.TextBox podiumTextBox1;
+        private System.Windows.Forms.TextBox podiumTextBox2;
+        private System.Windows.Forms.TextBox podiumTextBox3;
+        private System.Windows.Forms.TextBox podiumTextBox4;
         private System.Windows.Forms.Label gpPodiumCupTextsCountLabel;
-        private System.Windows.Forms.TextBox pcTextBox5;
-        private System.Windows.Forms.Panel cupAndThemeTextsPanel;
+        private System.Windows.Forms.TextBox podiumTextBox5;
+        private System.Windows.Forms.Panel courseSelectTextsPanel;
     }
 }

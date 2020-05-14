@@ -87,7 +87,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestUSCupAndThemeTexts()
+        public void TestUSCourseSelectTexts()
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
@@ -100,7 +100,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(romBuffer, 0x1CA32, 26),
                 File.ReadBlock(romBuffer, 0x1CA88, 173),
-                game.Settings.CupAndThemeTexts);
+                game.Settings.CourseSelectTexts);
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestEuroCupAndThemeTexts()
+        public void TestEuroCourseSelectTexts()
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
@@ -209,7 +209,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(romBuffer, 0x1C8CE, 26),
                 File.ReadBlock(romBuffer, 0x1C924, 173),
-                game.Settings.CupAndThemeTexts);
+                game.Settings.CourseSelectTexts);
         }
 
         [Test]
@@ -290,7 +290,7 @@ namespace EpicEdit.Test.Rom.Settings
         }
 
         [Test]
-        public void TestJapCupAndThemeTexts()
+        public void TestJapCourseSelectTexts()
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
@@ -303,7 +303,7 @@ namespace EpicEdit.Test.Rom.Settings
                 },
                 File.ReadBlock(romBuffer, 0x1C9A3, 26),
                 File.ReadBlock(romBuffer, 0x1CA19, 144),
-                game.Settings.CupAndThemeTexts);
+                game.Settings.CourseSelectTexts);
         }
 
         [Test]
@@ -372,15 +372,15 @@ namespace EpicEdit.Test.Rom.Settings
             GameSettings settings = new GameSettings(romBuffer2, new Offsets(romBuffer2, Region.US), Region.US);
 
             // Switch the texts for the first 2 names
-            string name1 = settings.CupAndThemeTexts[0].Value;
-            string name2 = settings.CupAndThemeTexts[1].Value;
+            string name1 = settings.CourseSelectTexts[0].Value;
+            string name2 = settings.CourseSelectTexts[1].Value;
 
             // NOTE: Set the second name first because it's shorter, and won't cause us to hit the maximum character count
-            settings.CupAndThemeTexts[1].Value = name1;
-            settings.CupAndThemeTexts[0].Value = name2;
+            settings.CourseSelectTexts[1].Value = name1;
+            settings.CourseSelectTexts[0].Value = name2;
 
             // Resaving the data is supposed to sort the texts and the indexes
-            settings.CupAndThemeTexts.Save(romBuffer2);
+            settings.CourseSelectTexts.Save(romBuffer2);
 
             Assert.AreEqual(romBuffer1, romBuffer2);
         }
