@@ -22,7 +22,7 @@ namespace EpicEdit.Rom
         ModeNames,
 
         /// <summary>
-        /// Offsets to the cup texts as displayed on the GP cup selection screen.
+        /// Offsets to the cup texts displayed on the GP cup selection screen.
         /// </summary>
         GPCupSelectTexts,
 
@@ -32,7 +32,12 @@ namespace EpicEdit.Rom
         GPPodiumCupTexts,
 
         /// <summary>
-        /// Offsets to the course select texts as displayed in Time Trial, Match Race and Battle Mode.
+        /// Offsets to the cup texts displayed on the GP results screen.
+        /// </summary>
+        GPResultsCupTexts,
+
+        /// <summary>
+        /// Offsets to the course select texts displayed in Time Trial, Match Race and Battle Mode.
         /// </summary>
         CourseSelectTexts,
 

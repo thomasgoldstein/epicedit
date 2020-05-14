@@ -34,6 +34,7 @@ namespace EpicEdit.Rom
                 case Region.Jap:
                     this[Offset.ModeNames] = 0x58B19;
                     this[Offset.GPCupSelectTexts] = 0x4F6D7;
+                    this[Offset.GPResultsCupTexts] = 0x5BE62;
                     this[Offset.GPPodiumCupTexts] = 0x5A092;
                     this[Offset.DriverNamesGPResults] = 0x5C1EC;
                     this[Offset.DriverNamesGPPodium] = 0x5A0E0;
@@ -64,6 +65,7 @@ namespace EpicEdit.Rom
                 case Region.US:
                     this[Offset.ModeNames] = 0x58B00;
                     this[Offset.GPCupSelectTexts] = 0x4F85F;
+                    this[Offset.GPResultsCupTexts] = 0x5BEC4;
                     this[Offset.GPPodiumCupTexts] = 0x5A0EE;
                     this[Offset.DriverNamesGPResults] = 0x5C25B;
                     this[Offset.DriverNamesGPPodium] = 0x5A148;
@@ -94,6 +96,7 @@ namespace EpicEdit.Rom
                 case Region.Euro:
                     this[Offset.ModeNames] = 0x58AF2;
                     this[Offset.GPCupSelectTexts] = 0x4F778;
+                    this[Offset.GPResultsCupTexts] = 0x5BECC;
                     this[Offset.GPPodiumCupTexts] = 0x5A0F8;
                     this[Offset.DriverNamesGPResults] = 0x5C263;
                     this[Offset.DriverNamesGPPodium] = 0x5A152;

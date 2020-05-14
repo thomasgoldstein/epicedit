@@ -39,6 +39,11 @@ namespace EpicEdit.Rom.Settings
         public TextCollection GPCupSelectTexts { get; private set; }
 
         /// <summary>
+        /// Gets the cup texts displayed on the GP results screen.
+        /// </summary>
+        public TextCollection GPResultsCupTexts { get; private set; }
+
+        /// <summary>
         /// Gets the cup texts displayed on the GP podium screen.
         /// </summary>
         public TextCollection GPPodiumCupTexts { get; private set; }
@@ -84,6 +89,7 @@ namespace EpicEdit.Rom.Settings
             {
                 return
                     (this.GPCupSelectTexts != null && this.GPCupSelectTexts.Modified) ||
+                    this.GPResultsCupTexts.Modified ||
                     this.GPPodiumCupTexts.Modified ||
                     this.CourseSelectTexts.Modified ||
                     this.DriverNamesGPResults.Modified ||
@@ -104,15 +110,15 @@ namespace EpicEdit.Rom.Settings
         private void Init(byte[] romBuffer, Region region)
         {
             bool isJap = region == Region.Jap;
-            int[] nameDataSizes = isJap ?
-                new[] { 48, 94, 68, 144, 136, 96, 42 } :
-                new[] { 66, 130, 80, 173, 134, 112, 52 };
+            int[] textDataSizes = isJap ?
+                new[] { 48, 94, 70, 68, 144, 136, 96, 42 } :
+                new[] { 66, 130, 90, 80, 173, 134, 112, 52 };
 
             const char ThinSpace = '\u2009';
 
             this.ModeNames = new TextCollection(
                 romBuffer, offsets[Offset.ModeNames], 3,
-                nameDataSizes[0], true, true, false, false, 0, null, null);
+                textDataSizes[0], true, true, false, false, 0, null, null);
 
             if (!isJap)
             {
@@ -122,19 +128,23 @@ namespace EpicEdit.Rom.Settings
                 // which makes it so they can only be modified properly by editing the tile graphics.
                 this.GPCupSelectTexts = new TextCollection(
                     romBuffer, offsets[Offset.GPCupSelectTexts], GPTrack.GroupCount,
-                    nameDataSizes[1], true, false, false, true, (byte)0x80, null, null);
+                    textDataSizes[1], true, false, false, true, 0x80, null, null);
             }
+
+            this.GPResultsCupTexts = new TextCollection(
+                romBuffer, offsets[Offset.GPResultsCupTexts], GPTrack.GroupCount,
+                textDataSizes[2], true, false, false, false, 0, null, null);
 
             this.GPPodiumCupTexts = new GPPodiumCupTextCollection(
                 romBuffer, offsets[Offset.GPPodiumCupTexts], GPTrack.GroupCount + 1,
-                nameDataSizes[2], true, false, false, false,
+                textDataSizes[3], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
                 !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
             this.CourseSelectTexts = new TextCollection(
                 romBuffer, offsets[Offset.CourseSelectTexts], Track.GroupCount + Theme.Count,
-                nameDataSizes[3], false, false, false, false, 0,
+                textDataSizes[4], false, false, false, false, 0,
                 new byte[] { 0x2C }, new[] { ThinSpace });
 
             this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
@@ -143,18 +153,18 @@ namespace EpicEdit.Rom.Settings
 
             this.DriverNamesGPResults = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesGPResults], 8,
-                nameDataSizes[4], true, false, isJap, false, 0, null, null);
+                textDataSizes[5], true, false, isJap, false, 0, null, null);
 
             this.DriverNamesGPPodium = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesGPPodium], 8,
-                nameDataSizes[5], true, false, false, false,
+                textDataSizes[6], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
                 !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
             this.DriverNamesTimeTrial = new TextCollection(
                 romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
-                nameDataSizes[6], false, false, false, false, 0,
+                textDataSizes[7], false, false, false, false, 0,
                 new byte[] { 0x2C }, new[] { ThinSpace });
 
             byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
@@ -170,6 +180,7 @@ namespace EpicEdit.Rom.Settings
             {
                 this.GPCupSelectTexts.PropertyChanged += this.OnPropertyChanged;
             }
+            this.GPResultsCupTexts.PropertyChanged += this.OnPropertyChanged;
             this.GPPodiumCupTexts.PropertyChanged += this.OnPropertyChanged;
             this.CourseSelectTexts.PropertyChanged += this.OnPropertyChanged;
             this.DriverNamesGPResults.PropertyChanged += this.OnPropertyChanged;
@@ -190,6 +201,7 @@ namespace EpicEdit.Rom.Settings
             {
                 this.GPCupSelectTexts.Save(romBuffer);
             }
+            this.GPResultsCupTexts.Save(romBuffer);
             this.GPPodiumCupTexts.Save(romBuffer);
             this.CourseSelectTexts.Save(romBuffer);
             this.DriverNamesGPResults.Save(romBuffer);
@@ -205,6 +217,7 @@ namespace EpicEdit.Rom.Settings
             {
                 this.GPCupSelectTexts.ResetModifiedState();
             }
+            this.GPResultsCupTexts.ResetModifiedState();
             this.GPPodiumCupTexts.ResetModifiedState();
             this.CourseSelectTexts.ResetModifiedState();
             this.DriverNamesGPResults.ResetModifiedState();
