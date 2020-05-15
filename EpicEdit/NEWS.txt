@@ -2,6 +2,10 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
+v2.8.7 (May 15th 2020)
+- Added support for GP results texts editing
+
+
 v2.8.6 (May 13th 2020)
 - Fixed 2.8 regression which could lead to altered GP starting position
   data on track load or import
