@@ -24,7 +24,7 @@
  <tr><td>18B07 -> 18B10</td><td>-</td><td>(Skip first 2 bytes) Player starting positions for battle track 3</td></tr>
  <tr><td>18B11 -> 18BB2</td><td>-</td><td>(Skip first 2 bytes) Driver starting position for all GP tracks, 8 bytes each</td></tr>
  <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-intrack.htm">In-track data</a> (!)</td></tr>
- <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-ttrial.htm">Time Trial data</a> (!)</td></tr>
+ <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-ttrial.htm">Course Select and Time Trial data</a> (!)</td></tr>
  <tr><td>1E749 -> 1EC46</td><td>-</td><td><a href="pack3-trackd.htm">Track data</a> (!)</td></tr>
  <tr><td>????? -> ?????</td><td>-</td><td><a href="pack3-music.htm">Music-related data</a> (!)</td></tr>
  <tr><td>1F038 -> 1F039</td><td>-</td><td>50cc speed<br>50cc speed is calculated by subtracting a value to the 100cc speed (which is also the TT/MR/BM default speed), this value is 00 A0, but it is stored as A0 00 in the ROM. It is a hexadecimal value which is equal to 160 in decimal. So you can increase or decrease it. But if you want 50cc to be faster than 100cc (why not ? J) then change the E9 located just before the value (1F03D US no header/1F223 PAL header) into a 69, it will add the value instead of subtracting it.</td></tr>
