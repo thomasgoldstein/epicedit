@@ -64,6 +64,9 @@ namespace EpicEdit.UI.ThemeEdition
             get => this.colorIndex;
             set
             {
+                // Move the focus of the R/G/B numeric fields, to force save the current RGB value if unsaved (happens when text editing the value)
+                this.Focus();
+
                 // Deselect previous panel
                 this.panels[this.colorIndex].BorderStyle = BorderStyle.FixedSingle;
 
