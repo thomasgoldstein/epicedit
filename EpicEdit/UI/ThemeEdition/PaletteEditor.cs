@@ -78,12 +78,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// <summary>
         /// The 16 boxes where the colors of the palette are drawn
         /// </summary>
-        private Panel[] panels = new Panel[Palette.ColorCount];
+        private readonly Panel[] panels = new Panel[Palette.ColorCount];
 
         /// <summary>
         /// The tool tips associated with the above panels.
         /// </summary>
-        private ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
+        private readonly ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
 
         /// <summary>
         /// Constructs the editor.
