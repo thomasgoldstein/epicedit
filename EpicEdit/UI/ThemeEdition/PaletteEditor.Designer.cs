@@ -76,15 +76,10 @@ namespace EpicEdit.UI.ThemeEdition
             // 
             this.paletteNumericUpDown.Location = new System.Drawing.Point(134, 6);
             this.paletteNumericUpDown.Maximum = new decimal(new int[] {
-            16,
+            15,
             0,
             0,
             0});
-            this.paletteNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
             this.paletteNumericUpDown.Name = "paletteNumericUpDown";
             this.paletteNumericUpDown.Size = new System.Drawing.Size(40, 20);
             this.paletteNumericUpDown.TabIndex = 1;

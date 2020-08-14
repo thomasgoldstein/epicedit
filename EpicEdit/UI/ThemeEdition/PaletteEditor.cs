@@ -209,16 +209,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            // Allow looping from the first palette to the last palette, and vice versa
-            if (this.paletteNumericUpDown.Value == this.paletteNumericUpDown.Maximum)
-            {
-                this.paletteNumericUpDown.Value = this.paletteNumericUpDown.Minimum + 1;
-            }
-            else if (this.paletteNumericUpDown.Value == this.paletteNumericUpDown.Minimum)
-            {
-                this.paletteNumericUpDown.Value = this.paletteNumericUpDown.Maximum - 1;
-            }
-
             this.UpdatePalette();
         }
 
