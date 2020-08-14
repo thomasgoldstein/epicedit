@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using System;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -19,12 +20,54 @@ namespace EpicEdit.UI.Tools
 {
     /// <summary>
     /// A NumericUpDown control that adds 1 to the displayed value, so values show up as starting at 1 rather than 0.
+    /// Also allows looping from the first value to the last value, and vice versa.
     /// </summary>
     internal class EpicNumericUpDown : NumericUpDown
     {
         private const int StartValue = 1;
 
         private decimal DisplayedValue => this.Value + StartValue;
+
+        #region Allow looping from the first value to the last value, and vice versa
+
+        public EpicNumericUpDown()
+        {
+            this.Maximum = base.Maximum;
+            this.Minimum = base.Minimum;
+        }
+
+        public new decimal Maximum
+        {
+            get => base.Maximum;
+            set => base.Maximum = value + 1;
+        }
+
+        public new decimal Minimum
+        {
+            get => base.Minimum;
+            set => base.Minimum = value - 1;
+        }
+
+        protected override void OnValueChanged(EventArgs e)
+        {
+            if (this.Value == base.Maximum)
+            {
+                this.Value = base.Minimum + 1;
+                return;
+            }
+            
+            if (this.Value == base.Minimum)
+            {
+                this.Value = base.Maximum - 1;
+                return;
+            }
+
+            base.OnValueChanged(e);
+        }
+
+        #endregion Allow looping from the first value to the last value, and vice versa
+
+        #region Add 1 to the displayed value
 
         protected override void UpdateEditText()
         {
@@ -63,5 +106,7 @@ namespace EpicEdit.UI.Tools
                 this.UserEdit = false;
             }
         }
+
+        #endregion Add 1 to the displayed value
     }
 }
