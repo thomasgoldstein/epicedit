@@ -180,6 +180,15 @@ namespace EpicEdit.UI
             }
             else
             {
+                if (MainForm.HasPendingChanges())
+                {
+                    bool cancelAction = this.PromptToSaveRom();
+                    if (cancelAction)
+                    {
+                        return;
+                    }
+                }
+
                 UITools.ImportData(this.OpenRom, filePath);
             }
         }
