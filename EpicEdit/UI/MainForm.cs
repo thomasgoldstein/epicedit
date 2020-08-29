@@ -123,8 +123,8 @@ namespace EpicEdit.UI
         {
             if (MainForm.HasPendingChanges())
             {
-                bool cancelAction = this.PromptToSaveRom();
-                if (cancelAction)
+                bool cancelOpen = this.PromptToSaveRom();
+                if (cancelOpen)
                 {
                     return;
                 }
@@ -182,8 +182,8 @@ namespace EpicEdit.UI
             {
                 if (MainForm.HasPendingChanges())
                 {
-                    bool cancelAction = this.PromptToSaveRom();
-                    if (cancelAction)
+                    bool cancelOpen = this.PromptToSaveRom();
+                    if (cancelOpen)
                     {
                         return;
                     }
