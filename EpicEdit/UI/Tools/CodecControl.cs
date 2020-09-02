@@ -99,8 +99,8 @@ namespace EpicEdit.UI.Tools
         {
             return string.Format(CultureInfo.CurrentCulture,
                                  "{0}: from {1:X} to {2:X}" + Environment.NewLine +
-                                 "Compressed size: {3}" + Environment.NewLine +
-                                 "Uncompressed size: {4}" + Environment.NewLine,
+                                 "Compressed size: {3} bytes" + Environment.NewLine +
+                                 "Uncompressed size: {4} bytes" + Environment.NewLine,
                                  label, offset, (offset + compSize - 1),
                                  compSize,
                                  uncompSize);
