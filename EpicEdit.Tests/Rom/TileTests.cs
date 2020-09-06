@@ -18,7 +18,7 @@ using System.Drawing;
 
 namespace EpicEdit.Tests.Rom
 {
-    internal static class TileTest
+    internal static class TileTests
     {
         public static void TestGetColorIndexAt(Tile tile, Palette palette, bool transparency)
         {

@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks
 {
     [TestFixture]
-    internal class TrackTest
+    internal class TrackTests
     {
         private void TestMktImportExport(int trackGroupId, int trackId)
         {

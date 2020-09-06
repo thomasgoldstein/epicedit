@@ -80,36 +80,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="File.cs" />
-    <Compile Include="MainTest.cs" />
+    <Compile Include="MainTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rom\Compression\CompressionTest.cs" />
-    <Compile Include="Rom\Compression\DecompressionTest.cs" />
-    <Compile Include="Rom\Compression\FastCompressorRateTest.cs" />
-    <Compile Include="Rom\Compression\OptimalCompressorRateTest.cs" />
-    <Compile Include="Rom\GameTest.cs" />
-    <Compile Include="Rom\PalettesTest.cs" />
-    <Compile Include="Rom\Settings\GameSettingsTest.cs" />
-    <Compile Include="Rom\Settings\RankPointsTest.cs" />
-    <Compile Include="Rom\Tile2bppTest.cs" />
-    <Compile Include="Rom\TileTest.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTileTest.cs" />
-    <Compile Include="Rom\Tracks\Road\RoadTileTest.cs" />
-    <Compile Include="Rom\Tracks\Road\TrackMapTest.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTest.cs" />
-    <Compile Include="Rom\Tracks\Start\BattleStartPositionTest.cs" />
-    <Compile Include="Rom\Tracks\Start\GPStartPositionTest.cs" />
-    <Compile Include="Rom\Tracks\Start\LapLineTest.cs" />
-    <Compile Include="Rom\PaletteTest.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAITest.cs" />
-    <Compile Include="Rom\Tracks\BattleTrackTest.cs" />
-    <Compile Include="Rom\Tracks\GPTrackTest.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTest.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTest.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectZonesTest.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTest.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTilesTest.cs" />
-    <Compile Include="Rom\Tracks\TrackTest.cs" />
-    <Compile Include="Rom\Utility\UtilitiesTest.cs" />
+    <Compile Include="Rom\Compression\CompressionTests.cs" />
+    <Compile Include="Rom\Compression\DecompressionTests.cs" />
+    <Compile Include="Rom\Compression\FastCompressorRateTests.cs" />
+    <Compile Include="Rom\Compression\OptimalCompressorRateTests.cs" />
+    <Compile Include="Rom\GameTests.cs" />
+    <Compile Include="Rom\PalettesTests.cs" />
+    <Compile Include="Rom\Settings\GameSettingsTests.cs" />
+    <Compile Include="Rom\Settings\RankPointsTests.cs" />
+    <Compile Include="Rom\Tile2bppTests.cs" />
+    <Compile Include="Rom\TileTests.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectTileTests.cs" />
+    <Compile Include="Rom\Tracks\Road\RoadTileTests.cs" />
+    <Compile Include="Rom\Tracks\Road\TrackMapTests.cs" />
+    <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTests.cs" />
+    <Compile Include="Rom\Tracks\Start\BattleStartPositionTests.cs" />
+    <Compile Include="Rom\Tracks\Start\GPStartPositionTests.cs" />
+    <Compile Include="Rom\Tracks\Start\LapLineTests.cs" />
+    <Compile Include="Rom\PaletteTests.cs" />
+    <Compile Include="Rom\Tracks\AI\TrackAITests.cs" />
+    <Compile Include="Rom\Tracks\BattleTrackTests.cs" />
+    <Compile Include="Rom\Tracks\GPTrackTests.cs" />
+    <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTests.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectTests.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectZonesTests.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTests.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTilesTests.cs" />
+    <Compile Include="Rom\Tracks\TrackTests.cs" />
+    <Compile Include="Rom\Utility\UtilitiesTests.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>

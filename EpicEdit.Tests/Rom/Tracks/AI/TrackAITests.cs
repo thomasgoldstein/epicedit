@@ -20,7 +20,7 @@ using System;
 namespace EpicEdit.Tests.Rom.Tracks.AI
 {
     [TestFixture]
-    internal class TrackAITest
+    internal class TrackAITests
     {
         private void TestGetBytes(byte[] zoneData, byte[] targetData)
         {

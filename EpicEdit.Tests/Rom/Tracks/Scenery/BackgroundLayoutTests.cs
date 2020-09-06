@@ -18,7 +18,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks.Scenery
 {
     [TestFixture]
-    internal class BackgroundLayoutTest
+    internal class BackgroundLayoutTests
     {
         private void TestGetBytes(string fileName)
         {

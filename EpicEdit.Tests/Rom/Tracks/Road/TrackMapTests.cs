@@ -18,7 +18,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks.Road
 {
     [TestFixture]
-    internal class TrackMapTest
+    internal class TrackMapTests
     {
         private void TestTrackMap(string fileName)
         {

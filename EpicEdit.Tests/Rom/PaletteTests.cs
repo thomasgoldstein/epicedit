@@ -19,7 +19,7 @@ using System.Drawing;
 namespace EpicEdit.Tests.Rom
 {
     [TestFixture]
-    internal class PaletteTest
+    internal class PaletteTests
     {
         [Test]
         public void TestBlack()

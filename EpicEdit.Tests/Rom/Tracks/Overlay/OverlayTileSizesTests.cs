@@ -12,27 +12,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using EpicEdit.Rom.Settings;
+using EpicEdit.Rom.Tracks.Overlay;
 using NUnit.Framework;
 
-namespace EpicEdit.Tests.Rom.Settings
+namespace EpicEdit.Tests.Rom.Tracks.Overlay
 {
     [TestFixture]
-    internal class RankPointsTest
+    internal class OverlayTileSizesTests
     {
         [Test]
         public void TestGetBytes()
         {
-            byte[] dataBefore =
-            {
-                0x09, 0x00, 0x06, 0x00, 0x03, 0x00, 0x01, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-            };
-
-            RankPoints rankPoints = new RankPoints(dataBefore);
-
-            byte[] dataAfter = rankPoints.GetBytes();
-
+            byte[] dataBefore = { 0x02, 0x02, 0x03, 0x01, 0x01, 0x03, 0x05, 0x05 };
+            OverlayTileSizes sizes = new OverlayTileSizes(dataBefore);
+            byte[] dataAfter = sizes.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
     }

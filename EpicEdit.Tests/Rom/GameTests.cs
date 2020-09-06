@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom
 {
     [TestFixture]
-    internal class GameTest
+    internal class GameTests
     {
         private Game game;
 

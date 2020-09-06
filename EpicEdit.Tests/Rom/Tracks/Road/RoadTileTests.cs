@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks.Road
 {
     [TestFixture]
-    internal class RoadTileTest
+    internal class RoadTileTests
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
@@ -43,7 +43,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
 
         private void TestGetColorIndexAt(byte[] gfx, Palette palette, RoadTile tile)
         {
-            TileTest.TestGetColorIndexAt(tile, palette, false);
+            TileTests.TestGetColorIndexAt(tile, palette, false);
 
             byte[] gfxCopy = new byte[gfx.Length];
 

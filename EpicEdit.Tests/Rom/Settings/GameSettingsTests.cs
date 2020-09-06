@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Settings
 {
     [TestFixture]
-    internal class GameSettingsTest
+    internal class GameSettingsTests
     {
         private void TestTexts(string[] expectedTexts, byte[] expectedIndexes, byte[] expectedBytes, TextCollection textColl)
         {

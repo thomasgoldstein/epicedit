@@ -18,7 +18,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Utility
 {
     [TestFixture]
-    internal class UtilitiesTest
+    internal class UtilitiesTests
     {
         [Test]
         public void TestBytesToOffset000000()

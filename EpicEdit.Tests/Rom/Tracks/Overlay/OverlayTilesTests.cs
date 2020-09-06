@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks.Overlay
 {
     [TestFixture]
-    internal class OverlayTilesTest 
+    internal class OverlayTilesTests 
     {
         private OverlayTilePatterns overlayTilePatterns;
         private OverlayTileSizes overlayTileSizes;

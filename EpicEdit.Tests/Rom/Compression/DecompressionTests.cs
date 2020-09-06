@@ -19,7 +19,7 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Compression
 {
     [TestFixture]
-    internal class DecompressionTest
+    internal class DecompressionTests
     {
         private byte[] romBuffer;
 

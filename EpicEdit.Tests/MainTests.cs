@@ -1,4 +1,4 @@
-﻿#region GPL statement
+#region GPL statement
 /*Epic Edit is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, version 3 of the License.
@@ -12,21 +12,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using EpicEdit.Rom.Tracks.Overlay;
-using NUnit.Framework;
-
-namespace EpicEdit.Tests.Rom.Tracks.Overlay
+namespace EpicEdit.Tests
 {
-    [TestFixture]
-    internal class OverlayTileSizesTest
+    /// <summary>
+    /// Test assembly entry point.
+    /// </summary>
+    internal class MainTests
     {
-        [Test]
-        public void TestGetBytes()
+        public static void Main()
         {
-            byte[] dataBefore = { 0x02, 0x02, 0x03, 0x01, 0x01, 0x03, 0x05, 0x05 };
-            OverlayTileSizes sizes = new OverlayTileSizes(dataBefore);
-            byte[] dataAfter = sizes.GetBytes();
-            Assert.AreEqual(dataBefore, dataAfter);
         }
     }
 }

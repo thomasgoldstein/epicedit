@@ -1,4 +1,4 @@
-#region GPL statement
+﻿#region GPL statement
 /*Epic Edit is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, version 3 of the License.
@@ -12,15 +12,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-namespace EpicEdit.Tests
+using EpicEdit.Rom.Settings;
+using NUnit.Framework;
+
+namespace EpicEdit.Tests.Rom.Settings
 {
-    /// <summary>
-    /// Test assembly entry point.
-    /// </summary>
-    internal class MainTest
+    [TestFixture]
+    internal class RankPointsTests
     {
-        public static void Main()
+        [Test]
+        public void TestGetBytes()
         {
+            byte[] dataBefore =
+            {
+                0x09, 0x00, 0x06, 0x00, 0x03, 0x00, 0x01, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+            };
+
+            RankPoints rankPoints = new RankPoints(dataBefore);
+
+            byte[] dataAfter = rankPoints.GetBytes();
+
+            Assert.AreEqual(dataBefore, dataAfter);
         }
     }
 }

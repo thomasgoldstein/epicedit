@@ -20,19 +20,19 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Compression
 {
     /// <summary>
-    /// Non-regression tests for the compression rate of the FastCompressor.
+    /// Non-regression tests for the compression rate of the OptimalCompressor.
     /// </summary>
     [TestFixture]
-    internal class FastCompressorRateTest
+    internal class OptimalCompressorRateTests
     {
-        private FastCompressor compressor;
+        private OptimalCompressor compressor;
         private byte[] romBuffer;
         private Game game;
 
         [SetUp]
         public void SetUp()
         {
-            this.compressor = new FastCompressor();
+            this.compressor = new OptimalCompressor();
             this.romBuffer = File.ReadRom(Region.US);
             this.game = File.GetGame(Region.US);
         }
@@ -69,43 +69,43 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestGhostPillarGraphics()
         {
-            this.CheckCompression(0, 733);
+            this.CheckCompression(0, 728);
         }
 
         [Test]
         public void TestMontyMoleGraphics()
         {
-            this.CheckCompression(0x5D6, 715);
+            this.CheckCompression(0x5D6, 710);
         }
 
         [Test]
         public void TestWinnerFlagGraphics()
         {
-            this.CheckCompression(0xBB7, 662);
+            this.CheckCompression(0xBB7, 657);
         }
 
         [Test]
         public void TestThwompGraphics()
         {
-            this.CheckCompression(0x1070, 965);
+            this.CheckCompression(0x1070, 961);
         }
 
         [Test]
         public void TestLakituGraphics()
         {
-            this.CheckCompression(0x10000, 2319);
+            this.CheckCompression(0x10000, 2297);
         }
 
         [Test]
         public void TestPiranhaPlantGraphics()
         {
-            this.CheckCompression(0x10AA5, 1238);
+            this.CheckCompression(0x10AA5, 1232);
         }
 
         [Test]
         public void TestPipeGraphics()
         {
-            this.CheckCompression(0x10F9B, 782);
+            this.CheckCompression(0x10F9B, 779);
         }
 
         [Test]
@@ -117,151 +117,151 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestPodiumGraphics()
         {
-            this.CheckCompressionFromDoubleCompressed(0x737DA, 9422);
+            this.CheckCompressionFromDoubleCompressed(0x737DA, 9277);
         }
 
         [Test]
         public void TestTrackMap1()
         {
-            this.CheckTrackCompression(0, 0, 1705);
+            this.CheckTrackCompression(0, 0, 1596);
         }
 
         [Test]
         public void TestTrackMap2()
         {
-            this.CheckTrackCompression(0, 1, 4415);
+            this.CheckTrackCompression(0, 1, 4095);
         }
 
         [Test]
         public void TestTrackMap3()
         {
-            this.CheckTrackCompression(0, 2, 1097);
+            this.CheckTrackCompression(0, 2, 1040);
         }
 
         [Test]
         public void TestTrackMap4()
         {
-            this.CheckTrackCompression(0, 3, 2565);
+            this.CheckTrackCompression(0, 3, 2397);
         }
 
         [Test]
         public void TestTrackMap5()
         {
-            this.CheckTrackCompression(0, 4, 2167);
+            this.CheckTrackCompression(0, 4, 2056);
         }
 
         [Test]
         public void TestTrackMap6()
         {
-            this.CheckTrackCompression(1, 0, 2787);
+            this.CheckTrackCompression(1, 0, 2587);
         }
 
         [Test]
         public void TestTrackMap7()
         {
-            this.CheckTrackCompression(1, 1, 1260);
+            this.CheckTrackCompression(1, 1, 1196);
         }
 
         [Test]
         public void TestTrackMap8()
         {
-            this.CheckTrackCompression(1, 2, 4612);
+            this.CheckTrackCompression(1, 2, 4296);
         }
 
         [Test]
         public void TestTrackMap9()
         {
-            this.CheckTrackCompression(1, 3, 3009);
+            this.CheckTrackCompression(1, 3, 2820);
         }
 
         [Test]
         public void TestTrackMap10()
         {
-            this.CheckTrackCompression(1, 4, 2787);
+            this.CheckTrackCompression(1, 4, 2623);
         }
 
         [Test]
         public void TestTrackMap11()
         {
-            this.CheckTrackCompression(2, 0, 3359);
+            this.CheckTrackCompression(2, 0, 3143);
         }
 
         [Test]
         public void TestTrackMap12()
         {
-            this.CheckTrackCompression(2, 1, 3602);
+            this.CheckTrackCompression(2, 1, 3370);
         }
 
         [Test]
         public void TestTrackMap13()
         {
-            this.CheckTrackCompression(2, 2, 3066);
+            this.CheckTrackCompression(2, 2, 2845);
         }
 
         [Test]
         public void TestTrackMap14()
         {
-            this.CheckTrackCompression(2, 3, 3294);
+            this.CheckTrackCompression(2, 3, 3092);
         }
 
         [Test]
         public void TestTrackMap15()
         {
-            this.CheckTrackCompression(2, 4, 2657);
+            this.CheckTrackCompression(2, 4, 2524);
         }
 
         [Test]
         public void TestTrackMap16()
         {
-            this.CheckTrackCompression(3, 0, 4567);
+            this.CheckTrackCompression(3, 0, 4289);
         }
 
         [Test]
         public void TestTrackMap17()
         {
-            this.CheckTrackCompression(3, 1, 4162);
+            this.CheckTrackCompression(3, 1, 3913);
         }
 
         [Test]
         public void TestTrackMap18()
         {
-            this.CheckTrackCompression(3, 2, 1389);
+            this.CheckTrackCompression(3, 2, 1280);
         }
 
         [Test]
         public void TestTrackMap19()
         {
-            this.CheckTrackCompression(3, 3, 3231);
+            this.CheckTrackCompression(3, 3, 3030);
         }
 
         [Test]
         public void TestTrackMap20()
         {
-            this.CheckTrackCompression(3, 4, 1094);
+            this.CheckTrackCompression(3, 4, 1003);
         }
 
         [Test]
         public void TestTrackMap21()
         {
-            this.CheckTrackCompression(4, 0, 659);
+            this.CheckTrackCompression(4, 0, 572);
         }
 
         [Test]
         public void TestTrackMap22()
         {
-            this.CheckTrackCompression(4, 1, 829);
+            this.CheckTrackCompression(4, 1, 744);
         }
 
         [Test]
         public void TestTrackMap23()
         {
-            this.CheckTrackCompression(4, 2, 662);
+            this.CheckTrackCompression(4, 2, 585);
         }
 
         [Test]
         public void TestTrackMap24()
         {
-            this.CheckTrackCompression(4, 3, 1104);
+            this.CheckTrackCompression(4, 3, 1003);
         }
     }
 }

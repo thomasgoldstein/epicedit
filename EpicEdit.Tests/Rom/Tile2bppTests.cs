@@ -19,7 +19,7 @@ using System;
 namespace EpicEdit.Tests.Rom
 {
     [TestFixture]
-    internal class Tile2bppTest
+    internal class Tile2bppTests
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData, byte properties)
         {
@@ -27,7 +27,7 @@ namespace EpicEdit.Tests.Rom
             Tile2bpp tile = new Tile2bpp(gfx, palettes, properties);
 
             Palette palette = new Palette(null, 0, palData);
-            TileTest.TestGetColorIndexAt(tile, palette, false);
+            TileTests.TestGetColorIndexAt(tile, palette, false);
         }
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
