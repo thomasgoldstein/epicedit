@@ -139,9 +139,9 @@ namespace EpicEdit.Rom
         TrackAIDataFirstAddressByte,
 
         /// <summary>
-        /// AI zone index.
+        /// AI area index.
         /// </summary>
-        TrackAIZones,
+        TrackAIAreas,
 
         /// <summary>
         /// AI target index.
@@ -154,9 +154,9 @@ namespace EpicEdit.Rom
         TrackObjects,
 
         /// <summary>
-        /// Track object zones.
+        /// Track object areas.
         /// </summary>
-        TrackObjectZones,
+        TrackObjectAreas,
 
         /// <summary>
         /// Track overlay items.
@@ -296,9 +296,9 @@ namespace EpicEdit.Rom
         TrackObjectProperties,
 
         /// <summary>
-        /// Track object zones (new offset, after relocation by the editor).
+        /// Track object areas (new offset, after relocation by the editor).
         /// </summary>
-        TrackObjectZonesRelocated,
+        TrackObjectAreasRelocated,
 
         /// <summary>
         /// Offset for hack to make it possible to define the
@@ -394,9 +394,9 @@ namespace EpicEdit.Rom
         NewBattleStart,
 
         /// <summary>
-        /// Offset to indexes that MAKE uses to save AI zone data.
+        /// Offset to indexes that MAKE uses to save AI area data.
         /// </summary>
-        MakeAIZone,
+        MakeAIArea,
 
         /// <summary>
         /// Offset to indexes that MAKE uses to save AI target data.

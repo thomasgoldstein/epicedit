@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 namespace EpicEdit.UI.TrackEdition
 {
-    partial class ObjectZonesControl
+    partial class ObjectAreasControl
     {
         /// <summary>
         /// Designer variable used to keep track of non-visual components.
@@ -45,31 +45,31 @@ namespace EpicEdit.UI.TrackEdition
         private void InitializeComponent()
         {
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.zone4Label = new System.Windows.Forms.Label();
-            this.zone3Label = new System.Windows.Forms.Label();
-            this.zone2Label = new System.Windows.Forms.Label();
-            this.zone1Label = new System.Windows.Forms.Label();
-            this.zone4TrackBar = new System.Windows.Forms.TrackBar();
-            this.zone3TrackBar = new System.Windows.Forms.TrackBar();
-            this.zone2TrackBar = new System.Windows.Forms.TrackBar();
-            this.zone1TrackBar = new System.Windows.Forms.TrackBar();
+            this.area4Label = new System.Windows.Forms.Label();
+            this.area3Label = new System.Windows.Forms.Label();
+            this.area2Label = new System.Windows.Forms.Label();
+            this.area1Label = new System.Windows.Forms.Label();
+            this.area4TrackBar = new System.Windows.Forms.TrackBar();
+            this.area3TrackBar = new System.Windows.Forms.TrackBar();
+            this.area2TrackBar = new System.Windows.Forms.TrackBar();
+            this.area1TrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zone4TrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone3TrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone2TrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone1TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area4TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area3TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area2TrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area1TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox
             // 
-            this.groupBox.Controls.Add(this.zone4Label);
-            this.groupBox.Controls.Add(this.zone3Label);
-            this.groupBox.Controls.Add(this.zone2Label);
-            this.groupBox.Controls.Add(this.zone1Label);
-            this.groupBox.Controls.Add(this.zone4TrackBar);
-            this.groupBox.Controls.Add(this.zone3TrackBar);
-            this.groupBox.Controls.Add(this.zone2TrackBar);
-            this.groupBox.Controls.Add(this.zone1TrackBar);
+            this.groupBox.Controls.Add(this.area4Label);
+            this.groupBox.Controls.Add(this.area3Label);
+            this.groupBox.Controls.Add(this.area2Label);
+            this.groupBox.Controls.Add(this.area1Label);
+            this.groupBox.Controls.Add(this.area4TrackBar);
+            this.groupBox.Controls.Add(this.area3TrackBar);
+            this.groupBox.Controls.Add(this.area2TrackBar);
+            this.groupBox.Controls.Add(this.area1TrackBar);
             this.groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox.Location = new System.Drawing.Point(0, 0);
             this.groupBox.Name = "groupBox";
@@ -77,118 +77,118 @@ namespace EpicEdit.UI.TrackEdition
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
             // 
-            // zone4Label
+            // area4Label
             // 
-            this.zone4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(150)))), ((int)(((byte)(24)))));
-            this.zone4Label.Location = new System.Drawing.Point(6, 109);
-            this.zone4Label.Margin = new System.Windows.Forms.Padding(0);
-            this.zone4Label.Name = "zone4Label";
-            this.zone4Label.Size = new System.Drawing.Size(40, 25);
-            this.zone4Label.TabIndex = 6;
-            this.zone4Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.area4Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(150)))), ((int)(((byte)(24)))));
+            this.area4Label.Location = new System.Drawing.Point(6, 109);
+            this.area4Label.Margin = new System.Windows.Forms.Padding(0);
+            this.area4Label.Name = "area4Label";
+            this.area4Label.Size = new System.Drawing.Size(40, 25);
+            this.area4Label.TabIndex = 6;
+            this.area4Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // zone3Label
+            // area3Label
             // 
-            this.zone3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(186)))), ((int)(((byte)(64)))));
-            this.zone3Label.Location = new System.Drawing.Point(6, 81);
-            this.zone3Label.Margin = new System.Windows.Forms.Padding(0);
-            this.zone3Label.Name = "zone3Label";
-            this.zone3Label.Size = new System.Drawing.Size(40, 25);
-            this.zone3Label.TabIndex = 4;
-            this.zone3Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.area3Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(186)))), ((int)(((byte)(64)))));
+            this.area3Label.Location = new System.Drawing.Point(6, 81);
+            this.area3Label.Margin = new System.Windows.Forms.Padding(0);
+            this.area3Label.Name = "area3Label";
+            this.area3Label.Size = new System.Drawing.Size(40, 25);
+            this.area3Label.TabIndex = 4;
+            this.area3Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // zone2Label
+            // area2Label
             // 
-            this.zone2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(94)))), ((int)(((byte)(177)))));
-            this.zone2Label.Location = new System.Drawing.Point(6, 50);
-            this.zone2Label.Margin = new System.Windows.Forms.Padding(0);
-            this.zone2Label.Name = "zone2Label";
-            this.zone2Label.Size = new System.Drawing.Size(40, 25);
-            this.zone2Label.TabIndex = 2;
-            this.zone2Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.area2Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(94)))), ((int)(((byte)(177)))));
+            this.area2Label.Location = new System.Drawing.Point(6, 50);
+            this.area2Label.Margin = new System.Windows.Forms.Padding(0);
+            this.area2Label.Name = "area2Label";
+            this.area2Label.Size = new System.Drawing.Size(40, 25);
+            this.area2Label.TabIndex = 2;
+            this.area2Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // zone1Label
+            // area1Label
             // 
-            this.zone1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.zone1Label.Location = new System.Drawing.Point(6, 19);
-            this.zone1Label.Margin = new System.Windows.Forms.Padding(0);
-            this.zone1Label.Name = "zone1Label";
-            this.zone1Label.Size = new System.Drawing.Size(40, 25);
-            this.zone1Label.TabIndex = 0;
-            this.zone1Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.area1Label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.area1Label.Location = new System.Drawing.Point(6, 19);
+            this.area1Label.Margin = new System.Windows.Forms.Padding(0);
+            this.area1Label.Name = "area1Label";
+            this.area1Label.Size = new System.Drawing.Size(40, 25);
+            this.area1Label.TabIndex = 0;
+            this.area1Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // zone4TrackBar
+            // area4TrackBar
             // 
-            this.zone4TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.zone4TrackBar.AutoSize = false;
-            this.zone4TrackBar.LargeChange = 1;
-            this.zone4TrackBar.Location = new System.Drawing.Point(44, 112);
-            this.zone4TrackBar.Maximum = 128;
-            this.zone4TrackBar.Name = "zone4TrackBar";
-            this.zone4TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone4TrackBar.TabIndex = 7;
-            this.zone4TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone4TrackBar.ValueChanged += new System.EventHandler(this.Zone4TrackBarValueChanged);
+            this.area4TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.area4TrackBar.AutoSize = false;
+            this.area4TrackBar.LargeChange = 1;
+            this.area4TrackBar.Location = new System.Drawing.Point(44, 112);
+            this.area4TrackBar.Maximum = 128;
+            this.area4TrackBar.Name = "area4TrackBar";
+            this.area4TrackBar.Size = new System.Drawing.Size(100, 25);
+            this.area4TrackBar.TabIndex = 7;
+            this.area4TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.area4TrackBar.ValueChanged += new System.EventHandler(this.Area4TrackBarValueChanged);
             // 
-            // zone3TrackBar
+            // area3TrackBar
             // 
-            this.zone3TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.zone3TrackBar.AutoSize = false;
-            this.zone3TrackBar.LargeChange = 1;
-            this.zone3TrackBar.Location = new System.Drawing.Point(44, 81);
-            this.zone3TrackBar.Maximum = 128;
-            this.zone3TrackBar.Name = "zone3TrackBar";
-            this.zone3TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone3TrackBar.TabIndex = 5;
-            this.zone3TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone3TrackBar.ValueChanged += new System.EventHandler(this.Zone3TrackBarValueChanged);
+            this.area3TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.area3TrackBar.AutoSize = false;
+            this.area3TrackBar.LargeChange = 1;
+            this.area3TrackBar.Location = new System.Drawing.Point(44, 81);
+            this.area3TrackBar.Maximum = 128;
+            this.area3TrackBar.Name = "area3TrackBar";
+            this.area3TrackBar.Size = new System.Drawing.Size(100, 25);
+            this.area3TrackBar.TabIndex = 5;
+            this.area3TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.area3TrackBar.ValueChanged += new System.EventHandler(this.Area3TrackBarValueChanged);
             // 
-            // zone2TrackBar
+            // area2TrackBar
             // 
-            this.zone2TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.zone2TrackBar.AutoSize = false;
-            this.zone2TrackBar.LargeChange = 1;
-            this.zone2TrackBar.Location = new System.Drawing.Point(44, 50);
-            this.zone2TrackBar.Maximum = 128;
-            this.zone2TrackBar.Name = "zone2TrackBar";
-            this.zone2TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone2TrackBar.TabIndex = 3;
-            this.zone2TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone2TrackBar.ValueChanged += new System.EventHandler(this.Zone2TrackBarValueChanged);
+            this.area2TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.area2TrackBar.AutoSize = false;
+            this.area2TrackBar.LargeChange = 1;
+            this.area2TrackBar.Location = new System.Drawing.Point(44, 50);
+            this.area2TrackBar.Maximum = 128;
+            this.area2TrackBar.Name = "area2TrackBar";
+            this.area2TrackBar.Size = new System.Drawing.Size(100, 25);
+            this.area2TrackBar.TabIndex = 3;
+            this.area2TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.area2TrackBar.ValueChanged += new System.EventHandler(this.Area2TrackBarValueChanged);
             // 
-            // zone1TrackBar
+            // area1TrackBar
             // 
-            this.zone1TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.zone1TrackBar.AutoSize = false;
-            this.zone1TrackBar.LargeChange = 1;
-            this.zone1TrackBar.Location = new System.Drawing.Point(44, 19);
-            this.zone1TrackBar.Maximum = 128;
-            this.zone1TrackBar.Name = "zone1TrackBar";
-            this.zone1TrackBar.Size = new System.Drawing.Size(100, 25);
-            this.zone1TrackBar.TabIndex = 1;
-            this.zone1TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.zone1TrackBar.ValueChanged += new System.EventHandler(this.Zone1TrackBarValueChanged);
+            this.area1TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.area1TrackBar.AutoSize = false;
+            this.area1TrackBar.LargeChange = 1;
+            this.area1TrackBar.Location = new System.Drawing.Point(44, 19);
+            this.area1TrackBar.Maximum = 128;
+            this.area1TrackBar.Name = "area1TrackBar";
+            this.area1TrackBar.Size = new System.Drawing.Size(100, 25);
+            this.area1TrackBar.TabIndex = 1;
+            this.area1TrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.area1TrackBar.ValueChanged += new System.EventHandler(this.Area1TrackBarValueChanged);
             // 
-            // ObjectZonesControl
+            // ObjectAreasControl
             // 
             this.Controls.Add(this.groupBox);
-            this.Name = "ObjectZonesControl";
+            this.Name = "ObjectAreasControl";
             this.groupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.zone4TrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone3TrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone2TrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zone1TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area4TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area3TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area2TrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.area1TrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
-        private System.Windows.Forms.Label zone2Label;
-        private System.Windows.Forms.Label zone3Label;
-        private System.Windows.Forms.Label zone4Label;
-        private System.Windows.Forms.Label zone1Label;
+        private System.Windows.Forms.Label area2Label;
+        private System.Windows.Forms.Label area3Label;
+        private System.Windows.Forms.Label area4Label;
+        private System.Windows.Forms.Label area1Label;
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.TrackBar zone3TrackBar;
-        private System.Windows.Forms.TrackBar zone4TrackBar;
-        private System.Windows.Forms.TrackBar zone2TrackBar;
-        private System.Windows.Forms.TrackBar zone1TrackBar;
+        private System.Windows.Forms.TrackBar area3TrackBar;
+        private System.Windows.Forms.TrackBar area4TrackBar;
+        private System.Windows.Forms.TrackBar area2TrackBar;
+        private System.Windows.Forms.TrackBar area1TrackBar;
     }
 }

@@ -25,7 +25,7 @@ namespace EpicEdit.Rom
     {
         private byte[] romBuffer;
         private readonly Queue<byte[]> savedData;
-        private Range zone;
+        private Range range;
         private readonly Region region;
 
         /// <summary>
@@ -39,10 +39,10 @@ namespace EpicEdit.Rom
             this.savedData = new Queue<byte[]>();
             this.region = Game.GetRegion(romBuffer);
 
-            const int ZoneStart = RomSize.Size512;
-            int zoneEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
-            this.zone = new Range(ZoneStart, zoneEnd);
-            this.Index = this.zone.Start;
+            const int RangeStart = RomSize.Size512;
+            int rangeEnd = Math.Min(this.romBuffer.Length, RomSize.Size1024);
+            this.range = new Range(RangeStart, rangeEnd);
+            this.Index = this.range.Start;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace EpicEdit.Rom
 
         public bool Includes(int offset)
         {
-            return this.zone.Includes(offset);
+            return this.range.Includes(offset);
         }
 
         public byte[] GetRomBuffer()
@@ -111,15 +111,15 @@ namespace EpicEdit.Rom
             this.CheckDataSize();
 
             // Save data to buffer
-            int index = this.zone.Start;
+            int index = this.range.Start;
             foreach (byte[] dataBlock in savedData)
             {
                 Buffer.BlockCopy(dataBlock, 0, this.romBuffer, index, dataBlock.Length);
                 index += dataBlock.Length;
             }
 
-            // Wipe out the rest of the zone
-            for (int i = index; i < this.zone.End; i++)
+            // Wipe out the rest of the range
+            for (int i = index; i < this.range.End; i++)
             {
                 this.romBuffer[i] = 0xFF;
             }
@@ -134,12 +134,12 @@ namespace EpicEdit.Rom
                 savedDataSize += dataBlock.Length;
             }
 
-            // Check if all the saved data fits in the zone
-            if (savedDataSize > this.zone.Length)
+            // Check if all the saved data fits in the range
+            if (savedDataSize > this.range.Length)
             {
                 if (savedDataSize <= RomSize.Size512)
                 {
-                    if (this.zone.Length == 0 && // If the ROM is 512 KiB (ie: the original SMK ROM size)
+                    if (this.range.Length == 0 && // If the ROM is 512 KiB (ie: the original SMK ROM size)
                         savedDataSize > RomSize.Size256) // And if the data that needs to be saved is over 256 Kib
                     {
                         this.ExpandRomBuffer(RomSize.Size512);
@@ -151,7 +151,7 @@ namespace EpicEdit.Rom
                         this.ExpandRomBuffer(RomSize.Size256);
                     }
 
-                    this.zone.End = this.romBuffer.Length;
+                    this.range.End = this.romBuffer.Length;
                 }
                 else
                 {

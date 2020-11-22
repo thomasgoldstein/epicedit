@@ -118,7 +118,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // TODO: Get this from the ROM, if even possible.
             // It is unlikely that this information is available anywhere in the ROM since
             // each overlay tile indicates which size to use when displayed at runtime.
-            // Maybe the size of each pattern should be saved in the epic zone when we start supporting updating the patterns.
+            // Maybe the size of each pattern should be saved in the Epic Edit-dedicated ROM range when we start supporting updating the patterns.
             byte[] sizeIndexes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
             OverlayTileSize[] sizeArray = new OverlayTileSize[this.Count];
             for (int i = 0; i < this.Count; i++)

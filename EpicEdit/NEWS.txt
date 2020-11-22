@@ -8,6 +8,7 @@ v2.8.8 (???)
 - Added prompt to save pending changes upon loading a new ROM
   through drag and drop
 - Fixed color palette RGB values not getting saved after text editing them
+- Change all "zone" wordings to "area" (better and matches MAKE)
 
 
 v2.8.7 (May 15th 2020)

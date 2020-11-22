@@ -223,7 +223,7 @@ namespace EpicEdit.UI.TrackEdition
 
         /// <summary>
         /// Determines from which side the current element is being resized.
-        /// The element can be the track lap line, or an AI zone.
+        /// The element can be the track lap line, or an AI area.
         /// </summary>
         private ResizeHandle resizeHandle;
 
@@ -241,8 +241,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             None,
             DragTarget,
-            DragZone,
-            ResizeZone
+            DragArea,
+            ResizeArea
         }
 
         /// <summary>
@@ -951,7 +951,7 @@ namespace EpicEdit.UI.TrackEdition
                     break;
 
                 case EditionMode.Objects:
-                    this.drawer.DrawTrackObjects(e, this.hoveredObject, this.objectsControl.FrontZonesView);
+                    this.drawer.DrawTrackObjects(e, this.hoveredObject, this.objectsControl.FrontAreasView);
                     break;
 
                 case EditionMode.AI:
@@ -1861,15 +1861,15 @@ namespace EpicEdit.UI.TrackEdition
                     this.InvalidateWholeTrackDisplay();
                     break;
 
-                case PropertyNames.TrackObjectZones.FrontView:
-                    if (this.objectsControl.FrontZonesView)
+                case PropertyNames.TrackObjectAreas.FrontView:
+                    if (this.objectsControl.FrontAreasView)
                     {
                         this.InvalidateWholeTrackDisplay();
                     }
                     break;
 
-                case PropertyNames.TrackObjectZones.RearView:
-                    if (!this.objectsControl.FrontZonesView)
+                case PropertyNames.TrackObjectAreas.RearView:
+                    if (!this.objectsControl.FrontAreasView)
                     {
                         this.InvalidateWholeTrackDisplay();
                     }
@@ -2586,34 +2586,34 @@ namespace EpicEdit.UI.TrackEdition
                     this.hoveredAIElem.Target = hoveredTilePosition;
                     dataChanged = true;
                 }
-                else if (this.aiAction == AIAction.DragZone)
+                else if (this.aiAction == AIAction.DragArea)
                 {
-                    // Drag AI zone
-                    int xBefore = this.hoveredAIElem.Zone.X;
-                    int yBefore = this.hoveredAIElem.Zone.Y;
+                    // Drag AI area
+                    int xBefore = this.hoveredAIElem.Area.X;
+                    int yBefore = this.hoveredAIElem.Area.Y;
 
                     this.hoveredAIElem.Location =
                         new Point(hoveredTilePosition.X - this.anchorPoint.X,
                                   hoveredTilePosition.Y - this.anchorPoint.Y);
 
-                    if (xBefore != this.hoveredAIElem.Zone.X ||
-                        yBefore != this.hoveredAIElem.Zone.Y)
+                    if (xBefore != this.hoveredAIElem.Area.X ||
+                        yBefore != this.hoveredAIElem.Area.Y)
                     {
                         dataChanged = true;
                     }
                 }
-                else if (this.aiAction == AIAction.ResizeZone)
+                else if (this.aiAction == AIAction.ResizeArea)
                 {
-                    // Resize AI zone
-                    int widthBefore = this.hoveredAIElem.Zone.Width;
-                    int heightBefore = this.hoveredAIElem.Zone.Height;
+                    // Resize AI area
+                    int widthBefore = this.hoveredAIElem.Area.Width;
+                    int heightBefore = this.hoveredAIElem.Area.Height;
 
                     this.hoveredAIElem.Resize(this.resizeHandle,
                                               hoveredTilePosition.X,
                                               hoveredTilePosition.Y);
 
-                    int widthAfter = this.hoveredAIElem.Zone.Width;
-                    int heightAfter = this.hoveredAIElem.Zone.Height;
+                    int widthAfter = this.hoveredAIElem.Area.Width;
+                    int heightAfter = this.hoveredAIElem.Area.Height;
 
                     if (widthBefore != widthAfter || heightBefore != heightAfter)
                     {
@@ -2650,10 +2650,10 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            // Try to hover AI zone
+            // Try to hover AI area
             // Priority to selected element
             if (this.aiControl.SelectedElement != null &&
-                this.TryToHoverAIZone(this.aiControl.SelectedElement, hoveredTilePosition))
+                this.TryToHoverAIArea(this.aiControl.SelectedElement, hoveredTilePosition))
             {
                 // If an element is already selected, and that it's hovered,
                 // don't try to hover anything else
@@ -2661,7 +2661,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             if (this.hoveredAIElem != null &&
-                this.TryToHoverAIZone(this.hoveredAIElem, hoveredTilePosition))
+                this.TryToHoverAIArea(this.hoveredAIElem, hoveredTilePosition))
             {
                 // If an element is already hovered,
                 // don't try to hover anything else
@@ -2670,7 +2670,7 @@ namespace EpicEdit.UI.TrackEdition
 
             foreach (TrackAIElement trackAIElem in this.track.AI)
             {
-                if (this.TryToHoverAIZone(trackAIElem, hoveredTilePosition))
+                if (this.TryToHoverAIArea(trackAIElem, hoveredTilePosition))
                 {
                     return true;
                 }
@@ -2687,16 +2687,16 @@ namespace EpicEdit.UI.TrackEdition
             return true;
         }
 
-        private bool TryToHoverAIZone(TrackAIElement trackAIElem, Point hoveredTilePosition)
+        private bool TryToHoverAIArea(TrackAIElement trackAIElem, Point hoveredTilePosition)
         {
             if (trackAIElem.IntersectsWith(hoveredTilePosition))
             {
-                // Hover AI zone
+                // Hover AI area
                 this.hoveredAIElem = trackAIElem;
 
                 if (this.hoveredAIElem != this.aiControl.SelectedElement)
                 {
-                    this.aiAction = AIAction.DragZone;
+                    this.aiAction = AIAction.DragArea;
                     this.trackDisplay.Cursor = Cursors.SizeAll;
                     this.SetAIElementAnchorPoint(hoveredTilePosition);
                 }
@@ -2706,13 +2706,13 @@ namespace EpicEdit.UI.TrackEdition
 
                     if (this.resizeHandle == ResizeHandle.None)
                     {
-                        this.aiAction = AIAction.DragZone;
+                        this.aiAction = AIAction.DragArea;
                         this.trackDisplay.Cursor = Cursors.SizeAll;
                         this.SetAIElementAnchorPoint(hoveredTilePosition);
                     }
                     else
                     {
-                        this.aiAction = AIAction.ResizeZone;
+                        this.aiAction = AIAction.ResizeArea;
 
                         switch (this.resizeHandle)
                         {
@@ -2761,8 +2761,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             hoveredTilePosition.X = (hoveredTilePosition.X / 2) * 2;
             hoveredTilePosition.Y = (hoveredTilePosition.Y / 2) * 2;
-            this.anchorPoint = new Point(hoveredTilePosition.X - this.hoveredAIElem.Zone.X,
-                                         hoveredTilePosition.Y - this.hoveredAIElem.Zone.Y);
+            this.anchorPoint = new Point(hoveredTilePosition.X - this.hoveredAIElem.Area.X,
+                                         hoveredTilePosition.Y - this.hoveredAIElem.Area.Y);
         }
 
         private void AddAIElement(Point location)

@@ -18,12 +18,12 @@ using NUnit.Framework;
 namespace EpicEdit.Tests.Rom.Tracks.Objects
 {
     [TestFixture]
-    internal class TrackObjectZonesTests
+    internal class TrackObjectAreasTests
     {
         public void TestGetBytes(byte[] dataBefore)
         {
-            TrackObjectZones objectZones = new TrackObjectZones(dataBefore, null);
-            byte[] dataAfter = objectZones.GetBytes();
+            TrackObjectAreas objectAreas = new TrackObjectAreas(dataBefore, null);
+            byte[] dataAfter = objectAreas.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
 

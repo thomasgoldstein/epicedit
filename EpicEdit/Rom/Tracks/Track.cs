@@ -106,11 +106,11 @@ namespace EpicEdit.Rom.Tracks
             private set
             {
                 byte[] data = value.GetBytes();
-                byte[] zoneData = new byte[data.Length - value.ElementCount * 3 - 1];
-                byte[] targetData = new byte[data.Length - zoneData.Length - 1];
-                Buffer.BlockCopy(data, 0, zoneData, 0, zoneData.Length);
-                Buffer.BlockCopy(data, zoneData.Length + 1, targetData, 0, targetData.Length);
-                this.ai.SetBytes(zoneData, targetData);
+                byte[] areaData = new byte[data.Length - value.ElementCount * 3 - 1];
+                byte[] targetData = new byte[data.Length - areaData.Length - 1];
+                Buffer.BlockCopy(data, 0, areaData, 0, areaData.Length);
+                Buffer.BlockCopy(data, areaData.Length + 1, targetData, 0, targetData.Length);
+                this.ai.SetBytes(areaData, targetData);
             }
         }
 
@@ -120,7 +120,7 @@ namespace EpicEdit.Rom.Tracks
 
         protected Track(SuffixedTextItem nameItem, Theme theme,
                         byte[] map, byte[] overlayTilesData,
-                        byte[] aiZoneData, byte[] aiTargetData,
+                        byte[] aiAreaData, byte[] aiTargetData,
                         OverlayTileSizes overlayTileSizes,
                         OverlayTilePatterns overlayTilePatterns)
         {
@@ -133,7 +133,7 @@ namespace EpicEdit.Rom.Tracks
             this.map = new TrackMap(map);
             this.Map.DataChanged += this.Map_DataChanged;
 
-            this.ai = new TrackAI(aiZoneData, aiTargetData, this);
+            this.ai = new TrackAI(aiAreaData, aiTargetData, this);
             this.AI.PropertyChanged += this.AI_PropertyChanged;
             this.AI.ElementAdded += this.AI_PropertyChanged;
             this.AI.ElementRemoved += this.AI_PropertyChanged;

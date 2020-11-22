@@ -35,22 +35,22 @@ namespace EpicEdit.Rom.Tracks.AI
         private readonly Track track;
         private readonly List<TrackAIElement> aiElements;
 
-        public TrackAI(byte[] zoneData, byte[] targetData, Track track)
+        public TrackAI(byte[] areaData, byte[] targetData, Track track)
         {
             this.aiElements = new List<TrackAIElement>();
             this.track = track;
-            this.SetBytes(zoneData, targetData);
+            this.SetBytes(areaData, targetData);
         }
 
-        public void SetBytes(byte[] zoneData, byte[] targetData)
+        public void SetBytes(byte[] areaData, byte[] targetData)
         {
             this.Clear();
 
-            int i = 0; // i = iterator for zoneData
+            int i = 0; // i = iterator for areaData
             int j = 0; // j = iterator for targetData
-            while (i < zoneData.Length)
+            while (i < areaData.Length)
             {
-                this.Add(new TrackAIElement(zoneData, ref i, targetData, ref j));
+                this.Add(new TrackAIElement(areaData, ref i, targetData, ref j));
             }
         }
 
@@ -166,38 +166,38 @@ namespace EpicEdit.Rom.Tracks.AI
             this.OnPropertyChanged(aiElement, new PropertyChangedEventArgs(PropertyNames.TrackAIElement.Index));
         }
 
-        public static int GetTargetDataLength(byte[] zoneData)
+        public static int GetTargetDataLength(byte[] areaData)
         {
-            int zoneCount = TrackAI.GetZoneCount(zoneData);
-            int aiTargetDataLength = zoneCount * 3;
+            int areaCount = TrackAI.GetAreaCount(areaData);
+            int aiTargetDataLength = areaCount * 3;
             return aiTargetDataLength;
         }
 
-        private static int GetZoneCount(byte[] zoneData)
+        private static int GetAreaCount(byte[] areaData)
         {
-            int zoneCount = 0;
+            int areaCount = 0;
 
             int i = 0;
-            while (i < zoneData.Length)
+            while (i < areaData.Length)
             {
-                // Depending on whether the zone is a rectangle or triangle
-                i += zoneData[i] == 0 ? 5 : 4;
-                zoneCount++;
+                // Depending on whether the area is a rectangle or triangle
+                i += areaData[i] == 0 ? 5 : 4;
+                areaCount++;
             }
 
-            return zoneCount;
+            return areaCount;
         }
 
-        private int GetZoneDataLength()
+        private int GetAreaDataLength()
         {
-            int zoneDataLength = 0;
+            int areaDataLength = 0;
 
             foreach (TrackAIElement aiElement in this.aiElements)
             {
-                zoneDataLength += aiElement.ZoneShape == TrackAIElementShape.Rectangle ? 5 : 4;
+                areaDataLength += aiElement.AreaShape == TrackAIElementShape.Rectangle ? 5 : 4;
             }
 
-            return zoneDataLength;
+            return areaDataLength;
         }
 
         /// <summary>
@@ -206,15 +206,15 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>The AI bytes.</returns>
         public byte[] GetBytes()
         {
-            int zoneDataLength = this.GetZoneDataLength() + 1; // + 1 for ending 0xFF
+            int areaDataLength = this.GetAreaDataLength() + 1; // + 1 for ending 0xFF
             int targetDataLength = this.aiElements.Count * 3;
-            byte[] data = new byte[zoneDataLength + targetDataLength];
+            byte[] data = new byte[areaDataLength + targetDataLength];
 
             int i = 0;
 
             foreach (TrackAIElement aiElement in this.aiElements)
             {
-                aiElement.GetZoneBytes(data, ref i);
+                aiElement.GetAreaBytes(data, ref i);
             }
             data[i++] = 0xFF;
 

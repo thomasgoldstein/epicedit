@@ -74,7 +74,7 @@ namespace EpicEdit.UI.TrackEdition
 
                     this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
                     this.speedNumericUpDown.Value = this.selectedElement.Speed;
-                    this.shapeComboBox.SelectedItem = this.selectedElement.ZoneShape;
+                    this.shapeComboBox.SelectedItem = this.selectedElement.AreaShape;
                     this.isIntersectionCheckBox.Checked = this.selectedElement.IsIntersection;
 
                     this.fireEvents = true;
@@ -224,7 +224,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.selectedElement.ZoneShape = (TrackAIElementShape)this.shapeComboBox.SelectedValue;
+            this.selectedElement.AreaShape = (TrackAIElementShape)this.shapeComboBox.SelectedValue;
         }
 
         private void IsIntersectionCheckBoxCheckedChanged(object sender, EventArgs e)
@@ -327,8 +327,8 @@ namespace EpicEdit.UI.TrackEdition
                     this.speedNumericUpDown.Value = aiElement.Speed;
                     break;
 
-                case PropertyNames.TrackAIElement.ZoneShape:
-                    this.shapeComboBox.SelectedItem = aiElement.ZoneShape;
+                case PropertyNames.TrackAIElement.AreaShape:
+                    this.shapeComboBox.SelectedItem = aiElement.AreaShape;
                     break;
 
                 case PropertyNames.TrackAIElement.IsIntersection:

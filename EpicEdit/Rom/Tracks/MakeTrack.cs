@@ -149,7 +149,7 @@ namespace EpicEdit.Rom
                 Array.Resize<byte>(ref data, size);
                 this.OBJ = data;
 
-                this.AREA_BORDER = value.Zones.GetBytes();
+                this.AREA_BORDER = value.Areas.GetBytes();
 
                 this.EE_OBJTILESET = new byte[] { 0, (byte)value.Tileset };
                 this.EE_OBJINTERACT = new byte[] { 0, (byte)value.Interaction };
@@ -163,8 +163,8 @@ namespace EpicEdit.Rom
         {
             get
             {
-                this.GetAIData(out byte[] targetData, out byte[] zoneData);
-                return new TrackAI(zoneData, targetData, this.track);
+                this.GetAIData(out byte[] targetData, out byte[] areaData);
+                return new TrackAI(areaData, targetData, this.track);
             }
             set => this.SetAIData(value);
         }
@@ -388,7 +388,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Object View Zones.
+        /// Object View Areas.
         /// </summary>
         private byte[] AREA_BORDER
         {
@@ -446,7 +446,7 @@ namespace EpicEdit.Rom
 
             this.OBJ = new byte[64];
 
-            byte[] areaBorder = new byte[TrackObjectZones.Size];
+            byte[] areaBorder = new byte[TrackObjectAreas.Size];
             for (int i = 0; i < areaBorder.Length; i++)
             {
                 areaBorder[i] = 0xFF;
@@ -455,12 +455,12 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Converts the MAKE AI data into the target and zone data format that Epic Edit expects.
+        /// Converts the MAKE AI data into the target and area data format that Epic Edit expects.
         /// </summary>
-        private void GetAIData(out byte[] targetData, out byte[] zoneData)
+        private void GetAIData(out byte[] targetData, out byte[] areaData)
         {
             List<byte> targetDataList = new List<byte>();
-            List<byte> zoneDataList = new List<byte>();
+            List<byte> areaDataList = new List<byte>();
 
             int count = this.AREA.Length / LineLength;
 
@@ -471,19 +471,19 @@ namespace EpicEdit.Rom
                 targetDataList.Add(this.AREA[x * LineLength + 2]);
                 targetDataList.Add(this.AREA[x * LineLength]);
 
-                byte zoneShape = this.AREA[x * LineLength + 16];
-                zoneDataList.Add(zoneShape);
-                zoneDataList.Add(this.AREA[x * LineLength + 17]);
-                zoneDataList.Add(this.AREA[x * LineLength + 18]);
-                zoneDataList.Add(this.AREA[x * LineLength + 19]);
-                if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
+                byte areaShape = this.AREA[x * LineLength + 16];
+                areaDataList.Add(areaShape);
+                areaDataList.Add(this.AREA[x * LineLength + 17]);
+                areaDataList.Add(this.AREA[x * LineLength + 18]);
+                areaDataList.Add(this.AREA[x * LineLength + 19]);
+                if (areaShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                 {
-                    zoneDataList.Add(this.AREA[x * LineLength + 20]);
+                    areaDataList.Add(this.AREA[x * LineLength + 20]);
                 }
             }
 
             targetData = targetDataList.ToArray();
-            zoneData = zoneDataList.ToArray();
+            areaData = areaDataList.ToArray();
         }
 
         /// <summary>
@@ -500,12 +500,12 @@ namespace EpicEdit.Rom
                 this.AREA[x * LineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
                 this.AREA[x * LineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
 
-                byte zoneShape = data[index++];
-                this.AREA[x * LineLength + 16] = zoneShape;
+                byte areaShape = data[index++];
+                this.AREA[x * LineLength + 16] = areaShape;
                 this.AREA[x * LineLength + 17] = data[index++];
                 this.AREA[x * LineLength + 18] = data[index++];
                 this.AREA[x * LineLength + 19] = data[index++];
-                if (zoneShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
+                if (areaShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                 {
                     this.AREA[x * LineLength + 20] = data[index++];
                 }

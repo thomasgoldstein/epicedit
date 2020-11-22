@@ -20,44 +20,40 @@ using System.ComponentModel;
 namespace EpicEdit.Rom.Tracks.Objects
 {
     /// <summary>
-    /// A collection of <see cref="TrackObject"/> zones.
-    /// A track object only appears in a track if it is located within its designated zone.
+    /// A collection of <see cref="TrackObject"/> areas.
+    /// A track object only appears in a track if it is located within its designated area.
     /// </summary>
-    internal class TrackObjectZones : INotifyPropertyChanged
+    internal class TrackObjectAreas : INotifyPropertyChanged
     {
         public const int Size = 10;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public TrackObjectAreasView FrontView { get; }
+        public TrackObjectAreasView RearView { get; }
 
-        private readonly TrackObjectZonesView frontView;
-        public TrackObjectZonesView FrontView => this.frontView;
-
-        private readonly TrackObjectZonesView rearView;
-        public TrackObjectZonesView RearView => this.rearView;
-
-        public TrackObjectZones(byte[] data, TrackAI ai)
+        public TrackObjectAreas(byte[] data, TrackAI ai)
         {
-            this.frontView = new TrackObjectZonesView(new[] { data[0], data[1], data[2], data[3] }, ai);
-            this.rearView = new TrackObjectZonesView(new[] { data[5], data[6], data[7], data[8] }, ai);
+            this.FrontView = new TrackObjectAreasView(new[] { data[0], data[1], data[2], data[3] }, ai);
+            this.RearView = new TrackObjectAreasView(new[] { data[5], data[6], data[7], data[8] }, ai);
 
-            this.frontView.DataChanged += this.frontView_DataChanged;
-            this.rearView.DataChanged += this.rearView_DataChanged;
+            this.FrontView.DataChanged += this.frontView_DataChanged;
+            this.RearView.DataChanged += this.rearView_DataChanged;
         }
 
         public void SetBytes(byte[] data)
         {
-            this.frontView.SetBytes(new[] { data[0], data[1], data[2], data[3] });
-            this.rearView.SetBytes(new[] { data[5], data[6], data[7], data[8] });
+            this.FrontView.SetBytes(new[] { data[0], data[1], data[2], data[3] });
+            this.RearView.SetBytes(new[] { data[5], data[6], data[7], data[8] });
         }
 
         private void frontView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged(PropertyNames.TrackObjectZones.FrontView);
+            this.OnPropertyChanged(PropertyNames.TrackObjectAreas.FrontView);
         }
 
         private void rearView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged(PropertyNames.TrackObjectZones.RearView);
+            this.OnPropertyChanged(PropertyNames.TrackObjectAreas.RearView);
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -66,14 +62,14 @@ namespace EpicEdit.Rom.Tracks.Objects
         }
 
         /// <summary>
-        /// Returns the TrackObjectZones data as a byte array, in the format the SMK ROM expects.
+        /// Returns the <see cref="TrackObjectAreas"/> data as a byte array, in the format the SMK ROM expects.
         /// </summary>
-        /// <returns>The TrackObjectZones bytes.</returns>
+        /// <returns>The <see cref="TrackObjectAreas"/> bytes.</returns>
         public byte[] GetBytes()
         {
             byte[] data = new byte[Size];
-            byte[] frontData = this.frontView.GetBytes();
-            byte[] rearData = this.rearView.GetBytes();
+            byte[] frontData = this.FrontView.GetBytes();
+            byte[] rearData = this.RearView.GetBytes();
 
             Buffer.BlockCopy(frontData, 0, data, 0, frontData.Length);
             Buffer.BlockCopy(rearData, 0, data, frontData.Length, rearData.Length);

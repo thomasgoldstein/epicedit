@@ -83,8 +83,8 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.track.Objects.PropertyChanged += this.track_Objects_PropertyChanged;
 
-                this.frontObjectZonesControl.ZonesView = this.track.Objects.Zones.FrontView;
-                this.rearObjectZonesControl.ZonesView = this.track.Objects.Zones.RearView;
+                this.frontObjectAreasControl.AreasView = this.track.Objects.Areas.FrontView;
+                this.rearObjectAreasControl.AreasView = this.track.Objects.Areas.RearView;
 
                 TrackObjects objects = this.track.Objects;
 
@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 
                 this.fireEvents = true;
 
-                this.ToggleZoneGroupBox();
+                this.ToggleAreaGroupBox();
                 this.ToggleAlternatePalettes();
             }
         }
@@ -136,16 +136,16 @@ namespace EpicEdit.UI.TrackEdition
         }
 
         /// <summary>
-        /// Gets a value indicating whether the current view is the front-zones one.
+        /// Gets a value indicating whether the current view is the front-areas one.
         /// </summary>
-        public bool FrontZonesView => this.frontZonesRadioButton.Checked;
+        public bool FrontAreasView => this.frontAreasRadioButton.Checked;
 
-        private void FrontZonesRadioButtonCheckedChanged(object sender, EventArgs e)
+        private void FrontAreasRadioButtonCheckedChanged(object sender, EventArgs e)
         {
             this.ViewChanged(this, EventArgs.Empty);
 
-            this.frontObjectZonesControl.Visible = this.frontZonesRadioButton.Checked;
-            this.rearObjectZonesControl.Visible = this.rearZonesRadioButton.Checked;
+            this.frontObjectAreasControl.Visible = this.frontAreasRadioButton.Checked;
+            this.rearObjectAreasControl.Visible = this.rearAreasRadioButton.Checked;
         }
 
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -176,12 +176,12 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             this.Track.Objects.Routine = (TrackObjectType)this.routineComboBox.SelectedItem;
-            this.ToggleZoneGroupBox();
+            this.ToggleAreaGroupBox();
         }
 
-        private void ToggleZoneGroupBox()
+        private void ToggleAreaGroupBox()
         {
-            this.zoneGroupBox.Enabled = this.Track.Objects.Routine != TrackObjectType.Pillar;
+            this.areaGroupBox.Enabled = this.Track.Objects.Routine != TrackObjectType.Pillar;
         }
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)

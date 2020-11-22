@@ -324,7 +324,7 @@ namespace EpicEdit.Rom
             int[] mapOffsets = Utilities.ReadBlockOffset(this.romBuffer, this.offsets[Offset.TrackMaps], Track.Count);
 
             byte aiOffsetBase = this.romBuffer[this.offsets[Offset.TrackAIDataFirstAddressByte]];
-            byte[] aiZoneOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIZones], Track.Count * 2); // 2 offset bytes per track
+            byte[] aiAreaOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAIAreas], Track.Count * 2); // 2 offset bytes per track
             byte[] aiTargetOffsets = Utilities.ReadBlock(this.romBuffer, this.offsets[Offset.TrackAITargets], Track.Count * 2); // 2 offset bytes per track
 
             for (int i = 0; i < this.TrackGroups.Count; i++)
@@ -365,22 +365,22 @@ namespace EpicEdit.Rom
                     Theme trackTheme = this.Themes[themeId];
                     byte[] trackMap = this.GetTrackMap(trackIndex, mapOffsets[trackIndex]);
                     byte[] overlayTileData = this.GetOverlayTileData(trackIndex);
-                    this.LoadAIData(trackIndex, aiOffsetBase, aiZoneOffsets, aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData);
+                    this.LoadAIData(trackIndex, aiOffsetBase, aiAreaOffsets, aiTargetOffsets, out byte[] aiAreaData, out byte[] aiTargetData);
 
                     if (trackIndex < GPTrack.Count) // GP track
                     {
                         byte[] startPositionData = this.GetGPStartPositionData(trackIndex);
                         byte[] lapLineData = this.GetLapLineData(trackIndex);
                         byte[] objectData = this.GetObjectData(trackIndex);
-                        byte[] objectZoneData = this.GetObjectZoneData(trackIndex);
+                        byte[] objectAreaData = this.GetObjectAreaData(trackIndex);
                         byte[] objectPropData = this.GetObjectPropertiesData(trackIndex, themeId);
                         int itemProbaIndex = this.romBuffer[this.offsets[Offset.TrackItemProbabilityIndexes] + trackIndex] >> 1;
 
                         tracks[j] = new GPTrack(suffixedTrackNameItem, trackTheme,
                                                 trackMap, overlayTileData,
-                                                aiZoneData, aiTargetData,
+                                                aiAreaData, aiTargetData,
                                                 startPositionData, lapLineData,
-                                                objectData, objectZoneData, objectPropData,
+                                                objectData, objectAreaData, objectPropData,
                                                 this.OverlayTileSizes,
                                                 this.OverlayTilePatterns,
                                                 itemProbaIndex);
@@ -391,7 +391,7 @@ namespace EpicEdit.Rom
 
                         tracks[j] = new BattleTrack(suffixedTrackNameItem, trackTheme,
                                                     trackMap, overlayTileData,
-                                                    aiZoneData, aiTargetData,
+                                                    aiAreaData, aiTargetData,
                                                     startPositionData,
                                                     this.OverlayTileSizes,
                                                     this.OverlayTilePatterns);
@@ -706,7 +706,7 @@ namespace EpicEdit.Rom
             byte[] data = new byte[8];
             byte[] paletteIndexes;
 
-            if (this.ObjectZonesRelocated)
+            if (this.ObjectAreasRelocated)
             {
                 int offset = this.offsets[Offset.TrackObjectProperties] + trackIndex;
                 data[0] = this.romBuffer[offset];
@@ -846,22 +846,22 @@ namespace EpicEdit.Rom
 
         #endregion Objects
 
-        #region Object zones
+        #region Object areas
 
-        private byte[] GetObjectZoneData(int trackIndex)
+        private byte[] GetObjectAreaData(int trackIndex)
         {
-            int objectZoneOffset = this.GetObjectZoneOffset(trackIndex);
+            int objectAreaOffset = this.GetObjectAreaOffset(trackIndex);
 
-            return objectZoneOffset == -1 ?
-                new byte[TrackObjectZones.Size] : // Ghost Valley track, does not have objects but has pillars (unsupported)
-                Utilities.ReadBlock(this.romBuffer, objectZoneOffset, TrackObjectZones.Size);
+            return objectAreaOffset == -1 ?
+                new byte[TrackObjectAreas.Size] : // Ghost Valley track, does not have objects but has pillars (unsupported)
+                Utilities.ReadBlock(this.romBuffer, objectAreaOffset, TrackObjectAreas.Size);
         }
 
-        private int GetObjectZoneOffset(int trackIndex)
+        private int GetObjectAreaOffset(int trackIndex)
         {
-            if (this.ObjectZonesRelocated)
+            if (this.ObjectAreasRelocated)
             {
-                return this.offsets[Offset.TrackObjectZonesRelocated] + trackIndex * 10;
+                return this.offsets[Offset.TrackObjectAreasRelocated] + trackIndex * 10;
             }
 
             // TODO: Retrieve order dynamically from the ROM
@@ -875,7 +875,7 @@ namespace EpicEdit.Rom
 
             // NOTE: The 2 bytes at 4DB85 (93DB) are an address (4DB93)
             // to 2 other bytes (CFDA), which are an address (4DACF)
-            // to the object zones of Mario Circuit 1. The other tracks follow.
+            // to the object areas of Mario Circuit 1. The other tracks follow.
             // But I don't know where the track order is defined.
 
             if (reorder[trackIndex] == -1)
@@ -885,38 +885,38 @@ namespace EpicEdit.Rom
                 return -1;
             }
 
-            int objectZonesOffset = this.offsets[Offset.TrackObjectZones];
-            int index = objectZonesOffset + reorder[trackIndex] * 2;
+            int objectAreasOffset = this.offsets[Offset.TrackObjectAreas];
+            int index = objectAreasOffset + reorder[trackIndex] * 2;
             return Utilities.BytesToOffset(this.romBuffer[index], this.romBuffer[index + 1], 4);
         }
 
-        private bool ObjectZonesRelocated => this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7;
+        private bool ObjectAreasRelocated => this.romBuffer[this.offsets[Offset.TrackObjectHack6]] == 0xB7;
 
-        #endregion Object zones
+        #endregion Object areas
 
         #region AI
 
-        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiZoneOffsets, byte[] aiTargetOffsets, out byte[] aiZoneData, out byte[] aiTargetData)
+        private void LoadAIData(int trackIndex, byte aiOffsetBase, byte[] aiAreaOffsets, byte[] aiTargetOffsets, out byte[] aiAreaData, out byte[] aiTargetData)
         {
             int aiOffset = trackIndex * 2;
-            int aiZoneDataOffset;
+            int aiAreaAreaOffset;
             int aiTargetDataOffset;
 
             if (!this.IsMakeTrack(trackIndex))
             {
-                aiZoneDataOffset = Utilities.BytesToOffset(aiZoneOffsets[aiOffset], aiZoneOffsets[aiOffset + 1], aiOffsetBase);
+                aiAreaAreaOffset = Utilities.BytesToOffset(aiAreaOffsets[aiOffset], aiAreaOffsets[aiOffset + 1], aiOffsetBase);
                 aiTargetDataOffset = Utilities.BytesToOffset(aiTargetOffsets[aiOffset], aiTargetOffsets[aiOffset + 1], aiOffsetBase);
             }
             else
             {
-                int aiZoneDataOffsetIndex = this.offsets[Offset.MakeAIZone] + trackIndex * 3;
+                int aiAreaDataOffsetIndex = this.offsets[Offset.MakeAIArea] + trackIndex * 3;
                 int aiTargetDataOffsetIndex = this.offsets[Offset.MakeAITarget] + trackIndex * 3;
-                aiZoneDataOffset = Utilities.BytesToOffset(this.romBuffer, aiZoneDataOffsetIndex);
+                aiAreaAreaOffset = Utilities.BytesToOffset(this.romBuffer, aiAreaDataOffsetIndex);
                 aiTargetDataOffset = Utilities.BytesToOffset(this.romBuffer, aiTargetDataOffsetIndex);
             }
 
-            aiZoneData = Utilities.ReadBlockUntil(this.romBuffer, aiZoneDataOffset, 0xFF);
-            int aiTargetDataLength = TrackAI.GetTargetDataLength(aiZoneData);
+            aiAreaData = Utilities.ReadBlockUntil(this.romBuffer, aiAreaAreaOffset, 0xFF);
+            int aiTargetDataLength = TrackAI.GetTargetDataLength(aiAreaData);
             aiTargetData = Utilities.ReadBlock(romBuffer, aiTargetDataOffset, aiTargetDataLength);
         }
 
@@ -1239,7 +1239,7 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Saves all the object data (locations, zones, properties).
+        /// Saves all the object data (locations, areas, properties).
         /// Also applies hacks that make the track object engine more flexible.
         /// </summary>
         private void SaveObjectData(SaveBuffer saveBuffer)
@@ -1247,7 +1247,7 @@ namespace EpicEdit.Rom
             /*
                 The hacks below include the following improvements:
 
-                - Make all tracks have independent object zones (Koopa Beach 1 and 2 share the same one in the original game)
+                - Make all tracks have independent object areas (Koopa Beach 1 and 2 share the same one in the original game)
                 - Make it possible to change the object type of each track (regular or GV pillar)
                 - Remove Donut Plains pipe / mole hacks with something cleaner and reusable
                 - Make it possible to mix the properties of each object (tileset, interaction, routine)
@@ -1258,7 +1258,7 @@ namespace EpicEdit.Rom
             this.RelocateObjectData();
             this.SaveObjectProperties(saveBuffer); // From 0x80062 to 0x800D9
             Game.AddObjectCodeChunk1(saveBuffer, region); // From 0x800DA to 0x80218
-            this.SaveObjectLocationsAndZones(saveBuffer); // From 0x80219 to 0x802E1
+            this.SaveObjectLocationsAndAreas(saveBuffer); // From 0x80219 to 0x802E1
             Game.AddObjectCodeChunk2(saveBuffer); // From 0x802E2 to 0x80330
             this.SavePillars(saveBuffer); // From 0x80331 to 0x85D30
             Game.AddObjectCodeChunk3(saveBuffer, region); // From 0x85D31 to 0x85D43
@@ -1280,7 +1280,7 @@ namespace EpicEdit.Rom
                 B ptr: c80123
                 C ptr: c8014f
                 D ptr: c801ab
-                normal zone table: c80219
+                normal area table: c80219
                 GV checkpoint table: c80331
                 GV position data: c80d31
                 E ptr: c85d31
@@ -1502,10 +1502,10 @@ namespace EpicEdit.Rom
             saveBuffer.Add(hack3);
         }
 
-        private void SaveObjectLocationsAndZones(SaveBuffer saveBuffer)
+        private void SaveObjectLocationsAndAreas(SaveBuffer saveBuffer)
         {
             byte[] trackOrder = this.GetTrackOrder();
-            byte[] objectZonesData = new byte[GPTrack.Count * TrackObjectZones.Size];
+            byte[] objectAreasData = new byte[GPTrack.Count * TrackObjectAreas.Size];
 
             for (int i = 0; i < this.TrackGroups.Count - 1; i++)
             {
@@ -1516,9 +1516,9 @@ namespace EpicEdit.Rom
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     GPTrack gpTrack = trackGroup[j] as GPTrack;
 
-                    // Update object zones
-                    byte[] data = gpTrack.Objects.Zones.GetBytes();
-                    Buffer.BlockCopy(data, 0, objectZonesData,
+                    // Update object areas
+                    byte[] data = gpTrack.Objects.Areas.GetBytes();
+                    Buffer.BlockCopy(data, 0, objectAreasData,
                                      trackIndex * data.Length,
                                      data.Length);
 
@@ -1531,7 +1531,7 @@ namespace EpicEdit.Rom
                 }
             }
 
-            saveBuffer.Add(objectZonesData);
+            saveBuffer.Add(objectAreasData);
         }
 
         private static void AddObjectCodeChunk2(SaveBuffer saveBuffer)
@@ -1797,14 +1797,14 @@ namespace EpicEdit.Rom
             byte[] trackAIData = track.AI.GetBytes();
 
             // Update AI offsets
-            int trackAIZoneIndex = this.offsets[Offset.TrackAIZones] + trackIndex * 2;
+            int trackAIAreaIndex = this.offsets[Offset.TrackAIAreas] + trackIndex * 2;
             int trackAITargetIndex = this.offsets[Offset.TrackAITargets] + trackIndex * 2;
 
-            byte[] aiZoneOffset = Utilities.OffsetToBytes(saveBuffer.Index);
+            byte[] aiAreaOffset = Utilities.OffsetToBytes(saveBuffer.Index);
             byte[] aiTargetOffset = Utilities.OffsetToBytes(saveBuffer.Index + trackAIData.Length - track.AI.ElementCount * 3);
 
-            this.romBuffer[trackAIZoneIndex] = aiZoneOffset[0];
-            this.romBuffer[trackAIZoneIndex + 1] = aiZoneOffset[1];
+            this.romBuffer[trackAIAreaIndex] = aiAreaOffset[0];
+            this.romBuffer[trackAIAreaIndex + 1] = aiAreaOffset[1];
             this.romBuffer[trackAITargetIndex] = aiTargetOffset[0];
             this.romBuffer[trackAITargetIndex + 1] = aiTargetOffset[1];
 

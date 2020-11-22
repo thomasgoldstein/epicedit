@@ -49,10 +49,10 @@ namespace EpicEdit.UI.TrackEdition
             System.Windows.Forms.Label tilesetLabel;
             System.Windows.Forms.Label paletteLabel;
             this.palettesLabel = new System.Windows.Forms.Label();
-            this.rearObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
-            this.frontObjectZonesControl = new EpicEdit.UI.TrackEdition.ObjectZonesControl();
-            this.rearZonesRadioButton = new System.Windows.Forms.RadioButton();
-            this.frontZonesRadioButton = new System.Windows.Forms.RadioButton();
+            this.rearObjectAreasControl = new EpicEdit.UI.TrackEdition.ObjectAreasControl();
+            this.frontObjectAreasControl = new EpicEdit.UI.TrackEdition.ObjectAreasControl();
+            this.rearAreasRadioButton = new System.Windows.Forms.RadioButton();
+            this.frontAreasRadioButton = new System.Windows.Forms.RadioButton();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
             this.palette4NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
             this.palette3NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
@@ -62,7 +62,7 @@ namespace EpicEdit.UI.TrackEdition
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.interactComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
-            this.zoneGroupBox = new System.Windows.Forms.GroupBox();
+            this.areaGroupBox = new System.Windows.Forms.GroupBox();
             routineLabel = new System.Windows.Forms.Label();
             interactLabel = new System.Windows.Forms.Label();
             tilesetLabel = new System.Windows.Forms.Label();
@@ -72,7 +72,7 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.palette3NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.palette2NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).BeginInit();
-            this.zoneGroupBox.SuspendLayout();
+            this.areaGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // routineLabel
@@ -115,48 +115,48 @@ namespace EpicEdit.UI.TrackEdition
             this.palettesLabel.TabIndex = 9;
             this.palettesLabel.Text = "Flashing palettes";
             // 
-            // rearObjectZonesControl
+            // rearObjectAreasControl
             // 
-            this.rearObjectZonesControl.Location = new System.Drawing.Point(1, 86);
-            this.rearObjectZonesControl.Name = "rearObjectZonesControl";
-            this.rearObjectZonesControl.Size = new System.Drawing.Size(122, 149);
-            this.rearObjectZonesControl.TabIndex = 3;
-            this.rearObjectZonesControl.Title = "Rear-view Zones";
-            this.rearObjectZonesControl.Visible = false;
+            this.rearObjectAreasControl.Location = new System.Drawing.Point(1, 86);
+            this.rearObjectAreasControl.Name = "rearObjectAreasControl";
+            this.rearObjectAreasControl.Size = new System.Drawing.Size(122, 149);
+            this.rearObjectAreasControl.TabIndex = 3;
+            this.rearObjectAreasControl.Title = "Rear-view Areas";
+            this.rearObjectAreasControl.Visible = false;
             // 
-            // frontObjectZonesControl
+            // frontObjectAreasControl
             // 
-            this.frontObjectZonesControl.Location = new System.Drawing.Point(1, 86);
-            this.frontObjectZonesControl.Name = "frontObjectZonesControl";
-            this.frontObjectZonesControl.Size = new System.Drawing.Size(122, 149);
-            this.frontObjectZonesControl.TabIndex = 2;
-            this.frontObjectZonesControl.Title = "Front-view Zones";
+            this.frontObjectAreasControl.Location = new System.Drawing.Point(1, 86);
+            this.frontObjectAreasControl.Name = "frontObjectAreasControl";
+            this.frontObjectAreasControl.Size = new System.Drawing.Size(122, 149);
+            this.frontObjectAreasControl.TabIndex = 2;
+            this.frontObjectAreasControl.Title = "Front-view Areas";
             // 
-            // rearZonesRadioButton
+            // rearAreasRadioButton
             // 
-            this.rearZonesRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rearZonesRadioButton.Location = new System.Drawing.Point(10, 50);
-            this.rearZonesRadioButton.Name = "rearZonesRadioButton";
-            this.rearZonesRadioButton.Size = new System.Drawing.Size(104, 24);
-            this.rearZonesRadioButton.TabIndex = 1;
-            this.rearZonesRadioButton.TabStop = true;
-            this.rearZonesRadioButton.Text = "Rear-view Zones";
-            this.rearZonesRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rearZonesRadioButton.UseVisualStyleBackColor = true;
+            this.rearAreasRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rearAreasRadioButton.Location = new System.Drawing.Point(10, 50);
+            this.rearAreasRadioButton.Name = "rearAreasRadioButton";
+            this.rearAreasRadioButton.Size = new System.Drawing.Size(104, 24);
+            this.rearAreasRadioButton.TabIndex = 1;
+            this.rearAreasRadioButton.TabStop = true;
+            this.rearAreasRadioButton.Text = "Rear-view Areas";
+            this.rearAreasRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rearAreasRadioButton.UseVisualStyleBackColor = true;
             // 
-            // frontZonesRadioButton
+            // frontAreasRadioButton
             // 
-            this.frontZonesRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.frontZonesRadioButton.Checked = true;
-            this.frontZonesRadioButton.Location = new System.Drawing.Point(10, 20);
-            this.frontZonesRadioButton.Name = "frontZonesRadioButton";
-            this.frontZonesRadioButton.Size = new System.Drawing.Size(104, 24);
-            this.frontZonesRadioButton.TabIndex = 0;
-            this.frontZonesRadioButton.TabStop = true;
-            this.frontZonesRadioButton.Text = "Front-view Zones";
-            this.frontZonesRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.frontZonesRadioButton.UseVisualStyleBackColor = true;
-            this.frontZonesRadioButton.CheckedChanged += new System.EventHandler(this.FrontZonesRadioButtonCheckedChanged);
+            this.frontAreasRadioButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.frontAreasRadioButton.Checked = true;
+            this.frontAreasRadioButton.Location = new System.Drawing.Point(10, 20);
+            this.frontAreasRadioButton.Name = "frontAreasRadioButton";
+            this.frontAreasRadioButton.Size = new System.Drawing.Size(104, 24);
+            this.frontAreasRadioButton.TabIndex = 0;
+            this.frontAreasRadioButton.TabStop = true;
+            this.frontAreasRadioButton.Text = "Front-view Areas";
+            this.frontAreasRadioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.frontAreasRadioButton.UseVisualStyleBackColor = true;
+            this.frontAreasRadioButton.CheckedChanged += new System.EventHandler(this.FrontAreasRadioButtonCheckedChanged);
             // 
             // propertiesGroupBox
             // 
@@ -272,22 +272,22 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetComboBox.TabIndex = 5;
             this.tilesetComboBox.SelectedIndexChanged += new System.EventHandler(this.TilesetComboBoxSelectedIndexChanged);
             // 
-            // zoneGroupBox
+            // areaGroupBox
             // 
-            this.zoneGroupBox.Controls.Add(this.frontZonesRadioButton);
-            this.zoneGroupBox.Controls.Add(this.rearZonesRadioButton);
-            this.zoneGroupBox.Controls.Add(this.rearObjectZonesControl);
-            this.zoneGroupBox.Controls.Add(this.frontObjectZonesControl);
-            this.zoneGroupBox.Location = new System.Drawing.Point(2, 303);
-            this.zoneGroupBox.Name = "zoneGroupBox";
-            this.zoneGroupBox.Size = new System.Drawing.Size(124, 235);
-            this.zoneGroupBox.TabIndex = 1;
-            this.zoneGroupBox.TabStop = false;
-            this.zoneGroupBox.Text = "Object Visibility";
+            this.areaGroupBox.Controls.Add(this.frontAreasRadioButton);
+            this.areaGroupBox.Controls.Add(this.rearAreasRadioButton);
+            this.areaGroupBox.Controls.Add(this.rearObjectAreasControl);
+            this.areaGroupBox.Controls.Add(this.frontObjectAreasControl);
+            this.areaGroupBox.Location = new System.Drawing.Point(2, 303);
+            this.areaGroupBox.Name = "areaGroupBox";
+            this.areaGroupBox.Size = new System.Drawing.Size(124, 235);
+            this.areaGroupBox.TabIndex = 1;
+            this.areaGroupBox.TabStop = false;
+            this.areaGroupBox.Text = "Object Visibility";
             // 
             // ObjectsControl
             // 
-            this.Controls.Add(this.zoneGroupBox);
+            this.Controls.Add(this.areaGroupBox);
             this.Controls.Add(this.propertiesGroupBox);
             this.Name = "ObjectsControl";
             this.Size = new System.Drawing.Size(130, 550);
@@ -296,7 +296,7 @@ namespace EpicEdit.UI.TrackEdition
             ((System.ComponentModel.ISupportInitialize)(this.palette3NumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.palette2NumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.palette1NumericUpDown)).EndInit();
-            this.zoneGroupBox.ResumeLayout(false);
+            this.areaGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -306,14 +306,14 @@ namespace EpicEdit.UI.TrackEdition
         private EpicEdit.UI.Tools.EpicNumericUpDown palette3NumericUpDown;
         private EpicEdit.UI.Tools.EpicNumericUpDown palette2NumericUpDown;
         private System.Windows.Forms.CheckBox flashingCheckBox;
-        private System.Windows.Forms.GroupBox zoneGroupBox;
+        private System.Windows.Forms.GroupBox areaGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;
         private System.Windows.Forms.ComboBox routineComboBox;
         private System.Windows.Forms.ComboBox tilesetComboBox;
         private System.Windows.Forms.GroupBox propertiesGroupBox;
-        private System.Windows.Forms.RadioButton frontZonesRadioButton;
-        private System.Windows.Forms.RadioButton rearZonesRadioButton;
-        private EpicEdit.UI.TrackEdition.ObjectZonesControl frontObjectZonesControl;
-        private EpicEdit.UI.TrackEdition.ObjectZonesControl rearObjectZonesControl;
+        private System.Windows.Forms.RadioButton frontAreasRadioButton;
+        private System.Windows.Forms.RadioButton rearAreasRadioButton;
+        private EpicEdit.UI.TrackEdition.ObjectAreasControl frontObjectAreasControl;
+        private EpicEdit.UI.TrackEdition.ObjectAreasControl rearObjectAreasControl;
     }
 }

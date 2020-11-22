@@ -35,7 +35,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private readonly TrackObject[] objects;
 
-        public TrackObjectZones Zones { get; }
+        public TrackObjectAreas Areas { get; }
 
         public TrackObjectProperties Properties { get; }
 
@@ -69,13 +69,13 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectLoading Loading => this.Properties.Loading;
 
-        public TrackObjects(byte[] data, byte[] zoneData, TrackAI ai, byte[] propData, GPTrack track)
+        public TrackObjects(byte[] data, byte[] areaData, TrackAI ai, byte[] propData, GPTrack track)
         {
             this.objects = new TrackObject[Size / BytesPerObject];
             this.SetBytes(data);
 
-            this.Zones = new TrackObjectZones(zoneData, ai);
-            this.Zones.PropertyChanged += this.SubPropertyChanged;
+            this.Areas = new TrackObjectAreas(areaData, ai);
+            this.Areas.PropertyChanged += this.SubPropertyChanged;
 
             this.Properties = new TrackObjectProperties(propData, track);
             this.Properties.PropertyChanged += this.SubPropertyChanged;

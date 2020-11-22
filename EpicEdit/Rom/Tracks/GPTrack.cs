@@ -61,7 +61,7 @@ namespace EpicEdit.Rom.Tracks
             private set
             {
                 this.objects.SetBytes(value.GetBytes());
-                this.objects.Zones.SetBytes(value.Zones.GetBytes());
+                this.objects.Areas.SetBytes(value.Areas.GetBytes());
                 this.objects.Properties.SetBytes(value.Properties.GetBytes());
             }
         }
@@ -84,13 +84,13 @@ namespace EpicEdit.Rom.Tracks
 
         public GPTrack(SuffixedTextItem nameItem, Theme theme,
                        byte[] map, byte[] overlayTileData,
-                       byte[] aiZoneData, byte[] aiTargetData,
+                       byte[] aiAreaData, byte[] aiTargetData,
                        byte[] startPositionData, byte[] lapLineData,
-                       byte[] objectData, byte[] objectZoneData, byte[] objectPropData,
+                       byte[] objectData, byte[] objectAreaData, byte[] objectPropData,
                        OverlayTileSizes overlayTileSizes,
                        OverlayTilePatterns overlayTilePatterns,
                        int itemProbaIndex) :
-            base(nameItem, theme, map, overlayTileData, aiZoneData, aiTargetData, overlayTileSizes, overlayTilePatterns)
+            base(nameItem, theme, map, overlayTileData, aiAreaData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
             this.startPosition = new GPStartPosition(startPositionData);
             this.StartPosition.PropertyChanged += this.StartPosition_PropertyChanged;
@@ -98,7 +98,7 @@ namespace EpicEdit.Rom.Tracks
             this.lapLine = new LapLine(lapLineData);
             this.LapLine.DataChanged += this.LapLine_DataChanged;
 
-            this.objects = new TrackObjects(objectData, objectZoneData, this.AI, objectPropData, this);
+            this.objects = new TrackObjects(objectData, objectAreaData, this.AI, objectPropData, this);
             this.Objects.PropertyChanged += this.Objects_PropertyChanged;
 
             this.itemProbabilityIndex = itemProbaIndex;

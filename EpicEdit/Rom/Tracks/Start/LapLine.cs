@@ -31,16 +31,16 @@ namespace EpicEdit.Rom.Tracks.Start
         private const int PrecisionX = 16;
 
         /// <summary>
-        /// The precision (X, width and height) used for the zone rectangle around the lap line.
+        /// The precision (X, width and height) used for the area rectangle around the lap line.
         /// 2 tiles (or 16 pixels).
         /// </summary>
-        private const int ZonePrecision = LapLine.PrecisionX / Tile.Size;
+        private const int AreaPrecision = LapLine.PrecisionX / Tile.Size;
 
         /// <summary>
-        /// The precision (Y) used for the zone rectangle around the lap line.
+        /// The precision (Y) used for the area rectangle around the lap line.
         /// 8 tiles (or 64 pixels).
         /// </summary>
-        private const int ZonePrecisionY = 8;
+        private const int AreaPrecisionY = 8;
 
         public event EventHandler<EventArgs> DataChanged;
 
@@ -125,7 +125,7 @@ namespace EpicEdit.Rom.Tracks.Start
             int y = (((data[1] & 0x03) << 8) + data[0]);
             int x = (data[2] & 0x3F) * LapLine.PrecisionX;
             this.Location = new Point(x, y);
-            // The bit mask on x is required for some of the original SMK track lap line zones
+            // The bit mask on x is required for some of the original SMK track lap line areas
             // to work properly, as some of them have the 2 highest bits needlessly set to 1.
             // So it's necessary to only use the 6 lowest bits, like the game does.
         }
@@ -199,28 +199,28 @@ namespace EpicEdit.Rom.Tracks.Start
             data[0] = (byte)(y & 0xFF);
             data[1] = (byte)(y >> 8);
 
-            int zoneX = this.X / LapLine.PrecisionX;
-            data[2] = (byte)zoneX;
+            int areaX = this.X / LapLine.PrecisionX;
+            data[2] = (byte)areaX;
 
-            int zoneY = (int)Math.Round((float)this.Y / (Tile.Size * LapLine.ZonePrecisionY)) - 1; // Precision: 1 = 8 tiles
+            int areaY = (int)Math.Round((float)this.Y / (Tile.Size * LapLine.AreaPrecisionY)) - 1; // Precision: 1 = 8 tiles
             // The minus 1 is to make the rectangle start at least 8 tiles above the lap line Y value
 
-            if (zoneY < 0)
+            if (areaY < 0)
             {
-                zoneY = 0;
+                areaY = 0;
             }
-            data[3] = (byte)zoneY;
+            data[3] = (byte)areaY;
 
-            int zoneWidth = this.Length / LapLine.PrecisionX;
-            data[4] = (byte)zoneWidth;
+            int areaWidth = this.Length / LapLine.PrecisionX;
+            data[4] = (byte)areaWidth;
 
-            int zoneHeight = 16 / LapLine.ZonePrecision; // 16 tiles
-            const int TrackHeight = TrackMap.Size / LapLine.ZonePrecision;
-            if (zoneY + zoneHeight > TrackHeight)
+            int areaHeight = 16 / LapLine.AreaPrecision; // 16 tiles
+            const int TrackHeight = TrackMap.Size / LapLine.AreaPrecision;
+            if (areaY + areaHeight > TrackHeight)
             {
-                zoneHeight = TrackHeight - zoneY;
+                areaHeight = TrackHeight - areaY;
             }
-            data[5] = (byte)zoneHeight;
+            data[5] = (byte)areaHeight;
 
             return data;
         }

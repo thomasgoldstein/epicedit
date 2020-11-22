@@ -106,8 +106,8 @@ namespace EpicEdit.Rom
             public const string Speed = nameof(Tracks.AI.TrackAIElement.Speed);
             public const string IsIntersection = nameof(Tracks.AI.TrackAIElement.IsIntersection);
             public const string Target = nameof(Tracks.AI.TrackAIElement.Target);
-            public const string Zone = nameof(Tracks.AI.TrackAIElement.Zone);
-            public const string ZoneShape = nameof(Tracks.AI.TrackAIElement.ZoneShape);
+            public const string Area = nameof(Tracks.AI.TrackAIElement.Area);
+            public const string AreaShape = nameof(Tracks.AI.TrackAIElement.AreaShape);
         }
 
         internal static class TrackObject
@@ -130,10 +130,10 @@ namespace EpicEdit.Rom
             public const string Tileset = nameof(Tracks.Objects.TrackObjectProperties.Tileset);
         }
 
-        internal static class TrackObjectZones
+        internal static class TrackObjectAreas
         {
-            public const string FrontView = nameof(Tracks.Objects.TrackObjectZones.FrontView);
-            public const string RearView = nameof(Tracks.Objects.TrackObjectZones.RearView);
+            public const string FrontView = nameof(Tracks.Objects.TrackObjectAreas.FrontView);
+            public const string RearView = nameof(Tracks.Objects.TrackObjectAreas.RearView);
         }
     }
 }

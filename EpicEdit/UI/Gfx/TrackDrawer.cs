@@ -63,13 +63,13 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap trackCache;
         private Bitmap tileClipboardCache;
-        private Bitmap objectZonesCache;
+        private Bitmap objectAreasCache;
 
         /// <summary>
-        /// The object zones of the track.
-        /// They're cached in order to figure out when to update the objectZonesCache.
+        /// The object areas of the track.
+        /// They're cached in order to figure out when to update the <see cref="objectAreasCache"/>.
         /// </summary>
-        private byte[][] zones;
+        private byte[][] objectAreas;
 
         /// <summary>
         /// Used to resize the dirty region depending on the zoom level.
@@ -127,22 +127,22 @@ namespace EpicEdit.UI.Gfx
         private readonly SolidBrush[] objectBrushes;
 
         /// <summary>
-        /// Used to fill in AI zones.
+        /// Used to fill in AI areas.
         /// </summary>
-        private readonly SolidBrush[][] aiZoneBrushes;
+        private readonly SolidBrush[][] aiAreaBrushes;
 
         /// <summary>
-        /// Used to draw the AI zone outlines.
+        /// Used to draw the AI area outlines.
         /// </summary>
-        private readonly Pen[] aiZonePens;
+        private readonly Pen[] aiAreaPens;
 
         /// <summary>
-        /// Used to draw the hovered AI zone outlines.
+        /// Used to draw the hovered AI area outlines.
         /// </summary>
         private readonly Pen aiElementHighlightPen;
 
         /// <summary>
-        /// Used to draw the selected AI zone outlines.
+        /// Used to draw the selected AI area outlines.
         /// </summary>
         private readonly Pen aiElementSelectPen;
 
@@ -178,13 +178,13 @@ namespace EpicEdit.UI.Gfx
             this.objectOutlinePen = new Pen(Color.White, 2);
             this.objectBrushes = new SolidBrush[]
             {
-                new SolidBrush(Color.FromArgb(255, 204, 51, 51)), // Zone 1 object color
-                new SolidBrush(Color.FromArgb(255, 21, 94, 177)), // Zone 2 object color
-                new SolidBrush(Color.FromArgb(255, 230, 186, 64)), // Zone 3 object color
-                new SolidBrush(Color.FromArgb(255, 16, 150, 24)) // Zone 4 object color
+                new SolidBrush(Color.FromArgb(255, 204, 51, 51)), // Object area 1 object color
+                new SolidBrush(Color.FromArgb(255, 21, 94, 177)), // Object area 2 object color
+                new SolidBrush(Color.FromArgb(255, 230, 186, 64)), // Object area 3 object color
+                new SolidBrush(Color.FromArgb(255, 16, 150, 24)) // Object area 4 object color
             };
 
-            this.aiZoneBrushes = new SolidBrush[][]
+            this.aiAreaBrushes = new SolidBrush[][]
             {
                 new SolidBrush[]
                 {
@@ -215,7 +215,7 @@ namespace EpicEdit.UI.Gfx
                 }
             };
 
-            this.aiZonePens = new Pen[]
+            this.aiAreaPens = new Pen[]
             {
                 new Pen(Color.FromArgb(255, 165, 204, 244), 1),
                 new Pen(Color.FromArgb(255, 179, 244, 150), 1),
@@ -255,7 +255,7 @@ namespace EpicEdit.UI.Gfx
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
-            this.trackCache = this.tileClipboardCache = this.objectZonesCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            this.trackCache = this.tileClipboardCache = this.objectAreasCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         /// <summary>
@@ -759,7 +759,7 @@ namespace EpicEdit.UI.Gfx
             this.PaintTrackOutbounds(e);
         }
 
-        public void DrawTrackObjects(PaintEventArgs e, TrackObject hoveredObject, bool frontZonesView)
+        public void DrawTrackObjects(PaintEventArgs e, TrackObject hoveredObject, bool frontAreasView)
         {
             Rectangle clip = this.GetTrackClip(e.ClipRectangle);
 
@@ -771,7 +771,7 @@ namespace EpicEdit.UI.Gfx
                     {
                         using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
                         {
-                            this.DrawObjectData(backBuffer, hoveredObject, frontZonesView);
+                            this.DrawObjectData(backBuffer, hoveredObject, frontAreasView);
                         }
                     }
 
@@ -870,10 +870,10 @@ namespace EpicEdit.UI.Gfx
         }
 
         /// <summary>
-        /// Gets the rectangle that includes the whole AI element (zone + target).
+        /// Gets the rectangle that includes the whole AI element (area + target).
         /// </summary>
         /// <param name="aiElement">The AI element.</param>
-        /// <returns>The rectangle that includes the whole AI element (zone + target).</returns>
+        /// <returns>The rectangle that includes the whole AI element (area + target).</returns>
         private static Rectangle GetAIClipRectangle(TrackAIElement aiElement)
         {
             int x;
@@ -881,40 +881,40 @@ namespace EpicEdit.UI.Gfx
             int width;
             int height;
 
-            if (aiElement.Zone.X <= aiElement.Target.X)
+            if (aiElement.Area.X <= aiElement.Target.X)
             {
-                x = aiElement.Zone.X;
-                if (aiElement.Target.X >= aiElement.Zone.Right)
+                x = aiElement.Area.X;
+                if (aiElement.Target.X >= aiElement.Area.Right)
                 {
-                    width = aiElement.Target.X - aiElement.Zone.Left + 1;
+                    width = aiElement.Target.X - aiElement.Area.Left + 1;
                 }
                 else
                 {
-                    width = aiElement.Zone.Width;
+                    width = aiElement.Area.Width;
                 }
             }
             else
             {
                 x = aiElement.Target.X;
-                width = aiElement.Zone.Right - aiElement.Target.X;
+                width = aiElement.Area.Right - aiElement.Target.X;
             }
 
-            if (aiElement.Zone.Y <= aiElement.Target.Y)
+            if (aiElement.Area.Y <= aiElement.Target.Y)
             {
-                y = aiElement.Zone.Y;
-                if (aiElement.Target.Y >= aiElement.Zone.Bottom)
+                y = aiElement.Area.Y;
+                if (aiElement.Target.Y >= aiElement.Area.Bottom)
                 {
-                    height = aiElement.Target.Y - aiElement.Zone.Top + 1;
+                    height = aiElement.Target.Y - aiElement.Area.Top + 1;
                 }
                 else
                 {
-                    height = aiElement.Zone.Height;
+                    height = aiElement.Area.Height;
                 }
             }
             else
             {
                 y = aiElement.Target.Y;
-                height = aiElement.Zone.Bottom - aiElement.Target.Y;
+                height = aiElement.Area.Bottom - aiElement.Target.Y;
             }
 
             Rectangle hoveredAIElemRectangle = new Rectangle(x * Tile.Size,
@@ -1118,7 +1118,7 @@ namespace EpicEdit.UI.Gfx
             g.DrawPolygon(this.arrowPen, arrow);
         }
 
-        private void DrawObjectData(Graphics g, TrackObject hoveredObject, bool frontZonesView)
+        private void DrawObjectData(Graphics g, TrackObject hoveredObject, bool frontAreasView)
         {
             GPTrack gpTrack = this.track as GPTrack;
 
@@ -1126,7 +1126,7 @@ namespace EpicEdit.UI.Gfx
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
 
-                this.DrawObjectZones(g, frontZonesView);
+                this.DrawObjectAreas(g, frontAreasView);
 
                 TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
                 using (Bitmap objectImage = objectGraphics.GetImage(gpTrack))
@@ -1138,45 +1138,45 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private void DrawObjectZones(Graphics g, bool frontZonesView)
+        private void DrawObjectAreas(Graphics g, bool frontAreasView)
         {
-            this.InitObjectZonesBitmap(frontZonesView);
+            this.InitObjectAreasBitmap(frontAreasView);
 
-            g.DrawImage(this.objectZonesCache,
+            g.DrawImage(this.objectAreasCache,
                         new Rectangle(0, 0,
                                       this.track.Map.Width * Tile.Size,
                                       this.track.Map.Height * Tile.Size),
-                        0, 0, TrackObjectZonesView.GridSize, TrackObjectZonesView.GridSize,
+                        0, 0, TrackObjectAreasView.GridSize, TrackObjectAreasView.GridSize,
                         GraphicsUnit.Pixel, this.translucidImageAttr);
         }
 
-        private void InitObjectZonesBitmap(bool frontZonesView)
+        private void InitObjectAreasBitmap(bool frontAreasView)
         {
             GPTrack gpTrack = this.track as GPTrack;
-            byte[][] zones = frontZonesView ?
-                gpTrack.Objects.Zones.FrontView.GetGrid() :
-                gpTrack.Objects.Zones.RearView.GetGrid();
+            byte[][] objectAreas = frontAreasView ?
+                gpTrack.Objects.Areas.FrontView.GetGrid() :
+                gpTrack.Objects.Areas.RearView.GetGrid();
 
-            if (this.ZonesChanged(zones))
+            if (this.ObjectAreasChanged(objectAreas))
             {
-                this.zones = zones;
-                this.objectZonesCache.Dispose();
-                this.objectZonesCache = this.CreateObjectZonesBitmap();
+                this.objectAreas = objectAreas;
+                this.objectAreasCache.Dispose();
+                this.objectAreasCache = this.CreateObjectAreasBitmap();
             }
         }
 
-        private bool ZonesChanged(byte[][] zones)
+        private bool ObjectAreasChanged(byte[][] objectAreas)
         {
-            if (this.zones == null)
+            if (this.objectAreas == null)
             {
                 return true;
             }
 
-            for (int y = 0; y < zones.Length; y++)
+            for (int y = 0; y < objectAreas.Length; y++)
             {
-                for (int x = 0; x < zones[y].Length; x++)
+                for (int x = 0; x < objectAreas[y].Length; x++)
                 {
-                    if (this.zones[y][x] != zones[y][x])
+                    if (this.objectAreas[y][x] != objectAreas[y][x])
                     {
                         return true;
                     }
@@ -1187,19 +1187,19 @@ namespace EpicEdit.UI.Gfx
         }
 
         /// <summary>
-        /// Creates a small bitmap (64x64) containing colored zones which represent object zones.
+        /// Creates a small bitmap (64x64) containing colored areas which represent object areas.
         /// </summary>
-        private Bitmap CreateObjectZonesBitmap()
+        private Bitmap CreateObjectAreasBitmap()
         {
-            Bitmap bitmap = new Bitmap(TrackObjectZonesView.GridSize, TrackObjectZonesView.GridSize, this.trackCache.PixelFormat);
+            Bitmap bitmap = new Bitmap(TrackObjectAreasView.GridSize, TrackObjectAreasView.GridSize, this.trackCache.PixelFormat);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
-            for (int y = 0; y < this.zones.Length; y++)
+            for (int y = 0; y < this.objectAreas.Length; y++)
             {
-                for (int x = 0; x < this.zones[y].Length; x++)
+                for (int x = 0; x < this.objectAreas[y].Length; x++)
                 {
-                    byte zoneIndex = this.zones[y][x];
-                    fBitmap.SetPixel(x, y, this.objectBrushes[zoneIndex].Color);
+                    byte objectAreaIndex = this.objectAreas[y][x];
+                    fBitmap.SetPixel(x, y, this.objectBrushes[objectAreaIndex].Color);
                 }
             }
 
@@ -1256,10 +1256,10 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    if (this.zones[trackObject.Y / TrackAIElement.Precision]
+                    if (this.objectAreas[trackObject.Y / TrackAIElement.Precision]
                                   [trackObject.X / TrackAIElement.Precision] != (i / 4))
                     {
-                        // The object is out of its zone, it most likely won't
+                        // The object is out of its area, it most likely won't
                         // (fully) appear when playing the game. Show it as grayed out.
                         g.DrawImage(objectImage,
                                     new Rectangle(x - (Tile.Size / 2),
@@ -1323,62 +1323,62 @@ namespace EpicEdit.UI.Gfx
             int pointY = aiElem.Target.Y * Tile.Size;
             g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, HalfTileSize + 1, HalfTileSize + 1);
 
-            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
+            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
             Point target = new Point(pointX + HalfTileSize, pointY + HalfTileSize);
             int speed = aiElem.Speed;
 
-            if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
+            if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
             {
-                TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
-                TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
-                TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
-                TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
+                TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
+                TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
+                TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
 
-                g.DrawRectangle(this.aiZonePens[speed], zone);
+                g.DrawRectangle(this.aiAreaPens[speed], aiArea);
             }
             else
             {
-                Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
+                Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
 
-                g.DrawPolygon(this.aiZonePens[speed], points);
+                g.DrawPolygon(this.aiAreaPens[speed], points);
 
-                switch (aiElem.ZoneShape)
+                switch (aiElem.AreaShape)
                 {
                     case TrackAIElementShape.TriangleTopLeft:
-                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
-                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
+                        TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
+                        TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][2], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleTopRight:
-                        TrackDrawer.PaintTopSide(g, this.aiZoneBrushes[speed][0], zone, target);
-                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][2], points, target);
+                        TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
+                        TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][2], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleBottomRight:
-                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
-                        TrackDrawer.PaintRightSide(g, this.aiZoneBrushes[speed][1], zone, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
+                        TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
+                        TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][0], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleBottomLeft:
-                        TrackDrawer.PaintBottomSide(g, this.aiZoneBrushes[speed][2], zone, target);
-                        TrackDrawer.PaintLeftSide(g, this.aiZoneBrushes[speed][1], zone, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiZoneBrushes[speed][0], points, target);
+                        TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
+                        TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][0], points, target);
                         break;
                 }
             }
         }
 
-        private static void PaintTopSide(Graphics g, Brush brush, Rectangle zone, Point target)
+        private static void PaintTopSide(Graphics g, Brush brush, Rectangle aiArea, Point target)
         {
-            if (target.Y > zone.Top)
+            if (target.Y > aiArea.Top)
             {
                 Point[] side =
                 {
-                    new Point(zone.Left, zone.Top),
-                    new Point(zone.Right, zone.Top),
+                    new Point(aiArea.Left, aiArea.Top),
+                    new Point(aiArea.Right, aiArea.Top),
                     target
                 };
 
@@ -1386,14 +1386,14 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintRightSide(Graphics g, Brush brush, Rectangle zone, Point target)
+        private static void PaintRightSide(Graphics g, Brush brush, Rectangle aiArea, Point target)
         {
-            if (target.X < zone.Right)
+            if (target.X < aiArea.Right)
             {
                 Point[] side =
                 {
-                    new Point(zone.Right, zone.Top),
-                    new Point(zone.Right, zone.Bottom),
+                    new Point(aiArea.Right, aiArea.Top),
+                    new Point(aiArea.Right, aiArea.Bottom),
                     target
                 };
 
@@ -1401,14 +1401,14 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintBottomSide(Graphics g, Brush brush, Rectangle zone, Point target)
+        private static void PaintBottomSide(Graphics g, Brush brush, Rectangle aiArea, Point target)
         {
-            if (target.Y < zone.Bottom)
+            if (target.Y < aiArea.Bottom)
             {
                 Point[] side =
                 {
-                    new Point(zone.Right, zone.Bottom),
-                    new Point(zone.Left, zone.Bottom),
+                    new Point(aiArea.Right, aiArea.Bottom),
+                    new Point(aiArea.Left, aiArea.Bottom),
                     target
                 };
 
@@ -1416,14 +1416,14 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private static void PaintLeftSide(Graphics g, Brush brush, Rectangle zone, Point target)
+        private static void PaintLeftSide(Graphics g, Brush brush, Rectangle aiArea, Point target)
         {
-            if (target.X > zone.Left)
+            if (target.X > aiArea.Left)
             {
                 Point[] side =
                 {
-                    new Point(zone.Left, zone.Bottom),
-                    new Point(zone.Left, zone.Top),
+                    new Point(aiArea.Left, aiArea.Bottom),
+                    new Point(aiArea.Left, aiArea.Top),
                     target
                 };
 
@@ -1444,33 +1444,33 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
+            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
 
             if (isAITargetHovered)
             {
-                TrackDrawer.DrawAITargetLines(g, aiElem, zone, this.aiElementHighlightPen);
+                TrackDrawer.DrawAITargetLines(g, aiElem, aiArea, this.aiElementHighlightPen);
             }
             else
             {
-                if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
+                if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
                 {
-                    g.DrawRectangle(this.aiElementHighlightPen, zone);
+                    g.DrawRectangle(this.aiElementHighlightPen, aiArea);
                 }
                 else
                 {
-                    Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
+                    Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
 
                     g.DrawLines(this.aiElementHighlightPen, points);
                 }
             }
 
-            Color color = this.aiZoneBrushes[aiElem.Speed][0].Color;
-            using (Brush brush = new LinearGradientBrush(new Point(0, zone.Top),
-                                                         new Point(0, zone.Bottom),
+            Color color = this.aiAreaBrushes[aiElem.Speed][0].Color;
+            using (Brush brush = new LinearGradientBrush(new Point(0, aiArea.Top),
+                                                         new Point(0, aiArea.Bottom),
                                                          Color.FromArgb(color.A / 2, color),
                                                          Color.Transparent))
             {
-                this.HighlightAIElement(g, brush, aiElem, zone);
+                this.HighlightAIElement(g, brush, aiElem, aiArea);
             }
         }
 
@@ -1481,45 +1481,45 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle zone = TrackDrawer.GetAIZoneRectangle(aiElem);
-            TrackDrawer.DrawAITargetLines(g, aiElem, zone, this.aiElementSelectPen);
-            this.HighlightAIElement(g, this.aiZoneBrushes[aiElem.Speed][0], aiElem, zone);
+            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
+            TrackDrawer.DrawAITargetLines(g, aiElem, aiArea, this.aiElementSelectPen);
+            this.HighlightAIElement(g, this.aiAreaBrushes[aiElem.Speed][0], aiElem, aiArea);
         }
 
-        private void HighlightAIElement(Graphics g, Brush brush, TrackAIElement aiElem, Rectangle zone)
+        private void HighlightAIElement(Graphics g, Brush brush, TrackAIElement aiElem, Rectangle aiArea)
         {
-            if (aiElem.ZoneShape == TrackAIElementShape.Rectangle)
+            if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
             {
-                g.DrawRectangle(this.aiElementSelectPen, zone);
-                g.FillRectangle(brush, zone);
+                g.DrawRectangle(this.aiElementSelectPen, aiArea);
+                g.FillRectangle(brush, aiArea);
             }
             else
             {
-                Point[] points = TrackDrawer.GetAIZoneTriangle(aiElem);
+                Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
 
                 g.DrawPolygon(this.aiElementSelectPen, points);
                 g.FillPolygon(brush, points);
             }
         }
 
-        private static Rectangle GetAIZoneRectangle(TrackAIElement aiElem)
+        private static Rectangle GetAIAreaRectangle(TrackAIElement aiElem)
         {
-            int zoneX = aiElem.Zone.X * Tile.Size;
-            int zoneY = aiElem.Zone.Y * Tile.Size;
-            int zoneWidth = aiElem.Zone.Width * Tile.Size;
-            int zoneHeight = aiElem.Zone.Height * Tile.Size;
+            int aiAreaX = aiElem.Area.X * Tile.Size;
+            int aiAreaY = aiElem.Area.Y * Tile.Size;
+            int aiAreaWidth = aiElem.Area.Width * Tile.Size;
+            int aiAreaHeight = aiElem.Area.Height * Tile.Size;
 
-            return new Rectangle(zoneX, zoneY, zoneWidth - 1, zoneHeight - 1);
+            return new Rectangle(aiAreaX, aiAreaY, aiAreaWidth - 1, aiAreaHeight - 1);
         }
 
-        private static Point[] GetAIZoneTriangle(TrackAIElement aiElem)
+        private static Point[] GetAIAreaTriangle(TrackAIElement aiElem)
         {
             Point[] points = aiElem.GetTriangle();
 
             int xCorrectionStep;
             int yCorrectionStep;
 
-            switch (aiElem.ZoneShape)
+            switch (aiElem.AreaShape)
             {
                 default:
                 case TrackAIElementShape.TriangleTopLeft:
@@ -1545,10 +1545,10 @@ namespace EpicEdit.UI.Gfx
 
             for (int i = 0; i < points.Length; i++)
             {
-                int xCorrection = points[i].X == aiElem.Zone.Left ?
+                int xCorrection = points[i].X == aiElem.Area.Left ?
                     0 : xCorrectionStep;
 
-                int yCorrection = points[i].Y == aiElem.Zone.Top ?
+                int yCorrection = points[i].Y == aiElem.Area.Top ?
                     0 : yCorrectionStep;
 
                 points[i] =
@@ -1556,7 +1556,7 @@ namespace EpicEdit.UI.Gfx
                               points[i].Y * Tile.Size - yCorrection);
             }
 
-            switch (aiElem.ZoneShape)
+            switch (aiElem.AreaShape)
             {
                 case TrackAIElementShape.TriangleTopRight:
                     points[0].X--;
@@ -1580,27 +1580,27 @@ namespace EpicEdit.UI.Gfx
             return points;
         }
 
-        private static void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle zone, Pen pen)
+        private static void DrawAITargetLines(Graphics g, TrackAIElement aiElem, Rectangle aiArea, Pen pen)
         {
             int pointX = aiElem.Target.X * Tile.Size;
             int pointY = aiElem.Target.Y * Tile.Size;
 
             Point targetPoint = new Point(pointX + Tile.Size / 2, pointY + Tile.Size / 2);
 
-            switch (aiElem.ZoneShape)
+            switch (aiElem.AreaShape)
             {
                 case TrackAIElementShape.Rectangle:
                     {
                         Point[] targetLines =
                         {
                             targetPoint,
-                            new Point(zone.Left, zone.Top),
+                            new Point(aiArea.Left, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Top),
+                            new Point(aiArea.Right, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Bottom),
+                            new Point(aiArea.Right, aiArea.Bottom),
                             targetPoint,
-                            new Point(zone.Left, zone.Bottom)
+                            new Point(aiArea.Left, aiArea.Bottom)
                         };
                         g.DrawLines(pen, targetLines);
                         break;
@@ -1611,11 +1611,11 @@ namespace EpicEdit.UI.Gfx
                         Point[] targetLines =
                         {
                             targetPoint,
-                            new Point(zone.Left, zone.Top),
+                            new Point(aiArea.Left, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Top),
+                            new Point(aiArea.Right, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Left, zone.Bottom)
+                            new Point(aiArea.Left, aiArea.Bottom)
                         };
                         g.DrawLines(pen, targetLines);
                         break;
@@ -1626,11 +1626,11 @@ namespace EpicEdit.UI.Gfx
                         Point[] targetLines =
                         {
                             targetPoint,
-                            new Point(zone.Left, zone.Top),
+                            new Point(aiArea.Left, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Top),
+                            new Point(aiArea.Right, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Bottom)
+                            new Point(aiArea.Right, aiArea.Bottom)
                         };
                         g.DrawLines(pen, targetLines);
                         break;
@@ -1641,11 +1641,11 @@ namespace EpicEdit.UI.Gfx
                         Point[] targetLines =
                         {
                             targetPoint,
-                            new Point(zone.Right, zone.Top),
+                            new Point(aiArea.Right, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Bottom),
+                            new Point(aiArea.Right, aiArea.Bottom),
                             targetPoint,
-                            new Point(zone.Left, zone.Bottom)
+                            new Point(aiArea.Left, aiArea.Bottom)
                         };
                         g.DrawLines(pen, targetLines);
                         break;
@@ -1656,11 +1656,11 @@ namespace EpicEdit.UI.Gfx
                         Point[] targetLines =
                         {
                             targetPoint,
-                            new Point(zone.Left, zone.Top),
+                            new Point(aiArea.Left, aiArea.Top),
                             targetPoint,
-                            new Point(zone.Right, zone.Bottom),
+                            new Point(aiArea.Right, aiArea.Bottom),
                             targetPoint,
-                            new Point(zone.Left, zone.Bottom)
+                            new Point(aiArea.Left, aiArea.Bottom)
                         };
                         g.DrawLines(pen, targetLines);
                         break;
@@ -1697,7 +1697,7 @@ namespace EpicEdit.UI.Gfx
         {
             this.trackCache.Dispose();
             this.tileClipboardCache.Dispose();
-            this.objectZonesCache.Dispose();
+            this.objectAreasCache.Dispose();
 
             this.zoomMatrix.Dispose();
 
@@ -1718,16 +1718,16 @@ namespace EpicEdit.UI.Gfx
                 objectBrush.Dispose();
             }
 
-            foreach (SolidBrush[] aiZoneBrushes in this.aiZoneBrushes)
+            foreach (SolidBrush[] aiAreaBrushes in this.aiAreaBrushes)
             {
-                foreach (SolidBrush aiZoneBrush in aiZoneBrushes)
+                foreach (SolidBrush aiAreaBrush in aiAreaBrushes)
                 {
-                    aiZoneBrush.Dispose();
+                    aiAreaBrush.Dispose();
                 }
             }
-            foreach (Pen aiZonePen in this.aiZonePens)
+            foreach (Pen aiAreaPen in this.aiAreaPens)
             {
-                aiZonePen.Dispose();
+                aiAreaPen.Dispose();
             }
             this.aiElementHighlightPen.Dispose();
             this.aiElementSelectPen.Dispose();
