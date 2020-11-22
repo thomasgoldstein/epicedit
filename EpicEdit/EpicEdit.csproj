@@ -150,8 +150,8 @@
     <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectType.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectZones.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectZonesView.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectAreas.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectAreasView.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePatterns.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />
@@ -353,11 +353,11 @@
     <Compile Include="UI\TrackEdition\ObjectsControl.Designer.cs">
       <DependentUpon>ObjectsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectZonesControl.cs">
+    <Compile Include="UI\TrackEdition\ObjectAreasControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectZonesControl.Designer.cs">
-      <DependentUpon>ObjectZonesControl.cs</DependentUpon>
+    <Compile Include="UI\TrackEdition\ObjectAreasControl.Designer.cs">
+      <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TrackEdition\OverlayControl.cs">
       <SubType>UserControl</SubType>
@@ -463,8 +463,8 @@
     <EmbeddedResource Include="UI\TrackEdition\ObjectsControl.resx">
       <DependentUpon>ObjectsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\ObjectZonesControl.resx">
-      <DependentUpon>ObjectZonesControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\TrackEdition\ObjectAreasControl.resx">
+      <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\OverlayControl.resx">
       <DependentUpon>OverlayControl.cs</DependentUpon>

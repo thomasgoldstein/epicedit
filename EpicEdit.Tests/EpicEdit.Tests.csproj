@@ -101,7 +101,7 @@
     <Compile Include="Rom\Tracks\GPTrackTests.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTests.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectTests.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectZonesTests.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectAreasTests.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTests.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilesTests.cs" />
     <Compile Include="Rom\Tracks\TrackTests.cs" />
