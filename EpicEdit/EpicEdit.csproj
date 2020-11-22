@@ -98,10 +98,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Platform.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rom\Compression\ByteDictionary.cs" />
+    <Compile Include="Rom\Compression\ChunkNode.cs" />
+    <Compile Include="Rom\Compression\ChunkNodeCollection.cs" />
+    <Compile Include="Rom\Compression\Codec.cs" />
     <Compile Include="Rom\Compression\Decompressor.cs" />
+    <Compile Include="Rom\Compression\FastCompressor.cs" />
+    <Compile Include="Rom\Compression\ICompressor.cs" />
     <Compile Include="Rom\Compression\IDecompressor.cs" />
+    <Compile Include="Rom\Compression\OptimalCompressor.cs" />
+    <Compile Include="Rom\Game.cs" />
     <Compile Include="Rom\Offset.cs" />
     <Compile Include="Rom\Offsets.cs" />
+    <Compile Include="Rom\Palette.cs" />
     <Compile Include="Rom\Palettes.cs" />
     <Compile Include="Rom\PropertyNames.cs" />
     <Compile Include="Rom\Region.cs" />
@@ -109,10 +120,11 @@
     <Compile Include="Rom\RomColor.cs" />
     <Compile Include="Rom\RomSize.cs" />
     <Compile Include="Rom\SaveBuffer.cs" />
+    <Compile Include="Rom\Settings\FreeTextCollection.cs" />
+    <Compile Include="Rom\Settings\GameSettings.cs" />
     <Compile Include="Rom\Settings\GPPodiumCupTextCollection.cs" />
     <Compile Include="Rom\Settings\ITextCollection.cs" />
     <Compile Include="Rom\Settings\RankPoints.cs" />
-    <Compile Include="Rom\Settings\FreeTextCollection.cs" />
     <Compile Include="Rom\Settings\SuffixedTextItem.cs" />
     <Compile Include="Rom\Settings\TextCollection.cs" />
     <Compile Include="Rom\Settings\TextItem.cs" />
@@ -120,45 +132,34 @@
     <Compile Include="Rom\Tile2bpp.cs" />
     <Compile Include="Rom\Tile2bppProperties.cs" />
     <Compile Include="Rom\TileFlip.cs" />
+    <Compile Include="Rom\Tracks\AI\TrackAI.cs" />
+    <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
     <Compile Include="Rom\Tracks\AI\TrackAIElementShape.cs" />
+    <Compile Include="Rom\Tracks\BattleTrack.cs" />
+    <Compile Include="Rom\Tracks\GPTrack.cs" />
     <Compile Include="Rom\Tracks\Items\ItemBoxDisplay.cs" />
     <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
-    <Compile Include="Platform.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rom\Compression\ByteDictionary.cs" />
-    <Compile Include="Rom\Compression\ChunkNode.cs" />
-    <Compile Include="Rom\Compression\ChunkNodeCollection.cs" />
-    <Compile Include="Rom\Compression\Codec.cs" />
-    <Compile Include="Rom\Compression\FastCompressor.cs" />
-    <Compile Include="Rom\Compression\ICompressor.cs" />
-    <Compile Include="Rom\Compression\OptimalCompressor.cs" />
-    <Compile Include="Rom\Palette.cs" />
-    <Compile Include="Rom\Game.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAI.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
-    <Compile Include="Rom\Tracks\BattleTrack.cs" />
-    <Compile Include="Rom\Tracks\GPTrack.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilityGrandprixCondition.cs" />
     <Compile Include="Rom\Tracks\Items\ItemProbabilityMatchRaceCondition.cs" />
     <Compile Include="Rom\Tracks\Items\ItemType.cs" />
     <Compile Include="Rom\Tracks\MakeTrack.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectDirection.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectLoading.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectProperties.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectType.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObject.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectAreas.cs" />
     <Compile Include="Rom\Tracks\Objects\TrackObjectAreasView.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectDirection.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectLoading.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectMatchRace.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectProperties.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjects.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
+    <Compile Include="Rom\Tracks\Objects\TrackObjectType.cs" />
+    <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTilePatterns.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTiles.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObject.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectMatchRace.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjects.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
     <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
     <Compile Include="Rom\Tracks\Road\RoadTile.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
     <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
-    <Compile Include="Rom\Settings\GameSettings.cs" />
     <Compile Include="Rom\Tracks\Start\BattleStartPosition.cs" />
     <Compile Include="Rom\Tracks\Start\GPStartPosition.cs" />
     <Compile Include="Rom\Tracks\Start\LapLine.cs" />
@@ -206,29 +206,29 @@
     <Compile Include="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.Designer.cs">
-      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingEdition\GPCupTextsEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\SettingEdition\GPCupTextsEditor.Designer.cs">
-      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.Designer.cs">
       <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.Designer.cs">
+      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\SettingEdition\DriverNamesControl.Designer.cs">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SettingEdition\GPCupTextsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SettingEdition\GPCupTextsEditor.Designer.cs">
+      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingEdition\ItemIconPanel.cs">
       <SubType>Component</SubType>
@@ -321,7 +321,13 @@
     <Compile Include="UI\Tools\EpicNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Tools\EpicPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Tools\FileDialogFilters.cs" />
+    <Compile Include="UI\Tools\PlayerTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Tools\TextItemComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -332,26 +338,14 @@
     <Compile Include="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\EpicPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Tools\UITools.cs" />
     <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
     <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />
-    <Compile Include="UI\Tools\PlayerTrackBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\TrackEdition\AIControl.Designer.cs">
       <DependentUpon>AIControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TrackEdition\ObjectsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\TrackEdition\ObjectsControl.Designer.cs">
-      <DependentUpon>ObjectsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TrackEdition\ObjectAreasControl.cs">
       <SubType>UserControl</SubType>
@@ -359,11 +353,23 @@
     <Compile Include="UI\TrackEdition\ObjectAreasControl.Designer.cs">
       <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TrackEdition\ObjectsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\ObjectsControl.Designer.cs">
+      <DependentUpon>ObjectsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TrackEdition\OverlayControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
       <DependentUpon>OverlayControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TrackEdition\RoadTilesetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackEdition\RoadTilesetControl.Designer.cs">
+      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.cs">
       <SubType>Form</SubType>
@@ -376,12 +382,6 @@
     </Compile>
     <Compile Include="UI\TrackEdition\StartControl.Designer.cs">
       <DependentUpon>StartControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetControl.Designer.cs">
-      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TrackEdition\TrackEditor.cs">
       <SubType>UserControl</SubType>
@@ -409,17 +409,17 @@
     <EmbeddedResource Include="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\CourseSelectTextsEditor.resx">
-      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\GPCupTextsEditor.resx">
-      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\CourseSelectNamesEditor.resx">
       <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\CourseSelectTextsEditor.resx">
+      <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\DriverNamesControl.resx">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SettingEdition\GPCupTextsEditor.resx">
+      <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingEdition\ItemProbaEditor.resx">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
@@ -460,23 +460,23 @@
     <EmbeddedResource Include="UI\TrackEdition\AIControl.resx">
       <DependentUpon>AIControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\ObjectsControl.resx">
-      <DependentUpon>ObjectsControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\ObjectAreasControl.resx">
       <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\ObjectsControl.resx">
+      <DependentUpon>ObjectsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\OverlayControl.resx">
       <DependentUpon>OverlayControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetControl.resx">
+      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\RoadTilesetImportExportForm.resx">
       <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\StartControl.resx">
       <DependentUpon>StartControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetControl.resx">
-      <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TrackEdition\TrackEditor.resx">
       <DependentUpon>TrackEditor.cs</DependentUpon>
