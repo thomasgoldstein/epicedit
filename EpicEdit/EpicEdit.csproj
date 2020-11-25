@@ -1,25 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EpicEdit</RootNamespace>
-    <AssemblyName>EpicEdit</AssemblyName>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ApplicationIcon>icons\EpicEdit.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags />
+    <TargetFramework>net20</TargetFramework>
+    <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,29 +25,25 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>EpicEdit.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkProfile />
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <AssemblyTitle>Epic Edit</AssemblyTitle>
+    <Product>Epic Edit</Product>
+    <AssemblyVersion>2.8.7</AssemblyVersion>
+    <FileVersion>2.8.7</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <StartAction>Project</StartAction>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    <DefineConstants>TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
   </PropertyGroup>
@@ -67,424 +51,306 @@
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <BaseAddress>4194304</BaseAddress>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Update="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Platform.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rom\Compression\ByteDictionary.cs" />
-    <Compile Include="Rom\Compression\ChunkNode.cs" />
-    <Compile Include="Rom\Compression\ChunkNodeCollection.cs" />
-    <Compile Include="Rom\Compression\Codec.cs" />
-    <Compile Include="Rom\Compression\Decompressor.cs" />
-    <Compile Include="Rom\Compression\FastCompressor.cs" />
-    <Compile Include="Rom\Compression\ICompressor.cs" />
-    <Compile Include="Rom\Compression\IDecompressor.cs" />
-    <Compile Include="Rom\Compression\OptimalCompressor.cs" />
-    <Compile Include="Rom\Game.cs" />
-    <Compile Include="Rom\Offset.cs" />
-    <Compile Include="Rom\Offsets.cs" />
-    <Compile Include="Rom\Palette.cs" />
-    <Compile Include="Rom\Palettes.cs" />
-    <Compile Include="Rom\PropertyNames.cs" />
-    <Compile Include="Rom\Region.cs" />
-    <Compile Include="Rom\ResizeHandle.cs" />
-    <Compile Include="Rom\RomColor.cs" />
-    <Compile Include="Rom\RomSize.cs" />
-    <Compile Include="Rom\SaveBuffer.cs" />
-    <Compile Include="Rom\Settings\FreeTextCollection.cs" />
-    <Compile Include="Rom\Settings\GameSettings.cs" />
-    <Compile Include="Rom\Settings\GPPodiumCupTextCollection.cs" />
-    <Compile Include="Rom\Settings\ITextCollection.cs" />
-    <Compile Include="Rom\Settings\RankPoints.cs" />
-    <Compile Include="Rom\Settings\SuffixedTextItem.cs" />
-    <Compile Include="Rom\Settings\TextCollection.cs" />
-    <Compile Include="Rom\Settings\TextItem.cs" />
-    <Compile Include="Rom\Tile.cs" />
-    <Compile Include="Rom\Tile2bpp.cs" />
-    <Compile Include="Rom\Tile2bppProperties.cs" />
-    <Compile Include="Rom\TileFlip.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAI.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAIElement.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAIElementShape.cs" />
-    <Compile Include="Rom\Tracks\BattleTrack.cs" />
-    <Compile Include="Rom\Tracks\GPTrack.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemBoxDisplay.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemIconGraphics.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbabilities.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbability.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbabilityGrandprixCondition.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbabilityMatchRaceCondition.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemType.cs" />
-    <Compile Include="Rom\Tracks\MakeTrack.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObject.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectAreas.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectAreasView.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectDirection.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectGraphics.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectLoading.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectMatchRace.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectProperties.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjects.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTile.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectType.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTile.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTilePattern.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTilePatterns.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTiles.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTileSize.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTileSizes.cs" />
-    <Compile Include="Rom\Tracks\Road\RoadTile.cs" />
-    <Compile Include="Rom\Tracks\Road\RoadTileGenre.cs" />
-    <Compile Include="Rom\Tracks\Road\RoadTileset.cs" />
-    <Compile Include="Rom\Tracks\Road\TrackMap.cs" />
-    <Compile Include="Rom\Tracks\Scenery\Background.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundLayout.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundTile.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundTileset.cs" />
-    <Compile Include="Rom\Tracks\Start\BattleStartPosition.cs" />
-    <Compile Include="Rom\Tracks\Start\GPStartPosition.cs" />
-    <Compile Include="Rom\Tracks\Start\LapLine.cs" />
-    <Compile Include="Rom\Tracks\Theme.cs" />
-    <Compile Include="Rom\Tracks\Themes.cs" />
-    <Compile Include="Rom\Tracks\Track.cs" />
-    <Compile Include="Rom\Tracks\TrackGroup.cs" />
-    <Compile Include="Rom\Tracks\TrackGroups.cs" />
-    <Compile Include="Rom\Utility\CharacterSet.cs" />
-    <Compile Include="Rom\Utility\EventArgs.cs" />
-    <Compile Include="Rom\Utility\IMapBuffer.cs" />
-    <Compile Include="Rom\Utility\Map.cs" />
-    <Compile Include="Rom\Utility\Range.cs" />
-    <Compile Include="Rom\Utility\TextConverter.cs" />
-    <Compile Include="Rom\Utility\Utilities.cs" />
-    <Compile Include="UI\Context.cs" />
-    <Compile Include="UI\Gfx\BackgroundDrawer.cs" />
-    <Compile Include="UI\Gfx\BackgroundTilesetDrawer.cs" />
-    <Compile Include="UI\Gfx\FastBitmap.cs" />
-    <Compile Include="UI\Gfx\GraphicsConverter.cs" />
-    <Compile Include="UI\Gfx\OverlayTilesetDrawer.cs" />
-    <Compile Include="UI\Gfx\RoadTilesetDrawer.cs" />
-    <Compile Include="UI\Gfx\TilesetHelper.cs" />
-    <Compile Include="UI\Gfx\TrackDrawer.cs" />
-    <Compile Include="UI\MainForm.cs">
+    <Compile Update="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MainForm.Designer.cs">
+    <Compile Update="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MenuBar.cs">
+    <Compile Update="UI\MenuBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\MenuBar.Designer.cs">
+    <Compile Update="UI\MenuBar.Designer.cs">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.cs">
+    <Compile Update="UI\SettingEdition\CourseSelectNamesEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectNamesEditor.Designer.cs">
+    <Compile Update="UI\SettingEdition\CourseSelectNamesEditor.Designer.cs">
       <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.cs">
+    <Compile Update="UI\SettingEdition\CourseSelectTextsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\CourseSelectTextsEditor.Designer.cs">
+    <Compile Update="UI\SettingEdition\CourseSelectTextsEditor.Designer.cs">
       <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\DriverNamesControl.cs">
+    <Compile Update="UI\SettingEdition\DriverNamesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\DriverNamesControl.Designer.cs">
+    <Compile Update="UI\SettingEdition\DriverNamesControl.Designer.cs">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\GPCupTextsEditor.cs">
+    <Compile Update="UI\SettingEdition\GPCupTextsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\GPCupTextsEditor.Designer.cs">
+    <Compile Update="UI\SettingEdition\GPCupTextsEditor.Designer.cs">
       <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\ItemIconPanel.cs">
+    <Compile Update="UI\SettingEdition\ItemIconPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\ItemProbaEditor.cs">
+    <Compile Update="UI\SettingEdition\ItemProbaEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\ItemProbaEditor.Designer.cs">
+    <Compile Update="UI\SettingEdition\ItemProbaEditor.Designer.cs">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\RankPointsControl.cs">
+    <Compile Update="UI\SettingEdition\RankPointsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\RankPointsControl.Designer.cs">
+    <Compile Update="UI\SettingEdition\RankPointsControl.Designer.cs">
       <DependentUpon>RankPointsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\ResultsEditor.cs">
+    <Compile Update="UI\SettingEdition\ResultsEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\ResultsEditor.Designer.cs">
+    <Compile Update="UI\SettingEdition\ResultsEditor.Designer.cs">
       <DependentUpon>ResultsEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\SettingEditorForm.cs">
+    <Compile Update="UI\SettingEdition\SettingEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\SettingEditorForm.Designer.cs">
+    <Compile Update="UI\SettingEdition\SettingEditorForm.Designer.cs">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SettingEdition\SuffixedNameControl.cs">
+    <Compile Update="UI\SettingEdition\SuffixedNameControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SettingEdition\SuffixedNameControl.Designer.cs">
+    <Compile Update="UI\SettingEdition\SuffixedNameControl.Designer.cs">
       <DependentUpon>SuffixedNameControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditor.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditor.Designer.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundEditor.Designer.cs">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditorForm.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundEditorForm.Designer.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundEditorForm.Designer.cs">
       <DependentUpon>BackgroundEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundPanel.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundPreviewer.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundPreviewer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundTilePanel.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundTilePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\BackgroundTilesetPanel.cs">
+    <Compile Update="UI\ThemeEdition\BackgroundTilesetPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ColorPicker.cs">
+    <Compile Update="UI\ThemeEdition\ColorPicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\ColorPicker.Designer.cs">
+    <Compile Update="UI\ThemeEdition\ColorPicker.Designer.cs">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditor.cs">
+    <Compile Update="UI\ThemeEdition\PaletteEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditor.Designer.cs">
+    <Compile Update="UI\ThemeEdition\PaletteEditor.Designer.cs">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditorForm.cs">
+    <Compile Update="UI\ThemeEdition\PaletteEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
+    <Compile Update="UI\ThemeEdition\PaletteEditorForm.Designer.cs">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\CodecControl.cs">
+    <Compile Update="UI\Tools\CodecControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Tools\CodecControl.Designer.cs">
+    <Compile Update="UI\Tools\CodecControl.Designer.cs">
       <DependentUpon>CodecControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\CodecForm.cs">
+    <Compile Update="UI\Tools\CodecForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Tools\CodecForm.Designer.cs">
+    <Compile Update="UI\Tools\CodecForm.Designer.cs">
       <DependentUpon>CodecForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\EpicCursors.cs" />
-    <Compile Include="UI\Tools\EpicNumericUpDown.cs">
+    <Compile Update="UI\Tools\EpicNumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\EpicPanel.cs">
+    <Compile Update="UI\Tools\EpicPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\FileDialogFilters.cs" />
-    <Compile Include="UI\Tools\PlayerTrackBar.cs">
+    <Compile Update="UI\Tools\PlayerTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\TextItemComboBox.cs">
+    <Compile Update="UI\Tools\TextItemComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\ThemeComboBox.cs">
+    <Compile Update="UI\Tools\ThemeComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\TileClipboard.cs" />
-    <Compile Include="UI\Tools\TilePanel.cs">
+    <Compile Update="UI\Tools\TilePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Tools\UITools.cs" />
-    <Compile Include="UI\Tools\UndoRedo\TileChange.cs" />
-    <Compile Include="UI\Tools\UndoRedo\UndoRedoBuffer.cs" />
-    <Compile Include="UI\TrackEdition\AIControl.cs">
+    <Compile Update="UI\TrackEdition\AIControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\AIControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\AIControl.Designer.cs">
       <DependentUpon>AIControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectAreasControl.cs">
+    <Compile Update="UI\TrackEdition\ObjectAreasControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectAreasControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\ObjectAreasControl.Designer.cs">
       <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectsControl.cs">
+    <Compile Update="UI\TrackEdition\ObjectsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\ObjectsControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\ObjectsControl.Designer.cs">
       <DependentUpon>ObjectsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\OverlayControl.cs">
+    <Compile Update="UI\TrackEdition\OverlayControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\OverlayControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\OverlayControl.Designer.cs">
       <DependentUpon>OverlayControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetControl.cs">
+    <Compile Update="UI\TrackEdition\RoadTilesetControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\RoadTilesetControl.Designer.cs">
       <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.cs">
+    <Compile Update="UI\TrackEdition\RoadTilesetImportExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\RoadTilesetImportExportForm.Designer.cs">
+    <Compile Update="UI\TrackEdition\RoadTilesetImportExportForm.Designer.cs">
       <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\StartControl.cs">
+    <Compile Update="UI\TrackEdition\StartControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\StartControl.Designer.cs">
+    <Compile Update="UI\TrackEdition\StartControl.Designer.cs">
       <DependentUpon>StartControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackEditor.cs">
+    <Compile Update="UI\TrackEdition\TrackEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackEditor.Designer.cs">
+    <Compile Update="UI\TrackEdition\TrackEditor.Designer.cs">
       <DependentUpon>TrackEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackPanel.cs">
+    <Compile Update="UI\TrackEdition\TrackPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackTreeView.cs">
+    <Compile Update="UI\TrackEdition\TrackTreeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TrackEdition\TrackTreeView.Designer.cs">
+    <Compile Update="UI\TrackEdition\TrackTreeView.Designer.cs">
       <DependentUpon>TrackTreeView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.resx">
+    <EmbeddedResource Update="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MenuBar.resx">
+    <EmbeddedResource Update="UI\MenuBar.resx">
       <DependentUpon>MenuBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\CourseSelectNamesEditor.resx">
+    <EmbeddedResource Update="UI\SettingEdition\CourseSelectNamesEditor.resx">
       <DependentUpon>CourseSelectNamesEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\CourseSelectTextsEditor.resx">
+    <EmbeddedResource Update="UI\SettingEdition\CourseSelectTextsEditor.resx">
       <DependentUpon>CourseSelectTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\DriverNamesControl.resx">
+    <EmbeddedResource Update="UI\SettingEdition\DriverNamesControl.resx">
       <DependentUpon>DriverNamesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\GPCupTextsEditor.resx">
+    <EmbeddedResource Update="UI\SettingEdition\GPCupTextsEditor.resx">
       <DependentUpon>GPCupTextsEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\ItemProbaEditor.resx">
+    <EmbeddedResource Update="UI\SettingEdition\ItemProbaEditor.resx">
       <DependentUpon>ItemProbaEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\RankPointsControl.resx">
+    <EmbeddedResource Update="UI\SettingEdition\RankPointsControl.resx">
       <DependentUpon>RankPointsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\ResultsEditor.resx">
+    <EmbeddedResource Update="UI\SettingEdition\ResultsEditor.resx">
       <DependentUpon>ResultsEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\SettingEditorForm.resx">
+    <EmbeddedResource Update="UI\SettingEdition\SettingEditorForm.resx">
       <DependentUpon>SettingEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingEdition\SuffixedNameControl.resx">
+    <EmbeddedResource Update="UI\SettingEdition\SuffixedNameControl.resx">
       <DependentUpon>SuffixedNameControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\BackgroundEditor.resx">
+    <EmbeddedResource Update="UI\ThemeEdition\BackgroundEditor.resx">
       <DependentUpon>BackgroundEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\BackgroundEditorForm.resx">
+    <EmbeddedResource Update="UI\ThemeEdition\BackgroundEditorForm.resx">
       <DependentUpon>BackgroundEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\ColorPicker.resx">
+    <EmbeddedResource Update="UI\ThemeEdition\ColorPicker.resx">
       <DependentUpon>ColorPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\PaletteEditor.resx">
+    <EmbeddedResource Update="UI\ThemeEdition\PaletteEditor.resx">
       <DependentUpon>PaletteEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ThemeEdition\PaletteEditorForm.resx">
+    <EmbeddedResource Update="UI\ThemeEdition\PaletteEditorForm.resx">
       <DependentUpon>PaletteEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Tools\CodecControl.resx">
+    <EmbeddedResource Update="UI\Tools\CodecControl.resx">
       <DependentUpon>CodecControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Tools\CodecForm.resx">
+    <EmbeddedResource Update="UI\Tools\CodecForm.resx">
       <DependentUpon>CodecForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\AIControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\AIControl.resx">
       <DependentUpon>AIControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\ObjectAreasControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\ObjectAreasControl.resx">
       <DependentUpon>ObjectAreasControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\ObjectsControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\ObjectsControl.resx">
       <DependentUpon>ObjectsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\OverlayControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\OverlayControl.resx">
       <DependentUpon>OverlayControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\RoadTilesetControl.resx">
       <DependentUpon>RoadTilesetControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\RoadTilesetImportExportForm.resx">
+    <EmbeddedResource Update="UI\TrackEdition\RoadTilesetImportExportForm.resx">
       <DependentUpon>RoadTilesetImportExportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\StartControl.resx">
+    <EmbeddedResource Update="UI\TrackEdition\StartControl.resx">
       <DependentUpon>StartControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\TrackEditor.resx">
+    <EmbeddedResource Update="UI\TrackEdition\TrackEditor.resx">
       <DependentUpon>TrackEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TrackEdition\TrackTreeView.resx">
+    <EmbeddedResource Update="UI\TrackEdition\TrackTreeView.resx">
       <DependentUpon>TrackTreeView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
     <None Include="NEWS.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -493,22 +359,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SharpZipLib">
-      <Version>0.86.0</Version>
-    </PackageReference>
+    <PackageReference Include="SharpZipLib" Version="0.86.0" />
   </ItemGroup>
 </Project>

@@ -1,23 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{5C404E58-B6EA-466A-B1D5-D689F97CEC50}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>EpicEdit.Tests</RootNamespace>
-    <AssemblyName>EpicEdit.Tests</AssemblyName>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags />
+    <TargetFramework>net48</TargetFramework>
+    <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -35,123 +24,45 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>EpicEdit.Tests.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <AssemblyTitle>Epic Edit Tests</AssemblyTitle>
+    <Product>Epic Edit Tests</Product>
+    <AssemblyVersion>2.8.2</AssemblyVersion>
+    <FileVersion>2.8.2</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <StartAction>Project</StartAction>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
     <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    <DefineConstants>TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <BaseAddress>4194304</BaseAddress>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="File.cs" />
-    <Compile Include="MainTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rom\Compression\CompressionTests.cs" />
-    <Compile Include="Rom\Compression\DecompressionTests.cs" />
-    <Compile Include="Rom\Compression\FastCompressorRateTests.cs" />
-    <Compile Include="Rom\Compression\OptimalCompressorRateTests.cs" />
-    <Compile Include="Rom\GameTests.cs" />
-    <Compile Include="Rom\PalettesTests.cs" />
-    <Compile Include="Rom\PaletteTests.cs" />
-    <Compile Include="Rom\Settings\GameSettingsTests.cs" />
-    <Compile Include="Rom\Settings\RankPointsTests.cs" />
-    <Compile Include="Rom\Tile2bppTests.cs" />
-    <Compile Include="Rom\TileTests.cs" />
-    <Compile Include="Rom\Tracks\AI\TrackAITests.cs" />
-    <Compile Include="Rom\Tracks\BattleTrackTests.cs" />
-    <Compile Include="Rom\Tracks\GPTrackTests.cs" />
-    <Compile Include="Rom\Tracks\Items\ItemProbabilitiesTests.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectAreasTests.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTests.cs" />
-    <Compile Include="Rom\Tracks\Objects\TrackObjectTileTests.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTileSizesTests.cs" />
-    <Compile Include="Rom\Tracks\Overlay\OverlayTilesTests.cs" />
-    <Compile Include="Rom\Tracks\Road\RoadTileTests.cs" />
-    <Compile Include="Rom\Tracks\Road\TrackMapTests.cs" />
-    <Compile Include="Rom\Tracks\Scenery\BackgroundLayoutTests.cs" />
-    <Compile Include="Rom\Tracks\Start\BattleStartPositionTests.cs" />
-    <Compile Include="Rom\Tracks\Start\GPStartPositionTests.cs" />
-    <Compile Include="Rom\Tracks\Start\LapLineTests.cs" />
-    <Compile Include="Rom\Tracks\TrackTests.cs" />
-    <Compile Include="Rom\Utility\UtilitiesTests.cs" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
-    <Optimize>False</Optimize>
-    <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <DebugSymbols>true</DebugSymbols>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>None</DebugType>
-    <Optimize>True</Optimize>
-    <WarningLevel>4</WarningLevel>
-    <DebugSymbols>false</DebugSymbols>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-    </BootstrapperPackage>
-    <ProjectReference Include="..\EpicEdit\EpicEdit.csproj">
-      <Project>{67D2F08E-7925-4E20-A9E9-07D4CAA24B20}</Project>
-      <Name>EpicEdit</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\EpicEdit\EpicEdit.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>3.12.0</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter">
-      <Version>3.17.0</Version>
-    </PackageReference>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
   </ItemGroup>
 </Project>
