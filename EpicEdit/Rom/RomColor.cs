@@ -298,6 +298,59 @@ namespace EpicEdit.Rom
                                  this.Blue5Bit, this.blue);
         }
 
+        /// <summary>
+        /// Returns a hex formated string of the current color.
+        /// </summary>
+        /// <returns></returns>
+        public string ToHexString()
+        {
+            return $"{string.Format("{0:x2}", red)}{string.Format("{0:x2}", green)}{string.Format("{0:x2}", blue)}";
+        }
+
+        /// <summary>
+        /// Return RomColor from a hex color.
+        /// Make shure to validate the hexstring with ValidateHexString(string hex) before using this method
+        /// </summary>
+        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
+        /// <returns></returns>
+        public static RomColor FromHex(string hex)
+        {
+            var bytes = ConvertHexToBytes(hex);
+            return From8BitRgb(bytes[0], bytes[1], bytes[2]);
+        }
+        /// <summary>
+        /// Validates a hex formated string color.
+        /// </summary>
+        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
+        /// <returns></returns>
+        public static bool ValidateHexString(string hex)
+        {
+            var bytes = ConvertHexToBytes(hex);
+            return bytes.Length == 3;
+        }
+
+        /// <summary>
+        /// Validates a hex formated string color.
+        /// </summary>
+        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
+        /// <returns></returns>
+        private static byte[] ConvertHexToBytes(string hex)
+        {
+            var result = new byte[(hex.Length + 1) / 2];
+            var offset = 0;
+            if (hex.Length % 2 == 1)
+            {
+                // If length of input is odd, the first character has an implicit 0 prepended.
+                result[0] = (byte)Convert.ToUInt32(hex[0] + "", 16);
+                offset = 1;
+            }
+            for (int i = 0; i < hex.Length / 2; i++)
+            {
+                result[i + offset] = (byte)Convert.ToUInt32(hex.Substring(i * 2 + offset, 2), 16);
+            }
+            return result;
+        }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
