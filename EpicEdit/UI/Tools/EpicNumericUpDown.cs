@@ -35,34 +35,19 @@ namespace EpicEdit.UI.Tools
             this.Maximum = base.Maximum;
             this.Minimum = base.Minimum;
         }
-
-        public new decimal Maximum
+        public override void UpButton()
         {
-            get => base.Maximum;
-            set => base.Maximum = value + 1;
+            if (Value < Maximum)
+                Value++;
+            else
+                Value = Minimum;
         }
-
-        public new decimal Minimum
+        public override void DownButton()
         {
-            get => base.Minimum;
-            set => base.Minimum = value - 1;
-        }
-
-        protected override void OnValueChanged(EventArgs e)
-        {
-            if (this.Value == base.Maximum)
-            {
-                this.Value = base.Minimum + 1;
-                return;
-            }
-            
-            if (this.Value == base.Minimum)
-            {
-                this.Value = base.Maximum - 1;
-                return;
-            }
-
-            base.OnValueChanged(e);
+            if (Value > Minimum)
+                Value--;
+            else
+                Value = Maximum;
         }
 
         #endregion Allow looping from the first value to the last value, and vice versa
