@@ -1152,7 +1152,59 @@ namespace EpicEdit.UI.TrackEdition
                     }
                 }
             }
+            if (ModifierKeys == Keys.Control)
+            {
+                if (e.KeyCode == Keys.D)
+                {
+
+
+                    if (this.editionMode == EditionMode.AI)
+                    {
+                        if (this.aiControl.SelectedElement != null)
+                        {
+                            this.CloneAIElement();
+                        }
+                    }
+                }
+                if (e.KeyCode == Keys.M)
+                {
+                    if (this.editionMode == EditionMode.AI)
+                    {
+                        if (this.aiControl.SelectedElement != null)
+                        {
+                            this.aiControl.SelectedElement.AreaShape = this.aiControl.SelectedElement.AreaShape.Next();
+                        }
+                    }
+                }
+
+                if (this.editionMode == EditionMode.Tileset)
+                {
+                    switch (e.KeyCode)
+                    {
+                        case Keys.D1: this.tilesetControl.SetTheme(0); break;
+                        case Keys.D2: this.tilesetControl.SetTheme(1); break;
+                        case Keys.D3: this.tilesetControl.SetTheme(2); break;
+                        case Keys.D4: this.tilesetControl.SetTheme(3); break;
+                        case Keys.D5: this.tilesetControl.SetTheme(4); break;
+                        case Keys.D6: this.tilesetControl.SetTheme(5); break;
+                        case Keys.D7: this.tilesetControl.SetTheme(6); break;
+                        case Keys.D8: this.tilesetControl.SetTheme(7); break;
+                    }
+
+                }
+
+            }
+            if (this.editionMode == EditionMode.Tileset)
+            {
+                switch (e.KeyCode)
+                {
+
+                    case Keys.B: this.tilesetControl.SelectPenTool(); break;
+                    case Keys.G: this.tilesetControl.SelectFloodFillTool(); break;
+                }
+            }
         }
+        
 
         private void TrackDisplayMouseMove(object sender, MouseEventArgs e)
         {
@@ -2773,6 +2825,21 @@ namespace EpicEdit.UI.TrackEdition
         private void DeleteAIElement()
         {
             this.track.AI.Remove(this.aiControl.SelectedElement);
+        }
+
+        private void CloneAIElement()
+        {
+            TrackAIElement aiElement = this.aiControl.SelectedElement;
+            TrackAIElement newAIElem = aiElement.Clone();
+
+            // Shift the cloned element position, so it's not directly over the source element
+            newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
+                                           aiElement.Location.Y + TrackAIElement.Precision);
+
+            // Ensure the cloned element index is right after the source element
+            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
+
+            this.track.AI.Insert(newAIElem, newAIElementIndex);
         }
 
         private void AIControlAddElementRequested(object sender, EventArgs e)
