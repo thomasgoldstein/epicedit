@@ -51,6 +51,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.exportPalettesButton = new System.Windows.Forms.Button();
             this.importPalettesButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbHexString = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,6 +84,11 @@ namespace EpicEdit.UI.ThemeEdition
             this.paletteNumericUpDown.Name = "paletteNumericUpDown";
             this.paletteNumericUpDown.Size = new System.Drawing.Size(40, 20);
             this.paletteNumericUpDown.TabIndex = 1;
+            this.paletteNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.paletteNumericUpDown.ValueChanged += new System.EventHandler(this.PaletteNumericUpDownValueChanged);
             // 
             // themeComboBox
@@ -127,8 +133,17 @@ namespace EpicEdit.UI.ThemeEdition
             this.importPalettesButton.UseVisualStyleBackColor = true;
             this.importPalettesButton.Click += new System.EventHandler(this.ImportPalettesButtonClick);
             // 
+            // tbHexString
+            // 
+            this.tbHexString.Location = new System.Drawing.Point(181, 6);
+            this.tbHexString.Name = "tbHexString";
+            this.tbHexString.Size = new System.Drawing.Size(175, 20);
+            this.tbHexString.TabIndex = 7;
+            this.tbHexString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbHexString_KeyDown);
+            // 
             // PaletteEditor
             // 
+            this.Controls.Add(this.tbHexString);
             this.Controls.Add(this.exportPalettesButton);
             this.Controls.Add(this.importPalettesButton);
             this.Controls.Add(this.resetAllButton);
@@ -140,6 +155,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.Size = new System.Drawing.Size(401, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         private System.Windows.Forms.ToolTip buttonToolTip;
@@ -153,5 +169,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         private EpicEdit.UI.ThemeEdition.ColorPicker colorPicker;
         private System.Windows.Forms.Button resetSelectedButton;
+        private System.Windows.Forms.TextBox tbHexString;
     }
 }

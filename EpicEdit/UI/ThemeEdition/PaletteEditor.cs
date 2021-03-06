@@ -72,7 +72,7 @@ namespace EpicEdit.UI.ThemeEdition
 
                 this.colorIndex = value;
                 this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-
+                this.tbHexString.Text = this.colorPicker.SelectedColor.ToHexString();
                 // Select new panel
                 this.panels[this.colorIndex].BorderStyle = BorderStyle.Fixed3D;
             }
@@ -145,6 +145,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
+            this.tbHexString.Text = this.colorPicker.SelectedColor.ToHexString();
         }
 
         /// <summary>
@@ -220,6 +221,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.panels[this.colorIndex].BackColor = color;
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
+            tbHexString.Text = color.ToHexString();
+
         }
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
@@ -233,6 +236,25 @@ namespace EpicEdit.UI.ThemeEdition
         private void ExportPalettesButtonClick(object sender, EventArgs e)
         {
             UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), FileDialogFilters.ColorPalette);
+        }
+
+        private void tbHexString_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (RomColor.ValidateHexString(tbHexString.Text))
+                {
+                    var color = RomColor.FromHex(tbHexString.Text);
+
+                   
+                    this.Palette[this.colorIndex] = color;
+                    this.panels[this.colorIndex].BackColor = color;
+                    this.SetToolTip(this.colorIndex);
+                    this.panels[this.colorIndex].Refresh();
+                    this.colorPicker.SelectedColor = color;
+                }
+
+            }
         }
     }
 }
