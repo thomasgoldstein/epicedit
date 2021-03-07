@@ -72,7 +72,8 @@ namespace EpicEdit.UI.ThemeEdition
 
                 this.colorIndex = value;
                 this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-                this.tbHexString.Text = this.colorPicker.SelectedColor.ToHexString();
+                this.hexTextBox.Text = this.colorPicker.SelectedColor.ToHexString();
+
                 // Select new panel
                 this.panels[this.colorIndex].BorderStyle = BorderStyle.Fixed3D;
             }
@@ -145,7 +146,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-            this.tbHexString.Text = this.colorPicker.SelectedColor.ToHexString();
+            this.hexTextBox.Text = this.colorPicker.SelectedColor.ToHexString();
         }
 
         /// <summary>
@@ -221,7 +222,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.panels[this.colorIndex].BackColor = color;
             this.SetToolTip(this.colorIndex);
             this.panels[this.colorIndex].Refresh();
-            tbHexString.Text = color.ToHexString();
+            this.hexTextBox.Text = color.ToHexString();
 
         }
 
@@ -238,23 +239,15 @@ namespace EpicEdit.UI.ThemeEdition
             UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), FileDialogFilters.ColorPalette);
         }
 
-        private void tbHexString_KeyDown(object sender, KeyEventArgs e)
+        private void HexTextBoxValueChanged(object sender, EventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
-            {
-                if (RomColor.ValidateHexString(tbHexString.Text))
-                {
-                    var color = RomColor.FromHex(tbHexString.Text);
+            var color = RomColor.FromHex(this.hexTextBox.Text);
 
-                   
-                    this.Palette[this.colorIndex] = color;
-                    this.panels[this.colorIndex].BackColor = color;
-                    this.SetToolTip(this.colorIndex);
-                    this.panels[this.colorIndex].Refresh();
-                    this.colorPicker.SelectedColor = color;
-                }
-
-            }
+            this.Palette[this.colorIndex] = color;
+            this.panels[this.colorIndex].BackColor = color;
+            this.SetToolTip(this.colorIndex);
+            this.panels[this.colorIndex].Refresh();
+            this.colorPicker.SelectedColor = color;
         }
     }
 }

@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
+using EpicEdit.Rom.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -286,7 +287,7 @@ namespace EpicEdit.Rom
         /// <summary>
         /// Returns a nicely formatted string of the current color.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The string representation of the RomColor.</returns>
         public override string ToString()
         {
             return string.Format(CultureInfo.CurrentCulture,
@@ -299,56 +300,27 @@ namespace EpicEdit.Rom
         }
 
         /// <summary>
-        /// Returns a hex formated string of the current color.
+        /// Returns a hex-formatted string of the current color.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The hex value representing the color.</returns>
         public string ToHexString()
         {
-            return $"{string.Format("{0:x2}", red)}{string.Format("{0:x2}", green)}{string.Format("{0:x2}", blue)}";
+            return $"{string.Format("{0:X2}", this.red)}{string.Format("{0:X2}", this.green)}{string.Format("{0:X2}", this.blue)}";
         }
 
         /// <summary>
-        /// Return RomColor from a hex color.
-        /// Make shure to validate the hexstring with ValidateHexString(string hex) before using this method
+        /// Returns a RomColor from a hex color.
         /// </summary>
-        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
-        /// <returns></returns>
+        /// <param name="hex">8-bit RGB hex string from "000000" to "FFFFFF".</param>
+        /// <returns>The RomColor corresponding to the hex string.</returns>
         public static RomColor FromHex(string hex)
         {
-            var bytes = ConvertHexToBytes(hex);
+            if (hex.Length != 6)
+            {
+                hex = Convert.ToInt32(hex, 16).ToString("X6", CultureInfo.InvariantCulture);
+            }
+            var bytes = Utilities.HexStringToBytes(hex);
             return From8BitRgb(bytes[0], bytes[1], bytes[2]);
-        }
-        /// <summary>
-        /// Validates a hex formated string color.
-        /// </summary>
-        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
-        /// <returns></returns>
-        public static bool ValidateHexString(string hex)
-        {
-            var bytes = ConvertHexToBytes(hex);
-            return bytes.Length == 3;
-        }
-
-        /// <summary>
-        /// Validates a hex formated string color.
-        /// </summary>
-        /// <param name="hex">8bit rgb hexstring from "000000" to "ffffff"</param>
-        /// <returns></returns>
-        private static byte[] ConvertHexToBytes(string hex)
-        {
-            var result = new byte[(hex.Length + 1) / 2];
-            var offset = 0;
-            if (hex.Length % 2 == 1)
-            {
-                // If length of input is odd, the first character has an implicit 0 prepended.
-                result[0] = (byte)Convert.ToUInt32(hex[0] + "", 16);
-                offset = 1;
-            }
-            for (int i = 0; i < hex.Length / 2; i++)
-            {
-                result[i + offset] = (byte)Convert.ToUInt32(hex.Substring(i * 2 + offset, 2), 16);
-            }
-            return result;
         }
 
         public override int GetHashCode()

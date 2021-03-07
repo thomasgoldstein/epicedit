@@ -44,15 +44,16 @@ namespace EpicEdit.UI.ThemeEdition
         {
             this.components = new System.ComponentModel.Container();
             this.resetSelectedButton = new System.Windows.Forms.Button();
-            this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
-            this.paletteNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
-            this.themeComboBox = new EpicEdit.UI.Tools.ThemeComboBox();
             this.resetAllButton = new System.Windows.Forms.Button();
             this.exportPalettesButton = new System.Windows.Forms.Button();
             this.importPalettesButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tbHexString = new System.Windows.Forms.TextBox();
+            this.paletteNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
+            this.themeComboBox = new EpicEdit.UI.Tools.ThemeComboBox();
+            this.colorPicker = new EpicEdit.UI.ThemeEdition.ColorPicker();
+            this.hexTextBox = new EpicEdit.UI.Tools.HexTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hexTextBox)).BeginInit();
             this.SuspendLayout();
             // 
             // resetSelectedButton
@@ -60,18 +61,42 @@ namespace EpicEdit.UI.ThemeEdition
             this.resetSelectedButton.Location = new System.Drawing.Point(6, 204);
             this.resetSelectedButton.Name = "resetSelectedButton";
             this.resetSelectedButton.Size = new System.Drawing.Size(100, 23);
-            this.resetSelectedButton.TabIndex = 3;
+            this.resetSelectedButton.TabIndex = 4;
             this.resetSelectedButton.Text = "Reset selected";
             this.resetSelectedButton.UseVisualStyleBackColor = true;
             this.resetSelectedButton.Click += new System.EventHandler(this.ResetSelectedButtonClick);
             // 
-            // colorPicker
+            // resetAllButton
             // 
-            this.colorPicker.Location = new System.Drawing.Point(169, 40);
-            this.colorPicker.Name = "colorPicker";
-            this.colorPicker.Size = new System.Drawing.Size(230, 153);
-            this.colorPicker.TabIndex = 2;
-            this.colorPicker.ColorChanged += new System.EventHandler<System.EventArgs>(this.ColorPickerColorChanged);
+            this.resetAllButton.Location = new System.Drawing.Point(112, 204);
+            this.resetAllButton.Name = "resetAllButton";
+            this.resetAllButton.Size = new System.Drawing.Size(75, 23);
+            this.resetAllButton.TabIndex = 5;
+            this.resetAllButton.Text = "Reset all";
+            this.resetAllButton.UseVisualStyleBackColor = true;
+            this.resetAllButton.Click += new System.EventHandler(this.ResetAllButtonClick);
+            // 
+            // exportPalettesButton
+            // 
+            this.exportPalettesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
+            this.exportPalettesButton.Location = new System.Drawing.Point(375, 203);
+            this.exportPalettesButton.Name = "exportPalettesButton";
+            this.exportPalettesButton.Size = new System.Drawing.Size(24, 24);
+            this.exportPalettesButton.TabIndex = 7;
+            this.buttonToolTip.SetToolTip(this.exportPalettesButton, "Export all 16 theme palettes");
+            this.exportPalettesButton.UseVisualStyleBackColor = true;
+            this.exportPalettesButton.Click += new System.EventHandler(this.ExportPalettesButtonClick);
+            // 
+            // importPalettesButton
+            // 
+            this.importPalettesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
+            this.importPalettesButton.Location = new System.Drawing.Point(345, 203);
+            this.importPalettesButton.Name = "importPalettesButton";
+            this.importPalettesButton.Size = new System.Drawing.Size(24, 24);
+            this.importPalettesButton.TabIndex = 6;
+            this.buttonToolTip.SetToolTip(this.importPalettesButton, "Import all 16 theme palettes");
+            this.importPalettesButton.UseVisualStyleBackColor = true;
+            this.importPalettesButton.Click += new System.EventHandler(this.ImportPalettesButtonClick);
             // 
             // paletteNumericUpDown
             // 
@@ -101,49 +126,32 @@ namespace EpicEdit.UI.ThemeEdition
             this.themeComboBox.TabIndex = 0;
             this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeComboBoxSelectedIndexChanged);
             // 
-            // resetAllButton
+            // colorPicker
             // 
-            this.resetAllButton.Location = new System.Drawing.Point(112, 204);
-            this.resetAllButton.Name = "resetAllButton";
-            this.resetAllButton.Size = new System.Drawing.Size(75, 23);
-            this.resetAllButton.TabIndex = 4;
-            this.resetAllButton.Text = "Reset all";
-            this.resetAllButton.UseVisualStyleBackColor = true;
-            this.resetAllButton.Click += new System.EventHandler(this.ResetAllButtonClick);
+            this.colorPicker.Location = new System.Drawing.Point(169, 40);
+            this.colorPicker.Name = "colorPicker";
+            this.colorPicker.Size = new System.Drawing.Size(230, 153);
+            this.colorPicker.TabIndex = 3;
+            this.colorPicker.ColorChanged += new System.EventHandler<System.EventArgs>(this.ColorPickerColorChanged);
             // 
-            // exportPalettesButton
+            // hexTextBox
             // 
-            this.exportPalettesButton.Image = global::EpicEdit.Properties.Resources.ExportButton;
-            this.exportPalettesButton.Location = new System.Drawing.Point(375, 203);
-            this.exportPalettesButton.Name = "exportPalettesButton";
-            this.exportPalettesButton.Size = new System.Drawing.Size(24, 24);
-            this.exportPalettesButton.TabIndex = 6;
-            this.buttonToolTip.SetToolTip(this.exportPalettesButton, "Export all 16 theme palettes");
-            this.exportPalettesButton.UseVisualStyleBackColor = true;
-            this.exportPalettesButton.Click += new System.EventHandler(this.ExportPalettesButtonClick);
-            // 
-            // importPalettesButton
-            // 
-            this.importPalettesButton.Image = global::EpicEdit.Properties.Resources.ImportButton;
-            this.importPalettesButton.Location = new System.Drawing.Point(345, 203);
-            this.importPalettesButton.Name = "importPalettesButton";
-            this.importPalettesButton.Size = new System.Drawing.Size(24, 24);
-            this.importPalettesButton.TabIndex = 5;
-            this.buttonToolTip.SetToolTip(this.importPalettesButton, "Import all 16 theme palettes");
-            this.importPalettesButton.UseVisualStyleBackColor = true;
-            this.importPalettesButton.Click += new System.EventHandler(this.ImportPalettesButtonClick);
-            // 
-            // tbHexString
-            // 
-            this.tbHexString.Location = new System.Drawing.Point(181, 6);
-            this.tbHexString.Name = "tbHexString";
-            this.tbHexString.Size = new System.Drawing.Size(175, 20);
-            this.tbHexString.TabIndex = 7;
-            this.tbHexString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbHexString_KeyDown);
+            this.hexTextBox.Hexadecimal = true;
+            this.hexTextBox.HexValuePadding = 6;
+            this.hexTextBox.Location = new System.Drawing.Point(181, 6);
+            this.hexTextBox.Maximum = new decimal(new int[] {
+            16777215,
+            0,
+            0,
+            0});
+            this.hexTextBox.Name = "hexTextBox";
+            this.hexTextBox.Size = new System.Drawing.Size(175, 20);
+            this.hexTextBox.TabIndex = 2;
+            this.hexTextBox.ValueChanged += new System.EventHandler(this.HexTextBoxValueChanged);
             // 
             // PaletteEditor
             // 
-            this.Controls.Add(this.tbHexString);
+            this.Controls.Add(this.hexTextBox);
             this.Controls.Add(this.exportPalettesButton);
             this.Controls.Add(this.importPalettesButton);
             this.Controls.Add(this.resetAllButton);
@@ -154,8 +162,8 @@ namespace EpicEdit.UI.ThemeEdition
             this.Name = "PaletteEditor";
             this.Size = new System.Drawing.Size(401, 230);
             ((System.ComponentModel.ISupportInitialize)(this.paletteNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hexTextBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         private System.Windows.Forms.ToolTip buttonToolTip;
@@ -169,6 +177,6 @@ namespace EpicEdit.UI.ThemeEdition
 
         private EpicEdit.UI.ThemeEdition.ColorPicker colorPicker;
         private System.Windows.Forms.Button resetSelectedButton;
-        private System.Windows.Forms.TextBox tbHexString;
+        private EpicEdit.UI.Tools.HexTextBox hexTextBox;
     }
 }
