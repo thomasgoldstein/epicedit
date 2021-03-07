@@ -51,10 +51,10 @@ namespace EpicEdit.UI.TrackEdition
             this.selectedAIElementGroupBox = new System.Windows.Forms.GroupBox();
             this.isIntersectionCheckBox = new System.Windows.Forms.CheckBox();
             this.cloneButton = new System.Windows.Forms.Button();
-            this.indexNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.indexNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.deleteButton = new System.Windows.Forms.Button();
             this.shapeComboBox = new System.Windows.Forms.ComboBox();
-            this.speedNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.speedNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.deleteAllButton = new System.Windows.Forms.Button();
             this.buttonToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.addButton = new System.Windows.Forms.Button();
@@ -274,10 +274,10 @@ namespace EpicEdit.UI.TrackEdition
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button deleteAllButton;
-        private EpicEdit.UI.Tools.EpicNumericUpDown indexNumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown indexNumericUpDown;
         private System.Windows.Forms.ComboBox shapeComboBox;
         private System.Windows.Forms.Button deleteButton;
-        private EpicEdit.UI.Tools.EpicNumericUpDown speedNumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown speedNumericUpDown;
         private System.Windows.Forms.GroupBox selectedAIElementGroupBox;
         private System.Windows.Forms.CheckBox isIntersectionCheckBox;
     }

@@ -54,11 +54,11 @@ namespace EpicEdit.UI.TrackEdition
             this.rearAreasRadioButton = new System.Windows.Forms.RadioButton();
             this.frontAreasRadioButton = new System.Windows.Forms.RadioButton();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
-            this.palette4NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
-            this.palette3NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
-            this.palette2NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.palette4NumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
+            this.palette3NumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
+            this.palette2NumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.flashingCheckBox = new System.Windows.Forms.CheckBox();
-            this.palette1NumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.palette1NumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.routineComboBox = new System.Windows.Forms.ComboBox();
             this.interactComboBox = new System.Windows.Forms.ComboBox();
             this.tilesetComboBox = new System.Windows.Forms.ComboBox();
@@ -301,10 +301,10 @@ namespace EpicEdit.UI.TrackEdition
 
         }
         private System.Windows.Forms.Label palettesLabel;
-        private EpicEdit.UI.Tools.EpicNumericUpDown palette1NumericUpDown;
-        private EpicEdit.UI.Tools.EpicNumericUpDown palette4NumericUpDown;
-        private EpicEdit.UI.Tools.EpicNumericUpDown palette3NumericUpDown;
-        private EpicEdit.UI.Tools.EpicNumericUpDown palette2NumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown palette1NumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown palette4NumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown palette3NumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown palette2NumericUpDown;
         private System.Windows.Forms.CheckBox flashingCheckBox;
         private System.Windows.Forms.GroupBox areaGroupBox;
         private System.Windows.Forms.ComboBox interactComboBox;

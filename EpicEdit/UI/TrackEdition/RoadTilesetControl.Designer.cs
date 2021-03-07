@@ -52,7 +52,7 @@ namespace EpicEdit.UI.TrackEdition
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.GroupBox selectedTileGroupBox;
             System.Windows.Forms.Label paletteLabel;
-            this.tilePaletteNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.tilePaletteNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.tileGenreComboBox = new System.Windows.Forms.ComboBox();
             this.themeComboBox = new EpicEdit.UI.Tools.ThemeComboBox();
             this.tilesetPanel = new EpicEdit.UI.TrackEdition.RoadTilesetControl.TilesetPanel();
@@ -192,7 +192,7 @@ namespace EpicEdit.UI.TrackEdition
 
         }
         private System.Windows.Forms.Button importExportRoadTilesetButton;
-        private EpicEdit.UI.Tools.EpicNumericUpDown tilePaletteNumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown tilePaletteNumericUpDown;
         private System.Windows.Forms.ComboBox tileGenreComboBox;
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button resetMapButton;

@@ -194,7 +194,7 @@
     <Compile Update="UI\Tools\CodecForm.Designer.cs">
       <DependentUpon>CodecForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="UI\Tools\EpicNumericUpDown.cs">
+    <Compile Update="UI\Tools\Base1NumericUpDown.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UI\Tools\EpicPanel.cs">
