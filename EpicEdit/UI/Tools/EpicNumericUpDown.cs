@@ -38,16 +38,24 @@ namespace EpicEdit.UI.Tools
         public override void UpButton()
         {
             if (Value < Maximum)
-                Value++;
+            {
+                this.Value++;
+            }
             else
-                Value = Minimum;
+            {
+                this.Value = this.Minimum;
+            }
         }
         public override void DownButton()
         {
-            if (Value > Minimum)
-                Value--;
+            if (this.Value > this.Minimum)
+            {
+                this.Value--;
+            }
             else
-                Value = Maximum;
+            {
+                this.Value = this.Maximum;
+            }
         }
 
         #endregion Allow looping from the first value to the last value, and vice versa
