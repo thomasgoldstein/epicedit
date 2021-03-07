@@ -47,10 +47,10 @@ namespace EpicEdit.UI.Tools
             this.compressRadioButton = new System.Windows.Forms.RadioButton();
             this.decompressRadioButton = new System.Windows.Forms.RadioButton();
             this.twiceCheckBox = new System.Windows.Forms.CheckBox();
-            this.offsetNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.offsetTextBox = new EpicEdit.UI.Tools.HexTextBox();
             this.offsetLabel = new System.Windows.Forms.Label();
             this.browseButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.offsetNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.offsetTextBox)).BeginInit();
             this.SuspendLayout();
             // 
             // compressRadioButton
@@ -82,13 +82,14 @@ namespace EpicEdit.UI.Tools
             this.twiceCheckBox.Text = "Twice";
             this.twiceCheckBox.UseVisualStyleBackColor = true;
             // 
-            // offsetNumericUpDown
+            // offsetTextBox
             // 
-            this.offsetNumericUpDown.Hexadecimal = true;
-            this.offsetNumericUpDown.Location = new System.Drawing.Point(103, 33);
-            this.offsetNumericUpDown.Name = "offsetNumericUpDown";
-            this.offsetNumericUpDown.Size = new System.Drawing.Size(60, 20);
-            this.offsetNumericUpDown.TabIndex = 4;
+            this.offsetTextBox.Hexadecimal = true;
+            this.offsetTextBox.HexValuePadding = 5;
+            this.offsetTextBox.Location = new System.Drawing.Point(103, 33);
+            this.offsetTextBox.Name = "offsetTextBox";
+            this.offsetTextBox.Size = new System.Drawing.Size(60, 20);
+            this.offsetTextBox.TabIndex = 4;
             // 
             // offsetLabel
             // 
@@ -112,20 +113,21 @@ namespace EpicEdit.UI.Tools
             // 
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.offsetLabel);
-            this.Controls.Add(this.offsetNumericUpDown);
+            this.Controls.Add(this.offsetTextBox);
             this.Controls.Add(this.twiceCheckBox);
             this.Controls.Add(this.decompressRadioButton);
             this.Controls.Add(this.compressRadioButton);
             this.Name = "CodecControl";
             this.Size = new System.Drawing.Size(170, 100);
-            ((System.ComponentModel.ISupportInitialize)(this.offsetNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.offsetTextBox)).EndInit();
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label offsetLabel;
-        private System.Windows.Forms.NumericUpDown offsetNumericUpDown;
         private System.Windows.Forms.CheckBox twiceCheckBox;
         private System.Windows.Forms.RadioButton decompressRadioButton;
         private System.Windows.Forms.RadioButton compressRadioButton;
+        private HexTextBox offsetTextBox;
     }
 }

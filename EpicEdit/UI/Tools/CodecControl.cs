@@ -34,19 +34,19 @@ namespace EpicEdit.UI.Tools
         public void Init()
         {
             int min = Context.Game.HeaderSize;
-            this.offsetNumericUpDown.Minimum = min;
+            this.offsetTextBox.Minimum = min;
 
             // Data cannot be recompressed from 512 KiB to 1024 KiB, because that range is reserved for Epic Edit.
             // Therefore, set the maximum to 512 Kib if the ROM is no bigger than 1024 Kib.
             int max = Context.Game.Size > RomSize.Size1024 ? Context.Game.Size : RomSize.Size512;
-            this.offsetNumericUpDown.Maximum = max;
+            this.offsetTextBox.Maximum = max;
 
-            this.offsetNumericUpDown.Value = min;
+            this.offsetTextBox.Value = min;
         }
 
         private void BrowseButtonClick(object sender, EventArgs e)
         {
-            int offset = (int)this.offsetNumericUpDown.Value;
+            int offset = (int)this.offsetTextBox.Value;
             bool twice = this.twiceCheckBox.Checked;
 
             if (this.compressRadioButton.Checked)
@@ -54,7 +54,7 @@ namespace EpicEdit.UI.Tools
                 byte[] data = null;
                 if (UITools.ShowImportDataDialog(fileName => data = File.ReadAllBytes(fileName), FileDialogFilters.Binary))
                 {
-                    int limit = (int)this.offsetNumericUpDown.Maximum;
+                    int limit = (int)this.offsetTextBox.Maximum;
                     CodecControl.Compress(data, offset, twice, limit);
                 }
             }
