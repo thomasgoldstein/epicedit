@@ -1,7 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region GPL statement
+/*Epic Edit is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
+#endregion
 
 namespace EpicEdit.UI.TrackEdition
 {
@@ -15,13 +24,15 @@ namespace EpicEdit.UI.TrackEdition
                 this.tilePaletteNumericUpDown.Value = number;
             }
         }
-        public void SelectFloodFillTool()
-        {
-            this.bucketButton.PerformClick();
-        }
+
         public void SelectPenTool()
         {
             this.pencilButton.PerformClick();
+        }
+
+        public void SelectPaintBucketTool()
+        {
+            this.bucketButton.PerformClick();
         }
     }
 }

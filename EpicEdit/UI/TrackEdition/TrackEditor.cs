@@ -1152,31 +1152,8 @@ namespace EpicEdit.UI.TrackEdition
                     }
                 }
             }
-            if (ModifierKeys == Keys.Control)
+            else if (ModifierKeys == Keys.Control)
             {
-                if (e.KeyCode == Keys.D)
-                {
-
-
-                    if (this.editionMode == EditionMode.AI)
-                    {
-                        if (this.aiControl.SelectedElement != null)
-                        {
-                            this.CloneAIElement();
-                        }
-                    }
-                }
-                if (e.KeyCode == Keys.M)
-                {
-                    if (this.editionMode == EditionMode.AI)
-                    {
-                        if (this.aiControl.SelectedElement != null)
-                        {
-                            this.aiControl.SelectedElement.AreaShape = this.aiControl.SelectedElement.AreaShape.Next();
-                        }
-                    }
-                }
-
                 if (this.editionMode == EditionMode.Tileset)
                 {
                     switch (e.KeyCode)
@@ -1190,21 +1167,28 @@ namespace EpicEdit.UI.TrackEdition
                         case Keys.D7: this.tilesetControl.SetTheme(6); break;
                         case Keys.D8: this.tilesetControl.SetTheme(7); break;
                     }
-
                 }
-
+                else if (this.editionMode == EditionMode.AI && this.aiControl.SelectedElement != null)
+                {
+                    if (e.KeyCode == Keys.D)
+                    {
+                        this.CloneAIElement();
+                    }
+                    else if (e.KeyCode == Keys.M)
+                    {
+                        this.aiControl.SelectedElement.AreaShape = this.aiControl.SelectedElement.AreaShape.Next();
+                    }
+                }
             }
-            if (this.editionMode == EditionMode.Tileset)
+            else if (this.editionMode == EditionMode.Tileset)
             {
                 switch (e.KeyCode)
                 {
-
                     case Keys.B: this.tilesetControl.SelectPenTool(); break;
-                    case Keys.G: this.tilesetControl.SelectFloodFillTool(); break;
+                    case Keys.G: this.tilesetControl.SelectPaintBucketTool(); break;
                 }
             }
         }
-        
 
         private void TrackDisplayMouseMove(object sender, MouseEventArgs e)
         {
@@ -2136,7 +2120,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool FillTiles(Point location)
         {
-            TileChange change = this.GetFloodFillChange(location, this.tileClipboard.FirstTile);
+            TileChange change = this.GetPaintBucketChange(location, this.tileClipboard.FirstTile);
 
             if (change == null)
             {
@@ -2159,7 +2143,7 @@ namespace EpicEdit.UI.TrackEdition
             return true;
         }
 
-        private TileChange GetFloodFillChange(Point location, byte tile)
+        private TileChange GetPaintBucketChange(Point location, byte tile)
         {
             byte targetTile = this.track.Map[location.X, location.Y];
 
