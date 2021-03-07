@@ -63,7 +63,7 @@ namespace EpicEdit.UI.ThemeEdition
             this.backLayerPanel = new EpicEdit.UI.ThemeEdition.BackgroundPanel();
             this.tilesetPanel = new EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel();
             this.backTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
-            this.paletteNumericUpDown = new EpicEdit.UI.Tools.EpicNumericUpDown();
+            this.paletteNumericUpDown = new EpicEdit.UI.Tools.Base1NumericUpDown();
             this.frontTilePanel = new EpicEdit.UI.ThemeEdition.BackgroundTilePanel();
             this.themeComboBox = new EpicEdit.UI.Tools.ThemeComboBox();
             this.flipXButton = new System.Windows.Forms.CheckBox();
@@ -422,7 +422,7 @@ namespace EpicEdit.UI.ThemeEdition
         private EpicEdit.UI.ThemeEdition.BackgroundTilesetPanel tilesetPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel backTilePanel;
         private EpicEdit.UI.ThemeEdition.BackgroundTilePanel frontTilePanel;
-        private EpicEdit.UI.Tools.EpicNumericUpDown paletteNumericUpDown;
+        private EpicEdit.UI.Tools.Base1NumericUpDown paletteNumericUpDown;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel backLayerPanel;
         private EpicEdit.UI.ThemeEdition.BackgroundPanel frontLayerPanel;
         private System.Windows.Forms.Button playPauseButton;
