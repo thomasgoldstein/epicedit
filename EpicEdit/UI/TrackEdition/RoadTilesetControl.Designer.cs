@@ -160,7 +160,7 @@ namespace EpicEdit.UI.TrackEdition
             this.pencilButton.Size = new System.Drawing.Size(24, 24);
             this.pencilButton.TabIndex = 2;
             this.pencilButton.TabStop = true;
-            this.buttonToolTip.SetToolTip(this.pencilButton, "Pencil");
+            this.buttonToolTip.SetToolTip(this.pencilButton, "Pencil (B)");
             this.pencilButton.UseVisualStyleBackColor = true;
             // 
             // bucketButton
@@ -172,7 +172,7 @@ namespace EpicEdit.UI.TrackEdition
             this.bucketButton.Size = new System.Drawing.Size(24, 24);
             this.bucketButton.TabIndex = 3;
             this.bucketButton.TabStop = true;
-            this.buttonToolTip.SetToolTip(this.bucketButton, "Paint bucket");
+            this.buttonToolTip.SetToolTip(this.bucketButton, "Paint bucket (G)");
             this.bucketButton.UseVisualStyleBackColor = true;
             // 
             // RoadTilesetControl
