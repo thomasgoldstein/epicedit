@@ -131,7 +131,7 @@ namespace EpicEdit.UI.TrackEdition
             this.cloneButton.Name = "cloneButton";
             this.cloneButton.Size = new System.Drawing.Size(24, 24);
             this.cloneButton.TabIndex = 7;
-            this.buttonToolTip.SetToolTip(this.cloneButton, "Clone element");
+            this.buttonToolTip.SetToolTip(this.cloneButton, "Clone element (Ctrl+D)");
             this.cloneButton.UseVisualStyleBackColor = true;
             this.cloneButton.Click += new System.EventHandler(this.CloneButtonClick);
             // 
