@@ -237,6 +237,25 @@ namespace EpicEdit.UI.TrackEdition
             this.tilesetPanel.Refresh();
         }
 
+        public void SetTheme(int number)
+        {
+            Base1NumericUpDown ud = this.tilePaletteNumericUpDown;
+            if (number >= ud.Minimum && number <= ud.Maximum)
+            {
+                ud.Value = number;
+            }
+        }
+
+        public void SelectPenTool()
+        {
+            this.pencilButton.PerformClick();
+        }
+
+        public void SelectPaintBucketTool()
+        {
+            this.bucketButton.PerformClick();
+        }
+
         private void ResetTileset()
         {
             this.drawer.Tileset = this.track.RoadTileset;
