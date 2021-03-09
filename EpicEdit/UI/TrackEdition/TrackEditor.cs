@@ -1184,8 +1184,15 @@ namespace EpicEdit.UI.TrackEdition
             {
                 switch (e.KeyCode)
                 {
-                    case Keys.B: this.tilesetControl.SelectPenTool(); break;
-                    case Keys.G: this.tilesetControl.SelectPaintBucketTool(); break;
+                    case Keys.B:
+                        this.tilesetControl.SelectPenTool();
+                        this.InitTilesetAction();
+                        break;
+
+                    case Keys.G:
+                        this.tilesetControl.SelectPaintBucketTool();
+                        this.InitTilesetAction();
+                        break;
                 }
             }
         }
