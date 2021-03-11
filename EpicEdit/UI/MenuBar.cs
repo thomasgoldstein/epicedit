@@ -296,7 +296,7 @@ namespace EpicEdit.UI
                             "By Stifu" + Environment.NewLine +
                             "Contributors: teknix1, mcintyre321 and nub1604" + Environment.NewLine + Environment.NewLine +
                             "Special thanks to:" + Environment.NewLine +
-                            "Presea, Cragz, smkdan, Ok Impala! and ScouB",
+                            "Presea, Midwife, Cragz, smkdan, Ok Impala! and ScouB",
                             "About " + Application.ProductName,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
