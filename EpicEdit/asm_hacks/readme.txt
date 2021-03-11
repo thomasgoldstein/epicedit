@@ -4,6 +4,11 @@ The last character of each asm file name specifies the region of the ROM the hac
 Epic Edit automatically applies the binary result of these hacks when you save a ROM with it, which is done in the EpicEdit.Rom.Game.SaveDataToBuffer method.
 
 Folders:
+- "epic racers player select"
+This particular hack is not used in Epic Edit but in Epic Racers (Super Mario Kart hack).
+It heavily modifies the player select screen to include portraits, driver stats, a glowing selection indicator, etc.
+It requires bass.exe rather than xkas.exe.
+
 - "independent battle tracks"
 Makes it possible to have independant driver starting positions for each battle track.
 In the original game, Battle Course 1, 2 and 4 share the same driver starting positions, while Battle Course 3 has a specific set of driver starting positions.
