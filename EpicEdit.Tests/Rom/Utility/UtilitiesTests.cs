@@ -30,7 +30,7 @@ namespace EpicEdit.Tests.Rom.Utility
         }
 
         [Test]
-        public void TestBytesToOffset0fffff()
+        public void TestBytesToOffset0Fffff()
         {
             byte[] buffer = { 0xFF, 0xFF, 0xFF };
             int offset = Utilities.BytesToOffset(buffer, 0);
@@ -57,7 +57,7 @@ namespace EpicEdit.Tests.Rom.Utility
         }
 
         [Test]
-        public void TestOffsetToBytes0fffff()
+        public void TestOffsetToBytes0Fffff()
         {
             byte[] buffer = { 0xFF, 0xFF, 0xCF };
             byte[] buffer2 = Utilities.OffsetToBytes(0x0FFFFF);

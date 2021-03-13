@@ -27,60 +27,60 @@ namespace EpicEdit.Rom.Compression
         /// A dictionary of all the best <see cref="ChunkNode">nodes</see> (ie: nodes that lead to the best compression rate).
         /// The integer value represents the offset (position) in the buffer we want to compress.
         /// </summary>
-        private readonly Dictionary<int, ChunkNode> nodeDictionary;
+        private readonly Dictionary<int, ChunkNode> _nodeDictionary;
 
         /// <summary>
         /// The queue of offsets to process.
         /// Using it with the <see cref="ByteDictionary"/>, we can retrieve the associated best <see cref="ChunkNode">node</see>.
         /// </summary>
-        private readonly Queue<int> offsetQueue;
+        private readonly Queue<int> _offsetQueue;
 
         public ChunkNodeCollection()
         {
-            this.nodeDictionary = new Dictionary<int, ChunkNode>();
-            this.offsetQueue = new Queue<int>();
+            _nodeDictionary = new Dictionary<int, ChunkNode>();
+            _offsetQueue = new Queue<int>();
 
             ChunkNode rootNode = new ChunkNode(null, -1, 0, 0);
-            this.Add(0, rootNode);
+            Add(0, rootNode);
         }
 
         public void Add(int offset, ChunkNode node)
         {
-            if (!this.nodeDictionary.TryGetValue(offset, out ChunkNode storedNode))
+            if (!_nodeDictionary.TryGetValue(offset, out ChunkNode storedNode))
             {
-                this.nodeDictionary.Add(offset, node);
-                this.offsetQueue.Enqueue(offset);
+                _nodeDictionary.Add(offset, node);
+                _offsetQueue.Enqueue(offset);
             }
             else
             {
                 if (node.CompressedBufferSize < storedNode.CompressedBufferSize)
                 {
                     storedNode.SetAsNonOptimal();
-                    this.nodeDictionary[offset] = node;
-                    this.offsetQueue.Enqueue(offset);
+                    _nodeDictionary[offset] = node;
+                    _offsetQueue.Enqueue(offset);
                 }
             }
         }
 
         public IEnumerator<KeyValuePair<int, ChunkNode>> GetEnumerator()
         {
-            return this.nodeDictionary.GetEnumerator();
+            return _nodeDictionary.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.nodeDictionary.GetEnumerator();
+            return _nodeDictionary.GetEnumerator();
         }
 
         /// <summary>
         /// Gets the node at a given index.
         /// </summary>
-        public ChunkNode this[int offset] => this.nodeDictionary[offset];
+        public ChunkNode this[int offset] => _nodeDictionary[offset];
 
         /// <summary>
         /// Gets the number of remaining nodes to process.
         /// </summary>
-        public int Count => this.offsetQueue.Count;
+        public int Count => _offsetQueue.Count;
 
         /// <summary>
         /// Checks whether the next <see cref="ChunkNode">node</see> in the queue is worth processing,
@@ -89,12 +89,12 @@ namespace EpicEdit.Rom.Compression
         /// <returns>False if the next <see cref="ChunkNode">node</see> is known not to be worth processing, true otherwise.</returns>
         public bool IsNextNodeOptimal()
         {
-            int offset = this.offsetQueue.Peek();
-            ChunkNode node = this.nodeDictionary[offset];
+            int offset = _offsetQueue.Peek();
+            ChunkNode node = _nodeDictionary[offset];
 
             if (node.Processed || !node.IsOptimal)
             {
-                this.offsetQueue.Dequeue();
+                _offsetQueue.Dequeue();
             }
 
             return !node.Processed && node.IsOptimal;
@@ -106,8 +106,8 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The next <see cref="ChunkNode">node</see> in the queue.</returns>
         public KeyValuePair<int, ChunkNode> GetNextNode()
         {
-            int offset = this.offsetQueue.Dequeue();
-            ChunkNode node = this.nodeDictionary[offset];
+            int offset = _offsetQueue.Dequeue();
+            ChunkNode node = _nodeDictionary[offset];
             node.Processed = true;
 
             KeyValuePair<int, ChunkNode> offsetNode = new KeyValuePair<int, ChunkNode>(offset, node);

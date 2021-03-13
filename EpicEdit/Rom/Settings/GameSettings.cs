@@ -26,7 +26,7 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly Offsets offsets;
+        private readonly Offsets _offsets;
 
         /// <summary>
         /// Gets the game mode names.
@@ -88,23 +88,23 @@ namespace EpicEdit.Rom.Settings
             get
             {
                 return
-                    (this.GPCupSelectTexts != null && this.GPCupSelectTexts.Modified) ||
-                    this.GPResultsCupTexts.Modified ||
-                    this.GPPodiumCupTexts.Modified ||
-                    this.CourseSelectTexts.Modified ||
-                    this.DriverNamesGPResults.Modified ||
-                    this.DriverNamesGPPodium.Modified ||
-                    this.DriverNamesTimeTrial.Modified ||
-                    this.RankPoints.Modified ||
-                    this.ItemProbabilities.Modified;
+                    (GPCupSelectTexts != null && GPCupSelectTexts.Modified) ||
+                    GPResultsCupTexts.Modified ||
+                    GPPodiumCupTexts.Modified ||
+                    CourseSelectTexts.Modified ||
+                    DriverNamesGPResults.Modified ||
+                    DriverNamesGPPodium.Modified ||
+                    DriverNamesTimeTrial.Modified ||
+                    RankPoints.Modified ||
+                    ItemProbabilities.Modified;
             }
         }
 
         public GameSettings(byte[] romBuffer, Offsets offsets, Region region)
         {
-            this.offsets = offsets;
-            this.Init(romBuffer, region);
-            this.HandleChanges();
+            _offsets = offsets;
+            Init(romBuffer, region);
+            HandleChanges();
         }
 
         private void Init(byte[] romBuffer, Region region)
@@ -114,10 +114,10 @@ namespace EpicEdit.Rom.Settings
                 new[] { 48, 94, 70, 68, 144, 136, 96, 42 } :
                 new[] { 66, 130, 90, 80, 173, 134, 112, 52 };
 
-            const char ThinSpace = '\u2009';
+            const char thinSpace = '\u2009';
 
-            this.ModeNames = new TextCollection(
-                romBuffer, offsets[Offset.ModeNames], 3,
+            ModeNames = new TextCollection(
+                romBuffer, _offsets[Offset.ModeNames], 3,
                 textDataSizes[0], true, true, false, false, 0, null, null);
 
             if (!isJap)
@@ -126,105 +126,105 @@ namespace EpicEdit.Rom.Settings
                 // These texts are not extensible, as the characters are not reusable.
                 // This is due to the fact characters are specific and split across tiles,
                 // which makes it so they can only be modified properly by editing the tile graphics.
-                this.GPCupSelectTexts = new TextCollection(
-                    romBuffer, offsets[Offset.GPCupSelectTexts], GPTrack.GroupCount,
+                GPCupSelectTexts = new TextCollection(
+                    romBuffer, _offsets[Offset.GPCupSelectTexts], GPTrack.GroupCount,
                     textDataSizes[1], true, false, false, true, 0x80, null, null);
             }
 
-            this.GPResultsCupTexts = new TextCollection(
-                romBuffer, offsets[Offset.GPResultsCupTexts], GPTrack.GroupCount,
+            GPResultsCupTexts = new TextCollection(
+                romBuffer, _offsets[Offset.GPResultsCupTexts], GPTrack.GroupCount,
                 textDataSizes[2], true, false, false, false, 0, null, null);
 
-            this.GPPodiumCupTexts = new GPPodiumCupTextCollection(
-                romBuffer, offsets[Offset.GPPodiumCupTexts], GPTrack.GroupCount + 1,
+            GPPodiumCupTexts = new GPPodiumCupTextCollection(
+                romBuffer, _offsets[Offset.GPPodiumCupTexts], GPTrack.GroupCount + 1,
                 textDataSizes[3], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
                 !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
-            this.CourseSelectTexts = new TextCollection(
-                romBuffer, offsets[Offset.CourseSelectTexts], Track.GroupCount + Theme.Count,
+            CourseSelectTexts = new TextCollection(
+                romBuffer, _offsets[Offset.CourseSelectTexts], Track.GroupCount + Theme.Count,
                 textDataSizes[4], false, false, false, false, 0,
-                new byte[] { 0x2C }, new[] { ThinSpace });
+                new byte[] { 0x2C }, new[] { thinSpace });
 
-            this.CupAndTrackNameSuffixCollection = new FreeTextCollection(
-                this.CourseSelectTexts.Converter,
+            CupAndTrackNameSuffixCollection = new FreeTextCollection(
+                CourseSelectTexts.Converter,
                 SuffixedTextItem.MaxSuffixCharacterCount);
 
-            this.DriverNamesGPResults = new TextCollection(
-                romBuffer, offsets[Offset.DriverNamesGPResults], 8,
+            DriverNamesGPResults = new TextCollection(
+                romBuffer, _offsets[Offset.DriverNamesGPResults], 8,
                 textDataSizes[5], true, false, isJap, false, 0, null, null);
 
-            this.DriverNamesGPPodium = new TextCollection(
-                romBuffer, offsets[Offset.DriverNamesGPPodium], 8,
+            DriverNamesGPPodium = new TextCollection(
+                romBuffer, _offsets[Offset.DriverNamesGPPodium], 8,
                 textDataSizes[6], true, false, false, false,
                 !isJap ? (byte)0x80 : (byte)0x60,
                 !isJap ? new byte[] { 0xAD } : new byte[] { 0x8B, 0x8C, 0x8D, 0xFF },
                 !isJap ? new[] { '\n' } : new[] { 'J', 'R', '\n', ' ' });
 
-            this.DriverNamesTimeTrial = new TextCollection(
-                romBuffer, offsets[Offset.DriverNamesTimeTrial], 8,
+            DriverNamesTimeTrial = new TextCollection(
+                romBuffer, _offsets[Offset.DriverNamesTimeTrial], 8,
                 textDataSizes[7], false, false, false, false, 0,
-                new byte[] { 0x2C }, new[] { ThinSpace });
+                new byte[] { 0x2C }, new[] { thinSpace });
 
-            byte[] rankPointsData = Utilities.ReadBlock(romBuffer, offsets[Offset.RankPoints], RankPoints.Size);
-            this.RankPoints = new RankPoints(rankPointsData);
+            byte[] rankPointsData = Utilities.ReadBlock(romBuffer, _offsets[Offset.RankPoints], RankPoints.Size);
+            RankPoints = new RankPoints(rankPointsData);
 
-            byte[] itemProbaData = Utilities.ReadBlock(romBuffer, offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
-            this.ItemProbabilities = new ItemProbabilities(itemProbaData);
+            byte[] itemProbaData = Utilities.ReadBlock(romBuffer, _offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
+            ItemProbabilities = new ItemProbabilities(itemProbaData);
         }
 
         private void HandleChanges()
         {
-            if (this.GPCupSelectTexts != null)
+            if (GPCupSelectTexts != null)
             {
-                this.GPCupSelectTexts.PropertyChanged += this.OnPropertyChanged;
+                GPCupSelectTexts.PropertyChanged += OnPropertyChanged;
             }
-            this.GPResultsCupTexts.PropertyChanged += this.OnPropertyChanged;
-            this.GPPodiumCupTexts.PropertyChanged += this.OnPropertyChanged;
-            this.CourseSelectTexts.PropertyChanged += this.OnPropertyChanged;
-            this.DriverNamesGPResults.PropertyChanged += this.OnPropertyChanged;
-            this.DriverNamesGPPodium.PropertyChanged += this.OnPropertyChanged;
-            this.DriverNamesTimeTrial.PropertyChanged += this.OnPropertyChanged;
-            this.RankPoints.PropertyChanged += this.OnPropertyChanged;
-            this.ItemProbabilities.PropertyChanged += this.OnPropertyChanged;
+            GPResultsCupTexts.PropertyChanged += OnPropertyChanged;
+            GPPodiumCupTexts.PropertyChanged += OnPropertyChanged;
+            CourseSelectTexts.PropertyChanged += OnPropertyChanged;
+            DriverNamesGPResults.PropertyChanged += OnPropertyChanged;
+            DriverNamesGPPodium.PropertyChanged += OnPropertyChanged;
+            DriverNamesTimeTrial.PropertyChanged += OnPropertyChanged;
+            RankPoints.PropertyChanged += OnPropertyChanged;
+            ItemProbabilities.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public void Save(byte[] romBuffer)
         {
-            if (this.GPCupSelectTexts != null)
+            if (GPCupSelectTexts != null)
             {
-                this.GPCupSelectTexts.Save(romBuffer);
+                GPCupSelectTexts.Save(romBuffer);
             }
-            this.GPResultsCupTexts.Save(romBuffer);
-            this.GPPodiumCupTexts.Save(romBuffer);
-            this.CourseSelectTexts.Save(romBuffer);
-            this.DriverNamesGPResults.Save(romBuffer);
-            this.DriverNamesGPPodium.Save(romBuffer);
-            this.DriverNamesTimeTrial.Save(romBuffer);
-            this.RankPoints.Save(romBuffer, this.offsets[Offset.RankPoints]);
-            this.ItemProbabilities.Save(romBuffer, this.offsets[Offset.ItemProbabilities]);
+            GPResultsCupTexts.Save(romBuffer);
+            GPPodiumCupTexts.Save(romBuffer);
+            CourseSelectTexts.Save(romBuffer);
+            DriverNamesGPResults.Save(romBuffer);
+            DriverNamesGPPodium.Save(romBuffer);
+            DriverNamesTimeTrial.Save(romBuffer);
+            RankPoints.Save(romBuffer, _offsets[Offset.RankPoints]);
+            ItemProbabilities.Save(romBuffer, _offsets[Offset.ItemProbabilities]);
         }
 
         public void ResetModifiedState()
         {
-            if (this.GPCupSelectTexts != null)
+            if (GPCupSelectTexts != null)
             {
-                this.GPCupSelectTexts.ResetModifiedState();
+                GPCupSelectTexts.ResetModifiedState();
             }
-            this.GPResultsCupTexts.ResetModifiedState();
-            this.GPPodiumCupTexts.ResetModifiedState();
-            this.CourseSelectTexts.ResetModifiedState();
-            this.DriverNamesGPResults.ResetModifiedState();
-            this.DriverNamesGPPodium.ResetModifiedState();
-            this.DriverNamesTimeTrial.ResetModifiedState();
-            this.RankPoints.ResetModifiedState();
-            this.ItemProbabilities.ResetModifiedState();
+            GPResultsCupTexts.ResetModifiedState();
+            GPPodiumCupTexts.ResetModifiedState();
+            CourseSelectTexts.ResetModifiedState();
+            DriverNamesGPResults.ResetModifiedState();
+            DriverNamesGPPodium.ResetModifiedState();
+            DriverNamesTimeTrial.ResetModifiedState();
+            RankPoints.ResetModifiedState();
+            ItemProbabilities.ResetModifiedState();
         }
     }
 }

@@ -29,80 +29,80 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> ViewChanged;
 
-        private bool fireEvents;
+        private bool _fireEvents;
 
         /// <summary>
         /// Used to get the index of the paletteNumericUpDown control.
         /// </summary>
-        private readonly Control[] palettePickers;
+        private readonly Control[] _palettePickers;
 
         public ObjectsControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.tilesetComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
-            this.interactComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
-            this.routineComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
+            tilesetComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
+            interactComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
+            routineComboBox.DataSource = Enum.GetValues(typeof(TrackObjectType));
 
-            this.palettePickers = new Control[]
+            _palettePickers = new Control[]
             {
-                this.palette1NumericUpDown,
-                this.palette2NumericUpDown,
-                this.palette3NumericUpDown,
-                this.palette4NumericUpDown
+                palette1NumericUpDown,
+                palette2NumericUpDown,
+                palette3NumericUpDown,
+                palette4NumericUpDown
             };
         }
 
-        private GPTrack track;
+        private GPTrack _track;
 
         [Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public GPTrack Track
         {
-            get => this.track;
+            get => _track;
             set
             {
-                if (this.track == value)
+                if (_track == value)
                 {
                     return;
                 }
 
-                if (this.track != null)
+                if (_track != null)
                 {
-                    this.track.Objects.PropertyChanged -= this.track_Objects_PropertyChanged;
+                    _track.Objects.PropertyChanged -= track_Objects_PropertyChanged;
                 }
 
-                this.track = value;
+                _track = value;
 
-                if (this.track == null) // BattleTrack
+                if (_track == null) // BattleTrack
                 {
-                    this.Enabled = false;
+                    Enabled = false;
                     return;
                 }
 
-                this.Enabled = true;
+                Enabled = true;
 
-                this.track.Objects.PropertyChanged += this.track_Objects_PropertyChanged;
+                _track.Objects.PropertyChanged += track_Objects_PropertyChanged;
 
-                this.frontObjectAreasControl.AreasView = this.track.Objects.Areas.FrontView;
-                this.rearObjectAreasControl.AreasView = this.track.Objects.Areas.RearView;
+                frontObjectAreasControl.AreasView = _track.Objects.Areas.FrontView;
+                rearObjectAreasControl.AreasView = _track.Objects.Areas.RearView;
 
-                TrackObjects objects = this.track.Objects;
+                TrackObjects objects = _track.Objects;
 
-                this.fireEvents = false;
+                _fireEvents = false;
 
-                this.tilesetComboBox.SelectedItem = objects.Tileset;
-                this.interactComboBox.SelectedItem = objects.Interaction;
-                this.routineComboBox.SelectedItem = objects.Routine;
-                this.palette1NumericUpDown.Value = objects.PaletteIndexes[0];
-                this.palette2NumericUpDown.Value = objects.PaletteIndexes[1];
-                this.palette3NumericUpDown.Value = objects.PaletteIndexes[2];
-                this.palette4NumericUpDown.Value = objects.PaletteIndexes[3];
-                this.flashingCheckBox.Checked = objects.Flashing;
+                tilesetComboBox.SelectedItem = objects.Tileset;
+                interactComboBox.SelectedItem = objects.Interaction;
+                routineComboBox.SelectedItem = objects.Routine;
+                palette1NumericUpDown.Value = objects.PaletteIndexes[0];
+                palette2NumericUpDown.Value = objects.PaletteIndexes[1];
+                palette3NumericUpDown.Value = objects.PaletteIndexes[2];
+                palette4NumericUpDown.Value = objects.PaletteIndexes[3];
+                flashingCheckBox.Checked = objects.Flashing;
 
-                this.fireEvents = true;
+                _fireEvents = true;
 
-                this.ToggleAreaGroupBox();
-                this.ToggleAlternatePalettes();
+                ToggleAreaGroupBox();
+                ToggleAlternatePalettes();
             }
         }
 
@@ -111,26 +111,26 @@ namespace EpicEdit.UI.TrackEdition
             switch (e.PropertyName)
             {
                 case PropertyNames.TrackObjectProperties.Tileset:
-                    this.tilesetComboBox.SelectedItem = this.Track.Objects.Tileset;
+                    tilesetComboBox.SelectedItem = Track.Objects.Tileset;
                     break;
 
                 case PropertyNames.TrackObjectProperties.Interaction:
-                    this.interactComboBox.SelectedItem = this.Track.Objects.Interaction;
+                    interactComboBox.SelectedItem = Track.Objects.Interaction;
                     break;
 
                 case PropertyNames.TrackObjectProperties.Routine:
-                    this.routineComboBox.SelectedItem = this.Track.Objects.Routine;
+                    routineComboBox.SelectedItem = Track.Objects.Routine;
                     break;
 
                 case PropertyNames.TrackObjectProperties.PaletteIndexes:
-                    this.palette1NumericUpDown.Value = this.Track.Objects.PaletteIndexes[0];
-                    this.palette2NumericUpDown.Value = this.Track.Objects.PaletteIndexes[1];
-                    this.palette3NumericUpDown.Value = this.Track.Objects.PaletteIndexes[2];
-                    this.palette4NumericUpDown.Value = this.Track.Objects.PaletteIndexes[3];
+                    palette1NumericUpDown.Value = Track.Objects.PaletteIndexes[0];
+                    palette2NumericUpDown.Value = Track.Objects.PaletteIndexes[1];
+                    palette3NumericUpDown.Value = Track.Objects.PaletteIndexes[2];
+                    palette4NumericUpDown.Value = Track.Objects.PaletteIndexes[3];
                     break;
 
                 case PropertyNames.TrackObjectProperties.Flashing:
-                    this.flashingCheckBox.Checked = this.Track.Objects.Flashing;
+                    flashingCheckBox.Checked = Track.Objects.Flashing;
                     break;
             }
         }
@@ -138,55 +138,55 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Gets a value indicating whether the current view is the front-areas one.
         /// </summary>
-        public bool FrontAreasView => this.frontAreasRadioButton.Checked;
+        public bool FrontAreasView => frontAreasRadioButton.Checked;
 
         private void FrontAreasRadioButtonCheckedChanged(object sender, EventArgs e)
         {
-            this.ViewChanged(this, EventArgs.Empty);
+            ViewChanged(this, EventArgs.Empty);
 
-            this.frontObjectAreasControl.Visible = this.frontAreasRadioButton.Checked;
-            this.rearObjectAreasControl.Visible = this.rearAreasRadioButton.Checked;
+            frontObjectAreasControl.Visible = frontAreasRadioButton.Checked;
+            rearObjectAreasControl.Visible = rearAreasRadioButton.Checked;
         }
 
         private void TilesetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.Track.Objects.Tileset = (TrackObjectType)this.tilesetComboBox.SelectedItem;
+            Track.Objects.Tileset = (TrackObjectType)tilesetComboBox.SelectedItem;
         }
 
         private void InteractComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.Track.Objects.Interaction = (TrackObjectType)this.interactComboBox.SelectedItem;
+            Track.Objects.Interaction = (TrackObjectType)interactComboBox.SelectedItem;
         }
 
         private void RoutineComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.Track.Objects.Routine = (TrackObjectType)this.routineComboBox.SelectedItem;
-            this.ToggleAreaGroupBox();
+            Track.Objects.Routine = (TrackObjectType)routineComboBox.SelectedItem;
+            ToggleAreaGroupBox();
         }
 
         private void ToggleAreaGroupBox()
         {
-            this.areaGroupBox.Enabled = this.Track.Objects.Routine != TrackObjectType.Pillar;
+            areaGroupBox.Enabled = Track.Objects.Routine != TrackObjectType.Pillar;
         }
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
@@ -194,35 +194,35 @@ namespace EpicEdit.UI.TrackEdition
             NumericUpDown control = sender as NumericUpDown;
 
             int index;
-            for (index = 0; index < this.palettePickers.Length; index++)
+            for (index = 0; index < _palettePickers.Length; index++)
             {
-                if (control == this.palettePickers[index])
+                if (control == _palettePickers[index])
                 {
                     break;
                 }
             }
 
-            this.Track.Objects.PaletteIndexes[index] = (byte)control.Value;
+            Track.Objects.PaletteIndexes[index] = (byte)control.Value;
         }
 
         private void FlashingCheckBoxCheckedChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.Track.Objects.Flashing = this.flashingCheckBox.Checked;
-            this.ToggleAlternatePalettes();
+            Track.Objects.Flashing = flashingCheckBox.Checked;
+            ToggleAlternatePalettes();
         }
 
         private void ToggleAlternatePalettes()
         {
-            bool enable = this.Track.Objects.Flashing;
-            this.palettesLabel.Enabled = enable;
-            this.palette2NumericUpDown.Enabled = enable;
-            this.palette3NumericUpDown.Enabled = enable;
-            this.palette4NumericUpDown.Enabled = enable;
+            bool enable = Track.Objects.Flashing;
+            palettesLabel.Enabled = enable;
+            palette2NumericUpDown.Enabled = enable;
+            palette3NumericUpDown.Enabled = enable;
+            palette4NumericUpDown.Enabled = enable;
         }
     }
 }

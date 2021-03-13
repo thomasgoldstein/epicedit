@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Settings
         {
             byte[] data = base.GetBytes(out indexes, out length);
 
-            if (this.Region == Region.Jap && data[63] == 0x0D)
+            if (Region == Region.Jap && data[63] == 0x0D)
             {
                 // HACK: Preserve the original color palette of the ending "-" character (palette 0x09 instead of 0x0D).
                 // To support this without any hacks, we'd probably need to drop the current

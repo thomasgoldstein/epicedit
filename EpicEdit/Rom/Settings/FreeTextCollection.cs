@@ -24,7 +24,7 @@ namespace EpicEdit.Rom.Settings
     {
         public TextConverter Converter { get; }
 
-        public Region Region => this.Converter.Region;
+        public Region Region => Converter.Region;
 
         public int TotalCharacterCount
         {
@@ -32,9 +32,9 @@ namespace EpicEdit.Rom.Settings
             {
                 int total = 0;
 
-                foreach (TextItem item in this.items)
+                foreach (TextItem item in _items)
                 {
-                    total += this.Converter.EncodeText(item.Value, null).Length;
+                    total += Converter.EncodeText(item.Value, null).Length;
                 }
 
                 return total;
@@ -43,18 +43,18 @@ namespace EpicEdit.Rom.Settings
 
         public int MaxCharacterCount { get; }
 
-        private readonly List<TextItem> items;
+        private readonly List<TextItem> _items;
 
         public FreeTextCollection(TextConverter converter, int maxCharacterCount)
         {
-            this.Converter = converter;
-            this.MaxCharacterCount = maxCharacterCount;
-            this.items = new List<TextItem>();
+            Converter = converter;
+            MaxCharacterCount = maxCharacterCount;
+            _items = new List<TextItem>();
         }
 
         public void Add(TextItem item)
         {
-            this.items.Add(item);
+            _items.Add(item);
         }
     }
 }

@@ -22,24 +22,24 @@ namespace EpicEdit.Tests.Rom
     [TestFixture]
     internal class GameTests
     {
-        private Game game;
+        private Game _game;
 
         [SetUp]
         public void SetUp()
         {
-            this.game = File.GetGame(Region.US);
+            _game = File.GetGame(Region.US);
         }
 
         [Test]
         public void TestTrackGroupCount()
         {
-            Assert.AreEqual(5, this.game.TrackGroups.Count);
+            Assert.AreEqual(5, _game.TrackGroups.Count);
         }
 
         [Test]
         public void TestTrackSizes()
         {
-            foreach (TrackGroup trackGroup in this.game.TrackGroups)
+            foreach (TrackGroup trackGroup in _game.TrackGroups)
             {
                 foreach (Track track in trackGroup)
                 {
@@ -52,73 +52,73 @@ namespace EpicEdit.Tests.Rom
         [Test]
         public void TestTrackGroupName1()
         {
-            Assert.AreEqual("Mushroom Cup", this.game.TrackGroups[0].Name);
+            Assert.AreEqual("Mushroom Cup", _game.TrackGroups[0].Name);
         }
 
         [Test]
         public void TestTrackGroupName2()
         {
-            Assert.AreEqual("Flower Cup", this.game.TrackGroups[1].Name);
+            Assert.AreEqual("Flower Cup", _game.TrackGroups[1].Name);
         }
 
         [Test]
         public void TestTrackGroupName3()
         {
-            Assert.AreEqual("Star Cup", this.game.TrackGroups[2].Name);
+            Assert.AreEqual("Star Cup", _game.TrackGroups[2].Name);
         }
 
         [Test]
         public void TestTrackGroupName4()
         {
-            Assert.AreEqual("Special Cup", this.game.TrackGroups[3].Name);
+            Assert.AreEqual("Special Cup", _game.TrackGroups[3].Name);
         }
 
         [Test]
         public void TestTrackGroupName5()
         {
-            Assert.AreEqual("Battle Course ", this.game.TrackGroups[4].Name);
+            Assert.AreEqual("Battle Course ", _game.TrackGroups[4].Name);
         }
 
         [Test]
         public void TestTrackName1()
         {
-            Assert.AreEqual("Mario Circuit 1", this.game.TrackGroups[0][0].Name);
+            Assert.AreEqual("Mario Circuit 1", _game.TrackGroups[0][0].Name);
         }
 
         [Test]
         public void TestTrackName2()
         {
-            Assert.AreEqual("Donut Plains 1", this.game.TrackGroups[0][1].Name);
+            Assert.AreEqual("Donut Plains 1", _game.TrackGroups[0][1].Name);
         }
 
         [Test]
         public void TestTrackName3()
         {
-            Assert.AreEqual("Ghost Valley 1", this.game.TrackGroups[0][2].Name);
+            Assert.AreEqual("Ghost Valley 1", _game.TrackGroups[0][2].Name);
         }
 
         [Test]
         public void TestTrackName20()
         {
-            Assert.AreEqual("Rainbow Road ", this.game.TrackGroups[3][4].Name);
+            Assert.AreEqual("Rainbow Road ", _game.TrackGroups[3][4].Name);
         }
 
         [Test]
         public void TestTrackTheme1()
         {
-            Assert.AreEqual("Mario Circuit ", this.game.TrackGroups[0][0].Theme.Name);
+            Assert.AreEqual("Mario Circuit ", _game.TrackGroups[0][0].Theme.Name);
         }
 
         [Test]
         public void TestTrackTheme2()
         {
-            Assert.AreEqual("Donut Plains ", this.game.TrackGroups[0][1].Theme.Name);
+            Assert.AreEqual("Donut Plains ", _game.TrackGroups[0][1].Theme.Name);
         }
 
         [Test]
         public void TestTrackTheme3()
         {
-            Assert.AreEqual("Ghost Valley ", this.game.TrackGroups[0][2].Theme.Name);
+            Assert.AreEqual("Ghost Valley ", _game.TrackGroups[0][2].Theme.Name);
         }
 
         [Test]
@@ -437,37 +437,37 @@ namespace EpicEdit.Tests.Rom
         [Test]
         public void TestCodecPillarGraphicsUS()
         {
-            this.TestCodec(Region.US, 0, false);
+            TestCodec(Region.US, 0, false);
         }
 
         [Test]
         public void TestCodecPillarGraphicsEuro()
         {
-            this.TestCodec(Region.Euro, 0, false);
+            TestCodec(Region.Euro, 0, false);
         }
 
         [Test]
         public void TestCodecPillarGraphicsJap()
         {
-            this.TestCodec(Region.Jap, 0, false);
+            TestCodec(Region.Jap, 0, false);
         }
 
         [Test]
         public void TestCodecPodiumGraphicsUS()
         {
-            this.TestCodec(Region.US, 0x737DA, true);
+            TestCodec(Region.US, 0x737DA, true);
         }
 
         [Test]
         public void TestCodecPodiumGraphicsEuro()
         {
-            this.TestCodec(Region.Euro, 0x737DA, true);
+            TestCodec(Region.Euro, 0x737DA, true);
         }
 
         [Test]
         public void TestCodecPodiumGraphicsJap()
         {
-            this.TestCodec(Region.Jap, 0x73A63, true);
+            TestCodec(Region.Jap, 0x73A63, true);
         }
     }
 }

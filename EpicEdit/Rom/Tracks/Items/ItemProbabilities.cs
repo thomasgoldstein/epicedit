@@ -44,36 +44,36 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly ItemProbability[] itemProbabilities;
+        private readonly ItemProbability[] _itemProbabilities;
 
         public ItemProbabilities(byte[] data)
         {
-            this.itemProbabilities = new ItemProbability[ItemProbabilities.Count];
+            _itemProbabilities = new ItemProbability[Count];
 
-            for (int i = 0; i < ItemProbabilities.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                byte[] itemData = ItemProbabilities.GetItemData(data, i);
-                this.itemProbabilities[i] = new ItemProbability(itemData);
-                this.itemProbabilities[i].PropertyChanged += this.OnPropertyChanged;
+                byte[] itemData = GetItemData(data, i);
+                _itemProbabilities[i] = new ItemProbability(itemData);
+                _itemProbabilities[i].PropertyChanged += OnPropertyChanged;
             }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public void SetBytes(byte[] data)
         {
-            if (data.Length != ItemProbabilities.Size)
+            if (data.Length != Size)
             {
                 throw new ArgumentException($"Item probabilities data should have a size of {Size} bytes. Actual: {data.Length} bytes.", nameof(data));
             }
 
-            for (int i = 0; i < ItemProbabilities.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                byte[] itemData = ItemProbabilities.GetItemData(data, i);
-                this.itemProbabilities[i].SetBytes(itemData);
+                byte[] itemData = GetItemData(data, i);
+                _itemProbabilities[i].SetBytes(itemData);
             }
         }
 
@@ -86,12 +86,12 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[ItemProbabilities.Size];
+            byte[] data = new byte[Size];
 
-            for (int i = 0; i < ItemProbabilities.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 int index = i * ItemProbability.Size;
-                this.itemProbabilities[i].GetBytes(data, index);
+                _itemProbabilities[i].GetBytes(data, index);
             }
 
             return data;
@@ -101,16 +101,16 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability GetGrandprixProbability(int setIndex, ItemProbabilityGrandprixCondition condition)
         {
-            setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
+            setIndex = ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition + (LapRankCount * SetCount);
-            return this.itemProbabilities[offset];
+            return _itemProbabilities[offset];
         }
 
         public ItemProbability GetMatchRaceProbability(int setIndex, ItemProbabilityMatchRaceCondition condition)
         {
-            setIndex = ItemProbabilities.ConvertSetIndex(setIndex);
+            setIndex = ConvertSetIndex(setIndex);
             int offset = setIndex * LapRankCount + (int)condition;
-            return this.itemProbabilities[offset];
+            return _itemProbabilities[offset];
         }
 
         private static int ConvertSetIndex(int value)
@@ -122,7 +122,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public ItemProbability GetBattleModeProbability()
         {
-            return this.itemProbabilities[ItemProbabilities.Count - 1];
+            return _itemProbabilities[Count - 1];
         }
 
         #endregion Get single item probability
@@ -131,7 +131,7 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             get
             {
-                foreach (ItemProbability itemProba in this.itemProbabilities)
+                foreach (ItemProbability itemProba in _itemProbabilities)
                 {
                     if (itemProba.Modified)
                     {
@@ -145,16 +145,16 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public void Save(byte[] romBuffer, int offset)
         {
-            if (this.Modified)
+            if (Modified)
             {
-                byte[] data = this.GetBytes();
-                Buffer.BlockCopy(data, 0, romBuffer, offset, ItemProbabilities.Size);
+                byte[] data = GetBytes();
+                Buffer.BlockCopy(data, 0, romBuffer, offset, Size);
             }
         }
 
         public void ResetModifiedState()
         {
-            foreach (ItemProbability itemProba in this.itemProbabilities)
+            foreach (ItemProbability itemProba in _itemProbabilities)
             {
                 itemProba.ResetModifiedState();
             }

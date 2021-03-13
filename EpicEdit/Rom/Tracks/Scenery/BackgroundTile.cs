@@ -29,22 +29,22 @@ namespace EpicEdit.Rom.Tracks.Scenery
         /// </summary>
         private const int BackPaletteStart = 6;
 
-        private int paletteStart = FrontPaletteStart;
+        private int _paletteStart = FrontPaletteStart;
 
-        private bool front = true;
+        private bool _front = true;
         public bool Front
         {
-            get => this.front;
+            get => _front;
             set
             {
-                if (this.front == value)
+                if (_front == value)
                 {
                     return;
                 }
 
-                this.front = value;
-                this.paletteStart = this.front ? FrontPaletteStart : BackPaletteStart;
-                this.SetPalette();
+                _front = value;
+                _paletteStart = _front ? FrontPaletteStart : BackPaletteStart;
+                SetPalette();
             }
         }
 
@@ -52,8 +52,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundTile(byte[] gfx, Palettes palettes, byte properties, bool front) : base(gfx, null, properties)
         {
-            this.Front = front;
-            this.Palettes = palettes;
+            Front = front;
+            Palettes = palettes;
         }
 
         public override Tile2bppProperties Properties
@@ -61,7 +61,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
             get
             {
                 Tile2bppProperties props = base.Properties;
-                props.PaletteIndex += this.paletteStart;
+                props.PaletteIndex += _paletteStart;
                 return props;
             }
         }

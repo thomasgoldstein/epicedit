@@ -20,7 +20,7 @@ namespace EpicEdit.Tests.Rom
     [TestFixture]
     internal class PalettesTests
     {
-        private void TestGetBytes(byte[] data)
+        private static void TestGetBytes(byte[] data)
         {
             Palettes palettes = new Palettes(data);
             byte[] data2 = palettes.GetBytes();
@@ -98,7 +98,7 @@ namespace EpicEdit.Tests.Rom
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace EpicEdit.Tests.Rom
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace EpicEdit.Tests.Rom
                 0x00, 0x00, 0xF5, 0x01, 0xFD, 0x02, 0xFF, 0x7F
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -320,7 +320,7 @@ namespace EpicEdit.Tests.Rom
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -394,7 +394,7 @@ namespace EpicEdit.Tests.Rom
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -468,7 +468,7 @@ namespace EpicEdit.Tests.Rom
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -542,7 +542,7 @@ namespace EpicEdit.Tests.Rom
                 0x9F, 0x01, 0x19, 0x00, 0xFF, 0x02, 0xFF, 0x7F
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -616,7 +616,7 @@ namespace EpicEdit.Tests.Rom
                 0xF7, 0x5E, 0x94, 0x52, 0xEF, 0x3D, 0xE7, 0x1C
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
     }
 }

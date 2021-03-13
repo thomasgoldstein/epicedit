@@ -22,13 +22,13 @@ namespace EpicEdit.Rom.Tracks.Overlay
     /// </summary>
     internal class OverlayTilePattern : IEquatable<OverlayTilePattern>
     {
-        private byte[][] tiles;
+        private byte[][] _tiles;
 
         public OverlayTileSize Size { get; }
 
-        public int Width => this.Size.Width;
+        public int Width => Size.Width;
 
-        public int Height => this.Size.Height;
+        public int Height => Size.Height;
 
         public bool Modified { get; private set; }
 
@@ -39,28 +39,28 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 throw new ArgumentException("Data does not match size.");
             }
 
-            this.Size = size;
-            this.SetBytes(data);
-            this.Modified = false;
+            Size = size;
+            SetBytes(data);
+            Modified = false;
         }
 
         public byte GetTile(int x, int y)
         {
-            return this.tiles[y][x];
+            return _tiles[y][x];
         }
 
-        public byte this[int x, int y] => this.GetTile(x, y);
+        public byte this[int x, int y] => GetTile(x, y);
 
         /// <summary>
         /// Convert data into a nice y/x byte[][] to facilitate reading.
         /// </summary>
         private void SetBytes(byte[] data)
         {
-            this.tiles = new byte[this.Height][];
+            _tiles = new byte[Height][];
 
-            for (int y = 0; y < this.Height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                this.tiles[y] = Utilities.ReadBlock(data, y * this.Width, this.Width);
+                _tiles[y] = Utilities.ReadBlock(data, y * Width, Width);
             }
         }
 
@@ -69,11 +69,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// </summary>
         public byte[] GetBytes()
         {
-            byte[] buffer = new byte[this.Width * this.Height];
+            byte[] buffer = new byte[Width * Height];
 
-            for (int y = 0; y < this.Height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                Buffer.BlockCopy(this.tiles[y], 0, buffer, y * this.Width, this.Width);
+                Buffer.BlockCopy(_tiles[y], 0, buffer, y * Width, Width);
             }
 
             return buffer;
@@ -86,22 +86,22 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 return false;
             }
 
-            if (other.Width != this.Width ||
-                other.Height != this.Height)
+            if (other.Width != Width ||
+                other.Height != Height)
             {
                 return false;
             }
 
-            if (other.Size != this.Size)
+            if (other.Size != Size)
             {
                 return false;
             }
 
-            for (int y = 0; y < this.Height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < this.Width; x++)
+                for (int x = 0; x < Width; x++)
                 {
-                    if (other.tiles[y][x] != this.tiles[y][x])
+                    if (other._tiles[y][x] != _tiles[y][x])
                     {
                         return false;
                     }

@@ -24,51 +24,51 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class CourseSelectTextsEditor : UserControl
     {
-        private TextCollection courseSelectTexts;
-        private bool fireEvents;
+        private TextCollection _courseSelectTexts;
+        private bool _fireEvents;
 
         public CourseSelectTextsEditor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.courseTextBox1.Tag = 0;
-            this.courseTextBox2.Tag = 1;
-            this.courseTextBox3.Tag = 2;
-            this.courseTextBox4.Tag = 3;
-            this.courseTextBox5.Tag = 4;
-            this.courseTextBox6.Tag = 5;
-            this.courseTextBox7.Tag = 6;
-            this.courseTextBox8.Tag = 7;
-            this.courseTextBox9.Tag = 8;
-            this.courseTextBox10.Tag = 9;
-            this.courseTextBox11.Tag = 10;
-            this.courseTextBox12.Tag = 11;
-            this.courseTextBox13.Tag = 12;
+            courseTextBox1.Tag = 0;
+            courseTextBox2.Tag = 1;
+            courseTextBox3.Tag = 2;
+            courseTextBox4.Tag = 3;
+            courseTextBox5.Tag = 4;
+            courseTextBox6.Tag = 5;
+            courseTextBox7.Tag = 6;
+            courseTextBox8.Tag = 7;
+            courseTextBox9.Tag = 8;
+            courseTextBox10.Tag = 9;
+            courseTextBox11.Tag = 10;
+            courseTextBox12.Tag = 11;
+            courseTextBox13.Tag = 12;
         }
 
         public void Init()
         {
-            this.courseSelectTexts = Context.Game.Settings.CourseSelectTexts;
+            _courseSelectTexts = Context.Game.Settings.CourseSelectTexts;
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            this.courseTextBox1.Text = this.courseSelectTexts[0].Value;
-            this.courseTextBox2.Text = this.courseSelectTexts[1].Value;
-            this.courseTextBox3.Text = this.courseSelectTexts[2].Value;
-            this.courseTextBox4.Text = this.courseSelectTexts[3].Value;
-            this.courseTextBox5.Text = this.courseSelectTexts[4].Value;
-            this.courseTextBox6.Text = this.courseSelectTexts[5].Value;
-            this.courseTextBox7.Text = this.courseSelectTexts[6].Value;
-            this.courseTextBox8.Text = this.courseSelectTexts[7].Value;
-            this.courseTextBox9.Text = this.courseSelectTexts[8].Value;
-            this.courseTextBox10.Text = this.courseSelectTexts[9].Value;
-            this.courseTextBox11.Text = this.courseSelectTexts[10].Value;
-            this.courseTextBox12.Text = this.courseSelectTexts[11].Value;
-            this.courseTextBox13.Text = this.courseSelectTexts[12].Value;
+            courseTextBox1.Text = _courseSelectTexts[0].Value;
+            courseTextBox2.Text = _courseSelectTexts[1].Value;
+            courseTextBox3.Text = _courseSelectTexts[2].Value;
+            courseTextBox4.Text = _courseSelectTexts[3].Value;
+            courseTextBox5.Text = _courseSelectTexts[4].Value;
+            courseTextBox6.Text = _courseSelectTexts[5].Value;
+            courseTextBox7.Text = _courseSelectTexts[6].Value;
+            courseTextBox8.Text = _courseSelectTexts[7].Value;
+            courseTextBox9.Text = _courseSelectTexts[8].Value;
+            courseTextBox10.Text = _courseSelectTexts[9].Value;
+            courseTextBox11.Text = _courseSelectTexts[10].Value;
+            courseTextBox12.Text = _courseSelectTexts[11].Value;
+            courseTextBox13.Text = _courseSelectTexts[12].Value;
 
-            UpdateCount(this.courseSelectTexts, this.courseSelectTextsCountLabel);
+            UpdateCount(_courseSelectTexts, courseSelectTextsCountLabel);
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private static void UpdateCount(TextCollection textCollection, Label countLabel)
@@ -81,17 +81,17 @@ namespace EpicEdit.UI.SettingEdition
 
         private void CourseSelectTextsTextBoxTextChanged(object sender, EventArgs e)
         {
-            this.OnTextBoxTextChanged(sender, this.courseSelectTexts, this.courseSelectTextsCountLabel);
+            OnTextBoxTextChanged(sender, _courseSelectTexts, courseSelectTextsCountLabel);
         }
 
         private void OnTextBoxTextChanged(object sender, TextCollection textCollection, Label countLabel)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
             TextBox textBox = sender as TextBox;
             int id = (int)textBox.Tag;
@@ -102,7 +102,7 @@ namespace EpicEdit.UI.SettingEdition
             textBox.Text = textCollection[id].Value; // Retrieve validated text
             textBox.SelectionStart = sel; // Restore text input position
 
-            this.fireEvents = true;
+            _fireEvents = true;
 
             UpdateCount(textCollection, countLabel);
         }

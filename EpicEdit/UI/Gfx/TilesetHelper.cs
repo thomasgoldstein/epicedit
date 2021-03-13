@@ -23,11 +23,11 @@ namespace EpicEdit.UI.Gfx
     {
         public static readonly TilesetHelper Instance = new TilesetHelper();
 
-        private Pen selectionPen;
+        private Pen _selectionPen;
 
         private TilesetHelper()
         {
-            this.selectionPen = new Pen(Color.FromArgb(150, 255, 0, 0));
+            _selectionPen = new Pen(Color.FromArgb(150, 255, 0, 0));
         }
 
         public void DrawTileset(Graphics g, Image image, Size imageSize, int zoom, byte selectedTile)
@@ -40,7 +40,7 @@ namespace EpicEdit.UI.Gfx
                 int tilePosY = selectedTile / xTileCount;
                 Point selectedTilePosition = new Point(tilePosX, tilePosY);
 
-                backBuffer.DrawRectangle(this.selectionPen,
+                backBuffer.DrawRectangle(_selectionPen,
                                          selectedTilePosition.X * Tile.Size,
                                          selectedTilePosition.Y * Tile.Size,
                                          Tile.Size - 1,
@@ -56,7 +56,7 @@ namespace EpicEdit.UI.Gfx
 
         public void Dispose()
         {
-            this.selectionPen.Dispose();
+            _selectionPen.Dispose();
 
             GC.SuppressFinalize(this);
         }

@@ -25,26 +25,26 @@ namespace EpicEdit.UI.SettingEdition
 {
     internal sealed class ItemIconPanel : TilePanel
     {
-        private Theme theme;
+        private Theme _theme;
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get => this.theme;
+            get => _theme;
             set
             {
-                this.theme = value;
-                this.UpdateImage();
+                _theme = value;
+                UpdateImage();
             }
         }
 
         public ItemIconPanel()
         {
-            if (this.DesignMode)
+            if (DesignMode)
             {
                 // Avoid exceptions in design mode
-                this.image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-                this.currentImage = this.image;
+                _image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+                _currentImage = _image;
             }
         }
 
@@ -64,34 +64,34 @@ namespace EpicEdit.UI.SettingEdition
         /// <summary>
         /// Reference to the current image (enabled or disabled).
         /// </summary>
-        private Image currentImage;
+        private Image _currentImage;
 
-        private Image image;
-        private Image disabledImage;
+        private Image _image;
+        private Image _disabledImage;
 
         private Image Image
         {
             //get => this.image;
             set
             {
-                if (this.image != null)
+                if (_image != null)
                 {
-                    this.image.Dispose();
+                    _image.Dispose();
                 }
 
-                this.image = value;
+                _image = value;
 
-                if (this.disabledImage != null)
+                if (_disabledImage != null)
                 {
-                    this.disabledImage.Dispose();
-                    this.disabledImage = null;
+                    _disabledImage.Dispose();
+                    _disabledImage = null;
                 }
 
-                this.SetCurrentImage();
+                SetCurrentImage();
             }
         }
 
-        private bool looksEnabled = true;
+        private bool _looksEnabled = true;
 
         /// <summary>
         /// Gets or sets value that specifies whether the control looks enabled or not.
@@ -103,8 +103,8 @@ namespace EpicEdit.UI.SettingEdition
             //get => this.looksEnabled;
             set
             {
-                this.looksEnabled = value;
-                this.SetCurrentImage();
+                _looksEnabled = value;
+                SetCurrentImage();
             }
         }
 
@@ -112,48 +112,48 @@ namespace EpicEdit.UI.SettingEdition
 
         private void CreateImage()
         {
-            Palettes palettes = this.Theme.Palettes;
-            this.Image = Context.Game.ItemIconGraphics.GetImage(this.ItemType, palettes);
+            Palettes palettes = Theme.Palettes;
+            Image = Context.Game.ItemIconGraphics.GetImage(ItemType, palettes);
         }
 
         public void UpdateImage()
         {
-            this.CreateImage();
-            this.Refresh();
+            CreateImage();
+            Refresh();
         }
 
         private void SetCurrentImage()
         {
-            if (this.image == null)
+            if (_image == null)
             {
                 return;
             }
 
-            if (this.looksEnabled)
+            if (_looksEnabled)
             {
-                this.currentImage = this.image;
+                _currentImage = _image;
             }
             else
             {
-                if (this.disabledImage == null)
+                if (_disabledImage == null)
                 {
-                    this.disabledImage = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
-                    using (Graphics g = Graphics.FromImage(this.disabledImage))
-                    using (Image image = ToolStripRenderer.CreateDisabledImage(this.image))
+                    _disabledImage = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
+                    using (Graphics g = Graphics.FromImage(_disabledImage))
+                    using (Image image = ToolStripRenderer.CreateDisabledImage(_image))
                     {
                         g.Clear(SystemColors.Control);
                         g.DrawImage(image, 0, 0);
                     }
                 }
-                this.currentImage = this.disabledImage;
+                _currentImage = _disabledImage;
             }
 
-            this.Invalidate();
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(this.currentImage, 0, 0);
+            e.Graphics.DrawImage(_currentImage, 0, 0);
         }
 
         protected override Tile GetTileAt(int x, int y)
@@ -162,19 +162,19 @@ namespace EpicEdit.UI.SettingEdition
             x /= Tile.Size;
             y /= Tile.Size;
 
-            return Context.Game.ItemIconGraphics.GetTile(this.ItemType, x, y);
+            return Context.Game.ItemIconGraphics.GetTile(ItemType, x, y);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (this.image != null)
+            if (_image != null)
             {
-                this.image.Dispose();
+                _image.Dispose();
             }
 
-            if (this.disabledImage != null)
+            if (_disabledImage != null)
             {
-                this.disabledImage.Dispose();
+                _disabledImage.Dispose();
             }
 
             base.Dispose(disposing);

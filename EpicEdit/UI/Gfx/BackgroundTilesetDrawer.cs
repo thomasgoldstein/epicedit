@@ -25,65 +25,65 @@ namespace EpicEdit.UI.Gfx
     {
         public const int Zoom = 2;
 
-        private Theme theme;
+        private Theme _theme;
         public Theme Theme
         {
-            get => this.theme;
+            get => _theme;
             set
             {
-                this.theme = value;
-                this.UpdateCache();
+                _theme = value;
+                UpdateCache();
             }
         }
 
-        private Tile2bppProperties tileProperties;
+        private Tile2bppProperties _tileProperties;
         public Tile2bppProperties TileProperties
         {
-            get => this.tileProperties;
+            get => _tileProperties;
             set
             {
                 value.Flip = TileFlip.None;
-                this.tileProperties = value;
-                this.UpdateCache();
+                _tileProperties = value;
+                UpdateCache();
             }
         }
 
-        private bool front = true;
+        private bool _front = true;
         public bool Front
         {
-            get => this.front;
+            get => _front;
             set
             {
-                this.front = value;
-                this.UpdateCache();
+                _front = value;
+                UpdateCache();
             }
         }
 
-        private readonly Size imageSize;
+        private readonly Size _imageSize;
 
         public Bitmap Image { get; private set; }
 
         public BackgroundTilesetDrawer(Size size)
         {
-            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
+            _imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            this.Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         private void UpdateCache()
         {
-            int tileCountX = this.imageSize.Width / Tile.Size;
-            int tileCountY = this.imageSize.Height / Tile.Size;
-            BackgroundTileset tileset = this.theme.Background.Tileset;
+            int tileCountX = _imageSize.Width / Tile.Size;
+            int tileCountY = _imageSize.Height / Tile.Size;
+            BackgroundTileset tileset = _theme.Background.Tileset;
 
-            this.Image.Dispose();
-            this.Image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            Image.Dispose();
+            Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(this.Image))
+            using (Graphics g = Graphics.FromImage(Image))
             {
-                g.Clear(this.theme.BackColor);
+                g.Clear(_theme.BackColor);
 
                 for (int x = 0; x < tileCountX; x++)
                 {
@@ -92,8 +92,8 @@ namespace EpicEdit.UI.Gfx
                         int tileId = x + (y * tileCountX);
                         BackgroundTile tile = tileset[tileId];
 
-                        tile.Front = this.front;
-                        tile.Properties = this.TileProperties;
+                        tile.Front = _front;
+                        tile.Properties = TileProperties;
 
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
@@ -103,12 +103,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            TilesetHelper.Instance.DrawTileset(g, this.Image, this.imageSize, Zoom, selectedTile);
+            TilesetHelper.Instance.DrawTileset(g, Image, _imageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
-            this.Image.Dispose();
+            Image.Dispose();
 
             GC.SuppressFinalize(this);
         }

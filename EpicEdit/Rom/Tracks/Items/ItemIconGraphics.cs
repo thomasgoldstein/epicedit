@@ -25,26 +25,26 @@ namespace EpicEdit.Rom.Tracks.Items
     /// </summary>
     internal sealed class ItemIconGraphics : IDisposable
     {
-        private readonly Tile2bpp topBorder;
-        private readonly Tile[][] tiles;
+        private readonly Tile2bpp _topBorder;
+        private readonly Tile[][] _tiles;
 
         public ItemIconGraphics(byte[] romBuffer, Offsets offsets)
         {
             byte[] itemGfx = Codec.Decompress(romBuffer, offsets[Offset.ItemIconGraphics]);
             int itemCount = Enum.GetValues(typeof(ItemType)).Length;
             int startOffset = offsets[Offset.ItemIconTileLayout];
-            this.tiles = new Tile2bpp[itemCount][];
+            _tiles = new Tile2bpp[itemCount][];
 
             for (int i = 0; i < itemCount; i++)
             {
                 int offset = startOffset + i * 2;
-                this.tiles[i] = ItemIconGraphics.GetTiles(romBuffer, offset, itemGfx);
+                _tiles[i] = GetTiles(romBuffer, offset, itemGfx);
             }
 
             int topBorderOffset = offsets[Offset.TopBorderTileLayout];
             byte tileIndex = (byte)(romBuffer[topBorderOffset] & 0x7F);
             byte properties = romBuffer[topBorderOffset + 1];
-            this.topBorder = ItemIconGraphics.GetTile(tileIndex, properties, itemGfx);
+            _topBorder = GetTile(tileIndex, properties, itemGfx);
         }
 
         private static Tile[] GetTiles(byte[] romBuffer, int offset, byte[] itemGfx)
@@ -56,7 +56,7 @@ namespace EpicEdit.Rom.Tracks.Items
 
             for (int i = 0; i < tiles.Length; i++)
             {
-                tiles[i] = ItemIconGraphics.GetTile((byte)(tileIndex + i), properties, itemGfx);
+                tiles[i] = GetTile((byte)(tileIndex + i), properties, itemGfx);
             }
 
             return tiles;
@@ -64,21 +64,21 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private static Tile2bpp GetTile(byte tileIndex, byte properties, byte[] itemGfx)
         {
-            const int BytesPerTile = 16;
-            byte[] gfx = Utilities.ReadBlock(itemGfx, tileIndex * BytesPerTile, BytesPerTile);
+            const int bytesPerTile = 16;
+            byte[] gfx = Utilities.ReadBlock(itemGfx, tileIndex * bytesPerTile, bytesPerTile);
             return new Tile2bpp(gfx, properties);
         }
 
         private Tile[] GetTiles(ItemType type)
         {
-            return this.tiles[(int)type];
+            return _tiles[(int)type];
         }
 
         public Bitmap GetImage(ItemType type, Palettes palettes)
         {
-            Tile[] tiles = this.GetTiles(type);
+            Tile[] tiles = GetTiles(type);
 
-            return ItemIconGraphics.GetImage(tiles, palettes);
+            return GetImage(tiles, palettes);
         }
 
         private static Bitmap GetImage(Tile[] tiles, Palettes palettes)
@@ -102,20 +102,20 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public Tile GetTile(ItemType type, int x, int y)
         {
-            Tile[] tiles = this.tiles[(int)type];
+            Tile[] tiles = _tiles[(int)type];
             int subIndex = (y * 2) + x;
             return tiles[subIndex];
         }
 
         public Bitmap GetTopBorder(Palettes palettes)
         {
-            this.topBorder.Palettes = palettes;
-            return this.topBorder.Bitmap;
+            _topBorder.Palettes = palettes;
+            return _topBorder.Bitmap;
         }
 
         public void Dispose()
         {
-            foreach (Tile[] tiles in this.tiles)
+            foreach (Tile[] tiles in _tiles)
             {
                 foreach (Tile tile in tiles)
                 {

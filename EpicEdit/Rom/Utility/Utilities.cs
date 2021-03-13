@@ -52,13 +52,13 @@ namespace EpicEdit.Rom.Utility
             else
             {
                 length = 0;
-                while (!Utilities.IsBlockLimitReached(buffer, offset + length, stopValues))
+                while (!IsBlockLimitReached(buffer, offset + length, stopValues))
                 {
                     length++;
                 }
             }
 
-            return Utilities.ReadBlock(buffer, offset, length);
+            return ReadBlock(buffer, offset, length);
         }
 
         private static bool IsBlockLimitReached(byte[] buffer, int offset, params byte[] stopValues)
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < groupCount; i++)
             {
-                group[i] = Utilities.ReadBlock(buffer, offset + (i * groupSize), groupSize);
+                group[i] = ReadBlock(buffer, offset + (i * groupSize), groupSize);
             }
 
             return group;
@@ -124,7 +124,7 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < length; i++)
             {
-                group[i] = Utilities.ReadBlock(buffer, offset + (i * groupSize), groupSize);
+                group[i] = ReadBlock(buffer, offset + (i * groupSize), groupSize);
             }
 
             return group;
@@ -139,12 +139,12 @@ namespace EpicEdit.Rom.Utility
         /// <returns>An array of offsets.</returns>
         public static int[] ReadBlockOffset(byte[] buffer, int offset, int offsetCount)
         {
-            const int OffsetSize = 3;
+            const int offsetSize = 3;
             int[] offsetGroup = new int[offsetCount];
 
             for (int i = 0; i < offsetCount; i++)
             {
-                offsetGroup[i] = Utilities.BytesToOffset(buffer, offset + (i * OffsetSize));
+                offsetGroup[i] = BytesToOffset(buffer, offset + (i * offsetSize));
             }
 
             return offsetGroup;
@@ -156,7 +156,7 @@ namespace EpicEdit.Rom.Utility
 
         public static int BytesToOffset(byte[] data, int start)
         {
-            return Utilities.BytesToOffset(data[start], data[start + 1], data[start + 2]);
+            return BytesToOffset(data[start], data[start + 1], data[start + 2]);
         }
 
         public static int BytesToOffset(byte val1, byte val2, byte val3)
@@ -186,7 +186,7 @@ namespace EpicEdit.Rom.Utility
         public static byte[] HexStringToBytes(string data)
         {
             byte[] bytes = new byte[data.Length / 2];
-            Utilities.LoadBytesFromHexString(bytes, data);
+            LoadBytesFromHexString(bytes, data);
             return bytes;
         }
 
@@ -243,7 +243,7 @@ namespace EpicEdit.Rom.Utility
                 colors[i] = palette[i];
             }
 
-            return Utilities.GetColorIndex(color, colors);
+            return GetColorIndex(color, colors);
         }
 
         public static int GetColorIndex(RomColor color, RomColor[] colors)
@@ -261,7 +261,7 @@ namespace EpicEdit.Rom.Utility
 
             if (colorIndex == -1)
             {
-                colorIndex = Utilities.GetClosestColorIndex(color, colors);
+                colorIndex = GetClosestColorIndex(color, colors);
             }
 
             return colorIndex;
@@ -269,14 +269,14 @@ namespace EpicEdit.Rom.Utility
 
         public static int GetClosestColorIndex(Color color, RomColor[] colors)
         {
-            float value = Utilities.GetColorHslValue(color);
+            float value = GetColorHslValue(color);
             float diff = float.MaxValue;
             int match = -1;
 
             for (int i = 0; i < colors.Length; i++)
             {
                 Color col = colors[i];
-                float value2 = Utilities.GetColorHslValue(col);
+                float value2 = GetColorHslValue(col);
                 float diff2 = Math.Abs(value - value2);
 
                 if (diff2 < diff)
@@ -291,13 +291,13 @@ namespace EpicEdit.Rom.Utility
 
         private static float GetColorHslValue(Color color)
         {
-            const float HueWeight = 0.8f;
-            const float SaturationWeight = 0.1f;
-            const float BrightnessWeight = 0.1f;
+            const float hueWeight = 0.8f;
+            const float saturationWeight = 0.1f;
+            const float brightnessWeight = 0.1f;
 
-            return (color.GetHue() / 360.0f) * HueWeight +
-                color.GetSaturation() * SaturationWeight +
-                color.GetBrightness() * BrightnessWeight;
+            return (color.GetHue() / 360.0f) * hueWeight +
+                color.GetSaturation() * saturationWeight +
+                color.GetBrightness() * brightnessWeight;
         }
 
         #endregion Color handling

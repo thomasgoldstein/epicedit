@@ -35,28 +35,28 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackAI AI { get; }
 
-        private readonly byte[] areas;
+        private readonly byte[] _areas;
 
         public TrackObjectAreasView(byte[] data, TrackAI ai)
         {
-            this.AI = ai;
-            this.areas = new byte[4];
-            this.SetBytes(data);
+            AI = ai;
+            _areas = new byte[4];
+            SetBytes(data);
         }
 
         public void SetBytes(byte[] data)
         {
-            for (int i = 0; i < this.areas.Length; i++)
+            for (int i = 0; i < _areas.Length; i++)
             {
-                this.SetAreaValue(i, data[i]);
+                SetAreaValue(i, data[i]);
             }
         }
 
         private byte GetAreaIndex(int aiElementIndex)
         {
-            for (byte i = 0; i < this.areas.Length; i++)
+            for (byte i = 0; i < _areas.Length; i++)
             {
-                if (aiElementIndex < this.areas[i])
+                if (aiElementIndex < _areas[i])
                 {
                     return i;
                 }
@@ -67,30 +67,30 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public byte GetAreaValue(int areaIndex)
         {
-            return this.areas[areaIndex];
+            return _areas[areaIndex];
         }
 
         public void SetAreaValue(int areaIndex, byte value)
         {
-            if (this.areas[areaIndex] == value)
+            if (_areas[areaIndex] == value)
             {
                 return;
             }
 
-            this.areas[areaIndex] = value;
-            this.OnDataChanged(areaIndex);
+            _areas[areaIndex] = value;
+            OnDataChanged(areaIndex);
         }
 
         private void OnDataChanged(int areaIndex)
         {
-            this.DataChanged?.Invoke(this, new EventArgs<int>(areaIndex));
+            DataChanged?.Invoke(this, new EventArgs<int>(areaIndex));
         }
 
         public byte[][] GetGrid()
         {
             byte[][] areas;
 
-            if (this.AI.ElementCount == 0)
+            if (AI.ElementCount == 0)
             {
                 areas = new byte[GridSize][];
 
@@ -102,9 +102,9 @@ namespace EpicEdit.Rom.Tracks.Objects
                 return areas;
             }
 
-            sbyte[][] sAreas = TrackObjectAreasView.InitAreas();
-            this.FillGridFromAI(sAreas);
-            areas = TrackObjectAreasView.GetGridFilledFromNearestTiles(sAreas);
+            sbyte[][] sAreas = InitAreas();
+            FillGridFromAI(sAreas);
+            areas = GetGridFilledFromNearestTiles(sAreas);
 
             return areas;
         }
@@ -133,10 +133,10 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void FillGridFromAI(sbyte[][] areas)
         {
-            foreach (TrackAIElement aiElem in this.AI)
+            foreach (TrackAIElement aiElem in AI)
             {
-                int aiElemIndex = this.AI.GetElementIndex(aiElem);
-                sbyte areaIndex = (sbyte)this.GetAreaIndex(aiElemIndex);
+                int aiElemIndex = AI.GetElementIndex(aiElem);
+                sbyte areaIndex = (sbyte)GetAreaIndex(aiElemIndex);
                 int left = Math.Min(aiElem.Area.X / TrackAIElement.Precision, GridSize);
                 int top = Math.Min(aiElem.Area.Y / TrackAIElement.Precision, GridSize);
                 int right = Math.Min(aiElem.Area.Right / TrackAIElement.Precision, GridSize);
@@ -224,25 +224,25 @@ namespace EpicEdit.Rom.Tracks.Objects
                     {
                         sbyte matchFound;
 
-                        matchFound = TrackObjectAreasView.GetTopRightNearestTile(areas, x, y, depth);
+                        matchFound = GetTopRightNearestTile(areas, x, y, depth);
                         if (matchFound > areaIndex)
                         {
                             areaIndex = matchFound;
                         }
 
-                        matchFound = TrackObjectAreasView.GetBottomRightNearestTile(areas, x, y, depth);
+                        matchFound = GetBottomRightNearestTile(areas, x, y, depth);
                         if (matchFound > areaIndex)
                         {
                             areaIndex = matchFound;
                         }
 
-                        matchFound = TrackObjectAreasView.GetBottomLeftNearestTile(areas, x, y, depth);
+                        matchFound = GetBottomLeftNearestTile(areas, x, y, depth);
                         if (matchFound > areaIndex)
                         {
                             areaIndex = matchFound;
                         }
 
-                        matchFound = TrackObjectAreasView.GetTopLeftNearestTile(areas, x, y, depth);
+                        matchFound = GetTopLeftNearestTile(areas, x, y, depth);
                         if (matchFound > areaIndex)
                         {
                             areaIndex = matchFound;
@@ -374,10 +374,10 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             byte[] data =
             {
-                this.areas[0],
-                this.areas[1],
-                this.areas[2],
-                this.areas[3],
+                _areas[0],
+                _areas[1],
+                _areas[2],
+                _areas[3],
                 0xFF
             };
 

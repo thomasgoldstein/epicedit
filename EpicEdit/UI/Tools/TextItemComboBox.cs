@@ -24,38 +24,38 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class TextItemComboBox : ComboBox
     {
-        private readonly Dictionary<TextItem, int> indexDictionary;
-        private TextCollection textCollection;
+        private readonly Dictionary<TextItem, int> _indexDictionary;
+        private TextCollection _textCollection;
 
         public TextItemComboBox()
         {
-            this.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.indexDictionary = new Dictionary<TextItem, int>();
+            DropDownStyle = ComboBoxStyle.DropDownList;
+            _indexDictionary = new Dictionary<TextItem, int>();
         }
 
         public void Init(TextCollection textCollection)
         {
-            this.textCollection = textCollection;
-            this.indexDictionary.Clear();
+            _textCollection = textCollection;
+            _indexDictionary.Clear();
 
-            this.BeginUpdate();
-            this.Items.Clear();
+            BeginUpdate();
+            Items.Clear();
             int index = 0;
 
-            foreach (TextItem textItem in this.textCollection)
+            foreach (TextItem textItem in _textCollection)
             {
-                this.indexDictionary.Add(textItem, index++);
-                textItem.PropertyChanged += this.textItem_PropertyChanged;
-                this.Items.Add(textItem);
+                _indexDictionary.Add(textItem, index++);
+                textItem.PropertyChanged += textItem_PropertyChanged;
+                Items.Add(textItem);
             }
 
-            this.EndUpdate();
+            EndUpdate();
         }
 
         private void textItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int index = this.indexDictionary[sender as TextItem];
-            this.Items[index] = this.textCollection[index];
+            int index = _indexDictionary[sender as TextItem];
+            Items[index] = _textCollection[index];
         }
     }
 }

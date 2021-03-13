@@ -20,12 +20,12 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
     [TestFixture]
     internal class GPStartPositionTests
     {
-        private byte[] allData;
+        private byte[] _allData;
 
         [OneTimeSetUp]
         public void Init()
         {
-            this.allData = new byte[]
+            _allData = new byte[]
             {
                 0x79, 0x8F, 0x90, 0x00, 0x1C, 0x02, 0xE0, 0xFF,
                 0x79, 0x8F, 0x70, 0x03, 0x4C, 0x02, 0x20, 0x00,
@@ -57,13 +57,13 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
             int index = id * 8 + 2;
             for (int i = 0; i < data.Length; i++)
             {
-                data[i] = this.allData[index + i];
+                data[i] = _allData[index + i];
             }
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
-        private void TestGetBytes(byte[] data)
+        private static void TestGetBytes(byte[] data)
         {
             GPStartPosition startPosition = new GPStartPosition(data);
             byte[] dataAfter = startPosition.GetBytes();
@@ -74,135 +74,135 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
         [Test]
         public void TestGetBytes1()
         {
-            this.TestGetBytes(0);
+            TestGetBytes(0);
         }
 
         [Test]
         public void TestGetBytes2()
         {
-            this.TestGetBytes(1);
+            TestGetBytes(1);
         }
 
         [Test]
         public void TestGetBytes3()
         {
-            this.TestGetBytes(2);
+            TestGetBytes(2);
         }
 
         [Test]
         public void TestGetBytes4()
         {
-            this.TestGetBytes(3);
+            TestGetBytes(3);
         }
 
         [Test]
         public void TestGetBytes5()
         {
-            this.TestGetBytes(4);
+            TestGetBytes(4);
         }
 
         [Test]
         public void TestGetBytes6()
         {
-            this.TestGetBytes(5);
+            TestGetBytes(5);
         }
 
         [Test]
         public void TestGetBytes7()
         {
-            this.TestGetBytes(6);
+            TestGetBytes(6);
         }
 
         [Test]
         public void TestGetBytes8()
         {
-            this.TestGetBytes(7);
+            TestGetBytes(7);
         }
 
         [Test]
         public void TestGetBytes9()
         {
-            this.TestGetBytes(8);
+            TestGetBytes(8);
         }
 
         [Test]
         public void TestGetBytes10()
         {
-            this.TestGetBytes(9);
+            TestGetBytes(9);
         }
 
         [Test]
         public void TestGetBytes11()
         {
-            this.TestGetBytes(10);
+            TestGetBytes(10);
         }
 
         [Test]
         public void TestGetBytes12()
         {
-            this.TestGetBytes(11);
+            TestGetBytes(11);
         }
 
         [Test]
         public void TestGetBytes13()
         {
-            this.TestGetBytes(12);
+            TestGetBytes(12);
         }
 
         [Test]
         public void TestGetBytes14()
         {
-            this.TestGetBytes(13);
+            TestGetBytes(13);
         }
 
         [Test]
         public void TestGetBytes15()
         {
-            this.TestGetBytes(14);
+            TestGetBytes(14);
         }
 
         [Test]
         public void TestGetBytes16()
         {
-            this.TestGetBytes(15);
+            TestGetBytes(15);
         }
 
         [Test]
         public void TestGetBytes17()
         {
-            this.TestGetBytes(16);
+            TestGetBytes(16);
         }
 
         [Test]
         public void TestGetBytes18()
         {
-            this.TestGetBytes(17);
+            TestGetBytes(17);
         }
 
         [Test]
         public void TestGetBytes19()
         {
-            this.TestGetBytes(18);
+            TestGetBytes(18);
         }
 
         [Test]
         public void TestGetBytes20()
         {
-            this.TestGetBytes(19);
+            TestGetBytes(19);
         }
 
         [Test]
         public void TestGetBytes21()
         {
             byte[] data = { 0xC8, 0x03, 0x08, 0x02, 0xE4, 0xFF };
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
         public void TestGetBytes22()
         {
             byte[] data = { 0x90, 0x03, 0x74, 0x02, 0xE4, 0xFF };
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
     }
 }

@@ -89,14 +89,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private byte[][] frontLayer;
-        private byte[][] backLayer;
+        private byte[][] _frontLayer;
+        private byte[][] _backLayer;
 
         public bool Modified { get; private set; }
 
         public BackgroundLayout(byte[] data)
         {
-            this.SetBytesInternal(data);
+            SetBytesInternal(data);
         }
 
         private void SetBytesInternal(byte[] data)
@@ -106,14 +106,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
                 throw new ArgumentException($"The background layout must have a length of {Size}.", nameof(data));
             }
 
-            this.frontLayer = GetLayer(data, 0, FrontLayerRowSize);
-            this.backLayer = GetLayer(data, FrontLayerSize, BackLayerRowSize);
+            _frontLayer = GetLayer(data, 0, FrontLayerRowSize);
+            _backLayer = GetLayer(data, FrontLayerSize, BackLayerRowSize);
         }
 
         public void SetBytes(byte[] data)
         {
-            this.SetBytesInternal(data);
-            this.MarkAsModified();
+            SetBytesInternal(data);
+            MarkAsModified();
         }
 
         private static byte[][] GetLayer(byte[] data, int start, int rowSize)
@@ -137,42 +137,42 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public void GetTileData(int x, int y, bool front, out byte tileId, out byte properties)
         {
-            byte[][] layer = front ? this.frontLayer : this.backLayer;
+            byte[][] layer = front ? _frontLayer : _backLayer;
             tileId = layer[YStart + y][x * 2];
             properties = (byte)(layer[YStart + y][x * 2 + 1] & 0xDF);
         }
 
         public void SetTileData(int x, int y, bool front, byte tileId, byte properties)
         {
-            byte[][] layer = front ? this.frontLayer : this.backLayer;
+            byte[][] layer = front ? _frontLayer : _backLayer;
             layer[YStart + y][x * 2] = tileId;
             layer[YStart + y][x * 2 + 1] = properties;
 
-            this.MarkAsModified();
+            MarkAsModified();
         }
 
         private void MarkAsModified()
         {
-            this.Modified = true;
-            this.OnPropertyChanged(PropertyNames.Background.Data);
+            Modified = true;
+            OnPropertyChanged(PropertyNames.Background.Data);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public byte[] GetBytes()
         {
             byte[] data = new byte[Size];
-            SetBytes(data, this.frontLayer, 0);
-            SetBytes(data, this.backLayer, FrontLayerSize);
+            SetBytes(data, _frontLayer, 0);
+            SetBytes(data, _backLayer, FrontLayerSize);
             return data;
         }
 
         public void ResetModifiedState()
         {
-            this.Modified = false;
+            Modified = false;
         }
 
         private static void SetBytes(byte[] data, byte[][] layer, int start)

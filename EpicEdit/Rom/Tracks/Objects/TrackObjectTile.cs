@@ -24,12 +24,12 @@ namespace EpicEdit.Rom.Tracks.Objects
     {
         public TrackObjectTile(byte[] gfx)
         {
-            this.Graphics = gfx;
+            Graphics = gfx;
         }
 
         protected override void GenerateBitmap()
         {
-            this.bitmap = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(this.Graphics, this.Palette);
+            InternalBitmap = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(Graphics, Palette);
         }
 
         protected override void GenerateGraphics()
@@ -39,11 +39,11 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public override int GetColorIndexAt(int x, int y)
         {
-            x = (Tile.Size - 1) - x;
-            int val1 = this.Graphics[y * 2];
-            int val2 = this.Graphics[y * 2 + 1];
-            int val3 = this.Graphics[y * 2 + 16];
-            int val4 = this.Graphics[y * 2 + 17];
+            x = (Size - 1) - x;
+            int val1 = Graphics[y * 2];
+            int val2 = Graphics[y * 2 + 1];
+            int val3 = Graphics[y * 2 + 16];
+            int val4 = Graphics[y * 2 + 17];
             int mask = 1 << x;
             int val1b = ((val1 & mask) >> x);
             int val2b = (((val2 & mask) << 1) >> x);

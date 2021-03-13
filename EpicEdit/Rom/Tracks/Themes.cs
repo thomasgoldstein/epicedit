@@ -32,17 +32,17 @@ namespace EpicEdit.Rom.Tracks
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly Theme[] themes;
+        private readonly Theme[] _themes;
 
-        public Theme this[int index] => this.themes[index];
+        public Theme this[int index] => _themes[index];
 
-        public int Count => this.themes.Length;
+        public int Count => _themes.Length;
 
         public bool Modified
         {
             get
             {
-                foreach (Theme theme in this.themes)
+                foreach (Theme theme in _themes)
                 {
                     if (theme.Modified)
                     {
@@ -56,9 +56,9 @@ namespace EpicEdit.Rom.Tracks
 
         public Themes(byte[] romBuffer, Offsets offsets, TextCollection names)
         {
-            this.themes = new Theme[Theme.Count];
-            this.Init(romBuffer, offsets, names);
-            this.HandleChanges();
+            _themes = new Theme[Theme.Count];
+            Init(romBuffer, offsets, names);
+            HandleChanges();
         }
 
         private void Init(byte[] romBuffer, Offsets offsets, TextCollection names)
@@ -66,12 +66,12 @@ namespace EpicEdit.Rom.Tracks
             // TODO: Retrieve order dynamically from the ROM
             int[] reorder = { 5, 4, 6, 9, 8, 10, 7, 12 }; // To reorder the themes, as they're not in the same order as the names
 
-            int[] paletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemePalettes], this.themes.Length);
-            int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], this.themes.Length);
-            int[] bgTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeBackgroundGraphics], this.themes.Length);
-            int[] bgLayoutOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeBackgroundLayouts], this.themes.Length);
+            int[] paletteOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemePalettes], _themes.Length);
+            int[] roadTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeRoadGraphics], _themes.Length);
+            int[] bgTileGfxOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeBackgroundGraphics], _themes.Length);
+            int[] bgLayoutOffsets = Utilities.ReadBlockOffset(romBuffer, offsets[Offset.ThemeBackgroundLayouts], _themes.Length);
 
-            bool roadTilesetHackApplied = Themes.IsRoadTilesetHackApplied(romBuffer, offsets);
+            bool roadTilesetHackApplied = IsRoadTilesetHackApplied(romBuffer, offsets);
             byte[] commonRoadTilePaletteIndexes;
             byte[][] commonRoadTileGfx;
 
@@ -90,11 +90,11 @@ namespace EpicEdit.Rom.Tracks
                     romBuffer[commonRoadTileUpperByte]
                    );
                 byte[] commonRoadTileData = Codec.Decompress(romBuffer, commonRoadTileOffset);
-                commonRoadTilePaletteIndexes = Themes.GetPaletteIndexes(commonRoadTileData, RoadTileset.CommonTileCount);
+                commonRoadTilePaletteIndexes = GetPaletteIndexes(commonRoadTileData, RoadTileset.CommonTileCount);
                 commonRoadTileGfx = Utilities.ReadBlockGroupUntil(commonRoadTileData, RoadTileset.TileCount, -1, 32);
             }
 
-            bool tileGenresRelocated = Themes.AreTileGenresRelocated(romBuffer, offsets[Offset.TileGenreLoad]);
+            bool tileGenresRelocated = AreTileGenresRelocated(romBuffer, offsets[Offset.TileGenreLoad]);
             byte[] roadTileGenreData;
             byte[][] roadTileGenreIndexes;
             RoadTileGenre[] commonRoadTileGenres;
@@ -109,10 +109,10 @@ namespace EpicEdit.Rom.Tracks
             {
                 roadTileGenreData = Codec.Decompress(romBuffer, offsets[Offset.TileGenres]);
                 roadTileGenreIndexes = Utilities.ReadBlockGroup(romBuffer, offsets[Offset.TileGenreIndexes], 2, Theme.Count * 2);
-                commonRoadTileGenres = Themes.GetTileGenres(roadTileGenreData, 0, RoadTileset.CommonTileCount);
+                commonRoadTileGenres = GetTileGenres(roadTileGenreData, 0, RoadTileset.CommonTileCount);
             }
 
-            for (int i = 0; i < this.themes.Length; i++)
+            for (int i = 0; i < _themes.Length; i++)
             {
                 TextItem nameItem = names[reorder[i]];
 
@@ -127,12 +127,12 @@ namespace EpicEdit.Rom.Tracks
 
                 if (roadTilesetHackApplied)
                 {
-                    allRoadTilePaletteIndexes = Themes.GetPaletteIndexes(roadTileData, RoadTileset.TileCount);
+                    allRoadTilePaletteIndexes = GetPaletteIndexes(roadTileData, RoadTileset.TileCount);
                     allRoadTileGfx = roadTileGfx;
                 }
                 else
                 {
-                    byte[] roadTilePaletteIndexes = Themes.GetPaletteIndexes(roadTileData, RoadTileset.ThemeTileCount);
+                    byte[] roadTilePaletteIndexes = GetPaletteIndexes(roadTileData, RoadTileset.ThemeTileCount);
                     allRoadTilePaletteIndexes = new byte[RoadTileset.TileCount];
                     Buffer.BlockCopy(roadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, 0, RoadTileset.ThemeTileCount);
                     Buffer.BlockCopy(commonRoadTilePaletteIndexes, 0, allRoadTilePaletteIndexes, RoadTileset.ThemeTileCount, RoadTileset.CommonTileCount);
@@ -162,12 +162,12 @@ namespace EpicEdit.Rom.Tracks
                 if (tileGenresRelocated)
                 {
                     int tileGenreOffset = offsets[Offset.TileGenresRelocated] + i * RoadTileset.TileCount;
-                    allRoadTileGenres = Themes.GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
+                    allRoadTileGenres = GetTileGenres(romBuffer, tileGenreOffset, RoadTileset.TileCount);
                 }
                 else
                 {
                     int roadTileGenreIndex = roadTileGenreIndexes[i][0] + (roadTileGenreIndexes[i][1] << 8);
-                    RoadTileGenre[] roadTileGenres = Themes.GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
+                    RoadTileGenre[] roadTileGenres = GetTileGenres(roadTileGenreData, roadTileGenreIndex, roadTileGfx.Length);
                     allRoadTileGenres = new RoadTileGenre[RoadTileset.TileCount];
                     Array.Copy(roadTileGenres, 0, allRoadTileGenres, 0, roadTileGenres.Length);
                     Array.Copy(commonRoadTileGenres, 0, allRoadTileGenres, RoadTileset.ThemeTileCount, commonRoadTileGenres.Length);
@@ -179,32 +179,32 @@ namespace EpicEdit.Rom.Tracks
                     }
                 }
 
-                RoadTileset roadTileset = Themes.GetRoadTileset(palettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
+                RoadTileset roadTileset = GetRoadTileset(palettes, allRoadTilePaletteIndexes, allRoadTileGfx, allRoadTileGenres);
 
                 byte[] bgTileData = Codec.Decompress(romBuffer, bgTileGfxOffsets[i]);
                 byte[][] bgTileGfx = Utilities.ReadBlockGroupUntil(bgTileData, 0, -1, 16);
-                BackgroundTileset bgTileset = Themes.GetBackgroundTileset(palettes, bgTileGfx);
+                BackgroundTileset bgTileset = GetBackgroundTileset(palettes, bgTileGfx);
 
                 byte[] bgLayoutData = Codec.Decompress(romBuffer, bgLayoutOffsets[i]);
                 BackgroundLayout bgLayout = new BackgroundLayout(bgLayoutData);
 
                 Background background = new Background(bgTileset, bgLayout);
 
-                this.themes[i] = new Theme(nameItem, palettes, roadTileset, background);
+                _themes[i] = new Theme(nameItem, palettes, roadTileset, background);
             }
         }
 
         private void HandleChanges()
         {
-            foreach (Theme theme in this.themes)
+            foreach (Theme theme in _themes)
             {
-                theme.PropertyChanged += this.OnPropertyChanged;
+                theme.PropertyChanged += OnPropertyChanged;
             }
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         private static bool AreTileGenresRelocated(byte[] romBuffer, int offset)
@@ -294,9 +294,9 @@ namespace EpicEdit.Rom.Tracks
 
         public byte GetThemeId(Theme theme)
         {
-            for (byte i = 0; i < this.themes.Length; i++)
+            for (byte i = 0; i < _themes.Length; i++)
             {
-                if (this.themes[i] == theme)
+                if (_themes[i] == theme)
                 {
                     return (byte)(i << 1);
                 }
@@ -307,7 +307,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void ResetModifiedState()
         {
-            foreach (Theme theme in this.themes)
+            foreach (Theme theme in _themes)
             {
                 theme.ResetModifiedState();
             }
@@ -315,7 +315,7 @@ namespace EpicEdit.Rom.Tracks
 
         public IEnumerator<Theme> GetEnumerator()
         {
-            foreach (Theme theme in this.themes)
+            foreach (Theme theme in _themes)
             {
                 yield return theme;
             }
@@ -323,12 +323,12 @@ namespace EpicEdit.Rom.Tracks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.themes.GetEnumerator();
+            return _themes.GetEnumerator();
         }
 
         public void Dispose()
         {
-            foreach (Theme theme in this.themes)
+            foreach (Theme theme in _themes)
             {
                 theme.Dispose();
             }

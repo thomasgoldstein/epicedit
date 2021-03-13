@@ -30,8 +30,8 @@ namespace EpicEdit.UI.ThemeEdition
     {
         public bool Front { get; set; }
 
-        private BackgroundTile tile;
-        private Image image;
+        private BackgroundTile _tile;
+        private Image _image;
 
         public BackgroundTilePanel()
         {
@@ -40,22 +40,22 @@ namespace EpicEdit.UI.ThemeEdition
             if (Context.Game != null) // Avoid designer issues
             {
                 Tile2bpp tile = Context.Game.Themes[0].Background.Tileset[0];
-                this.tile = new BackgroundTile(tile.Graphics, null);
+                _tile = new BackgroundTile(tile.Graphics, null);
             }
 
-            this.image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public void UpdateTile(Theme theme, byte tileId, byte properties)
         {
             Tile2bpp tileModel = theme.Background.Tileset[tileId];
-            this.tile.Dispose();
-            this.tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, this.Front);
+            _tile.Dispose();
+            _tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, Front);
 
-            int width = this.Width;
-            int height = this.Height;
+            int width = Width;
+            int height = Height;
 
-            if (this.BorderStyle == BorderStyle.Fixed3D)
+            if (BorderStyle == BorderStyle.Fixed3D)
             {
                 width -= SystemInformation.Border3DSize.Width * 2;
                 height -= SystemInformation.Border3DSize.Height * 2;
@@ -68,33 +68,33 @@ namespace EpicEdit.UI.ThemeEdition
                 g.PixelOffsetMode = PixelOffsetMode.Half;
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;
                 g.Clear(theme.BackColor);
-                g.DrawImage(this.tile.Bitmap, 0, 0, width, height);
+                g.DrawImage(_tile.Bitmap, 0, 0, width, height);
             }
 
-            this.image.Dispose();
-            this.image = zoomedBitmap;
+            _image.Dispose();
+            _image = zoomedBitmap;
 
-            this.Refresh();
+            Refresh();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawImage(this.image, 0, 0);
+            e.Graphics.DrawImage(_image, 0, 0);
         }
 
         protected override Tile GetTileAt(int x, int y)
         {
-            return this.tile;
+            return _tile;
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (this.tile != null)
+            if (_tile != null)
             {
-                this.tile.Dispose();
+                _tile.Dispose();
             }
 
-            this.image.Dispose();
+            _image.Dispose();
             base.Dispose(disposing);
         }
     }

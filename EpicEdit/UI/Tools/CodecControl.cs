@@ -28,34 +28,34 @@ namespace EpicEdit.UI.Tools
     {
         public CodecControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public void Init()
         {
             int min = Context.Game.HeaderSize;
-            this.offsetTextBox.Minimum = min;
+            offsetTextBox.Minimum = min;
 
             // Data cannot be recompressed from 512 KiB to 1024 KiB, because that range is reserved for Epic Edit.
             // Therefore, set the maximum to 512 Kib if the ROM is no bigger than 1024 Kib.
             int max = Context.Game.Size > RomSize.Size1024 ? Context.Game.Size : RomSize.Size512;
-            this.offsetTextBox.Maximum = max;
+            offsetTextBox.Maximum = max;
 
-            this.offsetTextBox.Value = min;
+            offsetTextBox.Value = min;
         }
 
         private void BrowseButtonClick(object sender, EventArgs e)
         {
-            int offset = (int)this.offsetTextBox.Value;
-            bool twice = this.twiceCheckBox.Checked;
+            int offset = (int)offsetTextBox.Value;
+            bool twice = twiceCheckBox.Checked;
 
-            if (this.compressRadioButton.Checked)
+            if (compressRadioButton.Checked)
             {
                 byte[] data = null;
                 if (UITools.ShowImportDataDialog(fileName => data = File.ReadAllBytes(fileName), FileDialogFilters.Binary))
                 {
-                    int limit = (int)this.offsetTextBox.Maximum;
-                    CodecControl.Compress(data, offset, twice, limit);
+                    int limit = (int)offsetTextBox.Maximum;
+                    Compress(data, offset, twice, limit);
                 }
             }
             else
@@ -68,14 +68,14 @@ namespace EpicEdit.UI.Tools
         {
             byte[] compData = Codec.Compress(data, twice, true);
 
-            string info = CodecControl.FormatCompressedChunkInfo("New data", offset, compData.Length, data.Length);
+            string info = FormatCompressedChunkInfo("New data", offset, compData.Length, data.Length);
 
             string oldInfo;
             try
             {
                 int oldCompSize = Context.Game.GetCompressedChunkLength(offset);
                 int oldUncompSize = Context.Game.Decompress(offset, twice).Length;
-                oldInfo = CodecControl.FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
+                oldInfo = FormatCompressedChunkInfo("Old data", offset, oldCompSize, oldUncompSize);
             }
             catch (InvalidDataException)
             {

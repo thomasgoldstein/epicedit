@@ -31,121 +31,121 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
         [Test]
         public void TestTrackMap1()
         {
-            this.TestTrackMap("track1.smc");
+            TestTrackMap("track1.smc");
         }
 
         [Test]
         public void TestTrackMap2()
         {
-            this.TestTrackMap("track2.smc");
+            TestTrackMap("track2.smc");
         }
 
         [Test]
         public void TestTrackMap3()
         {
-            this.TestTrackMap("track3.smc");
+            TestTrackMap("track3.smc");
         }
 
         [Test]
         public void TestTrackMap4()
         {
-            this.TestTrackMap("track4.smc");
+            TestTrackMap("track4.smc");
         }
 
         [Test]
         public void TestTrackMap5()
         {
-            this.TestTrackMap("track5.smc");
+            TestTrackMap("track5.smc");
         }
 
         [Test]
         public void TestTrackMap6()
         {
-            this.TestTrackMap("track6.smc");
+            TestTrackMap("track6.smc");
         }
 
         [Test]
         public void TestTrackMap7()
         {
-            this.TestTrackMap("track7.smc");
+            TestTrackMap("track7.smc");
         }
 
         [Test]
         public void TestTrackMap8()
         {
-            this.TestTrackMap("track8.smc");
+            TestTrackMap("track8.smc");
         }
 
         [Test]
         public void TestTrackMap9()
         {
-            this.TestTrackMap("track9.smc");
+            TestTrackMap("track9.smc");
         }
 
         [Test]
         public void TestTrackMap10()
         {
-            this.TestTrackMap("track10.smc");
+            TestTrackMap("track10.smc");
         }
 
         [Test]
         public void TestTrackMap11()
         {
-            this.TestTrackMap("track11.smc");
+            TestTrackMap("track11.smc");
         }
 
         [Test]
         public void TestTrackMap12()
         {
-            this.TestTrackMap("track12.smc");
+            TestTrackMap("track12.smc");
         }
 
         [Test]
         public void TestTrackMap13()
         {
-            this.TestTrackMap("track13.smc");
+            TestTrackMap("track13.smc");
         }
 
         [Test]
         public void TestTrackMap14()
         {
-            this.TestTrackMap("track14.smc");
+            TestTrackMap("track14.smc");
         }
 
         [Test]
         public void TestTrackMap15()
         {
-            this.TestTrackMap("track15.smc");
+            TestTrackMap("track15.smc");
         }
 
         [Test]
         public void TestTrackMap16()
         {
-            this.TestTrackMap("track16.smc");
+            TestTrackMap("track16.smc");
         }
 
         [Test]
         public void TestTrackMap17()
         {
-            this.TestTrackMap("track17.smc");
+            TestTrackMap("track17.smc");
         }
 
         [Test]
         public void TestTrackMap18()
         {
-            this.TestTrackMap("track18.smc");
+            TestTrackMap("track18.smc");
         }
 
         [Test]
         public void TestTrackMap19()
         {
-            this.TestTrackMap("track19.smc");
+            TestTrackMap("track19.smc");
         }
 
         [Test]
         public void TestTrackMap20()
         {
-            this.TestTrackMap("track20.smc");
+            TestTrackMap("track20.smc");
         }
     }
 }

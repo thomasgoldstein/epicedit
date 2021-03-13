@@ -32,39 +32,39 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool enableBoundsChecks;
+        private bool _enableBoundsChecks;
 
-        private Point location;
+        private Point _location;
         public Point Location
         {
-            get => this.location;
+            get => _location;
             set
             {
                 int x = value.X;
                 int y = value.Y;
 
-                if (this.enableBoundsChecks)
+                if (_enableBoundsChecks)
                 {
-                    if (this.SecondRowOffset > 0)
+                    if (SecondRowOffset > 0)
                     {
                         if (x < Tile.Size)
                         {
                             x = Tile.Size;
                         }
-                        else if (x + this.SecondRowOffset > GPStartPosition.PixelLimit)
+                        else if (x + SecondRowOffset > PixelLimit)
                         {
-                            x = GPStartPosition.PixelLimit - this.SecondRowOffset;
+                            x = PixelLimit - SecondRowOffset;
                         }
                     }
                     else
                     {
-                        if (x + this.SecondRowOffset < Tile.Size)
+                        if (x + SecondRowOffset < Tile.Size)
                         {
-                            x = Tile.Size - this.SecondRowOffset;
+                            x = Tile.Size - SecondRowOffset;
                         }
-                        else if (x > GPStartPosition.PixelLimit)
+                        else if (x > PixelLimit)
                         {
-                            x = GPStartPosition.PixelLimit;
+                            x = PixelLimit;
                         }
                     }
 
@@ -72,90 +72,90 @@ namespace EpicEdit.Rom.Tracks.Start
                     {
                         y = Tile.Size;
                     }
-                    else if (y > GPStartPosition.PixelLimit - GPStartPosition.Height)
+                    else if (y > PixelLimit - Height)
                     {
-                        y = GPStartPosition.PixelLimit - GPStartPosition.Height;
+                        y = PixelLimit - Height;
                     }
                 }
 
-                if (this.X != x || this.Y != y)
+                if (X != x || Y != y)
                 {
-                    this.location = new Point(x, y);
-                    this.OnPropertyChanged(PropertyNames.GPStartPosition.Location);
+                    _location = new Point(x, y);
+                    OnPropertyChanged(PropertyNames.GPStartPosition.Location);
                 }
             }
         }
 
-        private int secondRowOffset;
+        private int _secondRowOffset;
         public int SecondRowOffset
         {
-            get => this.secondRowOffset;
+            get => _secondRowOffset;
             set
             {
-                if (this.enableBoundsChecks)
+                if (_enableBoundsChecks)
                 {
-                    if (this.X + value < Tile.Size)
+                    if (X + value < Tile.Size)
                     {
-                        value = Tile.Size - this.X;
+                        value = Tile.Size - X;
                     }
-                    else if (this.X + value > GPStartPosition.PixelLimit)
+                    else if (X + value > PixelLimit)
                     {
-                        value = GPStartPosition.PixelLimit - this.X;
+                        value = PixelLimit - X;
                     }
-                    else if (value < GPStartPosition.SecondRowMin)
+                    else if (value < SecondRowMin)
                     {
-                        value = GPStartPosition.SecondRowMin;
+                        value = SecondRowMin;
                     }
-                    else if (value > GPStartPosition.SecondRowMax)
+                    else if (value > SecondRowMax)
                     {
-                        value = GPStartPosition.SecondRowMax;
+                        value = SecondRowMax;
                     }
                 }
 
-                if (this.secondRowOffset != value)
+                if (_secondRowOffset != value)
                 {
-                    this.secondRowOffset = value;
-                    this.OnPropertyChanged(PropertyNames.GPStartPosition.SecondRowOffset);
+                    _secondRowOffset = value;
+                    OnPropertyChanged(PropertyNames.GPStartPosition.SecondRowOffset);
                 }
             }
         }
 
-        public int X => this.location.X;
+        public int X => _location.X;
 
-        public int Y => this.location.Y;
+        public int Y => _location.Y;
 
         /// <summary>
         /// Gets the left bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
         /// </summary>
-        public int Left => this.X + Math.Min(0, this.SecondRowOffset);
+        public int Left => X + Math.Min(0, SecondRowOffset);
 
         /// <summary>
         /// Gets the right bound of the GPStartPosition, depending on the <see cref="SecondRowOffset"/>.
         /// </summary>
-        public int Right => this.X + Math.Max(0, this.SecondRowOffset);
+        public int Right => X + Math.Max(0, SecondRowOffset);
 
         public GPStartPosition(short x, short y, short secondRowOffset)
         {
-            this.enableBoundsChecks = false;
+            _enableBoundsChecks = false;
 
-            this.Location = new Point(x, y);
-            this.SecondRowOffset = secondRowOffset;
+            Location = new Point(x, y);
+            SecondRowOffset = secondRowOffset;
 
-            this.enableBoundsChecks = true;
+            _enableBoundsChecks = true;
         }
 
         public GPStartPosition(byte[] data)
         {
-            this.SetBytes(data);
+            SetBytes(data);
         }
 
         public void SetBytes(byte[] data)
         {
-            this.enableBoundsChecks = false;
+            _enableBoundsChecks = false;
 
             int x = (data[1] << 8) + data[0];
             int y = (data[3] << 8) + data[2];
-            this.Location = new Point(x, y);
+            Location = new Point(x, y);
 
             int rowOffset = data[4];
             if (data[5] != 0x00)
@@ -166,14 +166,14 @@ namespace EpicEdit.Rom.Tracks.Start
                 rowOffset -= 256;
             }
 
-            this.SecondRowOffset = rowOffset;
+            SecondRowOffset = rowOffset;
 
-            this.enableBoundsChecks = true;
+            _enableBoundsChecks = true;
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -182,20 +182,20 @@ namespace EpicEdit.Rom.Tracks.Start
         /// <returns>The GPStartPosition bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[GPStartPosition.Size];
-            data[0] = (byte)(this.X & 0xFF);
-            data[1] = (byte)((this.X & 0xFF00) >> 8);
-            data[2] = (byte)(this.Y & 0xFF);
-            data[3] = (byte)((this.Y & 0xFF00) >> 8);
+            byte[] data = new byte[Size];
+            data[0] = (byte)(X & 0xFF);
+            data[1] = (byte)((X & 0xFF00) >> 8);
+            data[2] = (byte)(Y & 0xFF);
+            data[3] = (byte)((Y & 0xFF00) >> 8);
 
-            if (this.SecondRowOffset < 0)
+            if (SecondRowOffset < 0)
             {
-                data[4] = (byte)(this.SecondRowOffset + 256);
+                data[4] = (byte)(SecondRowOffset + 256);
                 data[5] = 0xFF;
             }
             else
             {
-                data[4] = (byte)this.SecondRowOffset;
+                data[4] = (byte)SecondRowOffset;
                 data[5] = 0x00;
             }
 
@@ -204,10 +204,10 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public bool IntersectsWith(Point point)
         {
-            return point.X >= this.Left - Tile.Size &&
-                point.X <= this.Right + (Tile.Size - 1) &&
-                point.Y >= this.Y - Tile.Size &&
-                point.Y <= this.Y + GPStartPosition.Height + (Tile.Size - 1);
+            return point.X >= Left - Tile.Size &&
+                point.X <= Right + (Tile.Size - 1) &&
+                point.Y >= Y - Tile.Size &&
+                point.Y <= Y + Height + (Tile.Size - 1);
         }
     }
 }

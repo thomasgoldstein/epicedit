@@ -23,7 +23,7 @@ namespace EpicEdit.Rom.Utility
     {
         public EventArgs(T value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public T Value { get; }
@@ -36,8 +36,8 @@ namespace EpicEdit.Rom.Utility
     {
         public EventArgs(T value1, U value2)
         {
-            this.Value1 = value1;
-            this.Value2 = value2;
+            Value1 = value1;
+            Value2 = value2;
         }
 
         public T Value1 { get; }

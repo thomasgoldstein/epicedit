@@ -39,144 +39,144 @@ namespace EpicEdit.UI.Gfx
     {
         public event EventHandler<EventArgs> GraphicsChanged;
 
-        private readonly TileClipboard tileClipboard;
-        private Track track;
+        private readonly TileClipboard _tileClipboard;
+        private Track _track;
 
-        private Point scrollPosition;
+        private Point _scrollPosition;
         public Point ScrollPosition
         {
-            //get => this.scrollPosition;
-            set => this.scrollPosition = value;
+            //get => _scrollPosition;
+            set => _scrollPosition = value;
         }
 
-        private float zoom;
+        private float _zoom;
         public float Zoom
         {
-            //get => this.zoom;
+            //get => _zoom;
             set
             {
-                this.zoom = value;
-                this.zoomMatrix.Reset();
-                this.zoomMatrix.Scale(this.zoom, this.zoom);
+                _zoom = value;
+                _zoomMatrix.Reset();
+                _zoomMatrix.Scale(_zoom, _zoom);
             }
         }
 
-        private Bitmap trackCache;
-        private Bitmap tileClipboardCache;
-        private Bitmap objectAreasCache;
+        private Bitmap _trackCache;
+        private Bitmap _tileClipboardCache;
+        private Bitmap _objectAreasCache;
 
         /// <summary>
         /// The object areas of the track.
-        /// They're cached in order to figure out when to update the <see cref="objectAreasCache"/>.
+        /// They're cached in order to figure out when to update the <see cref="_objectAreasCache"/>.
         /// </summary>
-        private byte[][] objectAreas;
+        private byte[][] _objectAreas;
 
         /// <summary>
         /// Used to resize the dirty region depending on the zoom level.
         /// </summary>
-        private readonly Matrix zoomMatrix;
+        private readonly Matrix _zoomMatrix;
 
         /// <summary>
         /// Used to draw the rectangle when highlighting tiles.
         /// </summary>
-        private readonly Pen tileHighlightPen;
+        private readonly Pen _tileHighlightPen;
 
         /// <summary>
         /// Used to draw the rectangle when selecting tiles.
         /// </summary>
-        private readonly Pen tileSelectPen;
+        private readonly Pen _tileSelectPen;
 
         /// <summary>
         /// Used to paint the inside of the selection rectangle.
         /// </summary>
-        private readonly SolidBrush tileSelectBrush;
+        private readonly SolidBrush _tileSelectBrush;
 
         /// <summary>
         /// Used to paint a rectangle over the hovered overlay tile.
         /// </summary>
-        private readonly SolidBrush overlayHighlightBrush;
+        private readonly SolidBrush _overlayHighlightBrush;
 
         /// <summary>
         /// Used to draw the lap line.
         /// </summary>
-        private readonly Pen lapLinePen;
+        private readonly Pen _lapLinePen;
 
         /// <summary>
         /// Used to draw the lap line outline.
         /// </summary>
-        private readonly Pen lapLineOutlinePen;
+        private readonly Pen _lapLineOutlinePen;
 
         /// <summary>
         /// Used to fill in arrows.
         /// </summary>
-        private readonly SolidBrush arrowBrush;
+        private readonly SolidBrush _arrowBrush;
 
         /// <summary>
         /// Used to draw arrow outlines.
         /// </summary>
-        private readonly Pen arrowPen;
+        private readonly Pen _arrowPen;
 
         /// <summary>
         /// Used to paint object outlines.
         /// </summary>
-        private readonly Pen objectOutlinePen;
+        private readonly Pen _objectOutlinePen;
 
         /// <summary>
         /// Used to fill in objects depending on their group.
         /// </summary>
-        private readonly SolidBrush[] objectBrushes;
+        private readonly SolidBrush[] _objectBrushes;
 
         /// <summary>
         /// Used to fill in AI areas.
         /// </summary>
-        private readonly SolidBrush[][] aiAreaBrushes;
+        private readonly SolidBrush[][] _aiAreaBrushes;
 
         /// <summary>
         /// Used to draw the AI area outlines.
         /// </summary>
-        private readonly Pen[] aiAreaPens;
+        private readonly Pen[] _aiAreaPens;
 
         /// <summary>
         /// Used to draw the hovered AI area outlines.
         /// </summary>
-        private readonly Pen aiElementHighlightPen;
+        private readonly Pen _aiElementHighlightPen;
 
         /// <summary>
         /// Used to draw the selected AI area outlines.
         /// </summary>
-        private readonly Pen aiElementSelectPen;
+        private readonly Pen _aiElementSelectPen;
 
         /// <summary>
         /// Image attributes to draw images as semi-transparent.
         /// </summary>
-        private readonly ImageAttributes translucidImageAttr;
+        private readonly ImageAttributes _translucidImageAttr;
 
         /// <summary>
         /// Image attributes to draw images as grayed out / disabled
         /// </summary>
-        private readonly ImageAttributes grayScaleImageAttr;
+        private readonly ImageAttributes _grayScaleImageAttr;
 
         public TrackDrawer(TileClipboard tileClipboard)
         {
-            this.tileClipboard = tileClipboard;
-            this.tileClipboard.TileChanged += (sender, e) => this.UpdateTileClipboardCache(e.Value);
-            this.tileClipboard.TilesChanged += (sender, e) => this.UpdateTileClipboardCache(e.Value);
+            _tileClipboard = tileClipboard;
+            _tileClipboard.TileChanged += (sender, e) => UpdateTileClipboardCache(e.Value);
+            _tileClipboard.TilesChanged += (sender, e) => UpdateTileClipboardCache(e.Value);
 
             #region Pens and Brushes initialization
 
-            this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
-            this.tileSelectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
-            this.tileSelectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
+            _tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
+            _tileSelectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
+            _tileSelectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
 
-            this.overlayHighlightBrush = new SolidBrush(Color.FromArgb(50, 255, 255, 255));
+            _overlayHighlightBrush = new SolidBrush(Color.FromArgb(50, 255, 255, 255));
 
-            this.lapLinePen = new Pen(Color.White);
-            this.lapLineOutlinePen = new Pen(Color.Black, 3);
-            this.arrowBrush = new SolidBrush(Color.White);
-            this.arrowPen = new Pen(Color.Gray, 1);
+            _lapLinePen = new Pen(Color.White);
+            _lapLineOutlinePen = new Pen(Color.Black, 3);
+            _arrowBrush = new SolidBrush(Color.White);
+            _arrowPen = new Pen(Color.Gray, 1);
 
-            this.objectOutlinePen = new Pen(Color.White, 2);
-            this.objectBrushes = new SolidBrush[]
+            _objectOutlinePen = new Pen(Color.White, 2);
+            _objectBrushes = new SolidBrush[]
             {
                 new SolidBrush(Color.FromArgb(255, 204, 51, 51)), // Object area 1 object color
                 new SolidBrush(Color.FromArgb(255, 21, 94, 177)), // Object area 2 object color
@@ -184,7 +184,7 @@ namespace EpicEdit.UI.Gfx
                 new SolidBrush(Color.FromArgb(255, 16, 150, 24)) // Object area 4 object color
             };
 
-            this.aiAreaBrushes = new SolidBrush[][]
+            _aiAreaBrushes = new SolidBrush[][]
             {
                 new SolidBrush[]
                 {
@@ -215,7 +215,7 @@ namespace EpicEdit.UI.Gfx
                 }
             };
 
-            this.aiAreaPens = new Pen[]
+            _aiAreaPens = new Pen[]
             {
                 new Pen(Color.FromArgb(255, 165, 204, 244), 1),
                 new Pen(Color.FromArgb(255, 179, 244, 150), 1),
@@ -223,12 +223,12 @@ namespace EpicEdit.UI.Gfx
                 new Pen(Color.FromArgb(255, 244, 172, 133), 1)
             };
 
-            this.aiElementHighlightPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
-            this.aiElementSelectPen = new Pen(Color.White, 1);
+            _aiElementHighlightPen = new Pen(Color.FromArgb(150, 255, 255, 255), 1);
+            _aiElementSelectPen = new Pen(Color.White, 1);
 
             #endregion Pens and Brushes initialization
 
-            this.translucidImageAttr = new ImageAttributes();
+            _translucidImageAttr = new ImageAttributes();
             ColorMatrix matrix = new ColorMatrix(new float[][]
             {
                 new float[] { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f },
@@ -237,9 +237,9 @@ namespace EpicEdit.UI.Gfx
                 new float[] { 0.0f, 0.0f, 0.0f, 0.58f, 0.0f },
                 new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
             });
-            this.translucidImageAttr.SetColorMatrix(matrix);
+            _translucidImageAttr.SetColorMatrix(matrix);
 
-            this.grayScaleImageAttr = new ImageAttributes();
+            _grayScaleImageAttr = new ImageAttributes();
             matrix = new ColorMatrix(new float[][]
             {
                 new float[] { 0.22f, 0.22f, 0.22f, 0.0f, 0.0f },
@@ -248,14 +248,14 @@ namespace EpicEdit.UI.Gfx
                 new float[] { 0.365f, 0.365f, 0.365f, 0.7f, 0.0f },
                 new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }
             });
-            this.grayScaleImageAttr.SetColorMatrix(matrix);
+            _grayScaleImageAttr.SetColorMatrix(matrix);
 
-            this.zoomMatrix = new Matrix();
-            this.Zoom = 1;
+            _zoomMatrix = new Matrix();
+            Zoom = 1;
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
-            this.trackCache = this.tileClipboardCache = this.objectAreasCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _trackCache = _tileClipboardCache = _objectAreasCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         /// <summary>
@@ -266,25 +266,25 @@ namespace EpicEdit.UI.Gfx
         {
             bool sameTheme = false;
 
-            if (this.track != null)
+            if (_track != null)
             {
-                sameTheme = this.track.Theme == track.Theme;
-                this.track.PropertyChanged -= this.track_PropertyChanged;
-                this.track.ColorGraphicsChanged -= this.track_ColorGraphicsChanged;
-                this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
+                sameTheme = _track.Theme == track.Theme;
+                _track.PropertyChanged -= track_PropertyChanged;
+                _track.ColorGraphicsChanged -= track_ColorGraphicsChanged;
+                _track.ColorsGraphicsChanged -= track_ColorsGraphicsChanged;
             }
 
-            this.track = track;
+            _track = track;
 
-            this.track.PropertyChanged += this.track_PropertyChanged;
-            this.track.ColorGraphicsChanged += this.track_ColorGraphicsChanged;
-            this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
+            _track.PropertyChanged += track_PropertyChanged;
+            _track.ColorGraphicsChanged += track_ColorGraphicsChanged;
+            _track.ColorsGraphicsChanged += track_ColorsGraphicsChanged;
 
-            this.CreateCache();
+            CreateCache();
 
             if (!sameTheme)
             {
-                this.CreateTileClipboardCache();
+                CreateTileClipboardCache();
             }
         }
 
@@ -292,7 +292,7 @@ namespace EpicEdit.UI.Gfx
         {
             if (e.PropertyName == PropertyNames.Track.Theme)
             {
-                this.CreateTileClipboardCache();
+                CreateTileClipboardCache();
             }
         }
 
@@ -301,9 +301,9 @@ namespace EpicEdit.UI.Gfx
             Palette palette = sender as Palette;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
-                bool[] tilesToBeUpdated = this.GetTilesToBeUpdated(palette, e.Value);
-                this.UpdateCache(this.trackCache, this.track.Map, tilesToBeUpdated);
-                this.UpdateCache(this.tileClipboardCache, this.tileClipboard, tilesToBeUpdated);
+                bool[] tilesToBeUpdated = GetTilesToBeUpdated(palette, e.Value);
+                UpdateCache(_trackCache, _track.Map, tilesToBeUpdated);
+                UpdateCache(_tileClipboardCache, _tileClipboard, tilesToBeUpdated);
             }
 
             if (e.Value == 0 && palette.Index != 0)
@@ -316,7 +316,7 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            this.OnGraphicsChanged();
+            OnGraphicsChanged();
         }
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
@@ -324,23 +324,23 @@ namespace EpicEdit.UI.Gfx
             Palette palette = sender as Palette;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
-                this.UpdateCache(this.trackCache, this.track.Map, palette);
-                this.UpdateCache(this.tileClipboardCache, this.tileClipboard, palette);
+                UpdateCache(_trackCache, _track.Map, palette);
+                UpdateCache(_tileClipboardCache, _tileClipboard, palette);
             }
 
-            this.OnGraphicsChanged();
+            OnGraphicsChanged();
         }
 
         private void OnGraphicsChanged()
         {
-            this.GraphicsChanged?.Invoke(this, EventArgs.Empty);
+            GraphicsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private Region GetZoomedRegion(Region region)
         {
-            if (this.zoom != 1)
+            if (_zoom != 1)
             {
-                region.Transform(this.zoomMatrix);
+                region.Transform(_zoomMatrix);
             }
 
             return region;
@@ -348,13 +348,13 @@ namespace EpicEdit.UI.Gfx
 
         private Region GetTranslatedZoomedRegion(Rectangle rectangle)
         {
-            return this.GetTranslatedZoomedRegion(new Region(rectangle));
+            return GetTranslatedZoomedRegion(new Region(rectangle));
         }
 
         private Region GetTranslatedZoomedRegion(Region region)
         {
-            region.Translate(-this.scrollPosition.X * Tile.Size, -this.scrollPosition.Y * Tile.Size);
-            return this.GetZoomedRegion(region);
+            region.Translate(-_scrollPosition.X * Tile.Size, -_scrollPosition.Y * Tile.Size);
+            return GetZoomedRegion(region);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         public void CreateCache()
         {
-            this.CreateCache(ref this.trackCache, this.track.Map);
+            CreateCache(ref _trackCache, _track.Map);
         }
 
         private void CreateCache(ref Bitmap cache, IMapBuffer mapBuffer)
@@ -371,7 +371,7 @@ namespace EpicEdit.UI.Gfx
 
             cache = new Bitmap(mapBuffer.Width * Tile.Size, mapBuffer.Height * Tile.Size, PixelFormat.Format32bppPArgb);
 
-            RoadTileset tileset = this.track.RoadTileset;
+            RoadTileset tileset = _track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(cache))
             {
@@ -388,7 +388,7 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache(Image cache, IMapBuffer mapBuffer, Palette palette)
         {
-            RoadTileset tileset = this.track.RoadTileset;
+            RoadTileset tileset = _track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(cache))
             {
@@ -408,7 +408,7 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache(Image cache, IMapBuffer mapBuffer, bool[] tilesToBeUpdated)
         {
-            RoadTileset tileset = this.track.RoadTileset;
+            RoadTileset tileset = _track.RoadTileset;
 
             using (Graphics g = Graphics.FromImage(cache))
             {
@@ -429,10 +429,10 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateCache(byte tileId)
         {
-            Tile tile = this.track.RoadTileset[tileId];
-            TrackMap trackMap = this.track.Map;
+            Tile tile = _track.RoadTileset[tileId];
+            TrackMap trackMap = _track.Map;
 
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(_trackCache))
             {
                 for (int x = 0; x < trackMap.Width; x++)
                 {
@@ -449,10 +449,10 @@ namespace EpicEdit.UI.Gfx
 
         public Region UpdateCache(Rectangle rectangle)
         {
-            RoadTileset tileset = this.track.RoadTileset;
-            TrackMap trackMap = this.track.Map;
+            RoadTileset tileset = _track.RoadTileset;
+            TrackMap trackMap = _track.Map;
 
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(_trackCache))
             {
                 for (int x = rectangle.X; x < rectangle.Right; x++)
                 {
@@ -469,26 +469,26 @@ namespace EpicEdit.UI.Gfx
                                                      rectangle.Width * Tile.Size,
                                                      rectangle.Height * Tile.Size);
 
-            return this.GetTranslatedZoomedRegion(dirtyRectangle);
+            return GetTranslatedZoomedRegion(dirtyRectangle);
         }
 
         public void UpdateCacheOnTileChange(Point absolutePosition)
         {
-            using (Graphics g = Graphics.FromImage(this.trackCache))
+            using (Graphics g = Graphics.FromImage(_trackCache))
             {
-                g.DrawImage(this.tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
+                g.DrawImage(_tileClipboardCache, absolutePosition.X * Tile.Size, absolutePosition.Y * Tile.Size);
             }
         }
 
         private void UpdateTileClipboardCache(byte tile)
         {
-            this.tileClipboardCache.Dispose();
-            this.tileClipboardCache = this.track.RoadTileset[tile].Bitmap.Clone() as Bitmap;
+            _tileClipboardCache.Dispose();
+            _tileClipboardCache = _track.RoadTileset[tile].Bitmap.Clone() as Bitmap;
         }
 
         public void UpdateTileClipboardCache(Rectangle rectangle)
         {
-            this.tileClipboardCache.Dispose();
+            _tileClipboardCache.Dispose();
 
             Rectangle clipboardRectangle = new Rectangle(
                 rectangle.X * Tile.Size,
@@ -496,12 +496,12 @@ namespace EpicEdit.UI.Gfx
                 rectangle.Width * Tile.Size,
                 rectangle.Height * Tile.Size);
 
-            this.tileClipboardCache = this.trackCache.Clone(clipboardRectangle, this.trackCache.PixelFormat);
+            _tileClipboardCache = _trackCache.Clone(clipboardRectangle, _trackCache.PixelFormat);
         }
 
         private void CreateTileClipboardCache()
         {
-            this.CreateCache(ref this.tileClipboardCache, this.tileClipboard);
+            CreateCache(ref _tileClipboardCache, _tileClipboard);
         }
 
         private bool[] GetTilesToBeUpdated(Palette palette, int colorIndex)
@@ -510,7 +510,7 @@ namespace EpicEdit.UI.Gfx
 
             for (int i = 0; i < tilesToBeUpdated.Length; i++)
             {
-                Tile tile = this.track.RoadTileset[i];
+                Tile tile = _track.RoadTileset[i];
                 if (tile.Palette == palette && tile.Contains(colorIndex))
                 {
                     tilesToBeUpdated[i] = true;
@@ -522,26 +522,26 @@ namespace EpicEdit.UI.Gfx
 
         private Rectangle GetTrackClip(Rectangle bounds)
         {
-            bool xDiff = bounds.X > ((int)(bounds.X / this.zoom) * this.zoom);
-            bool yDiff = bounds.Y > ((int)(bounds.Y / this.zoom) * this.zoom);
+            bool xDiff = bounds.X > ((int)(bounds.X / _zoom) * _zoom);
+            bool yDiff = bounds.Y > ((int)(bounds.Y / _zoom) * _zoom);
 
-            bounds.X = (int)(bounds.X / this.zoom) + this.scrollPosition.X * Tile.Size;
-            bounds.Y = (int)(bounds.Y / this.zoom) + this.scrollPosition.Y * Tile.Size;
+            bounds.X = (int)(bounds.X / _zoom) + _scrollPosition.X * Tile.Size;
+            bounds.Y = (int)(bounds.Y / _zoom) + _scrollPosition.Y * Tile.Size;
 
             // Sometimes increase the width or height by 1px to make up for rounding differences.
             // Happens when dividing then multiplying X or Y with the zoom value
             // results in a smaller integer value (e.g: (int)(5 / 2) * 2 = 4).
-            bounds.Width = (int)Math.Ceiling(bounds.Width / this.zoom) + (xDiff ? 1 : 0);
-            bounds.Height = (int)Math.Ceiling(bounds.Height / this.zoom) + (yDiff ? 1 : 0);
+            bounds.Width = (int)Math.Ceiling(bounds.Width / _zoom) + (xDiff ? 1 : 0);
+            bounds.Height = (int)Math.Ceiling(bounds.Height / _zoom) + (yDiff ? 1 : 0);
 
-            if (bounds.Right > this.track.Map.Width * Tile.Size)
+            if (bounds.Right > _track.Map.Width * Tile.Size)
             {
-                bounds.Width = this.track.Map.Width * Tile.Size - bounds.X;
+                bounds.Width = _track.Map.Width * Tile.Size - bounds.X;
             }
 
-            if (bounds.Bottom > this.track.Map.Height * Tile.Size)
+            if (bounds.Bottom > _track.Map.Height * Tile.Size)
             {
-                bounds.Height = this.track.Map.Height * Tile.Size - bounds.Y;
+                bounds.Height = _track.Map.Height * Tile.Size - bounds.Y;
             }
 
             return bounds;
@@ -549,7 +549,7 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap CreateClippedTrackImage(Rectangle clip)
         {
-            return this.trackCache.Clone(clip, this.trackCache.PixelFormat);
+            return _trackCache.Clone(clip, _trackCache.PixelFormat);
         }
 
         private static Graphics CreateBackBuffer(Image image, Rectangle clip)
@@ -564,15 +564,15 @@ namespace EpicEdit.UI.Gfx
             // Solves a GDI+ bug which crops scaled images
             g.PixelOffsetMode = PixelOffsetMode.Half;
 
-            g.InterpolationMode = this.zoom >= 1 ?
+            g.InterpolationMode = _zoom >= 1 ?
                 InterpolationMode.NearestNeighbor :
                 InterpolationMode.Bilinear;
 
             g.DrawImage(image,
-                        (clip.X - this.scrollPosition.X * Tile.Size) * this.zoom,
-                        (clip.Y - this.scrollPosition.Y * Tile.Size) * this.zoom,
-                        clip.Width * this.zoom,
-                        clip.Height * this.zoom);
+                        (clip.X - _scrollPosition.X * Tile.Size) * _zoom,
+                        (clip.Y - _scrollPosition.Y * Tile.Size) * _zoom,
+                        clip.Width * _zoom,
+                        clip.Height * _zoom);
         }
 
         public Region GetTrackTilesetRegion(Rectangle tileSelection)
@@ -586,12 +586,12 @@ namespace EpicEdit.UI.Gfx
             else
             {
                 Rectangle visibleSelection = tileSelection.IsEmpty ? Rectangle.Empty :
-                    TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
+                    GetVisibleTileSelectionRectangle(tileSelection);
 
                 // Enlarge rectangle by 1px to account for the 1px border of the selection
                 visibleSelection.Inflate(1, 1);
 
-                region = this.GetTranslatedZoomedRegion(visibleSelection);
+                region = GetTranslatedZoomedRegion(visibleSelection);
             }
 
             return region;
@@ -603,25 +603,25 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredOverlayTile != null)
             {
-                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
+                Rectangle rec = GetOverlayClipRectangle(hoveredOverlayTile.Pattern, hoveredOverlayTile.Location);
                 region.Union(rec);
             }
 
             if (selectedOverlayTile != null &&
                 selectedOverlayTile != hoveredOverlayTile)
             {
-                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
+                Rectangle rec = GetOverlayClipRectangle(selectedOverlayTile.Pattern, selectedOverlayTile.Location);
                 region.Union(rec);
             }
 
             if (selectedPattern != null &&
                 selectedPatternLocation != TrackEditor.OutOfBounds)
             {
-                Rectangle rec = TrackDrawer.GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
+                Rectangle rec = GetOverlayClipRectangle(selectedPattern, selectedPatternLocation);
                 region.Union(rec);
             }
 
-            region = this.GetTranslatedZoomedRegion(region);
+            region = GetTranslatedZoomedRegion(region);
 
             return region;
         }
@@ -630,17 +630,17 @@ namespace EpicEdit.UI.Gfx
         {
             Region region;
 
-            if (this.track is GPTrack gpTrack)
+            if (_track is GPTrack gpTrack)
             {
-                region = this.GetGPStartClipRegion(gpTrack.LapLine, gpTrack.StartPosition);
+                region = GetGPStartClipRegion(gpTrack.LapLine, gpTrack.StartPosition);
             }
             else
             {
-                BattleTrack bTrack = this.track as BattleTrack;
-                region = TrackDrawer.GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
+                BattleTrack bTrack = _track as BattleTrack;
+                region = GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
             }
 
-            region = this.GetTranslatedZoomedRegion(region);
+            region = GetTranslatedZoomedRegion(region);
 
             return region;
         }
@@ -670,7 +670,7 @@ namespace EpicEdit.UI.Gfx
 
                 Rectangle hoveredObjectRectangle = new Rectangle(x, y, width, height);
 
-                region = this.GetTranslatedZoomedRegion(hoveredObjectRectangle);
+                region = GetTranslatedZoomedRegion(hoveredObjectRectangle);
             }
 
             return region;
@@ -682,27 +682,27 @@ namespace EpicEdit.UI.Gfx
 
             if (hoveredAIElem != null)
             {
-                region.Union(TrackDrawer.GetAIClipRectangle(hoveredAIElem));
+                region.Union(GetAIClipRectangle(hoveredAIElem));
             }
 
             if (selectedAIElem != null &&
                 selectedAIElem != hoveredAIElem)
             {
-                region.Union(TrackDrawer.GetAIClipRectangle(selectedAIElem));
+                region.Union(GetAIClipRectangle(selectedAIElem));
             }
 
-            region = this.GetTranslatedZoomedRegion(region);
+            region = GetTranslatedZoomedRegion(region);
 
             return region;
         }
 
         public void DrawTrackTileset(PaintEventArgs e, Rectangle tileSelection, bool selectingTiles, bool bucketMode)
         {
-            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+            Rectangle clip = GetTrackClip(e.ClipRectangle);
 
             if (clip.Width > 0 && clip.Height > 0)
             {
-                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                using (Bitmap image = CreateClippedTrackImage(clip))
                 {
                     if (!tileSelection.IsEmpty)
                     {
@@ -712,91 +712,91 @@ namespace EpicEdit.UI.Gfx
                             tileSelection.Height = 1;
                         }
 
-                        using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
+                        using (Graphics backBuffer = CreateBackBuffer(image, clip))
                         {
-                            this.DrawTileSelection(backBuffer, tileSelection, selectingTiles);
+                            DrawTileSelection(backBuffer, tileSelection, selectingTiles);
                         }
                     }
 
-                    this.DrawImage(e.Graphics, image, clip);
+                    DrawImage(e.Graphics, image, clip);
                 }
             }
 
-            this.PaintTrackOutbounds(e);
+            PaintTrackOutbounds(e);
         }
 
         public void DrawTrackOverlay(PaintEventArgs e, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
         {
-            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+            Rectangle clip = GetTrackClip(e.ClipRectangle);
 
             if (clip.Width > 0 && clip.Height > 0)
             {
-                using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
+                using (Bitmap image = CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = CreateBackBuffer(image, clip))
                 {
-                    this.DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
-                    this.DrawImage(e.Graphics, image, clip);
+                    DrawOverlay(backBuffer, hoveredOverlayTile, selectedOverlayTile, selectedPattern, selectedPatternLocation);
+                    DrawImage(e.Graphics, image, clip);
                 }
             }
 
-            this.PaintTrackOutbounds(e);
+            PaintTrackOutbounds(e);
         }
 
         public void DrawTrackStart(PaintEventArgs e)
         {
-            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+            Rectangle clip = GetTrackClip(e.ClipRectangle);
 
             if (clip.Width > 0 && clip.Height > 0)
             {
-                using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
+                using (Bitmap image = CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = CreateBackBuffer(image, clip))
                 {
-                    this.DrawStartData(backBuffer);
-                    this.DrawImage(e.Graphics, image, clip);
+                    DrawStartData(backBuffer);
+                    DrawImage(e.Graphics, image, clip);
                 }
             }
 
-            this.PaintTrackOutbounds(e);
+            PaintTrackOutbounds(e);
         }
 
         public void DrawTrackObjects(PaintEventArgs e, TrackObject hoveredObject, bool frontAreasView)
         {
-            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+            Rectangle clip = GetTrackClip(e.ClipRectangle);
 
             if (clip.Width > 0 && clip.Height > 0)
             {
-                using (Bitmap image = this.CreateClippedTrackImage(clip))
+                using (Bitmap image = CreateClippedTrackImage(clip))
                 {
-                    if (this.track is GPTrack)
+                    if (_track is GPTrack)
                     {
-                        using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
+                        using (Graphics backBuffer = CreateBackBuffer(image, clip))
                         {
-                            this.DrawObjectData(backBuffer, hoveredObject, frontAreasView);
+                            DrawObjectData(backBuffer, hoveredObject, frontAreasView);
                         }
                     }
 
-                    this.DrawImage(e.Graphics, image, clip);
+                    DrawImage(e.Graphics, image, clip);
                 }
             }
 
-            this.PaintTrackOutbounds(e);
+            PaintTrackOutbounds(e);
         }
 
         public void DrawTrackAI(PaintEventArgs e, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
         {
-            Rectangle clip = this.GetTrackClip(e.ClipRectangle);
+            Rectangle clip = GetTrackClip(e.ClipRectangle);
 
             if (clip.Width > 0 && clip.Height > 0)
             {
-                using (Bitmap image = this.CreateClippedTrackImage(clip))
-                using (Graphics backBuffer = TrackDrawer.CreateBackBuffer(image, clip))
+                using (Bitmap image = CreateClippedTrackImage(clip))
+                using (Graphics backBuffer = CreateBackBuffer(image, clip))
                 {
-                    this.DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
-                    this.DrawImage(e.Graphics, image, clip);
+                    DrawAI(backBuffer, hoveredAIElem, selectedAIElem, isAITargetHovered);
+                    DrawImage(e.Graphics, image, clip);
                 }
             }
 
-            this.PaintTrackOutbounds(e);
+            PaintTrackOutbounds(e);
         }
 
         private static Rectangle GetVisibleTileSelectionRectangle(Rectangle tileSelection)
@@ -832,7 +832,7 @@ namespace EpicEdit.UI.Gfx
                                                       startRectangle1.Width,
                                                       startRectangle1.Height);
 
-            if (this.zoom < 1)
+            if (_zoom < 1)
             {
                 // HACK: Avoid clipping issues (rounding differences)
                 startRectangle1.Inflate(1, 0);
@@ -857,8 +857,8 @@ namespace EpicEdit.UI.Gfx
 
         private static Region GetBattleStartClipRegion(BattleStartPosition startPositionP1, BattleStartPosition startPositionP2)
         {
-            Region region = new Region(TrackDrawer.GetBattleStartClipRectangle(startPositionP1));
-            region.Union(TrackDrawer.GetBattleStartClipRectangle(startPositionP2));
+            Region region = new Region(GetBattleStartClipRectangle(startPositionP1));
+            region.Union(GetBattleStartClipRectangle(startPositionP2));
             return region;
         }
 
@@ -927,60 +927,60 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawTileSelection(Graphics g, Rectangle tileSelection, bool selectingTiles)
         {
-            Rectangle visibleSelection = TrackDrawer.GetVisibleTileSelectionRectangle(tileSelection);
+            Rectangle visibleSelection = GetVisibleTileSelectionRectangle(tileSelection);
 
             if (selectingTiles) // A tile selection is happening now
             {
-                g.FillRectangle(this.tileSelectBrush, visibleSelection);
-                g.DrawRectangle(this.tileSelectPen, visibleSelection);
+                g.FillRectangle(_tileSelectBrush, visibleSelection);
+                g.DrawRectangle(_tileSelectPen, visibleSelection);
             }
             else // The user is simply hovering tiles
             {
-                g.DrawImage(this.tileClipboardCache,
+                g.DrawImage(_tileClipboardCache,
                             new Rectangle(visibleSelection.X + 1,
                                           visibleSelection.Y + 1,
                                           visibleSelection.Width,
                                           visibleSelection.Height),
                             0, 0, visibleSelection.Width, visibleSelection.Height,
-                            GraphicsUnit.Pixel, this.translucidImageAttr);
-                g.DrawRectangle(this.tileHighlightPen, visibleSelection);
+                            GraphicsUnit.Pixel, _translucidImageAttr);
+                g.DrawRectangle(_tileHighlightPen, visibleSelection);
             }
         }
 
         private void DrawOverlay(Graphics g, OverlayTile hoveredOverlayTile, OverlayTile selectedOverlayTile, OverlayTilePattern selectedPattern, Point selectedPatternLocation)
         {
-            RoadTileset tileset = this.track.RoadTileset;
+            RoadTileset tileset = _track.RoadTileset;
 
-            foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+            foreach (OverlayTile overlayTile in _track.OverlayTiles)
             {
-                TrackDrawer.DrawOverlayTile(g, overlayTile, tileset);
+                DrawOverlayTile(g, overlayTile, tileset);
             }
 
             if (hoveredOverlayTile != null)
             {
-                this.DrawOverlaySelection(g, hoveredOverlayTile);
+                DrawOverlaySelection(g, hoveredOverlayTile);
             }
 
             if (selectedOverlayTile != null &&
                 selectedOverlayTile != hoveredOverlayTile)
             {
-                this.DrawOverlaySelection(g, selectedOverlayTile);
+                DrawOverlaySelection(g, selectedOverlayTile);
             }
 
             if (selectedPattern != null && selectedPatternLocation != TrackEditor.OutOfBounds)
             {
-                this.DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tileset);
+                DrawOverlayPattern(g, selectedPattern, selectedPatternLocation, tileset);
             }
         }
 
         private static void DrawOverlayTile(Graphics g, OverlayTile overlayTile, RoadTileset tileset)
         {
-            TrackDrawer.DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tileset);
+            DrawOverlayTileSub(g, null, overlayTile.Pattern, overlayTile.Location, tileset);
         }
 
         private void DrawOverlayPattern(Graphics g, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
         {
-            TrackDrawer.DrawOverlayTileSub(g, this.translucidImageAttr, overlayTilePattern, location, tileset);
+            DrawOverlayTileSub(g, _translucidImageAttr, overlayTilePattern, location, tileset);
         }
 
         private static void DrawOverlayTileSub(Graphics g, ImageAttributes imageAttr, OverlayTilePattern overlayTilePattern, Point location, RoadTileset tileset)
@@ -1009,7 +1009,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawOverlaySelection(Graphics g, OverlayTile overlayTile)
         {
-            g.FillRectangle(this.overlayHighlightBrush,
+            g.FillRectangle(_overlayHighlightBrush,
                             overlayTile.X * Tile.Size,
                             overlayTile.Y * Tile.Size,
                             overlayTile.Width * Tile.Size,
@@ -1018,33 +1018,33 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawStartData(Graphics g)
         {
-            if (this.track is GPTrack)
+            if (_track is GPTrack)
             {
-                this.DrawLapLine(g);
-                this.DrawGPStartPositions(g);
+                DrawLapLine(g);
+                DrawGPStartPositions(g);
             }
             else
             {
-                this.DrawBattleStartPositions(g);
+                DrawBattleStartPositions(g);
             }
         }
 
         private void DrawLapLine(Graphics g)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
 
             Point location = new Point(gpTrack.LapLine.X, gpTrack.LapLine.Y);
 
-            g.DrawLine(this.lapLineOutlinePen, location.X, location.Y,
+            g.DrawLine(_lapLineOutlinePen, location.X, location.Y,
                        location.X + gpTrack.LapLine.Length, location.Y);
 
-            g.DrawLine(this.lapLinePen, location.X + 1, location.Y,
+            g.DrawLine(_lapLinePen, location.X + 1, location.Y,
                        location.X + gpTrack.LapLine.Length - 2, location.Y);
         }
 
         private void DrawGPStartPositions(Graphics g)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
 
             int x = gpTrack.StartPosition.X;
             int y = gpTrack.StartPosition.Y;
@@ -1053,19 +1053,19 @@ namespace EpicEdit.UI.Gfx
             for (int pos = 0; pos <= 18; pos += 6)
             {
                 // 1st Column
-                this.DrawUpArrow(g, x, y + pos * Tile.Size);
+                DrawUpArrow(g, x, y + pos * Tile.Size);
 
                 // 2nd Column
-                this.DrawUpArrow(g, x + secondRowOffset, y + ((3 + pos) * Tile.Size));
+                DrawUpArrow(g, x + secondRowOffset, y + ((3 + pos) * Tile.Size));
             }
         }
 
         private void DrawBattleStartPositions(Graphics g)
         {
-            BattleTrack bTrack = this.track as BattleTrack;
+            BattleTrack bTrack = _track as BattleTrack;
 
-            this.DrawDownArrow(g, bTrack.StartPositionP2.X, bTrack.StartPositionP2.Y);
-            this.DrawUpArrow(g, bTrack.StartPositionP1.X, bTrack.StartPositionP1.Y);
+            DrawDownArrow(g, bTrack.StartPositionP2.X, bTrack.StartPositionP2.Y);
+            DrawUpArrow(g, bTrack.StartPositionP1.X, bTrack.StartPositionP1.Y);
         }
 
         private void DrawUpArrow(Graphics g, int x, int y)
@@ -1076,7 +1076,7 @@ namespace EpicEdit.UI.Gfx
                 new Point(x + 4, y + 4), // Bottom right
                 new Point(x - 4, y + 4) // Bottom left
             };
-            this.DrawArrow(g, arrow);
+            DrawArrow(g, arrow);
         }
 
         private void DrawDownArrow(Graphics g, int x, int y)
@@ -1087,7 +1087,7 @@ namespace EpicEdit.UI.Gfx
                 new Point(x + 4, y - 4), // Top right
                 new Point(x, y + 4) // Bottom center (tip)
             };
-            this.DrawArrow(g, arrow);
+            DrawArrow(g, arrow);
         }
 
         private void DrawLeftArrow(Graphics g, int x, int y)
@@ -1098,7 +1098,7 @@ namespace EpicEdit.UI.Gfx
                 new Point(x + 4, y + 4), // Bottom right
                 new Point(x + 4, y - 4) // Top right
             };
-            this.DrawArrow(g, arrow);
+            DrawArrow(g, arrow);
         }
 
         private void DrawRightArrow(Graphics g, int x, int y)
@@ -1109,65 +1109,65 @@ namespace EpicEdit.UI.Gfx
                 new Point(x - 4, y + 4), // Bottom left
                 new Point(x + 4, y) // Center right (tip)
             };
-            this.DrawArrow(g, arrow);
+            DrawArrow(g, arrow);
         }
 
         private void DrawArrow(Graphics g, Point[] arrow)
         {
-            g.FillPolygon(this.arrowBrush, arrow);
-            g.DrawPolygon(this.arrowPen, arrow);
+            g.FillPolygon(_arrowBrush, arrow);
+            g.DrawPolygon(_arrowPen, arrow);
         }
 
         private void DrawObjectData(Graphics g, TrackObject hoveredObject, bool frontAreasView)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
 
             if (gpTrack.Objects.Routine != TrackObjectType.Pillar)
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
 
-                this.DrawObjectAreas(g, frontAreasView);
+                DrawObjectAreas(g, frontAreasView);
 
                 TrackObjectGraphics objectGraphics = Context.Game.ObjectGraphics;
                 using (Bitmap objectImage = objectGraphics.GetImage(gpTrack))
                 using (Bitmap matchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, true))
                 using (Bitmap stillMatchRaceObjectImage = objectGraphics.GetMatchRaceObjectImage(gpTrack.Theme, false))
                 {
-                    this.DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
+                    DrawObjects(g, objectImage, matchRaceObjectImage, stillMatchRaceObjectImage, hoveredObject);
                 }
             }
         }
 
         private void DrawObjectAreas(Graphics g, bool frontAreasView)
         {
-            this.InitObjectAreasBitmap(frontAreasView);
+            InitObjectAreasBitmap(frontAreasView);
 
-            g.DrawImage(this.objectAreasCache,
+            g.DrawImage(_objectAreasCache,
                         new Rectangle(0, 0,
-                                      this.track.Map.Width * Tile.Size,
-                                      this.track.Map.Height * Tile.Size),
+                                      _track.Map.Width * Tile.Size,
+                                      _track.Map.Height * Tile.Size),
                         0, 0, TrackObjectAreasView.GridSize, TrackObjectAreasView.GridSize,
-                        GraphicsUnit.Pixel, this.translucidImageAttr);
+                        GraphicsUnit.Pixel, _translucidImageAttr);
         }
 
         private void InitObjectAreasBitmap(bool frontAreasView)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
             byte[][] objectAreas = frontAreasView ?
                 gpTrack.Objects.Areas.FrontView.GetGrid() :
                 gpTrack.Objects.Areas.RearView.GetGrid();
 
-            if (this.ObjectAreasChanged(objectAreas))
+            if (ObjectAreasChanged(objectAreas))
             {
-                this.objectAreas = objectAreas;
-                this.objectAreasCache.Dispose();
-                this.objectAreasCache = this.CreateObjectAreasBitmap();
+                _objectAreas = objectAreas;
+                _objectAreasCache.Dispose();
+                _objectAreasCache = CreateObjectAreasBitmap();
             }
         }
 
         private bool ObjectAreasChanged(byte[][] objectAreas)
         {
-            if (this.objectAreas == null)
+            if (_objectAreas == null)
             {
                 return true;
             }
@@ -1176,7 +1176,7 @@ namespace EpicEdit.UI.Gfx
             {
                 for (int x = 0; x < objectAreas[y].Length; x++)
                 {
-                    if (this.objectAreas[y][x] != objectAreas[y][x])
+                    if (_objectAreas[y][x] != objectAreas[y][x])
                     {
                         return true;
                     }
@@ -1191,15 +1191,15 @@ namespace EpicEdit.UI.Gfx
         /// </summary>
         private Bitmap CreateObjectAreasBitmap()
         {
-            Bitmap bitmap = new Bitmap(TrackObjectAreasView.GridSize, TrackObjectAreasView.GridSize, this.trackCache.PixelFormat);
+            Bitmap bitmap = new Bitmap(TrackObjectAreasView.GridSize, TrackObjectAreasView.GridSize, _trackCache.PixelFormat);
             FastBitmap fBitmap = new FastBitmap(bitmap);
 
-            for (int y = 0; y < this.objectAreas.Length; y++)
+            for (int y = 0; y < _objectAreas.Length; y++)
             {
-                for (int x = 0; x < this.objectAreas[y].Length; x++)
+                for (int x = 0; x < _objectAreas[y].Length; x++)
                 {
-                    byte objectAreaIndex = this.objectAreas[y][x];
-                    fBitmap.SetPixel(x, y, this.objectBrushes[objectAreaIndex].Color);
+                    byte objectAreaIndex = _objectAreas[y][x];
+                    fBitmap.SetPixel(x, y, _objectBrushes[objectAreaIndex].Color);
                 }
             }
 
@@ -1209,7 +1209,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawObjects(Graphics g, Bitmap objectImage, Bitmap matchRaceObjectImage, Bitmap stillMatchRaceObjectImage, TrackObject hoveredObject)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
 
             int hoveredObjectIndex = 0;
 
@@ -1233,13 +1233,13 @@ namespace EpicEdit.UI.Gfx
 
                 if (trackObject.Direction == TrackObjectDirection.Horizontal)
                 {
-                    this.DrawLeftArrow(g, x - 9, y + 4);
-                    this.DrawRightArrow(g, x + 18, y + 4);
+                    DrawLeftArrow(g, x - 9, y + 4);
+                    DrawRightArrow(g, x + 18, y + 4);
                 }
                 else if (trackObject.Direction == TrackObjectDirection.Vertical)
                 {
-                    this.DrawUpArrow(g, x + 4, y - 9);
-                    this.DrawDownArrow(g, x + 4, y + 18);
+                    DrawUpArrow(g, x + 4, y - 9);
+                    DrawDownArrow(g, x + 4, y + 18);
                 }
             }
 
@@ -1256,7 +1256,7 @@ namespace EpicEdit.UI.Gfx
                 }
                 else
                 {
-                    if (this.objectAreas[trackObject.Y / TrackAIElement.Precision]
+                    if (_objectAreas[trackObject.Y / TrackAIElement.Precision]
                                   [trackObject.X / TrackAIElement.Precision] != (i / 4))
                     {
                         // The object is out of its area, it most likely won't
@@ -1266,7 +1266,7 @@ namespace EpicEdit.UI.Gfx
                                                   y - (Tile.Size / 2),
                                                   16, 16),
                                     0, 0, 16, 16,
-                                    GraphicsUnit.Pixel, this.grayScaleImageAttr);
+                                    GraphicsUnit.Pixel, _grayScaleImageAttr);
                     }
                     else
                     {
@@ -1280,11 +1280,11 @@ namespace EpicEdit.UI.Gfx
                 int x = hoveredObject.X * Tile.Size;
                 int y = hoveredObject.Y * Tile.Size - (Tile.Size / 2);
                 Rectangle trackObjectRect = new Rectangle(x - 6, y - 6, 20, 20);
-                g.DrawEllipse(this.objectOutlinePen, trackObjectRect);
+                g.DrawEllipse(_objectOutlinePen, trackObjectRect);
 
                 if (!(hoveredObject is TrackObjectMatchRace matchRaceObject))
                 {
-                    g.FillEllipse(this.objectBrushes[hoveredObjectIndex / 4], trackObjectRect);
+                    g.FillEllipse(_objectBrushes[hoveredObjectIndex / 4], trackObjectRect);
                     g.DrawImage(objectImage, x - (Tile.Size / 2), y - (Tile.Size / 2));
                 }
                 else
@@ -1298,74 +1298,74 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawAI(Graphics g, TrackAIElement hoveredAIElem, TrackAIElement selectedAIElem, bool isAITargetHovered)
         {
-            this.DrawAIElements(g);
+            DrawAIElements(g);
 
             if (hoveredAIElem != selectedAIElem)
             {
-                this.HighlightHoveredAIElement(g, hoveredAIElem, isAITargetHovered);
+                HighlightHoveredAIElement(g, hoveredAIElem, isAITargetHovered);
             }
-            this.HighlightSelectedAIElement(g, selectedAIElem);
+            HighlightSelectedAIElement(g, selectedAIElem);
         }
 
         private void DrawAIElements(Graphics g)
         {
-            foreach (TrackAIElement aiElem in this.track.AI)
+            foreach (TrackAIElement aiElem in _track.AI)
             {
-                this.DrawAIElement(g, aiElem);
+                DrawAIElement(g, aiElem);
             }
         }
 
         private void DrawAIElement(Graphics g, TrackAIElement aiElem)
         {
-            const int HalfTileSize = Tile.Size / 2;
+            const int halfTileSize = Tile.Size / 2;
 
             int pointX = aiElem.Target.X * Tile.Size;
             int pointY = aiElem.Target.Y * Tile.Size;
-            g.DrawEllipse(this.objectOutlinePen, pointX + 1, pointY + 1, HalfTileSize + 1, HalfTileSize + 1);
+            g.DrawEllipse(_objectOutlinePen, pointX + 1, pointY + 1, halfTileSize + 1, halfTileSize + 1);
 
-            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
-            Point target = new Point(pointX + HalfTileSize, pointY + HalfTileSize);
+            Rectangle aiArea = GetAIAreaRectangle(aiElem);
+            Point target = new Point(pointX + halfTileSize, pointY + halfTileSize);
             int speed = aiElem.Speed;
 
             if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
             {
-                TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
-                TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
-                TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
-                TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
+                PaintTopSide(g, _aiAreaBrushes[speed][0], aiArea, target);
+                PaintRightSide(g, _aiAreaBrushes[speed][1], aiArea, target);
+                PaintBottomSide(g, _aiAreaBrushes[speed][2], aiArea, target);
+                PaintLeftSide(g, _aiAreaBrushes[speed][1], aiArea, target);
 
-                g.DrawRectangle(this.aiAreaPens[speed], aiArea);
+                g.DrawRectangle(_aiAreaPens[speed], aiArea);
             }
             else
             {
-                Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
+                Point[] points = GetAIAreaTriangle(aiElem);
 
-                g.DrawPolygon(this.aiAreaPens[speed], points);
+                g.DrawPolygon(_aiAreaPens[speed], points);
 
                 switch (aiElem.AreaShape)
                 {
                     case TrackAIElementShape.TriangleTopLeft:
-                        TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
-                        TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][2], points, target);
+                        PaintTopSide(g, _aiAreaBrushes[speed][0], aiArea, target);
+                        PaintLeftSide(g, _aiAreaBrushes[speed][1], aiArea, target);
+                        PaintTriangleDiagonalSide(g, _aiAreaBrushes[speed][2], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleTopRight:
-                        TrackDrawer.PaintTopSide(g, this.aiAreaBrushes[speed][0], aiArea, target);
-                        TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][2], points, target);
+                        PaintTopSide(g, _aiAreaBrushes[speed][0], aiArea, target);
+                        PaintRightSide(g, _aiAreaBrushes[speed][1], aiArea, target);
+                        PaintTriangleDiagonalSide(g, _aiAreaBrushes[speed][2], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleBottomRight:
-                        TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
-                        TrackDrawer.PaintRightSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][0], points, target);
+                        PaintBottomSide(g, _aiAreaBrushes[speed][2], aiArea, target);
+                        PaintRightSide(g, _aiAreaBrushes[speed][1], aiArea, target);
+                        PaintTriangleDiagonalSide(g, _aiAreaBrushes[speed][0], points, target);
                         break;
 
                     case TrackAIElementShape.TriangleBottomLeft:
-                        TrackDrawer.PaintBottomSide(g, this.aiAreaBrushes[speed][2], aiArea, target);
-                        TrackDrawer.PaintLeftSide(g, this.aiAreaBrushes[speed][1], aiArea, target);
-                        TrackDrawer.PaintTriangleDiagonalSide(g, this.aiAreaBrushes[speed][0], points, target);
+                        PaintBottomSide(g, _aiAreaBrushes[speed][2], aiArea, target);
+                        PaintLeftSide(g, _aiAreaBrushes[speed][1], aiArea, target);
+                        PaintTriangleDiagonalSide(g, _aiAreaBrushes[speed][0], points, target);
                         break;
                 }
             }
@@ -1444,33 +1444,33 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
+            Rectangle aiArea = GetAIAreaRectangle(aiElem);
 
             if (isAITargetHovered)
             {
-                TrackDrawer.DrawAITargetLines(g, aiElem, aiArea, this.aiElementHighlightPen);
+                DrawAITargetLines(g, aiElem, aiArea, _aiElementHighlightPen);
             }
             else
             {
                 if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
                 {
-                    g.DrawRectangle(this.aiElementHighlightPen, aiArea);
+                    g.DrawRectangle(_aiElementHighlightPen, aiArea);
                 }
                 else
                 {
-                    Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
+                    Point[] points = GetAIAreaTriangle(aiElem);
 
-                    g.DrawLines(this.aiElementHighlightPen, points);
+                    g.DrawLines(_aiElementHighlightPen, points);
                 }
             }
 
-            Color color = this.aiAreaBrushes[aiElem.Speed][0].Color;
+            Color color = _aiAreaBrushes[aiElem.Speed][0].Color;
             using (Brush brush = new LinearGradientBrush(new Point(0, aiArea.Top),
                                                          new Point(0, aiArea.Bottom),
                                                          Color.FromArgb(color.A / 2, color),
                                                          Color.Transparent))
             {
-                this.HighlightAIElement(g, brush, aiElem, aiArea);
+                HighlightAIElement(g, brush, aiElem, aiArea);
             }
         }
 
@@ -1481,23 +1481,23 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle aiArea = TrackDrawer.GetAIAreaRectangle(aiElem);
-            TrackDrawer.DrawAITargetLines(g, aiElem, aiArea, this.aiElementSelectPen);
-            this.HighlightAIElement(g, this.aiAreaBrushes[aiElem.Speed][0], aiElem, aiArea);
+            Rectangle aiArea = GetAIAreaRectangle(aiElem);
+            DrawAITargetLines(g, aiElem, aiArea, _aiElementSelectPen);
+            HighlightAIElement(g, _aiAreaBrushes[aiElem.Speed][0], aiElem, aiArea);
         }
 
         private void HighlightAIElement(Graphics g, Brush brush, TrackAIElement aiElem, Rectangle aiArea)
         {
             if (aiElem.AreaShape == TrackAIElementShape.Rectangle)
             {
-                g.DrawRectangle(this.aiElementSelectPen, aiArea);
+                g.DrawRectangle(_aiElementSelectPen, aiArea);
                 g.FillRectangle(brush, aiArea);
             }
             else
             {
-                Point[] points = TrackDrawer.GetAIAreaTriangle(aiElem);
+                Point[] points = GetAIAreaTriangle(aiElem);
 
-                g.DrawPolygon(this.aiElementSelectPen, points);
+                g.DrawPolygon(_aiElementSelectPen, points);
                 g.FillPolygon(brush, points);
             }
         }
@@ -1670,8 +1670,8 @@ namespace EpicEdit.UI.Gfx
 
         private void PaintTrackOutbounds(PaintEventArgs e)
         {
-            int mapWidth = (int)((this.track.Map.Width - this.scrollPosition.X) * Tile.Size * this.zoom);
-            int mapHeight = (int)((this.track.Map.Height - this.scrollPosition.Y) * Tile.Size * this.zoom);
+            int mapWidth = (int)((_track.Map.Width - _scrollPosition.X) * Tile.Size * _zoom);
+            int mapHeight = (int)((_track.Map.Height - _scrollPosition.Y) * Tile.Size * _zoom);
 
             if (e.ClipRectangle.Right > mapWidth || e.ClipRectangle.Bottom > mapHeight)
             {
@@ -1695,45 +1695,45 @@ namespace EpicEdit.UI.Gfx
 
         public void Dispose()
         {
-            this.trackCache.Dispose();
-            this.tileClipboardCache.Dispose();
-            this.objectAreasCache.Dispose();
+            _trackCache.Dispose();
+            _tileClipboardCache.Dispose();
+            _objectAreasCache.Dispose();
 
-            this.zoomMatrix.Dispose();
+            _zoomMatrix.Dispose();
 
-            this.tileHighlightPen.Dispose();
-            this.tileSelectPen.Dispose();
-            this.tileSelectBrush.Dispose();
+            _tileHighlightPen.Dispose();
+            _tileSelectPen.Dispose();
+            _tileSelectBrush.Dispose();
 
-            this.overlayHighlightBrush.Dispose();
+            _overlayHighlightBrush.Dispose();
 
-            this.lapLinePen.Dispose();
-            this.lapLineOutlinePen.Dispose();
-            this.arrowBrush.Dispose();
-            this.arrowPen.Dispose();
+            _lapLinePen.Dispose();
+            _lapLineOutlinePen.Dispose();
+            _arrowBrush.Dispose();
+            _arrowPen.Dispose();
 
-            this.objectOutlinePen.Dispose();
-            foreach (SolidBrush objectBrush in this.objectBrushes)
+            _objectOutlinePen.Dispose();
+            foreach (SolidBrush objectBrush in _objectBrushes)
             {
                 objectBrush.Dispose();
             }
 
-            foreach (SolidBrush[] aiAreaBrushes in this.aiAreaBrushes)
+            foreach (SolidBrush[] aiAreaBrushes in _aiAreaBrushes)
             {
                 foreach (SolidBrush aiAreaBrush in aiAreaBrushes)
                 {
                     aiAreaBrush.Dispose();
                 }
             }
-            foreach (Pen aiAreaPen in this.aiAreaPens)
+            foreach (Pen aiAreaPen in _aiAreaPens)
             {
                 aiAreaPen.Dispose();
             }
-            this.aiElementHighlightPen.Dispose();
-            this.aiElementSelectPen.Dispose();
+            _aiElementHighlightPen.Dispose();
+            _aiElementSelectPen.Dispose();
 
-            this.translucidImageAttr.Dispose();
-            this.grayScaleImageAttr.Dispose();
+            _translucidImageAttr.Dispose();
+            _grayScaleImageAttr.Dispose();
 
             GC.SuppressFinalize(this);
         }

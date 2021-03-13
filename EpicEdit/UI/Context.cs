@@ -35,6 +35,6 @@ namespace EpicEdit.UI
         /// <summary>
         /// Gets value that determines if the color picker mode is currently enabled.
         /// </summary>
-        internal static bool ColorPickerMode => Context.ColorPickerControl != null && Context.ColorPickerControl.Visible;
+        internal static bool ColorPickerMode => ColorPickerControl != null && ColorPickerControl.Visible;
     }
 }

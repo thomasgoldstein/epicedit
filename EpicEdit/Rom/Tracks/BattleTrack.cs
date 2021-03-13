@@ -33,26 +33,26 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public new const int GroupCount = 1;
 
-        private readonly BattleStartPosition startPositionP1;
+        private readonly BattleStartPosition _startPositionP1;
 
         /// <summary>
         /// The starting position of Player 1.
         /// </summary>
         public BattleStartPosition StartPositionP1
         {
-            get => this.startPositionP1;
-            private set => this.startPositionP1.SetBytes(value.GetBytes());
+            get => _startPositionP1;
+            private set => _startPositionP1.SetBytes(value.GetBytes());
         }
 
-        private readonly BattleStartPosition startPositionP2;
+        private readonly BattleStartPosition _startPositionP2;
 
         /// <summary>
         /// The starting position of Player 2.
         /// </summary>
         public BattleStartPosition StartPositionP2
         {
-            get => this.startPositionP2;
-            private set => this.startPositionP2.SetBytes(value.GetBytes());
+            get => _startPositionP2;
+            private set => _startPositionP2.SetBytes(value.GetBytes());
         }
 
         public BattleTrack(SuffixedTextItem nameItem, Theme theme,
@@ -66,21 +66,21 @@ namespace EpicEdit.Rom.Tracks
             byte[] startPosition1Data = { startPositionData[0], startPositionData[1], startPositionData[2], startPositionData[3] };
             byte[] startPosition2Data = { startPositionData[4], startPositionData[5], startPositionData[6], startPositionData[7] };
 
-            this.startPositionP1 = new BattleStartPosition(startPosition1Data);
-            this.StartPositionP1.DataChanged += StartPositionP1_DataChanged;
+            _startPositionP1 = new BattleStartPosition(startPosition1Data);
+            StartPositionP1.DataChanged += StartPositionP1_DataChanged;
 
-            this.startPositionP2 = new BattleStartPosition(startPosition2Data);
-            this.StartPositionP2.DataChanged += StartPositionP2_DataChanged;
+            _startPositionP2 = new BattleStartPosition(startPosition2Data);
+            StartPositionP2.DataChanged += StartPositionP2_DataChanged;
         }
 
         private void StartPositionP1_DataChanged(object sender, System.EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.BattleTrack.StartPositionP1);
+            MarkAsModified(PropertyNames.BattleTrack.StartPositionP1);
         }
 
         private void StartPositionP2_DataChanged(object sender, System.EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.BattleTrack.StartPositionP2);
+            MarkAsModified(PropertyNames.BattleTrack.StartPositionP2);
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace EpicEdit.Rom.Tracks
         {
             base.LoadDataFrom(track);
 
-            this.StartPositionP1 = track.StartPositionP1;
-            this.StartPositionP2 = track.StartPositionP2;
+            StartPositionP1 = track.StartPositionP1;
+            StartPositionP2 = track.StartPositionP2;
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace EpicEdit.Rom.Tracks
         {
             base.LoadDataTo(track);
 
-            track.StartPositionP1 = this.StartPositionP1;
-            track.StartPositionP2 = this.StartPositionP2;
+            track.StartPositionP1 = StartPositionP1;
+            track.StartPositionP2 = StartPositionP2;
         }
     }
 }

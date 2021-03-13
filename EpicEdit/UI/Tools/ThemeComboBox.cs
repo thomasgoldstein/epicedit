@@ -25,43 +25,43 @@ namespace EpicEdit.UI.Tools
     /// </summary>
     internal class ThemeComboBox : ComboBox
     {
-        private readonly Dictionary<TextItem, int> indexDictionary;
+        private readonly Dictionary<TextItem, int> _indexDictionary;
 
         public ThemeComboBox()
         {
-            this.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.indexDictionary = new Dictionary<TextItem, int>();
+            DropDownStyle = ComboBoxStyle.DropDownList;
+            _indexDictionary = new Dictionary<TextItem, int>();
         }
 
         public void Init()
         {
-            this.indexDictionary.Clear();
+            _indexDictionary.Clear();
 
-            this.BeginUpdate();
-            this.Items.Clear();
+            BeginUpdate();
+            Items.Clear();
             int index = 0;
 
             foreach (Theme theme in Context.Game.Themes)
             {
-                this.indexDictionary.Add(theme.NameItem, index++);
-                theme.NameItem.PropertyChanged += this.themeNameItem_PropertyChanged;
-                this.Items.Add(theme);
+                _indexDictionary.Add(theme.NameItem, index++);
+                theme.NameItem.PropertyChanged += themeNameItem_PropertyChanged;
+                Items.Add(theme);
             }
 
-            this.EndUpdate();
+            EndUpdate();
         }
 
         private void themeNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int index = this.indexDictionary[sender as TextItem];
-            this.Items[index] = Context.Game.Themes[index];
+            int index = _indexDictionary[sender as TextItem];
+            Items[index] = Context.Game.Themes[index];
         }
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme SelectedTheme
         {
-            get => this.SelectedItem as Theme;
-            set => this.SelectedItem = value;
+            get => SelectedItem as Theme;
+            set => SelectedItem = value;
         }
     }
 }

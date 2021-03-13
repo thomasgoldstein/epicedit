@@ -33,42 +33,42 @@ namespace EpicEdit.Rom.Settings
         /// </summary>
         public TextConverter Converter { get; }
 
-        public Region Region => this.Converter.Region;
+        public Region Region => Converter.Region;
 
         /// <summary>
         /// The texts of the collection.
         /// </summary>
-        private readonly TextItem[] texts;
+        private readonly TextItem[] _texts;
 
         /// <summary>
         /// The offset to the indexes that define the address of each text.
         /// </summary>
-        private readonly int indexOffset;
+        private readonly int _indexOffset;
 
         /// <summary>
         /// The offset to the start of the text data.
         /// </summary>
-        private readonly int textOffset;
+        private readonly int _textOffset;
 
         /// <summary>
         /// The color palette index used by each text (using the 1st character as reference).
         /// </summary>
-        private readonly byte[] colorIndexes;
+        private readonly byte[] _colorIndexes;
 
         /// <summary>
         /// The total size in bytes of the collection.
         /// </summary>
-        private readonly int totalSize;
+        private readonly int _totalSize;
 
         /// <summary>
         /// A mode for certain Japanese text collections with ten-ten and maru characters encoded separately.
         /// </summary>
-        private readonly bool japAltMode;
+        private readonly bool _japAltMode;
 
         /// <summary>
         /// True if characters are tall (two 8x8 vertically-laid tiles), false otherwise (one 8x8 tile per character).
         /// </summary>
-        private readonly bool tallCharacters;
+        private readonly bool _tallCharacters;
 
         /// <summary>
         /// Gets the maximum amount of characters available for the whole collection.
@@ -82,15 +82,15 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                this.GetBytes(out byte[] indexes, out int length);
-                return this.GetCharacterCount(length);
+                GetBytes(out byte[] indexes, out int length);
+                return GetCharacterCount(length);
             }
         }
 
         private int GetCharacterCount(int byteCount)
         {
-            int step = this.colorIndexes == null ? 1 : 2;
-            return (byteCount / step) - this.texts.Length;
+            int step = _colorIndexes == null ? 1 : 2;
+            return (byteCount / step) - _texts.Length;
         }
 
         public bool Modified { get; private set; }
@@ -113,43 +113,43 @@ namespace EpicEdit.Rom.Settings
         public TextCollection(byte[] romBuffer, int indexOffset, int count, int totalSize, bool hasPaletteData,
                               bool fixedLength, bool japAltMode, bool tallCharacters, byte shiftValue, byte[] keys, char[] values)
         {
-            this.Converter = new TextConverter(Game.GetRegion(romBuffer), tallCharacters, shiftValue);
+            Converter = new TextConverter(Game.GetRegion(romBuffer), tallCharacters, shiftValue);
             byte[][] textIndexes = Utilities.ReadBlockGroup(romBuffer, indexOffset, 2, count);
 
-            this.texts = new TextItem[count];
-            this.indexOffset = indexOffset;
-            this.totalSize = totalSize;
-            this.japAltMode = japAltMode;
-            this.tallCharacters = tallCharacters;
+            _texts = new TextItem[count];
+            _indexOffset = indexOffset;
+            _totalSize = totalSize;
+            _japAltMode = japAltMode;
+            _tallCharacters = tallCharacters;
 
             if (hasPaletteData)
             {
-                this.colorIndexes = new byte[count];
+                _colorIndexes = new byte[count];
             }
 
-            this.MaxCharacterCount = this.GetCharacterCount(this.totalSize);
+            MaxCharacterCount = GetCharacterCount(_totalSize);
 
             if (keys != null)
             {
-                this.Converter.ReplaceKeyValues(keys, values);
+                Converter.ReplaceKeyValues(keys, values);
             }
 
             byte leadingOffsetByte = (byte)((indexOffset & 0xF0000) >> 16);
 
-            this.textOffset = int.MaxValue;
+            _textOffset = int.MaxValue;
             int[] offsets = new int[count];
             for (int i = 0; i < offsets.Length; i++)
             {
                 // Recreates offsets from the index table loaded above
                 offsets[i] = Utilities.BytesToOffset(textIndexes[i][0], textIndexes[i][1], leadingOffsetByte);
 
-                if (offsets[i] < this.textOffset)
+                if (offsets[i] < _textOffset)
                 {
-                    this.textOffset = offsets[i];
+                    _textOffset = offsets[i];
                 }
             }
 
-            for (int i = 0; i < this.texts.Length; i++)
+            for (int i = 0; i < _texts.Length; i++)
             {
                 byte[] textBytes;
 
@@ -177,7 +177,7 @@ namespace EpicEdit.Rom.Settings
                 {
                     // Remember the color palette used by the text
                     // (assuming the same color palette is used by all letters, as in the original game)
-                    this.colorIndexes[i] = textBytes[1];
+                    _colorIndexes[i] = textBytes[1];
                 }
 
                 if (japAltMode)
@@ -222,29 +222,29 @@ namespace EpicEdit.Rom.Settings
                     }
                 }
 
-                this.texts[i] = new TextItem(this, this.Converter.DecodeText(textBytes, hasPaletteData));
-                this.texts[i].PropertyChanged += this.TextItem_PropertyChanged;
+                _texts[i] = new TextItem(this, Converter.DecodeText(textBytes, hasPaletteData));
+                _texts[i].PropertyChanged += TextItem_PropertyChanged;
             }
         }
 
         private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.Modified = true;
-            this.OnPropertyChanged(sender, e);
+            Modified = true;
+            OnPropertyChanged(sender, e);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
-        public TextItem this[int index] => this.texts[index];
+        public TextItem this[int index] => _texts[index];
 
         public int IndexOf(TextItem item)
         {
-            for (int i = 0; i < this.texts.Length; i++)
+            for (int i = 0; i < _texts.Length; i++)
             {
-                if (this.texts[i] == item)
+                if (_texts[i] == item)
                 {
                     return i;
                 }
@@ -255,22 +255,22 @@ namespace EpicEdit.Rom.Settings
 
         public byte[] GetBytes(out byte[] indexes)
         {
-            return this.GetBytes(out indexes, out int length);
+            return GetBytes(out indexes, out int length);
         }
 
         protected virtual byte[] GetBytes(out byte[] indexes, out int length)
         {
-            indexes = new byte[this.texts.Length * (!this.japAltMode ? 2 : 4)];
-            byte[] data = new byte[this.totalSize];
-            bool hasPaletteData = this.colorIndexes != null;
+            indexes = new byte[_texts.Length * (!_japAltMode ? 2 : 4)];
+            byte[] data = new byte[_totalSize];
+            bool hasPaletteData = _colorIndexes != null;
             int index = 0;
 
-            for (int i = 0; i < this.texts.Length; i++)
+            for (int i = 0; i < _texts.Length; i++)
             {
-                byte? paletteIndex = !hasPaletteData ? null as byte? : this.colorIndexes[i];
-                string text = this.texts[i].Value;
+                byte? paletteIndex = !hasPaletteData ? null as byte? : _colorIndexes[i];
+                string text = _texts[i].Value;
 
-                if (this.japAltMode)
+                if (_japAltMode)
                 {
                     // Remove ten-ten and maru characters
 
@@ -282,24 +282,24 @@ namespace EpicEdit.Rom.Settings
                         .Replace("\u309A", ""); // Remove maru
                 }
 
-                byte[] offset = Utilities.OffsetToBytes(this.textOffset + index);
+                byte[] offset = Utilities.OffsetToBytes(_textOffset + index);
                 indexes[i * 2] = offset[0];
                 indexes[i * 2 + 1] = offset[1];
 
-                byte[] textBytes = this.Converter.EncodeText(text, paletteIndex);
-                TextCollection.SetBytes(data, textBytes, ref index, hasPaletteData);
+                byte[] textBytes = Converter.EncodeText(text, paletteIndex);
+                SetBytes(data, textBytes, ref index, hasPaletteData);
 
-                if (this.japAltMode)
+                if (_japAltMode)
                 {
                     // Append ten-ten and maru data separately
 
                     int step = !hasPaletteData ? 1 : 2;
                     int lastTenMaruIndex = 0;
 
-                    for (int j = 0; j < this.texts[i].Value.Length; j++)
+                    for (int j = 0; j < _texts[i].Value.Length; j++)
                     {
                         // Disconnect the ten-ten and maru characters from the character
-                        string chr = this.texts[i].Value[j].ToString().Normalize(NormalizationForm.FormD);
+                        string chr = _texts[i].Value[j].ToString().Normalize(NormalizationForm.FormD);
                         int k = j * step;
 
                         if (chr.Length == 1)
@@ -322,19 +322,19 @@ namespace EpicEdit.Rom.Settings
                         }
                     }
 
-                    offset = Utilities.OffsetToBytes(this.textOffset + index);
-                    indexes[(i + this.texts.Length) * 2] = offset[0];
-                    indexes[(i + this.texts.Length) * 2 + 1] = offset[1];
+                    offset = Utilities.OffsetToBytes(_textOffset + index);
+                    indexes[(i + _texts.Length) * 2] = offset[0];
+                    indexes[(i + _texts.Length) * 2 + 1] = offset[1];
 
                     byte[] tenMaruBytes = new byte[lastTenMaruIndex];
                     Buffer.BlockCopy(textBytes, 0, tenMaruBytes, 0, tenMaruBytes.Length);
-                    TextCollection.SetBytes(data, tenMaruBytes, ref index, hasPaletteData);
+                    SetBytes(data, tenMaruBytes, ref index, hasPaletteData);
                 }
             }
 
             length = index;
 
-            if (this.tallCharacters)
+            if (_tallCharacters)
             {
                 // Fix space character attributes (removing palette association)
 
@@ -347,7 +347,7 @@ namespace EpicEdit.Rom.Settings
                 }
             }
 
-            for (int i = length; i < this.totalSize; i++)
+            for (int i = length; i < _totalSize; i++)
             {
                 // Fill the unused end of the data with 0xFF
                 data[i] = 0xFF;
@@ -380,22 +380,22 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer)
         {
-            if (this.Modified)
+            if (Modified)
             {
-                byte[] data = this.GetBytes(out byte[] indexes);
-                Buffer.BlockCopy(indexes, 0, romBuffer, this.indexOffset, indexes.Length);
-                Buffer.BlockCopy(data, 0, romBuffer, this.textOffset, data.Length);
+                byte[] data = GetBytes(out byte[] indexes);
+                Buffer.BlockCopy(indexes, 0, romBuffer, _indexOffset, indexes.Length);
+                Buffer.BlockCopy(data, 0, romBuffer, _textOffset, data.Length);
             }
         }
 
         public void ResetModifiedState()
         {
-            this.Modified = false;
+            Modified = false;
         }
 
         public IEnumerator<TextItem> GetEnumerator()
         {
-            foreach (TextItem text in this.texts)
+            foreach (TextItem text in _texts)
             {
                 yield return text;
             }
@@ -403,9 +403,9 @@ namespace EpicEdit.Rom.Settings
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.texts.GetEnumerator();
+            return _texts.GetEnumerator();
         }
 
-        public int Count => this.texts.Length;
+        public int Count => _texts.Length;
     }
 }

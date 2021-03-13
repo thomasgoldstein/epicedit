@@ -43,25 +43,25 @@ namespace EpicEdit.Tests.Rom.Tracks
         [Test]
         public void TestSmkcImportExport21()
         {
-            this.TestSmkcImportExport(4, 0);
+            TestSmkcImportExport(4, 0);
         }
 
         [Test]
         public void TestSmkcImportExport22()
         {
-            this.TestSmkcImportExport(4, 1);
+            TestSmkcImportExport(4, 1);
         }
 
         [Test]
         public void TestSmkcImportExport23()
         {
-            this.TestSmkcImportExport(4, 2);
+            TestSmkcImportExport(4, 2);
         }
 
         [Test]
         public void TestSmkcImportExport24()
         {
-            this.TestSmkcImportExport(4, 3);
+            TestSmkcImportExport(4, 3);
         }
     }
 }

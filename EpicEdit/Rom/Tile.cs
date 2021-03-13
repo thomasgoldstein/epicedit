@@ -31,80 +31,80 @@ namespace EpicEdit.Rom
         private Palette palette;
         public virtual Palette Palette
         {
-            get => this.palette;
+            get => palette;
             set
             {
-                if (this.palette == value)
+                if (palette == value)
                 {
                     return;
                 }
 
-                if (this.palette != null)
+                if (palette != null)
                 {
-                    this.palette.ColorChanged -= this.palette_ColorChanged;
-                    this.palette.ColorsChanged -= this.palette_ColorsChanged;
+                    palette.ColorChanged -= palette_ColorChanged;
+                    palette.ColorsChanged -= palette_ColorsChanged;
                 }
 
-                this.palette = value;
+                palette = value;
 
-                this.palette.ColorChanged += this.palette_ColorChanged;
-                this.palette.ColorsChanged += this.palette_ColorsChanged;
+                palette.ColorChanged += palette_ColorChanged;
+                palette.ColorsChanged += palette_ColorsChanged;
 
-                this.UpdateBitmap();
-                this.OnPropertyChanged(PropertyNames.Tile.Palette);
+                UpdateBitmap();
+                OnPropertyChanged(PropertyNames.Tile.Palette);
             }
         }
 
         private void palette_ColorChanged(object sender, EventArgs<int> e)
         {
-            if (this.Contains(e.Value))
+            if (Contains(e.Value))
             {
-                this.UpdateBitmap();
+                UpdateBitmap();
             }
         }
 
         private void palette_ColorsChanged(object sender, EventArgs e)
         {
-            this.UpdateBitmap();
+            UpdateBitmap();
         }
 
         private byte[] graphics;
         public byte[] Graphics
         {
-            get => this.graphics;
+            get => graphics;
             set
             {
-                this.graphics = value;
-                this.UpdateBitmap();
-                this.OnPropertyChanged(PropertyNames.Tile.Graphics);
+                graphics = value;
+                UpdateBitmap();
+                OnPropertyChanged(PropertyNames.Tile.Graphics);
             }
         }
 
-        protected Bitmap bitmap;
+        protected Bitmap InternalBitmap;
         public Bitmap Bitmap
         {
-            get => this.bitmap;
+            get => InternalBitmap;
             set
             {
-                this.bitmap = value;
-                this.GenerateGraphics();
-                this.OnPropertyChanged(PropertyNames.Tile.Bitmap);
+                InternalBitmap = value;
+                GenerateGraphics();
+                OnPropertyChanged(PropertyNames.Tile.Bitmap);
             }
         }
 
         protected void UpdateBitmap()
         {
-            if (this.Palette == null)
+            if (Palette == null)
             {
                 return;
             }
 
-            if (this.Bitmap != null)
+            if (Bitmap != null)
             {
-                this.Bitmap.Dispose();
+                Bitmap.Dispose();
             }
 
-            this.GenerateBitmap();
+            GenerateBitmap();
         }
 
         protected abstract void GenerateBitmap();
@@ -115,11 +115,11 @@ namespace EpicEdit.Rom
 
         public virtual bool Contains(int colorIndex)
         {
-            for (int y = 0; y < Tile.Size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < Tile.Size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    if (this.GetColorIndexAt(x, y) == colorIndex)
+                    if (GetColorIndexAt(x, y) == colorIndex)
                     {
                         return true;
                     }
@@ -131,23 +131,23 @@ namespace EpicEdit.Rom
 
         protected void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (this.bitmap != null)
+                if (InternalBitmap != null)
                 {
-                    this.bitmap.Dispose();
+                    InternalBitmap.Dispose();
                 }
             }
         }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

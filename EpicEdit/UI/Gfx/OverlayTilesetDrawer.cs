@@ -31,62 +31,62 @@ namespace EpicEdit.UI.Gfx
         public const int Zoom = 2;
 
         public Dictionary<OverlayTilePattern, Point> PatternList { get; set; }
-        private RoadTileset tileset;
-        private Size imageSize;
+        private RoadTileset _tileset;
+        private Size _imageSize;
 
         public OverlayTilePattern HoveredPattern { get; set; }
         public OverlayTilePattern SelectedPattern { get; set; }
 
-        private Bitmap tilesetCache;
-        private readonly HatchBrush transparentBrush;
+        private Bitmap _tilesetCache;
+        private readonly HatchBrush _transparentBrush;
 
-        private readonly Pen delimitPen;
-        private readonly Pen highlightPen;
-        private readonly SolidBrush selectBrush;
+        private readonly Pen _delimitPen;
+        private readonly Pen _highlightPen;
+        private readonly SolidBrush _selectBrush;
 
         public OverlayTilesetDrawer()
         {
-            this.transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
+            _transparentBrush = new HatchBrush(HatchStyle.LargeCheckerBoard, Color.DarkGray, Color.White);
 
-            this.delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
-            this.highlightPen = new Pen(Color.FromArgb(200, 255, 255, 255));
-            this.selectBrush = new SolidBrush(Color.FromArgb(80, 255, 255, 255));
+            _delimitPen = new Pen(Color.FromArgb(150, 60, 100, 255));
+            _highlightPen = new Pen(Color.FromArgb(200, 255, 255, 255));
+            _selectBrush = new SolidBrush(Color.FromArgb(80, 255, 255, 255));
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            this.tilesetCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _tilesetCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public RoadTileset Tileset
         {
-            get => this.tileset;
+            get => _tileset;
             set
             {
-                this.tileset = value;
-                this.UpdateCache();
+                _tileset = value;
+                UpdateCache();
             }
         }
 
         public void ReloadTileset()
         {
-            this.UpdateCache();
+            UpdateCache();
         }
 
         public void SetImageSize(Size size)
         {
-            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
+            _imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
         }
 
         private void UpdateCache()
         {
-            this.tilesetCache.Dispose();
-            this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            _tilesetCache.Dispose();
+            _tilesetCache = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(this.tilesetCache))
+            using (Graphics g = Graphics.FromImage(_tilesetCache))
             {
-                g.FillRegion(this.transparentBrush, g.Clip);
+                g.FillRegion(_transparentBrush, g.Clip);
 
-                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.PatternList)
+                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in PatternList)
                 {
                     OverlayTilePattern pattern = kvp.Key;
                     Point location = kvp.Value;
@@ -103,7 +103,7 @@ namespace EpicEdit.UI.Gfx
                                 continue;
                             }
 
-                            Tile tile = this.tileset[tileId];
+                            Tile tile = _tileset[tileId];
                             g.DrawImage(tile.Bitmap,
                                         Tile.Size * x + location.X,
                                         Tile.Size * y + location.Y,
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.Gfx
                     }
 
                     // Delimit the pattern
-                    g.DrawRectangle(this.delimitPen,
+                    g.DrawRectangle(_delimitPen,
                                     location.X,
                                     location.Y,
                                     pattern.Width * Tile.Size - 1,
@@ -123,23 +123,23 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g)
         {
-            using (Bitmap image = this.tilesetCache.Clone() as Bitmap)
+            using (Bitmap image = _tilesetCache.Clone() as Bitmap)
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                this.OutlinePattern(backBuffer, this.HoveredPattern);
+                OutlinePattern(backBuffer, HoveredPattern);
 
-                if (this.HoveredPattern != this.SelectedPattern)
+                if (HoveredPattern != SelectedPattern)
                 {
-                    this.OutlinePattern(backBuffer, this.SelectedPattern);
+                    OutlinePattern(backBuffer, SelectedPattern);
                 }
 
-                this.HighlightPattern(backBuffer, this.SelectedPattern);
+                HighlightPattern(backBuffer, SelectedPattern);
 
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;
                 g.PixelOffsetMode = PixelOffsetMode.Half; // Solves a GDI+ bug which crops scaled images
                 g.DrawImage(image, 0, 0,
-                            this.imageSize.Width * Zoom,
-                            this.imageSize.Height * Zoom);
+                            _imageSize.Width * Zoom,
+                            _imageSize.Height * Zoom);
             }
         }
 
@@ -147,8 +147,8 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null && !Context.ColorPickerMode)
             {
-                this.PatternList.TryGetValue(pattern, out Point location);
-                g.DrawRectangle(this.highlightPen,
+                PatternList.TryGetValue(pattern, out Point location);
+                g.DrawRectangle(_highlightPen,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,
                                 pattern.Height * Tile.Size - 1);
@@ -159,8 +159,8 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null)
             {
-                this.PatternList.TryGetValue(pattern, out Point location);
-                g.FillRectangle(this.selectBrush,
+                PatternList.TryGetValue(pattern, out Point location);
+                g.FillRectangle(_selectBrush,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,
                                 pattern.Height * Tile.Size - 1);
@@ -169,12 +169,12 @@ namespace EpicEdit.UI.Gfx
 
         public void Dispose()
         {
-            this.tilesetCache.Dispose();
-            this.transparentBrush.Dispose();
+            _tilesetCache.Dispose();
+            _transparentBrush.Dispose();
 
-            this.delimitPen.Dispose();
-            this.highlightPen.Dispose();
-            this.selectBrush.Dispose();
+            _delimitPen.Dispose();
+            _highlightPen.Dispose();
+            _selectBrush.Dispose();
 
             GC.SuppressFinalize(this);
         }

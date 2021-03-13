@@ -29,34 +29,34 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public Background(BackgroundTileset tileset, BackgroundLayout layout)
         {
-            this.Tileset = tileset;
-            this.Layout = layout;
+            Tileset = tileset;
+            Layout = layout;
 
-            this.Tileset.PropertyChanged += this.OnPropertyChanged;
-            this.Layout.PropertyChanged += this.OnPropertyChanged;
+            Tileset.PropertyChanged += OnPropertyChanged;
+            Layout.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public BackgroundTile GetTileInstance(int x, int y, bool front)
         {
-            this.Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
+            Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
 
-            return this.GetTileInstance(tileId, properties, front);
+            return GetTileInstance(tileId, properties, front);
         }
 
         public BackgroundTile GetTileInstance(int tileId, byte properties, bool front)
         {
-            BackgroundTile tile = this.Tileset[tileId];
+            BackgroundTile tile = Tileset[tileId];
             return new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
         }
 
         public void Dispose()
         {
-            this.Tileset.Dispose();
+            Tileset.Dispose();
 
             GC.SuppressFinalize(this);
         }

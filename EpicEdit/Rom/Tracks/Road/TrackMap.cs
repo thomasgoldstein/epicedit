@@ -24,29 +24,29 @@ namespace EpicEdit.Rom.Tracks.Road
     internal class TrackMap : IMapBuffer
     {
         public const int Size = 128;
-        public const int Limit = TrackMap.Size - 1;
-        public const int SquareSize = TrackMap.Size * TrackMap.Size;
+        public const int Limit = Size - 1;
+        public const int SquareSize = Size * Size;
 
         public event EventHandler<EventArgs> DataChanged;
 
-        private readonly byte[][] map;
+        private readonly byte[][] _map;
 
         public TrackMap(byte[] data)
         {
-            this.map = new byte[(int)Math.Sqrt(TrackMap.SquareSize)][];
-            this.SetBytes(data);
+            _map = new byte[(int)Math.Sqrt(SquareSize)][];
+            SetBytes(data);
         }
 
         public void SetBytes(byte[] data)
         {
-            if (data.Length != TrackMap.SquareSize)
+            if (data.Length != SquareSize)
             {
-                throw new ArgumentException($"The map array must have a length of {TrackMap.SquareSize} ({TrackMap.Size} * {TrackMap.Size}).", nameof(data));
+                throw new ArgumentException($"The map array must have a length of {SquareSize} ({Size} * {Size}).", nameof(data));
             }
 
-            for (int y = 0; y < this.map.Length; y++)
+            for (int y = 0; y < _map.Length; y++)
             {
-                this.map[y] = Utilities.ReadBlock(data, y * this.map.Length, this.map.Length);
+                _map[y] = Utilities.ReadBlock(data, y * _map.Length, _map.Length);
             }
         }
 
@@ -58,7 +58,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <returns>Tile value.</returns>
         public byte GetTile(int x, int y)
         {
-            return this.map[y][x];
+            return _map[y][x];
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <returns>Tile value.</returns>
         public byte GetTile(Point position)
         {
-            return this.GetTile(position.X, position.Y);
+            return GetTile(position.X, position.Y);
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tile">Tile value.</param>
         public void SetTile(int x, int y, byte tile)
         {
-            if (this.SetTileInternal(x, y, tile))
+            if (SetTileInternal(x, y, tile))
             {
-                this.OnDataChanged();
+                OnDataChanged();
             }
         }
 
@@ -94,8 +94,8 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <returns>True if the new value is different from the old one, false otherwise.</returns>
         private bool SetTileInternal(int x, int y, byte tile)
         {
-            bool dataChanged = this.map[y][x] != tile;
-            this.map[y][x] = tile;
+            bool dataChanged = _map[y][x] != tile;
+            _map[y][x] = tile;
             return dataChanged;
         }
 
@@ -106,7 +106,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tileBuffer">The tile buffer.</param>
         public void SetTiles(Point startingPosition, IMapBuffer tileBuffer)
         {
-            this.SetTiles(startingPosition.X, startingPosition.Y, tileBuffer);
+            SetTiles(startingPosition.X, startingPosition.Y, tileBuffer);
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace EpicEdit.Rom.Tracks.Road
         public void SetTiles(int startX, int startY, IMapBuffer tileBuffer)
         {
             bool dataChanged = false;
-            int yLimit = Math.Min(tileBuffer.Height, TrackMap.Size - startY);
-            int xLimit = Math.Min(tileBuffer.Width, TrackMap.Size - startX);
+            int yLimit = Math.Min(tileBuffer.Height, Size - startY);
+            int xLimit = Math.Min(tileBuffer.Width, Size - startX);
 
             for (int y = 0; y < yLimit; y++)
             {
@@ -129,7 +129,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 {
                     int positionX = startX + x;
 
-                    if (this.SetTileInternal(positionX, positionY, tileBuffer[x, y]))
+                    if (SetTileInternal(positionX, positionY, tileBuffer[x, y]))
                     {
                         dataChanged = true;
                     }
@@ -138,47 +138,47 @@ namespace EpicEdit.Rom.Tracks.Road
 
             if (dataChanged)
             {
-                this.OnDataChanged();
+                OnDataChanged();
             }
         }
 
         public void Clear(byte tile)
         {
-            for (int x = 0; x < this.Width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                this.map[0][x] = tile;
+                _map[0][x] = tile;
             }
 
-            for (int y = 1; y < this.Height; y++)
+            for (int y = 1; y < Height; y++)
             {
-                Buffer.BlockCopy(this.map[0], 0, this.map[y], 0, this.Width);
+                Buffer.BlockCopy(_map[0], 0, _map[y], 0, Width);
             }
 
-            this.OnDataChanged();
+            OnDataChanged();
         }
 
         private void OnDataChanged()
         {
-            this.DataChanged?.Invoke(this, EventArgs.Empty);
+            DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public int Width => this.map[0].Length;
+        public int Width => _map[0].Length;
 
-        public int Height => this.map.Length;
+        public int Height => _map.Length;
 
         public byte this[int x, int y]
         {
-            get => this.GetTile(x, y);
-            set => this.SetTile(x, y, value);
+            get => GetTile(x, y);
+            set => SetTile(x, y, value);
         }
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[this.Width * this.Height];
+            byte[] data = new byte[Width * Height];
 
-            for (int y = 0; y < this.Height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                Buffer.BlockCopy(this.map[y], 0, data, y * this.Width, this.Width);
+                Buffer.BlockCopy(_map[y], 0, data, y * Width, Width);
             }
 
             return data;

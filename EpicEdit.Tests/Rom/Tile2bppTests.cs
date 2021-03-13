@@ -32,7 +32,7 @@ namespace EpicEdit.Tests.Rom
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
         {
-            this.TestGenerateGraphics(palData, gfx, new Tile2bppProperties());
+            TestGenerateGraphics(palData, gfx, new Tile2bppProperties());
         }
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx, Tile2bppProperties properties)
@@ -68,7 +68,7 @@ namespace EpicEdit.Tests.Rom
                 0x00, 0x00, 0xFF, 0x7F, 0x4A, 0x7F, 0x00, 0x00
             };
 
-            this.TestGetColorIndexAt(gfx, palData, 0);
+            TestGetColorIndexAt(gfx, palData, 0);
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace EpicEdit.Tests.Rom
                 0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00
             };
 
-            this.TestGenerateGraphics(palData, gfx);
+            TestGenerateGraphics(palData, gfx);
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace EpicEdit.Tests.Rom
                 0x0B, 0x20, 0x0B, 0x60, 0x0B, 0x60, 0x3F, 0x40
             };
 
-            this.TestGenerateGraphics(palData, gfx);
+            TestGenerateGraphics(palData, gfx);
         }
 
         [Test]
@@ -152,7 +152,7 @@ namespace EpicEdit.Tests.Rom
 
             Tile2bppProperties properties = new Tile2bppProperties { SubPaletteIndex = 4 };
 
-            this.TestGenerateGraphics(palData, gfx, properties);
+            TestGenerateGraphics(palData, gfx, properties);
         }
     }
 }

@@ -34,24 +34,24 @@ namespace EpicEdit.UI.ThemeEdition
                     this.components.Dispose();
                 }
 
-                if (this.basicColorsBitmap != null)
+                if (this._basicColorsBitmap != null)
                 {
-                    this.basicColorsBitmap.Dispose();
+                    this._basicColorsBitmap.Dispose();
                 }
 
-                if (this.basicColorsCache != null)
+                if (this._basicColorsCache != null)
                 {
-                    this.basicColorsCache.Dispose();
+                    this._basicColorsCache.Dispose();
                 }
 
-                if (this.shadesBitmap != null)
+                if (this._shadesBitmap != null)
                 {
-                    this.shadesBitmap.Dispose();
+                    this._shadesBitmap.Dispose();
                 }
 
-                if (this.shadesCache != null)
+                if (this._shadesCache != null)
                 {
-                    this.shadesCache.Dispose();
+                    this._shadesCache.Dispose();
                 }
             }
             base.Dispose(disposing);

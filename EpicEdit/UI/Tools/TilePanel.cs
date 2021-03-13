@@ -38,13 +38,13 @@ namespace EpicEdit.UI.Tools
         protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
             // Take scrolling position in consideration
-            x -= this.AutoScrollPosition.X;
-            y -= this.AutoScrollPosition.Y;
+            x -= AutoScrollPosition.X;
+            y -= AutoScrollPosition.Y;
 
-            x = (int)(x / this.Zoom);
-            y = (int)(y / this.Zoom);
+            x = (int)(x / Zoom);
+            y = (int)(y / Zoom);
 
-            Tile tile = this.GetTileAt(x, y);
+            Tile tile = GetTileAt(x, y);
 
             if (tile == null)
             {
@@ -83,14 +83,14 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            this.Cursor = EpicCursors.ColorPickerCursor;
+            Cursor = EpicCursors.ColorPickerCursor;
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             if (Context.ColorPickerMode)
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
 
             base.OnMouseLeave(e);
@@ -105,12 +105,12 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            this.GetColorAt(e.X, e.Y, out Palette palette, out int colorIndex);
+            GetColorAt(e.X, e.Y, out Palette palette, out int colorIndex);
 
             if (colorIndex != -1) // Not an empty tile
             {
                 EventArgs<Palette, int> pea = new EventArgs<Palette, int>(palette, colorIndex);
-                this.ColorSelected(this, pea);
+                ColorSelected(this, pea);
             }
         }
 
@@ -123,7 +123,7 @@ namespace EpicEdit.UI.Tools
 
                 if (Context.ColorPickerMode)
                 {
-                    this.Cursor = EpicCursors.ColorPickerCursor;
+                    Cursor = EpicCursors.ColorPickerCursor;
                 }
             }
         }

@@ -45,7 +45,7 @@ namespace EpicEdit.UI.Tools
 
         public static DialogResult ShowWarning(string message)
         {
-            return UITools.ShowWarning(message, MessageBoxButtons.YesNo);
+            return ShowWarning(message, MessageBoxButtons.YesNo);
         }
 
         public static DialogResult ShowInfo(string message, MessageBoxButtons buttons)
@@ -109,7 +109,7 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
         {
-            return UITools.ShowImportDataDialog(filePath => UITools.ImportTilesetGraphics(filePath, tileset), FileDialogFilters.ImageOrBinary);
+            return ShowImportDataDialog(filePath => ImportTilesetGraphics(filePath, tileset), FileDialogFilters.ImageOrBinary);
         }
 
         private static void ImportTilesetGraphics(string filePath, Tile[] tileset)
@@ -120,14 +120,14 @@ namespace EpicEdit.UI.Tools
                 // Import image
                 using (Bitmap image = new Bitmap(filePath))
                 {
-                    UITools.ImportTilesetGraphics(image, tileset);
+                    ImportTilesetGraphics(image, tileset);
                 }
             }
             else
             {
                 // Import raw binary graphics
                 byte[] data = File.ReadAllBytes(filePath);
-                UITools.ImportTilesetGraphics(data, tileset);
+                ImportTilesetGraphics(data, tileset);
             }
         }
 
@@ -184,17 +184,17 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod)
         {
-            return UITools.ShowImportBinaryDataDialog(setDataMethod, FileDialogFilters.Binary);
+            return ShowImportBinaryDataDialog(setDataMethod, FileDialogFilters.Binary);
         }
 
         public static bool ShowImportBinaryDataDialog(Action<byte[]> setDataMethod, string filter)
         {
-            return UITools.ShowImportDataDialog(filePath => setDataMethod(File.ReadAllBytes(filePath)), filter);
+            return ShowImportDataDialog(filePath => setDataMethod(File.ReadAllBytes(filePath)), filter);
         }
 
         public static bool ShowImportDataDialog(Action<string> setDataMethod, string filter)
         {
-            return UITools.ShowImportDataDialog((index, filePath) => setDataMethod(filePath), filter, 1);
+            return ShowImportDataDialog((index, filePath) => setDataMethod(filePath), filter, 1);
         }
 
         public static bool ShowImportDataDialog(BulkImportDataAction setDataMethod, string filter, int maxFileCount)
@@ -215,7 +215,7 @@ namespace EpicEdit.UI.Tools
                     Array.Resize(ref filePaths, maxFileCount);
                 }
 
-                UITools.ImportData(setDataMethod, filePaths);
+                ImportData(setDataMethod, filePaths);
 
                 return true;
             }
@@ -223,7 +223,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ImportData(Action<string> setDataMethod, params string[] filePaths)
         {
-            UITools.ImportData((index, filePath) => setDataMethod(filePath), filePaths);
+            ImportData((index, filePath) => setDataMethod(filePath), filePaths);
         }
 
         public static void ImportData(BulkImportDataAction setDataMethod, params string[] filePaths)
@@ -237,25 +237,25 @@ namespace EpicEdit.UI.Tools
             }
             catch (UnauthorizedAccessException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
             catch (IOException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
             catch (ArgumentException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
             catch (InvalidDataException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
         }
 
         public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
         {
-            UITools.ShowExportDataDialog(filePath => UITools.ExportTilesetGraphics(image, tileset, filePath), fileName, FileDialogFilters.ImageOrBinary);
+            ShowExportDataDialog(filePath => ExportTilesetGraphics(image, tileset, filePath), fileName, FileDialogFilters.ImageOrBinary);
         }
 
         private static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
@@ -271,7 +271,7 @@ namespace EpicEdit.UI.Tools
                     break;
 
                 default:
-                    File.WriteAllBytes(fileName, UITools.GetTilesetBytes(tileset));
+                    File.WriteAllBytes(fileName, GetTilesetBytes(tileset));
                     break;
             }
         }
@@ -294,12 +294,12 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName)
         {
-            UITools.ShowExportBinaryDataDialog(getDataMethod, fileName, FileDialogFilters.Binary);
+            ShowExportBinaryDataDialog(getDataMethod, fileName, FileDialogFilters.Binary);
         }
 
         public static void ShowExportBinaryDataDialog(Func<byte[]> getDataMethod, string fileName, string filter)
         {
-            UITools.ShowExportDataDialog(filePath => File.WriteAllBytes(filePath, getDataMethod()), fileName, filter);
+            ShowExportDataDialog(filePath => File.WriteAllBytes(filePath, getDataMethod()), fileName, filter);
         }
 
         public static void ShowExportDataDialog(Action<string> exportMethod, string fileName, string filter)
@@ -308,11 +308,11 @@ namespace EpicEdit.UI.Tools
             {
                 sfd.Filter = filter;
 
-                sfd.FileName = UITools.SanitizeFileName(fileName);
+                sfd.FileName = SanitizeFileName(fileName);
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    UITools.ExportData(exportMethod, sfd.FileName);
+                    ExportData(exportMethod, sfd.FileName);
                 }
             }
         }
@@ -325,15 +325,15 @@ namespace EpicEdit.UI.Tools
             }
             catch (UnauthorizedAccessException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
             catch (IOException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
             catch (InvalidDataException ex)
             {
-                UITools.ShowError(ex.Message);
+                ShowError(ex.Message);
             }
         }
     }

@@ -34,61 +34,61 @@ namespace EpicEdit.Rom.Tracks
 
         public TextItem NameItem { get; }
 
-        public string Name => this.NameItem.FormattedValue;
+        public string Name => NameItem.FormattedValue;
 
         public Palettes Palettes { get; }
         public RoadTileset RoadTileset { get; }
         public Background Background { get; }
 
-        public RomColor BackColor => this.Palettes.BackColor;
+        public RomColor BackColor => Palettes.BackColor;
 
         public bool Modified
         {
             get
             {
                 return
-                    this.Palettes.Modified ||
-                    this.RoadTileset.Modified ||
-                    this.Background.Layout.Modified ||
-                    this.Background.Tileset.Modified;
+                    Palettes.Modified ||
+                    RoadTileset.Modified ||
+                    Background.Layout.Modified ||
+                    Background.Tileset.Modified;
             }
         }
 
         public Theme(TextItem nameItem, Palettes palettes, RoadTileset roadTileset, Background background)
         {
-            this.NameItem = nameItem;
-            this.Palettes = palettes;
-            this.Palettes.Theme = this;
-            this.RoadTileset = roadTileset;
-            this.Background = background;
+            NameItem = nameItem;
+            Palettes = palettes;
+            Palettes.Theme = this;
+            RoadTileset = roadTileset;
+            Background = background;
 
-            this.Palettes.PropertyChanged += this.OnPropertyChanged;
-            this.RoadTileset.PropertyChanged += this.OnPropertyChanged;
-            this.Background.PropertyChanged += this.OnPropertyChanged;
+            Palettes.PropertyChanged += OnPropertyChanged;
+            RoadTileset.PropertyChanged += OnPropertyChanged;
+            Background.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         public void ResetModifiedState()
         {
-            this.Palettes.ResetModifiedState();
-            this.RoadTileset.ResetModifiedState();
-            this.Background.Layout.ResetModifiedState();
-            this.Background.Tileset.ResetModifiedState();
+            Palettes.ResetModifiedState();
+            RoadTileset.ResetModifiedState();
+            Background.Layout.ResetModifiedState();
+            Background.Tileset.ResetModifiedState();
         }
 
         public void Dispose()
         {
-            this.RoadTileset.Dispose();
-            this.Background.Dispose();
+            RoadTileset.Dispose();
+            Background.Dispose();
 
             GC.SuppressFinalize(this);
         }

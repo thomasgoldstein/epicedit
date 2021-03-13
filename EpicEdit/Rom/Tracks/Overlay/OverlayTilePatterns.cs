@@ -26,15 +26,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
     {
         private const int PatternCount = 56;
 
-        private readonly OverlayTilePattern[] patterns;
+        private readonly OverlayTilePattern[] _patterns;
 
-        public OverlayTilePattern this[int index] => this.patterns[index];
+        public OverlayTilePattern this[int index] => _patterns[index];
 
         public bool Modified
         {
             get
             {
-                foreach (OverlayTilePattern pattern in this.patterns)
+                foreach (OverlayTilePattern pattern in _patterns)
                 {
                     if (pattern.Modified)
                     {
@@ -48,34 +48,34 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTilePatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
         {
-            this.patterns = new OverlayTilePattern[PatternCount];
-            this.LoadPatterns(romBuffer, offsets, sizes);
+            _patterns = new OverlayTilePattern[PatternCount];
+            LoadPatterns(romBuffer, offsets, sizes);
         }
 
         private void LoadPatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
         {
             // Get the addresses where the individual pattern data is
             int addressOffset = offsets[Offset.TrackOverlayPatterns];
-            int[] dataAddresses = this.LoadPatternDataAddresses(romBuffer, addressOffset);
+            int[] dataAddresses = LoadPatternDataAddresses(romBuffer, addressOffset);
 
             // Get the data lengths of all the patterns
             int sizeOffset = offsets[Offset.TrackOverlaySizes];
-            int[] dataLengths = this.LoadPatternDataLengths(dataAddresses, sizeOffset);
+            int[] dataLengths = LoadPatternDataLengths(dataAddresses, sizeOffset);
 
             // Get the widths and heights of all the patterns
-            OverlayTileSize[] overlayTilesizes = this.LoadPatternSizes(sizes);
+            OverlayTileSize[] overlayTilesizes = LoadPatternSizes(sizes);
 
             for (int i = 0; i < PatternCount; i++)
             {
                 byte[] data = Utilities.ReadBlock(romBuffer, dataAddresses[i], dataLengths[i]);
-                this.patterns[i] = new OverlayTilePattern(data, overlayTilesizes[i]);
+                _patterns[i] = new OverlayTilePattern(data, overlayTilesizes[i]);
             }
         }
 
         private int[] LoadPatternDataAddresses(byte[] romBuffer, int offset)
         {
-            int[] addresses = new int[this.Count];
-            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offset, 2, this.Count);
+            int[] addresses = new int[Count];
+            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offset, 2, Count);
             for (int i = 0; i < data.Length; i++)
             {
                 addresses[i] = (data[i][1] << 8) + data[i][0] + 0x40000;
@@ -90,7 +90,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // From the documentation the games loads up 32 bytes into VRAM starting at one of these data addresses when the overlay is required.
             // This means that quite possibly there is no data in the ROM about the lengths of these items, the overlay tile map of the track tells 
             // the engine how many bytes to use.
-            int[] lengths = new int[this.Count];
+            int[] lengths = new int[Count];
             for (int i = 0; i < dataAddresses.Length; i++)
             {
                 int diff = 0;
@@ -120,8 +120,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // each overlay tile indicates which size to use when displayed at runtime.
             // Maybe the size of each pattern should be saved in the Epic Edit-dedicated ROM range when we start supporting updating the patterns.
             byte[] sizeIndexes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
-            OverlayTileSize[] sizeArray = new OverlayTileSize[this.Count];
-            for (int i = 0; i < this.Count; i++)
+            OverlayTileSize[] sizeArray = new OverlayTileSize[Count];
+            for (int i = 0; i < Count; i++)
             {
                 sizeArray[i] = sizes[sizeIndexes[i]];
             }
@@ -130,9 +130,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public int IndexOf(OverlayTilePattern pattern)
         {
-            for (int i = 0; i < this.patterns.Length; i++)
+            for (int i = 0; i < _patterns.Length; i++)
             {
-                if (this.patterns[i] == pattern)
+                if (_patterns[i] == pattern)
                 {
                     return i;
                 }
@@ -145,7 +145,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public IEnumerator<OverlayTilePattern> GetEnumerator()
         {
-            foreach (OverlayTilePattern pattern in this.patterns)
+            foreach (OverlayTilePattern pattern in _patterns)
             {
                 yield return pattern;
             }
@@ -153,10 +153,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.patterns.GetEnumerator();
+            return _patterns.GetEnumerator();
         }
 
-        public int Count => this.patterns.Length;
+        public int Count => _patterns.Length;
 
         public bool IsReadOnly => true;
 
@@ -172,7 +172,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public bool Contains(OverlayTilePattern item)
         {
-            foreach (OverlayTilePattern pattern in this.patterns)
+            foreach (OverlayTilePattern pattern in _patterns)
             {
                 if (pattern.Equals(item))
                 {
@@ -184,7 +184,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void CopyTo(OverlayTilePattern[] array, int arrayIndex)
         {
-            Array.Copy(this.patterns, 0, array, arrayIndex, this.Count);
+            Array.Copy(_patterns, 0, array, arrayIndex, Count);
         }
 
         public bool Remove(OverlayTilePattern item)

@@ -24,34 +24,34 @@ namespace EpicEdit.UI.ThemeEdition
     /// </summary>
     internal class BackgroundPreviewer : EpicPanel
     {
-        private BackgroundDrawer drawer;
+        private BackgroundDrawer _drawer;
 
         [Browsable(false), DefaultValue(typeof(BackgroundDrawer), "")]
         public BackgroundDrawer Drawer
         {
             //get => this.drawer;
-            set => this.drawer = value;
+            set => _drawer = value;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.drawer == null)
+            if (_drawer == null)
             {
                 return;
             }
 
-            this.drawer.DrawBackgroundPreview(e.Graphics);
+            _drawer.DrawBackgroundPreview(e.Graphics);
         }
 
         public void SetFrame(int value)
         {
-            if (this.drawer == null)
+            if (_drawer == null)
             {
                 return;
             }
 
-            this.drawer.PreviewFrame = value;
-            this.Invalidate();
+            _drawer.PreviewFrame = value;
+            Invalidate();
         }
     }
 }

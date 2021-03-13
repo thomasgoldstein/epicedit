@@ -20,7 +20,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
     [TestFixture]
     internal class LapLineTests
     {
-        private void TestGetBytes(byte[] data)
+        private static void TestGetBytes(byte[] data)
         {
             LapLine lapLine = new LapLine(data);
             byte[] data2 = lapLine.GetBytes();
@@ -37,21 +37,21 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
         public void TestGetBytes1()
         {
             byte[] data = { 0x30, 0x02, 0x30, 0x08, 0x10, 0x08 };
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
         public void TestGetBytes2()
         {
             byte[] data = { 0x00, 0x02, 0x00, 0x07, 0x0F, 0x08 };
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
         public void TestGetBytes3()
         {
             byte[] data = { 0x40, 0x02, 0x38, 0x08, 0x08, 0x08 };
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
     }
 }

@@ -79,7 +79,7 @@ namespace EpicEdit.UI
         #region Constructor
         public MenuBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
         #endregion Constructor
 
@@ -90,165 +90,165 @@ namespace EpicEdit.UI
         {
             // Force focus, so that when another form is focused,
             // it doesn't take 2 clicks to call a menu item
-            this.menuToolStrip.Focus();
+            menuToolStrip.Focus();
         }
         #endregion Auto-focus
 
         #region Open ROM
         private void OpenRomToolStripButtonClick(object sender, EventArgs e)
         {
-            this.OpenRomDialogRequested(this, EventArgs.Empty);
+            OpenRomDialogRequested(this, EventArgs.Empty);
         }
 
         public void EnableControls()
         {
-            this.saveRomToolStripButton.Enabled = true;
-            this.importTrackToolStripButton.Enabled = true;
-            this.exportTrackToolStripButton.Enabled = true;
-            this.importAllTrackToolStripButton.Enabled = true;
-            this.exportAllTracksTooltipButton.Enabled = true;
+            saveRomToolStripButton.Enabled = true;
+            importTrackToolStripButton.Enabled = true;
+            exportTrackToolStripButton.Enabled = true;
+            importAllTrackToolStripButton.Enabled = true;
+            exportAllTracksTooltipButton.Enabled = true;
 
-            this.zoomOutToolStripButton.Enabled = true;
-            this.zoomInToolStripButton.Enabled = true;
-            this.paletteToolStripButton.Enabled = true;
-            this.backgroundToolStripButton.Enabled = true;
-            this.settingToolStripButton.Enabled = true;
-            this.codecToolStripButton.Enabled = true;
+            zoomOutToolStripButton.Enabled = true;
+            zoomInToolStripButton.Enabled = true;
+            paletteToolStripButton.Enabled = true;
+            backgroundToolStripButton.Enabled = true;
+            settingToolStripButton.Enabled = true;
+            codecToolStripButton.Enabled = true;
 
             // Enable key shortcuts
-            this.saveRomToolStripMenuItem.Enabled = true;
-            this.saveRomAsToolStripMenuItem.Enabled = true;
-            this.importTrackToolStripMenuItem.Enabled = true;
-            this.exportTrackToolStripMenuItem.Enabled = true;
-            this.zoomInToolStripMenuItem.Enabled = true;
-            this.zoomOutToolStripMenuItem.Enabled = true;
-            this.resetZoomToolStripMenuItem.Enabled = true;
-            this.resetZoomNumToolStripMenuItem.Enabled = true;
+            saveRomToolStripMenuItem.Enabled = true;
+            saveRomAsToolStripMenuItem.Enabled = true;
+            importTrackToolStripMenuItem.Enabled = true;
+            exportTrackToolStripMenuItem.Enabled = true;
+            zoomInToolStripMenuItem.Enabled = true;
+            zoomOutToolStripMenuItem.Enabled = true;
+            resetZoomToolStripMenuItem.Enabled = true;
+            resetZoomNumToolStripMenuItem.Enabled = true;
         }
         #endregion Open ROM
 
         #region Save ROM
         private void SaveRomToolStripButtonClick(object sender, EventArgs e)
         {
-            this.SaveRomDialogRequested(this, EventArgs.Empty);
+            SaveRomDialogRequested(this, EventArgs.Empty);
         }
         #endregion Save ROM
 
         #region Import / Export tracks
         private void ImportTrackToolStripButtonClick(object sender, EventArgs e)
         {
-            this.TrackImportDialogRequested(this, EventArgs.Empty);
+            TrackImportDialogRequested(this, EventArgs.Empty);
         }
 
         private void ExportTrackToolStripButtonClick(object sender, EventArgs e)
         {
-            this.TrackExportDialogRequested(this, EventArgs.Empty);
+            TrackExportDialogRequested(this, EventArgs.Empty);
         }
 
         private void ImportAllTrackToolStripButton_Click(object sender, EventArgs e)
         {
-            this.TrackImportAllDialogRequested(this, EventArgs.Empty);
+            TrackImportAllDialogRequested(this, EventArgs.Empty);
         }
 
         private void ExportAllTracksTooltipButton_Click(object sender, EventArgs e)
         {
-            this.TrackExportAllDialogRequested(this, EventArgs.Empty);
+            TrackExportAllDialogRequested(this, EventArgs.Empty);
         }
         #endregion Import / Export tracks
 
         #region Undo / Redo
         private void Undo()
         {
-            this.UndoRequested(this, EventArgs.Empty);
+            UndoRequested(this, EventArgs.Empty);
         }
 
         private void Redo()
         {
-            this.RedoRequested(this, EventArgs.Empty);
+            RedoRequested(this, EventArgs.Empty);
         }
 
         private void TryToUndo()
         {
-            if (this.undoToolStripButton.Enabled)
+            if (undoToolStripButton.Enabled)
             {
-                this.Undo();
+                Undo();
             }
         }
 
         private void TryToRedo()
         {
-            if (this.redoToolStripButton.Enabled)
+            if (redoToolStripButton.Enabled)
             {
-                this.Redo();
+                Redo();
             }
         }
 
         private void UndoToolStripButtonClick(object sender, EventArgs e)
         {
-            this.Undo();
+            Undo();
         }
 
         private void RedoToolStripButtonClick(object sender, EventArgs e)
         {
-            this.Redo();
+            Redo();
         }
 
         public bool UndoEnabled
         {
-            get => this.undoToolStripButton.Enabled;
-            set => this.undoToolStripButton.Enabled = value;
+            get => undoToolStripButton.Enabled;
+            set => undoToolStripButton.Enabled = value;
         }
 
         public bool RedoEnabled
         {
-            get => this.redoToolStripButton.Enabled;
-            set => this.redoToolStripButton.Enabled = value;
+            get => redoToolStripButton.Enabled;
+            set => redoToolStripButton.Enabled = value;
         }
         #endregion Undo / Redo
 
         #region Zoom in / out
         private void ZoomInToolStripButtonClick(object sender, EventArgs e)
         {
-            this.ZoomInRequested(this, e);
+            ZoomInRequested(this, e);
         }
 
         private void ZoomOutToolStripButtonClick(object sender, EventArgs e)
         {
-            this.ZoomOutRequested(this, e);
+            ZoomOutRequested(this, e);
         }
 
         public bool ZoomInEnabled
         {
-            get => this.zoomInToolStripButton.Enabled;
-            set => this.zoomInToolStripButton.Enabled = value;
+            get => zoomInToolStripButton.Enabled;
+            set => zoomInToolStripButton.Enabled = value;
         }
 
         public bool ZoomOutEnabled
         {
-            get => this.zoomOutToolStripButton.Enabled;
-            set => this.zoomOutToolStripButton.Enabled = value;
+            get => zoomOutToolStripButton.Enabled;
+            set => zoomOutToolStripButton.Enabled = value;
         }
         #endregion Zoom in / out
 
         #region Full screen
         private void FullScreenToolStripButtonClick(object sender, EventArgs e)
         {
-            this.ToggleScreenMode();
+            ToggleScreenMode();
         }
 
         private void ToggleScreenMode()
         {
-            this.ToggleScreenModeRequested(this, EventArgs.Empty);
+            ToggleScreenModeRequested(this, EventArgs.Empty);
 
-            if (this.ParentForm.FormBorderStyle == FormBorderStyle.None)
+            if (ParentForm.FormBorderStyle == FormBorderStyle.None)
             {
-                this.fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
-                this.fullScreenToolStripButton.Image = Resources.ExitFullScreenButton;
+                fullScreenToolStripButton.ToolTipText = "Exit Full Screen";
+                fullScreenToolStripButton.Image = Resources.ExitFullScreenButton;
             }
             else
             {
-                this.fullScreenToolStripButton.ToolTipText = "Full Screen";
-                this.fullScreenToolStripButton.Image = Resources.FullScreenButton;
+                fullScreenToolStripButton.ToolTipText = "Full Screen";
+                fullScreenToolStripButton.Image = Resources.FullScreenButton;
             }
         }
         #endregion Full screen
@@ -256,28 +256,28 @@ namespace EpicEdit.UI
         #region Palette editor
         private void PaletteToolStripButtonClick(object sender, EventArgs e)
         {
-            this.PaletteEditorRequested(this, EventArgs.Empty);
+            PaletteEditorRequested(this, EventArgs.Empty);
         }
         #endregion Palette editor
 
         #region Background editor
         private void BackgroundToolStripButtonClick(object sender, EventArgs e)
         {
-            this.BackgroundEditorRequested(this, EventArgs.Empty);
+            BackgroundEditorRequested(this, EventArgs.Empty);
         }
         #endregion Background editor
 
         #region Setting editor
         private void SettingToolStripButtonClick(object sender, EventArgs e)
         {
-            this.SettingEditorRequested(this, EventArgs.Empty);
+            SettingEditorRequested(this, EventArgs.Empty);
         }
         #endregion Setting editor
 
         #region Codec
         private void CodecToolStripButtonClick(object sender, EventArgs e)
         {
-            this.CodecRequested(this, EventArgs.Empty);
+            CodecRequested(this, EventArgs.Empty);
         }
         #endregion Codec
 
@@ -306,12 +306,12 @@ namespace EpicEdit.UI
         #region Cursor coordinates Label
         public void ResetCoordinates()
         {
-            this.coordinatesToolStripLabel.Text = "(X,Y)";
+            coordinatesToolStripLabel.Text = "(X,Y)";
         }
 
         public void UpdateCoordinates(Point location)
         {
-            this.coordinatesToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
+            coordinatesToolStripLabel.Text = "(" + location.X + "," + location.Y + ")";
         }
         #endregion Cursor coordinate Label
 
@@ -320,7 +320,7 @@ namespace EpicEdit.UI
         #region Menu shortcut keys
         private void OpenRomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.OpenRomDialogRequested(this, EventArgs.Empty);
+            OpenRomDialogRequested(this, EventArgs.Empty);
         }
 
         private void SaveRomToolStripMenuItemClick(object sender, EventArgs e)
@@ -330,57 +330,57 @@ namespace EpicEdit.UI
 
         private void SaveRomAsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.SaveRomDialogRequested(this, EventArgs.Empty);
+            SaveRomDialogRequested(this, EventArgs.Empty);
         }
 
         private void ImportTrackToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.TrackImportDialogRequested(this, EventArgs.Empty);
+            TrackImportDialogRequested(this, EventArgs.Empty);
         }
 
         private void ExportTrackToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.TrackExportDialogRequested(this, EventArgs.Empty);
+            TrackExportDialogRequested(this, EventArgs.Empty);
         }
 
         private void ZoomInToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ZoomInRequested(this, EventArgs.Empty);
+            ZoomInRequested(this, EventArgs.Empty);
         }
 
         private void ZoomOutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ZoomOutRequested(this, EventArgs.Empty);
+            ZoomOutRequested(this, EventArgs.Empty);
         }
 
         private void ResetZoomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ZoomResetRequested(this, EventArgs.Empty);
+            ZoomResetRequested(this, EventArgs.Empty);
         }
 
         private void ResetZoomNumToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ZoomResetRequested(this, EventArgs.Empty);
+            ZoomResetRequested(this, EventArgs.Empty);
         }
 
         private void FullScreenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.ToggleScreenMode();
+            ToggleScreenMode();
         }
 
         private void UndoToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.TryToUndo();
+            TryToUndo();
         }
 
         private void RedoToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.TryToRedo();
+            TryToRedo();
         }
 
         private void RedoToolStripMenuItem2Click(object sender, EventArgs e)
         {
-            this.TryToRedo();
+            TryToRedo();
         }
         #endregion Menu shortcut keys
     }

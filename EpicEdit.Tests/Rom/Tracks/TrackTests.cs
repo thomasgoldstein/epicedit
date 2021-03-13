@@ -39,145 +39,145 @@ namespace EpicEdit.Tests.Rom.Tracks
         [Test]
         public void TestMktImportExport1()
         {
-            this.TestMktImportExport(0, 0);
+            TestMktImportExport(0, 0);
         }
 
         [Test]
         public void TestMktImportExport2()
         {
-            this.TestMktImportExport(0, 1);
+            TestMktImportExport(0, 1);
         }
 
         [Test]
         public void TestMktImportExport3()
         {
-            this.TestMktImportExport(0, 2);
+            TestMktImportExport(0, 2);
         }
 
         [Test]
         public void TestMktImportExport4()
         {
-            this.TestMktImportExport(0, 3);
+            TestMktImportExport(0, 3);
         }
 
         [Test]
         public void TestMktImportExport5()
         {
-            this.TestMktImportExport(0, 4);
+            TestMktImportExport(0, 4);
         }
 
         [Test]
         public void TestMktImportExport6()
         {
-            this.TestMktImportExport(1, 0);
+            TestMktImportExport(1, 0);
         }
 
         [Test]
         public void TestMktImportExport7()
         {
-            this.TestMktImportExport(1, 1);
+            TestMktImportExport(1, 1);
         }
 
         [Test]
         public void TestMktImportExport8()
         {
-            this.TestMktImportExport(1, 2);
+            TestMktImportExport(1, 2);
         }
 
         [Test]
         public void TestMktImportExport9()
         {
-            this.TestMktImportExport(1, 3);
+            TestMktImportExport(1, 3);
         }
 
         [Test]
         public void TestMktImportExport10()
         {
-            this.TestMktImportExport(1, 4);
+            TestMktImportExport(1, 4);
         }
 
         [Test]
         public void TestMktImportExport11()
         {
-            this.TestMktImportExport(2, 0);
+            TestMktImportExport(2, 0);
         }
 
         [Test]
         public void TestMktImportExport12()
         {
-            this.TestMktImportExport(2, 1);
+            TestMktImportExport(2, 1);
         }
 
         [Test]
         public void TestMktImportExport13()
         {
-            this.TestMktImportExport(2, 2);
+            TestMktImportExport(2, 2);
         }
 
         [Test]
         public void TestMktImportExport14()
         {
-            this.TestMktImportExport(2, 3);
+            TestMktImportExport(2, 3);
         }
 
         [Test]
         public void TestMktImportExport15()
         {
-            this.TestMktImportExport(2, 4);
+            TestMktImportExport(2, 4);
         }
 
         [Test]
         public void TestMktImportExport16()
         {
-            this.TestMktImportExport(3, 0);
+            TestMktImportExport(3, 0);
         }
 
         [Test]
         public void TestMktImportExport17()
         {
-            this.TestMktImportExport(3, 1);
+            TestMktImportExport(3, 1);
         }
 
         [Test]
         public void TestMktImportExport18()
         {
-            this.TestMktImportExport(3, 2);
+            TestMktImportExport(3, 2);
         }
 
         [Test]
         public void TestMktImportExport19()
         {
-            this.TestMktImportExport(3, 3);
+            TestMktImportExport(3, 3);
         }
 
         [Test]
         public void TestMktImportExport20()
         {
-            this.TestMktImportExport(3, 4);
+            TestMktImportExport(3, 4);
         }
 
         [Test]
         public void TestMktImportExport21()
         {
-            this.TestMktImportExport(4, 0);
+            TestMktImportExport(4, 0);
         }
 
         [Test]
         public void TestMktImportExport22()
         {
-            this.TestMktImportExport(4, 1);
+            TestMktImportExport(4, 1);
         }
 
         [Test]
         public void TestMktImportExport23()
         {
-            this.TestMktImportExport(4, 2);
+            TestMktImportExport(4, 2);
         }
 
         [Test]
         public void TestMktImportExport24()
         {
-            this.TestMktImportExport(4, 3);
+            TestMktImportExport(4, 3);
         }
     }
 }

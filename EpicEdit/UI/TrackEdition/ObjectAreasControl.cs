@@ -27,131 +27,131 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class ObjectAreasControl : UserControl
     {
-        private bool fireEvents;
+        private bool _fireEvents;
 
-        private TrackObjectAreasView areasView;
+        private TrackObjectAreasView _areasView;
 
         [Category("Data"), Browsable(false), DefaultValue(typeof(GPTrack), "")]
         public TrackObjectAreasView AreasView
         {
-            get => this.areasView;
+            get => _areasView;
             set
             {
-                if (this.areasView != null)
+                if (_areasView != null)
                 {
-                    this.areasView.DataChanged -= this.areasView_DataChanged;
-                    this.areasView.AI.ElementAdded -= this.areasView_AI_CollectionChanged;
-                    this.areasView.AI.ElementRemoved -= this.areasView_AI_CollectionChanged;
+                    _areasView.DataChanged -= areasView_DataChanged;
+                    _areasView.AI.ElementAdded -= areasView_AI_CollectionChanged;
+                    _areasView.AI.ElementRemoved -= areasView_AI_CollectionChanged;
                 }
 
-                this.areasView = value;
+                _areasView = value;
 
-                this.areasView.DataChanged += this.areasView_DataChanged;
-                this.areasView.AI.ElementAdded += this.areasView_AI_CollectionChanged;
-                this.areasView.AI.ElementRemoved += this.areasView_AI_CollectionChanged;
+                _areasView.DataChanged += areasView_DataChanged;
+                _areasView.AI.ElementAdded += areasView_AI_CollectionChanged;
+                _areasView.AI.ElementRemoved += areasView_AI_CollectionChanged;
 
-                int max = this.areasView.AI.ElementCount;
-                this.Maximum = max;
+                int max = _areasView.AI.ElementCount;
+                Maximum = max;
 
-                byte area1Value = this.areasView.GetAreaValue(0);
-                byte area2Value = this.areasView.GetAreaValue(1);
-                byte area3Value = this.areasView.GetAreaValue(2);
-                byte area4Value = this.areasView.GetAreaValue(3);
+                byte area1Value = _areasView.GetAreaValue(0);
+                byte area2Value = _areasView.GetAreaValue(1);
+                byte area3Value = _areasView.GetAreaValue(2);
+                byte area4Value = _areasView.GetAreaValue(3);
 
-                this.fireEvents = false;
+                _fireEvents = false;
 
-                this.area1TrackBar.Value = Math.Min(area1Value, max);
-                this.area2TrackBar.Value = Math.Min(area2Value, max);
-                this.area3TrackBar.Value = Math.Min(area3Value, max);
-                this.area4TrackBar.Value = Math.Min(area4Value, max);
+                area1TrackBar.Value = Math.Min(area1Value, max);
+                area2TrackBar.Value = Math.Min(area2Value, max);
+                area3TrackBar.Value = Math.Min(area3Value, max);
+                area4TrackBar.Value = Math.Min(area4Value, max);
 
-                this.fireEvents = true;
+                _fireEvents = true;
 
-                this.UpdateTrackBarLabels();
+                UpdateTrackBarLabels();
             }
         }
 
         [Category("Appearance")]
         public string Title
         {
-            get => this.groupBox.Text;
-            set => this.groupBox.Text = value;
+            get => groupBox.Text;
+            set => groupBox.Text = value;
         }
 
         private int Maximum
         {
             set
             {
-                this.area1TrackBar.Maximum = value;
-                this.area2TrackBar.Maximum = value;
-                this.area3TrackBar.Maximum = value;
-                this.area4TrackBar.Maximum = value;
+                area1TrackBar.Maximum = value;
+                area2TrackBar.Maximum = value;
+                area3TrackBar.Maximum = value;
+                area4TrackBar.Maximum = value;
             }
         }
 
         public ObjectAreasControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.area1TrackBar.Tag = 0;
-            this.area2TrackBar.Tag = 1;
-            this.area3TrackBar.Tag = 2;
-            this.area4TrackBar.Tag = 3;
+            area1TrackBar.Tag = 0;
+            area2TrackBar.Tag = 1;
+            area3TrackBar.Tag = 2;
+            area4TrackBar.Tag = 3;
         }
 
         private void areasView_DataChanged(object sender, EventArgs<int> e)
         {
             TrackBar trackBar =
-                e.Value == 0 ? this.area1TrackBar :
-                e.Value == 1 ? this.area2TrackBar :
-                e.Value == 2 ? this.area3TrackBar :
-                this.area4TrackBar;
+                e.Value == 0 ? area1TrackBar :
+                e.Value == 1 ? area2TrackBar :
+                e.Value == 2 ? area3TrackBar :
+                area4TrackBar;
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            trackBar.Value = Math.Min(this.areasView.GetAreaValue(e.Value), this.areasView.AI.ElementCount);
+            trackBar.Value = Math.Min(_areasView.GetAreaValue(e.Value), _areasView.AI.ElementCount);
 
-            this.fireEvents = true;
+            _fireEvents = true;
 
-            this.UpdateTrackBarLabels();
+            UpdateTrackBarLabels();
         }
 
         private void areasView_AI_CollectionChanged(object sender, EventArgs<TrackAIElement> e)
         {
-            this.Maximum = this.areasView.AI.ElementCount;
+            Maximum = _areasView.AI.ElementCount;
         }
 
         private void Area1TrackBarValueChanged(object sender, EventArgs e)
         {
-            this.AreaTrackBarValueChanged(null,
-                                          this.area1TrackBar, this.area1Label,
-                                          this.area2TrackBar, this.area2Label);
+            AreaTrackBarValueChanged(null,
+                                          area1TrackBar, area1Label,
+                                          area2TrackBar, area2Label);
         }
 
         private void Area2TrackBarValueChanged(object sender, EventArgs e)
         {
-            this.AreaTrackBarValueChanged(this.area1TrackBar,
-                                          this.area2TrackBar, this.area2Label,
-                                          this.area3TrackBar, this.area3Label);
+            AreaTrackBarValueChanged(area1TrackBar,
+                                          area2TrackBar, area2Label,
+                                          area3TrackBar, area3Label);
         }
 
         private void Area3TrackBarValueChanged(object sender, EventArgs e)
         {
-            this.AreaTrackBarValueChanged(this.area2TrackBar,
-                                          this.area3TrackBar, this.area3Label,
-                                          this.area4TrackBar, this.area4Label);
+            AreaTrackBarValueChanged(area2TrackBar,
+                                          area3TrackBar, area3Label,
+                                          area4TrackBar, area4Label);
         }
 
         private void Area4TrackBarValueChanged(object sender, EventArgs e)
         {
-            this.AreaTrackBarValueChanged(this.area3TrackBar,
-                                          this.area4TrackBar, this.area4Label,
+            AreaTrackBarValueChanged(area3TrackBar,
+                                          area4TrackBar, area4Label,
                                           null, null);
         }
 
         private void AreaTrackBarValueChanged(TrackBar prevTrackBar, TrackBar trackBar, Label label, TrackBar nextTrackBar, Label nextLabel)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
@@ -165,14 +165,14 @@ namespace EpicEdit.UI.TrackEdition
                 prevTrackBar.Value = trackBar.Value;
             }
 
-            ObjectAreasControl.UpdateTrackBarLabel(label, prevTrackBar == null ? 0 : prevTrackBar.Value, trackBar.Value);
+            UpdateTrackBarLabel(label, prevTrackBar == null ? 0 : prevTrackBar.Value, trackBar.Value);
 
             if (nextTrackBar != null)
             {
-                ObjectAreasControl.UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
+                UpdateTrackBarLabel(nextLabel, trackBar.Value, nextTrackBar.Value);
             }
 
-            this.areasView.SetAreaValue((int)trackBar.Tag, (byte)trackBar.Value);
+            _areasView.SetAreaValue((int)trackBar.Tag, (byte)trackBar.Value);
         }
 
         private static void UpdateTrackBarLabel(Label label, int value1, int value2)
@@ -184,10 +184,10 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTrackBarLabels()
         {
-            ObjectAreasControl.UpdateTrackBarLabel(this.area1Label, 0, this.area1TrackBar.Value);
-            ObjectAreasControl.UpdateTrackBarLabel(this.area2Label, this.area1TrackBar.Value, this.area2TrackBar.Value);
-            ObjectAreasControl.UpdateTrackBarLabel(this.area3Label, this.area2TrackBar.Value, this.area3TrackBar.Value);
-            ObjectAreasControl.UpdateTrackBarLabel(this.area4Label, this.area3TrackBar.Value, this.area4TrackBar.Value);
+            UpdateTrackBarLabel(area1Label, 0, area1TrackBar.Value);
+            UpdateTrackBarLabel(area2Label, area1TrackBar.Value, area2TrackBar.Value);
+            UpdateTrackBarLabel(area3Label, area2TrackBar.Value, area3TrackBar.Value);
+            UpdateTrackBarLabel(area4Label, area3TrackBar.Value, area4TrackBar.Value);
         }
     }
 }

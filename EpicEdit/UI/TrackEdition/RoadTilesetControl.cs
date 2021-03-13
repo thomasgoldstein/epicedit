@@ -66,85 +66,85 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add => this.tilesetPanel.ColorSelected += value;
-            remove => this.tilesetPanel.ColorSelected -= value;
+            add => tilesetPanel.ColorSelected += value;
+            remove => tilesetPanel.ColorSelected -= value;
         }
         #endregion Events
 
         /// <summary>
         /// Used to draw the tileset.
         /// </summary>
-        private RoadTilesetDrawer drawer;
+        private RoadTilesetDrawer _drawer;
 
-        private Track track;
+        private Track _track;
 
         /// <summary>
         /// Flag to differentiate user actions and automatic actions.
         /// </summary>
-        private bool fireEvents;
+        private bool _fireEvents;
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get => this.track;
+            get => _track;
             set
             {
-                if (this.track == value)
+                if (_track == value)
                 {
                     return;
                 }
 
-                if (this.track != null)
+                if (_track != null)
                 {
-                    this.track.ColorGraphicsChanged -= this.track_ColorsGraphicsChanged;
-                    this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
-                    this.track.PropertyChanged -= this.track_PropertyChanged;
+                    _track.ColorGraphicsChanged -= track_ColorsGraphicsChanged;
+                    _track.ColorsGraphicsChanged -= track_ColorsGraphicsChanged;
+                    _track.PropertyChanged -= track_PropertyChanged;
                 }
 
-                this.track = value;
+                _track = value;
 
-                this.track.ColorGraphicsChanged += this.track_ColorsGraphicsChanged;
-                this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
-                this.track.PropertyChanged += this.track_PropertyChanged;
+                _track.ColorGraphicsChanged += track_ColorsGraphicsChanged;
+                _track.ColorsGraphicsChanged += track_ColorsGraphicsChanged;
+                _track.PropertyChanged += track_PropertyChanged;
 
-                this.SelectTrackTheme();
+                SelectTrackTheme();
             }
         }
 
-        private byte selectedTile;
+        private byte _selectedTile;
 
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
         {
-            get => this.selectedTile;
+            get => _selectedTile;
             set
             {
-                if (this.selectedTile == value)
+                if (_selectedTile == value)
                 {
                     return;
                 }
 
-                this.fireEvents = false;
-                this.selectedTile = value;
-                this.SetCurrentTile();
-                this.fireEvents = true;
+                _fireEvents = false;
+                _selectedTile = value;
+                SetCurrentTile();
+                _fireEvents = true;
             }
         }
 
-        private RoadTile SelectedRoadTile => this.track.RoadTileset[this.selectedTile];
+        private RoadTile SelectedRoadTile => _track.RoadTileset[_selectedTile];
 
         public RoadTilesetControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.tilesetPanel.Zoom = RoadTilesetDrawer.Zoom;
+            tilesetPanel.Zoom = RoadTilesetDrawer.Zoom;
         }
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
             if ((sender as Palette).Index < Palettes.SpritePaletteStart)
             {
-                this.UpdateTileset();
+                UpdateTileset();
             }
         }
 
@@ -152,94 +152,94 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.PropertyName == PropertyNames.Track.Theme)
             {
-                this.SelectTrackTheme();
+                SelectTrackTheme();
             }
         }
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new RoadTilesetDrawer(this.tilesetPanel.Size);
+            _drawer = new RoadTilesetDrawer(tilesetPanel.Size);
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
             // because the drawer doesn't exist yet before a ROM is loaded.
-            this.tilesetPanel.Paint += this.TilesetPanelPaint;
+            tilesetPanel.Paint += TilesetPanelPaint;
 
             // The following event handler is added here rather than in the Designer.cs
             // to avoid an extra repaint triggered by
             // selecting the current theme in the theme ComboBox.
-            this.themeComboBox.SelectedIndexChanged += this.ThemeComboBoxSelectedIndexChanged;
+            themeComboBox.SelectedIndexChanged += ThemeComboBoxSelectedIndexChanged;
 
-            this.InitTileGenreComboBox();
+            InitTileGenreComboBox();
 
-            this.InitOnRomLoad();
+            InitOnRomLoad();
         }
 
         public void InitOnRomLoad()
         {
-            this.themeComboBox.Init();
+            themeComboBox.Init();
         }
 
         private void InitTileGenreComboBox()
         {
-            this.tileGenreComboBox.DataSource = Enum.GetValues(typeof(RoadTileGenre));
-            this.tileGenreComboBox.SelectedIndexChanged += this.TileGenreComboBoxSelectedIndexChanged;
+            tileGenreComboBox.DataSource = Enum.GetValues(typeof(RoadTileGenre));
+            tileGenreComboBox.SelectedIndexChanged += TileGenreComboBoxSelectedIndexChanged;
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.track.Theme = this.themeComboBox.SelectedTheme;
+            _track.Theme = themeComboBox.SelectedTheme;
 
-            this.tilesetPanel.Tileset = this.track.RoadTileset;
-            this.ResetTileset();
-            this.SetCurrentTile();
+            tilesetPanel.Tileset = _track.RoadTileset;
+            ResetTileset();
+            SetCurrentTile();
 
-            this.SelectedThemeChanged(this, EventArgs.Empty);
+            SelectedThemeChanged(this, EventArgs.Empty);
         }
 
         private void SetCurrentTile()
         {
-            this.SelectTileGenre();
-            this.SelectTilePalette();
-            this.tilesetPanel.Invalidate();
+            SelectTileGenre();
+            SelectTilePalette();
+            tilesetPanel.Invalidate();
         }
 
         private void TileGenreComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.SelectedRoadTile.Genre = (RoadTileGenre)this.tileGenreComboBox.SelectedItem;
+            SelectedRoadTile.Genre = (RoadTileGenre)tileGenreComboBox.SelectedItem;
         }
 
         private void TilePaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            int palIndex = (int)this.tilePaletteNumericUpDown.Value;
-            this.SelectedRoadTile.Palette = this.track.Theme.Palettes[palIndex];
+            int palIndex = (int)tilePaletteNumericUpDown.Value;
+            SelectedRoadTile.Palette = _track.Theme.Palettes[palIndex];
 
             // Could be optimized by not updating the whole cache,
             // and not repainting the whole panel (but it's already fast enough)
-            this.UpdateTileset();
+            UpdateTileset();
 
-            this.TileChanged(this, new EventArgs<byte>(this.selectedTile));
+            TileChanged(this, new EventArgs<byte>(_selectedTile));
         }
 
         public void UpdateTileset()
         {
-            this.ResetTileset();
-            this.tilesetPanel.Refresh();
+            ResetTileset();
+            tilesetPanel.Refresh();
         }
 
         public void SetTheme(int number)
         {
-            Base1NumericUpDown ud = this.tilePaletteNumericUpDown;
+            Base1NumericUpDown ud = tilePaletteNumericUpDown;
             if (number >= ud.Minimum && number <= ud.Maximum)
             {
                 ud.Value = number;
@@ -248,39 +248,39 @@ namespace EpicEdit.UI.TrackEdition
 
         public void SelectPenTool()
         {
-            this.pencilButton.PerformClick();
+            pencilButton.PerformClick();
         }
 
         public void SelectPaintBucketTool()
         {
-            this.bucketButton.PerformClick();
+            bucketButton.PerformClick();
         }
 
         private void ResetTileset()
         {
-            this.drawer.Tileset = this.track.RoadTileset;
+            _drawer.Tileset = _track.RoadTileset;
         }
 
         private void SelectTrackTheme()
         {
-            this.fireEvents = false;
-            this.themeComboBox.SelectedItem = this.track.Theme;
-            this.fireEvents = true;
+            _fireEvents = false;
+            themeComboBox.SelectedItem = _track.Theme;
+            _fireEvents = true;
         }
 
         private void SelectTileGenre()
         {
-            this.tileGenreComboBox.SelectedItem = this.SelectedRoadTile.Genre;
+            tileGenreComboBox.SelectedItem = SelectedRoadTile.Genre;
         }
 
         private void SelectTilePalette()
         {
-            this.tilePaletteNumericUpDown.Value = this.SelectedRoadTile.Palette.Index;
+            tilePaletteNumericUpDown.Value = SelectedRoadTile.Palette.Index;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
         {
-            this.drawer.DrawTileset(e.Graphics, this.selectedTile);
+            _drawer.DrawTileset(e.Graphics, _selectedTile);
         }
 
         private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
@@ -290,15 +290,15 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            const int Zoom = RoadTilesetDrawer.Zoom;
-            int rowTileCount = this.tilesetPanel.Width / (Tile.Size * Zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * Zoom)) + (e.Y / (Tile.Size * Zoom)) * rowTileCount);
+            const int zoom = RoadTilesetDrawer.Zoom;
+            int rowTileCount = tilesetPanel.Width / (Tile.Size * zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 
-            if (this.selectedTile != newSelectedTile)
+            if (_selectedTile != newSelectedTile)
             {
-                this.SelectedTile = newSelectedTile;
+                SelectedTile = newSelectedTile;
 
-                this.SelectedTileChanged(this, EventArgs.Empty);
+                SelectedTileChanged(this, EventArgs.Empty);
             }
         }
 
@@ -319,15 +319,15 @@ namespace EpicEdit.UI.TrackEdition
                         switch (form.Type)
                         {
                             case RoadTilesetImportExportType.Graphics:
-                                this.ShowImportTilesetGraphicsDialog();
+                                ShowImportTilesetGraphicsDialog();
                                 break;
 
                             case RoadTilesetImportExportType.Genres:
-                                this.ShowImportTilesetGenresDialog();
+                                ShowImportTilesetGenresDialog();
                                 break;
 
                             case RoadTilesetImportExportType.Palettes:
-                                this.ShowImportTilesetPalettesDialog();
+                                ShowImportTilesetPalettesDialog();
                                 break;
                         }
                     }
@@ -336,15 +336,15 @@ namespace EpicEdit.UI.TrackEdition
                         switch (form.Type)
                         {
                             case RoadTilesetImportExportType.Graphics:
-                                this.ShowExportTilesetGraphicsDialog();
+                                ShowExportTilesetGraphicsDialog();
                                 break;
 
                             case RoadTilesetImportExportType.Genres:
-                                this.ShowExportTilesetGenresDialog();
+                                ShowExportTilesetGenresDialog();
                                 break;
 
                             case RoadTilesetImportExportType.Palettes:
-                                this.ShowExportTilesetPalettesDialog();
+                                ShowExportTilesetPalettesDialog();
                                 break;
                         }
                     }
@@ -354,44 +354,44 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowImportTilesetGraphicsDialog()
         {
-            if (UITools.ShowImportTilesetGraphicsDialog(this.track.RoadTileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(_track.RoadTileset.GetTiles()))
             {
-                this.UpdateTileset();
-                this.TilesetChanged(this, EventArgs.Empty);
+                UpdateTileset();
+                TilesetChanged(this, EventArgs.Empty);
             }
         }
 
         private void ShowImportTilesetGenresDialog()
         {
-            if (UITools.ShowImportBinaryDataDialog(this.track.RoadTileset.SetTileGenreBytes))
+            if (UITools.ShowImportBinaryDataDialog(_track.RoadTileset.SetTileGenreBytes))
             {
-                this.SelectTileGenre();
+                SelectTileGenre();
             }
         }
 
         private void ShowImportTilesetPalettesDialog()
         {
-            if (UITools.ShowImportBinaryDataDialog(this.track.RoadTileset.SetTilePaletteBytes))
+            if (UITools.ShowImportBinaryDataDialog(_track.RoadTileset.SetTilePaletteBytes))
             {
-                this.UpdateTileset();
-                this.SelectTilePalette();
-                this.TilesetChanged(this, EventArgs.Empty);
+                UpdateTileset();
+                SelectTilePalette();
+                TilesetChanged(this, EventArgs.Empty);
             }
         }
 
         private void ShowExportTilesetGraphicsDialog()
         {
-            UITools.ShowExportTilesetGraphicsDialog(this.drawer.Image, this.track.Theme.RoadTileset.GetTiles(), this.track.Theme.Name + "road gfx");
+            UITools.ShowExportTilesetGraphicsDialog(_drawer.Image, _track.Theme.RoadTileset.GetTiles(), _track.Theme.Name + "road gfx");
         }
 
         private void ShowExportTilesetGenresDialog()
         {
-            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTileGenreBytes, this.track.Theme.Name + "road types");
+            UITools.ShowExportBinaryDataDialog(_track.RoadTileset.GetTileGenreBytes, _track.Theme.Name + "road types");
         }
 
         private void ShowExportTilesetPalettesDialog()
         {
-            UITools.ShowExportBinaryDataDialog(this.track.RoadTileset.GetTilePaletteBytes, this.track.Theme.Name + "road pals");
+            UITools.ShowExportBinaryDataDialog(_track.RoadTileset.GetTilePaletteBytes, _track.Theme.Name + "road pals");
         }
 
         private void ResetMapButtonClick(object sender, EventArgs e)
@@ -400,19 +400,19 @@ namespace EpicEdit.UI.TrackEdition
 
             if (result == DialogResult.Yes)
             {
-                this.track.Map.Clear(this.selectedTile);
-                this.TrackMapChanged(this, EventArgs.Empty);
+                _track.Map.Clear(_selectedTile);
+                TrackMapChanged(this, EventArgs.Empty);
             }
         }
 
-        public bool BucketMode => this.bucketButton.Checked;
+        public bool BucketMode => bucketButton.Checked;
 
         private sealed class TilesetPanel : TilePanel
         {
             [Browsable(false), DefaultValue(typeof(RoadTileset), "")]
             public RoadTileset Tileset { get; set; }
 
-            private int TilesPerRow => (int)(this.Width / (Tile.Size * this.Zoom));
+            private int TilesPerRow => (int)(Width / (Tile.Size * Zoom));
 
             protected override Tile GetTileAt(int x, int y)
             {
@@ -420,8 +420,8 @@ namespace EpicEdit.UI.TrackEdition
                 x /= Tile.Size;
                 y /= Tile.Size;
 
-                int index = y * this.TilesPerRow + x;
-                return this.Tileset[index];
+                int index = y * TilesPerRow + x;
+                return Tileset[index];
             }
         }
     }

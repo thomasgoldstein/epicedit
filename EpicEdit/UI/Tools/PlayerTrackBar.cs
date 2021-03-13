@@ -28,14 +28,14 @@ namespace EpicEdit.UI.Tools
 
         public PlayerTrackBar()
         {
-            this.SmallChange = 0;
-            this.LargeChange = 0;
+            SmallChange = 0;
+            LargeChange = 0;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            this.JumpToValue(e.X);
+            JumpToValue(e.X);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -43,27 +43,27 @@ namespace EpicEdit.UI.Tools
             base.OnMouseMove(e);
             if (e.Button == MouseButtons.Left)
             {
-                this.JumpToValue(e.X);
+                JumpToValue(e.X);
             }
         }
 
         private void JumpToValue(int x)
         {
-            double xPercent = ((double)x / this.Width);
-            int range = this.Maximum - this.Minimum;
+            double xPercent = ((double)x / Width);
+            int range = Maximum - Minimum;
             int lineOffsetCompensation = (int)(-LineHorizontalOffset * (0.5d - xPercent) * 4);
             int value = (int)(xPercent * range) + lineOffsetCompensation;
 
-            if (value < this.Minimum)
+            if (value < Minimum)
             {
-                value = this.Minimum;
+                value = Minimum;
             }
-            else if (value > this.Maximum)
+            else if (value > Maximum)
             {
-                value = this.Maximum;
+                value = Maximum;
             }
 
-            this.Value = value;
+            Value = value;
         }
     }
 }

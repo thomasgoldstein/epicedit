@@ -27,10 +27,10 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public event EventHandler<EventArgs> DataChanged;
 
-        private Point location;
+        private Point _location;
         public Point Location
         {
-            get => this.location;
+            get => _location;
             set
             {
                 int x = value.X;
@@ -40,35 +40,35 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 {
                     x = 0;
                 }
-                else if (x + this.Width > TrackMap.Size)
+                else if (x + Width > TrackMap.Size)
                 {
-                    x = TrackMap.Size - this.Width;
+                    x = TrackMap.Size - Width;
                 }
 
                 if (y < 0)
                 {
                     y = 0;
                 }
-                else if (y + this.Height > TrackMap.Size)
+                else if (y + Height > TrackMap.Size)
                 {
-                    y = TrackMap.Size - this.Height;
+                    y = TrackMap.Size - Height;
                 }
 
-                if (this.X != x || this.Y != y)
+                if (X != x || Y != y)
                 {
-                    this.location = new Point(x, y);
-                    this.OnDataChanged();
+                    _location = new Point(x, y);
+                    OnDataChanged();
                 }
             }
         }
 
-        public int X => this.location.X;
+        public int X => _location.X;
 
-        public int Y => this.location.Y;
+        public int Y => _location.Y;
 
-        public int Width => this.Pattern.Width;
+        public int Width => Pattern.Width;
 
-        public int Height => this.Pattern.Height;
+        public int Height => Pattern.Height;
 
         public OverlayTilePattern Pattern { get; set; }
 
@@ -79,22 +79,22 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <param name="location">The location of the overlay tile.</param>
         public OverlayTile(OverlayTilePattern pattern, Point location)
         {
-            this.Pattern = pattern;
-            this.location = location;
+            Pattern = pattern;
+            _location = location;
         }
 
         public bool IntersectsWith(Point point)
         {
             return
-                point.X >= this.X &&
-                point.X < this.X + this.Width &&
-                point.Y >= this.Y &&
-                point.Y < this.Y + this.Height;
+                point.X >= X &&
+                point.X < X + Width &&
+                point.Y >= Y &&
+                point.Y < Y + Height;
         }
 
         private void OnDataChanged()
         {
-            this.DataChanged?.Invoke(this, EventArgs.Empty);
+            DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -106,12 +106,12 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <param name="patterns">The collection of overlay tile patterns.</param>
         public void GetBytes(byte[] data, int index, OverlayTileSizes sizes, OverlayTilePatterns patterns)
         {
-            int sizeIndex = sizes.IndexOf(this.Pattern.Size);
-            int patternIndex = patterns.IndexOf(this.Pattern);
+            int sizeIndex = sizes.IndexOf(Pattern.Size);
+            int patternIndex = patterns.IndexOf(Pattern);
             data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
-            data[index + 1] = (byte)(this.X + ((this.Y << 7) & 0x80));
-            data[index + 2] = (byte)(this.Y >> 1);
+            data[index + 1] = (byte)(X + ((Y << 7) & 0x80));
+            data[index + 2] = (byte)(Y >> 1);
         }
     }
 }

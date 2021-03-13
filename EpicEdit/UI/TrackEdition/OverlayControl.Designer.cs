@@ -34,9 +34,9 @@ namespace EpicEdit.UI.TrackEdition
                     components.Dispose();
                 }
 
-                if (this.drawer != null)
+                if (this._drawer != null)
                 {
-                    this.drawer.Dispose();
+                    this._drawer.Dispose();
                 }
             }
             base.Dispose(disposing);

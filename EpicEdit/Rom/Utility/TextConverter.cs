@@ -23,13 +23,13 @@ namespace EpicEdit.Rom.Utility
     internal class TextConverter
     {
         public Region Region { get; }
-        private readonly Map<byte, char> dictionary;
+        private readonly Map<byte, char> _dictionary;
 
         public TextConverter(Region region, bool tallCharacters, byte shiftValue)
         {
-            this.Region = region;
-            this.dictionary = new Map<byte, char>();
-            this.LoadCharacterSet(tallCharacters, shiftValue);
+            Region = region;
+            _dictionary = new Map<byte, char>();
+            LoadCharacterSet(tallCharacters, shiftValue);
         }
 
         /// <summary>
@@ -39,13 +39,13 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         private void LoadCharacterSet(bool tallCharacters, byte shiftValue)
         {
-            char[] chars = CharacterSet.Get(this.Region, tallCharacters);
+            char[] chars = CharacterSet.Get(Region, tallCharacters);
 
             for (int i = 0; i < chars.Length; i++)
             {
                 if (chars[i] != char.MinValue)
                 {
-                    this.dictionary.Add((byte)(i + shiftValue), chars[i]);
+                    _dictionary.Add((byte)(i + shiftValue), chars[i]);
                 }
             }
         }
@@ -54,17 +54,17 @@ namespace EpicEdit.Rom.Utility
         {
             for (int i = 0; i < keys.Length; i++)
             {
-                if (this.dictionary.Forward.ContainsKey(keys[i]))
+                if (_dictionary.Forward.ContainsKey(keys[i]))
                 {
-                    this.dictionary.Remove(keys[i]);
+                    _dictionary.Remove(keys[i]);
                 }
 
-                if (this.dictionary.Reverse.TryGetValue(values[i], out byte key))
+                if (_dictionary.Reverse.TryGetValue(values[i], out byte key))
                 {
-                    this.dictionary.Remove(key);
+                    _dictionary.Remove(key);
                 }
 
-                this.dictionary.Add(keys[i], values[i]);
+                _dictionary.Add(keys[i], values[i]);
             }
         }
 
@@ -75,7 +75,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding character.</returns>
         public char DecodeText(byte charByte)
         {
-            return !this.dictionary.Forward.TryGetValue(charByte, out char value) ?
+            return !_dictionary.Forward.TryGetValue(charByte, out char value) ?
                 '?' : value;
         }
 
@@ -87,7 +87,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding text string.</returns>
         public string DecodeText(byte[] textBytes, bool skipOddBytes)
         {
-            return this.DecodeText(textBytes, !skipOddBytes ? 1 : 2);
+            return DecodeText(textBytes, !skipOddBytes ? 1 : 2);
         }
 
         private string DecodeText(byte[] textBytes, int step)
@@ -96,12 +96,12 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < textArray.Length; i++)
             {
-                textArray[i] = this.DecodeText(textBytes[i * step]);
+                textArray[i] = DecodeText(textBytes[i * step]);
             }
 
             string text = new string(textArray);
 
-            if (this.Region == Region.Jap)
+            if (Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to connect the ten-ten and maru characters to the preceding character)
@@ -127,12 +127,12 @@ namespace EpicEdit.Rom.Utility
                 palIndex = paletteIndex.Value;
             }
 
-            return this.EncodeText(text, step, palIndex);
+            return EncodeText(text, step, palIndex);
         }
 
         private byte[] EncodeText(string text, int step, byte paletteIndex)
         {
-            if (this.Region == Region.Jap)
+            if (Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to disconnect the ten-ten and maru characters from the preceding character)
@@ -143,7 +143,7 @@ namespace EpicEdit.Rom.Utility
 
             for (int i = 0; i < text.Length; i++)
             {
-                data[i * step] = this.dictionary.Reverse[text[i]];
+                data[i * step] = _dictionary.Reverse[text[i]];
 
                 if (step > 1)
                 {
@@ -158,18 +158,18 @@ namespace EpicEdit.Rom.Utility
         {
             text = text.ToUpperInvariant();
 
-            if (this.Region == Region.Jap)
+            if (Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to disconnect the ten-ten and maru characters from the preceding character)
                 text = text.Normalize(NormalizationForm.FormD);
             }
 
-            string validChars = new string(this.dictionary.Forward.GetValues());
+            string validChars = new string(_dictionary.Forward.GetValues());
             string pattern = "[^" + Regex.Escape(validChars) + "]*";
             text = Regex.Replace(text, pattern, string.Empty);
 
-            if (this.Region == Region.Jap)
+            if (Region == Region.Jap)
             {
                 // Japanese text formatting
                 // (needed to connect the ten-ten and maru characters to the preceding character)

@@ -39,39 +39,39 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly RoadTile[] tileset;
+        private readonly RoadTile[] _tileset;
 
         public bool Modified { get; private set; }
 
         public RoadTileset(RoadTile[] tileset)
         {
-            this.tileset = tileset;
+            _tileset = tileset;
 
-            foreach (Tile tile in this.tileset)
+            foreach (Tile tile in _tileset)
             {
-                tile.PropertyChanged += this.MarkAsModified;
+                tile.PropertyChanged += MarkAsModified;
             }
         }
 
         public RoadTile[] GetTiles()
         {
-            return this.tileset;
+            return _tileset;
         }
 
         public RoadTile GetTile(int index)
         {
-            return this.tileset[index];
+            return _tileset[index];
         }
 
-        public RoadTile this[int index] => this.GetTile(index);
+        public RoadTile this[int index] => GetTile(index);
 
         public byte[] GetTileGenreBytes()
         {
-            byte[] data = new byte[this.tileset.Length];
+            byte[] data = new byte[_tileset.Length];
 
             for (int i = 0; i < data.Length; i++)
             {
-                data[i] = (byte)this.tileset[i].Genre;
+                data[i] = (byte)_tileset[i].Genre;
             }
 
             return data;
@@ -79,11 +79,11 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetTilePaletteBytes()
         {
-            byte[] data = new byte[this.tileset.Length];
+            byte[] data = new byte[_tileset.Length];
 
-            for (int i = 0; i < this.tileset.Length; i++)
+            for (int i = 0; i < _tileset.Length; i++)
             {
-                data[i] = this.tileset[i].PaletteByte;
+                data[i] = _tileset[i].PaletteByte;
             }
 
             return data;
@@ -91,14 +91,14 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[RoadTileset.TileCount + (RoadTileset.TileCount * 32)];
+            byte[] data = new byte[TileCount + (TileCount * 32)];
 
-            Buffer.BlockCopy(this.GetTilePaletteBytes(), 0, data, 0, RoadTileset.TileCount);
+            Buffer.BlockCopy(GetTilePaletteBytes(), 0, data, 0, TileCount);
 
-            for (int j = 0; j < RoadTileset.TileCount; j++)
+            for (int j = 0; j < TileCount; j++)
             {
-                RoadTile tile = this.GetTile(j);
-                Buffer.BlockCopy(tile.Graphics, 0, data, RoadTileset.TileCount + (j * 32), tile.Graphics.Length);
+                RoadTile tile = GetTile(j);
+                Buffer.BlockCopy(tile.Graphics, 0, data, TileCount + (j * 32), tile.Graphics.Length);
             }
 
             return data;
@@ -106,51 +106,51 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public void SetTileGenreBytes(byte[] data)
         {
-            if (data.Length != this.tileset.Length)
+            if (data.Length != _tileset.Length)
             {
                 throw new ArgumentException("Incorrect road tile type data size", nameof(data));
             }
 
-            for (int i = 0; i < this.tileset.Length; i++)
+            for (int i = 0; i < _tileset.Length; i++)
             {
-                this.tileset[i].Genre = (RoadTileGenre)data[i];
+                _tileset[i].Genre = (RoadTileGenre)data[i];
             }
         }
 
         public void SetTilePaletteBytes(byte[] data)
         {
-            if (data.Length != this.tileset.Length)
+            if (data.Length != _tileset.Length)
             {
                 throw new ArgumentException("Incorrect road tile palette data size", nameof(data));
             }
 
-            for (int i = 0; i < this.tileset.Length; i++)
+            for (int i = 0; i < _tileset.Length; i++)
             {
-                this.tileset[i].PaletteByte = data[i];
+                _tileset[i].PaletteByte = data[i];
             }
         }
 
         private void MarkAsModified(object sender, PropertyChangedEventArgs e)
         {
-            this.Modified = true;
-            this.OnPropertyChanged(sender, e);
+            Modified = true;
+            OnPropertyChanged(sender, e);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public void ResetModifiedState()
         {
-            this.Modified = false;
+            Modified = false;
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (Tile tile in this.tileset)
+                foreach (Tile tile in _tileset)
                 {
                     tile.Dispose();
                 }
@@ -159,7 +159,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

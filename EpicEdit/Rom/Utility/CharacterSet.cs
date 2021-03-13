@@ -24,10 +24,10 @@ namespace EpicEdit.Rom.Utility
         public static char[] Get(Region region, bool tallCharacters)
         {
             return region == Region.Jap ?
-                CharacterSet.GetJapaneseSet() :
+                GetJapaneseSet() :
                 !tallCharacters ?
-                CharacterSet.GetEnglishSet() :
-                CharacterSet.GetLargeEnglishSet();
+                GetEnglishSet() :
+                GetLargeEnglishSet();
         }
 
         private static char[] GetEnglishSet()
@@ -56,13 +56,13 @@ namespace EpicEdit.Rom.Utility
 
         private static char[] GetJapaneseSet()
         {
-            const char Ten = '\u3099'; // Ten-ten
-            const char Mar = '\u309A'; // Maru
+            const char ten = '\u3099'; // Ten-ten
+            const char mar = '\u309A'; // Maru
             return new[]
             {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', // 00-0F
                 Nch, Nch, Nch, 'J', Nch, Nch, Nch, Nch, Nch, Nch, Nch, 'R', Nch, Nch, Nch, Nch, // 10-1F
-                'G', 'P', 'V', 'S', '?', '.', ',', '!', '\'','"', Nch, Nch, Nch, Nch, Ten, Mar, // 20-2F
+                'G', 'P', 'V', 'S', '?', '.', ',', '!', '\'','"', Nch, Nch, Nch, Nch, ten, mar, // 20-2F
                 'あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', Nch, 'た', // 30-3F
                 Nch, 'つ', 'て', 'と', 'な', 'に', 'ぬ', 'ね', 'の', 'は', Nch, Nch, 'へ', Nch, 'ま', 'み', // 40-4F
                 ' ', Nch, 'も', 'や', Nch, Nch, 'ら', Nch, 'る', 'れ', 'ろ', 'わ', 'を', 'ん', '(', '+', // 50-5F

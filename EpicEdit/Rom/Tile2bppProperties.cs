@@ -18,10 +18,10 @@ namespace EpicEdit.Rom
 {
     internal struct Tile2bppProperties
     {
-        private int paletteIndex;
+        private int _paletteIndex;
         public int PaletteIndex
         {
-            get => this.paletteIndex;
+            get => _paletteIndex;
             set
             {
                 if (value < 0 || value > 15)
@@ -29,14 +29,14 @@ namespace EpicEdit.Rom
                     throw new ArgumentOutOfRangeException(nameof(value), "The palette index value should be between 0 and 15.");
                 }
 
-                this.paletteIndex = value;
+                _paletteIndex = value;
             }
         }
 
-        private int subPaletteIndex;
+        private int _subPaletteIndex;
         public int SubPaletteIndex
         {
-            get => this.subPaletteIndex;
+            get => _subPaletteIndex;
             set
             {
                 if (value != 0 && value != 4 && value != 8 && value != 12)
@@ -44,7 +44,7 @@ namespace EpicEdit.Rom
                     throw new ArgumentOutOfRangeException(nameof(value), "The sub palette index value should be positive, a multiple of 4, and no higher than 12.");
                 }
 
-                this.subPaletteIndex = value;
+                _subPaletteIndex = value;
             }
         }
 
@@ -52,38 +52,38 @@ namespace EpicEdit.Rom
 
         public Tile2bppProperties(byte data)
         {
-            const byte FlipMask = (byte)(TileFlip.X | TileFlip.Y);
-            byte paletteData = (byte)(data & ~FlipMask);
+            const byte flipMask = (byte)(TileFlip.X | TileFlip.Y);
+            byte paletteData = (byte)(data & ~flipMask);
 
             if ((paletteData & 0x03) != 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(data), "Invalid 2bpp tile property data. The 2 lower bits should be 0.");
             }
 
-            this.paletteIndex = (paletteData & 0x30) >> 4;
-            this.subPaletteIndex = (paletteData & 0xC);
-            this.Flip = (TileFlip)(data & FlipMask);
+            _paletteIndex = (paletteData & 0x30) >> 4;
+            _subPaletteIndex = (paletteData & 0xC);
+            Flip = (TileFlip)(data & flipMask);
         }
 
         public void FlipX()
         {
-            this.FlipXY(TileFlip.X);
+            FlipXy(TileFlip.X);
         }
 
         public void FlipY()
         {
-            this.FlipXY(TileFlip.Y);
+            FlipXy(TileFlip.Y);
         }
 
-        private void FlipXY(TileFlip value)
+        private void FlipXy(TileFlip value)
         {
-            if ((this.Flip & value) != 0)
+            if ((Flip & value) != 0)
             {
-                this.Flip ^= value;
+                Flip ^= value;
             }
             else
             {
-                this.Flip |= value;
+                Flip |= value;
             }
         }
 
@@ -109,7 +109,7 @@ namespace EpicEdit.Rom
 
         public byte GetByte()
         {
-            return (byte)((byte)this.Flip | (this.paletteIndex << 4) | this.subPaletteIndex);
+            return (byte)((byte)Flip | (_paletteIndex << 4) | _subPaletteIndex);
         }
     }
 }

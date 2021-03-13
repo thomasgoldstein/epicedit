@@ -39,16 +39,16 @@ namespace EpicEdit.UI.TrackEdition
 
         protected override void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {
-            if (this.EditionMode == EditionMode.Objects)
+            if (EditionMode == EditionMode.Objects)
             {
-                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
+                if (Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
                 {
                     // Shift the X value, to account for the fact that track objects,
                     // which are rendered on 2x2 tiles (16x16 pixels) are spread across 3 tiles
                     // horizontally, as they are centered (4px + 8px + 4px).
                     // So, shifting the X value makes it easier for us, as that lets us treat
                     // them as being on 2 tiles rather than 3.
-                    int halfTile = (int)((Tile.Size / 2) * this.Zoom);
+                    int halfTile = (int)((Tile.Size / 2) * Zoom);
                     x += halfTile;
                 }
             }
@@ -62,8 +62,8 @@ namespace EpicEdit.UI.TrackEdition
             int tileX = x / Tile.Size;
             int tileY = y / Tile.Size;
 
-            tileX += this.ScrollPositionX;
-            tileY += this.ScrollPositionY;
+            tileX += ScrollPositionX;
+            tileY += ScrollPositionY;
 
             if (tileX > TrackMap.Size || tileY > TrackMap.Limit)
             {
@@ -73,11 +73,11 @@ namespace EpicEdit.UI.TrackEdition
                 return null;
             }
 
-            if (this.EditionMode == EditionMode.Objects)
+            if (EditionMode == EditionMode.Objects)
             {
-                if (this.Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
+                if (Track is GPTrack gpTrack && gpTrack.Objects.Routine != TrackObjectType.Pillar)
                 {
-                    return TrackPanel.GetObjectTile(gpTrack, x, y, tileX, tileY);
+                    return GetObjectTile(gpTrack, x, y, tileX, tileY);
                 }
             }
 
@@ -88,9 +88,9 @@ namespace EpicEdit.UI.TrackEdition
                 return null;
             }
 
-            if (this.EditionMode == EditionMode.Overlay)
+            if (EditionMode == EditionMode.Overlay)
             {
-                Tile tile = TrackPanel.GetOverlayTile(this.Track, tileX, tileY);
+                Tile tile = GetOverlayTile(Track, tileX, tileY);
 
                 if (tile != null)
                 {
@@ -98,9 +98,9 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            byte index = this.Track.Map[tileX, tileY];
+            byte index = Track.Map[tileX, tileY];
 
-            return this.Track.RoadTileset[index];
+            return Track.RoadTileset[index];
         }
 
         private static Tile GetObjectTile(GPTrack track, int x, int y, int tileX, int tileY)

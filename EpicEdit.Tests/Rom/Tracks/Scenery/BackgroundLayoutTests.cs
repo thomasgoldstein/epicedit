@@ -31,49 +31,49 @@ namespace EpicEdit.Tests.Rom.Tracks.Scenery
         [Test]
         public void TestGetBytes1()
         {
-            this.TestGetBytes("bglayoutgv.smc");
+            TestGetBytes("bglayoutgv.smc");
         }
 
         [Test]
         public void TestGetBytes2()
         {
-            this.TestGetBytes("bglayoutmc.smc");
+            TestGetBytes("bglayoutmc.smc");
         }
 
         [Test]
         public void TestGetBytes3()
         {
-            this.TestGetBytes("bglayoutdp.smc");
+            TestGetBytes("bglayoutdp.smc");
         }
 
         [Test]
         public void TestGetBytes4()
         {
-            this.TestGetBytes("bglayoutci.smc");
+            TestGetBytes("bglayoutci.smc");
         }
 
         [Test]
         public void TestGetBytes5()
         {
-            this.TestGetBytes("bglayoutvl.smc");
+            TestGetBytes("bglayoutvl.smc");
         }
 
         [Test]
         public void TestGetBytes6()
         {
-            this.TestGetBytes("bglayoutkp.smc");
+            TestGetBytes("bglayoutkp.smc");
         }
 
         [Test]
         public void TestGetBytes7()
         {
-            this.TestGetBytes("bglayoutbc.smc");
+            TestGetBytes("bglayoutbc.smc");
         }
 
         [Test]
         public void TestGetBytes8()
         {
-            this.TestGetBytes("bglayoutrr.smc");
+            TestGetBytes("bglayoutrr.smc");
         }
     }
 }

@@ -23,32 +23,32 @@ namespace EpicEdit.Rom.Tracks.Overlay
     {
         public const int Size = 2;
 
-        private int width;
+        private int _width;
         public int Width
         {
-            get => this.width;
-            set => this.SetSize(value, this.height);
+            get => _width;
+            set => SetSize(value, _height);
         }
 
-        private int height;
+        private int _height;
         public int Height
         {
-            get => this.height;
-            set => this.SetSize(this.width, value);
+            get => _height;
+            set => SetSize(_width, value);
         }
 
         public bool Modified { get; private set; }
 
         public OverlayTileSize(byte[] data)
         {
-            if (data.Length != OverlayTileSize.Size)
+            if (data.Length != Size)
             {
                 throw new ArgumentException("Incorrect overlay tile size data size", nameof(data));
             }
 
-            this.width = data[0];
-            this.height = data[1];
-            this.Modified = false;
+            _width = data[0];
+            _height = data[1];
+            Modified = false;
         }
 
         public void SetSize(int width, int height)
@@ -58,24 +58,24 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // From the documentation, only 32 bytes are loaded into VRAM per overlay tile
             if (width > 0 && height > 0 && area > 0 && area <= 32)
             {
-                if (this.width != width || this.height != height)
+                if (_width != width || _height != height)
                 {
-                    this.width = width;
-                    this.height = height;
-                    this.Modified = true;
+                    _width = width;
+                    _height = height;
+                    Modified = true;
                 }
             }
             else
             {
                 throw new ArgumentException("Invalid overlay tile size.");
             }
-            this.Modified = false;
+            Modified = false;
         }
 
         public void GetBytes(byte[] data, int index)
         {
-            data[index] = (byte)this.width;
-            data[index + 1] = (byte)this.height;
+            data[index] = (byte)_width;
+            data[index + 1] = (byte)_height;
         }
     }
 }

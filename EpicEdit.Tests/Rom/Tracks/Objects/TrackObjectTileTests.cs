@@ -49,7 +49,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Objects
                 0xE0, 0x02, 0x80, 0x01, 0x00, 0x00, 0xBF, 0x4B
             };
 
-            this.TestGetColorIndexAt(gfx, palData);
+            TestGetColorIndexAt(gfx, palData);
         }
     }
 }

@@ -33,54 +33,54 @@ namespace EpicEdit.Rom.Tracks.Items
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private byte[] backupData;
+        private byte[] _backupData;
 
         #region Item box display
 
-        private ItemBoxDisplay displayedItems;
+        private ItemBoxDisplay _displayedItems;
         public ItemBoxDisplay DisplayedItems
         {
-            get => this.displayedItems;
+            get => _displayedItems;
             set
             {
-                if (this.displayedItems != value)
+                if (_displayedItems != value)
                 {
-                    this.displayedItems = value;
-                    this.MarkAsModified(PropertyNames.ItemProbability.DisplayedItems);
-                    this.SetProbsBasedOnDisplayedItems();
+                    _displayedItems = value;
+                    MarkAsModified(PropertyNames.ItemProbability.DisplayedItems);
+                    SetProbsBasedOnDisplayedItems();
                 }
             }
         }
 
         private void MarkAsModified(string propertyName)
         {
-            this.Modified = true;
-            this.OnPropertyChanged(propertyName);
+            Modified = true;
+            OnPropertyChanged(propertyName);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void SetProbsBasedOnDisplayedItems()
         {
-            switch (this.displayedItems)
+            switch (_displayedItems)
             {
                 case ItemBoxDisplay.NoCoinsOrLightnings:
-                    this.Coins = 0;
+                    Coins = 0;
                     // Arbitrarily affect Lightning value to Ghost, so that Lightning = 0
-                    this.Ghost += this.Lightning;
+                    Ghost += Lightning;
                     break;
                 case ItemBoxDisplay.NoFeathers:
-                    this.Feather = 0;
+                    Feather = 0;
                     break;
                 case ItemBoxDisplay.NoGhosts:
-                    this.Ghost = 0;
+                    Ghost = 0;
                     break;
                 case ItemBoxDisplay.NoGhostsOrFeathers:
-                    this.Ghost = 0;
-                    this.Feather = 0;
+                    Ghost = 0;
+                    Feather = 0;
                     break;
                 default:
                 case ItemBoxDisplay.AllItems:
@@ -94,68 +94,68 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private void SetFieldValue(ref int field, int value)
         {
-            if (this.SubTotal - field + value > ItemProbability.TotalCount)
+            if (SubTotal - field + value > TotalCount)
             {
-                value = ItemProbability.TotalCount - (this.SubTotal - field);
+                value = TotalCount - (SubTotal - field);
             }
 
             if (field != value)
             {
                 field = value;
                 // We could pass the actual property name, but it's not used, so that'd complicate the code for nothing.
-                this.MarkAsModified(PropertyNames.ItemProbability.FieldValue);
+                MarkAsModified(PropertyNames.ItemProbability.FieldValue);
             }
         }
 
         public int Mushroom
         {
-            get => this.values[(int)ItemType.Mushroom];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Mushroom], value);
+            get => _values[(int)ItemType.Mushroom];
+            set => SetFieldValue(ref _values[(int)ItemType.Mushroom], value);
         }
 
         public int Feather
         {
-            get => this.values[(int)ItemType.Feather];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Feather], value);
+            get => _values[(int)ItemType.Feather];
+            set => SetFieldValue(ref _values[(int)ItemType.Feather], value);
         }
 
         public int Star
         {
-            get => this.values[(int)ItemType.Star];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Star], value);
+            get => _values[(int)ItemType.Star];
+            set => SetFieldValue(ref _values[(int)ItemType.Star], value);
         }
 
         public int Banana
         {
-            get => this.values[(int)ItemType.Banana];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Banana], value);
+            get => _values[(int)ItemType.Banana];
+            set => SetFieldValue(ref _values[(int)ItemType.Banana], value);
         }
 
         public int GreenShell
         {
-            get => this.values[(int)ItemType.GreenShell];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.GreenShell], value);
+            get => _values[(int)ItemType.GreenShell];
+            set => SetFieldValue(ref _values[(int)ItemType.GreenShell], value);
         }
 
         public int RedShell
         {
-            get => this.values[(int)ItemType.RedShell];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.RedShell], value);
+            get => _values[(int)ItemType.RedShell];
+            set => SetFieldValue(ref _values[(int)ItemType.RedShell], value);
         }
 
         public int Ghost
         {
-            get => this.values[(int)ItemType.Ghost];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Ghost], value);
+            get => _values[(int)ItemType.Ghost];
+            set => SetFieldValue(ref _values[(int)ItemType.Ghost], value);
         }
 
         public int Coins
         {
-            get => this.values[(int)ItemType.Coins];
-            set => this.SetFieldValue(ref this.values[(int)ItemType.Coins], value);
+            get => _values[(int)ItemType.Coins];
+            set => SetFieldValue(ref _values[(int)ItemType.Coins], value);
         }
 
-        public int Lightning => ItemProbability.TotalCount - this.SubTotal;
+        public int Lightning => TotalCount - SubTotal;
 
         private int SubTotal
         {
@@ -163,35 +163,35 @@ namespace EpicEdit.Rom.Tracks.Items
             {
                 int value = 0;
 
-                for (int i = 0; i < this.values.Length; i++)
+                for (int i = 0; i < _values.Length; i++)
                 {
-                    value += this.values[i];
+                    value += _values[i];
                 }
 
                 return value;
             }
         }
 
-        public int Total => this.SubTotal + this.Lightning;
+        public int Total => SubTotal + Lightning;
 
         #endregion Items
 
         public bool Modified { get; private set; }
 
-        private readonly int[] values;
+        private readonly int[] _values;
 
         public ItemProbability(byte[] data)
         {
-            this.backupData = data;
-            this.values = new int[ItemProbability.Size - 1]; // Contains all the data except displayedItems
-            this.SetBytes(data);
-            this.Modified = false;
+            _backupData = data;
+            _values = new int[Size - 1]; // Contains all the data except displayedItems
+            SetBytes(data);
+            Modified = false;
         }
 
         public void Reset()
         {
-            this.SetBytes(this.backupData);
-            this.Modified = false;
+            SetBytes(_backupData);
+            Modified = false;
         }
 
         #region Reading and writing byte data
@@ -199,20 +199,20 @@ namespace EpicEdit.Rom.Tracks.Items
         public void SetBytes(byte[] data)
         {
             // Init everything back to default to reset the SubTotal value
-            for (int i = 0; i < this.values.Length; i++)
+            for (int i = 0; i < _values.Length; i++)
             {
-                this.values[i] = 0;
+                _values[i] = 0;
             }
 
             int total = 0;
 
-            for (int i = 0; i < this.values.Length; i++)
+            for (int i = 0; i < _values.Length; i++)
             {
-                int value = ItemProbability.GetFieldValue(data, i, ref total);
-                this.SetFieldValue(ref this.values[i], value);
+                int value = GetFieldValue(data, i, ref total);
+                SetFieldValue(ref _values[i], value);
             }
 
-            this.DisplayedItems = (ItemBoxDisplay)data[8];
+            DisplayedItems = (ItemBoxDisplay)data[8];
         }
 
         private static int GetFieldValue(byte[] data, int index, ref int total)
@@ -229,8 +229,8 @@ namespace EpicEdit.Rom.Tracks.Items
 
         private byte[] GetBytes()
         {
-            byte[] data = new byte[ItemProbability.Size];
-            this.GetBytes(data, 0);
+            byte[] data = new byte[Size];
+            GetBytes(data, 0);
             return data;
         }
 
@@ -238,19 +238,19 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             int total = 0;
 
-            for (int i = 0; i < this.values.Length; i++)
+            for (int i = 0; i < _values.Length; i++)
             {
-                data[index + i] = this.values[i] == 0 ? (byte)0 : (byte)(total += this.values[i]);
+                data[index + i] = _values[i] == 0 ? (byte)0 : (byte)(total += _values[i]);
             }
 
-            data[index + this.values.Length] = (byte)this.displayedItems;
+            data[index + _values.Length] = (byte)_displayedItems;
         }
 
         public void ResetModifiedState()
         {
             // Update the backup data, so that resetting the data will reload the last saved data
-            this.backupData = this.GetBytes();
-            this.Modified = false;
+            _backupData = GetBytes();
+            Modified = false;
         }
 
         #endregion Reading and writing byte data

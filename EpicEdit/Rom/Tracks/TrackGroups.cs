@@ -26,18 +26,18 @@ namespace EpicEdit.Rom.Tracks
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly TrackGroup[] trackGroups;
+        private readonly TrackGroup[] _trackGroups;
 
         public TrackGroups()
         {
-            this.trackGroups = new TrackGroup[Track.GroupCount];
+            _trackGroups = new TrackGroup[Track.GroupCount];
         }
 
         public bool Modified
         {
             get
             {
-                foreach (TrackGroup trackGroup in this.trackGroups)
+                foreach (TrackGroup trackGroup in _trackGroups)
                 {
                     if (trackGroup.Modified)
                     {
@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void ResetModifiedState()
         {
-            foreach (TrackGroup trackGroup in this.trackGroups)
+            foreach (TrackGroup trackGroup in _trackGroups)
             {
                 trackGroup.ResetModifiedState();
             }
@@ -59,7 +59,7 @@ namespace EpicEdit.Rom.Tracks
 
         public IEnumerator<TrackGroup> GetEnumerator()
         {
-            foreach (TrackGroup trackGroup in this.trackGroups)
+            foreach (TrackGroup trackGroup in _trackGroups)
             {
                 yield return trackGroup;
             }
@@ -67,24 +67,24 @@ namespace EpicEdit.Rom.Tracks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.trackGroups.GetEnumerator();
+            return _trackGroups.GetEnumerator();
         }
 
         public TrackGroup this[int index]
         {
-            get => this.trackGroups[index];
+            get => _trackGroups[index];
             set
             {
                 // NOTE: Only meant to be called once per item, so no need to detach event handlers
-                this.trackGroups[index] = value;
-                this.trackGroups[index].PropertyChanged += this.OnPropertyChanged;
+                _trackGroups[index] = value;
+                _trackGroups[index].PropertyChanged += OnPropertyChanged;
             }
         }
 
         public Track GetTrack(int index)
         {
             int iterator = 0;
-            foreach (TrackGroup trackGroup in this.trackGroups)
+            foreach (TrackGroup trackGroup in _trackGroups)
             {
                 foreach (Track track in trackGroup)
                 {
@@ -100,9 +100,9 @@ namespace EpicEdit.Rom.Tracks
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
-        public int Count => this.trackGroups.Length;
+        public int Count => _trackGroups.Length;
     }
 }

@@ -22,8 +22,8 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
     [TestFixture]
     internal class OverlayTilesTests 
     {
-        private OverlayTilePatterns overlayTilePatterns;
-        private OverlayTileSizes overlayTileSizes;
+        private OverlayTilePatterns _overlayTilePatterns;
+        private OverlayTileSizes _overlayTileSizes;
 
         [SetUp]
         public void SetUp()
@@ -31,13 +31,13 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
             byte[] romBuffer = File.ReadRom(Region.US);
             Offsets offsets = new Offsets(romBuffer, Region.US);
             byte[] overlayTileSizesData = Utilities.ReadBlock(romBuffer, offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
-            this.overlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
-            this.overlayTilePatterns = new OverlayTilePatterns(romBuffer, offsets, this.overlayTileSizes);
+            _overlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
+            _overlayTilePatterns = new OverlayTilePatterns(romBuffer, offsets, _overlayTileSizes);
         }
 
         private void TestGetBytes(byte[] data)
         {
-            OverlayTiles overlayTiles = new OverlayTiles(data, this.overlayTileSizes, this.overlayTilePatterns);
+            OverlayTiles overlayTiles = new OverlayTiles(data, _overlayTileSizes, _overlayTilePatterns);
             byte[] dataAfter = overlayTiles.GetBytes();
 
             Assert.AreEqual(data, dataAfter);
@@ -66,7 +66,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
             };
 
-            this.TestGetBytes(data);
+            TestGetBytes(data);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly TrackObject[] objects;
+        private readonly TrackObject[] _objects;
 
         public TrackObjectAreas Areas { get; }
 
@@ -41,44 +41,44 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectType Tileset
         {
-            get => this.Properties.Tileset;
-            set => this.Properties.Tileset = value;
+            get => Properties.Tileset;
+            set => Properties.Tileset = value;
         }
 
         public TrackObjectType Interaction
         {
-            get => this.Properties.Interaction;
-            set => this.Properties.Interaction = value;
+            get => Properties.Interaction;
+            set => Properties.Interaction = value;
         }
 
         public TrackObjectType Routine
         {
-            get => this.Properties.Routine;
-            set => this.Properties.Routine = value;
+            get => Properties.Routine;
+            set => Properties.Routine = value;
         }
 
-        public ByteArray PaletteIndexes => this.Properties.PaletteIndexes;
+        public ByteArray PaletteIndexes => Properties.PaletteIndexes;
 
-        public Palette Palette => this.Properties.Palette;
+        public Palette Palette => Properties.Palette;
 
         public bool Flashing
         {
-            get => this.Properties.Flashing;
-            set => this.Properties.Flashing = value;
+            get => Properties.Flashing;
+            set => Properties.Flashing = value;
         }
 
-        public TrackObjectLoading Loading => this.Properties.Loading;
+        public TrackObjectLoading Loading => Properties.Loading;
 
         public TrackObjects(byte[] data, byte[] areaData, TrackAI ai, byte[] propData, GPTrack track)
         {
-            this.objects = new TrackObject[Size / BytesPerObject];
-            this.SetBytes(data);
+            _objects = new TrackObject[Size / BytesPerObject];
+            SetBytes(data);
 
-            this.Areas = new TrackObjectAreas(areaData, ai);
-            this.Areas.PropertyChanged += this.SubPropertyChanged;
+            Areas = new TrackObjectAreas(areaData, ai);
+            Areas.PropertyChanged += SubPropertyChanged;
 
-            this.Properties = new TrackObjectProperties(propData, track);
-            this.Properties.PropertyChanged += this.SubPropertyChanged;
+            Properties = new TrackObjectProperties(propData, track);
+            Properties.PropertyChanged += SubPropertyChanged;
         }
 
         public void SetBytes(byte[] data)
@@ -90,40 +90,40 @@ namespace EpicEdit.Rom.Tracks.Objects
 
             for (int i = 0; i < RegularObjectCount; i++)
             {
-                if (this.objects[i] != null)
+                if (_objects[i] != null)
                 {
-                    this.objects[i].PropertyChanged -= this.SubPropertyChanged;
+                    _objects[i].PropertyChanged -= SubPropertyChanged;
                 }
 
-                this.objects[i] = new TrackObject(data, i * BytesPerObject);
-                this.objects[i].PropertyChanged += this.SubPropertyChanged;
+                _objects[i] = new TrackObject(data, i * BytesPerObject);
+                _objects[i].PropertyChanged += SubPropertyChanged;
             }
 
             for (int i = RegularObjectCount; i < ObjectCount; i++)
             {
-                if (this.objects[i] != null)
+                if (_objects[i] != null)
                 {
-                    this.objects[i].PropertyChanged -= this.SubPropertyChanged;
+                    _objects[i].PropertyChanged -= SubPropertyChanged;
                 }
 
-                this.objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
-                this.objects[i].PropertyChanged += this.SubPropertyChanged;
+                _objects[i] = new TrackObjectMatchRace(data, i * BytesPerObject);
+                _objects[i].PropertyChanged += SubPropertyChanged;
             }
         }
 
         private void SubPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged(sender, e);
+            OnPropertyChanged(sender, e);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public IEnumerator<TrackObject> GetEnumerator()
         {
-            foreach (TrackObject tObject in this.objects)
+            foreach (TrackObject tObject in _objects)
             {
                 yield return tObject;
             }
@@ -131,12 +131,12 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.objects.GetEnumerator();
+            return _objects.GetEnumerator();
         }
 
-        public int Count => this.objects.Length;
+        public int Count => _objects.Length;
 
-        public TrackObject this[int index] => this.objects[index];
+        public TrackObject this[int index] => _objects[index];
 
         /// <summary>
         /// Returns the TrackObjects data as a byte array, in the format the SMK ROM expects.
@@ -144,11 +144,11 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns>The TrackObjects bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[this.objects.Length * BytesPerObject];
+            byte[] data = new byte[_objects.Length * BytesPerObject];
 
-            for (int i = 0; i < this.objects.Length; i++)
+            for (int i = 0; i < _objects.Length; i++)
             {
-                this.objects[i].GetBytes(data, i * BytesPerObject);
+                _objects[i].GetBytes(data, i * BytesPerObject);
             }
 
             return data;

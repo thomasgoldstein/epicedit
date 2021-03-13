@@ -24,19 +24,19 @@ namespace EpicEdit.Rom.Tracks.Objects
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Point location;
+        private Point _location;
         public Point Location
         {
-            get => this.location;
+            get => _location;
             set
             {
-                if (this.location == value)
+                if (_location == value)
                 {
                     return;
                 }
 
-                this.location = value;
-                this.OnPropertyChanged(PropertyNames.TrackObject.Location);
+                _location = value;
+                OnPropertyChanged(PropertyNames.TrackObject.Location);
             }
         }
 
@@ -49,16 +49,16 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             int x = (data[index] & 0x7F);
             int y = ((data[index + 1] & 0x3F) << 1) + ((data[index] & 0x80) >> 7);
-            this.Location = new Point(x, y);
+            Location = new Point(x, y);
         }
 
-        public int X => this.Location.X;
+        public int X => Location.X;
 
-        public int Y => this.Location.Y;
+        public int Y => Location.Y;
 
         protected void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <param name="index">The array position where the data will be copied.</param>
         public virtual void GetBytes(byte[] data, int index)
         {
-            data[index] = (byte)(this.X + ((this.Y << 7) & 0x80));
-            data[index + 1] = (byte)(this.Y >> 1);
+            data[index] = (byte)(X + ((Y << 7) & 0x80));
+            data[index + 1] = (byte)(Y >> 1);
         }
     }
 }

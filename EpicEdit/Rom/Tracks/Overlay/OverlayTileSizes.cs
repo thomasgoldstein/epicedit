@@ -27,15 +27,15 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public const int Count = 4;
         public const int Size = Count * OverlayTileSize.Size;
 
-        private readonly OverlayTileSize[] sizes;
+        private readonly OverlayTileSize[] _sizes;
 
-        public OverlayTileSize this[int index] => this.sizes[index];
+        public OverlayTileSize this[int index] => _sizes[index];
 
         public bool Modified
         {
             get
             {
-                foreach (OverlayTileSize size in this.sizes)
+                foreach (OverlayTileSize size in _sizes)
                 {
                     if (size.Modified)
                     {
@@ -49,26 +49,26 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public OverlayTileSizes(byte[] data)
         {
-            this.sizes = new OverlayTileSize[OverlayTileSizes.Count];
-            this.SetBytes(data);
+            _sizes = new OverlayTileSize[Count];
+            SetBytes(data);
         }
 
         private void SetBytes(byte[] data)
         {
-            byte[][] mData = Utilities.ReadBlockGroup(data, 0, OverlayTileSize.Size, OverlayTileSizes.Count);
+            byte[][] mData = Utilities.ReadBlockGroup(data, 0, OverlayTileSize.Size, Count);
             for (int i = 0; i < mData.Length; i++)
             {
-                this.sizes[i] = new OverlayTileSize(mData[i]);
+                _sizes[i] = new OverlayTileSize(mData[i]);
             }
         }
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[this.sizes.Length * OverlayTileSize.Size];
+            byte[] data = new byte[_sizes.Length * OverlayTileSize.Size];
 
-            for (int i = 0; i < this.sizes.Length; i++)
+            for (int i = 0; i < _sizes.Length; i++)
             {
-                this.sizes[i].GetBytes(data, i * OverlayTileSize.Size);
+                _sizes[i].GetBytes(data, i * OverlayTileSize.Size);
             }
 
             return data;
@@ -76,7 +76,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public IEnumerator<OverlayTileSize> GetEnumerator()
         {
-            foreach (OverlayTileSize size in this.sizes)
+            foreach (OverlayTileSize size in _sizes)
             {
                 yield return size;
             }
@@ -84,14 +84,14 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.sizes.GetEnumerator();
+            return _sizes.GetEnumerator();
         }
 
         public int IndexOf(OverlayTileSize size)
         {
-            for (int i = 0; i < this.sizes.Length; i++)
+            for (int i = 0; i < _sizes.Length; i++)
             {
-                if (this.sizes[i] == size)
+                if (_sizes[i] == size)
                 {
                     return i;
                 }

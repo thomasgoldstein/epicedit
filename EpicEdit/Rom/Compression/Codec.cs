@@ -38,21 +38,21 @@ namespace EpicEdit.Rom.Compression
         /// </summary>
         internal const int SuperCommandMax = 1024;
 
-        private static bool QuirksMode;
+        private static bool _quirksMode;
 
         public static void SetRegion(Region region)
         {
-            Codec.QuirksMode = region != Region.US;
+            _quirksMode = region != Region.US;
         }
 
         public static int GetValidatedSuperCommandSize(int byteCount)
         {
-            if (byteCount > Codec.SuperCommandMax)
+            if (byteCount > SuperCommandMax)
             {
-                byteCount = Codec.SuperCommandMax;
+                byteCount = SuperCommandMax;
             }
 
-            if (Codec.QuirksMode && (byteCount % 256) == 0)
+            if (_quirksMode && (byteCount % 256) == 0)
             {
                 // Japanese and European ROMs do not support command sizes that are a multiple of 256
                 // (at least for the second compression of double compressed data),
@@ -63,14 +63,14 @@ namespace EpicEdit.Rom.Compression
             return byteCount;
         }
 
-        private static IDecompressor decompressor;
-        private static IDecompressor Decompressor => Codec.decompressor ?? (Codec.decompressor = new Decompressor());
+        private static IDecompressor _decompressor;
+        private static IDecompressor Decompressor => _decompressor ?? (_decompressor = new Decompressor());
 
-        private static ICompressor compressor;
-        private static ICompressor Compressor => Codec.compressor ?? (Codec.compressor = new FastCompressor());
+        private static ICompressor _compressor;
+        private static ICompressor Compressor => _compressor ?? (_compressor = new FastCompressor());
 
-        private static ICompressor optimalCompressor;
-        private static ICompressor OptimalCompressor => Codec.optimalCompressor ?? (Codec.optimalCompressor = new OptimalCompressor());
+        private static ICompressor _optimalCompressor;
+        private static ICompressor OptimalCompressor => _optimalCompressor ?? (_optimalCompressor = new OptimalCompressor());
 
         /// <summary>
         /// Decompresses data until a stop (0xFF) command is found.
@@ -79,7 +79,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer)
         {
-            return Codec.Decompressor.Decompress(buffer);
+            return Decompressor.Decompress(buffer);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset)
         {
-            return Codec.Decompressor.Decompress(buffer, offset);
+            return Decompressor.Decompress(buffer, offset);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset, int length)
         {
-            return Codec.Decompressor.Decompress(buffer, offset, length);
+            return Decompressor.Decompress(buffer, offset, length);
         }
 
         /// <summary>
@@ -115,11 +115,11 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset, bool twice)
         {
-            byte[] data = Codec.Decompressor.Decompress(buffer, offset);
+            byte[] data = Decompressor.Decompress(buffer, offset);
 
             if (twice)
             {
-                data = Codec.Decompressor.Decompress(data);
+                data = Decompressor.Decompress(data);
             }
 
             return data;
@@ -132,7 +132,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The length of the compressed block.</returns>
         public static int GetCompressedLength(byte[] buffer)
         {
-            return Codec.GetCompressedLength(buffer, 0);
+            return GetCompressedLength(buffer, 0);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace EpicEdit.Rom.Compression
 
         public static byte[] GetCompressedChunk(byte[] buffer, int offset)
         {
-            int compressedChunkLength = Codec.GetCompressedLength(buffer, offset);
+            int compressedChunkLength = GetCompressedLength(buffer, offset);
             return Utilities.ReadBlock(buffer, offset, compressedChunkLength);
         }
 
@@ -198,7 +198,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer)
         {
-            return Codec.Compress(buffer, false);
+            return Compress(buffer, false);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer, bool optimize)
         {
-            ICompressor comp = !optimize ? Codec.Compressor : Codec.OptimalCompressor;
+            ICompressor comp = !optimize ? Compressor : OptimalCompressor;
             return comp.Compress(buffer);
         }
 
@@ -222,7 +222,7 @@ namespace EpicEdit.Rom.Compression
         /// <param name="offset">Location where the data will be saved.</param>
         public static void Compress(byte[] sourceBuffer, byte[] destinationBuffer, int offset)
         {
-            byte[] compBuffer = Codec.Compress(sourceBuffer);
+            byte[] compBuffer = Compress(sourceBuffer);
             Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
         }
 
@@ -235,13 +235,13 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The double-compressed data.</returns>
         public static byte[] Compress(byte[] buffer, bool twice, bool optimize)
         {
-            buffer = Codec.Compress(buffer, optimize);
+            buffer = Compress(buffer, optimize);
 
             if (twice)
             {
                 // NOTE: No need to optimize the second compression,
                 // it's quite slow and doesn't really improve the compression rate.
-                buffer = Codec.Compress(buffer);
+                buffer = Compress(buffer);
             }
 
             return buffer;

@@ -24,18 +24,18 @@ namespace EpicEdit.UI.Tools
     {
         public CodecForm()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            this.Hide();
+            Hide();
             e.Cancel = true;
         }
 
         public void Init()
         {
-            this.Editor.Init();
+            Editor.Init();
         }
     }
 }

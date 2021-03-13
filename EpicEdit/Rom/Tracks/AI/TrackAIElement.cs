@@ -31,74 +31,74 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private TrackAIElementShape areaShape;
+        private TrackAIElementShape _areaShape;
         /// <summary>
         /// Gets or sets the area shape.
         /// </summary>
         public TrackAIElementShape AreaShape
         {
-            get => this.areaShape;
+            get => _areaShape;
             set
             {
-                if (this.areaShape == value)
+                if (_areaShape == value)
                 {
                     return;
                 }
 
-                if (this.areaShape == TrackAIElementShape.Rectangle &&
+                if (_areaShape == TrackAIElementShape.Rectangle &&
                     value != TrackAIElementShape.Rectangle)
                 {
-                    if (this.area.Width > this.area.Height)
+                    if (_area.Width > _area.Height)
                     {
-                        this.area.Width = this.area.Height;
+                        _area.Width = _area.Height;
                     }
-                    else if (this.area.Height > this.area.Width)
+                    else if (_area.Height > _area.Width)
                     {
-                        this.area.Height = this.area.Width;
+                        _area.Height = _area.Width;
                     }
                 }
 
-                this.areaShape = value;
-                this.OnPropertyChanged(PropertyNames.TrackAIElement.AreaShape);
+                _areaShape = value;
+                OnPropertyChanged(PropertyNames.TrackAIElement.AreaShape);
             }
         }
 
-        private Rectangle area;
+        private Rectangle _area;
         /// <summary>
         /// Gets the area.
         /// </summary>
-        public Rectangle Area => this.area;
+        public Rectangle Area => _area;
 
-        private Point target;
+        private Point _target;
         /// <summary>
         /// Gets or sets the target.
         /// </summary>
         public Point Target
         {
-            get => this.target;
-            set => this.MoveTargetTo(value.X, value.Y);
+            get => _target;
+            set => MoveTargetTo(value.X, value.Y);
         }
 
-        private byte speed;
+        private byte _speed;
         /// <summary>
         /// Gets or sets the speed.
         /// </summary>
         public byte Speed
         {
-            get => this.speed;
+            get => _speed;
             set
             {
-                if (this.speed == value)
+                if (_speed == value)
                 {
                     return;
                 }
 
-                this.speed = value;
-                this.OnPropertyChanged(PropertyNames.TrackAIElement.Speed);
+                _speed = value;
+                OnPropertyChanged(PropertyNames.TrackAIElement.Speed);
             }
         }
 
-        private bool isIntersection;
+        private bool _isIntersection;
         /// <summary>
         /// Gets or sets a value that determines if the element is at an intersection.
         /// When an AI element is flagged as an intersection, this tells the AI to ignore
@@ -106,16 +106,16 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public bool IsIntersection
         {
-            get => this.isIntersection;
+            get => _isIntersection;
             set
             {
-                if (this.isIntersection == value)
+                if (_isIntersection == value)
                 {
                     return;
                 }
 
-                this.isIntersection = value;
-                this.OnPropertyChanged(PropertyNames.TrackAIElement.IsIntersection);
+                _isIntersection = value;
+                OnPropertyChanged(PropertyNames.TrackAIElement.IsIntersection);
             }
         }
 
@@ -124,8 +124,8 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public Point Location
         {
-            get => this.area.Location;
-            set => this.MoveTo(value.X, value.Y);
+            get => _area.Location;
+            set => MoveTo(value.X, value.Y);
         }
 
         /// <summary>
@@ -137,16 +137,16 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <param name="targetDataIndex">The index to use in the target byte array.</param>
         public TrackAIElement(byte[] areaData, ref int areaDataIndex, byte[] targetData, ref int targetDataIndex)
         {
-            this.AreaShape = (TrackAIElementShape)areaData[areaDataIndex++];
+            AreaShape = (TrackAIElementShape)areaData[areaDataIndex++];
             int areaX = areaData[areaDataIndex++] * Precision;
             int areaY = areaData[areaDataIndex++] * Precision;
 
-            if (this.AreaShape == TrackAIElementShape.Rectangle)
+            if (AreaShape == TrackAIElementShape.Rectangle)
             {
                 int areaWidth = areaData[areaDataIndex++] * Precision;
                 int areaHeight = areaData[areaDataIndex++] * Precision;
 
-                this.area = new Rectangle(areaX, areaY, areaWidth, areaHeight);
+                _area = new Rectangle(areaX, areaY, areaWidth, areaHeight);
             }
             else
             {
@@ -156,7 +156,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 // determine the location of its right angle.
                 // We don't follow this logic, and change X and Y
                 // to make them always determine the top left corner.
-                switch (this.AreaShape)
+                switch (AreaShape)
                 {
                     case TrackAIElementShape.TriangleTopRight:
                         areaX -= areaSize - Precision;
@@ -172,84 +172,84 @@ namespace EpicEdit.Rom.Tracks.AI
                         break;
                 }
 
-                this.area = new Rectangle(areaX, areaY, areaSize, areaSize);
+                _area = new Rectangle(areaX, areaY, areaSize, areaSize);
             }
 
-            this.target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
+            _target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
             byte speedAndIntersection = targetData[targetDataIndex++];
-            this.speed = (byte)(speedAndIntersection & 0x03);
-            this.isIntersection = (speedAndIntersection & 0x80) == 0x80;
+            _speed = (byte)(speedAndIntersection & 0x03);
+            _isIntersection = (speedAndIntersection & 0x80) == 0x80;
         }
 
         public TrackAIElement(Point position)
         {
-            const int Size = 16;
+            const int size = 16;
             // Halve precision, so that areas are positioned following a 2-tile (16-px) step
-            int areaX = ((position.X - (Size / 2)) / Precision) * Precision;
-            int areaY = ((position.Y - (Size / 2)) / Precision) * Precision;
+            int areaX = ((position.X - (size / 2)) / Precision) * Precision;
+            int areaY = ((position.Y - (size / 2)) / Precision) * Precision;
 
             // Ensure the element isn't out of the track bounds
             areaX = areaX < 0 ? 0 :
-                (areaX + Size) > TrackMap.Size ? TrackMap.Size - Size :
+                (areaX + size) > TrackMap.Size ? TrackMap.Size - size :
                 areaX;
 
             areaY = areaY < 0 ? 0 :
-                (areaY + Size) > TrackMap.Size ? TrackMap.Size - Size :
+                (areaY + size) > TrackMap.Size ? TrackMap.Size - size :
                 areaY;
 
-            Rectangle area = new Rectangle(areaX, areaY, Size, Size);
+            Rectangle area = new Rectangle(areaX, areaY, size, size);
 
-            this.area = area;
+            _area = area;
 
             int x = area.X + area.Width / Precision;
             int y = area.Y + area.Height / Precision;
-            this.target = new Point(x, y);
-            this.speed = 0;
+            _target = new Point(x, y);
+            _speed = 0;
         }
 
         private TrackAIElement() { }
 
         public bool IntersectsWith(Point point)
         {
-            if (this.AreaShape == TrackAIElementShape.Rectangle)
+            if (AreaShape == TrackAIElementShape.Rectangle)
             {
-                return this.IntersectsWithRectangle(point);
+                return IntersectsWithRectangle(point);
             }
 
-            return this.IntersectsWithTriangle(point);
+            return IntersectsWithTriangle(point);
         }
 
         private bool IntersectsWithRectangle(Point point)
         {
             return
-                point.X >= this.area.Left &&
-                point.X < this.area.Right &&
-                point.Y >= this.area.Top &&
-                point.Y < this.area.Bottom;
+                point.X >= _area.Left &&
+                point.X < _area.Right &&
+                point.Y >= _area.Top &&
+                point.Y < _area.Bottom;
         }
 
         private bool IntersectsWithTriangle(Point point)
         {
-            if (!this.IntersectsWithRectangle(point))
+            if (!IntersectsWithRectangle(point))
             {
                 return false;
             }
 
             // Divide precision by 2
             point = new Point((point.X / Precision) * Precision, (point.Y / Precision) * Precision);
-            int x = point.X - this.area.X; // X coordinate relative to the triangle top-left corner
-            int y = point.Y - this.area.Y; // Y coordinate relative to the triangle top-left corner
+            int x = point.X - _area.X; // X coordinate relative to the triangle top-left corner
+            int y = point.Y - _area.Y; // Y coordinate relative to the triangle top-left corner
 
-            switch (this.AreaShape)
+            switch (AreaShape)
             {
                 case TrackAIElementShape.TriangleTopLeft:
-                    return x + y <= this.area.Width - Precision;
+                    return x + y <= _area.Width - Precision;
 
                 case TrackAIElementShape.TriangleTopRight:
                     return x >= y;
 
                 case TrackAIElementShape.TriangleBottomRight:
-                    return x + y >= this.area.Width - Precision;
+                    return x + y >= _area.Width - Precision;
 
                 case TrackAIElementShape.TriangleBottomLeft:
                     return x <= y;
@@ -261,34 +261,34 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public ResizeHandle GetResizeHandle(Point point)
         {
-            if (this.AreaShape == TrackAIElementShape.Rectangle)
+            if (AreaShape == TrackAIElementShape.Rectangle)
             {
-                return this.GetResizeHandleRectangle(point);
+                return GetResizeHandleRectangle(point);
             }
 
-            return this.GetResizeHandleTriangle(point);
+            return GetResizeHandleTriangle(point);
         }
 
         private ResizeHandle GetResizeHandleRectangle(Point point)
         {
             ResizeHandle resizeHandle;
 
-            if (point.X > this.area.Left &&
-                point.X < this.area.Right - 1 &&
-                point.Y > this.area.Top &&
-                point.Y < this.area.Bottom - 1)
+            if (point.X > _area.Left &&
+                point.X < _area.Right - 1 &&
+                point.Y > _area.Top &&
+                point.Y < _area.Bottom - 1)
             {
                 resizeHandle = ResizeHandle.None;
             }
             else
             {
-                if (point.X == this.area.Left)
+                if (point.X == _area.Left)
                 {
-                    if (point.Y == this.area.Top)
+                    if (point.Y == _area.Top)
                     {
                         resizeHandle = ResizeHandle.TopLeft;
                     }
-                    else if (point.Y == this.area.Bottom - 1)
+                    else if (point.Y == _area.Bottom - 1)
                     {
                         resizeHandle = ResizeHandle.BottomLeft;
                     }
@@ -297,13 +297,13 @@ namespace EpicEdit.Rom.Tracks.AI
                         resizeHandle = ResizeHandle.Left;
                     }
                 }
-                else if (point.X == this.area.Right - 1)
+                else if (point.X == _area.Right - 1)
                 {
-                    if (point.Y == this.area.Top)
+                    if (point.Y == _area.Top)
                     {
                         resizeHandle = ResizeHandle.TopRight;
                     }
-                    else if (point.Y == this.area.Bottom - 1)
+                    else if (point.Y == _area.Bottom - 1)
                     {
                         resizeHandle = ResizeHandle.BottomRight;
                     }
@@ -314,7 +314,7 @@ namespace EpicEdit.Rom.Tracks.AI
                 }
                 else
                 {
-                    if (point.Y == this.area.Top)
+                    if (point.Y == _area.Top)
                     {
                         resizeHandle = ResizeHandle.Top;
                     }
@@ -332,22 +332,22 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             int diagonal;
 
-            switch (this.AreaShape)
+            switch (AreaShape)
             {
                 case TrackAIElementShape.TriangleTopLeft:
                     #region
-                    diagonal = (point.X - this.area.X) + (point.Y - this.area.Y);
-                    if (diagonal >= this.area.Width - Precision && diagonal <= this.area.Width)
+                    diagonal = (point.X - _area.X) + (point.Y - _area.Y);
+                    if (diagonal >= _area.Width - Precision && diagonal <= _area.Width)
                     {
                         return ResizeHandle.BottomRight;
                     }
 
-                    if (point.X == this.area.Left)
+                    if (point.X == _area.Left)
                     {
                         return ResizeHandle.Left;
                     }
 
-                    if (point.Y == this.area.Top)
+                    if (point.Y == _area.Top)
                     {
                         return ResizeHandle.Top;
                     }
@@ -356,18 +356,18 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case TrackAIElementShape.TriangleTopRight:
                     #region
-                    diagonal = (point.X - this.area.X) - (point.Y - this.area.Y);
+                    diagonal = (point.X - _area.X) - (point.Y - _area.Y);
                     if (diagonal >= -Precision && diagonal <= 0)
                     {
                         return ResizeHandle.BottomLeft;
                     }
 
-                    if (point.X == this.area.Right - 1)
+                    if (point.X == _area.Right - 1)
                     {
                         return ResizeHandle.Right;
                     }
 
-                    if (point.Y == this.area.Top)
+                    if (point.Y == _area.Top)
                     {
                         return ResizeHandle.Top;
                     }
@@ -376,18 +376,18 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case TrackAIElementShape.TriangleBottomRight:
                     #region
-                    diagonal = (point.X - this.area.X) + (point.Y - this.area.Y);
-                    if (diagonal >= this.area.Width - Precision && diagonal <= this.area.Width)
+                    diagonal = (point.X - _area.X) + (point.Y - _area.Y);
+                    if (diagonal >= _area.Width - Precision && diagonal <= _area.Width)
                     {
                         return ResizeHandle.TopLeft;
                     }
 
-                    if (point.X == this.area.Right - 1)
+                    if (point.X == _area.Right - 1)
                     {
                         return ResizeHandle.Right;
                     }
 
-                    if (point.Y == this.area.Bottom - 1)
+                    if (point.Y == _area.Bottom - 1)
                     {
                         return ResizeHandle.Bottom;
                     }
@@ -396,18 +396,18 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case TrackAIElementShape.TriangleBottomLeft:
                     #region
-                    diagonal = (point.X - this.area.X) - (point.Y - this.area.Y);
+                    diagonal = (point.X - _area.X) - (point.Y - _area.Y);
                     if (diagonal >= 0 && diagonal <= Precision)
                     {
                         return ResizeHandle.TopRight;
                     }
 
-                    if (point.X == this.area.Left)
+                    if (point.X == _area.Left)
                     {
                         return ResizeHandle.Left;
                     }
 
-                    if (point.Y == this.area.Bottom - 1)
+                    if (point.Y == _area.Bottom - 1)
                     {
                         return ResizeHandle.Bottom;
                     }
@@ -423,7 +423,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public Point[] GetTriangle()
         {
-            Point[] points = new Point[this.area.Width + 3];
+            Point[] points = new Point[_area.Width + 3];
 
             int x;
             int y;
@@ -431,38 +431,38 @@ namespace EpicEdit.Rom.Tracks.AI
             int yStep;
             Point rightAngle;
 
-            switch (this.AreaShape)
+            switch (AreaShape)
             {
                 case TrackAIElementShape.TriangleTopLeft:
-                    x = this.area.X;
-                    y = this.area.Y + this.area.Height;
+                    x = _area.X;
+                    y = _area.Y + _area.Height;
                     xStep = Precision;
                     yStep = -Precision;
-                    rightAngle = this.area.Location;
+                    rightAngle = _area.Location;
                     break;
 
                 case TrackAIElementShape.TriangleTopRight:
-                    x = this.area.X + this.area.Width;
-                    y = this.area.Y + this.area.Height;
+                    x = _area.X + _area.Width;
+                    y = _area.Y + _area.Height;
                     xStep = -Precision;
                     yStep = -Precision;
-                    rightAngle = new Point(x, this.area.Y);
+                    rightAngle = new Point(x, _area.Y);
                     break;
 
                 case TrackAIElementShape.TriangleBottomRight:
-                    x = this.area.X + this.area.Width;
-                    y = this.area.Y;
+                    x = _area.X + _area.Width;
+                    y = _area.Y;
                     xStep = -Precision;
                     yStep = Precision;
-                    rightAngle = new Point(x, this.area.Y + this.area.Height);
+                    rightAngle = new Point(x, _area.Y + _area.Height);
                     break;
 
                 case TrackAIElementShape.TriangleBottomLeft:
-                    x = this.area.X;
-                    y = this.area.Y;
+                    x = _area.X;
+                    y = _area.Y;
                     xStep = Precision;
                     yStep = Precision;
-                    rightAngle = new Point(x, this.area.Y + this.area.Height);
+                    rightAngle = new Point(x, _area.Y + _area.Height);
                     break;
 
                 default:
@@ -501,29 +501,29 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 x = 0;
             }
-            else if (x + this.area.Width > TrackMap.Size)
+            else if (x + _area.Width > TrackMap.Size)
             {
-                x = TrackMap.Size - this.area.Width;
+                x = TrackMap.Size - _area.Width;
             }
 
             if (y < 0)
             {
                 y = 0;
             }
-            else if (y + this.area.Height > TrackMap.Size)
+            else if (y + _area.Height > TrackMap.Size)
             {
-                y = TrackMap.Size - this.area.Height;
+                y = TrackMap.Size - _area.Height;
             }
 
-            int targetX = x - (this.area.X - this.target.X);
-            int targetY = y - (this.area.Y - this.target.Y);
+            int targetX = x - (_area.X - _target.X);
+            int targetY = y - (_area.Y - _target.Y);
 
-            if (this.area.X != x || this.area.Y != y)
+            if (_area.X != x || _area.Y != y)
             {
-                this.area.Location = new Point(x, y);
-                this.OnPropertyChanged(PropertyNames.TrackAIElement.Location);
+                _area.Location = new Point(x, y);
+                OnPropertyChanged(PropertyNames.TrackAIElement.Location);
 
-                this.MoveTargetTo(targetX, targetY);
+                MoveTargetTo(targetX, targetY);
             }
         }
 
@@ -547,10 +547,10 @@ namespace EpicEdit.Rom.Tracks.AI
                 y = TrackMap.Limit;
             }
 
-            if (this.target.X != x || this.target.Y != y)
+            if (_target.X != x || _target.Y != y)
             {
-                this.target = new Point(x, y);
-                this.OnPropertyChanged(PropertyNames.TrackAIElement.Target);
+                _target = new Point(x, y);
+                OnPropertyChanged(PropertyNames.TrackAIElement.Target);
             }
         }
 
@@ -560,16 +560,16 @@ namespace EpicEdit.Rom.Tracks.AI
             x = (x / Precision) * Precision;
             y = (y / Precision) * Precision;
 
-            if (this.AreaShape == TrackAIElementShape.Rectangle)
+            if (AreaShape == TrackAIElementShape.Rectangle)
             {
-                this.ResizeRectangle(resizeHandle, x, y);
+                ResizeRectangle(resizeHandle, x, y);
             }
             else
             {
-                this.ResizeTriangle(resizeHandle, x, y);
+                ResizeTriangle(resizeHandle, x, y);
             }
 
-            this.OnPropertyChanged(PropertyNames.TrackAIElement.Area);
+            OnPropertyChanged(PropertyNames.TrackAIElement.Area);
         }
 
         private void ResizeRectangle(ResizeHandle resizeHandle, int x, int y)
@@ -583,133 +583,133 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 case ResizeHandle.TopLeft:
                     #region
-                    if (x >= this.area.Right)
+                    if (x >= _area.Right)
                     {
-                        x = this.area.Right - Precision;
+                        x = _area.Right - Precision;
                     }
 
-                    if (y >= this.area.Bottom)
+                    if (y >= _area.Bottom)
                     {
-                        y = this.area.Bottom - Precision;
+                        y = _area.Bottom - Precision;
                     }
 
                     areaX = x;
                     areaY = y;
-                    width = this.area.Right - x;
-                    height = this.area.Bottom - y;
+                    width = _area.Right - x;
+                    height = _area.Bottom - y;
                     #endregion
                     break;
 
                 case ResizeHandle.Top:
                     #region
-                    if (y >= this.area.Bottom)
+                    if (y >= _area.Bottom)
                     {
-                        y = this.area.Bottom - Precision;
+                        y = _area.Bottom - Precision;
                     }
 
-                    areaX = this.area.X;
+                    areaX = _area.X;
                     areaY = y;
-                    width = this.area.Width;
-                    height = this.area.Bottom - y;
+                    width = _area.Width;
+                    height = _area.Bottom - y;
                     #endregion
                     break;
 
                 case ResizeHandle.TopRight:
                     #region
-                    if (x < this.area.Left)
+                    if (x < _area.Left)
                     {
-                        x = this.area.Left;
+                        x = _area.Left;
                     }
 
-                    if (y >= this.area.Bottom)
+                    if (y >= _area.Bottom)
                     {
-                        y = this.area.Bottom - Precision;
+                        y = _area.Bottom - Precision;
                     }
 
-                    areaX = this.area.X;
+                    areaX = _area.X;
                     areaY = y;
-                    width = x - this.area.Left + Precision;
-                    height = this.area.Bottom - y;
+                    width = x - _area.Left + Precision;
+                    height = _area.Bottom - y;
                     #endregion
                     break;
 
                 case ResizeHandle.Right:
                     #region
-                    if (x < this.area.Left)
+                    if (x < _area.Left)
                     {
-                        x = this.area.Left;
+                        x = _area.Left;
                     }
 
-                    areaX = this.area.X;
-                    areaY = this.area.Y;
-                    width = x - this.area.Left + Precision;
-                    height = this.area.Height;
+                    areaX = _area.X;
+                    areaY = _area.Y;
+                    width = x - _area.Left + Precision;
+                    height = _area.Height;
                     #endregion
                     break;
 
                 case ResizeHandle.BottomRight:
                     #region
-                    if (x < this.area.Left)
+                    if (x < _area.Left)
                     {
-                        x = this.area.Left;
+                        x = _area.Left;
                     }
 
-                    if (y < this.area.Top)
+                    if (y < _area.Top)
                     {
-                        y = this.area.Top;
+                        y = _area.Top;
                     }
 
-                    areaX = this.area.X;
-                    areaY = this.area.Y;
-                    width = x - this.area.Left + Precision;
-                    height = y - this.area.Top + Precision;
+                    areaX = _area.X;
+                    areaY = _area.Y;
+                    width = x - _area.Left + Precision;
+                    height = y - _area.Top + Precision;
                     #endregion
                     break;
 
                 case ResizeHandle.Bottom:
                     #region
-                    if (y < this.area.Top)
+                    if (y < _area.Top)
                     {
-                        y = this.area.Top;
+                        y = _area.Top;
                     }
 
-                    areaX = this.area.X;
-                    areaY = this.area.Y;
-                    width = this.area.Width;
-                    height = y - this.area.Top + Precision;
+                    areaX = _area.X;
+                    areaY = _area.Y;
+                    width = _area.Width;
+                    height = y - _area.Top + Precision;
                     #endregion
                     break;
 
                 case ResizeHandle.BottomLeft:
                     #region
-                    if (x >= this.area.Right)
+                    if (x >= _area.Right)
                     {
-                        x = this.area.Right - Precision;
+                        x = _area.Right - Precision;
                     }
 
-                    if (y < this.area.Top)
+                    if (y < _area.Top)
                     {
-                        y = this.area.Top;
+                        y = _area.Top;
                     }
 
                     areaX = x;
-                    areaY = this.area.Y;
-                    width = this.area.Right - x;
-                    height = y - this.area.Top + Precision;
+                    areaY = _area.Y;
+                    width = _area.Right - x;
+                    height = y - _area.Top + Precision;
                     #endregion
                     break;
 
                 case ResizeHandle.Left:
                     #region
-                    if (x >= this.area.Right)
+                    if (x >= _area.Right)
                     {
-                        x = this.area.Right - Precision;
+                        x = _area.Right - Precision;
                     }
 
                     areaX = x;
-                    areaY = this.area.Y;
-                    width = this.area.Right - x;
-                    height = this.area.Height;
+                    areaY = _area.Y;
+                    width = _area.Right - x;
+                    height = _area.Height;
                     #endregion
                     break;
 
@@ -717,7 +717,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     throw new InvalidOperationException();
             }
 
-            this.area = new Rectangle(areaX, areaY, width, height);
+            _area = new Rectangle(areaX, areaY, width, height);
         }
 
         private void ResizeTriangle(ResizeHandle resizeHandle, int x, int y)
@@ -730,7 +730,7 @@ namespace EpicEdit.Rom.Tracks.AI
             {
                 case ResizeHandle.TopLeft:
                     #region
-                    length = (this.area.Right - x) + (this.area.Bottom - y);
+                    length = (_area.Right - x) + (_area.Bottom - y);
 
                     #region Validate area length
                     if (length < Precision)
@@ -739,7 +739,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(length - this.area.Right, length - this.area.Bottom);
+                        int offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -747,18 +747,18 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     #endregion Validate area length
 
-                    areaX = this.area.Right - length;
-                    areaY = this.area.Bottom - length;
+                    areaX = _area.Right - length;
+                    areaY = _area.Bottom - length;
                     #endregion
                     break;
 
                 case ResizeHandle.Top:
                     #region
-                    length = this.area.Bottom - y;
+                    length = _area.Bottom - y;
 
-                    if (this.AreaShape == TrackAIElementShape.TriangleTopLeft)
+                    if (AreaShape == TrackAIElementShape.TriangleTopLeft)
                     {
-                        areaX = this.area.Left;
+                        areaX = _area.Left;
 
                         #region Validate area length
                         if (length < Precision)
@@ -767,7 +767,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = this.area.X + length - TrackMap.Size;
+                            int offBounds = _area.X + length - TrackMap.Size;
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -775,9 +775,9 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
 
-                        areaY = this.area.Bottom - length;
+                        areaY = _area.Bottom - length;
                     }
-                    else //if (this.AreaShape == Shape.TriangleTopRight)
+                    else //if (AreaShape == Shape.TriangleTopRight)
                     {
                         #region Validate area length
                         if (length < Precision)
@@ -786,7 +786,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - this.area.Right;
+                            int offBounds = length - _area.Right;
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -794,16 +794,16 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
 
-                        areaX = this.area.Right - length;
-                        areaY = this.area.Bottom - length;
+                        areaX = _area.Right - length;
+                        areaY = _area.Bottom - length;
                     }
                     #endregion
                     break;
 
                 case ResizeHandle.TopRight:
                     #region
-                    length = (x - this.area.X) + (this.area.Bottom - y);
-                    areaX = this.area.X;
+                    length = (x - _area.X) + (_area.Bottom - y);
+                    areaX = _area.X;
 
                     #region Validate area length
                     if (length < Precision)
@@ -812,7 +812,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(areaX + length - TrackMap.Size, length - this.area.Bottom);
+                        int offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -820,18 +820,18 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     #endregion Validate area length
 
-                    areaY = this.area.Bottom - length;
+                    areaY = _area.Bottom - length;
                     #endregion
                     break;
 
                 case ResizeHandle.Right:
                     #region
-                    length = x - this.area.X + Precision;
-                    areaX = this.area.X;
+                    length = x - _area.X + Precision;
+                    areaX = _area.X;
 
-                    if (this.AreaShape == TrackAIElementShape.TriangleTopRight)
+                    if (AreaShape == TrackAIElementShape.TriangleTopRight)
                     {
-                        areaY = this.area.Y;
+                        areaY = _area.Y;
 
                         #region Validate area length
                         if (length < Precision)
@@ -848,7 +848,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
                     }
-                    else //if (this.AreaShape == Shape.TriangleBottomRight)
+                    else //if (AreaShape == Shape.TriangleBottomRight)
                     {
                         #region Validate area length
                         if (length < Precision)
@@ -857,7 +857,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(areaX + length - TrackMap.Size, length - this.area.Bottom);
+                            int offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -865,16 +865,16 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
 
-                        areaY = this.area.Bottom - length;
+                        areaY = _area.Bottom - length;
                     }
                     #endregion
                     break;
 
                 case ResizeHandle.BottomRight:
                     #region
-                    length = (x - this.area.X) + (y - this.area.Y);
-                    areaX = this.area.X;
-                    areaY = this.area.Y;
+                    length = (x - _area.X) + (y - _area.Y);
+                    areaX = _area.X;
+                    areaY = _area.Y;
 
                     #region Validate area length
                     if (length < Precision)
@@ -895,10 +895,10 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case ResizeHandle.Bottom:
                     #region
-                    length = y - this.area.Y + Precision;
-                    areaY = this.area.Y;
+                    length = y - _area.Y + Precision;
+                    areaY = _area.Y;
 
-                    if (this.AreaShape == TrackAIElementShape.TriangleBottomRight)
+                    if (AreaShape == TrackAIElementShape.TriangleBottomRight)
                     {
                         #region Validate area length
                         if (length < Precision)
@@ -907,7 +907,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - this.area.Right, areaY + length - TrackMap.Size);
+                            int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -915,11 +915,11 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
 
-                        areaX = this.area.Right - length;
+                        areaX = _area.Right - length;
                     }
-                    else //if (this.AreaShape == Shape.TriangleBottomLeft)
+                    else //if (AreaShape == Shape.TriangleBottomLeft)
                     {
-                        areaX = this.area.X;
+                        areaX = _area.X;
 
                         #region Validate area length
                         if (length < Precision)
@@ -941,8 +941,8 @@ namespace EpicEdit.Rom.Tracks.AI
 
                 case ResizeHandle.BottomLeft:
                     #region
-                    length = (this.area.Right - x) + (y - this.area.Y);
-                    areaY = this.area.Y;
+                    length = (_area.Right - x) + (y - _area.Y);
+                    areaY = _area.Y;
 
                     #region Validate area length
                     if (length < Precision)
@@ -951,7 +951,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(length - this.area.Right, areaY + length - TrackMap.Size);
+                        int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -959,17 +959,17 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     #endregion Validate area length
 
-                    areaX = this.area.Right - length;
+                    areaX = _area.Right - length;
                     #endregion
                     break;
 
                 case ResizeHandle.Left:
                     #region
-                    length = this.area.Right - x;
+                    length = _area.Right - x;
 
-                    if (this.AreaShape == TrackAIElementShape.TriangleTopLeft)
+                    if (AreaShape == TrackAIElementShape.TriangleTopLeft)
                     {
-                        areaY = this.area.Y;
+                        areaY = _area.Y;
 
                         #region Validate area length
                         if (length < Precision)
@@ -978,7 +978,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - this.area.Right, areaY + length - TrackMap.Size);
+                            int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -986,7 +986,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
                     }
-                    else //if (this.AreaShape == Shape.TriangleBottomLeft)
+                    else //if (AreaShape == Shape.TriangleBottomLeft)
                     {
                         #region Validate area length
                         if (length < Precision)
@@ -995,7 +995,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - this.area.Right, length - this.area.Bottom);
+                            int offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -1003,10 +1003,10 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         #endregion Validate area length
 
-                        areaY = this.area.Bottom - length;
+                        areaY = _area.Bottom - length;
                     }
 
-                    areaX = this.area.Right - length;
+                    areaX = _area.Right - length;
                     #endregion
                     break;
 
@@ -1014,7 +1014,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     throw new InvalidOperationException();
             }
 
-            this.area = new Rectangle(areaX, areaY, length, length);
+            _area = new Rectangle(areaX, areaY, length, length);
         }
 
         /// <summary>
@@ -1024,9 +1024,9 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <param name="index">The array position where the data will be copied.</param>
         public void GetTargetBytes(byte[] data, ref int index)
         {
-            data[index++] = (byte)this.target.X;
-            data[index++] = (byte)this.target.Y;
-            data[index++] = (byte)(this.speed + (!this.isIntersection ? 0x00 : 0x80));
+            data[index++] = (byte)_target.X;
+            data[index++] = (byte)_target.Y;
+            data[index++] = (byte)(_speed + (!_isIntersection ? 0x00 : 0x80));
         }
 
         /// <summary>
@@ -1036,39 +1036,39 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <param name="index">The array position where the data will be copied.</param>
         public void GetAreaBytes(byte[] data, ref int index)
         {
-            data[index++] = (byte)this.AreaShape;
+            data[index++] = (byte)AreaShape;
 
-            if (this.AreaShape == TrackAIElementShape.Rectangle)
+            if (AreaShape == TrackAIElementShape.Rectangle)
             {
-                data[index++] = (byte)(this.area.X / Precision);
-                data[index++] = (byte)(this.area.Y / Precision);
-                data[index++] = (byte)(this.area.Width / Precision);
-                data[index++] = (byte)(this.area.Height / Precision);
+                data[index++] = (byte)(_area.X / Precision);
+                data[index++] = (byte)(_area.Y / Precision);
+                data[index++] = (byte)(_area.Width / Precision);
+                data[index++] = (byte)(_area.Height / Precision);
             }
             else
             {
-                int size = this.area.Width / Precision;
+                int size = _area.Width / Precision;
 
-                switch (this.AreaShape)
+                switch (AreaShape)
                 {
                     case TrackAIElementShape.TriangleTopLeft:
-                        data[index++] = (byte)(this.area.X / Precision);
-                        data[index++] = (byte)(this.area.Y / Precision);
+                        data[index++] = (byte)(_area.X / Precision);
+                        data[index++] = (byte)(_area.Y / Precision);
                         break;
 
                     case TrackAIElementShape.TriangleTopRight:
-                        data[index++] = (byte)(this.area.X / Precision + size - 1);
-                        data[index++] = (byte)(this.area.Y / Precision);
+                        data[index++] = (byte)(_area.X / Precision + size - 1);
+                        data[index++] = (byte)(_area.Y / Precision);
                         break;
 
                     case TrackAIElementShape.TriangleBottomRight:
-                        data[index++] = (byte)(this.area.X / Precision + size - 1);
-                        data[index++] = (byte)(this.area.Y / Precision + size - 1);
+                        data[index++] = (byte)(_area.X / Precision + size - 1);
+                        data[index++] = (byte)(_area.Y / Precision + size - 1);
                         break;
 
                     case TrackAIElementShape.TriangleBottomLeft:
-                        data[index++] = (byte)(this.area.X / Precision);
-                        data[index++] = (byte)(this.area.Y / Precision + size - 1);
+                        data[index++] = (byte)(_area.X / Precision);
+                        data[index++] = (byte)(_area.Y / Precision + size - 1);
                         break;
                 }
 
@@ -1080,17 +1080,17 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             return new TrackAIElement
             {
-                target = this.target,
-                speed = this.speed,
-                isIntersection = this.isIntersection,
-                area = this.area,
-                areaShape = this.areaShape
+                _target = _target,
+                _speed = _speed,
+                _isIntersection = _isIntersection,
+                _area = _area,
+                _areaShape = _areaShape
             };
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

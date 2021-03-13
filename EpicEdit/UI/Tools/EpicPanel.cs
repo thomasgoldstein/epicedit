@@ -23,7 +23,7 @@ namespace EpicEdit.UI.Tools
     {
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (!this.Enabled)
+            if (!Enabled)
             {
                 base.OnPaintBackground(e);
             }

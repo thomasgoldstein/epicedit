@@ -27,15 +27,15 @@ namespace EpicEdit.Rom.Tracks.Road
         /// The first palette of the concerned palette collection.
         /// Needed to retrieve the back color (first color of the first palette).
         /// </summary>
-        private readonly Palette firstPalette;
+        private readonly Palette _firstPalette;
 
-        private RoadTileGenre genre = RoadTileGenre.Road;
+        private RoadTileGenre _genre = RoadTileGenre.Road;
         public RoadTileGenre Genre
         {
-            get => this.genre;
+            get => _genre;
             set
             {
-                if (this.genre == value)
+                if (_genre == value)
                 {
                     return;
                 }
@@ -45,40 +45,40 @@ namespace EpicEdit.Rom.Tracks.Road
                     throw new ArgumentException($"Invalid tile type value: {value:X}.", nameof(value));
                 }
 
-                this.genre = value;
-                this.OnPropertyChanged(PropertyNames.RoadTile.Genre);
+                _genre = value;
+                OnPropertyChanged(PropertyNames.RoadTile.Genre);
             }
         }
 
         public RoadTile(byte[] gfx, Palette palette, RoadTileGenre genre, Palette firstPalette)
         {
-            this.firstPalette = firstPalette;
-            this.Graphics = gfx;
-            this.Palette = palette;
-            this.Genre = genre;
+            _firstPalette = firstPalette;
+            Graphics = gfx;
+            Palette = palette;
+            Genre = genre;
         }
 
         protected override void GenerateBitmap()
         {
-            this.bitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(this.Graphics, this.TilePalette);
+            InternalBitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(Graphics, TilePalette);
         }
 
         protected override void GenerateGraphics()
         {
-            FastBitmap fBitmap = new FastBitmap(this.bitmap);
+            FastBitmap fBitmap = new FastBitmap(InternalBitmap);
 
-            Palette palette = this.TilePalette;
+            Palette palette = TilePalette;
             int pixelIndex = 0;
-            for (int y = 0; y < Tile.Size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < Tile.Size / 2; x++)
+                for (int x = 0; x < Size / 2; x++)
                 {
                     RomColor color1 = fBitmap.GetPixel(x * 2, y);
                     RomColor color2 = fBitmap.GetPixel(x * 2 + 1, y);
                     int colorIndex1 = Utilities.GetColorIndex(color1, palette);
                     int colorIndex2 = Utilities.GetColorIndex(color2, palette);
 
-                    this.Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
+                    Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
             }
 
@@ -86,14 +86,14 @@ namespace EpicEdit.Rom.Tracks.Road
 
             // Regenerate the bitmap, in case the new image contained colors
             // not present in the palettes
-            this.UpdateBitmap();
+            UpdateBitmap();
         }
 
         public override int GetColorIndexAt(int x, int y)
         {
             int xSub = x % 2;
             x /= 2;
-            byte px = this.Graphics[y * 4 + x];
+            byte px = Graphics[y * 4 + x];
             int index = xSub == 0 ?
                 px & 0x0F : (px & 0xF0) >> 4;
 
@@ -107,18 +107,18 @@ namespace EpicEdit.Rom.Tracks.Road
         {
             get
             {
-                if (this.Palette[0] == this.firstPalette[0])
+                if (Palette[0] == _firstPalette[0])
                 {
                     // The first color of the palette matches the first color of the first palette.
                     // Optimization, avoid creating a new palette.
-                    return this.Palette;
+                    return Palette;
                 }
 
                 // When a tile uses the first color of the palette, the color actually applied
                 // is the first color of the first palette of the collection.
                 // The first color of the other palettes are ignored / never displayed.
-                Palette palette = new Palette(this.Palette.Collection, -1, this.Palette.GetBytes());
-                palette[0] = this.firstPalette[0];
+                Palette palette = new Palette(Palette.Collection, -1, Palette.GetBytes());
+                palette[0] = _firstPalette[0];
                 return palette;
             }
         }
@@ -128,8 +128,8 @@ namespace EpicEdit.Rom.Tracks.Road
         /// </summary>
         public byte PaletteByte
         {
-            get => (byte)(this.Palette.Index << 4);
-            set => this.Palette = this.Palette.Collection[(value >> 4)];
+            get => (byte)(Palette.Index << 4);
+            set => Palette = Palette.Collection[(value >> 4)];
         }
     }
 }

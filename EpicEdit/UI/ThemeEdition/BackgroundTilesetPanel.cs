@@ -30,72 +30,72 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedTileChanged;
 
-        private BackgroundTilesetDrawer drawer;
+        private BackgroundTilesetDrawer _drawer;
 
-        private byte selectedTile = 0;
+        private byte _selectedTile = 0;
 
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte SelectedTile
         {
-            get => this.selectedTile;
+            get => _selectedTile;
             set
             {
-                this.selectedTile = value;
-                this.Invalidate();
+                _selectedTile = value;
+                Invalidate();
             }
         }
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get => this.drawer.Theme;
+            get => _drawer.Theme;
             set
             {
-                this.drawer.Theme = value;
-                this.Refresh();
+                _drawer.Theme = value;
+                Refresh();
             }
         }
 
         public Tile2bppProperties TileProperties
         {
-            get => this.drawer.TileProperties;
+            get => _drawer.TileProperties;
             set
             {
-                this.drawer.TileProperties = value;
-                this.Refresh();
+                _drawer.TileProperties = value;
+                Refresh();
             }
         }
 
         [Browsable(true), Category("Behavior"), DefaultValue(typeof(bool), "True")]
         public bool Front
         {
-            get => this.drawer.Front;
+            get => _drawer.Front;
             set
             {
-                this.drawer.Front = value;
-                this.Refresh();
+                _drawer.Front = value;
+                Refresh();
             }
         }
 
         public BackgroundTilesetPanel()
         {
-            this.Zoom = BackgroundTilesetDrawer.Zoom;
-            this.MouseDown += this.BackgroundTilesetPanel_MouseDown;
+            Zoom = BackgroundTilesetDrawer.Zoom;
+            MouseDown += BackgroundTilesetPanel_MouseDown;
         }
 
         public void ShowExportImageImage()
         {
-            UITools.ShowExportTilesetGraphicsDialog(this.drawer.Image, this.Theme.Background.Tileset.GetTiles(), this.Theme.Name + "bg gfx");
+            UITools.ShowExportTilesetGraphicsDialog(_drawer.Image, Theme.Background.Tileset.GetTiles(), Theme.Name + "bg gfx");
         }
 
         protected override void OnSizeChanged(EventArgs e)
         {
-            this.drawer = new BackgroundTilesetDrawer(this.Size);
+            _drawer = new BackgroundTilesetDrawer(Size);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            this.drawer.DrawTileset(e.Graphics, this.selectedTile);
+            _drawer.DrawTileset(e.Graphics, _selectedTile);
         }
 
         private void BackgroundTilesetPanel_MouseDown(object sender, MouseEventArgs e)
@@ -105,14 +105,14 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            const int Zoom = BackgroundTilesetDrawer.Zoom;
-            int rowTileCount = this.Width / (Tile.Size * Zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * Zoom)) + (e.Y / (Tile.Size * Zoom)) * rowTileCount);
+            const int zoom = BackgroundTilesetDrawer.Zoom;
+            int rowTileCount = Width / (Tile.Size * zoom);
+            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 
-            if (this.selectedTile != newSelectedTile)
+            if (_selectedTile != newSelectedTile)
             {
-                this.SelectedTile = newSelectedTile;
-                this.SelectedTileChanged(this, EventArgs.Empty);
+                SelectedTile = newSelectedTile;
+                SelectedTileChanged(this, EventArgs.Empty);
             }
         }
 
@@ -122,17 +122,17 @@ namespace EpicEdit.UI.ThemeEdition
             x /= Tile.Size;
             y /= Tile.Size;
 
-            int tileCountX = this.Width / (Tile.Size * BackgroundTilesetDrawer.Zoom);
-            return this.Theme.Background.Tileset[x + (y * tileCountX)];
+            int tileCountX = Width / (Tile.Size * BackgroundTilesetDrawer.Zoom);
+            return Theme.Background.Tileset[x + (y * tileCountX)];
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (this.drawer != null)
+                if (_drawer != null)
                 {
-                    this.drawer.Dispose();
+                    _drawer.Dispose();
                 }
             }
             base.Dispose(disposing);

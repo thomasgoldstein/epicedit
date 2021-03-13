@@ -28,15 +28,15 @@ namespace EpicEdit.Rom.Tracks
 
         public SuffixedTextItem SuffixedNameItem { get; }
 
-        public string Name => this.SuffixedNameItem.Value;
+        public string Name => SuffixedNameItem.Value;
 
-        private readonly Track[] tracks;
+        private readonly Track[] _tracks;
 
         public bool Modified
         {
             get
             {
-                foreach (Track track in this.tracks)
+                foreach (Track track in _tracks)
                 {
                     if (track.Modified)
                     {
@@ -50,34 +50,34 @@ namespace EpicEdit.Rom.Tracks
 
         public TrackGroup(SuffixedTextItem nameItem, Track[] tracks)
         {
-            this.SuffixedNameItem = nameItem;
-            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
-            this.tracks = tracks;
+            SuffixedNameItem = nameItem;
+            SuffixedNameItem.PropertyChanged += SuffixedNameItem_PropertyChanged;
+            _tracks = tracks;
 
             foreach (Track track in tracks)
             {
-                track.PropertyChanged += this.OnPropertyChanged;
+                track.PropertyChanged += OnPropertyChanged;
             }
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
+            OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public void ResetModifiedState()
         {
-            foreach (Track track in this.tracks)
+            foreach (Track track in _tracks)
             {
                 track.ResetModifiedState();
             }
@@ -85,7 +85,7 @@ namespace EpicEdit.Rom.Tracks
 
         public IEnumerator<Track> GetEnumerator()
         {
-            foreach (Track track in this.tracks)
+            foreach (Track track in _tracks)
             {
                 yield return track;
             }
@@ -93,15 +93,15 @@ namespace EpicEdit.Rom.Tracks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.tracks.GetEnumerator();
+            return _tracks.GetEnumerator();
         }
 
-        public int Count => this.tracks.Length;
+        public int Count => _tracks.Length;
 
         public Track this[int index]
         {
-            get => this.tracks[index];
-            set => this.tracks[index] = value;
+            get => _tracks[index];
+            set => _tracks[index] = value;
         }
     }
 }

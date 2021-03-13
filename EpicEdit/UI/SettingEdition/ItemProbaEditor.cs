@@ -30,13 +30,13 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class ItemProbaEditor : UserControl
     {
-        private ItemProbabilities itemProbabilities;
-        private ItemProbability itemProbability;
+        private ItemProbabilities _itemProbabilities;
+        private ItemProbability _itemProbability;
 
         /// <summary>
         /// Flag to prevent events being fired in sequence from one control to another.
         /// </summary>
-        private bool fireEvents;
+        private bool _fireEvents;
 
         /// <summary>
         /// Raised when a pixel color has been selected.
@@ -46,33 +46,33 @@ namespace EpicEdit.UI.SettingEdition
         {
             add
             {
-                this.mushroomPanel.ColorSelected += value;
-                this.featherPanel.ColorSelected += value;
-                this.starPanel.ColorSelected += value;
-                this.bananaPanel.ColorSelected += value;
-                this.greenPanel.ColorSelected += value;
-                this.redPanel.ColorSelected += value;
-                this.ghostPanel.ColorSelected += value;
-                this.coinsPanel.ColorSelected += value;
-                this.lightningPanel.ColorSelected += value;
+                mushroomPanel.ColorSelected += value;
+                featherPanel.ColorSelected += value;
+                starPanel.ColorSelected += value;
+                bananaPanel.ColorSelected += value;
+                greenPanel.ColorSelected += value;
+                redPanel.ColorSelected += value;
+                ghostPanel.ColorSelected += value;
+                coinsPanel.ColorSelected += value;
+                lightningPanel.ColorSelected += value;
             }
             remove
             {
-                this.mushroomPanel.ColorSelected -= value;
-                this.featherPanel.ColorSelected -= value;
-                this.starPanel.ColorSelected -= value;
-                this.bananaPanel.ColorSelected -= value;
-                this.greenPanel.ColorSelected -= value;
-                this.redPanel.ColorSelected -= value;
-                this.ghostPanel.ColorSelected -= value;
-                this.coinsPanel.ColorSelected -= value;
-                this.lightningPanel.ColorSelected -= value;
+                mushroomPanel.ColorSelected -= value;
+                featherPanel.ColorSelected -= value;
+                starPanel.ColorSelected -= value;
+                bananaPanel.ColorSelected -= value;
+                greenPanel.ColorSelected -= value;
+                redPanel.ColorSelected -= value;
+                ghostPanel.ColorSelected -= value;
+                coinsPanel.ColorSelected -= value;
+                lightningPanel.ColorSelected -= value;
             }
         }
 
         public ItemProbaEditor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -89,124 +89,124 @@ namespace EpicEdit.UI.SettingEdition
 
         public void Init()
         {
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            this.itemProbabilities = Context.Game.Settings.ItemProbabilities;
+            _itemProbabilities = Context.Game.Settings.ItemProbabilities;
 
-            this.InitModeComboBox();
-            this.InitSetComboBox();
-            this.InitLapRankComboBox();
-            this.InitItemBoxDisplayOptionComboBox();
+            InitModeComboBox();
+            InitSetComboBox();
+            InitLapRankComboBox();
+            InitItemBoxDisplayOptionComboBox();
 
-            this.InitProbability();
-            this.DisplayProbability();
+            InitProbability();
+            DisplayProbability();
 
-            this.InitImages();
+            InitImages();
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private void InitModeComboBox()
         {
-            this.modeComboBox.BeginUpdate();
-            this.modeComboBox.Items.Clear();
+            modeComboBox.BeginUpdate();
+            modeComboBox.Items.Clear();
 
             foreach (TextItem textItem in Context.Game.Settings.ModeNames)
             {
-                this.modeComboBox.Items.Add(textItem.FormattedValue);
+                modeComboBox.Items.Add(textItem.FormattedValue);
             }
 
-            this.modeComboBox.EndUpdate();
-            this.modeComboBox.SelectedIndex = 0;
+            modeComboBox.EndUpdate();
+            modeComboBox.SelectedIndex = 0;
         }
 
         private void InitSetComboBox()
         {
-            this.setComboBox.BeginUpdate();
-            this.setComboBox.Items.Clear();
+            setComboBox.BeginUpdate();
+            setComboBox.Items.Clear();
 
             for (int i = 0; i < ItemProbabilities.SetCount; i++)
             {
-                this.setComboBox.Items.Add("Probability set " + (i + 1));
+                setComboBox.Items.Add("Probability set " + (i + 1));
             }
 
-            this.setComboBox.EndUpdate();
-            this.setComboBox.SelectedIndex = 0;
+            setComboBox.EndUpdate();
+            setComboBox.SelectedIndex = 0;
         }
 
         private void InitLapRankComboBox()
         {
-            this.lapRankComboBox.BeginUpdate();
-            this.lapRankComboBox.Items.Clear();
+            lapRankComboBox.BeginUpdate();
+            lapRankComboBox.Items.Clear();
 
-            switch (this.modeComboBox.SelectedIndex)
+            switch (modeComboBox.SelectedIndex)
             {
                 case 0:
-                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap1_1st);
-                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_2ndTo4th);
-                    this.lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_5thTo8th);
-                    this.lapRankComboBox.SelectedIndex = 0;
+                    lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap1_1st);
+                    lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_2ndTo4th);
+                    lapRankComboBox.Items.Add(ItemProbabilityGrandprixCondition.Lap2To5_5thTo8th);
+                    lapRankComboBox.SelectedIndex = 0;
                     break;
 
                 case 1:
-                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap1);
-                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_1st);
-                    this.lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_2nd);
-                    this.lapRankComboBox.SelectedIndex = 0;
+                    lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap1);
+                    lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_1st);
+                    lapRankComboBox.Items.Add(ItemProbabilityMatchRaceCondition.Lap2To5_2nd);
+                    lapRankComboBox.SelectedIndex = 0;
                     break;
             }
 
-            this.lapRankComboBox.EndUpdate();
+            lapRankComboBox.EndUpdate();
         }
 
         private void InitItemBoxDisplayOptionComboBox()
         {
-            this.itemBoxDisplayOptions.BeginUpdate();
-            this.itemBoxDisplayOptions.Items.Clear();
+            itemBoxDisplayOptions.BeginUpdate();
+            itemBoxDisplayOptions.Items.Clear();
 
-            switch (this.modeComboBox.SelectedIndex)
+            switch (modeComboBox.SelectedIndex)
             {
                 case 0:
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
                     break;
 
                 case 1:
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.AllItems);
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoFeathers);
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.AllItems);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoFeathers);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhosts);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoGhostsOrFeathers);
                     break;
 
                 case 2:
-                    this.itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
+                    itemBoxDisplayOptions.Items.Add(ItemBoxDisplay.NoCoinsOrLightnings);
                     break;
             }
 
-            this.itemBoxDisplayOptions.EndUpdate();
+            itemBoxDisplayOptions.EndUpdate();
         }
 
         private void InitProbability()
         {
-            switch (this.modeComboBox.SelectedIndex)
+            switch (modeComboBox.SelectedIndex)
             {
                 case 0: // GP
-                    this.itemProbability = this.itemProbabilities.GetGrandprixProbability(this.setComboBox.SelectedIndex, (ItemProbabilityGrandprixCondition)this.lapRankComboBox.SelectedItem);
-                    if (this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
-                        this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
+                    _itemProbability = _itemProbabilities.GetGrandprixProbability(setComboBox.SelectedIndex, (ItemProbabilityGrandprixCondition)lapRankComboBox.SelectedItem);
+                    if (_itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
+                        _itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers)
                     {
-                        this.itemProbability.DisplayedItems = ItemBoxDisplay.NoGhosts;
+                        _itemProbability.DisplayedItems = ItemBoxDisplay.NoGhosts;
                     }
                     break;
 
                 case 1: // Match Race
-                    this.itemProbability = this.itemProbabilities.GetMatchRaceProbability(this.setComboBox.SelectedIndex, (ItemProbabilityMatchRaceCondition)this.lapRankComboBox.SelectedItem);
+                    _itemProbability = _itemProbabilities.GetMatchRaceProbability(setComboBox.SelectedIndex, (ItemProbabilityMatchRaceCondition)lapRankComboBox.SelectedItem);
                     break;
 
                 case 2: // Battle Mode
-                    this.itemProbability = this.itemProbabilities.GetBattleModeProbability();
-                    this.itemProbability.DisplayedItems = ItemBoxDisplay.NoCoinsOrLightnings;
+                    _itemProbability = _itemProbabilities.GetBattleModeProbability();
+                    _itemProbability.DisplayedItems = ItemBoxDisplay.NoCoinsOrLightnings;
                     break;
             }
         }
@@ -214,79 +214,79 @@ namespace EpicEdit.UI.SettingEdition
         private void DisplayProbability()
         {
             // Back up the fireEvents value to restore it at the end of the method
-            bool fireEventsBefore = this.fireEvents;
+            bool fireEventsBefore = _fireEvents;
 
             // Disable events being fired by updating the various fields
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            this.coinsLabel.Enabled =
-                this.coinsPanel.LooksEnabled =
-                this.coinsNumericUpDown.Enabled =
-                this.coinsPctLabel.Enabled =
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
+            coinsLabel.Enabled =
+                coinsPanel.LooksEnabled =
+                coinsNumericUpDown.Enabled =
+                coinsPctLabel.Enabled =
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
 
-            this.featherLabel.Enabled =
-                this.featherPanel.LooksEnabled =
-                this.featherNumericUpDown.Enabled =
-                this.featherPctLabel.Enabled =
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoFeathers &&
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
+            featherLabel.Enabled =
+                featherPanel.LooksEnabled =
+                featherNumericUpDown.Enabled =
+                featherPctLabel.Enabled =
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoFeathers &&
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
-            this.ghostLabel.Enabled =
-                this.ghostPanel.LooksEnabled =
-                this.ghostNumericUpDown.Enabled =
-                this.ghostPctLabel.Enabled =
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
+            ghostLabel.Enabled =
+                ghostPanel.LooksEnabled =
+                ghostNumericUpDown.Enabled =
+                ghostPctLabel.Enabled =
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoGhosts &&
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoGhostsOrFeathers;
 
-            this.lightningLabel.Enabled =
-                this.lightningPanel.LooksEnabled =
-                this.lightningValue.Enabled =
-                this.lightningPctLabel.Enabled =
-                this.itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
+            lightningLabel.Enabled =
+                lightningPanel.LooksEnabled =
+                lightningValue.Enabled =
+                lightningPctLabel.Enabled =
+                _itemProbability.DisplayedItems != ItemBoxDisplay.NoCoinsOrLightnings;
 
-            this.ghostNumericUpDown.ReadOnly = !this.lightningLabel.Enabled;
+            ghostNumericUpDown.ReadOnly = !lightningLabel.Enabled;
 
             CultureInfo ci = CultureInfo.CurrentCulture;
 
-            int total = this.itemProbability.Total;
-            this.mushroomNumericUpDown.Value = this.itemProbability.Mushroom;
-            this.featherNumericUpDown.Value = this.itemProbability.Feather;
-            this.starNumericUpDown.Value = this.itemProbability.Star;
-            this.bananaNumericUpDown.Value = this.itemProbability.Banana;
-            this.greenNumericUpDown.Value = this.itemProbability.GreenShell;
-            this.redNumericUpDown.Value = this.itemProbability.RedShell;
-            this.ghostNumericUpDown.Value = this.itemProbability.Ghost;
-            this.coinsNumericUpDown.Value = this.itemProbability.Coins;
-            this.lightningValue.Text = this.itemProbability.Lightning.ToString(ci);
-            this.totalValue.Text = total.ToString(ci);
-            this.itemBoxDisplayOptions.SelectedItem = this.itemProbability.DisplayedItems;
+            int total = _itemProbability.Total;
+            mushroomNumericUpDown.Value = _itemProbability.Mushroom;
+            featherNumericUpDown.Value = _itemProbability.Feather;
+            starNumericUpDown.Value = _itemProbability.Star;
+            bananaNumericUpDown.Value = _itemProbability.Banana;
+            greenNumericUpDown.Value = _itemProbability.GreenShell;
+            redNumericUpDown.Value = _itemProbability.RedShell;
+            ghostNumericUpDown.Value = _itemProbability.Ghost;
+            coinsNumericUpDown.Value = _itemProbability.Coins;
+            lightningValue.Text = _itemProbability.Lightning.ToString(ci);
+            totalValue.Text = total.ToString(ci);
+            itemBoxDisplayOptions.SelectedItem = _itemProbability.DisplayedItems;
 
-            this.mushroomPctLabel.Text = ((float)this.itemProbability.Mushroom / total).ToString("P1", ci);
-            this.featherPctLabel.Text = ((float)this.itemProbability.Feather / total).ToString("P1", ci);
-            this.starPctLabel.Text = ((float)this.itemProbability.Star / total).ToString("P1", ci);
-            this.bananaPctLabel.Text = ((float)this.itemProbability.Banana / total).ToString("P1", ci);
-            this.greenPctLabel.Text = ((float)this.itemProbability.GreenShell / total).ToString("P1", ci);
-            this.redPctLabel.Text = ((float)this.itemProbability.RedShell / total).ToString("P1", ci);
-            this.ghostPctLabel.Text = ((float)this.itemProbability.Ghost / total).ToString("P1", ci);
-            this.coinsPctLabel.Text = ((float)this.itemProbability.Coins / total).ToString("P1", ci);
-            this.lightningPctLabel.Text = ((float)this.itemProbability.Lightning / total).ToString("P1", ci);
-            this.totalPctLabel.Text = 1.ToString("P1", ci);
+            mushroomPctLabel.Text = ((float)_itemProbability.Mushroom / total).ToString("P1", ci);
+            featherPctLabel.Text = ((float)_itemProbability.Feather / total).ToString("P1", ci);
+            starPctLabel.Text = ((float)_itemProbability.Star / total).ToString("P1", ci);
+            bananaPctLabel.Text = ((float)_itemProbability.Banana / total).ToString("P1", ci);
+            greenPctLabel.Text = ((float)_itemProbability.GreenShell / total).ToString("P1", ci);
+            redPctLabel.Text = ((float)_itemProbability.RedShell / total).ToString("P1", ci);
+            ghostPctLabel.Text = ((float)_itemProbability.Ghost / total).ToString("P1", ci);
+            coinsPctLabel.Text = ((float)_itemProbability.Coins / total).ToString("P1", ci);
+            lightningPctLabel.Text = ((float)_itemProbability.Lightning / total).ToString("P1", ci);
+            totalPctLabel.Text = 1.ToString("P1", ci);
 
-            this.fireEvents = fireEventsBefore;
+            _fireEvents = fireEventsBefore;
         }
 
         private void InitImages()
         {
-            this.mushroomPanel.UpdateImage();
-            this.featherPanel.UpdateImage();
-            this.starPanel.UpdateImage();
-            this.bananaPanel.UpdateImage();
-            this.greenPanel.UpdateImage();
-            this.redPanel.UpdateImage();
-            this.ghostPanel.UpdateImage();
-            this.coinsPanel.UpdateImage();
-            this.lightningPanel.UpdateImage();
+            mushroomPanel.UpdateImage();
+            featherPanel.UpdateImage();
+            starPanel.UpdateImage();
+            bananaPanel.UpdateImage();
+            greenPanel.UpdateImage();
+            redPanel.UpdateImage();
+            ghostPanel.UpdateImage();
+            coinsPanel.UpdateImage();
+            lightningPanel.UpdateImage();
         }
 
         #endregion Fields initialization and display
@@ -295,181 +295,181 @@ namespace EpicEdit.UI.SettingEdition
 
         private void ValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 // This event may be fired because of DisplayProbability, skip in that case
                 return;
             }
 
             // Set the values into the item probabilities object
-            if (this.itemProbability.DisplayedItems == ItemBoxDisplay.NoCoinsOrLightnings)
+            if (_itemProbability.DisplayedItems == ItemBoxDisplay.NoCoinsOrLightnings)
             {
                 // Set the Ghost value to 0, then affect the Lightning value to it later.
                 // This way, the Lightning value will always be 0, and the difference will
                 // be affected to the Ghost value instead.
-                this.itemProbability.Ghost = 0;
+                _itemProbability.Ghost = 0;
             }
             else
             {
-                this.itemProbability.Ghost = (int)this.ghostNumericUpDown.Value;
+                _itemProbability.Ghost = (int)ghostNumericUpDown.Value;
             }
 
-            this.itemProbability.Mushroom = (int)this.mushroomNumericUpDown.Value;
-            this.itemProbability.Feather = (int)this.featherNumericUpDown.Value;
-            this.itemProbability.Star = (int)this.starNumericUpDown.Value;
-            this.itemProbability.Banana = (int)this.bananaNumericUpDown.Value;
-            this.itemProbability.GreenShell = (int)this.greenNumericUpDown.Value;
-            this.itemProbability.RedShell = (int)this.redNumericUpDown.Value;
-            this.itemProbability.Coins = (int)this.coinsNumericUpDown.Value;
+            _itemProbability.Mushroom = (int)mushroomNumericUpDown.Value;
+            _itemProbability.Feather = (int)featherNumericUpDown.Value;
+            _itemProbability.Star = (int)starNumericUpDown.Value;
+            _itemProbability.Banana = (int)bananaNumericUpDown.Value;
+            _itemProbability.GreenShell = (int)greenNumericUpDown.Value;
+            _itemProbability.RedShell = (int)redNumericUpDown.Value;
+            _itemProbability.Coins = (int)coinsNumericUpDown.Value;
 
-            if (this.itemProbability.DisplayedItems == ItemBoxDisplay.NoCoinsOrLightnings)
+            if (_itemProbability.DisplayedItems == ItemBoxDisplay.NoCoinsOrLightnings)
             {
-                this.itemProbability.Ghost = this.itemProbability.Lightning;
+                _itemProbability.Ghost = _itemProbability.Lightning;
             }
 
-            this.itemProbability.DisplayedItems = (ItemBoxDisplay)this.itemBoxDisplayOptions.SelectedItem;
+            _itemProbability.DisplayedItems = (ItemBoxDisplay)itemBoxDisplayOptions.SelectedItem;
 
             // Then redisplay them as validation occurs within the object
-            this.DisplayProbability();
+            DisplayProbability();
         }
 
         private void ModeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
             // Disable events so they don't get fired multiple times by other controls being updated
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            this.InitLapRankComboBox();
-            this.InitItemBoxDisplayOptionComboBox();
-            this.lapRankComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
-            this.setComboBox.Enabled = this.modeComboBox.SelectedIndex != 2;
-            if (this.modeComboBox.SelectedIndex == 2)
+            InitLapRankComboBox();
+            InitItemBoxDisplayOptionComboBox();
+            lapRankComboBox.Enabled = modeComboBox.SelectedIndex != 2;
+            setComboBox.Enabled = modeComboBox.SelectedIndex != 2;
+            if (modeComboBox.SelectedIndex == 2)
             {
-                this.setComboBox.SelectedItem = null;
+                setComboBox.SelectedItem = null;
             }
-            else if (this.setComboBox.SelectedItem == null)
+            else if (setComboBox.SelectedItem == null)
             {
-                this.setComboBox.SelectedIndex = 0;
+                setComboBox.SelectedIndex = 0;
             }
 
-            this.itemBoxDisplayOptions.Enabled = this.modeComboBox.SelectedIndex != 2;
-            this.itemBoxDisplayOptionLabel.Enabled = this.modeComboBox.SelectedIndex != 2;
+            itemBoxDisplayOptions.Enabled = modeComboBox.SelectedIndex != 2;
+            itemBoxDisplayOptionLabel.Enabled = modeComboBox.SelectedIndex != 2;
 
-            this.InitProbability();
-            this.DisplayProbability();
+            InitProbability();
+            DisplayProbability();
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private void LapRankComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.InitProbability();
-            this.DisplayProbability();
+            InitProbability();
+            DisplayProbability();
         }
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.InitProbability();
-            this.DisplayProbability();
+            InitProbability();
+            DisplayProbability();
         }
 
-        private Theme theme;
+        private Theme _theme;
 
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get => this.theme;
+            get => _theme;
             set
             {
-                if (this.theme == value)
+                if (_theme == value)
                 {
                     return;
                 }
 
-                if (this.theme != null)
+                if (_theme != null)
                 {
                     for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                     {
-                        this.theme.Palettes[i].ColorGraphicsChanged -= this.palette_ColorsGraphicsChanged;
-                        this.theme.Palettes[i].ColorsGraphicsChanged -= this.palette_ColorsGraphicsChanged;
+                        _theme.Palettes[i].ColorGraphicsChanged -= palette_ColorsGraphicsChanged;
+                        _theme.Palettes[i].ColorsGraphicsChanged -= palette_ColorsGraphicsChanged;
                     }
                 }
 
-                this.theme = value;
+                _theme = value;
 
                 for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
-                    this.theme.Palettes[i].ColorGraphicsChanged += this.palette_ColorsGraphicsChanged;
-                    this.theme.Palettes[i].ColorsGraphicsChanged += this.palette_ColorsGraphicsChanged;
+                    _theme.Palettes[i].ColorGraphicsChanged += palette_ColorsGraphicsChanged;
+                    _theme.Palettes[i].ColorsGraphicsChanged += palette_ColorsGraphicsChanged;
                 }
 
-                this.UpdateIcons(this.theme);
+                UpdateIcons(_theme);
             }
         }
 
         private void palette_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            this.InitImages();
+            InitImages();
         }
 
         public void ShowTrackData(Track track)
         {
             if (track is GPTrack gpTrack)
             {
-                this.modeComboBox.SelectedIndex = 0;
-                this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
-                this.lapRankComboBox.SelectedIndex = 0;
+                modeComboBox.SelectedIndex = 0;
+                setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
+                lapRankComboBox.SelectedIndex = 0;
             }
             else
             {
-                this.modeComboBox.SelectedIndex = 2;
+                modeComboBox.SelectedIndex = 2;
             }
         }
 
         private void UpdateIcons(Theme theme)
         {
-            this.mushroomPanel.Theme = theme;
-            this.featherPanel.Theme = theme;
-            this.starPanel.Theme = theme;
-            this.bananaPanel.Theme = theme;
-            this.greenPanel.Theme = theme;
-            this.redPanel.Theme = theme;
-            this.ghostPanel.Theme = theme;
-            this.coinsPanel.Theme = theme;
-            this.lightningPanel.Theme = theme;
+            mushroomPanel.Theme = theme;
+            featherPanel.Theme = theme;
+            starPanel.Theme = theme;
+            bananaPanel.Theme = theme;
+            greenPanel.Theme = theme;
+            redPanel.Theme = theme;
+            ghostPanel.Theme = theme;
+            coinsPanel.Theme = theme;
+            lightningPanel.Theme = theme;
         }
 
         private void ResetButtonClick(object sender, EventArgs e)
         {
-            this.itemProbability.Reset();
-            this.DisplayProbability();
+            _itemProbability.Reset();
+            DisplayProbability();
         }
 
         private void ImportProbabilitiesButtonClick(object sender, EventArgs e)
         {
-            if (UITools.ShowImportBinaryDataDialog(this.itemProbabilities.SetBytes))
+            if (UITools.ShowImportBinaryDataDialog(_itemProbabilities.SetBytes))
             {
-                this.Init();
+                Init();
             }
         }
 
         private void ExportProbabilitiesButtonClick(object sender, EventArgs e)
         {
-            UITools.ShowExportBinaryDataDialog(this.itemProbabilities.GetBytes, "Item probabilities");
+            UITools.ShowExportBinaryDataDialog(_itemProbabilities.GetBytes, "Item probabilities");
         }
 
         #endregion Event handlers

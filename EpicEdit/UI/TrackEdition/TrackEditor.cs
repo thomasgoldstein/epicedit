@@ -49,38 +49,38 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// Used to draw the track.
         /// </summary>
-        private TrackDrawer drawer;
+        private TrackDrawer _drawer;
 
         /// <summary>
         /// The track currently displayed.
         /// </summary>
-        private Track track;
+        private Track _track;
 
         /// <summary>
         /// The current edition mode.
         /// </summary>
-        private EditionMode editionMode = EditionMode.Tileset;
+        private EditionMode _editionMode = EditionMode.Tileset;
 
         /// <summary>
         /// All the available zoom levels.
         /// </summary>
-        private readonly float[] zoomLevels;
+        private readonly float[] _zoomLevels;
 
         /// <summary>
         /// The index to the current zoom level.
         /// </summary>
-        private int zoomLevelIndex;
+        private int _zoomLevelIndex;
 
         /// <summary>
         /// Gets or sets the index to the current zoom level.
         /// </summary>
         private int ZoomLevelIndex
         {
-            get => this.zoomLevelIndex;
+            get => _zoomLevelIndex;
             set
             {
-                this.zoomLevelIndex = value;
-                this.trackDisplay.Zoom = this.Zoom;
+                _zoomLevelIndex = value;
+                trackDisplay.Zoom = Zoom;
             }
         }
 
@@ -92,29 +92,29 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The current zoom level of the track display.
         /// </summary>
-        private float Zoom => this.zoomLevels[this.ZoomLevelIndex];
+        private float Zoom => _zoomLevels[ZoomLevelIndex];
 
         /// <summary>
         /// Region which needs to be invalidated.
         /// </summary>
-        private DrawRegion dirtyRegion = new DrawRegion(Rectangle.Empty);
+        private DrawRegion _dirtyRegion = new DrawRegion(Rectangle.Empty);
 
         /// <summary>
         /// Flag to determine whether to repaint the track display
         /// when the scrolling position has changed.
         /// </summary>
-        private bool repaintAfterScrolling;
+        private bool _repaintAfterScrolling;
 
         // Which pixel the cursor is on (doesn't take scrolling position in consideration).
-        private Point pixelPosition;
+        private Point _pixelPosition;
 
         // Which pixel the cursor is on (takes scrolling position in consideration).
         private Point AbsolutePixelPosition
         {
             get
             {
-                return new Point(this.scrollPosition.X * Tile.Size + (int)(this.pixelPosition.X / this.Zoom),
-                                 this.scrollPosition.Y * Tile.Size + (int)(this.pixelPosition.Y / this.Zoom));
+                return new Point(_scrollPosition.X * Tile.Size + (int)(_pixelPosition.X / Zoom),
+                                 _scrollPosition.Y * Tile.Size + (int)(_pixelPosition.Y / Zoom));
             }
         }
 
@@ -125,14 +125,14 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                if (this.pixelPosition == TrackEditor.OutOfBounds)
+                if (_pixelPosition == OutOfBounds)
                 {
                     // The mouse cursor isn't over the track
-                    return this.pixelPosition;
+                    return _pixelPosition;
                 }
 
-                return new Point((int)(this.pixelPosition.X / (Tile.Size * this.Zoom)),
-                                 (int)(this.pixelPosition.Y / (Tile.Size * this.Zoom)));
+                return new Point((int)(_pixelPosition.X / (Tile.Size * Zoom)),
+                                 (int)(_pixelPosition.Y / (Tile.Size * Zoom)));
             }
         }
 
@@ -143,15 +143,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                return new Point(this.scrollPosition.X + this.TilePosition.X,
-                                 this.scrollPosition.Y + this.TilePosition.Y);
+                return new Point(_scrollPosition.X + TilePosition.X,
+                                 _scrollPosition.Y + TilePosition.Y);
             }
         }
 
         /// <summary>
         /// Scrolling position in the track (= location of the top-left displayed tile).
         /// </summary>
-        private Point scrollPosition;
+        private Point _scrollPosition;
 
         /// <summary>
         /// The position of the tile displayed in the center of the track panel
@@ -161,8 +161,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                return new Point(this.GetOnScreenTileCount(this.trackDisplay.Width) / 2,
-                                 this.GetOnScreenTileCount(this.trackDisplay.Height) / 2);
+                return new Point(GetOnScreenTileCount(trackDisplay.Width) / 2,
+                                 GetOnScreenTileCount(trackDisplay.Height) / 2);
             }
         }
 
@@ -174,8 +174,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                Point point = this.CenterTileLocation;
-                point.Offset(this.scrollPosition);
+                Point point = CenterTileLocation;
+                point.Offset(_scrollPosition);
                 return point;
             }
         }
@@ -183,49 +183,49 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// A collection of tiles copied by the user.
         /// </summary>
-        private TileClipboard tileClipboard;
+        private TileClipboard _tileClipboard;
 
         /// <summary>
         /// Used to store the anchor point for various operations (position where tile clipboard was started, dragging map or AI elements...).
         /// </summary>
-        private Point anchorPoint;
+        private Point _anchorPoint;
 
         private Rectangle TileSelectionRectangle
         {
             get
             {
-                if (this.buttonsPressed == MouseButtons.Middle ||
-                    this.TilePosition == TrackEditor.OutOfBounds ||
+                if (_buttonsPressed == MouseButtons.Middle ||
+                    TilePosition == OutOfBounds ||
                     Context.ColorPickerMode)
                 {
                     return Rectangle.Empty;
                 }
 
                 Point position;
-                if (this.buttonsPressed != MouseButtons.Right) // The user is simply hovering tiles
+                if (_buttonsPressed != MouseButtons.Right) // The user is simply hovering tiles
                 {
-                    position = new Point(this.TilePosition.X + this.scrollPosition.X,
-                                         this.TilePosition.Y + this.scrollPosition.Y);
+                    position = new Point(TilePosition.X + _scrollPosition.X,
+                                         TilePosition.Y + _scrollPosition.Y);
                 }
                 else // A tile selection is happening now
                 {
-                    position = this.tileClipboard.Location;
+                    position = _tileClipboard.Location;
                 }
 
-                return new Rectangle(position, this.tileClipboard.Size);
+                return new Rectangle(position, _tileClipboard.Size);
             }
         }
 
         /// <summary>
         /// Defines which mouse buttons are currently pressed, if any.
         /// </summary>
-        private MouseButtons buttonsPressed;
+        private MouseButtons _buttonsPressed;
 
         /// <summary>
         /// Determines from which side the current element is being resized.
         /// The element can be the track lap line, or an AI area.
         /// </summary>
-        private ResizeHandle resizeHandle;
+        private ResizeHandle _resizeHandle;
 
         private enum StartAction
         {
@@ -248,82 +248,82 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The hovered track overlay tile.
         /// </summary>
-        private OverlayTile hoveredOverlayTile;
+        private OverlayTile _hoveredOverlayTile;
 
         /// <summary>
         /// The location of the selected overlay tile pattern.
         /// </summary>
-        private Point selectedOverlayPatternLocation;
+        private Point _selectedOverlayPatternLocation;
 
         /// <summary>
         /// The current action the user is doing (or about to do) on the start data.
         /// </summary>
-        private StartAction startAction;
+        private StartAction _startAction;
 
         /// <summary>
         /// The hovered track object.
         /// </summary>
-        private TrackObject hoveredObject;
+        private TrackObject _hoveredObject;
 
         /// <summary>
         /// The hovered AI element.
         /// </summary>
-        private TrackAIElement hoveredAIElem;
+        private TrackAIElement _hoveredAIElem;
 
         /// <summary>
         /// The current action the user is doing (or about to do) on the AI.
         /// </summary>
-        private AIAction aiAction;
+        private AIAction _aiAction;
 
         /// <summary>
         /// Undo/redo buffers for tile changes, for each track.
         /// </summary>
-        private Dictionary<Track, UndoRedoBuffer> undoRedoBuffers;
+        private Dictionary<Track, UndoRedoBuffer> _undoRedoBuffers;
 
         /// <summary>
         /// Undo/redo buffer for tile changes, for the current track.
         /// </summary>
-        private UndoRedoBuffer undoRedoBuffer => this.undoRedoBuffers[this.track];
+        private UndoRedoBuffer UndoRedoBuffer => _undoRedoBuffers[_track];
 
         /// <summary>
         /// Determines whether the palette editor form has been initialized.
         /// </summary>
-        private bool paletteFormInitialized;
+        private bool _paletteFormInitialized;
 
         /// <summary>
         /// The color palette editor form.
         /// </summary>
-        private PaletteEditorForm paletteForm;
+        private PaletteEditorForm _paletteForm;
 
         /// <summary>
         /// Determines whether the background editor form has been initialized.
         /// </summary>
-        private bool backgroundFormInitialized;
+        private bool _backgroundFormInitialized;
 
         /// <summary>
         /// The background editor form.
         /// </summary>
-        private BackgroundEditorForm backgroundForm;
+        private BackgroundEditorForm _backgroundForm;
 
         /// <summary>
         /// Determines whether the setting editor form has been initialized.
         /// </summary>
-        private bool settingFormInitialized;
+        private bool _settingFormInitialized;
 
         /// <summary>
         /// The setting editor form.
         /// </summary>
-        private SettingEditorForm settingForm;
+        private SettingEditorForm _settingForm;
 
         /// <summary>
         /// Determines whether the codec form has been initialized.
         /// </summary>
-        private bool codecFormInitialized;
+        private bool _codecFormInitialized;
 
         /// <summary>
         /// The codec form.
         /// </summary>
-        private CodecForm codecForm;
+        private CodecForm _codecForm;
         #endregion Private members
 
         #region Events
@@ -333,43 +333,43 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> OpenRomDialogRequested
         {
-            add => this.menuBar.OpenRomDialogRequested += value;
-            remove => this.menuBar.OpenRomDialogRequested -= value;
+            add => menuBar.OpenRomDialogRequested += value;
+            remove => menuBar.OpenRomDialogRequested -= value;
         }
 
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> SaveRomDialogRequested
         {
-            add => this.menuBar.SaveRomDialogRequested += value;
-            remove => this.menuBar.SaveRomDialogRequested -= value;
+            add => menuBar.SaveRomDialogRequested += value;
+            remove => menuBar.SaveRomDialogRequested -= value;
         }
 
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ToggleScreenModeRequested
         {
-            add => this.menuBar.ToggleScreenModeRequested += value;
-            remove => this.menuBar.ToggleScreenModeRequested -= value;
+            add => menuBar.ToggleScreenModeRequested += value;
+            remove => menuBar.ToggleScreenModeRequested -= value;
         }
         #endregion Events
 
         #region Constructor
         public TrackEditor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.ResetPosition();
+            ResetPosition();
 
-            this.zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4, 5, 6, 7, 8 };
-            this.ZoomLevelIndex = TrackEditor.DefaultZoomLevelIndex;
+            _zoomLevels = new float[] { .5f, .75f, 1, 2, 3, 4, 5, 6, 7, 8 };
+            ZoomLevelIndex = DefaultZoomLevelIndex;
 
-            this.tileClipboard = new TileClipboard(this.tilesetControl.SelectedTile);
+            _tileClipboard = new TileClipboard(tilesetControl.SelectedTile);
 
-            this.undoRedoBuffers = new Dictionary<Track, UndoRedoBuffer>();
+            _undoRedoBuffers = new Dictionary<Track, UndoRedoBuffer>();
 
             if (VisualStyleRenderer.IsSupported)
             {
                 // Force background color to fix the look of TrackBar controls
-                foreach (TabPage page in this.modeTabControl.TabPages)
+                foreach (TabPage page in modeTabControl.TabPages)
                 {
                     // NOTE: Can't retrieve the actual tab background color dynamically,
                     // so use something close enough.
@@ -382,51 +382,51 @@ namespace EpicEdit.UI.TrackEdition
         #region MenuBar
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new TrackDrawer(this.tileClipboard);
-            this.drawer.GraphicsChanged += this.drawer_GraphicsChanged;
+            _drawer = new TrackDrawer(_tileClipboard);
+            _drawer.GraphicsChanged += drawer_GraphicsChanged;
 
-            this.trackTreeView.InitOnFirstRomLoad();
-            this.tilesetControl.InitOnFirstRomLoad();
-            this.overlayControl.InitOnFirstRomLoad();
+            trackTreeView.InitOnFirstRomLoad();
+            tilesetControl.InitOnFirstRomLoad();
+            overlayControl.InitOnFirstRomLoad();
 
-            this.SetTrack();
-            this.InitUndoRedo();
+            SetTrack();
+            InitUndoRedo();
 
             // Adding these event handlers here rather than in the Designer.cs
             // saves us a null check on this.drawer in each of the corresponding functions,
             // because the drawer hasn't been initialized yet before a ROM is loaded.
-            this.trackDisplay.Paint += this.TrackDisplayPaint;
-            this.trackDisplay.SizeChanged += this.TrackDisplaySizeChanged;
+            trackDisplay.Paint += TrackDisplayPaint;
+            trackDisplay.SizeChanged += TrackDisplaySizeChanged;
 
-            this.UpdateScrollBars();
+            UpdateScrollBars();
 
-            this.trackDisplay.Enabled = true;
-            this.modeTabControl.Enabled = true;
-            this.menuBar.EnableControls();
+            trackDisplay.Enabled = true;
+            modeTabControl.Enabled = true;
+            menuBar.EnableControls();
         }
 
         private void drawer_GraphicsChanged(object sender, EventArgs e)
         {
-            this.InvalidateWholeTrackDisplay();
-            this.trackDisplay.Update();
+            InvalidateWholeTrackDisplay();
+            trackDisplay.Update();
         }
 
         public void InitOnRomLoad()
         {
-            this.tilesetControl.InitOnRomLoad();
-            this.overlayControl.InitOnRomLoad();
-            this.trackTreeView.InitOnRomLoad();
-            this.ReInitPaletteEditor();
-            this.ReInitBackgroundEditor();
-            this.ReInitSettingEditor();
-            this.ReInitCodecForm();
+            tilesetControl.InitOnRomLoad();
+            overlayControl.InitOnRomLoad();
+            trackTreeView.InitOnRomLoad();
+            ReInitPaletteEditor();
+            ReInitBackgroundEditor();
+            ReInitSettingEditor();
+            ReInitCodecForm();
 
-            foreach (UndoRedoBuffer buffer in this.undoRedoBuffers.Values)
+            foreach (UndoRedoBuffer buffer in _undoRedoBuffers.Values)
             {
                 buffer.Clear();
             }
-            this.undoRedoBuffers.Clear();
-            this.InitUndoRedo();
+            _undoRedoBuffers.Clear();
+            InitUndoRedo();
         }
 
         private void TrackEditorDragEnter(object sender, DragEventArgs e)
@@ -442,13 +442,13 @@ namespace EpicEdit.UI.TrackEdition
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 EventArgs<string> sea = new EventArgs<string>(files[0]);
-                this.FileDragged(this, sea);
+                FileDragged(this, sea);
             }
         }
 
         private void MenuBarTrackImportDialogRequested(object sender, EventArgs e)
         {
-            UITools.ShowImportDataDialog(fileName => this.ImportTrack(fileName), FileDialogFilters.Track);
+            UITools.ShowImportDataDialog(fileName => ImportTrack(fileName), FileDialogFilters.Track);
         }
 
         private void MenuBarTrackImportAllDialogRequested(object sender, EventArgs e)
@@ -461,40 +461,40 @@ namespace EpicEdit.UI.TrackEdition
             }
             finally
             {
-                this.RefreshCurrentTrack();
+                RefreshCurrentTrack();
             }
         }
 
         public void ImportTrack(string filePath)
         {
-            this.track.Import(filePath, Context.Game);
-            this.RefreshCurrentTrack();
+            _track.Import(filePath, Context.Game);
+            RefreshCurrentTrack();
         }
 
         public void RefreshCurrentTrack()
         {
-            this.undoRedoBuffer.Clear();
-            this.menuBar.UndoEnabled = false;
-            this.menuBar.RedoEnabled = false;
+            UndoRedoBuffer.Clear();
+            menuBar.UndoEnabled = false;
+            menuBar.RedoEnabled = false;
 
-            this.hoveredOverlayTile = null;
-            this.overlayControl.SelectedTile = null;
-            this.hoveredAIElem = null;
-            this.aiControl.SelectedElement = null;
+            _hoveredOverlayTile = null;
+            overlayControl.SelectedTile = null;
+            _hoveredAIElem = null;
+            aiControl.SelectedElement = null;
 
-            this.InvalidateTrack();
+            InvalidateTrack();
         }
 
         private void MenuBarTrackExportDialogRequested(object sender, EventArgs e)
         {
-            UITools.ShowExportDataDialog(fileName => this.track.Export(fileName, Context.Game), this.trackTreeView.SelectedTrackFileName, FileDialogFilters.Track);
+            UITools.ShowExportDataDialog(fileName => _track.Export(fileName, Context.Game), trackTreeView.SelectedTrackFileName, FileDialogFilters.Track);
         }
 
         private void MenuBarTrackExportAllDialogRequested(object sender, EventArgs e)
         {
-            const string TrackNumberPattern = "TRACKNO";
-            const string TrackNamePattern = "TRACKNAME";
-            const string FileNamePattern = TrackNumberPattern + "- " + TrackNamePattern;
+            const string trackNumberPattern = "TRACKNO";
+            const string trackNamePattern = "TRACKNAME";
+            const string fileNamePattern = trackNumberPattern + "- " + trackNamePattern;
 
             UITools.ShowExportDataDialog(fileName =>
             {
@@ -504,47 +504,47 @@ namespace EpicEdit.UI.TrackEdition
                     foreach (Track t in trackGroup)
                     {
                         t.Export(fileName
-                            .Replace(TrackNumberPattern, trackId.ToString())
-                            .Replace(TrackNamePattern, UITools.SanitizeFileName(t.Name)),
+                            .Replace(trackNumberPattern, trackId.ToString())
+                            .Replace(trackNamePattern, UITools.SanitizeFileName(t.Name)),
                             Context.Game);
                         trackId++;
                     }
                 }
-            }, FileNamePattern, FileDialogFilters.Track);
+            }, fileNamePattern, FileDialogFilters.Track);
         }
 
         private void MenuBarUndoRequested(object sender, EventArgs e)
         {
-            this.ApplyUndoRedo(this.undoRedoBuffer.Undo());
+            ApplyUndoRedo(UndoRedoBuffer.Undo());
         }
 
         private void MenuBarRedoRequested(object sender, EventArgs e)
         {
-            this.ApplyUndoRedo(this.undoRedoBuffer.Redo());
+            ApplyUndoRedo(UndoRedoBuffer.Redo());
         }
 
         private void ToggleUndoRedo()
         {
-            this.menuBar.UndoEnabled = this.undoRedoBuffer.HasUndo;
-            this.menuBar.RedoEnabled = this.undoRedoBuffer.HasRedo;
+            menuBar.UndoEnabled = UndoRedoBuffer.HasUndo;
+            menuBar.RedoEnabled = UndoRedoBuffer.HasRedo;
         }
 
         private void SetUndoRedo()
         {
-            if (!this.undoRedoBuffers.ContainsKey(this.track))
+            if (!_undoRedoBuffers.ContainsKey(_track))
             {
-                this.InitUndoRedo();
+                InitUndoRedo();
             }
             else
             {
-                if (this.editionMode == EditionMode.Tileset)
+                if (_editionMode == EditionMode.Tileset)
                 {
-                    this.ToggleUndoRedo();
+                    ToggleUndoRedo();
                 }
                 else
                 {
-                    this.menuBar.UndoEnabled = false;
-                    this.menuBar.RedoEnabled = false;
+                    menuBar.UndoEnabled = false;
+                    menuBar.RedoEnabled = false;
                 }
             }
         }
@@ -554,9 +554,9 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitUndoRedo()
         {
-            this.undoRedoBuffers.Add(this.track, new UndoRedoBuffer(this.track.Map));
-            this.menuBar.UndoEnabled = false;
-            this.menuBar.RedoEnabled = false;
+            _undoRedoBuffers.Add(_track, new UndoRedoBuffer(_track.Map));
+            menuBar.UndoEnabled = false;
+            menuBar.RedoEnabled = false;
         }
 
         private void ApplyUndoRedo(TileChange change)
@@ -566,61 +566,61 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.ToggleUndoRedo();
-            DrawRegion region = this.drawer.UpdateCache(change.Rectangle);
-            this.InvalidateTrackDisplay(region);
+            ToggleUndoRedo();
+            DrawRegion region = _drawer.UpdateCache(change.Rectangle);
+            InvalidateTrackDisplay(region);
         }
 
         private void ResetZoom()
         {
-            if (this.ZoomLevelIndex == TrackEditor.DefaultZoomLevelIndex)
+            if (ZoomLevelIndex == DefaultZoomLevelIndex)
             {
                 return;
             }
 
-            Point location = this.AbsoluteCenterTileLocation;
-            this.ZoomCommon(TrackEditor.DefaultZoomLevelIndex);
-            this.CenterTrackDisplayOn(location);
+            Point location = AbsoluteCenterTileLocation;
+            ZoomCommon(DefaultZoomLevelIndex);
+            CenterTrackDisplayOn(location);
 
-            this.InvalidateWholeTrackDisplay();
+            InvalidateWholeTrackDisplay();
         }
 
         private void ZoomIn()
         {
-            if (!this.CanZoomIn())
+            if (!CanZoomIn())
             {
                 return;
             }
 
-            Point location = this.AbsoluteCenterTileLocation;
-            this.ZoomInSub();
-            this.EndZoom(location);
+            Point location = AbsoluteCenterTileLocation;
+            ZoomInSub();
+            EndZoom(location);
         }
 
         private void ZoomOut()
         {
-            if (!this.CanZoomOut())
+            if (!CanZoomOut())
             {
                 return;
             }
 
-            Point location = this.AbsoluteCenterTileLocation;
-            this.ZoomOutSub();
-            this.EndZoom(location);
+            Point location = AbsoluteCenterTileLocation;
+            ZoomOutSub();
+            EndZoom(location);
         }
 
         private void EndZoom(Point location)
         {
-            this.CenterTrackDisplayOn(location);
+            CenterTrackDisplayOn(location);
 
-            if (this.pixelPosition == TrackEditor.OutOfBounds)
+            if (_pixelPosition == OutOfBounds)
             {
                 // The cursor isn't over the track
-                this.InvalidateWholeTrackDisplay();
+                InvalidateWholeTrackDisplay();
             }
             else
             {
-                this.InitEditionModeAction(true);
+                InitEditionModeAction(true);
             }
         }
 
@@ -630,84 +630,84 @@ namespace EpicEdit.UI.TrackEdition
 
             if (e.Delta > 0)
             {
-                if (!this.CanZoomIn())
+                if (!CanZoomIn())
                 {
                     return;
                 }
-                hoveredTilePosition = this.AbsoluteTilePosition;
-                this.ZoomInSub();
+                hoveredTilePosition = AbsoluteTilePosition;
+                ZoomInSub();
             }
             else
             {
-                if (!this.CanZoomOut())
+                if (!CanZoomOut())
                 {
                     return;
                 }
-                hoveredTilePosition = this.AbsoluteTilePosition;
-                this.ZoomOutSub();
+                hoveredTilePosition = AbsoluteTilePosition;
+                ZoomOutSub();
             }
 
             // Ensure the user will still be hovering the same tile after zooming
-            Point cursor = this.TilePosition;
-            Point center = this.CenterTileLocation;
+            Point cursor = TilePosition;
+            Point center = CenterTileLocation;
             Point diff = new Point(center.X - cursor.X, center.Y - cursor.Y);
             hoveredTilePosition.Offset(diff);
 
-            this.EndZoom(hoveredTilePosition);
+            EndZoom(hoveredTilePosition);
         }
 
         private void CenterTrackDisplayOn(Point location)
         {
-            Point point = this.CenterTileLocation;
+            Point point = CenterTileLocation;
             int x = location.X - point.X;
             int y = location.Y - point.Y;
-            this.SetHorizontalScrollingValue(x);
-            this.SetVerticalScrollingValue(y);
+            SetHorizontalScrollingValue(x);
+            SetVerticalScrollingValue(y);
         }
 
         private void ZoomInSub()
         {
-            this.ZoomCommon(this.ZoomLevelIndex + 1);
+            ZoomCommon(ZoomLevelIndex + 1);
         }
 
         private void ZoomOutSub()
         {
-            this.ZoomCommon(this.ZoomLevelIndex - 1);
+            ZoomCommon(ZoomLevelIndex - 1);
         }
 
         private void ZoomCommon(int zoomLevelIndex)
         {
-            this.ZoomLevelIndex = zoomLevelIndex;
-            this.drawer.Zoom = this.Zoom;
-            this.UpdateScrollBars();
+            ZoomLevelIndex = zoomLevelIndex;
+            _drawer.Zoom = Zoom;
+            UpdateScrollBars();
 
-            this.menuBar.ZoomInEnabled = this.CanZoomIn();
-            this.menuBar.ZoomOutEnabled = this.CanZoomOut();
+            menuBar.ZoomInEnabled = CanZoomIn();
+            menuBar.ZoomOutEnabled = CanZoomOut();
         }
 
         private bool CanZoomIn()
         {
-            return this.ZoomLevelIndex < this.zoomLevels.Length - 1;
+            return ZoomLevelIndex < _zoomLevels.Length - 1;
         }
 
         private bool CanZoomOut()
         {
-            return this.ZoomLevelIndex > 0;
+            return ZoomLevelIndex > 0;
         }
 
         private void MenuBarZoomInRequested(object sender, EventArgs e)
         {
-            this.ZoomIn();
+            ZoomIn();
         }
 
         private void MenuBarZoomOutRequested(object sender, EventArgs e)
         {
-            this.ZoomOut();
+            ZoomOut();
         }
 
         private void MenuBarZoomResetRequested(object sender, EventArgs e)
         {
-            this.ResetZoom();
+            ResetZoom();
         }
 
         private void RemoveFocus()
@@ -715,220 +715,220 @@ namespace EpicEdit.UI.TrackEdition
             if (Form.ActiveForm != null) // Application focused
             {
                 // Steal the focus from the panel to disable mouse-wheel scrolling
-                this.menuBar.Focus();
+                menuBar.Focus();
             }
         }
 
         private void MenuBarPaletteEditorRequested(object sender, EventArgs e)
         {
-            if (!this.paletteFormInitialized)
+            if (!_paletteFormInitialized)
             {
-                this.InitPaletteEditorForm();
+                InitPaletteEditorForm();
             }
 
-            if (this.paletteForm.Visible)
+            if (_paletteForm.Visible)
             {
-                this.paletteForm.Visible = false;
+                _paletteForm.Visible = false;
             }
             else
             {
-                this.paletteForm.Editor.Theme = this.track.Theme;
-                this.paletteForm.Visible = true;
+                _paletteForm.Editor.Theme = _track.Theme;
+                _paletteForm.Visible = true;
             }
         }
 
         private void InitPaletteEditorForm()
         {
-            if (this.paletteForm == null)
+            if (_paletteForm == null)
             {
-                this.paletteForm = new PaletteEditorForm();
-                this.paletteForm.Owner = this.ParentForm;
-                this.trackDisplay.ColorSelected += this.TileColorSelected;
-                this.tilesetControl.ColorSelected += this.TileColorSelected;
-                this.overlayControl.ColorSelected += this.TileColorSelected;
-                Context.ColorPickerControl = this.paletteForm;
+                _paletteForm = new PaletteEditorForm();
+                _paletteForm.Owner = ParentForm;
+                trackDisplay.ColorSelected += TileColorSelected;
+                tilesetControl.ColorSelected += TileColorSelected;
+                overlayControl.ColorSelected += TileColorSelected;
+                Context.ColorPickerControl = _paletteForm;
             }
 
-            this.paletteForm.Init();
-            this.paletteFormInitialized = true;
+            _paletteForm.Init();
+            _paletteFormInitialized = true;
         }
 
         private void ReInitPaletteEditor()
         {
-            if (!this.paletteFormInitialized)
+            if (!_paletteFormInitialized)
             {
                 return;
             }
 
-            if (!this.paletteForm.Visible)
+            if (!_paletteForm.Visible)
             {
                 // Reinit the palette editor next time it's shown
-                this.paletteFormInitialized = false;
+                _paletteFormInitialized = false;
             }
             else
             {
                 // Reinit the palette editor now
-                this.paletteForm.Init();
-                this.paletteForm.Editor.Theme = this.track.Theme;
+                _paletteForm.Init();
+                _paletteForm.Editor.Theme = _track.Theme;
             }
         }
 
         private void TileColorSelected(object sender, EventArgs<Palette, int> e)
         {
-            this.paletteForm.Editor.Palette = e.Value1;
-            this.paletteForm.Editor.ColorIndex = e.Value2;
+            _paletteForm.Editor.Palette = e.Value1;
+            _paletteForm.Editor.ColorIndex = e.Value2;
         }
 
         private void MenuBarBackgroundEditorRequested(object sender, EventArgs e)
         {
-            if (!this.backgroundFormInitialized)
+            if (!_backgroundFormInitialized)
             {
-                this.InitBackgroundEditor();
+                InitBackgroundEditor();
             }
 
-            if (this.backgroundForm.Visible)
+            if (_backgroundForm.Visible)
             {
-                this.backgroundForm.Visible = false;
+                _backgroundForm.Visible = false;
             }
             else
             {
-                this.backgroundForm.Editor.Theme = this.track.Theme;
-                this.backgroundForm.Visible = true;
+                _backgroundForm.Editor.Theme = _track.Theme;
+                _backgroundForm.Visible = true;
             }
         }
 
         private void InitBackgroundEditor()
         {
-            if (this.backgroundForm == null)
+            if (_backgroundForm == null)
             {
-                this.backgroundForm = new BackgroundEditorForm();
-                this.backgroundForm.Owner = this.ParentForm;
-                this.backgroundForm.ColorSelected += this.TileColorSelected;
+                _backgroundForm = new BackgroundEditorForm();
+                _backgroundForm.Owner = ParentForm;
+                _backgroundForm.ColorSelected += TileColorSelected;
             }
 
-            this.backgroundForm.Init();
-            this.backgroundFormInitialized = true;
+            _backgroundForm.Init();
+            _backgroundFormInitialized = true;
         }
 
         private void ReInitBackgroundEditor()
         {
-            if (!this.backgroundFormInitialized)
+            if (!_backgroundFormInitialized)
             {
                 return;
             }
 
-            if (!this.backgroundForm.Visible)
+            if (!_backgroundForm.Visible)
             {
                 // Reinit the background editor next time it's shown
-                this.backgroundFormInitialized = false;
+                _backgroundFormInitialized = false;
             }
             else
             {
                 // Reinit the background editor now
-                this.backgroundForm.Init();
+                _backgroundForm.Init();
             }
         }
 
         private void MenuBarSettingEditorRequested(object sender, EventArgs e)
         {
-            if (!this.settingFormInitialized)
+            if (!_settingFormInitialized)
             {
-                this.InitSettingEditor();
+                InitSettingEditor();
             }
 
-            if (this.settingForm.Visible)
+            if (_settingForm.Visible)
             {
-                this.settingForm.Visible = false;
+                _settingForm.Visible = false;
             }
             else
             {
-                this.settingForm.ShowTrackItemProbabilities(this.track, false);
-                this.settingForm.Visible = true;
+                _settingForm.ShowTrackItemProbabilities(_track, false);
+                _settingForm.Visible = true;
             }
         }
 
         private void ItemProbaEditorRequested(object sender, EventArgs e)
         {
-            if (!this.settingFormInitialized)
+            if (!_settingFormInitialized)
             {
-                this.InitSettingEditor();
+                InitSettingEditor();
             }
 
-            this.settingForm.ShowTrackItemProbabilities(this.track, true);
-            this.settingForm.Visible = true;
+            _settingForm.ShowTrackItemProbabilities(_track, true);
+            _settingForm.Visible = true;
         }
 
         private void InitSettingEditor()
         {
-            if (this.settingForm == null)
+            if (_settingForm == null)
             {
-                this.settingForm = new SettingEditorForm();
-                this.settingForm.Owner = this.ParentForm;
-                this.settingForm.ColorSelected += this.TileColorSelected;
-                this.settingForm.Theme = this.track.Theme;
+                _settingForm = new SettingEditorForm();
+                _settingForm.Owner = ParentForm;
+                _settingForm.ColorSelected += TileColorSelected;
+                _settingForm.Theme = _track.Theme;
             }
 
-            this.settingForm.Init();
-            this.settingFormInitialized = true;
+            _settingForm.Init();
+            _settingFormInitialized = true;
         }
 
         private void ReInitSettingEditor()
         {
-            if (!this.settingFormInitialized)
+            if (!_settingFormInitialized)
             {
                 return;
             }
 
-            if (!this.settingForm.Visible)
+            if (!_settingForm.Visible)
             {
                 // Reinit the setting editor next time it's shown
-                this.settingFormInitialized = false;
+                _settingFormInitialized = false;
             }
             else
             {
                 // Reinit the setting editor now
-                this.settingForm.Init();
+                _settingForm.Init();
             }
         }
 
         private void MenuBarCodecRequested(object sender, EventArgs e)
         {
-            if (!this.codecFormInitialized)
+            if (!_codecFormInitialized)
             {
-                this.InitCodecForm();
+                InitCodecForm();
             }
 
-            this.codecForm.Visible = !this.codecForm.Visible;
+            _codecForm.Visible = !_codecForm.Visible;
         }
 
         private void InitCodecForm()
         {
-            if (this.codecForm == null)
+            if (_codecForm == null)
             {
-                this.codecForm = new CodecForm();
-                this.codecForm.Owner = this.ParentForm;
+                _codecForm = new CodecForm();
+                _codecForm.Owner = ParentForm;
             }
 
-            this.codecForm.Init();
-            this.codecFormInitialized = true;
+            _codecForm.Init();
+            _codecFormInitialized = true;
         }
 
         private void ReInitCodecForm()
         {
-            if (!this.codecFormInitialized)
+            if (!_codecFormInitialized)
             {
                 return;
             }
 
-            if (!this.codecForm.Visible)
+            if (!_codecForm.Visible)
             {
                 // Reinit the codec form next time it's shown
-                this.codecFormInitialized = false;
+                _codecFormInitialized = false;
             }
             else
             {
                 // Reinit the codec form now
-                this.codecForm.Init();
+                _codecForm.Init();
             }
         }
         #endregion MenuBar
@@ -936,26 +936,26 @@ namespace EpicEdit.UI.TrackEdition
         #region TrackDisplay events
         private void TrackDisplayPaint(object sender, PaintEventArgs e)
         {
-            switch (this.editionMode)
+            switch (_editionMode)
             {
                 case EditionMode.Tileset:
-                    this.drawer.DrawTrackTileset(e, this.TileSelectionRectangle, this.buttonsPressed == MouseButtons.Right, this.tilesetControl.BucketMode);
+                    _drawer.DrawTrackTileset(e, TileSelectionRectangle, _buttonsPressed == MouseButtons.Right, tilesetControl.BucketMode);
                     break;
 
                 case EditionMode.Overlay:
-                    this.drawer.DrawTrackOverlay(e, this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
+                    _drawer.DrawTrackOverlay(e, _hoveredOverlayTile, overlayControl.SelectedTile, overlayControl.SelectedPattern, _selectedOverlayPatternLocation);
                     break;
 
                 case EditionMode.Start:
-                    this.drawer.DrawTrackStart(e);
+                    _drawer.DrawTrackStart(e);
                     break;
 
                 case EditionMode.Objects:
-                    this.drawer.DrawTrackObjects(e, this.hoveredObject, this.objectsControl.FrontAreasView);
+                    _drawer.DrawTrackObjects(e, _hoveredObject, objectsControl.FrontAreasView);
                     break;
 
                 case EditionMode.AI:
-                    this.drawer.DrawTrackAI(e, this.hoveredAIElem, this.aiControl.SelectedElement, this.aiAction == AIAction.DragTarget);
+                    _drawer.DrawTrackAI(e, _hoveredAIElem, aiControl.SelectedElement, _aiAction == AIAction.DragTarget);
                     break;
             }
         }
@@ -967,15 +967,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (Platform.IsWindows)
             {
-                this.dirtyRegion.MakeInfinite();
+                _dirtyRegion.MakeInfinite();
             }
             else
             {
                 // HACK: Work around the fact Mono does not properly support Region.MakeInfinite()
-                this.dirtyRegion.Union(this.trackDisplay.DisplayRectangle);
+                _dirtyRegion.Union(trackDisplay.DisplayRectangle);
             }
 
-            this.InvalidateTrackDisplay();
+            InvalidateTrackDisplay();
         }
 
         /// <summary>
@@ -983,7 +983,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InvalidateTrackDisplay()
         {
-            this.InvalidateTrackDisplay(this.GetFullDirtyRegion());
+            InvalidateTrackDisplay(GetFullDirtyRegion());
         }
 
         /// <summary>
@@ -992,46 +992,46 @@ namespace EpicEdit.UI.TrackEdition
         /// <param name="region"></param>
         private void InvalidateTrackDisplay(DrawRegion region)
         {
-            region.Union(this.GetFullDirtyRegion());
-            this.InvalidateTrackDisplaySub(region);
+            region.Union(GetFullDirtyRegion());
+            InvalidateTrackDisplaySub(region);
         }
 
         private void InvalidateTrackDisplaySub(DrawRegion region)
         {
-            this.trackDisplay.Invalidate(region);
+            trackDisplay.Invalidate(region);
         }
 
         private DrawRegion GetFullDirtyRegion()
         {
-            DrawRegion region = this.GetCurrentDirtyRegion();
+            DrawRegion region = GetCurrentDirtyRegion();
             DrawRegion regionTemp = region.Clone();
 
-            region.Union(this.dirtyRegion);
+            region.Union(_dirtyRegion);
 
-            this.dirtyRegion.Dispose();
-            this.dirtyRegion = regionTemp;
+            _dirtyRegion.Dispose();
+            _dirtyRegion = regionTemp;
 
             return region;
         }
 
         private DrawRegion GetCurrentDirtyRegion()
         {
-            switch (this.editionMode)
+            switch (_editionMode)
             {
                 case EditionMode.Tileset:
-                    return this.drawer.GetTrackTilesetRegion(this.TileSelectionRectangle);
+                    return _drawer.GetTrackTilesetRegion(TileSelectionRectangle);
 
                 case EditionMode.Overlay:
-                    return this.drawer.GetTrackOverlayRegion(this.hoveredOverlayTile, this.overlayControl.SelectedTile, this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
+                    return _drawer.GetTrackOverlayRegion(_hoveredOverlayTile, overlayControl.SelectedTile, overlayControl.SelectedPattern, _selectedOverlayPatternLocation);
 
                 case EditionMode.Start:
-                    return this.drawer.GetTrackStartRegion();
+                    return _drawer.GetTrackStartRegion();
 
                 case EditionMode.Objects:
-                    return this.drawer.GetTrackObjectsRegion(this.hoveredObject);
+                    return _drawer.GetTrackObjectsRegion(_hoveredObject);
 
                 case EditionMode.AI:
-                    return this.drawer.GetTrackAIRegion(this.hoveredAIElem, this.aiControl.SelectedElement);
+                    return _drawer.GetTrackAIRegion(_hoveredAIElem, aiControl.SelectedElement);
 
                 default:
                     throw new InvalidOperationException();
@@ -1042,55 +1042,55 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (Form.ActiveForm != null) // Application focused
             {
-                this.trackDisplayVScrollBar.Focus(); // Lets you use the mouse wheel to scroll
+                trackDisplayVScrollBar.Focus(); // Lets you use the mouse wheel to scroll
             }
         }
 
         private void TrackDisplayVScrollBarMouseLeave(object sender, EventArgs e)
         {
-            this.RemoveFocus();
+            RemoveFocus();
         }
 
         private void TrackDisplayVScrollBarValueChanged(object sender, EventArgs e)
         {
-            this.scrollPosition.Y = this.trackDisplayVScrollBar.Value;
-            this.trackDisplay.ScrollPositionY = this.scrollPosition.Y;
-            this.drawer.ScrollPosition = this.scrollPosition;
-            this.RepaintAfterScrollingIfNeeded();
+            _scrollPosition.Y = trackDisplayVScrollBar.Value;
+            trackDisplay.ScrollPositionY = _scrollPosition.Y;
+            _drawer.ScrollPosition = _scrollPosition;
+            RepaintAfterScrollingIfNeeded();
         }
 
         private void TrackDisplayVScrollBarScroll(object sender, ScrollEventArgs e)
         {
             if (e.OldValue != e.NewValue)
             {
-                this.repaintAfterScrolling = true;
+                _repaintAfterScrolling = true;
             }
         }
 
         private void TrackDisplayHScrollBarValueChanged(object sender, EventArgs e)
         {
-            this.scrollPosition.X = this.trackDisplayHScrollBar.Value;
-            this.trackDisplay.ScrollPositionX = this.scrollPosition.X;
-            this.drawer.ScrollPosition = this.scrollPosition;
-            this.RepaintAfterScrollingIfNeeded();
+            _scrollPosition.X = trackDisplayHScrollBar.Value;
+            trackDisplay.ScrollPositionX = _scrollPosition.X;
+            _drawer.ScrollPosition = _scrollPosition;
+            RepaintAfterScrollingIfNeeded();
         }
 
         private void TrackDisplayHScrollBarScroll(object sender, ScrollEventArgs e)
         {
             if (e.OldValue != e.NewValue)
             {
-                this.repaintAfterScrolling = true;
+                _repaintAfterScrolling = true;
             }
         }
 
         private void SetHorizontalScrollingValue(int x)
         {
-            TrackEditor.SetScrollingValue(this.trackDisplayHScrollBar, x);
+            SetScrollingValue(trackDisplayHScrollBar, x);
         }
 
         private void SetVerticalScrollingValue(int y)
         {
-            TrackEditor.SetScrollingValue(this.trackDisplayVScrollBar, y);
+            SetScrollingValue(trackDisplayVScrollBar, y);
         }
 
         private static void SetScrollingValue(ScrollBar scrollBar, int value)
@@ -1115,83 +1115,83 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RepaintAfterScrollingIfNeeded()
         {
-            if (this.repaintAfterScrolling)
+            if (_repaintAfterScrolling)
             {
-                this.InvalidateWholeTrackDisplay();
-                this.repaintAfterScrolling = false;
+                InvalidateWholeTrackDisplay();
+                _repaintAfterScrolling = false;
             }
         }
 
         private void TrackDisplaySizeChanged(object sender, EventArgs e)
         {
-            this.UpdateScrollBars();
-            this.InvalidateWholeTrackDisplay();
+            UpdateScrollBars();
+            InvalidateWholeTrackDisplay();
         }
 
         private void TrackDisplayKeyDown(object sender, KeyEventArgs e)
         {
-            if (this.buttonsPressed != MouseButtons.None)
+            if (_buttonsPressed != MouseButtons.None)
             {
                 return;
             }
 
             if (e.KeyCode == Keys.Delete)
             {
-                if (this.editionMode == EditionMode.Overlay)
+                if (_editionMode == EditionMode.Overlay)
                 {
-                    if (this.overlayControl.SelectedTile != null)
+                    if (overlayControl.SelectedTile != null)
                     {
-                        this.DeleteOverlayTile();
+                        DeleteOverlayTile();
                     }
                 }
-                else if (this.editionMode == EditionMode.AI)
+                else if (_editionMode == EditionMode.AI)
                 {
-                    if (this.aiControl.SelectedElement != null)
+                    if (aiControl.SelectedElement != null)
                     {
-                        this.DeleteAIElement();
+                        DeleteAIElement();
                     }
                 }
             }
             else if (ModifierKeys == Keys.Control)
             {
-                if (this.editionMode == EditionMode.Tileset)
+                if (_editionMode == EditionMode.Tileset)
                 {
                     switch (e.KeyCode)
                     {
-                        case Keys.D1: this.tilesetControl.SetTheme(0); break;
-                        case Keys.D2: this.tilesetControl.SetTheme(1); break;
-                        case Keys.D3: this.tilesetControl.SetTheme(2); break;
-                        case Keys.D4: this.tilesetControl.SetTheme(3); break;
-                        case Keys.D5: this.tilesetControl.SetTheme(4); break;
-                        case Keys.D6: this.tilesetControl.SetTheme(5); break;
-                        case Keys.D7: this.tilesetControl.SetTheme(6); break;
-                        case Keys.D8: this.tilesetControl.SetTheme(7); break;
+                        case Keys.D1: tilesetControl.SetTheme(0); break;
+                        case Keys.D2: tilesetControl.SetTheme(1); break;
+                        case Keys.D3: tilesetControl.SetTheme(2); break;
+                        case Keys.D4: tilesetControl.SetTheme(3); break;
+                        case Keys.D5: tilesetControl.SetTheme(4); break;
+                        case Keys.D6: tilesetControl.SetTheme(5); break;
+                        case Keys.D7: tilesetControl.SetTheme(6); break;
+                        case Keys.D8: tilesetControl.SetTheme(7); break;
                     }
                 }
-                else if (this.editionMode == EditionMode.AI && this.aiControl.SelectedElement != null)
+                else if (_editionMode == EditionMode.AI && aiControl.SelectedElement != null)
                 {
                     if (e.KeyCode == Keys.D)
                     {
-                        this.CloneAIElement();
+                        CloneAIElement();
                     }
                     else if (e.KeyCode == Keys.M)
                     {
-                        this.aiControl.SelectedElement.AreaShape = this.aiControl.SelectedElement.AreaShape.Next();
+                        aiControl.SelectedElement.AreaShape = aiControl.SelectedElement.AreaShape.Next();
                     }
                 }
             }
-            else if (this.editionMode == EditionMode.Tileset)
+            else if (_editionMode == EditionMode.Tileset)
             {
                 switch (e.KeyCode)
                 {
                     case Keys.B:
-                        this.tilesetControl.SelectPenTool();
-                        this.InitTilesetAction();
+                        tilesetControl.SelectPenTool();
+                        InitTilesetAction();
                         break;
 
                     case Keys.G:
-                        this.tilesetControl.SelectPaintBucketTool();
-                        this.InitTilesetAction();
+                        tilesetControl.SelectPaintBucketTool();
+                        InitTilesetAction();
                         break;
                 }
             }
@@ -1201,34 +1201,34 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (Form.ActiveForm != null) // Application focused
             {
-                this.trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
+                trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
             }
 
-            Point tilePositionBefore = this.TilePosition;
-            this.SetPosition(e.Location);
+            Point tilePositionBefore = TilePosition;
+            SetPosition(e.Location);
 
-            if (tilePositionBefore == this.TilePosition) // If the cursor has not moved to another tile
+            if (tilePositionBefore == TilePosition) // If the cursor has not moved to another tile
             {
-                if (this.editionMode == EditionMode.Start &&
-                    this.buttonsPressed != MouseButtons.Middle)
+                if (_editionMode == EditionMode.Start &&
+                    _buttonsPressed != MouseButtons.Middle)
                 {
                     // The only mode that needs pixel precision,
                     // as opposed to tile precision
-                    if (this.InitStartAction())
+                    if (InitStartAction())
                     {
-                        this.InvalidateTrackDisplay();
+                        InvalidateTrackDisplay();
                     }
                 }
             }
             else
             {
-                if (this.buttonsPressed == MouseButtons.Middle)
+                if (_buttonsPressed == MouseButtons.Middle)
                 {
-                    this.ScrollTrack();
+                    ScrollTrack();
                 }
                 else
                 {
-                    this.InitEditionModeAction();
+                    InitEditionModeAction();
                 }
             }
         }
@@ -1237,11 +1237,11 @@ namespace EpicEdit.UI.TrackEdition
         {
             int x = location.X;
             int y = location.Y;
-            int zoomedTileSize = (int)(Tile.Size * this.Zoom);
-            int zoomedScrollPositionX = this.scrollPosition.X * zoomedTileSize;
-            int zoomedScrollPositionY = this.scrollPosition.Y * zoomedTileSize;
-            int zoomedTrackWidth = this.track.Map.Width * zoomedTileSize;
-            int zoomedTrackHeight = this.track.Map.Height * zoomedTileSize;
+            int zoomedTileSize = (int)(Tile.Size * Zoom);
+            int zoomedScrollPositionX = _scrollPosition.X * zoomedTileSize;
+            int zoomedScrollPositionY = _scrollPosition.Y * zoomedTileSize;
+            int zoomedTrackWidth = _track.Map.Width * zoomedTileSize;
+            int zoomedTrackHeight = _track.Map.Height * zoomedTileSize;
             int absoluteX = x + zoomedScrollPositionX;
             int absoluteY = y + zoomedScrollPositionY;
 
@@ -1265,187 +1265,187 @@ namespace EpicEdit.UI.TrackEdition
                 y = zoomedTrackHeight - 1 - zoomedScrollPositionY;
             }
 
-            this.pixelPosition = new Point(x, y);
+            _pixelPosition = new Point(x, y);
         }
 
         private void ScrollTrack()
         {
-            int xBefore = this.scrollPosition.X;
-            int yBefore = this.scrollPosition.Y;
+            int xBefore = _scrollPosition.X;
+            int yBefore = _scrollPosition.Y;
 
-            this.SetHorizontalScrollingValue(this.anchorPoint.X - this.TilePosition.X);
-            this.SetVerticalScrollingValue(this.anchorPoint.Y - this.TilePosition.Y);
+            SetHorizontalScrollingValue(_anchorPoint.X - TilePosition.X);
+            SetVerticalScrollingValue(_anchorPoint.Y - TilePosition.Y);
 
-            if (xBefore != this.scrollPosition.X ||
-                yBefore != this.scrollPosition.Y)
+            if (xBefore != _scrollPosition.X ||
+                yBefore != _scrollPosition.Y)
             {
-                this.InvalidateWholeTrackDisplay();
+                InvalidateWholeTrackDisplay();
             }
         }
 
         private void RecalculateTileClipboard()
         {
-            Point hoveredTilePosition = this.AbsoluteTilePosition;
+            Point hoveredTilePosition = AbsoluteTilePosition;
 
-            int x = Math.Min(this.anchorPoint.X, hoveredTilePosition.X);
-            int y = Math.Min(this.anchorPoint.Y, hoveredTilePosition.Y);
-            int width = Math.Abs(hoveredTilePosition.X - this.anchorPoint.X) + 1;
-            int height = Math.Abs(hoveredTilePosition.Y - this.anchorPoint.Y) + 1;
+            int x = Math.Min(_anchorPoint.X, hoveredTilePosition.X);
+            int y = Math.Min(_anchorPoint.Y, hoveredTilePosition.Y);
+            int width = Math.Abs(hoveredTilePosition.X - _anchorPoint.X) + 1;
+            int height = Math.Abs(hoveredTilePosition.Y - _anchorPoint.Y) + 1;
 
-            this.tileClipboard.Rectangle = new Rectangle(x, y, width, height);
+            _tileClipboard.Rectangle = new Rectangle(x, y, width, height);
         }
 
         private void TrackDisplayMouseLeave(object sender, EventArgs e)
         {
-            this.trackDisplay.Cursor = Cursors.Default;
-            this.EndMouseAction(this.buttonsPressed);
+            trackDisplay.Cursor = Cursors.Default;
+            EndMouseAction(_buttonsPressed);
 
-            this.RemoveFocus();
+            RemoveFocus();
 
-            this.ResetPosition();
-            this.hoveredOverlayTile = null;
-            this.selectedOverlayPatternLocation = TrackEditor.OutOfBounds;
-            this.hoveredObject = null;
-            this.hoveredAIElem = null;
+            ResetPosition();
+            _hoveredOverlayTile = null;
+            _selectedOverlayPatternLocation = OutOfBounds;
+            _hoveredObject = null;
+            _hoveredAIElem = null;
 
-            this.InvalidateTrackDisplay();
+            InvalidateTrackDisplay();
         }
 
         private void TrackDisplayMouseDown(object sender, MouseEventArgs e)
         {
             // We only acknowledge the click if the cursor isn't out of bounds,
             // and if no mouse button is already pressed
-            if (this.pixelPosition == TrackEditor.OutOfBounds ||
-                this.buttonsPressed != MouseButtons.None)
+            if (_pixelPosition == OutOfBounds ||
+                _buttonsPressed != MouseButtons.None)
             {
                 return;
             }
 
             if (e.Button == MouseButtons.Middle)
             {
-                this.buttonsPressed = MouseButtons.Middle;
-                this.trackDisplay.Cursor = Cursors.SizeAll;
-                this.anchorPoint = this.AbsoluteTilePosition;
-                this.InvalidateTrackDisplay();
+                _buttonsPressed = MouseButtons.Middle;
+                trackDisplay.Cursor = Cursors.SizeAll;
+                _anchorPoint = AbsoluteTilePosition;
+                InvalidateTrackDisplay();
             }
-            else if (this.editionMode == EditionMode.Tileset)
+            else if (_editionMode == EditionMode.Tileset)
             {
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonsPressed = MouseButtons.Left;
+                        _buttonsPressed = MouseButtons.Left;
 
-                        if (!this.tilesetControl.BucketMode)
+                        if (!tilesetControl.BucketMode)
                         {
-                            this.undoRedoBuffer.BeginAdd();
-                            this.LayTiles();
-                            this.InvalidateTrackDisplay();
+                            UndoRedoBuffer.BeginAdd();
+                            LayTiles();
+                            InvalidateTrackDisplay();
                         }
                         else
                         {
-                            if (this.FillTiles())
+                            if (FillTiles())
                             {
-                                this.InvalidateTrackDisplay();
+                                InvalidateTrackDisplay();
                             }
                         }
                         break;
 
                     case MouseButtons.Right:
-                        this.buttonsPressed = MouseButtons.Right;
+                        _buttonsPressed = MouseButtons.Right;
 
-                        this.anchorPoint = this.AbsoluteTilePosition;
-                        this.tileClipboard.Rectangle = new Rectangle(this.anchorPoint.X, this.anchorPoint.Y, 1, 1);
+                        _anchorPoint = AbsoluteTilePosition;
+                        _tileClipboard.Rectangle = new Rectangle(_anchorPoint.X, _anchorPoint.Y, 1, 1);
 
-                        this.InvalidateTrackDisplay();
+                        InvalidateTrackDisplay();
                         break;
                 }
             }
-            else if (this.editionMode == EditionMode.Overlay)
+            else if (_editionMode == EditionMode.Overlay)
             {
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        if (this.overlayControl.SelectedPattern == null)
+                        if (overlayControl.SelectedPattern == null)
                         {
-                            this.overlayControl.SelectedTile = this.hoveredOverlayTile;
+                            overlayControl.SelectedTile = _hoveredOverlayTile;
 
-                            if (this.overlayControl.SelectedTile != null)
+                            if (overlayControl.SelectedTile != null)
                             {
-                                this.buttonsPressed = MouseButtons.Left;
-                                Point hoveredTilePosition = this.AbsoluteTilePosition;
-                                this.anchorPoint = new Point(hoveredTilePosition.X - this.overlayControl.SelectedTile.X,
-                                                             hoveredTilePosition.Y - this.overlayControl.SelectedTile.Y);
+                                _buttonsPressed = MouseButtons.Left;
+                                Point hoveredTilePosition = AbsoluteTilePosition;
+                                _anchorPoint = new Point(hoveredTilePosition.X - overlayControl.SelectedTile.X,
+                                                         hoveredTilePosition.Y - overlayControl.SelectedTile.Y);
                             }
                         }
                         else
                         {
-                            OverlayTile overlayTile = new OverlayTile(this.overlayControl.SelectedPattern, this.selectedOverlayPatternLocation);
-                            this.track.OverlayTiles.Add(overlayTile);
+                            OverlayTile overlayTile = new OverlayTile(overlayControl.SelectedPattern, _selectedOverlayPatternLocation);
+                            _track.OverlayTiles.Add(overlayTile);
                         }
                         break;
 
                     case MouseButtons.Right:
-                        if (this.hoveredOverlayTile == null)
+                        if (_hoveredOverlayTile == null)
                         {
-                            this.overlayControl.SelectedPattern = null;
-                            this.InitOverlayAction();
+                            overlayControl.SelectedPattern = null;
+                            InitOverlayAction();
                         }
                         else
                         {
-                            this.overlayControl.SelectedPattern = this.hoveredOverlayTile.Pattern;
-                            this.SetSelectedOverlayPatternLocation();
-                            this.hoveredOverlayTile = null;
-                            this.trackDisplay.Cursor = Cursors.Default;
+                            overlayControl.SelectedPattern = _hoveredOverlayTile.Pattern;
+                            SetSelectedOverlayPatternLocation();
+                            _hoveredOverlayTile = null;
+                            trackDisplay.Cursor = Cursors.Default;
                         }
                         break;
                 }
 
-                this.InvalidateTrackDisplay();
+                InvalidateTrackDisplay();
             }
-            else if (this.editionMode == EditionMode.Start)
+            else if (_editionMode == EditionMode.Start)
             {
                 if (e.Button != MouseButtons.Left ||
-                    this.startAction == StartAction.None)
+                    _startAction == StartAction.None)
                 {
                     return;
                 }
 
-                this.buttonsPressed = MouseButtons.Left;
-                Point absPixelPos = this.AbsolutePixelPosition;
+                _buttonsPressed = MouseButtons.Left;
+                Point absPixelPos = AbsolutePixelPosition;
 
-                if (this.track is GPTrack gpTrack)
+                if (_track is GPTrack gpTrack)
                 {
-                    if (this.startAction == StartAction.DragStartPosition)
+                    if (_startAction == StartAction.DragStartPosition)
                     {
-                        this.anchorPoint = new Point(absPixelPos.X - gpTrack.StartPosition.X,
-                                                     absPixelPos.Y - gpTrack.StartPosition.Y);
+                        _anchorPoint = new Point(absPixelPos.X - gpTrack.StartPosition.X,
+                                                 absPixelPos.Y - gpTrack.StartPosition.Y);
                     }
                     else
                     {
                         // ie: StartAction.DragLapLine, ResizeLapLine or DragAll
-                        this.anchorPoint = new Point(absPixelPos.X - gpTrack.LapLine.X,
-                                                     absPixelPos.Y - gpTrack.LapLine.Y);
+                        _anchorPoint = new Point(absPixelPos.X - gpTrack.LapLine.X,
+                                                 absPixelPos.Y - gpTrack.LapLine.Y);
                     }
                 }
                 else
                 {
-                    BattleTrack bTrack = this.track as BattleTrack;
+                    BattleTrack bTrack = _track as BattleTrack;
 
-                    if (this.startAction == StartAction.DragStartPosition)
+                    if (_startAction == StartAction.DragStartPosition)
                     {
-                        this.anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP1.X,
-                                                     absPixelPos.Y - bTrack.StartPositionP1.Y);
+                        _anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP1.X,
+                                                 absPixelPos.Y - bTrack.StartPositionP1.Y);
                     }
                     else
                     {
-                        this.anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP2.X,
-                                                     absPixelPos.Y - bTrack.StartPositionP2.Y);
+                        _anchorPoint = new Point(absPixelPos.X - bTrack.StartPositionP2.X,
+                                                 absPixelPos.Y - bTrack.StartPositionP2.Y);
                     }
                 }
             }
-            else if (this.editionMode == EditionMode.Objects)
+            else if (_editionMode == EditionMode.Objects)
             {
-                if (this.hoveredObject == null)
+                if (_hoveredObject == null)
                 {
                     return;
                 }
@@ -1453,17 +1453,17 @@ namespace EpicEdit.UI.TrackEdition
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonsPressed = MouseButtons.Left;
-                        this.InvalidateTrackDisplay();
+                        _buttonsPressed = MouseButtons.Left;
+                        InvalidateTrackDisplay();
                         break;
 
                     case MouseButtons.Right:
-                        if (!(this.hoveredObject is TrackObjectMatchRace))
+                        if (!(_hoveredObject is TrackObjectMatchRace))
                         {
                             break;
                         }
 
-                        TrackObjectMatchRace hoveredObjectMatchRace = this.hoveredObject as TrackObjectMatchRace;
+                        TrackObjectMatchRace hoveredObjectMatchRace = _hoveredObject as TrackObjectMatchRace;
 
                         if (hoveredObjectMatchRace.Direction == TrackObjectDirection.Horizontal)
                         {
@@ -1478,18 +1478,18 @@ namespace EpicEdit.UI.TrackEdition
                             hoveredObjectMatchRace.Direction = TrackObjectDirection.Horizontal;
                         }
 
-                        this.InvalidateTrackDisplay();
+                        InvalidateTrackDisplay();
                         break;
                 }
             }
-            else if (this.editionMode == EditionMode.AI)
+            else if (_editionMode == EditionMode.AI)
             {
-                if (this.hoveredAIElem == null)
+                if (_hoveredAIElem == null)
                 {
                     if (e.Button == MouseButtons.Left)
                     {
-                        this.aiControl.SelectedElement = null;
-                        this.InvalidateTrackDisplay();
+                        aiControl.SelectedElement = null;
+                        InvalidateTrackDisplay();
                     }
                     return;
                 }
@@ -1497,23 +1497,23 @@ namespace EpicEdit.UI.TrackEdition
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        this.buttonsPressed = MouseButtons.Left;
-                        this.aiControl.SelectedElement = this.hoveredAIElem;
-                        this.InvalidateTrackDisplay();
+                        _buttonsPressed = MouseButtons.Left;
+                        aiControl.SelectedElement = _hoveredAIElem;
+                        InvalidateTrackDisplay();
                         break;
 
                     case MouseButtons.Right:
-                        if (this.hoveredAIElem.Speed < 3)
+                        if (_hoveredAIElem.Speed < 3)
                         {
-                            this.hoveredAIElem.Speed++;
+                            _hoveredAIElem.Speed++;
                         }
                         else
                         {
-                            this.hoveredAIElem.Speed = 0;
+                            _hoveredAIElem.Speed = 0;
                         }
 
-                        this.aiControl.SelectedElement = this.hoveredAIElem;
-                        this.InvalidateTrackDisplay();
+                        aiControl.SelectedElement = _hoveredAIElem;
+                        InvalidateTrackDisplay();
                         break;
                 }
             }
@@ -1521,7 +1521,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseUp(object sender, MouseEventArgs e)
         {
-            this.EndMouseAction(e.Button);
+            EndMouseAction(e.Button);
         }
 
         private void EndMouseAction(MouseButtons button)
@@ -1531,50 +1531,50 @@ namespace EpicEdit.UI.TrackEdition
             switch (button)
             {
                 case MouseButtons.Middle:
-                    if (this.buttonsPressed != MouseButtons.Middle)
+                    if (_buttonsPressed != MouseButtons.Middle)
                     {
                         break;
                     }
 
-                    this.buttonsPressed = MouseButtons.None;
+                    _buttonsPressed = MouseButtons.None;
 
-                    if (this.track is BattleTrack && this.editionMode == EditionMode.Objects)
+                    if (_track is BattleTrack && _editionMode == EditionMode.Objects)
                     {
                         // For other modes, the cursor will be reset
                         // by the call to the InitEditionModeAction method below.
-                        this.trackDisplay.Cursor = Cursors.Default;
+                        trackDisplay.Cursor = Cursors.Default;
                     }
 
-                    this.InitEditionModeAction();
+                    InitEditionModeAction();
                     break;
 
                 case MouseButtons.Left:
-                    if (this.buttonsPressed != MouseButtons.Left)
+                    if (_buttonsPressed != MouseButtons.Left)
                     {
                         break;
                     }
 
-                    this.buttonsPressed = MouseButtons.None;
+                    _buttonsPressed = MouseButtons.None;
 
-                    if (this.editionMode == EditionMode.Tileset)
+                    if (_editionMode == EditionMode.Tileset)
                     {
-                        this.undoRedoBuffer.EndAdd();
-                        this.ToggleUndoRedo();
+                        UndoRedoBuffer.EndAdd();
+                        ToggleUndoRedo();
                     }
 
                     break;
 
                 case MouseButtons.Right:
-                    if (this.buttonsPressed != MouseButtons.Right)
+                    if (_buttonsPressed != MouseButtons.Right)
                     {
                         break;
                     }
 
-                    this.buttonsPressed = MouseButtons.None;
+                    _buttonsPressed = MouseButtons.None;
 
-                    if (this.editionMode == EditionMode.Tileset)
+                    if (_editionMode == EditionMode.Tileset)
                     {
-                        this.OnRightMouseButtonRelease();
+                        OnRightMouseButtonRelease();
                     }
                     break;
             }
@@ -1582,18 +1582,18 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TrackDisplayMouseWheel(object sender, MouseEventArgs e)
         {
-            if (!this.trackDisplay.Focused)
+            if (!trackDisplay.Focused)
             {
                 return;
             }
 
-            if (Control.ModifierKeys == Keys.Control)
+            if (ModifierKeys == Keys.Control)
             {
-                this.MouseWheelZoom(e);
+                MouseWheelZoom(e);
             }
-            else if (this.buttonsPressed != MouseButtons.Middle)
+            else if (_buttonsPressed != MouseButtons.Middle)
             {
-                this.MouseWheelScroll(e);
+                MouseWheelScroll(e);
             }
         }
 
@@ -1610,34 +1610,34 @@ namespace EpicEdit.UI.TrackEdition
 
             int before;
             int after;
-            if (Control.ModifierKeys != Keys.Shift)
+            if (ModifierKeys != Keys.Shift)
             {
-                int y = this.scrollPosition.Y - delta;
-                before = this.scrollPosition.Y;
-                this.SetVerticalScrollingValue(y);
-                after = this.scrollPosition.Y;
+                int y = _scrollPosition.Y - delta;
+                before = _scrollPosition.Y;
+                SetVerticalScrollingValue(y);
+                after = _scrollPosition.Y;
             }
             else
             {
-                int x = this.scrollPosition.X - delta;
-                before = this.scrollPosition.X;
-                this.SetHorizontalScrollingValue(x);
-                after = this.scrollPosition.X;
+                int x = _scrollPosition.X - delta;
+                before = _scrollPosition.X;
+                SetHorizontalScrollingValue(x);
+                after = _scrollPosition.X;
             }
 
             if (before != after)
             {
-                this.InitEditionModeAction(true);
+                InitEditionModeAction(true);
             }
         }
 
         private void TrackDisplayMouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.editionMode == EditionMode.AI &&
+            if (_editionMode == EditionMode.AI &&
                 e.Button == MouseButtons.Left &&
-                this.hoveredAIElem == null)
+                _hoveredAIElem == null)
             {
-                this.AddAIElement(this.AbsoluteTilePosition);
+                AddAIElement(AbsoluteTilePosition);
             }
         }
         #endregion TrackDisplay events
@@ -1645,14 +1645,14 @@ namespace EpicEdit.UI.TrackEdition
         #region TrackDisplay methods
         private void InvalidateTrack()
         {
-            this.drawer.CreateCache();
-            this.InvalidateWholeTrackDisplay();
+            _drawer.CreateCache();
+            InvalidateWholeTrackDisplay();
         }
 
         private void ResetPosition()
         {
-            this.pixelPosition = TrackEditor.OutOfBounds;
-            this.menuBar.ResetCoordinates();
+            _pixelPosition = OutOfBounds;
+            menuBar.ResetCoordinates();
         }
 
         /// <summary>
@@ -1661,13 +1661,13 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void UpdateScrollBars()
         {
-            this.GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY);
+            GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY);
 
             // Recalculate the maximum value of the horizontal scroll bar
-            this.UpdateScrollBar(this.trackDisplayHScrollBar, offScreenTileCountX);
+            UpdateScrollBar(trackDisplayHScrollBar, offScreenTileCountX);
 
             // Recalculate the maximum value of the vertical scroll bar
-            this.UpdateScrollBar(this.trackDisplayVScrollBar, offScreenTileCountY);
+            UpdateScrollBar(trackDisplayVScrollBar, offScreenTileCountY);
         }
 
         /// <summary>
@@ -1677,13 +1677,13 @@ namespace EpicEdit.UI.TrackEdition
         /// <param name="offScreenTileCountY">The number of vertically off-screen tiles (from 0 to 128).</param>
         private void GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY)
         {
-            offScreenTileCountX = this.GetOffScreenTileCount(this.trackDisplay.Width);
-            offScreenTileCountY = this.GetOffScreenTileCount(this.trackDisplay.Height);
-            int offScreenTileCountXWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplay.Width - this.trackDisplayVScrollBar.Width));
-            int offScreenTileCountYWithScrollBar = this.GetOffScreenTileCount(Math.Max(0, this.trackDisplay.Height - this.trackDisplayHScrollBar.Height));
+            offScreenTileCountX = GetOffScreenTileCount(trackDisplay.Width);
+            offScreenTileCountY = GetOffScreenTileCount(trackDisplay.Height);
+            int offScreenTileCountXWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Width - trackDisplayVScrollBar.Width));
+            int offScreenTileCountYWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Height - trackDisplayHScrollBar.Height));
 
-            bool? horizontalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
-            bool? verticalScrollBarNeeded = TrackEditor.IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
+            bool? horizontalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
+            bool? verticalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
 
             // Replace null (unsure) values with concrete values
             if (horizontalScrollBarNeeded == null &&
@@ -1746,7 +1746,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <returns>The number of off-screen tiles (from 0 to 128).</returns>
         private int GetOffScreenTileCount(int panelSize)
         {
-            return this.track.Map.Width - this.GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
+            return _track.Map.Width - GetOnScreenTileCount(panelSize); // Map.Width = Map.Height
         }
 
         /// <summary>
@@ -1756,7 +1756,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <returns>The number of on-screen tiles (from 0 to 128).</returns>
         private int GetOnScreenTileCount(int panelSize)
         {
-            return Math.Min(this.track.Map.Width, (int)((panelSize) / (Tile.Size * this.Zoom)));
+            return Math.Min(_track.Map.Width, (int)((panelSize) / (Tile.Size * Zoom)));
         }
 
         /// <summary>
@@ -1781,7 +1781,7 @@ namespace EpicEdit.UI.TrackEdition
                     scrollBar.Value = offScreenTileCount;
                 }
 
-                int onScreenTileCount = this.track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
+                int onScreenTileCount = _track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
                 scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
                 scrollBar.LargeChange = onScreenTileCount;
                 // Adding the equivalent of LargeChange - 1 to the Maximum because
@@ -1794,103 +1794,103 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTileClipboard()
         {
-            this.drawer.UpdateTileClipboardCache(this.tileClipboard.Rectangle);
+            _drawer.UpdateTileClipboardCache(_tileClipboard.Rectangle);
         }
         #endregion TrackDisplay methods
 
         #region TrackTreeView
         private void TrackTreeViewSelectedTrackChanged(object sender, EventArgs e)
         {
-            this.ResetScrollingPosition();
-            this.SetTrack();
-            this.SetUndoRedo();
-            this.InvalidateWholeTrackDisplay();
+            ResetScrollingPosition();
+            SetTrack();
+            SetUndoRedo();
+            InvalidateWholeTrackDisplay();
         }
 
         private void ResetScrollingPosition()
         {
-            this.trackDisplayHScrollBar.Value = 0;
-            this.trackDisplayVScrollBar.Value = 0;
+            trackDisplayHScrollBar.Value = 0;
+            trackDisplayVScrollBar.Value = 0;
         }
 
         private void SetTrack()
         {
-            if (this.track != null)
+            if (_track != null)
             {
-                this.track.PropertyChanged -= this.track_PropertyChanged;
-                this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
-                this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
-                this.track.AI.PropertyChanged -= this.track_AI_PropertyChanged;
-                this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
-                this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
-                this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
+                _track.PropertyChanged -= track_PropertyChanged;
+                _track.OverlayTiles.ElementRemoved -= track_OverlayTiles_ElementRemoved;
+                _track.OverlayTiles.ElementsCleared -= track_OverlayTiles_ElementsCleared;
+                _track.AI.PropertyChanged -= track_AI_PropertyChanged;
+                _track.AI.ElementAdded -= track_AI_ElementAdded;
+                _track.AI.ElementRemoved -= track_AI_ElementRemoved;
+                _track.AI.ElementsCleared -= track_AI_ElementsCleared;
 
-                if (this.track is GPTrack oldGPTrack)
+                if (_track is GPTrack oldGPTrack)
                 {
-                    oldGPTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
-                    oldGPTrack.Objects.PropertyChanged -= this.gpTrack_Objects_PropertyChanged;
+                    oldGPTrack.StartPosition.PropertyChanged -= gpTrack_StartPosition_PropertyChanged;
+                    oldGPTrack.Objects.PropertyChanged -= gpTrack_Objects_PropertyChanged;
                 }
             }
 
-            this.track = this.trackTreeView.SelectedTrack;
+            _track = trackTreeView.SelectedTrack;
 
-            this.track.PropertyChanged += this.track_PropertyChanged;
-            this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
-            this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
-            this.track.AI.PropertyChanged += this.track_AI_PropertyChanged;
-            this.track.AI.ElementAdded += this.track_AI_ElementAdded;
-            this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
-            this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
+            _track.PropertyChanged += track_PropertyChanged;
+            _track.OverlayTiles.ElementRemoved += track_OverlayTiles_ElementRemoved;
+            _track.OverlayTiles.ElementsCleared += track_OverlayTiles_ElementsCleared;
+            _track.AI.PropertyChanged += track_AI_PropertyChanged;
+            _track.AI.ElementAdded += track_AI_ElementAdded;
+            _track.AI.ElementRemoved += track_AI_ElementRemoved;
+            _track.AI.ElementsCleared += track_AI_ElementsCleared;
 
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
             if (gpTrack != null)
             {
-                gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
-                gpTrack.Objects.PropertyChanged += this.gpTrack_Objects_PropertyChanged;
+                gpTrack.StartPosition.PropertyChanged += gpTrack_StartPosition_PropertyChanged;
+                gpTrack.Objects.PropertyChanged += gpTrack_Objects_PropertyChanged;
             }
 
-            this.trackDisplay.Track = this.track;
+            trackDisplay.Track = _track;
 
-            this.tilesetControl.Track = this.track;
-            this.hoveredOverlayTile = null;
-            this.overlayControl.Track = this.track;
-            this.startControl.Track = this.track;
-            this.objectsControl.Track = gpTrack;
-            this.hoveredAIElem = null;
-            this.aiControl.Track = this.track;
+            tilesetControl.Track = _track;
+            _hoveredOverlayTile = null;
+            overlayControl.Track = _track;
+            startControl.Track = _track;
+            objectsControl.Track = gpTrack;
+            _hoveredAIElem = null;
+            aiControl.Track = _track;
 
-            this.drawer.LoadTrack(this.track);
+            _drawer.LoadTrack(_track);
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyNames.Track.Theme)
             {
-                this.InvalidateTrack();
+                InvalidateTrack();
             }
         }
 
         private void track_OverlayTiles_ElementRemoved(object sender, EventArgs<OverlayTile> e)
         {
-            if (this.hoveredOverlayTile == e.Value)
+            if (_hoveredOverlayTile == e.Value)
             {
-                this.hoveredOverlayTile = null;
+                _hoveredOverlayTile = null;
             }
 
-            this.InitOverlayAction();
-            this.InvalidateTrackDisplay();
+            InitOverlayAction();
+            InvalidateTrackDisplay();
         }
 
         private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
         {
-            this.InvalidateWholeTrackDisplay();
+            InvalidateWholeTrackDisplay();
         }
 
         private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
-                this.InvalidateTrackDisplay();
+                InvalidateTrackDisplay();
             }
         }
 
@@ -1901,20 +1901,20 @@ namespace EpicEdit.UI.TrackEdition
                 case PropertyNames.TrackObjectProperties.Tileset:
                 case PropertyNames.TrackObjectProperties.Routine:
                 case PropertyNames.TrackObjectProperties.Palette:
-                    this.InvalidateWholeTrackDisplay();
+                    InvalidateWholeTrackDisplay();
                     break;
 
                 case PropertyNames.TrackObjectAreas.FrontView:
-                    if (this.objectsControl.FrontAreasView)
+                    if (objectsControl.FrontAreasView)
                     {
-                        this.InvalidateWholeTrackDisplay();
+                        InvalidateWholeTrackDisplay();
                     }
                     break;
 
                 case PropertyNames.TrackObjectAreas.RearView:
-                    if (!this.objectsControl.FrontAreasView)
+                    if (!objectsControl.FrontAreasView)
                     {
-                        this.InvalidateWholeTrackDisplay();
+                        InvalidateWholeTrackDisplay();
                     }
                     break;
             }
@@ -1922,36 +1922,36 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_AI_PropertyChanged(object sender, EventArgs e)
         {
-            this.InvalidateTrackDisplay();
+            InvalidateTrackDisplay();
         }
 
         private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
         {
-            this.aiControl.SelectedElement = e.Value;
-            this.InitAIAction();
-            this.InvalidateTrackDisplay();
+            aiControl.SelectedElement = e.Value;
+            InitAIAction();
+            InvalidateTrackDisplay();
         }
 
         private void track_AI_ElementRemoved(object sender, EventArgs<TrackAIElement> e)
         {
-            if (this.hoveredAIElem == e.Value)
+            if (_hoveredAIElem == e.Value)
             {
-                this.hoveredAIElem = null;
+                _hoveredAIElem = null;
             }
 
-            if (this.aiControl.SelectedElement == e.Value)
+            if (aiControl.SelectedElement == e.Value)
             {
-                this.aiControl.SelectedElement = null;
+                aiControl.SelectedElement = null;
             }
 
-            this.InitAIAction();
-            this.InvalidateTrackDisplay();
+            InitAIAction();
+            InvalidateTrackDisplay();
         }
 
         private void track_AI_ElementsCleared(object sender, EventArgs e)
         {
-            this.aiControl.SelectedElement = null;
-            this.InvalidateWholeTrackDisplay();
+            aiControl.SelectedElement = null;
+            InvalidateWholeTrackDisplay();
         }
         #endregion TrackTreeView
 
@@ -1961,7 +1961,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void InitEditionModeAction()
         {
-            this.InitEditionModeAction(false);
+            InitEditionModeAction(false);
         }
 
         /// <summary>
@@ -1979,26 +1979,26 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                switch (this.editionMode)
+                switch (_editionMode)
                 {
                     case EditionMode.Tileset:
-                        repaintNeeded = this.InitTilesetAction();
+                        repaintNeeded = InitTilesetAction();
                         break;
 
                     case EditionMode.Overlay:
-                        repaintNeeded = this.InitOverlayAction();
+                        repaintNeeded = InitOverlayAction();
                         break;
 
                     case EditionMode.Start:
-                        repaintNeeded = this.InitStartAction();
+                        repaintNeeded = InitStartAction();
                         break;
 
                     case EditionMode.Objects:
-                        repaintNeeded = this.InitObjectAction();
+                        repaintNeeded = InitObjectAction();
                         break;
 
                     case EditionMode.AI:
-                        repaintNeeded = this.InitAIAction();
+                        repaintNeeded = InitAIAction();
                         break;
 
                     default:
@@ -2011,61 +2011,61 @@ namespace EpicEdit.UI.TrackEdition
             {
                 if (forceFullRepaint)
                 {
-                    this.InvalidateWholeTrackDisplay();
+                    InvalidateWholeTrackDisplay();
                 }
                 else
                 {
-                    this.InvalidateTrackDisplay();
+                    InvalidateTrackDisplay();
                 }
             }
 
-            this.menuBar.UpdateCoordinates(this.AbsoluteTilePosition);
+            menuBar.UpdateCoordinates(AbsoluteTilePosition);
         }
 
         private void SetEditionMode()
         {
-            if (this.tilesetTabPage.Visible)
+            if (tilesetTabPage.Visible)
             {
-                this.editionMode = EditionMode.Tileset;
+                _editionMode = EditionMode.Tileset;
             }
-            else if (this.overlayTabPage.Visible)
+            else if (overlayTabPage.Visible)
             {
-                this.editionMode = EditionMode.Overlay;
+                _editionMode = EditionMode.Overlay;
             }
-            else if (this.startTabPage.Visible)
+            else if (startTabPage.Visible)
             {
-                this.editionMode = EditionMode.Start;
+                _editionMode = EditionMode.Start;
             }
-            else if (this.objectsTabPage.Visible)
+            else if (objectsTabPage.Visible)
             {
-                this.editionMode = EditionMode.Objects;
+                _editionMode = EditionMode.Objects;
             }
             else // if (this.aiTabPage.Visible)
             {
-                this.editionMode = EditionMode.AI;
+                _editionMode = EditionMode.AI;
             }
 
-            this.trackDisplay.EditionMode = this.editionMode;
-            this.SetUndoRedo();
+            trackDisplay.EditionMode = _editionMode;
+            SetUndoRedo();
         }
 
         private void ModeTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.SetEditionMode();
-            this.ResizeModeTabControl();
-            this.InvalidateWholeTrackDisplay();
+            SetEditionMode();
+            ResizeModeTabControl();
+            InvalidateWholeTrackDisplay();
         }
 
         private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
         {
-            int widthBefore = this.modeTabControl.Width;
-            this.ResizeModeTabControl();
-            int difference = this.modeTabControl.Width - widthBefore;
+            int widthBefore = modeTabControl.Width;
+            ResizeModeTabControl();
+            int difference = modeTabControl.Width - widthBefore;
 
             if (difference != 0)
             {
                 // Properly reposition the modeTabControl
-                this.modeTabControl.Left -= difference;
+                modeTabControl.Left -= difference;
             }
         }
 
@@ -2074,8 +2074,8 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void ResizeModeTabControl()
         {
-            this.modeTabControl.Width =
-                this.modeTabControl.SelectedTab.VerticalScroll.Visible ?
+            modeTabControl.Width =
+                modeTabControl.SelectedTab.VerticalScroll.Visible ?
                 144 + SystemInformation.VerticalScrollBarWidth : 144;
         }
         #endregion EditionMode tabs
@@ -2084,22 +2084,22 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Tileset
         private bool InitTilesetAction()
         {
-            if (this.tilesetControl.BucketMode)
+            if (tilesetControl.BucketMode)
             {
-                this.trackDisplay.Cursor = EpicCursors.BucketCursor;
+                trackDisplay.Cursor = EpicCursors.BucketCursor;
             }
             else
             {
-                this.trackDisplay.Cursor = EpicCursors.PencilCursor;
+                trackDisplay.Cursor = EpicCursors.PencilCursor;
 
-                switch (this.buttonsPressed)
+                switch (_buttonsPressed)
                 {
                     case MouseButtons.Left:
-                        this.LayTiles();
+                        LayTiles();
                         break;
 
                     case MouseButtons.Right:
-                        this.RecalculateTileClipboard();
+                        RecalculateTileClipboard();
                         break;
                 }
             }
@@ -2109,57 +2109,57 @@ namespace EpicEdit.UI.TrackEdition
 
         private void LayTiles()
         {
-            this.LayTiles(this.AbsoluteTilePosition);
+            LayTiles(AbsoluteTilePosition);
         }
 
         private void LayTiles(Point location)
         {
-            Size affectedSurface = this.GetTruncatedRectangle();
-            this.AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
-            this.track.Map.SetTiles(location, this.tileClipboard);
-            this.drawer.UpdateCacheOnTileChange(location);
+            Size affectedSurface = GetTruncatedRectangle();
+            AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
+            _track.Map.SetTiles(location, _tileClipboard);
+            _drawer.UpdateCacheOnTileChange(location);
         }
 
         private bool FillTiles()
         {
-            return this.FillTiles(this.AbsoluteTilePosition);
+            return FillTiles(AbsoluteTilePosition);
         }
 
         private bool FillTiles(Point location)
         {
-            TileChange change = this.GetPaintBucketChange(location, this.tileClipboard.FirstTile);
+            TileChange change = GetPaintBucketChange(location, _tileClipboard.FirstTile);
 
             if (change == null)
             {
                 return false;
             }
 
-            this.undoRedoBuffer.BeginAdd();
-            this.AddUndoChange(change.X, change.Y, change.Width, change.Height);
-            this.undoRedoBuffer.EndAdd();
+            UndoRedoBuffer.BeginAdd();
+            AddUndoChange(change.X, change.Y, change.Width, change.Height);
+            UndoRedoBuffer.EndAdd();
 
-            this.track.Map.SetTiles(new Point(change.X, change.Y), change);
-            this.drawer.UpdateCache(change.Rectangle);
+            _track.Map.SetTiles(new Point(change.X, change.Y), change);
+            _drawer.UpdateCache(change.Rectangle);
 
-            this.dirtyRegion.Union(new RectangleF(
-                (change.X - this.scrollPosition.X) * Tile.Size * this.Zoom,
-                (change.Y - this.scrollPosition.Y) * Tile.Size * this.Zoom,
-                change.Width * Tile.Size * this.Zoom,
-                change.Height * Tile.Size * this.Zoom));
+            _dirtyRegion.Union(new RectangleF(
+                (change.X - _scrollPosition.X) * Tile.Size * Zoom,
+                (change.Y - _scrollPosition.Y) * Tile.Size * Zoom,
+                change.Width * Tile.Size * Zoom,
+                change.Height * Tile.Size * Zoom));
 
             return true;
         }
 
         private TileChange GetPaintBucketChange(Point location, byte tile)
         {
-            byte targetTile = this.track.Map[location.X, location.Y];
+            byte targetTile = _track.Map[location.X, location.Y];
 
             if (targetTile == tile)
             {
                 return null;
             }
 
-            TrackMap tempBuffer = new TrackMap(this.track.Map.GetBytes());
+            TrackMap tempBuffer = new TrackMap(_track.Map.GetBytes());
             int minX = TrackMap.Size;
             int minY = TrackMap.Size;
             int maxX = 0;
@@ -2212,21 +2212,21 @@ namespace EpicEdit.UI.TrackEdition
 
         private void AddUndoChange(int x, int y, int width, int height)
         {
-            TileChange tileChange = new TileChange(x, y, width, height, this.track.Map);
-            this.undoRedoBuffer.Add(tileChange);
+            TileChange tileChange = new TileChange(x, y, width, height, _track.Map);
+            UndoRedoBuffer.Add(tileChange);
         }
 
         private Size GetTruncatedRectangle()
         {
-            Size rectangleToDisplay = this.tileClipboard.Size;
-            if ((this.scrollPosition.X + this.TilePosition.X + rectangleToDisplay.Width) >= this.track.Map.Width)
+            Size rectangleToDisplay = _tileClipboard.Size;
+            if ((_scrollPosition.X + TilePosition.X + rectangleToDisplay.Width) >= _track.Map.Width)
             {
-                int subFromWidth = this.scrollPosition.X + this.TilePosition.X + rectangleToDisplay.Width - this.track.Map.Width;
+                int subFromWidth = _scrollPosition.X + TilePosition.X + rectangleToDisplay.Width - _track.Map.Width;
                 rectangleToDisplay.Width -= subFromWidth;
             }
-            if ((this.scrollPosition.Y + this.TilePosition.Y + rectangleToDisplay.Height) >= this.track.Map.Height)
+            if ((_scrollPosition.Y + TilePosition.Y + rectangleToDisplay.Height) >= _track.Map.Height)
             {
-                int subFromHeight = this.scrollPosition.Y + this.TilePosition.Y + rectangleToDisplay.Height - this.track.Map.Height;
+                int subFromHeight = _scrollPosition.Y + TilePosition.Y + rectangleToDisplay.Height - _track.Map.Height;
                 rectangleToDisplay.Height -= subFromHeight;
             }
             return rectangleToDisplay;
@@ -2234,127 +2234,127 @@ namespace EpicEdit.UI.TrackEdition
 
         private void OnRightMouseButtonRelease()
         {
-            this.tileClipboard.Fill(this.track.Map);
-            this.tilesetControl.SelectedTile = this.tileClipboard.FirstTile;
-            this.InvalidateTrackDisplay();
+            _tileClipboard.Fill(_track.Map);
+            tilesetControl.SelectedTile = _tileClipboard.FirstTile;
+            InvalidateTrackDisplay();
         }
 
         private void TilesetControlSelectedThemeChanged(object sender, EventArgs e)
         {
-            if (this.settingFormInitialized)
+            if (_settingFormInitialized)
             {
-                this.settingForm.Theme = this.track.Theme;
+                _settingForm.Theme = _track.Theme;
             }
         }
 
         private void TilesetControlSelectedTileChanged(object sender, EventArgs e)
         {
-            this.tileClipboard.Fill(this.tilesetControl.SelectedTile);
+            _tileClipboard.Fill(tilesetControl.SelectedTile);
         }
 
         private void TilesetControlTrackMapChanged(object sender, EventArgs e)
         {
-            this.undoRedoBuffer.Clear();
-            this.menuBar.UndoEnabled = false;
-            this.menuBar.RedoEnabled = false;
+            UndoRedoBuffer.Clear();
+            menuBar.UndoEnabled = false;
+            menuBar.RedoEnabled = false;
 
-            this.InvalidateTrack();
+            InvalidateTrack();
         }
 
         private void TilesetControlTileChanged(object sender, EventArgs<byte> e)
         {
-            this.drawer.UpdateCache(e.Value);
-            this.UpdateTileClipboard();
-            this.tilesetControl.UpdateTileset();
-            this.overlayControl.UpdateTileset();
-            this.InvalidateWholeTrackDisplay();
-            this.trackDisplay.Update();
+            _drawer.UpdateCache(e.Value);
+            UpdateTileClipboard();
+            tilesetControl.UpdateTileset();
+            overlayControl.UpdateTileset();
+            InvalidateWholeTrackDisplay();
+            trackDisplay.Update();
         }
 
         private void TilesetControlTilesetChanged(object sender, EventArgs e)
         {
-            this.InvalidateTrack();
-            this.UpdateTileClipboard();
-            this.overlayControl.UpdateTileset();
+            InvalidateTrack();
+            UpdateTileClipboard();
+            overlayControl.UpdateTileset();
         }
         #endregion EditionMode.Tileset
 
         #region EditionMode.Overlay
         private bool InitOverlayAction()
         {
-            Point hoveredTilePosition = this.AbsoluteTilePosition;
+            Point hoveredTilePosition = AbsoluteTilePosition;
 
-            if (this.buttonsPressed == MouseButtons.Left)
+            if (_buttonsPressed == MouseButtons.Left)
             {
                 // Drag overlay tile
-                this.overlayControl.SelectedTile.Location =
-                    new Point(hoveredTilePosition.X - this.anchorPoint.X,
-                              hoveredTilePosition.Y - this.anchorPoint.Y);
+                overlayControl.SelectedTile.Location =
+                    new Point(hoveredTilePosition.X - _anchorPoint.X,
+                              hoveredTilePosition.Y - _anchorPoint.Y);
                 return true;
             }
 
-            if (this.overlayControl.SelectedPattern == null)
+            if (overlayControl.SelectedPattern == null)
             {
                 // Try to hover overlay tile
-                foreach (OverlayTile overlayTile in this.track.OverlayTiles)
+                foreach (OverlayTile overlayTile in _track.OverlayTiles)
                 {
                     if (overlayTile.IntersectsWith(hoveredTilePosition))
                     {
-                        this.trackDisplay.Cursor = Cursors.Hand;
+                        trackDisplay.Cursor = Cursors.Hand;
 
-                        if (this.hoveredOverlayTile == overlayTile)
+                        if (_hoveredOverlayTile == overlayTile)
                         {
                             return false;
                         }
 
-                        this.hoveredOverlayTile = overlayTile;
+                        _hoveredOverlayTile = overlayTile;
                         return true;
                     }
                 }
 
-                this.trackDisplay.Cursor = Cursors.Default;
+                trackDisplay.Cursor = Cursors.Default;
 
-                if (this.hoveredOverlayTile == null)
+                if (_hoveredOverlayTile == null)
                 {
                     return false;
                 }
 
-                this.hoveredOverlayTile = null;
+                _hoveredOverlayTile = null;
                 return true;
             }
 
             // Move selected tile pattern
-            this.trackDisplay.Cursor = Cursors.Default;
-            Point originalPatternLocation = this.selectedOverlayPatternLocation;
-            this.SetSelectedOverlayPatternLocation();
+            trackDisplay.Cursor = Cursors.Default;
+            Point originalPatternLocation = _selectedOverlayPatternLocation;
+            SetSelectedOverlayPatternLocation();
             // Return whether the location has changed
-            return originalPatternLocation.X != this.selectedOverlayPatternLocation.X ||
-                   originalPatternLocation.Y != this.selectedOverlayPatternLocation.Y;
+            return originalPatternLocation.X != _selectedOverlayPatternLocation.X ||
+                   originalPatternLocation.Y != _selectedOverlayPatternLocation.Y;
         }
 
         private void DeleteOverlayTile()
         {
-            this.track.OverlayTiles.Remove(this.overlayControl.SelectedTile);
+            _track.OverlayTiles.Remove(overlayControl.SelectedTile);
         }
 
         private void OverlayControlRepaintRequested(object sender, EventArgs e)
         {
-            this.InvalidateTrackDisplay();
+            InvalidateTrackDisplay();
         }
 
         private void SetSelectedOverlayPatternLocation()
         {
-            OverlayTilePattern pattern = this.overlayControl.SelectedPattern;
+            OverlayTilePattern pattern = overlayControl.SelectedPattern;
 
-            Point tilePosition = this.TilePosition;
-            if (tilePosition == TrackEditor.OutOfBounds)
+            Point tilePosition = TilePosition;
+            if (tilePosition == OutOfBounds)
             {
                 // The mouse cursor isn't over the track map
-                this.selectedOverlayPatternLocation = tilePosition;
+                _selectedOverlayPatternLocation = tilePosition;
             }
             else
             {
-                Point hoveredTilePosition = this.AbsoluteTilePosition;
+                Point hoveredTilePosition = AbsoluteTilePosition;
                 int x = hoveredTilePosition.X - pattern.Width / 2;
                 int y = hoveredTilePosition.Y - pattern.Height / 2;
 
@@ -2362,21 +2362,21 @@ namespace EpicEdit.UI.TrackEdition
                 {
                     x = 0;
                 }
-                else if (x + pattern.Width > this.track.Map.Width)
+                else if (x + pattern.Width > _track.Map.Width)
                 {
-                    x = this.track.Map.Width - pattern.Width;
+                    x = _track.Map.Width - pattern.Width;
                 }
 
                 if (y < 0)
                 {
                     y = 0;
                 }
-                else if (y + pattern.Height > this.track.Map.Height)
+                else if (y + pattern.Height > _track.Map.Height)
                 {
-                    y = this.track.Map.Height - pattern.Height;
+                    y = _track.Map.Height - pattern.Height;
                 }
 
-                this.selectedOverlayPatternLocation = new Point(x, y);
+                _selectedOverlayPatternLocation = new Point(x, y);
             }
         }
         #endregion EditionMode.Overlay
@@ -2389,27 +2389,27 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
-            return this.track is GPTrack ?
-                this.InitGPStartAction() :
-                this.InitBattleStartAction();
+            return _track is GPTrack ?
+                InitGPStartAction() :
+                InitBattleStartAction();
         }
 
         private bool InitGPStartAction()
         {
-            GPTrack gpTrack = this.track as GPTrack;
-            Point absPixelPos = this.AbsolutePixelPosition;
+            GPTrack gpTrack = _track as GPTrack;
+            Point absPixelPos = AbsolutePixelPosition;
 
-            if (this.buttonsPressed == MouseButtons.Left)
+            if (_buttonsPressed == MouseButtons.Left)
             {
                 bool dataChanged = false;
 
-                switch (this.startAction)
+                switch (_startAction)
                 {
                     case StartAction.DragLapLine:
                         // Move lap line
-                        int step = this.startControl.Precision;
-                        Point destination = new Point(absPixelPos.X - this.anchorPoint.X,
-                                                      ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
+                        int step = startControl.Precision;
+                        Point destination = new Point(absPixelPos.X - _anchorPoint.X,
+                                                      ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
                         int xBefore = gpTrack.LapLine.X;
                         int yBefore = gpTrack.LapLine.Y;
@@ -2426,7 +2426,7 @@ namespace EpicEdit.UI.TrackEdition
                         // Resize lap line
                         int lengthBefore = gpTrack.LapLine.Length;
 
-                        gpTrack.LapLine.Resize(this.resizeHandle, absPixelPos.X);
+                        gpTrack.LapLine.Resize(_resizeHandle, absPixelPos.X);
 
                         if (gpTrack.LapLine.Length != lengthBefore)
                         {
@@ -2436,9 +2436,9 @@ namespace EpicEdit.UI.TrackEdition
 
                     case StartAction.DragStartPosition:
                         // Move driver starting position
-                        step = this.startControl.Precision;
-                        destination = new Point(((absPixelPos.X - this.anchorPoint.X) / step) * step,
-                                                ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
+                        step = startControl.Precision;
+                        destination = new Point(((absPixelPos.X - _anchorPoint.X) / step) * step,
+                                                ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
                         xBefore = gpTrack.StartPosition.X;
                         yBefore = gpTrack.StartPosition.Y;
@@ -2453,9 +2453,9 @@ namespace EpicEdit.UI.TrackEdition
 
                     case StartAction.DragAll:
                         // Move both the lap line and the driver starting position
-                        step = this.startControl.Precision;
-                        destination = new Point(absPixelPos.X - this.anchorPoint.X,
-                                                ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
+                        step = startControl.Precision;
+                        destination = new Point(absPixelPos.X - _anchorPoint.X,
+                                                ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
                         xBefore = gpTrack.LapLine.X;
                         yBefore = gpTrack.LapLine.Y;
@@ -2481,30 +2481,30 @@ namespace EpicEdit.UI.TrackEdition
 
             if (gpTrack.LapLine.IntersectsWith(absPixelPos))
             {
-                this.resizeHandle = gpTrack.LapLine.GetResizeHandle(absPixelPos);
+                _resizeHandle = gpTrack.LapLine.GetResizeHandle(absPixelPos);
 
-                if (this.resizeHandle == ResizeHandle.None)
+                if (_resizeHandle == ResizeHandle.None)
                 {
-                    this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
+                    _startAction = startControl.LapLineAndDriverPositionsBound ?
                         StartAction.DragAll : StartAction.DragLapLine;
-                    this.trackDisplay.Cursor = Cursors.SizeAll;
+                    trackDisplay.Cursor = Cursors.SizeAll;
                 }
                 else
                 {
-                    this.startAction = StartAction.ResizeLapLine;
-                    this.trackDisplay.Cursor = Cursors.SizeWE;
+                    _startAction = StartAction.ResizeLapLine;
+                    trackDisplay.Cursor = Cursors.SizeWE;
                 }
             }
             else if (gpTrack.StartPosition.IntersectsWith(absPixelPos))
             {
-                this.startAction = this.startControl.LapLineAndDriverPositionsBound ?
+                _startAction = startControl.LapLineAndDriverPositionsBound ?
                     StartAction.DragAll : StartAction.DragStartPosition;
-                this.trackDisplay.Cursor = Cursors.SizeAll;
+                trackDisplay.Cursor = Cursors.SizeAll;
             }
             else
             {
-                this.startAction = StartAction.None;
-                this.trackDisplay.Cursor = Cursors.Default;
+                _startAction = StartAction.None;
+                trackDisplay.Cursor = Cursors.Default;
             }
 
             return false;
@@ -2512,32 +2512,32 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitBattleStartAction()
         {
-            BattleTrack bTrack = this.track as BattleTrack;
+            BattleTrack bTrack = _track as BattleTrack;
 
-            if (this.buttonsPressed == MouseButtons.Left)
+            if (_buttonsPressed == MouseButtons.Left)
             {
-                BattleStartPosition position = this.startAction == StartAction.DragStartPosition ?
+                BattleStartPosition position = _startAction == StartAction.DragStartPosition ?
                     bTrack.StartPositionP1 : bTrack.StartPositionP2;
 
-                return this.InitBattleStartActionSub(position);
+                return InitBattleStartActionSub(position);
             }
 
-            Point absPixelPos = this.AbsolutePixelPosition;
+            Point absPixelPos = AbsolutePixelPosition;
 
             if (bTrack.StartPositionP1.IntersectsWith(absPixelPos))
             {
-                this.startAction = StartAction.DragStartPosition;
-                this.trackDisplay.Cursor = Cursors.Hand;
+                _startAction = StartAction.DragStartPosition;
+                trackDisplay.Cursor = Cursors.Hand;
             }
             else if (bTrack.StartPositionP2.IntersectsWith(absPixelPos))
             {
-                this.startAction = StartAction.DragStartPosition2;
-                this.trackDisplay.Cursor = Cursors.Hand;
+                _startAction = StartAction.DragStartPosition2;
+                trackDisplay.Cursor = Cursors.Hand;
             }
             else
             {
-                this.startAction = StartAction.None;
-                this.trackDisplay.Cursor = Cursors.Default;
+                _startAction = StartAction.None;
+                trackDisplay.Cursor = Cursors.Default;
             }
 
             return false;
@@ -2545,11 +2545,11 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitBattleStartActionSub(BattleStartPosition position)
         {
-            Point absPixelPos = this.AbsolutePixelPosition;
+            Point absPixelPos = AbsolutePixelPosition;
 
-            int step = this.startControl.Precision;
-            Point destination = new Point(((absPixelPos.X - this.anchorPoint.X) / step) * step,
-                                         ((absPixelPos.Y - this.anchorPoint.Y) / step) * step);
+            int step = startControl.Precision;
+            Point destination = new Point(((absPixelPos.X - _anchorPoint.X) / step) * step,
+                                         ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
             int xBefore = position.X;
             int yBefore = position.Y;
@@ -2563,17 +2563,17 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Objects
         private bool InitObjectAction()
         {
-            if (!(this.track is GPTrack gpTrack))
+            if (!(_track is GPTrack gpTrack))
             {
                 return false;
             }
 
-            Point hoveredTilePosition = this.AbsoluteTilePosition;
+            Point hoveredTilePosition = AbsoluteTilePosition;
 
-            if (this.buttonsPressed == MouseButtons.Left)
+            if (_buttonsPressed == MouseButtons.Left)
             {
                 // Drag object
-                this.hoveredObject.Location = hoveredTilePosition;
+                _hoveredObject.Location = hoveredTilePosition;
                 return true;
             }
 
@@ -2581,7 +2581,7 @@ namespace EpicEdit.UI.TrackEdition
             if (gpTrack.Objects.Routine == TrackObjectType.Pillar)
             {
                 // Not supported yet
-                this.trackDisplay.Cursor = Cursors.Default;
+                trackDisplay.Cursor = Cursors.Default;
                 return false;
             }
 
@@ -2590,17 +2590,17 @@ namespace EpicEdit.UI.TrackEdition
                 if (trackObject.X == hoveredTilePosition.X &&
                     trackObject.Y == hoveredTilePosition.Y)
                 {
-                    this.hoveredObject = trackObject;
-                    this.trackDisplay.Cursor = Cursors.Hand;
+                    _hoveredObject = trackObject;
+                    trackDisplay.Cursor = Cursors.Hand;
                     return true;
                 }
             }
 
-            this.trackDisplay.Cursor = Cursors.Default;
+            trackDisplay.Cursor = Cursors.Default;
 
-            if (this.hoveredObject != null)
+            if (_hoveredObject != null)
             {
-                this.hoveredObject = null;
+                _hoveredObject = null;
                 return true;
             }
 
@@ -2609,54 +2609,54 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ObjectsControlViewChanged(object sender, EventArgs e)
         {
-            this.InvalidateWholeTrackDisplay();
+            InvalidateWholeTrackDisplay();
         }
         #endregion EditionMode.Objects
 
         #region EditionMode.AI
         private bool InitAIAction()
         {
-            Point hoveredTilePosition = this.AbsoluteTilePosition;
+            Point hoveredTilePosition = AbsoluteTilePosition;
 
-            if (this.buttonsPressed == MouseButtons.Left)
+            if (_buttonsPressed == MouseButtons.Left)
             {
                 // Drag or resize AI element
                 bool dataChanged = false;
 
-                if (this.aiAction == AIAction.DragTarget)
+                if (_aiAction == AIAction.DragTarget)
                 {
                     // Drag AI target
-                    this.hoveredAIElem.Target = hoveredTilePosition;
+                    _hoveredAIElem.Target = hoveredTilePosition;
                     dataChanged = true;
                 }
-                else if (this.aiAction == AIAction.DragArea)
+                else if (_aiAction == AIAction.DragArea)
                 {
                     // Drag AI area
-                    int xBefore = this.hoveredAIElem.Area.X;
-                    int yBefore = this.hoveredAIElem.Area.Y;
+                    int xBefore = _hoveredAIElem.Area.X;
+                    int yBefore = _hoveredAIElem.Area.Y;
 
-                    this.hoveredAIElem.Location =
-                        new Point(hoveredTilePosition.X - this.anchorPoint.X,
-                                  hoveredTilePosition.Y - this.anchorPoint.Y);
+                    _hoveredAIElem.Location =
+                        new Point(hoveredTilePosition.X - _anchorPoint.X,
+                                  hoveredTilePosition.Y - _anchorPoint.Y);
 
-                    if (xBefore != this.hoveredAIElem.Area.X ||
-                        yBefore != this.hoveredAIElem.Area.Y)
+                    if (xBefore != _hoveredAIElem.Area.X ||
+                        yBefore != _hoveredAIElem.Area.Y)
                     {
                         dataChanged = true;
                     }
                 }
-                else if (this.aiAction == AIAction.ResizeArea)
+                else if (_aiAction == AIAction.ResizeArea)
                 {
                     // Resize AI area
-                    int widthBefore = this.hoveredAIElem.Area.Width;
-                    int heightBefore = this.hoveredAIElem.Area.Height;
+                    int widthBefore = _hoveredAIElem.Area.Width;
+                    int heightBefore = _hoveredAIElem.Area.Height;
 
-                    this.hoveredAIElem.Resize(this.resizeHandle,
+                    _hoveredAIElem.Resize(_resizeHandle,
                                               hoveredTilePosition.X,
                                               hoveredTilePosition.Y);
 
-                    int widthAfter = this.hoveredAIElem.Area.Width;
-                    int heightAfter = this.hoveredAIElem.Area.Height;
+                    int widthAfter = _hoveredAIElem.Area.Width;
+                    int heightAfter = _hoveredAIElem.Area.Height;
 
                     if (widthBefore != widthAfter || heightBefore != heightAfter)
                     {
@@ -2669,64 +2669,64 @@ namespace EpicEdit.UI.TrackEdition
 
             // Try to hover AI target
             // Priority to selected element
-            if (this.aiControl.SelectedElement != null &&
-                this.aiControl.SelectedElement.Target.X == hoveredTilePosition.X &&
-                this.aiControl.SelectedElement.Target.Y == hoveredTilePosition.Y)
+            if (aiControl.SelectedElement != null &&
+                aiControl.SelectedElement.Target.X == hoveredTilePosition.X &&
+                aiControl.SelectedElement.Target.Y == hoveredTilePosition.Y)
             {
                 // Hover AI target
-                this.hoveredAIElem = this.aiControl.SelectedElement;
-                this.aiAction = AIAction.DragTarget;
-                this.trackDisplay.Cursor = Cursors.Hand;
+                _hoveredAIElem = aiControl.SelectedElement;
+                _aiAction = AIAction.DragTarget;
+                trackDisplay.Cursor = Cursors.Hand;
                 return true;
             }
 
-            foreach (TrackAIElement trackAIElem in this.track.AI)
+            foreach (TrackAIElement trackAIElem in _track.AI)
             {
                 if (trackAIElem.Target.X == hoveredTilePosition.X &&
                     trackAIElem.Target.Y == hoveredTilePosition.Y)
                 {
                     // Hover AI target
-                    this.hoveredAIElem = trackAIElem;
-                    this.aiAction = AIAction.DragTarget;
-                    this.trackDisplay.Cursor = Cursors.Hand;
+                    _hoveredAIElem = trackAIElem;
+                    _aiAction = AIAction.DragTarget;
+                    trackDisplay.Cursor = Cursors.Hand;
                     return true;
                 }
             }
 
             // Try to hover AI area
             // Priority to selected element
-            if (this.aiControl.SelectedElement != null &&
-                this.TryToHoverAIArea(this.aiControl.SelectedElement, hoveredTilePosition))
+            if (aiControl.SelectedElement != null &&
+                TryToHoverAIArea(aiControl.SelectedElement, hoveredTilePosition))
             {
                 // If an element is already selected, and that it's hovered,
                 // don't try to hover anything else
                 return false;
             }
 
-            if (this.hoveredAIElem != null &&
-                this.TryToHoverAIArea(this.hoveredAIElem, hoveredTilePosition))
+            if (_hoveredAIElem != null &&
+                TryToHoverAIArea(_hoveredAIElem, hoveredTilePosition))
             {
                 // If an element is already hovered,
                 // don't try to hover anything else
                 return false;
             }
 
-            foreach (TrackAIElement trackAIElem in this.track.AI)
+            foreach (TrackAIElement trackAIElem in _track.AI)
             {
-                if (this.TryToHoverAIArea(trackAIElem, hoveredTilePosition))
+                if (TryToHoverAIArea(trackAIElem, hoveredTilePosition))
                 {
                     return true;
                 }
             }
 
-            this.trackDisplay.Cursor = Cursors.Default;
+            trackDisplay.Cursor = Cursors.Default;
 
-            if (this.hoveredAIElem == null)
+            if (_hoveredAIElem == null)
             {
                 return false;
             }
 
-            this.hoveredAIElem = null;
+            _hoveredAIElem = null;
             return true;
         }
 
@@ -2735,60 +2735,60 @@ namespace EpicEdit.UI.TrackEdition
             if (trackAIElem.IntersectsWith(hoveredTilePosition))
             {
                 // Hover AI area
-                this.hoveredAIElem = trackAIElem;
+                _hoveredAIElem = trackAIElem;
 
-                if (this.hoveredAIElem != this.aiControl.SelectedElement)
+                if (_hoveredAIElem != aiControl.SelectedElement)
                 {
-                    this.aiAction = AIAction.DragArea;
-                    this.trackDisplay.Cursor = Cursors.SizeAll;
-                    this.SetAIElementAnchorPoint(hoveredTilePosition);
+                    _aiAction = AIAction.DragArea;
+                    trackDisplay.Cursor = Cursors.SizeAll;
+                    SetAIElementAnchorPoint(hoveredTilePosition);
                 }
                 else
                 {
-                    this.resizeHandle = this.aiControl.SelectedElement.GetResizeHandle(hoveredTilePosition);
+                    _resizeHandle = aiControl.SelectedElement.GetResizeHandle(hoveredTilePosition);
 
-                    if (this.resizeHandle == ResizeHandle.None)
+                    if (_resizeHandle == ResizeHandle.None)
                     {
-                        this.aiAction = AIAction.DragArea;
-                        this.trackDisplay.Cursor = Cursors.SizeAll;
-                        this.SetAIElementAnchorPoint(hoveredTilePosition);
+                        _aiAction = AIAction.DragArea;
+                        trackDisplay.Cursor = Cursors.SizeAll;
+                        SetAIElementAnchorPoint(hoveredTilePosition);
                     }
                     else
                     {
-                        this.aiAction = AIAction.ResizeArea;
+                        _aiAction = AIAction.ResizeArea;
 
-                        switch (this.resizeHandle)
+                        switch (_resizeHandle)
                         {
                             case ResizeHandle.TopLeft:
-                                this.trackDisplay.Cursor = Cursors.SizeNWSE;
+                                trackDisplay.Cursor = Cursors.SizeNWSE;
                                 break;
 
                             case ResizeHandle.Top:
-                                this.trackDisplay.Cursor = Cursors.SizeNS;
+                                trackDisplay.Cursor = Cursors.SizeNS;
                                 break;
 
                             case ResizeHandle.TopRight:
-                                this.trackDisplay.Cursor = Cursors.SizeNESW;
+                                trackDisplay.Cursor = Cursors.SizeNESW;
                                 break;
 
                             case ResizeHandle.Right:
-                                this.trackDisplay.Cursor = Cursors.SizeWE;
+                                trackDisplay.Cursor = Cursors.SizeWE;
                                 break;
 
                             case ResizeHandle.BottomRight:
-                                this.trackDisplay.Cursor = Cursors.SizeNWSE;
+                                trackDisplay.Cursor = Cursors.SizeNWSE;
                                 break;
 
                             case ResizeHandle.Bottom:
-                                this.trackDisplay.Cursor = Cursors.SizeNS;
+                                trackDisplay.Cursor = Cursors.SizeNS;
                                 break;
 
                             case ResizeHandle.BottomLeft:
-                                this.trackDisplay.Cursor = Cursors.SizeNESW;
+                                trackDisplay.Cursor = Cursors.SizeNESW;
                                 break;
 
                             case ResizeHandle.Left:
-                                this.trackDisplay.Cursor = Cursors.SizeWE;
+                                trackDisplay.Cursor = Cursors.SizeWE;
                                 break;
                         }
                     }
@@ -2804,23 +2804,23 @@ namespace EpicEdit.UI.TrackEdition
         {
             hoveredTilePosition.X = (hoveredTilePosition.X / 2) * 2;
             hoveredTilePosition.Y = (hoveredTilePosition.Y / 2) * 2;
-            this.anchorPoint = new Point(hoveredTilePosition.X - this.hoveredAIElem.Area.X,
-                                         hoveredTilePosition.Y - this.hoveredAIElem.Area.Y);
+            _anchorPoint = new Point(hoveredTilePosition.X - _hoveredAIElem.Area.X,
+                                         hoveredTilePosition.Y - _hoveredAIElem.Area.Y);
         }
 
         private void AddAIElement(Point location)
         {
-            this.track.AI.Add(new TrackAIElement(location));
+            _track.AI.Add(new TrackAIElement(location));
         }
 
         private void DeleteAIElement()
         {
-            this.track.AI.Remove(this.aiControl.SelectedElement);
+            _track.AI.Remove(aiControl.SelectedElement);
         }
 
         private void CloneAIElement()
         {
-            TrackAIElement aiElement = this.aiControl.SelectedElement;
+            TrackAIElement aiElement = aiControl.SelectedElement;
             TrackAIElement newAIElem = aiElement.Clone();
 
             // Shift the cloned element position, so it's not directly over the source element
@@ -2828,14 +2828,14 @@ namespace EpicEdit.UI.TrackEdition
                                            aiElement.Location.Y + TrackAIElement.Precision);
 
             // Ensure the cloned element index is right after the source element
-            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
+            int newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
 
-            this.track.AI.Insert(newAIElem, newAIElementIndex);
+            _track.AI.Insert(newAIElem, newAIElementIndex);
         }
 
         private void AIControlAddElementRequested(object sender, EventArgs e)
         {
-            this.AddAIElement(this.AbsoluteCenterTileLocation);
+            AddAIElement(AbsoluteCenterTileLocation);
         }
         #endregion EditionMode.AI
     }

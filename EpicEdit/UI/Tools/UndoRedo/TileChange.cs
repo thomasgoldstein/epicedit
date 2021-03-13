@@ -27,27 +27,27 @@ namespace EpicEdit.UI.Tools.UndoRedo
         public int X { get; }
         public int Y { get; }
 
-        private readonly byte[][] data;
+        private readonly byte[][] _data;
 
-        public int Height => this.data.Length;
+        public int Height => _data.Length;
 
-        public int Width => this.data[0].Length;
+        public int Width => _data[0].Length;
 
-        public Rectangle Rectangle => new Rectangle(this.X, this.Y, this.Width, this.Height);
+        public Rectangle Rectangle => new Rectangle(X, Y, Width, Height);
 
         public TileChange(int x, int y, int width, int height, IMapBuffer buffer)
         {
-            this.X = x;
-            this.Y = y;
-            this.data = new byte[height][];
+            X = x;
+            Y = y;
+            _data = new byte[height][];
 
             for (int yIter = 0; yIter < height; yIter++)
             {
-                this.data[yIter] = new byte[width];
+                _data[yIter] = new byte[width];
 
                 for (int xIter = 0; xIter < width; xIter++)
                 {
-                    this.data[yIter][xIter] = buffer[x + xIter, y + yIter];
+                    _data[yIter][xIter] = buffer[x + xIter, y + yIter];
                 }
             }
         }
@@ -98,9 +98,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 }
             }
 
-            this.X = xStart;
-            this.Y = yStart;
-            this.data = data;
+            X = xStart;
+            Y = yStart;
+            _data = data;
         }
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <returns>Tile value.</returns>
         public byte GetTile(int x, int y)
         {
-            return this.data[y][x];
+            return _data[y][x];
         }
 
-        public byte this[int x, int y] => this.GetTile(x, y);
+        public byte this[int x, int y] => GetTile(x, y);
     }
 }

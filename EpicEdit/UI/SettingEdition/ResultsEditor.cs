@@ -23,15 +23,15 @@ namespace EpicEdit.UI.SettingEdition
     {
         public ResultsEditor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public void Init()
         {
-            this.rankPointsControl.Init();
-            this.driverNamesControlResults.Init(Context.Game.Settings.DriverNamesGPResults);
-            this.driverNamesControlPodium.Init(Context.Game.Settings.DriverNamesGPPodium);
-            this.driverNamesControlTimeTrial.Init(Context.Game.Settings.DriverNamesTimeTrial);
+            rankPointsControl.Init();
+            driverNamesControlResults.Init(Context.Game.Settings.DriverNamesGPResults);
+            driverNamesControlPodium.Init(Context.Game.Settings.DriverNamesGPPodium);
+            driverNamesControlTimeTrial.Init(Context.Game.Settings.DriverNamesTimeTrial);
         }
     }
 }

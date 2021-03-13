@@ -33,32 +33,32 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectAreas(byte[] data, TrackAI ai)
         {
-            this.FrontView = new TrackObjectAreasView(new[] { data[0], data[1], data[2], data[3] }, ai);
-            this.RearView = new TrackObjectAreasView(new[] { data[5], data[6], data[7], data[8] }, ai);
+            FrontView = new TrackObjectAreasView(new[] { data[0], data[1], data[2], data[3] }, ai);
+            RearView = new TrackObjectAreasView(new[] { data[5], data[6], data[7], data[8] }, ai);
 
-            this.FrontView.DataChanged += this.frontView_DataChanged;
-            this.RearView.DataChanged += this.rearView_DataChanged;
+            FrontView.DataChanged += frontView_DataChanged;
+            RearView.DataChanged += rearView_DataChanged;
         }
 
         public void SetBytes(byte[] data)
         {
-            this.FrontView.SetBytes(new[] { data[0], data[1], data[2], data[3] });
-            this.RearView.SetBytes(new[] { data[5], data[6], data[7], data[8] });
+            FrontView.SetBytes(new[] { data[0], data[1], data[2], data[3] });
+            RearView.SetBytes(new[] { data[5], data[6], data[7], data[8] });
         }
 
         private void frontView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged(PropertyNames.TrackObjectAreas.FrontView);
+            OnPropertyChanged(PropertyNames.TrackObjectAreas.FrontView);
         }
 
         private void rearView_DataChanged(object sender, EventArgs<int> e)
         {
-            this.OnPropertyChanged(PropertyNames.TrackObjectAreas.RearView);
+            OnPropertyChanged(PropertyNames.TrackObjectAreas.RearView);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         public byte[] GetBytes()
         {
             byte[] data = new byte[Size];
-            byte[] frontData = this.FrontView.GetBytes();
-            byte[] rearData = this.RearView.GetBytes();
+            byte[] frontData = FrontView.GetBytes();
+            byte[] rearData = RearView.GetBytes();
 
             Buffer.BlockCopy(frontData, 0, data, 0, frontData.Length);
             Buffer.BlockCopy(rearData, 0, data, frontData.Length, rearData.Length);

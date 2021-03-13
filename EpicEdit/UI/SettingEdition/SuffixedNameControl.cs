@@ -24,65 +24,65 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SuffixTextChanged;
 
-        private SuffixedTextItem textItem;
-        private bool fireEvents;
+        private SuffixedTextItem _textItem;
+        private bool _fireEvents;
 
         public SuffixedNameControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public void Init(SuffixedTextItem textItem)
         {
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            if (this.textItem != null)
+            if (_textItem != null)
             {
-                this.textItem.Suffix.PropertyChanged -= this.textItem_Suffix_PropertyChanged;
+                _textItem.Suffix.PropertyChanged -= textItem_Suffix_PropertyChanged;
             }
 
-            this.textItem = textItem;
-            this.textItem.Suffix.PropertyChanged += this.textItem_Suffix_PropertyChanged;
+            _textItem = textItem;
+            _textItem.Suffix.PropertyChanged += textItem_Suffix_PropertyChanged;
 
-            this.nameComboBox.Init(Context.Game.Settings.CourseSelectTexts);
-            this.nameComboBox.SelectedItem = this.textItem.TextItem;
-            this.suffixTextBox.Text = this.textItem.Suffix.Value;
+            nameComboBox.Init(Context.Game.Settings.CourseSelectTexts);
+            nameComboBox.SelectedItem = _textItem.TextItem;
+            suffixTextBox.Text = _textItem.Suffix.Value;
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
-        private TextItem SelectedTextItem => this.nameComboBox.SelectedItem as TextItem;
+        private TextItem SelectedTextItem => nameComboBox.SelectedItem as TextItem;
 
         private void NameComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.textItem.TextItem = this.SelectedTextItem;
+            _textItem.TextItem = SelectedTextItem;
         }
 
         private void SuffixTextBoxTextChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            int sel = this.suffixTextBox.SelectionStart;
-            this.textItem.Suffix.Value = this.suffixTextBox.Text;
-            this.suffixTextBox.Text = this.textItem.Suffix.Value; // Retrieve validated text
-            this.suffixTextBox.SelectionStart = sel; // Restore text input position
+            int sel = suffixTextBox.SelectionStart;
+            _textItem.Suffix.Value = suffixTextBox.Text;
+            suffixTextBox.Text = _textItem.Suffix.Value; // Retrieve validated text
+            suffixTextBox.SelectionStart = sel; // Restore text input position
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private void textItem_Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.SuffixTextChanged?.Invoke(this, EventArgs.Empty);
+            SuffixTextChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

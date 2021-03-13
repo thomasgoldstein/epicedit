@@ -22,26 +22,26 @@ namespace EpicEdit.Rom.Compression
     /// </summary>
     internal class ByteDictionary
     {
-        private readonly byte[] buffer;
-        private readonly Dictionary<byte, List<int>> byteDictionary;
+        private readonly byte[] _buffer;
+        private readonly Dictionary<byte, List<int>> _byteDictionary;
 
         public ByteDictionary(byte[] buffer)
         {
-            this.buffer = buffer;
-            this.byteDictionary = new Dictionary<byte, List<int>>();
+            _buffer = buffer;
+            _byteDictionary = new Dictionary<byte, List<int>>();
 
             for (int i = 0; i < buffer.Length; i++)
             {
-                this.Add(buffer[i], i);
+                Add(buffer[i], i);
             }
         }
 
         private void Add(byte value, int offset)
         {
-            if (!this.byteDictionary.TryGetValue(value, out List<int> list))
+            if (!_byteDictionary.TryGetValue(value, out List<int> list))
             {
                 list = new List<int>();
-                this.byteDictionary.Add(value, list);
+                _byteDictionary.Add(value, list);
             }
 
             list.Add(offset);
@@ -51,9 +51,9 @@ namespace EpicEdit.Rom.Compression
         {
             Range maxBackRange = Range.Empty;
 
-            byte value = this.buffer[offset];
+            byte value = _buffer[offset];
 
-            foreach (int otherOffset in this.byteDictionary[value])
+            foreach (int otherOffset in _byteDictionary[value])
             {
                 if (otherOffset >= offset)
                 {
@@ -68,8 +68,8 @@ namespace EpicEdit.Rom.Compression
                     iterator++;
                     backIterator++;
                 }
-                while (iterator < this.buffer.Length &&
-                       this.buffer[backIterator] == this.buffer[iterator]);
+                while (iterator < _buffer.Length &&
+                       _buffer[backIterator] == _buffer[iterator]);
 
                 int start = otherOffset;
                 int end = backIterator;
@@ -93,7 +93,7 @@ namespace EpicEdit.Rom.Compression
             Range maxRange6n = Range.Empty; // Command 6 normal
             Range maxRange6s = Range.Empty; // Command 6 super
 
-            byte value = this.buffer[offset];
+            byte value = _buffer[offset];
 
             int startPosition = offset - 0xFF;
             if (startPosition < 0)
@@ -101,7 +101,7 @@ namespace EpicEdit.Rom.Compression
                 startPosition = 0;
             }
 
-            foreach (int otherOffset in this.byteDictionary[value])
+            foreach (int otherOffset in _byteDictionary[value])
             {
                 if (otherOffset >= offset)
                 {
@@ -116,8 +116,8 @@ namespace EpicEdit.Rom.Compression
                     iterator++;
                     backIterator++;
                 }
-                while (iterator < this.buffer.Length &&
-                       this.buffer[backIterator] == this.buffer[iterator]);
+                while (iterator < _buffer.Length &&
+                       _buffer[backIterator] == _buffer[iterator]);
 
                 int start = otherOffset;
                 int end = backIterator;

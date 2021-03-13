@@ -85,7 +85,7 @@ namespace EpicEdit.Rom.Compression
                     commandCost = 0;
                 }
 
-                Range range = FastCompressor.GetRange(i, k);
+                Range range = GetRange(i, k);
                 Range maxBackRange = byteDictionary.GetMaxBackRange(i);
                 int distance = i - maxBackRange.Start;
 
@@ -108,23 +108,23 @@ namespace EpicEdit.Rom.Compression
                 switch (command)
                 {
                     case 0:
-                        FastCompressor.CallCommand0(buffer, compBuffer, ref i, ref j, k, byteDictionary);
+                        CallCommand0(buffer, compBuffer, ref i, ref j, k, byteDictionary);
                         break;
 
                     case 1:
-                        FastCompressor.CallCommand1(buffer, compBuffer, ref i, ref j, range.Length);
+                        CallCommand1(buffer, compBuffer, ref i, ref j, range.Length);
                         break;
 
                     case 2:
-                        FastCompressor.CallCommand2(buffer, compBuffer, ref i, ref j, range.Length);
+                        CallCommand2(buffer, compBuffer, ref i, ref j, range.Length);
                         break;
 
                     case 3:
-                        FastCompressor.CallCommand3(buffer, compBuffer, ref i, ref j, range.Length);
+                        CallCommand3(buffer, compBuffer, ref i, ref j, range.Length);
                         break;
 
                     case 4:
-                        FastCompressor.CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
+                        CallCommand4Or6(compBuffer, ref i, ref j, maxBackRange);
                         break;
                 }
             }
@@ -177,7 +177,7 @@ namespace EpicEdit.Rom.Compression
                 k++;
             }
 
-            Range range = FastCompressor.GetRange(i, k);
+            Range range = GetRange(i, k);
 
             int byteCount = range.Length;
 

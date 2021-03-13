@@ -35,61 +35,61 @@ namespace EpicEdit.UI.Gfx
         private const int Height = BackgroundLayout.RowCount * Tile.Size;
         private const int CanvasWidth = BackWidth / 2;
 
-        private Theme theme;
+        private Theme _theme;
 
         public Theme Theme
         {
-            get => this.theme;
+            get => _theme;
             set
             {
-                this.theme = value;
-                this.InitFrontLayer();
-                this.InitBackLayer();
+                _theme = value;
+                InitFrontLayer();
+                InitBackLayer();
             }
         }
 
-        private Bitmap frontLayer;
-        private Bitmap backLayer;
+        private Bitmap _frontLayer;
+        private Bitmap _backLayer;
 
-        private int x;
+        private int _x;
 
         /// <summary>
         /// Used to draw the rectangle when highlighting tiles.
         /// </summary>
-        private readonly Pen tileHighlightPen;
+        private readonly Pen _tileHighlightPen;
 
         /// <summary>
         /// Used to draw the rectangle when selecting tiles.
         /// </summary>
-        private readonly Pen tileSelectPen;
+        private readonly Pen _tileSelectPen;
 
         /// <summary>
         /// Used to paint the inside of the selection rectangle.
         /// </summary>
-        private readonly SolidBrush tileSelectBrush;
+        private readonly SolidBrush _tileSelectBrush;
 
         public BackgroundDrawer()
         {
-            this.tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
-            this.tileSelectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
-            this.tileSelectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
+            _tileHighlightPen = new Pen(Color.FromArgb(150, 255, 0, 0), 1);
+            _tileSelectPen = new Pen(Color.FromArgb(150, 20, 130, 255), 1);
+            _tileSelectBrush = new SolidBrush(Color.FromArgb(50, 20, 130, 255));
 
             // The following members are initialized so they can be disposed of
             // in each function without having to check if they're null beforehand
-            this.frontLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
-            this.backLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _frontLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _backLayer = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         private void InitFrontLayer()
         {
-            this.frontLayer.Dispose();
-            this.frontLayer = this.CreateLayer(true);
+            _frontLayer.Dispose();
+            _frontLayer = CreateLayer(true);
         }
 
         private void InitBackLayer()
         {
-            this.backLayer.Dispose();
-            this.backLayer = this.CreateLayer(false);
+            _backLayer.Dispose();
+            _backLayer = CreateLayer(false);
         }
 
         private Bitmap CreateLayer(bool front)
@@ -98,7 +98,7 @@ namespace EpicEdit.UI.Gfx
             int imageWidth = layerWidth * Tile.Size;
 
             Bitmap bitmap = new Bitmap(imageWidth, Height, PixelFormat.Format32bppPArgb);
-            Background background = this.theme.Background;
+            Background background = _theme.Background;
 
             Dictionary<int, BackgroundTile> tileCache = new Dictionary<int, BackgroundTile>();
 
@@ -106,7 +106,7 @@ namespace EpicEdit.UI.Gfx
             {
                 if (!front)
                 {
-                    g.Clear(this.theme.BackColor);
+                    g.Clear(_theme.BackColor);
                 }
 
                 for (int y = 0; y < BackgroundLayout.RowCount; y++)
@@ -140,11 +140,11 @@ namespace EpicEdit.UI.Gfx
         {
             if (front)
             {
-                this.DrawFrontBackgroundLayer(g, cursorPosition, x, selectingTile);
+                DrawFrontBackgroundLayer(g, cursorPosition, x, selectingTile);
             }
             else
             {
-                this.DrawBackBackgroundLayer(g, cursorPosition, x, selectingTile);
+                DrawBackBackgroundLayer(g, cursorPosition, x, selectingTile);
             }
         }
 
@@ -153,9 +153,9 @@ namespace EpicEdit.UI.Gfx
             using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                backBuffer.DrawImage(this.backLayer, x, 0);
-                this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
-                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
+                backBuffer.DrawImage(_backLayer, x, 0);
+                DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
+                DrawImage(g, image, CanvasWidth);
             }
         }
 
@@ -164,10 +164,10 @@ namespace EpicEdit.UI.Gfx
             using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
-                backBuffer.Clear(this.theme.BackColor);
-                backBuffer.DrawImage(this.frontLayer, x, 0);
-                this.DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
-                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
+                backBuffer.Clear(_theme.BackColor);
+                backBuffer.DrawImage(_frontLayer, x, 0);
+                DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
+                DrawImage(g, image, CanvasWidth);
             }
         }
 
@@ -184,12 +184,12 @@ namespace EpicEdit.UI.Gfx
 
             if (selectingTile) // A tile selection is happening now
             {
-                g.FillRectangle(this.tileSelectBrush, rec);
-                g.DrawRectangle(this.tileSelectPen, rec);
+                g.FillRectangle(_tileSelectBrush, rec);
+                g.DrawRectangle(_tileSelectPen, rec);
             }
             else // The user is simply hovering tiles
             {
-                g.DrawRectangle(this.tileHighlightPen, rec);
+                g.DrawRectangle(_tileHighlightPen, rec);
             }
         }
 
@@ -199,20 +199,20 @@ namespace EpicEdit.UI.Gfx
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 // Drawing the back and front layers twice, so that the background loops horizontally
-                backBuffer.DrawImage(this.backLayer, x, 0);
-                backBuffer.DrawImage(this.backLayer, x + BackWidth, 0);
+                backBuffer.DrawImage(_backLayer, _x, 0);
+                backBuffer.DrawImage(_backLayer, _x + BackWidth, 0);
 
-                backBuffer.DrawImage(this.frontLayer, x * 2, 0);
-                backBuffer.DrawImage(this.frontLayer, x * 2 + FrontWidth, 0);
+                backBuffer.DrawImage(_frontLayer, _x * 2, 0);
+                backBuffer.DrawImage(_frontLayer, _x * 2 + FrontWidth, 0);
 
-                Bitmap topBorder = Context.Game.ItemIconGraphics.GetTopBorder(this.Theme.Palettes);
+                Bitmap topBorder = Context.Game.ItemIconGraphics.GetTopBorder(Theme.Palettes);
 
                 for (int i = 0; i < CanvasWidth; i += Tile.Size)
                 {
                     backBuffer.DrawImage(topBorder, i, -1);
                 }
 
-                BackgroundDrawer.DrawImage(g, image, CanvasWidth);
+                DrawImage(g, image, CanvasWidth);
             }
         }
 
@@ -226,30 +226,30 @@ namespace EpicEdit.UI.Gfx
         public void UpdateTile(int x, int y, bool front, byte tileId, byte properties)
         {
             Rectangle rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
-            BackgroundTile tileModel = this.theme.Background.Tileset[tileId];
+            BackgroundTile tileModel = _theme.Background.Tileset[tileId];
 
-            using (Graphics g = Graphics.FromImage(front ? this.frontLayer : this.backLayer))
+            using (Graphics g = Graphics.FromImage(front ? _frontLayer : _backLayer))
             using (BackgroundTile tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, front))
             {
                 g.SetClip(rec);
-                g.Clear(front ? Color.Transparent : this.theme.BackColor.Color);
+                g.Clear(front ? Color.Transparent : _theme.BackColor.Color);
                 g.DrawImage(tile.Bitmap, rec.X, rec.Y);
             }
         }
 
         public int PreviewFrame
         {
-            //get => -this.x;
-            set => this.x = -value;
+            //get => -_x;
+            set => _x = -value;
         }
 
         public void Dispose()
         {
-            this.frontLayer.Dispose();
-            this.backLayer.Dispose();
-            this.tileHighlightPen.Dispose();
-            this.tileSelectPen.Dispose();
-            this.tileSelectBrush.Dispose();
+            _frontLayer.Dispose();
+            _backLayer.Dispose();
+            _tileHighlightPen.Dispose();
+            _tileSelectPen.Dispose();
+            _tileSelectBrush.Dispose();
 
             GC.SuppressFinalize(this);
         }

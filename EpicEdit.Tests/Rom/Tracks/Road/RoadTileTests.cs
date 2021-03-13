@@ -26,7 +26,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
             Palette palette = new Palette(null, 0, palData);
             RoadTile tile = new RoadTile(gfx, palette, RoadTileGenre.Road, palette);
 
-            this.TestGetColorIndexAt(gfx, palette, tile);
+            TestGetColorIndexAt(gfx, palette, tile);
         }
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
@@ -85,7 +85,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
                 0xFF, 0x02, 0x54, 0x32, 0x96, 0x3A, 0x12, 0x2E
             };
 
-            this.TestGetColorIndexAt(gfx, palData);
+            TestGetColorIndexAt(gfx, palData);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
                 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
             };
 
-            this.TestGetColorIndexAt(gfx, palData);
+            TestGetColorIndexAt(gfx, palData);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
                 0x35, 0x44, 0x44, 0x23, 0x35, 0x34, 0x43, 0x23
             };
 
-            this.TestGenerateGraphics(palData, gfx);
+            TestGenerateGraphics(palData, gfx);
         }
     }
 }

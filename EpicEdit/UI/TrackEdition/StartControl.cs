@@ -17,18 +17,19 @@ using EpicEdit.Rom.Tracks;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using EpicEdit.Rom.Tracks.Start;
 
 namespace EpicEdit.UI.TrackEdition
 {
     /// <summary>
-    /// Represents a collection of controls to edit <see cref="EpicEdit.Rom.Tracks.Start.LapLine"/> and <see cref="EpicEdit.Rom.Tracks.Start.GPStartPosition"/> objects.
+    /// Represents a collection of controls to edit <see cref="EpicEdit.Rom.Tracks.Start.LapLine"/> and <see cref="GPStartPosition"/> objects.
     /// </summary>
     internal partial class StartControl : UserControl
     {
         /// <summary>
         /// The current track.
         /// </summary>
-        private Track track;
+        private Track _track;
 
         /// <summary>
         /// Gets or sets the current track.
@@ -36,81 +37,81 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get => this.track;
+            get => _track;
             set
             {
-                if (this.track == value)
+                if (_track == value)
                 {
                     return;
                 }
 
-                if (this.track is GPTrack oldGPTrack)
+                if (_track is GPTrack oldGPTrack)
                 {
-                    oldGPTrack.StartPosition.PropertyChanged -= this.gpTrack_StartPosition_PropertyChanged;
+                    oldGPTrack.StartPosition.PropertyChanged -= gpTrack_StartPosition_PropertyChanged;
                 }
 
-                this.track = value;
+                _track = value;
 
-                if (!(this.track is GPTrack gpTrack))
+                if (!(_track is GPTrack gpTrack))
                 {
-                    this.gpTrackGroupBox.Enabled = false;
+                    gpTrackGroupBox.Enabled = false;
                 }
                 else
                 {
-                    this.gpTrackGroupBox.Enabled = true;
+                    gpTrackGroupBox.Enabled = true;
 
                     // NOTE: Temporarily detach the secondRowNumericUpDown.ValueChanged event handler
                     // so that the current precision does not alter the second row offset on track load.
-                    this.secondRowNumericUpDown.ValueChanged -= this.SecondRowValueLabelNumericUpDownValueChanged;
-                    this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
-                    this.secondRowNumericUpDown.ValueChanged += this.SecondRowValueLabelNumericUpDownValueChanged;
+                    secondRowNumericUpDown.ValueChanged -= SecondRowValueLabelNumericUpDownValueChanged;
+                    secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
+                    secondRowNumericUpDown.ValueChanged += SecondRowValueLabelNumericUpDownValueChanged;
 
-                    this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
-                    gpTrack.StartPosition.PropertyChanged += this.gpTrack_StartPosition_PropertyChanged;
+                    secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+                    gpTrack.StartPosition.PropertyChanged += gpTrack_StartPosition_PropertyChanged;
                 }
             }
         }
 
         public StartControl()
         {
-            this.InitializeComponent();
-            this.SetPrecision();
+            InitializeComponent();
+            SetPrecision();
         }
 
         private void gpTrack_StartPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
-                GPTrack gpTrack = this.track as GPTrack;
-                this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
-                this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+                GPTrack gpTrack = _track as GPTrack;
+                secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
+                secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
             }
         }
 
         public int Precision { get; private set; }
 
-        public bool LapLineAndDriverPositionsBound => this.startBindCheckBox.Checked;
+        public bool LapLineAndDriverPositionsBound => startBindCheckBox.Checked;
 
         private void SecondRowValueLabelNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            GPTrack gpTrack = this.track as GPTrack;
-            gpTrack.StartPosition.SecondRowOffset = this.GetPrecisionValue((int)this.secondRowNumericUpDown.Value);
+            GPTrack gpTrack = _track as GPTrack;
+            gpTrack.StartPosition.SecondRowOffset = GetPrecisionValue((int)secondRowNumericUpDown.Value);
 
             // Make sure the UI reflects the validated SecondRowOffset value
-            this.secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
+            secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
         }
 
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
         {
-            GPTrack gpTrack = this.track as GPTrack;
-            gpTrack.StartPosition.SecondRowOffset = this.GetPrecisionValue(this.secondRowTrackBar.Value);
+            GPTrack gpTrack = _track as GPTrack;
+            gpTrack.StartPosition.SecondRowOffset = GetPrecisionValue(secondRowTrackBar.Value);
         }
 
         private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
         {
-            GPTrack gpTrack = this.track as GPTrack;
+            GPTrack gpTrack = _track as GPTrack;
             // Make sure the UI reflects the validated SecondRowOffset value
-            this.secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
+            secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
         }
 
         private void StepRadioButtonCheckedChanged(object sender, EventArgs e)
@@ -120,25 +121,25 @@ namespace EpicEdit.UI.TrackEdition
             // Avoid calling the method twice (once for the button that was previously checked, then the one newly checked)
             if (button.Checked)
             {
-                this.SetPrecision();
+                SetPrecision();
             }
         }
 
         private void SetPrecision()
         {
-            this.Precision =
-                this.step1pxRadioButton.Checked ? 1 :
-                this.step4pxRadioButton.Checked ? 4 :
+            Precision =
+                step1pxRadioButton.Checked ? 1 :
+                step4pxRadioButton.Checked ? 4 :
                 8;
 
-            this.secondRowNumericUpDown.Increment = this.Precision;
-            this.secondRowTrackBar.SmallChange = this.Precision;
-            this.secondRowTrackBar.LargeChange = this.Precision * 5;
+            secondRowNumericUpDown.Increment = Precision;
+            secondRowTrackBar.SmallChange = Precision;
+            secondRowTrackBar.LargeChange = Precision * 5;
         }
 
         private int GetPrecisionValue(int value)
         {
-            return (value / this.Precision) * this.Precision;
+            return (value / Precision) * Precision;
         }
     }
 }

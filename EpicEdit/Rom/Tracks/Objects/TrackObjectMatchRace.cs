@@ -19,23 +19,23 @@ namespace EpicEdit.Rom.Tracks.Objects
     /// </summary>
     internal class TrackObjectMatchRace : TrackObject
     {
-        private TrackObjectDirection direction;
+        private TrackObjectDirection _direction;
 
         /// <summary>
         /// Gets or sets the object direction.
         /// </summary>
         public TrackObjectDirection Direction
         {
-            get => this.direction;
+            get => _direction;
             set
             {
-                if (this.direction == value)
+                if (_direction == value)
                 {
                     return;
                 }
 
-                this.direction = value;
-                this.OnPropertyChanged(PropertyNames.TrackObjectMatchRace.Direction);
+                _direction = value;
+                OnPropertyChanged(PropertyNames.TrackObjectMatchRace.Direction);
             }
         }
 
@@ -49,12 +49,12 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             if ((data[index + 1] & 0x80) == 0)
             {
-                this.direction = (data[index + 1] & 0x40) == 0 ?
+                _direction = (data[index + 1] & 0x40) == 0 ?
                     TrackObjectDirection.Horizontal : TrackObjectDirection.Vertical;
             }
             else
             {
-                this.direction = TrackObjectDirection.None;
+                _direction = TrackObjectDirection.None;
             }
         }
 
@@ -67,11 +67,11 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             base.GetBytes(data, index);
 
-            if (this.direction == TrackObjectDirection.Vertical)
+            if (_direction == TrackObjectDirection.Vertical)
             {
                 data[index + 1] += 0x40;
             }
-            else if (this.direction == TrackObjectDirection.None)
+            else if (_direction == TrackObjectDirection.None)
             {
                 data[index + 1] += 0x80;
             }

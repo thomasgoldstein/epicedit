@@ -35,19 +35,19 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <summary>
         /// The bound track map.
         /// </summary>
-        private readonly TrackMap trackMap;
+        private readonly TrackMap _trackMap;
 
         // Using LinkedLists rather than Stacks so as to be able to enforce a size limit.
-        private readonly LinkedList<TileChange> undoBuffer;
-        private readonly LinkedList<TileChange> redoBuffer;
+        private readonly LinkedList<TileChange> _undoBuffer;
+        private readonly LinkedList<TileChange> _redoBuffer;
 
-        private Stack<TileChange> buffer;
+        private Stack<TileChange> _buffer;
 
         public UndoRedoBuffer(TrackMap trackMap)
         {
-            this.trackMap = trackMap;
-            this.undoBuffer = new LinkedList<TileChange>();
-            this.redoBuffer = new LinkedList<TileChange>();
+            _trackMap = trackMap;
+            _undoBuffer = new LinkedList<TileChange>();
+            _redoBuffer = new LinkedList<TileChange>();
         }
 
         /// <summary>
@@ -57,29 +57,29 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void BeginAdd()
         {
-            if (this.buffer == null)
+            if (_buffer == null)
             {
-                this.buffer = new Stack<TileChange>();
+                _buffer = new Stack<TileChange>();
             }
         }
 
         public void Add(TileChange change)
         {
-            if (this.buffer == null)
+            if (_buffer == null)
             {
-                this.BeginAdd();
-                this.Add(change);
-                this.EndAdd();
+                BeginAdd();
+                Add(change);
+                EndAdd();
             }
             else
             {
-                this.buffer.Push(change);
-                if (this.buffer.Count == ChangeLimit)
+                _buffer.Push(change);
+                if (_buffer.Count == ChangeLimit)
                 {
                     // Consolidate tile changes to improve performances
-                    TileChange tileChange = new TileChange(this.buffer, this.trackMap);
-                    this.buffer.Clear();
-                    this.buffer.Push(tileChange);
+                    TileChange tileChange = new TileChange(_buffer, _trackMap);
+                    _buffer.Clear();
+                    _buffer.Push(tileChange);
                 }
             }
         }
@@ -89,31 +89,31 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// </summary>
         public void EndAdd()
         {
-            if (this.buffer == null)
+            if (_buffer == null)
             {
                 return;
             }
 
-            if (this.buffer.Count > 0)
+            if (_buffer.Count > 0)
             {
-                this.Add(this.buffer);
+                Add(_buffer);
             }
 
-            this.buffer = null;
+            _buffer = null;
         }
 
         private void Add(IEnumerable<TileChange> changes)
         {
-            if (this.undoBuffer.Count == Limit)
+            if (_undoBuffer.Count == Limit)
             {
-                this.undoBuffer.RemoveFirst();
+                _undoBuffer.RemoveFirst();
             }
 
-            this.redoBuffer.Clear();
+            _redoBuffer.Clear();
 
             // Consolidate tile changes into a single one
-            TileChange change = new TileChange(changes, this.trackMap);
-            this.undoBuffer.AddLast(change);
+            TileChange change = new TileChange(changes, _trackMap);
+            _undoBuffer.AddLast(change);
         }
 
         /// <summary>
@@ -122,16 +122,16 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <returns>The change that has been reapplied.</returns>
         public TileChange Undo()
         {
-            if (!this.HasUndo || this.buffer != null)
+            if (!HasUndo || _buffer != null)
             {
                 // Nothing to undo, or a change is already ongoing
                 return null;
             }
 
-            TileChange undoChange = this.undoBuffer.Last.Value;
-            TileChange redoChange = this.ApplyChange(undoChange);
-            this.undoBuffer.RemoveLast();
-            this.redoBuffer.AddFirst(redoChange);
+            TileChange undoChange = _undoBuffer.Last.Value;
+            TileChange redoChange = ApplyChange(undoChange);
+            _undoBuffer.RemoveLast();
+            _redoBuffer.AddFirst(redoChange);
 
             return undoChange;
         }
@@ -142,35 +142,35 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <returns>The change that has been reapplied.</returns>
         public TileChange Redo()
         {
-            if (!this.HasRedo || this.buffer != null)
+            if (!HasRedo || _buffer != null)
             {
                 // Nothing to redo, or a change is already ongoing
                 return null;
             }
 
-            TileChange redoChange = this.redoBuffer.First.Value;
-            TileChange undoChange = this.ApplyChange(redoChange);
-            this.redoBuffer.RemoveFirst();
-            this.undoBuffer.AddLast(undoChange);
+            TileChange redoChange = _redoBuffer.First.Value;
+            TileChange undoChange = ApplyChange(redoChange);
+            _redoBuffer.RemoveFirst();
+            _undoBuffer.AddLast(undoChange);
 
             return redoChange;
         }
 
         private TileChange ApplyChange(TileChange change)
         {
-            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, this.trackMap);
-            this.trackMap.SetTiles(change.X, change.Y, change);
+            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, _trackMap);
+            _trackMap.SetTiles(change.X, change.Y, change);
             return undoChange;
         }
 
         public void Clear()
         {
-            this.undoBuffer.Clear();
-            this.redoBuffer.Clear();
+            _undoBuffer.Clear();
+            _redoBuffer.Clear();
         }
 
-        public bool HasUndo => this.undoBuffer.Count > 0;
+        public bool HasUndo => _undoBuffer.Count > 0;
 
-        public bool HasRedo => this.redoBuffer.Count > 0;
+        public bool HasRedo => _redoBuffer.Count > 0;
     }
 }

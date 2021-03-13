@@ -31,20 +31,20 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add => this.Editor.ColorSelected += value;
-            remove => this.Editor.ColorSelected -= value;
+            add => Editor.ColorSelected += value;
+            remove => Editor.ColorSelected -= value;
         }
 
         public BackgroundEditorForm()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnVisibleChanged(EventArgs e)
         {
-            if (!this.Visible)
+            if (!Visible)
             {
-                this.Editor.PausePreview();
+                Editor.PausePreview();
             }
 
             base.OnVisibleChanged(e);
@@ -52,14 +52,14 @@ namespace EpicEdit.UI.ThemeEdition
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            this.Hide();
-            this.Editor.ResetScrollPositions();
+            Hide();
+            Editor.ResetScrollPositions();
             e.Cancel = true;
         }
 
         public void Init()
         {
-            this.Editor.Init();
+            Editor.Init();
         }
     }
 }

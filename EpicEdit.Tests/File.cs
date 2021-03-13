@@ -62,32 +62,32 @@ namespace EpicEdit.Tests
 
         public static Game GetGame(Region region)
         {
-            return File.GetGame(File.GetRomFileName(region));
+            return GetGame(GetRomFileName(region));
         }
 
         public static Game GetGame(string fileName)
         {
-            return new Game(File.GetInputPath(fileName));
+            return new Game(GetInputPath(fileName));
         }
 
         public static byte[] ReadRom(Region region)
         {
-            return File.ReadFile(File.GetRomFileName(region));
+            return ReadFile(GetRomFileName(region));
         }
 
         public static byte[] ReadFile(string fileName)
         {
-            return System.IO.File.ReadAllBytes(File.GetInputPath(fileName));
+            return System.IO.File.ReadAllBytes(GetInputPath(fileName));
         }
 
         private static string GetInputPath(string fileName)
         {
-            return File.InputPath + fileName;
+            return InputPath + fileName;
         }
 
         public static string GetOutputPath(string fileName)
         {
-            string outputPath = File.OutputPath;
+            string outputPath = OutputPath;
             if (!Directory.Exists(outputPath))
             {
                 Directory.CreateDirectory(outputPath);

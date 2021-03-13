@@ -52,62 +52,62 @@ namespace EpicEdit.UI.ThemeEdition
 
         public Point TilePosition { get; private set; }
 
-        public int ScrollPixelPositionX => (int)(this.AutoScrollPosition.X / this.Zoom);
+        public int ScrollPixelPositionX => (int)(AutoScrollPosition.X / Zoom);
 
-        public int ScrollTilePositionX => this.ScrollPixelPositionX / Tile.Size;
+        public int ScrollTilePositionX => ScrollPixelPositionX / Tile.Size;
 
         public Point AbsoluteTilePosition
         {
             get
             {
-                if (this.TilePosition == TrackEditor.OutOfBounds)
+                if (TilePosition == TrackEditor.OutOfBounds)
                 {
-                    return this.TilePosition;
+                    return TilePosition;
                 }
 
-                return new Point(this.TilePosition.X - this.ScrollTilePositionX, this.TilePosition.Y);
+                return new Point(TilePosition.X - ScrollTilePositionX, TilePosition.Y);
             }
         }
 
         [Browsable(false), DefaultValue(typeof(byte), "0")]
         public byte TileId { get; set; }
 
-        private byte tileProperties;
+        private byte _tileProperties;
 
         /// <summary>
         /// Specifies whether the user is selecting a tile.
         /// </summary>
-        private bool tileSelection;
+        private bool _tileSelection;
 
         public Tile2bppProperties TileProperties
         {
-            get => new Tile2bppProperties(this.tileProperties);
-            set => this.tileProperties = value.GetByte();
+            get => new Tile2bppProperties(_tileProperties);
+            set => _tileProperties = value.GetByte();
         }
 
         public BackgroundPanel()
         {
-            this.TilePosition = TrackEditor.OutOfBounds;
-            this.HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
-            this.MouseMove += this.BackgroundPanel_MouseMove;
-            this.MouseLeave += this.BackgroundPanel_MouseLeave;
-            this.MouseDown += this.BackgroundPanel_MouseDown;
-            this.MouseUp += this.BackgroundPanel_MouseUp;
+            TilePosition = TrackEditor.OutOfBounds;
+            HorizontalScroll.SmallChange = Tile.Size * BackgroundDrawer.Zoom;
+            MouseMove += BackgroundPanel_MouseMove;
+            MouseLeave += BackgroundPanel_MouseLeave;
+            MouseDown += BackgroundPanel_MouseDown;
+            MouseUp += BackgroundPanel_MouseUp;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.Drawer == null)
+            if (Drawer == null)
             {
                 return;
             }
 
-            this.Drawer.DrawBackgroundLayer(e.Graphics, this.TilePosition, this.ScrollPixelPositionX, this.Front, this.tileSelection);
+            Drawer.DrawBackgroundLayer(e.Graphics, TilePosition, ScrollPixelPositionX, Front, _tileSelection);
         }
 
         protected override void OnScroll(ScrollEventArgs se)
         {
-            this.Invalidate();
+            Invalidate();
         }
 
         private void BackgroundPanel_MouseMove(object sender, MouseEventArgs e)
@@ -117,42 +117,42 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            this.Cursor = EpicCursors.PencilCursor;
+            Cursor = EpicCursors.PencilCursor;
 
-            Point tilePositionBefore = this.TilePosition;
-            this.SetPosition(e.Location);
+            Point tilePositionBefore = TilePosition;
+            SetPosition(e.Location);
 
-            if (tilePositionBefore != this.TilePosition)
+            if (tilePositionBefore != TilePosition)
             {
-                this.InitAction(e.Button);
-                this.Invalidate();
+                InitAction(e.Button);
+                Invalidate();
             }
         }
 
         private void BackgroundPanel_MouseLeave(object sender, EventArgs e)
         {
-            this.TilePosition = TrackEditor.OutOfBounds;
-            this.Invalidate();
+            TilePosition = TrackEditor.OutOfBounds;
+            Invalidate();
         }
 
         private void BackgroundPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            this.InitAction(e.Button);
+            InitAction(e.Button);
         }
 
         private void BackgroundPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.tileSelection)
+            if (_tileSelection)
             {
-                this.tileSelection = false;
-                this.Invalidate();
+                _tileSelection = false;
+                Invalidate();
             }
         }
 
         private void SetPosition(Point location)
         {
-            int zoomedTileSize = (int)(Tile.Size * this.Zoom);
-            int x = (location.X - (this.AutoScrollPosition.X % zoomedTileSize)) / zoomedTileSize;
+            int zoomedTileSize = (int)(Tile.Size * Zoom);
+            int x = (location.X - (AutoScrollPosition.X % zoomedTileSize)) / zoomedTileSize;
             int y = location.Y / zoomedTileSize;
 
             // We check that the new position isn't out of the track limits, if it is,
@@ -161,62 +161,62 @@ namespace EpicEdit.UI.ThemeEdition
             {
                 x = 0;
             }
-            else if (x >= this.Width / zoomedTileSize)
+            else if (x >= Width / zoomedTileSize)
             {
-                x = this.Width / zoomedTileSize - 1;
+                x = Width / zoomedTileSize - 1;
             }
 
             if (y < 0)
             {
                 y = 0;
             }
-            else if (y >= this.AutoScrollMinSize.Height / zoomedTileSize)
+            else if (y >= AutoScrollMinSize.Height / zoomedTileSize)
             {
                 // Using AutoScrollMinSize.Height rather than Height,
                 // because Height includes the horizontal scroll bar height
-                y = this.AutoScrollMinSize.Height / zoomedTileSize - 1;
+                y = AutoScrollMinSize.Height / zoomedTileSize - 1;
             }
 
-            this.TilePosition = new Point(x, y);
+            TilePosition = new Point(x, y);
         }
 
         private void InitAction(MouseButtons mouseButton)
         {
-            if (this.TilePosition == TrackEditor.OutOfBounds)
+            if (TilePosition == TrackEditor.OutOfBounds)
             {
                 return;
             }
 
             if (mouseButton == MouseButtons.Left)
             {
-                this.LayTile();
-                this.Invalidate();
+                LayTile();
+                Invalidate();
             }
             else if (mouseButton == MouseButtons.Right)
             {
-                this.SelectTile();
-                this.Invalidate();
+                SelectTile();
+                Invalidate();
             }
         }
 
         private void LayTile()
         {
-            Point position = this.AbsoluteTilePosition;
-            this.Background.Layout.SetTileData(position.X, position.Y, this.Front, this.TileId, this.tileProperties);
-            this.Drawer.UpdateTile(position.X, position.Y, this.Front, this.TileId, this.tileProperties);
+            Point position = AbsoluteTilePosition;
+            Background.Layout.SetTileData(position.X, position.Y, Front, TileId, _tileProperties);
+            Drawer.UpdateTile(position.X, position.Y, Front, TileId, _tileProperties);
 
-            this.TileChanged(this, EventArgs.Empty);
+            TileChanged(this, EventArgs.Empty);
         }
 
         private void SelectTile()
         {
-            this.tileSelection = true;
+            _tileSelection = true;
 
-            Point position = this.AbsoluteTilePosition;
-            this.Background.Layout.GetTileData(position.X, position.Y, this.Front, out byte tileId, out byte properties);
+            Point position = AbsoluteTilePosition;
+            Background.Layout.GetTileData(position.X, position.Y, Front, out byte tileId, out byte properties);
 
             EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
-            this.TileSelected(this, ea);
+            TileSelected(this, ea);
         }
 
         protected override Tile GetTileAt(int x, int y)
@@ -226,7 +226,7 @@ namespace EpicEdit.UI.ThemeEdition
             y /= Tile.Size;
 
             // NOTE: We're leaking a bit of memory here, as the instance is not explicitly disposed
-            return this.Background.GetTileInstance(x, y, this.Front);
+            return Background.GetTileInstance(x, y, Front);
         }
     }
 }

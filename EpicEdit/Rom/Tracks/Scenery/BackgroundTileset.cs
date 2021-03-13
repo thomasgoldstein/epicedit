@@ -31,15 +31,15 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public bool Modified { get; private set; }
 
-        private readonly BackgroundTile[] tileset;
+        private readonly BackgroundTile[] _tileset;
 
         public BackgroundTileset(BackgroundTile[] tileset)
         {
-            this.tileset = tileset;
+            _tileset = tileset;
 
-            foreach (Tile tile in this.tileset)
+            foreach (Tile tile in _tileset)
             {
-                tile.PropertyChanged += this.tile_PropertyChanged;
+                tile.PropertyChanged += tile_PropertyChanged;
             }
         }
 
@@ -53,55 +53,55 @@ namespace EpicEdit.Rom.Tracks.Scenery
                 return;
             }
 
-            this.MarkAsModified(sender, e);
+            MarkAsModified(sender, e);
         }
 
         private void MarkAsModified(object sender, PropertyChangedEventArgs e)
         {
-            this.Modified = true;
-            this.OnPropertyChanged(sender, e);
+            Modified = true;
+            OnPropertyChanged(sender, e);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(sender, e);
         }
 
         public BackgroundTile[] GetTiles()
         {
-            return this.tileset;
+            return _tileset;
         }
 
         public BackgroundTile GetTile(int index)
         {
-            return this.tileset[index];
+            return _tileset[index];
         }
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[BackgroundTileset.TileCount * 16];
+            byte[] data = new byte[TileCount * 16];
 
-            for (int j = 0; j < BackgroundTileset.TileCount; j++)
+            for (int j = 0; j < TileCount; j++)
             {
-                BackgroundTile tile = this.GetTile(j);
+                BackgroundTile tile = GetTile(j);
                 Buffer.BlockCopy(tile.Graphics, 0, data, j * 16, tile.Graphics.Length);
             }
 
             return data;
         }
 
-        public BackgroundTile this[int index] => this.GetTile(index);
+        public BackgroundTile this[int index] => GetTile(index);
 
         public void ResetModifiedState()
         {
-            this.Modified = false;
+            Modified = false;
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (Tile tile in this.tileset)
+                foreach (Tile tile in _tileset)
                 {
                     tile.Dispose();
                 }
@@ -110,7 +110,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

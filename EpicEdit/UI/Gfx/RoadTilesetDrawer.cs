@@ -27,45 +27,45 @@ namespace EpicEdit.UI.Gfx
     {
         public const int Zoom = 2;
 
-        private RoadTileset tileset;
-        private readonly Size imageSize;
+        private RoadTileset _tileset;
+        private readonly Size _imageSize;
 
         public Bitmap Image { get; private set; }
 
         public RoadTilesetDrawer(Size size)
         {
-            this.imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
+            _imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            this.Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public RoadTileset Tileset
         {
-            //get => this.tileset;
+            //get => _tileset;
             set
             {
-                this.tileset = value;
-                this.UpdateCache();
+                _tileset = value;
+                UpdateCache();
             }
         }
 
         private void UpdateCache()
         {
-            int tileCountX = this.imageSize.Width / Tile.Size;
-            int tileCountY = this.imageSize.Height / Tile.Size;
+            int tileCountX = _imageSize.Width / Tile.Size;
+            int tileCountY = _imageSize.Height / Tile.Size;
 
-            this.Image.Dispose();
-            this.Image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            Image.Dispose();
+            Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(this.Image))
+            using (Graphics g = Graphics.FromImage(Image))
             {
                 for (int x = 0; x < tileCountX; x++)
                 {
                     for (int y = 0; y < tileCountY; y++)
                     {
-                        Tile tile = this.tileset[x + (y * tileCountX)];
+                        Tile tile = _tileset[x + (y * tileCountX)];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);
                     }
                 }
@@ -74,12 +74,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            TilesetHelper.Instance.DrawTileset(g, this.Image, this.imageSize, Zoom, selectedTile);
+            TilesetHelper.Instance.DrawTileset(g, Image, _imageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
-            this.Image.Dispose();
+            Image.Dispose();
 
             GC.SuppressFinalize(this);
         }

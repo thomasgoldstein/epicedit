@@ -25,35 +25,35 @@ namespace EpicEdit.UI.Tools
     {
         private const int StartValue = 1;
 
-        private decimal DisplayedValue => this.Value + StartValue;
+        private decimal DisplayedValue => Value + StartValue;
 
         #region Allow looping from the first value to the last value, and vice versa
 
         public Base1NumericUpDown()
         {
-            this.Maximum = base.Maximum;
-            this.Minimum = base.Minimum;
+            Maximum = Maximum;
+            Minimum = Minimum;
         }
         public override void UpButton()
         {
             if (Value < Maximum)
             {
-                this.Value++;
+                Value++;
             }
             else
             {
-                this.Value = this.Minimum;
+                Value = Minimum;
             }
         }
         public override void DownButton()
         {
-            if (this.Value > this.Minimum)
+            if (Value > Minimum)
             {
-                this.Value--;
+                Value--;
             }
             else
             {
-                this.Value = this.Maximum;
+                Value = Maximum;
             }
         }
 
@@ -63,13 +63,13 @@ namespace EpicEdit.UI.Tools
 
         protected override void UpdateEditText()
         {
-            this.Text = this.DisplayedValue.ToString(CultureInfo.InvariantCulture);
+            Text = DisplayedValue.ToString(CultureInfo.InvariantCulture);
         }
 
         protected override void ValidateEditText()
         {
-            this.ParseEditText();
-            this.UpdateEditText();
+            ParseEditText();
+            UpdateEditText();
         }
 
         private new void ParseEditText()
@@ -77,25 +77,25 @@ namespace EpicEdit.UI.Tools
             // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
             try
             {
-                if (decimal.TryParse(this.Text, out decimal value))
+                if (decimal.TryParse(Text, out decimal value))
                 {
                     value -= StartValue;
 
-                    if (value < this.Minimum)
+                    if (value < Minimum)
                     {
-                        value = this.Minimum;
+                        value = Minimum;
                     }
-                    else if (value > this.Maximum)
+                    else if (value > Maximum)
                     {
-                        value = this.Maximum;
+                        value = Maximum;
                     }
 
-                    this.Value = value;
+                    Value = value;
                 }
             }
             finally
             {
-                this.UserEdit = false;
+                UserEdit = false;
             }
         }
 

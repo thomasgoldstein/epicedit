@@ -36,7 +36,7 @@ namespace EpicEdit.Rom.Compression
 
                     if (parentNode.Key < buffer.Length)
                     {
-                        OptimalCompressor.CreateChildNodes(buffer, nodeCollection, parentNode.Key, parentNode.Value, byteDictionary);
+                        CreateChildNodes(buffer, nodeCollection, parentNode.Key, parentNode.Value, byteDictionary);
                     }
                 }
             }
@@ -55,7 +55,7 @@ namespace EpicEdit.Rom.Compression
             // can improve compression a tiny bit (like just one byte) in some rare cases,
             // but it's not worth the huge hit on compression speed.
 
-            OptimalCompressor.CreateNodesFromBackCommands(nodeCollection, i, parentNode, byteDictionary);
+            CreateNodesFromBackCommands(nodeCollection, i, parentNode, byteDictionary);
 
             int command;
             int byteCount;
@@ -64,27 +64,27 @@ namespace EpicEdit.Rom.Compression
                 buffer[i] == buffer[i + 1])
             {
                 command = 1;
-                byteCount = OptimalCompressor.GetCommand1ByteCount(buffer, i);
+                byteCount = GetCommand1ByteCount(buffer, i);
             }
             else if ((i + 2) < buffer.Length &&
                      buffer[i] == buffer[i + 2])
             {
                 command = 2;
-                byteCount = OptimalCompressor.GetCommand2ByteCount(buffer, i);
+                byteCount = GetCommand2ByteCount(buffer, i);
             }
             else if ((i + 1) < buffer.Length &&
                      ((buffer[i] + 1) & 0xFF) == buffer[i + 1])
             {
                 command = 3;
-                byteCount = OptimalCompressor.GetCommand3ByteCount(buffer, i);
+                byteCount = GetCommand3ByteCount(buffer, i);
             }
             else
             {
                 command = 0;
-                byteCount = OptimalCompressor.GetCommand0ByteCount(buffer, i);
+                byteCount = GetCommand0ByteCount(buffer, i);
             }
 
-            OptimalCompressor.CreateNodesFromCommand(command, byteCount, nodeCollection, i, parentNode);
+            CreateNodesFromCommand(command, byteCount, nodeCollection, i, parentNode);
         }
 
         private static void CreateNodesFromCommand(int command, int byteCount, ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode)
@@ -153,7 +153,7 @@ namespace EpicEdit.Rom.Compression
                     )
                     ||
                         // Matches command 4 or 6
-                        OptimalCompressor.IsBackCommandComing(buffer, j)
+                        IsBackCommandComing(buffer, j)
                 #endregion
                 )
                 {

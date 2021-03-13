@@ -33,41 +33,41 @@ namespace EpicEdit.Rom.Tracks.Overlay
         public event EventHandler<EventArgs<OverlayTile>> ElementRemoved;
         public event EventHandler<EventArgs> ElementsCleared;
 
-        private readonly OverlayTileSizes sizes;
-        private readonly OverlayTilePatterns patterns;
-        private readonly List<OverlayTile> overlayTiles;
+        private readonly OverlayTileSizes _sizes;
+        private readonly OverlayTilePatterns _patterns;
+        private readonly List<OverlayTile> _overlayTiles;
 
         public OverlayTiles(byte[] data, OverlayTileSizes sizes, OverlayTilePatterns patterns)
         {
-            this.sizes = sizes;
-            this.patterns = patterns;
-            this.overlayTiles = new List<OverlayTile>();
-            this.SetBytes(data);
+            _sizes = sizes;
+            _patterns = patterns;
+            _overlayTiles = new List<OverlayTile>();
+            SetBytes(data);
         }
 
         public IEnumerator<OverlayTile> GetEnumerator()
         {
-            return this.overlayTiles.GetEnumerator();
+            return _overlayTiles.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.overlayTiles.GetEnumerator();
+            return _overlayTiles.GetEnumerator();
         }
 
-        public int Count => this.overlayTiles.Count;
+        public int Count => _overlayTiles.Count;
 
-        public OverlayTile this[int index] => this.overlayTiles[index];
+        public OverlayTile this[int index] => _overlayTiles[index];
 
         public void SetBytes(byte[] data)
         {
-            if (data.Length != OverlayTiles.Size)
+            if (data.Length != Size)
             {
                 throw new ArgumentException("Incorrect overlay tile data size", nameof(data));
             }
 
-            this.Clear();
-            for (int overlayTileIndex = 0; overlayTileIndex < OverlayTiles.MaxTileCount; overlayTileIndex++)
+            Clear();
+            for (int overlayTileIndex = 0; overlayTileIndex < MaxTileCount; overlayTileIndex++)
             {
                 int index = overlayTileIndex * 3;
                 if (data[index + 1] == 0xFF &&
@@ -76,8 +76,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
                     break;
                 }
 
-                OverlayTileSize size = this.sizes[(data[index] & 0xC0) >> 6];
-                OverlayTilePattern pattern = this.patterns[data[index] & 0x3F];
+                OverlayTileSize size = _sizes[(data[index] & 0xC0) >> 6];
+                OverlayTilePattern pattern = _patterns[data[index] & 0x3F];
 
                 if (pattern.Size != size)
                 {
@@ -90,7 +90,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
                 Point location = new Point(x, y);
 
-                this.Add(new OverlayTile(pattern, location));
+                Add(new OverlayTile(pattern, location));
             }
         }
 
@@ -100,16 +100,16 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <returns>The OverlayTiles bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[OverlayTiles.Size];
+            byte[] data = new byte[Size];
 
-            for (int overlayTileIndex = 0; overlayTileIndex < this.overlayTiles.Count; overlayTileIndex++)
+            for (int overlayTileIndex = 0; overlayTileIndex < _overlayTiles.Count; overlayTileIndex++)
             {
                 int index = overlayTileIndex * 3;
-                OverlayTile overlayTile = this.overlayTiles[overlayTileIndex];
-                overlayTile.GetBytes(data, index, this.sizes, this.patterns);
+                OverlayTile overlayTile = _overlayTiles[overlayTileIndex];
+                overlayTile.GetBytes(data, index, _sizes, _patterns);
             }
 
-            for (int index = this.overlayTiles.Count * 3; index < data.Length; index++)
+            for (int index = _overlayTiles.Count * 3; index < data.Length; index++)
             {
                 data[index] = 0xFF;
             }
@@ -119,26 +119,26 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void Add(OverlayTile overlayTile)
         {
-            if (this.Count >= OverlayTiles.MaxTileCount)
+            if (Count >= MaxTileCount)
             {
                 return;
             }
 
-            this.overlayTiles.Add(overlayTile);
-            overlayTile.DataChanged += this.overlayTile_DataChanged;
-            this.OnElementAdded(overlayTile);
+            _overlayTiles.Add(overlayTile);
+            overlayTile.DataChanged += overlayTile_DataChanged;
+            OnElementAdded(overlayTile);
         }
 
         public void Remove(OverlayTile overlayTile)
         {
-            overlayTile.DataChanged -= this.overlayTile_DataChanged;
-            this.overlayTiles.Remove(overlayTile);
-            this.OnElementRemoved(overlayTile);
+            overlayTile.DataChanged -= overlayTile_DataChanged;
+            _overlayTiles.Remove(overlayTile);
+            OnElementRemoved(overlayTile);
         }
 
         private void overlayTile_DataChanged(object sender, EventArgs e)
         {
-            this.OnDataChanged();
+            OnDataChanged();
         }
 
         /// <summary>
@@ -146,33 +146,33 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// </summary>
         public void Clear()
         {
-            foreach (OverlayTile tile in this.overlayTiles)
+            foreach (OverlayTile tile in _overlayTiles)
             {
-                tile.DataChanged -= this.overlayTile_DataChanged;
+                tile.DataChanged -= overlayTile_DataChanged;
             }
 
-            this.overlayTiles.Clear();
-            this.OnElementsCleared();
+            _overlayTiles.Clear();
+            OnElementsCleared();
         }
 
         private void OnDataChanged()
         {
-            this.DataChanged?.Invoke(this, EventArgs.Empty);
+            DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnElementAdded(OverlayTile value)
         {
-            this.ElementAdded?.Invoke(this, new EventArgs<OverlayTile>(value));
+            ElementAdded?.Invoke(this, new EventArgs<OverlayTile>(value));
         }
 
         private void OnElementRemoved(OverlayTile value)
         {
-            this.ElementRemoved?.Invoke(this, new EventArgs<OverlayTile>(value));
+            ElementRemoved?.Invoke(this, new EventArgs<OverlayTile>(value));
         }
 
         private void OnElementsCleared()
         {
-            this.ElementsCleared?.Invoke(this, EventArgs.Empty);
+            ElementsCleared?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -24,23 +24,23 @@ namespace EpicEdit.Rom
     {
         protected void SetPalette()
         {
-            if (base.Palette != this.Palette)
+            if (base.Palette != Palette)
             {
                 // Setting the base Palette lets us listen to the palette color change events,
                 // and will update the Bitmap if the Palette has changed.
-                base.Palette = this.Palette;
+                base.Palette = Palette;
             }
             else
             {
                 // Force the update of the bitmap. This is necessary because even though
                 // the palette is the same, Tile2bppProperties changes still affect the tile image.
-                this.UpdateBitmap();
+                UpdateBitmap();
             }
         }
 
         public override Palette Palette
         {
-            get => this.palettes?[this.Properties.PaletteIndex];
+            get => _palettes?[Properties.PaletteIndex];
             set
             {
                 if (value == null)
@@ -48,57 +48,57 @@ namespace EpicEdit.Rom
                     return;
                 }
 
-                this.Properties = new Tile2bppProperties
+                Properties = new Tile2bppProperties
                 {
                     PaletteIndex = value.Index,
-                    SubPaletteIndex = this.Properties.SubPaletteIndex,
-                    Flip = this.Properties.Flip
+                    SubPaletteIndex = Properties.SubPaletteIndex,
+                    Flip = Properties.Flip
                 };
 
-                base.Palette = this.Palette;
+                base.Palette = Palette;
             }
         }
 
-        private Palettes palettes;
+        private Palettes _palettes;
         public Palettes Palettes
         {
-            get => this.palettes;
+            get => _palettes;
             set
             {
-                if (this.palettes == value)
+                if (_palettes == value)
                 {
                     return;
                 }
 
-                this.palettes = value;
-                this.SetPalette();
+                _palettes = value;
+                SetPalette();
             }
         }
 
-        private Tile2bppProperties properties;
+        private Tile2bppProperties _properties;
         public virtual Tile2bppProperties Properties
         {
-            get => this.properties;
+            get => _properties;
             set
             {
-                if (this.properties == value)
+                if (_properties == value)
                 {
                     return;
                 }
 
-                this.properties = value;
-                this.SetPalette();
+                _properties = value;
+                SetPalette();
             }
         }
 
         private RomColor[] GetSubPalette()
         {
-            Palette palette = this.Palette;
-            int subPalIndex = this.Properties.SubPaletteIndex;
+            Palette palette = Palette;
+            int subPalIndex = Properties.SubPaletteIndex;
 
             return new[]
             {
-                this.Palettes.BackColor,
+                Palettes.BackColor,
                 palette[subPalIndex + 1],
                 palette[subPalIndex + 2],
                 palette[subPalIndex + 3]
@@ -111,62 +111,62 @@ namespace EpicEdit.Rom
 
         public Tile2bpp(byte[] gfx, Palettes palettes, byte properties)
         {
-            this.Graphics = gfx;
-            this.Properties = new Tile2bppProperties(properties);
-            this.Palettes = palettes;
+            Graphics = gfx;
+            Properties = new Tile2bppProperties(properties);
+            Palettes = palettes;
         }
 
         protected override void GenerateBitmap()
         {
-            this.bitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(this.Graphics, this.Palettes, this.Properties);
+            InternalBitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(Graphics, Palettes, Properties);
         }
 
         protected override void GenerateGraphics()
         {
-            FastBitmap fBitmap = new FastBitmap(this.bitmap);
-            RomColor[] palette = this.GetSubPalette();
+            FastBitmap fBitmap = new FastBitmap(InternalBitmap);
+            RomColor[] palette = GetSubPalette();
 
-            for (int y = 0; y < Tile.Size; y++)
+            for (int y = 0; y < Size; y++)
             {
                 byte val1 = 0;
                 byte val2 = 0;
-                for (int x = 0; x < Tile.Size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    int xPos = (Tile.Size - 1) - x;
+                    int xPos = (Size - 1) - x;
                     RomColor color = fBitmap.GetPixel(xPos, y);
                     int colorIndex = Utilities.GetColorIndex(color, palette);
                     val1 |= (byte)((colorIndex & 0x01) << x);
                     val2 |= (byte)(((colorIndex & 0x02) << x) >> 1);
                 }
 
-                this.Graphics[y * 2] = val1;
-                this.Graphics[y * 2 + 1] = val2;
+                Graphics[y * 2] = val1;
+                Graphics[y * 2 + 1] = val2;
             }
 
             fBitmap.Release();
 
             // Regenerate the bitmap, in case the new image contained colors
             // not present in the palettes
-            this.UpdateBitmap();
+            UpdateBitmap();
         }
 
         public override int GetColorIndexAt(int x, int y)
         {
-            if ((this.Properties.Flip & TileFlip.X) == 0)
+            if ((Properties.Flip & TileFlip.X) == 0)
             {
-                x = (Tile.Size - 1) - x;
+                x = (Size - 1) - x;
             }
 
-            if ((this.Properties.Flip & TileFlip.Y) != 0)
+            if ((Properties.Flip & TileFlip.Y) != 0)
             {
-                y = (Tile.Size - 1) - y;
+                y = (Size - 1) - y;
             }
 
-            byte val1 = this.Graphics[y * 2];
-            byte val2 = this.Graphics[y * 2 + 1];
+            byte val1 = Graphics[y * 2];
+            byte val2 = Graphics[y * 2 + 1];
             int mask = 1 << x;
             int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-            return this.Properties.SubPaletteIndex + colIndex;
+            return Properties.SubPaletteIndex + colIndex;
         }
 
         public override bool Contains(int colorIndex)

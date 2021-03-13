@@ -20,12 +20,12 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
     [TestFixture]
     internal class BattleStartPositionTests
     {
-        private byte[] allData;
+        private byte[] _allData;
 
         [OneTimeSetUp]
         public void Init()
         {
-            this.allData = new byte[]
+            _allData = new byte[]
             {
                 0x00, 0x02, 0x88, 0x01, 0x00, 0x02, 0x78, 0x02,
                 0x00, 0x02, 0x8A, 0x01, 0x00, 0x02, 0x78, 0x02
@@ -39,7 +39,7 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
             int index = id * dataBefore.Length;
             for (int i = 0; i < dataBefore.Length; i++)
             {
-                dataBefore[i] = this.allData[index + i];
+                dataBefore[i] = _allData[index + i];
             }
 
             BattleStartPosition startPosition = new BattleStartPosition(dataBefore);
@@ -51,25 +51,25 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
         [Test]
         public void TestGetBytes1()
         {
-            this.TestGetBytes(0);
+            TestGetBytes(0);
         }
 
         [Test]
         public void TestGetBytes2()
         {
-            this.TestGetBytes(1);
+            TestGetBytes(1);
         }
 
         [Test]
         public void TestGetBytes3()
         {
-            this.TestGetBytes(2);
+            TestGetBytes(2);
         }
 
         [Test]
         public void TestGetBytes4()
         {
-            this.TestGetBytes(3);
+            TestGetBytes(3);
         }
     }
 }

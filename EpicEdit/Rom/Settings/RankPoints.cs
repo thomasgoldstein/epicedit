@@ -28,48 +28,48 @@ namespace EpicEdit.Rom.Settings
         private const int BytesPerObject = 2;
         public const int Size = Count * BytesPerObject;
 
-        private readonly int[] points;
+        private readonly int[] _points;
 
         public bool Modified { get; private set; }
 
         public RankPoints(byte[] data)
         {
-            this.points = new int[RankPoints.Count];
+            _points = new int[Count];
 
-            for (int i = 0; i < this.points.Length; i++)
+            for (int i = 0; i < _points.Length; i++)
             {
-                this.points[i] = data[i * RankPoints.BytesPerObject];
+                _points[i] = data[i * BytesPerObject];
             }
         }
 
         public int this[int rank]
         {
-            get => this.points[rank];
+            get => _points[rank];
             set
             {
-                this.points[rank] = value;
-                this.MarkAsModified();
+                _points[rank] = value;
+                MarkAsModified();
             }
         }
 
         private void MarkAsModified()
         {
-            this.Modified = true;
-            this.OnPropertyChanged(PropertyNames.RankPoints.Value);
+            Modified = true;
+            OnPropertyChanged(PropertyNames.RankPoints.Value);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[RankPoints.Size];
+            byte[] data = new byte[Size];
 
-            for (int i = 0; i < this.points.Length; i++)
+            for (int i = 0; i < _points.Length; i++)
             {
-                data[i * RankPoints.BytesPerObject] = (byte)this.points[i];
+                data[i * BytesPerObject] = (byte)_points[i];
             }
 
             return data;
@@ -77,16 +77,16 @@ namespace EpicEdit.Rom.Settings
 
         public void Save(byte[] romBuffer, int offset)
         {
-            if (this.Modified)
+            if (Modified)
             {
-                byte[] data = this.GetBytes();
-                Buffer.BlockCopy(data, 0, romBuffer, offset, RankPoints.Size);
+                byte[] data = GetBytes();
+                Buffer.BlockCopy(data, 0, romBuffer, offset, Size);
             }
         }
 
         public void ResetModifiedState()
         {
-            this.Modified = false;
+            Modified = false;
         }
     }
 }

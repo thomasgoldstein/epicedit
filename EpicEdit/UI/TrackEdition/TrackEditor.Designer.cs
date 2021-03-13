@@ -34,24 +34,24 @@ namespace EpicEdit.UI.TrackEdition
                     this.components.Dispose();
                 }
 
-                if (this.drawer != null)
+                if (this._drawer != null)
                 {
-                    this.drawer.Dispose();
+                    this._drawer.Dispose();
                 }
 
-                if (this.dirtyRegion != null)
+                if (this._dirtyRegion != null)
                 {
-                    this.dirtyRegion.Dispose();
+                    this._dirtyRegion.Dispose();
                 }
 
-                if (this.paletteForm != null)
+                if (this._paletteForm != null)
                 {
-                    this.paletteForm.Dispose();
+                    this._paletteForm.Dispose();
                 }
 
-                if (this.settingForm != null)
+                if (this._settingForm != null)
                 {
-                    this.settingForm.Dispose();
+                    this._settingForm.Dispose();
                 }
             }
             base.Dispose(disposing);

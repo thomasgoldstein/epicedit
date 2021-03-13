@@ -33,8 +33,8 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get => this.themeComboBox.SelectedTheme;
-            set => this.themeComboBox.SelectedTheme = value;
+            get => themeComboBox.SelectedTheme;
+            set => themeComboBox.SelectedTheme = value;
         }
 
         /// <summary>
@@ -43,59 +43,59 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Palette), "")]
         public Palette Palette
         {
-            get => this.Theme.Palettes[(int)this.paletteNumericUpDown.Value];
+            get => Theme.Palettes[(int)paletteNumericUpDown.Value];
             set
             {
-                this.Theme = value.Theme;
-                this.paletteNumericUpDown.Value = value.Index;
+                Theme = value.Theme;
+                paletteNumericUpDown.Value = value.Index;
             }
         }
 
         /// <summary>
         /// Index of the selected color from the palette.
         /// </summary>
-        private int colorIndex;
+        private int _colorIndex;
 
         /// <summary>
         /// Gets or sets the index of the selected color from the palette.
         /// </summary>
         public int ColorIndex
         {
-            get => this.colorIndex;
+            get => _colorIndex;
             set
             {
                 // Move the focus of the R/G/B numeric fields, to force save the current RGB value if unsaved (happens when text editing the value)
-                this.Focus();
+                Focus();
 
                 // Deselect previous panel
-                this.panels[this.colorIndex].BorderStyle = BorderStyle.FixedSingle;
+                _panels[_colorIndex].BorderStyle = BorderStyle.FixedSingle;
 
-                this.colorIndex = value;
-                this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-                this.hexTextBox.Text = this.colorPicker.SelectedColor.ToHexString();
+                _colorIndex = value;
+                colorPicker.SelectedColor = _panels[_colorIndex].BackColor;
+                hexTextBox.Text = colorPicker.SelectedColor.ToHexString();
 
                 // Select new panel
-                this.panels[this.colorIndex].BorderStyle = BorderStyle.Fixed3D;
+                _panels[_colorIndex].BorderStyle = BorderStyle.Fixed3D;
             }
         }
 
         /// <summary>
         /// The 16 boxes where the colors of the palette are drawn
         /// </summary>
-        private readonly Panel[] panels = new Panel[Palette.ColorCount];
+        private readonly Panel[] _panels = new Panel[Palette.ColorCount];
 
         /// <summary>
         /// The tool tips associated with the above panels.
         /// </summary>
-        private readonly ToolTip[] toolTips = new ToolTip[Palette.ColorCount];
+        private readonly ToolTip[] _toolTips = new ToolTip[Palette.ColorCount];
 
         /// <summary>
         /// Constructs the editor.
         /// </summary>
         public PaletteEditor()
         {
-            this.InitializeComponent();
-            this.InitColorPanels();
+            InitializeComponent();
+            InitColorPanels();
         }
 
         /// <summary>
@@ -103,36 +103,36 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         public void Init()
         {
-            this.themeComboBox.Init();
-            this.themeComboBox.SelectedIndex = 0;
+            themeComboBox.Init();
+            themeComboBox.SelectedIndex = 0;
         }
 
         private void InitColorPanels()
         {
-            for (int i = 0; i < this.panels.Length; i++)
+            for (int i = 0; i < _panels.Length; i++)
             {
                 // Calculate the location of the panel on the control
                 int x = 12 + ((i % 4) * 32) + ((i % 4) * 8);
-                int y = this.colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
+                int y = colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
 
-                this.panels[i] = new Panel
+                _panels[i] = new Panel
                 {
                     Size = new Size(32, 32),
                     Location = new Point(x, y),
                     BorderStyle = BorderStyle.FixedSingle,
                     Tag = i
                 };
-                this.panels[i].Click += this.PaletteEditorClick;
-                this.Controls.Add(panels[i]);
+                _panels[i].Click += PaletteEditorClick;
+                Controls.Add(_panels[i]);
 
-                this.toolTips[i] = new ToolTip()
+                _toolTips[i] = new ToolTip()
                 {
                     ReshowDelay = 1,
                     InitialDelay = 1
                 };
             }
 
-            this.panels[this.colorIndex].BorderStyle = BorderStyle.Fixed3D;
+            _panels[_colorIndex].BorderStyle = BorderStyle.Fixed3D;
         }
 
         /// <summary>
@@ -140,13 +140,13 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void UpdatePalette()
         {
-            for (int i = 0; i < this.panels.Length; i++)
+            for (int i = 0; i < _panels.Length; i++)
             {
-                this.UpdateColor(i);
+                UpdateColor(i);
             }
 
-            this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
-            this.hexTextBox.Text = this.colorPicker.SelectedColor.ToHexString();
+            colorPicker.SelectedColor = _panels[_colorIndex].BackColor;
+            hexTextBox.Text = colorPicker.SelectedColor.ToHexString();
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="index">The color panel index.</param>
         private void UpdateColor(int index)
         {
-            this.panels[index].BackColor = this.Palette[index];
-            this.SetToolTip(index);
+            _panels[index].BackColor = Palette[index];
+            SetToolTip(index);
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="paletteIndex">The index of the palette to reinitialize the message.</param>
         private void SetToolTip(int paletteIndex)
         {
-            string toolTipText = "#" + paletteIndex + Environment.NewLine + this.Palette[paletteIndex];
-            this.toolTips[paletteIndex].RemoveAll();
-            this.toolTips[paletteIndex].SetToolTip(this.panels[paletteIndex], toolTipText);
+            string toolTipText = "#" + paletteIndex + Environment.NewLine + Palette[paletteIndex];
+            _toolTips[paletteIndex].RemoveAll();
+            _toolTips[paletteIndex].SetToolTip(_panels[paletteIndex], toolTipText);
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void PaletteEditorClick(object sender, EventArgs e)
         {
             int index = (int)(sender as Control).Tag;
-            this.ColorIndex = index;
+            ColorIndex = index;
         }
 
         /// <summary>
@@ -188,9 +188,9 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void ResetSelectedButtonClick(object sender, EventArgs e)
         {
-            this.Palette.ResetColor(this.colorIndex);
-            this.UpdateColor(this.colorIndex);
-            this.colorPicker.SelectedColor = this.panels[this.colorIndex].BackColor;
+            Palette.ResetColor(_colorIndex);
+            UpdateColor(_colorIndex);
+            colorPicker.SelectedColor = _panels[_colorIndex].BackColor;
         }
 
         /// <summary>
@@ -200,54 +200,54 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void ResetAllButtonClick(object sender, EventArgs e)
         {
-            this.Palette.Reset();
-            this.UpdatePalette();
+            Palette.Reset();
+            UpdatePalette();
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.UpdatePalette();
+            UpdatePalette();
         }
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            this.UpdatePalette();
+            UpdatePalette();
         }
 
         private void ColorPickerColorChanged(object sender, EventArgs e)
         {
             // Draw the appropriate color back to the panel and update the tool tip
-            RomColor color = this.colorPicker.SelectedColor;
-            this.Palette[this.colorIndex] = color;
-            this.panels[this.colorIndex].BackColor = color;
-            this.SetToolTip(this.colorIndex);
-            this.panels[this.colorIndex].Refresh();
-            this.hexTextBox.Text = color.ToHexString();
+            RomColor color = colorPicker.SelectedColor;
+            Palette[_colorIndex] = color;
+            _panels[_colorIndex].BackColor = color;
+            SetToolTip(_colorIndex);
+            _panels[_colorIndex].Refresh();
+            hexTextBox.Text = color.ToHexString();
 
         }
 
         private void ImportPalettesButtonClick(object sender, EventArgs e)
         {
-            if (UITools.ShowImportBinaryDataDialog(this.Theme.Palettes.SetBytes, FileDialogFilters.ColorPalette))
+            if (UITools.ShowImportBinaryDataDialog(Theme.Palettes.SetBytes, FileDialogFilters.ColorPalette))
             {
-                this.UpdatePalette();
+                UpdatePalette();
             }
         }
 
         private void ExportPalettesButtonClick(object sender, EventArgs e)
         {
-            UITools.ShowExportBinaryDataDialog(this.Theme.Palettes.GetBytes, this.Theme.Name.Trim(), FileDialogFilters.ColorPalette);
+            UITools.ShowExportBinaryDataDialog(Theme.Palettes.GetBytes, Theme.Name.Trim(), FileDialogFilters.ColorPalette);
         }
 
         private void HexTextBoxValueChanged(object sender, EventArgs e)
         {
-            var color = RomColor.FromHex(this.hexTextBox.Text);
+            var color = RomColor.FromHex(hexTextBox.Text);
 
-            this.Palette[this.colorIndex] = color;
-            this.panels[this.colorIndex].BackColor = color;
-            this.SetToolTip(this.colorIndex);
-            this.panels[this.colorIndex].Refresh();
-            this.colorPicker.SelectedColor = color;
+            Palette[_colorIndex] = color;
+            _panels[_colorIndex].BackColor = color;
+            SetToolTip(_colorIndex);
+            _panels[_colorIndex].Refresh();
+            colorPicker.SelectedColor = color;
         }
     }
 }

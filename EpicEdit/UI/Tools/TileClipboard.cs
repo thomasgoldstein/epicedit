@@ -31,7 +31,7 @@ namespace EpicEdit.UI.Tools
         /// <summary>
         /// Where copied tiles are stored.
         /// </summary>
-        private List<byte> data;
+        private List<byte> _data;
 
         /// <summary>
         /// Gets or sets the rectangle representing the tile clipboard selection.
@@ -41,32 +41,32 @@ namespace EpicEdit.UI.Tools
         /// <summary>
         /// Gets the top-left position of the clipboard rectangle, as a tile selection is occuring.
         /// </summary>
-        public Point Location => this.Rectangle.Location;
+        public Point Location => Rectangle.Location;
 
         /// <summary>
         /// Gets the dimension of the tile clipboard.
         /// </summary>
-        public Size Size => this.Rectangle.Size;
+        public Size Size => Rectangle.Size;
 
-        public int Width => this.Rectangle.Width;
+        public int Width => Rectangle.Width;
 
-        public int Height => this.Rectangle.Height;
+        public int Height => Rectangle.Height;
 
         /// <summary>
         /// Gets the first tile stored in the clipboard.
         /// </summary>
-        public byte FirstTile => this.data[0];
+        public byte FirstTile => _data[0];
 
         public TileClipboard(byte tile)
         {
-            this.data = new List<byte>();
-            this.Add(tile);
+            _data = new List<byte>();
+            Add(tile);
         }
 
         private void Add(byte tile)
         {
-            this.data.Add(tile);
-            this.Rectangle = new Rectangle(0, 0, 1, 1);
+            _data.Add(tile);
+            Rectangle = new Rectangle(0, 0, 1, 1);
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace EpicEdit.UI.Tools
         /// <param name="tile">The tile.</param>
         public void Fill(byte tile)
         {
-            this.data.Clear();
-            this.Add(tile);
-            this.OnTileChanged(tile);
+            _data.Clear();
+            Add(tile);
+            OnTileChanged(tile);
         }
 
         /// <summary>
@@ -86,34 +86,34 @@ namespace EpicEdit.UI.Tools
         /// <param name="trackMap">The track map the tiles will be copied from.</param>
         public void Fill(TrackMap trackMap)
         {
-            this.data.Clear();
+            _data.Clear();
 
-            for (int y = this.Rectangle.Y; y < this.Rectangle.Bottom; y++)
+            for (int y = Rectangle.Y; y < Rectangle.Bottom; y++)
             {
-                for (int x = this.Rectangle.X; x < this.Rectangle.Right; x++)
+                for (int x = Rectangle.X; x < Rectangle.Right; x++)
                 {
-                    this.data.Add(trackMap[x, y]);
+                    _data.Add(trackMap[x, y]);
                 }
             }
 
-            this.OnTilesChanged(this.Rectangle);
+            OnTilesChanged(Rectangle);
         }
 
         private void OnTileChanged(byte value)
         {
-            this.TileChanged?.Invoke(this, new EventArgs<byte>(value));
+            TileChanged?.Invoke(this, new EventArgs<byte>(value));
         }
 
         private void OnTilesChanged(Rectangle value)
         {
-            this.TilesChanged?.Invoke(this, new EventArgs<Rectangle>(value));
+            TilesChanged?.Invoke(this, new EventArgs<Rectangle>(value));
         }
 
         public byte GetByte(int x, int y)
         {
-            return this.data[x + y * this.Rectangle.Width];
+            return _data[x + y * Rectangle.Width];
         }
 
-        public byte this[int x, int y] => this.GetByte(x, y);
+        public byte this[int x, int y] => GetByte(x, y);
     }
 }

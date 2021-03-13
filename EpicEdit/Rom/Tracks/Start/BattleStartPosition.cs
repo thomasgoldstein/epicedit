@@ -27,10 +27,10 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public event EventHandler<EventArgs> DataChanged;
 
-        private Point location;
+        private Point _location;
         public Point Location
         {
-            get => this.location;
+            get => _location;
             set
             {
                 int x = value.X;
@@ -40,52 +40,52 @@ namespace EpicEdit.Rom.Tracks.Start
                 {
                     x = Tile.Size;
                 }
-                else if (x > BattleStartPosition.PixelLimit)
+                else if (x > PixelLimit)
                 {
-                    x = BattleStartPosition.PixelLimit;
+                    x = PixelLimit;
                 }
 
                 if (y < Tile.Size)
                 {
                     y = Tile.Size;
                 }
-                else if (y > BattleStartPosition.PixelLimit)
+                else if (y > PixelLimit)
                 {
-                    y = BattleStartPosition.PixelLimit;
+                    y = PixelLimit;
                 }
 
-                if (this.X != x || this.Y != y)
+                if (X != x || Y != y)
                 {
-                    this.location = new Point(x, y);
-                    this.OnDataChanged();
+                    _location = new Point(x, y);
+                    OnDataChanged();
                 }
             }
         }
 
-        public int X => this.location.X;
+        public int X => _location.X;
 
-        public int Y => this.location.Y;
+        public int Y => _location.Y;
 
         public BattleStartPosition(byte[] data)
         {
-            this.SetBytes(data);
+            SetBytes(data);
         }
 
         public void SetBytes(byte[] data)
         {
             int x = (data[1] << 8) + data[0];
             int y = (data[3] << 8) + data[2];
-            this.location = new Point(x, y);
+            _location = new Point(x, y);
         }
 
         public static implicit operator Point(BattleStartPosition position)
         {
-            return position.location;
+            return position._location;
         }
 
         private void OnDataChanged()
         {
-            this.DataChanged?.Invoke(this, EventArgs.Empty);
+            DataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -95,19 +95,19 @@ namespace EpicEdit.Rom.Tracks.Start
         public byte[] GetBytes()
         {
             byte[] data = new byte[4];
-            data[0] = (byte)(this.X & 0xFF);
-            data[1] = (byte)((this.X >> 8) & 0xFF);
-            data[2] = (byte)(this.Y & 0xFF);
-            data[3] = (byte)((this.Y >> 8) & 0xFF);
+            data[0] = (byte)(X & 0xFF);
+            data[1] = (byte)((X >> 8) & 0xFF);
+            data[2] = (byte)(Y & 0xFF);
+            data[3] = (byte)((Y >> 8) & 0xFF);
             return data;
         }
 
         public bool IntersectsWith(Point point)
         {
-            return point.X >= this.X - Tile.Size &&
-                point.X <= this.X + (Tile.Size - 1) &&
-                point.Y >= this.Y - Tile.Size &&
-                point.Y <= this.Y + (Tile.Size - 1);
+            return point.X >= X - Tile.Size &&
+                point.X <= X + (Tile.Size - 1) &&
+                point.Y >= Y - Tile.Size &&
+                point.Y <= Y + (Tile.Size - 1);
         }
     }
 }

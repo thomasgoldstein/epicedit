@@ -36,25 +36,25 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private const int LineLength = 32;
 
-        private readonly Track track;
-        private readonly Game game;
+        private readonly Track _track;
+        private readonly Game _game;
 
         public TrackMap Map
         {
-            get => new TrackMap(this.MAP);
-            set => this.MAP = value.GetBytes();
+            get => new TrackMap(MapBytes);
+            set => MapBytes = value.GetBytes();
         }
 
         public Theme Theme
         {
-            get => this.game.Themes[this.SP_REGION[1] >> 1];
-            set => this.SP_REGION = new byte[] { 0, this.game.Themes.GetThemeId(value) };
+            get => _game.Themes[SpRegion[1] >> 1];
+            set => SpRegion = new byte[] { 0, _game.Themes.GetThemeId(value) };
         }
 
         public OverlayTiles OverlayTiles
         {
-            get => new OverlayTiles(this.GPEX, this.game.OverlayTileSizes, this.game.OverlayTilePatterns);
-            set => this.GPEX = value.GetBytes();
+            get => new OverlayTiles(Gpex, _game.OverlayTileSizes, _game.OverlayTilePatterns);
+            set => Gpex = value.GetBytes();
         }
 
         public GPStartPosition StartPosition
@@ -64,24 +64,24 @@ namespace EpicEdit.Rom.Tracks
                 short x, y, w;
                 if (BitConverter.IsLittleEndian)
                 {
-                    x = BitConverter.ToInt16(new byte[] { this.SP_STX[1], this.SP_STX[0] }, 0);
-                    y = BitConverter.ToInt16(new byte[] { this.SP_STY[1], this.SP_STY[0] }, 0);
-                    w = BitConverter.ToInt16(new byte[] { this.SP_STW[1], this.SP_STW[0] }, 0);
+                    x = BitConverter.ToInt16(new byte[] { SpStx[1], SpStx[0] }, 0);
+                    y = BitConverter.ToInt16(new byte[] { SpSty[1], SpSty[0] }, 0);
+                    w = BitConverter.ToInt16(new byte[] { SpStw[1], SpStw[0] }, 0);
                 }
                 else
                 {
-                    x = BitConverter.ToInt16(this.SP_STX, 0);
-                    y = BitConverter.ToInt16(this.SP_STY, 0);
-                    w = BitConverter.ToInt16(this.SP_STW, 0);
+                    x = BitConverter.ToInt16(SpStx, 0);
+                    y = BitConverter.ToInt16(SpSty, 0);
+                    w = BitConverter.ToInt16(SpStw, 0);
                 }
 
                 return new GPStartPosition(x, y, w);
             }
             set
             {
-                this.SP_STX = new byte[] { (byte)((value.X & 0xFF00) >> 8), (byte)(value.X & 0xFF) };
-                this.SP_STY = new byte[] { (byte)((value.Y & 0xFF00) >> 8), (byte)(value.Y & 0xFF) };
-                this.SP_STW = new byte[] { (byte)((value.SecondRowOffset & 0xFF00) >> 8), (byte)(value.SecondRowOffset & 0xFF) };
+                SpStx = new byte[] { (byte)((value.X & 0xFF00) >> 8), (byte)(value.X & 0xFF) };
+                SpSty = new byte[] { (byte)((value.Y & 0xFF00) >> 8), (byte)(value.Y & 0xFF) };
+                SpStw = new byte[] { (byte)((value.SecondRowOffset & 0xFF00) >> 8), (byte)(value.SecondRowOffset & 0xFF) };
             }
         }
 
@@ -91,70 +91,70 @@ namespace EpicEdit.Rom.Tracks
             {
                 byte[] data = new byte[]
                 {
-                    this.SP_LSLY[1],
-                    this.SP_LSLY[0],
-                    this.SP_LSPX[1],
-                    this.SP_LSPY[1],
-                    this.SP_LSPW[1],
-                    this.SP_LSPH[1]
+                    SpLsly[1],
+                    SpLsly[0],
+                    SpLspx[1],
+                    SpLspy[1],
+                    SpLspw[1],
+                    SpLsph[1]
                 };
                 return new LapLine(data);
             }
             set
             {
                 byte[] data = value.GetBytes();
-                this.SP_LSLY = new byte[] { data[1], data[0] };
-                this.SP_LSPX = new byte[] { 0, data[2] };
-                this.SP_LSPY = new byte[] { 0, data[3] };
-                this.SP_LSPW = new byte[] { 0, data[4] };
-                this.SP_LSPH = new byte[] { 0, data[5] };
+                SpLsly = new byte[] { data[1], data[0] };
+                SpLspx = new byte[] { 0, data[2] };
+                SpLspy = new byte[] { 0, data[3] };
+                SpLspw = new byte[] { 0, data[4] };
+                SpLsph = new byte[] { 0, data[5] };
             }
         }
 
         public BattleStartPosition StartPositionP1
         {
-            get => new BattleStartPosition(this.EE_BATTLESTART1);
-            set => this.EE_BATTLESTART1 = value.GetBytes();
+            get => new BattleStartPosition(EEBattleStart1);
+            set => EEBattleStart1 = value.GetBytes();
         }
 
         public BattleStartPosition StartPositionP2
         {
-            get => new BattleStartPosition(this.EE_BATTLESTART2);
-            set => this.EE_BATTLESTART2 = value.GetBytes();
+            get => new BattleStartPosition(EEBattleStart2);
+            set => EEBattleStart2 = value.GetBytes();
         }
 
         public TrackObjects Objects
         {
             get
             {
-                byte[] data = Utilities.ReadBlock(this.OBJ, 0, TrackObjects.Size);
+                byte[] data = Utilities.ReadBlock(Obj, 0, TrackObjects.Size);
                 byte[] propData =
                 {
-                    this.EE_OBJTILESET[1],
-                    this.EE_OBJINTERACT[1],
-                    this.EE_OBJROUTINE[1],
-                    this.EE_OBJPALETTES[0],
-                    this.EE_OBJPALETTES[1],
-                    this.EE_OBJPALETTES[2],
-                    this.EE_OBJPALETTES[3],
-                    this.EE_OBJFLASHING[1]
+                    EEObjTileset[1],
+                    EEObjInteract[1],
+                    EEObjRoutine[1],
+                    EEObjPalettes[0],
+                    EEObjPalettes[1],
+                    EEObjPalettes[2],
+                    EEObjPalettes[3],
+                    EEObjFlashing[1]
                 };
-                return new TrackObjects(data, this.AREA_BORDER, this.AI, propData, null);
+                return new TrackObjects(data, AreaBorder, AI, propData, null);
             }
             set
             {
-                int size = this.OBJ.Length;
+                int size = Obj.Length;
                 byte[] data = value.GetBytes();
                 Array.Resize<byte>(ref data, size);
-                this.OBJ = data;
+                Obj = data;
 
-                this.AREA_BORDER = value.Areas.GetBytes();
+                AreaBorder = value.Areas.GetBytes();
 
-                this.EE_OBJTILESET = new byte[] { 0, (byte)value.Tileset };
-                this.EE_OBJINTERACT = new byte[] { 0, (byte)value.Interaction };
-                this.EE_OBJROUTINE = new byte[] { 0, (byte)value.Routine };
-                this.EE_OBJPALETTES = value.PaletteIndexes.GetBytes();
-                this.EE_OBJFLASHING = new byte[] { 0, value.Flashing ? (byte)1 : (byte)0 };
+                EEObjTileset = new byte[] { 0, (byte)value.Tileset };
+                EEObjInteract = new byte[] { 0, (byte)value.Interaction };
+                EEObjRoutine = new byte[] { 0, (byte)value.Routine };
+                EEObjPalettes = value.PaletteIndexes.GetBytes();
+                EEObjFlashing = new byte[] { 0, value.Flashing ? (byte)1 : (byte)0 };
             }
         }
 
@@ -162,38 +162,38 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                this.GetAIData(out byte[] targetData, out byte[] areaData);
-                return new TrackAI(areaData, targetData, this.track);
+                GetAIData(out byte[] targetData, out byte[] areaData);
+                return new TrackAI(areaData, targetData, _track);
             }
-            set => this.SetAIData(value);
+            set => SetAIData(value);
         }
 
         public int ItemProbabilityIndex
         {
-            get => this.EE_ITEMPROBA[1] >> 1;
-            set => this.EE_ITEMPROBA = new byte[] { 0, (byte)(value << 1) };
+            get => EEItemProba[1] >> 1;
+            set => EEItemProba = new byte[] { 0, (byte)(value << 1) };
         }
 
-        private readonly Dictionary<string, byte[]> fields;
+        private readonly Dictionary<string, byte[]> _fields;
 
         public byte[] this[string name]
         {
-            get => this.fields[name];
+            get => _fields[name];
             set
             {
-                if (!this.fields.ContainsKey(name))
+                if (!_fields.ContainsKey(name))
                 {
-                    this.fields.Add(name, null);
+                    _fields.Add(name, null);
                 }
 
-                this.fields[name] = value;
+                _fields[name] = value;
             }
         }
 
         /// <summary>
         /// GP Start Position X.
         /// </summary>
-        private byte[] SP_STX
+        private byte[] SpStx
         {
             get => this["SP_STX"];
             set => this["SP_STX"] = value;
@@ -202,7 +202,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// GP Start Position Y.
         /// </summary>
-        private byte[] SP_STY
+        private byte[] SpSty
         {
             get => this["SP_STY"];
             set => this["SP_STY"] = value;
@@ -211,7 +211,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// GP Start Position Width (2nd Row Offset).
         /// </summary>
-        private byte[] SP_STW
+        private byte[] SpStw
         {
             get => this["SP_STW"];
             set => this["SP_STW"] = value;
@@ -220,7 +220,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Lap Line Area X.
         /// </summary>
-        private byte[] SP_LSPX
+        private byte[] SpLspx
         {
             get => this["SP_LSPX"];
             set => this["SP_LSPX"] = value;
@@ -229,7 +229,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Lap Line Area Y.
         /// </summary>
-        private byte[] SP_LSPY
+        private byte[] SpLspy
         {
             get => this["SP_LSPY"];
             set => this["SP_LSPY"] = value;
@@ -238,7 +238,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Lap Line Area Width.
         /// </summary>
-        private byte[] SP_LSPW
+        private byte[] SpLspw
         {
             get => this["SP_LSPW"];
             set => this["SP_LSPW"] = value;
@@ -247,7 +247,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Lap Line Area Height.
         /// </summary>
-        private byte[] SP_LSPH
+        private byte[] SpLsph
         {
             get => this["SP_LSPH"];
             set => this["SP_LSPH"] = value;
@@ -256,7 +256,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Lap Line Y.
         /// </summary>
-        private byte[] SP_LSLY
+        private byte[] SpLsly
         {
             get => this["SP_LSLY"];
             set => this["SP_LSLY"] = value;
@@ -265,7 +265,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Theme.
         /// </summary>
-        private byte[] SP_REGION
+        private byte[] SpRegion
         {
             get => this["SP_REGION"];
             set => this["SP_REGION"] = value;
@@ -274,7 +274,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Battle Starting Position for Player 1.
         /// </summary>
-        private byte[] EE_BATTLESTART1
+        private byte[] EEBattleStart1
         {
             get => this["EE_BATTLESTART1"];
             set => this["EE_BATTLESTART1"] = value;
@@ -283,7 +283,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Battle Starting Position for Player 2.
         /// </summary>
-        private byte[] EE_BATTLESTART2
+        private byte[] EEBattleStart2
         {
             get => this["EE_BATTLESTART2"];
             set => this["EE_BATTLESTART2"] = value;
@@ -292,7 +292,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object Tileset.
         /// </summary>
-        private byte[] EE_OBJTILESET
+        private byte[] EEObjTileset
         {
             get => this["EE_OBJTILESET"];
             set => this["EE_OBJTILESET"] = value;
@@ -301,7 +301,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object Interaction.
         /// </summary>
-        private byte[] EE_OBJINTERACT
+        private byte[] EEObjInteract
         {
             get => this["EE_OBJINTERACT"];
             set => this["EE_OBJINTERACT"] = value;
@@ -310,7 +310,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object Routine.
         /// </summary>
-        private byte[] EE_OBJROUTINE
+        private byte[] EEObjRoutine
         {
             get => this["EE_OBJROUTINE"];
             set => this["EE_OBJROUTINE"] = value;
@@ -319,7 +319,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object Palettes.
         /// </summary>
-        private byte[] EE_OBJPALETTES
+        private byte[] EEObjPalettes
         {
             get => this["EE_OBJPALETTES"];
             set => this["EE_OBJPALETTES"] = value;
@@ -328,7 +328,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object Flashing.
         /// </summary>
-        private byte[] EE_OBJFLASHING
+        private byte[] EEObjFlashing
         {
             get => this["EE_OBJFLASHING"];
             set => this["EE_OBJFLASHING"] = value;
@@ -337,7 +337,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Item probability set index.
         /// </summary>
-        private byte[] EE_ITEMPROBA
+        private byte[] EEItemProba
         {
             get => this["EE_ITEMPROBA"];
             set => this["EE_ITEMPROBA"] = value;
@@ -350,19 +350,19 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Tile Map.
         /// </summary>
-        private byte[] MAP
+        private byte[] MapBytes
         {
             get => this["MAP"];
             set => this["MAP"] = value;
         }
 
         // NOTE: Data ignored by Epic Edit, supported differently.
-        // private byte[] MAPMASK;
+        // private byte[] MapMask;
 
         /// <summary>
         /// Overlay Tiles.
         /// </summary>
-        private byte[] GPEX
+        private byte[] Gpex
         {
             get => this["GPEX"];
             set => this["GPEX"] = value;
@@ -371,7 +371,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// AI.
         /// </summary>
-        private byte[] AREA
+        private byte[] Area
         {
             get => this["AREA"];
             set => this["AREA"] = value;
@@ -380,7 +380,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Objects.
         /// </summary>
-        private byte[] OBJ
+        private byte[] Obj
         {
             get => this["OBJ"];
             set => this["OBJ"] = value;
@@ -389,7 +389,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Object View Areas.
         /// </summary>
-        private byte[] AREA_BORDER
+        private byte[] AreaBorder
         {
             get => this["AREA_BORDER"];
             set => this["AREA_BORDER"] = value;
@@ -397,10 +397,10 @@ namespace EpicEdit.Rom.Tracks
 
         public MakeTrack(Track track, Game game)
         {
-            this.track = track;
-            this.game = game;
-            this.fields = new Dictionary<string, byte[]>();
-            this.InitFields();
+            _track = track;
+            _game = game;
+            _fields = new Dictionary<string, byte[]>();
+            InitFields();
         }
 
         /// <summary>
@@ -408,49 +408,49 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void InitFields()
         {
-            this.SP_STX = new byte[2];
-            this.SP_STY = new byte[2];
-            this.SP_STW = new byte[2];
-            this.SP_LSPX = new byte[2];
-            this.SP_LSPY = new byte[2];
-            this.SP_LSPW = new byte[2];
-            this.SP_LSPH = new byte[2];
-            this.SP_LSLY = new byte[2];
-            this.SP_REGION = new byte[] { 0, 2 };
+            SpStx = new byte[2];
+            SpSty = new byte[2];
+            SpStw = new byte[2];
+            SpLspx = new byte[2];
+            SpLspy = new byte[2];
+            SpLspw = new byte[2];
+            SpLsph = new byte[2];
+            SpLsly = new byte[2];
+            SpRegion = new byte[] { 0, 2 };
 
-            this.EE_BATTLESTART1 = new byte[] { 0x00, 0x02, 0x78, 0x02 };
-            this.EE_BATTLESTART2 = new byte[] { 0x00, 0x02, 0x88, 0x01 };
-            this.EE_OBJTILESET = new byte[2];
-            this.EE_OBJINTERACT = new byte[2];
-            this.EE_OBJROUTINE = new byte[2];
-            this.EE_OBJPALETTES = new byte[4];
-            this.EE_OBJFLASHING = new byte[2];
-            this.EE_ITEMPROBA = new byte[2];
+            EEBattleStart1 = new byte[] { 0x00, 0x02, 0x78, 0x02 };
+            EEBattleStart2 = new byte[] { 0x00, 0x02, 0x88, 0x01 };
+            EEObjTileset = new byte[2];
+            EEObjInteract = new byte[2];
+            EEObjRoutine = new byte[2];
+            EEObjPalettes = new byte[4];
+            EEObjFlashing = new byte[2];
+            EEItemProba = new byte[2];
 
-            this.MAP = new byte[TrackMap.SquareSize];
+            MapBytes = new byte[TrackMap.SquareSize];
 
             byte[] gpex = new byte[OverlayTiles.Size];
             for (int i = 0; i < gpex.Length; i++)
             {
                 gpex[i] = 0xFF;
             }
-            this.GPEX = gpex;
+            Gpex = gpex;
 
             byte[] area = new byte[4064];
             for (int i = 0; i < area.Length; i++)
             {
                 area[i] = 0xFF;
             }
-            this.AREA = area;
+            Area = area;
 
-            this.OBJ = new byte[64];
+            Obj = new byte[64];
 
             byte[] areaBorder = new byte[TrackObjectAreas.Size];
             for (int i = 0; i < areaBorder.Length; i++)
             {
                 areaBorder[i] = 0xFF;
             }
-            this.AREA_BORDER = areaBorder;
+            AreaBorder = areaBorder;
         }
 
         /// <summary>
@@ -461,23 +461,23 @@ namespace EpicEdit.Rom.Tracks
             List<byte> targetDataList = new List<byte>();
             List<byte> areaDataList = new List<byte>();
 
-            int count = this.AREA.Length / LineLength;
+            int count = Area.Length / LineLength;
 
-            for (int x = 0; x < count && this.AREA[x * LineLength] != 0xFF; x++)
+            for (int x = 0; x < count && Area[x * LineLength] != 0xFF; x++)
             {
                 // Reorder the target data bytes
-                targetDataList.Add(this.AREA[x * LineLength + 1]);
-                targetDataList.Add(this.AREA[x * LineLength + 2]);
-                targetDataList.Add(this.AREA[x * LineLength]);
+                targetDataList.Add(Area[x * LineLength + 1]);
+                targetDataList.Add(Area[x * LineLength + 2]);
+                targetDataList.Add(Area[x * LineLength]);
 
-                byte areaShape = this.AREA[x * LineLength + 16];
+                byte areaShape = Area[x * LineLength + 16];
                 areaDataList.Add(areaShape);
-                areaDataList.Add(this.AREA[x * LineLength + 17]);
-                areaDataList.Add(this.AREA[x * LineLength + 18]);
-                areaDataList.Add(this.AREA[x * LineLength + 19]);
+                areaDataList.Add(Area[x * LineLength + 17]);
+                areaDataList.Add(Area[x * LineLength + 18]);
+                areaDataList.Add(Area[x * LineLength + 19]);
                 if (areaShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                 {
-                    areaDataList.Add(this.AREA[x * LineLength + 20]);
+                    areaDataList.Add(Area[x * LineLength + 20]);
                 }
             }
 
@@ -495,18 +495,18 @@ namespace EpicEdit.Rom.Tracks
 
             for (int x = 0; x < ai.ElementCount; x++)
             {
-                this.AREA[x * LineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
-                this.AREA[x * LineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
-                this.AREA[x * LineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
+                Area[x * LineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
+                Area[x * LineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
+                Area[x * LineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
 
                 byte areaShape = data[index++];
-                this.AREA[x * LineLength + 16] = areaShape;
-                this.AREA[x * LineLength + 17] = data[index++];
-                this.AREA[x * LineLength + 18] = data[index++];
-                this.AREA[x * LineLength + 19] = data[index++];
+                Area[x * LineLength + 16] = areaShape;
+                Area[x * LineLength + 17] = data[index++];
+                Area[x * LineLength + 18] = data[index++];
+                Area[x * LineLength + 19] = data[index++];
                 if (areaShape == 0x00) // Rectangle, the fifth byte is not needed if the shape is not a rectangle
                 {
-                    this.AREA[x * LineLength + 20] = data[index++];
+                    Area[x * LineLength + 20] = data[index++];
                 }
             }
         }
@@ -531,15 +531,15 @@ namespace EpicEdit.Rom.Tracks
                     string fieldName = index == -1 ? line : line.Substring(0, index);
                     fieldName = fieldName.Substring(1); // Remove leading #
 
-                    if (this.fields.TryGetValue(fieldName, out byte[] data))
+                    if (_fields.TryGetValue(fieldName, out byte[] data))
                     {
                         if (data.Length <= 4)
                         {
-                            MakeTrack.LoadLineData(data, line);
+                            LoadLineData(data, line);
                         }
                         else
                         {
-                            MakeTrack.LoadBlockData(data, reader);
+                            LoadBlockData(data, reader);
                         }
                     }
                 }
@@ -595,7 +595,7 @@ namespace EpicEdit.Rom.Tracks
 
             sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
 
-            foreach (KeyValuePair<string, byte[]> field in this.fields)
+            foreach (KeyValuePair<string, byte[]> field in _fields)
             {
                 if (field.Value.Length <= 4)
                 {
@@ -605,7 +605,7 @@ namespace EpicEdit.Rom.Tracks
                 {
                     sb.AppendLine();
                     sb.AppendLine("#" + field.Key);
-                    MakeTrack.AppendBlockData(sb, field.Value);
+                    AppendBlockData(sb, field.Value);
                 }
             }
 

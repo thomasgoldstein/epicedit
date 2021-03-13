@@ -30,44 +30,44 @@ namespace EpicEdit.UI.SettingEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add => this.itemProbaEditor.ColorSelected += value;
-            remove => this.itemProbaEditor.ColorSelected -= value;
+            add => itemProbaEditor.ColorSelected += value;
+            remove => itemProbaEditor.ColorSelected -= value;
         }
 
         public SettingEditorForm()
         {
-            this.InitializeComponent();
-            this.tabImageList.Images.Add("ItemProbaButton", Resources.ItemProbaButton);
+            InitializeComponent();
+            tabImageList.Images.Add("ItemProbaButton", Resources.ItemProbaButton);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            this.Hide();
+            Hide();
             e.Cancel = true;
         }
 
         public Theme Theme
         {
-            get => this.itemProbaEditor.Theme;
-            set => this.itemProbaEditor.Theme = value;
+            get => itemProbaEditor.Theme;
+            set => itemProbaEditor.Theme = value;
         }
 
         public void Init()
         {
-            this.gpCupTextsEditor.Init();
-            this.courseSelectTextsEditor.Init();
-            this.courseSelectNamesEditor.Init();
-            this.resultsEditor.Init();
-            this.itemProbaEditor.Init();
+            gpCupTextsEditor.Init();
+            courseSelectTextsEditor.Init();
+            courseSelectNamesEditor.Init();
+            resultsEditor.Init();
+            itemProbaEditor.Init();
         }
 
         public void ShowTrackItemProbabilities(Track track, bool showItemProba)
         {
-            this.itemProbaEditor.ShowTrackData(track);
+            itemProbaEditor.ShowTrackData(track);
 
             if (showItemProba)
             {
-                this.tabControl.SelectedTab = this.itemProbaTab;
+                tabControl.SelectedTab = itemProbaTab;
             }
         }
     }

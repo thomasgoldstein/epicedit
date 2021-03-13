@@ -25,47 +25,47 @@ namespace EpicEdit.Rom.Settings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly ITextCollection collection;
+        private readonly ITextCollection _collection;
 
-        public TextConverter Converter => this.collection.Converter;
+        public TextConverter Converter => _collection.Converter;
 
         public TextItem(ITextCollection collection, string value)
         {
-            this.collection = collection;
-            this.value = value;
+            _collection = collection;
+            _value = value;
         }
 
-        private string value;
+        private string _value;
         public string Value
         {
-            get => this.value;
+            get => _value;
             set
             {
-                string oldValue = this.value;
-                string newValue = this.Converter.GetValidatedText(value);
+                string oldValue = _value;
+                string newValue = Converter.GetValidatedText(value);
 
                 if (oldValue == newValue)
                 {
                     return;
                 }
 
-                this.value = newValue;
+                _value = newValue;
 
-                int diff = this.collection.TotalCharacterCount - this.collection.MaxCharacterCount;
+                int diff = _collection.TotalCharacterCount - _collection.MaxCharacterCount;
                 if (diff > 0)
                 {
-                    newValue = this.value.Substring(0, this.value.Length - diff);
+                    newValue = _value.Substring(0, _value.Length - diff);
 
                     if (oldValue == newValue)
                     {
-                        this.value = oldValue;
+                        _value = oldValue;
                         return;
                     }
 
-                    this.value = newValue;
+                    _value = newValue;
                 }
 
-                this.OnPropertyChanged(PropertyNames.TextItem.Value);
+                OnPropertyChanged(PropertyNames.TextItem.Value);
             }
         }
 
@@ -73,20 +73,20 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                return this.collection.Region == Region.Jap ?
-                       this.value :
-                       CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.value.ToLowerInvariant());
+                return _collection.Region == Region.Jap ?
+                       _value :
+                       CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_value.ToLowerInvariant());
             }
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public override string ToString()
         {
-            return this.FormattedValue;
+            return FormattedValue;
         }
     }
 }

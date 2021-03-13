@@ -34,7 +34,7 @@ namespace EpicEdit.UI.ThemeEdition
                     components.Dispose();
                 }
 
-                this.drawer.Dispose();
+                this._drawer.Dispose();
                 this.playerTrackBar.Dispose();
             }
             base.Dispose(disposing);

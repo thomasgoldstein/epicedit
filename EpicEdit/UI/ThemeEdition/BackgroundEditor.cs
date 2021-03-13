@@ -38,24 +38,24 @@ namespace EpicEdit.UI.ThemeEdition
         {
             add
             {
-                this.frontLayerPanel.ColorSelected += value;
-                this.backLayerPanel.ColorSelected += value;
-                this.frontTilePanel.ColorSelected += value;
-                this.backTilePanel.ColorSelected += value;
-                this.tilesetPanel.ColorSelected += value;
+                frontLayerPanel.ColorSelected += value;
+                backLayerPanel.ColorSelected += value;
+                frontTilePanel.ColorSelected += value;
+                backTilePanel.ColorSelected += value;
+                tilesetPanel.ColorSelected += value;
             }
             remove
             {
-                this.frontLayerPanel.ColorSelected -= value;
-                this.backLayerPanel.ColorSelected -= value;
-                this.frontTilePanel.ColorSelected -= value;
-                this.backTilePanel.ColorSelected -= value;
-                this.tilesetPanel.ColorSelected -= value;
+                frontLayerPanel.ColorSelected -= value;
+                backLayerPanel.ColorSelected -= value;
+                frontTilePanel.ColorSelected -= value;
+                backTilePanel.ColorSelected -= value;
+                tilesetPanel.ColorSelected -= value;
             }
         }
 
-        private readonly BackgroundDrawer drawer;
-        private readonly Timer previewTimer;
+        private readonly BackgroundDrawer _drawer;
+        private readonly Timer _previewTimer;
 
         /// <summary>
         /// Gets or sets the theme.
@@ -63,256 +63,256 @@ namespace EpicEdit.UI.ThemeEdition
         [Browsable(false), DefaultValue(typeof(Theme), "")]
         public Theme Theme
         {
-            get => this.themeComboBox.SelectedTheme;
-            set => this.themeComboBox.SelectedTheme = value;
+            get => themeComboBox.SelectedTheme;
+            set => themeComboBox.SelectedTheme = value;
         }
 
         private byte TileId
         {
-            get => this.frontLayerPanel.TileId;
+            get => frontLayerPanel.TileId;
             set
             {
-                this.frontLayerPanel.TileId = value;
-                this.backLayerPanel.TileId = value;
+                frontLayerPanel.TileId = value;
+                backLayerPanel.TileId = value;
             }
         }
 
         private Tile2bppProperties TileProperties
         {
-            get => this.frontLayerPanel.TileProperties;
+            get => frontLayerPanel.TileProperties;
             set
             {
-                this.frontLayerPanel.TileProperties = value;
-                this.backLayerPanel.TileProperties = value;
-                this.tilesetPanel.TileProperties = value;
+                frontLayerPanel.TileProperties = value;
+                backLayerPanel.TileProperties = value;
+                tilesetPanel.TileProperties = value;
             }
         }
 
         public BackgroundEditor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.drawer = new BackgroundDrawer();
+            _drawer = new BackgroundDrawer();
 
-            this.frontLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
-            this.frontLayerPanel.Zoom = BackgroundDrawer.Zoom;
-            this.frontLayerPanel.Drawer = this.drawer;
-            this.frontLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
+            frontLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
+            frontLayerPanel.Zoom = BackgroundDrawer.Zoom;
+            frontLayerPanel.Drawer = _drawer;
+            frontLayerPanel.TileSelected += BackgroundLayerPanelTileSelected;
 
-            this.backLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
-            this.backLayerPanel.Zoom = BackgroundDrawer.Zoom;
-            this.backLayerPanel.Drawer = this.drawer;
-            this.backLayerPanel.TileSelected += this.BackgroundLayerPanelTileSelected;
+            backLayerPanel.Height += SystemInformation.HorizontalScrollBarHeight;
+            backLayerPanel.Zoom = BackgroundDrawer.Zoom;
+            backLayerPanel.Drawer = _drawer;
+            backLayerPanel.TileSelected += BackgroundLayerPanelTileSelected;
 
-            this.backgroundPreviewer.Drawer = this.drawer;
-            BackgroundEditor.SelectTilePanel(this.frontTilePanel);
+            backgroundPreviewer.Drawer = _drawer;
+            SelectTilePanel(frontTilePanel);
 
-            this.previewTimer = new Timer();
-            this.SetPreviewSpeed();
-            this.previewTimer.Tick += delegate
+            _previewTimer = new Timer();
+            SetPreviewSpeed();
+            _previewTimer.Tick += delegate
             {
-                if (this.playerTrackBar.Value == this.playerTrackBar.Maximum)
+                if (playerTrackBar.Value == playerTrackBar.Maximum)
                 {
-                    this.playerTrackBar.Value = 0;
+                    playerTrackBar.Value = 0;
                 }
                 else
                 {
-                    this.playerTrackBar.Value++;
+                    playerTrackBar.Value++;
                 }
             };
         }
 
         public void Init()
         {
-            this.themeComboBox.Init();
-            this.themeComboBox.SelectedIndex = 0;
+            themeComboBox.Init();
+            themeComboBox.SelectedIndex = 0;
         }
 
         public void ResetScrollPositions()
         {
-            this.frontLayerPanel.AutoScrollPosition = Point.Empty;
-            this.backLayerPanel.AutoScrollPosition = Point.Empty;
-            this.playerTrackBar.Value = 0;
+            frontLayerPanel.AutoScrollPosition = Point.Empty;
+            backLayerPanel.AutoScrollPosition = Point.Empty;
+            playerTrackBar.Value = 0;
         }
 
         public void PlayPreview()
         {
-            this.previewTimer.Start();
-            this.playPauseButton.Text = "Pause";
-            this.playPauseButton.Image = Resources.PauseButton;
+            _previewTimer.Start();
+            playPauseButton.Text = "Pause";
+            playPauseButton.Image = Resources.PauseButton;
         }
 
         public void PausePreview()
         {
-            this.previewTimer.Stop();
-            this.playPauseButton.Text = "Play";
-            this.playPauseButton.Image = Resources.PlayButton;
+            _previewTimer.Stop();
+            playPauseButton.Text = "Play";
+            playPauseButton.Image = Resources.PlayButton;
         }
 
         private void PlayPauseButtonClick(object sender, EventArgs e)
         {
-            if (!this.previewTimer.Enabled)
+            if (!_previewTimer.Enabled)
             {
-                this.PlayPreview();
+                PlayPreview();
             }
             else
             {
-                this.PausePreview();
+                PausePreview();
             }
         }
 
         private void PreviewSpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            this.SetPreviewSpeed();
+            SetPreviewSpeed();
         }
 
         private void SetPreviewSpeed()
         {
-            int value = (int)this.previewSpeedNumericUpDown.Value;
-            this.previewTimer.Interval = 70 - (value * 20);
+            int value = (int)previewSpeedNumericUpDown.Value;
+            _previewTimer.Interval = 70 - (value * 20);
         }
 
         private void PlayerTrackBarValueChanged(object sender, EventArgs e)
         {
-            this.backgroundPreviewer.SetFrame(this.playerTrackBar.Value);
+            backgroundPreviewer.SetFrame(playerTrackBar.Value);
         }
 
         private void SetTheme()
         {
-            if (this.drawer.Theme != null)
+            if (_drawer.Theme != null)
             {
                 for (int i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
-                    Palette palette = this.drawer.Theme.Palettes[i];
-                    palette.ColorChanged -= this.palette_ColorsGraphicsChanged;
-                    palette.ColorsChanged -= this.palette_ColorsGraphicsChanged;
+                    Palette palette = _drawer.Theme.Palettes[i];
+                    palette.ColorChanged -= palette_ColorsGraphicsChanged;
+                    palette.ColorsChanged -= palette_ColorsGraphicsChanged;
                 }
             }
 
-            this.LoadTheme();
+            LoadTheme();
 
             for (int i = 0; i < Palettes.SpritePaletteStart; i++)
             {
-                Palette palette = this.drawer.Theme.Palettes[i];
-                palette.ColorGraphicsChanged += this.palette_ColorsGraphicsChanged;
-                palette.ColorsGraphicsChanged += this.palette_ColorsGraphicsChanged;
+                Palette palette = _drawer.Theme.Palettes[i];
+                palette.ColorGraphicsChanged += palette_ColorsGraphicsChanged;
+                palette.ColorsGraphicsChanged += palette_ColorsGraphicsChanged;
             }
         }
 
         private void palette_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            this.LoadTheme();
+            LoadTheme();
         }
 
         private void LoadTheme()
         {
-            this.drawer.Theme = this.Theme;
-            this.frontLayerPanel.Background = this.backLayerPanel.Background = this.Theme.Background;
-            this.UpdateTilePanels();
-            this.tilesetPanel.Theme = this.Theme;
+            _drawer.Theme = Theme;
+            frontLayerPanel.Background = backLayerPanel.Background = Theme.Background;
+            UpdateTilePanels();
+            tilesetPanel.Theme = Theme;
 
-            this.frontLayerPanel.Refresh();
-            this.backLayerPanel.Refresh();
-            this.backgroundPreviewer.Refresh();
+            frontLayerPanel.Refresh();
+            backLayerPanel.Refresh();
+            backgroundPreviewer.Refresh();
         }
 
         private void ThemeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.ResetScrollPositions();
-            this.SetTheme();
+            ResetScrollPositions();
+            SetTheme();
         }
 
         private void BackgroundLayerPanelTileChanged(object sender, EventArgs e)
         {
-            this.backgroundPreviewer.Invalidate();
+            backgroundPreviewer.Invalidate();
         }
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = this.TileProperties;
+            Tile2bppProperties properties = TileProperties;
 
-            int value = (int)this.paletteNumericUpDown.Value;
+            int value = (int)paletteNumericUpDown.Value;
             properties.PaletteIndex = value / 4;
             properties.SubPaletteIndex = (value & 0x3) * 4;
 
-            this.TileProperties = properties;
-            this.UpdateTilePanels();
+            TileProperties = properties;
+            UpdateTilePanels();
         }
 
         private void FlipXButtonCheckedChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = this.TileProperties;
+            Tile2bppProperties properties = TileProperties;
             properties.FlipX();
 
-            this.TileProperties = properties;
-            this.UpdateTilePanels();
+            TileProperties = properties;
+            UpdateTilePanels();
         }
 
         private void FlipYButtonCheckedChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = this.TileProperties;
+            Tile2bppProperties properties = TileProperties;
             properties.FlipY();
 
-            this.TileProperties = properties;
-            this.UpdateTilePanels();
+            TileProperties = properties;
+            UpdateTilePanels();
         }
 
         private void UpdateTilePanels()
         {
-            byte tileId = this.TileId;
-            byte properties = this.TileProperties.GetByte();
+            byte tileId = TileId;
+            byte properties = TileProperties.GetByte();
 
-            this.frontTilePanel.UpdateTile(this.Theme, tileId, properties);
-            this.backTilePanel.UpdateTile(this.Theme, tileId, properties);
+            frontTilePanel.UpdateTile(Theme, tileId, properties);
+            backTilePanel.UpdateTile(Theme, tileId, properties);
         }
 
         private void BackgroundLayerPanelTileSelected(object sender, EventArgs<byte, Tile2bppProperties> e)
         {
-            this.TileId = e.Value1;
-            this.TileProperties = e.Value2;
+            TileId = e.Value1;
+            TileProperties = e.Value2;
 
-            this.paletteNumericUpDown.ValueChanged -= this.PaletteNumericUpDownValueChanged;
-            this.paletteNumericUpDown.Value = (this.TileProperties.PaletteIndex * 4) + (this.TileProperties.SubPaletteIndex / 4);
-            this.paletteNumericUpDown.ValueChanged += this.PaletteNumericUpDownValueChanged;
+            paletteNumericUpDown.ValueChanged -= PaletteNumericUpDownValueChanged;
+            paletteNumericUpDown.Value = (TileProperties.PaletteIndex * 4) + (TileProperties.SubPaletteIndex / 4);
+            paletteNumericUpDown.ValueChanged += PaletteNumericUpDownValueChanged;
 
-            bool flipX = (this.TileProperties.Flip & TileFlip.X) != 0;
-            if (this.flipXButton.Checked != flipX)
+            bool flipX = (TileProperties.Flip & TileFlip.X) != 0;
+            if (flipXButton.Checked != flipX)
             {
-                this.flipXButton.CheckedChanged -= this.FlipXButtonCheckedChanged;
-                this.flipXButton.Checked = flipX;
-                this.flipXButton.CheckedChanged += this.FlipXButtonCheckedChanged;
+                flipXButton.CheckedChanged -= FlipXButtonCheckedChanged;
+                flipXButton.Checked = flipX;
+                flipXButton.CheckedChanged += FlipXButtonCheckedChanged;
             }
 
-            bool flipY = (this.TileProperties.Flip & TileFlip.Y) != 0;
-            if (this.flipYButton.Checked != flipY)
+            bool flipY = (TileProperties.Flip & TileFlip.Y) != 0;
+            if (flipYButton.Checked != flipY)
             {
-                this.flipYButton.CheckedChanged -= this.FlipYButtonCheckedChanged;
-                this.flipYButton.Checked = flipY;
-                this.flipYButton.CheckedChanged += this.FlipYButtonCheckedChanged;
+                flipYButton.CheckedChanged -= FlipYButtonCheckedChanged;
+                flipYButton.Checked = flipY;
+                flipYButton.CheckedChanged += FlipYButtonCheckedChanged;
             }
 
-            this.UpdateTilePanels();
-            this.tilesetPanel.SelectedTile = this.TileId;
+            UpdateTilePanels();
+            tilesetPanel.SelectedTile = TileId;
         }
 
         private void TilesetPanelSelectedTileChanged(object sender, EventArgs e)
         {
-            this.TileId = this.tilesetPanel.SelectedTile;
-            this.UpdateTilePanels();
+            TileId = tilesetPanel.SelectedTile;
+            UpdateTilePanels();
         }
 
         private void BackgroundLayerPanelMouseDown(object sender, MouseEventArgs e)
         {
             bool front = (sender as BackgroundPanel).Front;
-            this.ToggleTilesetFrontMode(front);
+            ToggleTilesetFrontMode(front);
         }
 
         private void ToggleTilesetFrontMode(bool front)
         {
-            if (this.tilesetPanel.Front != front)
+            if (tilesetPanel.Front != front)
             {
-                this.tilesetPanel.Front = front;
-                this.SelectTilePanel(front);
+                tilesetPanel.Front = front;
+                SelectTilePanel(front);
             }
         }
 
@@ -320,13 +320,13 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (front)
             {
-                BackgroundEditor.DeselectTilePanel(this.backTilePanel);
-                BackgroundEditor.SelectTilePanel(this.frontTilePanel);
+                DeselectTilePanel(backTilePanel);
+                SelectTilePanel(frontTilePanel);
             }
             else
             {
-                BackgroundEditor.DeselectTilePanel(this.frontTilePanel);
-                BackgroundEditor.SelectTilePanel(this.backTilePanel);
+                DeselectTilePanel(frontTilePanel);
+                SelectTilePanel(backTilePanel);
             }
         }
 
@@ -353,38 +353,38 @@ namespace EpicEdit.UI.ThemeEdition
         private void BackgroundTilePanelMouseDown(object sender, MouseEventArgs e)
         {
             bool front = (sender as BackgroundTilePanel).Front;
-            this.ToggleTilesetFrontMode(front);
+            ToggleTilesetFrontMode(front);
         }
 
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
         {
-            if (UITools.ShowImportTilesetGraphicsDialog(this.Theme.Background.Tileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(Theme.Background.Tileset.GetTiles()))
             {
-                this.LoadTheme();
+                LoadTheme();
             }
         }
 
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
-            this.tilesetPanel.ShowExportImageImage();
+            tilesetPanel.ShowExportImageImage();
         }
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
         {
-            if (UITools.ShowImportBinaryDataDialog(this.Theme.Background.Layout.SetBytes))
+            if (UITools.ShowImportBinaryDataDialog(Theme.Background.Layout.SetBytes))
             {
-                this.LoadTheme();
+                LoadTheme();
             }
         }
 
         private void ExportLayoutButtonClick(object sender, EventArgs e)
         {
-            this.ShowExportBackgroundLayoutDialog();
+            ShowExportBackgroundLayoutDialog();
         }
 
         private void ShowExportBackgroundLayoutDialog()
         {
-            Theme theme = this.Theme;
+            Theme theme = Theme;
             UITools.ShowExportBinaryDataDialog(theme.Background.Layout.GetBytes, theme.Name + "bg map");
         }
     }

@@ -37,17 +37,17 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Action")]
         public event EventHandler<EventArgs> ItemProbaEditorRequested;
 
-        private bool fireEvents;
+        private bool _fireEvents;
 
         /// <summary>
         /// The current track.
         /// </summary>
-        private Track track;
+        private Track _track;
 
         /// <summary>
         /// The selected AI element.
         /// </summary>
-        private TrackAIElement selectedElement;
+        private TrackAIElement _selectedElement;
 
         /// <summary>
         /// Gets or sets the selected AI element.
@@ -55,139 +55,139 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(TrackAIElement), "")]
         public TrackAIElement SelectedElement
         {
-            get => this.selectedElement;
+            get => _selectedElement;
             set
             {
-                this.selectedElement = value;
+                _selectedElement = value;
 
-                if (this.selectedElement == null)
+                if (_selectedElement == null)
                 {
-                    this.selectedAIElementGroupBox.Enabled = false;
+                    selectedAIElementGroupBox.Enabled = false;
                 }
                 else
                 {
-                    this.selectedAIElementGroupBox.Enabled = true;
+                    selectedAIElementGroupBox.Enabled = true;
 
-                    this.SetMaximumAIElementIndex();
+                    SetMaximumAIElementIndex();
 
-                    this.fireEvents = false;
+                    _fireEvents = false;
 
-                    this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
-                    this.speedNumericUpDown.Value = this.selectedElement.Speed;
-                    this.shapeComboBox.SelectedItem = this.selectedElement.AreaShape;
-                    this.isIntersectionCheckBox.Checked = this.selectedElement.IsIntersection;
+                    indexNumericUpDown.Value = _track.AI.GetElementIndex(_selectedElement);
+                    speedNumericUpDown.Value = _selectedElement.Speed;
+                    shapeComboBox.SelectedItem = _selectedElement.AreaShape;
+                    isIntersectionCheckBox.Checked = _selectedElement.IsIntersection;
 
-                    this.fireEvents = true;
+                    _fireEvents = true;
                 }
 
                 // Force controls to refresh so that the new data shows up instantly.
                 // NOTE: We could call this.selectedAIElementGroupBox.Refresh(); instead
                 // but that would cause some minor flickering.
-                this.indexNumericUpDown.Refresh();
-                this.speedNumericUpDown.Refresh();
-                this.shapeComboBox.Refresh();
-                this.isIntersectionCheckBox.Refresh();
+                indexNumericUpDown.Refresh();
+                speedNumericUpDown.Refresh();
+                shapeComboBox.Refresh();
+                isIntersectionCheckBox.Refresh();
             }
         }
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get => this.track;
+            get => _track;
             set
             {
-                if (this.track == value)
+                if (_track == value)
                 {
                     return;
                 }
 
-                if (this.track != null)
+                if (_track != null)
                 {
-                    this.track.AI.PropertyChanged -= this.track_AI_PropertyChanged;
-                    this.track.AI.ElementAdded -= this.track_AI_ElementAdded;
-                    this.track.AI.ElementRemoved -= this.track_AI_ElementRemoved;
-                    this.track.AI.ElementsCleared -= this.track_AI_ElementsCleared;
+                    _track.AI.PropertyChanged -= track_AI_PropertyChanged;
+                    _track.AI.ElementAdded -= track_AI_ElementAdded;
+                    _track.AI.ElementRemoved -= track_AI_ElementRemoved;
+                    _track.AI.ElementsCleared -= track_AI_ElementsCleared;
                     
-                    if (this.track is GPTrack oldGPTrack)
+                    if (_track is GPTrack oldGPTrack)
                     {
-                        oldGPTrack.PropertyChanged -= this.gpTrack_PropertyChanged;
+                        oldGPTrack.PropertyChanged -= gpTrack_PropertyChanged;
                     }
                 }
 
-                this.track = value;
+                _track = value;
 
-                this.track.AI.PropertyChanged += this.track_AI_PropertyChanged;
-                this.track.AI.ElementAdded += this.track_AI_ElementAdded;
-                this.track.AI.ElementRemoved += this.track_AI_ElementRemoved;
-                this.track.AI.ElementsCleared += this.track_AI_ElementsCleared;
+                _track.AI.PropertyChanged += track_AI_PropertyChanged;
+                _track.AI.ElementAdded += track_AI_ElementAdded;
+                _track.AI.ElementRemoved += track_AI_ElementRemoved;
+                _track.AI.ElementsCleared += track_AI_ElementsCleared;
 
-                if (this.track is GPTrack gpTrack)
+                if (_track is GPTrack gpTrack)
                 {
-                    gpTrack.PropertyChanged += this.gpTrack_PropertyChanged;
+                    gpTrack.PropertyChanged += gpTrack_PropertyChanged;
                 }
 
-                this.SelectedElement = null;
-                this.LoadItemProbabilitySet();
-                this.SetMaximumAIElementIndex();
-                this.warningLabel.Visible = this.track.AI.ElementCount == 0;
+                SelectedElement = null;
+                LoadItemProbabilitySet();
+                SetMaximumAIElementIndex();
+                warningLabel.Visible = _track.AI.ElementCount == 0;
             }
         }
 
         public AIControl()
         {
-            this.InitializeComponent();
-            this.Init();
+            InitializeComponent();
+            Init();
         }
 
         private void Init()
         {
-            this.InitSetComboBox();
-            this.shapeComboBox.DataSource = Enum.GetValues(typeof(TrackAIElementShape));
+            InitSetComboBox();
+            shapeComboBox.DataSource = Enum.GetValues(typeof(TrackAIElementShape));
         }
 
         private void InitSetComboBox()
         {
-            this.AddSetComboBoxItems();
-            this.setComboBox.SelectedIndex = 0;
+            AddSetComboBoxItems();
+            setComboBox.SelectedIndex = 0;
         }
 
         private void AddSetComboBoxItems()
         {
-            this.setComboBox.BeginUpdate();
+            setComboBox.BeginUpdate();
 
             for (int i = 0; i < ItemProbabilities.SetCount; i++)
             {
-                this.setComboBox.Items.Add("Probability set " + (i + 1));
+                setComboBox.Items.Add("Probability set " + (i + 1));
             }
 
-            this.setComboBox.EndUpdate();
+            setComboBox.EndUpdate();
         }
 
         private void ResetSetComboBoxGP()
         {
-            this.setComboBox.Items.Clear();
-            this.AddSetComboBoxItems();
-            this.setComboBox.Enabled = true;
+            setComboBox.Items.Clear();
+            AddSetComboBoxItems();
+            setComboBox.Enabled = true;
         }
 
         private void ResetSetComboBoxBattle()
         {
-            this.setComboBox.Items.Clear();
+            setComboBox.Items.Clear();
             TextCollection modeNames = Context.Game.Settings.ModeNames;
-            this.setComboBox.Items.Add(modeNames[modeNames.Count - 1].FormattedValue);
-            this.setComboBox.SelectedIndex = 0;
-            this.setComboBox.Enabled = false;
+            setComboBox.Items.Add(modeNames[modeNames.Count - 1].FormattedValue);
+            setComboBox.SelectedIndex = 0;
+            setComboBox.Enabled = false;
         }
 
         private void SetComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            GPTrack gpTrack = this.track as GPTrack;
-            gpTrack.ItemProbabilityIndex = this.setComboBox.SelectedIndex;
+            GPTrack gpTrack = _track as GPTrack;
+            gpTrack.ItemProbabilityIndex = setComboBox.SelectedIndex;
         }
 
         private void ShapeComboBoxFormat(object sender, ListControlConvertEventArgs e)
@@ -197,49 +197,49 @@ namespace EpicEdit.UI.TrackEdition
 
         private void IndexNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            int oldIndex = this.track.AI.GetElementIndex(this.selectedElement);
-            int newIndex = (int)this.indexNumericUpDown.Value;
-            this.track.AI.ChangeElementIndex(oldIndex, newIndex);
+            int oldIndex = _track.AI.GetElementIndex(_selectedElement);
+            int newIndex = (int)indexNumericUpDown.Value;
+            _track.AI.ChangeElementIndex(oldIndex, newIndex);
         }
 
         private void SpeedNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.selectedElement.Speed = (byte)this.speedNumericUpDown.Value;
+            _selectedElement.Speed = (byte)speedNumericUpDown.Value;
         }
 
         private void ShapeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.selectedElement.AreaShape = (TrackAIElementShape)this.shapeComboBox.SelectedValue;
+            _selectedElement.AreaShape = (TrackAIElementShape)shapeComboBox.SelectedValue;
         }
 
         private void IsIntersectionCheckBoxCheckedChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.selectedElement.IsIntersection = this.isIntersectionCheckBox.Checked;
+            _selectedElement.IsIntersection = isIntersectionCheckBox.Checked;
         }
 
         private void CloneButtonClick(object sender, EventArgs e)
         {
-            TrackAIElement aiElement = this.SelectedElement;
+            TrackAIElement aiElement = SelectedElement;
             TrackAIElement newAIElem = aiElement.Clone();
 
             // Shift the cloned element position, so it's not directly over the source element
@@ -247,55 +247,55 @@ namespace EpicEdit.UI.TrackEdition
                                            aiElement.Location.Y + TrackAIElement.Precision);
 
             // Ensure the cloned element index is right after the source element
-            int newAIElementIndex = this.track.AI.GetElementIndex(aiElement) + 1;
+            int newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
 
-            this.track.AI.Insert(newAIElem, newAIElementIndex);
+            _track.AI.Insert(newAIElem, newAIElementIndex);
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            this.track.AI.Remove(this.SelectedElement);
+            _track.AI.Remove(SelectedElement);
         }
 
         private void LoadItemProbabilitySet()
         {
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            if (this.track is GPTrack gpTrack)
+            if (_track is GPTrack gpTrack)
             {
-                if (!this.setComboBox.Enabled)
+                if (!setComboBox.Enabled)
                 {
-                    this.ResetSetComboBoxGP();
+                    ResetSetComboBoxGP();
                 }
 
-                this.setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
+                setComboBox.SelectedIndex = gpTrack.ItemProbabilityIndex;
             }
             else
             {
-                if (this.setComboBox.Enabled)
+                if (setComboBox.Enabled)
                 {
-                    this.ResetSetComboBoxBattle();
+                    ResetSetComboBoxBattle();
                 }
             }
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private void ProbaEditorButtonClick(object sender, EventArgs e)
         {
-            this.ItemProbaEditorRequested(this, EventArgs.Empty);
+            ItemProbaEditorRequested(this, EventArgs.Empty);
         }
 
         private void SetMaximumAIElementIndex()
         {
-            this.fireEvents = false;
-            this.indexNumericUpDown.Maximum = this.track.AI.ElementCount - 1;
-            this.fireEvents = true;
+            _fireEvents = false;
+            indexNumericUpDown.Maximum = _track.AI.ElementCount - 1;
+            _fireEvents = true;
         }
 
         private void AddButtonClick(object sender, EventArgs e)
         {
-            this.AddElementRequested(this, EventArgs.Empty);
+            AddElementRequested(this, EventArgs.Empty);
         }
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
@@ -304,7 +304,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (result == DialogResult.Yes)
             {
-                this.track.AI.Clear();
+                _track.AI.Clear();
             }
         }
 
@@ -312,7 +312,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             TrackAIElement aiElement = sender as TrackAIElement;
 
-            if (this.SelectedElement != aiElement)
+            if (SelectedElement != aiElement)
             {
                 return;
             }
@@ -320,19 +320,19 @@ namespace EpicEdit.UI.TrackEdition
             switch (e.PropertyName)
             {
                 case PropertyNames.TrackAIElement.Index:
-                    this.indexNumericUpDown.Value = this.track.AI.GetElementIndex(this.selectedElement);
+                    indexNumericUpDown.Value = _track.AI.GetElementIndex(_selectedElement);
                     break;
 
                 case PropertyNames.TrackAIElement.Speed:
-                    this.speedNumericUpDown.Value = aiElement.Speed;
+                    speedNumericUpDown.Value = aiElement.Speed;
                     break;
 
                 case PropertyNames.TrackAIElement.AreaShape:
-                    this.shapeComboBox.SelectedItem = aiElement.AreaShape;
+                    shapeComboBox.SelectedItem = aiElement.AreaShape;
                     break;
 
                 case PropertyNames.TrackAIElement.IsIntersection:
-                    this.isIntersectionCheckBox.Checked = aiElement.IsIntersection;
+                    isIntersectionCheckBox.Checked = aiElement.IsIntersection;
                     break;
             }
         }
@@ -341,43 +341,43 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.PropertyName == PropertyNames.GPTrack.ItemProbabilityIndex)
             {
-                this.setComboBox.SelectedIndex = (this.track as GPTrack).ItemProbabilityIndex;
+                setComboBox.SelectedIndex = (_track as GPTrack).ItemProbabilityIndex;
             }
         }
 
         private void track_AI_ElementAdded(object sender, EventArgs<TrackAIElement> e)
         {
-            this.SetMaximumAIElementIndex();
+            SetMaximumAIElementIndex();
 
-            if (this.track.AI.ElementCount > 0)
+            if (_track.AI.ElementCount > 0)
             {
-                this.HideWarning();
+                HideWarning();
             }
         }
 
         private void track_AI_ElementRemoved(object sender, EventArgs<TrackAIElement> e)
         {
-            this.SetMaximumAIElementIndex();
+            SetMaximumAIElementIndex();
 
-            if (this.track.AI.ElementCount == 0)
+            if (_track.AI.ElementCount == 0)
             {
-                this.ShowWarning();
+                ShowWarning();
             }
         }
 
         private void track_AI_ElementsCleared(object sender, EventArgs e)
         {
-            this.ShowWarning();
+            ShowWarning();
         }
 
         private void ShowWarning()
         {
-            this.warningLabel.Visible = true;
+            warningLabel.Visible = true;
         }
 
         private void HideWarning()
         {
-            this.warningLabel.Visible = false;
+            warningLabel.Visible = false;
         }
     }
 }

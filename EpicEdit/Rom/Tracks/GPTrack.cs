@@ -28,7 +28,7 @@ namespace EpicEdit.Rom.Tracks
         /// <summary>
         /// Number of GP tracks.
         /// </summary>
-        public new const int Count = GPTrack.GroupCount * GPTrack.CountPerGroup;
+        public new const int Count = GroupCount * CountPerGroup;
 
         /// <summary>
         /// Number of GP Groups (Cups).
@@ -40,45 +40,45 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public const int CountPerGroup = 5;
 
-        private readonly GPStartPosition startPosition;
+        private readonly GPStartPosition _startPosition;
         public GPStartPosition StartPosition
         {
-            get => this.startPosition;
-            private set => this.startPosition.SetBytes(value.GetBytes());
+            get => _startPosition;
+            private set => _startPosition.SetBytes(value.GetBytes());
         }
 
-        private readonly LapLine lapLine;
+        private readonly LapLine _lapLine;
         public LapLine LapLine
         {
-            get => this.lapLine;
-            private set => this.lapLine.SetBytes(value.GetBytes());
+            get => _lapLine;
+            private set => _lapLine.SetBytes(value.GetBytes());
         }
 
-        private readonly TrackObjects objects;
+        private readonly TrackObjects _objects;
         public TrackObjects Objects
         {
-            get => this.objects;
+            get => _objects;
             private set
             {
-                this.objects.SetBytes(value.GetBytes());
-                this.objects.Areas.SetBytes(value.Areas.GetBytes());
-                this.objects.Properties.SetBytes(value.Properties.GetBytes());
+                _objects.SetBytes(value.GetBytes());
+                _objects.Areas.SetBytes(value.Areas.GetBytes());
+                _objects.Properties.SetBytes(value.Properties.GetBytes());
             }
         }
 
-        private int itemProbabilityIndex;
+        private int _itemProbabilityIndex;
         public int ItemProbabilityIndex
         {
-            get => this.itemProbabilityIndex;
+            get => _itemProbabilityIndex;
             set
             {
-                if (this.itemProbabilityIndex == value)
+                if (_itemProbabilityIndex == value)
                 {
                     return;
                 }
 
-                this.itemProbabilityIndex = value;
-                this.MarkAsModified(PropertyNames.GPTrack.ItemProbabilityIndex);
+                _itemProbabilityIndex = value;
+                MarkAsModified(PropertyNames.GPTrack.ItemProbabilityIndex);
             }
         }
 
@@ -92,31 +92,31 @@ namespace EpicEdit.Rom.Tracks
                        int itemProbaIndex) :
             base(nameItem, theme, map, overlayTileData, aiAreaData, aiTargetData, overlayTileSizes, overlayTilePatterns)
         {
-            this.startPosition = new GPStartPosition(startPositionData);
-            this.StartPosition.PropertyChanged += this.StartPosition_PropertyChanged;
+            _startPosition = new GPStartPosition(startPositionData);
+            StartPosition.PropertyChanged += StartPosition_PropertyChanged;
 
-            this.lapLine = new LapLine(lapLineData);
-            this.LapLine.DataChanged += this.LapLine_DataChanged;
+            _lapLine = new LapLine(lapLineData);
+            LapLine.DataChanged += LapLine_DataChanged;
 
-            this.objects = new TrackObjects(objectData, objectAreaData, this.AI, objectPropData, this);
-            this.Objects.PropertyChanged += this.Objects_PropertyChanged;
+            _objects = new TrackObjects(objectData, objectAreaData, AI, objectPropData, this);
+            Objects.PropertyChanged += Objects_PropertyChanged;
 
-            this.itemProbabilityIndex = itemProbaIndex;
+            _itemProbabilityIndex = itemProbaIndex;
         }
 
         private void StartPosition_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.GPTrack.StartPosition);
+            MarkAsModified(PropertyNames.GPTrack.StartPosition);
         }
 
         private void LapLine_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.GPTrack.LapLine);
+            MarkAsModified(PropertyNames.GPTrack.LapLine);
         }
 
         private void Objects_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.GPTrack.Objects);
+            MarkAsModified(PropertyNames.GPTrack.Objects);
         }
 
         /// <summary>
@@ -126,10 +126,10 @@ namespace EpicEdit.Rom.Tracks
         {
             base.LoadDataFrom(track);
 
-            this.StartPosition = track.StartPosition;
-            this.LapLine = track.LapLine;
-            this.Objects = track.Objects;
-            this.ItemProbabilityIndex = track.ItemProbabilityIndex;
+            StartPosition = track.StartPosition;
+            LapLine = track.LapLine;
+            Objects = track.Objects;
+            ItemProbabilityIndex = track.ItemProbabilityIndex;
         }
 
         /// <summary>
@@ -139,10 +139,10 @@ namespace EpicEdit.Rom.Tracks
         {
             base.LoadDataTo(track);
 
-            track.StartPosition = this.StartPosition;
-            track.LapLine = this.LapLine;
-            track.Objects = this.Objects;
-            track.ItemProbabilityIndex = this.ItemProbabilityIndex;
+            track.StartPosition = StartPosition;
+            track.LapLine = LapLine;
+            track.Objects = Objects;
+            track.ItemProbabilityIndex = ItemProbabilityIndex;
         }
     }
 }

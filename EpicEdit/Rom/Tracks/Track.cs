@@ -63,45 +63,45 @@ namespace EpicEdit.Rom.Tracks
 
         public SuffixedTextItem SuffixedNameItem { get; }
 
-        public string Name => this.SuffixedNameItem.Value;
+        public string Name => SuffixedNameItem.Value;
 
-        private Theme theme;
+        private Theme _theme;
         public Theme Theme
         {
-            get => this.theme;
+            get => _theme;
             set
             {
-                if (this.theme == value)
+                if (_theme == value)
                 {
                     return;
                 }
 
-                this.RemoveColorChangedEventHandlers();
-                this.theme = value;
-                this.AddColorChangedEventHandlers();
+                RemoveColorChangedEventHandlers();
+                _theme = value;
+                AddColorChangedEventHandlers();
 
-                this.MarkAsModified(PropertyNames.Track.Theme);
+                MarkAsModified(PropertyNames.Track.Theme);
             }
         }
 
-        private readonly TrackMap map;
+        private readonly TrackMap _map;
         public TrackMap Map
         {
-            get => this.map;
-            private set => this.map.SetBytes(value.GetBytes());
+            get => _map;
+            private set => _map.SetBytes(value.GetBytes());
         }
 
-        private readonly OverlayTiles overlayTiles;
+        private readonly OverlayTiles _overlayTiles;
         public OverlayTiles OverlayTiles
         {
-            get => this.overlayTiles;
-            private set => this.overlayTiles.SetBytes(value.GetBytes());
+            get => _overlayTiles;
+            private set => _overlayTiles.SetBytes(value.GetBytes());
         }
 
-        private readonly TrackAI ai;
+        private readonly TrackAI _ai;
         public TrackAI AI
         {
-            get => this.ai;
+            get => _ai;
             private set
             {
                 byte[] data = value.GetBytes();
@@ -109,11 +109,11 @@ namespace EpicEdit.Rom.Tracks
                 byte[] targetData = new byte[data.Length - areaData.Length - 1];
                 Buffer.BlockCopy(data, 0, areaData, 0, areaData.Length);
                 Buffer.BlockCopy(data, areaData.Length + 1, targetData, 0, targetData.Length);
-                this.ai.SetBytes(areaData, targetData);
+                _ai.SetBytes(areaData, targetData);
             }
         }
 
-        public RoadTileset RoadTileset => this.Theme.RoadTileset;
+        public RoadTileset RoadTileset => Theme.RoadTileset;
 
         public bool Modified { get; private set; }
 
@@ -123,119 +123,119 @@ namespace EpicEdit.Rom.Tracks
                         OverlayTileSizes overlayTileSizes,
                         OverlayTilePatterns overlayTilePatterns)
         {
-            this.theme = theme;
-            this.AddColorChangedEventHandlers();
+            _theme = theme;
+            AddColorChangedEventHandlers();
 
-            this.SuffixedNameItem = nameItem;
-            this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
+            SuffixedNameItem = nameItem;
+            SuffixedNameItem.PropertyChanged += SuffixedNameItem_PropertyChanged;
 
-            this.map = new TrackMap(map);
-            this.Map.DataChanged += this.Map_DataChanged;
+            _map = new TrackMap(map);
+            Map.DataChanged += Map_DataChanged;
 
-            this.ai = new TrackAI(aiAreaData, aiTargetData, this);
-            this.AI.PropertyChanged += this.AI_PropertyChanged;
-            this.AI.ElementAdded += this.AI_PropertyChanged;
-            this.AI.ElementRemoved += this.AI_PropertyChanged;
-            this.AI.ElementsCleared += this.AI_PropertyChanged;
+            _ai = new TrackAI(aiAreaData, aiTargetData, this);
+            AI.PropertyChanged += AI_PropertyChanged;
+            AI.ElementAdded += AI_PropertyChanged;
+            AI.ElementRemoved += AI_PropertyChanged;
+            AI.ElementsCleared += AI_PropertyChanged;
 
-            this.overlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
-            this.OverlayTiles.DataChanged += this.OverlayTiles_DataChanged;
-            this.OverlayTiles.ElementAdded += this.OverlayTiles_DataChanged;
-            this.OverlayTiles.ElementRemoved += this.OverlayTiles_DataChanged;
-            this.OverlayTiles.ElementsCleared += this.OverlayTiles_DataChanged;
+            _overlayTiles = new OverlayTiles(overlayTilesData, overlayTileSizes, overlayTilePatterns);
+            OverlayTiles.DataChanged += OverlayTiles_DataChanged;
+            OverlayTiles.ElementAdded += OverlayTiles_DataChanged;
+            OverlayTiles.ElementRemoved += OverlayTiles_DataChanged;
+            OverlayTiles.ElementsCleared += OverlayTiles_DataChanged;
         }
 
         private void AddColorChangedEventHandlers()
         {
-            foreach (Palette palette in this.theme.Palettes)
+            foreach (Palette palette in _theme.Palettes)
             {
-                palette.ColorChanged += this.palette_ColorChanged;
-                palette.ColorsChanged += this.palette_ColorsChanged;
-                palette.ColorGraphicsChanged += this.palette_ColorGraphicsChanged;
-                palette.ColorsGraphicsChanged += this.palette_ColorsGraphicsChanged;
+                palette.ColorChanged += palette_ColorChanged;
+                palette.ColorsChanged += palette_ColorsChanged;
+                palette.ColorGraphicsChanged += palette_ColorGraphicsChanged;
+                palette.ColorsGraphicsChanged += palette_ColorsGraphicsChanged;
             }
         }
 
         private void RemoveColorChangedEventHandlers()
         {
-            foreach (Palette palette in this.theme.Palettes)
+            foreach (Palette palette in _theme.Palettes)
             {
-                palette.ColorChanged -= this.palette_ColorChanged;
-                palette.ColorsChanged -= this.palette_ColorsChanged;
-                palette.ColorGraphicsChanged -= this.palette_ColorGraphicsChanged;
-                palette.ColorsGraphicsChanged -= this.palette_ColorsGraphicsChanged;
+                palette.ColorChanged -= palette_ColorChanged;
+                palette.ColorsChanged -= palette_ColorsChanged;
+                palette.ColorGraphicsChanged -= palette_ColorGraphicsChanged;
+                palette.ColorsGraphicsChanged -= palette_ColorsGraphicsChanged;
             }
         }
 
         private void palette_ColorChanged(object sender, EventArgs<int> e)
         {
-            this.OnColorChanged(sender, e);
+            OnColorChanged(sender, e);
         }
 
         private void palette_ColorsChanged(object sender, EventArgs e)
         {
-            this.OnColorsChanged(sender);
+            OnColorsChanged(sender);
         }
 
         private void palette_ColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            this.OnColorGraphicsChanged(sender, e);
+            OnColorGraphicsChanged(sender, e);
         }
 
         private void palette_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            this.OnColorsGraphicsChanged(sender);
+            OnColorsGraphicsChanged(sender);
         }
 
         private void OnColorChanged(object sender, EventArgs<int> e)
         {
-            this.ColorChanged?.Invoke(sender, e);
+            ColorChanged?.Invoke(sender, e);
         }
 
         private void OnColorsChanged(object sender)
         {
-            this.ColorsChanged?.Invoke(sender, EventArgs.Empty);
+            ColorsChanged?.Invoke(sender, EventArgs.Empty);
         }
 
         private void OnColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            this.ColorGraphicsChanged?.Invoke(sender, e);
+            ColorGraphicsChanged?.Invoke(sender, e);
         }
 
         private void OnColorsGraphicsChanged(object sender)
         {
-            this.ColorsGraphicsChanged?.Invoke(sender, EventArgs.Empty);
+            ColorsGraphicsChanged?.Invoke(sender, EventArgs.Empty);
         }
 
         private void SuffixedNameItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
+            OnPropertyChanged(PropertyNames.Track.SuffixedNameItem);
         }
 
         private void Map_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.Track.Map);
+            MarkAsModified(PropertyNames.Track.Map);
         }
 
         private void AI_PropertyChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.Track.AI);
+            MarkAsModified(PropertyNames.Track.AI);
         }
 
         private void OverlayTiles_DataChanged(object sender, EventArgs e)
         {
-            this.MarkAsModified(PropertyNames.Track.OverlayTiles);
+            MarkAsModified(PropertyNames.Track.OverlayTiles);
         }
 
         public void Import(string filePath, Game game)
         {
             if (filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
-                this.ImportMkt(filePath, game);
+                ImportMkt(filePath, game);
             }
             else
             {
-                this.ImportSmkc(filePath, game);
+                ImportSmkc(filePath, game);
             }
         }
 
@@ -257,12 +257,12 @@ namespace EpicEdit.Rom.Tracks
                 byte[] mapData = new byte[TrackMap.SquareSize];
                 reader.Read(mapData, 0, mapData.Length);
 
-                this.Map = new TrackMap(mapData);
+                Map = new TrackMap(mapData);
 
                 if (fileLength == TrackMap.SquareSize + 1) // If a theme is defined
                 {
                     byte themeId = (byte)(reader.ReadByte() >> 1);
-                    this.Theme = game.Themes[themeId];
+                    Theme = game.Themes[themeId];
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace EpicEdit.Rom.Tracks
         {
             MakeTrack track = new MakeTrack(this, game);
             track.Load(filePath);
-            this.LoadDataFrom(track);
+            LoadDataFrom(track);
         }
 
         /// <summary>
@@ -282,44 +282,44 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         protected virtual void LoadDataFrom(MakeTrack track)
         {
-            this.Map = track.Map;
-            this.Theme = track.Theme;
-            this.OverlayTiles = track.OverlayTiles;
-            this.AI = track.AI;
+            Map = track.Map;
+            Theme = track.Theme;
+            OverlayTiles = track.OverlayTiles;
+            AI = track.AI;
         }
 
         public void Export(string filePath, Game game)
         {
             if (filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
             {
-                this.ExportMkt(filePath, game);
+                ExportMkt(filePath, game);
             }
             else
             {
-                this.ExportSmkc(filePath, game);
+                ExportSmkc(filePath, game);
             }
         }
 
         protected void MarkAsModified(string propertyName)
         {
-            this.Modified = true;
-            this.OnPropertyChanged(propertyName);
+            Modified = true;
+            OnPropertyChanged(propertyName);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void ResetModifiedState()
         {
-            if (!this.Modified)
+            if (!Modified)
             {
                 return;
             }
 
-            this.Modified = false;
-            this.OnPropertyChanged(PropertyNames.Track.Modified);
+            Modified = false;
+            OnPropertyChanged(PropertyNames.Track.Modified);
         }
 
         /// <summary>
@@ -329,9 +329,9 @@ namespace EpicEdit.Rom.Tracks
         {
             using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
             {
-                bw.Write(this.Map.GetBytes());
+                bw.Write(Map.GetBytes());
 
-                byte themeId = game.Themes.GetThemeId(this.Theme);
+                byte themeId = game.Themes.GetThemeId(Theme);
                 bw.Write(themeId);
             }
         }
@@ -342,7 +342,7 @@ namespace EpicEdit.Rom.Tracks
         private void ExportSmkc(string filePath, Game game)
         {
             MakeTrack track = new MakeTrack(this, game);
-            this.LoadDataTo(track);
+            LoadDataTo(track);
             track.Save(filePath);
         }
 
@@ -351,10 +351,10 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         protected virtual void LoadDataTo(MakeTrack track)
         {
-            track.Map = this.Map;
-            track.Theme = this.Theme;
-            track.OverlayTiles = this.OverlayTiles;
-            track.AI = this.AI;
+            track.Map = Map;
+            track.Theme = Theme;
+            track.OverlayTiles = OverlayTiles;
+            track.AI = AI;
         }
     }
 }

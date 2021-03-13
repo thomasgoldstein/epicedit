@@ -21,7 +21,7 @@ namespace EpicEdit.Tests.Rom.Settings
     [TestFixture]
     internal class GameSettingsTests
     {
-        private void TestTexts(string[] expectedTexts, byte[] expectedIndexes, byte[] expectedBytes, TextCollection textColl)
+        private static void TestTexts(string[] expectedTexts, byte[] expectedIndexes, byte[] expectedBytes, TextCollection textColl)
         {
             Assert.AreEqual(expectedTexts.Length, textColl.Count);
 
@@ -46,7 +46,7 @@ namespace EpicEdit.Tests.Rom.Settings
         public void TestUSModeNames()
         {
             Game game = File.GetGame(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
@@ -61,7 +61,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
@@ -76,7 +76,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM", "FLOWER", "STAR", "SPECIAL", " CUP RACE\n"
@@ -91,7 +91,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
@@ -108,7 +108,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
@@ -124,7 +124,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
@@ -140,7 +140,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.US);
             byte[] romBuffer = File.ReadRom(Region.US);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
@@ -155,7 +155,7 @@ namespace EpicEdit.Tests.Rom.Settings
         public void TestEuroModeNames()
         {
             Game game = File.GetGame(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIOKART GP", "MATCH RACE", "BATTLE MODE"
@@ -170,7 +170,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM CUP RACE", "FLOWER CUP RACE", "STAR CUP RACE", "SPECIAL CUP RACE"
@@ -185,7 +185,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM", "FLOWER", "STAR", "SPECIAL", " CUP RACE\n"
@@ -200,7 +200,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MUSHROOM CUP", "FLOWER CUP", "STAR CUP", "SPECIAL CUP",
@@ -217,7 +217,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
@@ -233,7 +233,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "THE PRINCESS",
@@ -249,7 +249,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Euro);
             byte[] romBuffer = File.ReadRom(Region.Euro);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "MARIO", "LUIGI", "BOWSER", "PRINCESS",
@@ -264,7 +264,7 @@ namespace EpicEdit.Tests.Rom.Settings
         public void TestJapModeNames()
         {
             Game game = File.GetGame(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "マリオカートGP", "VSマッチレース", "バトルゲーム"
@@ -279,7 +279,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     " キノコ", " フラワー", " スター", " スペシャル", "カップレースー\n"
@@ -294,7 +294,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "キノコカップ ", "フラワーカップ ", "スターカップ ", "スペシャルカップ ",
@@ -311,7 +311,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
@@ -327,7 +327,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",
@@ -343,7 +343,7 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Game game = File.GetGame(Region.Jap);
             byte[] romBuffer = File.ReadRom(Region.Jap);
-            this.TestTexts(
+            TestTexts(
                 new[]
                 {
                     "マリオ", "ルイージ", "クッパ", "ピーチ",

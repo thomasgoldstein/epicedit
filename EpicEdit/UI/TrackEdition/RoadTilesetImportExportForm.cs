@@ -21,7 +21,7 @@ namespace EpicEdit.UI.TrackEdition
     /// </summary>
     internal partial class RoadTilesetImportExportForm : Form
     {
-        private RadioButton selectedRadioButton;
+        private RadioButton _selectedRadioButton;
 
         public RoadTilesetImportExportAction Action { get; private set; }
 
@@ -29,8 +29,8 @@ namespace EpicEdit.UI.TrackEdition
 
         public RoadTilesetImportExportForm()
         {
-            this.InitializeComponent();
-            this.tileGraphicsRadioButton.Select();
+            InitializeComponent();
+            tileGraphicsRadioButton.Select();
         }
 
         private void RadioButtonCheckedChanged(object sender, System.EventArgs e)
@@ -38,43 +38,43 @@ namespace EpicEdit.UI.TrackEdition
             RadioButton rb = sender as RadioButton;
             if (rb.Checked)
             {
-                this.selectedRadioButton = rb;
-                this.SetButtonToolTips();
+                _selectedRadioButton = rb;
+                SetButtonToolTips();
             }
         }
 
         private void SetButtonToolTips()
         {
-            string label = this.selectedRadioButton.Text;
-            this.buttonToolTip.SetToolTip(this.importButton, "Import " + label);
-            this.buttonToolTip.SetToolTip(this.exportButton, "Export " + label);
+            string label = _selectedRadioButton.Text;
+            buttonToolTip.SetToolTip(importButton, "Import " + label);
+            buttonToolTip.SetToolTip(exportButton, "Export " + label);
         }
 
         private void ImportButtonClick(object sender, System.EventArgs e)
         {
-            this.Action = RoadTilesetImportExportAction.Import;
-            this.SetResultAndClose();
+            Action = RoadTilesetImportExportAction.Import;
+            SetResultAndClose();
         }
 
         private void ExportButtonClick(object sender, System.EventArgs e)
         {
-            this.Action = RoadTilesetImportExportAction.Export;
-            this.SetResultAndClose();
+            Action = RoadTilesetImportExportAction.Export;
+            SetResultAndClose();
         }
 
         private void SetResultAndClose()
         {
-            this.DialogResult = DialogResult.OK;
-            this.Type = this.GetSelectedMode();
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Type = GetSelectedMode();
+            Close();
         }
 
         private RoadTilesetImportExportType GetSelectedMode()
         {
             return
-                this.selectedRadioButton == this.tileGraphicsRadioButton ?
+                _selectedRadioButton == tileGraphicsRadioButton ?
                 RoadTilesetImportExportType.Graphics :
-                this.selectedRadioButton == this.tileGenresRadioButtons ?
+                _selectedRadioButton == tileGenresRadioButtons ?
                 RoadTilesetImportExportType.Genres :
                 RoadTilesetImportExportType.Palettes;
         }

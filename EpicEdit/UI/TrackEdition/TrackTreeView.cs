@@ -29,40 +29,40 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs> SelectedTrackChanged;
 
-        private Dictionary<TrackGroup, TreeNode> trackGroupDictionary;
-        private Dictionary<Track, TreeNode> trackDictionary;
+        private Dictionary<TrackGroup, TreeNode> _trackGroupDictionary;
+        private Dictionary<Track, TreeNode> _trackDictionary;
 
         /// <summary>
         /// The track being dragged in the track list (for reordering).
         /// </summary>
-        private TreeNode draggedTrack;
+        private TreeNode _draggedTrack;
 
         /// <summary>
-        /// The target track of the <see cref="draggedTrack"/>.
+        /// The target track of the <see cref="_draggedTrack"/>.
         /// </summary>
-        private TreeNode draggedTrackTarget;
+        private TreeNode _draggedTrackTarget;
 
         public TrackTreeView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public void InitOnFirstRomLoad()
         {
-            this.trackGroupDictionary = new Dictionary<TrackGroup, TreeNode>();
-            this.trackDictionary = new Dictionary<Track, TreeNode>();
-            this.InitOnRomLoad();
+            _trackGroupDictionary = new Dictionary<TrackGroup, TreeNode>();
+            _trackDictionary = new Dictionary<Track, TreeNode>();
+            InitOnRomLoad();
 
             // Attach the AfterSelect event handler method here
             // to avoid an extra repaint on ROM loading
-            this.SetSelectedTrack();
-            this.treeView.AfterSelect += this.TreeViewAfterSelect;
+            SetSelectedTrack();
+            treeView.AfterSelect += TreeViewAfterSelect;
         }
 
         public void InitOnRomLoad()
         {
-            this.treeView.BeginUpdate();
-            this.treeView.Nodes.Clear();
+            treeView.BeginUpdate();
+            treeView.Nodes.Clear();
 
             foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
             {
@@ -70,36 +70,36 @@ namespace EpicEdit.UI.TrackEdition
                 trackGroupNode.ForeColor = SystemColors.WindowText;
 
                 // Makes it so group nodes don't appear highlighted when clicked
-                trackGroupNode.BackColor = this.treeView.BackColor;
+                trackGroupNode.BackColor = treeView.BackColor;
 
                 foreach (Track track in trackGroup)
                 {
                     TreeNode trackNode = new TreeNode();
                     trackGroupNode.Nodes.Add(trackNode);
-                    track.PropertyChanged += this.track_PropertyChanged;
+                    track.PropertyChanged += track_PropertyChanged;
                 }
 
-                this.treeView.Nodes.Add(trackGroupNode);
-                trackGroup.PropertyChanged += this.trackGroup_PropertyChanged;
+                treeView.Nodes.Add(trackGroupNode);
+                trackGroup.PropertyChanged += trackGroup_PropertyChanged;
             }
 
-            this.UpdateTrackNames();
+            UpdateTrackNames();
 
-            this.treeView.ExpandAll();
-            this.treeView.SelectedNode = this.treeView.Nodes[0].Nodes[0];
-            this.treeView.EndUpdate();
+            treeView.ExpandAll();
+            treeView.SelectedNode = treeView.Nodes[0].Nodes[0];
+            treeView.EndUpdate();
         }
 
         private void UpdateTrackNames()
         {
-            this.trackGroupDictionary.Clear();
-            this.trackDictionary.Clear();
+            _trackGroupDictionary.Clear();
+            _trackDictionary.Clear();
 
             for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
             {
                 TrackGroup trackGroup = Context.Game.TrackGroups[i];
-                TreeNode trackGroupNode = this.treeView.Nodes[i];
-                this.trackGroupDictionary.Add(trackGroup, trackGroupNode);
+                TreeNode trackGroupNode = treeView.Nodes[i];
+                _trackGroupDictionary.Add(trackGroup, trackGroupNode);
 
                 TreeNodeCollection trackNodes = trackGroupNode.Nodes;
 
@@ -108,8 +108,8 @@ namespace EpicEdit.UI.TrackEdition
                     Track track = trackGroup[j];
                     TreeNode trackNode = trackNodes[j];
 
-                    this.trackDictionary.Add(track, trackNode);
-                    trackNode.Text = TrackTreeView.GetTrackText(track);
+                    _trackDictionary.Add(track, trackNode);
+                    trackNode.Text = GetTrackText(track);
                 }
             }
         }
@@ -121,15 +121,15 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            TreeNode treeNode = this.trackGroupDictionary[trackGroup];
+            TreeNode treeNode = _trackGroupDictionary[trackGroup];
             treeNode.Text = trackGroup.Name;
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Track track = sender as Track;
-            TreeNode treeNode = this.trackDictionary[track];
-            string trackText = TrackTreeView.GetTrackText(track);
+            TreeNode treeNode = _trackDictionary[track];
+            string trackText = GetTrackText(track);
 
             if (treeNode.Text != trackText)
             {
@@ -160,15 +160,15 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TreeViewAfterSelect(object sender, TreeViewEventArgs e)
         {
-            this.SetSelectedTrack();
-            this.SelectedTrackChanged(this, EventArgs.Empty);
+            SetSelectedTrack();
+            SelectedTrackChanged(this, EventArgs.Empty);
         }
 
         private void SetSelectedTrack()
         {
-            int trackGroupId = this.treeView.SelectedNode.Parent.Index;
-            int trackId = this.treeView.SelectedNode.Index;
-            this.SelectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
+            int trackGroupId = treeView.SelectedNode.Parent.Index;
+            int trackId = treeView.SelectedNode.Index;
+            SelectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
         }
 
         /// <summary>
@@ -176,9 +176,9 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         public Track SelectedTrack { get; private set; }
 
-        public string SelectedTrackFileName => this.SelectedTrackId + "- " + this.SelectedTrack.Name;
+        public string SelectedTrackFileName => SelectedTrackId + "- " + SelectedTrack.Name;
 
-        public int SelectedTrackId => this.treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
+        public int SelectedTrackId => treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + treeView.SelectedNode.Index + 1;
 
         #region Track reordering
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
@@ -190,9 +190,9 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.draggedTrack = this.draggedTrackTarget = hoveredNode;
-            this.treeView.SelectedNode = this.draggedTrack;
-            this.DoDragDrop(e.Item, DragDropEffects.Move);
+            _draggedTrack = _draggedTrackTarget = hoveredNode;
+            treeView.SelectedNode = _draggedTrack;
+            DoDragDrop(e.Item, DragDropEffects.Move);
         }
 
         private void TreeViewDragEnter(object sender, DragEventArgs e)
@@ -200,78 +200,78 @@ namespace EpicEdit.UI.TrackEdition
             // For the drag and drop operation to be valid,
             // make sure the dragged object is a TreeNode, and that it's coming from this very control
             if (!e.Data.GetDataPresent(typeof(TreeNode)) ||
-                ((TreeNode)e.Data.GetData(typeof(TreeNode))).TreeView != this.treeView)
+                ((TreeNode)e.Data.GetData(typeof(TreeNode))).TreeView != treeView)
             {
-                this.draggedTrack = this.draggedTrackTarget = null;
+                _draggedTrack = _draggedTrackTarget = null;
             }
         }
 
         private void TreeViewDragOver(object sender, DragEventArgs e)
         {
-            Point targetPoint = this.PointToClient(new Point(e.X, e.Y));
-            TreeNode hoveredNode = this.treeView.GetNodeAt(targetPoint);
+            Point targetPoint = PointToClient(new Point(e.X, e.Y));
+            TreeNode hoveredNode = treeView.GetNodeAt(targetPoint);
 
             if (hoveredNode.Level == 0)
             {
-                this.ClearPreviousHighlight();
+                ClearPreviousHighlight();
                 e.Effect = DragDropEffects.None;
                 return;
             }
 
             TreeNode nodeGroup = hoveredNode.Parent;
 
-            if ((nodeGroup.Index < GPTrack.GroupCount && this.draggedTrack.Parent.Index < GPTrack.GroupCount) ||
-                (nodeGroup.Index == GPTrack.GroupCount && this.draggedTrack.Parent.Index == GPTrack.GroupCount))
+            if ((nodeGroup.Index < GPTrack.GroupCount && _draggedTrack.Parent.Index < GPTrack.GroupCount) ||
+                (nodeGroup.Index == GPTrack.GroupCount && _draggedTrack.Parent.Index == GPTrack.GroupCount))
             {
                 e.Effect = DragDropEffects.Move;
 
                 if (hoveredNode.BackColor != SystemColors.Highlight)
                 {
-                    this.ClearPreviousHighlight();
-                    this.draggedTrackTarget = hoveredNode;
-                    this.HighlightNode();
+                    ClearPreviousHighlight();
+                    _draggedTrackTarget = hoveredNode;
+                    HighlightNode();
                 }
             }
             else
             {
-                this.ClearPreviousHighlight();
+                ClearPreviousHighlight();
                 e.Effect = DragDropEffects.None;
             }
         }
 
         private void TreeViewDragDrop(object sender, DragEventArgs e)
         {
-            this.ClearPreviousHighlight();
+            ClearPreviousHighlight();
 
-            int sourceTrackGroupId = this.draggedTrack.Parent.Index;
-            int sourceTrackId = this.draggedTrack.Index;
+            int sourceTrackGroupId = _draggedTrack.Parent.Index;
+            int sourceTrackId = _draggedTrack.Index;
 
-            int destinationTrackGroupId = this.draggedTrackTarget.Parent.Index;
-            int destinationTrackId = this.draggedTrackTarget.Index;
+            int destinationTrackGroupId = _draggedTrackTarget.Parent.Index;
+            int destinationTrackId = _draggedTrackTarget.Index;
 
             Context.Game.ReorderTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
 
-            this.treeView.BeginUpdate();
-            this.UpdateTrackNames();
-            this.treeView.EndUpdate();
+            treeView.BeginUpdate();
+            UpdateTrackNames();
+            treeView.EndUpdate();
 
-            this.treeView.AfterSelect -= this.TreeViewAfterSelect;
-            this.treeView.SelectedNode = this.treeView.Nodes[destinationTrackGroupId].Nodes[destinationTrackId];
-            this.treeView.AfterSelect += this.TreeViewAfterSelect;
+            treeView.AfterSelect -= TreeViewAfterSelect;
+            treeView.SelectedNode = treeView.Nodes[destinationTrackGroupId].Nodes[destinationTrackId];
+            treeView.AfterSelect += TreeViewAfterSelect;
 
-            this.draggedTrack = this.draggedTrackTarget = null;
+            _draggedTrack = _draggedTrackTarget = null;
         }
 
         private void HighlightNode()
         {
-            this.draggedTrackTarget.ForeColor = SystemColors.HighlightText;
-            this.draggedTrackTarget.BackColor = SystemColors.Highlight;
+            _draggedTrackTarget.ForeColor = SystemColors.HighlightText;
+            _draggedTrackTarget.BackColor = SystemColors.Highlight;
         }
 
         private void ClearPreviousHighlight()
         {
-            this.draggedTrackTarget.ForeColor = Color.Empty;
-            this.draggedTrackTarget.BackColor = Color.Empty;
+            _draggedTrackTarget.ForeColor = Color.Empty;
+            _draggedTrackTarget.BackColor = Color.Empty;
         }
         #endregion Track reordering
     }

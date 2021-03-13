@@ -27,7 +27,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public byte[] Decompress(byte[] buffer)
         {
-            return this.Decompress(buffer, 0);
+            return Decompress(buffer, 0);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace EpicEdit.Rom.Compression
             {
                 while ((value = buffer[offset++]) != 0xFF)
                 {
-                    this.Decompress(buffer, destBuffer, value, true, ref offset, ref destPosition);
+                    Decompress(buffer, destBuffer, value, true, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException)
@@ -75,7 +75,7 @@ namespace EpicEdit.Rom.Compression
                 while (destPosition < length)
                 {
                     byte value = buffer[offset++];
-                    this.Decompress(buffer, destBuffer, value, false, ref offset, ref destPosition);
+                    Decompress(buffer, destBuffer, value, false, ref offset, ref destPosition);
                 }
             }
             catch (IndexOutOfRangeException) { }

@@ -31,7 +31,7 @@ namespace EpicEdit.UI
         /// <summary>
         /// The state of the window before going full screen, to restore it later.
         /// </summary>
-        private FormWindowState previousWindowState;
+        private FormWindowState _previousWindowState;
 
         [STAThread]
         public static void Main(string[] args)
@@ -57,25 +57,25 @@ namespace EpicEdit.UI
 
         public MainForm(string[] args)
         {
-            this.Text = Application.ProductName;
-            this.InitializeComponent();
+            Text = Application.ProductName;
+            InitializeComponent();
 
             if (args.Length > 0 && File.Exists(args[0]))
             {
-                UITools.ImportData(this.OpenRom, args[0]);
+                UITools.ImportData(OpenRom, args[0]);
             }
         }
 
         private void UpdateApplicationTitle()
         {
-            this.Text = Context.Game.FileName + (!Context.Game.Modified ? null : "*") + " - " + Application.ProductName;
+            Text = Context.Game.FileName + (!Context.Game.Modified ? null : "*") + " - " + Application.ProductName;
         }
 
         private void MainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MainForm.HasPendingChanges())
+            if (HasPendingChanges())
             {
-                bool cancelExit = this.PromptToSaveRom();
+                bool cancelExit = PromptToSaveRom();
                 e.Cancel = cancelExit;
             }
         }
@@ -95,7 +95,7 @@ namespace EpicEdit.UI
             switch (dialogResult)
             {
                 case DialogResult.Yes:
-                    this.SaveRom(Context.Game.FilePath);
+                    SaveRom(Context.Game.FilePath);
                     break;
 
                 case DialogResult.No:
@@ -116,21 +116,21 @@ namespace EpicEdit.UI
 
         private void TrackEditorOpenRomDialogRequested(object sender, EventArgs e)
         {
-            this.ShowOpenRomDialog();
+            ShowOpenRomDialog();
         }
 
         private void ShowOpenRomDialog()
         {
-            if (MainForm.HasPendingChanges())
+            if (HasPendingChanges())
             {
-                bool cancelOpen = this.PromptToSaveRom();
+                bool cancelOpen = PromptToSaveRom();
                 if (cancelOpen)
                 {
                     return;
                 }
             }
 
-            UITools.ShowImportDataDialog(this.OpenRom, FileDialogFilters.RomOrZippedRom);
+            UITools.ShowImportDataDialog(OpenRom, FileDialogFilters.RomOrZippedRom);
         }
 
         private void OpenRom(string filePath)
@@ -142,24 +142,24 @@ namespace EpicEdit.UI
             if (Context.Game == null) // First ROM loading
             {
                 Context.Game = game;
-                this.trackEditor.InitOnFirstRomLoad();
+                trackEditor.InitOnFirstRomLoad();
             }
             else
             {
-                Context.Game.PropertyChanged -= this.Context_Game_PropertyChanged;
+                Context.Game.PropertyChanged -= Context_Game_PropertyChanged;
                 Context.Game.Dispose();
                 Context.Game = null;
                 Context.Game = game;
-                this.trackEditor.InitOnRomLoad();
+                trackEditor.InitOnRomLoad();
             }
 
-            Context.Game.PropertyChanged += this.Context_Game_PropertyChanged;
-            this.UpdateApplicationTitle();
+            Context.Game.PropertyChanged += Context_Game_PropertyChanged;
+            UpdateApplicationTitle();
         }
 
         private void Context_Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            this.UpdateApplicationTitle();
+            UpdateApplicationTitle();
         }
 
         private void TrackEditorFileDragged(object sender, EventArgs<string> e)
@@ -175,27 +175,27 @@ namespace EpicEdit.UI
                 }
                 else
                 {
-                    this.trackEditor.ImportTrack(filePath);
+                    trackEditor.ImportTrack(filePath);
                 }
             }
             else
             {
-                if (MainForm.HasPendingChanges())
+                if (HasPendingChanges())
                 {
-                    bool cancelOpen = this.PromptToSaveRom();
+                    bool cancelOpen = PromptToSaveRom();
                     if (cancelOpen)
                     {
                         return;
                     }
                 }
 
-                UITools.ImportData(this.OpenRom, filePath);
+                UITools.ImportData(OpenRom, filePath);
             }
         }
 
         private void TrackEditorSaveRomDialogRequested(object sender, EventArgs e)
         {
-            this.ShowSaveRomDialog();
+            ShowSaveRomDialog();
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace EpicEdit.UI
 
             fileName = Path.GetFileNameWithoutExtension(fileName);
 
-            UITools.ShowExportDataDialog(this.SaveRom, fileName, filter);
+            UITools.ShowExportDataDialog(SaveRom, fileName, filter);
         }
 
         private void SaveRom(string filePath)
@@ -221,29 +221,29 @@ namespace EpicEdit.UI
 
         private void TrackEditorToggleScreenModeRequested(object sender, EventArgs e)
         {
-            this.ToggleScreenMode();
+            ToggleScreenMode();
         }
 
         private void ToggleScreenMode()
         {
-            if (this.FormBorderStyle != FormBorderStyle.None)
+            if (FormBorderStyle != FormBorderStyle.None)
             {
                 // Go full screen
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.previousWindowState = this.WindowState;
-                this.WindowState = FormWindowState.Maximized;
+                FormBorderStyle = FormBorderStyle.None;
+                _previousWindowState = WindowState;
+                WindowState = FormWindowState.Maximized;
 
                 // HACK: Toggle form visibility to make it cover the task bar.
                 // On Windows XP: if the form was already maximized, the task bar wouldn't be covered.
                 // If the form wasn't maximized, it would be covered but not repainted right away.
-                this.Visible = false;
-                this.Visible = true;
+                Visible = false;
+                Visible = true;
             }
             else
             {
                 // Go back to windowed mode
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = this.previousWindowState;
+                FormBorderStyle = FormBorderStyle.Sizable;
+                WindowState = _previousWindowState;
             }
         }
     }

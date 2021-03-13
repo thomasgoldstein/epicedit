@@ -25,77 +25,77 @@ namespace EpicEdit.UI.SettingEdition
     /// </summary>
     internal partial class DriverNamesControl : UserControl
     {
-        private TextCollection names;
-        private bool fireEvents;
+        private TextCollection _names;
+        private bool _fireEvents;
 
         public DriverNamesControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.textBox1.Tag = 0;
-            this.textBox2.Tag = 1;
-            this.textBox3.Tag = 2;
-            this.textBox4.Tag = 3;
-            this.textBox5.Tag = 4;
-            this.textBox6.Tag = 5;
-            this.textBox7.Tag = 6;
-            this.textBox8.Tag = 7;
+            textBox1.Tag = 0;
+            textBox2.Tag = 1;
+            textBox3.Tag = 2;
+            textBox4.Tag = 3;
+            textBox5.Tag = 4;
+            textBox6.Tag = 5;
+            textBox7.Tag = 6;
+            textBox8.Tag = 7;
         }
 
         public void Init(TextCollection names)
         {
-            this.names = names;
+            _names = names;
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            this.textBox1.Text = names[0].Value;
-            this.textBox2.Text = names[1].Value;
-            this.textBox3.Text = names[2].Value;
-            this.textBox4.Text = names[3].Value;
-            this.textBox5.Text = names[4].Value;
-            this.textBox6.Text = names[5].Value;
-            this.textBox7.Text = names[6].Value;
-            this.textBox8.Text = names[7].Value;
+            textBox1.Text = names[0].Value;
+            textBox2.Text = names[1].Value;
+            textBox3.Text = names[2].Value;
+            textBox4.Text = names[3].Value;
+            textBox5.Text = names[4].Value;
+            textBox6.Text = names[5].Value;
+            textBox7.Text = names[6].Value;
+            textBox8.Text = names[7].Value;
 
-            this.fireEvents = true;
+            _fireEvents = true;
 
-            this.UpdateCount();
+            UpdateCount();
         }
 
         private void UpdateCount()
         {
-            int total = this.names.TotalCharacterCount;
-            int max = this.names.MaxCharacterCount;
-            this.countLabel.Text = $"{total}/{max}";
-            this.countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
+            int total = _names.TotalCharacterCount;
+            int max = _names.MaxCharacterCount;
+            countLabel.Text = $"{total}/{max}";
+            countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
 
         [Category("Appearance")]
         public string Title
         {
-            get => this.groupBox.Text;
-            set => this.groupBox.Text = value;
+            get => groupBox.Text;
+            set => groupBox.Text = value;
         }
 
         private void TextBoxTextChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
 
-            this.fireEvents = false;
+            _fireEvents = false;
 
             TextBox textBox = sender as TextBox;
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
-            this.names[id].Value = textBox.Text;
-            textBox.Text = this.names[id].Value; // Retrieve validated text
+            _names[id].Value = textBox.Text;
+            textBox.Text = _names[id].Value; // Retrieve validated text
             textBox.SelectionStart = sel; // Restore text input position
 
-            this.fireEvents = true;
+            _fireEvents = true;
 
-            this.UpdateCount();
+            UpdateCount();
         }
     }
 }

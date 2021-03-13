@@ -42,7 +42,7 @@ namespace EpicEdit.Tests.Rom.Tracks.AI
             byte[] romBuffer = File.ReadRom(Region.US);
             byte[] areaData = File.ReadBlock(romBuffer, 0x60ECB, 142);
             byte[] targetData = File.ReadBlock(romBuffer, 0x60F5A, 90);
-            this.TestGetBytes(areaData, targetData);
+            TestGetBytes(areaData, targetData);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace EpicEdit.Tests.Rom.Tracks.AI
             byte[] romBuffer = File.ReadRom(Region.US);
             byte[] areaData = File.ReadBlock(romBuffer, 0x617D9, 169);
             byte[] targetData = File.ReadBlock(romBuffer, 0x61883, 105);
-            this.TestGetBytes(areaData, targetData);
+            TestGetBytes(areaData, targetData);
         }
     }
 }

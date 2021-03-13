@@ -42,27 +42,27 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected
         {
-            add => this.tilesetPanel.ColorSelected += value;
-            remove => this.tilesetPanel.ColorSelected -= value;
+            add => tilesetPanel.ColorSelected += value;
+            remove => tilesetPanel.ColorSelected -= value;
         }
         #endregion Events
 
-        private Dictionary<OverlayTilePattern, Point> patternList;
+        private Dictionary<OverlayTilePattern, Point> _patternList;
 
         /// <summary>
         /// Used to draw the overlay tileset.
         /// </summary>
-        private OverlayTilesetDrawer drawer;
+        private OverlayTilesetDrawer _drawer;
 
         /// <summary>
         /// The hovered overlay tile pattern.
         /// </summary>
-        private OverlayTilePattern hoveredPattern;
+        private OverlayTilePattern _hoveredPattern;
 
         /// <summary>
         /// The selected overlay tile pattern.
         /// </summary>
-        private OverlayTilePattern selectedPattern;
+        private OverlayTilePattern _selectedPattern;
 
         /// <summary>
         /// Gets or sets the selected overlay tile pattern.
@@ -70,17 +70,17 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(OverlayTilePattern), "")]
         public OverlayTilePattern SelectedPattern
         {
-            get => this.selectedPattern;
+            get => _selectedPattern;
             set
             {
-                if (value != null && !this.patternList.ContainsKey(value))
+                if (value != null && !_patternList.ContainsKey(value))
                 {
                     // Since duplicates are removed from the pattern list,
                     // it's possible that we can't find the exact same pattern
                     // referenced by the overlay tile.
                     // In this case, find another pattern with the same properties.
 
-                    foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+                    foreach (KeyValuePair<OverlayTilePattern, Point> kvp in _patternList)
                     {
                         OverlayTilePattern pattern = kvp.Key;
                         if (pattern.Equals(value))
@@ -91,26 +91,26 @@ namespace EpicEdit.UI.TrackEdition
                     }
                 }
 
-                this.SelectedPatternInternal = value;
+                SelectedPatternInternal = value;
             }
         }
 
         private OverlayTilePattern SelectedPatternInternal
         {
-            get => this.selectedPattern;
+            get => _selectedPattern;
             set
             {
-                if (value != null && this.SelectedTile != null)
+                if (value != null && SelectedTile != null)
                 {
-                    this.SelectedTile = null;
-                    this.RepaintRequested(this, EventArgs.Empty);
+                    SelectedTile = null;
+                    RepaintRequested(this, EventArgs.Empty);
                 }
 
-                if (this.selectedPattern != value)
+                if (_selectedPattern != value)
                 {
-                    this.selectedPattern = value;
-                    this.drawer.SelectedPattern = value;
-                    this.tilesetPanel.Invalidate();
+                    _selectedPattern = value;
+                    _drawer.SelectedPattern = value;
+                    tilesetPanel.Invalidate();
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace EpicEdit.UI.TrackEdition
         /// <summary>
         /// The selected track overlay tile.
         /// </summary>
-        private OverlayTile selectedTile;
+        private OverlayTile _selectedTile;
 
         /// <summary>
         /// Gets or sets the selected track overlay tile.
@@ -126,76 +126,76 @@ namespace EpicEdit.UI.TrackEdition
         [Browsable(false), DefaultValue(typeof(OverlayTile), "")]
         public OverlayTile SelectedTile
         {
-            get => this.selectedTile;
+            get => _selectedTile;
             set
             {
-                this.selectedTile = value;
-                this.deleteButton.Enabled = this.selectedTile != null;
+                _selectedTile = value;
+                deleteButton.Enabled = _selectedTile != null;
             }
         }
 
-        private Track track;
+        private Track _track;
 
         [Browsable(false), DefaultValue(typeof(Track), "")]
         public Track Track
         {
-            get => this.track;
+            get => _track;
             set
             {
-                if (this.track == value)
+                if (_track == value)
                 {
                     return;
                 }
 
-                if (this.track != null)
+                if (_track != null)
                 {
-                    this.track.OverlayTiles.ElementAdded -= this.track_OverlayTiles_ElementAdded;
-                    this.track.OverlayTiles.ElementRemoved -= this.track_OverlayTiles_ElementRemoved;
-                    this.track.OverlayTiles.ElementsCleared -= this.track_OverlayTiles_ElementsCleared;
-                    this.track.PropertyChanged -= this.track_PropertyChanged;
-                    this.track.ColorGraphicsChanged -= this.track_ColorsGraphicsChanged;
-                    this.track.ColorsGraphicsChanged -= this.track_ColorsGraphicsChanged;
+                    _track.OverlayTiles.ElementAdded -= track_OverlayTiles_ElementAdded;
+                    _track.OverlayTiles.ElementRemoved -= track_OverlayTiles_ElementRemoved;
+                    _track.OverlayTiles.ElementsCleared -= track_OverlayTiles_ElementsCleared;
+                    _track.PropertyChanged -= track_PropertyChanged;
+                    _track.ColorGraphicsChanged -= track_ColorsGraphicsChanged;
+                    _track.ColorsGraphicsChanged -= track_ColorsGraphicsChanged;
                 }
 
-                this.track = value;
+                _track = value;
 
-                this.track.OverlayTiles.ElementAdded += this.track_OverlayTiles_ElementAdded;
-                this.track.OverlayTiles.ElementRemoved += this.track_OverlayTiles_ElementRemoved;
-                this.track.OverlayTiles.ElementsCleared += this.track_OverlayTiles_ElementsCleared;
-                this.track.PropertyChanged += this.track_PropertyChanged;
-                this.track.ColorGraphicsChanged += this.track_ColorsGraphicsChanged;
-                this.track.ColorsGraphicsChanged += this.track_ColorsGraphicsChanged;
+                _track.OverlayTiles.ElementAdded += track_OverlayTiles_ElementAdded;
+                _track.OverlayTiles.ElementRemoved += track_OverlayTiles_ElementRemoved;
+                _track.OverlayTiles.ElementsCleared += track_OverlayTiles_ElementsCleared;
+                _track.PropertyChanged += track_PropertyChanged;
+                _track.ColorGraphicsChanged += track_ColorsGraphicsChanged;
+                _track.ColorsGraphicsChanged += track_ColorsGraphicsChanged;
 
-                this.SelectedTile = null;
-                this.LoadTileset(this.track.RoadTileset);
-                this.UpdateTileCount();
+                SelectedTile = null;
+                LoadTileset(_track.RoadTileset);
+                UpdateTileCount();
             }
         }
 
         public OverlayControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.tilesetPanel.Zoom = OverlayTilesetDrawer.Zoom;
+            tilesetPanel.Zoom = OverlayTilesetDrawer.Zoom;
         }
 
         public void InitOnFirstRomLoad()
         {
-            this.drawer = new OverlayTilesetDrawer();
-            this.InitOnRomLoad();
+            _drawer = new OverlayTilesetDrawer();
+            InitOnRomLoad();
 
             // The following event handler is added here rather than in the Designer.cs
             // to save us a null check on this.drawer in each of the corresponding functions,
             // because the drawer doesn't exist yet before a ROM is loaded.
-            this.tilesetPanel.Paint += this.TilesetPanelPaint;
+            tilesetPanel.Paint += TilesetPanelPaint;
         }
 
         public void InitOnRomLoad()
         {
-            int tilesetHeight = this.LoadPatternDictionary();
-            this.SetTilesetHeight(tilesetHeight);
+            int tilesetHeight = LoadPatternDictionary();
+            SetTilesetHeight(tilesetHeight);
 
-            this.drawer.PatternList = this.patternList;
+            _drawer.PatternList = _patternList;
         }
 
         /// <summary>
@@ -204,14 +204,14 @@ namespace EpicEdit.UI.TrackEdition
         /// <returns>The height of the tileset.</returns>
         private int LoadPatternDictionary()
         {
-            this.patternList = new Dictionary<OverlayTilePattern, Point>();
-            List<OverlayTilePattern> patterns = OverlayControl.GetUniquePatterns();
+            _patternList = new Dictionary<OverlayTilePattern, Point>();
+            List<OverlayTilePattern> patterns = GetUniquePatterns();
 
             int tilesetX = 0; // Current horizontal drawing position in the tileset
             int tilesetY = 0; // Current vertical drawing position in the tileset
             int tallestPattern = 0; // The tallest tile pattern in a given row
 
-            int panelWidth = this.tilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+            int panelWidth = tilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
             int patternId = 0;
             int patternCountInRow = -1;
 
@@ -251,7 +251,7 @@ namespace EpicEdit.UI.TrackEdition
                 while (patternRowIterator < patternCountInRow)
                 {
                     OverlayTilePattern pattern = patterns[patternId];
-                    this.patternList.Add(pattern, new Point(tilesetX, tilesetY));
+                    _patternList.Add(pattern, new Point(tilesetX, tilesetY));
 
                     tilesetX += pattern.Width * Tile.Size;
                     if (pattern.Height > tallestPattern)
@@ -301,65 +301,65 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void SetTilesetHeight(int tilesetHeight)
         {
-            int difference = tilesetHeight - this.tilesetPanel.Height;
-            this.tilesetPanel.Height = tilesetHeight;
-            this.Height += difference;
-            this.drawer.SetImageSize(this.tilesetPanel.Size);
+            int difference = tilesetHeight - tilesetPanel.Height;
+            tilesetPanel.Height = tilesetHeight;
+            Height += difference;
+            _drawer.SetImageSize(tilesetPanel.Size);
         }
 
         private RoadTileset Tileset
         {
-            get => this.drawer?.Tileset;
+            get => _drawer?.Tileset;
             set
             {
-                if (this.drawer == null ||
-                    this.drawer.Tileset == value)
+                if (_drawer == null ||
+                    _drawer.Tileset == value)
                 {
                     return;
                 }
 
-                this.LoadTileset(value);
+                LoadTileset(value);
             }
         }
 
         private void LoadTileset(RoadTileset tileset)
         {
-            this.drawer.Tileset = tileset;
-            this.tilesetPanel.Refresh();
+            _drawer.Tileset = tileset;
+            tilesetPanel.Refresh();
         }
 
         public void UpdateTileset()
         {
-            this.drawer.ReloadTileset();
-            this.tilesetPanel.Refresh();
+            _drawer.ReloadTileset();
+            tilesetPanel.Refresh();
         }
 
         private void UpdateTileCount()
         {
-            int count = this.track.OverlayTiles.Count;
-            this.tileCountLabel.Text = $"{count}/{OverlayTiles.MaxTileCount}";
-            this.tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
+            int count = _track.OverlayTiles.Count;
+            tileCountLabel.Text = $"{count}/{OverlayTiles.MaxTileCount}";
+            tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
 
         private void TilesetPanelPaint(object sender, PaintEventArgs e)
         {
-            this.drawer.DrawTileset(e.Graphics);
+            _drawer.DrawTileset(e.Graphics);
         }
 
         private void TilesetPanelMouseMove(object sender, MouseEventArgs e)
         {
-            this.hoveredPattern = this.GetPatternAt(e.Location);
+            _hoveredPattern = GetPatternAt(e.Location);
 
-            if (this.drawer.HoveredPattern != this.hoveredPattern)
+            if (_drawer.HoveredPattern != _hoveredPattern)
             {
-                this.drawer.HoveredPattern = this.hoveredPattern;
-                this.tilesetPanel.Invalidate();
+                _drawer.HoveredPattern = _hoveredPattern;
+                tilesetPanel.Invalidate();
             }
         }
 
         private OverlayTilePattern GetPatternAt(Point point)
         {
-            return this.GetPatternAt(point.X, point.Y);
+            return GetPatternAt(point.X, point.Y);
         }
 
         private OverlayTilePattern GetPatternAt(int x, int y)
@@ -367,7 +367,7 @@ namespace EpicEdit.UI.TrackEdition
             x /= OverlayTilesetDrawer.Zoom;
             y /= OverlayTilesetDrawer.Zoom;
 
-            foreach (KeyValuePair<OverlayTilePattern, Point> kvp in this.patternList)
+            foreach (KeyValuePair<OverlayTilePattern, Point> kvp in _patternList)
             {
                 OverlayTilePattern pattern = kvp.Key;
                 Point location = kvp.Value;
@@ -386,13 +386,13 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TilesetPanelMouseLeave(object sender, EventArgs e)
         {
-            this.drawer.HoveredPattern = null;
-            this.tilesetPanel.Invalidate();
+            _drawer.HoveredPattern = null;
+            tilesetPanel.Invalidate();
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            this.track.OverlayTiles.Remove(this.SelectedTile);
+            _track.OverlayTiles.Remove(SelectedTile);
         }
 
         private void TilesetPanelMouseDown(object sender, MouseEventArgs e)
@@ -402,7 +402,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            this.SelectedPatternInternal = this.hoveredPattern;
+            SelectedPatternInternal = _hoveredPattern;
         }
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
@@ -411,32 +411,32 @@ namespace EpicEdit.UI.TrackEdition
 
             if (result == DialogResult.Yes)
             {
-                this.track.OverlayTiles.Clear();
+                _track.OverlayTiles.Clear();
             }
         }
 
         private void track_OverlayTiles_ElementAdded(object sender, EventArgs<OverlayTile> e)
         {
-            this.UpdateTileCount();
+            UpdateTileCount();
         }
 
         private void track_OverlayTiles_ElementRemoved(object sender, EventArgs<OverlayTile> e)
         {
-            this.SelectedTile = null;
-            this.UpdateTileCount();
+            SelectedTile = null;
+            UpdateTileCount();
         }
 
         private void track_OverlayTiles_ElementsCleared(object sender, EventArgs e)
         {
-            this.SelectedTile = null;
-            this.UpdateTileCount();
+            SelectedTile = null;
+            UpdateTileCount();
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == PropertyNames.Track.Theme)
             {
-                this.LoadTileset(this.track.RoadTileset);
+                LoadTileset(_track.RoadTileset);
             }
         }
 
@@ -444,7 +444,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if ((sender as Palette).Index < Palettes.SpritePaletteStart)
             {
-                this.UpdateTileset();
+                UpdateTileset();
             }
         }
 
@@ -452,15 +452,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             protected override Tile GetTileAt(int x, int y)
             {
-                OverlayControl parent = this.Parent as OverlayControl;
-                OverlayTilePattern pattern = parent.GetPatternAt((int)(x * this.Zoom), (int)(y * this.Zoom));
+                OverlayControl parent = Parent as OverlayControl;
+                OverlayTilePattern pattern = parent.GetPatternAt((int)(x * Zoom), (int)(y * Zoom));
 
                 if (pattern == null)
                 {
                     return null;
                 }
 
-                Point location = parent.patternList[pattern];
+                Point location = parent._patternList[pattern];
                 x = (x - location.X) / Tile.Size;
                 y = (y - location.Y) / Tile.Size;
 

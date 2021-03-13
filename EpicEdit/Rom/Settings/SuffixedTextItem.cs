@@ -26,59 +26,59 @@ namespace EpicEdit.Rom.Settings
 
         public const int MaxSuffixCharacterCount = 23;
 
-        private TextItem textItem;
+        private TextItem _textItem;
         public TextItem TextItem
         {
-            get => this.textItem;
+            get => _textItem;
             set
             {
-                if (this.textItem == value)
+                if (_textItem == value)
                 {
                     return;
                 }
 
-                if (this.textItem != null)
+                if (_textItem != null)
                 {
-                    this.textItem.PropertyChanged -= this.TextItem_PropertyChanged;
+                    _textItem.PropertyChanged -= TextItem_PropertyChanged;
                 }
-                this.textItem = value;
-                this.textItem.PropertyChanged += this.TextItem_PropertyChanged;
+                _textItem = value;
+                _textItem.PropertyChanged += TextItem_PropertyChanged;
 
-                this.OnPropertyChanged(PropertyNames.SuffixedTextItem.TextItem);
+                OnPropertyChanged(PropertyNames.SuffixedTextItem.TextItem);
             }
         }
 
         public TextItem Suffix { get; }
 
-        public string Value => this.TextItem.FormattedValue + this.Suffix?.FormattedValue;
+        public string Value => TextItem.FormattedValue + Suffix?.FormattedValue;
 
         public SuffixedTextItem(TextItem nameItem, string nameSuffix, FreeTextCollection suffixCollection)
         {
-            this.TextItem = nameItem;
+            TextItem = nameItem;
 
             // NOTE: The "Battle Course" track group doesn't have a suffix because it doesn't actually exist in the game.
             // It's only created in the editor to have a logical group that contains the Battle Courses.
             if (suffixCollection != null)
             {
-                this.Suffix = new TextItem(suffixCollection, nameSuffix);
-                this.Suffix.PropertyChanged += this.Suffix_PropertyChanged;
-                suffixCollection.Add(this.Suffix);
+                Suffix = new TextItem(suffixCollection, nameSuffix);
+                Suffix.PropertyChanged += Suffix_PropertyChanged;
+                suffixCollection.Add(Suffix);
             }
         }
 
         private void TextItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged(PropertyNames.SuffixedTextItem.TextItem);
+            OnPropertyChanged(PropertyNames.SuffixedTextItem.TextItem);
         }
 
         private void Suffix_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            this.OnPropertyChanged(PropertyNames.SuffixedTextItem.Suffix);
+            OnPropertyChanged(PropertyNames.SuffixedTextItem.Suffix);
         }
 
         private void OnPropertyChanged(string propertyName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

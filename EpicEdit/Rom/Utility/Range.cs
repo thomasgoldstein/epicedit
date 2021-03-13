@@ -23,8 +23,8 @@ namespace EpicEdit.Rom.Utility
 
         public Range(int start, int end)
         {
-            this.Start = start;
-            this.End = end;
+            Start = start;
+            End = end;
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         public int Length
         {
-            get => this.End - this.Start;
-            set => this.End = this.Start + value;
+            get => End - Start;
+            set => End = Start + value;
         }
 
         public static bool operator ==(Range left, Range right)
@@ -69,7 +69,7 @@ namespace EpicEdit.Rom.Utility
 
         public bool Includes(int value)
         {
-            return this.Start <= value && value <= this.End;
+            return Start <= value && value <= End;
         }
     }
 }

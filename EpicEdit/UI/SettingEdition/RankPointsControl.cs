@@ -25,47 +25,47 @@ namespace EpicEdit.UI.SettingEdition
     {
         private static RankPoints RankPoints => Context.Game.Settings.RankPoints;
 
-        private bool fireEvents;
+        private bool _fireEvents;
 
         public RankPointsControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.numericUpDown1.Tag = 0;
-            this.numericUpDown2.Tag = 1;
-            this.numericUpDown3.Tag = 2;
-            this.numericUpDown4.Tag = 3;
-            this.numericUpDown5.Tag = 4;
-            this.numericUpDown6.Tag = 5;
-            this.numericUpDown7.Tag = 6;
-            this.numericUpDown8.Tag = 7;
+            numericUpDown1.Tag = 0;
+            numericUpDown2.Tag = 1;
+            numericUpDown3.Tag = 2;
+            numericUpDown4.Tag = 3;
+            numericUpDown5.Tag = 4;
+            numericUpDown6.Tag = 5;
+            numericUpDown7.Tag = 6;
+            numericUpDown8.Tag = 7;
         }
 
         public void Init()
         {
-            this.fireEvents = false;
+            _fireEvents = false;
 
-            RankPointsControl.InitRankPoint(this.numericUpDown1);
-            RankPointsControl.InitRankPoint(this.numericUpDown2);
-            RankPointsControl.InitRankPoint(this.numericUpDown3);
-            RankPointsControl.InitRankPoint(this.numericUpDown4);
-            RankPointsControl.InitRankPoint(this.numericUpDown5);
-            RankPointsControl.InitRankPoint(this.numericUpDown6);
-            RankPointsControl.InitRankPoint(this.numericUpDown7);
-            RankPointsControl.InitRankPoint(this.numericUpDown8);
+            InitRankPoint(numericUpDown1);
+            InitRankPoint(numericUpDown2);
+            InitRankPoint(numericUpDown3);
+            InitRankPoint(numericUpDown4);
+            InitRankPoint(numericUpDown5);
+            InitRankPoint(numericUpDown6);
+            InitRankPoint(numericUpDown7);
+            InitRankPoint(numericUpDown8);
 
-            this.fireEvents = true;
+            _fireEvents = true;
         }
 
         private static void InitRankPoint(NumericUpDown control)
         {
             int rank = (int)control.Tag;
-            control.Value = Math.Min(RankPointsControl.RankPoints[rank], control.Maximum);
+            control.Value = Math.Min(RankPoints[rank], control.Maximum);
         }
 
         private void NumericUpDownValueChanged(object sender, EventArgs e)
         {
-            if (!this.fireEvents)
+            if (!_fireEvents)
             {
                 return;
             }
@@ -73,7 +73,7 @@ namespace EpicEdit.UI.SettingEdition
             NumericUpDown control = sender as NumericUpDown;
             int rank = (int)control.Tag;
             int points = (int)control.Value;
-            RankPointsControl.RankPoints[rank] = points;
+            RankPoints[rank] = points;
         }
     }
 }
