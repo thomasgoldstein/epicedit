@@ -39,9 +39,9 @@ namespace EpicEdit.Tests.Rom
         [Test]
         public void TestTrackSizes()
         {
-            foreach (TrackGroup trackGroup in _game.TrackGroups)
+            foreach (var trackGroup in _game.TrackGroups)
             {
-                foreach (Track track in trackGroup)
+                foreach (var track in trackGroup)
                 {
                     Assert.AreEqual(128, track.Map.Width);
                     Assert.AreEqual(128, track.Map.Height);
@@ -126,7 +126,7 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
             Track[] tracks =
             {
@@ -162,7 +162,7 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
             Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
             Assert.AreEqual("Donut Plains 1", game.TrackGroups[0][1].Name);
@@ -195,9 +195,9 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            string filePath = File.GetOutputPath("SMK_TestGPTrackReorderNamesReload.sfc");
+            var filePath = File.GetOutputPath("SMK_TestGPTrackReorderNamesReload.sfc");
 
             Assert.AreEqual("Mario Circuit 1", game.TrackGroups[0][0].Name);
             Assert.AreEqual("Donut Plains 1", game.TrackGroups[0][1].Name);
@@ -233,13 +233,13 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            string filePathBefore = File.GetOutputPath("SMK_TestGPTrackReorderRomData_before.sfc");
-            string filePatheAfter = File.GetOutputPath("SMK_TestGPTrackReorderRomData_after.sfc");
+            var filePathBefore = File.GetOutputPath("SMK_TestGPTrackReorderRomData_before.sfc");
+            var filePatheAfter = File.GetOutputPath("SMK_TestGPTrackReorderRomData_after.sfc");
 
             game.SaveRom(filePathBefore);
-            byte[] romBefore = System.IO.File.ReadAllBytes(filePathBefore);
+            var romBefore = System.IO.File.ReadAllBytes(filePathBefore);
 
             // Check the order value of each GP track
             Assert.AreEqual(0x07, romBefore[0x1EC1B]);
@@ -267,7 +267,7 @@ namespace EpicEdit.Tests.Rom
             game.ReorderTracks(0, 1, 1, 3);
 
             game.SaveRom(filePatheAfter);
-            byte[] romAfter = System.IO.File.ReadAllBytes(filePatheAfter);
+            var romAfter = System.IO.File.ReadAllBytes(filePatheAfter);
 
             // Check the order value of each GP track
             Assert.AreEqual(0x07, romAfter[0x1EC1B]);
@@ -297,7 +297,7 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
             Track[] tracks =
             {
@@ -321,7 +321,7 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
             Assert.AreEqual("Battle Course 1", game.TrackGroups[4][0].Name);
             Assert.AreEqual("Battle Course 2", game.TrackGroups[4][1].Name);
@@ -342,9 +342,9 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            string filePath = File.GetOutputPath("SMK_TestBattleTrackReorderNamesReload.sfc");
+            var filePath = File.GetOutputPath("SMK_TestBattleTrackReorderNamesReload.sfc");
 
             Assert.AreEqual("Battle Course 1", game.TrackGroups[4][0].Name);
             Assert.AreEqual("Battle Course 2", game.TrackGroups[4][1].Name);
@@ -368,13 +368,13 @@ namespace EpicEdit.Tests.Rom
         {
             // Since we actually modify the Game object in this method,
             // do not use the private Game member, because that would affect other tests.
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            string filePathBefore = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_before.sfc");
-            string filePathAfter = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_after.sfc");
+            var filePathBefore = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_before.sfc");
+            var filePathAfter = File.GetOutputPath("SMK_TestBattleTrackReorderRomData_after.sfc");
 
             game.SaveRom(filePathBefore);
-            byte[] romBefore = System.IO.File.ReadAllBytes(filePathBefore);
+            var romBefore = System.IO.File.ReadAllBytes(filePathBefore);
 
             // Check the order value of each battle track
             Assert.AreEqual(0x16, romBefore[0x1C15C]);
@@ -386,7 +386,7 @@ namespace EpicEdit.Tests.Rom
             game.ReorderTracks(4, 3, 4, 0);
 
             game.SaveRom(filePathAfter);
-            byte[] romAfter = System.IO.File.ReadAllBytes(filePathAfter);
+            var romAfter = System.IO.File.ReadAllBytes(filePathAfter);
 
             // Check the order value of each battle track
             Assert.AreEqual(0x15, romAfter[0x1C15C]);
@@ -397,20 +397,20 @@ namespace EpicEdit.Tests.Rom
 
         private void TestCodec(Region region, int offset, bool twice)
         {
-            Game game = File.GetGame(region);
+            var game = File.GetGame(region);
 
-            byte[] romBuffer = File.ReadRom(region);
-            byte[] originalCompressedData = Codec.GetCompressedChunk(romBuffer, offset);
+            var romBuffer = File.ReadRom(region);
+            var originalCompressedData = Codec.GetCompressedChunk(romBuffer, offset);
 
-            byte[] data = game.Decompress(offset, twice);
-            byte[] newCompressedData = Codec.Compress(data, twice, true);
+            var data = game.Decompress(offset, twice);
+            var newCompressedData = Codec.Compress(data, twice, true);
 
             // The new compressed data has to be different from the original compressed data,
             // since both didn't use the same compressor.
             Assert.AreNotEqual(originalCompressedData, newCompressedData);
 
-            byte[] originalDecompressedData = Codec.Decompress(originalCompressedData);
-            byte[] newDecompressedData = Codec.Decompress(newCompressedData);
+            var originalDecompressedData = Codec.Decompress(originalCompressedData);
+            var newDecompressedData = Codec.Decompress(newCompressedData);
 
             if (twice)
             {
@@ -424,11 +424,11 @@ namespace EpicEdit.Tests.Rom
 
             game.InsertData(newCompressedData, offset);
 
-            string filePath = File.GetOutputPath($"SMK_{region}_{offset:X}_{twice}.sfc");
+            var filePath = File.GetOutputPath($"SMK_{region}_{offset:X}_{twice}.sfc");
             game.SaveRom(filePath);
 
-            byte[] newRomBuffer = System.IO.File.ReadAllBytes(filePath);
-            byte[] newResavedCompressedData = Codec.GetCompressedChunk(newRomBuffer, offset);
+            var newRomBuffer = System.IO.File.ReadAllBytes(filePath);
+            var newResavedCompressedData = Codec.GetCompressedChunk(newRomBuffer, offset);
 
             // Ensure the resaved ROM contains the new compressed data
             Assert.AreEqual(newCompressedData, newResavedCompressedData);

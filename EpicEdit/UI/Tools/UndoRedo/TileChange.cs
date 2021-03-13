@@ -41,11 +41,11 @@ namespace EpicEdit.UI.Tools.UndoRedo
             Y = y;
             _data = new byte[height][];
 
-            for (int yIter = 0; yIter < height; yIter++)
+            for (var yIter = 0; yIter < height; yIter++)
             {
                 _data[yIter] = new byte[width];
 
-                for (int xIter = 0; xIter < width; xIter++)
+                for (var xIter = 0; xIter < width; xIter++)
                 {
                     _data[yIter][xIter] = buffer[x + xIter, y + yIter];
                 }
@@ -59,12 +59,12 @@ namespace EpicEdit.UI.Tools.UndoRedo
         /// <param name="buffer">The map buffer the changes are applied on.</param>
         public TileChange(IEnumerable<TileChange> changes, IMapBuffer buffer)
         {
-            int xStart = buffer.Width;
-            int yStart = buffer.Height;
-            int xEnd = 0;
-            int yEnd = 0;
+            var xStart = buffer.Width;
+            var yStart = buffer.Height;
+            var xEnd = 0;
+            var yEnd = 0;
 
-            foreach (TileChange change in changes)
+            foreach (var change in changes)
             {
                 xStart = Math.Min(xStart, change.X);
                 xEnd = Math.Max(xEnd, change.X + change.Width);
@@ -72,26 +72,26 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 yEnd = Math.Max(yEnd, change.Y + change.Height);
             }
 
-            int width = xEnd - xStart;
-            int height = yEnd - yStart;
+            var width = xEnd - xStart;
+            var height = yEnd - yStart;
 
-            byte[][] data = new byte[height][];
-            for (int y = 0; y < height; y++)
+            var data = new byte[height][];
+            for (var y = 0; y < height; y++)
             {
                 data[y] = new byte[width];
-                for (int x = 0; x < width; x++)
+                for (var x = 0; x < width; x++)
                 {
                     data[y][x] = buffer[xStart + x, yStart + y];
                 }
             }
 
-            foreach (TileChange change in changes)
+            foreach (var change in changes)
             {
-                int offsetY = change.Y - yStart;
-                int offsetX = change.X - xStart;
-                for (int y = 0; y < change.Height; y++)
+                var offsetY = change.Y - yStart;
+                var offsetX = change.X - xStart;
+                for (var y = 0; y < change.Height; y++)
                 {
-                    for (int x = 0; x < change.Width; x++)
+                    for (var x = 0; x < change.Width; x++)
                     {
                         data[offsetY + y][offsetX + x] = change[x, y];
                     }

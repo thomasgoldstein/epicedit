@@ -118,14 +118,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         private static byte[][] GetLayer(byte[] data, int start, int rowSize)
         {
-            byte[][] layer = new byte[ActualRowCount][];
+            var layer = new byte[ActualRowCount][];
 
-            for (int y = 0; y < ActualRowCount; y++)
+            for (var y = 0; y < ActualRowCount; y++)
             {
                 layer[y] = new byte[rowSize];
-                int src = start + (y * BlockSize);
+                var src = start + (y * BlockSize);
 
-                for (int x = 0; x < rowSize; x += BlockSize)
+                for (var x = 0; x < rowSize; x += BlockSize)
                 {
                     Buffer.BlockCopy(data, src, layer[y], x, BlockSize);
                     src += BlockGroupSize;
@@ -137,14 +137,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public void GetTileData(int x, int y, bool front, out byte tileId, out byte properties)
         {
-            byte[][] layer = front ? _frontLayer : _backLayer;
+            var layer = front ? _frontLayer : _backLayer;
             tileId = layer[YStart + y][x * 2];
             properties = (byte)(layer[YStart + y][x * 2 + 1] & 0xDF);
         }
 
         public void SetTileData(int x, int y, bool front, byte tileId, byte properties)
         {
-            byte[][] layer = front ? _frontLayer : _backLayer;
+            var layer = front ? _frontLayer : _backLayer;
             layer[YStart + y][x * 2] = tileId;
             layer[YStart + y][x * 2 + 1] = properties;
 
@@ -164,7 +164,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
             SetBytes(data, _frontLayer, 0);
             SetBytes(data, _backLayer, FrontLayerSize);
             return data;
@@ -177,12 +177,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         private static void SetBytes(byte[] data, byte[][] layer, int start)
         {
-            int rowSize = layer[0].Length;
+            var rowSize = layer[0].Length;
 
-            for (int y = 0; y < ActualRowCount; y++)
+            for (var y = 0; y < ActualRowCount; y++)
             {
-                int dest = start + (y * BlockSize);
-                for (int x = 0; x < rowSize; x += BlockSize)
+                var dest = start + (y * BlockSize);
+                for (var x = 0; x < rowSize; x += BlockSize)
                 {
                     Buffer.BlockCopy(layer[y], x, data, dest, BlockSize);
                     dest += BlockGroupSize;

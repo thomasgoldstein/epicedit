@@ -40,9 +40,9 @@ namespace EpicEdit.UI.Tools
 
             BeginUpdate();
             Items.Clear();
-            int index = 0;
+            var index = 0;
 
-            foreach (TextItem textItem in _textCollection)
+            foreach (var textItem in _textCollection)
             {
                 _indexDictionary.Add(textItem, index++);
                 textItem.PropertyChanged += textItem_PropertyChanged;
@@ -54,7 +54,7 @@ namespace EpicEdit.UI.Tools
 
         private void textItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            int index = _indexDictionary[sender as TextItem];
+            var index = _indexDictionary[sender as TextItem];
             Items[index] = _textCollection[index];
         }
     }

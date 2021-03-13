@@ -47,8 +47,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <param name="index">The index to use in the byte array.</param>
         public TrackObject(byte[] data, int index)
         {
-            int x = (data[index] & 0x7F);
-            int y = ((data[index + 1] & 0x3F) << 1) + ((data[index] & 0x80) >> 7);
+            var x = (data[index] & 0x7F);
+            var y = ((data[index + 1] & 0x3F) << 1) + ((data[index] & 0x80) >> 7);
             Location = new Point(x, y);
         }
 

@@ -60,7 +60,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             get
             {
-                Tile2bppProperties props = base.Properties;
+                var props = base.Properties;
                 props.PaletteIndex += _paletteStart;
                 return props;
             }

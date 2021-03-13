@@ -22,8 +22,8 @@ namespace EpicEdit.Tests.Rom.Tracks.Objects
     {
         public void TestGetBytes(byte[] dataBefore)
         {
-            TrackObjectAreas objectAreas = new TrackObjectAreas(dataBefore, null);
-            byte[] dataAfter = objectAreas.GetBytes();
+            var objectAreas = new TrackObjectAreas(dataBefore, null);
+            var dataAfter = objectAreas.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
 

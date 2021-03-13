@@ -119,7 +119,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             Cursor = EpicCursors.PencilCursor;
 
-            Point tilePositionBefore = TilePosition;
+            var tilePositionBefore = TilePosition;
             SetPosition(e.Location);
 
             if (tilePositionBefore != TilePosition)
@@ -151,9 +151,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void SetPosition(Point location)
         {
-            int zoomedTileSize = (int)(Tile.Size * Zoom);
-            int x = (location.X - (AutoScrollPosition.X % zoomedTileSize)) / zoomedTileSize;
-            int y = location.Y / zoomedTileSize;
+            var zoomedTileSize = (int)(Tile.Size * Zoom);
+            var x = (location.X - (AutoScrollPosition.X % zoomedTileSize)) / zoomedTileSize;
+            var y = location.Y / zoomedTileSize;
 
             // We check that the new position isn't out of the track limits, if it is,
             // we set it to the lowest or highest (depending on case) possible coordinate
@@ -201,7 +201,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void LayTile()
         {
-            Point position = AbsoluteTilePosition;
+            var position = AbsoluteTilePosition;
             Background.Layout.SetTileData(position.X, position.Y, Front, TileId, _tileProperties);
             Drawer.UpdateTile(position.X, position.Y, Front, TileId, _tileProperties);
 
@@ -212,10 +212,10 @@ namespace EpicEdit.UI.ThemeEdition
         {
             _tileSelection = true;
 
-            Point position = AbsoluteTilePosition;
-            Background.Layout.GetTileData(position.X, position.Y, Front, out byte tileId, out byte properties);
+            var position = AbsoluteTilePosition;
+            Background.Layout.GetTileData(position.X, position.Y, Front, out var tileId, out var properties);
 
-            EventArgs<byte, Tile2bppProperties> ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
+            var ea = new EventArgs<byte, Tile2bppProperties>(tileId, new Tile2bppProperties(properties));
             TileSelected(this, ea);
         }
 

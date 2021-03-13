@@ -284,9 +284,9 @@ namespace EpicEdit.UI
         #region About
         private void AboutToolStripLabelClick(object sender, EventArgs e)
         {
-            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
 
-            string versionText = version.Build == 0 ?
+            var versionText = version.Build == 0 ?
                 version.Major + "." + version.Minor :
                 version.Major + "." + version.Minor + "." + version.Build;
 

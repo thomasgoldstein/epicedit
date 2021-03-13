@@ -58,7 +58,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             _tiles = new byte[Height][];
 
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
                 _tiles[y] = Utilities.ReadBlock(data, y * Width, Width);
             }
@@ -69,9 +69,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// </summary>
         public byte[] GetBytes()
         {
-            byte[] buffer = new byte[Width * Height];
+            var buffer = new byte[Width * Height];
 
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
                 Buffer.BlockCopy(_tiles[y], 0, buffer, y * Width, Width);
             }
@@ -97,9 +97,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
                 return false;
             }
 
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
-                for (int x = 0; x < Width; x++)
+                for (var x = 0; x < Width; x++)
                 {
                     if (other._tiles[y][x] != _tiles[y][x])
                     {

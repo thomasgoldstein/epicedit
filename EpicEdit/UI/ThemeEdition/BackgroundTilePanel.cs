@@ -52,8 +52,8 @@ namespace EpicEdit.UI.ThemeEdition
             _tile.Dispose();
             _tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, Front);
 
-            int width = Width;
-            int height = Height;
+            var width = Width;
+            var height = Height;
 
             if (BorderStyle == BorderStyle.Fixed3D)
             {
@@ -61,9 +61,9 @@ namespace EpicEdit.UI.ThemeEdition
                 height -= SystemInformation.Border3DSize.Height * 2;
             }
 
-            Bitmap zoomedBitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
+            var zoomedBitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(zoomedBitmap))
+            using (var g = Graphics.FromImage(zoomedBitmap))
             {
                 g.PixelOffsetMode = PixelOffsetMode.Half;
                 g.InterpolationMode = InterpolationMode.NearestNeighbor;

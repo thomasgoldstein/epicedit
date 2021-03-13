@@ -49,10 +49,10 @@ namespace EpicEdit.UI.Tools
 
         private void JumpToValue(int x)
         {
-            double xPercent = ((double)x / Width);
-            int range = Maximum - Minimum;
-            int lineOffsetCompensation = (int)(-LineHorizontalOffset * (0.5d - xPercent) * 4);
-            int value = (int)(xPercent * range) + lineOffsetCompensation;
+            var xPercent = ((double)x / Width);
+            var range = Maximum - Minimum;
+            var lineOffsetCompensation = (int)(-LineHorizontalOffset * (0.5d - xPercent) * 4);
+            var value = (int)(xPercent * range) + lineOffsetCompensation;
 
             if (value < Minimum)
             {

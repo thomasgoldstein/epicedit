@@ -93,8 +93,8 @@ namespace EpicEdit.Rom
 
         private RomColor[] GetSubPalette()
         {
-            Palette palette = Palette;
-            int subPalIndex = Properties.SubPaletteIndex;
+            var palette = Palette;
+            var subPalIndex = Properties.SubPaletteIndex;
 
             return new[]
             {
@@ -123,18 +123,18 @@ namespace EpicEdit.Rom
 
         protected override void GenerateGraphics()
         {
-            FastBitmap fBitmap = new FastBitmap(InternalBitmap);
-            RomColor[] palette = GetSubPalette();
+            var fBitmap = new FastBitmap(InternalBitmap);
+            var palette = GetSubPalette();
 
-            for (int y = 0; y < Size; y++)
+            for (var y = 0; y < Size; y++)
             {
                 byte val1 = 0;
                 byte val2 = 0;
-                for (int x = 0; x < Size; x++)
+                for (var x = 0; x < Size; x++)
                 {
-                    int xPos = (Size - 1) - x;
+                    var xPos = (Size - 1) - x;
                     RomColor color = fBitmap.GetPixel(xPos, y);
-                    int colorIndex = Utilities.GetColorIndex(color, palette);
+                    var colorIndex = Utilities.GetColorIndex(color, palette);
                     val1 |= (byte)((colorIndex & 0x01) << x);
                     val2 |= (byte)(((colorIndex & 0x02) << x) >> 1);
                 }
@@ -162,10 +162,10 @@ namespace EpicEdit.Rom
                 y = (Size - 1) - y;
             }
 
-            byte val1 = Graphics[y * 2];
-            byte val2 = Graphics[y * 2 + 1];
-            int mask = 1 << x;
-            int colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+            var val1 = Graphics[y * 2];
+            var val2 = Graphics[y * 2 + 1];
+            var mask = 1 << x;
+            var colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
             return Properties.SubPaletteIndex + colIndex;
         }
 

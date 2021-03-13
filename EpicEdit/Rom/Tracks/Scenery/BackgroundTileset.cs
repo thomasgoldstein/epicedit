@@ -79,11 +79,11 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[TileCount * 16];
+            var data = new byte[TileCount * 16];
 
-            for (int j = 0; j < TileCount; j++)
+            for (var j = 0; j < TileCount; j++)
             {
-                BackgroundTile tile = GetTile(j);
+                var tile = GetTile(j);
                 Buffer.BlockCopy(tile.Graphics, 0, data, j * 16, tile.Graphics.Length);
             }
 

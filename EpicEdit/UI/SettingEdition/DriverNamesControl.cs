@@ -64,8 +64,8 @@ namespace EpicEdit.UI.SettingEdition
 
         private void UpdateCount()
         {
-            int total = _names.TotalCharacterCount;
-            int max = _names.MaxCharacterCount;
+            var total = _names.TotalCharacterCount;
+            var max = _names.MaxCharacterCount;
             countLabel.Text = $"{total}/{max}";
             countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }
@@ -86,9 +86,9 @@ namespace EpicEdit.UI.SettingEdition
 
             _fireEvents = false;
 
-            TextBox textBox = (TextBox)sender;
-            int id = (int)textBox.Tag;
-            int sel = textBox.SelectionStart;
+            var textBox = (TextBox)sender;
+            var id = (int)textBox.Tag;
+            var sel = textBox.SelectionStart;
             _names[id].Value = textBox.Text;
             textBox.Text = _names[id].Value; // Retrieve validated text
             textBox.SelectionStart = sel; // Restore text input position

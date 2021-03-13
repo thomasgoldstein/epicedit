@@ -113,7 +113,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             InitBasicColorsBitmapCache();
 
-            int x = 0;
+            var x = 0;
             RomColor basicColor = _basicColorsCache.GetPixel(x, 0);
             SetColor(x, basicColor, basicColor);
         }
@@ -140,7 +140,7 @@ namespace EpicEdit.UI.ThemeEdition
             basicColorsPictureBox.Refresh();
 
             InitShadesCache();
-            RomColor shadeColor = DrawShadesBitmap(_selectedShadeLocation.X, _selectedShadeLocation.Y);
+            var shadeColor = DrawShadesBitmap(_selectedShadeLocation.X, _selectedShadeLocation.Y);
             shadesPictureBox.Refresh();
 
             SetColorSub(shadeColor);
@@ -160,8 +160,8 @@ namespace EpicEdit.UI.ThemeEdition
             // around it in the shades (e.g: R=6, G=7, B=19). Not sure how to fix this,
             // but it may be a rounding issue somewhere.
             color = color.To5Bit();
-            RomColor basicColor = FindBasicColor(color);
-            int x = FindColorIndex(basicColor);
+            var basicColor = FindBasicColor(color);
+            var x = FindColorIndex(basicColor);
             SetColor(x, basicColor, color);
         }
 
@@ -218,14 +218,14 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void InvalidateBasicColorsSelection()
         {
-            Rectangle rec = GetSelectionBounds(FindColorIndex(_selectedBasicColor), _basicColorsSize.Height / 2);
+            var rec = GetSelectionBounds(FindColorIndex(_selectedBasicColor), _basicColorsSize.Height / 2);
             rec.Inflate(1, 1);
             basicColorsPictureBox.Invalidate(rec);
         }
 
         private void InvalidateShadesSelection()
         {
-            Rectangle rec = GetSelectionBounds(_selectedShadeLocation.X, _selectedShadeLocation.Y);
+            var rec = GetSelectionBounds(_selectedShadeLocation.X, _selectedShadeLocation.Y);
             rec.Inflate(1, 1);
             shadesPictureBox.Invalidate(rec);
         }
@@ -252,10 +252,10 @@ namespace EpicEdit.UI.ThemeEdition
             _basicColorsBitmap.Dispose();
             _basicColorsBitmap = (Bitmap)_basicColorsCache.Clone();
 
-            using (Graphics g = Graphics.FromImage(_basicColorsBitmap))
-            using (Pen pen = new Pen(color.Opposite()))
+            using (var g = Graphics.FromImage(_basicColorsBitmap))
+            using (var pen = new Pen(color.Opposite()))
             {
-                int y = _basicColorsSize.Height / 2;
+                var y = _basicColorsSize.Height / 2;
                 g.DrawEllipse(pen, GetSelectionBounds(x, y));
             }
         }
@@ -265,12 +265,12 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitBasicColorsBitmapCache()
         {
-            int width = _basicColorsSize.Width;
-            int height = _basicColorsSize.Height;
+            var width = _basicColorsSize.Width;
+            var height = _basicColorsSize.Height;
 
-            using (Bitmap tempBitmap = new Bitmap(width, 1, PixelFormat.Format32bppPArgb))
+            using (var tempBitmap = new Bitmap(width, 1, PixelFormat.Format32bppPArgb))
             {
-                FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
+                var fTempBitmap = new FastBitmap(tempBitmap);
 
                 // Red to yellow
                 for (byte index = 0; index <= 30; index++) // Skip the last one (31) because it is the same value as the first one of the next loop
@@ -317,7 +317,7 @@ namespace EpicEdit.UI.ThemeEdition
                 fTempBitmap.Release();
 
                 _basicColorsCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
-                using (Graphics g = Graphics.FromImage(_basicColorsCache))
+                using (var g = Graphics.FromImage(_basicColorsCache))
                 {
                     g.PixelOffsetMode = PixelOffsetMode.Half;
                     g.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -340,8 +340,8 @@ namespace EpicEdit.UI.ThemeEdition
             _shadesBitmap.Dispose();
             _shadesBitmap = (Bitmap)_shadesCache.Clone();
 
-            using (Graphics g = Graphics.FromImage(_shadesBitmap))
-            using (Pen pen = new Pen(GetPenColor(x, y)))
+            using (var g = Graphics.FromImage(_shadesBitmap))
+            using (var pen = new Pen(GetPenColor(x, y)))
             {
                 g.DrawEllipse(pen, GetSelectionBounds(x, y));
             }
@@ -360,20 +360,20 @@ namespace EpicEdit.UI.ThemeEdition
             _shadesBitmap.Dispose();
             _shadesBitmap = (Bitmap)_shadesCache.Clone();
 
-            FastBitmap fShadesBitmap = new FastBitmap(_shadesBitmap);
+            var fShadesBitmap = new FastBitmap(_shadesBitmap);
 
             // The shades image is scaled by a factor of 2, so skip every other pixel
-            for (int y = 0; y < _shadesSize.Height; y += 2)
+            for (var y = 0; y < _shadesSize.Height; y += 2)
             {
-                for (int x = 0; x < _shadesSize.Width; x += 2)
+                for (var x = 0; x < _shadesSize.Width; x += 2)
                 {
                     RomColor selectedColor = fShadesBitmap.GetPixel(x, y);
                     if (selectedColor == color)
                     {
                         fShadesBitmap.Release();
                         _selectedShadeLocation = new Point(x, y);
-                        using (Graphics g = Graphics.FromImage(_shadesBitmap))
-                        using (Pen pen = new Pen(GetPenColor(x, y)))
+                        using (var g = Graphics.FromImage(_shadesBitmap))
+                        using (var pen = new Pen(GetPenColor(x, y)))
                         {
                             g.DrawEllipse(pen, GetSelectionBounds(x, y));
                         }
@@ -408,15 +408,15 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void InitShadesCache()
         {
-            int width = _shadesSize.Width;
-            int height = _shadesSize.Height;
-            int size = width / 2; // Unscaled image size
-            int halfSize = size / 2;
+            var width = _shadesSize.Width;
+            var height = _shadesSize.Height;
+            var size = width / 2; // Unscaled image size
+            var halfSize = size / 2;
             int x, y;
 
             // Generate the grays from black to white, these are at the bottom of the square, left to right
-            RomColor[] grays = new RomColor[size];
-            IEnumerator<RomColor> graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), size);
+            var grays = new RomColor[size];
+            var graysIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(RomColor.From5BitRgb(31, 31, 31), size);
             x = 0;
             while (graysIte.MoveNext())
             {
@@ -424,21 +424,21 @@ namespace EpicEdit.UI.ThemeEdition
                 x++;
             }
 
-            using (Bitmap tempBitmap = new Bitmap(size, size, PixelFormat.Format32bppPArgb))
+            using (var tempBitmap = new Bitmap(size, size, PixelFormat.Format32bppPArgb))
             {
-                FastBitmap fTempBitmap = new FastBitmap(tempBitmap);
+                var fTempBitmap = new FastBitmap(tempBitmap);
 
                 // Draw from black (top left) to our selected color (in the middle at the top)
-                IEnumerator<RomColor> colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(_selectedBasicColor, halfSize);
+                var colorsIte = RomColor.From5BitRgb(0, 0, 0).GetEnumerator(_selectedBasicColor, halfSize);
                 x = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x], size);
+                    var toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x], size);
                     y = 0;
                     // Draw the vertical colors that goes from our shade (our color to black) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
-                        RomColor color = toGrayIte.Current.To5Bit();
+                        var color = toGrayIte.Current.To5Bit();
                         fTempBitmap.SetPixel(x, y, color);
                         y++;
                     }
@@ -451,12 +451,12 @@ namespace EpicEdit.UI.ThemeEdition
                 x = 0;
                 while (colorsIte.MoveNext())
                 {
-                    IEnumerator<RomColor> toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x + halfSize], size);
+                    var toGrayIte = colorsIte.Current.To5Bit().GetEnumerator(grays[x + halfSize], size);
                     y = 0;
                     // Draw the vertical colors that goes from our shade (our color to white) to the gray variation at the bottom
                     while (toGrayIte.MoveNext())
                     {
-                        RomColor color = toGrayIte.Current.To5Bit();
+                        var color = toGrayIte.Current.To5Bit();
                         fTempBitmap.SetPixel(x + halfSize, y, color);
                         y++;
                     }
@@ -468,7 +468,7 @@ namespace EpicEdit.UI.ThemeEdition
 
                 _shadesCache.Dispose();
                 _shadesCache = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
-                using (Graphics g = Graphics.FromImage(_shadesCache))
+                using (var g = Graphics.FromImage(_shadesCache))
                 {
                     g.PixelOffsetMode = PixelOffsetMode.Half;
                     g.InterpolationMode = InterpolationMode.NearestNeighbor;
@@ -566,7 +566,7 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             InvalidateShadesSelection();
-            RomColor color = DrawShadesBitmap(x, y);
+            var color = DrawShadesBitmap(x, y);
             InvalidateShadesSelection();
             shadesPictureBox.Refresh();
 
@@ -587,7 +587,7 @@ namespace EpicEdit.UI.ThemeEdition
                 return;
             }
 
-            RomColor color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
+            var color = RomColor.From5BitRgb((byte)red5NumericUpDown.Value, (byte)green5NumericUpDown.Value, (byte)blue5NumericUpDown.Value);
             SetColor(color);
 
             ColorChanged(this, EventArgs.Empty);
@@ -662,7 +662,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void NumericUpDownEnter(object sender, EventArgs e)
         {
-            NumericUpDown control = (NumericUpDown)sender;
+            var control = (NumericUpDown)sender;
             control.Select(0, control.Text.Length);
         }
 
@@ -695,8 +695,8 @@ namespace EpicEdit.UI.ThemeEdition
                 return Color.Red;
             }
 
-            byte min = Math.Min(Math.Min(color.Red, color.Green), color.Blue);
-            byte max = Math.Max(Math.Max(color.Red, color.Green), color.Blue);
+            var min = Math.Min(Math.Min(color.Red, color.Green), color.Blue);
+            var max = Math.Max(Math.Max(color.Red, color.Green), color.Blue);
 
             color.Red = GetBasicColorChannel(color.Red, min, max);
             color.Green = GetBasicColorChannel(color.Green, min, max);
@@ -718,8 +718,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         private int FindColorIndex(RomColor color)
         {
-            FastBitmap fBasicColors = new FastBitmap(_basicColorsCache);
-            for (int x = 0; x < _basicColorsSize.Width; x++)
+            var fBasicColors = new FastBitmap(_basicColorsCache);
+            for (var x = 0; x < _basicColorsSize.Width; x++)
             {
                 RomColor selectedColor = fBasicColors.GetPixel(x, 0);
                 if (selectedColor == color)

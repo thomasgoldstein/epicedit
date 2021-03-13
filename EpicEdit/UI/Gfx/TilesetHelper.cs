@@ -32,13 +32,13 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, Image image, Size imageSize, int zoom, byte selectedTile)
         {
-            using (Image imageCopy = (Image)image.Clone())
-            using (Graphics backBuffer = Graphics.FromImage(imageCopy))
+            using (var imageCopy = (Image)image.Clone())
+            using (var backBuffer = Graphics.FromImage(imageCopy))
             {
-                int xTileCount = imageSize.Width / Tile.Size;
-                int tilePosX = selectedTile % xTileCount;
-                int tilePosY = selectedTile / xTileCount;
-                Point selectedTilePosition = new Point(tilePosX, tilePosY);
+                var xTileCount = imageSize.Width / Tile.Size;
+                var tilePosX = selectedTile % xTileCount;
+                var tilePosY = selectedTile / xTileCount;
+                var selectedTilePosition = new Point(tilePosX, tilePosY);
 
                 backBuffer.DrawRectangle(_selectionPen,
                                          selectedTilePosition.X * Tile.Size,

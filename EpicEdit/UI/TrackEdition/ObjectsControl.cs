@@ -86,7 +86,7 @@ namespace EpicEdit.UI.TrackEdition
                 frontObjectAreasControl.AreasView = _track.Objects.Areas.FrontView;
                 rearObjectAreasControl.AreasView = _track.Objects.Areas.RearView;
 
-                TrackObjects objects = _track.Objects;
+                var objects = _track.Objects;
 
                 _fireEvents = false;
 
@@ -191,7 +191,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            NumericUpDown control = (NumericUpDown)sender;
+            var control = (NumericUpDown)sender;
 
             int index;
             for (index = 0; index < _palettePickers.Length; index++)
@@ -218,7 +218,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ToggleAlternatePalettes()
         {
-            bool enable = Track.Objects.Flashing;
+            var enable = Track.Objects.Flashing;
             palettesLabel.Enabled = enable;
             palette2NumericUpDown.Enabled = enable;
             palette3NumericUpDown.Enabled = enable;

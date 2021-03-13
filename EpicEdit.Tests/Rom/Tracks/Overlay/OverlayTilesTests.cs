@@ -28,17 +28,17 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
         [SetUp]
         public void SetUp()
         {
-            byte[] romBuffer = File.ReadRom(Region.US);
-            Offsets offsets = new Offsets(romBuffer, Region.US);
-            byte[] overlayTileSizesData = Utilities.ReadBlock(romBuffer, offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
+            var romBuffer = File.ReadRom(Region.US);
+            var offsets = new Offsets(romBuffer, Region.US);
+            var overlayTileSizesData = Utilities.ReadBlock(romBuffer, offsets[Offset.TrackOverlaySizes], OverlayTileSizes.Size);
             _overlayTileSizes = new OverlayTileSizes(overlayTileSizesData);
             _overlayTilePatterns = new OverlayTilePatterns(romBuffer, offsets, _overlayTileSizes);
         }
 
         private void TestGetBytes(byte[] data)
         {
-            OverlayTiles overlayTiles = new OverlayTiles(data, _overlayTileSizes, _overlayTilePatterns);
-            byte[] dataAfter = overlayTiles.GetBytes();
+            var overlayTiles = new OverlayTiles(data, _overlayTileSizes, _overlayTilePatterns);
+            var dataAfter = overlayTiles.GetBytes();
 
             Assert.AreEqual(data, dataAfter);
         }

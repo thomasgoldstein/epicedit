@@ -77,7 +77,7 @@ namespace EpicEdit.UI.Tools
             // Ideally, we'd have overridden the base ParseEditText method, but it's not marked as virtual.
             try
             {
-                if (decimal.TryParse(Text, out decimal value))
+                if (decimal.TryParse(Text, out var value))
                 {
                     value -= StartValue;
 

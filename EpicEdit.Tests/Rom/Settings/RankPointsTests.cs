@@ -29,9 +29,9 @@ namespace EpicEdit.Tests.Rom.Settings
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
             };
 
-            RankPoints rankPoints = new RankPoints(dataBefore);
+            var rankPoints = new RankPoints(dataBefore);
 
-            byte[] dataAfter = rankPoints.GetBytes();
+            var dataAfter = rankPoints.GetBytes();
 
             Assert.AreEqual(dataBefore, dataAfter);
         }

@@ -39,7 +39,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void InitControls()
         {
-            TrackGroups trackGroups = Context.Game.TrackGroups;
+            var trackGroups = Context.Game.TrackGroups;
 
             cup1NameControl.Init(trackGroups[0].SuffixedNameItem);
             cup2NameControl.Init(trackGroups[1].SuffixedNameItem);
@@ -78,8 +78,8 @@ namespace EpicEdit.UI.SettingEdition
 
         private void UpdateCount()
         {
-            int total = Context.Game.Settings.CupAndTrackNameSuffixCollection.TotalCharacterCount;
-            int max = Context.Game.Settings.CupAndTrackNameSuffixCollection.MaxCharacterCount;
+            var total = Context.Game.Settings.CupAndTrackNameSuffixCollection.TotalCharacterCount;
+            var max = Context.Game.Settings.CupAndTrackNameSuffixCollection.MaxCharacterCount;
             countLabel.Text = $"{total}/{max}";
             countLabel.ForeColor = total >= max ? Color.Red : SystemColors.ControlText;
         }

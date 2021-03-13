@@ -79,7 +79,7 @@ namespace EpicEdit.Rom.Compression
 
             if (_children != null)
             {
-                foreach (ChunkNode child in _children)
+                foreach (var child in _children)
                 {
                     child.SetAsNonOptimal();
                 }
@@ -88,7 +88,7 @@ namespace EpicEdit.Rom.Compression
 
         private int GetCompressedSize()
         {
-            int length = _byteCount <= Codec.NormalCommandMax ? 1 : 2;
+            var length = _byteCount <= Codec.NormalCommandMax ? 1 : 2;
 
             switch (_command)
             {
@@ -120,7 +120,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public byte[] GetCompressedBuffer(byte[] sourceBuffer)
         {
-            byte[] compressedBuffer = new byte[CompressedBufferSize + 1];
+            var compressedBuffer = new byte[CompressedBufferSize + 1];
             // + 1 for the ending 0xFF command
 
             CopyChunk(sourceBuffer, compressedBuffer);
@@ -136,7 +136,7 @@ namespace EpicEdit.Rom.Compression
                 _parent.CopyChunk(sourceBuffer, compressedBuffer);
             }
 
-            int destOffset = CompressedBufferOffset;
+            var destOffset = CompressedBufferOffset;
 
             switch (_command)
             {

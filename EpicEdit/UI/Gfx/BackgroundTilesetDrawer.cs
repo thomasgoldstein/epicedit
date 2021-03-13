@@ -74,23 +74,23 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache()
         {
-            int tileCountX = _imageSize.Width / Tile.Size;
-            int tileCountY = _imageSize.Height / Tile.Size;
-            BackgroundTileset tileset = _theme.Background.Tileset;
+            var tileCountX = _imageSize.Width / Tile.Size;
+            var tileCountY = _imageSize.Height / Tile.Size;
+            var tileset = _theme.Background.Tileset;
 
             Image.Dispose();
             Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(Image))
+            using (var g = Graphics.FromImage(Image))
             {
                 g.Clear(_theme.BackColor);
 
-                for (int x = 0; x < tileCountX; x++)
+                for (var x = 0; x < tileCountX; x++)
                 {
-                    for (int y = 0; y < tileCountY; y++)
+                    for (var y = 0; y < tileCountY; y++)
                     {
-                        int tileId = x + (y * tileCountX);
-                        BackgroundTile tile = tileset[tileId];
+                        var tileId = x + (y * tileCountX);
+                        var tile = tileset[tileId];
 
                         tile.Front = _front;
                         tile.Properties = TileProperties;

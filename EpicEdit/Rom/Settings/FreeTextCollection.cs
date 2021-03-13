@@ -30,9 +30,9 @@ namespace EpicEdit.Rom.Settings
         {
             get
             {
-                int total = 0;
+                var total = 0;
 
-                foreach (TextItem item in _items)
+                foreach (var item in _items)
                 {
                     total += Converter.EncodeText(item.Value, null).Length;
                 }

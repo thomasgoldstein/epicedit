@@ -37,7 +37,7 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                foreach (TrackGroup trackGroup in _trackGroups)
+                foreach (var trackGroup in _trackGroups)
                 {
                     if (trackGroup.Modified)
                     {
@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void ResetModifiedState()
         {
-            foreach (TrackGroup trackGroup in _trackGroups)
+            foreach (var trackGroup in _trackGroups)
             {
                 trackGroup.ResetModifiedState();
             }
@@ -59,7 +59,7 @@ namespace EpicEdit.Rom.Tracks
 
         public IEnumerator<TrackGroup> GetEnumerator()
         {
-            foreach (TrackGroup trackGroup in _trackGroups)
+            foreach (var trackGroup in _trackGroups)
             {
                 yield return trackGroup;
             }
@@ -83,10 +83,10 @@ namespace EpicEdit.Rom.Tracks
 
         public Track GetTrack(int index)
         {
-            int iterator = 0;
-            foreach (TrackGroup trackGroup in _trackGroups)
+            var iterator = 0;
+            foreach (var trackGroup in _trackGroups)
             {
-                foreach (Track track in trackGroup)
+                foreach (var track in trackGroup)
                 {
                     if (index == iterator++)
                     {

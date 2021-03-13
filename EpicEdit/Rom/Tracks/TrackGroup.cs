@@ -36,7 +36,7 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                foreach (Track track in _tracks)
+                foreach (var track in _tracks)
                 {
                     if (track.Modified)
                     {
@@ -54,7 +54,7 @@ namespace EpicEdit.Rom.Tracks
             SuffixedNameItem.PropertyChanged += SuffixedNameItem_PropertyChanged;
             _tracks = tracks;
 
-            foreach (Track track in tracks)
+            foreach (var track in tracks)
             {
                 track.PropertyChanged += OnPropertyChanged;
             }
@@ -77,7 +77,7 @@ namespace EpicEdit.Rom.Tracks
 
         public void ResetModifiedState()
         {
-            foreach (Track track in _tracks)
+            foreach (var track in _tracks)
             {
                 track.ResetModifiedState();
             }
@@ -85,7 +85,7 @@ namespace EpicEdit.Rom.Tracks
 
         public IEnumerator<Track> GetEnumerator()
         {
-            foreach (Track track in _tracks)
+            foreach (var track in _tracks)
             {
                 yield return track;
             }

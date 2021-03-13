@@ -52,9 +52,9 @@ namespace EpicEdit.Rom
 
         private void Init(byte[] data)
         {
-            for (int i = 0; i < _palettes.Length; i++)
+            for (var i = 0; i < _palettes.Length; i++)
             {
-                byte[] paletteData = GetPaletteData(data, i);
+                var paletteData = GetPaletteData(data, i);
                 _palettes[i] = new Palette(this, i, paletteData);
                 _palettes[i].ColorChanged += palette_ColorsChanged;
                 _palettes[i].ColorsChanged += palette_ColorsChanged;
@@ -78,11 +78,11 @@ namespace EpicEdit.Rom
                 throw new ArgumentException($"Palettes data should have a size of {Size} bytes. Actual: {data.Length} bytes.", nameof(data));
             }
 
-            int count = data.Length / Palette.Size;
+            var count = data.Length / Palette.Size;
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                byte[] paletteData = GetPaletteData(data, i);
+                var paletteData = GetPaletteData(data, i);
                 _palettes[i].SetBytes(paletteData);
             }
         }
@@ -106,7 +106,7 @@ namespace EpicEdit.Rom
         {
             get
             {
-                foreach (Palette palette in _palettes)
+                foreach (var palette in _palettes)
                 {
                     if (palette.Modified)
                     {
@@ -120,12 +120,12 @@ namespace EpicEdit.Rom
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[_palettes.Length * Palette.Size];
+            var data = new byte[_palettes.Length * Palette.Size];
 
-            for (int i = 0; i < _palettes.Length; i++)
+            for (var i = 0; i < _palettes.Length; i++)
             {
-                Palette palette = _palettes[i];
-                byte[] paletteData = palette.GetBytes();
+                var palette = _palettes[i];
+                var paletteData = palette.GetBytes();
                 Buffer.BlockCopy(paletteData, 0, data, i * Palette.Size, paletteData.Length);
             }
 
@@ -134,7 +134,7 @@ namespace EpicEdit.Rom
 
         public void ResetModifiedState()
         {
-            foreach (Palette palette in _palettes)
+            foreach (var palette in _palettes)
             {
                 palette.ResetModifiedState();
             }
@@ -142,7 +142,7 @@ namespace EpicEdit.Rom
 
         public IEnumerator<Palette> GetEnumerator()
         {
-            foreach (Palette palette in _palettes)
+            foreach (var palette in _palettes)
             {
                 yield return palette;
             }

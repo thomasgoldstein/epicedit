@@ -23,10 +23,10 @@ namespace EpicEdit.Tests.Rom
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData, byte properties)
         {
-            Palettes palettes = new Palettes(palData);
-            Tile2bpp tile = new Tile2bpp(gfx, palettes, properties);
+            var palettes = new Palettes(palData);
+            var tile = new Tile2bpp(gfx, palettes, properties);
 
-            Palette palette = new Palette(null, 0, palData);
+            var palette = new Palette(null, 0, palData);
             TileTests.TestGetColorIndexAt(tile, palette, false);
         }
 
@@ -37,14 +37,14 @@ namespace EpicEdit.Tests.Rom
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx, Tile2bppProperties properties)
         {
-            byte[] palsData = new byte[512];
+            var palsData = new byte[512];
             Buffer.BlockCopy(palData, 0, palsData, 0, palData.Length);
 
-            Palettes pals = new Palettes(palsData);
+            var pals = new Palettes(palsData);
 
-            byte props = properties.GetByte();
-            Tile2bpp tile = new Tile2bpp(gfx, pals, props);
-            Tile2bpp tile2 = new Tile2bpp(new byte[gfx.Length], pals, props);
+            var props = properties.GetByte();
+            var tile = new Tile2bpp(gfx, pals, props);
+            var tile2 = new Tile2bpp(new byte[gfx.Length], pals, props);
 
             tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
@@ -74,16 +74,16 @@ namespace EpicEdit.Tests.Rom
         [Test]
         public void TestPropertiesGetByte()
         {
-            for (int i = 0; i <= 0xFF; i++)
+            for (var i = 0; i <= 0xFF; i++)
             {
-                byte value = (byte)i;
+                var value = (byte)i;
                 if ((value & 0x3) != 0)
                 {
                     Assert.Throws(typeof(ArgumentOutOfRangeException), delegate { new Tile2bppProperties(value); });
                 }
                 else
                 {
-                    Tile2bppProperties properties = new Tile2bppProperties(value);
+                    var properties = new Tile2bppProperties(value);
                     Assert.AreEqual(i, properties.GetByte());
                 }
             }
@@ -150,7 +150,7 @@ namespace EpicEdit.Tests.Rom
                 0x0B, 0x20, 0x0B, 0x60, 0x0B, 0x60, 0x3F, 0x40
             };
 
-            Tile2bppProperties properties = new Tile2bppProperties { SubPaletteIndex = 4 };
+            var properties = new Tile2bppProperties { SubPaletteIndex = 4 };
 
             TestGenerateGraphics(palData, gfx, properties);
         }

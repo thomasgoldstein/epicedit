@@ -50,13 +50,13 @@ namespace EpicEdit.UI.TrackEdition
                 _areasView.AI.ElementAdded += areasView_AI_CollectionChanged;
                 _areasView.AI.ElementRemoved += areasView_AI_CollectionChanged;
 
-                int max = _areasView.AI.ElementCount;
+                var max = _areasView.AI.ElementCount;
                 Maximum = max;
 
-                byte area1Value = _areasView.GetAreaValue(0);
-                byte area2Value = _areasView.GetAreaValue(1);
-                byte area3Value = _areasView.GetAreaValue(2);
-                byte area4Value = _areasView.GetAreaValue(3);
+                var area1Value = _areasView.GetAreaValue(0);
+                var area2Value = _areasView.GetAreaValue(1);
+                var area3Value = _areasView.GetAreaValue(2);
+                var area4Value = _areasView.GetAreaValue(3);
 
                 _fireEvents = false;
 
@@ -101,7 +101,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void areasView_DataChanged(object sender, EventArgs<int> e)
         {
-            TrackBar trackBar =
+            var trackBar =
                 e.Value == 0 ? area1TrackBar :
                 e.Value == 1 ? area2TrackBar :
                 e.Value == 2 ? area3TrackBar :

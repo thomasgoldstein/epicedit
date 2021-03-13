@@ -89,7 +89,7 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                byte[] data = new byte[]
+                var data = new byte[]
                 {
                     SpLsly[1],
                     SpLsly[0],
@@ -102,7 +102,7 @@ namespace EpicEdit.Rom.Tracks
             }
             set
             {
-                byte[] data = value.GetBytes();
+                var data = value.GetBytes();
                 SpLsly = new byte[] { data[1], data[0] };
                 SpLspx = new byte[] { 0, data[2] };
                 SpLspy = new byte[] { 0, data[3] };
@@ -127,7 +127,7 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                byte[] data = Utilities.ReadBlock(Obj, 0, TrackObjects.Size);
+                var data = Utilities.ReadBlock(Obj, 0, TrackObjects.Size);
                 byte[] propData =
                 {
                     EEObjTileset[1],
@@ -143,8 +143,8 @@ namespace EpicEdit.Rom.Tracks
             }
             set
             {
-                int size = Obj.Length;
-                byte[] data = value.GetBytes();
+                var size = Obj.Length;
+                var data = value.GetBytes();
                 Array.Resize<byte>(ref data, size);
                 Obj = data;
 
@@ -162,7 +162,7 @@ namespace EpicEdit.Rom.Tracks
         {
             get
             {
-                GetAIData(out byte[] targetData, out byte[] areaData);
+                GetAIData(out var targetData, out var areaData);
                 return new TrackAI(areaData, targetData, _track);
             }
             set => SetAIData(value);
@@ -429,15 +429,15 @@ namespace EpicEdit.Rom.Tracks
 
             MapBytes = new byte[TrackMap.SquareSize];
 
-            byte[] gpex = new byte[OverlayTiles.Size];
-            for (int i = 0; i < gpex.Length; i++)
+            var gpex = new byte[OverlayTiles.Size];
+            for (var i = 0; i < gpex.Length; i++)
             {
                 gpex[i] = 0xFF;
             }
             Gpex = gpex;
 
-            byte[] area = new byte[4064];
-            for (int i = 0; i < area.Length; i++)
+            var area = new byte[4064];
+            for (var i = 0; i < area.Length; i++)
             {
                 area[i] = 0xFF;
             }
@@ -445,8 +445,8 @@ namespace EpicEdit.Rom.Tracks
 
             Obj = new byte[64];
 
-            byte[] areaBorder = new byte[TrackObjectAreas.Size];
-            for (int i = 0; i < areaBorder.Length; i++)
+            var areaBorder = new byte[TrackObjectAreas.Size];
+            for (var i = 0; i < areaBorder.Length; i++)
             {
                 areaBorder[i] = 0xFF;
             }
@@ -458,19 +458,19 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void GetAIData(out byte[] targetData, out byte[] areaData)
         {
-            List<byte> targetDataList = new List<byte>();
-            List<byte> areaDataList = new List<byte>();
+            var targetDataList = new List<byte>();
+            var areaDataList = new List<byte>();
 
-            int count = Area.Length / LineLength;
+            var count = Area.Length / LineLength;
 
-            for (int x = 0; x < count && Area[x * LineLength] != 0xFF; x++)
+            for (var x = 0; x < count && Area[x * LineLength] != 0xFF; x++)
             {
                 // Reorder the target data bytes
                 targetDataList.Add(Area[x * LineLength + 1]);
                 targetDataList.Add(Area[x * LineLength + 2]);
                 targetDataList.Add(Area[x * LineLength]);
 
-                byte areaShape = Area[x * LineLength + 16];
+                var areaShape = Area[x * LineLength + 16];
                 areaDataList.Add(areaShape);
                 areaDataList.Add(Area[x * LineLength + 17]);
                 areaDataList.Add(Area[x * LineLength + 18]);
@@ -490,16 +490,16 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void SetAIData(TrackAI ai)
         {
-            byte[] data = ai.GetBytes();
-            int index = 0;
+            var data = ai.GetBytes();
+            var index = 0;
 
-            for (int x = 0; x < ai.ElementCount; x++)
+            for (var x = 0; x < ai.ElementCount; x++)
             {
                 Area[x * LineLength] = data[data.Length - (ai.ElementCount - x) * 3 + 2];
                 Area[x * LineLength + 1] = data[data.Length - (ai.ElementCount - x) * 3];
                 Area[x * LineLength + 2] = data[data.Length - (ai.ElementCount - x) * 3 + 1];
 
-                byte areaShape = data[index++];
+                var areaShape = data[index++];
                 Area[x * LineLength + 16] = areaShape;
                 Area[x * LineLength + 17] = data[index++];
                 Area[x * LineLength + 18] = data[index++];
@@ -516,7 +516,7 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public void Load(string filePath)
         {
-            using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
+            using (var fs = File.Open(filePath, FileMode.Open, FileAccess.Read))
             using (TextReader reader = new StreamReader(fs))
             {
                 string line;
@@ -527,11 +527,11 @@ namespace EpicEdit.Rom.Tracks
                         continue;
                     }
 
-                    int index = line.IndexOf(' ');
-                    string fieldName = index == -1 ? line : line.Substring(0, index);
+                    var index = line.IndexOf(' ');
+                    var fieldName = index == -1 ? line : line.Substring(0, index);
                     fieldName = fieldName.Substring(1); // Remove leading #
 
-                    if (_fields.TryGetValue(fieldName, out byte[] data))
+                    if (_fields.TryGetValue(fieldName, out var data))
                     {
                         if (data.Length <= 4)
                         {
@@ -548,7 +548,7 @@ namespace EpicEdit.Rom.Tracks
 
         private static void LoadLineData(byte[] data, string line)
         {
-            int space = line.IndexOf(' ');
+            var space = line.IndexOf(' ');
             line = line.Substring(space).Trim();
             if (line.Length != data.Length * 2)
             {
@@ -561,12 +561,12 @@ namespace EpicEdit.Rom.Tracks
 
         private static void LoadBlockData(byte[] data, TextReader reader)
         {
-            int index = 0;
-            string line = reader.ReadLine();
+            var index = 0;
+            var line = reader.ReadLine();
             while (!string.IsNullOrEmpty(line) && line[0] == '#')
             {
-                byte[] lineBytes = Utilities.HexStringToBytes(line.Substring(1));
-                int lineBytesLength = lineBytes.Length;
+                var lineBytes = Utilities.HexStringToBytes(line.Substring(1));
+                var lineBytesLength = lineBytes.Length;
 
                 if (index + lineBytesLength > data.Length)
                 {
@@ -591,11 +591,11 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public void Save(string filePath)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine("; Generated with " + Application.ProductName).AppendLine();
 
-            foreach (KeyValuePair<string, byte[]> field in _fields)
+            foreach (var field in _fields)
             {
                 if (field.Value.Length <= 4)
                 {
@@ -614,8 +614,8 @@ namespace EpicEdit.Rom.Tracks
 
         private static void AppendBlockData(StringBuilder sb, byte[] data)
         {
-            int lineLength = LineLength; // Byte count per line
-            int lineCount = data.Length / lineLength;
+            var lineLength = LineLength; // Byte count per line
+            var lineCount = data.Length / lineLength;
 
             if (lineCount == 0)
             {
@@ -623,9 +623,9 @@ namespace EpicEdit.Rom.Tracks
                 lineLength = data.Length;
             }
 
-            for (int y = 0; y < lineCount; y++)
+            for (var y = 0; y < lineCount; y++)
             {
-                byte[] lineBytes = Utilities.ReadBlock(data, y * lineLength, lineLength);
+                var lineBytes = Utilities.ReadBlock(data, y * lineLength, lineLength);
                 sb.AppendLine("#" + Utilities.BytesToHexString(lineBytes));
             }
         }

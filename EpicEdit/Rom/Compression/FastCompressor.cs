@@ -24,15 +24,15 @@ namespace EpicEdit.Rom.Compression
     {
         public byte[] Compress(byte[] buffer)
         {
-            ByteDictionary byteDictionary = new ByteDictionary(buffer);
-            byte[] compBuffer = new byte[Codec.BufferSize];
+            var byteDictionary = new ByteDictionary(buffer);
+            var compBuffer = new byte[Codec.BufferSize];
 
-            int i = 0; // Iterator for buffer
-            int j = 0; // Iterator for compBuffer
+            var i = 0; // Iterator for buffer
+            var j = 0; // Iterator for compBuffer
 
             while (i < buffer.Length)
             {
-                int k = i + 1; // Forward iterator for buffer
+                var k = i + 1; // Forward iterator for buffer
                 int command; // The compression command we consider the most efficient
                 int commandCost; // How costly we consider this command
 
@@ -85,9 +85,9 @@ namespace EpicEdit.Rom.Compression
                     commandCost = 0;
                 }
 
-                Range range = GetRange(i, k);
-                Range maxBackRange = byteDictionary.GetMaxBackRange(i);
-                int distance = i - maxBackRange.Start;
+                var range = GetRange(i, k);
+                var maxBackRange = byteDictionary.GetMaxBackRange(i);
+                var distance = i - maxBackRange.Start;
 
                 if (distance > 0xFF)
                 {
@@ -165,8 +165,8 @@ namespace EpicEdit.Rom.Compression
                     break;
                 }
 
-                Range backRange = byteDictionary.GetMaxBackRange(k);
-                int distance = k - backRange.Start;
+                var backRange = byteDictionary.GetMaxBackRange(k);
+                var distance = k - backRange.Start;
                 // Matches command 4 or 6
                 if ((distance > 0xFF && backRange.Length > 4) ||
                     (distance <= 0xFF && backRange.Length > 3))
@@ -177,9 +177,9 @@ namespace EpicEdit.Rom.Compression
                 k++;
             }
 
-            Range range = GetRange(i, k);
+            var range = GetRange(i, k);
 
-            int byteCount = range.Length;
+            var byteCount = range.Length;
 
             if (byteCount <= Codec.NormalCommandMax)
             {
@@ -247,8 +247,8 @@ namespace EpicEdit.Rom.Compression
 
         private static void CallCommand4Or6(byte[] compBuffer, ref int i, ref int j, Range range)
         {
-            int distance = i - range.Start;
-            int byteCount = range.Length;
+            var distance = i - range.Start;
+            var byteCount = range.Length;
 
             if (distance <= 0xFF)
             {
@@ -287,7 +287,7 @@ namespace EpicEdit.Rom.Compression
 
         private static Range GetRange(int start, int end)
         {
-            Range range = new Range(start, end);
+            var range = new Range(start, end);
             range.Length = Codec.GetValidatedSuperCommandSize(range.Length);
             return range;
         }

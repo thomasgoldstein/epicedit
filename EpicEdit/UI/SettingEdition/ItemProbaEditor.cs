@@ -111,7 +111,7 @@ namespace EpicEdit.UI.SettingEdition
             modeComboBox.BeginUpdate();
             modeComboBox.Items.Clear();
 
-            foreach (TextItem textItem in Context.Game.Settings.ModeNames)
+            foreach (var textItem in Context.Game.Settings.ModeNames)
             {
                 modeComboBox.Items.Add(textItem.FormattedValue);
             }
@@ -125,7 +125,7 @@ namespace EpicEdit.UI.SettingEdition
             setComboBox.BeginUpdate();
             setComboBox.Items.Clear();
 
-            for (int i = 0; i < ItemProbabilities.SetCount; i++)
+            for (var i = 0; i < ItemProbabilities.SetCount; i++)
             {
                 setComboBox.Items.Add("Probability set " + (i + 1));
             }
@@ -214,7 +214,7 @@ namespace EpicEdit.UI.SettingEdition
         private void DisplayProbability()
         {
             // Back up the fireEvents value to restore it at the end of the method
-            bool fireEventsBefore = _fireEvents;
+            var fireEventsBefore = _fireEvents;
 
             // Disable events being fired by updating the various fields
             _fireEvents = false;
@@ -247,9 +247,9 @@ namespace EpicEdit.UI.SettingEdition
 
             ghostNumericUpDown.ReadOnly = !lightningLabel.Enabled;
 
-            CultureInfo ci = CultureInfo.CurrentCulture;
+            var ci = CultureInfo.CurrentCulture;
 
-            int total = _itemProbability.Total;
+            var total = _itemProbability.Total;
             mushroomNumericUpDown.Value = _itemProbability.Mushroom;
             featherNumericUpDown.Value = _itemProbability.Feather;
             starNumericUpDown.Value = _itemProbability.Star;
@@ -402,7 +402,7 @@ namespace EpicEdit.UI.SettingEdition
 
                 if (_theme != null)
                 {
-                    for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                    for (var i = 0; i < Palettes.SpritePaletteStart; i++)
                     {
                         _theme.Palettes[i].ColorGraphicsChanged -= palette_ColorsGraphicsChanged;
                         _theme.Palettes[i].ColorsGraphicsChanged -= palette_ColorsGraphicsChanged;
@@ -411,7 +411,7 @@ namespace EpicEdit.UI.SettingEdition
 
                 _theme = value;
 
-                for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                for (var i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
                     _theme.Palettes[i].ColorGraphicsChanged += palette_ColorsGraphicsChanged;
                     _theme.Palettes[i].ColorsGraphicsChanged += palette_ColorsGraphicsChanged;

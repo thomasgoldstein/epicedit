@@ -46,8 +46,8 @@ namespace EpicEdit.Tests.Rom.Compression
 
         private void CheckCompression(int offset, int expectedSize, ICompressor compressor)
         {
-            byte[] bufferA = Codec.Decompress(File.ReadBlock(_romBuffer, offset, expectedSize));
-            byte[] bufferB = Codec.Decompress(compressor.Compress(bufferA));
+            var bufferA = Codec.Decompress(File.ReadBlock(_romBuffer, offset, expectedSize));
+            var bufferB = Codec.Decompress(compressor.Compress(bufferA));
 
             Assert.AreEqual(expectedSize, bufferA.Length);
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
@@ -55,8 +55,8 @@ namespace EpicEdit.Tests.Rom.Compression
 
         private void CheckDoubleCompression(int offset, int expectedSize, ICompressor compressor)
         {
-            byte[] bufferA = Codec.Decompress(Codec.Decompress(File.ReadBlock(_romBuffer, offset, expectedSize)));
-            byte[] bufferB = Codec.Decompress(Codec.Decompress(compressor.Compress(compressor.Compress(bufferA))));
+            var bufferA = Codec.Decompress(Codec.Decompress(File.ReadBlock(_romBuffer, offset, expectedSize)));
+            var bufferB = Codec.Decompress(Codec.Decompress(compressor.Compress(compressor.Compress(bufferA))));
 
             Assert.AreEqual(expectedSize, bufferA.Length);
             Assert.AreEqual(bufferA, bufferB, "(Compressor: " + compressor.GetType().Name + ")");
@@ -70,17 +70,17 @@ namespace EpicEdit.Tests.Rom.Compression
 
         private void CheckTrackCompression(int trackGroupId, int trackId, ICompressor compressor)
         {
-            Track track = _game.TrackGroups[trackGroupId][trackId];
+            var track = _game.TrackGroups[trackGroupId][trackId];
 
-            byte[] bufferA = track.Map.GetBytes();
+            var bufferA = track.Map.GetBytes();
 
             // Test simple compression
-            byte[] bufferC1 = compressor.Compress(bufferA);
-            byte[] bufferB = Codec.Decompress(bufferC1, 0, 16384);
+            var bufferC1 = compressor.Compress(bufferA);
+            var bufferB = Codec.Decompress(bufferC1, 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
 
             // Test double compression
-            byte[] bufferC2 = compressor.Compress(bufferC1);
+            var bufferC2 = compressor.Compress(bufferC1);
             bufferB = Codec.Decompress(Codec.Decompress(bufferC2), 0, 16384);
             Assert.AreEqual(bufferA, bufferB);
         }

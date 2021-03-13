@@ -46,8 +46,8 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             Clear();
 
-            int i = 0; // i = iterator for areaData
-            int j = 0; // j = iterator for targetData
+            var i = 0; // i = iterator for areaData
+            var j = 0; // j = iterator for targetData
             while (i < areaData.Length)
             {
                 Add(new TrackAIElement(areaData, ref i, targetData, ref j));
@@ -111,7 +111,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// </summary>
         public void Clear()
         {
-            foreach (TrackAIElement aiElement in _aiElements)
+            foreach (var aiElement in _aiElements)
             {
                 aiElement.PropertyChanged -= aiElement_PropertyChanged;
             }
@@ -158,7 +158,7 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <param name="indexAfter">The index of the AI element after having moved it.</param>
         public void ChangeElementIndex(int indexBefore, int indexAfter)
         {
-            TrackAIElement aiElement = _aiElements[indexBefore];
+            var aiElement = _aiElements[indexBefore];
             _aiElements.RemoveAt(indexBefore);
             _aiElements.Insert(indexAfter, aiElement);
 
@@ -168,16 +168,16 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public static int GetTargetDataLength(byte[] areaData)
         {
-            int areaCount = GetAreaCount(areaData);
-            int aiTargetDataLength = areaCount * 3;
+            var areaCount = GetAreaCount(areaData);
+            var aiTargetDataLength = areaCount * 3;
             return aiTargetDataLength;
         }
 
         private static int GetAreaCount(byte[] areaData)
         {
-            int areaCount = 0;
+            var areaCount = 0;
 
-            int i = 0;
+            var i = 0;
             while (i < areaData.Length)
             {
                 // Depending on whether the area is a rectangle or triangle
@@ -190,9 +190,9 @@ namespace EpicEdit.Rom.Tracks.AI
 
         private int GetAreaDataLength()
         {
-            int areaDataLength = 0;
+            var areaDataLength = 0;
 
-            foreach (TrackAIElement aiElement in _aiElements)
+            foreach (var aiElement in _aiElements)
             {
                 areaDataLength += aiElement.AreaShape == TrackAIElementShape.Rectangle ? 5 : 4;
             }
@@ -206,19 +206,19 @@ namespace EpicEdit.Rom.Tracks.AI
         /// <returns>The AI bytes.</returns>
         public byte[] GetBytes()
         {
-            int areaDataLength = GetAreaDataLength() + 1; // + 1 for ending 0xFF
-            int targetDataLength = _aiElements.Count * 3;
-            byte[] data = new byte[areaDataLength + targetDataLength];
+            var areaDataLength = GetAreaDataLength() + 1; // + 1 for ending 0xFF
+            var targetDataLength = _aiElements.Count * 3;
+            var data = new byte[areaDataLength + targetDataLength];
 
-            int i = 0;
+            var i = 0;
 
-            foreach (TrackAIElement aiElement in _aiElements)
+            foreach (var aiElement in _aiElements)
             {
                 aiElement.GetAreaBytes(data, ref i);
             }
             data[i++] = 0xFF;
 
-            foreach (TrackAIElement aiElement in _aiElements)
+            foreach (var aiElement in _aiElements)
             {
                 aiElement.GetTargetBytes(data, ref i);
             }

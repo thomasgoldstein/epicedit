@@ -46,7 +46,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public void SetBytes(byte[] data)
         {
-            for (int i = 0; i < _areas.Length; i++)
+            for (var i = 0; i < _areas.Length; i++)
             {
                 SetAreaValue(i, data[i]);
             }
@@ -94,7 +94,7 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 areas = new byte[GridSize][];
 
-                for (int y = 0; y < areas.Length; y++)
+                for (var y = 0; y < areas.Length; y++)
                 {
                     areas[y] = new byte[GridSize];
                 }
@@ -102,7 +102,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 return areas;
             }
 
-            sbyte[][] sAreas = InitAreas();
+            var sAreas = InitAreas();
             FillGridFromAI(sAreas);
             areas = GetGridFilledFromNearestTiles(sAreas);
 
@@ -111,19 +111,19 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private static sbyte[][] InitAreas()
         {
-            sbyte[][] areas = new sbyte[GridSize][];
+            var areas = new sbyte[GridSize][];
 
-            for (int y = 0; y < areas.Length; y++)
+            for (var y = 0; y < areas.Length; y++)
             {
                 areas[y] = new sbyte[GridSize];
             }
 
-            for (int x = 0; x < areas[0].Length; x++)
+            for (var x = 0; x < areas[0].Length; x++)
             {
                 areas[0][x] = -1;
             }
 
-            for (int y = 1; y < areas.Length; y++)
+            for (var y = 1; y < areas.Length; y++)
             {
                 Buffer.BlockCopy(areas[0], 0, areas[y], 0, areas[y].Length);
             }
@@ -133,21 +133,21 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void FillGridFromAI(sbyte[][] areas)
         {
-            foreach (TrackAIElement aiElem in AI)
+            foreach (var aiElem in AI)
             {
-                int aiElemIndex = AI.GetElementIndex(aiElem);
-                sbyte areaIndex = (sbyte)GetAreaIndex(aiElemIndex);
-                int left = Math.Min(aiElem.Area.X / TrackAIElement.Precision, GridSize);
-                int top = Math.Min(aiElem.Area.Y / TrackAIElement.Precision, GridSize);
-                int right = Math.Min(aiElem.Area.Right / TrackAIElement.Precision, GridSize);
-                int bottom = Math.Min(aiElem.Area.Bottom / TrackAIElement.Precision, GridSize);
+                var aiElemIndex = AI.GetElementIndex(aiElem);
+                var areaIndex = (sbyte)GetAreaIndex(aiElemIndex);
+                var left = Math.Min(aiElem.Area.X / TrackAIElement.Precision, GridSize);
+                var top = Math.Min(aiElem.Area.Y / TrackAIElement.Precision, GridSize);
+                var right = Math.Min(aiElem.Area.Right / TrackAIElement.Precision, GridSize);
+                var bottom = Math.Min(aiElem.Area.Bottom / TrackAIElement.Precision, GridSize);
 
                 switch (aiElem.AreaShape)
                 {
                     case TrackAIElementShape.Rectangle:
-                        for (int y = top; y < bottom; y++)
+                        for (var y = top; y < bottom; y++)
                         {
-                            for (int x = left; x < right; x++)
+                            for (var x = left; x < right; x++)
                             {
                                 areas[y][x] = areaIndex;
                             }
@@ -155,9 +155,9 @@ namespace EpicEdit.Rom.Tracks.Objects
                         break;
 
                     case TrackAIElementShape.TriangleTopLeft:
-                        for (int y = top; y < bottom; y++)
+                        for (var y = top; y < bottom; y++)
                         {
-                            for (int x = left; x < right; x++)
+                            for (var x = left; x < right; x++)
                             {
                                 areas[y][x] = areaIndex;
                             }
@@ -166,9 +166,9 @@ namespace EpicEdit.Rom.Tracks.Objects
                         break;
 
                     case TrackAIElementShape.TriangleTopRight:
-                        for (int y = top; y < bottom; y++)
+                        for (var y = top; y < bottom; y++)
                         {
-                            for (int x = left; x < right; x++)
+                            for (var x = left; x < right; x++)
                             {
                                 areas[y][x] = areaIndex;
                             }
@@ -178,9 +178,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
                     case TrackAIElementShape.TriangleBottomRight:
                         left = right - 1;
-                        for (int y = top; y < bottom; y++)
+                        for (var y = top; y < bottom; y++)
                         {
-                            for (int x = left; x < right; x++)
+                            for (var x = left; x < right; x++)
                             {
                                 areas[y][x] = areaIndex;
                             }
@@ -190,9 +190,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
                     case TrackAIElementShape.TriangleBottomLeft:
                         right = left + 1;
-                        for (int y = top; y < bottom; y++)
+                        for (var y = top; y < bottom; y++)
                         {
-                            for (int x = left; x < right; x++)
+                            for (var x = left; x < right; x++)
                             {
                                 areas[y][x] = areaIndex;
                             }
@@ -205,12 +205,12 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private static byte[][] GetGridFilledFromNearestTiles(sbyte[][] areas)
         {
-            byte[][] newAreas = new byte[areas.Length][];
+            var newAreas = new byte[areas.Length][];
 
-            for (int y = 0; y < areas.Length; y++)
+            for (var y = 0; y < areas.Length; y++)
             {
                 newAreas[y] = new byte[areas[y].Length];
-                for (int x = 0; x < areas[y].Length; x++)
+                for (var x = 0; x < areas[y].Length; x++)
                 {
                     if (areas[y][x] != -1)
                     {
@@ -218,7 +218,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                         continue;
                     }
 
-                    int depth = 1;
+                    var depth = 1;
                     sbyte areaIndex = -1;
                     while (areaIndex == -1)
                     {
@@ -262,8 +262,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             sbyte matchFound = -1;
 
-            int x2 = x;
-            int y2 = y - depth;
+            var x2 = x;
+            var y2 = y - depth;
 
             if (y2 < 0)
             {
@@ -289,8 +289,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             sbyte matchFound = -1;
 
-            int x2 = x + depth;
-            int y2 = y;
+            var x2 = x + depth;
+            var y2 = y;
 
             if (x2 > GridLimit)
             {
@@ -316,8 +316,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             sbyte matchFound = -1;
 
-            int x2 = x;
-            int y2 = y + depth;
+            var x2 = x;
+            var y2 = y + depth;
 
             if (y2 > GridLimit)
             {
@@ -343,8 +343,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             sbyte matchFound = -1;
 
-            int x2 = x - depth;
-            int y2 = y;
+            var x2 = x - depth;
+            var y2 = y;
 
             if (x2 < 0)
             {

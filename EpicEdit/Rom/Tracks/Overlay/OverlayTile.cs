@@ -33,8 +33,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
             get => _location;
             set
             {
-                int x = value.X;
-                int y = value.Y;
+                var x = value.X;
+                var y = value.Y;
 
                 if (x < 0)
                 {
@@ -106,8 +106,8 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <param name="patterns">The collection of overlay tile patterns.</param>
         public void GetBytes(byte[] data, int index, OverlayTileSizes sizes, OverlayTilePatterns patterns)
         {
-            int sizeIndex = sizes.IndexOf(Pattern.Size);
-            int patternIndex = patterns.IndexOf(Pattern);
+            var sizeIndex = sizes.IndexOf(Pattern.Size);
+            var patternIndex = patterns.IndexOf(Pattern);
             data[index] = (byte)((byte)(sizeIndex << 6) | patternIndex);
 
             data[index + 1] = (byte)(X + ((Y << 7) & 0x80));

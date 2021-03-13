@@ -65,18 +65,18 @@ namespace EpicEdit.Rom.Tracks.Road
 
         protected override void GenerateGraphics()
         {
-            FastBitmap fBitmap = new FastBitmap(InternalBitmap);
+            var fBitmap = new FastBitmap(InternalBitmap);
 
-            Palette palette = TilePalette;
-            int pixelIndex = 0;
-            for (int y = 0; y < Size; y++)
+            var palette = TilePalette;
+            var pixelIndex = 0;
+            for (var y = 0; y < Size; y++)
             {
-                for (int x = 0; x < Size / 2; x++)
+                for (var x = 0; x < Size / 2; x++)
                 {
                     RomColor color1 = fBitmap.GetPixel(x * 2, y);
                     RomColor color2 = fBitmap.GetPixel(x * 2 + 1, y);
-                    int colorIndex1 = Utilities.GetColorIndex(color1, palette);
-                    int colorIndex2 = Utilities.GetColorIndex(color2, palette);
+                    var colorIndex1 = Utilities.GetColorIndex(color1, palette);
+                    var colorIndex2 = Utilities.GetColorIndex(color2, palette);
 
                     Graphics[pixelIndex++] = (byte)(colorIndex1 + (colorIndex2 << 4));
                 }
@@ -91,10 +91,10 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public override int GetColorIndexAt(int x, int y)
         {
-            int xSub = x % 2;
+            var xSub = x % 2;
             x /= 2;
-            byte px = Graphics[y * 4 + x];
-            int index = xSub == 0 ?
+            var px = Graphics[y * 4 + x];
+            var index = xSub == 0 ?
                 px & 0x0F : (px & 0xF0) >> 4;
 
             return index;
@@ -117,7 +117,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 // When a tile uses the first color of the palette, the color actually applied
                 // is the first color of the first palette of the collection.
                 // The first color of the other palettes are ignored / never displayed.
-                Palette palette = new Palette(Palette.Collection, -1, Palette.GetBytes());
+                var palette = new Palette(Palette.Collection, -1, Palette.GetBytes());
                 palette[0] = _firstPalette[0];
                 return palette;
             }

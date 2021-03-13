@@ -168,7 +168,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void SetPreviewSpeed()
         {
-            int value = (int)previewSpeedNumericUpDown.Value;
+            var value = (int)previewSpeedNumericUpDown.Value;
             _previewTimer.Interval = 70 - (value * 20);
         }
 
@@ -181,9 +181,9 @@ namespace EpicEdit.UI.ThemeEdition
         {
             if (_drawer.Theme != null)
             {
-                for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+                for (var i = 0; i < Palettes.SpritePaletteStart; i++)
                 {
-                    Palette palette = _drawer.Theme.Palettes[i];
+                    var palette = _drawer.Theme.Palettes[i];
                     palette.ColorChanged -= palette_ColorsGraphicsChanged;
                     palette.ColorsChanged -= palette_ColorsGraphicsChanged;
                 }
@@ -191,9 +191,9 @@ namespace EpicEdit.UI.ThemeEdition
 
             LoadTheme();
 
-            for (int i = 0; i < Palettes.SpritePaletteStart; i++)
+            for (var i = 0; i < Palettes.SpritePaletteStart; i++)
             {
-                Palette palette = _drawer.Theme.Palettes[i];
+                var palette = _drawer.Theme.Palettes[i];
                 palette.ColorGraphicsChanged += palette_ColorsGraphicsChanged;
                 palette.ColorsGraphicsChanged += palette_ColorsGraphicsChanged;
             }
@@ -229,9 +229,9 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void PaletteNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = TileProperties;
+            var properties = TileProperties;
 
-            int value = (int)paletteNumericUpDown.Value;
+            var value = (int)paletteNumericUpDown.Value;
             properties.PaletteIndex = value / 4;
             properties.SubPaletteIndex = (value & 0x3) * 4;
 
@@ -241,7 +241,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void FlipXButtonCheckedChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = TileProperties;
+            var properties = TileProperties;
             properties.FlipX();
 
             TileProperties = properties;
@@ -250,7 +250,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void FlipYButtonCheckedChanged(object sender, EventArgs e)
         {
-            Tile2bppProperties properties = TileProperties;
+            var properties = TileProperties;
             properties.FlipY();
 
             TileProperties = properties;
@@ -259,8 +259,8 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void UpdateTilePanels()
         {
-            byte tileId = TileId;
-            byte properties = TileProperties.GetByte();
+            var tileId = TileId;
+            var properties = TileProperties.GetByte();
 
             frontTilePanel.UpdateTile(Theme, tileId, properties);
             backTilePanel.UpdateTile(Theme, tileId, properties);
@@ -275,7 +275,7 @@ namespace EpicEdit.UI.ThemeEdition
             paletteNumericUpDown.Value = (TileProperties.PaletteIndex * 4) + (TileProperties.SubPaletteIndex / 4);
             paletteNumericUpDown.ValueChanged += PaletteNumericUpDownValueChanged;
 
-            bool flipX = (TileProperties.Flip & TileFlip.X) != 0;
+            var flipX = (TileProperties.Flip & TileFlip.X) != 0;
             if (flipXButton.Checked != flipX)
             {
                 flipXButton.CheckedChanged -= FlipXButtonCheckedChanged;
@@ -283,7 +283,7 @@ namespace EpicEdit.UI.ThemeEdition
                 flipXButton.CheckedChanged += FlipXButtonCheckedChanged;
             }
 
-            bool flipY = (TileProperties.Flip & TileFlip.Y) != 0;
+            var flipY = (TileProperties.Flip & TileFlip.Y) != 0;
             if (flipYButton.Checked != flipY)
             {
                 flipYButton.CheckedChanged -= FlipYButtonCheckedChanged;
@@ -303,7 +303,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void BackgroundLayerPanelMouseDown(object sender, MouseEventArgs e)
         {
-            bool front = ((BackgroundPanel)sender).Front;
+            var front = ((BackgroundPanel)sender).Front;
             ToggleTilesetFrontMode(front);
         }
 
@@ -332,7 +332,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private static void DeselectTilePanel(BackgroundTilePanel panel)
         {
-            Size borderSize = SystemInformation.Border3DSize;
+            var borderSize = SystemInformation.Border3DSize;
             panel.SuspendLayout();
             panel.BorderStyle = BorderStyle.None;
             panel.Size = new Size(panel.Width - borderSize.Width * 2, panel.Height - borderSize.Height * 2);
@@ -342,7 +342,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private static void SelectTilePanel(BackgroundTilePanel panel)
         {
-            Size borderSize = SystemInformation.Border3DSize;
+            var borderSize = SystemInformation.Border3DSize;
             panel.SuspendLayout();
             panel.Location = new Point(panel.Location.X - borderSize.Width, panel.Location.Y - borderSize.Height);
             panel.Size = new Size(panel.Width + borderSize.Width * 2, panel.Height + borderSize.Height * 2);
@@ -352,7 +352,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void BackgroundTilePanelMouseDown(object sender, MouseEventArgs e)
         {
-            bool front = ((BackgroundTilePanel)sender).Front;
+            var front = ((BackgroundTilePanel)sender).Front;
             ToggleTilesetFrontMode(front);
         }
 
@@ -384,7 +384,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ShowExportBackgroundLayoutDialog()
         {
-            Theme theme = Theme;
+            var theme = Theme;
             UITools.ShowExportBinaryDataDialog(theme.Background.Layout.GetBytes, theme.Name + "bg map");
         }
     }

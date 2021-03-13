@@ -221,7 +221,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            int palIndex = (int)tilePaletteNumericUpDown.Value;
+            var palIndex = (int)tilePaletteNumericUpDown.Value;
             SelectedRoadTile.Palette = _track.Theme.Palettes[palIndex];
 
             // Could be optimized by not updating the whole cache,
@@ -239,7 +239,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void SetTheme(int number)
         {
-            Base1NumericUpDown ud = tilePaletteNumericUpDown;
+            var ud = tilePaletteNumericUpDown;
             if (number >= ud.Minimum && number <= ud.Maximum)
             {
                 ud.Value = number;
@@ -291,8 +291,8 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             const int zoom = RoadTilesetDrawer.Zoom;
-            int rowTileCount = tilesetPanel.Width / (Tile.Size * zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
+            var rowTileCount = tilesetPanel.Width / (Tile.Size * zoom);
+            var newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 
             if (_selectedTile != newSelectedTile)
             {
@@ -304,13 +304,13 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TileGenreComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
-            object val = e.Value;
+            var val = e.Value;
             e.Value = Utilities.ByteToHexString((byte)val) + "- " + UITools.GetDescription(val);
         }
 
         private void ImportExportRoadTilesetButtonClick(object sender, EventArgs e)
         {
-            using (RoadTilesetImportExportForm form = new RoadTilesetImportExportForm())
+            using (var form = new RoadTilesetImportExportForm())
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -396,7 +396,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ResetMapButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = UITools.ShowWarning("Do you really want to reset the map?");
+            var result = UITools.ShowWarning("Do you really want to reset the map?");
 
             if (result == DialogResult.Yes)
             {
@@ -420,7 +420,7 @@ namespace EpicEdit.UI.TrackEdition
                 x /= Tile.Size;
                 y /= Tile.Size;
 
-                int index = y * TilesPerRow + x;
+                var index = y * TilesPerRow + x;
                 return Tileset[index];
             }
         }

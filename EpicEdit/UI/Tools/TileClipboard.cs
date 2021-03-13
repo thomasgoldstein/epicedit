@@ -88,9 +88,9 @@ namespace EpicEdit.UI.Tools
         {
             _data.Clear();
 
-            for (int y = Rectangle.Y; y < Rectangle.Bottom; y++)
+            for (var y = Rectangle.Y; y < Rectangle.Bottom; y++)
             {
-                for (int x = Rectangle.X; x < Rectangle.Right; x++)
+                for (var x = Rectangle.X; x < Rectangle.Right; x++)
                 {
                     _data.Add(trackMap[x, y]);
                 }

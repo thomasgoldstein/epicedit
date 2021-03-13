@@ -155,7 +155,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             setComboBox.BeginUpdate();
 
-            for (int i = 0; i < ItemProbabilities.SetCount; i++)
+            for (var i = 0; i < ItemProbabilities.SetCount; i++)
             {
                 setComboBox.Items.Add("Probability set " + (i + 1));
             }
@@ -173,7 +173,7 @@ namespace EpicEdit.UI.TrackEdition
         private void ResetSetComboBoxBattle()
         {
             setComboBox.Items.Clear();
-            TextCollection modeNames = Context.Game.Settings.ModeNames;
+            var modeNames = Context.Game.Settings.ModeNames;
             setComboBox.Items.Add(modeNames[modeNames.Count - 1].FormattedValue);
             setComboBox.SelectedIndex = 0;
             setComboBox.Enabled = false;
@@ -186,7 +186,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            GPTrack gpTrack = _track as GPTrack;
+            var gpTrack = _track as GPTrack;
             gpTrack.ItemProbabilityIndex = setComboBox.SelectedIndex;
         }
 
@@ -202,8 +202,8 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            int oldIndex = _track.AI.GetElementIndex(_selectedElement);
-            int newIndex = (int)indexNumericUpDown.Value;
+            var oldIndex = _track.AI.GetElementIndex(_selectedElement);
+            var newIndex = (int)indexNumericUpDown.Value;
             _track.AI.ChangeElementIndex(oldIndex, newIndex);
         }
 
@@ -239,15 +239,15 @@ namespace EpicEdit.UI.TrackEdition
 
         private void CloneButtonClick(object sender, EventArgs e)
         {
-            TrackAIElement aiElement = SelectedElement;
-            TrackAIElement newAIElem = aiElement.Clone();
+            var aiElement = SelectedElement;
+            var newAIElem = aiElement.Clone();
 
             // Shift the cloned element position, so it's not directly over the source element
             newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
                                            aiElement.Location.Y + TrackAIElement.Precision);
 
             // Ensure the cloned element index is right after the source element
-            int newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
+            var newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
 
             _track.AI.Insert(newAIElem, newAIElementIndex);
         }
@@ -300,7 +300,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = UITools.ShowWarning("Do you really want to delete all AI elements?");
+            var result = UITools.ShowWarning("Do you really want to delete all AI elements?");
 
             if (result == DialogResult.Yes)
             {
@@ -310,7 +310,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_AI_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            TrackAIElement aiElement = sender as TrackAIElement;
+            var aiElement = sender as TrackAIElement;
 
             if (SelectedElement != aiElement)
             {

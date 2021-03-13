@@ -22,9 +22,9 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
     {
         private void TestTrackMap(string fileName)
         {
-            byte[] dataBefore = File.ReadFile(fileName);
-            TrackMap map = new TrackMap(dataBefore);
-            byte[] dataAfter = map.GetBytes();
+            var dataBefore = File.ReadFile(fileName);
+            var map = new TrackMap(dataBefore);
+            var dataAfter = map.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
 

@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Compression
             _buffer = buffer;
             _byteDictionary = new Dictionary<byte, List<int>>();
 
-            for (int i = 0; i < buffer.Length; i++)
+            for (var i = 0; i < buffer.Length; i++)
             {
                 Add(buffer[i], i);
             }
@@ -38,7 +38,7 @@ namespace EpicEdit.Rom.Compression
 
         private void Add(byte value, int offset)
         {
-            if (!_byteDictionary.TryGetValue(value, out List<int> list))
+            if (!_byteDictionary.TryGetValue(value, out var list))
             {
                 list = new List<int>();
                 _byteDictionary.Add(value, list);
@@ -49,19 +49,19 @@ namespace EpicEdit.Rom.Compression
 
         public Range GetMaxBackRange(int offset)
         {
-            Range maxBackRange = Range.Empty;
+            var maxBackRange = Range.Empty;
 
-            byte value = _buffer[offset];
+            var value = _buffer[offset];
 
-            foreach (int otherOffset in _byteDictionary[value])
+            foreach (var otherOffset in _byteDictionary[value])
             {
                 if (otherOffset >= offset)
                 {
                     break;
                 }
 
-                int iterator = offset;
-                int backIterator = otherOffset;
+                var iterator = offset;
+                var backIterator = otherOffset;
 
                 do
                 {
@@ -71,10 +71,10 @@ namespace EpicEdit.Rom.Compression
                 while (iterator < _buffer.Length &&
                        _buffer[backIterator] == _buffer[iterator]);
 
-                int start = otherOffset;
-                int end = backIterator;
+                var start = otherOffset;
+                var end = backIterator;
 
-                Range backRange = new Range(start, end);
+                var backRange = new Range(start, end);
                 backRange.Length = Codec.GetValidatedSuperCommandSize(backRange.Length);
 
                 if (backRange.Length >= maxBackRange.Length)
@@ -88,28 +88,28 @@ namespace EpicEdit.Rom.Compression
 
         public Range[] GetMaxBackRanges(int offset)
         {
-            Range maxRange4n = Range.Empty; // Command 4 normal
-            Range maxRange4s = Range.Empty; // Command 4 super
-            Range maxRange6n = Range.Empty; // Command 6 normal
-            Range maxRange6s = Range.Empty; // Command 6 super
+            var maxRange4n = Range.Empty; // Command 4 normal
+            var maxRange4s = Range.Empty; // Command 4 super
+            var maxRange6n = Range.Empty; // Command 6 normal
+            var maxRange6s = Range.Empty; // Command 6 super
 
-            byte value = _buffer[offset];
+            var value = _buffer[offset];
 
-            int startPosition = offset - 0xFF;
+            var startPosition = offset - 0xFF;
             if (startPosition < 0)
             {
                 startPosition = 0;
             }
 
-            foreach (int otherOffset in _byteDictionary[value])
+            foreach (var otherOffset in _byteDictionary[value])
             {
                 if (otherOffset >= offset)
                 {
                     break;
                 }
 
-                int iterator = offset;
-                int backIterator = otherOffset;
+                var iterator = offset;
+                var backIterator = otherOffset;
 
                 do
                 {
@@ -119,10 +119,10 @@ namespace EpicEdit.Rom.Compression
                 while (iterator < _buffer.Length &&
                        _buffer[backIterator] == _buffer[iterator]);
 
-                int start = otherOffset;
-                int end = backIterator;
+                var start = otherOffset;
+                var end = backIterator;
 
-                Range backRange = new Range(start, end);
+                var backRange = new Range(start, end);
                 backRange.Length = Codec.GetValidatedSuperCommandSize(backRange.Length);
 
                 if (otherOffset < startPosition)

@@ -161,9 +161,9 @@ namespace EpicEdit.Rom.Tracks.Items
         {
             get
             {
-                int value = 0;
+                var value = 0;
 
-                for (int i = 0; i < _values.Length; i++)
+                for (var i = 0; i < _values.Length; i++)
                 {
                     value += _values[i];
                 }
@@ -199,16 +199,16 @@ namespace EpicEdit.Rom.Tracks.Items
         public void SetBytes(byte[] data)
         {
             // Init everything back to default to reset the SubTotal value
-            for (int i = 0; i < _values.Length; i++)
+            for (var i = 0; i < _values.Length; i++)
             {
                 _values[i] = 0;
             }
 
-            int total = 0;
+            var total = 0;
 
-            for (int i = 0; i < _values.Length; i++)
+            for (var i = 0; i < _values.Length; i++)
             {
-                int value = GetFieldValue(data, i, ref total);
+                var value = GetFieldValue(data, i, ref total);
                 SetFieldValue(ref _values[i], value);
             }
 
@@ -222,23 +222,23 @@ namespace EpicEdit.Rom.Tracks.Items
                 return 0;
             }
 
-            int value = data[index] - total;
+            var value = data[index] - total;
             total += value;
             return value;
         }
 
         private byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
             GetBytes(data, 0);
             return data;
         }
 
         public void GetBytes(byte[] data, int index)
         {
-            int total = 0;
+            var total = 0;
 
-            for (int i = 0; i < _values.Length; i++)
+            for (var i = 0; i < _values.Length; i++)
             {
                 data[index + i] = _values[i] == 0 ? (byte)0 : (byte)(total += _values[i]);
             }

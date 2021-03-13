@@ -115,7 +115,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public static byte[] Decompress(byte[] buffer, int offset, bool twice)
         {
-            byte[] data = Decompressor.Decompress(buffer, offset);
+            var data = Decompressor.Decompress(buffer, offset);
 
             if (twice)
             {
@@ -143,12 +143,12 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The length of the compressed block.</returns>
         public static int GetCompressedLength(byte[] buffer, int offset)
         {
-            int startingOffset = offset;
+            var startingOffset = offset;
             byte value;
 
             while ((value = buffer[offset++]) != 0xFF)
             {
-                byte command = (byte)((value & 0xE0) >> 5);
+                var command = (byte)((value & 0xE0) >> 5);
                 int count;
 
                 if (command == 7) // This special command extends the byte count.
@@ -187,7 +187,7 @@ namespace EpicEdit.Rom.Compression
 
         public static byte[] GetCompressedChunk(byte[] buffer, int offset)
         {
-            int compressedChunkLength = GetCompressedLength(buffer, offset);
+            var compressedChunkLength = GetCompressedLength(buffer, offset);
             return Utilities.ReadBlock(buffer, offset, compressedChunkLength);
         }
 
@@ -209,7 +209,7 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The compressed data.</returns>
         public static byte[] Compress(byte[] buffer, bool optimize)
         {
-            ICompressor comp = !optimize ? Compressor : OptimalCompressor;
+            var comp = !optimize ? Compressor : OptimalCompressor;
             return comp.Compress(buffer);
         }
 
@@ -222,7 +222,7 @@ namespace EpicEdit.Rom.Compression
         /// <param name="offset">Location where the data will be saved.</param>
         public static void Compress(byte[] sourceBuffer, byte[] destinationBuffer, int offset)
         {
-            byte[] compBuffer = Compress(sourceBuffer);
+            var compBuffer = Compress(sourceBuffer);
             Buffer.BlockCopy(compBuffer, 0, destinationBuffer, offset, compBuffer.Length);
         }
 

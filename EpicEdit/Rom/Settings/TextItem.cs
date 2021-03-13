@@ -41,8 +41,8 @@ namespace EpicEdit.Rom.Settings
             get => _value;
             set
             {
-                string oldValue = _value;
-                string newValue = Converter.GetValidatedText(value);
+                var oldValue = _value;
+                var newValue = Converter.GetValidatedText(value);
 
                 if (oldValue == newValue)
                 {
@@ -51,7 +51,7 @@ namespace EpicEdit.Rom.Settings
 
                 _value = newValue;
 
-                int diff = _collection.TotalCharacterCount - _collection.MaxCharacterCount;
+                var diff = _collection.TotalCharacterCount - _collection.MaxCharacterCount;
                 if (diff > 0)
                 {
                     newValue = _value.Substring(0, _value.Length - diff);

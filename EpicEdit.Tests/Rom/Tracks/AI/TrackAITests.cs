@@ -24,14 +24,14 @@ namespace EpicEdit.Tests.Rom.Tracks.AI
     {
         private void TestGetBytes(byte[] areaData, byte[] targetData)
         {
-            byte[] dataBefore = new byte[areaData.Length + 1 + targetData.Length];
+            var dataBefore = new byte[areaData.Length + 1 + targetData.Length];
             Array.Copy(areaData, dataBefore, areaData.Length);
             dataBefore[areaData.Length] = 0xFF; // Area data ends with 0xFF
             Array.Copy(targetData, 0, dataBefore, areaData.Length + 1, targetData.Length);
 
-            TrackAI trackAI = new TrackAI(areaData, targetData, null);
+            var trackAI = new TrackAI(areaData, targetData, null);
 
-            byte[] dataAfter = trackAI.GetBytes();
+            var dataAfter = trackAI.GetBytes();
 
             Assert.AreEqual(dataBefore, dataAfter);
         }
@@ -39,9 +39,9 @@ namespace EpicEdit.Tests.Rom.Tracks.AI
         [Test]
         public void TestGetBytesMarioCircuit1()
         {
-            byte[] romBuffer = File.ReadRom(Region.US);
-            byte[] areaData = File.ReadBlock(romBuffer, 0x60ECB, 142);
-            byte[] targetData = File.ReadBlock(romBuffer, 0x60F5A, 90);
+            var romBuffer = File.ReadRom(Region.US);
+            var areaData = File.ReadBlock(romBuffer, 0x60ECB, 142);
+            var targetData = File.ReadBlock(romBuffer, 0x60F5A, 90);
             TestGetBytes(areaData, targetData);
         }
 
@@ -49,9 +49,9 @@ namespace EpicEdit.Tests.Rom.Tracks.AI
         public void TestGetBytesMarioCircuit2()
         {
             // NOTE: Mario Circuit 2 has an intersection, good to test
-            byte[] romBuffer = File.ReadRom(Region.US);
-            byte[] areaData = File.ReadBlock(romBuffer, 0x617D9, 169);
-            byte[] targetData = File.ReadBlock(romBuffer, 0x61883, 105);
+            var romBuffer = File.ReadRom(Region.US);
+            var areaData = File.ReadBlock(romBuffer, 0x617D9, 169);
+            var targetData = File.ReadBlock(romBuffer, 0x61883, 105);
             TestGetBytes(areaData, targetData);
         }
     }

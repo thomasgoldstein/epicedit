@@ -23,18 +23,18 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
     {
         private void TestGetColorIndexAt(byte[] gfx, byte[] palData)
         {
-            Palette palette = new Palette(null, 0, palData);
-            RoadTile tile = new RoadTile(gfx, palette, RoadTileGenre.Road, palette);
+            var palette = new Palette(null, 0, palData);
+            var tile = new RoadTile(gfx, palette, RoadTileGenre.Road, palette);
 
             TestGetColorIndexAt(gfx, palette, tile);
         }
 
         private void TestGenerateGraphics(byte[] palData, byte[] gfx)
         {
-            Palette pal = new Palette(null, 0, palData);
+            var pal = new Palette(null, 0, palData);
 
-            RoadTile tile = new RoadTile(gfx, pal, RoadTileGenre.Road, pal);
-            RoadTile tile2 = new RoadTile(new byte[gfx.Length], pal, RoadTileGenre.Road, pal);
+            var tile = new RoadTile(gfx, pal, RoadTileGenre.Road, pal);
+            var tile2 = new RoadTile(new byte[gfx.Length], pal, RoadTileGenre.Road, pal);
 
             tile2.Bitmap = tile.Bitmap; // Trigger graphics update
 
@@ -45,15 +45,15 @@ namespace EpicEdit.Tests.Rom.Tracks.Road
         {
             TileTests.TestGetColorIndexAt(tile, palette, false);
 
-            byte[] gfxCopy = new byte[gfx.Length];
+            var gfxCopy = new byte[gfx.Length];
 
-            for (int y = 0; y < Tile.Size; y++)
+            for (var y = 0; y < Tile.Size; y++)
             {
-                for (int x = 0; x < Tile.Size; x++)
+                for (var x = 0; x < Tile.Size; x++)
                 {
-                    int colorIndex = tile.GetColorIndexAt(x, y);
+                    var colorIndex = tile.GetColorIndexAt(x, y);
 
-                    int index = y * Tile.Size + x;
+                    var index = y * Tile.Size + x;
                     if (index % 2 == 1)
                     {
                         colorIndex <<= 4;

@@ -67,17 +67,17 @@ namespace EpicEdit.Rom.Tracks.Overlay
             }
 
             Clear();
-            for (int overlayTileIndex = 0; overlayTileIndex < MaxTileCount; overlayTileIndex++)
+            for (var overlayTileIndex = 0; overlayTileIndex < MaxTileCount; overlayTileIndex++)
             {
-                int index = overlayTileIndex * 3;
+                var index = overlayTileIndex * 3;
                 if (data[index + 1] == 0xFF &&
                     data[index + 2] == 0xFF)
                 {
                     break;
                 }
 
-                OverlayTileSize size = _sizes[(data[index] & 0xC0) >> 6];
-                OverlayTilePattern pattern = _patterns[data[index] & 0x3F];
+                var size = _sizes[(data[index] & 0xC0) >> 6];
+                var pattern = _patterns[data[index] & 0x3F];
 
                 if (pattern.Size != size)
                 {
@@ -86,9 +86,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
                     continue;
                 }
 
-                int x = (data[index + 1] & 0x7F);
-                int y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
-                Point location = new Point(x, y);
+                var x = (data[index + 1] & 0x7F);
+                var y = ((data[index + 2] & 0x3F) << 1) + ((data[index + 1] & 0x80) >> 7);
+                var location = new Point(x, y);
 
                 Add(new OverlayTile(pattern, location));
             }
@@ -100,16 +100,16 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// <returns>The OverlayTiles bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
 
-            for (int overlayTileIndex = 0; overlayTileIndex < _overlayTiles.Count; overlayTileIndex++)
+            for (var overlayTileIndex = 0; overlayTileIndex < _overlayTiles.Count; overlayTileIndex++)
             {
-                int index = overlayTileIndex * 3;
-                OverlayTile overlayTile = _overlayTiles[overlayTileIndex];
+                var index = overlayTileIndex * 3;
+                var overlayTile = _overlayTiles[overlayTileIndex];
                 overlayTile.GetBytes(data, index, _sizes, _patterns);
             }
 
-            for (int index = _overlayTiles.Count * 3; index < data.Length; index++)
+            for (var index = _overlayTiles.Count * 3; index < data.Length; index++)
             {
                 data[index] = 0xFF;
             }
@@ -146,7 +146,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         /// </summary>
         public void Clear()
         {
-            foreach (OverlayTile tile in _overlayTiles)
+            foreach (var tile in _overlayTiles)
             {
                 tile.DataChanged -= overlayTile_DataChanged;
             }

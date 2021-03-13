@@ -39,29 +39,29 @@ namespace EpicEdit.Tests.Rom.Compression
 
         private void CheckCompression(int offset, int expectedSize)
         {
-            int originalCompressedSize = Codec.GetCompressedLength(_romBuffer, offset);
-            byte[] decompressedData = Codec.Decompress(File.ReadBlock(_romBuffer, offset, originalCompressedSize));
-            byte[] buffer = _compressor.Compress(decompressedData);
-            int compressedSize = buffer.Length;
+            var originalCompressedSize = Codec.GetCompressedLength(_romBuffer, offset);
+            var decompressedData = Codec.Decompress(File.ReadBlock(_romBuffer, offset, originalCompressedSize));
+            var buffer = _compressor.Compress(decompressedData);
+            var compressedSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedSize);
         }
 
         private void CheckCompressionFromDoubleCompressed(int offset, int expectedSize)
         {
-            int originalCompressedSize = Codec.GetCompressedLength(_romBuffer, offset);
-            byte[] decompressedData = Codec.Decompress(Codec.Decompress(File.ReadBlock(_romBuffer, offset, originalCompressedSize)));
-            byte[] buffer = _compressor.Compress(decompressedData);
-            int compressedSize = buffer.Length;
+            var originalCompressedSize = Codec.GetCompressedLength(_romBuffer, offset);
+            var decompressedData = Codec.Decompress(Codec.Decompress(File.ReadBlock(_romBuffer, offset, originalCompressedSize)));
+            var buffer = _compressor.Compress(decompressedData);
+            var compressedSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedSize);
         }
 
         private void CheckTrackCompression(int trackGroupId, int trackId, int expectedSize)
         {
-            Track track = _game.TrackGroups[trackGroupId][trackId];
-            byte[] buffer = _compressor.Compress(track.Map.GetBytes());
-            int compressedMapSize = buffer.Length;
+            var track = _game.TrackGroups[trackGroupId][trackId];
+            var buffer = _compressor.Compress(track.Map.GetBytes());
+            var compressedMapSize = buffer.Length;
 
             Assert.AreEqual(expectedSize, compressedMapSize);
         }

@@ -44,11 +44,11 @@ namespace EpicEdit.Rom.Tracks.Objects
             int val2 = Graphics[y * 2 + 1];
             int val3 = Graphics[y * 2 + 16];
             int val4 = Graphics[y * 2 + 17];
-            int mask = 1 << x;
-            int val1b = ((val1 & mask) >> x);
-            int val2b = (((val2 & mask) << 1) >> x);
-            int val3b = (((val3 & mask) << 2) >> x);
-            int val4b = (((val4 & mask) << 3) >> x);
+            var mask = 1 << x;
+            var val1b = ((val1 & mask) >> x);
+            var val2b = (((val2 & mask) << 1) >> x);
+            var val3b = (((val3 & mask) << 2) >> x);
+            var val4b = (((val4 & mask) << 3) >> x);
             return val1b + val2b + val3b + val4b;
         }
 

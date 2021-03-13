@@ -82,7 +82,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.PropertyName == PropertyNames.GPStartPosition.SecondRowOffset)
             {
-                GPTrack gpTrack = (GPTrack)_track;
+                var gpTrack = (GPTrack)_track;
                 secondRowNumericUpDown.Value = gpTrack.StartPosition.SecondRowOffset;
                 secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
             }
@@ -94,7 +94,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SecondRowValueLabelNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            GPTrack gpTrack = (GPTrack)_track;
+            var gpTrack = (GPTrack)_track;
             gpTrack.StartPosition.SecondRowOffset = GetPrecisionValue((int)secondRowNumericUpDown.Value);
 
             // Make sure the UI reflects the validated SecondRowOffset value
@@ -103,20 +103,20 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SecondRowTrackBarScroll(object sender, EventArgs e)
         {
-            GPTrack gpTrack = (GPTrack)_track;
+            var gpTrack = (GPTrack)_track;
             gpTrack.StartPosition.SecondRowOffset = GetPrecisionValue(secondRowTrackBar.Value);
         }
 
         private void SecondRowTrackBarValueChanged(object sender, EventArgs e)
         {
-            GPTrack gpTrack = (GPTrack)_track;
+            var gpTrack = (GPTrack)_track;
             // Make sure the UI reflects the validated SecondRowOffset value
             secondRowTrackBar.Value = gpTrack.StartPosition.SecondRowOffset;
         }
 
         private void StepRadioButtonCheckedChanged(object sender, EventArgs e)
         {
-            RadioButton button = (RadioButton)sender;
+            var button = (RadioButton)sender;
 
             // Avoid calling the method twice (once for the button that was previously checked, then the one newly checked)
             if (button.Checked)

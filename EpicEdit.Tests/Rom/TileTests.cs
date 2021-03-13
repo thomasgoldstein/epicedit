@@ -22,12 +22,12 @@ namespace EpicEdit.Tests.Rom
     {
         public static void TestGetColorIndexAt(Tile tile, Palette palette, bool transparency)
         {
-            for (int y = 0; y < Tile.Size; y++)
+            for (var y = 0; y < Tile.Size; y++)
             {
-                for (int x = 0; x < Tile.Size; x++)
+                for (var x = 0; x < Tile.Size; x++)
                 {
-                    int colorIndex = tile.GetColorIndexAt(x, y);
-                    Color color1 = tile.Bitmap.GetPixel(x, y);
+                    var colorIndex = tile.GetColorIndexAt(x, y);
+                    var color1 = tile.Bitmap.GetPixel(x, y);
 
                     if (transparency && color1.A == 0) // Transparent pixel
                     {

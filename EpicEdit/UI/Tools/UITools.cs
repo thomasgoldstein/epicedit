@@ -75,11 +75,11 @@ namespace EpicEdit.UI.Tools
         {
             string desc = null;
 
-            Type type = item.GetType();
-            MemberInfo[] memInfo = type.GetMember(item.ToString());
+            var type = item.GetType();
+            var memInfo = type.GetMember(item.ToString());
             if (memInfo != null && memInfo.Length > 0)
             {
-                object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                var attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
                 if (attrs != null && attrs.Length > 0)
                 {
                     desc = (attrs[0] as DescriptionAttribute).Description;
@@ -101,8 +101,8 @@ namespace EpicEdit.UI.Tools
         /// <returns>Sanitized file name.</returns>
         public static string SanitizeFileName(string fileName)
         {
-            string invalidChars = new string(Path.GetInvalidFileNameChars());
-            string pattern = "[" + Regex.Escape(invalidChars) + "]*";
+            var invalidChars = new string(Path.GetInvalidFileNameChars());
+            var pattern = "[" + Regex.Escape(invalidChars) + "]*";
             fileName = Regex.Replace(fileName, pattern, string.Empty);
             return fileName;
         }
@@ -118,7 +118,7 @@ namespace EpicEdit.UI.Tools
                 filePath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
             {
                 // Import image
-                using (Bitmap image = new Bitmap(filePath))
+                using (var image = new Bitmap(filePath))
                 {
                     ImportTilesetGraphics(image, tileset);
                 }
@@ -126,15 +126,15 @@ namespace EpicEdit.UI.Tools
             else
             {
                 // Import raw binary graphics
-                byte[] data = File.ReadAllBytes(filePath);
+                var data = File.ReadAllBytes(filePath);
                 ImportTilesetGraphics(data, tileset);
             }
         }
 
         private static void ImportTilesetGraphics(Bitmap image, Tile[] tileset)
         {
-            int width = image.Width;
-            int height = image.Height;
+            var width = image.Width;
+            var height = image.Height;
 
             if (width % Tile.Size != 0 ||
                 height % Tile.Size != 0 ||
@@ -143,21 +143,21 @@ namespace EpicEdit.UI.Tools
                 throw new ArgumentException("Invalid tileset image size.", nameof(image));
             }
 
-            int yTileCount = height / Tile.Size;
-            int xTileCount = width / Tile.Size;
+            var yTileCount = height / Tile.Size;
+            var xTileCount = width / Tile.Size;
 
-            for (int y = 0; y < yTileCount; y++)
+            for (var y = 0; y < yTileCount; y++)
             {
-                for (int x = 0; x < xTileCount; x++)
+                for (var x = 0; x < xTileCount; x++)
                 {
-                    Bitmap tileImage = image.Clone(
+                    var tileImage = image.Clone(
                         new Rectangle(x * Tile.Size,
                                       y * Tile.Size,
                                       Tile.Size,
                                       Tile.Size),
                         PixelFormat.Format32bppPArgb);
 
-                    Tile tile = tileset[y * xTileCount + x];
+                    var tile = tileset[y * xTileCount + x];
                     tile.Bitmap = tileImage;
                 }
             }
@@ -165,19 +165,19 @@ namespace EpicEdit.UI.Tools
 
         private static void ImportTilesetGraphics(byte[] data, Tile[] tileset)
         {
-            int tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
-            int tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+            var tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
+            var tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
 
             if (data.Length != tileset.Length * tileLength)
             {
                 throw new ArgumentException("Invalid tileset data size.", nameof(data));
             }
 
-            byte[][] tileData = Utilities.ReadBlockGroup(data, 0, tileLength, tileset.Length);
+            var tileData = Utilities.ReadBlockGroup(data, 0, tileLength, tileset.Length);
 
-            for (int i = 0; i < tileset.Length; i++)
+            for (var i = 0; i < tileset.Length; i++)
             {
-                Tile tile = tileset[i];
+                var tile = tileset[i];
                 tile.Graphics = tileData[i];
             }
         }
@@ -199,7 +199,7 @@ namespace EpicEdit.UI.Tools
 
         public static bool ShowImportDataDialog(BulkImportDataAction setDataMethod, string filter, int maxFileCount)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            using (var ofd = new OpenFileDialog())
             {
                 ofd.Filter = filter;
                 ofd.Multiselect = maxFileCount > 1;
@@ -209,7 +209,7 @@ namespace EpicEdit.UI.Tools
                     return false;
                 }
 
-                string[] filePaths = ofd.FileNames;
+                var filePaths = ofd.FileNames;
                 if (filePaths.Length > maxFileCount)
                 {
                     Array.Resize(ref filePaths, maxFileCount);
@@ -230,7 +230,7 @@ namespace EpicEdit.UI.Tools
         {
             try
             {
-                for (int i = 0; i < filePaths.Length; i++)
+                for (var i = 0; i < filePaths.Length; i++)
                 {
                     setDataMethod(i, filePaths[i]);
                 }
@@ -278,14 +278,14 @@ namespace EpicEdit.UI.Tools
 
         private static byte[] GetTilesetBytes(Tile[] tileset)
         {
-            int tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
-            int tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+            var tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
+            var tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
 
-            byte[] data = new byte[tileset.Length * tileLength];
+            var data = new byte[tileset.Length * tileLength];
 
-            for (int i = 0; i < tileset.Length; i++)
+            for (var i = 0; i < tileset.Length; i++)
             {
-                Tile tile = tileset[i];
+                var tile = tileset[i];
                 Buffer.BlockCopy(tile.Graphics, 0, data, i * tileLength, tile.Graphics.Length);
             }
 
@@ -304,7 +304,7 @@ namespace EpicEdit.UI.Tools
 
         public static void ShowExportDataDialog(Action<string> exportMethod, string fileName, string filter)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
+            using (var sfd = new SaveFileDialog())
             {
                 sfd.Filter = filter;
 

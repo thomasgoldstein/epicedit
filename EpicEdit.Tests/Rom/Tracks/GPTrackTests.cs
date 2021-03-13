@@ -23,11 +23,11 @@ namespace EpicEdit.Tests.Rom.Tracks
     {
         private void TestSmkcImportExport(int trackGroupId, int trackId)
         {
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            GPTrack track1 = (GPTrack)game.TrackGroups[trackGroupId][trackId];
-            GPTrack track2 = (GPTrack)game.TrackGroups[0][0];
-            string filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.smkc");
+            var track1 = (GPTrack)game.TrackGroups[trackGroupId][trackId];
+            var track2 = (GPTrack)game.TrackGroups[0][0];
+            var filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.smkc");
 
             track1.Export(filePath, game);
             track2.Import(filePath, game);

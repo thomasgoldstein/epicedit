@@ -112,7 +112,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private void CreateImage()
         {
-            Palettes palettes = Theme.Palettes;
+            var palettes = Theme.Palettes;
             Image = Context.Game.ItemIconGraphics.GetImage(ItemType, palettes);
         }
 
@@ -138,8 +138,8 @@ namespace EpicEdit.UI.SettingEdition
                 if (_disabledImage == null)
                 {
                     _disabledImage = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
-                    using (Graphics g = Graphics.FromImage(_disabledImage))
-                    using (Image image = ToolStripRenderer.CreateDisabledImage(_image))
+                    using (var g = Graphics.FromImage(_disabledImage))
+                    using (var image = ToolStripRenderer.CreateDisabledImage(_image))
                     {
                         g.Clear(SystemColors.Control);
                         g.DrawImage(image, 0, 0);

@@ -35,7 +35,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RadioButtonCheckedChanged(object sender, System.EventArgs e)
         {
-            RadioButton rb = (RadioButton)sender;
+            var rb = (RadioButton)sender;
             if (rb.Checked)
             {
                 _selectedRadioButton = rb;
@@ -45,7 +45,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetButtonToolTips()
         {
-            string label = _selectedRadioButton.Text;
+            var label = _selectedRadioButton.Text;
             buttonToolTip.SetToolTip(importButton, "Import " + label);
             buttonToolTip.SetToolTip(exportButton, "Export " + label);
         }

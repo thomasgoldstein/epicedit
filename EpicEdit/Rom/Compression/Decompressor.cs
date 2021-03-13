@@ -38,8 +38,8 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public byte[] Decompress(byte[] buffer, int offset)
         {
-            byte[] destBuffer = new byte[Codec.BufferSize];
-            int destPosition = 0;
+            var destBuffer = new byte[Codec.BufferSize];
+            var destPosition = 0;
             byte value;
 
             try
@@ -67,14 +67,14 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The decompressed data.</returns>
         public byte[] Decompress(byte[] buffer, int offset, int length)
         {
-            byte[] destBuffer = new byte[length];
-            int destPosition = 0;
+            var destBuffer = new byte[length];
+            var destPosition = 0;
 
             try
             {
                 while (destPosition < length)
                 {
-                    byte value = buffer[offset++];
+                    var value = buffer[offset++];
                     Decompress(buffer, destBuffer, value, false, ref offset, ref destPosition);
                 }
             }
@@ -85,8 +85,8 @@ namespace EpicEdit.Rom.Compression
 
         private void Decompress(byte[] srcBuffer, byte[] destBuffer, byte value, bool throwOnInvalidData, ref int srcOffset, ref int destOffset)
         {
-            byte command = (byte)((value & 0xE0) >> 5);
-            int i = 0;
+            var command = (byte)((value & 0xE0) >> 5);
+            var i = 0;
             int count;
             byte xor = 0x00;
 
@@ -121,7 +121,7 @@ namespace EpicEdit.Rom.Compression
                         break;
 
                     case 2: // Reads two bytes from ROM and continously stores the same two bytes in sequence. 
-                        int j = 0;
+                        var j = 0;
                         for (i = 0; i < count; i++)
                         {
                             destBuffer[destOffset++] = srcBuffer[srcOffset + j];
@@ -139,7 +139,7 @@ namespace EpicEdit.Rom.Compression
                         break;
 
                     case 4: // Reads two bytes consisting of a pointer to a previously written address. Bytes are sequentially read from the supplied reading address and stored in sequence to the target address.
-                        int prevOffset = srcBuffer[srcOffset++] + (srcBuffer[srcOffset++] << 8);
+                        var prevOffset = srcBuffer[srcOffset++] + (srcBuffer[srcOffset++] << 8);
                         for (i = 0; i < count; i++)
                         {
                             destBuffer[destOffset++] = destBuffer[prevOffset + i];

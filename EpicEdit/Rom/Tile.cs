@@ -115,9 +115,9 @@ namespace EpicEdit.Rom
 
         public virtual bool Contains(int colorIndex)
         {
-            for (int y = 0; y < Size; y++)
+            for (var y = 0; y < Size; y++)
             {
-                for (int x = 0; x < Size; x++)
+                for (var x = 0; x < Size; x++)
                 {
                     if (GetColorIndexAt(x, y) == colorIndex)
                     {

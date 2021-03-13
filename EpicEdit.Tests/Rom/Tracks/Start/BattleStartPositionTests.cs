@@ -34,16 +34,16 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
 
         private void TestGetBytes(int id)
         {
-            byte[] dataBefore = new byte[4];
+            var dataBefore = new byte[4];
 
-            int index = id * dataBefore.Length;
-            for (int i = 0; i < dataBefore.Length; i++)
+            var index = id * dataBefore.Length;
+            for (var i = 0; i < dataBefore.Length; i++)
             {
                 dataBefore[i] = _allData[index + i];
             }
 
-            BattleStartPosition startPosition = new BattleStartPosition(dataBefore);
-            byte[] dataAfter = startPosition.GetBytes();
+            var startPosition = new BattleStartPosition(dataBefore);
+            var dataAfter = startPosition.GetBytes();
 
             Assert.AreEqual(dataBefore, dataAfter);
         }

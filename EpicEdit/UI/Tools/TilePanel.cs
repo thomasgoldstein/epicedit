@@ -44,7 +44,7 @@ namespace EpicEdit.UI.Tools
             x = (int)(x / Zoom);
             y = (int)(y / Zoom);
 
-            Tile tile = GetTileAt(x, y);
+            var tile = GetTileAt(x, y);
 
             if (tile == null)
             {
@@ -105,11 +105,11 @@ namespace EpicEdit.UI.Tools
                 return;
             }
 
-            GetColorAt(e.X, e.Y, out Palette palette, out int colorIndex);
+            GetColorAt(e.X, e.Y, out var palette, out var colorIndex);
 
             if (colorIndex != -1) // Not an empty tile
             {
-                EventArgs<Palette, int> pea = new EventArgs<Palette, int>(palette, colorIndex);
+                var pea = new EventArgs<Palette, int>(palette, colorIndex);
                 ColorSelected(this, pea);
             }
         }

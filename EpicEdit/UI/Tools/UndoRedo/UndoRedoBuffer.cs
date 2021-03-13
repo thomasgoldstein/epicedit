@@ -77,7 +77,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 if (_buffer.Count == ChangeLimit)
                 {
                     // Consolidate tile changes to improve performances
-                    TileChange tileChange = new TileChange(_buffer, _trackMap);
+                    var tileChange = new TileChange(_buffer, _trackMap);
                     _buffer.Clear();
                     _buffer.Push(tileChange);
                 }
@@ -112,7 +112,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
             _redoBuffer.Clear();
 
             // Consolidate tile changes into a single one
-            TileChange change = new TileChange(changes, _trackMap);
+            var change = new TileChange(changes, _trackMap);
             _undoBuffer.AddLast(change);
         }
 
@@ -128,8 +128,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 return null;
             }
 
-            TileChange undoChange = _undoBuffer.Last.Value;
-            TileChange redoChange = ApplyChange(undoChange);
+            var undoChange = _undoBuffer.Last.Value;
+            var redoChange = ApplyChange(undoChange);
             _undoBuffer.RemoveLast();
             _redoBuffer.AddFirst(redoChange);
 
@@ -148,8 +148,8 @@ namespace EpicEdit.UI.Tools.UndoRedo
                 return null;
             }
 
-            TileChange redoChange = _redoBuffer.First.Value;
-            TileChange undoChange = ApplyChange(redoChange);
+            var redoChange = _redoBuffer.First.Value;
+            var undoChange = ApplyChange(redoChange);
             _redoBuffer.RemoveFirst();
             _undoBuffer.AddLast(undoChange);
 
@@ -158,7 +158,7 @@ namespace EpicEdit.UI.Tools.UndoRedo
 
         private TileChange ApplyChange(TileChange change)
         {
-            TileChange undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, _trackMap);
+            var undoChange = new TileChange(change.X, change.Y, change.Width, change.Height, _trackMap);
             _trackMap.SetTiles(change.X, change.Y, change);
             return undoChange;
         }

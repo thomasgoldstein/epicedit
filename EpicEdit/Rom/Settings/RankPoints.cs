@@ -36,7 +36,7 @@ namespace EpicEdit.Rom.Settings
         {
             _points = new int[Count];
 
-            for (int i = 0; i < _points.Length; i++)
+            for (var i = 0; i < _points.Length; i++)
             {
                 _points[i] = data[i * BytesPerObject];
             }
@@ -65,9 +65,9 @@ namespace EpicEdit.Rom.Settings
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
 
-            for (int i = 0; i < _points.Length; i++)
+            for (var i = 0; i < _points.Length; i++)
             {
                 data[i * BytesPerObject] = (byte)_points[i];
             }
@@ -79,7 +79,7 @@ namespace EpicEdit.Rom.Settings
         {
             if (Modified)
             {
-                byte[] data = GetBytes();
+                var data = GetBytes();
                 Buffer.BlockCopy(data, 0, romBuffer, offset, Size);
             }
         }

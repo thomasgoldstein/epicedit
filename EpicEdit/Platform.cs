@@ -41,7 +41,7 @@ namespace EpicEdit
         {
             get
             {
-                int p = (int)Environment.OSVersion.Platform;
+                var p = (int)Environment.OSVersion.Platform;
                 return p == 4 || p == 128;
             }
         }

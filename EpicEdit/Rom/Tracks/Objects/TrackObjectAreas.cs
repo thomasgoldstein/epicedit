@@ -67,9 +67,9 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns>The <see cref="TrackObjectAreas"/> bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
-            byte[] frontData = FrontView.GetBytes();
-            byte[] rearData = RearView.GetBytes();
+            var data = new byte[Size];
+            var frontData = FrontView.GetBytes();
+            var rearData = RearView.GetBytes();
 
             Buffer.BlockCopy(frontData, 0, data, 0, frontData.Length);
             Buffer.BlockCopy(rearData, 0, data, frontData.Length, rearData.Length);

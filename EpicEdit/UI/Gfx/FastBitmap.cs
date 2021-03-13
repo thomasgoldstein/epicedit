@@ -57,7 +57,7 @@ namespace EpicEdit.UI.Gfx
 
         public void SetPixel(int x, int y, Color color)
         {
-            PixelData* p = PixelAt(x, y);
+            var p = PixelAt(x, y);
             p->Alpha = color.A;
             p->Red = color.R;
             p->Green = color.G;
@@ -66,7 +66,7 @@ namespace EpicEdit.UI.Gfx
 
         public Color GetPixel(int x, int y)
         {
-            PixelData* p = PixelAt(x, y);
+            var p = PixelAt(x, y);
             return Color.FromArgb(p->Alpha, p->Red, p->Green, p->Blue);
         }
 
@@ -77,7 +77,7 @@ namespace EpicEdit.UI.Gfx
 
         private void LockBitmap()
         {
-            Rectangle bounds = new Rectangle(Point.Empty, Bitmap.Size);
+            var bounds = new Rectangle(Point.Empty, Bitmap.Size);
 
             _subjectWidth = bounds.Width * sizeof(PixelData);
             if (_subjectWidth % 4 != 0)

@@ -24,7 +24,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestBytesToOffset000000()
         {
             byte[] buffer = { 0x00, 0x00, 0x00 };
-            int offset = Utilities.BytesToOffset(buffer, 0);
+            var offset = Utilities.BytesToOffset(buffer, 0);
 
             Assert.AreEqual(0x000000, offset);
         }
@@ -33,7 +33,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestBytesToOffset0Fffff()
         {
             byte[] buffer = { 0xFF, 0xFF, 0xFF };
-            int offset = Utilities.BytesToOffset(buffer, 0);
+            var offset = Utilities.BytesToOffset(buffer, 0);
 
             Assert.AreEqual(0x0FFFFF, offset);
         }
@@ -42,7 +42,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestBytesToOffset063412()
         {
             byte[] buffer = { 0x12, 0x34, 0x56 };
-            int offset = Utilities.BytesToOffset(buffer, 0);
+            var offset = Utilities.BytesToOffset(buffer, 0);
 
             Assert.AreEqual(0x063412, offset);
         }
@@ -51,7 +51,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestBytesToOffset080400()
         {
             byte[] buffer = { 0x00, 0x04, 0xC8 };
-            int offset = Utilities.BytesToOffset(buffer, 0);
+            var offset = Utilities.BytesToOffset(buffer, 0);
 
             Assert.AreEqual(0x080400, offset);
         }
@@ -60,7 +60,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestOffsetToBytes0Fffff()
         {
             byte[] buffer = { 0xFF, 0xFF, 0xCF };
-            byte[] buffer2 = Utilities.OffsetToBytes(0x0FFFFF);
+            var buffer2 = Utilities.OffsetToBytes(0x0FFFFF);
 
             Assert.AreEqual(buffer, buffer2);
         }
@@ -69,7 +69,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestOffsetToBytes063412()
         {
             byte[] buffer = { 0x12, 0x34, 0xC6 };
-            byte[] buffer2 = Utilities.OffsetToBytes(0x063412);
+            var buffer2 = Utilities.OffsetToBytes(0x063412);
 
             Assert.AreEqual(buffer, buffer2);
         }
@@ -78,7 +78,7 @@ namespace EpicEdit.Tests.Rom.Utility
         public void TestOffsetToBytes080400()
         {
             byte[] buffer = { 0x00, 0x04, 0xC8 };
-            byte[] buffer2 = Utilities.OffsetToBytes(0x080400);
+            var buffer2 = Utilities.OffsetToBytes(0x080400);
 
             Assert.AreEqual(buffer, buffer2);
         }

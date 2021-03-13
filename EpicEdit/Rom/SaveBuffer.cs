@@ -40,7 +40,7 @@ namespace EpicEdit.Rom
             _region = Game.GetRegion(romBuffer);
 
             const int rangeStart = RomSize.Size512;
-            int rangeEnd = Math.Min(_romBuffer.Length, RomSize.Size1024);
+            var rangeEnd = Math.Min(_romBuffer.Length, RomSize.Size1024);
             _range = new Range(rangeStart, rangeEnd);
             Index = _range.Start;
         }
@@ -62,7 +62,7 @@ namespace EpicEdit.Rom
         /// <param name="offsetIndex">The address of the 3-byte offset to the data in the ROM.</param>
         public void Add(byte[] data, int offsetIndex)
         {
-            byte[] offset = Utilities.OffsetToBytes(Index);
+            var offset = Utilities.OffsetToBytes(Index);
             Buffer.BlockCopy(offset, 0, _romBuffer, offsetIndex, offset.Length);
             Add(data);
         }
@@ -80,11 +80,11 @@ namespace EpicEdit.Rom
                 // to an (n+1)xxxx one. Ie: the leading byte must be the same from start to end,
                 // or the data cannot be decompressed properly.
                 // Add blank bytes when necessary to avoid issues.
-                int start = Index;
-                int end = start + data.Length;
+                var start = Index;
+                var end = start + data.Length;
                 if ((start & 0xF0000) < (end & 0xF0000))
                 {
-                    int blankSize = 0x10000 - (start & 0xFFFF);
+                    var blankSize = 0x10000 - (start & 0xFFFF);
                     Add(new byte[blankSize]);
                 }
             }
@@ -111,15 +111,15 @@ namespace EpicEdit.Rom
             CheckDataSize();
 
             // Save data to buffer
-            int index = _range.Start;
-            foreach (byte[] dataBlock in _savedData)
+            var index = _range.Start;
+            foreach (var dataBlock in _savedData)
             {
                 Buffer.BlockCopy(dataBlock, 0, _romBuffer, index, dataBlock.Length);
                 index += dataBlock.Length;
             }
 
             // Wipe out the rest of the range
-            for (int i = index; i < _range.End; i++)
+            for (var i = index; i < _range.End; i++)
             {
                 _romBuffer[i] = 0xFF;
             }
@@ -128,8 +128,8 @@ namespace EpicEdit.Rom
         private void CheckDataSize()
         {
             // Compute total size of all the saved data to make sure it fits
-            int savedDataSize = 0;
-            foreach (byte[] dataBlock in _savedData)
+            var savedDataSize = 0;
+            foreach (var dataBlock in _savedData)
             {
                 savedDataSize += dataBlock.Length;
             }
@@ -181,7 +181,7 @@ namespace EpicEdit.Rom
                 throw new ArgumentOutOfRangeException(nameof(size), "The ROM can't be expanded because the maximum size has been reached.");
             }
 
-            byte[] resizedRomBuffer = new byte[size];
+            var resizedRomBuffer = new byte[size];
             Buffer.BlockCopy(_romBuffer, 0, resizedRomBuffer, 0, _romBuffer.Length);
 
             _romBuffer = resizedRomBuffer;

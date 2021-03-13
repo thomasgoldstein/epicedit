@@ -39,9 +39,9 @@ namespace EpicEdit.Rom.Utility
         /// </summary>
         private void LoadCharacterSet(bool tallCharacters, byte shiftValue)
         {
-            char[] chars = CharacterSet.Get(Region, tallCharacters);
+            var chars = CharacterSet.Get(Region, tallCharacters);
 
-            for (int i = 0; i < chars.Length; i++)
+            for (var i = 0; i < chars.Length; i++)
             {
                 if (chars[i] != char.MinValue)
                 {
@@ -52,14 +52,14 @@ namespace EpicEdit.Rom.Utility
 
         public void ReplaceKeyValues(byte[] keys, char[] values)
         {
-            for (int i = 0; i < keys.Length; i++)
+            for (var i = 0; i < keys.Length; i++)
             {
                 if (_dictionary.Forward.ContainsKey(keys[i]))
                 {
                     _dictionary.Remove(keys[i]);
                 }
 
-                if (_dictionary.Reverse.TryGetValue(values[i], out byte key))
+                if (_dictionary.Reverse.TryGetValue(values[i], out var key))
                 {
                     _dictionary.Remove(key);
                 }
@@ -75,7 +75,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>The corresponding character.</returns>
         public char DecodeText(byte charByte)
         {
-            return !_dictionary.Forward.TryGetValue(charByte, out char value) ?
+            return !_dictionary.Forward.TryGetValue(charByte, out var value) ?
                 '?' : value;
         }
 
@@ -92,14 +92,14 @@ namespace EpicEdit.Rom.Utility
 
         private string DecodeText(byte[] textBytes, int step)
         {
-            char[] textArray = new char[textBytes.Length / step];
+            var textArray = new char[textBytes.Length / step];
 
-            for (int i = 0; i < textArray.Length; i++)
+            for (var i = 0; i < textArray.Length; i++)
             {
                 textArray[i] = DecodeText(textBytes[i * step]);
             }
 
-            string text = new string(textArray);
+            var text = new string(textArray);
 
             if (Region == Region.Jap)
             {
@@ -139,9 +139,9 @@ namespace EpicEdit.Rom.Utility
                 text = text.Normalize(NormalizationForm.FormD);
             }
 
-            byte[] data = new byte[text.Length * step];
+            var data = new byte[text.Length * step];
 
-            for (int i = 0; i < text.Length; i++)
+            for (var i = 0; i < text.Length; i++)
             {
                 data[i * step] = _dictionary.Reverse[text[i]];
 
@@ -165,8 +165,8 @@ namespace EpicEdit.Rom.Utility
                 text = text.Normalize(NormalizationForm.FormD);
             }
 
-            string validChars = new string(_dictionary.Forward.GetValues());
-            string pattern = "[^" + Regex.Escape(validChars) + "]*";
+            var validChars = new string(_dictionary.Forward.GetValues());
+            var pattern = "[^" + Regex.Escape(validChars) + "]*";
             text = Regex.Replace(text, pattern, string.Empty);
 
             if (Region == Region.Jap)

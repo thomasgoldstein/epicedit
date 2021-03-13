@@ -52,8 +52,8 @@ namespace EpicEdit.Rom.Tracks.Start
             {
                 // Divide x precision, so that the lap line
                 // is horizontally positioned following a 2-tile (16-px) step
-                int x = (value.X / PrecisionX) * PrecisionX;
-                int y = value.Y;
+                var x = (value.X / PrecisionX) * PrecisionX;
+                var y = value.Y;
 
                 if (x < 0)
                 {
@@ -122,8 +122,8 @@ namespace EpicEdit.Rom.Tracks.Start
 
             Length = (data[4] & 0x3F) * PrecisionX;
 
-            int y = (((data[1] & 0x03) << 8) + data[0]);
-            int x = (data[2] & 0x3F) * PrecisionX;
+            var y = (((data[1] & 0x03) << 8) + data[0]);
+            var x = (data[2] & 0x3F) * PrecisionX;
             Location = new Point(x, y);
             // The bit mask on x is required for some of the original SMK track lap line areas
             // to work properly, as some of them have the 2 highest bits needlessly set to 1.
@@ -193,16 +193,16 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
 
-            int y = Y;
+            var y = Y;
             data[0] = (byte)(y & 0xFF);
             data[1] = (byte)(y >> 8);
 
-            int areaX = X / PrecisionX;
+            var areaX = X / PrecisionX;
             data[2] = (byte)areaX;
 
-            int areaY = (int)Math.Round((float)Y / (Tile.Size * AreaPrecisionY)) - 1; // Precision: 1 = 8 tiles
+            var areaY = (int)Math.Round((float)Y / (Tile.Size * AreaPrecisionY)) - 1; // Precision: 1 = 8 tiles
             // The minus 1 is to make the rectangle start at least 8 tiles above the lap line Y value
 
             if (areaY < 0)
@@ -211,10 +211,10 @@ namespace EpicEdit.Rom.Tracks.Start
             }
             data[3] = (byte)areaY;
 
-            int areaWidth = Length / PrecisionX;
+            var areaWidth = Length / PrecisionX;
             data[4] = (byte)areaWidth;
 
-            int areaHeight = 16 / AreaPrecision; // 16 tiles
+            var areaHeight = 16 / AreaPrecision; // 16 tiles
             const int trackHeight = TrackMap.Size / AreaPrecision;
             if (areaY + areaHeight > trackHeight)
             {

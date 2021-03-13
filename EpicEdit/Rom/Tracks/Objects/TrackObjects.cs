@@ -88,7 +88,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 throw new ArgumentException("Incorrect track object data size", nameof(data));
             }
 
-            for (int i = 0; i < RegularObjectCount; i++)
+            for (var i = 0; i < RegularObjectCount; i++)
             {
                 if (_objects[i] != null)
                 {
@@ -99,7 +99,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 _objects[i].PropertyChanged += SubPropertyChanged;
             }
 
-            for (int i = RegularObjectCount; i < ObjectCount; i++)
+            for (var i = RegularObjectCount; i < ObjectCount; i++)
             {
                 if (_objects[i] != null)
                 {
@@ -123,7 +123,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public IEnumerator<TrackObject> GetEnumerator()
         {
-            foreach (TrackObject tObject in _objects)
+            foreach (var tObject in _objects)
             {
                 yield return tObject;
             }
@@ -144,9 +144,9 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns>The TrackObjects bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[_objects.Length * BytesPerObject];
+            var data = new byte[_objects.Length * BytesPerObject];
 
-            for (int i = 0; i < _objects.Length; i++)
+            for (var i = 0; i < _objects.Length; i++)
             {
                 _objects[i].GetBytes(data, i * BytesPerObject);
             }

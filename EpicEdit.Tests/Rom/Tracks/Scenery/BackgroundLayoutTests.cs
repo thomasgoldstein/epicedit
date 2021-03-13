@@ -22,9 +22,9 @@ namespace EpicEdit.Tests.Rom.Tracks.Scenery
     {
         private void TestGetBytes(string fileName)
         {
-            byte[] dataBefore = File.ReadFile(fileName);
-            BackgroundLayout layout = new BackgroundLayout(dataBefore);
-            byte[] dataAfter = layout.GetBytes();
+            var dataBefore = File.ReadFile(fileName);
+            var layout = new BackgroundLayout(dataBefore);
+            var dataAfter = layout.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
 

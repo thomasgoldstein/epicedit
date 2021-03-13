@@ -99,9 +99,9 @@ namespace EpicEdit.Rom
         public byte[] GetBytes()
         {
             // Encode the red, green and blue components into 2 bytes (5 bits)
-            byte red = ConvertTo5BitColor(_red);
-            byte green = ConvertTo5BitColor(_green);
-            byte blue = ConvertTo5BitColor(_blue);
+            var red = ConvertTo5BitColor(_red);
+            var green = ConvertTo5BitColor(_green);
+            var blue = ConvertTo5BitColor(_blue);
 
             return new[]
             {
@@ -193,8 +193,8 @@ namespace EpicEdit.Rom
             }
 
             // Decode the bytes into red, green and blue components (8 bits)
-            byte lobyte = data[index];
-            byte hibyte = data[index + 1];
+            var lobyte = data[index];
+            var hibyte = data[index + 1];
             return new RomColor
             {
                 _red = ConvertTo8BitColor((byte)(lobyte & 0x1F)),
@@ -266,9 +266,9 @@ namespace EpicEdit.Rom
         /// <returns>A RomColor object representing one of the steps.</returns>
         public IEnumerator<RomColor> GetEnumerator(RomColor target, int step)
         {
-            double stepR = ((double)target._red - (double)_red) / (step - 1);
-            double stepG = ((double)target._green - (double)_green) / (step - 1);
-            double stepB = ((double)target._blue - (double)_blue) / (step - 1);
+            var stepR = ((double)target._red - (double)_red) / (step - 1);
+            var stepG = ((double)target._green - (double)_green) / (step - 1);
+            var stepB = ((double)target._blue - (double)_blue) / (step - 1);
             for (double x = 0; x < step; x++)
             {
                 yield return From8BitRgb((byte)(_red + (x * stepR)), (byte)(_green + (x * stepG)), (byte)(_blue + (x * stepB)));
@@ -332,7 +332,7 @@ namespace EpicEdit.Rom
         {
             if (obj is RomColor)
             {
-                RomColor color = (RomColor)obj;
+                var color = (RomColor)obj;
                 return color == this;
             }
 

@@ -109,8 +109,8 @@ namespace EpicEdit.Rom.Settings
 
         private void Init(byte[] romBuffer, Region region)
         {
-            bool isJap = region == Region.Jap;
-            int[] textDataSizes = isJap ?
+            var isJap = region == Region.Jap;
+            var textDataSizes = isJap ?
                 new[] { 48, 94, 70, 68, 144, 136, 96, 42 } :
                 new[] { 66, 130, 90, 80, 173, 134, 112, 52 };
 
@@ -167,10 +167,10 @@ namespace EpicEdit.Rom.Settings
                 textDataSizes[7], false, false, false, false, 0,
                 new byte[] { 0x2C }, new[] { thinSpace });
 
-            byte[] rankPointsData = Utilities.ReadBlock(romBuffer, _offsets[Offset.RankPoints], RankPoints.Size);
+            var rankPointsData = Utilities.ReadBlock(romBuffer, _offsets[Offset.RankPoints], RankPoints.Size);
             RankPoints = new RankPoints(rankPointsData);
 
-            byte[] itemProbaData = Utilities.ReadBlock(romBuffer, _offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
+            var itemProbaData = Utilities.ReadBlock(romBuffer, _offsets[Offset.ItemProbabilities], ItemProbabilities.Size);
             ItemProbabilities = new ItemProbabilities(itemProbaData);
         }
 

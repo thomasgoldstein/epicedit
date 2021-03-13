@@ -184,7 +184,7 @@ namespace EpicEdit.Rom.Tracks.Objects
                 _data = new byte[data.Length];
             }
 
-            for (int i = 0; i < data.Length; i++)
+            for (var i = 0; i < data.Length; i++)
             {
                 this[i] = data[i];
             }
@@ -217,7 +217,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private static byte[] Clone(byte[] data)
         {
-            byte[] copy = new byte[data.Length];
+            var copy = new byte[data.Length];
             Buffer.BlockCopy(data, 0, copy, 0, data.Length);
             return copy;
         }

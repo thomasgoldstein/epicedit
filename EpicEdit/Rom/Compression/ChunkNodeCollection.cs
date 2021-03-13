@@ -40,13 +40,13 @@ namespace EpicEdit.Rom.Compression
             _nodeDictionary = new Dictionary<int, ChunkNode>();
             _offsetQueue = new Queue<int>();
 
-            ChunkNode rootNode = new ChunkNode(null, -1, 0, 0);
+            var rootNode = new ChunkNode(null, -1, 0, 0);
             Add(0, rootNode);
         }
 
         public void Add(int offset, ChunkNode node)
         {
-            if (!_nodeDictionary.TryGetValue(offset, out ChunkNode storedNode))
+            if (!_nodeDictionary.TryGetValue(offset, out var storedNode))
             {
                 _nodeDictionary.Add(offset, node);
                 _offsetQueue.Enqueue(offset);
@@ -89,8 +89,8 @@ namespace EpicEdit.Rom.Compression
         /// <returns>False if the next <see cref="ChunkNode">node</see> is known not to be worth processing, true otherwise.</returns>
         public bool IsNextNodeOptimal()
         {
-            int offset = _offsetQueue.Peek();
-            ChunkNode node = _nodeDictionary[offset];
+            var offset = _offsetQueue.Peek();
+            var node = _nodeDictionary[offset];
 
             if (node.Processed || !node.IsOptimal)
             {
@@ -106,11 +106,11 @@ namespace EpicEdit.Rom.Compression
         /// <returns>The next <see cref="ChunkNode">node</see> in the queue.</returns>
         public KeyValuePair<int, ChunkNode> GetNextNode()
         {
-            int offset = _offsetQueue.Dequeue();
-            ChunkNode node = _nodeDictionary[offset];
+            var offset = _offsetQueue.Dequeue();
+            var node = _nodeDictionary[offset];
             node.Processed = true;
 
-            KeyValuePair<int, ChunkNode> offsetNode = new KeyValuePair<int, ChunkNode>(offset, node);
+            var offsetNode = new KeyValuePair<int, ChunkNode>(offset, node);
             return offsetNode;
         }
     }

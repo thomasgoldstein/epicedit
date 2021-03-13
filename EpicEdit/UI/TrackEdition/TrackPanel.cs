@@ -48,7 +48,7 @@ namespace EpicEdit.UI.TrackEdition
                     // horizontally, as they are centered (4px + 8px + 4px).
                     // So, shifting the X value makes it easier for us, as that lets us treat
                     // them as being on 2 tiles rather than 3.
-                    int halfTile = (int)((Tile.Size / 2) * Zoom);
+                    var halfTile = (int)((Tile.Size / 2) * Zoom);
                     x += halfTile;
                 }
             }
@@ -59,8 +59,8 @@ namespace EpicEdit.UI.TrackEdition
         protected override Tile GetTileAt(int x, int y)
         {
             // Convert from pixel precision to tile precision
-            int tileX = x / Tile.Size;
-            int tileY = y / Tile.Size;
+            var tileX = x / Tile.Size;
+            var tileY = y / Tile.Size;
 
             tileX += ScrollPositionX;
             tileY += ScrollPositionY;
@@ -90,7 +90,7 @@ namespace EpicEdit.UI.TrackEdition
 
             if (EditionMode == EditionMode.Overlay)
             {
-                Tile tile = GetOverlayTile(Track, tileX, tileY);
+                var tile = GetOverlayTile(Track, tileX, tileY);
 
                 if (tile != null)
                 {
@@ -98,29 +98,29 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            byte index = Track.Map[tileX, tileY];
+            var index = Track.Map[tileX, tileY];
 
             return Track.RoadTileset[index];
         }
 
         private static Tile GetObjectTile(GPTrack track, int x, int y, int tileX, int tileY)
         {
-            TrackObjects objects = track.Objects;
+            var objects = track.Objects;
 
-            foreach (TrackObject obj in objects)
+            foreach (var obj in objects)
             {
                 // Since objects are rendered on 2x2 tiles,
                 // add or substract 1 to account for this.
                 if ((tileX == obj.X || tileX == obj.X + 1) &&
                     (tileY == obj.Y - 1 || tileY == obj.Y))
                 {
-                    int relativeX = tileX - obj.X;
-                    int relativeY = tileY - obj.Y + 1;
+                    var relativeX = tileX - obj.X;
+                    var relativeY = tileY - obj.Y + 1;
 
-                    Tile tile = Context.Game.ObjectGraphics.GetTile(track, obj, relativeX, relativeY);
+                    var tile = Context.Game.ObjectGraphics.GetTile(track, obj, relativeX, relativeY);
 
-                    int pixelX = x % Tile.Size;
-                    int pixelY = y % Tile.Size;
+                    var pixelX = x % Tile.Size;
+                    var pixelY = y % Tile.Size;
 
                     if (tile.GetColorIndexAt(pixelX, pixelY) != 0)
                     {
@@ -135,18 +135,18 @@ namespace EpicEdit.UI.TrackEdition
 
         private static Tile GetOverlayTile(Track track, int tileX, int tileY)
         {
-            RoadTileset tileset = track.RoadTileset;
-            Point location = new Point(tileX, tileY);
+            var tileset = track.RoadTileset;
+            var location = new Point(tileX, tileY);
 
-            OverlayTiles overlay = track.OverlayTiles;
-            for (int i = overlay.Count - 1; i >= 0; i--)
+            var overlay = track.OverlayTiles;
+            for (var i = overlay.Count - 1; i >= 0; i--)
             {
-                OverlayTile overlayTile = overlay[i];
+                var overlayTile = overlay[i];
                 if (overlayTile.IntersectsWith(location))
                 {
-                    int relativeX = tileX - overlayTile.X;
-                    int relativeY = tileY - overlayTile.Y;
-                    byte tileId = overlayTile.Pattern[relativeX, relativeY];
+                    var relativeX = tileX - overlayTile.X;
+                    var relativeY = tileY - overlayTile.Y;
+                    var tileId = overlayTile.Pattern[relativeX, relativeY];
 
                     if (tileId != OverlayTile.None)
                     {

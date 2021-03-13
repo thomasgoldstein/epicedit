@@ -22,8 +22,8 @@ namespace EpicEdit.Tests.Rom
     {
         private static void TestGetBytes(byte[] data)
         {
-            Palettes palettes = new Palettes(data);
-            byte[] data2 = palettes.GetBytes();
+            var palettes = new Palettes(data);
+            var data2 = palettes.GetBytes();
             Assert.AreEqual(data, data2);
         }
 

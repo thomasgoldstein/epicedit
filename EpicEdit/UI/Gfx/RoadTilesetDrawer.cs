@@ -53,17 +53,17 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache()
         {
-            int tileCountX = _imageSize.Width / Tile.Size;
-            int tileCountY = _imageSize.Height / Tile.Size;
+            var tileCountX = _imageSize.Width / Tile.Size;
+            var tileCountY = _imageSize.Height / Tile.Size;
 
             Image.Dispose();
             Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(Image))
+            using (var g = Graphics.FromImage(Image))
             {
-                for (int x = 0; x < tileCountX; x++)
+                for (var x = 0; x < tileCountX; x++)
                 {
-                    for (int y = 0; y < tileCountY; y++)
+                    for (var y = 0; y < tileCountY; y++)
                     {
                         Tile tile = _tileset[x + (y * tileCountX)];
                         g.DrawImage(tile.Bitmap, x * Tile.Size, y * Tile.Size);

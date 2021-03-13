@@ -94,31 +94,31 @@ namespace EpicEdit.UI.Gfx
 
         private Bitmap CreateLayer(bool front)
         {
-            int layerWidth = front ? BackgroundLayout.FrontLayerWidth : BackgroundLayout.BackLayerWidth;
-            int imageWidth = layerWidth * Tile.Size;
+            var layerWidth = front ? BackgroundLayout.FrontLayerWidth : BackgroundLayout.BackLayerWidth;
+            var imageWidth = layerWidth * Tile.Size;
 
-            Bitmap bitmap = new Bitmap(imageWidth, Height, PixelFormat.Format32bppPArgb);
-            Background background = _theme.Background;
+            var bitmap = new Bitmap(imageWidth, Height, PixelFormat.Format32bppPArgb);
+            var background = _theme.Background;
 
-            Dictionary<int, BackgroundTile> tileCache = new Dictionary<int, BackgroundTile>();
+            var tileCache = new Dictionary<int, BackgroundTile>();
 
-            using (Graphics g = Graphics.FromImage(bitmap))
+            using (var g = Graphics.FromImage(bitmap))
             {
                 if (!front)
                 {
                     g.Clear(_theme.BackColor);
                 }
 
-                for (int y = 0; y < BackgroundLayout.RowCount; y++)
+                for (var y = 0; y < BackgroundLayout.RowCount; y++)
                 {
-                    for (int x = 0; x < layerWidth; x++)
+                    for (var x = 0; x < layerWidth; x++)
                     {
-                        background.Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
-                        int key = (tileId << 8) + properties;
+                        background.Layout.GetTileData(x, y, front, out var tileId, out var properties);
+                        var key = (tileId << 8) + properties;
 
-                        if (!tileCache.TryGetValue(key, out BackgroundTile instance))
+                        if (!tileCache.TryGetValue(key, out var instance))
                         {
-                            BackgroundTile tile = background.Tileset[tileId];
+                            var tile = background.Tileset[tileId];
                             instance = new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
                             tileCache.Add(key, instance);
                         }
@@ -128,7 +128,7 @@ namespace EpicEdit.UI.Gfx
                 }
             }
 
-            foreach (BackgroundTile tile in tileCache.Values)
+            foreach (var tile in tileCache.Values)
             {
                 tile.Dispose();
             }
@@ -150,8 +150,8 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawBackBackgroundLayer(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
-            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
-            using (Graphics backBuffer = Graphics.FromImage(image))
+            using (var image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
+            using (var backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.DrawImage(_backLayer, x, 0);
                 DrawTileSelection(backBuffer, cursorPosition, x, selectingTile);
@@ -161,8 +161,8 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawFrontBackgroundLayer(Graphics g, Point cursorPosition, int x, bool selectingTile)
         {
-            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
-            using (Graphics backBuffer = Graphics.FromImage(image))
+            using (var image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
+            using (var backBuffer = Graphics.FromImage(image))
             {
                 backBuffer.Clear(_theme.BackColor);
                 backBuffer.DrawImage(_frontLayer, x, 0);
@@ -178,7 +178,7 @@ namespace EpicEdit.UI.Gfx
                 return;
             }
 
-            Rectangle rec = new Rectangle(cursorPosition.X * Tile.Size - 1 + (x % Tile.Size),
+            var rec = new Rectangle(cursorPosition.X * Tile.Size - 1 + (x % Tile.Size),
                                           cursorPosition.Y * Tile.Size - 1,
                                           Tile.Size + 1, Tile.Size + 1);
 
@@ -195,8 +195,8 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawBackgroundPreview(Graphics g)
         {
-            using (Bitmap image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
-            using (Graphics backBuffer = Graphics.FromImage(image))
+            using (var image = new Bitmap(CanvasWidth, Height, PixelFormat.Format32bppPArgb))
+            using (var backBuffer = Graphics.FromImage(image))
             {
                 // Drawing the back and front layers twice, so that the background loops horizontally
                 backBuffer.DrawImage(_backLayer, _x, 0);
@@ -205,9 +205,9 @@ namespace EpicEdit.UI.Gfx
                 backBuffer.DrawImage(_frontLayer, _x * 2, 0);
                 backBuffer.DrawImage(_frontLayer, _x * 2 + FrontWidth, 0);
 
-                Bitmap topBorder = Context.Game.ItemIconGraphics.GetTopBorder(Theme.Palettes);
+                var topBorder = Context.Game.ItemIconGraphics.GetTopBorder(Theme.Palettes);
 
-                for (int i = 0; i < CanvasWidth; i += Tile.Size)
+                for (var i = 0; i < CanvasWidth; i += Tile.Size)
                 {
                     backBuffer.DrawImage(topBorder, i, -1);
                 }
@@ -225,11 +225,11 @@ namespace EpicEdit.UI.Gfx
 
         public void UpdateTile(int x, int y, bool front, byte tileId, byte properties)
         {
-            Rectangle rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
-            BackgroundTile tileModel = _theme.Background.Tileset[tileId];
+            var rec = new Rectangle(x * Tile.Size, y * Tile.Size, Tile.Size, Tile.Size);
+            var tileModel = _theme.Background.Tileset[tileId];
 
-            using (Graphics g = Graphics.FromImage(front ? _frontLayer : _backLayer))
-            using (BackgroundTile tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, front))
+            using (var g = Graphics.FromImage(front ? _frontLayer : _backLayer))
+            using (var tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, front))
             {
                 g.SetClip(rec);
                 g.Clear(front ? Color.Transparent : _theme.BackColor.Color);

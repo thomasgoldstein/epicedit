@@ -118,7 +118,7 @@ namespace EpicEdit.Rom
                 throw new ArgumentException($"The palette is not {Size}-byte long.", nameof(data));
             }
 
-            for (int i = 0; i < _colors.Length; i++)
+            for (var i = 0; i < _colors.Length; i++)
             {
                 _colors[i] = GetColor(data, i);
             }
@@ -181,7 +181,7 @@ namespace EpicEdit.Rom
 
         private void OnColorChanged(int value)
         {
-            EventHandler<EventArgs<int>> colorChanged = ColorChanged;
+            var colorChanged = ColorChanged;
             if (colorChanged != null)
             {
                 colorChanged(this, new EventArgs<int>(value));
@@ -191,7 +191,7 @@ namespace EpicEdit.Rom
 
         private void OnColorsChanged()
         {
-            EventHandler<EventArgs> colorsChanged = ColorsChanged;
+            var colorsChanged = ColorsChanged;
             if (colorsChanged != null)
             {
                 colorsChanged(this, EventArgs.Empty);
@@ -211,9 +211,9 @@ namespace EpicEdit.Rom
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
 
-            for (int i = 0; i < _colors.Length; i++)
+            for (var i = 0; i < _colors.Length; i++)
             {
                 Buffer.BlockCopy(_colors[i].GetBytes(), 0, data, i * RomColor.Size, RomColor.Size);
             }

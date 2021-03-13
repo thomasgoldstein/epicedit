@@ -82,19 +82,19 @@ namespace EpicEdit.UI.Gfx
             _tilesetCache.Dispose();
             _tilesetCache = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(_tilesetCache))
+            using (var g = Graphics.FromImage(_tilesetCache))
             {
                 g.FillRegion(_transparentBrush, g.Clip);
 
-                foreach (KeyValuePair<OverlayTilePattern, Point> kvp in PatternList)
+                foreach (var kvp in PatternList)
                 {
-                    OverlayTilePattern pattern = kvp.Key;
-                    Point location = kvp.Value;
+                    var pattern = kvp.Key;
+                    var location = kvp.Value;
 
                     // Draw the pattern
-                    for (int y = 0; y < pattern.Height; y++)
+                    for (var y = 0; y < pattern.Height; y++)
                     {
-                        for (int x = 0; x < pattern.Width; x++)
+                        for (var x = 0; x < pattern.Width; x++)
                         {
                             int tileId = pattern[x, y];
 
@@ -123,8 +123,8 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g)
         {
-            using (Bitmap image = (Bitmap)_tilesetCache.Clone())
-            using (Graphics backBuffer = Graphics.FromImage(image))
+            using (var image = (Bitmap)_tilesetCache.Clone())
+            using (var backBuffer = Graphics.FromImage(image))
             {
                 OutlinePattern(backBuffer, HoveredPattern);
 
@@ -147,7 +147,7 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null && !Context.ColorPickerMode)
             {
-                PatternList.TryGetValue(pattern, out Point location);
+                PatternList.TryGetValue(pattern, out var location);
                 g.DrawRectangle(_highlightPen,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,
@@ -159,7 +159,7 @@ namespace EpicEdit.UI.Gfx
         {
             if (pattern != null)
             {
-                PatternList.TryGetValue(pattern, out Point location);
+                PatternList.TryGetValue(pattern, out var location);
                 g.FillRectangle(_selectBrush,
                                 location.X, location.Y,
                                 pattern.Width * Tile.Size - 1,

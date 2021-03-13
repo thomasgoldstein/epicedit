@@ -22,8 +22,8 @@ namespace EpicEdit.Tests.Rom.Tracks.Start
     {
         private static void TestGetBytes(byte[] data)
         {
-            LapLine lapLine = new LapLine(data);
-            byte[] data2 = lapLine.GetBytes();
+            var lapLine = new LapLine(data);
+            var data2 = lapLine.GetBytes();
 
             Assert.AreEqual(data[0], data2[0]);
             Assert.AreEqual(data[1], data2[1]);

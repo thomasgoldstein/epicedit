@@ -80,9 +80,9 @@ namespace EpicEdit.UI.TrackEdition
                     // referenced by the overlay tile.
                     // In this case, find another pattern with the same properties.
 
-                    foreach (KeyValuePair<OverlayTilePattern, Point> kvp in _patternList)
+                    foreach (var kvp in _patternList)
                     {
-                        OverlayTilePattern pattern = kvp.Key;
+                        var pattern = kvp.Key;
                         if (pattern.Equals(value))
                         {
                             value = pattern;
@@ -192,7 +192,7 @@ namespace EpicEdit.UI.TrackEdition
 
         public void InitOnRomLoad()
         {
-            int tilesetHeight = LoadPatternDictionary();
+            var tilesetHeight = LoadPatternDictionary();
             SetTilesetHeight(tilesetHeight);
 
             _drawer.PatternList = _patternList;
@@ -205,26 +205,26 @@ namespace EpicEdit.UI.TrackEdition
         private int LoadPatternDictionary()
         {
             _patternList = new Dictionary<OverlayTilePattern, Point>();
-            List<OverlayTilePattern> patterns = GetUniquePatterns();
+            var patterns = GetUniquePatterns();
 
-            int tilesetX = 0; // Current horizontal drawing position in the tileset
-            int tilesetY = 0; // Current vertical drawing position in the tileset
-            int tallestPattern = 0; // The tallest tile pattern in a given row
+            var tilesetX = 0; // Current horizontal drawing position in the tileset
+            var tilesetY = 0; // Current vertical drawing position in the tileset
+            var tallestPattern = 0; // The tallest tile pattern in a given row
 
-            int panelWidth = tilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
-            int patternId = 0;
-            int patternCountInRow = -1;
+            var panelWidth = tilesetPanel.Width / (Tile.Size * OverlayTilesetDrawer.Zoom); // Take tile width and zoom in consideration
+            var patternId = 0;
+            var patternCountInRow = -1;
 
             while (patternCountInRow != 0)
             {
                 patternCountInRow = 0;
-                int rowWidth = 0;
+                var rowWidth = 0;
 
                 // Compute how many patterns will fit in the row
-                for (int otherPatternId = patternId; otherPatternId < patterns.Count; otherPatternId++)
+                for (var otherPatternId = patternId; otherPatternId < patterns.Count; otherPatternId++)
                 {
-                    OverlayTilePattern pattern = patterns[otherPatternId];
-                    int newRowWidth = rowWidth + pattern.Width;
+                    var pattern = patterns[otherPatternId];
+                    var newRowWidth = rowWidth + pattern.Width;
 
                     if (newRowWidth > panelWidth)
                     {
@@ -235,7 +235,7 @@ namespace EpicEdit.UI.TrackEdition
                     patternCountInRow++;
                 }
 
-                int patternRowIterator = 0;
+                var patternRowIterator = 0;
                 tallestPattern = 0;
                 if (rowWidth == panelWidth)
                 {
@@ -250,7 +250,7 @@ namespace EpicEdit.UI.TrackEdition
                 // Store the pattern(s) of the row, and their location
                 while (patternRowIterator < patternCountInRow)
                 {
-                    OverlayTilePattern pattern = patterns[patternId];
+                    var pattern = patterns[patternId];
                     _patternList.Add(pattern, new Point(tilesetX, tilesetY));
 
                     tilesetX += pattern.Width * Tile.Size;
@@ -280,8 +280,8 @@ namespace EpicEdit.UI.TrackEdition
         private static List<OverlayTilePattern> GetUniquePatterns()
         {
             OverlayTilePattern previousPattern = null;
-            List<OverlayTilePattern> patterns = new List<OverlayTilePattern>();
-            foreach (OverlayTilePattern pattern in Context.Game.OverlayTilePatterns)
+            var patterns = new List<OverlayTilePattern>();
+            foreach (var pattern in Context.Game.OverlayTilePatterns)
             {
                 if (pattern.Equals(previousPattern))
                 {
@@ -301,7 +301,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void SetTilesetHeight(int tilesetHeight)
         {
-            int difference = tilesetHeight - tilesetPanel.Height;
+            var difference = tilesetHeight - tilesetPanel.Height;
             tilesetPanel.Height = tilesetHeight;
             Height += difference;
             _drawer.SetImageSize(tilesetPanel.Size);
@@ -336,7 +336,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void UpdateTileCount()
         {
-            int count = _track.OverlayTiles.Count;
+            var count = _track.OverlayTiles.Count;
             tileCountLabel.Text = $"{count}/{OverlayTiles.MaxTileCount}";
             tileCountLabel.ForeColor = count >= OverlayTiles.MaxTileCount ? Color.Red : SystemColors.ControlText;
         }
@@ -367,10 +367,10 @@ namespace EpicEdit.UI.TrackEdition
             x /= OverlayTilesetDrawer.Zoom;
             y /= OverlayTilesetDrawer.Zoom;
 
-            foreach (KeyValuePair<OverlayTilePattern, Point> kvp in _patternList)
+            foreach (var kvp in _patternList)
             {
-                OverlayTilePattern pattern = kvp.Key;
-                Point location = kvp.Value;
+                var pattern = kvp.Key;
+                var location = kvp.Value;
 
                 if (x >= location.X &&
                     x < location.X + pattern.Width * Tile.Size &&
@@ -407,7 +407,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void DeleteAllButtonClick(object sender, EventArgs e)
         {
-            DialogResult result = UITools.ShowWarning("Do you really want to delete all overlay tiles?");
+            var result = UITools.ShowWarning("Do you really want to delete all overlay tiles?");
 
             if (result == DialogResult.Yes)
             {
@@ -452,19 +452,19 @@ namespace EpicEdit.UI.TrackEdition
         {
             protected override Tile GetTileAt(int x, int y)
             {
-                OverlayControl parent = (OverlayControl)Parent;
-                OverlayTilePattern pattern = parent.GetPatternAt((int)(x * Zoom), (int)(y * Zoom));
+                var parent = (OverlayControl)Parent;
+                var pattern = parent.GetPatternAt((int)(x * Zoom), (int)(y * Zoom));
 
                 if (pattern == null)
                 {
                     return null;
                 }
 
-                Point location = parent._patternList[pattern];
+                var location = parent._patternList[pattern];
                 x = (x - location.X) / Tile.Size;
                 y = (y - location.Y) / Tile.Size;
 
-                byte tileId = pattern[x, y];
+                var tileId = pattern[x, y];
 
                 return tileId == OverlayTile.None ? null : parent.Tileset[tileId];
             }

@@ -174,7 +174,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             get
             {
-                Point point = CenterTileLocation;
+                var point = CenterTileLocation;
                 point.Offset(_scrollPosition);
                 return point;
             }
@@ -421,7 +421,7 @@ namespace EpicEdit.UI.TrackEdition
             ReInitSettingEditor();
             ReInitCodecForm();
 
-            foreach (UndoRedoBuffer buffer in _undoRedoBuffers.Values)
+            foreach (var buffer in _undoRedoBuffers.Values)
             {
                 buffer.Clear();
             }
@@ -440,8 +440,8 @@ namespace EpicEdit.UI.TrackEdition
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                EventArgs<string> sea = new EventArgs<string>(files[0]);
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var sea = new EventArgs<string>(files[0]);
                 FileDragged(this, sea);
             }
         }
@@ -498,10 +498,10 @@ namespace EpicEdit.UI.TrackEdition
 
             UITools.ShowExportDataDialog(fileName =>
             {
-                int trackId = 1;
-                foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
+                var trackId = 1;
+                foreach (var trackGroup in Context.Game.TrackGroups)
                 {
-                    foreach (Track t in trackGroup)
+                    foreach (var t in trackGroup)
                     {
                         t.Export(fileName
                             .Replace(trackNumberPattern, trackId.ToString())
@@ -567,7 +567,7 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             ToggleUndoRedo();
-            DrawRegion region = _drawer.UpdateCache(change.Rectangle);
+            var region = _drawer.UpdateCache(change.Rectangle);
             InvalidateTrackDisplay(region);
         }
 
@@ -578,7 +578,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = AbsoluteCenterTileLocation;
+            var location = AbsoluteCenterTileLocation;
             ZoomCommon(DefaultZoomLevelIndex);
             CenterTrackDisplayOn(location);
 
@@ -592,7 +592,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = AbsoluteCenterTileLocation;
+            var location = AbsoluteCenterTileLocation;
             ZoomInSub();
             EndZoom(location);
         }
@@ -604,7 +604,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            Point location = AbsoluteCenterTileLocation;
+            var location = AbsoluteCenterTileLocation;
             ZoomOutSub();
             EndZoom(location);
         }
@@ -648,9 +648,9 @@ namespace EpicEdit.UI.TrackEdition
             }
 
             // Ensure the user will still be hovering the same tile after zooming
-            Point cursor = TilePosition;
-            Point center = CenterTileLocation;
-            Point diff = new Point(center.X - cursor.X, center.Y - cursor.Y);
+            var cursor = TilePosition;
+            var center = CenterTileLocation;
+            var diff = new Point(center.X - cursor.X, center.Y - cursor.Y);
             hoveredTilePosition.Offset(diff);
 
             EndZoom(hoveredTilePosition);
@@ -658,9 +658,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void CenterTrackDisplayOn(Point location)
         {
-            Point point = CenterTileLocation;
-            int x = location.X - point.X;
-            int y = location.Y - point.Y;
+            var point = CenterTileLocation;
+            var x = location.X - point.X;
+            var y = location.Y - point.Y;
             SetHorizontalScrollingValue(x);
             SetVerticalScrollingValue(y);
         }
@@ -1003,8 +1003,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private DrawRegion GetFullDirtyRegion()
         {
-            DrawRegion region = GetCurrentDirtyRegion();
-            DrawRegion regionTemp = region.Clone();
+            var region = GetCurrentDirtyRegion();
+            var regionTemp = region.Clone();
 
             region.Union(_dirtyRegion);
 
@@ -1204,7 +1204,7 @@ namespace EpicEdit.UI.TrackEdition
                 trackDisplay.Focus(); // Lets you use the mouse wheel to scroll
             }
 
-            Point tilePositionBefore = TilePosition;
+            var tilePositionBefore = TilePosition;
             SetPosition(e.Location);
 
             if (tilePositionBefore == TilePosition) // If the cursor has not moved to another tile
@@ -1235,15 +1235,15 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetPosition(Point location)
         {
-            int x = location.X;
-            int y = location.Y;
-            int zoomedTileSize = (int)(Tile.Size * Zoom);
-            int zoomedScrollPositionX = _scrollPosition.X * zoomedTileSize;
-            int zoomedScrollPositionY = _scrollPosition.Y * zoomedTileSize;
-            int zoomedTrackWidth = _track.Map.Width * zoomedTileSize;
-            int zoomedTrackHeight = _track.Map.Height * zoomedTileSize;
-            int absoluteX = x + zoomedScrollPositionX;
-            int absoluteY = y + zoomedScrollPositionY;
+            var x = location.X;
+            var y = location.Y;
+            var zoomedTileSize = (int)(Tile.Size * Zoom);
+            var zoomedScrollPositionX = _scrollPosition.X * zoomedTileSize;
+            var zoomedScrollPositionY = _scrollPosition.Y * zoomedTileSize;
+            var zoomedTrackWidth = _track.Map.Width * zoomedTileSize;
+            var zoomedTrackHeight = _track.Map.Height * zoomedTileSize;
+            var absoluteX = x + zoomedScrollPositionX;
+            var absoluteY = y + zoomedScrollPositionY;
 
             // We check that the new position isn't out of the track limits, if it is,
             // we set it to the lowest or highest (depending on case) possible coordinate
@@ -1270,8 +1270,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ScrollTrack()
         {
-            int xBefore = _scrollPosition.X;
-            int yBefore = _scrollPosition.Y;
+            var xBefore = _scrollPosition.X;
+            var yBefore = _scrollPosition.Y;
 
             SetHorizontalScrollingValue(_anchorPoint.X - TilePosition.X);
             SetVerticalScrollingValue(_anchorPoint.Y - TilePosition.Y);
@@ -1285,12 +1285,12 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RecalculateTileClipboard()
         {
-            Point hoveredTilePosition = AbsoluteTilePosition;
+            var hoveredTilePosition = AbsoluteTilePosition;
 
-            int x = Math.Min(_anchorPoint.X, hoveredTilePosition.X);
-            int y = Math.Min(_anchorPoint.Y, hoveredTilePosition.Y);
-            int width = Math.Abs(hoveredTilePosition.X - _anchorPoint.X) + 1;
-            int height = Math.Abs(hoveredTilePosition.Y - _anchorPoint.Y) + 1;
+            var x = Math.Min(_anchorPoint.X, hoveredTilePosition.X);
+            var y = Math.Min(_anchorPoint.Y, hoveredTilePosition.Y);
+            var width = Math.Abs(hoveredTilePosition.X - _anchorPoint.X) + 1;
+            var height = Math.Abs(hoveredTilePosition.Y - _anchorPoint.Y) + 1;
 
             _tileClipboard.Rectangle = new Rectangle(x, y, width, height);
         }
@@ -1372,14 +1372,14 @@ namespace EpicEdit.UI.TrackEdition
                             if (overlayControl.SelectedTile != null)
                             {
                                 _buttonsPressed = MouseButtons.Left;
-                                Point hoveredTilePosition = AbsoluteTilePosition;
+                                var hoveredTilePosition = AbsoluteTilePosition;
                                 _anchorPoint = new Point(hoveredTilePosition.X - overlayControl.SelectedTile.X,
                                                          hoveredTilePosition.Y - overlayControl.SelectedTile.Y);
                             }
                         }
                         else
                         {
-                            OverlayTile overlayTile = new OverlayTile(overlayControl.SelectedPattern, _selectedOverlayPatternLocation);
+                            var overlayTile = new OverlayTile(overlayControl.SelectedPattern, _selectedOverlayPatternLocation);
                             _track.OverlayTiles.Add(overlayTile);
                         }
                         break;
@@ -1411,7 +1411,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
 
                 _buttonsPressed = MouseButtons.Left;
-                Point absPixelPos = AbsolutePixelPosition;
+                var absPixelPos = AbsolutePixelPosition;
 
                 if (_track is GPTrack gpTrack)
                 {
@@ -1429,7 +1429,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
                 else
                 {
-                    BattleTrack bTrack = (BattleTrack)_track;
+                    var bTrack = (BattleTrack)_track;
 
                     if (_startAction == StartAction.DragStartPosition)
                     {
@@ -1463,7 +1463,7 @@ namespace EpicEdit.UI.TrackEdition
                             break;
                         }
 
-                        TrackObjectMatchRace hoveredObjectMatchRace = (TrackObjectMatchRace)_hoveredObject;
+                        var hoveredObjectMatchRace = (TrackObjectMatchRace)_hoveredObject;
 
                         if (hoveredObjectMatchRace.Direction == TrackObjectDirection.Horizontal)
                         {
@@ -1599,7 +1599,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void MouseWheelScroll(MouseEventArgs e)
         {
-            int delta = e.Delta / 64;
+            var delta = e.Delta / 64;
             if (delta == 0)
             {
                 // Ensure some scrolling happens even if the Delta value was low
@@ -1612,14 +1612,14 @@ namespace EpicEdit.UI.TrackEdition
             int after;
             if (ModifierKeys != Keys.Shift)
             {
-                int y = _scrollPosition.Y - delta;
+                var y = _scrollPosition.Y - delta;
                 before = _scrollPosition.Y;
                 SetVerticalScrollingValue(y);
                 after = _scrollPosition.Y;
             }
             else
             {
-                int x = _scrollPosition.X - delta;
+                var x = _scrollPosition.X - delta;
                 before = _scrollPosition.X;
                 SetHorizontalScrollingValue(x);
                 after = _scrollPosition.X;
@@ -1661,7 +1661,7 @@ namespace EpicEdit.UI.TrackEdition
         /// </summary>
         private void UpdateScrollBars()
         {
-            GetOffScreenTileCounts(out int offScreenTileCountX, out int offScreenTileCountY);
+            GetOffScreenTileCounts(out var offScreenTileCountX, out var offScreenTileCountY);
 
             // Recalculate the maximum value of the horizontal scroll bar
             UpdateScrollBar(trackDisplayHScrollBar, offScreenTileCountX);
@@ -1679,11 +1679,11 @@ namespace EpicEdit.UI.TrackEdition
         {
             offScreenTileCountX = GetOffScreenTileCount(trackDisplay.Width);
             offScreenTileCountY = GetOffScreenTileCount(trackDisplay.Height);
-            int offScreenTileCountXWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Width - trackDisplayVScrollBar.Width));
-            int offScreenTileCountYWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Height - trackDisplayHScrollBar.Height));
+            var offScreenTileCountXWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Width - trackDisplayVScrollBar.Width));
+            var offScreenTileCountYWithScrollBar = GetOffScreenTileCount(Math.Max(0, trackDisplay.Height - trackDisplayHScrollBar.Height));
 
-            bool? horizontalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
-            bool? verticalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
+            var horizontalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountX, offScreenTileCountXWithScrollBar);
+            var verticalScrollBarNeeded = IsScrollBarNeeded(offScreenTileCountY, offScreenTileCountYWithScrollBar);
 
             // Replace null (unsure) values with concrete values
             if (horizontalScrollBarNeeded == null &&
@@ -1781,7 +1781,7 @@ namespace EpicEdit.UI.TrackEdition
                     scrollBar.Value = offScreenTileCount;
                 }
 
-                int onScreenTileCount = _track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
+                var onScreenTileCount = _track.Map.Width - offScreenTileCount; // Map.Width = Map.Height
                 scrollBar.Maximum = offScreenTileCount + (onScreenTileCount - 1);
                 scrollBar.LargeChange = onScreenTileCount;
                 // Adding the equivalent of LargeChange - 1 to the Maximum because
@@ -1842,7 +1842,7 @@ namespace EpicEdit.UI.TrackEdition
             _track.AI.ElementRemoved += track_AI_ElementRemoved;
             _track.AI.ElementsCleared += track_AI_ElementsCleared;
 
-            GPTrack gpTrack = _track as GPTrack;
+            var gpTrack = _track as GPTrack;
             if (gpTrack != null)
             {
                 gpTrack.StartPosition.PropertyChanged += gpTrack_StartPosition_PropertyChanged;
@@ -2058,9 +2058,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ModeTabControlClientSizeChanged(object sender, EventArgs e)
         {
-            int widthBefore = modeTabControl.Width;
+            var widthBefore = modeTabControl.Width;
             ResizeModeTabControl();
-            int difference = modeTabControl.Width - widthBefore;
+            var difference = modeTabControl.Width - widthBefore;
 
             if (difference != 0)
             {
@@ -2114,7 +2114,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void LayTiles(Point location)
         {
-            Size affectedSurface = GetTruncatedRectangle();
+            var affectedSurface = GetTruncatedRectangle();
             AddUndoChange(location.X, location.Y, affectedSurface.Width, affectedSurface.Height);
             _track.Map.SetTiles(location, _tileClipboard);
             _drawer.UpdateCacheOnTileChange(location);
@@ -2127,7 +2127,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool FillTiles(Point location)
         {
-            TileChange change = GetPaintBucketChange(location, _tileClipboard.FirstTile);
+            var change = GetPaintBucketChange(location, _tileClipboard.FirstTile);
 
             if (change == null)
             {
@@ -2152,29 +2152,29 @@ namespace EpicEdit.UI.TrackEdition
 
         private TileChange GetPaintBucketChange(Point location, byte tile)
         {
-            byte targetTile = _track.Map[location.X, location.Y];
+            var targetTile = _track.Map[location.X, location.Y];
 
             if (targetTile == tile)
             {
                 return null;
             }
 
-            TrackMap tempBuffer = new TrackMap(_track.Map.GetBytes());
-            int minX = TrackMap.Size;
-            int minY = TrackMap.Size;
-            int maxX = 0;
-            int maxY = 0;
+            var tempBuffer = new TrackMap(_track.Map.GetBytes());
+            var minX = TrackMap.Size;
+            var minY = TrackMap.Size;
+            var maxX = 0;
+            var maxY = 0;
 
-            Queue<Point> locations = new Queue<Point>();
+            var locations = new Queue<Point>();
             locations.Enqueue(location);
 
             while (locations.Count > 0)
             {
-                Point loc = locations.Dequeue();
-                int x = loc.X;
-                int y = loc.Y;
-                int left = x;
-                int right = x;
+                var loc = locations.Dequeue();
+                var x = loc.X;
+                var y = loc.Y;
+                var left = x;
+                var right = x;
 
                 do { left--; }
                 while (left >= 0 && tempBuffer[left, y] == targetTile);
@@ -2189,7 +2189,7 @@ namespace EpicEdit.UI.TrackEdition
                 maxX = Math.Max(maxX, right);
                 maxY = Math.Max(maxY, y);
 
-                for (int xIter = left; xIter <= right; xIter++)
+                for (var xIter = left; xIter <= right; xIter++)
                 {
                     tempBuffer[xIter, y] = tile;
 
@@ -2205,28 +2205,28 @@ namespace EpicEdit.UI.TrackEdition
                 }
             }
 
-            int width = maxX - minX + 1;
-            int height = maxY - minY + 1;
+            var width = maxX - minX + 1;
+            var height = maxY - minY + 1;
             return new TileChange(minX, minY, width, height, tempBuffer);
         }
 
         private void AddUndoChange(int x, int y, int width, int height)
         {
-            TileChange tileChange = new TileChange(x, y, width, height, _track.Map);
+            var tileChange = new TileChange(x, y, width, height, _track.Map);
             UndoRedoBuffer.Add(tileChange);
         }
 
         private Size GetTruncatedRectangle()
         {
-            Size rectangleToDisplay = _tileClipboard.Size;
+            var rectangleToDisplay = _tileClipboard.Size;
             if ((_scrollPosition.X + TilePosition.X + rectangleToDisplay.Width) >= _track.Map.Width)
             {
-                int subFromWidth = _scrollPosition.X + TilePosition.X + rectangleToDisplay.Width - _track.Map.Width;
+                var subFromWidth = _scrollPosition.X + TilePosition.X + rectangleToDisplay.Width - _track.Map.Width;
                 rectangleToDisplay.Width -= subFromWidth;
             }
             if ((_scrollPosition.Y + TilePosition.Y + rectangleToDisplay.Height) >= _track.Map.Height)
             {
-                int subFromHeight = _scrollPosition.Y + TilePosition.Y + rectangleToDisplay.Height - _track.Map.Height;
+                var subFromHeight = _scrollPosition.Y + TilePosition.Y + rectangleToDisplay.Height - _track.Map.Height;
                 rectangleToDisplay.Height -= subFromHeight;
             }
             return rectangleToDisplay;
@@ -2282,7 +2282,7 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.Overlay
         private bool InitOverlayAction()
         {
-            Point hoveredTilePosition = AbsoluteTilePosition;
+            var hoveredTilePosition = AbsoluteTilePosition;
 
             if (_buttonsPressed == MouseButtons.Left)
             {
@@ -2296,7 +2296,7 @@ namespace EpicEdit.UI.TrackEdition
             if (overlayControl.SelectedPattern == null)
             {
                 // Try to hover overlay tile
-                foreach (OverlayTile overlayTile in _track.OverlayTiles)
+                foreach (var overlayTile in _track.OverlayTiles)
                 {
                     if (overlayTile.IntersectsWith(hoveredTilePosition))
                     {
@@ -2325,7 +2325,7 @@ namespace EpicEdit.UI.TrackEdition
 
             // Move selected tile pattern
             trackDisplay.Cursor = Cursors.Default;
-            Point originalPatternLocation = _selectedOverlayPatternLocation;
+            var originalPatternLocation = _selectedOverlayPatternLocation;
             SetSelectedOverlayPatternLocation();
             // Return whether the location has changed
             return originalPatternLocation.X != _selectedOverlayPatternLocation.X ||
@@ -2344,9 +2344,9 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetSelectedOverlayPatternLocation()
         {
-            OverlayTilePattern pattern = overlayControl.SelectedPattern;
+            var pattern = overlayControl.SelectedPattern;
 
-            Point tilePosition = TilePosition;
+            var tilePosition = TilePosition;
             if (tilePosition == OutOfBounds)
             {
                 // The mouse cursor isn't over the track map
@@ -2354,9 +2354,9 @@ namespace EpicEdit.UI.TrackEdition
             }
             else
             {
-                Point hoveredTilePosition = AbsoluteTilePosition;
-                int x = hoveredTilePosition.X - pattern.Width / 2;
-                int y = hoveredTilePosition.Y - pattern.Height / 2;
+                var hoveredTilePosition = AbsoluteTilePosition;
+                var x = hoveredTilePosition.X - pattern.Width / 2;
+                var y = hoveredTilePosition.Y - pattern.Height / 2;
 
                 if (x < 0)
                 {
@@ -2396,23 +2396,23 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitGPStartAction()
         {
-            GPTrack gpTrack = (GPTrack)_track;
-            Point absPixelPos = AbsolutePixelPosition;
+            var gpTrack = (GPTrack)_track;
+            var absPixelPos = AbsolutePixelPosition;
 
             if (_buttonsPressed == MouseButtons.Left)
             {
-                bool dataChanged = false;
+                var dataChanged = false;
 
                 switch (_startAction)
                 {
                     case StartAction.DragLapLine:
                         // Move lap line
-                        int step = startControl.Precision;
-                        Point destination = new Point(absPixelPos.X - _anchorPoint.X,
+                        var step = startControl.Precision;
+                        var destination = new Point(absPixelPos.X - _anchorPoint.X,
                                                       ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
-                        int xBefore = gpTrack.LapLine.X;
-                        int yBefore = gpTrack.LapLine.Y;
+                        var xBefore = gpTrack.LapLine.X;
+                        var yBefore = gpTrack.LapLine.Y;
 
                         gpTrack.LapLine.Location = destination;
 
@@ -2424,7 +2424,7 @@ namespace EpicEdit.UI.TrackEdition
 
                     case StartAction.ResizeLapLine:
                         // Resize lap line
-                        int lengthBefore = gpTrack.LapLine.Length;
+                        var lengthBefore = gpTrack.LapLine.Length;
 
                         gpTrack.LapLine.Resize(_resizeHandle, absPixelPos.X);
 
@@ -2462,8 +2462,8 @@ namespace EpicEdit.UI.TrackEdition
 
                         gpTrack.LapLine.Location = destination;
 
-                        int xDifference = gpTrack.LapLine.X - xBefore;
-                        int yDifference = gpTrack.LapLine.Y - yBefore;
+                        var xDifference = gpTrack.LapLine.X - xBefore;
+                        var yDifference = gpTrack.LapLine.Y - yBefore;
 
                         if (xDifference != 0 || yDifference != 0)
                         {
@@ -2512,17 +2512,17 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitBattleStartAction()
         {
-            BattleTrack bTrack = (BattleTrack)_track;
+            var bTrack = (BattleTrack)_track;
 
             if (_buttonsPressed == MouseButtons.Left)
             {
-                BattleStartPosition position = _startAction == StartAction.DragStartPosition ?
+                var position = _startAction == StartAction.DragStartPosition ?
                     bTrack.StartPositionP1 : bTrack.StartPositionP2;
 
                 return InitBattleStartActionSub(position);
             }
 
-            Point absPixelPos = AbsolutePixelPosition;
+            var absPixelPos = AbsolutePixelPosition;
 
             if (bTrack.StartPositionP1.IntersectsWith(absPixelPos))
             {
@@ -2545,14 +2545,14 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitBattleStartActionSub(BattleStartPosition position)
         {
-            Point absPixelPos = AbsolutePixelPosition;
+            var absPixelPos = AbsolutePixelPosition;
 
-            int step = startControl.Precision;
-            Point destination = new Point(((absPixelPos.X - _anchorPoint.X) / step) * step,
+            var step = startControl.Precision;
+            var destination = new Point(((absPixelPos.X - _anchorPoint.X) / step) * step,
                                          ((absPixelPos.Y - _anchorPoint.Y) / step) * step);
 
-            int xBefore = position.X;
-            int yBefore = position.Y;
+            var xBefore = position.X;
+            var yBefore = position.Y;
 
             position.Location = destination;
 
@@ -2568,7 +2568,7 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
-            Point hoveredTilePosition = AbsoluteTilePosition;
+            var hoveredTilePosition = AbsoluteTilePosition;
 
             if (_buttonsPressed == MouseButtons.Left)
             {
@@ -2585,7 +2585,7 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
-            foreach (TrackObject trackObject in gpTrack.Objects)
+            foreach (var trackObject in gpTrack.Objects)
             {
                 if (trackObject.X == hoveredTilePosition.X &&
                     trackObject.Y == hoveredTilePosition.Y)
@@ -2616,12 +2616,12 @@ namespace EpicEdit.UI.TrackEdition
         #region EditionMode.AI
         private bool InitAIAction()
         {
-            Point hoveredTilePosition = AbsoluteTilePosition;
+            var hoveredTilePosition = AbsoluteTilePosition;
 
             if (_buttonsPressed == MouseButtons.Left)
             {
                 // Drag or resize AI element
-                bool dataChanged = false;
+                var dataChanged = false;
 
                 if (_aiAction == AIAction.DragTarget)
                 {
@@ -2632,8 +2632,8 @@ namespace EpicEdit.UI.TrackEdition
                 else if (_aiAction == AIAction.DragArea)
                 {
                     // Drag AI area
-                    int xBefore = _hoveredAIElem.Area.X;
-                    int yBefore = _hoveredAIElem.Area.Y;
+                    var xBefore = _hoveredAIElem.Area.X;
+                    var yBefore = _hoveredAIElem.Area.Y;
 
                     _hoveredAIElem.Location =
                         new Point(hoveredTilePosition.X - _anchorPoint.X,
@@ -2648,15 +2648,15 @@ namespace EpicEdit.UI.TrackEdition
                 else if (_aiAction == AIAction.ResizeArea)
                 {
                     // Resize AI area
-                    int widthBefore = _hoveredAIElem.Area.Width;
-                    int heightBefore = _hoveredAIElem.Area.Height;
+                    var widthBefore = _hoveredAIElem.Area.Width;
+                    var heightBefore = _hoveredAIElem.Area.Height;
 
                     _hoveredAIElem.Resize(_resizeHandle,
                                               hoveredTilePosition.X,
                                               hoveredTilePosition.Y);
 
-                    int widthAfter = _hoveredAIElem.Area.Width;
-                    int heightAfter = _hoveredAIElem.Area.Height;
+                    var widthAfter = _hoveredAIElem.Area.Width;
+                    var heightAfter = _hoveredAIElem.Area.Height;
 
                     if (widthBefore != widthAfter || heightBefore != heightAfter)
                     {
@@ -2680,7 +2680,7 @@ namespace EpicEdit.UI.TrackEdition
                 return true;
             }
 
-            foreach (TrackAIElement trackAIElem in _track.AI)
+            foreach (var trackAIElem in _track.AI)
             {
                 if (trackAIElem.Target.X == hoveredTilePosition.X &&
                     trackAIElem.Target.Y == hoveredTilePosition.Y)
@@ -2711,7 +2711,7 @@ namespace EpicEdit.UI.TrackEdition
                 return false;
             }
 
-            foreach (TrackAIElement trackAIElem in _track.AI)
+            foreach (var trackAIElem in _track.AI)
             {
                 if (TryToHoverAIArea(trackAIElem, hoveredTilePosition))
                 {
@@ -2820,15 +2820,15 @@ namespace EpicEdit.UI.TrackEdition
 
         private void CloneAIElement()
         {
-            TrackAIElement aiElement = aiControl.SelectedElement;
-            TrackAIElement newAIElem = aiElement.Clone();
+            var aiElement = aiControl.SelectedElement;
+            var newAIElem = aiElement.Clone();
 
             // Shift the cloned element position, so it's not directly over the source element
             newAIElem.Location = new Point(aiElement.Location.X + TrackAIElement.Precision,
                                            aiElement.Location.Y + TrackAIElement.Precision);
 
             // Ensure the cloned element index is right after the source element
-            int newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
+            var newAIElementIndex = _track.AI.GetElementIndex(aiElement) + 1;
 
             _track.AI.Insert(newAIElem, newAIElementIndex);
         }

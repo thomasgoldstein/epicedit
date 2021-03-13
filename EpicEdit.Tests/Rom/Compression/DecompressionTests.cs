@@ -34,8 +34,8 @@ namespace EpicEdit.Tests.Rom.Compression
         {
             // Checks that we don't crash if the compressed data is incorrect.
             // Here, we have a command 5 that references an address that is out of the buffer range.
-            byte[] bufferA = File.ReadFile("cmd5test.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("cmd5testc.smc"), 0);
+            var bufferA = File.ReadFile("cmd5test.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("cmd5testc.smc"), 0);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -44,8 +44,8 @@ namespace EpicEdit.Tests.Rom.Compression
         public void EpicRacersBattleTrack4Test()
         {
             // Checks that command 3 loops properly after 0xFF
-            byte[] bufferA = File.ReadFile("er_track24c.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("er_track24cc.smc"));
+            var bufferA = File.ReadFile("er_track24c.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("er_track24cc.smc"));
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -53,8 +53,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_1()
         {
-            byte[] bufferA = File.ReadFile("track1c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x68D2C);
+            var bufferA = File.ReadFile("track1c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x68D2C);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -62,8 +62,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_2()
         {
-            byte[] bufferA = File.ReadFile("track2c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7A181);
+            var bufferA = File.ReadFile("track2c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7A181);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -71,8 +71,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_3()
         {
-            byte[] bufferA = File.ReadFile("track3c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6F5BF);
+            var bufferA = File.ReadFile("track3c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6F5BF);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -80,8 +80,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_4()
         {
-            byte[] bufferA = File.ReadFile("track4c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7B825);
+            var bufferA = File.ReadFile("track4c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7B825);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -89,8 +89,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_5()
         {
-            byte[] bufferA = File.ReadFile("track5c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x50C45);
+            var bufferA = File.ReadFile("track5c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x50C45);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -98,8 +98,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_6()
         {
-            byte[] bufferA = File.ReadFile("track6c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x77251);
+            var bufferA = File.ReadFile("track6c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x77251);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -107,8 +107,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_7()
         {
-            byte[] bufferA = File.ReadFile("track7c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7E821);
+            var bufferA = File.ReadFile("track7c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7E821);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -116,8 +116,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_8()
         {
-            byte[] bufferA = File.ReadFile("track8c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6A823);
+            var bufferA = File.ReadFile("track8c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6A823);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -125,8 +125,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_9()
         {
-            byte[] bufferA = File.ReadFile("track9c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7C527);
+            var bufferA = File.ReadFile("track9c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7C527);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -134,8 +134,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_10()
         {
-            byte[] bufferA = File.ReadFile("track10c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x68000);
+            var bufferA = File.ReadFile("track10c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x68000);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -143,8 +143,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_11()
         {
-            byte[] bufferA = File.ReadFile("track11c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6E1AE);
+            var bufferA = File.ReadFile("track11c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6E1AE);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -152,8 +152,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_12()
         {
-            byte[] bufferA = File.ReadFile("track12c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6CFC4);
+            var bufferA = File.ReadFile("track12c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6CFC4);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -161,8 +161,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_13()
         {
-            byte[] bufferA = File.ReadFile("track13c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x3103C);
+            var bufferA = File.ReadFile("track13c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x3103C);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -170,8 +170,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_14()
         {
-            byte[] bufferA = File.ReadFile("track14c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7D5FF);
+            var bufferA = File.ReadFile("track14c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7D5FF);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -179,8 +179,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_15()
         {
-            byte[] bufferA = File.ReadFile("track15c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6952B);
+            var bufferA = File.ReadFile("track15c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6952B);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -188,8 +188,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_16()
         {
-            byte[] bufferA = File.ReadFile("track16c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x78A6B);
+            var bufferA = File.ReadFile("track16c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x78A6B);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -197,8 +197,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_17()
         {
-            byte[] bufferA = File.ReadFile("track17c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x3D551);
+            var bufferA = File.ReadFile("track17c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x3D551);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -206,8 +206,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_18()
         {
-            byte[] bufferA = File.ReadFile("track18c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6A245);
+            var bufferA = File.ReadFile("track18c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6A245);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -215,8 +215,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_19()
         {
-            byte[] bufferA = File.ReadFile("track19c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6BF68);
+            var bufferA = File.ReadFile("track19c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6BF68);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -224,8 +224,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_20()
         {
-            byte[] bufferA = File.ReadFile("track20c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x3EAD1);
+            var bufferA = File.ReadFile("track20c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x3EAD1);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -233,8 +233,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_21()
         {
-            byte[] bufferA = File.ReadFile("track21c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x6F338);
+            var bufferA = File.ReadFile("track21c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x6F338);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -242,8 +242,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_22()
         {
-            byte[] bufferA = File.ReadFile("track22c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x21765);
+            var bufferA = File.ReadFile("track22c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x21765);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -251,8 +251,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_23()
         {
-            byte[] bufferA = File.ReadFile("track23c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x214EE);
+            var bufferA = File.ReadFile("track23c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x214EE);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -260,8 +260,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack1st_24()
         {
-            byte[] bufferA = File.ReadFile("track24c.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x7ED3B);
+            var bufferA = File.ReadFile("track24c.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x7ED3B);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -269,8 +269,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetGhostValley()
         {
-            byte[] bufferA = File.ReadFile("rtilesetgv.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x60189);
+            var bufferA = File.ReadFile("rtilesetgv.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x60189);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -278,8 +278,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetMarioCircuit()
         {
-            byte[] bufferA = File.ReadFile("rtilesetmc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x481C9);
+            var bufferA = File.ReadFile("rtilesetmc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x481C9);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -287,8 +287,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetDonutPlains()
         {
-            byte[] bufferA = File.ReadFile("rtilesetdp.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x50000);
+            var bufferA = File.ReadFile("rtilesetdp.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x50000);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -296,8 +296,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetChocoIsland()
         {
-            byte[] bufferA = File.ReadFile("rtilesetci.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x78000);
+            var bufferA = File.ReadFile("rtilesetci.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x78000);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -305,8 +305,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetVanillaLake()
         {
-            byte[] bufferA = File.ReadFile("rtilesetvl.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x14EE);
+            var bufferA = File.ReadFile("rtilesetvl.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x14EE);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -314,8 +314,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetKoopaBeach()
         {
-            byte[] bufferA = File.ReadFile("rtilesetkb.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x51636);
+            var bufferA = File.ReadFile("rtilesetkb.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x51636);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -323,8 +323,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetBowserCastle()
         {
-            byte[] bufferA = File.ReadFile("rtilesetbc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x48F6A);
+            var bufferA = File.ReadFile("rtilesetbc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x48F6A);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -332,8 +332,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestRoadTilesetRainbowRoad()
         {
-            byte[] bufferA = File.ReadFile("rtilesetrr.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x41EBB);
+            var bufferA = File.ReadFile("rtilesetrr.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x41EBB);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -341,8 +341,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetGhostValley()
         {
-            byte[] bufferA = File.ReadFile("btilesetgv.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x20148);
+            var bufferA = File.ReadFile("btilesetgv.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x20148);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -350,8 +350,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetMarioCircuit()
         {
-            byte[] bufferA = File.ReadFile("btilesetmc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x20000);
+            var bufferA = File.ReadFile("btilesetmc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x20000);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -359,8 +359,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetDonutPlains()
         {
-            byte[] bufferA = File.ReadFile("btilesetdp.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x20356);
+            var bufferA = File.ReadFile("btilesetdp.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x20356);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -368,8 +368,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetChocoIsland()
         {
-            byte[] bufferA = File.ReadFile("btilesetci.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x206B5);
+            var bufferA = File.ReadFile("btilesetci.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x206B5);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -377,8 +377,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetVanillaLake()
         {
-            byte[] bufferA = File.ReadFile("btilesetvl.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x205EB);
+            var bufferA = File.ReadFile("btilesetvl.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x205EB);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -386,8 +386,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetKoopaBeach()
         {
-            byte[] bufferA = File.ReadFile("btilesetkb.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x208A2);
+            var bufferA = File.ReadFile("btilesetkb.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x208A2);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -395,8 +395,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetBrowserCastle()
         {
-            byte[] bufferA = File.ReadFile("btilesetbc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x20523);
+            var bufferA = File.ReadFile("btilesetbc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x20523);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -404,8 +404,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestBackgroundTilesetRainbowRoad()
         {
-            byte[] bufferA = File.ReadFile("btilesetrr.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x1499);
+            var bufferA = File.ReadFile("btilesetrr.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x1499);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -413,8 +413,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteMarioCircuit()
         {
-            byte[] bufferA = File.ReadFile("cpalettemc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x4117F);
+            var bufferA = File.ReadFile("cpalettemc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x4117F);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -422,8 +422,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteGhostValley()
         {
-            byte[] bufferA = File.ReadFile("cpalettegv.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x41313);
+            var bufferA = File.ReadFile("cpalettegv.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x41313);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -431,8 +431,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteDonutPlains()
         {
-            byte[] bufferA = File.ReadFile("cpalettedp.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x414C4);
+            var bufferA = File.ReadFile("cpalettedp.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x414C4);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -440,8 +440,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteBowserCastle()
         {
-            byte[] bufferA = File.ReadFile("cpalettebc.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x41675);
+            var bufferA = File.ReadFile("cpalettebc.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x41675);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -449,8 +449,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteVanillaLake()
         {
-            byte[] bufferA = File.ReadFile("cpalettevl.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x4182F);
+            var bufferA = File.ReadFile("cpalettevl.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x4182F);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -458,8 +458,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteChocoIsland()
         {
-            byte[] bufferA = File.ReadFile("cpaletteci.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x419C0);
+            var bufferA = File.ReadFile("cpaletteci.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x419C0);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -467,8 +467,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteKoopaBeach()
         {
-            byte[] bufferA = File.ReadFile("cpalettekb.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x41B5B);
+            var bufferA = File.ReadFile("cpalettekb.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x41B5B);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -476,8 +476,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestColorPaletteRainbowRoad()
         {
-            byte[] bufferA = File.ReadFile("cpaletterr.smc");
-            byte[] bufferB = Codec.Decompress(_romBuffer, 0x41D0B);
+            var bufferA = File.ReadFile("cpaletterr.smc");
+            var bufferB = Codec.Decompress(_romBuffer, 0x41D0B);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -485,8 +485,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_1()
         {
-            byte[] bufferA = File.ReadFile("track1.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track1c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track1.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track1c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -494,8 +494,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_2()
         {
-            byte[] bufferA = File.ReadFile("track2.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track2c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track2.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track2c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -503,8 +503,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_3()
         {
-            byte[] bufferA = File.ReadFile("track3.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track3c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track3.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track3c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -512,8 +512,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_4()
         {
-            byte[] bufferA = File.ReadFile("track4.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track4c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track4.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track4c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -521,8 +521,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_5()
         {
-            byte[] bufferA = File.ReadFile("track5.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track5c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track5.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track5c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -530,8 +530,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_6()
         {
-            byte[] bufferA = File.ReadFile("track6.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track6c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track6.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track6c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -539,8 +539,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_7()
         {
-            byte[] bufferA = File.ReadFile("track7.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track7c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track7.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track7c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -548,8 +548,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_8()
         {
-            byte[] bufferA = File.ReadFile("track8.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track8c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track8.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track8c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -557,8 +557,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_9()
         {
-            byte[] bufferA = File.ReadFile("track9.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track9c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track9.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track9c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -566,8 +566,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_10()
         {
-            byte[] bufferA = File.ReadFile("track10.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track10c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track10.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track10c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -575,8 +575,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_11()
         {
-            byte[] bufferA = File.ReadFile("track11.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track11c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track11.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track11c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -584,8 +584,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_12()
         {
-            byte[] bufferA = File.ReadFile("track12.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track12c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track12.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track12c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -593,8 +593,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_13()
         {
-            byte[] bufferA = File.ReadFile("track13.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track13c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track13.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track13c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -602,8 +602,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_14()
         {
-            byte[] bufferA = File.ReadFile("track14.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track14c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track14.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track14c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -611,8 +611,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_15()
         {
-            byte[] bufferA = File.ReadFile("track15.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track15c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track15.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track15c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -620,8 +620,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_16()
         {
-            byte[] bufferA = File.ReadFile("track16.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track16c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track16.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track16c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -629,8 +629,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_17()
         {
-            byte[] bufferA = File.ReadFile("track17.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track17c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track17.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track17c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -638,8 +638,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_18()
         {
-            byte[] bufferA = File.ReadFile("track18.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track18c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track18.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track18c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -647,8 +647,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_19()
         {
-            byte[] bufferA = File.ReadFile("track19.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track19c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track19.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track19c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -656,8 +656,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_20()
         {
-            byte[] bufferA = File.ReadFile("track20.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track20c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track20.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track20c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -665,8 +665,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_21()
         {
-            byte[] bufferA = File.ReadFile("track21.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track21c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track21.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track21c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -674,8 +674,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_22()
         {
-            byte[] bufferA = File.ReadFile("track22.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track22c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track22.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track22c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -683,8 +683,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_23()
         {
-            byte[] bufferA = File.ReadFile("track23.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track23c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track23.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track23c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }
@@ -692,8 +692,8 @@ namespace EpicEdit.Tests.Rom.Compression
         [Test]
         public void TestTrack2nd_24()
         {
-            byte[] bufferA = File.ReadFile("track24.smc");
-            byte[] bufferB = Codec.Decompress(File.ReadFile("track24c.smc"), 0, 16384);
+            var bufferA = File.ReadFile("track24.smc");
+            var bufferB = Codec.Decompress(File.ReadFile("track24c.smc"), 0, 16384);
 
             Assert.AreEqual(bufferA, bufferB);
         }

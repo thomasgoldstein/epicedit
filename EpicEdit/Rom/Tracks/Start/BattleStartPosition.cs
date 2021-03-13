@@ -33,8 +33,8 @@ namespace EpicEdit.Rom.Tracks.Start
             get => _location;
             set
             {
-                int x = value.X;
-                int y = value.Y;
+                var x = value.X;
+                var y = value.Y;
 
                 if (x < Tile.Size)
                 {
@@ -73,8 +73,8 @@ namespace EpicEdit.Rom.Tracks.Start
 
         public void SetBytes(byte[] data)
         {
-            int x = (data[1] << 8) + data[0];
-            int y = (data[3] << 8) + data[2];
+            var x = (data[1] << 8) + data[0];
+            var y = (data[3] << 8) + data[2];
             _location = new Point(x, y);
         }
 
@@ -94,7 +94,7 @@ namespace EpicEdit.Rom.Tracks.Start
         /// <returns>The BattleStartPosition bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[4];
+            var data = new byte[4];
             data[0] = (byte)(X & 0xFF);
             data[1] = (byte)((X >> 8) & 0xFF);
             data[2] = (byte)(Y & 0xFF);

@@ -43,14 +43,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public BackgroundTile GetTileInstance(int x, int y, bool front)
         {
-            Layout.GetTileData(x, y, front, out byte tileId, out byte properties);
+            Layout.GetTileData(x, y, front, out var tileId, out var properties);
 
             return GetTileInstance(tileId, properties, front);
         }
 
         public BackgroundTile GetTileInstance(int tileId, byte properties, bool front)
         {
-            BackgroundTile tile = Tileset[tileId];
+            var tile = Tileset[tileId];
             return new BackgroundTile(tile.Graphics, tile.Palettes, properties, front);
         }
 

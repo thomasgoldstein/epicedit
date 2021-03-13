@@ -64,17 +64,17 @@ namespace EpicEdit.UI.TrackEdition
             treeView.BeginUpdate();
             treeView.Nodes.Clear();
 
-            foreach (TrackGroup trackGroup in Context.Game.TrackGroups)
+            foreach (var trackGroup in Context.Game.TrackGroups)
             {
-                TreeNode trackGroupNode = new TreeNode(trackGroup.Name);
+                var trackGroupNode = new TreeNode(trackGroup.Name);
                 trackGroupNode.ForeColor = SystemColors.WindowText;
 
                 // Makes it so group nodes don't appear highlighted when clicked
                 trackGroupNode.BackColor = treeView.BackColor;
 
-                foreach (Track track in trackGroup)
+                foreach (var track in trackGroup)
                 {
-                    TreeNode trackNode = new TreeNode();
+                    var trackNode = new TreeNode();
                     trackGroupNode.Nodes.Add(trackNode);
                     track.PropertyChanged += track_PropertyChanged;
                 }
@@ -95,18 +95,18 @@ namespace EpicEdit.UI.TrackEdition
             _trackGroupDictionary.Clear();
             _trackDictionary.Clear();
 
-            for (int i = 0; i < Context.Game.TrackGroups.Count; i++)
+            for (var i = 0; i < Context.Game.TrackGroups.Count; i++)
             {
-                TrackGroup trackGroup = Context.Game.TrackGroups[i];
-                TreeNode trackGroupNode = treeView.Nodes[i];
+                var trackGroup = Context.Game.TrackGroups[i];
+                var trackGroupNode = treeView.Nodes[i];
                 _trackGroupDictionary.Add(trackGroup, trackGroupNode);
 
-                TreeNodeCollection trackNodes = trackGroupNode.Nodes;
+                var trackNodes = trackGroupNode.Nodes;
 
-                for (int j = 0; j < trackGroup.Count; j++)
+                for (var j = 0; j < trackGroup.Count; j++)
                 {
-                    Track track = trackGroup[j];
-                    TreeNode trackNode = trackNodes[j];
+                    var track = trackGroup[j];
+                    var trackNode = trackNodes[j];
 
                     _trackDictionary.Add(track, trackNode);
                     trackNode.Text = GetTrackText(track);
@@ -121,15 +121,15 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            TreeNode treeNode = _trackGroupDictionary[trackGroup];
+            var treeNode = _trackGroupDictionary[trackGroup];
             treeNode.Text = trackGroup.Name;
         }
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Track track = (Track)sender;
-            TreeNode treeNode = _trackDictionary[track];
-            string trackText = GetTrackText(track);
+            var track = (Track)sender;
+            var treeNode = _trackDictionary[track];
+            var trackText = GetTrackText(track);
 
             if (treeNode.Text != trackText)
             {
@@ -166,8 +166,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void SetSelectedTrack()
         {
-            int trackGroupId = treeView.SelectedNode.Parent.Index;
-            int trackId = treeView.SelectedNode.Index;
+            var trackGroupId = treeView.SelectedNode.Parent.Index;
+            var trackId = treeView.SelectedNode.Index;
             SelectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
         }
 
@@ -183,7 +183,7 @@ namespace EpicEdit.UI.TrackEdition
         #region Track reordering
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
         {
-            TreeNode hoveredNode = (TreeNode)e.Item;
+            var hoveredNode = (TreeNode)e.Item;
 
             if (e.Button != MouseButtons.Left || hoveredNode.Level == 0)
             {
@@ -208,8 +208,8 @@ namespace EpicEdit.UI.TrackEdition
 
         private void TreeViewDragOver(object sender, DragEventArgs e)
         {
-            Point targetPoint = PointToClient(new Point(e.X, e.Y));
-            TreeNode hoveredNode = treeView.GetNodeAt(targetPoint);
+            var targetPoint = PointToClient(new Point(e.X, e.Y));
+            var hoveredNode = treeView.GetNodeAt(targetPoint);
 
             if (hoveredNode.Level == 0)
             {
@@ -218,7 +218,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            TreeNode nodeGroup = hoveredNode.Parent;
+            var nodeGroup = hoveredNode.Parent;
 
             if ((nodeGroup.Index < GPTrack.GroupCount && _draggedTrack.Parent.Index < GPTrack.GroupCount) ||
                 (nodeGroup.Index == GPTrack.GroupCount && _draggedTrack.Parent.Index == GPTrack.GroupCount))
@@ -243,11 +243,11 @@ namespace EpicEdit.UI.TrackEdition
         {
             ClearPreviousHighlight();
 
-            int sourceTrackGroupId = _draggedTrack.Parent.Index;
-            int sourceTrackId = _draggedTrack.Index;
+            var sourceTrackGroupId = _draggedTrack.Parent.Index;
+            var sourceTrackId = _draggedTrack.Index;
 
-            int destinationTrackGroupId = _draggedTrackTarget.Parent.Index;
-            int destinationTrackId = _draggedTrackTarget.Index;
+            var destinationTrackGroupId = _draggedTrackTarget.Parent.Index;
+            var destinationTrackId = _draggedTrackTarget.Index;
 
             Context.Game.ReorderTracks(sourceTrackGroupId, sourceTrackId, destinationTrackGroupId, destinationTrackId);
 

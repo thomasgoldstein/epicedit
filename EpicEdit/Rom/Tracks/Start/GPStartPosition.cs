@@ -40,8 +40,8 @@ namespace EpicEdit.Rom.Tracks.Start
             get => _location;
             set
             {
-                int x = value.X;
-                int y = value.Y;
+                var x = value.X;
+                var y = value.Y;
 
                 if (_enableBoundsChecks)
                 {
@@ -153,8 +153,8 @@ namespace EpicEdit.Rom.Tracks.Start
         {
             _enableBoundsChecks = false;
 
-            int x = (data[1] << 8) + data[0];
-            int y = (data[3] << 8) + data[2];
+            var x = (data[1] << 8) + data[0];
+            var y = (data[3] << 8) + data[2];
             Location = new Point(x, y);
 
             int rowOffset = data[4];
@@ -182,7 +182,7 @@ namespace EpicEdit.Rom.Tracks.Start
         /// <returns>The GPStartPosition bytes.</returns>
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Size];
+            var data = new byte[Size];
             data[0] = (byte)(X & 0xFF);
             data[1] = (byte)((X & 0xFF00) >> 8);
             data[2] = (byte)(Y & 0xFF);

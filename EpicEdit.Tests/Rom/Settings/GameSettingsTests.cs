@@ -25,14 +25,14 @@ namespace EpicEdit.Tests.Rom.Settings
         {
             Assert.AreEqual(expectedTexts.Length, textColl.Count);
 
-            for (int i = 0; i < expectedTexts.Length; i++)
+            for (var i = 0; i < expectedTexts.Length; i++)
             {
                 Assert.AreEqual(expectedTexts[i], textColl[i].Value);
             }
 
             if (expectedBytes != null)
             {
-                byte[] textBytes = textColl.GetBytes(out byte[] indexes);
+                var textBytes = textColl.GetBytes(out var indexes);
                 Assert.AreEqual(expectedIndexes, indexes);
                 Assert.AreEqual(expectedBytes, textBytes);
 
@@ -45,7 +45,7 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSModeNames()
         {
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
             TestTexts(
                 new[]
                 {
@@ -59,8 +59,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSGPCupSelectTexts()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -74,8 +74,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSGPPodiumTexts()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -89,8 +89,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSCourseSelectTexts()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -106,8 +106,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSDriverNamesGPResults()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -122,8 +122,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSDriverNamesGPPodium()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -138,8 +138,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestUSDriverNamesTimeTrial()
         {
-            Game game = File.GetGame(Region.US);
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var game = File.GetGame(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
             TestTexts(
                 new[]
                 {
@@ -154,7 +154,7 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroModeNames()
         {
-            Game game = File.GetGame(Region.Euro);
+            var game = File.GetGame(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -168,8 +168,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroGPCupSelectTexts()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -183,8 +183,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroGPPodiumTexts()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -198,8 +198,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroCourseSelectTexts()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -215,8 +215,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroDriverNamesGPResults()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -231,8 +231,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroDriverNamesGPPodium()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -247,8 +247,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestEuroDriverNamesTimeTrial()
         {
-            Game game = File.GetGame(Region.Euro);
-            byte[] romBuffer = File.ReadRom(Region.Euro);
+            var game = File.GetGame(Region.Euro);
+            var romBuffer = File.ReadRom(Region.Euro);
             TestTexts(
                 new[]
                 {
@@ -263,7 +263,7 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapModeNames()
         {
-            Game game = File.GetGame(Region.Jap);
+            var game = File.GetGame(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -277,8 +277,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapGPPodiumTexts()
         {
-            Game game = File.GetGame(Region.Jap);
-            byte[] romBuffer = File.ReadRom(Region.Jap);
+            var game = File.GetGame(Region.Jap);
+            var romBuffer = File.ReadRom(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -292,8 +292,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapCourseSelectTexts()
         {
-            Game game = File.GetGame(Region.Jap);
-            byte[] romBuffer = File.ReadRom(Region.Jap);
+            var game = File.GetGame(Region.Jap);
+            var romBuffer = File.ReadRom(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -309,8 +309,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapDriverNamesGPResults()
         {
-            Game game = File.GetGame(Region.Jap);
-            byte[] romBuffer = File.ReadRom(Region.Jap);
+            var game = File.GetGame(Region.Jap);
+            var romBuffer = File.ReadRom(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -325,8 +325,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapDriverNamesGPPodium()
         {
-            Game game = File.GetGame(Region.Jap);
-            byte[] romBuffer = File.ReadRom(Region.Jap);
+            var game = File.GetGame(Region.Jap);
+            var romBuffer = File.ReadRom(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -341,8 +341,8 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestJapDriverNamesTimeTrial()
         {
-            Game game = File.GetGame(Region.Jap);
-            byte[] romBuffer = File.ReadRom(Region.Jap);
+            var game = File.GetGame(Region.Jap);
+            var romBuffer = File.ReadRom(Region.Jap);
             TestTexts(
                 new[]
                 {
@@ -360,8 +360,8 @@ namespace EpicEdit.Tests.Rom.Settings
             // Testing TextCollection saving when text indexes were originally not in the right order
             // (can happen if the ROM has been edited manually).
             
-            byte[] romBuffer1 = File.ReadRom(Region.US);
-            byte[] romBuffer2 = (byte[])romBuffer1.Clone();
+            var romBuffer1 = File.ReadRom(Region.US);
+            var romBuffer2 = (byte[])romBuffer1.Clone();
 
             // Switch the indexes for the first 2 names
             romBuffer2[0x1CA32] = romBuffer1[0x1CA34];
@@ -369,11 +369,11 @@ namespace EpicEdit.Tests.Rom.Settings
             romBuffer2[0x1CA34] = romBuffer1[0x1CA32];
             romBuffer2[0x1CA35] = romBuffer1[0x1CA33];
 
-            GameSettings settings = new GameSettings(romBuffer2, new Offsets(romBuffer2, Region.US), Region.US);
+            var settings = new GameSettings(romBuffer2, new Offsets(romBuffer2, Region.US), Region.US);
 
             // Switch the texts for the first 2 names
-            string name1 = settings.CourseSelectTexts[0].Value;
-            string name2 = settings.CourseSelectTexts[1].Value;
+            var name1 = settings.CourseSelectTexts[0].Value;
+            var name2 = settings.CourseSelectTexts[1].Value;
 
             // NOTE: Set the second name first because it's shorter, and won't cause us to hit the maximum character count
             settings.CourseSelectTexts[1].Value = name1;
@@ -388,11 +388,11 @@ namespace EpicEdit.Tests.Rom.Settings
         [Test]
         public void TestSpaceBytes()
         {
-            byte[] romBuffer = File.ReadRom(Region.US);
+            var romBuffer = File.ReadRom(Region.US);
 
             romBuffer[0x1DC91 + 1] = 0x2C; // Replace Time Trial Mario's A with a thin space
             romBuffer[0x1DC91 + 3] = 0x2F; // Replace Time Trial Mario's I with a normal space
-            GameSettings settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
+            var settings = new GameSettings(romBuffer, new Offsets(romBuffer, Region.US), Region.US);
 
             Assert.AreEqual("M R O", settings.DriverNamesTimeTrial[0].Value);
         }

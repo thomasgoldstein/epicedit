@@ -80,7 +80,7 @@ namespace EpicEdit.Rom.Utility
 
             public T4[] GetValues()
             {
-                T4[] values = new T4[_dictionary.Values.Count];
+                var values = new T4[_dictionary.Values.Count];
                 _dictionary.Values.CopyTo(values, 0);
                 return values;
             }

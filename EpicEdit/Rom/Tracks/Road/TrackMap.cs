@@ -44,7 +44,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 throw new ArgumentException($"The map array must have a length of {SquareSize} ({Size} * {Size}).", nameof(data));
             }
 
-            for (int y = 0; y < _map.Length; y++)
+            for (var y = 0; y < _map.Length; y++)
             {
                 _map[y] = Utilities.ReadBlock(data, y * _map.Length, _map.Length);
             }
@@ -94,7 +94,7 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <returns>True if the new value is different from the old one, false otherwise.</returns>
         private bool SetTileInternal(int x, int y, byte tile)
         {
-            bool dataChanged = _map[y][x] != tile;
+            var dataChanged = _map[y][x] != tile;
             _map[y][x] = tile;
             return dataChanged;
         }
@@ -117,17 +117,17 @@ namespace EpicEdit.Rom.Tracks.Road
         /// <param name="tileBuffer">The tile buffer.</param>
         public void SetTiles(int startX, int startY, IMapBuffer tileBuffer)
         {
-            bool dataChanged = false;
-            int yLimit = Math.Min(tileBuffer.Height, Size - startY);
-            int xLimit = Math.Min(tileBuffer.Width, Size - startX);
+            var dataChanged = false;
+            var yLimit = Math.Min(tileBuffer.Height, Size - startY);
+            var xLimit = Math.Min(tileBuffer.Width, Size - startX);
 
-            for (int y = 0; y < yLimit; y++)
+            for (var y = 0; y < yLimit; y++)
             {
-                int positionY = startY + y;
+                var positionY = startY + y;
 
-                for (int x = 0; x < xLimit; x++)
+                for (var x = 0; x < xLimit; x++)
                 {
-                    int positionX = startX + x;
+                    var positionX = startX + x;
 
                     if (SetTileInternal(positionX, positionY, tileBuffer[x, y]))
                     {
@@ -144,12 +144,12 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public void Clear(byte tile)
         {
-            for (int x = 0; x < Width; x++)
+            for (var x = 0; x < Width; x++)
             {
                 _map[0][x] = tile;
             }
 
-            for (int y = 1; y < Height; y++)
+            for (var y = 1; y < Height; y++)
             {
                 Buffer.BlockCopy(_map[0], 0, _map[y], 0, Width);
             }
@@ -174,9 +174,9 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[Width * Height];
+            var data = new byte[Width * Height];
 
-            for (int y = 0; y < Height; y++)
+            for (var y = 0; y < Height; y++)
             {
                 Buffer.BlockCopy(_map[y], 0, data, y * Width, Width);
             }

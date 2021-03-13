@@ -24,8 +24,8 @@ namespace EpicEdit.Tests.Rom.Tracks.Overlay
         public void TestGetBytes()
         {
             byte[] dataBefore = { 0x02, 0x02, 0x03, 0x01, 0x01, 0x03, 0x05, 0x05 };
-            OverlayTileSizes sizes = new OverlayTileSizes(dataBefore);
-            byte[] dataAfter = sizes.GetBytes();
+            var sizes = new OverlayTileSizes(dataBefore);
+            var dataAfter = sizes.GetBytes();
             Assert.AreEqual(dataBefore, dataAfter);
         }
     }

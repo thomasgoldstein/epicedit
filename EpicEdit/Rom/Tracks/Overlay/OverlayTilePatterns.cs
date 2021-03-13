@@ -34,7 +34,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
         {
             get
             {
-                foreach (OverlayTilePattern pattern in _patterns)
+                foreach (var pattern in _patterns)
                 {
                     if (pattern.Modified)
                     {
@@ -55,28 +55,28 @@ namespace EpicEdit.Rom.Tracks.Overlay
         private void LoadPatterns(byte[] romBuffer, Offsets offsets, OverlayTileSizes sizes)
         {
             // Get the addresses where the individual pattern data is
-            int addressOffset = offsets[Offset.TrackOverlayPatterns];
-            int[] dataAddresses = LoadPatternDataAddresses(romBuffer, addressOffset);
+            var addressOffset = offsets[Offset.TrackOverlayPatterns];
+            var dataAddresses = LoadPatternDataAddresses(romBuffer, addressOffset);
 
             // Get the data lengths of all the patterns
-            int sizeOffset = offsets[Offset.TrackOverlaySizes];
-            int[] dataLengths = LoadPatternDataLengths(dataAddresses, sizeOffset);
+            var sizeOffset = offsets[Offset.TrackOverlaySizes];
+            var dataLengths = LoadPatternDataLengths(dataAddresses, sizeOffset);
 
             // Get the widths and heights of all the patterns
-            OverlayTileSize[] overlayTilesizes = LoadPatternSizes(sizes);
+            var overlayTilesizes = LoadPatternSizes(sizes);
 
-            for (int i = 0; i < PatternCount; i++)
+            for (var i = 0; i < PatternCount; i++)
             {
-                byte[] data = Utilities.ReadBlock(romBuffer, dataAddresses[i], dataLengths[i]);
+                var data = Utilities.ReadBlock(romBuffer, dataAddresses[i], dataLengths[i]);
                 _patterns[i] = new OverlayTilePattern(data, overlayTilesizes[i]);
             }
         }
 
         private int[] LoadPatternDataAddresses(byte[] romBuffer, int offset)
         {
-            int[] addresses = new int[Count];
-            byte[][] data = Utilities.ReadBlockGroup(romBuffer, offset, 2, Count);
-            for (int i = 0; i < data.Length; i++)
+            var addresses = new int[Count];
+            var data = Utilities.ReadBlockGroup(romBuffer, offset, 2, Count);
+            for (var i = 0; i < data.Length; i++)
             {
                 addresses[i] = (data[i][1] << 8) + data[i][0] + 0x40000;
             }
@@ -90,11 +90,11 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // From the documentation the games loads up 32 bytes into VRAM starting at one of these data addresses when the overlay is required.
             // This means that quite possibly there is no data in the ROM about the lengths of these items, the overlay tile map of the track tells 
             // the engine how many bytes to use.
-            int[] lengths = new int[Count];
-            for (int i = 0; i < dataAddresses.Length; i++)
+            var lengths = new int[Count];
+            for (var i = 0; i < dataAddresses.Length; i++)
             {
-                int diff = 0;
-                for (int j = i + 1; j < dataAddresses.Length; j++)
+                var diff = 0;
+                for (var j = i + 1; j < dataAddresses.Length; j++)
                 {
                     if (dataAddresses[j] > dataAddresses[i])
                     {
@@ -119,9 +119,9 @@ namespace EpicEdit.Rom.Tracks.Overlay
             // It is unlikely that this information is available anywhere in the ROM since
             // each overlay tile indicates which size to use when displayed at runtime.
             // Maybe the size of each pattern should be saved in the Epic Edit-dedicated ROM range when we start supporting updating the patterns.
-            byte[] sizeIndexes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
-            OverlayTileSize[] sizeArray = new OverlayTileSize[Count];
-            for (int i = 0; i < Count; i++)
+            var sizeIndexes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1 };
+            var sizeArray = new OverlayTileSize[Count];
+            for (var i = 0; i < Count; i++)
             {
                 sizeArray[i] = sizes[sizeIndexes[i]];
             }
@@ -130,7 +130,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public int IndexOf(OverlayTilePattern pattern)
         {
-            for (int i = 0; i < _patterns.Length; i++)
+            for (var i = 0; i < _patterns.Length; i++)
             {
                 if (_patterns[i] == pattern)
                 {
@@ -145,7 +145,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public IEnumerator<OverlayTilePattern> GetEnumerator()
         {
-            foreach (OverlayTilePattern pattern in _patterns)
+            foreach (var pattern in _patterns)
             {
                 yield return pattern;
             }
@@ -172,7 +172,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public bool Contains(OverlayTilePattern item)
         {
-            foreach (OverlayTilePattern pattern in _patterns)
+            foreach (var pattern in _patterns)
             {
                 if (pattern.Equals(item))
                 {

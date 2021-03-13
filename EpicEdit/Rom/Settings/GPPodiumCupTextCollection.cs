@@ -28,7 +28,7 @@ namespace EpicEdit.Rom.Settings
 
         protected override byte[] GetBytes(out byte[] indexes, out int length)
         {
-            byte[] data = base.GetBytes(out indexes, out length);
+            var data = base.GetBytes(out indexes, out length);
 
             if (Region == Region.Jap && data[63] == 0x0D)
             {

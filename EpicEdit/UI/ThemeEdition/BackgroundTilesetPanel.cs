@@ -106,8 +106,8 @@ namespace EpicEdit.UI.ThemeEdition
             }
 
             const int zoom = BackgroundTilesetDrawer.Zoom;
-            int rowTileCount = Width / (Tile.Size * zoom);
-            byte newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
+            var rowTileCount = Width / (Tile.Size * zoom);
+            var newSelectedTile = (byte)((e.X / (Tile.Size * zoom)) + (e.Y / (Tile.Size * zoom)) * rowTileCount);
 
             if (_selectedTile != newSelectedTile)
             {
@@ -122,7 +122,7 @@ namespace EpicEdit.UI.ThemeEdition
             x /= Tile.Size;
             y /= Tile.Size;
 
-            int tileCountX = Width / (Tile.Size * BackgroundTilesetDrawer.Zoom);
+            var tileCountX = Width / (Tile.Size * BackgroundTilesetDrawer.Zoom);
             return Theme.Background.Tileset[x + (y * tileCountX)];
         }
 

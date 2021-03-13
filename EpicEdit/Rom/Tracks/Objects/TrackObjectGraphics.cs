@@ -29,17 +29,17 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public TrackObjectGraphics(byte[] romBuffer, Offsets offsets)
         {
-            int typeCount = Enum.GetValues(typeof(TrackObjectType)).Length;
-            int count = typeCount + 2; // + 2 to account for moving Match Race object and items
+            var typeCount = Enum.GetValues(typeof(TrackObjectType)).Length;
+            var count = typeCount + 2; // + 2 to account for moving Match Race object and items
             _tiles = new TrackObjectTile[count][];
-            int offsetLocation = offsets[Offset.TrackObjectGraphics];
+            var offsetLocation = offsets[Offset.TrackObjectGraphics];
             byte[] tilesetGfx;
             int[] tileIndexes;
 
-            for (int i = 0; i < typeCount; i++)
+            for (var i = 0; i < typeCount; i++)
             {
-                TrackObjectType type = (TrackObjectType)i;
-                int offset = GetGraphicsOffset(type, romBuffer, offsetLocation);
+                var type = (TrackObjectType)i;
+                var offset = GetGraphicsOffset(type, romBuffer, offsetLocation);
                 tilesetGfx = Codec.Decompress(romBuffer, offset);
                 tileIndexes = GetTileIndexes(type);
                 _tiles[i] = GetTiles(tilesetGfx, tileIndexes);
@@ -58,9 +58,9 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             Tile[] tiles = new TrackObjectTile[tileIndexes.Length];
 
-            for (int i = 0; i < tileIndexes.Length; i++)
+            for (var i = 0; i < tileIndexes.Length; i++)
             {
-                byte[] gfx = Utilities.ReadBlock(tilesetGfx, tileIndexes[i], 32);
+                var gfx = Utilities.ReadBlock(tilesetGfx, tileIndexes[i], 32);
                 tiles[i] = new TrackObjectTile(gfx);
             }
 
@@ -74,8 +74,8 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public Bitmap GetImage(GPTrack track)
         {
-            Tile[] tiles = GetTiles(track.Objects.Tileset);
-            Palette palette = track.Objects.Palette;
+            var tiles = GetTiles(track.Objects.Tileset);
+            var palette = track.Objects.Palette;
 
             return GetImage(tiles, palette);
         }
@@ -88,8 +88,8 @@ namespace EpicEdit.Rom.Tracks.Objects
         /// <returns></returns>
         public Bitmap GetMatchRaceObjectImage(Theme theme, bool moving)
         {
-            Tile[] tiles = _tiles[GetMatchRaceTileIndex(moving)];
-            Palette palette = moving ? theme.Palettes[12] : theme.Palettes[14];
+            var tiles = _tiles[GetMatchRaceTileIndex(moving)];
+            var palette = moving ? theme.Palettes[12] : theme.Palettes[14];
 
             return GetImage(tiles, palette);
         }
@@ -118,14 +118,14 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             if (tiles[0].Palette != palette) // Assuming all tiles use the same palette
             {
-                foreach (Tile tile in tiles)
+                foreach (var tile in tiles)
                 {
                     tile.Palette = palette;
                 }
             }
 
-            Bitmap bitmap = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(bitmap))
+            var bitmap = new Bitmap(16, 16, PixelFormat.Format32bppPArgb);
+            using (var g = Graphics.FromImage(bitmap))
             {
                 g.DrawImage(tiles[0].Bitmap, 0, 0);
                 g.DrawImage(tiles[1].Bitmap, 8, 0);
@@ -146,12 +146,12 @@ namespace EpicEdit.Rom.Tracks.Objects
             }
             else
             {
-                bool moving = matchRaceObject.Direction != TrackObjectDirection.None;
+                var moving = matchRaceObject.Direction != TrackObjectDirection.None;
                 index = GetMatchRaceTileIndex(moving);
             }
 
-            Tile[] tiles = _tiles[index];
-            int subIndex = (y * 2) + x;
+            var tiles = _tiles[index];
+            var subIndex = (y * 2) + x;
             return tiles[subIndex];
         }
 
@@ -189,9 +189,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public void Dispose()
         {
-            foreach (Tile[] tiles in _tiles)
+            foreach (var tiles in _tiles)
             {
-                foreach (Tile tile in tiles)
+                foreach (var tile in tiles)
                 {
                     tile.Dispose();
                 }

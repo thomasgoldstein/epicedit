@@ -67,9 +67,9 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetTileGenreBytes()
         {
-            byte[] data = new byte[_tileset.Length];
+            var data = new byte[_tileset.Length];
 
-            for (int i = 0; i < data.Length; i++)
+            for (var i = 0; i < data.Length; i++)
             {
                 data[i] = (byte)_tileset[i].Genre;
             }
@@ -79,9 +79,9 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetTilePaletteBytes()
         {
-            byte[] data = new byte[_tileset.Length];
+            var data = new byte[_tileset.Length];
 
-            for (int i = 0; i < _tileset.Length; i++)
+            for (var i = 0; i < _tileset.Length; i++)
             {
                 data[i] = _tileset[i].PaletteByte;
             }
@@ -91,13 +91,13 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public byte[] GetBytes()
         {
-            byte[] data = new byte[TileCount + (TileCount * 32)];
+            var data = new byte[TileCount + (TileCount * 32)];
 
             Buffer.BlockCopy(GetTilePaletteBytes(), 0, data, 0, TileCount);
 
-            for (int j = 0; j < TileCount; j++)
+            for (var j = 0; j < TileCount; j++)
             {
-                RoadTile tile = GetTile(j);
+                var tile = GetTile(j);
                 Buffer.BlockCopy(tile.Graphics, 0, data, TileCount + (j * 32), tile.Graphics.Length);
             }
 
@@ -111,7 +111,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 throw new ArgumentException("Incorrect road tile type data size", nameof(data));
             }
 
-            for (int i = 0; i < _tileset.Length; i++)
+            for (var i = 0; i < _tileset.Length; i++)
             {
                 _tileset[i].Genre = (RoadTileGenre)data[i];
             }
@@ -124,7 +124,7 @@ namespace EpicEdit.Rom.Tracks.Road
                 throw new ArgumentException("Incorrect road tile palette data size", nameof(data));
             }
 
-            for (int i = 0; i < _tileset.Length; i++)
+            for (var i = 0; i < _tileset.Length; i++)
             {
                 _tileset[i].PaletteByte = data[i];
             }

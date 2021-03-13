@@ -53,7 +53,7 @@ namespace EpicEdit.Rom.Tracks.Overlay
 
         public void SetSize(int width, int height)
         {
-            int area = width * height;
+            var area = width * height;
 
             // From the documentation, only 32 bytes are loaded into VRAM per overlay tile
             if (width > 0 && height > 0 && area > 0 && area <= 32)

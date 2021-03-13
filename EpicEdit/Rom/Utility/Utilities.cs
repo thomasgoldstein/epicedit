@@ -30,7 +30,7 @@ namespace EpicEdit.Rom.Utility
         /// <returns>An array of bytes.</returns>
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)
         {
-            byte[] bytes = new byte[length];
+            var bytes = new byte[length];
             Buffer.BlockCopy(buffer, offset, bytes, 0, length);
             return bytes;
         }
@@ -63,7 +63,7 @@ namespace EpicEdit.Rom.Utility
 
         private static bool IsBlockLimitReached(byte[] buffer, int offset, params byte[] stopValues)
         {
-            for (int i = 0; i < stopValues.Length; i++)
+            for (var i = 0; i < stopValues.Length; i++)
             {
                 if (buffer[offset + i] != stopValues[i])
                 {
@@ -84,9 +84,9 @@ namespace EpicEdit.Rom.Utility
         /// <returns>A jagged array that contains byte groups.</returns>
         public static byte[][] ReadBlockGroup(byte[] buffer, int offset, int groupSize, int groupCount)
         {
-            byte[][] group = new byte[groupCount][];
+            var group = new byte[groupCount][];
 
-            for (int i = 0; i < groupCount; i++)
+            for (var i = 0; i < groupCount; i++)
             {
                 group[i] = ReadBlock(buffer, offset + (i * groupSize), groupSize);
             }
@@ -120,9 +120,9 @@ namespace EpicEdit.Rom.Utility
 
             length /= groupSize;
 
-            byte[][] group = new byte[length][];
+            var group = new byte[length][];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 group[i] = ReadBlock(buffer, offset + (i * groupSize), groupSize);
             }
@@ -140,9 +140,9 @@ namespace EpicEdit.Rom.Utility
         public static int[] ReadBlockOffset(byte[] buffer, int offset, int offsetCount)
         {
             const int offsetSize = 3;
-            int[] offsetGroup = new int[offsetCount];
+            var offsetGroup = new int[offsetCount];
 
-            for (int i = 0; i < offsetCount; i++)
+            for (var i = 0; i < offsetCount; i++)
             {
                 offsetGroup[i] = BytesToOffset(buffer, offset + (i * offsetSize));
             }
@@ -185,15 +185,15 @@ namespace EpicEdit.Rom.Utility
 
         public static byte[] HexStringToBytes(string data)
         {
-            byte[] bytes = new byte[data.Length / 2];
+            var bytes = new byte[data.Length / 2];
             LoadBytesFromHexString(bytes, data);
             return bytes;
         }
 
         public static void LoadBytesFromHexString(byte[] bytes, string hex)
         {
-            int bl = bytes.Length;
-            for (int i = 0; i < bl; ++i)
+            var bl = bytes.Length;
+            for (var i = 0; i < bl; ++i)
             {
                 bytes[i] = (byte)((hex[2 * i] > 'F' ? hex[2 * i] - 0x57 : hex[2 * i] > '9' ? hex[2 * i] - 0x37 : hex[2 * i] - 0x30) << 4);
                 bytes[i] |= (byte)(hex[2 * i + 1] > 'F' ? hex[2 * i + 1] - 0x57 : hex[2 * i + 1] > '9' ? hex[2 * i + 1] - 0x37 : hex[2 * i + 1] - 0x30);
@@ -204,8 +204,8 @@ namespace EpicEdit.Rom.Utility
         {
             byte b;
             int i, j, k;
-            int l = data.Length;
-            char[] r = new char[l * 2];
+            var l = data.Length;
+            var r = new char[l * 2];
             for (i = 0, j = 0; i < l; ++i)
             {
                 b = data[i];
@@ -221,7 +221,7 @@ namespace EpicEdit.Rom.Utility
         {
             byte b;
             int k;
-            char[] r = new char[2];
+            var r = new char[2];
             b = data;
             k = b >> 4;
             r[0] = (char)(k > 9 ? k + 0x37 : k + 0x30);
@@ -236,9 +236,9 @@ namespace EpicEdit.Rom.Utility
 
         public static int GetColorIndex(Color color, Palette palette)
         {
-            RomColor[] colors = new RomColor[Palette.ColorCount];
+            var colors = new RomColor[Palette.ColorCount];
 
-            for (int i = 0; i < colors.Length; i++)
+            for (var i = 0; i < colors.Length; i++)
             {
                 colors[i] = palette[i];
             }
@@ -248,9 +248,9 @@ namespace EpicEdit.Rom.Utility
 
         public static int GetColorIndex(RomColor color, RomColor[] colors)
         {
-            int colorIndex = -1;
+            var colorIndex = -1;
 
-            for (int i = 0; i < colors.Length; i++)
+            for (var i = 0; i < colors.Length; i++)
             {
                 if (colors[i] == color)
                 {
@@ -269,15 +269,15 @@ namespace EpicEdit.Rom.Utility
 
         public static int GetClosestColorIndex(Color color, RomColor[] colors)
         {
-            float value = GetColorHslValue(color);
-            float diff = float.MaxValue;
-            int match = -1;
+            var value = GetColorHslValue(color);
+            var diff = float.MaxValue;
+            var match = -1;
 
-            for (int i = 0; i < colors.Length; i++)
+            for (var i = 0; i < colors.Length; i++)
             {
                 Color col = colors[i];
-                float value2 = GetColorHslValue(col);
-                float diff2 = Math.Abs(value - value2);
+                var value2 = GetColorHslValue(col);
+                var diff2 = Math.Abs(value - value2);
 
                 if (diff2 < diff)
                 {

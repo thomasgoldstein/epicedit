@@ -25,14 +25,14 @@ namespace EpicEdit.Rom.Compression
     {
         public byte[] Compress(byte[] buffer)
         {
-            ByteDictionary byteDictionary = new ByteDictionary(buffer);
-            ChunkNodeCollection nodeCollection = new ChunkNodeCollection();
+            var byteDictionary = new ByteDictionary(buffer);
+            var nodeCollection = new ChunkNodeCollection();
 
             while (nodeCollection.Count > 0)
             {
                 if (nodeCollection.IsNextNodeOptimal())
                 {
-                    KeyValuePair<int, ChunkNode> parentNode = nodeCollection.GetNextNode();
+                    var parentNode = nodeCollection.GetNextNode();
 
                     if (parentNode.Key < buffer.Length)
                     {
@@ -41,7 +41,7 @@ namespace EpicEdit.Rom.Compression
                 }
             }
 
-            ChunkNode bestNode = nodeCollection[buffer.Length];
+            var bestNode = nodeCollection[buffer.Length];
             return bestNode.GetCompressedBuffer(buffer);
         }
 
@@ -93,7 +93,7 @@ namespace EpicEdit.Rom.Compression
 
             if (byteCount > Codec.NormalCommandMax)
             {
-                int reducedByteCount = Math.Min(byteCount, Codec.NormalCommandMax);
+                var reducedByteCount = Math.Min(byteCount, Codec.NormalCommandMax);
                 nodeCollection.Add(i + reducedByteCount, new ChunkNode(parentNode, command, i, reducedByteCount));
             }
 
@@ -102,7 +102,7 @@ namespace EpicEdit.Rom.Compression
 
         private static void CreateNodesFromBackCommands(ChunkNodeCollection nodeCollection, int i, ChunkNode parentNode, ByteDictionary byteDictionary)
         {
-            Range[] ranges = byteDictionary.GetMaxBackRanges(i);
+            var ranges = byteDictionary.GetMaxBackRanges(i);
 
             if (ranges[0].Length > 0)
             {
@@ -125,7 +125,7 @@ namespace EpicEdit.Rom.Compression
 
         private static int GetCommand0ByteCount(byte[] buffer, int i)
         {
-            int j = i + 1; // Forward iterator for buffer
+            var j = i + 1; // Forward iterator for buffer
 
             while (j < buffer.Length)
             {
@@ -168,7 +168,7 @@ namespace EpicEdit.Rom.Compression
 
         private static int GetCommand1ByteCount(byte[] buffer, int i)
         {
-            int j = i + 2; // Forward iterator for buffer
+            var j = i + 2; // Forward iterator for buffer
 
             while (j < buffer.Length &&
                    buffer[i] == buffer[j])
@@ -181,7 +181,7 @@ namespace EpicEdit.Rom.Compression
 
         private static int GetCommand2ByteCount(byte[] buffer, int i)
         {
-            int j = i + 3; // Forward iterator for buffer
+            var j = i + 3; // Forward iterator for buffer
 
             while (j < buffer.Length &&
                    buffer[j - 2] == buffer[j])
@@ -194,7 +194,7 @@ namespace EpicEdit.Rom.Compression
 
         private static int GetCommand3ByteCount(byte[] buffer, int i)
         {
-            int j = i + 2; // Forward iterator for buffer
+            var j = i + 2; // Forward iterator for buffer
 
             while (j < buffer.Length &&
                    ((buffer[j - 1] + 1) & 0xFF) == buffer[j])
@@ -207,12 +207,12 @@ namespace EpicEdit.Rom.Compression
 
         private static bool IsBackCommandComing(byte[] buffer, int position)
         {
-            for (int backRangeStart = 0; backRangeStart < position; backRangeStart++)
+            for (var backRangeStart = 0; backRangeStart < position; backRangeStart++)
             {
                 if (buffer[position] == buffer[backRangeStart])
                 {
-                    int backRangeIterator = backRangeStart;
-                    int rangeIterator = position;
+                    var backRangeIterator = backRangeStart;
+                    var rangeIterator = position;
 
                     while (rangeIterator < buffer.Length &&
                            buffer[rangeIterator] == buffer[backRangeIterator])
@@ -221,7 +221,7 @@ namespace EpicEdit.Rom.Compression
                         rangeIterator++;
                     }
 
-                    Range backRange = new Range(backRangeStart, backRangeIterator);
+                    var backRange = new Range(backRangeStart, backRangeIterator);
                     if (backRange.Length > 4 ||
                         position - backRangeStart <= 0xFF && backRange.Length > 3)
                     {

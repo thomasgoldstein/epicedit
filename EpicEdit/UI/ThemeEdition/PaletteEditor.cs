@@ -109,11 +109,11 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void InitColorPanels()
         {
-            for (int i = 0; i < _panels.Length; i++)
+            for (var i = 0; i < _panels.Length; i++)
             {
                 // Calculate the location of the panel on the control
-                int x = 12 + ((i % 4) * 32) + ((i % 4) * 8);
-                int y = colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
+                var x = 12 + ((i % 4) * 32) + ((i % 4) * 8);
+                var y = colorPicker.Top + ((i / 4) * 32) + ((i / 4) * 8);
 
                 _panels[i] = new Panel
                 {
@@ -140,7 +140,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// </summary>
         private void UpdatePalette()
         {
-            for (int i = 0; i < _panels.Length; i++)
+            for (var i = 0; i < _panels.Length; i++)
             {
                 UpdateColor(i);
             }
@@ -165,7 +165,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="paletteIndex">The index of the palette to reinitialize the message.</param>
         private void SetToolTip(int paletteIndex)
         {
-            string toolTipText = "#" + paletteIndex + Environment.NewLine + Palette[paletteIndex];
+            var toolTipText = "#" + paletteIndex + Environment.NewLine + Palette[paletteIndex];
             _toolTips[paletteIndex].RemoveAll();
             _toolTips[paletteIndex].SetToolTip(_panels[paletteIndex], toolTipText);
         }
@@ -177,7 +177,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            int index = (int)((Control)sender).Tag;
+            var index = (int)((Control)sender).Tag;
             ColorIndex = index;
         }
 
@@ -217,7 +217,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void ColorPickerColorChanged(object sender, EventArgs e)
         {
             // Draw the appropriate color back to the panel and update the tool tip
-            RomColor color = colorPicker.SelectedColor;
+            var color = colorPicker.SelectedColor;
             Palette[_colorIndex] = color;
             _panels[_colorIndex].BackColor = color;
             SetToolTip(_colorIndex);

@@ -23,8 +23,8 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is not an Enum", typeof(T).FullName));
 
-            T[] arr = (T[])Enum.GetValues(src.GetType());
-            int j = Array.IndexOf<T>(arr, src) + 1;
+            var arr = (T[])Enum.GetValues(src.GetType());
+            var j = Array.IndexOf<T>(arr, src) + 1;
             return (arr.Length == j) ? arr[0] : arr[j];
         }
     }

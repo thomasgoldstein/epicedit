@@ -138,19 +138,19 @@ namespace EpicEdit.Rom.Tracks.AI
         public TrackAIElement(byte[] areaData, ref int areaDataIndex, byte[] targetData, ref int targetDataIndex)
         {
             AreaShape = (TrackAIElementShape)areaData[areaDataIndex++];
-            int areaX = areaData[areaDataIndex++] * Precision;
-            int areaY = areaData[areaDataIndex++] * Precision;
+            var areaX = areaData[areaDataIndex++] * Precision;
+            var areaY = areaData[areaDataIndex++] * Precision;
 
             if (AreaShape == TrackAIElementShape.Rectangle)
             {
-                int areaWidth = areaData[areaDataIndex++] * Precision;
-                int areaHeight = areaData[areaDataIndex++] * Precision;
+                var areaWidth = areaData[areaDataIndex++] * Precision;
+                var areaHeight = areaData[areaDataIndex++] * Precision;
 
                 _area = new Rectangle(areaX, areaY, areaWidth, areaHeight);
             }
             else
             {
-                int areaSize = areaData[areaDataIndex++] * Precision;
+                var areaSize = areaData[areaDataIndex++] * Precision;
 
                 // In the ROM, the X and Y values of a triangle
                 // determine the location of its right angle.
@@ -176,7 +176,7 @@ namespace EpicEdit.Rom.Tracks.AI
             }
 
             _target = new Point(targetData[targetDataIndex++], targetData[targetDataIndex++]);
-            byte speedAndIntersection = targetData[targetDataIndex++];
+            var speedAndIntersection = targetData[targetDataIndex++];
             _speed = (byte)(speedAndIntersection & 0x03);
             _isIntersection = (speedAndIntersection & 0x80) == 0x80;
         }
@@ -185,8 +185,8 @@ namespace EpicEdit.Rom.Tracks.AI
         {
             const int size = 16;
             // Halve precision, so that areas are positioned following a 2-tile (16-px) step
-            int areaX = ((position.X - (size / 2)) / Precision) * Precision;
-            int areaY = ((position.Y - (size / 2)) / Precision) * Precision;
+            var areaX = ((position.X - (size / 2)) / Precision) * Precision;
+            var areaY = ((position.Y - (size / 2)) / Precision) * Precision;
 
             // Ensure the element isn't out of the track bounds
             areaX = areaX < 0 ? 0 :
@@ -197,12 +197,12 @@ namespace EpicEdit.Rom.Tracks.AI
                 (areaY + size) > TrackMap.Size ? TrackMap.Size - size :
                 areaY;
 
-            Rectangle area = new Rectangle(areaX, areaY, size, size);
+            var area = new Rectangle(areaX, areaY, size, size);
 
             _area = area;
 
-            int x = area.X + area.Width / Precision;
-            int y = area.Y + area.Height / Precision;
+            var x = area.X + area.Width / Precision;
+            var y = area.Y + area.Height / Precision;
             _target = new Point(x, y);
             _speed = 0;
         }
@@ -237,8 +237,8 @@ namespace EpicEdit.Rom.Tracks.AI
 
             // Divide precision by 2
             point = new Point((point.X / Precision) * Precision, (point.Y / Precision) * Precision);
-            int x = point.X - _area.X; // X coordinate relative to the triangle top-left corner
-            int y = point.Y - _area.Y; // Y coordinate relative to the triangle top-left corner
+            var x = point.X - _area.X; // X coordinate relative to the triangle top-left corner
+            var y = point.Y - _area.Y; // Y coordinate relative to the triangle top-left corner
 
             switch (AreaShape)
             {
@@ -423,7 +423,7 @@ namespace EpicEdit.Rom.Tracks.AI
 
         public Point[] GetTriangle()
         {
-            Point[] points = new Point[_area.Width + 3];
+            var points = new Point[_area.Width + 3];
 
             int x;
             int y;
@@ -469,8 +469,8 @@ namespace EpicEdit.Rom.Tracks.AI
                     throw new InvalidOperationException();
             }
 
-            int i = 0;
-            bool even = true;
+            var i = 0;
+            var even = true;
             while (i < points.Length - Precision)
             {
                 points[i++] = new Point(x, y);
@@ -515,8 +515,8 @@ namespace EpicEdit.Rom.Tracks.AI
                 y = TrackMap.Size - _area.Height;
             }
 
-            int targetX = x - (_area.X - _target.X);
-            int targetY = y - (_area.Y - _target.Y);
+            var targetX = x - (_area.X - _target.X);
+            var targetY = y - (_area.Y - _target.Y);
 
             if (_area.X != x || _area.Y != y)
             {
@@ -739,7 +739,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
+                        var offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -767,7 +767,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = _area.X + length - TrackMap.Size;
+                            var offBounds = _area.X + length - TrackMap.Size;
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -786,7 +786,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = length - _area.Right;
+                            var offBounds = length - _area.Right;
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -812,7 +812,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
+                        var offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -840,7 +840,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
+                            var offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -857,7 +857,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
+                            var offBounds = Math.Max(areaX + length - TrackMap.Size, length - _area.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -883,7 +883,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
+                        var offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -907,7 +907,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
+                            var offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -928,7 +928,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
+                            var offBounds = Math.Max(areaX + length - TrackMap.Size, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -951,7 +951,7 @@ namespace EpicEdit.Rom.Tracks.AI
                     }
                     else
                     {
-                        int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
+                        var offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                         if (offBounds > 0)
                         {
                             length -= offBounds;
@@ -978,7 +978,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
+                            var offBounds = Math.Max(length - _area.Right, areaY + length - TrackMap.Size);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -995,7 +995,7 @@ namespace EpicEdit.Rom.Tracks.AI
                         }
                         else
                         {
-                            int offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
+                            var offBounds = Math.Max(length - _area.Right, length - _area.Bottom);
                             if (offBounds > 0)
                             {
                                 length -= offBounds;
@@ -1047,7 +1047,7 @@ namespace EpicEdit.Rom.Tracks.AI
             }
             else
             {
-                int size = _area.Width / Precision;
+                var size = _area.Width / Precision;
 
                 switch (AreaShape)
                 {

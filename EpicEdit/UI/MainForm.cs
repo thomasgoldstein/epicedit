@@ -75,7 +75,7 @@ namespace EpicEdit.UI
         {
             if (HasPendingChanges())
             {
-                bool cancelExit = PromptToSaveRom();
+                var cancelExit = PromptToSaveRom();
                 e.Cancel = cancelExit;
             }
         }
@@ -86,9 +86,9 @@ namespace EpicEdit.UI
         /// <returns>Whether the action (ie: closing the application, or opening another ROM) must be cancelled.</returns>
         private bool PromptToSaveRom()
         {
-            bool cancelPreviousAction = false;
+            var cancelPreviousAction = false;
 
-            DialogResult dialogResult = UITools.ShowWarning(
+            var dialogResult = UITools.ShowWarning(
                 "Do you want to save the changes to \"" + Context.Game.FileName + "\"?",
                 MessageBoxButtons.YesNoCancel);
 
@@ -123,7 +123,7 @@ namespace EpicEdit.UI
         {
             if (HasPendingChanges())
             {
-                bool cancelOpen = PromptToSaveRom();
+                var cancelOpen = PromptToSaveRom();
                 if (cancelOpen)
                 {
                     return;
@@ -137,7 +137,7 @@ namespace EpicEdit.UI
         {
             // Do not directly set the Context.Game property,
             // in case the ROM is invalid (ie: Exception thrown in the Game constructor).
-            Game game = new Game(filePath);
+            var game = new Game(filePath);
 
             if (Context.Game == null) // First ROM loading
             {
@@ -164,7 +164,7 @@ namespace EpicEdit.UI
 
         private void TrackEditorFileDragged(object sender, EventArgs<string> e)
         {
-            string filePath = e.Value;
+            var filePath = e.Value;
 
             if (filePath.EndsWith(".smkc", StringComparison.OrdinalIgnoreCase) ||
                 filePath.EndsWith(".mkt", StringComparison.OrdinalIgnoreCase))
@@ -182,7 +182,7 @@ namespace EpicEdit.UI
             {
                 if (HasPendingChanges())
                 {
-                    bool cancelOpen = PromptToSaveRom();
+                    var cancelOpen = PromptToSaveRom();
                     if (cancelOpen)
                     {
                         return;
@@ -203,11 +203,11 @@ namespace EpicEdit.UI
         /// </summary>
         private void ShowSaveRomDialog()
         {
-            string fileName = Context.Game.FileName;
-            string ext = Path.GetExtension(fileName);
+            var fileName = Context.Game.FileName;
+            var ext = Path.GetExtension(fileName);
 
             // Make it so the loaded file extension is the default choice when resaving
-            string filter = string.Format(FileDialogFilters.Rom, ext);
+            var filter = string.Format(FileDialogFilters.Rom, ext);
 
             fileName = Path.GetFileNameWithoutExtension(fileName);
 

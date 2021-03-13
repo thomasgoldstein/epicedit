@@ -27,27 +27,27 @@ namespace EpicEdit.UI.Gfx
         {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
-            Palette palette = palettes[properties.PaletteIndex];
-            int subPalIndex = properties.SubPaletteIndex;
-            TileFlip flip = properties.Flip;
-            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            FastBitmap fBitmap = new FastBitmap(bitmap);
+            var palette = palettes[properties.PaletteIndex];
+            var subPalIndex = properties.SubPaletteIndex;
+            var flip = properties.Flip;
+            var bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            var fBitmap = new FastBitmap(bitmap);
 
-            for (int y = 0; y < Tile.Size; y++)
+            for (var y = 0; y < Tile.Size; y++)
             {
-                byte val1 = gfx[y * 2];
-                byte val2 = gfx[y * 2 + 1];
-                for (int x = 0; x < Tile.Size; x++)
+                var val1 = gfx[y * 2];
+                var val2 = gfx[y * 2 + 1];
+                for (var x = 0; x < Tile.Size; x++)
                 {
-                    int mask = 1 << x;
-                    int colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+                    var mask = 1 << x;
+                    var colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
 
                     if (colorIndex > 0) // If pixel is not transparent
                     {
-                        int xPos = (flip & TileFlip.X) != 0 ?
+                        var xPos = (flip & TileFlip.X) != 0 ?
                             x : (Tile.Size - 1) - x;
 
-                        int yPos = (flip & TileFlip.Y) == 0 ?
+                        var yPos = (flip & TileFlip.Y) == 0 ?
                             y : (Tile.Size - 1) - y;
 
                         Color color = palette[subPalIndex + colorIndex];
@@ -65,28 +65,28 @@ namespace EpicEdit.UI.Gfx
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
-            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            FastBitmap fBitmap = new FastBitmap(bitmap);
+            var bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            var fBitmap = new FastBitmap(bitmap);
 
-            for (int y = 0; y < Tile.Size; y++)
+            for (var y = 0; y < Tile.Size; y++)
             {
                 int val1 = gfx[y * 2];
                 int val2 = gfx[y * 2 + 1];
                 int val3 = gfx[y * 2 + 16];
                 int val4 = gfx[y * 2 + 17];
 
-                for (int x = 0; x < Tile.Size; x++)
+                for (var x = 0; x < Tile.Size; x++)
                 {
-                    int mask = 1 << x;
-                    int val1b = ((val1 & mask) >> x);
-                    int val2b = (((val2 & mask) << 1) >> x);
-                    int val3b = (((val3 & mask) << 2) >> x);
-                    int val4b = (((val4 & mask) << 3) >> x);
-                    int colorIndex = val1b + val2b + val3b + val4b;
+                    var mask = 1 << x;
+                    var val1b = ((val1 & mask) >> x);
+                    var val2b = (((val2 & mask) << 1) >> x);
+                    var val3b = (((val3 & mask) << 2) >> x);
+                    var val4b = (((val4 & mask) << 3) >> x);
+                    var colorIndex = val1b + val2b + val3b + val4b;
 
                     if (colorIndex > 0) // If pixel is not transparent
                     {
-                        Color color = palette[colorIndex].Color;
+                        var color = palette[colorIndex].Color;
                         fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
                     }
                 }
@@ -100,12 +100,12 @@ namespace EpicEdit.UI.Gfx
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
-            Bitmap bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
-            FastBitmap fBitmap = new FastBitmap(bitmap);
+            var bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
+            var fBitmap = new FastBitmap(bitmap);
 
-            for (int x = 0; x < Tile.Size / 2; x++)
+            for (var x = 0; x < Tile.Size / 2; x++)
             {
-                for (int y = 0; y < Tile.Size; y++)
+                for (var y = 0; y < Tile.Size; y++)
                 {
                     Color color1 = palette[gfx[x + y * 4] & 0x0F];
                     Color color2 = palette[(gfx[x + y * 4] & 0xF0) >> 4];

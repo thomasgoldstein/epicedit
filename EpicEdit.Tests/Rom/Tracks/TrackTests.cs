@@ -23,11 +23,11 @@ namespace EpicEdit.Tests.Rom.Tracks
     {
         private void TestMktImportExport(int trackGroupId, int trackId)
         {
-            Game game = File.GetGame(Region.US);
+            var game = File.GetGame(Region.US);
 
-            Track track1 = game.TrackGroups[trackGroupId][trackId];
-            Track track2 = game.TrackGroups[0][0];
-            string filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.mkt");
+            var track1 = game.TrackGroups[trackGroupId][trackId];
+            var track2 = game.TrackGroups[0][0];
+            var filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.mkt");
 
             track1.Export(filePath, game);
             track2.Import(filePath, game);

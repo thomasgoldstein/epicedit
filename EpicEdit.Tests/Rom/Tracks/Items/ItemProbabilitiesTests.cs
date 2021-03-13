@@ -70,9 +70,9 @@ namespace EpicEdit.Tests.Rom.Tracks.Items
                 0x02, 0x06, 0x08, 0x0A, 0x14, 0x1E, 0x20, 0x00, 0x82
             };
 
-            ItemProbabilities probabilities = new ItemProbabilities(dataBefore);
+            var probabilities = new ItemProbabilities(dataBefore);
 
-            byte[] dataAfter = probabilities.GetBytes();
+            var dataAfter = probabilities.GetBytes();
 
             Assert.AreEqual(dataBefore, dataAfter);
         }

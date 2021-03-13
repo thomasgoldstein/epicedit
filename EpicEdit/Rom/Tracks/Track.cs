@@ -104,9 +104,9 @@ namespace EpicEdit.Rom.Tracks
             get => _ai;
             private set
             {
-                byte[] data = value.GetBytes();
-                byte[] areaData = new byte[data.Length - value.ElementCount * 3 - 1];
-                byte[] targetData = new byte[data.Length - areaData.Length - 1];
+                var data = value.GetBytes();
+                var areaData = new byte[data.Length - value.ElementCount * 3 - 1];
+                var targetData = new byte[data.Length - areaData.Length - 1];
                 Buffer.BlockCopy(data, 0, areaData, 0, areaData.Length);
                 Buffer.BlockCopy(data, areaData.Length + 1, targetData, 0, targetData.Length);
                 _ai.SetBytes(areaData, targetData);
@@ -147,7 +147,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void AddColorChangedEventHandlers()
         {
-            foreach (Palette palette in _theme.Palettes)
+            foreach (var palette in _theme.Palettes)
             {
                 palette.ColorChanged += palette_ColorChanged;
                 palette.ColorsChanged += palette_ColorsChanged;
@@ -158,7 +158,7 @@ namespace EpicEdit.Rom.Tracks
 
         private void RemoveColorChangedEventHandlers()
         {
-            foreach (Palette palette in _theme.Palettes)
+            foreach (var palette in _theme.Palettes)
             {
                 palette.ColorChanged -= palette_ColorChanged;
                 palette.ColorsChanged -= palette_ColorsChanged;
@@ -244,24 +244,24 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void ImportMkt(string filePath, Game game)
         {
-            using (BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read)))
+            using (var reader = new BinaryReader(File.Open(filePath, FileMode.Open, FileAccess.Read)))
             {
-                FileInfo info = new FileInfo(filePath);
-                int fileLength = (int)info.Length;
+                var info = new FileInfo(filePath);
+                var fileLength = (int)info.Length;
 
                 if (fileLength != TrackMap.SquareSize && fileLength != TrackMap.SquareSize + 1)
                 {
                     throw new InvalidDataException($"\"{Path.GetFileName(filePath)}\" isn't a valid track file. Import aborted.");
                 }
 
-                byte[] mapData = new byte[TrackMap.SquareSize];
+                var mapData = new byte[TrackMap.SquareSize];
                 reader.Read(mapData, 0, mapData.Length);
 
                 Map = new TrackMap(mapData);
 
                 if (fileLength == TrackMap.SquareSize + 1) // If a theme is defined
                 {
-                    byte themeId = (byte)(reader.ReadByte() >> 1);
+                    var themeId = (byte)(reader.ReadByte() >> 1);
                     Theme = game.Themes[themeId];
                 }
             }
@@ -272,7 +272,7 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void ImportSmkc(string filePath, Game game)
         {
-            MakeTrack track = new MakeTrack(this, game);
+            var track = new MakeTrack(this, game);
             track.Load(filePath);
             LoadDataFrom(track);
         }
@@ -327,11 +327,11 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void ExportMkt(string filePath, Game game)
         {
-            using (BinaryWriter bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
+            using (var bw = new BinaryWriter(new FileStream(filePath, FileMode.Create, FileAccess.Write)))
             {
                 bw.Write(Map.GetBytes());
 
-                byte themeId = game.Themes.GetThemeId(Theme);
+                var themeId = game.Themes.GetThemeId(Theme);
                 bw.Write(themeId);
             }
         }
@@ -341,7 +341,7 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         private void ExportSmkc(string filePath, Game game)
         {
-            MakeTrack track = new MakeTrack(this, game);
+            var track = new MakeTrack(this, game);
             LoadDataTo(track);
             track.Save(filePath);
         }

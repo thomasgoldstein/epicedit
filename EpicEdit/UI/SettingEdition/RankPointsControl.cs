@@ -59,7 +59,7 @@ namespace EpicEdit.UI.SettingEdition
 
         private static void InitRankPoint(NumericUpDown control)
         {
-            int rank = (int)control.Tag;
+            var rank = (int)control.Tag;
             control.Value = Math.Min(RankPoints[rank], control.Maximum);
         }
 
@@ -70,9 +70,9 @@ namespace EpicEdit.UI.SettingEdition
                 return;
             }
 
-            NumericUpDown control = (NumericUpDown)sender;
-            int rank = (int)control.Tag;
-            int points = (int)control.Value;
+            var control = (NumericUpDown)sender;
+            var rank = (int)control.Tag;
+            var points = (int)control.Value;
             RankPoints[rank] = points;
         }
     }

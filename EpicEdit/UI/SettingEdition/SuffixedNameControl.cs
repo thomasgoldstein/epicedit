@@ -72,7 +72,7 @@ namespace EpicEdit.UI.SettingEdition
 
             _fireEvents = false;
 
-            int sel = suffixTextBox.SelectionStart;
+            var sel = suffixTextBox.SelectionStart;
             _textItem.Suffix.Value = suffixTextBox.Text;
             suffixTextBox.Text = _textItem.Suffix.Value; // Retrieve validated text
             suffixTextBox.SelectionStart = sel; // Restore text input position
