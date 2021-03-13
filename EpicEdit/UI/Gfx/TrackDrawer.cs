@@ -298,7 +298,7 @@ namespace EpicEdit.UI.Gfx
 
         private void track_ColorGraphicsChanged(object sender, EventArgs<int> e)
         {
-            Palette palette = sender as Palette;
+            Palette palette = (Palette)sender;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
                 bool[] tilesToBeUpdated = GetTilesToBeUpdated(palette, e.Value);
@@ -321,7 +321,7 @@ namespace EpicEdit.UI.Gfx
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            Palette palette = sender as Palette;
+            Palette palette = (Palette)sender;
             if (palette.Index < Palettes.SpritePaletteStart)
             {
                 UpdateCache(_trackCache, _track.Map, palette);
@@ -483,7 +483,7 @@ namespace EpicEdit.UI.Gfx
         private void UpdateTileClipboardCache(byte tile)
         {
             _tileClipboardCache.Dispose();
-            _tileClipboardCache = _track.RoadTileset[tile].Bitmap.Clone() as Bitmap;
+            _tileClipboardCache = (Bitmap)_track.RoadTileset[tile].Bitmap.Clone();
         }
 
         public void UpdateTileClipboardCache(Rectangle rectangle)
@@ -636,7 +636,7 @@ namespace EpicEdit.UI.Gfx
             }
             else
             {
-                BattleTrack bTrack = _track as BattleTrack;
+                BattleTrack bTrack = (BattleTrack)_track;
                 region = GetBattleStartClipRegion(bTrack.StartPositionP1, bTrack.StartPositionP2);
             }
 
@@ -1031,7 +1031,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawLapLine(Graphics g)
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
 
             Point location = new Point(gpTrack.LapLine.X, gpTrack.LapLine.Y);
 
@@ -1044,7 +1044,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawGPStartPositions(Graphics g)
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
 
             int x = gpTrack.StartPosition.X;
             int y = gpTrack.StartPosition.Y;
@@ -1062,7 +1062,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawBattleStartPositions(Graphics g)
         {
-            BattleTrack bTrack = _track as BattleTrack;
+            BattleTrack bTrack = (BattleTrack)_track;
 
             DrawDownArrow(g, bTrack.StartPositionP2.X, bTrack.StartPositionP2.Y);
             DrawUpArrow(g, bTrack.StartPositionP1.X, bTrack.StartPositionP1.Y);
@@ -1120,7 +1120,7 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawObjectData(Graphics g, TrackObject hoveredObject, bool frontAreasView)
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
 
             if (gpTrack.Objects.Routine != TrackObjectType.Pillar)
             {
@@ -1152,7 +1152,7 @@ namespace EpicEdit.UI.Gfx
 
         private void InitObjectAreasBitmap(bool frontAreasView)
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
             byte[][] objectAreas = frontAreasView ?
                 gpTrack.Objects.Areas.FrontView.GetGrid() :
                 gpTrack.Objects.Areas.RearView.GetGrid();
@@ -1209,14 +1209,14 @@ namespace EpicEdit.UI.Gfx
 
         private void DrawObjects(Graphics g, Bitmap objectImage, Bitmap matchRaceObjectImage, Bitmap stillMatchRaceObjectImage, TrackObject hoveredObject)
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
 
             int hoveredObjectIndex = 0;
 
             // 2P Match Race objects (Chain Chomps or Bananas)
             for (int i = TrackObjects.ObjectCount - 1; i >= TrackObjects.RegularObjectCount; i--)
             {
-                TrackObjectMatchRace trackObject = gpTrack.Objects[i] as TrackObjectMatchRace;
+                TrackObjectMatchRace trackObject = (TrackObjectMatchRace)gpTrack.Objects[i];
                 int x = trackObject.X * Tile.Size;
                 int y = trackObject.Y * Tile.Size - (Tile.Size / 2);
 

@@ -191,7 +191,7 @@ namespace EpicEdit.UI.TrackEdition
                 return;
             }
 
-            NumericUpDown control = sender as NumericUpDown;
+            NumericUpDown control = (NumericUpDown)sender;
 
             int index;
             for (index = 0; index < _palettePickers.Length; index++)

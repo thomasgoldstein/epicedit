@@ -70,7 +70,7 @@ namespace EpicEdit.UI.SettingEdition
                 return;
             }
 
-            NumericUpDown control = sender as NumericUpDown;
+            NumericUpDown control = (NumericUpDown)sender;
             int rank = (int)control.Tag;
             int points = (int)control.Value;
             RankPoints[rank] = points;

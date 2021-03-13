@@ -250,7 +250,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void DrawBasicColorsBitmap(RomColor color, int x)
         {
             _basicColorsBitmap.Dispose();
-            _basicColorsBitmap = _basicColorsCache.Clone() as Bitmap;
+            _basicColorsBitmap = (Bitmap)_basicColorsCache.Clone();
 
             using (Graphics g = Graphics.FromImage(_basicColorsBitmap))
             using (Pen pen = new Pen(color.Opposite()))
@@ -338,7 +338,7 @@ namespace EpicEdit.UI.ThemeEdition
             RomColor selectedColor = _shadesCache.GetPixel(x, y);
 
             _shadesBitmap.Dispose();
-            _shadesBitmap = _shadesCache.Clone() as Bitmap;
+            _shadesBitmap = (Bitmap)_shadesCache.Clone();
 
             using (Graphics g = Graphics.FromImage(_shadesBitmap))
             using (Pen pen = new Pen(GetPenColor(x, y)))
@@ -358,7 +358,7 @@ namespace EpicEdit.UI.ThemeEdition
         private void DrawShadesBitmap(RomColor color)
         {
             _shadesBitmap.Dispose();
-            _shadesBitmap = _shadesCache.Clone() as Bitmap;
+            _shadesBitmap = (Bitmap)_shadesCache.Clone();
 
             FastBitmap fShadesBitmap = new FastBitmap(_shadesBitmap);
 
@@ -662,7 +662,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void NumericUpDownEnter(object sender, EventArgs e)
         {
-            NumericUpDown control = sender as NumericUpDown;
+            NumericUpDown control = (NumericUpDown)sender;
             control.Select(0, control.Text.Length);
         }
 

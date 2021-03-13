@@ -1429,7 +1429,7 @@ namespace EpicEdit.UI.TrackEdition
                 }
                 else
                 {
-                    BattleTrack bTrack = _track as BattleTrack;
+                    BattleTrack bTrack = (BattleTrack)_track;
 
                     if (_startAction == StartAction.DragStartPosition)
                     {
@@ -1463,7 +1463,7 @@ namespace EpicEdit.UI.TrackEdition
                             break;
                         }
 
-                        TrackObjectMatchRace hoveredObjectMatchRace = _hoveredObject as TrackObjectMatchRace;
+                        TrackObjectMatchRace hoveredObjectMatchRace = (TrackObjectMatchRace)_hoveredObject;
 
                         if (hoveredObjectMatchRace.Direction == TrackObjectDirection.Horizontal)
                         {
@@ -2396,7 +2396,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitGPStartAction()
         {
-            GPTrack gpTrack = _track as GPTrack;
+            GPTrack gpTrack = (GPTrack)_track;
             Point absPixelPos = AbsolutePixelPosition;
 
             if (_buttonsPressed == MouseButtons.Left)
@@ -2512,7 +2512,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private bool InitBattleStartAction()
         {
-            BattleTrack bTrack = _track as BattleTrack;
+            BattleTrack bTrack = (BattleTrack)_track;
 
             if (_buttonsPressed == MouseButtons.Left)
             {

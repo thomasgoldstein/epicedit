@@ -86,7 +86,7 @@ namespace EpicEdit.UI.SettingEdition
 
             _fireEvents = false;
 
-            TextBox textBox = sender as TextBox;
+            TextBox textBox = (TextBox)sender;
             int id = (int)textBox.Tag;
             int sel = textBox.SelectionStart;
             _names[id].Value = textBox.Text;

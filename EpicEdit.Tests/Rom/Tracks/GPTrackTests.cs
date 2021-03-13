@@ -25,8 +25,8 @@ namespace EpicEdit.Tests.Rom.Tracks
         {
             Game game = File.GetGame(Region.US);
 
-            GPTrack track1 = game.TrackGroups[trackGroupId][trackId] as GPTrack;
-            GPTrack track2 = game.TrackGroups[0][0] as GPTrack;
+            GPTrack track1 = (GPTrack)game.TrackGroups[trackGroupId][trackId];
+            GPTrack track2 = (GPTrack)game.TrackGroups[0][0];
             string filePath = File.GetOutputPath($"track_{trackGroupId}_{trackId}.smkc");
 
             track1.Export(filePath, game);

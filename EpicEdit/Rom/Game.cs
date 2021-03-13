@@ -1191,7 +1191,7 @@ namespace EpicEdit.Rom
                 int trackIndex = trackOrder[iterator];
                 int bTrackIndex = trackIndex - GPTrack.Count;
 
-                SaveBattleStartPositions(trackGroup[bTrackIndex] as BattleTrack, saveBuffer);
+                SaveBattleStartPositions((BattleTrack)trackGroup[bTrackIndex], saveBuffer);
             }
 
             RelocateBattleStartPositions(saveBuffer);
@@ -1367,7 +1367,7 @@ namespace EpicEdit.Rom
                 for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    GPTrack gpTrack = trackGroup[j] as GPTrack;
+                    GPTrack gpTrack = (GPTrack)trackGroup[j];
 
                     tilesetData[trackIndex] = (byte)gpTrack.Objects.Tileset;
                     interactData[trackIndex] = (byte)gpTrack.Objects.Interaction;
@@ -1514,7 +1514,7 @@ namespace EpicEdit.Rom
                 for (int j = 0; j < trackGroup.Count; j++)
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
-                    GPTrack gpTrack = trackGroup[j] as GPTrack;
+                    GPTrack gpTrack = (GPTrack)trackGroup[j];
 
                     // Update object areas
                     byte[] data = gpTrack.Objects.Areas.GetBytes();
@@ -1603,7 +1603,7 @@ namespace EpicEdit.Rom
                 {
                     int trackIndex = trackOrder[i * GPTrack.CountPerGroup + j];
                     int offset = trackIndex * 4;
-                    GPTrack gpTrack = trackGroup[j] as GPTrack;
+                    GPTrack gpTrack = (GPTrack)trackGroup[j];
 
                     objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[0] << 1);
                     objectPalData[offset++] = (byte)(gpTrack.Objects.PaletteIndexes[1] << 1);

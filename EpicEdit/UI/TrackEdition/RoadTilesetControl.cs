@@ -142,7 +142,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            if ((sender as Palette).Index < Palettes.SpritePaletteStart)
+            if (((Palette)sender).Index < Palettes.SpritePaletteStart)
             {
                 UpdateTileset();
             }

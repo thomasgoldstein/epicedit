@@ -442,7 +442,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_ColorsGraphicsChanged(object sender, EventArgs e)
         {
-            if ((sender as Palette).Index < Palettes.SpritePaletteStart)
+            if (((Palette)sender).Index < Palettes.SpritePaletteStart)
             {
                 UpdateTileset();
             }
@@ -452,7 +452,7 @@ namespace EpicEdit.UI.TrackEdition
         {
             protected override Tile GetTileAt(int x, int y)
             {
-                OverlayControl parent = Parent as OverlayControl;
+                OverlayControl parent = (OverlayControl)Parent;
                 OverlayTilePattern pattern = parent.GetPatternAt((int)(x * Zoom), (int)(y * Zoom));
 
                 if (pattern == null)

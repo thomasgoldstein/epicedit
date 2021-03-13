@@ -303,7 +303,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void BackgroundLayerPanelMouseDown(object sender, MouseEventArgs e)
         {
-            bool front = (sender as BackgroundPanel).Front;
+            bool front = ((BackgroundPanel)sender).Front;
             ToggleTilesetFrontMode(front);
         }
 
@@ -352,7 +352,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void BackgroundTilePanelMouseDown(object sender, MouseEventArgs e)
         {
-            bool front = (sender as BackgroundTilePanel).Front;
+            bool front = ((BackgroundTilePanel)sender).Front;
             ToggleTilesetFrontMode(front);
         }
 

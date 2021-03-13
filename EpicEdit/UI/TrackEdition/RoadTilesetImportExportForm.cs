@@ -35,7 +35,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void RadioButtonCheckedChanged(object sender, System.EventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
+            RadioButton rb = (RadioButton)sender;
             if (rb.Checked)
             {
                 _selectedRadioButton = rb;

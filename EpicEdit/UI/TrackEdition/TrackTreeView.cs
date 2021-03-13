@@ -127,7 +127,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void track_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Track track = sender as Track;
+            Track track = (Track)sender;
             TreeNode treeNode = _trackDictionary[track];
             string trackText = GetTrackText(track);
 

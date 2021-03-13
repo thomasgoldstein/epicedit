@@ -177,7 +177,7 @@ namespace EpicEdit.UI.ThemeEdition
         /// <param name="e"></param>
         private void PaletteEditorClick(object sender, EventArgs e)
         {
-            int index = (int)(sender as Control).Tag;
+            int index = (int)((Control)sender).Tag;
             ColorIndex = index;
         }
 

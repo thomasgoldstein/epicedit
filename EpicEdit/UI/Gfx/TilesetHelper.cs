@@ -32,7 +32,7 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, Image image, Size imageSize, int zoom, byte selectedTile)
         {
-            using (Image imageCopy = image.Clone() as Image)
+            using (Image imageCopy = (Image)image.Clone())
             using (Graphics backBuffer = Graphics.FromImage(imageCopy))
             {
                 int xTileCount = imageSize.Width / Tile.Size;

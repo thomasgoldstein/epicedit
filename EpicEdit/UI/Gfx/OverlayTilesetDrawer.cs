@@ -123,7 +123,7 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g)
         {
-            using (Bitmap image = _tilesetCache.Clone() as Bitmap)
+            using (Bitmap image = (Bitmap)_tilesetCache.Clone())
             using (Graphics backBuffer = Graphics.FromImage(image))
             {
                 OutlinePattern(backBuffer, HoveredPattern);

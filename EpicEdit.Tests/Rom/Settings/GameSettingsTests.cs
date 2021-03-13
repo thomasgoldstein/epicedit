@@ -361,7 +361,7 @@ namespace EpicEdit.Tests.Rom.Settings
             // (can happen if the ROM has been edited manually).
             
             byte[] romBuffer1 = File.ReadRom(Region.US);
-            byte[] romBuffer2 = romBuffer1.Clone() as byte[];
+            byte[] romBuffer2 = (byte[])romBuffer1.Clone();
 
             // Switch the indexes for the first 2 names
             romBuffer2[0x1CA32] = romBuffer1[0x1CA34];
