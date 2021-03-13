@@ -33,11 +33,6 @@ namespace EpicEdit.UI.TrackEdition
         private Dictionary<Track, TreeNode> trackDictionary;
 
         /// <summary>
-        /// The selected track.
-        /// </summary>
-        private Track selectedTrack;
-
-        /// <summary>
         /// The track being dragged in the track list (for reordering).
         /// </summary>
         private TreeNode draggedTrack;
@@ -173,12 +168,15 @@ namespace EpicEdit.UI.TrackEdition
         {
             int trackGroupId = this.treeView.SelectedNode.Parent.Index;
             int trackId = this.treeView.SelectedNode.Index;
-            this.selectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
+            this.SelectedTrack = Context.Game.TrackGroups[trackGroupId][trackId];
         }
 
-        public Track SelectedTrack => this.selectedTrack;
+        /// <summary>
+        /// The selected track.
+        /// </summary>
+        public Track SelectedTrack { get; private set; }
 
-        public string SelectedTrackFileName => this.SelectedTrackId + "- " + this.selectedTrack.Name;
+        public string SelectedTrackFileName => this.SelectedTrackId + "- " + this.SelectedTrack.Name;
 
         public int SelectedTrackId => this.treeView.SelectedNode.Parent.Index * GPTrack.CountPerGroup + this.treeView.SelectedNode.Index + 1;
 

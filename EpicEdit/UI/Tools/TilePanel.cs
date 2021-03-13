@@ -32,14 +32,8 @@ namespace EpicEdit.UI.Tools
         [Browsable(true), Category("Behavior")]
         public event EventHandler<EventArgs<Palette, int>> ColorSelected;
 
-        private float zoom = 1;
-
         [Browsable(true), Category("Appearance"), DefaultValue(typeof(float), "1")]
-        public float Zoom
-        {
-            get => this.zoom;
-            set => this.zoom = value;
-        }
+        public float Zoom { get; set; } = 1;
 
         protected virtual void GetColorAt(int x, int y, out Palette palette, out int colorIndex)
         {

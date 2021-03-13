@@ -23,11 +23,10 @@ namespace EpicEdit.Rom.Utility
     {
         public EventArgs(T value)
         {
-            this.value = value;
+            this.Value = value;
         }
 
-        private readonly T value;
-        public T Value => this.value;
+        public T Value { get; }
     }
 
     /// <summary>
@@ -37,14 +36,12 @@ namespace EpicEdit.Rom.Utility
     {
         public EventArgs(T value1, U value2)
         {
-            this.value1 = value1;
-            this.value2 = value2;
+            this.Value1 = value1;
+            this.Value2 = value2;
         }
 
-        private readonly T value1;
-        public T Value1 => this.value1;
+        public T Value1 { get; }
 
-        private readonly U value2;
-        public U Value2 => this.value2;
+        public U Value2 { get; }
     }
 }

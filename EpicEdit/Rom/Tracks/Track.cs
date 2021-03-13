@@ -61,8 +61,7 @@ namespace EpicEdit.Rom.Tracks
         /// </summary>
         public event EventHandler<EventArgs> ColorsGraphicsChanged;
 
-        private readonly SuffixedTextItem suffixedNameItem;
-        public SuffixedTextItem SuffixedNameItem => this.suffixedNameItem;
+        public SuffixedTextItem SuffixedNameItem { get; }
 
         public string Name => this.SuffixedNameItem.Value;
 
@@ -127,7 +126,7 @@ namespace EpicEdit.Rom.Tracks
             this.theme = theme;
             this.AddColorChangedEventHandlers();
 
-            this.suffixedNameItem = nameItem;
+            this.SuffixedNameItem = nameItem;
             this.SuffixedNameItem.PropertyChanged += this.SuffixedNameItem_PropertyChanged;
 
             this.map = new TrackMap(map);

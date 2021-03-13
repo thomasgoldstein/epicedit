@@ -48,12 +48,7 @@ namespace EpicEdit.Rom
             }
         }
 
-        private TileFlip flip;
-        public TileFlip Flip
-        {
-            get => this.flip;
-            set => this.flip = value;
-        }
+        public TileFlip Flip { get; set; }
 
         public Tile2bppProperties(byte data)
         {
@@ -67,7 +62,7 @@ namespace EpicEdit.Rom
 
             this.paletteIndex = (paletteData & 0x30) >> 4;
             this.subPaletteIndex = (paletteData & 0xC);
-            this.flip = (TileFlip)(data & FlipMask);
+            this.Flip = (TileFlip)(data & FlipMask);
         }
 
         public void FlipX()
@@ -82,13 +77,13 @@ namespace EpicEdit.Rom
 
         private void FlipXY(TileFlip value)
         {
-            if ((this.flip & value) != 0)
+            if ((this.Flip & value) != 0)
             {
-                this.flip ^= value;
+                this.Flip ^= value;
             }
             else
             {
-                this.flip |= value;
+                this.Flip |= value;
             }
         }
 
@@ -114,7 +109,7 @@ namespace EpicEdit.Rom
 
         public byte GetByte()
         {
-            return (byte)((byte)this.flip | (this.paletteIndex << 4) | this.subPaletteIndex);
+            return (byte)((byte)this.Flip | (this.paletteIndex << 4) | this.subPaletteIndex);
         }
     }
 }

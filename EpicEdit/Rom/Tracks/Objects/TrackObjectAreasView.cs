@@ -33,14 +33,13 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public event EventHandler<EventArgs<int>> DataChanged;
 
-        private readonly TrackAI ai;
-        public TrackAI AI => this.ai;
+        public TrackAI AI { get; }
 
         private readonly byte[] areas;
 
         public TrackObjectAreasView(byte[] data, TrackAI ai)
         {
-            this.ai = ai;
+            this.AI = ai;
             this.areas = new byte[4];
             this.SetBytes(data);
         }
@@ -91,7 +90,7 @@ namespace EpicEdit.Rom.Tracks.Objects
         {
             byte[][] areas;
 
-            if (this.ai.ElementCount == 0)
+            if (this.AI.ElementCount == 0)
             {
                 areas = new byte[GridSize][];
 
@@ -134,9 +133,9 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         private void FillGridFromAI(sbyte[][] areas)
         {
-            foreach (TrackAIElement aiElem in this.ai)
+            foreach (TrackAIElement aiElem in this.AI)
             {
-                int aiElemIndex = this.ai.GetElementIndex(aiElem);
+                int aiElemIndex = this.AI.GetElementIndex(aiElem);
                 sbyte areaIndex = (sbyte)this.GetAreaIndex(aiElemIndex);
                 int left = Math.Min(aiElem.Area.X / TrackAIElement.Precision, GridSize);
                 int top = Math.Min(aiElem.Area.Y / TrackAIElement.Precision, GridSize);

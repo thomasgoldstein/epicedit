@@ -30,9 +30,7 @@ namespace EpicEdit.UI.Gfx
         private RoadTileset tileset;
         private readonly Size imageSize;
 
-        private Bitmap tilesetCache;
-
-        public Bitmap Image => this.tilesetCache;
+        public Bitmap Image { get; private set; }
 
         public RoadTilesetDrawer(Size size)
         {
@@ -40,7 +38,7 @@ namespace EpicEdit.UI.Gfx
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            this.tilesetCache = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            this.Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public RoadTileset Tileset
@@ -58,10 +56,10 @@ namespace EpicEdit.UI.Gfx
             int tileCountX = this.imageSize.Width / Tile.Size;
             int tileCountY = this.imageSize.Height / Tile.Size;
 
-            this.tilesetCache.Dispose();
-            this.tilesetCache = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
+            this.Image.Dispose();
+            this.Image = new Bitmap(this.imageSize.Width, this.imageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (Graphics g = Graphics.FromImage(this.tilesetCache))
+            using (Graphics g = Graphics.FromImage(this.Image))
             {
                 for (int x = 0; x < tileCountX; x++)
                 {
@@ -76,12 +74,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            TilesetHelper.Instance.DrawTileset(g, this.tilesetCache, this.imageSize, Zoom, selectedTile);
+            TilesetHelper.Instance.DrawTileset(g, this.Image, this.imageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
-            this.tilesetCache.Dispose();
+            this.Image.Dispose();
 
             GC.SuppressFinalize(this);
         }

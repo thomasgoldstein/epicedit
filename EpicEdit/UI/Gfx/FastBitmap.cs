@@ -28,14 +28,13 @@ namespace EpicEdit.UI.Gfx
             public byte alpha;
         }
 
-        private readonly Bitmap subject;
         private int subjectWidth;
         private BitmapData bitmapData;
         private Byte* pBase;
 
         public FastBitmap(Bitmap subjectBitmap)
         {
-            this.subject = subjectBitmap;
+            this.Bitmap = subjectBitmap;
             this.LockBitmap();
         }
 
@@ -46,15 +45,15 @@ namespace EpicEdit.UI.Gfx
 
         public static implicit operator Bitmap(FastBitmap fBitmap)
         {
-            return fBitmap.subject;
+            return fBitmap.Bitmap;
         }
 
         public Bitmap ToBitmap()
         {
-            return this.subject;
+            return this.Bitmap;
         }
 
-        public Bitmap Bitmap => this.subject;
+        public Bitmap Bitmap { get; }
 
         public void SetPixel(int x, int y, Color color)
         {
@@ -78,7 +77,7 @@ namespace EpicEdit.UI.Gfx
 
         private void LockBitmap()
         {
-            Rectangle bounds = new Rectangle(Point.Empty, this.subject.Size);
+            Rectangle bounds = new Rectangle(Point.Empty, this.Bitmap.Size);
 
             this.subjectWidth = bounds.Width * sizeof(PixelData);
             if (this.subjectWidth % 4 != 0)
@@ -86,13 +85,13 @@ namespace EpicEdit.UI.Gfx
                 this.subjectWidth = 4 * (this.subjectWidth / 4 + 1);
             }
 
-            this.bitmapData = this.subject.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format32bppPArgb);
+            this.bitmapData = this.Bitmap.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format32bppPArgb);
             this.pBase = (Byte*)this.bitmapData.Scan0.ToPointer();
         }
 
         private void UnlockBitmap()
         {
-            this.subject.UnlockBits(this.bitmapData);
+            this.Bitmap.UnlockBits(this.bitmapData);
             this.bitmapData = null;
             this.pBase = null;
         }

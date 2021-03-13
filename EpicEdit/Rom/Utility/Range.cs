@@ -19,48 +19,37 @@ namespace EpicEdit.Rom.Utility
     /// </summary>
     internal struct Range
     {
-        public static readonly Range Empty;
-
-        private int start;
-        private int end;
+        public static readonly Range Empty = default;
 
         public Range(int start, int end)
         {
-            this.start = start;
-            this.end = end;
+            this.Start = start;
+            this.End = end;
         }
 
         /// <summary>
         /// Gets or sets the range start value.
         /// </summary>
-        public int Start
-        {
-            get => this.start;
-            set => this.start = value;
-        }
+        public int Start { get; set; }
 
         /// <summary>
         /// Gets or sets the range end value.
         /// </summary>
-        public int End
-        {
-            get => this.end;
-            set => this.end = value;
-        }
+        public int End { get; set; }
 
         /// <summary>
         /// Gets or sets the range length.
         /// </summary>
         public int Length
         {
-            get => this.end - this.start;
-            set => this.end = this.start + value;
+            get => this.End - this.Start;
+            set => this.End = this.Start + value;
         }
 
         public static bool operator ==(Range left, Range right)
         {
-            return left.start == right.start &&
-                left.end == right.end;
+            return left.Start == right.Start &&
+                left.End == right.End;
         }
 
         public static bool operator !=(Range left, Range right)
@@ -80,7 +69,7 @@ namespace EpicEdit.Rom.Utility
 
         public bool Includes(int value)
         {
-            return this.start <= value && value <= this.end;
+            return this.Start <= value && value <= this.End;
         }
     }
 }
