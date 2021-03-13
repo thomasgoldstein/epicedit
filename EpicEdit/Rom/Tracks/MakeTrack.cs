@@ -12,7 +12,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
-using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Tracks.AI;
 using EpicEdit.Rom.Tracks.Objects;
 using EpicEdit.Rom.Tracks.Overlay;
@@ -25,7 +24,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace EpicEdit.Rom
+namespace EpicEdit.Rom.Tracks
 {
     /// <summary>
     /// Represents the data found in a MAKE exported track file.
