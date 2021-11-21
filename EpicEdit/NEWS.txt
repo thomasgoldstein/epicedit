@@ -10,7 +10,7 @@ v2.8.9 (November 21st 2021)
   the selected AI element (by nub1604)
 - Added shortcut B for Pen drawing in Tileset mode (by nub1604)
 - Added shortcut G for Bucket drawing in Tileset mode (by nub1604)
-- Added shortcut 1-8 for switching the theme of
+- Added shortcut Ctrl+1-8 for switching the palette of
   the selected tile in Tileset mode (by nub1604)
 - Added hex value support in the color palette editor (by nub1604)
 
