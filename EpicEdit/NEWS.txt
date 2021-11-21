@@ -2,7 +2,8 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
-v2.8.9
+v2.8.9 (November 21st 2021)
+- Increase the maximum road tile palette value from 8 to 16
 - Added shortcut Ctrl+D for duplicating
   the selected AI element (by nub1604)
 - Added shortcut Ctrl+M for changing the shape of
