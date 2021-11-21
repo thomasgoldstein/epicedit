@@ -83,7 +83,7 @@ namespace EpicEdit.UI.TrackEdition
             // 
             this.tilePaletteNumericUpDown.Location = new System.Drawing.Point(81, 46);
             this.tilePaletteNumericUpDown.Maximum = new decimal(new int[] {
-            7,
+            15,
             0,
             0,
             0});
