@@ -18,7 +18,6 @@ namespace EpicEdit.Rom.Tracks.AI
 {
     public static class Extensions
     {
-
         public static T Next<T>(this T src) where T : struct
         {
             if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Argument {0} is not an Enum", typeof(T).FullName));
@@ -28,5 +27,4 @@ namespace EpicEdit.Rom.Tracks.AI
             return (arr.Length == j) ? arr[0] : arr[j];
         }
     }
-
 }
