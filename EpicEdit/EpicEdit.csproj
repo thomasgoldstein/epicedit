@@ -359,6 +359,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="0.86.0" />
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
   </ItemGroup>
 </Project>
