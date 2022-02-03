@@ -13,9 +13,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using EpicEdit.Rom;
+using NUnit.Framework;
 using System;
 using System.IO;
-using System.Reflection;
 
 namespace EpicEdit.Tests
 {
@@ -24,42 +24,6 @@ namespace EpicEdit.Tests
     /// </summary>
     internal static class File
     {
-        private static string InputPath
-        {
-            get
-            {
-                var location = Assembly.GetExecutingAssembly().Location;
-                return Directory.GetParent(location).Parent.Parent.FullName +
-                    Path.DirectorySeparatorChar +  "files" + Path.DirectorySeparatorChar;
-            }
-        }
-
-        private static string OutputPath
-        {
-            get
-            {
-                var location = Assembly.GetExecutingAssembly().Location;
-                return Directory.GetParent(location).FullName +
-                    Path.DirectorySeparatorChar + "files" + Path.DirectorySeparatorChar;
-            }
-        }
-
-        private static string GetRomFileName(Region region)
-        {
-            switch (region)
-            {
-                case Region.Jap:
-                    return "Super Mario Kart (Japan).sfc";
-
-                default:
-                case Region.US:
-                    return "Super Mario Kart (USA).sfc";
-
-                case Region.Euro:
-                    return "Super Mario Kart (Europe).sfc";
-            }
-        }
-
         public static Game GetGame(Region region)
         {
             return GetGame(GetRomFileName(region));
@@ -80,20 +44,17 @@ namespace EpicEdit.Tests
             return System.IO.File.ReadAllBytes(GetInputPath(fileName));
         }
 
-        private static string GetInputPath(string fileName)
-        {
-            return InputPath + fileName;
-        }
-
         public static string GetOutputPath(string fileName)
         {
-            var outputPath = OutputPath;
+            var testDirectory = TestContext.CurrentContext.TestDirectory;
+            var outputPath = Path.Combine(testDirectory, "output_files");
+
             if (!Directory.Exists(outputPath))
             {
                 Directory.CreateDirectory(outputPath);
             }
 
-            return outputPath + fileName;
+            return Path.Combine(outputPath, fileName);
         }
 
         public static byte[] ReadBlock(byte[] buffer, int offset, int length)
@@ -101,6 +62,28 @@ namespace EpicEdit.Tests
             var bytes = new byte[length];
             Buffer.BlockCopy(buffer, offset, bytes, 0, length);
             return bytes;
+        }
+
+        private static string GetInputPath(string fileName)
+        {
+            var testDirectory = TestContext.CurrentContext.TestDirectory;
+            return Path.Combine(testDirectory, "input_files", fileName);
+        }
+
+        private static string GetRomFileName(Region region)
+        {
+            switch (region)
+            {
+                case Region.Jap:
+                    return "Super Mario Kart (Japan).sfc";
+
+                default:
+                case Region.US:
+                    return "Super Mario Kart (USA).sfc";
+
+                case Region.Euro:
+                    return "Super Mario Kart (Europe).sfc";
+            }
         }
     }
 }
