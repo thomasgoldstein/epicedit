@@ -366,7 +366,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ExportGraphicsButtonClick(object sender, EventArgs e)
         {
-            tilesetPanel.ShowExportImageImage();
+            tilesetPanel.ShowExportImage();
         }
 
         private void ImportLayoutButtonClick(object sender, EventArgs e)
