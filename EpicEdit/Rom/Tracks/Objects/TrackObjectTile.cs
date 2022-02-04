@@ -29,7 +29,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = GraphicsConverter.GetBitmapFrom4bppPlanarComposite(Graphics, Palette);
+            InternalBitmap = GraphicsConverter.CreateBitmapFrom4bppPlanarComposite(Graphics, Palette);
         }
 
         protected override void GenerateGraphics()

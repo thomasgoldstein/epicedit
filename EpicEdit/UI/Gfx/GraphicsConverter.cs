@@ -23,7 +23,7 @@ namespace EpicEdit.UI.Gfx
     /// </summary>
     internal static class GraphicsConverter
     {
-        public static Bitmap GetBitmapFrom2bppPlanar(byte[] gfx, Palettes palettes, Tile2bppProperties properties)
+        public static Bitmap CreateBitmapFrom2bppPlanar(byte[] gfx, Palettes palettes, Tile2bppProperties properties)
         {
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
@@ -64,7 +64,7 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public static Bitmap GetBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
+        public static Bitmap CreateBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
@@ -102,7 +102,7 @@ namespace EpicEdit.UI.Gfx
             return bitmap;
         }
 
-        public static Bitmap GetBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
+        public static Bitmap CreateBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
         {
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 

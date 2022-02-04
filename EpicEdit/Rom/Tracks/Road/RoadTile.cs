@@ -60,7 +60,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = GraphicsConverter.GetBitmapFrom4bppLinearReversed(Graphics, TilePalette);
+            InternalBitmap = GraphicsConverter.CreateBitmapFrom4bppLinearReversed(Graphics, TilePalette);
         }
 
         protected override void GenerateGraphics()

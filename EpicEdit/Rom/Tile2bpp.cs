@@ -118,7 +118,7 @@ namespace EpicEdit.Rom
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = GraphicsConverter.GetBitmapFrom2bppPlanar(Graphics, Palettes, Properties);
+            InternalBitmap = GraphicsConverter.CreateBitmapFrom2bppPlanar(Graphics, Palettes, Properties);
         }
 
         protected override void GenerateGraphics()
