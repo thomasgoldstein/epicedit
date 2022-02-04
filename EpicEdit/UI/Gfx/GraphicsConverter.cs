@@ -42,18 +42,21 @@ namespace EpicEdit.UI.Gfx
                     var mask = 1 << x;
                     var colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
 
-                    if (colorIndex > 0) // If pixel is not transparent
+                    if (colorIndex == 0)
                     {
-                        var xPos = (flip & TileFlip.X) != 0 ?
-                            x : (Tile.Size - 1) - x;
-
-                        var yPos = (flip & TileFlip.Y) == 0 ?
-                            y : (Tile.Size - 1) - y;
-
-                        Color color = palette[subPalIndex + colorIndex];
-
-                        fBitmap.SetPixel(xPos, yPos, color);
+                        // Pixel is transparent
+                        continue;
                     }
+
+                    var xPos = (flip & TileFlip.X) != 0 ?
+                        x : (Tile.Size - 1) - x;
+
+                    var yPos = (flip & TileFlip.Y) == 0 ?
+                        y : (Tile.Size - 1) - y;
+
+                    var color = palette[subPalIndex + colorIndex];
+
+                    fBitmap.SetPixel(xPos, yPos, color);
                 }
             }
 
@@ -84,11 +87,14 @@ namespace EpicEdit.UI.Gfx
                     var val4b = (((val4 & mask) << 3) >> x);
                     var colorIndex = val1b + val2b + val3b + val4b;
 
-                    if (colorIndex > 0) // If pixel is not transparent
+                    if (colorIndex == 0)
                     {
-                        var color = palette[colorIndex].Color;
-                        fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                        // Pixel is transparent
+                        continue;
                     }
+
+                    var color = palette[colorIndex].Color;
+                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
                 }
             }
 
@@ -103,12 +109,13 @@ namespace EpicEdit.UI.Gfx
             var bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             var fBitmap = new FastBitmap(bitmap);
 
-            for (var x = 0; x < Tile.Size / 2; x++)
+            for (var y = 0; y < Tile.Size; y++)
             {
-                for (var y = 0; y < Tile.Size; y++)
+                for (var x = 0; x < Tile.Size / 2; x++)
                 {
-                    Color color1 = palette[gfx[x + y * 4] & 0x0F];
-                    Color color2 = palette[(gfx[x + y * 4] & 0xF0) >> 4];
+                    var pixels = gfx[y * 4 + x];
+                    var color1 = palette[pixels & 0x0F];
+                    var color2 = palette[(pixels & 0xF0) >> 4];
                     fBitmap.SetPixel(x * 2, y, color1);
                     fBitmap.SetPixel(x * 2 + 1, y, color2);
                 }
