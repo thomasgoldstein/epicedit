@@ -28,27 +28,27 @@ namespace EpicEdit.Rom
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Palette palette;
+        private Palette _palette;
         public virtual Palette Palette
         {
-            get => palette;
+            get => _palette;
             set
             {
-                if (palette == value)
+                if (_palette == value)
                 {
                     return;
                 }
 
-                if (palette != null)
+                if (_palette != null)
                 {
-                    palette.ColorChanged -= palette_ColorChanged;
-                    palette.ColorsChanged -= palette_ColorsChanged;
+                    _palette.ColorChanged -= palette_ColorChanged;
+                    _palette.ColorsChanged -= palette_ColorsChanged;
                 }
 
-                palette = value;
+                _palette = value;
 
-                palette.ColorChanged += palette_ColorChanged;
-                palette.ColorsChanged += palette_ColorsChanged;
+                _palette.ColorChanged += palette_ColorChanged;
+                _palette.ColorsChanged += palette_ColorsChanged;
 
                 UpdateBitmap();
                 OnPropertyChanged(PropertyNames.Tile.Palette);
@@ -68,13 +68,13 @@ namespace EpicEdit.Rom
             UpdateBitmap();
         }
 
-        private byte[] graphics;
+        private byte[] _graphics;
         public byte[] Graphics
         {
-            get => graphics;
+            get => _graphics;
             set
             {
-                graphics = value;
+                _graphics = value;
                 UpdateBitmap();
                 OnPropertyChanged(PropertyNames.Tile.Graphics);
             }
