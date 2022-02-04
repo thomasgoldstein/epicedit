@@ -358,7 +358,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         private void ImportGraphicsButtonClick(object sender, EventArgs e)
         {
-            if (UITools.ShowImportTilesetGraphicsDialog(Theme.Background.Tileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(Theme.Background.Tileset))
             {
                 LoadTheme();
             }

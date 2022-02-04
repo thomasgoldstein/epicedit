@@ -37,7 +37,9 @@ namespace EpicEdit.Rom.Tracks
         public string Name => NameItem.FormattedValue;
 
         public Palettes Palettes { get; }
+
         public RoadTileset RoadTileset { get; }
+
         public Background Background { get; }
 
         public RomColor BackColor => Palettes.BackColor;

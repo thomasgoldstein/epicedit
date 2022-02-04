@@ -354,7 +354,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowImportTilesetGraphicsDialog()
         {
-            if (UITools.ShowImportTilesetGraphicsDialog(_track.RoadTileset.GetTiles()))
+            if (UITools.ShowImportTilesetGraphicsDialog(_track.RoadTileset))
             {
                 UpdateTileset();
                 TilesetChanged(this, EventArgs.Empty);
@@ -381,7 +381,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowExportTilesetGraphicsDialog()
         {
-            UITools.ShowExportTilesetGraphicsDialog(_drawer.Image, _track.Theme.RoadTileset.GetTiles(), _track.Theme.Name + "road gfx");
+            UITools.ShowExportTilesetGraphicsDialog(_drawer.Image, _track.Theme.RoadTileset, _track.Theme.Name + "road gfx");
         }
 
         private void ShowExportTilesetGenresDialog()

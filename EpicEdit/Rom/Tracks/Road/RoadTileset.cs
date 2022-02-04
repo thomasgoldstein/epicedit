@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Road
     /// <summary>
     /// Represents a collection of road tiles.
     /// </summary>
-    internal class RoadTileset : INotifyPropertyChanged, IDisposable
+    internal class RoadTileset : ITileset, INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// Number of theme-specific tiles in the tileset.
@@ -43,6 +43,14 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public bool Modified { get; private set; }
 
+        public int BitsPerPixel => 4;
+
+        public int Length => _tileset.Length;
+
+        public RoadTile this[int index] => GetTile(index);
+
+        Tile ITileset.this[int index] => this[index];
+
         public RoadTileset(RoadTile[] tileset)
         {
             _tileset = tileset;
@@ -53,17 +61,10 @@ namespace EpicEdit.Rom.Tracks.Road
             }
         }
 
-        public RoadTile[] GetTiles()
-        {
-            return _tileset;
-        }
-
         public RoadTile GetTile(int index)
         {
             return _tileset[index];
         }
-
-        public RoadTile this[int index] => GetTile(index);
 
         public byte[] GetTileGenreBytes()
         {

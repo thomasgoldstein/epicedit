@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Utility;
 using System;
 using System.ComponentModel;
@@ -107,12 +108,12 @@ namespace EpicEdit.UI.Tools
             return fileName;
         }
 
-        public static bool ShowImportTilesetGraphicsDialog(Tile[] tileset)
+        public static bool ShowImportTilesetGraphicsDialog(ITileset tileset)
         {
             return ShowImportDataDialog(filePath => ImportTilesetGraphics(filePath, tileset), FileDialogFilters.ImageOrBinary);
         }
 
-        private static void ImportTilesetGraphics(string filePath, Tile[] tileset)
+        private static void ImportTilesetGraphics(string filePath, ITileset tileset)
         {
             if (filePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
                 filePath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
@@ -131,7 +132,7 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        private static void ImportTilesetGraphics(Bitmap image, Tile[] tileset)
+        private static void ImportTilesetGraphics(Bitmap image, ITileset tileset)
         {
             var width = image.Width;
             var height = image.Height;
@@ -163,10 +164,9 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        private static void ImportTilesetGraphics(byte[] data, Tile[] tileset)
+        private static void ImportTilesetGraphics(byte[] data, ITileset tileset)
         {
-            var tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
-            var tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+            var tileLength = Tile.Size * tileset.BitsPerPixel;
 
             if (data.Length != tileset.Length * tileLength)
             {
@@ -253,12 +253,12 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        public static void ShowExportTilesetGraphicsDialog(Image image, Tile[] tileset, string fileName)
+        public static void ShowExportTilesetGraphicsDialog(Image image, ITileset tileset, string fileName)
         {
             ShowExportDataDialog(filePath => ExportTilesetGraphics(image, tileset, filePath), fileName, FileDialogFilters.ImageOrBinary);
         }
 
-        private static void ExportTilesetGraphics(Image image, Tile[] tileset, string fileName)
+        private static void ExportTilesetGraphics(Image image, ITileset tileset, string fileName)
         {
             switch (Path.GetExtension(fileName).ToUpperInvariant())
             {
@@ -276,10 +276,9 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        private static byte[] GetTilesetBytes(Tile[] tileset)
+        private static byte[] GetTilesetBytes(ITileset tileset)
         {
-            var tileBpp = tileset[0] is Tile2bpp ? 2 : 4;
-            var tileLength = (Tile.Size * Tile.Size) / (8 / tileBpp);
+            var tileLength = Tile.Size * tileset.BitsPerPixel;
 
             var data = new byte[tileset.Length * tileLength];
 

@@ -20,7 +20,7 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// <summary>
     /// Represents a collection of background tiles.
     /// </summary>
-    internal class BackgroundTileset : INotifyPropertyChanged, IDisposable
+    internal class BackgroundTileset : ITileset, INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// Total number of tiles in the tileset.
@@ -30,6 +30,14 @@ namespace EpicEdit.Rom.Tracks.Scenery
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool Modified { get; private set; }
+
+        public int BitsPerPixel => 2;
+
+        public int Length => _tileset.Length;
+
+        public BackgroundTile this[int index] => GetTile(index);
+
+        Tile ITileset.this[int index] => this[index];
 
         private readonly BackgroundTile[] _tileset;
 
@@ -67,11 +75,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
             PropertyChanged?.Invoke(sender, e);
         }
 
-        public BackgroundTile[] GetTiles()
-        {
-            return _tileset;
-        }
-
         public BackgroundTile GetTile(int index)
         {
             return _tileset[index];
@@ -89,8 +92,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
             return data;
         }
-
-        public BackgroundTile this[int index] => GetTile(index);
 
         public void ResetModifiedState()
         {
