@@ -15,6 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace EpicEdit.Rom.Tracks.Road
 {
@@ -60,7 +62,28 @@ namespace EpicEdit.Rom.Tracks.Road
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = GraphicsConverter.CreateBitmapFrom4bppLinearReversed(Graphics, TilePalette);
+            InternalBitmap = CreateBitmapFrom4bppLinearReversed(Graphics, TilePalette);
+        }
+
+        private static Bitmap CreateBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
+        {
+            // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
+
+            var bitmap = new Bitmap(Size, Size, PixelFormat.Format32bppPArgb);
+            var fBitmap = new FastBitmap(bitmap);
+
+            for (var y = 0; y < Size; y++)
+            {
+                for (var x = 0; x < Size; x++)
+                {
+                    var colorIndex = GetColorIndexAt(gfx, x, y);
+                    var color = palette[colorIndex];
+                    fBitmap.SetPixel(x, y, color);
+                }
+            }
+
+            fBitmap.Release();
+            return bitmap;
         }
 
         protected override void GenerateGraphics()

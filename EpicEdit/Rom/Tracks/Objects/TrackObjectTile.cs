@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using EpicEdit.UI.Gfx;
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace EpicEdit.Rom.Tracks.Objects
 {
@@ -29,7 +31,34 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = GraphicsConverter.CreateBitmapFrom4bppPlanarComposite(Graphics, Palette);
+            InternalBitmap = CreateBitmapFrom4bppPlanarComposite(Graphics, Palette);
+        }
+
+        private static Bitmap CreateBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
+        {
+            // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
+
+            var bitmap = new Bitmap(Size, Size, PixelFormat.Format32bppPArgb);
+            var fBitmap = new FastBitmap(bitmap);
+
+            for (var y = 0; y < Size; y++)
+            {
+                for (var x = 0; x < Size; x++)
+                {
+                    var colorIndex = GetColorIndexAt(gfx, x, y);
+                    if (colorIndex == 0)
+                    {
+                        // Pixel is transparent
+                        continue;
+                    }
+
+                    var color = palette[colorIndex];
+                    fBitmap.SetPixel(x, y, color);
+                }
+            }
+
+            fBitmap.Release();
+            return bitmap;
         }
 
         protected override void GenerateGraphics()
