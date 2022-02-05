@@ -39,7 +39,7 @@ namespace EpicEdit.UI.ThemeEdition
 
             if (Context.Game != null) // Avoid designer issues
             {
-                Tile2bpp tile = Context.Game.Themes[0].Background.Tileset[0];
+                var tile = Context.Game.Themes[0].Background.Tileset[0];
                 _tile = new BackgroundTile(tile.Graphics, null);
             }
 
@@ -48,7 +48,7 @@ namespace EpicEdit.UI.ThemeEdition
 
         public void UpdateTile(Theme theme, byte tileId, byte properties)
         {
-            Tile2bpp tileModel = theme.Background.Tileset[tileId];
+            var tileModel = theme.Background.Tileset[tileId];
             _tile.Dispose();
             _tile = new BackgroundTile(tileModel.Graphics, tileModel.Palettes, properties, Front);
 
