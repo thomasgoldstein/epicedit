@@ -62,11 +62,7 @@ namespace EpicEdit.Rom.Tracks.Road
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = CreateBitmapFrom4bppLinearReversed(Graphics, TilePalette);
-        }
-
-        private static Bitmap CreateBitmapFrom4bppLinearReversed(byte[] gfx, Palette palette)
-        {
+            // Format: 4bpp linear, reverse-order
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
             var bitmap = new Bitmap(Size, Size, PixelFormat.Format32bppPArgb);
@@ -76,14 +72,14 @@ namespace EpicEdit.Rom.Tracks.Road
             {
                 for (var x = 0; x < Size; x++)
                 {
-                    var colorIndex = GetColorIndexAt(gfx, x, y);
-                    var color = palette[colorIndex];
+                    var colorIndex = GetColorIndexAt(x, y);
+                    var color = TilePalette[colorIndex];
                     fBitmap.SetPixel(x, y, color);
                 }
             }
 
             fBitmap.Release();
-            return bitmap;
+            InternalBitmap = bitmap;
         }
 
         protected override void GenerateGraphics()
@@ -114,14 +110,9 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public override int GetColorIndexAt(int x, int y)
         {
-            return GetColorIndexAt(Graphics, x, y);
-        }
-
-        public static int GetColorIndexAt(byte[] gfx, int x, int y)
-        {
             var xSub = x % 2;
             x /= 2;
-            var px = gfx[y * 4 + x];
+            var px = Graphics[y * 4 + x];
             var index = xSub == 0 ?
                 px & 0x0F : (px & 0xF0) >> 4;
 

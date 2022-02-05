@@ -120,14 +120,10 @@ namespace EpicEdit.Rom
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = CreateBitmapFrom2bppPlanar(Graphics, Palettes, Properties);
-        }
-
-        private static Bitmap CreateBitmapFrom2bppPlanar(byte[] gfx, Palettes palettes, Tile2bppProperties properties)
-        {
+            // Format: 2bpp planar
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
-            var palette = palettes[properties.PaletteIndex];
+            var palette = Palettes[Properties.PaletteIndex];
             var bitmap = new Bitmap(Size, Size, PixelFormat.Format32bppPArgb);
             var fBitmap = new FastBitmap(bitmap);
 
@@ -135,7 +131,7 @@ namespace EpicEdit.Rom
             {
                 for (var x = 0; x < Size; x++)
                 {
-                    var colorIndex = GetColorIndexAt(gfx, properties, x, y);
+                    var colorIndex = GetColorIndexAt(x, y);
                     if ((colorIndex % 4) == 0)
                     {
                         // Pixel is transparent
@@ -148,7 +144,7 @@ namespace EpicEdit.Rom
             }
 
             fBitmap.Release();
-            return bitmap;
+            InternalBitmap = bitmap;
         }
 
         protected override void GenerateGraphics()
@@ -182,26 +178,21 @@ namespace EpicEdit.Rom
 
         public override int GetColorIndexAt(int x, int y)
         {
-            return GetColorIndexAt(Graphics, Properties, x, y);
-        }
-
-        public static int GetColorIndexAt(byte[] gfx, Tile2bppProperties properties, int x, int y)
-        {
-            if ((properties.Flip & TileFlip.X) == 0)
+            if ((Properties.Flip & TileFlip.X) == 0)
             {
                 x = (Size - 1) - x;
             }
 
-            if ((properties.Flip & TileFlip.Y) != 0)
+            if ((Properties.Flip & TileFlip.Y) != 0)
             {
                 y = (Size - 1) - y;
             }
 
-            var val1 = gfx[y * 2];
-            var val2 = gfx[y * 2 + 1];
+            var val1 = Graphics[y * 2];
+            var val2 = Graphics[y * 2 + 1];
             var mask = 1 << x;
-            var colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-            return properties.SubPaletteIndex + colIndex;
+            var colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
+            return Properties.SubPaletteIndex + colorIndex;
         }
 
         public override bool Contains(int colorIndex)

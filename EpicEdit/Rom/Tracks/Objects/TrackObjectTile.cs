@@ -31,11 +31,7 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         protected override void GenerateBitmap()
         {
-            InternalBitmap = CreateBitmapFrom4bppPlanarComposite(Graphics, Palette);
-        }
-
-        private static Bitmap CreateBitmapFrom4bppPlanarComposite(byte[] gfx, Palette palette)
-        {
+            // Format: 4bpp planar, composite (2x2bpp)
             // Each tile is made up of 8x8 pixels, coded on 32 bytes (4 bits per pixel)
 
             var bitmap = new Bitmap(Size, Size, PixelFormat.Format32bppPArgb);
@@ -45,20 +41,20 @@ namespace EpicEdit.Rom.Tracks.Objects
             {
                 for (var x = 0; x < Size; x++)
                 {
-                    var colorIndex = GetColorIndexAt(gfx, x, y);
+                    var colorIndex = GetColorIndexAt(x, y);
                     if (colorIndex == 0)
                     {
                         // Pixel is transparent
                         continue;
                     }
 
-                    var color = palette[colorIndex];
+                    var color = Palette[colorIndex];
                     fBitmap.SetPixel(x, y, color);
                 }
             }
 
             fBitmap.Release();
-            return bitmap;
+            InternalBitmap = bitmap;
         }
 
         protected override void GenerateGraphics()
@@ -68,16 +64,11 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public override int GetColorIndexAt(int x, int y)
         {
-            return GetColorIndexAt(Graphics, x, y);
-        }
-
-        public static int GetColorIndexAt(byte[] gfx, int x, int y)
-        {
             x = (Size - 1) - x;
-            int val1 = gfx[y * 2];
-            int val2 = gfx[y * 2 + 1];
-            int val3 = gfx[y * 2 + 16];
-            int val4 = gfx[y * 2 + 17];
+            int val1 = Graphics[y * 2];
+            int val2 = Graphics[y * 2 + 1];
+            int val3 = Graphics[y * 2 + 16];
+            int val4 = Graphics[y * 2 + 17];
             var mask = 1 << x;
             var val1b = ((val1 & mask) >> x);
             var val2b = (((val2 & mask) << 1) >> x);
