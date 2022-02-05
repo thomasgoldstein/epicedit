@@ -152,21 +152,26 @@ namespace EpicEdit.Rom
 
         public override int GetColorIndexAt(int x, int y)
         {
-            if ((Properties.Flip & TileFlip.X) == 0)
+            return GetColorIndexAt(Graphics, Properties, x, y);
+        }
+
+        public static int GetColorIndexAt(byte[] gfx, Tile2bppProperties properties, int x, int y)
+        {
+            if ((properties.Flip & TileFlip.X) == 0)
             {
                 x = (Size - 1) - x;
             }
 
-            if ((Properties.Flip & TileFlip.Y) != 0)
+            if ((properties.Flip & TileFlip.Y) != 0)
             {
                 y = (Size - 1) - y;
             }
 
-            var val1 = Graphics[y * 2];
-            var val2 = Graphics[y * 2 + 1];
+            var val1 = gfx[y * 2];
+            var val2 = gfx[y * 2 + 1];
             var mask = 1 << x;
             var colIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-            return Properties.SubPaletteIndex + colIndex;
+            return properties.SubPaletteIndex + colIndex;
         }
 
         public override bool Contains(int colorIndex)

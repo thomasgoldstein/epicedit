@@ -91,9 +91,14 @@ namespace EpicEdit.Rom.Tracks.Road
 
         public override int GetColorIndexAt(int x, int y)
         {
+            return GetColorIndexAt(Graphics, x, y);
+        }
+
+        public static int GetColorIndexAt(byte[] gfx, int x, int y)
+        {
             var xSub = x % 2;
             x /= 2;
-            var px = Graphics[y * 4 + x];
+            var px = gfx[y * 4 + x];
             var index = xSub == 0 ?
                 px & 0x0F : (px & 0xF0) >> 4;
 

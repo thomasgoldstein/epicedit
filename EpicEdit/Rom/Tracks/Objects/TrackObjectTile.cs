@@ -39,11 +39,16 @@ namespace EpicEdit.Rom.Tracks.Objects
 
         public override int GetColorIndexAt(int x, int y)
         {
+            return GetColorIndexAt(Graphics, x, y);
+        }
+
+        public static int GetColorIndexAt(byte[] gfx, int x, int y)
+        {
             x = (Size - 1) - x;
-            int val1 = Graphics[y * 2];
-            int val2 = Graphics[y * 2 + 1];
-            int val3 = Graphics[y * 2 + 16];
-            int val4 = Graphics[y * 2 + 17];
+            int val1 = gfx[y * 2];
+            int val2 = gfx[y * 2 + 1];
+            int val3 = gfx[y * 2 + 16];
+            int val4 = gfx[y * 2 + 17];
             var mask = 1 << x;
             var val1b = ((val1 & mask) >> x);
             var val2b = (((val2 & mask) << 1) >> x);

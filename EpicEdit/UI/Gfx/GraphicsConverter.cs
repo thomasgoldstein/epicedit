@@ -13,6 +13,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #endregion
 
 using EpicEdit.Rom;
+using EpicEdit.Rom.Tracks.Objects;
+using EpicEdit.Rom.Tracks.Road;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -28,35 +30,22 @@ namespace EpicEdit.UI.Gfx
             // Each tile is made up of 8x8 pixels, coded on 16 bytes (2 bits per pixel)
 
             var palette = palettes[properties.PaletteIndex];
-            var subPalIndex = properties.SubPaletteIndex;
-            var flip = properties.Flip;
             var bitmap = new Bitmap(Tile.Size, Tile.Size, PixelFormat.Format32bppPArgb);
             var fBitmap = new FastBitmap(bitmap);
 
             for (var y = 0; y < Tile.Size; y++)
             {
-                var val1 = gfx[y * 2];
-                var val2 = gfx[y * 2 + 1];
                 for (var x = 0; x < Tile.Size; x++)
                 {
-                    var mask = 1 << x;
-                    var colorIndex = ((val1 & mask) >> x) + (((val2 & mask) >> x) << 1);
-
-                    if (colorIndex == 0)
+                    var colorIndex = Tile2bpp.GetColorIndexAt(gfx, properties, x, y);
+                    if ((colorIndex % 4) == 0)
                     {
                         // Pixel is transparent
                         continue;
                     }
 
-                    var xPos = (flip & TileFlip.X) != 0 ?
-                        x : (Tile.Size - 1) - x;
-
-                    var yPos = (flip & TileFlip.Y) == 0 ?
-                        y : (Tile.Size - 1) - y;
-
-                    var color = palette[subPalIndex + colorIndex];
-
-                    fBitmap.SetPixel(xPos, yPos, color);
+                    var color = palette[colorIndex];
+                    fBitmap.SetPixel(x, y, color);
                 }
             }
 
@@ -73,28 +62,17 @@ namespace EpicEdit.UI.Gfx
 
             for (var y = 0; y < Tile.Size; y++)
             {
-                int val1 = gfx[y * 2];
-                int val2 = gfx[y * 2 + 1];
-                int val3 = gfx[y * 2 + 16];
-                int val4 = gfx[y * 2 + 17];
-
                 for (var x = 0; x < Tile.Size; x++)
                 {
-                    var mask = 1 << x;
-                    var val1b = ((val1 & mask) >> x);
-                    var val2b = (((val2 & mask) << 1) >> x);
-                    var val3b = (((val3 & mask) << 2) >> x);
-                    var val4b = (((val4 & mask) << 3) >> x);
-                    var colorIndex = val1b + val2b + val3b + val4b;
-
+                    var colorIndex = TrackObjectTile.GetColorIndexAt(gfx, x, y);
                     if (colorIndex == 0)
                     {
                         // Pixel is transparent
                         continue;
                     }
 
-                    var color = palette[colorIndex].Color;
-                    fBitmap.SetPixel((Tile.Size - 1) - x, y, color);
+                    var color = palette[colorIndex];
+                    fBitmap.SetPixel(x, y, color);
                 }
             }
 
@@ -111,13 +89,11 @@ namespace EpicEdit.UI.Gfx
 
             for (var y = 0; y < Tile.Size; y++)
             {
-                for (var x = 0; x < Tile.Size / 2; x++)
+                for (var x = 0; x < Tile.Size; x++)
                 {
-                    var pixels = gfx[y * 4 + x];
-                    var color1 = palette[pixels & 0x0F];
-                    var color2 = palette[(pixels & 0xF0) >> 4];
-                    fBitmap.SetPixel(x * 2, y, color1);
-                    fBitmap.SetPixel(x * 2 + 1, y, color2);
+                    var colorIndex = RoadTile.GetColorIndexAt(gfx, x, y);
+                    var color = palette[colorIndex];
+                    fBitmap.SetPixel(x, y, color);
                 }
             }
 
