@@ -19,18 +19,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
     /// </summary>
     internal sealed class BackgroundTile : Tile2bpp
     {
-        /// <summary>
-        /// Position at which front background layer palettes begin.
-        /// </summary>
-        private const int FrontPaletteStart = 4;
-
-        /// <summary>
-        /// Position at which back background layer palettes begin.
-        /// </summary>
-        private const int BackPaletteStart = 6;
-
-        private int _paletteStart = FrontPaletteStart;
-
         private bool _front = true;
         public bool Front
         {
@@ -43,7 +31,6 @@ namespace EpicEdit.Rom.Tracks.Scenery
                 }
 
                 _front = value;
-                _paletteStart = _front ? FrontPaletteStart : BackPaletteStart;
                 SetPalette();
             }
         }
@@ -60,8 +47,12 @@ namespace EpicEdit.Rom.Tracks.Scenery
         {
             get
             {
+                const int frontPaletteStart = 4; // Position at which front background layer palettes begin
+                const int backPaletteStart = 6; // Position at which back background layer palettes begin
+
+                var paletteStart = _front ? frontPaletteStart : backPaletteStart;
                 var props = base.Properties;
-                props.PaletteIndex += _paletteStart;
+                props.PaletteIndex += paletteStart;
                 return props;
             }
         }
