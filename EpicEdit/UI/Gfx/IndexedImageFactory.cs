@@ -57,16 +57,8 @@ namespace EpicEdit.UI.Gfx
                             }
                             else
                             {
-                                if (colorIndex % Palette.ColorCount == 0)
-                                {
-                                    // Transparent color. Use the first color of the first palette for expected rendering
-                                    colorIndex = 0;
-                                }
-                                else
-                                {
-                                    // Account for the color position across all palettes, since the image will contain all 16 palettes (256 colors)
-                                    colorIndex += globalColorIndex;
-                                }
+                                // Account for the color position across all palettes, since the image will contain all 16 palettes (256 colors)
+                                colorIndex += globalColorIndex;
                             }
                             scan0[tilePositionX + x] = (byte)colorIndex;
                         }
@@ -113,13 +105,15 @@ namespace EpicEdit.UI.Gfx
         {
             var pal = image.Palette;
             var palettes = tileset.Palettes;
+            var backColor = palettes.BackColor;
 
             for (var paletteIndex = 0; paletteIndex < palettes.Count; paletteIndex++)
             {
                 var palette = palettes[paletteIndex];
                 var globalColorIndex = paletteIndex * Palette.ColorCount;
+                pal.Entries[globalColorIndex] = backColor;
 
-                for (var colorIndex = 0; colorIndex < Palette.ColorCount; colorIndex++)
+                for (var colorIndex = 1; colorIndex < Palette.ColorCount; colorIndex++)
                 {
                     var color = palette[colorIndex];
                     pal.Entries[globalColorIndex + colorIndex] = color;
