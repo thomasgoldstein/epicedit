@@ -35,6 +35,8 @@ namespace EpicEdit.Rom.Tracks.Scenery
 
         public int Length => _tileset.Length;
 
+        public Palettes Palettes => _tileset[0].Palettes;
+
         public BackgroundTile this[int index] => GetTile(index);
 
         Tile ITileset.this[int index] => this[index];

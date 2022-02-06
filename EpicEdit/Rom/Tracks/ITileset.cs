@@ -8,6 +8,8 @@ namespace EpicEdit.Rom.Tracks
 
         int Length { get; }
 
+        Palettes Palettes { get; }
+
         Tile this[int index] { get; }
     }
 }

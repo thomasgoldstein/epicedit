@@ -15,12 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 using EpicEdit.Rom;
 using EpicEdit.Rom.Tracks;
 using EpicEdit.Rom.Utility;
+using EpicEdit.UI.Gfx;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -253,26 +253,34 @@ namespace EpicEdit.UI.Tools
             }
         }
 
-        public static void ShowExportTilesetGraphicsDialog(Image image, ITileset tileset, string fileName)
+        public static void ShowExportTilesetGraphicsDialog(ITileset tileset, Size imageSize, string fileName)
         {
-            ShowExportDataDialog(filePath => ExportTilesetGraphics(image, tileset, filePath), fileName, FileDialogFilters.ImageOrBinary);
+            ShowExportDataDialog(filePath => ExportTilesetGraphics(tileset, imageSize, filePath), fileName, FileDialogFilters.ImageOrBinary);
         }
 
-        private static void ExportTilesetGraphics(Image image, ITileset tileset, string fileName)
+        private static void ExportTilesetGraphics(ITileset tileset, Size imageSize, string fileName)
         {
             switch (Path.GetExtension(fileName).ToUpperInvariant())
             {
                 case ".PNG":
-                    image.Save(fileName, ImageFormat.Png);
+                    SaveImage(tileset, imageSize, fileName, ImageFormat.Png);
                     break;
 
                 case ".BMP":
-                    image.Save(fileName, ImageFormat.Bmp);
+                    SaveImage(tileset, imageSize, fileName, ImageFormat.Bmp);
                     break;
 
                 default:
                     File.WriteAllBytes(fileName, GetTilesetBytes(tileset));
                     break;
+            }
+        }
+
+        private static void SaveImage(ITileset tileset, Size imageSize, string fileName, ImageFormat imageFormat)
+        {
+            using (var indexedImage = IndexedImageFactory.Create(tileset, imageSize.Width, imageSize.Height))
+            {
+                indexedImage.Save(fileName, imageFormat);
             }
         }
 

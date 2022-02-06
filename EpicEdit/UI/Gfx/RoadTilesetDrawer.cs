@@ -28,17 +28,18 @@ namespace EpicEdit.UI.Gfx
         public const int Zoom = 2;
 
         private RoadTileset _tileset;
-        private readonly Size _imageSize;
 
-        public Bitmap Image { get; private set; }
+        private Bitmap _image;
+
+        public Size ImageSize { get; }
 
         public RoadTilesetDrawer(Size size)
         {
-            _imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
+            ImageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         public RoadTileset Tileset
@@ -53,13 +54,13 @@ namespace EpicEdit.UI.Gfx
 
         private void UpdateCache()
         {
-            var tileCountX = _imageSize.Width / Tile.Size;
-            var tileCountY = _imageSize.Height / Tile.Size;
+            var tileCountX = ImageSize.Width / Tile.Size;
+            var tileCountY = ImageSize.Height / Tile.Size;
 
-            Image.Dispose();
-            Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
+            _image.Dispose();
+            _image = new Bitmap(ImageSize.Width, ImageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (var g = Graphics.FromImage(Image))
+            using (var g = Graphics.FromImage(_image))
             {
                 for (var x = 0; x < tileCountX; x++)
                 {
@@ -74,12 +75,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            TilesetHelper.Instance.DrawTileset(g, Image, _imageSize, Zoom, selectedTile);
+            TilesetHelper.Instance.DrawTileset(g, _image, ImageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
-            Image.Dispose();
+            _image.Dispose();
 
             GC.SuppressFinalize(this);
         }

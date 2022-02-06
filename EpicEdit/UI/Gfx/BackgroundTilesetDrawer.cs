@@ -59,29 +59,29 @@ namespace EpicEdit.UI.Gfx
             }
         }
 
-        private readonly Size _imageSize;
+        private Bitmap _image;
 
-        public Bitmap Image { get; private set; }
+        public Size ImageSize { get; }
 
         public BackgroundTilesetDrawer(Size size)
         {
-            _imageSize = new Size(size.Width / Zoom, size.Height / Zoom);
+            ImageSize = new Size(size.Width / Zoom, size.Height / Zoom);
 
             // The following member is initialized so it can be disposed of
             // in each function without having to check if it's null beforehand
-            Image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
+            _image = new Bitmap(1, 1, PixelFormat.Format32bppPArgb);
         }
 
         private void UpdateCache()
         {
-            var tileCountX = _imageSize.Width / Tile.Size;
-            var tileCountY = _imageSize.Height / Tile.Size;
+            var tileCountX = ImageSize.Width / Tile.Size;
+            var tileCountY = ImageSize.Height / Tile.Size;
             var tileset = _theme.Background.Tileset;
 
-            Image.Dispose();
-            Image = new Bitmap(_imageSize.Width, _imageSize.Height, PixelFormat.Format32bppPArgb);
+            _image.Dispose();
+            _image = new Bitmap(ImageSize.Width, ImageSize.Height, PixelFormat.Format32bppPArgb);
 
-            using (var g = Graphics.FromImage(Image))
+            using (var g = Graphics.FromImage(_image))
             {
                 g.Clear(_theme.BackColor);
 
@@ -103,12 +103,12 @@ namespace EpicEdit.UI.Gfx
 
         public void DrawTileset(Graphics g, byte selectedTile)
         {
-            TilesetHelper.Instance.DrawTileset(g, Image, _imageSize, Zoom, selectedTile);
+            TilesetHelper.Instance.DrawTileset(g, _image, ImageSize, Zoom, selectedTile);
         }
 
         public void Dispose()
         {
-            Image.Dispose();
+            _image.Dispose();
 
             GC.SuppressFinalize(this);
         }

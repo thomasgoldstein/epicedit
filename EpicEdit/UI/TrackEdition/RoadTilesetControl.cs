@@ -381,7 +381,7 @@ namespace EpicEdit.UI.TrackEdition
 
         private void ShowExportTilesetGraphicsDialog()
         {
-            UITools.ShowExportTilesetGraphicsDialog(_drawer.Image, _track.Theme.RoadTileset, _track.Theme.Name + "road gfx");
+            UITools.ShowExportTilesetGraphicsDialog(_track.Theme.RoadTileset, _drawer.ImageSize, _track.Theme.Name + "road gfx");
         }
 
         private void ShowExportTilesetGenresDialog()
