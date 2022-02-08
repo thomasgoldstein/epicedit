@@ -146,6 +146,7 @@ namespace EpicEdit.UI.Tools
 
             var yTileCount = height / Tile.Size;
             var xTileCount = width / Tile.Size;
+            var pixelFormat = image.PixelFormat;
 
             for (var y = 0; y < yTileCount; y++)
             {
@@ -156,12 +157,33 @@ namespace EpicEdit.UI.Tools
                                       y * Tile.Size,
                                       Tile.Size,
                                       Tile.Size),
-                        PixelFormat.Format32bppPArgb);
+                        pixelFormat);
 
                     var tile = tileset[y * xTileCount + x];
                     tile.Bitmap = tileImage;
                 }
             }
+
+            if (tileset.BitsPerPixel == 4 && pixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                UpdatePalettesFromIndexedImage(tileset, image.Palette);
+            }
+        }
+
+        private static void UpdatePalettesFromIndexedImage(ITileset tileset, ColorPalette bmpPalette)
+        {
+            var palettes = tileset[0].Palette.Collection;
+            var paletteBytes = new byte[Palette.Size * palettes.Count];
+            var paletteBytesIndex = 0;
+
+            foreach (var color in bmpPalette.Entries)
+            {
+                var colorBytes = ((RomColor)color).GetBytes();
+                paletteBytes[paletteBytesIndex++] = colorBytes[0];
+                paletteBytes[paletteBytesIndex++] = colorBytes[1];
+            }
+
+            palettes.SetBytes(paletteBytes);
         }
 
         private static void ImportTilesetGraphics(byte[] data, ITileset tileset)

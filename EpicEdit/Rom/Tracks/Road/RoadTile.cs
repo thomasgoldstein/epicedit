@@ -17,6 +17,7 @@ using EpicEdit.UI.Gfx;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace EpicEdit.Rom.Tracks.Road
 {
@@ -83,6 +84,40 @@ namespace EpicEdit.Rom.Tracks.Road
         }
 
         protected override void GenerateGraphics()
+        {
+            if (InternalBitmap.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                GenerateGraphicsFromIndexedImage();
+            }
+            else
+            {
+                GenerateGraphicsFromRgbImage();
+            }
+        }
+
+        private void GenerateGraphicsFromIndexedImage()
+        {
+            var bmpBytes = new byte[Size * Size];
+            var bmpData = InternalBitmap.LockBits(new Rectangle(0, 0, Size, Size), ImageLockMode.ReadOnly, InternalBitmap.PixelFormat);
+            Marshal.Copy(bmpData.Scan0, bmpBytes, 0, bmpBytes.Length);
+            InternalBitmap.UnlockBits(bmpData);
+
+            for (var pixelIndex = 0; pixelIndex < Graphics.Length; pixelIndex++)
+            {
+                var colorIndex1 = bmpBytes[pixelIndex * 2] % Palette.ColorCount;
+                var colorIndex2 = bmpBytes[pixelIndex * 2 + 1] % Palette.ColorCount;
+                Graphics[pixelIndex] = (byte)(colorIndex1 + (colorIndex2 << 4));
+            }
+
+            var paletteIndex = bmpBytes[0] / Palette.ColorCount; // Deduce the tile palette from the first pixel
+            Palette = Palette.Collection[paletteIndex];
+
+            // Regenerate the bitmap, in case the new image contained colors
+            // not present in the palettes
+            UpdateBitmap();
+        }
+
+        private void GenerateGraphicsFromRgbImage()
         {
             var fBitmap = new FastBitmap(InternalBitmap);
 

@@ -16,6 +16,7 @@ using EpicEdit.Rom.Utility;
 using EpicEdit.UI.Gfx;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace EpicEdit.Rom
 {
@@ -148,6 +149,46 @@ namespace EpicEdit.Rom
         }
 
         protected override void GenerateGraphics()
+        {
+            if (InternalBitmap.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                GenerateGraphicsFromIndexedImage();
+            }
+            else
+            {
+                GenerateGraphicsFromRgbImage();
+            }
+        }
+
+        private void GenerateGraphicsFromIndexedImage()
+        {
+            var bmpBytes = new byte[Size * Size];
+            var bmpData = InternalBitmap.LockBits(new Rectangle(0, 0, Size, Size), ImageLockMode.ReadOnly, InternalBitmap.PixelFormat);
+            Marshal.Copy(bmpData.Scan0, bmpBytes, 0, bmpBytes.Length);
+            InternalBitmap.UnlockBits(bmpData);
+
+            for (var y = 0; y < Size; y++)
+            {
+                byte val1 = 0;
+                byte val2 = 0;
+                for (var x = 0; x < Size; x++)
+                {
+                    var xPos = (Size - 1) - x;
+                    var colorIndex = bmpBytes[y * Size + xPos] % Palette.ColorCount;
+                    val1 |= (byte)((colorIndex & 0x01) << x);
+                    val2 |= (byte)(((colorIndex & 0x02) << x) >> 1);
+                }
+
+                Graphics[y * 2] = val1;
+                Graphics[y * 2 + 1] = val2;
+            }
+
+            // Regenerate the bitmap, in case the new image contained colors
+            // not present in the palettes
+            UpdateBitmap();
+        }
+
+        private void GenerateGraphicsFromRgbImage()
         {
             var fBitmap = new FastBitmap(InternalBitmap);
             var palette = GetSubPalette();
