@@ -1,7 +1,7 @@
 Epic Edit
 Super Mario Kart track editor
 
-Copyright 2007, 2021 Thomas Goldstein aka Stifu
+Copyright 2007, 2022 Thomas Goldstein aka Stifu
 
 Contributors: teknix1, mcintyre321 and nub1604
 Special thanks to: Presea, Midwife, Cragz, smkdan, Ok Impala! and ScouB
