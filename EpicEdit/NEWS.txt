@@ -2,8 +2,17 @@
 Epic Edit, Super Mario Kart track editor by Stifu and pals
 ---------------------------------------------------------------------------
 
+v2.9 (February 9th 2022)
+- Tilesets are now exported and imported as indexed images (PNG8 / BMP8).
+  This makes it possible to preserve color indexes when a palette contains
+  the same color multiple times.
+  (e.g: Koopa Beach with the water color cycling)
+- Importing an indexed road tileset image will also update all
+  color palettes and road tile / color palette associations.
+
+
 v2.8.9 (November 21st 2021)
-- Increase the maximum road tile palette value from 8 to 16
+- Increased the maximum road tile palette value from 8 to 16
 - Added shortcut Ctrl+D for duplicating
   the selected AI element (by nub1604)
 - Added shortcut Ctrl+M for changing the shape of
